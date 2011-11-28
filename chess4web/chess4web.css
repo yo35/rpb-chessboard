@@ -32,6 +32,8 @@ pre.chess4web-pgn {
 .chess4web-template-White,
 .chess4web-template-Black,
 .chess4web-template-Result,
+.chess4web-template-WhiteFullName,
+.chess4web-template-BlackFullName,
 .chess4web-template-Position {
 	display: none;
 }

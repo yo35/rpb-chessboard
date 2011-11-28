@@ -54,7 +54,8 @@ function rpbchessboard_shortcode_printer($atts, $content='')
 	echo $content;
 	echo '</pre>';
 	echo '<div class="chess4web-out" id="rpchessboard_pgn_'.$id_counter.'">';
-	echo '<p>White name: <span class="chess4web-template-White"></span></p>';
+	echo '<p>White name: <span class="chess4web-template-WhiteFullName"></span></p>';
+	echo '<p>Black name: <span class="chess4web-template-BlackFullName"></span></p>';
 	echo '</div>';
 	echo '</div>';
 	return ob_get_clean();

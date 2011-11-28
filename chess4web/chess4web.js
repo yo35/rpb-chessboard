@@ -167,6 +167,43 @@ function substituteSimpleField(domNode, fieldName, pgnItem, formatFunc)
 }
 
 /**
+ * Replace the content of a DOM node with a full player ID (name + elo if available)
+ */
+function substituteFullName(domNode, color, pgnItem)
+{
+	var nameField  = color==WHITE ? "White" : "Black";
+	var eloField   = nameField + "Elo";
+	var titleField = nameField + "Title";
+	var className  = nameField + "FullName";
+	if(pgnItem[nameField]===undefined) {
+		return;
+	}
+
+	// Name substitution
+	domNode.innerHTML = '';
+	var nameSpan = document.createElement('span');
+	nameSpan.className = 'chess4web-playername';
+	nameSpan.innerHTML = pgnItem[nameField];
+	domNode.appendChild(nameSpan);
+
+	// Elo substitution
+	if(pgnItem[eloField]!==undefined) {
+		var eloSpan = document.createElement('span');
+		eloSpan.className = 'chess4web-elo';
+		eloSpan.innerHTML = ' (';
+		if(!(pgnItem[titleField]===undefined || pgnItem[titleField]=="-")) {
+			eloSpan.innerHTML += pgnItem[titleField] + " ";
+		}
+		eloSpan.innerHTML += pgnItem[eloField] + ')';
+		domNode.appendChild(eloSpan);
+	}
+
+	// CSS classes
+	domNode.classList.add   ('chess4web-' + className);
+	domNode.classList.remove('chess4web-template-' + className);
+}
+
+/**
  * Replace the content of a DOM node with a position
  */
 function substitutePosition(domNode, pgnItem, squareSize, showCoordinate, blackSquare, whiteSquare)
@@ -310,6 +347,8 @@ window.onload = function()
 				case 'chess4web-template-White' : substituteSimpleField(node, 'White' , pgnItem); return;
 				case 'chess4web-template-Black' : substituteSimpleField(node, 'Black' , pgnItem); return;
 				case 'chess4web-template-Result': substituteSimpleField(node, 'Result', pgnItem); return;
+				case 'chess4web-template-WhiteFullName': substituteFullName(node, WHITE, pgnItem); return;
+				case 'chess4web-template-BlackFullName': substituteFullName(node, BLACK, pgnItem); return;
 				case 'chess4web-template-Position': substitutePosition(node, pgnItem); return;
 				default:
 					break;
