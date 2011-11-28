@@ -1,0 +1,55 @@
+/******************************************************************************
+ *                                                                            *
+ *    This file is part of chess4web, a javascript library for displaying     *
+ *    chessboards or full chess game in a web page.                           *
+ *                                                                            *
+ *    Copyright (C) 2011  Yoann Le Montagner <yo35(at)melix(dot)net>          *
+ *                                                                            *
+ *    This program is free software: you can redistribute it and/or modify    *
+ *    it under the terms of the GNU General Public License as published by    *
+ *    the Free Software Foundation, either version 3 of the License, or       *
+ *    (at your option) any later version.                                     *
+ *                                                                            *
+ *    This program is distributed in the hope that it will be useful,         *
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of          *
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           *
+ *    GNU General Public License for more details.                            *
+ *                                                                            *
+ *    You should have received a copy of the GNU General Public License       *
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.   *
+ *                                                                            *
+ ******************************************************************************/
+
+
+pre.chess4web-pgn {
+	display: none;
+}
+
+.chess4web-template-Event,
+.chess4web-template-Site,
+.chess4web-template-Date,
+.chess4web-template-Round,
+.chess4web-template-White,
+.chess4web-template-Black,
+.chess4web-template-Result,
+.chess4web-template-Position {
+	display: none;
+}
+
+.chess4web-Position table {
+	border-collapse: collapse;
+	border-width   : 0px;
+}
+
+.chess4web-Position table th {
+	font-weight: normal;
+	font-size  : small ;
+}
+
+.chess4web-Position table th[scope=column] {
+	padding-top: 2px;
+}
+
+.chess4web-Position table th[scope=row] {
+	padding-right: 5px;
+}
