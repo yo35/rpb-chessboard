@@ -25,6 +25,10 @@ pre.chess4web-pgn {
 	display: none;
 }
 
+.chess4web-hide-this {
+	display: none;
+}
+
 .chess4web-template-Event,
 .chess4web-template-Site,
 .chess4web-template-Date,

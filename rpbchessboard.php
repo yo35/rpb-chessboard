@@ -53,7 +53,8 @@ function rpbchessboard_shortcode_printer($atts, $content='')
 	echo '<pre class="chess4web-pgn" id="rpchessboard_pgn_'.$id_counter.'">';
 	echo $content;
 	echo '</pre>';
-	echo '<div class="chess4web-out" id="rpchessboard_pgn_'.$id_counter.'">';
+	echo '<div class="chess4web-javascript-warning">No javascript</div>';
+	echo '<div class="chess4web-out chess4web-hide-this" id="rpchessboard_pgn_'.$id_counter.'">';
 	echo '<p>White name: <span class="chess4web-template-WhiteFullName"></span></p>';
 	echo '<p>Black name: <span class="chess4web-template-BlackFullName"></span></p>';
 	echo '</div>';

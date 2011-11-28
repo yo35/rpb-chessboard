@@ -332,6 +332,16 @@ window.onload = function()
 	}
 	parseAllInputs();
 
+	// Remove the "no javascript messages
+	function removeJavascriptWarningMessages()
+	{
+		var nodes = getElementsByClass('chess4web-javascript-warning');
+		for(var k=0; k<nodes.length; ++k) {
+			nodes[k].classList.add('chess4web-hide-this');
+		}
+	}
+	removeJavascriptWarningMessages();
+
 	// Substitute all the fields in the "chess4web-out" nodes
 	function recursiveSubstitution(node, pgnItem)
 	{
@@ -369,6 +379,7 @@ window.onload = function()
 				continue;
 			}
 			recursiveSubstitution(node, pgnItem);
+			node.classList.remove('chess4web-hide-this');
 		}
 	}
 	processAllOutputs();
