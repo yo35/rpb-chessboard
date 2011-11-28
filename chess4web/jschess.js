@@ -1297,7 +1297,6 @@ function parseNotation(position, sanString, strictSANVerification)
  */
 function ParsingException(wrongString)
 {
-	Error.call(this);
 	this.wrongString = wrongString;
 }
 

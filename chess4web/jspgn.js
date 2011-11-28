@@ -165,9 +165,9 @@ PGNItem.prototype =
  */
 function PGNException(pgnString, position, message)
 {
-	Error.call("PGN stream error at " + position + ": " + message);
 	this.position  = position ;
 	this.pgnString = pgnString;
+	this.message   = "PGN stream error at " + position + ": " + message;
 }
 
 /**
@@ -340,6 +340,10 @@ function parsePGN(pgnString)
 					++pos;
 					return true;
 				}
+			case "\u2026":
+				token = TOKEN_DOT_3;
+				++pos;
+				return true;
 
 			// Nags correctly formated
 			case "$":
@@ -426,7 +430,7 @@ function parsePGN(pgnString)
 
 				// Unexpected character
 				else {
-					throw new PGNException(pgnString, pos, "unexpected character");
+					throw new PGNException(pgnString, pos, "unexpected character (code="+pgnString.charCodeAt(pos)+")");
 				}
 		}
 	}

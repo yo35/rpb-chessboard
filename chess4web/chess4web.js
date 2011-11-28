@@ -253,13 +253,16 @@ function substitutePosition(domNode, pgnItem, squareSize, showCoordinate, blackS
 // Debug message
 function printDebug(message)
 {
-	document.getElementById('JsOut').innerHTML += message + "\n";
+	document.getElementById('chess4web-debug').innerHTML += message + "\n";
 }
 
 // Entry point
 window.onload = function()
 {
-	document.getElementById('JsOut').innerHTML = "";
+	// Optional function to initialize chess4web
+	if(typeof(chess4webInit)=='function') {
+		chess4webInit();
+	}
 
 	// Collect all the data within the "chess4web-pgn" nodes
 	function parseAllInputs()
@@ -277,6 +280,12 @@ window.onload = function()
 			catch(err) {
 				if(err instanceof PGNException) {
 					printDebug(err.message);
+					var pos1 = Math.max(0, err.position-50);
+					var lg1  = err.position-pos1;
+					var pos2 = err.position;
+					var lg2  = Math.min(50, err.pgnString.length-pos2);
+					printDebug('...' + err.pgnString.substr(pos1, lg1) + '{{{ERROR THERE}}}'
+						+ err.pgnString.substr(pos2, lg2)) + '...';
 				}
 				else {
 					throw err;
