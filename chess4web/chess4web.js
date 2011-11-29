@@ -204,6 +204,65 @@ function substituteFullName(domNode, color, pgnItem)
 }
 
 /**
+ * Replace the content of a DOM node with the list of moves
+ */
+function substituteMoves(domNode, pgnItem)
+{
+	// Initialize the tree walk
+	if(pgnItem.mainVariation==null) {
+		return;
+	}
+	domNode.innerHTML = '';
+
+	// Recursive function for variation printing
+	function printVariation(currentDomNode, variation)
+	{
+		// First commentary
+		if(variation.commentary!=null) {
+			var commentary = document.createElement('span');
+			commentary.className = 'chess4web-commentary';
+			commentary.innerHTML = variation.commentary;
+			currentDomNode.appendChild(commentary);
+		}
+
+		// Start iterating over the variation main line
+		var currentPgnNode = variation.next;
+		while(currentPgnNode!=null) {
+
+			// Move
+			var move = document.createElement('span');
+			move.className = 'chess4web-move';
+			move.innerHTML = currentPgnNode.notation;
+			currentDomNode.appendChild(move);
+
+			// Commentary
+			if(currentPgnNode.commentary!=null) {
+				var commentary = document.createElement('span');
+				commentary.className = 'chess4web-commentary';
+				commentary.innerHTML = currentPgnNode.commentary;
+				currentDomNode.appendChild(commentary);
+			}
+
+			// Variations
+			for(var k=0; k<currentPgnNode.variations.length; ++k) {
+				var newDomNode = document.createElement('span');
+				newDomNode.className = 'chess4web-variation';
+				printVariation(newDomNode, currentPgnNode.variations[k]);
+				currentDomNode.appendChild(newDomNode);
+			}
+
+			// Back to the main line
+			currentPgnNode = currentPgnNode.next;
+		}
+	}
+	printVariation(domNode, pgnItem.mainVariation);
+
+	// CSS classes
+	domNode.classList.add   ('chess4web-Moves');
+	domNode.classList.remove('chess4web-template-Moves');
+}
+
+/**
  * Replace the content of a DOM node with a position
  */
 function substitutePosition(domNode, pgnItem, squareSize, showCoordinate, blackSquare, whiteSquare)
@@ -332,7 +391,7 @@ window.onload = function()
 	}
 	parseAllInputs();
 
-	// Remove the "no javascript messages
+	// Remove the "no javascript" messages
 	function removeJavascriptWarningMessages()
 	{
 		var nodes = getElementsByClass('chess4web-javascript-warning');
@@ -359,6 +418,7 @@ window.onload = function()
 				case 'chess4web-template-Result': substituteSimpleField(node, 'Result', pgnItem); return;
 				case 'chess4web-template-WhiteFullName': substituteFullName(node, WHITE, pgnItem); return;
 				case 'chess4web-template-BlackFullName': substituteFullName(node, BLACK, pgnItem); return;
+				case 'chess4web-template-Moves'   : substituteMoves   (node, pgnItem); return;
 				case 'chess4web-template-Position': substitutePosition(node, pgnItem); return;
 				default:
 					break;

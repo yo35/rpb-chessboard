@@ -41,6 +41,7 @@ function PGNNode(parent, move)
 	this.parent   = parent;
 	this.move     = move;
 	this.position = parent.position.clone();
+	this.notation = getNotation(this.position, move);
 	play(this.position, move);
 	this.commentary = null;
 	this.nags       = Array();
