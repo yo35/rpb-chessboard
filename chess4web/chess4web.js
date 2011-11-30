@@ -281,16 +281,23 @@ function substituteMoves(domNode, pgnItem)
 	}
 	domNode.innerHTML = "";
 
+	// Auxiliary function for commentary printing
+	function printCommentary(currentDomNode, currentPgnNode)
+	{
+		if(currentPgnNode.commentary==null) {
+			return;
+		}
+		var commentary = document.createElement("span");
+		commentary.className = "chess4web-" + (currentPgnNode.commentary.length>=30 ? "long-commentary" : "commentary");
+		commentary.innerHTML = currentPgnNode.commentary;
+		currentDomNode.appendChild(commentary);
+	}
+
 	// Recursive function for variation printing
-	function printVariation(currentDomNode, variation, moveNumber)
+	function printVariation(currentDomNode, variation, currentMoveNumber)
 	{
 		// First commentary
-		if(variation.commentary!=null) {
-			var commentary = document.createElement("span");
-			commentary.className = variation.commentary.length>=30 ? "chess4web-long-commentary" : "chess4web-commentary";
-			commentary.innerHTML = variation.commentary;
-			currentDomNode.appendChild(commentary);
-		}
+		printCommentary(currentDomNode, variation);
 		var forcePrintMoveNumber = true;
 
 		// Start iterating over the variation main line
@@ -301,36 +308,40 @@ function substituteMoves(domNode, pgnItem)
 			var move = document.createElement("span");
 			move.className = "chess4web-move";
 			if(currentPgnNode.parent.position.turn==WHITE) {
-				move.innerHTML = moveNumber + ".";
+				var moveNumber = document.createTextNode(currentMoveNumber + ".");
+				move.appendChild(moveNumber);
 			}
-			else {
-				move.innerHTML = forcePrintMoveNumber ? (moveNumber + "\u2026") : "";
+			else if(forcePrintMoveNumber) {
+				var moveNumber = document.createTextNode(currentMoveNumber + "\u2026");
+				move.appendChild(moveNumber);
 			}
-			move.innerHTML += formatMoveNotation(currentPgnNode.notation);
+			var notation = document.createTextNode(formatMoveNotation(currentPgnNode.notation));
+			move.appendChild(notation);
+			var miniboard = document.createElement("div");
+			miniboard.innerHTML = currentPgnNode.address;
+			substitutePosition(miniboard, pgnItem);
+			miniboard.className = "chess4web-position-miniature";
+			move.appendChild(miniboard);
 			for(var k=0; k<currentPgnNode.nags.length; ++k) {
-				move.innerHTML += " " + formatNag(currentPgnNode.nags[k]);
+				var nag = document.createTextNode(" " + formatNag(currentPgnNode.nags[k]));
+				move.appendChild(nag);
 			}
 			currentDomNode.appendChild(move);
 
 			// Commentary
-			if(currentPgnNode.commentary!=null) {
-				var commentary = document.createElement("span");
-				commentary.className = currentPgnNode.commentary.length>=30 ? "chess4web-long-commentary" : "chess4web-commentary";
-				commentary.innerHTML = currentPgnNode.commentary;
-				currentDomNode.appendChild(commentary);
-			}
+			printCommentary(currentDomNode, currentPgnNode);
 
 			// Variations
 			for(var k=0; k<currentPgnNode.variations.length; ++k) {
-				var newDomNode = document.createElement("span");
-				newDomNode.className = "chess4web-variation";
-				printVariation(newDomNode, currentPgnNode.variations[k], moveNumber);
-				currentDomNode.appendChild(newDomNode);
+				var newVariation = document.createElement("span");
+				newVariation.className = "chess4web-variation";
+				printVariation(newVariation, currentPgnNode.variations[k], moveNumber);
+				currentDomNode.appendChild(newVariation);
 			}
 
 			// Back to the main line
 			if(currentPgnNode.parent.position.turn==BLACK) {
-				++moveNumber;
+				++currentMoveNumber;
 			}
 			forcePrintMoveNumber = (currentPgnNode.commentary!=null) || (currentPgnNode.variations.length>0);
 			currentPgnNode = currentPgnNode.next;

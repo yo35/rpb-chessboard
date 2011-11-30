@@ -72,6 +72,17 @@ span.chess4web-variation span.chess4web-move {
 	font-weight: normal;
 }
 
+div.chess4web-position-miniature {
+	display: none;
+}
+
+span.chess4web-move:hover div.chess4web-position-miniature {
+	display: block;
+	position: fixed;
+	left:700px;
+	top:150px;
+}
+
 .chess4web-Position table {
 	border-collapse: collapse;
 	border-width   : 0px;
