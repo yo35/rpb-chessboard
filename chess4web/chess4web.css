@@ -43,8 +43,35 @@ pre.chess4web-pgn {
 }
 
 span.chess4web-move {
-	margin-left : 3px;
-	margin-right: 3px;
+	display: inline-block;
+	margin-left : 4px;
+	margin-right: 4px;
+	font-weight: bold;
+}
+
+span.chess4web-commentary {
+	display: inline-block;
+	margin-left : 4px;
+	margin-right: 4px;
+}
+
+span.chess4web-variation {
+	display: inline-block;
+	margin-left : 4px;
+	margin-right: 4px;
+
+}
+
+span.chess4web-variation:before {
+	content: "(";
+}
+
+span.chess4web-variation:after {
+	content: ")";
+}
+
+span.chess4web-variation span.chess4web-move {
+	font-weight: normal;
 }
 
 .chess4web-Position table {
