@@ -75,12 +75,12 @@ var chess4webMonthName =
  */
 var chess4webPieceSymbol =
 {
-	"K": "\u2654",
-	"Q": "\u2655",
-	"R": "\u2656",
-	"B": "\u2657",
-	"N": "\u2658",
-	"P": "\u2659"
+	"K": "\u265a",
+	"Q": "\u265b",
+	"R": "\u265c",
+	"B": "\u265d",
+	"N": "\u265e",
+	"P": "\u265f"
 }
 
 /**
@@ -287,7 +287,7 @@ function substituteMoves(domNode, pgnItem)
 		// First commentary
 		if(variation.commentary!=null) {
 			var commentary = document.createElement("span");
-			commentary.className = "chess4web-commentary";
+			commentary.className = variation.commentary.length>=30 ? "chess4web-long-commentary" : "chess4web-commentary";
 			commentary.innerHTML = variation.commentary;
 			currentDomNode.appendChild(commentary);
 		}
@@ -315,7 +315,7 @@ function substituteMoves(domNode, pgnItem)
 			// Commentary
 			if(currentPgnNode.commentary!=null) {
 				var commentary = document.createElement("span");
-				commentary.className = "chess4web-commentary";
+				commentary.className = currentPgnNode.commentary.length>=30 ? "chess4web-long-commentary" : "chess4web-commentary";
 				commentary.innerHTML = currentPgnNode.commentary;
 				currentDomNode.appendChild(commentary);
 			}

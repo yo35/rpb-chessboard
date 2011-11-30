@@ -1281,8 +1281,8 @@ function parseNotation(position, sanString, strictSANVerification)
 	}
 
 	// Strict SAN verification
-	if(sanString && sanString!=getNotation(position, retVal)) {
-		throw ParsingException(sanString);
+	if(strictSANVerification && sanString!=getNotation(position, retVal)) {
+		throw new ParsingException(sanString);
 	}
 	return retVal;
 }
