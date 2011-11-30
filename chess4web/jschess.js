@@ -739,7 +739,7 @@ function isLegalDisplacement(position, from, to)
 					}
 					else if(to==makeSquare(row, COLUMN_C)) {
 						coloredCastle = makeColoredCastle(position.turn, OOO);
-						middleSquare  = makeSquare(row, COLUMN_F);
+						middleSquare  = makeSquare(row, COLUMN_D);
 						if(position.board[makeSquare(row, COLUMN_B)]!=null) {
 							return false;
 						}
