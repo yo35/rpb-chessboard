@@ -322,8 +322,10 @@ function substituteMoves(domNode, pgnItem)
 			return;
 		}
 		var commentary = document.createElement("span");
-		commentary.className = "chess4web-" + (currentPgnNode.commentary.length>=30 ? "long-commentary" : "commentary");
-		commentary.innerHTML = currentPgnNode.commentary;
+		var textLength = HTMLtoDOM(currentPgnNode.commentary, commentary, document);
+		//var textLength = currentPgnNode.commentary.length;
+		commentary.className = "chess4web-" + (textLength>=30 ? "long-commentary" : "commentary");
+		//commentary.innerHTML = currentPgnNode.commentary;
 		currentDomNode.appendChild(commentary);
 	}
 
@@ -351,11 +353,11 @@ function substituteMoves(domNode, pgnItem)
 			}
 			var notation = document.createTextNode(formatMoveNotation(currentPgnNode.notation));
 			move.appendChild(notation);
-			var miniboard = document.createElement("div");
-			miniboard.innerHTML = currentPgnNode.address;
-			substitutePosition(miniboard, pgnItem);
-			miniboard.className = "chess4web-position-miniature";
-			move.appendChild(miniboard);
+			//var miniboard = document.createElement("div");
+			//miniboard.innerHTML = currentPgnNode.address;
+			//substitutePosition(miniboard, pgnItem);
+			//miniboard.className = "chess4web-position-miniature";
+			//move.appendChild(miniboard);
 			for(var k=0; k<currentPgnNode.nags.length; ++k) {
 				var nag = document.createTextNode(" " + formatNag(currentPgnNode.nags[k]));
 				move.appendChild(nag);
@@ -369,7 +371,7 @@ function substituteMoves(domNode, pgnItem)
 			for(var k=0; k<currentPgnNode.variations.length; ++k) {
 				var newVariation = document.createElement("span");
 				newVariation.className = "chess4web-variation";
-				printVariation(newVariation, currentPgnNode.variations[k], moveNumber);
+				printVariation(newVariation, currentPgnNode.variations[k], currentMoveNumber);
 				currentDomNode.appendChild(newVariation);
 			}
 

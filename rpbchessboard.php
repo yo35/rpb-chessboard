@@ -20,9 +20,11 @@ function rpbchessboard_enqueue_script()
 {
 	wp_register_script('rpbchessboard-jschess-script'  , RPBCHESSBOARD_URL.'/chess4web/jschess.js');
 	wp_register_script('rpbchessboard-jspgn-script'    , RPBCHESSBOARD_URL.'/chess4web/jspgn.js');
+	wp_register_script('rpbchessboard-htmlparser'      , RPBCHESSBOARD_URL.'/chess4web/htmlparser.js');
 	wp_register_script('rpbchessboard-chess4web-script', RPBCHESSBOARD_URL.'/chess4web/chess4web.js');
 	wp_enqueue_script('rpbchessboard-jschess-script'  );
 	wp_enqueue_script('rpbchessboard-jspgn-script'    );
+	wp_enqueue_script('rpbchessboard-htmlparser'      );
 	wp_enqueue_script('rpbchessboard-chess4web-script');
 	echo '<script type="text/javascript">';
 	echo 'function chess4webInit() {';
