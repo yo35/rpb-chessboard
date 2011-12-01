@@ -45,11 +45,8 @@ function rpbchessboard_enqueue_css()
 add_shortcode('pgn', 'rpbchessboard_shortcode_printer');
 function rpbchessboard_shortcode_printer($atts, $content='')
 {
-	static $id_counter = 0;
-	static $add_debug_tag = true;
-	++$id_counter;
-	include(RPBCHESSBOARD_ABSPATH.'pgntemplate.php');
 	ob_start();
+	include(RPBCHESSBOARD_ABSPATH.'pgntemplate.php');
 	return ob_get_clean();
 }
 

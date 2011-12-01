@@ -1,5 +1,10 @@
 <?php
 
+// Initialization
+static $id_counter = 0;
+static $add_debug_tag = true;
+++$id_counter;
+
 // Pre-node for debug messages printing
 if($add_debug_tag) {
 	echo '<pre id="chess4web-debug"></pre>';
@@ -7,16 +12,44 @@ if($add_debug_tag) {
 }
 
 // Remove the useless elements added by the Wordpress engine
-$content = preg_replace('/<[^>]*>/', '', $content);
+$filtered_content  = '';
+$length_content    = strlen($content);
+$inside_commentary = false;
+$start_copy_at     = 0;
+$length_copy       = 0;
+for($k=0; $k<$length_content; ++$k) {
+	if($inside_commentary) {
+		if($content[$k]=='}') {
+			$inside_commentary = false;
+		}
+	}
+	else {
+		if($content[$k]=='<') {
+			$length_copy = $k-$start_copy_at;
+			if($length_copy>0) {
+				$filtered_content .= substr($content, $start_copy_at, $length_copy);
+			}
+		}
+		else if($content[$k]=='>') {
+			$start_copy_at = $k+1;
+		}
+		else {
+			$inside_commentary = ($content[$k]=='{');
+		}
+	}
+}
+if($start_copy_at<$lg_content) {
+	$filtered_content .= substr($content, $start_copy_at);
+}
 
 // Raw PGN text section
 echo '<pre class="chess4web-pgn" id="rpchessboard_pgn_'.$id_counter.'">';
-echo $content;
+echo $filtered_content;
 echo '</pre>';
 
 // Javascript-not-enabled message
 echo '<div class="chess4web-javascript-warning">';
-_e('You need to activate javascript to enhance the PGN game visualization.', 'rpbchessboard');
+echo __('You need to activate javascript to enhance the PGN game visualization.', 'rpbchessboard');
 echo '</div>';
 
 // Display the game
