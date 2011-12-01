@@ -19,3 +19,11 @@ div.rpbchessboard-game-head div {
 div.rpbchessboard-annotator {
 	font-style: italic;
 }
+
+div.rpbchessboard-game-head {
+	margin-top: 10px;
+}
+
+div.rpbchessboard-game-body {
+	margin-top: 15px;
+}

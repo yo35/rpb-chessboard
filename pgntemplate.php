@@ -30,7 +30,7 @@ echo '</div>';
 			echo sprintf(__('Commented by %1$s', 'rpbchessboard'), '<span class="chess4web-template-Annotator"></span>');
 		?></div>
 	</div>
-	<div class="rpbchessboard-game-head">
-		<p>Moves: <div class="chess4web-template-Moves"></div></p>
+	<div class="rpbchessboard-game-body">
+		<div class="chess4web-template-Moves"></div>
 	</div>
 </div>
