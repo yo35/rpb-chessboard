@@ -323,9 +323,17 @@ function substituteMoves(domNode, pgnItem)
 		}
 		var commentary = document.createElement("span");
 		var textLength = HTMLtoDOM(currentPgnNode.commentary, commentary, document);
-		//var textLength = currentPgnNode.commentary.length;
-		commentary.className = "chess4web-" + (textLength>=30 ? "long-commentary" : "commentary");
-		//commentary.innerHTML = currentPgnNode.commentary;
+		var inlinedPositionNodes = getElementsByClass("chess4web-template-InlinedPosition", "*", commentary);
+		for(var k=0; k<inlinedPositionNodes.length; ++k) {
+			var inlinedPositionNode = inlinedPositionNodes[k];
+			var positionTable = renderPosition(currentPgnNode.position);
+			inlinedPositionNode.innerHTML = "";
+			inlinedPositionNode.appendChild(positionTable);
+			inlinedPositionNode.classList.add   ("chess4web-InlinedPosition");
+			inlinedPositionNode.classList.remove("chess4web-template-InlinedPosition");
+		}
+		var isLongCommentary = (textLength>=30) || (inlinedPositionNodes.length>0);
+		commentary.className = "chess4web-" + (isLongCommentary ? "long-commentary" : "commentary");
 		currentDomNode.appendChild(commentary);
 	}
 
@@ -395,6 +403,11 @@ function substituteMoves(domNode, pgnItem)
  */
 function renderPosition(position, squareSize, showCoordinate, blackSquare, whiteSquare)
 {
+	if(squareSize    ===undefined) squareSize    =chess4webDefaultSquareSize    ;
+	if(showCoordinate===undefined) showCoordinate=chess4webDefaultShowCoordinate;
+	if(blackSquare   ===undefined) blackSquare   =chess4webDefaultBlackSquare   ;
+	if(whiteSquare   ===undefined) whiteSquare   =chess4webDefaultWhiteSquare   ;
+
 	// Return the URL to the sprite corresponding to a given colored piece
 	function getColoredPieceURL(coloredPiece)
 	{
@@ -461,11 +474,6 @@ function renderPosition(position, squareSize, showCoordinate, blackSquare, white
  */
 function substitutePosition(domNode, pgnItem, squareSize, showCoordinate, blackSquare, whiteSquare)
 {
-	if(squareSize    ===undefined) squareSize    =chess4webDefaultSquareSize    ;
-	if(showCoordinate===undefined) showCoordinate=chess4webDefaultShowCoordinate;
-	if(blackSquare   ===undefined) blackSquare   =chess4webDefaultBlackSquare   ;
-	if(whiteSquare   ===undefined) whiteSquare   =chess4webDefaultWhiteSquare   ;
-
 	// Look for the node at the address specified by the DOM node inner HTML
 	var address = domNode.innerHTML;
 	var pgnNode = pgnItem.addressLookup(address);
