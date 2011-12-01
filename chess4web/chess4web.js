@@ -247,7 +247,7 @@ function substituteFullName(domNode, color, pgnItem)
 	}
 
 	// Name substitution
-	domNode.innerHTML = '';
+	domNode.innerHTML = "";
 	var nameSpan = document.createElement("span");
 	nameSpan.className = "chess4web-playername";
 	nameSpan.innerHTML = pgnItem[nameField];
@@ -257,17 +257,51 @@ function substituteFullName(domNode, color, pgnItem)
 	if(pgnItem[eloField]!==undefined) {
 		var eloSpan = document.createElement("span");
 		eloSpan.className = "chess4web-elo";
-		eloSpan.innerHTML = " (";
-		if(!(pgnItem[titleField]===undefined || pgnItem[titleField]=="-")) {
-			eloSpan.innerHTML += pgnItem[titleField] + " ";
+		if(pgnItem[titleField]!==undefined && pgnItem[titleField]!="-") {
+			eloSpan.innerHTML = pgnItem[titleField] + " " + pgnItem[eloField];
 		}
-		eloSpan.innerHTML += pgnItem[eloField] + ")";
+		else {
+			eloSpan.innerHTML = pgnItem[eloField];
+		}
 		domNode.appendChild(eloSpan);
 	}
 
 	// CSS classes
 	domNode.classList.add   ("chess4web-" + className);
 	domNode.classList.remove("chess4web-template-" + className);
+}
+
+/**
+ * Replace the content of a DOM node a full event description (event + round + date)
+ */
+function substituteFullEvent(domNode, pgnItem)
+{
+	// Event substitution
+	domNode.innerHTML = "";
+	var eventSpan = document.createElement("span");
+	eventSpan.className = "chess4web-eventname";
+	eventSpan.innerHTML = pgnItem["Event"];
+	domNode.appendChild(eventSpan);
+
+	// Round substitution
+	if(pgnItem["Round"]!==undefined && pgnItem["Round"]!="?") {
+		var roundSpan = document.createElement("span");
+		roundSpan.className = "chess4web-round";
+		roundSpan.innerHTML = pgnItem["Round"];
+		domNode.appendChild(roundSpan);
+	}
+
+	// Date substitution
+	if(pgnItem["Date"]!==undefined && pgnItem["Date"]!="????.??.??") {
+		var dateSpan = document.createElement("span");
+		dateSpan.className = "chess4web-date";
+		dateSpan.innerHTML = formatDate(pgnItem["Date"]);
+		domNode.appendChild(dateSpan);
+	}
+
+	// CSS classes
+	domNode.classList.add   ("chess4web-FullEvent");
+	domNode.classList.remove("chess4web-template-FullEvent");
 }
 
 /**
@@ -355,23 +389,10 @@ function substituteMoves(domNode, pgnItem)
 }
 
 /**
- * Replace the content of a DOM node with a position
+ * Return a table DOM node representing the given position
  */
-function substitutePosition(domNode, pgnItem, squareSize, showCoordinate, blackSquare, whiteSquare)
+function renderPosition(position, squareSize, showCoordinate, blackSquare, whiteSquare)
 {
-	if(squareSize    ===undefined) squareSize    =chess4webDefaultSquareSize    ;
-	if(showCoordinate===undefined) showCoordinate=chess4webDefaultShowCoordinate;
-	if(blackSquare   ===undefined) blackSquare   =chess4webDefaultBlackSquare   ;
-	if(whiteSquare   ===undefined) whiteSquare   =chess4webDefaultWhiteSquare   ;
-
-	// Look for the node at the address specified by the DOM node inner HTML
-	var address = domNode.innerHTML;
-	var pgnNode = pgnItem.addressLookup(address);
-	if(pgnNode==null) {
-		return;
-	}
-	var position = pgnNode.position;
-
 	// Return the URL to the sprite corresponding to a given colored piece
 	function getColoredPieceURL(coloredPiece)
 	{
@@ -430,6 +451,28 @@ function substitutePosition(domNode, pgnItem, squareSize, showCoordinate, blackS
 		tbody.appendChild(tr);
 	}
 	table.appendChild(tbody);
+	return table;
+}
+
+/**
+ * Replace the content of a DOM node with a position
+ */
+function substitutePosition(domNode, pgnItem, squareSize, showCoordinate, blackSquare, whiteSquare)
+{
+	if(squareSize    ===undefined) squareSize    =chess4webDefaultSquareSize    ;
+	if(showCoordinate===undefined) showCoordinate=chess4webDefaultShowCoordinate;
+	if(blackSquare   ===undefined) blackSquare   =chess4webDefaultBlackSquare   ;
+	if(whiteSquare   ===undefined) whiteSquare   =chess4webDefaultWhiteSquare   ;
+
+	// Look for the node at the address specified by the DOM node inner HTML
+	var address = domNode.innerHTML;
+	var pgnNode = pgnItem.addressLookup(address);
+	if(pgnNode==null) {
+		return;
+	}
+
+	// Create the table node
+	var table = renderPosition(pgnNode.position, squareSize, showCoordinate, blackSquare, whiteSquare);
 
 	// Node substitution
 	domNode.innerHTML = "";
@@ -458,6 +501,7 @@ window.onload = function()
 		var nodes = getElementsByClass("chess4web-pgn", "pre");
 		for(var k=0; k<nodes.length; ++k) {
 			var node = nodes[k];
+			node.classList.add("chess4web-hide-this");
 			if(node.id===undefined) {
 				continue;
 			}
@@ -501,15 +545,17 @@ window.onload = function()
 		}
 		for(var k=0; k<node.classList.length; ++k) {
 			switch(node.classList[k]) {
-				case "chess4web-template-Event" : substituteSimpleField(node, "Event" , pgnItem); return;
-				case "chess4web-template-Site"  : substituteSimpleField(node, "Site"  , pgnItem); return;
-				case "chess4web-template-Date"  : substituteSimpleField(node, "Date"  , pgnItem, formatDate); return;
-				case "chess4web-template-Round" : substituteSimpleField(node, "Round" , pgnItem); return;
-				case "chess4web-template-White" : substituteSimpleField(node, "White" , pgnItem); return;
-				case "chess4web-template-Black" : substituteSimpleField(node, "Black" , pgnItem); return;
-				case "chess4web-template-Result": substituteSimpleField(node, "Result", pgnItem); return;
+				case "chess4web-template-Event"    : substituteSimpleField(node, "Event"    , pgnItem); return;
+				case "chess4web-template-Site"     : substituteSimpleField(node, "Site"     , pgnItem); return;
+				case "chess4web-template-Date"     : substituteSimpleField(node, "Date"     , pgnItem, formatDate); return;
+				case "chess4web-template-Round"    : substituteSimpleField(node, "Round"    , pgnItem); return;
+				case "chess4web-template-White"    : substituteSimpleField(node, "White"    , pgnItem); return;
+				case "chess4web-template-Black"    : substituteSimpleField(node, "Black"    , pgnItem); return;
+				case "chess4web-template-Result"   : substituteSimpleField(node, "Result"   , pgnItem); return;
+				case "chess4web-template-Annotator": substituteSimpleField(node, "Annotator", pgnItem); return;
 				case "chess4web-template-WhiteFullName": substituteFullName(node, WHITE, pgnItem); return;
 				case "chess4web-template-BlackFullName": substituteFullName(node, BLACK, pgnItem); return;
+				case "chess4web-template-FullEvent": substituteFullEvent(node, pgnItem); return;
 				case "chess4web-template-Moves"   : substituteMoves   (node, pgnItem); return;
 				case "chess4web-template-Position": substitutePosition(node, pgnItem); return;
 				default:

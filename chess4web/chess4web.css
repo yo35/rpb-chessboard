@@ -21,10 +21,6 @@
  ******************************************************************************/
 
 
-pre.chess4web-pgn {
-	display: none;
-}
-
 .chess4web-hide-this {
 	display: none;
 }
@@ -36,10 +32,31 @@ pre.chess4web-pgn {
 .chess4web-template-White,
 .chess4web-template-Black,
 .chess4web-template-Result,
+.chess4web-template-Annotator,
 .chess4web-template-WhiteFullName,
 .chess4web-template-BlackFullName,
 .chess4web-template-Position {
 	display: none;
+}
+
+span.chess4web-elo:before {
+	content: " (";
+}
+
+span.chess4web-elo:after {
+	content: ")";
+}
+
+span.chess4web-round:before {
+	content: " (";
+}
+
+span.chess4web-round:after {
+	content: ")";
+}
+
+span.chess4web-date:before {
+	content: " - ";
 }
 
 span.chess4web-move {

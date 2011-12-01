@@ -1,0 +1,21 @@
+
+span.rpbchessboard-white-square {
+	background-color: white;
+	padding-left: 11px;
+	border: 1px solid black;
+}
+
+span.rpbchessboard-black-square {
+	background-color: black;
+	padding-left: 11px;
+	border: 1px solid black;
+}
+
+div.rpbchessboard-game-head div {
+	margin-top   : 4px;
+	margin-bottom: 4px;
+}
+
+div.rpbchessboard-annotator {
+	font-style: italic;
+}
