@@ -6,6 +6,9 @@ Author: Yoann Le Montagner
 Version: 0.1
 */
 
+// Debug option (comment to release)
+//define('RPBCHESSBOARD_DEBUG', 1);
+
 // Directories
 define('RPBCHESSBOARD_PLUGIN_DIR', basename(dirname(__FILE__)));
 define('RPBCHESSBOARD_ABSPATH'   , ABSPATH.'wp-content/plugins/'.RPBCHESSBOARD_PLUGIN_DIR.'/');

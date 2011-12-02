@@ -515,13 +515,22 @@ window.onload = function()
 		chess4webInit();
 	}
 
+	// Prepare the document
+	function hideNodes(targetClass, tagName) {
+		var nodes = getElementsByClass(targetClass, tagName);
+		for(var k=0; k<nodes.length; ++k) {
+			nodes[k].classList.add("chess4web-hide-this");
+		}
+	}
+	hideNodes("chess4web-javascript-warning", "*");
+	hideNodes("chess4web-pgn", "pre");
+
 	// Collect all the data within the "chess4web-pgn" nodes
 	function parseAllInputs()
 	{
 		var nodes = getElementsByClass("chess4web-pgn", "pre");
 		for(var k=0; k<nodes.length; ++k) {
 			var node = nodes[k];
-			node.classList.add("chess4web-hide-this");
 			if(node.id===undefined) {
 				continue;
 			}
@@ -546,16 +555,6 @@ window.onload = function()
 		}
 	}
 	parseAllInputs();
-
-	// Remove the "no javascript" messages
-	function removeJavascriptWarningMessages()
-	{
-		var nodes = getElementsByClass("chess4web-javascript-warning");
-		for(var k=0; k<nodes.length; ++k) {
-			nodes[k].classList.add("chess4web-hide-this");
-		}
-	}
-	removeJavascriptWarningMessages();
 
 	// Substitute all the fields in the "chess4web-out" nodes
 	function recursiveSubstitution(node, pgnItem)

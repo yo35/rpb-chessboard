@@ -7,10 +7,10 @@ static $add_debug_tag = true;
 $current_id_counter = $id_counter;
 
 // Pre-node for debug messages printing
-if($add_debug_tag) {
+if($add_debug_tag && defined('RPBCHESSBOARD_DEBUG')) {
 	echo '<pre id="chess4web-debug"></pre>';
-	$add_debug_tag = false;
 }
+$add_debug_tag = false;
 
 // Remove the useless elements added by the Wordpress engine
 $filtered_content  = '';
