@@ -1,0 +1,75 @@
+# French translations for PACKAGE package.
+# Copyright (C) 2011 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Yoann <yoann.le-montagner@m4x.org>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-12-02 23:54+0100\n"
+"PO-Revision-Date: 2011-12-02 23:56+0100\n"
+"Last-Translator: Yoann <yoann.le-montagner@m4x.org>\n"
+"Language-Team: French\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: template-pgn.php:63
+msgid "You need to activate javascript to enhance the PGN game visualization."
+msgstr "Vous devez activer javascript pour améliorer l'affichage de la partie."
+
+#: template-pgn.php:74
+#, php-format
+msgid "Commented by %1$s"
+msgstr "Commenté par %1$s"
+
+#: template-script.php:9
+msgid "january"
+msgstr "janvier"
+
+#: template-script.php:10
+msgid "february"
+msgstr "février"
+
+#: template-script.php:11
+msgid "march"
+msgstr "mars"
+
+#: template-script.php:12
+msgid "april"
+msgstr "avril"
+
+#: template-script.php:13
+msgid "may"
+msgstr "mai"
+
+#: template-script.php:14
+msgid "june"
+msgstr "juin"
+
+#: template-script.php:15
+msgid "july"
+msgstr "juillet"
+
+#: template-script.php:16
+msgid "august"
+msgstr "août"
+
+#: template-script.php:17
+msgid "september"
+msgstr "septembre"
+
+#: template-script.php:18
+msgid "october"
+msgstr "octobre"
+
+#: template-script.php:19
+msgid "november"
+msgstr "novembre"
+
+#: template-script.php:20
+msgid "december"
+msgstr "décembre"

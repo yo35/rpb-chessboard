@@ -1,0 +1,75 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-12-02 23:54+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: template-pgn.php:63
+msgid "You need to activate javascript to enhance the PGN game visualization."
+msgstr ""
+
+#: template-pgn.php:74
+#, php-format
+msgid "Commented by %1$s"
+msgstr ""
+
+#: template-script.php:9
+msgid "january"
+msgstr ""
+
+#: template-script.php:10
+msgid "february"
+msgstr ""
+
+#: template-script.php:11
+msgid "march"
+msgstr ""
+
+#: template-script.php:12
+msgid "april"
+msgstr ""
+
+#: template-script.php:13
+msgid "may"
+msgstr ""
+
+#: template-script.php:14
+msgid "june"
+msgstr ""
+
+#: template-script.php:15
+msgid "july"
+msgstr ""
+
+#: template-script.php:16
+msgid "august"
+msgstr ""
+
+#: template-script.php:17
+msgid "september"
+msgstr ""
+
+#: template-script.php:18
+msgid "october"
+msgstr ""
+
+#: template-script.php:19
+msgid "november"
+msgstr ""
+
+#: template-script.php:20
+msgid "december"
+msgstr ""
