@@ -27,14 +27,3 @@ div.rpbchessboard-game-head {
 div.rpbchessboard-game-body {
 	margin-top: 15px;
 }
-
-span.chess4web-InlinedPosition {
-	text-align: center;
-	display: block;
-}
-
-span.chess4web-InlinedPosition table {
-	width: auto;
-	margin-bottom: 5px;
-	display: inline-block;
-}

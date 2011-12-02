@@ -20,6 +20,11 @@ $length_copy       = 0;
 for($k=0; $k<$length_content; ++$k) {
 	if($inside_commentary) {
 		if($content[$k]=='}') {
+			$length_copy = $k-$start_copy_at;
+			if($length_copy>0) {
+				$filtered_content .= do_shortcode(substr($content, $start_copy_at, $length_copy));
+			}
+			$start_copy_at     = $k;
 			$inside_commentary = false;
 		}
 	}
@@ -33,8 +38,13 @@ for($k=0; $k<$length_content; ++$k) {
 		else if($content[$k]=='>') {
 			$start_copy_at = $k+1;
 		}
-		else {
-			$inside_commentary = ($content[$k]=='{');
+		else if($content[$k]=='{') {
+			$length_copy = $k-$start_copy_at+1;
+			if($length_copy>0) {
+				$filtered_content .= substr($content, $start_copy_at, $length_copy);
+			}
+			$start_copy_at     = $k+1;
+			$inside_commentary = true;
 		}
 	}
 }

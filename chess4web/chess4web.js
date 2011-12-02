@@ -42,6 +42,16 @@ var chess4webDefaultSquareSize = 32;
 var chess4webDefaultShowCoordinate = false;
 
 /**
+ * Default square size for the board
+ */
+var chess4webDefaultMiniboardSquareSize = 24;
+
+/**
+ * Default show coordinate option
+ */
+var chess4webDefaultMiniboardShowCoordinate = false;
+
+/**
  * Default black square color
  */
 var chess4webDefaultBlackSquare = "#b5876b";
@@ -218,6 +228,77 @@ function formatNag(nag)
 		return "$" + nag;
 	else
 		return chess4webNag[nag];
+}
+
+/**
+ * Return a table DOM node representing the given position
+ */
+function renderPosition(position, squareSize, showCoordinate, blackSquare, whiteSquare)
+{
+	if(squareSize    ===undefined) squareSize    =chess4webDefaultSquareSize    ;
+	if(showCoordinate===undefined) showCoordinate=chess4webDefaultShowCoordinate;
+	if(blackSquare   ===undefined) blackSquare   =chess4webDefaultBlackSquare   ;
+	if(whiteSquare   ===undefined) whiteSquare   =chess4webDefaultWhiteSquare   ;
+
+	// Return the URL to the sprite corresponding to a given colored piece
+	function getColoredPieceURL(coloredPiece)
+	{
+		var retVal = chess4webBaseURL + squareSize + "/";
+		switch(coloredPiece) {
+			case WHITE_KING  : retVal+="wk.png"; break;
+			case WHITE_QUEEN : retVal+="wq.png"; break;
+			case WHITE_ROOK  : retVal+="wr.png"; break;
+			case WHITE_BISHOP: retVal+="wb.png"; break;
+			case WHITE_KNIGHT: retVal+="wn.png"; break;
+			case WHITE_PAWN  : retVal+="wp.png"; break;
+			case BLACK_KING  : retVal+="bk.png"; break;
+			case BLACK_QUEEN : retVal+="bq.png"; break;
+			case BLACK_ROOK  : retVal+="br.png"; break;
+			case BLACK_BISHOP: retVal+="bb.png"; break;
+			case BLACK_KNIGHT: retVal+="bn.png"; break;
+			case BLACK_PAWN  : retVal+="bp.png"; break;
+			default: retVal+="clear.png"; break;
+		}
+		return retVal;
+	}
+
+	// Create the table
+	var table = document.createElement("table");
+	var tbody = document.createElement("tbody");
+	for(var r=ROW_8; r>=ROW_1; --r) {
+		var tr = document.createElement("tr");
+		if(showCoordinate) {
+			var th = document.createElement("th");
+			th.setAttribute("scope", "row");
+			th.innerHTML = rowToString(r);
+			tr.appendChild(th);
+		}
+		for(var c=COLUMN_A; c<=COLUMN_H; ++c) {
+			var squareColor  = (r+c)%2==0 ? blackSquare : whiteSquare;
+			var coloredPiece = position.board[makeSquare(r, c)];
+			var td = document.createElement("td");
+			td.setAttribute("style", "background-color: " + squareColor + ";");
+			var img = document.createElement("img");
+			img.setAttribute("src", getColoredPieceURL(coloredPiece));
+			td.appendChild(img);
+			tr.appendChild(td);
+		}
+		tbody.appendChild(tr);
+	}
+	if(showCoordinate) {
+		var tr  = document.createElement("tr");
+		var th0 = document.createElement("th");
+		tr.appendChild(th0);
+		for(var c=COLUMN_A; c<=COLUMN_H; ++c) {
+			var th = document.createElement("th");
+			th.setAttribute("scope", "column");
+			th.innerHTML = columnToString(c);
+			tr.appendChild(th);
+		}
+		tbody.appendChild(tr);
+	}
+	table.appendChild(tbody);
+	return table;
 }
 
 /**
@@ -399,97 +480,26 @@ function substituteMoves(domNode, pgnItem)
 }
 
 /**
- * Return a table DOM node representing the given position
- */
-function renderPosition(position, squareSize, showCoordinate, blackSquare, whiteSquare)
-{
-	if(squareSize    ===undefined) squareSize    =chess4webDefaultSquareSize    ;
-	if(showCoordinate===undefined) showCoordinate=chess4webDefaultShowCoordinate;
-	if(blackSquare   ===undefined) blackSquare   =chess4webDefaultBlackSquare   ;
-	if(whiteSquare   ===undefined) whiteSquare   =chess4webDefaultWhiteSquare   ;
-
-	// Return the URL to the sprite corresponding to a given colored piece
-	function getColoredPieceURL(coloredPiece)
-	{
-		var retVal = chess4webBaseURL + squareSize + "/";
-		switch(coloredPiece) {
-			case WHITE_KING  : retVal+="wk.png"; break;
-			case WHITE_QUEEN : retVal+="wq.png"; break;
-			case WHITE_ROOK  : retVal+="wr.png"; break;
-			case WHITE_BISHOP: retVal+="wb.png"; break;
-			case WHITE_KNIGHT: retVal+="wn.png"; break;
-			case WHITE_PAWN  : retVal+="wp.png"; break;
-			case BLACK_KING  : retVal+="bk.png"; break;
-			case BLACK_QUEEN : retVal+="bq.png"; break;
-			case BLACK_ROOK  : retVal+="br.png"; break;
-			case BLACK_BISHOP: retVal+="bb.png"; break;
-			case BLACK_KNIGHT: retVal+="bn.png"; break;
-			case BLACK_PAWN  : retVal+="bp.png"; break;
-			default: retVal+="clear.png"; break;
-		}
-		return retVal;
-	}
-
-	// Create the table
-	var table = document.createElement("table");
-	var tbody = document.createElement("tbody");
-	for(var r=ROW_8; r>=ROW_1; --r) {
-		var tr = document.createElement("tr");
-		if(showCoordinate) {
-			var th = document.createElement("th");
-			th.setAttribute("scope", "row");
-			th.innerHTML = rowToString(r);
-			tr.appendChild(th);
-		}
-		for(var c=COLUMN_A; c<=COLUMN_H; ++c) {
-			var squareColor  = (r+c)%2==0 ? blackSquare : whiteSquare;
-			var coloredPiece = position.board[makeSquare(r, c)];
-			var td = document.createElement("td");
-			td.setAttribute("style", "background-color: " + squareColor + ";");
-			var img = document.createElement("img");
-			img.setAttribute("src", getColoredPieceURL(coloredPiece));
-			td.appendChild(img);
-			tr.appendChild(td);
-		}
-		tbody.appendChild(tr);
-	}
-	if(showCoordinate) {
-		var tr  = document.createElement("tr");
-		var th0 = document.createElement("th");
-		tr.appendChild(th0);
-		for(var c=COLUMN_A; c<=COLUMN_H; ++c) {
-			var th = document.createElement("th");
-			th.setAttribute("scope", "column");
-			th.innerHTML = columnToString(c);
-			tr.appendChild(th);
-		}
-		tbody.appendChild(tr);
-	}
-	table.appendChild(tbody);
-	return table;
-}
-
-/**
  * Replace the content of a DOM node with a position
  */
-function substitutePosition(domNode, pgnItem, squareSize, showCoordinate, blackSquare, whiteSquare)
-{
-	// Look for the node at the address specified by the DOM node inner HTML
-	var address = domNode.innerHTML;
-	var pgnNode = pgnItem.addressLookup(address);
-	if(pgnNode==null) {
-		return;
-	}
-
-	// Create the table node
-	var table = renderPosition(pgnNode.position, squareSize, showCoordinate, blackSquare, whiteSquare);
-
-	// Node substitution
-	domNode.innerHTML = "";
-	domNode.appendChild(table);
-	domNode.classList.add   ("chess4web-Position");
-	domNode.classList.remove("chess4web-template-Position");
-}
+//function substitutePosition(domNode, pgnItem, squareSize, showCoordinate, blackSquare, whiteSquare)
+//{
+//	// Look for the node at the address specified by the DOM node inner HTML
+//	var address = domNode.innerHTML;
+//	var pgnNode = pgnItem.addressLookup(address);
+//	if(pgnNode==null) {
+//		return;
+//	}
+//
+//	// Create the table node
+//	var table = renderPosition(pgnNode.position, squareSize, showCoordinate, blackSquare, whiteSquare);
+//
+//	// Node substitution
+//	domNode.innerHTML = "";
+//	domNode.appendChild(table);
+//	domNode.classList.add   ("chess4web-Position");
+//	domNode.classList.remove("chess4web-template-Position");
+//}
 
 // Debug message
 function printDebug(message)
@@ -567,7 +577,7 @@ window.onload = function()
 				case "chess4web-template-BlackFullName": substituteFullName(node, BLACK, pgnItem); return;
 				case "chess4web-template-FullEvent": substituteFullEvent(node, pgnItem); return;
 				case "chess4web-template-Moves"   : substituteMoves   (node, pgnItem); return;
-				case "chess4web-template-Position": substitutePosition(node, pgnItem); return;
+				//case "chess4web-template-Position": substitutePosition(node, pgnItem); return;
 				default:
 					break;
 			}

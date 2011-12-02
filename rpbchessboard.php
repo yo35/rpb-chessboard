@@ -26,11 +26,7 @@ function rpbchessboard_enqueue_script()
 	wp_enqueue_script('rpbchessboard-jspgn-script'    );
 	wp_enqueue_script('rpbchessboard-htmlparser'      );
 	wp_enqueue_script('rpbchessboard-chess4web-script');
-	echo '<script type="text/javascript">';
-	echo 'function chess4webInit() {';
-	echo '  chess4webBaseURL = "'.RPBCHESSBOARD_URL.'/chess4web/sprite/";';
-	echo '}';
-	echo '</script>';
+	include(RPBCHESSBOARD_ABSPATH.'template-script.php');
 }
 
 // Enqueue general styles
@@ -43,12 +39,19 @@ function rpbchessboard_enqueue_css()
 	wp_enqueue_style ('rpbchessboard-main'     );
 }
 
+// Shortcode for diagrams
+add_shortcode('pgndiagram', 'rpbchessboard_shortcode_diagram');
+function rpbchessboard_shortcode_diagram($atts)
+{
+	return '<span class="chess4web-template-InlinedPosition"></span>';
+}
+
 // Printer
 add_shortcode('pgn', 'rpbchessboard_shortcode_printer');
 function rpbchessboard_shortcode_printer($atts, $content='')
 {
 	ob_start();
-	include(RPBCHESSBOARD_ABSPATH.'pgntemplate.php');
+	include(RPBCHESSBOARD_ABSPATH.'template-pgn.php');
 	return ob_get_clean();
 }
 

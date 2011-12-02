@@ -39,81 +39,107 @@
 	display: none;
 }
 
-span.chess4web-elo:before {
+.chess4web-out span.chess4web-elo:before {
 	content: " (";
 }
 
-span.chess4web-elo:after {
+.chess4web-out span.chess4web-elo:after {
 	content: ")";
 }
 
-span.chess4web-round:before {
+.chess4web-out span.chess4web-round:before {
 	content: " (";
 }
 
-span.chess4web-round:after {
+.chess4web-out span.chess4web-round:after {
 	content: ")";
 }
 
-span.chess4web-date:before {
+.chess4web-out span.chess4web-date:before {
 	content: " - ";
 }
 
-span.chess4web-move {
+.chess4web-out span.chess4web-move {
 	font-weight: bold;
 }
 
-span.chess4web-move,
-span.chess4web-commentary,
-span.chess4web-variation {
+.chess4web-out span.chess4web-move,
+.chess4web-out span.chess4web-commentary,
+.chess4web-out span.chess4web-variation {
 	margin-right: 5px;
 	display: inline-block;
 }
 
-span.chess4web-long-commentary {
+.chess4web-out span.chess4web-long-commentary {
 	margin-left  : 10px;
 	margin-top   :  4px;
 	margin-bottom:  4px;
 	display: block;
 }
 
-span.chess4web-variation:before {
+.chess4web-out span.chess4web-variation:before {
 	content: "(";
 }
 
-span.chess4web-variation:after {
+.chess4web-out span.chess4web-variation:after {
 	content: ")";
 }
 
-span.chess4web-variation span.chess4web-move {
+.chess4web-out span.chess4web-variation span.chess4web-move {
 	font-weight: normal;
 }
 
-div.chess4web-position-miniature {
+/*
+.chess4web-out div.chess4web-position-miniature {
 	display: none;
 }
 
-span.chess4web-move:hover div.chess4web-position-miniature {
+.chess4web-out span.chess4web-move:hover div.chess4web-position-miniature {
 	display: block;
 	position: fixed;
 	left:700px;
 	top:150px;
 }
+*/
 
-.chess4web-Position table {
-	border-collapse: collapse;
-	border-width   : 0px;
+.chess4web-out .chess4web-InlinedPosition {
+	text-align: center;
+	display: block;
 }
 
-.chess4web-Position table th {
+.chess4web-out .chess4web-InlinedPosition table {
+	margin-top   : 5px;
+	margin-bottom: 5px;
+}
+
+.chess4web-out .chess4web-InlinedPosition table {
+	width: auto;
+	border-collapse: collapse;
+	display: inline-block;
+}
+
+.chess4web-out .chess4web-InlinedPosition td {
+	padding-top   : 0px;
+	padding-bottom: 0px;
+	padding-left  : 1px;
+	padding-right : 1px;
+}
+
+.chess4web-out .chess4web-InlinedPosition th {
 	font-weight: normal;
 	font-size  : small ;
 }
 
-.chess4web-Position table th[scope=column] {
-	padding-top: 2px;
+.chess4web-out .chess4web-InlinedPosition table th[scope=column] {
+	padding-top   : 2px;
+	padding-bottom: 0px;
+	padding-left  : 0px;
+	padding-right : 0px;
 }
 
-.chess4web-Position table th[scope=row] {
-	padding-right: 5px;
+.chess4web-out .chess4web-InlinedPosition table th[scope=row] {
+	padding-top   : 0px;
+	padding-bottom: 0px;
+	padding-left  : 0px;
+	padding-right : 5px;
 }
