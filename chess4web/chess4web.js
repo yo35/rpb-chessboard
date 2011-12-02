@@ -474,6 +474,12 @@ function substituteMoves(domNode, pgnItem)
 	}
 	printVariation(domNode, pgnItem.mainVariation, 1);
 
+	// Append the result
+	var result = document.createElement("span");
+	result.className = "chess4web-Result";
+	result.innerHTML = pgnItem["Result"];
+	domNode.appendChild(result);
+
 	// CSS classes
 	domNode.classList.add   ("chess4web-Moves");
 	domNode.classList.remove("chess4web-template-Moves");

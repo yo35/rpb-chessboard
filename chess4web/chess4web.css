@@ -59,6 +59,14 @@
 	content: " - ";
 }
 
+.chess4web-out .chess4web-Result {
+	font-weight: bold;
+}
+
+.chess4web-out .chess4web-Moves span.chess4web-Result {
+	margin-left: 10px;
+}
+
 .chess4web-out span.chess4web-move {
 	font-weight: bold;
 }
