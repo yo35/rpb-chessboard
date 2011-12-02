@@ -24,7 +24,7 @@ msgstr "Vous devez activer javascript pour améliorer l'affichage de la partie."
 #: template-pgn.php:74
 #, php-format
 msgid "Commented by %1$s"
-msgstr "Commenté par %1$s"
+msgstr "Commentée par %1$s"
 
 #: template-script.php:9
 msgid "january"

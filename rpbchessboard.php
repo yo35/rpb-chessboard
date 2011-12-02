@@ -7,7 +7,7 @@ Version: 0.1
 */
 
 // Debug option (comment to release)
-//define('RPBCHESSBOARD_DEBUG', 1);
+define('RPBCHESSBOARD_DEBUG', 1);
 
 // Directories
 define('RPBCHESSBOARD_PLUGIN_DIR', basename(dirname(__FILE__)));
@@ -51,6 +51,8 @@ function rpbchessboard_shortcode_diagram($atts)
 
 // Printer
 add_shortcode('pgn', 'rpbchessboard_shortcode_printer');
+$rpbchessboard_id_counter = 0;
+$rpbchessboard_add_debug_tag = true;
 function rpbchessboard_shortcode_printer($atts, $content='')
 {
 	ob_start();

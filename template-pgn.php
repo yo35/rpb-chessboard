@@ -1,16 +1,15 @@
 <?php
 
 // Initialization
-static $id_counter = 0;
-static $add_debug_tag = true;
-++$id_counter;
-$current_id_counter = $id_counter;
+global $rpbchessboard_id_counter, $rpbchessboard_add_debug_tag;
+++$rpbchessboard_id_counter;
+$current_id_counter = $rpbchessboard_id_counter;
 
 // Pre-node for debug messages printing
-if($add_debug_tag && defined('RPBCHESSBOARD_DEBUG')) {
+if($rpbchessboard_add_debug_tag && defined('RPBCHESSBOARD_DEBUG')) {
 	echo '<pre id="chess4web-debug"></pre>';
 }
-$add_debug_tag = false;
+$rpbchessboard_add_debug_tag = false;
 
 // Remove the useless elements added by the Wordpress engine
 $filtered_content  = '';
