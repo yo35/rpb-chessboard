@@ -4,6 +4,7 @@
 static $id_counter = 0;
 static $add_debug_tag = true;
 ++$id_counter;
+$current_id_counter = $id_counter;
 
 // Pre-node for debug messages printing
 if($add_debug_tag) {
@@ -53,7 +54,7 @@ if($start_copy_at<$lg_content) {
 }
 
 // Raw PGN text section
-echo '<pre class="chess4web-pgn" id="rpchessboard_pgn_'.$id_counter.'">';
+echo '<pre class="chess4web-pgn" id="rpchessboard_pgn_'.$current_id_counter.'">';
 echo $filtered_content;
 echo '</pre>';
 
@@ -64,7 +65,7 @@ echo '</div>';
 
 // Display the game
 ?>
-<div class="chess4web-out chess4web-hide-this" id="rpchessboard_pgn_<?php echo $id_counter; ?>">
+<div class="chess4web-out chess4web-hide-this" id="rpchessboard_pgn_<?php echo $current_id_counter; ?>">
 	<div class="rpbchessboard-game-head">
 		<div><span class="rpbchessboard-white-square">&nbsp;</span>&nbsp;<span class="chess4web-template-WhiteFullName"></span></div>
 		<div><span class="rpbchessboard-black-square">&nbsp;</span>&nbsp;<span class="chess4web-template-BlackFullName"></span></div>
