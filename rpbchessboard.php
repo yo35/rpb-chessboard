@@ -7,7 +7,7 @@ Version: 0.1
 */
 
 // Debug option (comment to release)
-define('RPBCHESSBOARD_DEBUG', 1);
+//define('RPBCHESSBOARD_DEBUG', 1);
 
 // Directories
 define('RPBCHESSBOARD_PLUGIN_DIR', basename(dirname(__FILE__)));
