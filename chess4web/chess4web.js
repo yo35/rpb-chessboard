@@ -510,7 +510,10 @@ function substituteMoves(domNode, pgnItem)
 // Debug message
 function printDebug(message)
 {
-	document.getElementById("chess4web-debug").innerHTML += message + "\n";
+	var debugNode = document.getElementById("chess4web-debug");
+	if(debugNode!=null) {
+		debugNode.innerHTML += message + "\n";
+	}
 }
 
 // Expand mini-board DOM elements
@@ -617,9 +620,8 @@ function processAllOutputs()
 	}
 }
 
-
 // Entry point
-window.onload = function()
+function chess4webMain()
 {
 	// Optional function to initialize chess4web
 	if(typeof(chess4webInit)=="function") {
@@ -640,3 +642,4 @@ window.onload = function()
 	parseAllInputs   ();
 	processAllOutputs();
 }
+window.onload = chess4webMain;
