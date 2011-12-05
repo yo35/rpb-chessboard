@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-02 23:54+0100\n"
+"POT-Creation-Date: 2011-12-05 18:06+0100\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann <yoann.le-montagner@m4x.org>\n"
 "Language-Team: French\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: template-pgn.php:63
+#: template-pgn.php:64
 msgid "You need to activate javascript to enhance the PGN game visualization."
 msgstr "Vous devez activer javascript pour améliorer l'affichage de la partie."
 
-#: template-pgn.php:74
+#: template-pgn.php:75
 #, php-format
 msgid "Commented by %1$s"
 msgstr "Commentée par %1$s"
