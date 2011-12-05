@@ -3,7 +3,7 @@
 // Initialization
 global $rpbchessboard_id_counter, $rpbchessboard_add_debug_tag;
 ++$rpbchessboard_id_counter;
-$current_id_counter = $rpbchessboard_id_counter;
+$current_pgn_id = 'rpbchessboard-pgn-'.get_the_ID().'-'.$rpbchessboard_id_counter;
 
 // Pre-node for debug messages printing
 if($rpbchessboard_add_debug_tag && defined('RPBCHESSBOARD_DEBUG')) {
@@ -55,18 +55,18 @@ if($start_copy_at<$lg_content) {
 }
 
 // Raw PGN text section
-echo '<pre class="chess4web-pgn" id="rpchessboard_pgn_'.$current_id_counter.'">';
+echo '<pre class="chess4web-pgn" id="'.$current_pgn_id.'-in">';
 echo $filtered_content;
 echo '</pre>';
 
 // Javascript-not-enabled message
-echo '<div class="chess4web-javascript-warning">';
+echo '<div class="chess4web-javascript-warning" id="'.$current_pgn_id.'-jw">';
 echo __('You need to activate javascript to enhance the PGN game visualization.', 'rpbchessboard');
 echo '</div>';
 
 // Display the game
 ?>
-<div class="chess4web-out chess4web-hide-this" id="rpchessboard_pgn_<?php echo $current_id_counter; ?>">
+<div class="chess4web-out chess4web-hide-this" id="<?php echo $current_pgn_id; ?>-out">
 	<div class="rpbchessboard-game-head">
 		<div><span class="rpbchessboard-white-square">&nbsp;</span>&nbsp;<span class="chess4web-template-WhiteFullName"></span></div>
 		<div><span class="rpbchessboard-black-square">&nbsp;</span>&nbsp;<span class="chess4web-template-BlackFullName"></span></div>
@@ -79,3 +79,10 @@ echo '</div>';
 		<div class="chess4web-template-Moves"></div>
 	</div>
 </div>
+
+<script type="text/javascript">
+	chess4webConfigure();
+	var currentPgnItems = parseInputNode(document.getElementById("<?php echo $current_pgn_id; ?>-in"));
+	chess4webHideNode(document.getElementById("<?php echo $current_pgn_id; ?>-jw"));
+	substituteOutputNode(document.getElementById("<?php echo $current_pgn_id; ?>-out"), currentPgnItems[0]);
+</script>

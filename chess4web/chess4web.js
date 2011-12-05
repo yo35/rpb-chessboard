@@ -22,11 +22,6 @@
 
 
 /**
- * Array of parsed PGN files
- */
-var chess4webWholePgnItems = Array();
-
-/**
  * Base URL to the chess4web data
  */
 var chess4webBaseURL = "sprite/";
@@ -132,43 +127,6 @@ function getElementsByClass(searchClass, tagName, domNode)
 		}
 	}
 	return retVal;
-}
-
-/**
- * Return the game at index 'index' in the file identified by 'pgnID'
- */
-function retrievePgnItem(pgnID, index)
-{
-	if(chess4webWholePgnItems[pgnID]===undefined) {
-		return null;
-	}
-	var pgnItems = chess4webWholePgnItems[pgnID];
-	if(index>=pgnItems.length) {
-		return null;
-	}
-	return pgnItems[index];
-}
-
-/**
- * Return the game from a string specifying both the file ID and the index of
- * the game within the file. Format: "pgnID(index)" or "pgnID" (in this case,
- * index is assumed to be 0).
- */
-function retrievePgnItemFromFullID(pgnFullID)
-{
-	var pgnID = null;
-	var index = 0;
-	if(pgnFullID.match(/^([a-zA-Z0-9_]+)-([0-9]+)/)) {
-		pgnID = RegExp.$1;
-		index = parseInt(RegExp.$2);
-	}
-	else if(pgnFullID.match(/^([a-zA-Z0-9_]+)/)) {
-		pgnID = RegExp.$1;
-	}
-	if(pgnID==null) {
-		return null;
-	}
-	return retrievePgnItem(pgnID, index);
 }
 
 /**
@@ -486,37 +444,9 @@ function substituteMoves(domNode, pgnItem)
 }
 
 /**
- * Replace the content of a DOM node with a position
+ * Function used to expand the mini-board DIV elements, and to place them according
+ * to the mouse pointer position
  */
-//function substitutePosition(domNode, pgnItem, squareSize, showCoordinate, blackSquare, whiteSquare)
-//{
-//	// Look for the node at the address specified by the DOM node inner HTML
-//	var address = domNode.innerHTML;
-//	var pgnNode = pgnItem.addressLookup(address);
-//	if(pgnNode==null) {
-//		return;
-//	}
-//
-//	// Create the table node
-//	var table = renderPosition(pgnNode.position, squareSize, showCoordinate, blackSquare, whiteSquare);
-//
-//	// Node substitution
-//	domNode.innerHTML = "";
-//	domNode.appendChild(table);
-//	domNode.classList.add   ("chess4web-Position");
-//	domNode.classList.remove("chess4web-template-Position");
-//}
-
-// Debug message
-function printDebug(message)
-{
-	var debugNode = document.getElementById("chess4web-debug");
-	if(debugNode!=null) {
-		debugNode.innerHTML += message + "\n";
-	}
-}
-
-// Expand mini-board DOM elements
 function expandMiniboard(event, domNode)
 {
 	var targets = getElementsByClass("chess4web-position-miniature", "div", domNode);
@@ -545,38 +475,37 @@ function expandMiniboard(event, domNode)
 	target.style.top  = (event.pageY+20) + "px";
 }
 
-// Collect all the data within the "chess4web-pgn" nodes
-function parseAllInputs()
+/**
+ * Parse and return the PGN data contained in a DOM node
+ */
+function parseInputNode(inputDomNode)
 {
-	var nodes = getElementsByClass("chess4web-pgn", "pre");
-	for(var k=0; k<nodes.length; ++k) {
-		var node = nodes[k];
-		if(node.id===undefined) {
-			continue;
+	inputDomNode.classList.add("chess4web-hide-this");
+	try {
+		var pgnItems = parsePGN(inputDomNode.innerHTML);
+		return pgnItems;
+	}
+	catch(err) {
+		if(err instanceof PGNException) {
+			printDebug(err.message);
+			var pos1 = Math.max(0, err.position-50);
+			var lg1  = err.position-pos1;
+			var pos2 = err.position;
+			var lg2  = Math.min(50, err.pgnString.length-pos2);
+			printDebug('...' + err.pgnString.substr(pos1, lg1) + "{{{ERROR THERE}}}"
+				+ err.pgnString.substr(pos2, lg2)) + "...";
 		}
-		try {
-			var pgnItems = parsePGN(node.innerHTML);
-			chess4webWholePgnItems[node.id] = pgnItems;
-		}
-		catch(err) {
-			if(err instanceof PGNException) {
-				printDebug(err.message);
-				var pos1 = Math.max(0, err.position-50);
-				var lg1  = err.position-pos1;
-				var pos2 = err.position;
-				var lg2  = Math.min(50, err.pgnString.length-pos2);
-				printDebug('...' + err.pgnString.substr(pos1, lg1) + "{{{ERROR THERE}}}"
-					+ err.pgnString.substr(pos2, lg2)) + "...";
-			}
-			else {
-				throw err;
-			}
+		else {
+			throw err;
 		}
 	}
 }
 
-// Substitute all the fields in the "chess4web-out" nodes
-function processAllOutputs()
+
+/**
+ * Substitute the template fields in a given output DOM node
+ */
+function substituteOutputNode(outputDomNode, currentPgnItem)
 {
 	// Auxiliary recursive function
 	function auxRecursiveSubstitution(node, pgnItem)
@@ -607,39 +536,41 @@ function processAllOutputs()
 		}
 	}
 
-	// Substitution occurs within the "chess4web-out" nodes
-	var nodes = getElementsByClass("chess4web-out");
-	for(var k=0; k<nodes.length; ++k) {
-		var nodeId         = nodes[k].getAttribute("id");
-		var currentPgnItem = retrievePgnItemFromFullID(nodeId);
-		if(currentPgnItem==null) {
-			continue;
-		}
-		auxRecursiveSubstitution(nodes[k], currentPgnItem);
-		nodes[k].classList.remove("chess4web-hide-this");
+	// Root call
+	auxRecursiveSubstitution(outputDomNode, currentPgnItem);
+	outputDomNode.classList.remove("chess4web-hide-this");
+}
+
+/**
+ * Hide the given node
+ */
+function chess4webHideNode(domNode)
+{
+	domNode.classList.add("chess4web-hide-this");
+}
+
+/**
+ * Print a debug message
+ */
+function printDebug(message)
+{
+	var debugNode = document.getElementById("chess4web-debug");
+	if(debugNode!=null) {
+		debugNode.innerHTML += message + "\n";
 	}
 }
 
 // Entry point
-function chess4webMain()
+var chess4webConfigureExecuted = false;
+function chess4webConfigure()
 {
+	if(chess4webConfigureExecuted) {
+		return;
+	}
+
 	// Optional function to initialize chess4web
 	if(typeof(chess4webInit)=="function") {
 		chess4webInit();
 	}
-
-	// Prepare the document
-	function hideNodes(targetClass, tagName) {
-		var nodes = getElementsByClass(targetClass, tagName);
-		for(var k=0; k<nodes.length; ++k) {
-			nodes[k].classList.add("chess4web-hide-this");
-		}
-	}
-	hideNodes("chess4web-javascript-warning", "div");
-	hideNodes("chess4web-pgn", "pre");
-
-	// Parse and display the PGN data
-	parseAllInputs   ();
-	processAllOutputs();
+	chess4webConfigureExecuted = true;
 }
-window.onload = chess4webMain;
