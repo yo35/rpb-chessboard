@@ -80,6 +80,7 @@ echo '</div>';
 	</div>
 </div>
 
+<!-- Call the the PGN engine -->
 <script type="text/javascript">
 	chess4webConfigure();
 	var currentPgnItems = parseInputNode(document.getElementById("<?php echo $current_pgn_id; ?>-in"));
