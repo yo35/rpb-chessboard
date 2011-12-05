@@ -22,7 +22,9 @@ for($k=0; $k<$length_content; ++$k) {
 		if($content[$k]=='}') {
 			$length_copy = $k-$start_copy_at;
 			if($length_copy>0) {
-				$filtered_content .= do_shortcode(substr($content, $start_copy_at, $length_copy));
+				$commentary = do_shortcode(substr($content, $start_copy_at, $length_copy));
+				$commentary = str_replace('&nbsp;', ' ', $commentary);
+				$filtered_content .= $commentary;
 			}
 			$start_copy_at     = $k;
 			$inside_commentary = false;
