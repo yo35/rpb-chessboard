@@ -513,6 +513,82 @@ function printDebug(message)
 	document.getElementById("chess4web-debug").innerHTML += message + "\n";
 }
 
+// Collect all the data within the "chess4web-pgn" nodes
+function parseAllInputs()
+{
+	var nodes = getElementsByClass("chess4web-pgn", "pre");
+	for(var k=0; k<nodes.length; ++k) {
+		var node = nodes[k];
+		if(node.id===undefined) {
+			continue;
+		}
+		try {
+			var pgnItems = parsePGN(node.innerHTML);
+			chess4webWholePgnItems[node.id] = pgnItems;
+		}
+		catch(err) {
+			if(err instanceof PGNException) {
+				printDebug(err.message);
+				var pos1 = Math.max(0, err.position-50);
+				var lg1  = err.position-pos1;
+				var pos2 = err.position;
+				var lg2  = Math.min(50, err.pgnString.length-pos2);
+				printDebug('...' + err.pgnString.substr(pos1, lg1) + "{{{ERROR THERE}}}"
+					+ err.pgnString.substr(pos2, lg2)) + "...";
+			}
+			else {
+				throw err;
+			}
+		}
+	}
+}
+
+// Substitute all the fields in the "chess4web-out" nodes
+function processAllOutputs()
+{
+	// Auxiliary recursive function
+	function auxRecursiveSubstitution(node, pgnItem)
+	{
+		if(node.classList===undefined) {
+			return;
+		}
+		for(var k=0; k<node.classList.length; ++k) {
+			switch(node.classList[k]) {
+				case "chess4web-template-Event"    : substituteSimpleField(node, "Event"    , pgnItem); return;
+				case "chess4web-template-Site"     : substituteSimpleField(node, "Site"     , pgnItem); return;
+				case "chess4web-template-Date"     : substituteSimpleField(node, "Date"     , pgnItem, formatDate); return;
+				case "chess4web-template-Round"    : substituteSimpleField(node, "Round"    , pgnItem); return;
+				case "chess4web-template-White"    : substituteSimpleField(node, "White"    , pgnItem); return;
+				case "chess4web-template-Black"    : substituteSimpleField(node, "Black"    , pgnItem); return;
+				case "chess4web-template-Result"   : substituteSimpleField(node, "Result"   , pgnItem); return;
+				case "chess4web-template-Annotator": substituteSimpleField(node, "Annotator", pgnItem); return;
+				case "chess4web-template-WhiteFullName": substituteFullName(node, WHITE, pgnItem); return;
+				case "chess4web-template-BlackFullName": substituteFullName(node, BLACK, pgnItem); return;
+				case "chess4web-template-FullEvent": substituteFullEvent(node, pgnItem); return;
+				case "chess4web-template-Moves": substituteMoves   (node, pgnItem); return;
+				default:
+					break;
+			}
+		}
+		for(var k=0; k<node.childNodes.length; ++k) {
+			auxRecursiveSubstitution(node.childNodes[k], pgnItem);
+		}
+	}
+
+	// Substitution occurs within the "chess4web-out" nodes
+	var nodes = getElementsByClass("chess4web-out");
+	for(var k=0; k<nodes.length; ++k) {
+		var nodeId         = nodes[k].getAttribute("id");
+		var currentPgnItem = retrievePgnItemFromFullID(nodeId);
+		if(currentPgnItem==null) {
+			continue;
+		}
+		auxRecursiveSubstitution(nodes[k], currentPgnItem);
+		nodes[k].classList.remove("chess4web-hide-this");
+	}
+}
+
+
 // Entry point
 window.onload = function()
 {
@@ -531,79 +607,7 @@ window.onload = function()
 	hideNodes("chess4web-javascript-warning", "div");
 	hideNodes("chess4web-pgn", "pre");
 
-	// Collect all the data within the "chess4web-pgn" nodes
-	function parseAllInputs()
-	{
-		var nodes = getElementsByClass("chess4web-pgn", "pre");
-		for(var k=0; k<nodes.length; ++k) {
-			var node = nodes[k];
-			if(node.id===undefined) {
-				continue;
-			}
-			try {
-				var pgnItems = parsePGN(node.innerHTML);
-				chess4webWholePgnItems[node.id] = pgnItems;
-			}
-			catch(err) {
-				if(err instanceof PGNException) {
-					printDebug(err.message);
-					var pos1 = Math.max(0, err.position-50);
-					var lg1  = err.position-pos1;
-					var pos2 = err.position;
-					var lg2  = Math.min(50, err.pgnString.length-pos2);
-					printDebug('...' + err.pgnString.substr(pos1, lg1) + "{{{ERROR THERE}}}"
-						+ err.pgnString.substr(pos2, lg2)) + "...";
-				}
-				else {
-					throw err;
-				}
-			}
-		}
-	}
-	parseAllInputs();
-
-	// Substitute all the fields in the "chess4web-out" nodes
-	function recursiveSubstitution(node, pgnItem)
-	{
-		if(node.classList===undefined) {
-			return;
-		}
-		for(var k=0; k<node.classList.length; ++k) {
-			switch(node.classList[k]) {
-				case "chess4web-template-Event"    : substituteSimpleField(node, "Event"    , pgnItem); return;
-				case "chess4web-template-Site"     : substituteSimpleField(node, "Site"     , pgnItem); return;
-				case "chess4web-template-Date"     : substituteSimpleField(node, "Date"     , pgnItem, formatDate); return;
-				case "chess4web-template-Round"    : substituteSimpleField(node, "Round"    , pgnItem); return;
-				case "chess4web-template-White"    : substituteSimpleField(node, "White"    , pgnItem); return;
-				case "chess4web-template-Black"    : substituteSimpleField(node, "Black"    , pgnItem); return;
-				case "chess4web-template-Result"   : substituteSimpleField(node, "Result"   , pgnItem); return;
-				case "chess4web-template-Annotator": substituteSimpleField(node, "Annotator", pgnItem); return;
-				case "chess4web-template-WhiteFullName": substituteFullName(node, WHITE, pgnItem); return;
-				case "chess4web-template-BlackFullName": substituteFullName(node, BLACK, pgnItem); return;
-				case "chess4web-template-FullEvent": substituteFullEvent(node, pgnItem); return;
-				case "chess4web-template-Moves"   : substituteMoves   (node, pgnItem); return;
-				//case "chess4web-template-Position": substitutePosition(node, pgnItem); return;
-				default:
-					break;
-			}
-		}
-		for(var k=0; k<node.childNodes.length; ++k) {
-			recursiveSubstitution(node.childNodes[k], pgnItem);
-		}
-	}
-	function processAllOutputs()
-	{
-		var nodes = getElementsByClass("chess4web-out");
-		for(var k=0; k<nodes.length; ++k) {
-			var node    = nodes[k];
-			var nodeId  = node.getAttribute("id");
-			var pgnItem = retrievePgnItemFromFullID(nodeId);
-			if(pgnItem==null) {
-				continue;
-			}
-			recursiveSubstitution(node, pgnItem);
-			node.classList.remove("chess4web-hide-this");
-		}
-	}
+	// Parse and display the PGN data
+	parseAllInputs   ();
 	processAllOutputs();
 }
