@@ -110,18 +110,16 @@ div.chess4web-javascript-warning {
 	font-weight: normal;
 }
 
-/*
 .chess4web-out div.chess4web-position-miniature {
 	display: none;
 }
 
 .chess4web-out span.chess4web-move:hover div.chess4web-position-miniature {
-	display: block;
-	position: fixed;
-	left:700px;
-	top:150px;
+	display : block;
+	position: absolute;
+	left: 0px;
+	top : 0px;
 }
-*/
 
 .chess4web-out .chess4web-InlinedPosition {
 	text-align: center;
@@ -131,22 +129,21 @@ div.chess4web-javascript-warning {
 .chess4web-out .chess4web-InlinedPosition table {
 	margin-top   : 5px;
 	margin-bottom: 5px;
-}
-
-.chess4web-out .chess4web-InlinedPosition table {
 	width: auto;
 	border-collapse: collapse;
 	display: inline-block;
 }
 
-.chess4web-out .chess4web-InlinedPosition td {
+.chess4web-out .chess4web-InlinedPosition td,
+.chess4web-out .chess4web-position-miniature td {
 	padding-top   : 0px;
 	padding-bottom: 0px;
 	padding-left  : 1px;
 	padding-right : 1px;
 }
 
-.chess4web-out .chess4web-InlinedPosition th {
+.chess4web-out .chess4web-InlinedPosition th,
+.chess4web-out .chess4web-position-miniature th {
 	font-weight: normal;
 	font-size  : small ;
 }

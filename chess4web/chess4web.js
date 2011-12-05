@@ -429,7 +429,7 @@ function substituteMoves(domNode, pgnItem)
 		var currentPgnNode = variation.next;
 		while(currentPgnNode!=null) {
 
-			// Move (move number + notation + nags)
+			// Move (move number + notation + nags + miniboard)
 			var move = document.createElement("span");
 			move.className = "chess4web-move";
 			if(currentPgnNode.parent.position.turn==WHITE) {
@@ -442,15 +442,15 @@ function substituteMoves(domNode, pgnItem)
 			}
 			var notation = document.createTextNode(formatMoveNotation(currentPgnNode.notation));
 			move.appendChild(notation);
-			//var miniboard = document.createElement("div");
-			//miniboard.innerHTML = currentPgnNode.address;
-			//substitutePosition(miniboard, pgnItem);
-			//miniboard.className = "chess4web-position-miniature";
-			//move.appendChild(miniboard);
 			for(var k=0; k<currentPgnNode.nags.length; ++k) {
 				var nag = document.createTextNode(" " + formatNag(currentPgnNode.nags[k]));
 				move.appendChild(nag);
 			}
+			var miniboard = document.createElement("div");
+			miniboard.className = "chess4web-position-miniature";
+			miniboard.innerHTML = positionToFEN(currentPgnNode.position);
+			move.setAttribute("onmouseover", "expandMiniboard(event, this)");
+			move.appendChild(miniboard);
 			currentDomNode.appendChild(move);
 
 			// Commentary
@@ -511,6 +511,35 @@ function substituteMoves(domNode, pgnItem)
 function printDebug(message)
 {
 	document.getElementById("chess4web-debug").innerHTML += message + "\n";
+}
+
+// Expand mini-board DOM elements
+function expandMiniboard(event, domNode)
+{
+	var targets = getElementsByClass("chess4web-position-miniature", "div", domNode);
+	if(targets.length==0) {
+		return;
+	}
+	var target = targets[0];
+	if(target.childNodes.length==1 && (target.childNodes[0] instanceof Text)) {
+		var fen = target.innerHTML;
+		target.innerHTML = "";
+		try {
+			var position  = parseFEN(fen);
+			var miniboard = renderPosition(position, chess4webDefaultMiniboardSquareSize, chess4webDefaultMiniboardShowCoordinate);
+			target.appendChild(miniboard);
+		}
+		catch(err) {
+			if(err instanceof PGNException) {
+				printDebug(err.message);
+			}
+			else {
+				throw err;
+			}
+		}
+	}
+	target.style.left = event.pageX + "px";
+	target.style.top  = (event.pageY+20) + "px";
 }
 
 // Collect all the data within the "chess4web-pgn" nodes
