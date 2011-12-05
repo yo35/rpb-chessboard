@@ -25,6 +25,19 @@
 	display: none;
 }
 
+pre.chess4web-pgn {
+	white-space: pre-wrap;
+}
+
+div.chess4web-javascript-warning {
+	padding-top   : 2px;
+	padding-bottom: 3px;
+	padding-left  : 5px;
+	background-color: #ffd8d8;
+	color: #800000;
+	border: 1px solid #800000;
+}
+
 .chess4web-template-Event,
 .chess4web-template-Site,
 .chess4web-template-Date,

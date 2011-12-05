@@ -528,7 +528,7 @@ window.onload = function()
 			nodes[k].classList.add("chess4web-hide-this");
 		}
 	}
-	hideNodes("chess4web-javascript-warning", "*");
+	hideNodes("chess4web-javascript-warning", "div");
 	hideNodes("chess4web-pgn", "pre");
 
 	// Collect all the data within the "chess4web-pgn" nodes
