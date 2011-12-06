@@ -19,6 +19,15 @@
 			11: "<?php echo __('november' , 'rpbchessboard'); ?>",
 			12: "<?php echo __('december' , 'rpbchessboard'); ?>"
 		}
+
+		chess4webPieceSymbol = {
+			"K": "R",
+			"Q": "D",
+			"R": "T",
+			"B": "F",
+			"N": "C",
+			"P": "P"
+		}
 	}
 
 </script>
