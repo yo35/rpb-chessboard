@@ -41,6 +41,7 @@ function PGNNode(parent, move)
 	this.parent   = parent;
 	this.move     = move;
 	this.position = parent.position.clone();
+	this.counter  = ((parent instanceof PGNVariation) || (parent.position.turn==BLACK)) ? parent.counter : parent.counter+1;
 	this.notation = getNotation(this.position, move);
 	play(this.position, move);
 	this.commentary = null;
@@ -69,6 +70,7 @@ PGNNode.prototype =
 		newVariation.address  = this.address + this.variations.length;
 		newVariation.parent   = this;
 		newVariation.position = this.parent.position;
+		newVariation.counter  = this.counter;
 		this.variations.push(newVariation);
 		return newVariation;
 	}
@@ -83,6 +85,7 @@ function PGNVariation()
 	this.address    = "";
 	this.parent     = null;
 	this.position   = null;
+	this.counter    = null;
 	this.commentary = null;
 	this.nags       = Array();
 	this.next       = null;
@@ -113,15 +116,20 @@ PGNItem.prototype =
 	/**
 	 * Start the game
 	 * \param startingPosition Starting position (optional, default: new initial position)
+	 * \param firstMoveNumber First move number (optional, default: 1)
 	 * \pre The starting position must be legal
 	 */
-	startMainVariation: function(startingPosition)
+	startMainVariation: function(startingPosition, firstMoveNumber)
 	{
 		if(startingPosition===undefined) {
 			startingPosition = makeInitialPosition();
 		}
+		if(firstMoveNumber===undefined) {
+			firstMoveNumber = 1;
+		}
 		this.mainVariation = new PGNVariation();
 		this.mainVariation.position = startingPosition;
+		this.mainVariation.counter  = firstMoveNumber;
 		return this.mainVariation;
 	},
 
@@ -464,8 +472,11 @@ function parsePGN(pgnString)
 			if(!(consumeToken() && token==TOKEN_CLOSING_SQUARE_BRACKETS)) {
 				throw new PGNException(pgnString, pos, "end of tag token expected");
 			}
-			// TODO: filter tagID
 			item[tagID] = tagValue;
+			if(tagID=="FEN") {
+				var fenParsed = parseFEN(tagValue, true);
+				currentNode = item.startMainVariation(fenParsed.position, fenParsed.fullMoveNumber);
+			}
 		}
 
 		// Unexpected tag component
