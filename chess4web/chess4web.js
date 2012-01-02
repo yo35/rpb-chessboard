@@ -539,6 +539,31 @@ function substituteOutputNode(outputDomNode, currentPgnItem)
 }
 
 /**
+ * Substitute the FEN inlined positions
+ */
+function substituteFenInlined(domNode) {
+	try {
+		var position = parseFEN(domNode.innerHTML);
+		var table = renderPosition(position);
+		var divIn = document.createElement("div");
+		divIn.className = "chess4web-InlinedPosition";
+		divIn.appendChild(table);
+		var divOut = document.createElement("div");
+		divOut.className = "chess4web-out";
+		divOut.appendChild(divIn);
+		domNode.parentNode.replaceChild(divOut, domNode);
+	}
+	catch(err) {
+		if(err instanceof ParsingException) {
+			return;
+		}
+		else {
+			throw err;
+		}
+	}
+}
+
+/**
  * Hide the given node
  */
 function chess4webHideNode(domNode)

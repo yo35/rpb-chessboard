@@ -1,11 +1,10 @@
 <?php
 
 // Initialization
-global $rpbchessboard_id_counter, $rpbchessboard_add_debug_tag;
-++$rpbchessboard_id_counter;
-$current_pgn_id = 'rpbchessboard-pgn-'.get_the_ID().'-'.$rpbchessboard_id_counter;
+$current_pgn_id = rpbchessboard_make_pgn_id();
 
 // Pre-node for debug messages printing
+global $rpbchessboard_add_debug_tag;
 if($rpbchessboard_add_debug_tag && defined('RPBCHESSBOARD_DEBUG')) {
 	echo '<pre id="chess4web-debug"></pre>';
 }

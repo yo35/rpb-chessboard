@@ -3,7 +3,7 @@
 Plugin Name: RpbChessboard
 Description: This plugin allows you to deal with PGN data.
 Author: Yoann Le Montagner
-Version: 0.2
+Version: 0.3
 */
 
 // Debug option (comment to release)
@@ -42,6 +42,27 @@ function rpbchessboard_enqueue_css()
 	wp_enqueue_style ('rpbchessboard-main'     );
 }
 
+// Global vars
+$rpbchessboard_id_counter = 0;
+$rpbchessboard_add_debug_tag = true;
+
+// ID generation
+function rpbchessboard_make_pgn_id()
+{
+	global $rpbchessboard_id_counter;
+	++$rpbchessboard_id_counter;
+	return 'rpbchessboard-pgn-'.get_the_ID().'-'.$rpbchessboard_id_counter;
+}
+
+// Simple diagram
+add_shortcode('fen', 'rpbchessboard_shortcode_fen');
+function rpbchessboard_shortcode_fen($atts, $content)
+{
+	ob_start();
+	include(RPBCHESSBOARD_ABSPATH.'template-fen.php');
+	return ob_get_clean();
+}
+
 // Shortcode for diagrams
 add_shortcode('pgndiagram', 'rpbchessboard_shortcode_diagram');
 function rpbchessboard_shortcode_diagram($atts)
@@ -51,8 +72,6 @@ function rpbchessboard_shortcode_diagram($atts)
 
 // Printer
 add_shortcode('pgn', 'rpbchessboard_shortcode_printer');
-$rpbchessboard_id_counter = 0;
-$rpbchessboard_add_debug_tag = true;
 function rpbchessboard_shortcode_printer($atts, $content='')
 {
 	ob_start();
