@@ -21,6 +21,9 @@
  ******************************************************************************/
 
 
+/******************************************************************************/
+/*** General CSS ***/
+
 .chess4web-hide-this {
 	display: none;
 }
@@ -82,6 +85,8 @@ div.chess4web-javascript-warning {
 
 .chess4web-out span.chess4web-move {
 	font-weight: bold;
+	padding-left : 2px;
+	padding-right: 2px;
 }
 
 .chess4web-out span.chess4web-move,
@@ -110,23 +115,57 @@ div.chess4web-javascript-warning {
 	font-weight: normal;
 }
 
+
+
+/******************************************************************************/
+/*** Navigation board ***/
+
 .chess4web-out div.chess4web-position-miniature {
 	display: none;
 }
 
-.chess4web-out span.chess4web-move:hover div.chess4web-position-miniature {
-	display : block;
-	position: absolute;
-	left: 0px;
-	top : 0px;
+div#chess4web-navigation-frame {
+	display: none;
+	position: fixed;
+	left : 60%;
+	top  : 20%;
 }
+
+div.chess4web-show-me#chess4web-navigation-frame {
+	display: block;
+	width: auto;
+}
+
+div#chess4web-navigation-frame #chess4web-navigation-close {
+	float: right;
+}
+
+div#chess4web-navigation-frame #chess4web-navigation-title {
+	cursor: move;
+}
+
+div#chess4web-navigation-frame #chess4web-navigation-content {
+	clear: both;
+	padding: 10px 10px 5px;
+}
+
+div#chess4web-navigation-frame #chess4web-navigation-buttons {
+	text-align: center;
+	display: none; /*** TODO: remove and manage buttons ***/
+}
+
+
+
+/******************************************************************************/
+/*** Board style ***/
 
 .chess4web-out .chess4web-InlinedPosition {
 	text-align: center;
 	display: block;
 }
 
-.chess4web-out .chess4web-InlinedPosition table {
+.chess4web-out .chess4web-InlinedPosition table,
+div#chess4web-navigation-frame table {
 	margin-top   : 5px;
 	margin-bottom: 5px;
 	width: auto;
@@ -135,7 +174,7 @@ div.chess4web-javascript-warning {
 }
 
 .chess4web-out .chess4web-InlinedPosition td,
-.chess4web-out .chess4web-position-miniature td {
+div#chess4web-navigation-frame td {
 	padding-top   : 0px;
 	padding-bottom: 0px;
 	padding-left  : 1px;
@@ -143,19 +182,21 @@ div.chess4web-javascript-warning {
 }
 
 .chess4web-out .chess4web-InlinedPosition th,
-.chess4web-out .chess4web-position-miniature th {
+div#chess4web-navigation-frame th {
 	font-weight: normal;
 	font-size  : small ;
 }
 
-.chess4web-out .chess4web-InlinedPosition table th[scope=column] {
+.chess4web-out .chess4web-InlinedPosition table th[scope=column],
+div#chess4web-navigation-frame table th[scope=column] {
 	padding-top   : 2px;
 	padding-bottom: 0px;
 	padding-left  : 0px;
 	padding-right : 0px;
 }
 
-.chess4web-out .chess4web-InlinedPosition table th[scope=row] {
+.chess4web-out .chess4web-InlinedPosition table th[scope=row],
+div#chess4web-navigation-frame table th[scope=row] {
 	padding-top   : 0px;
 	padding-bottom: 0px;
 	padding-left  : 0px;

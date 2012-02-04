@@ -39,7 +39,7 @@ var chess4webDefaultShowCoordinate = false;
 /**
  * Default square size for the board
  */
-var chess4webDefaultMiniboardSquareSize = 24;
+var chess4webDefaultMiniboardSquareSize = 36;
 
 /**
  * Default show coordinate option
@@ -407,7 +407,7 @@ function substituteMoves(domNode, pgnItem)
 			var miniboard = document.createElement("div");
 			miniboard.className = "chess4web-position-miniature";
 			miniboard.innerHTML = positionToFEN(currentPgnNode.position);
-			move.setAttribute("onmouseover", "expandMiniboard(event, this)");
+			move.setAttribute("onclick", "showNavigationFrame(this)");
 			move.appendChild(miniboard);
 			currentDomNode.appendChild(move);
 
@@ -441,35 +441,127 @@ function substituteMoves(domNode, pgnItem)
 }
 
 /**
- * Function used to expand the mini-board DIV elements, and to place them according
- * to the mouse pointer position
+ * Creates the chess4web-navigation-frame if it does not exist
  */
-function expandMiniboard(event, domNode)
+function makeNavigationFrame(parentNode)
 {
-	var targets = getElementsByClass("chess4web-position-miniature", "div", domNode);
-	if(targets.length==0) {
+	if(document.getElementById("chess4web-navigation-frame")!=null) {
 		return;
 	}
-	var target = targets[0];
-	if(target.childNodes.length==1 && (target.childNodes[0] instanceof Text)) {
-		var fen = target.innerHTML;
-		target.innerHTML = "";
-		try {
-			var position  = parseFEN(fen);
-			var miniboard = renderPosition(position, chess4webDefaultMiniboardSquareSize, chess4webDefaultMiniboardShowCoordinate);
-			target.appendChild(miniboard);
+	var retVal = document.createElement("div");
+	retVal.setAttribute("id", "chess4web-navigation-frame");
+	jQuery(document).ready(function($){
+		$("#chess4web-navigation-frame").draggable({ handle: '#chess4web-navigation-title' });
+	});
+	parentNode.appendChild(retVal);
+
+	// Function that creates a button
+	function makeNewButton(label)
+	{
+		var newButton = document.createElement("input");
+		newButton.setAttribute("type", "button");
+		newButton.setAttribute("value", label);
+		return newButton;
+	}
+
+	// Close button
+	var closeButtonDiv = document.createElement("div");
+	closeButtonDiv.setAttribute("id", "chess4web-navigation-close");
+	var closeButton = makeNewButton("x");
+	closeButton.setAttribute("onclick", "hideNavigationFrame()");
+	closeButtonDiv.appendChild(closeButton);
+	retVal.appendChild(closeButtonDiv);
+
+	// Title bar
+	var titleBar = document.createElement("div");
+	titleBar.setAttribute("id", "chess4web-navigation-title");
+	retVal.appendChild(titleBar);
+
+	// Board container
+	var boardData = document.createElement("div");
+	boardData.setAttribute("id", "chess4web-navigation-content");
+	retVal.appendChild(boardData);
+
+	// Buttons
+	var buttonBar = document.createElement("div");
+	buttonBar.setAttribute("id", "chess4web-navigation-buttons");
+	retVal.appendChild(buttonBar);
+	var prevButton = makeNewButton("<");
+	var nextButton = makeNewButton(">");
+	buttonBar.appendChild(prevButton);
+	buttonBar.appendChild(nextButton);
+}
+
+/**
+ * Hide the navigation frame
+ */
+function hideNavigationFrame()
+{
+	var navigationFrame = document.getElementById("chess4web-navigation-frame");
+	if(navigationFrame!=null) {
+		navigationFrame.classList.remove("chess4web-show-me");
+	}
+	var selectedNode = document.getElementById("chess4web-selected-move");
+	if(selectedNode!=null) {
+		selectedNode.removeAttribute("id");
+	}
+}
+
+/**
+ * Show or update the navigation frame
+ */
+function showNavigationFrame(domNode)
+{
+	if(domNode==null) {
+		return;
+	}
+
+	// Remove the selected-move flag from the previously selected node
+	var prevSelectedNode = document.getElementById("chess4web-selected-move");
+	if(domNode==prevSelectedNode) {
+		return;
+	}
+	if(prevSelectedNode!=null) {
+		prevSelectedNode.removeAttribute("id");
+	}
+
+	// Set the selected-move flag on the new node
+	domNode.setAttribute("id", "chess4web-selected-move");
+
+	// Fill the miniboard in the navigation frame
+	var position = expandMiniboard(domNode);
+	var target = document.getElementById("chess4web-navigation-content");
+	target.innerHTML = "";
+	//while(target.numChildren > 0) {
+	//	target.removeChildAt(0);
+	//}
+	target.appendChild(position);
+
+	// Show the navigation frame
+	var navigationFrame = document.getElementById("chess4web-navigation-frame");
+	navigationFrame.classList.add("chess4web-show-me");
+}
+
+/**
+ * Return the table corresponding to the content of a DOM node
+ */
+function expandMiniboard(domNode)
+{
+	var target = getElementsByClass("chess4web-position-miniature", "div", domNode);
+	var fen = target[0].innerHTML;
+	try {
+		var position  = parseFEN(fen);
+		var miniboard = renderPosition(position, chess4webDefaultMiniboardSquareSize, chess4webDefaultMiniboardShowCoordinate);
+		return miniboard;
+	}
+	catch(err) {
+		if(err instanceof PGNException) {
+			printDebug(err.message);
 		}
-		catch(err) {
-			if(err instanceof PGNException) {
-				printDebug(err.message);
-			}
-			else {
-				throw err;
-			}
+		else {
+			throw err;
 		}
 	}
-	target.style.left = event.pageX + "px";
-	target.style.top  = (event.pageY+20) + "px";
 }
 
 /**

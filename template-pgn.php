@@ -82,6 +82,7 @@ echo '</div>';
 <!-- Call the the PGN engine -->
 <script type="text/javascript">
 	chess4webConfigure();
+	makeNavigationFrame(document.getElementById("content"));
 	var currentPgnItems = parseInputNode(document.getElementById("<?php echo $current_pgn_id; ?>-in"));
 	chess4webHideNode(document.getElementById("<?php echo $current_pgn_id; ?>-jw"));
 	substituteOutputNode(document.getElementById("<?php echo $current_pgn_id; ?>-out"), currentPgnItems[0]);
