@@ -80,10 +80,6 @@ echo '</div>';
 </div>
 
 <!-- Call the the PGN engine -->
-<script type="text/javascript" src="<?php echo site_url(); ?>/wp-includes/js/jquery/ui/jquery.ui.core.min.js?ver=1.8.16"     ></script>
-<script type="text/javascript" src="<?php echo site_url(); ?>/wp-includes/js/jquery/ui/jquery.ui.widget.min.js?ver=1.8.16"   ></script>
-<script type="text/javascript" src="<?php echo site_url(); ?>/wp-includes/js/jquery/ui/jquery.ui.mouse.min.js?ver=1.8.16"    ></script>
-<script type="text/javascript" src="<?php echo site_url(); ?>/wp-includes/js/jquery/ui/jquery.ui.draggable.min.js?ver=1.8.16"></script>
 <script type="text/javascript">
 	chess4webConfigure();
 	makeNavigationFrame(document.getElementById("content"));
