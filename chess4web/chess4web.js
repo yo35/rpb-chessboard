@@ -532,9 +532,6 @@ function showNavigationFrame(domNode)
 	var position = expandMiniboard(domNode);
 	var target = document.getElementById("chess4web-navigation-content");
 	target.innerHTML = "";
-	//while(target.numChildren > 0) {
-	//	target.removeChildAt(0);
-	//}
 	target.appendChild(position);
 
 	// Show the navigation frame
