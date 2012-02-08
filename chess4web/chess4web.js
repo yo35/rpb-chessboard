@@ -451,7 +451,7 @@ function makeNavigationFrame(parentNode)
 	var retVal = document.createElement("div");
 	retVal.setAttribute("id", "chess4web-navigation-frame");
 	jQuery(document).ready(function($){
-		$("#chess4web-navigation-frame").draggable({ handle: '#chess4web-navigation-title' });
+		$("#chess4web-navigation-frame").draggable({ handle: "#chess4web-navigation-title" });
 	});
 	parentNode.appendChild(retVal);
 
@@ -532,9 +532,6 @@ function showNavigationFrame(domNode)
 	var position = expandMiniboard(domNode);
 	var target = document.getElementById("chess4web-navigation-content");
 	target.innerHTML = "";
-	//while(target.numChildren > 0) {
-	//	target.removeChildAt(0);
-	//}
 	target.appendChild(position);
 
 	// Show the navigation frame
