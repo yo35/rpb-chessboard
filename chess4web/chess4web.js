@@ -451,7 +451,9 @@ function makeNavigationFrame(parentNode)
 	var retVal = document.createElement("div");
 	retVal.setAttribute("id", "chess4web-navigation-frame");
 	jQuery(document).ready(function($){
-		$("#chess4web-navigation-frame").draggable({ handle: "#chess4web-navigation-title" });
+		if(typeof($("#chess4web-navigation-frame").draggable)=="function") {
+			$("#chess4web-navigation-frame").draggable({ handle: "#chess4web-navigation-title" });
+		}
 	});
 	parentNode.appendChild(retVal);
 
