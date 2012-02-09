@@ -96,6 +96,10 @@ div.chess4web-javascript-warning {
 	display: inline-block;
 }
 
+.chess4web-out span.chess4web-move:hover {
+	cursor: pointer;
+}
+
 .chess4web-out span.chess4web-long-commentary {
 	margin-left  : 10px;
 	margin-top   :  4px;
