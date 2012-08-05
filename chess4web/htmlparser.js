@@ -163,15 +163,20 @@
 		}
 
 		function parseEndTag( tag, tagName ) {
+			
+			var pos = 0;
+			
 			// If no tag name is provided, clean shop
-			if ( !tagName )
-				var pos = 0;
+			if ( !tagName ) {
+				pos = 0;
+			}
 
 			// Find the closest opened tag of the same type
-			else
-				for ( var pos = stack.length - 1; pos >= 0; pos-- )
+			else {
+				for ( pos = stack.length - 1; pos >= 0; pos-- )
 					if ( stack[ pos ] == tagName )
 						break;
+			}
 
 			if ( pos >= 0 ) {
 				// Close all the open elements, up the stack

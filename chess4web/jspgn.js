@@ -201,12 +201,12 @@ function parsePGN(pgnString)
 	const TOKEN_COMMENTARY              = 13; // {[^}]*}
 
 	// State variables
-	var pos    = 0;
-	var token  = 0;
-	var tokenValue;
+	var pos        = 0;
+	var token      = 0;
+	var tokenValue = 0;
 	var inside_tag = false;
-	var retVal = Array();
-	var item = null;
+	var retVal     = Array();
+	var item       = null;
 
 	// Skip the blank and newline characters
 	function skipBlank()
