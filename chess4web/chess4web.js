@@ -113,16 +113,18 @@ var chess4webNag =
  * Retrieve all the elements with a given class
  * \param searchClass Name of the targeted class
  * \param tagName Type of node to search for (optional, default: '*')
- * \param domNode Root node to search (default: document)
+ * \param domNode Root node to search (optional, default: document)
+ * \param recursive Set to false to search only within the direct children of the root node (optional, default: true)
  */
-function getElementsByClass(searchClass, tagName, domNode)
+function getElementsByClass(searchClass, tagName, domNode, recursive)
 {
-	if(domNode==null) domNode = document;
-	if(tagName==null) tagName = "*";
+	if(domNode  ==null) domNode   = document;
+	if(tagName  ==null) tagName   = "*";
+	if(recursive==null) recursive = true; 
 	var retVal   = new Array();
 	var elements = domNode.getElementsByTagName(tagName);
 	for(var k=0; k<elements.length; ++k) {
-		if(elements[k].classList.contains(searchClass)) {
+		if(elements[k].classList.contains(searchClass) && (recursive || domNode==elements[k].parentNode)) {
 			retVal.push(elements[k]);
 		}
 	}
@@ -514,7 +516,7 @@ function goFirstMove()
 	}
 	
 	// All the move nodes in with the same parent
-	var moveNodes = getElementsByClass("chess4web-move", "span", currentSelectedNode.parentNode);
+	var moveNodes = getElementsByClass("chess4web-move", "span", currentSelectedNode.parentNode, true);
 	if(moveNodes.length>0) {
 		showNavigationFrame(moveNodes[0]);
 	}
@@ -532,7 +534,7 @@ function goPrevMove()
 	}
 	
 	// All the move nodes in with the same parent
-	var moveNodes = getElementsByClass("chess4web-move", "span", currentSelectedNode.parentNode);
+	var moveNodes = getElementsByClass("chess4web-move", "span", currentSelectedNode.parentNode, true);
 	for(var k=0; k<moveNodes.length; ++k) {
 		if(moveNodes[k]==currentSelectedNode) {
 			if(k>0) {
@@ -555,7 +557,7 @@ function goNextMove()
 	}
 	
 	// All the move nodes in with the same parent
-	var moveNodes = getElementsByClass("chess4web-move", "span", currentSelectedNode.parentNode);
+	var moveNodes = getElementsByClass("chess4web-move", "span", currentSelectedNode.parentNode, true);
 	for(var k=0; k<moveNodes.length; ++k) {
 		if(moveNodes[k]==currentSelectedNode) {
 			if(k<moveNodes.length-1) {
@@ -578,7 +580,7 @@ function goLastMove()
 	}
 	
 	// All the move nodes in with the same parent
-	var moveNodes = getElementsByClass("chess4web-move", "span", currentSelectedNode.parentNode);
+	var moveNodes = getElementsByClass("chess4web-move", "span", currentSelectedNode.parentNode, true);
 	if(moveNodes.length>0) {
 		showNavigationFrame(moveNodes[moveNodes.length-1]);
 	}
