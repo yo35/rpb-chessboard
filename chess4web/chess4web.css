@@ -87,13 +87,12 @@ div.chess4web-javascript-warning {
 	font-weight: bold;
 	padding-left : 2px;
 	padding-right: 2px;
+	display: inline-block;
+	margin-right: 5px;
 }
 
-.chess4web-out span.chess4web-move,
-.chess4web-out span.chess4web-commentary,
-.chess4web-out span.chess4web-variation {
+.chess4web-out span.chess4web-commentary {
 	margin-right: 5px;
-	display: inline-block;
 }
 
 .chess4web-out span.chess4web-move:hover {
@@ -107,16 +106,19 @@ div.chess4web-javascript-warning {
 	display: block;
 }
 
-.chess4web-out span.chess4web-variation:before {
-	content: "(";
-}
-
-.chess4web-out span.chess4web-variation:after {
-	content: ")";
+.chess4web-out span.chess4web-variation {
+	margin-left  : 10px;
+	margin-top   :  4px;
+	margin-bottom:  4px;
+	display: block;
 }
 
 .chess4web-out span.chess4web-variation span.chess4web-move {
 	font-weight: normal;
+}
+
+.chess4web-out span.chess4web-variation span.chess4web-commentary {
+	font-style: italic;
 }
 
 

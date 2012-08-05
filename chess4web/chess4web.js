@@ -355,7 +355,7 @@ function substituteMoves(domNode, pgnItem)
 	domNode.innerHTML = "";
 
 	// Auxiliary function for commentary printing
-	function printCommentary(currentDomNode, currentPgnNode)
+	function printCommentary(currentDomNode, currentPgnNode, depth)
 	{
 		if(currentPgnNode.commentary==null) {
 			return;
@@ -371,16 +371,16 @@ function substituteMoves(domNode, pgnItem)
 			inlinedPositionNode.classList.add   ("chess4web-InlinedPosition");
 			inlinedPositionNode.classList.remove("chess4web-template-InlinedPosition");
 		}
-		var isLongCommentary = (textLength>=30) || (inlinedPositionNodes.length>0);
+		var isLongCommentary = (depth==0) && ((textLength>=30) || (inlinedPositionNodes.length>0));
 		commentary.className = "chess4web-" + (isLongCommentary ? "long-commentary" : "commentary");
 		currentDomNode.appendChild(commentary);
 	}
 
 	// Recursive function for variation printing
-	function printVariation(currentDomNode, variation)
+	function printVariation(currentDomNode, variation, depth)
 	{
 		// First commentary
-		printCommentary(currentDomNode, variation);
+		printCommentary(currentDomNode, variation, depth);
 		var forcePrintMoveNumber = true;
 
 		// Start iterating over the variation main line
@@ -412,13 +412,13 @@ function substituteMoves(domNode, pgnItem)
 			currentDomNode.appendChild(move);
 
 			// Commentary
-			printCommentary(currentDomNode, currentPgnNode);
+			printCommentary(currentDomNode, currentPgnNode, depth);
 
 			// Variations
 			for(var k=0; k<currentPgnNode.variations.length; ++k) {
 				var newVariation = document.createElement("span");
 				newVariation.className = "chess4web-variation";
-				printVariation(newVariation, currentPgnNode.variations[k]);
+				printVariation(newVariation, currentPgnNode.variations[k], depth+1);
 				currentDomNode.appendChild(newVariation);
 			}
 
@@ -427,7 +427,7 @@ function substituteMoves(domNode, pgnItem)
 			currentPgnNode = currentPgnNode.next;
 		}
 	}
-	printVariation(domNode, pgnItem.mainVariation);
+	printVariation(domNode, pgnItem.mainVariation, 0);
 
 	// Append the result
 	var result = document.createElement("span");
