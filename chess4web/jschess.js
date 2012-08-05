@@ -768,8 +768,8 @@ function isLegalDisplacement(position, from, to)
 	}
 
 	// Execute the displacement (remember we know at this point it is not a castle)
-	var oldEnPassantContent;
-	var oldToContent     = position.board[to  ];
+	var oldEnPassantContent = 0;
+	var oldToContent = position.board[to];
 	position.board[to  ] = position.board[from];
 	position.board[from] = null;
 	if(enPassantSquare!=null) {
@@ -1081,7 +1081,7 @@ function getNotation(position, move)
 	var to          = getTo  (move);
 	var movingPiece = coloredPieceToPiece(position.board[from]);
 	var rowFrom     = squareToRow   (from);
-	var rowTo       = squareToRow   (to  );
+	//var rowTo       = squareToRow   (to  );
 	var columnFrom  = squareToColumn(from);
 	var columnTo    = squareToColumn(to  );
 	var retVal = "";
