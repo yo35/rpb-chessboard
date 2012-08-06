@@ -3,7 +3,7 @@
 Plugin Name: RpbChessboard
 Description: This plugin allows you to deal with PGN data.
 Author: Yoann Le Montagner
-Version: 1.0
+Version: 1.1
 */
 
 // Debug option (comment to release)
