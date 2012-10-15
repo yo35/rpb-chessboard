@@ -348,7 +348,7 @@ function substituteFullEvent(domNode, pgnItem)
 /**
  * Replace the content of a DOM node with the list of moves
  */
-function substituteMoves(domNode, pgnItem)
+function substituteMoves(domNode, pgnItem, hideResult)
 {
 	// Initialize the tree walk
 	if(pgnItem.mainVariation==null) {
@@ -432,10 +432,12 @@ function substituteMoves(domNode, pgnItem)
 	printVariation(domNode, pgnItem.mainVariation, 0);
 
 	// Append the result
-	var result = document.createElement("span");
-	result.className = "chess4web-Result";
-	result.innerHTML = pgnItem["Result"];
-	domNode.appendChild(result);
+	if(!hideResult) {
+		var result = document.createElement("span");
+		result.className = "chess4web-Result";
+		result.innerHTML = pgnItem["Result"];
+		domNode.appendChild(result);
+	}
 
 	// CSS classes
 	domNode.classList.add   ("chess4web-Moves");
@@ -685,10 +687,10 @@ function parseInputNode(inputDomNode)
 /**
  * Substitute the template fields in a given output DOM node
  */
-function substituteOutputNode(outputDomNode, currentPgnItem)
+function substituteOutputNode(outputDomNode, currentPgnItem, hideResult)
 {
 	// Auxiliary recursive function
-	function auxRecursiveSubstitution(node, pgnItem)
+	function auxRecursiveSubstitution(node, pgnItem, hideResult)
 	{
 		if(node.classList===undefined) {
 			return;
@@ -706,18 +708,18 @@ function substituteOutputNode(outputDomNode, currentPgnItem)
 				case "chess4web-template-WhiteFullName": substituteFullName(node, WHITE, pgnItem); return;
 				case "chess4web-template-BlackFullName": substituteFullName(node, BLACK, pgnItem); return;
 				case "chess4web-template-FullEvent": substituteFullEvent(node, pgnItem); return;
-				case "chess4web-template-Moves": substituteMoves   (node, pgnItem); return;
+				case "chess4web-template-Moves": substituteMoves   (node, pgnItem, hideResult); return;
 				default:
 					break;
 			}
 		}
 		for(var k=0; k<node.childNodes.length; ++k) {
-			auxRecursiveSubstitution(node.childNodes[k], pgnItem);
+			auxRecursiveSubstitution(node.childNodes[k], pgnItem, hideResult);
 		}
 	}
 
 	// Root call
-	auxRecursiveSubstitution(outputDomNode, currentPgnItem);
+	auxRecursiveSubstitution(outputDomNode, currentPgnItem, hideResult);
 	outputDomNode.classList.remove("chess4web-hide-this");
 }
 

@@ -10,6 +10,9 @@ if($rpbchessboard_add_debug_tag && defined('RPBCHESSBOARD_DEBUG')) {
 }
 $rpbchessboard_add_debug_tag = false;
 
+// Options
+$js_hide_result = $hide_result ? 'true' : 'false';
+
 // Remove the useless elements added by the Wordpress engine
 $filtered_content  = '';
 $length_content    = strlen($content);
@@ -70,7 +73,7 @@ echo '</div>';
 		<div><span class="rpbchessboard-white-square">&nbsp;</span>&nbsp;<span class="chess4web-template-WhiteFullName"></span></div>
 		<div><span class="rpbchessboard-black-square">&nbsp;</span>&nbsp;<span class="chess4web-template-BlackFullName"></span></div>
 		<div><span class="chess4web-template-FullEvent"></span></div>
-		<?php if($show_annotator): ?>
+		<?php if(!$hide_annotator): ?>
 			<div class="rpbchessboard-annotator"><?php
 				echo sprintf(__('Commented by %1$s', 'rpbchessboard'), '<span class="chess4web-template-Annotator"></span>');
 			?></div>
@@ -87,5 +90,5 @@ echo '</div>';
 	makeNavigationFrame(document.getElementById("content"));
 	var currentPgnItems = parseInputNode(document.getElementById("<?php echo $current_pgn_id; ?>-in"));
 	chess4webHideNode(document.getElementById("<?php echo $current_pgn_id; ?>-jw"));
-	substituteOutputNode(document.getElementById("<?php echo $current_pgn_id; ?>-out"), currentPgnItems[0]);
+	substituteOutputNode(document.getElementById("<?php echo $current_pgn_id; ?>-out"), currentPgnItems[0], <?php echo $js_hide_result; ?>);
 </script>
