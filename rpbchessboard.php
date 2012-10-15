@@ -75,6 +75,12 @@ add_shortcode('pgn', 'rpbchessboard_shortcode_printer');
 function rpbchessboard_shortcode_printer($atts, $content='')
 {
 	ob_start();
+	if(array_key_exists('showannotator', $atts)) {
+		$show_annotator = $atts['showannotator']=='true';
+	}
+	else {
+		$show_annotator = true;
+	}
 	include(RPBCHESSBOARD_ABSPATH.'template-pgn.php');
 	return ob_get_clean();
 }

@@ -70,9 +70,11 @@ echo '</div>';
 		<div><span class="rpbchessboard-white-square">&nbsp;</span>&nbsp;<span class="chess4web-template-WhiteFullName"></span></div>
 		<div><span class="rpbchessboard-black-square">&nbsp;</span>&nbsp;<span class="chess4web-template-BlackFullName"></span></div>
 		<div><span class="chess4web-template-FullEvent"></span></div>
-		<div class="rpbchessboard-annotator"><?php
-			echo sprintf(__('Commented by %1$s', 'rpbchessboard'), '<span class="chess4web-template-Annotator"></span>');
-		?></div>
+		<?php if($show_annotator): ?>
+			<div class="rpbchessboard-annotator"><?php
+				echo sprintf(__('Commented by %1$s', 'rpbchessboard'), '<span class="chess4web-template-Annotator"></span>');
+			?></div>
+		<?php endif; ?>
 	</div>
 	<div class="rpbchessboard-game-body">
 		<div class="chess4web-template-Moves"></div>
