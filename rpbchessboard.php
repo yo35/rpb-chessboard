@@ -75,6 +75,9 @@ add_shortcode('pgn', 'rpbchessboard_shortcode_printer');
 function rpbchessboard_shortcode_printer($atts, $content='')
 {
 	ob_start();
+	if(!is_array($atts)) {
+		$atts = array();
+	}
 	if(array_key_exists('hide_annotator', $atts)) {
 		$hide_annotator = $atts['hide_annotator']=='true';
 	}
