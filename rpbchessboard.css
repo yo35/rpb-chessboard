@@ -1,4 +1,13 @@
 
+div.rpbchessboard-javascript-warning {
+	padding-top   : 2px;
+	padding-bottom: 3px;
+	padding-left  : 5px;
+	background-color: #ffd8d8;
+	color: #800000;
+	border: 1px solid #800000;
+}
+
 span.rpbchessboard-white-square {
 	background-color: white;
 	padding-left: 11px;
