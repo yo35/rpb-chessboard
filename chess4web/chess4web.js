@@ -141,6 +141,20 @@ var jsChessRenderer = (function()
 	};
 
 	/**
+	 * Print a debug message. The text is appended in a DOM node identified by
+	 * the ID "jsChessLib-debug". Nothing happens is this DOM node does not exist.
+	 *
+	 * @param {String} message Message to print.
+	 */
+	function printDebug(message)
+	{
+		var debugNode = document.getElementById("jsChessLib-debug");
+		if(debugNode!=null) {
+			debugNode.innerHTML += message + "\n";
+		}
+	}
+
+	/**
 	 * Return the URL to the folder containing the sprites of the given size.
 	 *
 	 * @param {Number} squareSize Size of the sprite to use.
@@ -894,28 +908,8 @@ function substituteOutputNode(outputDomNode, currentPgnItem, hideResult)
 	outputDomNode.classList.remove("chess4web-hide-this");
 }
 
-/**
- * Substitute the FEN inlined positions
- */
-function substituteFenInlined(domNode)
-{
-	try {
-		var position     = parseFEN(domNode.innerHTML);
-		var positionNode = renderPosition(position);
-		var outputNode   = document.createElement("div");
-		outputNode.className = "chess4web-out";
-		outputNode.appendChild(positionNode);
-		domNode.parentNode.replaceChild(outputNode, domNode);
-	}
-	catch(err) {
-		if(err instanceof ParsingException) {
-			return;
-		}
-		else {
-			throw err;
-		}
-	}
-}
+
+
 
 /**
  * Hide the given node
@@ -925,31 +919,8 @@ function chess4webHideNode(domNode)
 	domNode.classList.add("chess4web-hide-this");
 }
 
-/**
- * Print a debug message
- */
-function printDebug(message)
-{
-	var debugNode = document.getElementById("chess4web-debug");
-	if(debugNode!=null) {
-		debugNode.innerHTML += message + "\n";
-	}
-}
 
-// Entry point
-var chess4webConfigureExecuted = false;
-function chess4webConfigure()
-{
-	if(chess4webConfigureExecuted) {
-		return;
-	}
 
-	// Optional function to initialize chess4web
-	if(typeof(chess4webInit)=="function") {
-		chess4webInit();
-	}
-	chess4webConfigureExecuted = true;
-}
 
 	// Return the module object
 	return module;
