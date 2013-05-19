@@ -15,8 +15,8 @@ abstract class RPBChessBoardHelper
 	 */
 	public static function makeID()
 	{
-		++self::$rpbchessboard_id_counter;
-		return 'rpbchessboard-item'.self::$rpbchessboard_id_counter;
+		++self::$idCounter;
+		return 'rpbchessboard-item'.self::$idCounter;
 	}
 
 	/**
@@ -83,7 +83,7 @@ abstract class RPBChessBoardHelper
 				, 'rpbchessboard'); ?>
 			</div>
 			<script type="text/javascript">
-				var domNode = document.getElementById("<?php $currentID; ?>");
+				var domNode = document.getElementById("<?php echo $currentID; ?>");
 				if(domNode!=null) {
 					domNode.parentNode.removeChild(domNode);
 				}
