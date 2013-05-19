@@ -55,6 +55,25 @@ abstract class RPBChessBoardHelper
 	}
 
 	/**
+	 * Retrieve the optional show coordinates arguments in the associative array $atts,
+	 * and return a corresponding string that can be inlined in a javascript code.
+	 */
+	public static function readShowCoordinates($atts)
+	{
+		$value = self::readRawOption($atts, 'show_coordinates');
+		if($value==null) {
+			return "null";
+		}
+		$value = strtolower($value);
+		if($value=="true" || $value=="false") {
+			return $value;
+		}
+		else {
+			return "null";
+		}
+	}
+
+	/**
 	 * Whether the debug HTML node has already been printed or not
 	 */
 	private static $debugNodePrinted = false;
