@@ -120,7 +120,7 @@ function getElementsByClass(searchClass, tagName, domNode, recursive)
 {
 	if(domNode  ==null) domNode   = document;
 	if(tagName  ==null) tagName   = "*";
-	if(recursive==null) recursive = true; 
+	if(recursive==null) recursive = true;
 	var retVal   = new Array();
 	var elements = domNode.getElementsByTagName(tagName);
 	for(var k=0; k<elements.length; ++k) {
@@ -191,10 +191,11 @@ function formatNag(nag)
 }
 
 /**
- * Return a table DOM node representing the given position
+ * Return a DOM node representing the given position
  */
 function renderPosition(position, squareSize, showCoordinate, blackSquare, whiteSquare)
 {
+	// Default arguments
 	if(squareSize    ===undefined) squareSize    =chess4webDefaultSquareSize    ;
 	if(showCoordinate===undefined) showCoordinate=chess4webDefaultShowCoordinate;
 	if(blackSquare   ===undefined) blackSquare   =chess4webDefaultBlackSquare   ;
@@ -221,6 +222,16 @@ function renderPosition(position, squareSize, showCoordinate, blackSquare, white
 		}
 		return retVal;
 	}
+
+	// Return the URL to the sprite corresponding to a given color flag
+	function getColorURL(color)
+	{
+		return chess4webBaseURL + squareSize + "/" + (color==WHITE ? "white" : "black") + ".png";
+	}
+
+	// Create the returned node
+	var retVal = document.createElement("div");
+	retVal.classList.add("chess4web-chessboard");
 
 	// Create the table
 	var table = document.createElement("table");
@@ -258,7 +269,17 @@ function renderPosition(position, squareSize, showCoordinate, blackSquare, white
 		tbody.appendChild(tr);
 	}
 	table.appendChild(tbody);
-	return table;
+	retVal.appendChild(table);
+
+	// Create the black or white circle on the right of the table,
+	// indicating which player is about to play.
+	var turnNode = document.createElement("img");
+	turnNode.classList.add("chess4web-" + (position.turn==WHITE ? "white" : "black") + "-to-play");
+	turnNode.setAttribute("src", getColorURL(position.turn));
+	retVal.appendChild(turnNode);
+
+	// Return the result
+	return retVal;
 }
 
 /**
@@ -516,7 +537,7 @@ function goFirstMove()
 	if(currentSelectedNode==null) {
 		return;
 	}
-	
+
 	// All the move nodes in with the same parent
 	var moveNodes = getElementsByClass("chess4web-move", "span", currentSelectedNode.parentNode, false);
 	if(moveNodes.length>0) {
@@ -534,7 +555,7 @@ function goPrevMove()
 	if(currentSelectedNode==null) {
 		return;
 	}
-	
+
 	// All the move nodes in with the same parent
 	var moveNodes = getElementsByClass("chess4web-move", "span", currentSelectedNode.parentNode, false);
 	for(var k=0; k<moveNodes.length; ++k) {
@@ -557,7 +578,7 @@ function goNextMove()
 	if(currentSelectedNode==null) {
 		return;
 	}
-	
+
 	// All the move nodes in with the same parent
 	var moveNodes = getElementsByClass("chess4web-move", "span", currentSelectedNode.parentNode, false);
 	for(var k=0; k<moveNodes.length; ++k) {
@@ -580,7 +601,7 @@ function goLastMove()
 	if(currentSelectedNode==null) {
 		return;
 	}
-	
+
 	// All the move nodes in with the same parent
 	var moveNodes = getElementsByClass("chess4web-move", "span", currentSelectedNode.parentNode, false);
 	if(moveNodes.length>0) {

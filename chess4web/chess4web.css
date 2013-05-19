@@ -169,6 +169,22 @@ div#chess4web-navigation-frame #chess4web-navigation-buttons {
 	display: block;
 }
 
+.chess4web-chessboard .chess4web-black-to-play,
+.chess4web-chessboard .chess4web-white-to-play {
+	margin-left: 10px;
+	display: inline-block;
+}
+
+.chess4web-chessboard .chess4web-black-to-play {
+	vertical-align: top;
+	margin-top : 15px;
+}
+
+.chess4web-chessboard .chess4web-white-to-play {
+	vertical-align: bottom;
+	margin-bottom: 15px;
+}
+
 .chess4web-out .chess4web-InlinedPosition table,
 div#chess4web-navigation-frame table {
 	margin-top   : 5px;
