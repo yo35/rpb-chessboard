@@ -12,12 +12,12 @@
 	(function()
 	{
 		// Exit if already configured
-		if(jsChessRenderer.option.baseURL!=null) {
+		if(jsChessRenderer.isBaseURLConfigured()) {
 			return;
 		}
 
 		// Set the base URL
-		jsChessRenderer.option.baseURL = "<?php echo RPBCHESSBOARD_URL; ?>/chess4web";
+		jsChessRenderer.configureBaseURL("<?php echo RPBCHESSBOARD_URL; ?>/chess4web");
 
 		// Localized month names
 		jsChessRenderer.option.monthName = {

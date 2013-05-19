@@ -22,14 +22,39 @@
 
 
 /**
- * Rendering methods for chess-related objects
+ * Rendering methods for chess-related objects.
  */
 var jsChessRenderer = (function()
 {
 	/**
-	 * Module object, that will returned as global variable jsChessRenderer
+	 * Module object, that will returned as global variable jsChessRenderer.
 	 */
 	var module = {};
+
+	/**
+	 * URL to the folder containing the current file.
+	 */
+	var baseURL = null;
+
+	/**
+	 * Configuration function, that must be call before using the other object
+	 * defined by the jsChessRenderer module.
+	 *
+	 * @param {String} url URL to the root folder of the JsChessLib library,
+	 *                     without the trailing '/' character.
+	 */
+	module.configureBaseURL = function(url)
+	{
+		baseURL = url;
+	}
+
+	/**
+	 * Check whether the base URL has already been configured or not.
+	 */
+	module.isBaseURLConfigured = function()
+	{
+		baseURL!=null;
+	}
 
 	/**
 	 * The behavior of the module can be modified by changing the properties of
@@ -38,22 +63,17 @@ var jsChessRenderer = (function()
 	module.option = {};
 
 	/**
-	 * URL to the folder containing the current file
-	 */
-	module.option.baseURL = null;
-
-	/**
-	 * Folder where the sprite are located
+	 * Folder where the sprite are located.
 	 */
 	var spriteFolder = "sprite";
 
 	/**
-	 * Black square color (CSS color string)
+	 * Black square color (CSS color string).
 	 */
 	var blackSquareColor = "#b5876b";
 
 	/**
-	 * White square color (CSS color string)
+	 * White square color (CSS color string).
 	 */
 	var whiteSquareColor = "#f0dec7";
 
@@ -63,7 +83,7 @@ var jsChessRenderer = (function()
 	module.option.defaultSquareSize = 32;
 
 	/**
-	 * Whether row and column coordinates should be visible or not on chessboards
+	 * Whether row and column coordinates should be visible or not on chessboards by default.
 	 */
 	module.option.defaultShowCoordinates = false;
 
@@ -128,8 +148,8 @@ var jsChessRenderer = (function()
 	function spriteBaseURL(squareSize)
 	{
 		var retVal = spriteFolder + "/" + squareSize + "/";
-		if(module.option.baseURL!=null) {
-			retVal = module.option.baseURL + "/" + retVal;
+		if(baseURL!=null) {
+			retVal = baseURL + "/" + retVal;
 		}
 		return retVal;
 	}
