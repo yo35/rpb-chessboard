@@ -47,12 +47,12 @@ var chess4webDefaultMiniboardSquareSize = 36;
 var chess4webDefaultMiniboardShowCoordinate = false;
 
 /**
- * Default black square color
+ * Default black square character
  */
 var chess4webDefaultBlackSquare = "#b5876b";
 
 /**
- * Default white square color
+ * Default white square character
  */
 var chess4webDefaultWhiteSquare = "#f0dec7";
 
