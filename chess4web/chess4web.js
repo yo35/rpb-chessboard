@@ -361,6 +361,11 @@ var jsChessRenderer = (function()
 	 */
 	module.processFEN = function(domNode, squareSize, showCoordinates)
 	{
+		// Nothing to do if the DOM node is not valid
+		if(domNode==null) {
+			return;
+		}
+
 		// Default arguments
 		if(squareSize     ==null) squareSize     =module.option.defaultSquareSize     ;
 		if(showCoordinates==null) showCoordinates=module.option.defaultShowCoordinates;
@@ -404,11 +409,7 @@ var jsChessRenderer = (function()
 	 */
 	module.processFENByID = function(domID, squareSize, showCoordinates)
 	{
-		var domNode = document.getElementById(domID);
-		if(domNode==null) {
-			return;
-		}
-		module.processFEN(domNode, squareSize, showCoordinates);
+		module.processFEN(document.getElementById(domID), squareSize, showCoordinates);
 	}
 
 
