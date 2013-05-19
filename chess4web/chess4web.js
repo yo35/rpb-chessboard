@@ -22,92 +22,292 @@
 
 
 /**
- * Base URL to the chess4web data
+ * Rendering methods for chess-related objects
  */
-var chess4webBaseURL = "sprite/";
-
-/**
- * Default square size for the board
- */
-var chess4webDefaultSquareSize = 32;
-
-/**
- * Default show coordinate option
- */
-var chess4webDefaultShowCoordinate = false;
-
-/**
- * Default square size for the board
- */
-var chess4webDefaultMiniboardSquareSize = 36;
-
-/**
- * Default show coordinate option
- */
-var chess4webDefaultMiniboardShowCoordinate = false;
-
-/**
- * Default black square character
- */
-var chess4webDefaultBlackSquare = "#b5876b";
-
-/**
- * Default white square character
- */
-var chess4webDefaultWhiteSquare = "#f0dec7";
-
-/**
- * Month names
- */
-var chess4webMonthName =
+var jsChessRenderer = (function()
 {
-	 1: "january"  ,
-	 2: "february" ,
-	 3: "march"    ,
-	 4: "april"    ,
-	 5: "may"      ,
-	 6: "june"     ,
-	 7: "july"     ,
-	 8: "august"   ,
-	 9: "september",
-	10: "october"  ,
-	11: "november" ,
-	12: "december"
-}
+	/**
+	 * Module object, that will returned as global variable jsChessRenderer
+	 */
+	var module = {};
 
-/**
- * Piece symbols
- */
-var chess4webPieceSymbol =
-{
-	"K": "\u265a",
-	"Q": "\u265b",
-	"R": "\u265c",
-	"B": "\u265d",
-	"N": "\u265e",
-	"P": "\u265f"
-}
+	/**
+	 * The behavior of the module can be modified by changing the properties of
+	 * this object.
+	 */
+	module.option = {};
 
-/**
- * Nags
- */
-var chess4webNag =
-{
-	 1: "!",
-	 2: "?",
-	 3: "!!",
-	 4: "??",
-	 5: "!?",
-	 6: "?!",
-	10: "=",
-	13: "\u221e",
-	14: "+=",
-	15: "=+",
-	16: "\u00b1",
-	17: "\u2213",
-	18: "+\u2212",
-	19: "\u2212+"
-}
+	/**
+	 * URL to the folder containing the current file
+	 */
+	module.option.baseURL = null;
+
+	/**
+	 * Folder where the sprite are located
+	 */
+	var spriteFolder = "sprite";
+
+	/**
+	 * Black square color (CSS color string)
+	 */
+	var blackSquareColor = "#b5876b";
+
+	/**
+	 * White square color (CSS color string)
+	 */
+	var whiteSquareColor = "#f0dec7";
+
+	/**
+	 * Default size for the squares of displayed chessboards
+	 */
+	module.option.defaultSquareSize = 32;
+
+	/**
+	 * Whether row and column coordinates should be visible or not on chessboards
+	 */
+	module.option.defaultShowCoordinates = false;
+
+	/**
+	 * Month names
+	 */
+	module.option.monthName =
+	{
+		 1: "january"  ,
+		 2: "february" ,
+		 3: "march"    ,
+		 4: "april"    ,
+		 5: "may"      ,
+		 6: "june"     ,
+		 7: "july"     ,
+		 8: "august"   ,
+		 9: "september",
+		10: "october"  ,
+		11: "november" ,
+		12: "december"
+	};
+
+	/**
+	 * Piece symbols
+	 */
+	module.option.pieceSymbol =
+	{
+		"K": "\u265a",
+		"Q": "\u265b",
+		"R": "\u265c",
+		"B": "\u265d",
+		"N": "\u265e",
+		"P": "\u265f"
+	};
+
+	/**
+	 * Nags
+	 */
+	module.option.nag =
+	{
+		 1: "!",
+		 2: "?",
+		 3: "!!",
+		 4: "??",
+		 5: "!?",
+		 6: "?!",
+		10: "=",
+		13: "\u221e",
+		14: "+=",
+		15: "=+",
+		16: "\u00b1",
+		17: "\u2213",
+		18: "+\u2212",
+		19: "\u2212+"
+	};
+
+	/**
+	 * Return the URL to the folder containing the sprites of the given size.
+	 *
+	 * @param {Number} squareSize Size of the sprite to use.
+	 */
+	function spriteBaseURL(squareSize)
+	{
+		var retVal = spriteFolder + "/" + squareSize + "/";
+		if(module.option.baseURL!=null) {
+			retVal = module.option.baseURL + "/" + retVal;
+		}
+		return retVal;
+	}
+
+	/**
+	 * Return the URL to the sprite corresponding to a given colored piece.
+	 *
+	 * @param {Number} coloredPiece Colored piece code (e.g. WHITE_KING), or null for an empty sprite.
+	 * @param {Number} squareSize Size of the sprite to use.
+	 */
+	function coloredPieceURL(coloredPiece, squareSize)
+	{
+		var retVal = spriteBaseURL(squareSize);
+		switch(coloredPiece) {
+			case WHITE_KING  : retVal+="wk.png"; break;
+			case WHITE_QUEEN : retVal+="wq.png"; break;
+			case WHITE_ROOK  : retVal+="wr.png"; break;
+			case WHITE_BISHOP: retVal+="wb.png"; break;
+			case WHITE_KNIGHT: retVal+="wn.png"; break;
+			case WHITE_PAWN  : retVal+="wp.png"; break;
+			case BLACK_KING  : retVal+="bk.png"; break;
+			case BLACK_QUEEN : retVal+="bq.png"; break;
+			case BLACK_ROOK  : retVal+="br.png"; break;
+			case BLACK_BISHOP: retVal+="bb.png"; break;
+			case BLACK_KNIGHT: retVal+="bn.png"; break;
+			case BLACK_PAWN  : retVal+="bp.png"; break;
+			default: retVal+="clear.png"; break;
+		}
+		return retVal;
+	}
+
+	/**
+	 * Return the URL to the sprite corresponding to a given color flag.
+	 *
+	 * @param {Number} color Color code (either BLACK or WHITE).
+	 * @param {Number} squareSize Size of the sprite to use.
+	 */
+	function colorURL(color, squareSize)
+	{
+		return spriteBaseURL(squareSize) + (color==WHITE ? "white" : "black") + ".png";
+	}
+
+	/**
+	 * Return a new DOM node representing the given position.
+	 *
+	 * @param {Position} position The chess position to render.
+	 * @param {Number} squareSize Size of the sprite to use.
+	 * @param {Boolean} showCoordinates Whether the row and column coordinates should be displayed.
+	 */
+	function renderPosition(position, squareSize, showCoordinates)
+	{
+		// Create the returned node
+		var retVal = document.createElement("div");
+		retVal.classList.add("jsChessLib-chessboard");
+
+		// Prepare the table
+		var table = document.createElement("table");
+		var tbody = document.createElement("tbody");
+		table.appendChild(tbody);
+		retVal.appendChild(table);
+
+		// For each row...
+		for(var r=ROW_8; r>=ROW_1; --r) {
+			var tr = document.createElement("tr");
+			tbody.appendChild(tr);
+
+			// If visible, the row coordinates are shown in the left-most column.
+			if(showCoordinates) {
+				var th = document.createElement("th");
+				th.setAttribute("scope", "row");
+				th.innerHTML = rowToString(r);
+				tr.appendChild(th);
+			}
+
+			// Print the squares belonging to the current column
+			for(var c=COLUMN_A; c<=COLUMN_H; ++c) {
+				var squareColor  = (r+c)%2==0 ? blackSquareColor : whiteSquareColor;
+				var coloredPiece = position.board[makeSquare(r, c)];
+				var td  = document.createElement("td" );
+				var img = document.createElement("img");
+				td .setAttribute("style", "background-color: " + squareColor + ";");
+				img.setAttribute("src", coloredPieceURL(coloredPiece, squareSize));
+				td.appendChild(img);
+				tr.appendChild(td);
+			}
+		}
+
+		// If visible, the column coordinates are shown at the bottom of the table.
+		if(showCoordinates) {
+			var tr  = document.createElement("tr");
+			var th0 = document.createElement("th");
+			tr.appendChild(th0);
+			for(var c=COLUMN_A; c<=COLUMN_H; ++c) {
+				var th = document.createElement("th");
+				th.setAttribute("scope", "column");
+				th.innerHTML = columnToString(c);
+				tr.appendChild(th);
+			}
+			tbody.appendChild(tr);
+		}
+
+		// Create the black or white circle on the right of the table,
+		// indicating which player is about to play.
+		var turnNode = document.createElement("img");
+		turnNode.classList.add("jsChessLib-" + (position.turn==WHITE ? "white" : "black") + "-to-play");
+		turnNode.setAttribute("src", colorURL(position.turn, squareSize));
+		retVal.appendChild(turnNode);
+
+		// Return the result
+		return retVal;
+	}
+
+	/**
+	 * Interpret the text in the given DOM node as a FEN string, and replace the
+	 * node with a graphically-rendered chessboard corresponding to the FEN string.
+	 *
+	 * @param {Element} domNode DOM node containing the FEN string to interpret.
+	 * @param {Number} squareSize Size of the sprite to use. Optional.
+	 * @param {Boolean} showCoordinates Whether the row and column coordinates should be displayed. Optional.
+	 */
+	module.processFEN = function(domNode, squareSize, showCoordinates)
+	{
+		// Default arguments
+		if(squareSize     ==null) squareSize     =module.option.defaultSquareSize     ;
+		if(showCoordinates==null) showCoordinates=module.option.defaultShowCoordinates;
+
+		try
+		{
+			// Interpret the text within the given DOM node as a FEN string, and
+			// construct the associated chess position.
+			var position = parseFEN(domNode.innerHTML);
+
+			// Render the parsed position in a new DOM node
+			var positionNode = renderPosition(position, squareSize, showCoordinates);
+
+			// The rendered position is encapsulate in a new DIV,
+			// which replaces the input DOM node.
+			var outputNode = document.createElement("div");
+			outputNode.className = "jsChessLib-out";
+			outputNode.appendChild(positionNode);
+			domNode.parentNode.replaceChild(outputNode, domNode);
+		}
+
+		// Parsing exception are caught, while other kind of exceptions are forwarded.
+		catch(err) {
+			if(err instanceof ParsingException) {
+				return;
+			}
+			else {
+				throw err;
+			}
+		}
+	}
+
+
+	/**
+	 * Call the processFEN method on the node identified by the given ID.
+	 *
+	 * @see processFEN
+	 * @param {String} domId ID of the DOM node to process.
+	 * @param {Number} squareSize Size of the sprite to use. Optional.
+	 * @param {Boolean} showCoordinates Whether the row and column coordinates should be displayed. Optional.
+	 */
+	module.processFENByID = function(domID, squareSize, showCoordinates)
+	{
+		var domNode = document.getElementById(domID);
+		if(domNode==null) {
+			return;
+		}
+		module.processFEN(domNode, squareSize, showCoordinates);
+	}
+
+
+
+
+
+
+
 
 /**
  * Retrieve all the elements with a given class
@@ -188,98 +388,6 @@ function formatNag(nag)
 		return "$" + nag;
 	else
 		return chess4webNag[nag];
-}
-
-/**
- * Return a DOM node representing the given position
- */
-function renderPosition(position, squareSize, showCoordinate, blackSquare, whiteSquare)
-{
-	// Default arguments
-	if(squareSize    ===undefined) squareSize    =chess4webDefaultSquareSize    ;
-	if(showCoordinate===undefined) showCoordinate=chess4webDefaultShowCoordinate;
-	if(blackSquare   ===undefined) blackSquare   =chess4webDefaultBlackSquare   ;
-	if(whiteSquare   ===undefined) whiteSquare   =chess4webDefaultWhiteSquare   ;
-
-	// Return the URL to the sprite corresponding to a given colored piece
-	function getColoredPieceURL(coloredPiece)
-	{
-		var retVal = chess4webBaseURL + squareSize + "/";
-		switch(coloredPiece) {
-			case WHITE_KING  : retVal+="wk.png"; break;
-			case WHITE_QUEEN : retVal+="wq.png"; break;
-			case WHITE_ROOK  : retVal+="wr.png"; break;
-			case WHITE_BISHOP: retVal+="wb.png"; break;
-			case WHITE_KNIGHT: retVal+="wn.png"; break;
-			case WHITE_PAWN  : retVal+="wp.png"; break;
-			case BLACK_KING  : retVal+="bk.png"; break;
-			case BLACK_QUEEN : retVal+="bq.png"; break;
-			case BLACK_ROOK  : retVal+="br.png"; break;
-			case BLACK_BISHOP: retVal+="bb.png"; break;
-			case BLACK_KNIGHT: retVal+="bn.png"; break;
-			case BLACK_PAWN  : retVal+="bp.png"; break;
-			default: retVal+="clear.png"; break;
-		}
-		return retVal;
-	}
-
-	// Return the URL to the sprite corresponding to a given color flag
-	function getColorURL(color)
-	{
-		return chess4webBaseURL + squareSize + "/" + (color==WHITE ? "white" : "black") + ".png";
-	}
-
-	// Create the returned node
-	var retVal = document.createElement("div");
-	retVal.classList.add("chess4web-chessboard");
-
-	// Create the table
-	var table = document.createElement("table");
-	var tbody = document.createElement("tbody");
-	for(var r=ROW_8; r>=ROW_1; --r) {
-		var tr = document.createElement("tr");
-		if(showCoordinate) {
-			var th = document.createElement("th");
-			th.setAttribute("scope", "row");
-			th.innerHTML = rowToString(r);
-			tr.appendChild(th);
-		}
-		for(var c=COLUMN_A; c<=COLUMN_H; ++c) {
-			var squareColor  = (r+c)%2==0 ? blackSquare : whiteSquare;
-			var coloredPiece = position.board[makeSquare(r, c)];
-			var td = document.createElement("td");
-			td.setAttribute("style", "background-color: " + squareColor + ";");
-			var img = document.createElement("img");
-			img.setAttribute("src", getColoredPieceURL(coloredPiece));
-			td.appendChild(img);
-			tr.appendChild(td);
-		}
-		tbody.appendChild(tr);
-	}
-	if(showCoordinate) {
-		var tr  = document.createElement("tr");
-		var th0 = document.createElement("th");
-		tr.appendChild(th0);
-		for(var c=COLUMN_A; c<=COLUMN_H; ++c) {
-			var th = document.createElement("th");
-			th.setAttribute("scope", "column");
-			th.innerHTML = columnToString(c);
-			tr.appendChild(th);
-		}
-		tbody.appendChild(tr);
-	}
-	table.appendChild(tbody);
-	retVal.appendChild(table);
-
-	// Create the black or white circle on the right of the table,
-	// indicating which player is about to play.
-	var turnNode = document.createElement("img");
-	turnNode.classList.add("chess4web-" + (position.turn==WHITE ? "white" : "black") + "-to-play");
-	turnNode.setAttribute("src", getColorURL(position.turn));
-	retVal.appendChild(turnNode);
-
-	// Return the result
-	return retVal;
 }
 
 /**
@@ -800,3 +908,7 @@ function chess4webConfigure()
 	}
 	chess4webConfigureExecuted = true;
 }
+
+	// Return the module object
+	return module;
+})();
