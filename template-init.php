@@ -1,3 +1,11 @@
+<?php
+
+	// Helper
+	require_once(RPBCHESSBOARD_ABSPATH . 'helper.php');
+
+	// Debug node
+	RPBChessBoardHelper::printDebugNode();
+?>
 
 <script type="text/javascript">
 
