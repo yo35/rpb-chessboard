@@ -164,7 +164,7 @@ div#chess4web-navigation-frame #chess4web-navigation-buttons {
 /******************************************************************************/
 /*** Board style ***/
 
-.chess4web-out .chess4web-InlinedPosition {
+.chess4web-out .chess4web-chessboard {
 	text-align: center;
 	display: block;
 }
@@ -185,7 +185,7 @@ div#chess4web-navigation-frame #chess4web-navigation-buttons {
 	margin-bottom: 15px;
 }
 
-.chess4web-out .chess4web-InlinedPosition table,
+.chess4web-out .chess4web-chessboard table,
 div#chess4web-navigation-frame table {
 	margin-top   : 5px;
 	margin-bottom: 5px;
@@ -194,7 +194,7 @@ div#chess4web-navigation-frame table {
 	display: inline-block;
 }
 
-.chess4web-out .chess4web-InlinedPosition td,
+.chess4web-out .chess4web-chessboard td,
 div#chess4web-navigation-frame td {
 	padding-top   : 0px;
 	padding-bottom: 0px;
@@ -202,13 +202,13 @@ div#chess4web-navigation-frame td {
 	padding-right : 1px;
 }
 
-.chess4web-out .chess4web-InlinedPosition th,
+.chess4web-out .chess4web-chessboard th,
 div#chess4web-navigation-frame th {
 	font-weight: normal;
 	font-size  : small ;
 }
 
-.chess4web-out .chess4web-InlinedPosition table th[scope=column],
+.chess4web-out .chess4web-chessboard table th[scope=column],
 div#chess4web-navigation-frame table th[scope=column] {
 	padding-top   : 2px;
 	padding-bottom: 0px;
@@ -216,7 +216,7 @@ div#chess4web-navigation-frame table th[scope=column] {
 	padding-right : 0px;
 }
 
-.chess4web-out .chess4web-InlinedPosition table th[scope=row],
+.chess4web-out .chess4web-chessboard table th[scope=row],
 div#chess4web-navigation-frame table th[scope=row] {
 	padding-top   : 0px;
 	padding-bottom: 0px;

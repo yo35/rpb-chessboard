@@ -747,17 +747,15 @@ function substituteOutputNode(outputDomNode, currentPgnItem, hideResult)
 /**
  * Substitute the FEN inlined positions
  */
-function substituteFenInlined(domNode) {
+function substituteFenInlined(domNode)
+{
 	try {
-		var position = parseFEN(domNode.innerHTML);
-		var table = renderPosition(position);
-		var divIn = document.createElement("div");
-		divIn.className = "chess4web-InlinedPosition";
-		divIn.appendChild(table);
-		var divOut = document.createElement("div");
-		divOut.className = "chess4web-out";
-		divOut.appendChild(divIn);
-		domNode.parentNode.replaceChild(divOut, domNode);
+		var position     = parseFEN(domNode.innerHTML);
+		var positionNode = renderPosition(position);
+		var outputNode   = document.createElement("div");
+		outputNode.className = "chess4web-out";
+		outputNode.appendChild(positionNode);
+		domNode.parentNode.replaceChild(outputNode, domNode);
 	}
 	catch(err) {
 		if(err instanceof ParsingException) {
