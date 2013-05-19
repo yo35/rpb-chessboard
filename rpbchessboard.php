@@ -29,7 +29,6 @@ function rpbchessboard_enqueue_script()
 	wp_enqueue_script('rpbchessboard-jspgn-script'    );
 	wp_enqueue_script('rpbchessboard-htmlparser'      );
 	wp_enqueue_script('rpbchessboard-chess4web-script');
-	include(RPBCHESSBOARD_ABSPATH.'template-script.php');
 }
 
 // Enqueue general styles
@@ -42,23 +41,12 @@ function rpbchessboard_enqueue_css()
 	wp_enqueue_style ('rpbchessboard-main'     );
 }
 
-// Global vars
-$rpbchessboard_id_counter = 0;
-$rpbchessboard_add_debug_tag = true;
-
-// ID generation
-function rpbchessboard_make_pgn_id()
-{
-	global $rpbchessboard_id_counter;
-	++$rpbchessboard_id_counter;
-	return 'rpbchessboard-pgn-'.get_the_ID().'-'.$rpbchessboard_id_counter;
-}
-
-// Simple diagram
+// Shortcode [fen][/fen]
 add_shortcode('fen', 'rpbchessboard_shortcode_fen');
 function rpbchessboard_shortcode_fen($atts, $content)
 {
 	ob_start();
+	include(RPBCHESSBOARD_ABSPATH.'template-init.php');
 	include(RPBCHESSBOARD_ABSPATH.'template-fen.php');
 	return ob_get_clean();
 }
@@ -90,6 +78,7 @@ function rpbchessboard_shortcode_printer($atts, $content='')
 	else {
 		$hide_result = false;
 	}
+	include(RPBCHESSBOARD_ABSPATH.'template-init.php');
 	include(RPBCHESSBOARD_ABSPATH.'template-pgn.php');
 	return ob_get_clean();
 }
