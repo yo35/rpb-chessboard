@@ -39,8 +39,8 @@
      id="namedview12"
      showgrid="false"
      inkscape:zoom="10.488889"
-     inkscape:cx="16.780194"
-     inkscape:cy="26.549581"
+     inkscape:cx="-3.0851311"
+     inkscape:cy="30.241597"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="1"
@@ -49,12 +49,12 @@
      id="defs3130" />
   <path
      sodipodi:type="arc"
-     style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:3.30031609999999986;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+     style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.49448286999999991;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
      id="path2991"
      sodipodi:cx="39.565678"
      sodipodi:cy="4.2425847"
      sodipodi:rx="15.826271"
      sodipodi:ry="11.011653"
      d="m 55.391949,4.2425847 a 15.826271,11.011653 0 1 1 -31.652542,0 15.826271,11.011653 0 1 1 31.652542,0 z"
-     transform="matrix(1.0109773,0,0,1.4530062,-17.500002,16.335498)" />
+     transform="matrix(0.83721553,0,0,1.2032708,-10.625,17.395022)" />
 </svg>
