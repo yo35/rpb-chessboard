@@ -1,15 +1,24 @@
 <?php
 
-// Initialization
-$current_pgn_id = rpbchessboard_make_pgn_id();
+	// Helper
+	require_once(RPBCHESSBOARD_ABSPATH . 'helper.php');
 
-// Deal with wordpress auto-filtering
-$content = str_replace('&#8211;', '-', $content);
+	// ID for the current element
+	$currentID = RPBChessBoardHelper::makeID();
 
-// Display the board
+	// Deal with wordpress auto-filtering
+	$content = str_replace('&#8211;', '-', $content);
 ?>
-<pre class="chess4web-Fen-Position" id="<?php echo $current_pgn_id; ?>"><?php echo $content; ?></pre>
+
+<pre class="jsChessLib-fen-source" id="<?php echo $currentID; ?>"><?php echo $content; ?></pre>
 <script type="text/javascript">
-	chess4webConfigure();
-	substituteFenInlined(document.getElementById("<?php echo $current_pgn_id; ?>"));
+	jsChessRenderer.processFENByID(
+		"<?php echo $currentID; ?>",
+		<?php echo RPBChessBoardHelper::readSquareSize($atts); ?>,
+		<?php echo RPBChessBoardHelper::readShowCoordinates($atts); ?>
+	);
 </script>
+
+<?php
+	RPBChessBoardHelper::printJavascriptActivationWarning();
+?>
