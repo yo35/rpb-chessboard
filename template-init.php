@@ -1,11 +1,18 @@
 
 <script type="text/javascript">
 
-	function chess4webInit()
+	(function()
 	{
-		chess4webBaseURL = "<?php echo RPBCHESSBOARD_URL; ?>/chess4web/sprite/";
+		// Exit if already configured
+		if(jsChessRenderer.option.baseURL!=null) {
+			return;
+		}
 
-		chess4webMonthName = {
+		// Set the base URL
+		jsChessRenderer.option.baseURL = "<?php echo RPBCHESSBOARD_URL; ?>/chess4web";
+
+		// Localized month names
+		jsChessRenderer.option.monthName = {
 			 1: "<?php echo __('january'  , 'rpbchessboard'); ?>",
 			 2: "<?php echo __('february' , 'rpbchessboard'); ?>",
 			 3: "<?php echo __('march'    , 'rpbchessboard'); ?>",
@@ -18,16 +25,17 @@
 			10: "<?php echo __('october'  , 'rpbchessboard'); ?>",
 			11: "<?php echo __('november' , 'rpbchessboard'); ?>",
 			12: "<?php echo __('december' , 'rpbchessboard'); ?>"
-		}
+		};
 
-		chess4webPieceSymbol = {
+		// Localized piece symbols
+		jsChessRenderer.option.pieceSymbol = {
 			"K": "R",
 			"Q": "D",
 			"R": "T",
 			"B": "F",
 			"N": "C",
 			"P": "P"
-		}
-	}
+		};
+	})();
 
 </script>
