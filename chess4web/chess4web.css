@@ -32,15 +32,6 @@ pre.chess4web-pgn {
 	white-space: pre-wrap;
 }
 
-div.chess4web-javascript-warning {
-	padding-top   : 2px;
-	padding-bottom: 3px;
-	padding-left  : 5px;
-	background-color: #ffd8d8;
-	color: #800000;
-	border: 1px solid #800000;
-}
-
 .chess4web-template-Event,
 .chess4web-template-Site,
 .chess4web-template-Date,
@@ -164,52 +155,58 @@ div#chess4web-navigation-frame #chess4web-navigation-buttons {
 /******************************************************************************/
 /*** Board style ***/
 
-.chess4web-out .chess4web-chessboard {
+.jsChessLib-out .jsChessLib-chessboard {
 	text-align: center;
 	display: block;
 }
 
-.chess4web-chessboard .chess4web-black-to-play,
-.chess4web-chessboard .chess4web-white-to-play {
+.jsChessLib-chessboard .jsChessLib-black-to-play,
+.jsChessLib-chessboard .jsChessLib-white-to-play {
 	margin-left: 10px;
 	display: inline-block;
 }
 
-.chess4web-chessboard .chess4web-black-to-play {
+.jsChessLib-chessboard .jsChessLib-black-to-play {
 	vertical-align: top;
 	margin-top : 15px;
 }
 
-.chess4web-chessboard .chess4web-white-to-play {
+.jsChessLib-chessboard .jsChessLib-white-to-play {
 	vertical-align: bottom;
 	margin-bottom: 15px;
 }
 
-.chess4web-out .chess4web-chessboard table,
-div#chess4web-navigation-frame table {
+.jsChessLib-chessboard table {
+	background-color: transparent;
 	margin-top   : 5px;
 	margin-bottom: 5px;
 	width: auto;
 	border-collapse: collapse;
+	border-width   : 0px;
 	display: inline-block;
 }
 
-.chess4web-out .chess4web-chessboard td,
-div#chess4web-navigation-frame td {
+.jsChessLib-chessboard table tr,
+.jsChessLib-chessboard table tr:nth-child(n) {
+	background-color: transparent;
+}
+
+.jsChessLib-chessboard table td {
+	border: solid 1px;
 	padding-top   : 0px;
 	padding-bottom: 0px;
 	padding-left  : 1px;
 	padding-right : 1px;
 }
 
-.chess4web-chessboard table th,
-div#chess4web-navigation-frame th {
+.jsChessLib-chessboard table th {
+	background-color: transparent;
+	color: inherit;
 	font-weight: normal;
 	font-size  : small ;
 }
 
-.chess4web-chessboard table th[scope=column],
-div#chess4web-navigation-frame table th[scope=column] {
+.jsChessLib-chessboard table th[scope=column] {
 	padding-top   : 2px;
 	padding-bottom: 2px;
 	padding-left  : 0px;
@@ -217,8 +214,7 @@ div#chess4web-navigation-frame table th[scope=column] {
 	text-align: center;
 }
 
-.chess4web-out .chess4web-chessboard table th[scope=row],
-div#chess4web-navigation-frame table th[scope=row] {
+.jsChessLib-chessboard table th[scope=row] {
 	padding-top   : 0px;
 	padding-bottom: 0px;
 	padding-left  : 5px;
