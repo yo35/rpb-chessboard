@@ -202,24 +202,26 @@ div#chess4web-navigation-frame td {
 	padding-right : 1px;
 }
 
-.chess4web-out .chess4web-chessboard th,
+.chess4web-chessboard table th,
 div#chess4web-navigation-frame th {
 	font-weight: normal;
 	font-size  : small ;
 }
 
-.chess4web-out .chess4web-chessboard table th[scope=column],
+.chess4web-chessboard table th[scope=column],
 div#chess4web-navigation-frame table th[scope=column] {
 	padding-top   : 2px;
-	padding-bottom: 0px;
+	padding-bottom: 2px;
 	padding-left  : 0px;
 	padding-right : 0px;
+	text-align: center;
 }
 
 .chess4web-out .chess4web-chessboard table th[scope=row],
 div#chess4web-navigation-frame table th[scope=row] {
 	padding-top   : 0px;
 	padding-bottom: 0px;
-	padding-left  : 0px;
+	padding-left  : 5px;
 	padding-right : 5px;
+	vertical-align: middle;
 }
