@@ -263,6 +263,81 @@ var jsChessRenderer = (function()
 	}
 
 	/**
+	 * Convert a PGN date field value into a human-readable date string. If the
+	 * input is badly-formatted, it is returned "as-is".
+	 *
+	 * @param {String} date Value of a PGN date field.
+	 */
+	function formatDate(date)
+	{
+		// Case "2013.05.20" -> return "20 may 2013"
+		if(date.match(/([0-9]{4})\.([0-9]{2})\.([0-9]{2})/)) {
+			var month = parseInt(RegExp.$2);
+			if(month>=1 && month<=12)
+				return RegExp.$3 + " " + module.option.monthName[month] + " " + RegExp.$1;
+			else
+				return RegExp.$1
+		}
+
+		// Case "2013.05.??" -> return "may 2013"
+		else if(date.match(/([0-9]{4})\.([0-9]{2})\.\?\?/)) {
+			var month = parseInt(RegExp.$2);
+			if(month>=1 && month<=12)
+				return module.option.monthName[month] + " " + RegExp.$1;
+			else
+				return RegExp.$1
+		}
+
+		// Case "2013.??.??" -> return "2013"
+		else if(date.match(/([0-9]{4})\.\?\?\.\?\?/)) {
+			return RegExp.$1;
+		}
+
+		// Badly-formatted input -> return it "as-is"
+		else {
+			return date;
+		}
+	}
+
+	/**
+	 * Convert a PGN-like move notation into a localized move notation
+	 * (the characters used to specify the pieces is the only localized element).
+	 *
+	 * @param {String} notation PGN-like move notation to convert.
+	 */
+	function formatMoveNotation(notation)
+	{
+		var retVal = "";
+		for(var k=0; k<notation.length; ++k) {
+			switch(notation.charAt(k)) {
+				case "K": retVal+=module.option.pieceSymbol["K"]; break;
+				case "Q": retVal+=module.option.pieceSymbol["Q"]; break;
+				case "R": retVal+=module.option.pieceSymbol["R"]; break;
+				case "B": retVal+=module.option.pieceSymbol["B"]; break;
+				case "N": retVal+=module.option.pieceSymbol["N"]; break;
+				case "P": retVal+=module.option.pieceSymbol["P"]; break;
+				default:
+					retVal += notation.charAt(k);
+					break;
+			}
+		}
+		return retVal;
+	}
+
+	/**
+	 * Return the annotation symbol (e.g. "+-", "!?") associated to a numeric NAG code.
+	 *
+	 * @param {Number} nag Numeric NAG code.
+	 */
+	function formatNag(nag)
+	{
+		if(module.option.nag[nag]==null)
+			return "$" + nag;
+		else
+			return module.option.nag[nag];
+	}
+
+	/**
 	 * Interpret the text in the given DOM node as a FEN string, and replace the
 	 * node with a graphically-rendered chessboard corresponding to the FEN string.
 	 *
@@ -351,64 +426,11 @@ function getElementsByClass(searchClass, tagName, domNode, recursive)
 	return retVal;
 }
 
-/**
- * Date formating function
- */
-function formatDate(date)
-{
-	if(date.match(/([0-9]{4})\.([0-9]{2})\.([0-9]{2})/)) {
-		var month = parseInt(RegExp.$2);
-		if(month>=1 && month<=12)
-			return RegExp.$3 + " " + chess4webMonthName[month] + " " + RegExp.$1;
-		else
-			return RegExp.$1
-	}
-	else if(date.match(/([0-9]{4})\.([0-9]{2})\.\?\?/)) {
-		var month = parseInt(RegExp.$2);
-		if(month>=1 && month<=12)
-			return chess4webMonthName[month] + " " + RegExp.$1;
-		else
-			return RegExp.$1
-	}
-	else if(date.match(/([0-9]{4})\.\?\?\.\?\?/)) {
-		return RegExp.$1;
-	}
-	else
-		return date;
-}
 
-/**
- * Move notation formating function
- */
-function formatMoveNotation(notation)
-{
-	var retVal = "";
-	for(var k=0; k<notation.length; ++k) {
-		switch(notation.charAt(k)) {
-			case "K": retVal+=chess4webPieceSymbol["K"]; break;
-			case "Q": retVal+=chess4webPieceSymbol["Q"]; break;
-			case "R": retVal+=chess4webPieceSymbol["R"]; break;
-			case "B": retVal+=chess4webPieceSymbol["B"]; break;
-			case "N": retVal+=chess4webPieceSymbol["N"]; break;
-			case "P": retVal+=chess4webPieceSymbol["P"]; break;
-			default:
-				retVal += notation.charAt(k);
-				break;
-		}
-	}
-	return retVal;
-}
 
-/**
- * Nag formating function
- */
-function formatNag(nag)
-{
-	if(chess4webNag[nag]===undefined)
-		return "$" + nag;
-	else
-		return chess4webNag[nag];
-}
+
+
+
 
 /**
  * Replace the content of a DOM node with a text value from a PGN field
