@@ -107,10 +107,14 @@ span.jsChessLib-move:hover {
 span.jsChessLib-commentary-long,
 span.jsChessLib-variation-main,
 span.jsChessLib-variation-sub {
+	display: block;
+}
+
+span.jsChessLib-commentary-long,
+span.jsChessLib-variation-sub {
 	margin-left  : 10px;
 	margin-top   :  4px;
 	margin-bottom:  4px;
-	display: block;
 }
 
 span.jsChessLib-variation-sub span.jsChessLib-move {
