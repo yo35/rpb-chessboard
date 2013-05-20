@@ -23,7 +23,7 @@ abstract class RPBChessBoardMainHelper
 	 * If $atts is an associative array with a key corresponding to $key, return
 	 * the associated value; otherwise, return null.
 	 */
-	private static function readRawOption($atts, $key)
+	private static function getRawOption($atts, $key)
 	{
 		if(is_array($atts) && array_key_exists($key, $atts)) {
 			return $atts[$key];
@@ -34,12 +34,27 @@ abstract class RPBChessBoardMainHelper
 	}
 
 	/**
+	 * Retrieve the optional show final result argument in the associative array $atts,
+	 * and return PHP boolean value.
+	 */
+	public static function getShowFinalResult($atts)
+	{
+		$value = self::getRawOption($atts, 'show_final_result');
+		if($value!=null && strtolower($value)=="false") {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+
+	/**
 	 * Retrieve the optional square size argument in the associative array $atts,
 	 * and return a corresponding string that can be inlined in a javascript code.
 	 */
 	public static function readSquareSize($atts)
 	{
-		$value = self::readRawOption($atts, 'square_size');
+		$value = self::getRawOption($atts, 'square_size');
 		if($value==null || !is_numeric($value)) {
 			return "null";
 		}
@@ -60,7 +75,7 @@ abstract class RPBChessBoardMainHelper
 	 */
 	public static function readShowCoordinates($atts)
 	{
-		$value = self::readRawOption($atts, 'show_coordinates');
+		$value = self::getRawOption($atts, 'show_coordinates');
 		if($value==null) {
 			return "null";
 		}

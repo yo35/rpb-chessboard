@@ -80,9 +80,11 @@
 	</div>
 	<div class="rpbchessboard-game-body jsChessLib-field-moves">
 		<span class="jsChessLib-anchor-moves"></span>
-		<div class="jsChessLib-field-Result">
-			<span class="jsChessLib-anchor-Result"></span>
-		</div>
+		<?php if(RPBChessBoardMainHelper::getShowFinalResult($atts)): ?>
+			<div class="jsChessLib-field-Result">
+				<span class="jsChessLib-anchor-Result"></span>
+			</div>
+		<?php endif; ?>
 	</div>
 </div>
 <script type="text/javascript">
