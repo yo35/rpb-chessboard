@@ -28,6 +28,10 @@ div.jsChessLib-field-Annotator {
 	font-style: italic;
 }
 
+div.jsChessLib-field-Result {
+	font-weight: bold;
+}
+
 div.rpbchessboard-game-head div {
 	margin-top   : 4px;
 	margin-bottom: 4px;

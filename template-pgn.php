@@ -78,8 +78,11 @@
 			echo sprintf(__('Commented by %1$s', 'rpbchessboard'), '<span class="jsChessLib-anchor-Annotator"></span>');
 		?></div>
 	</div>
-	<div class="rpbchessboard-game-body">
-		<div class="chess4web-template-Moves"></div>
+	<div class="rpbchessboard-game-body jsChessLib-field-moves">
+		<span class="jsChessLib-anchor-moves"></span>
+		<div class="jsChessLib-field-Result">
+			<span class="jsChessLib-anchor-Result"></span>
+		</div>
 	</div>
 </div>
 <script type="text/javascript">
