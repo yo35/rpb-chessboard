@@ -382,6 +382,22 @@ var jsChessRenderer = (function()
 	}
 
 	/**
+	 * Convert a PGN round field value into a human-readable round string.
+	 * Return null if the special code "?" is detected.
+	 *
+	 * @param {String} round Value of a PGN round field.
+	 */
+	function formatRound(round)
+	{
+		if(round==null || round=="?") {
+			return null;
+		}
+		else {
+			return round;
+		}
+	}
+
+	/**
 	 * Convert a PGN-like move notation into a localized move notation
 	 * (the characters used to specify the pieces is the only localized element).
 	 *
@@ -618,8 +634,8 @@ var jsChessRenderer = (function()
 			// Substitution
 			substituteSimpleField(domNodeOut, "Event"    , pgnItem);
 			substituteSimpleField(domNodeOut, "Site"     , pgnItem);
-			substituteSimpleField(domNodeOut, "Date"     , pgnItem, formatDate);
-			substituteSimpleField(domNodeOut, "Round"    , pgnItem);
+			substituteSimpleField(domNodeOut, "Date"     , pgnItem, formatDate );
+			substituteSimpleField(domNodeOut, "Round"    , pgnItem, formatRound);
 			substituteSimpleField(domNodeOut, "White"    , pgnItem);
 			substituteSimpleField(domNodeOut, "Black"    , pgnItem);
 			substituteSimpleField(domNodeOut, "Result"   , pgnItem);
