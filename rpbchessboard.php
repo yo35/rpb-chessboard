@@ -64,15 +64,15 @@ function rpbchessboard_shortcode_fen($atts, $content)
 }
 
 // Short-code for diagrams
-add_shortcode('pgndiagram', 'rpbchessboard_shortcode_diagram');
+/*add_shortcode('pgndiagram', 'rpbchessboard_shortcode_diagram');
 function rpbchessboard_shortcode_diagram($atts)
 {
 	return '<span class="chess4web-template-InlinedPosition"></span>';
-}
+}*/
 
-// Printer
-add_shortcode('pgn', 'rpbchessboard_shortcode_printer');
-function rpbchessboard_shortcode_printer($atts, $content='')
+// Short-code [pgn][/pgn]
+add_shortcode('pgn', 'rpbchessboard_shortcode_pgn');
+function rpbchessboard_shortcode_pgn($atts, $content='')
 {
 	ob_start();
 	/*if(!is_array($atts)) {
@@ -89,10 +89,8 @@ function rpbchessboard_shortcode_printer($atts, $content='')
 	}
 	else {
 		$hide_result = false;
-	}
+	}*/
 	include(RPBCHESSBOARD_ABSPATH.'template-init.php');
-	include(RPBCHESSBOARD_ABSPATH.'template-pgn.php');*/
+	include(RPBCHESSBOARD_ABSPATH.'template-pgn.php');
 	return ob_get_clean();
 }
-
-?>

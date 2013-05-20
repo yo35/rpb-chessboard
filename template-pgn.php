@@ -1,94 +1,84 @@
 <?php
 
-// Initialization
-$current_pgn_id = rpbchessboard_make_pgn_id();
+	// Helper
+	require_once(RPBCHESSBOARD_ABSPATH.'helpers/main.php');
 
-// Pre-node for debug messages printing
-global $rpbchessboard_add_debug_tag;
-if($rpbchessboard_add_debug_tag && defined('RPBCHESSBOARD_DEBUG')) {
-	echo '<pre id="chess4web-debug"></pre>';
-}
-$rpbchessboard_add_debug_tag = false;
+	// ID for the current element
+	$currentID = RPBChessBoardMainHelper::makeID();
 
-// Options
-$js_hide_result = $hide_result ? 'true' : 'false';
-
-// Remove the useless elements added by the Wordpress engine
-$filtered_content  = '';
-$length_content    = strlen($content);
-$inside_commentary = false;
-$start_copy_at     = 0;
-$length_copy       = 0;
-for($k=0; $k<$length_content; ++$k) {
-	if($inside_commentary) {
-		if($content[$k]=='}') {
-			$length_copy = $k-$start_copy_at;
-			if($length_copy>0) {
-				$commentary = do_shortcode(substr($content, $start_copy_at, $length_copy));
-				$commentary = str_replace('&nbsp;', ' ', $commentary);
-				$filtered_content .= $commentary;
+	// Remove the useless HTML tags added by the Wordpress engine
+	$filtered_content  = '';
+	$length_content    = strlen($content);
+	$inside_commentary = false;
+	$start_copy_at     = 0;
+	$length_copy       = 0;
+	for($k=0; $k<$length_content; ++$k) {
+		if($inside_commentary)
+		{
+			// Detect the end of a commentary.
+			if($content[$k]=='}') {
+				$length_copy = $k-$start_copy_at;
+				if($length_copy>0) {
+					$commentary = do_shortcode(substr($content, $start_copy_at, $length_copy));
+					$commentary = str_replace('&nbsp;', ' ', $commentary);
+					$filtered_content .= $commentary;
+				}
+				$start_copy_at     = $k;
+				$inside_commentary = false;
 			}
-			$start_copy_at     = $k;
-			$inside_commentary = false;
+		}
+		else
+		{
+			// Outside commentaries, the HTML tags are filtered out.
+			if($content[$k]=='<') {
+				$length_copy = $k-$start_copy_at;
+				if($length_copy>0) {
+					$filtered_content .= substr($content, $start_copy_at, $length_copy);
+				}
+			}
+			else if($content[$k]=='>') {
+				$start_copy_at = $k+1;
+			}
+
+			// Detect the beginning of a commentary.
+			else if($content[$k]=='{') {
+				$length_copy = $k-$start_copy_at+1;
+				if($length_copy>0) {
+					$filtered_content .= substr($content, $start_copy_at, $length_copy);
+				}
+				$start_copy_at     = $k+1;
+				$inside_commentary = true;
+			}
 		}
 	}
-	else {
-		if($content[$k]=='<') {
-			$length_copy = $k-$start_copy_at;
-			if($length_copy>0) {
-				$filtered_content .= substr($content, $start_copy_at, $length_copy);
-			}
-		}
-		else if($content[$k]=='>') {
-			$start_copy_at = $k+1;
-		}
-		else if($content[$k]=='{') {
-			$length_copy = $k-$start_copy_at+1;
-			if($length_copy>0) {
-				$filtered_content .= substr($content, $start_copy_at, $length_copy);
-			}
-			$start_copy_at     = $k+1;
-			$inside_commentary = true;
-		}
+
+	// Do not forget to copy the end of the text.
+	if($start_copy_at<$lg_content) {
+		$filtered_content .= substr($content, $start_copy_at);
 	}
-}
-if($start_copy_at<$lg_content) {
-	$filtered_content .= substr($content, $start_copy_at);
-}
-
-// Raw PGN text section
-echo '<pre class="chess4web-pgn" id="'.$current_pgn_id.'-in">';
-echo $filtered_content;
-echo '</pre>';
-
-// Javascript-not-enabled message
-echo '<div class="chess4web-javascript-warning" id="'.$current_pgn_id.'-jw">';
-echo __('You need to activate javascript to enhance the PGN game visualization.', 'rpbchessboard');
-echo '</div>';
-
-// Display the game
 ?>
-<div class="chess4web-out chess4web-hide-this" id="<?php echo $current_pgn_id; ?>-out">
+
+<pre class="jsChessLib-pgn-source" id="<?php echo $currentID; ?>-in"><?php echo $filtered_content; ?></pre>
+<div class="jsChessLib-invisible" id="<?php echo $currentID; ?>-out">
 	<div class="rpbchessboard-game-head">
 		<div><span class="rpbchessboard-white-square">&nbsp;</span>&nbsp;<span class="chess4web-template-WhiteFullName"></span></div>
 		<div><span class="rpbchessboard-black-square">&nbsp;</span>&nbsp;<span class="chess4web-template-BlackFullName"></span></div>
-		<div><span class="chess4web-template-FullEvent"></span></div>
-		<?php if(!$hide_annotator): ?>
-			<div class="rpbchessboard-annotator"><?php
-				echo sprintf(__('Commented by %1$s', 'rpbchessboard'), '<span class="chess4web-template-Annotator"></span>');
-			?></div>
-		<?php endif; ?>
+		<div class="jsChessLib-field-Event">Event: <span class="jsChessLib-anchor-Event"></span></div>
+		<div class="jsChessLib-field-FakeField">Fake field: <span class="jsChessLib-anchor-FakeField"></span></div>
+		<div class="rpbchessboard-annotator"><?php
+			echo sprintf(__('Commented by %1$s', 'rpbchessboard'), '<span class="chess4web-template-Annotator"></span>');
+		?></div>
 	</div>
 	<div class="rpbchessboard-game-body">
 		<div class="chess4web-template-Moves"></div>
 	</div>
 </div>
-
-<!-- Call the the PGN engine -->
 <script type="text/javascript">
-	chess4webConfigure();
-	makeNavigationFrame(document.getElementById("content"));
-	var currentPgnItems = parseInputNode(document.getElementById("<?php echo $current_pgn_id; ?>-in"));
-	chess4webHideNode(document.getElementById("<?php echo $current_pgn_id; ?>-jw"));
-	substituteOutputNode(document.getElementById("<?php echo $current_pgn_id; ?>-out"), currentPgnItems[0], <?php echo $js_hide_result; ?>);
+	jsChessRenderer.processPGNByID(
+		"<?php echo $currentID; ?>"
+	);
 </script>
+
+<?php
+	RPBChessBoardMainHelper::printJavascriptActivationWarning();
+?>
