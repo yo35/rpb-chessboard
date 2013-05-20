@@ -488,8 +488,14 @@ var jsChessRenderer = (function()
 			var pgnItem  = pgnItems[0]; // only the first item is taken into account
 
 			// Substitution
-			substituteSimpleField(domNodeOut, "Event", pgnItem);
-			substituteSimpleField(domNodeOut, "FakeField", pgnItem);
+			substituteSimpleField(domNodeOut, "Event"    , pgnItem);
+			substituteSimpleField(domNodeOut, "Site"     , pgnItem);
+			substituteSimpleField(domNodeOut, "Date"     , pgnItem, formatDate);
+			substituteSimpleField(domNodeOut, "Round"    , pgnItem);
+			substituteSimpleField(domNodeOut, "White"    , pgnItem);
+			substituteSimpleField(domNodeOut, "Black"    , pgnItem);
+			substituteSimpleField(domNodeOut, "Result"   , pgnItem);
+			substituteSimpleField(domNodeOut, "Annotator", pgnItem);
 
 			// The input node is made invisible, while the output node is revealed.
 			domNodeIn .classList.add   ("jsChessLib-invisible");

@@ -63,10 +63,12 @@
 	<div class="rpbchessboard-game-head">
 		<div><span class="rpbchessboard-white-square">&nbsp;</span>&nbsp;<span class="chess4web-template-WhiteFullName"></span></div>
 		<div><span class="rpbchessboard-black-square">&nbsp;</span>&nbsp;<span class="chess4web-template-BlackFullName"></span></div>
-		<div class="jsChessLib-field-Event">Event: <span class="jsChessLib-anchor-Event"></span></div>
-		<div class="jsChessLib-field-FakeField">Fake field: <span class="jsChessLib-anchor-FakeField"></span></div>
-		<div class="rpbchessboard-annotator"><?php
-			echo sprintf(__('Commented by %1$s', 'rpbchessboard'), '<span class="chess4web-template-Annotator"></span>');
+		<div class="jsChessLib-field-Event">
+			<span class="jsChessLib-anchor-Event"></span>
+			<span class="jsChessLib-field-Date">- <span class="jsChessLib-anchor-Date"></span></span>
+		</div>
+		<div class="jsChessLib-field-Annotator"><?php
+			echo sprintf(__('Commented by %1$s', 'rpbchessboard'), '<span class="jsChessLib-anchor-Annotator"></span>');
 		?></div>
 	</div>
 	<div class="rpbchessboard-game-body">
