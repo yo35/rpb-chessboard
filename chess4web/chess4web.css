@@ -28,7 +28,8 @@
 	display: none;
 }
 
-pre.chess4web-pgn {
+pre.jsChessLib-fen-source,
+pre.jsChessLib-pgn-source {
 	white-space: pre-wrap;
 }
 
@@ -44,14 +45,6 @@ pre.chess4web-pgn {
 .chess4web-template-BlackFullName,
 .chess4web-template-Position {
 	display: none;
-}
-
-.chess4web-out span.chess4web-elo:before {
-	content: " (";
-}
-
-.chess4web-out span.chess4web-elo:after {
-	content: ")";
 }
 
 .chess4web-out span.chess4web-round:before {
@@ -148,6 +141,19 @@ div#chess4web-navigation-frame #chess4web-navigation-content {
 
 div#chess4web-navigation-frame #chess4web-navigation-buttons {
 	text-align: center;
+}
+
+
+
+/******************************************************************************/
+/*** Player name fields ***/
+
+span.jsChessLib-subfield-groupTitleElo:before {
+	content: " (";
+}
+
+span.jsChessLib-subfield-groupTitleElo:after {
+	content: ")";
 }
 
 
