@@ -87,7 +87,9 @@
 </div>
 <script type="text/javascript">
 	jsChessRenderer.processPGNByID(
-		"<?php echo $currentID; ?>"
+		"<?php echo $currentID; ?>",
+		<?php echo RPBChessBoardMainHelper::readSquareSize($atts); ?>,
+		<?php echo RPBChessBoardMainHelper::readShowCoordinates($atts); ?>
 	);
 </script>
 
