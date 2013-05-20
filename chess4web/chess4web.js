@@ -557,14 +557,14 @@ var jsChessRenderer = (function()
 			// Commentary associated to the current move
 			var commentary = renderCommentary(currentPgnNode, depth, squareSize, showCoordinates);
 			if(commentary!=null) {
-				retVal.append(commentary);
+				retVal.appendChild(commentary);
 			}
 
 			// Sub-variations starting from the current point in PGN tree
 			for(var k=0; k<currentPgnNode.variations.length; ++k) {
 				var newVariation = renderVariation(currentPgnNode.variations[k], depth+1,
 					squareSize, showCoordinates);
-				retVal.appendChild(retVal);
+				retVal.appendChild(newVariation);
 			}
 
 			// Back to the current line
@@ -924,7 +924,7 @@ function getElementsByClass(searchClass, tagName, domNode, recursive)
 /**
  * Replace the content of a DOM node with the list of moves
  */
-function substituteMoves(domNode, pgnItem, hideResult)
+/*function substituteMoves(domNode, pgnItem, hideResult)
 {
 	// Initialize the tree walk
 	if(pgnItem.mainVariation==null) {
@@ -1018,7 +1018,7 @@ function substituteMoves(domNode, pgnItem, hideResult)
 	// CSS classes
 	domNode.classList.add   ("chess4web-Moves");
 	domNode.classList.remove("chess4web-template-Moves");
-}
+}*/
 
 /**
  * Creates the chess4web-navigation-frame if it does not exist
