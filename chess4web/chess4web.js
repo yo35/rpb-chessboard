@@ -820,13 +820,20 @@ var jsChessRenderer = (function()
 	 * @see {@link substituteSimpleField}
 	 * @param {Element} domNodeIn
 	 * @param {Element} domNodeOut
+	 * @param {Number} [squareSize] Size of the sprite to use to render the diagrams (if any).
+	 * @param {Boolean} [showCoordinates] Whether the row and column coordinates should be
+	 *        displayed on diagrams (if any).
 	 */
-	module.processPGN = function(domNodeIn, domNodeOut)
+	module.processPGN = function(domNodeIn, domNodeOut, squareSize, showCoordinates)
 	{
 		// Nothing to do if one of the DOM node is not valid
 		if(domNodeIn==null || domNodeOut==null) {
 			return;
 		}
+
+		// Default arguments
+		if(squareSize     ==null) squareSize     =module.option.defaultSquareSize     ;
+		if(showCoordinates==null) showCoordinates=module.option.defaultShowCoordinates;
 
 		try
 		{
@@ -846,7 +853,7 @@ var jsChessRenderer = (function()
 			substituteSimpleField(domNodeOut, "Annotator", pgnItem);
 			substituteFullName(domNodeOut, WHITE, pgnItem);
 			substituteFullName(domNodeOut, BLACK, pgnItem);
-			substituteMoves(domNodeOut, pgnItem, 32, true); //TODO: diagram parameters
+			substituteMoves(domNodeOut, pgnItem, squareSize, showCoordinates);
 
 			// The input node is made invisible, while the output node is revealed.
 			domNodeIn .classList.add   ("jsChessLib-invisible");
@@ -879,12 +886,16 @@ var jsChessRenderer = (function()
 	 *
 	 * @see {@link module.processPGN}
 	 * @param {String} domID ID prefix of the DOM nodes to process.
+	 * @param {Number} [squareSize] Size of the sprite to use to render the diagrams (if any).
+	 * @param {Boolean} [showCoordinates] Whether the row and column coordinates should be
+	 *        displayed on diagrams (if any).
 	 */
-	module.processPGNByID = function(domID)
+	module.processPGNByID = function(domID, squareSize, showCoordinates)
 	{
 		module.processPGN(
 			document.getElementById(domID + "-in" ),
-			document.getElementById(domID + "-out")
+			document.getElementById(domID + "-out"),
+			squareSize, showCoordinates
 		);
 	}
 
