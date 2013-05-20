@@ -1,7 +1,7 @@
 <?php
 
 	// Helper
-	require_once(RPBCHESSBOARD_ABSPATH . 'helpers/main.php');
+	require_once(RPBCHESSBOARD_ABSPATH.'helpers/main.php');
 
 	// Debug node
 	RPBChessBoardMainHelper::printDebugNode();

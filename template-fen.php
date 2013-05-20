@@ -1,7 +1,7 @@
 <?php
 
 	// Helper
-	require_once(RPBCHESSBOARD_ABSPATH . 'helpers/main.php');
+	require_once(RPBCHESSBOARD_ABSPATH.'helpers/main.php');
 
 	// ID for the current element
 	$currentID = RPBChessBoardMainHelper::makeID();
