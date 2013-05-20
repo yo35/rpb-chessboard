@@ -277,6 +277,64 @@ var jsChessRenderer = (function()
 	}
 
 	/**
+	 * Return a new DOM node holding information about the one of the players.
+	 *
+	 * @param {PGNItem} pgnItem PGN item object holding the information to render.
+	 * @param {Number} color Color code (either BLACK or WHITE) corresponding to the player to consider.
+	 */
+	function renderPlayerInfo(pgnItem, color)
+	{
+		// Name of the PGN fields
+		var nameField  = color==WHITE ? "White" : "Black";
+		var eloField   = nameField + "Elo";
+		var titleField = nameField + "Title";
+
+		// Returned node
+		var retVal = document.createElement("span");
+		retVal.classList.add("jsChessLib-value-fullName" + nameField);
+
+		// Player name sub-field
+		var nameSubField = document.createElement("span");
+		nameSubField.classList.add("jsChessLib-subfield-playerName");
+		nameSubField.innerHTML = pgnItem[nameField];
+		retVal.appendChild(nameSubField);
+
+		// Group title + elo
+		var titleDefined = (pgnItem[titleField]!=null) && pgnItem[titleField]!="-";
+		var eloDefined   = (pgnItem[eloField  ]!=null) && pgnItem[eloField  ]!="?";
+		if(titleDefined || eloDefined) {
+			var groupTitleEloSubField = document.createElement("span");
+			groupTitleEloSubField.classList.add("jsChessLib-subfield-groupTitleElo");
+			retVal.appendChild(groupTitleEloSubField);
+
+			// Title sub-field
+			if(titleDefined) {
+				var titleSubField = document.createElement("span");
+				titleSubField.classList.add("jsChessLib-subfield-title");
+				titleSubField.innerHTML = pgnItem[titleField];
+				groupTitleEloSubField.appendChild(titleSubField);
+			}
+
+			// Separator
+			if(titleDefined && eloDefined) {
+				var separator = document.createTextNode(" ");
+				groupTitleEloSubField.appendChild(separator);
+			}
+
+			// Elo sub-field
+			if(eloDefined) {
+				var eloSubField = document.createElement("span");
+				eloSubField.classList.add("jsChessLib-subfield-elo");
+				eloSubField.innerHTML = pgnItem[eloField];
+				groupTitleEloSubField.appendChild(eloSubField);
+			}
+		}
+
+		// Return the result
+		return retVal;
+	}
+
+	/**
 	 * Convert a PGN date field value into a human-readable date string. If the
 	 * input is badly-formatted, it is returned "as-is".
 	 *
@@ -405,6 +463,55 @@ var jsChessRenderer = (function()
 	}
 
 	/**
+	 * Substitution method for the special replacement tokens fullNameWhite and
+	 * fullNameBlack. Example:
+	 *
+	 * Before substitution:
+	 * <div class="jsChessLib-field-fullNameWhite">
+	 *   White player: <span class="jsChessLib-anchor-fullNameWhite"></span>
+	 * </div>
+	 *
+	 * After substitution:
+	 * <div class="jsChessLib-field-fullNameWhite">
+	 *   White player: <span class="jsChessLib-value-fullNameWhite">
+	 *     <span class="jsChessLib-subfield-playerName">Kasparov, Garry</span>
+	 *     <span class="jsChessLib-subfield-groupTitleElo">
+	 *       <span class="jsChessLib-subfield-title">GM</span>
+	 *       <span class="jsChessLib-subfield-elo">2812</span>
+	 *     </span>
+	 *   </span>
+	 * </div>
+	 *
+	 * @param {Element} parentNode Each child of this node having a class attribute
+	 *        set to "jsChessLib-field-fullNameColor" will be targeted by the substitution.
+	 * @param {Number} color Color code corresponding to the player to consider (either BLACK or WHITE).
+	 * @param {PGNItem} pgnItem PGN item object corresponding to the game to process.
+	 */
+	function substituteFullName(parentNode, color, pgnItem)
+	{
+		var nameField = color==WHITE ? "White" : "Black";
+
+		// For all the replacement fields...
+		var fieldNodes = parentNode.getElementsByClassName("jsChessLib-field-fullName" + nameField);
+		for(var k=0; k<fieldNodes.length; ++k) {
+			var fieldNode = fieldNodes[k];
+
+			// Hide the field if no nmae is available
+			if(pgnItem[nameField]==null) {
+				fieldNode.classList.add("jsChessLib-invisible");
+			}
+
+			// Process each anchor node
+			var anchorNodes = fieldNode.getElementsByClassName("jsChessLib-anchor-fullName" + nameField);
+			for(var l=0; l<fieldNodes.length; ++l) {
+				var anchorNode = anchorNodes[l];
+				var valueNode  = renderPlayerInfo(pgnItem, color);
+				anchorNode.parentNode.replaceChild(valueNode, anchorNode);
+			}
+		}
+	}
+
+	/**
 	 * Interpret the text in the given DOM node as a FEN string, and replace the
 	 * node with a graphically-rendered chessboard corresponding to the FEN string.
 	 *
@@ -496,6 +603,8 @@ var jsChessRenderer = (function()
 			substituteSimpleField(domNodeOut, "Black"    , pgnItem);
 			substituteSimpleField(domNodeOut, "Result"   , pgnItem);
 			substituteSimpleField(domNodeOut, "Annotator", pgnItem);
+			substituteFullName(domNodeOut, WHITE, pgnItem);
+			substituteFullName(domNodeOut, BLACK, pgnItem);
 
 			// The input node is made invisible, while the output node is revealed.
 			domNodeIn .classList.add   ("jsChessLib-invisible");
@@ -572,43 +681,7 @@ function getElementsByClass(searchClass, tagName, domNode, recursive)
 
 
 
-/**
- * Replace the content of a DOM node with a full player ID (name + elo if available)
- */
-function substituteFullName(domNode, color, pgnItem)
-{
-	var nameField  = color==WHITE ? "White" : "Black";
-	var eloField   = nameField + "Elo";
-	var titleField = nameField + "Title";
-	var className  = nameField + "FullName";
-	if(pgnItem[nameField]===undefined) {
-		return;
-	}
 
-	// Name substitution
-	domNode.innerHTML = "";
-	var nameSpan = document.createElement("span");
-	nameSpan.className = "chess4web-playername";
-	nameSpan.innerHTML = pgnItem[nameField];
-	domNode.appendChild(nameSpan);
-
-	// Elo substitution
-	if(pgnItem[eloField]!==undefined) {
-		var eloSpan = document.createElement("span");
-		eloSpan.className = "chess4web-elo";
-		if(pgnItem[titleField]!==undefined && pgnItem[titleField]!="-") {
-			eloSpan.innerHTML = pgnItem[titleField] + " " + pgnItem[eloField];
-		}
-		else {
-			eloSpan.innerHTML = pgnItem[eloField];
-		}
-		domNode.appendChild(eloSpan);
-	}
-
-	// CSS classes
-	domNode.classList.add   ("chess4web-" + className);
-	domNode.classList.remove("chess4web-template-" + className);
-}
 
 /**
  * Replace the content of a DOM node a full event description (event + round + date)

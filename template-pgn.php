@@ -61,8 +61,14 @@
 <pre class="jsChessLib-pgn-source" id="<?php echo $currentID; ?>-in"><?php echo $filtered_content; ?></pre>
 <div class="jsChessLib-invisible" id="<?php echo $currentID; ?>-out">
 	<div class="rpbchessboard-game-head">
-		<div><span class="rpbchessboard-white-square">&nbsp;</span>&nbsp;<span class="chess4web-template-WhiteFullName"></span></div>
-		<div><span class="rpbchessboard-black-square">&nbsp;</span>&nbsp;<span class="chess4web-template-BlackFullName"></span></div>
+		<div class="jsChessLib-field-fullNameWhite">
+			<span class="rpbchessboard-white-square">&nbsp;</span>
+			<span class="jsChessLib-anchor-fullNameWhite"></span>
+		</div>
+		<div class="jsChessLib-field-fullNameBlack">
+			<span class="rpbchessboard-black-square">&nbsp;</span>
+			<span class="jsChessLib-anchor-fullNameBlack"></span>
+		</div>
 		<div class="jsChessLib-field-Event">
 			<span class="jsChessLib-anchor-Event"></span>
 			<span class="jsChessLib-field-Date">- <span class="jsChessLib-anchor-Date"></span></span>
