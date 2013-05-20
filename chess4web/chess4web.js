@@ -465,8 +465,11 @@ var jsChessRenderer = (function()
 	}
 
 	/**
-	 * TODO
+	 * Interpret the text in the DOM node domNodeIn as a PGN string, and process
+	 * the replacement tokens within domNodeOut with the values parsed from this
+	 * PGN string.
 	 *
+	 * @see {@link substituteSimpleField}
 	 * @param {Element} domNodeIn
 	 * @param {Element} domNodeOut
 	 */
