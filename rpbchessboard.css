@@ -20,13 +20,17 @@ span.rpbchessboard-black-square {
 	border: 1px solid black;
 }
 
-div.rpbchessboard-game-head div {
-	margin-top   : 4px;
-	margin-bottom: 4px;
+span.jsChessLib-field-Round {
+	font-style: italic;
 }
 
 div.jsChessLib-field-Annotator {
 	font-style: italic;
+}
+
+div.rpbchessboard-game-head div {
+	margin-top   : 4px;
+	margin-bottom: 4px;
 }
 
 div.rpbchessboard-game-head {
