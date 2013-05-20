@@ -342,8 +342,13 @@ var jsChessRenderer = (function()
 	 */
 	function formatDate(date)
 	{
+		// Null input
+		if(date==null) {
+			return null;
+		}
+
 		// Case "2013.05.20" -> return "20 may 2013"
-		if(date.match(/([0-9]{4})\.([0-9]{2})\.([0-9]{2})/)) {
+		else if(date.match(/([0-9]{4})\.([0-9]{2})\.([0-9]{2})/)) {
 			var month = parseInt(RegExp.$2);
 			if(month>=1 && month<=12)
 				return RegExp.$3 + " " + module.option.monthName[month] + " " + RegExp.$1;
@@ -384,21 +389,26 @@ var jsChessRenderer = (function()
 	 */
 	function formatMoveNotation(notation)
 	{
-		var retVal = "";
-		for(var k=0; k<notation.length; ++k) {
-			switch(notation.charAt(k)) {
-				case "K": retVal+=module.option.pieceSymbol["K"]; break;
-				case "Q": retVal+=module.option.pieceSymbol["Q"]; break;
-				case "R": retVal+=module.option.pieceSymbol["R"]; break;
-				case "B": retVal+=module.option.pieceSymbol["B"]; break;
-				case "N": retVal+=module.option.pieceSymbol["N"]; break;
-				case "P": retVal+=module.option.pieceSymbol["P"]; break;
-				default:
-					retVal += notation.charAt(k);
-					break;
-			}
+		if(notation==null) {
+			return null;
 		}
-		return retVal;
+		else {
+			var retVal = "";
+			for(var k=0; k<notation.length; ++k) {
+				switch(notation.charAt(k)) {
+					case "K": retVal+=module.option.pieceSymbol["K"]; break;
+					case "Q": retVal+=module.option.pieceSymbol["Q"]; break;
+					case "R": retVal+=module.option.pieceSymbol["R"]; break;
+					case "B": retVal+=module.option.pieceSymbol["B"]; break;
+					case "N": retVal+=module.option.pieceSymbol["N"]; break;
+					case "P": retVal+=module.option.pieceSymbol["P"]; break;
+					default:
+						retVal += notation.charAt(k);
+						break;
+				}
+			}
+			return retVal;
+		}
 	}
 
 	/**
@@ -408,7 +418,10 @@ var jsChessRenderer = (function()
 	 */
 	function formatNag(nag)
 	{
-		if(module.option.nag[nag]==null)
+		if(nag==null) {
+			return null;
+		}
+		else if(module.option.nag[nag]==null)
 			return "$" + nag;
 		else
 			return module.option.nag[nag];
@@ -449,7 +462,7 @@ var jsChessRenderer = (function()
 
 			// Determine the text that is to be inserted
 			var value = pgnItem[fieldName];
-			if(value!=null && formatFunc!=null) {
+			if(formatFunc!=null) {
 				value = formatFunc(value);
 			}
 
