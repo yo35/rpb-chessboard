@@ -716,43 +716,6 @@ function getElementsByClass(searchClass, tagName, domNode, recursive)
 
 
 
-
-
-
-
-/**
- * Replace the content of a DOM node a full event description (event + round + date)
- */
-function substituteFullEvent(domNode, pgnItem)
-{
-	// Event substitution
-	domNode.innerHTML = "";
-	var eventSpan = document.createElement("span");
-	eventSpan.className = "chess4web-eventname";
-	eventSpan.innerHTML = pgnItem["Event"];
-	domNode.appendChild(eventSpan);
-
-	// Round substitution
-	if(pgnItem["Round"]!==undefined && pgnItem["Round"]!="?") {
-		var roundSpan = document.createElement("span");
-		roundSpan.className = "chess4web-round";
-		roundSpan.innerHTML = pgnItem["Round"];
-		domNode.appendChild(roundSpan);
-	}
-
-	// Date substitution
-	if(pgnItem["Date"]!==undefined && pgnItem["Date"]!="????.??.??") {
-		var dateSpan = document.createElement("span");
-		dateSpan.className = "chess4web-date";
-		dateSpan.innerHTML = formatDate(pgnItem["Date"]);
-		domNode.appendChild(dateSpan);
-	}
-
-	// CSS classes
-	domNode.classList.add   ("chess4web-FullEvent");
-	domNode.classList.remove("chess4web-template-FullEvent");
-}
-
 /**
  * Replace the content of a DOM node with the list of moves
  */
