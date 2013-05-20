@@ -6,7 +6,7 @@
 	// ID for the current element
 	$currentID = RPBChessBoardMainHelper::makeID();
 
-	// Deal with wordpress auto-filtering
+	// Deal with Wordpress auto-filtering
 	$content = str_replace('&#8211;', '-', $content);
 ?>
 
