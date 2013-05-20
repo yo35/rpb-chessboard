@@ -71,6 +71,7 @@
 		</div>
 		<div class="jsChessLib-field-Event">
 			<span class="jsChessLib-anchor-Event"></span>
+			<span class="jsChessLib-field-Round">(<span class="jsChessLib-anchor-Round"></span>)</span>
 			<span class="jsChessLib-field-Date">- <span class="jsChessLib-anchor-Date"></span></span>
 		</div>
 		<div class="jsChessLib-field-Annotator"><?php
