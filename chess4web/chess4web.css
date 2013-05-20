@@ -1,6 +1,6 @@
 /******************************************************************************
  *                                                                            *
- *    This file is part of chess4web, a javascript library for displaying     *
+ *    This file is part of jsChessLib, a javascript library for displaying    *
  *    chessboards or full chess game in a web page.                           *
  *                                                                            *
  *    Copyright (C) 2011  Yoann Le Montagner <yo35(at)melix(dot)net>          *
