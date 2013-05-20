@@ -17,7 +17,7 @@
 		}
 
 		// Set the base URL
-		jsChessRenderer.configureBaseURL("<?php echo RPBCHESSBOARD_URL; ?>/chess4web");
+		jsChessRenderer.configureBaseURL("<?php echo RPBCHESSBOARD_URL; ?>/jschesslib");
 
 		// Localized month names
 		jsChessRenderer.option.monthName = {

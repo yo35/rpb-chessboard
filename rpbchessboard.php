@@ -21,24 +21,24 @@ load_plugin_textdomain('rpbchessboard', false, RPBCHESSBOARD_PLUGIN_DIR.'/langua
 add_action('wp_enqueue_scripts', 'rpbchessboard_enqueue_script');
 function rpbchessboard_enqueue_script()
 {
-	wp_register_script('rpbchessboard-jschess-script'  , RPBCHESSBOARD_URL.'/chess4web/jschess.js');
-	wp_register_script('rpbchessboard-jspgn-script'    , RPBCHESSBOARD_URL.'/chess4web/jspgn.js');
-	wp_register_script('rpbchessboard-htmlparser'      , RPBCHESSBOARD_URL.'/chess4web/htmlparser.js');
-	wp_register_script('rpbchessboard-chess4web-script', RPBCHESSBOARD_URL.'/chess4web/chess4web.js');
-	wp_enqueue_script('rpbchessboard-jschess-script'  );
-	wp_enqueue_script('rpbchessboard-jspgn-script'    );
-	wp_enqueue_script('rpbchessboard-htmlparser'      );
-	wp_enqueue_script('rpbchessboard-chess4web-script');
+	wp_register_script('rpbchessboard-htmlparser'            , RPBCHESSBOARD_URL.'/jschesslib/htmlparser.js'     );
+	wp_register_script('rpbchessboard-jschess-script'        , RPBCHESSBOARD_URL.'/jschesslib/jschess.js'        );
+	wp_register_script('rpbchessboard-jschesspgn-script'     , RPBCHESSBOARD_URL.'/jschesslib/jschesspgn.js'     );
+	wp_register_script('rpbchessboard-jschessrenderer-script', RPBCHESSBOARD_URL.'/jschesslib/jschessrenderer.js');
+	wp_enqueue_script('rpbchessboard-htmlparser'            );
+	wp_enqueue_script('rpbchessboard-jschess-script'        );
+	wp_enqueue_script('rpbchessboard-jschesspgn-script'     );
+	wp_enqueue_script('rpbchessboard-jschessrenderer-script');
 }
 
 // Enqueue general styles
 add_action('wp_print_styles', 'rpbchessboard_enqueue_css');
 function rpbchessboard_enqueue_css()
 {
-	wp_register_style('rpbchessboard-chess4web', RPBCHESSBOARD_URL.'/chess4web/chess4web.css');
-	wp_register_style('rpbchessboard-main'     , RPBCHESSBOARD_URL.'/rpbchessboard.css');
-	wp_enqueue_style ('rpbchessboard-chess4web');
-	wp_enqueue_style ('rpbchessboard-main'     );
+	wp_register_style('rpbchessboard-jschesslib', RPBCHESSBOARD_URL.'/jschesslib/jschesslib.css');
+	wp_register_style('rpbchessboard-main'      , RPBCHESSBOARD_URL.'/rpbchessboard.css');
+	wp_enqueue_style ('rpbchessboard-jschesslib');
+	wp_enqueue_style ('rpbchessboard-main'      );
 }
 
 // Administration page
