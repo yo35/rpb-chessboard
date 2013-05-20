@@ -33,84 +33,15 @@ pre.jsChessLib-pgn-source {
 	white-space: pre-wrap;
 }
 
-.chess4web-template-Event,
-.chess4web-template-Site,
-.chess4web-template-Date,
-.chess4web-template-Round,
-.chess4web-template-White,
-.chess4web-template-Black,
-.chess4web-template-Result,
-.chess4web-template-Annotator,
-.chess4web-template-WhiteFullName,
-.chess4web-template-BlackFullName,
-.chess4web-template-Position {
-	display: none;
-}
-
-.chess4web-out span.chess4web-round:before {
-	content: " (";
-}
-
-.chess4web-out span.chess4web-round:after {
-	content: ")";
-}
-
-.chess4web-out span.chess4web-date:before {
-	content: " - ";
-}
-
 .chess4web-out .chess4web-Result {
 	font-weight: bold;
 }
 
-.chess4web-out .chess4web-Moves span.chess4web-Result {
-	margin-left: 10px;
-}
-
-.chess4web-out span.chess4web-move {
-	font-weight: bold;
-	padding-left : 2px;
-	padding-right: 2px;
-	display: inline-block;
-	margin-right: 5px;
-}
-
-.chess4web-out span.chess4web-commentary {
-	margin-right: 5px;
-}
-
-.chess4web-out span.chess4web-move:hover {
-	cursor: pointer;
-}
-
-.chess4web-out span.chess4web-long-commentary {
-	margin-left  : 10px;
-	margin-top   :  4px;
-	margin-bottom:  4px;
-	display: block;
-}
-
-.chess4web-out span.chess4web-variation {
-	margin-left  : 10px;
-	margin-top   :  4px;
-	margin-bottom:  4px;
-	display: block;
-}
-
-.chess4web-out span.chess4web-variation span.chess4web-move {
-	font-weight: normal;
-}
-
-.chess4web-out span.chess4web-variation span.chess4web-commentary {
-	font-style: italic;
-}
-
-
 
 /******************************************************************************/
-/*** Navigation board ***/
+/*** Navigation frame ***/
 
-.chess4web-out div.chess4web-position-miniature {
+.jsChessLib-out div.jsChessLib-navigation-source {
 	display: none;
 }
 
@@ -144,7 +75,6 @@ div#chess4web-navigation-frame #chess4web-navigation-buttons {
 }
 
 
-
 /******************************************************************************/
 /*** Player name fields ***/
 
@@ -157,12 +87,50 @@ span.jsChessLib-subfield-groupTitleElo:after {
 }
 
 
+/******************************************************************************/
+/*** Move fields ***/
+
+span.jsChessLib-move {
+	font-weight: bold;
+	display: inline-block;
+}
+
+span.jsChessLib-move,
+span.jsChessLib-commentary-short {
+	margin-right: 5px;
+}
+
+span.jsChessLib-move:hover {
+	cursor: pointer;
+}
+
+span.jsChessLib-commentary-long,
+span.jsChessLib-variation-main,
+span.jsChessLib-variation-sub {
+	margin-left  : 10px;
+	margin-top   :  4px;
+	margin-bottom:  4px;
+	display: block;
+}
+
+span.jsChessLib-variation-sub span.jsChessLib-move {
+	font-weight: normal;
+}
+
+span.jsChessLib-variation-sub span.jsChessLib-commentary-short,
+span.jsChessLib-variation-sub span.jsChessLib-commentary-long {
+	font-style: italic;
+}
+
 
 /******************************************************************************/
 /*** Board style ***/
 
 .jsChessLib-out .jsChessLib-chessboard {
 	text-align: center;
+}
+
+.jsChessLib-chessboard {
 	display: block;
 }
 
