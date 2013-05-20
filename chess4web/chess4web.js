@@ -207,6 +207,115 @@ var jsChessRenderer = (function()
 	}
 
 	/**
+	 * Convert a PGN date field value into a human-readable date string. If the
+	 * input is badly-formatted, it is returned "as-is".
+	 *
+	 * @param {String} date Value of a PGN date field.
+	 */
+	function formatDate(date)
+	{
+		// Null input
+		if(date==null) {
+			return null;
+		}
+
+		// Case "2013.05.20" -> return "20 may 2013"
+		else if(date.match(/([0-9]{4})\.([0-9]{2})\.([0-9]{2})/)) {
+			var month = parseInt(RegExp.$2);
+			if(month>=1 && month<=12)
+				return RegExp.$3 + " " + module.option.monthName[month] + " " + RegExp.$1;
+			else
+				return RegExp.$1
+		}
+
+		// Case "2013.05.??" -> return "may 2013"
+		else if(date.match(/([0-9]{4})\.([0-9]{2})\.\?\?/)) {
+			var month = parseInt(RegExp.$2);
+			if(month>=1 && month<=12)
+				return module.option.monthName[month] + " " + RegExp.$1;
+			else
+				return RegExp.$1
+		}
+
+		// Case "2013.??.??" -> return "2013"
+		else if(date.match(/([0-9]{4})\.\?\?\.\?\?/)) {
+			return RegExp.$1;
+		}
+
+		// Case "????.??.??" -> no date is defined
+		else if(date=="????.??.??") {
+			return null;
+		}
+
+		// Badly-formatted input -> return it "as-is"
+		else {
+			return date;
+		}
+	}
+
+	/**
+	 * Convert a PGN round field value into a human-readable round string.
+	 * Return null if the special code "?" is detected.
+	 *
+	 * @param {String} round Value of a PGN round field.
+	 */
+	function formatRound(round)
+	{
+		if(round==null || round=="?") {
+			return null;
+		}
+		else {
+			return round;
+		}
+	}
+
+	/**
+	 * Convert a PGN-like move notation into a localized move notation
+	 * (the characters used to specify the pieces is the only localized element).
+	 *
+	 * @param {String} notation PGN-like move notation to convert.
+	 */
+	function formatMoveNotation(notation)
+	{
+		if(notation==null) {
+			return null;
+		}
+		else {
+			var retVal = "";
+			for(var k=0; k<notation.length; ++k) {
+				switch(notation.charAt(k)) {
+					case "K": retVal+=module.option.pieceSymbol["K"]; break;
+					case "Q": retVal+=module.option.pieceSymbol["Q"]; break;
+					case "R": retVal+=module.option.pieceSymbol["R"]; break;
+					case "B": retVal+=module.option.pieceSymbol["B"]; break;
+					case "N": retVal+=module.option.pieceSymbol["N"]; break;
+					case "P": retVal+=module.option.pieceSymbol["P"]; break;
+					default:
+						retVal += notation.charAt(k);
+						break;
+				}
+			}
+			return retVal;
+		}
+	}
+
+	/**
+	 * Return the annotation symbol (e.g. "+-", "!?") associated to a numeric NAG code.
+	 *
+	 * @param {Number} nag Numeric NAG code.
+	 */
+	function formatNag(nag)
+	{
+		if(nag==null) {
+			return null;
+		}
+		else if(module.option.nag[nag]==null)
+			return "$" + nag;
+		else
+			return module.option.nag[nag];
+	}
+
+	/**
 	 * Return a new DOM node representing the given position.
 	 *
 	 * @param {Position} position The chess position to render.
@@ -332,115 +441,6 @@ var jsChessRenderer = (function()
 
 		// Return the result
 		return retVal;
-	}
-
-	/**
-	 * Convert a PGN date field value into a human-readable date string. If the
-	 * input is badly-formatted, it is returned "as-is".
-	 *
-	 * @param {String} date Value of a PGN date field.
-	 */
-	function formatDate(date)
-	{
-		// Null input
-		if(date==null) {
-			return null;
-		}
-
-		// Case "2013.05.20" -> return "20 may 2013"
-		else if(date.match(/([0-9]{4})\.([0-9]{2})\.([0-9]{2})/)) {
-			var month = parseInt(RegExp.$2);
-			if(month>=1 && month<=12)
-				return RegExp.$3 + " " + module.option.monthName[month] + " " + RegExp.$1;
-			else
-				return RegExp.$1
-		}
-
-		// Case "2013.05.??" -> return "may 2013"
-		else if(date.match(/([0-9]{4})\.([0-9]{2})\.\?\?/)) {
-			var month = parseInt(RegExp.$2);
-			if(month>=1 && month<=12)
-				return module.option.monthName[month] + " " + RegExp.$1;
-			else
-				return RegExp.$1
-		}
-
-		// Case "2013.??.??" -> return "2013"
-		else if(date.match(/([0-9]{4})\.\?\?\.\?\?/)) {
-			return RegExp.$1;
-		}
-
-		// Case "????.??.??" -> no date is defined
-		else if(date=="????.??.??") {
-			return null;
-		}
-
-		// Badly-formatted input -> return it "as-is"
-		else {
-			return date;
-		}
-	}
-
-	/**
-	 * Convert a PGN round field value into a human-readable round string.
-	 * Return null if the special code "?" is detected.
-	 *
-	 * @param {String} round Value of a PGN round field.
-	 */
-	function formatRound(round)
-	{
-		if(round==null || round=="?") {
-			return null;
-		}
-		else {
-			return round;
-		}
-	}
-
-	/**
-	 * Convert a PGN-like move notation into a localized move notation
-	 * (the characters used to specify the pieces is the only localized element).
-	 *
-	 * @param {String} notation PGN-like move notation to convert.
-	 */
-	function formatMoveNotation(notation)
-	{
-		if(notation==null) {
-			return null;
-		}
-		else {
-			var retVal = "";
-			for(var k=0; k<notation.length; ++k) {
-				switch(notation.charAt(k)) {
-					case "K": retVal+=module.option.pieceSymbol["K"]; break;
-					case "Q": retVal+=module.option.pieceSymbol["Q"]; break;
-					case "R": retVal+=module.option.pieceSymbol["R"]; break;
-					case "B": retVal+=module.option.pieceSymbol["B"]; break;
-					case "N": retVal+=module.option.pieceSymbol["N"]; break;
-					case "P": retVal+=module.option.pieceSymbol["P"]; break;
-					default:
-						retVal += notation.charAt(k);
-						break;
-				}
-			}
-			return retVal;
-		}
-	}
-
-	/**
-	 * Return the annotation symbol (e.g. "+-", "!?") associated to a numeric NAG code.
-	 *
-	 * @param {Number} nag Numeric NAG code.
-	 */
-	function formatNag(nag)
-	{
-		if(nag==null) {
-			return null;
-		}
-		else if(module.option.nag[nag]==null)
-			return "$" + nag;
-		else
-			return module.option.nag[nag];
 	}
 
 	/**
