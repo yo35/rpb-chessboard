@@ -75,21 +75,6 @@ add_shortcode('pgn', 'rpbchessboard_shortcode_pgn');
 function rpbchessboard_shortcode_pgn($atts, $content='')
 {
 	ob_start();
-	/*if(!is_array($atts)) {
-		$atts = array();
-	}
-	if(array_key_exists('hide_annotator', $atts)) {
-		$hide_annotator = $atts['hide_annotator']=='true';
-	}
-	else {
-		$hide_annotator = false;
-	}
-	if(array_key_exists('hide_result', $atts)) {
-		$hide_result = $atts['hide_result']=='true';
-	}
-	else {
-		$hide_result = false;
-	}*/
 	include(RPBCHESSBOARD_ABSPATH.'template-init.php');
 	include(RPBCHESSBOARD_ABSPATH.'template-pgn.php');
 	return ob_get_clean();
