@@ -41,7 +41,7 @@ var jsChessRenderer = (function()
 	 * defined by the jsChessRenderer module.
 	 *
 	 * @param {String} url URL to the root folder of the JsChessLib library,
-	 *                     without the trailing '/' character.
+	 *        without the trailing '/' character.
 	 */
 	module.configureBaseURL = function(url)
 	{
@@ -352,12 +352,65 @@ var jsChessRenderer = (function()
 	}
 
 	/**
+	 * Replace the content of a DOM node with a text value from a PGN field. Here
+	 * is an example, for the event field (i.e. fieldName=='Event'):
+	 *
+	 * Before substitution:
+	 * <div class="jsChessLib-field-Event">
+	 *   Event: <span class="jsChessLib-anchor-Event"></span>
+	 * </div>
+	 *
+	 * After substitution, if the event field is defined:
+	 * <div class="jsChessLib-field-Event">
+	 *   Event: <span class="jsChessLib-value-Event">Aeroflot Open</span>
+	 * </div>
+	 *
+	 * After substitution, if the event field is undefined or null:
+	 * <div class="jsChessLib-field-Event jsChessLib-invisible">
+	 *   Event: <span class="jsChessLib-value-Event"></span>
+	 * </div>
+	 *
+	 * @param {Element} parentNode Each child of this node having a class attribute
+	 *        set to "jsChessLib-field-[fieldName]" will be targeted by the substitution.
+	 * @param {String} fieldName Name of the PGN field to process.
+	 * @param {PGNItem} pgnItem PGN item object corresponding to the game to process.
+	 * @param {Function} [formatFunc] If provided, the content of the current PGN field
+	 *        will be passed to this function, and the returned value will be used as
+	 *        substitution text. Otherwise, the content of the PGN field is used "as-is".
+	 */
+	function substituteSimpleField(parentNode, fieldName, pgnItem, formatFunc)
+	{
+		var fieldNodes = parentNode.getElementsByClassName("jsChessLib-field-" + fieldName);
+		for(var k=0; k<fieldNodes.length; ++k) {
+			var fieldNode = fieldNodes[k];
+
+			// Determine the text that is to be inserted
+			var value = "";
+			if(pgnItem[fieldName]==null) {
+				fieldNode.classList.add("jsChessLib-invisible");
+			}
+			else {
+				value = (formatFunc==null) ? pgnItem[fieldName] : formatFunc(pgnItem[fieldName]);
+			}
+
+			// Process each anchor node
+			var anchorNodes = fieldNode.getElementsByClassName("jsChessLib-anchor-" + fieldName);
+			for(var l=0; l<fieldNodes.length; ++l) {
+				var anchorNode = anchorNodes[l];
+				anchorNode.innerHTML = value;
+				anchorNode.classList.add   ("jsChessLib-value-"  + fieldName);
+				anchorNode.classList.remove("jsChessLib-anchor-" + fieldName);
+			}
+		}
+	}
+
+	/**
 	 * Interpret the text in the given DOM node as a FEN string, and replace the
 	 * node with a graphically-rendered chessboard corresponding to the FEN string.
 	 *
 	 * @param {Element} domNode DOM node containing the FEN string to interpret.
-	 * @param {Number} squareSize Size of the sprite to use. Optional.
-	 * @param {Boolean} showCoordinates Whether the row and column coordinates should be displayed. Optional.
+	 * @param {Number} [squareSize] Size of the sprite to use.
+	 * @param {Boolean} [showCoordinates] Whether the row and column coordinates should be displayed.
 	 */
 	module.processFEN = function(domNode, squareSize, showCoordinates)
 	{
@@ -398,20 +451,82 @@ var jsChessRenderer = (function()
 		}
 	}
 
-
 	/**
 	 * Call the processFEN method on the node identified by the given ID.
 	 *
-	 * @see processFEN
-	 * @param {String} domId ID of the DOM node to process.
-	 * @param {Number} squareSize Size of the sprite to use. Optional.
-	 * @param {Boolean} showCoordinates Whether the row and column coordinates should be displayed. Optional.
+	 * @see {@link module.processFEN}
+	 * @param {String} domID ID of the DOM node to process.
+	 * @param {Number} [squareSize] Size of the sprite to use.
+	 * @param {Boolean} [showCoordinates] Whether the row and column coordinates should be displayed.
 	 */
 	module.processFENByID = function(domID, squareSize, showCoordinates)
 	{
 		module.processFEN(document.getElementById(domID), squareSize, showCoordinates);
 	}
 
+	/**
+	 * TODO
+	 *
+	 * @param {Element} domNodeIn
+	 * @param {Element} domNodeOut
+	 */
+	module.processPGN = function(domNodeIn, domNodeOut)
+	{
+		// Nothing to do if one of the DOM node is not valid
+		if(domNodeIn==null || domNodeOut==null) {
+			return;
+		}
+
+		try
+		{
+			// Interpret the text within the input DOM node as a PGN string, and
+			// construct the associated PGN item object.
+			var pgnItems = parsePGN(domNodeIn.innerHTML);
+			var pgnItem  = pgnItems[0]; // only the first item is taken into account
+
+			// Substitution
+			substituteSimpleField(domNodeOut, "Event", pgnItem);
+			substituteSimpleField(domNodeOut, "FakeField", pgnItem);
+
+			// The input node is made invisible, while the output node is revealed.
+			domNodeIn .classList.add   ("jsChessLib-invisible");
+			domNodeOut.classList.remove("jsChessLib-invisible");
+			domNodeOut.classList.add   ("jsChessLib-out"      );
+		}
+
+		// Parsing exception are caught, while other kind of exceptions are forwarded.
+		catch(err) {
+			if(err instanceof PGNException) {
+				printDebug(err.message);
+				var pos1 = Math.max(0, err.position-50);
+				var lg1  = err.position-pos1;
+				var pos2 = err.position;
+				var lg2  = Math.min(50, err.pgnString.length-pos2);
+				printDebug(
+					"..." + err.pgnString.substr(pos1, lg1) + "{{{ERROR THERE}}}"
+					+ err.pgnString.substr(pos2, lg2) + "..."
+				);
+			}
+			else {
+				throw err;
+			}
+		}
+	}
+
+	/**
+	 * Call the processPGN method using the node identified by ID 'domID+"-in"' as
+	 * input, and the node identified by ID 'domID+"-out"' as output.
+	 *
+	 * @see {@link module.processPGN}
+	 * @param {String} domID ID prefix of the DOM nodes to process.
+	 */
+	module.processPGNByID = function(domID)
+	{
+		module.processPGN(
+			document.getElementById(domID + "-in" ),
+			document.getElementById(domID + "-out")
+		);
+	}
 
 
 
@@ -447,18 +562,6 @@ function getElementsByClass(searchClass, tagName, domNode, recursive)
 
 
 
-/**
- * Replace the content of a DOM node with a text value from a PGN field
- */
-function substituteSimpleField(domNode, fieldName, pgnItem, formatFunc)
-{
-	if(pgnItem[fieldName]===undefined) {
-		return;
-	}
-	domNode.innerHTML = (formatFunc===undefined) ? pgnItem[fieldName] : formatFunc(pgnItem[fieldName]);
-	domNode.classList.add   ("chess4web-" + fieldName);
-	domNode.classList.remove("chess4web-template-" + fieldName);
-}
 
 /**
  * Replace the content of a DOM node with a full player ID (name + elo if available)
