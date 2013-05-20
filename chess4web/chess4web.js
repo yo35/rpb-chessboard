@@ -365,6 +365,11 @@ var jsChessRenderer = (function()
 			return RegExp.$1;
 		}
 
+		// Case "????.??.??" -> no date is defined
+		else if(date=="????.??.??") {
+			return null;
+		}
+
 		// Badly-formatted input -> return it "as-is"
 		else {
 			return date;
@@ -443,12 +448,15 @@ var jsChessRenderer = (function()
 			var fieldNode = fieldNodes[k];
 
 			// Determine the text that is to be inserted
-			var value = "";
-			if(pgnItem[fieldName]==null) {
-				fieldNode.classList.add("jsChessLib-invisible");
+			var value = pgnItem[fieldName];
+			if(value!=null && formatFunc!=null) {
+				value = formatFunc(value);
 			}
-			else {
-				value = (formatFunc==null) ? pgnItem[fieldName] : formatFunc(pgnItem[fieldName]);
+
+			// Hide the field if no value is available
+			if(value==null) {
+				fieldNode.classList.add("jsChessLib-invisible");
+				value = "";
 			}
 
 			// Process each anchor node
@@ -496,7 +504,7 @@ var jsChessRenderer = (function()
 		for(var k=0; k<fieldNodes.length; ++k) {
 			var fieldNode = fieldNodes[k];
 
-			// Hide the field if no nmae is available
+			// Hide the field if no name is available
 			if(pgnItem[nameField]==null) {
 				fieldNode.classList.add("jsChessLib-invisible");
 			}
