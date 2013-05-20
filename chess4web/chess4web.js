@@ -645,7 +645,7 @@ var jsChessRenderer = (function()
 
 			// Process each anchor node
 			var anchorNodes = fieldNode.getElementsByClassName("jsChessLib-anchor-" + fieldName);
-			for(var l=0; l<fieldNodes.length; ++l) {
+			for(var l=0; l<anchorNodes.length; ++l) {
 				var anchorNode = anchorNodes[l];
 				anchorNode.innerHTML = value;
 				anchorNode.classList.add   ("jsChessLib-value-"  + fieldName);
@@ -695,7 +695,7 @@ var jsChessRenderer = (function()
 
 			// Process each anchor node
 			var anchorNodes = fieldNode.getElementsByClassName("jsChessLib-anchor-fullName" + nameField);
-			for(var l=0; l<fieldNodes.length; ++l) {
+			for(var l=0; l<anchorNodes.length; ++l) {
 				var anchorNode = anchorNodes[l];
 				var valueNode  = renderPlayerInfo(pgnItem, color);
 				anchorNode.parentNode.replaceChild(valueNode, anchorNode);
@@ -738,7 +738,7 @@ var jsChessRenderer = (function()
 
 			// Process each anchor node
 			var anchorNodes = fieldNode.getElementsByClassName("jsChessLib-anchor-moves");
-			for(var l=0; l<fieldNodes.length; ++l) {
+			for(var l=0; l<anchorNodes.length; ++l) {
 				var anchorNode = anchorNodes[l];
 				var valueNode  = renderMoves(pgnItem, squareSize, showCoordinates);
 				if(valueNode==null) {
