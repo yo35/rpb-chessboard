@@ -22,9 +22,9 @@
 
 
 /******************************************************************************/
-/*** General CSS ***/
+/*** Miscellaneous ***/
 
-.chess4web-hide-this {
+.jsChessLib-invisible {
 	display: none;
 }
 
