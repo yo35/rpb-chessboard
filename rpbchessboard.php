@@ -41,6 +41,18 @@ function rpbchessboard_enqueue_css()
 	wp_enqueue_style ('rpbchessboard-main'     );
 }
 
+// Administration page
+add_action('admin_menu', 'rpbchessboard_build_admin_menu');
+function rpbchessboard_build_admin_menu()
+{
+	require_once(RPBCHESSBOARD_ABSPATH.'admin.php');
+	add_options_page(
+		__('Chess games and diagrams', 'rpbchessboard'),
+		__('Chess games and diagrams', 'rpbchessboard'),
+		'manage_options', 'rpbchessboard-admin', 'rpbchessboard_admin_menu'
+	);
+}
+
 // Short-code [fen][/fen]
 add_shortcode('fen', 'rpbchessboard_shortcode_fen');
 function rpbchessboard_shortcode_fen($atts, $content)
