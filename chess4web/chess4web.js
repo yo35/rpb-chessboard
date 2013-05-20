@@ -444,6 +444,161 @@ var jsChessRenderer = (function()
 	}
 
 	/**
+	 * Create a new DOM node to render the text commentary associated to the given PGN node.
+	 * This function may return null if no commentary is associated to the PGN node.
+	 *
+	 * @param {PGNNode} pgnNode PGN node object containing the commentary to render.
+	 * @param {Number} depth Depth of the PGN node within its belonging PGN tree.
+	 *        For instance, depth is 0 for the main variation, 1 for a direct sub-variation,
+	 *        2 for a sub-sub-variation, etc...
+	 * @param {Number} squareSize Size of the sprite to use to render the diagrams (if any).
+	 * @param {Boolean} showCoordinates Whether the row and column coordinates should be
+	 *        displayed on diagrams (if any).
+	 */
+	function renderCommentary(pgnNode, depth, squareSize, showCoordinates)
+	{
+		// Nothing to do if no commentary is defined on the current PGN node.
+		if(pgnNode.commentary==null) {
+			return null;
+		}
+
+		// Create the returned object, and parse the commentary string
+		var retVal     = document.createElement("span");
+		var textLength = HTMLtoDOM(pgnNode.commentary, retVal, document);
+
+		// Render diagrams where requested
+		var diagramAnchorNodes = retVal.getElementsByClassName("jsChessLib-anchor-diagram");
+		for(var k=0; k<diagramAnchorNodes.length; ++k) {
+			var diagramAnchorNode = diagramAnchorNodes[k];
+			var diagramNode       = renderPosition(pgnNode.position, squareSize, showCoordinates);
+			diagramAnchorNode.parentNode.replaceChild(diagramNode, diagramAnchorNode);
+		}
+
+		// Long commentaries are those that met the two following conditions:
+		//  - they are issued from the main variation (i.e. depth==0),
+		//  - the text is longer than 30 characters or it contains a diagram.
+		var isLongCommentary = (depth==0) && ((textLength>=30) || (diagramAnchorNodes.length>0));
+
+		// Flag the returned node with the right class name (either jsChessLib-commentary-short
+		// or jsChessLib-commentary-long), and return the result
+		retVal.classList.add("jsChessLib-commentary-" + (isLongCommentary ? "long" : "short"));
+		return retVal;
+	}
+
+	/**
+	 * Create a new DOM node to render a variation taken from a PGN tree. This function
+	 * is recursive, and never returns null.
+	 *
+	 * @param {PGNVariation} pgnVariation PGN variation object to render.
+	 * @param {Number} depth Depth of the PGN variation within its belonging PGN tree.
+	 *        For instance, depth is 0 for the main variation, 1 for a direct sub-variation,
+	 *        2 for a sub-sub-variation, etc...
+	 * @param {Number} squareSize Size of the sprite to use to render the diagrams (if any).
+	 * @param {Boolean} showCoordinates Whether the row and column coordinates should be
+	 *        displayed on diagrams (if any).
+	 */
+	function renderVariation(pgnVariation, depth, squareSize, showCoordinates)
+	{
+		// Allocate the returned DOM node
+		var retVal = document.createElement("span");
+		if(depth==0) {
+			retVal.classList.add("jsChessLib-variation-main");
+		}
+		else {
+			retVal.classList.add("jsChessLib-variation-sub");
+		}
+
+		// The variation may start by an initial commentary
+		var initialCommentary = renderCommentary(pgnVariation, depth, squareSize, showCoordinates);
+		if(initialCommentary!=null) {
+			retVal.appendChild(initialCommentary);
+		}
+
+		// Visit all the PGN nodes (one node per move) within the variation
+		var forcePrintMoveNumber = true;
+		var currentPgnNode       = pgnVariation.next;
+		while(currentPgnNode!=null)
+		{
+			// Create the DOM node that will contains the basic move informations
+			// (i.e. move number, notation, NAGs)
+			var move = document.createElement("span");
+			move.classList.add("jsChessLib-move");
+			retVal.appendChild(move);
+
+			// Write the move number, if required.
+			if(currentPgnNode.parent.position.turn==WHITE) {
+				var moveNumber = document.createTextNode(currentPgnNode.counter + ".");
+				move.appendChild(moveNumber);
+			}
+			else if(forcePrintMoveNumber) {
+				var moveNumber = document.createTextNode(currentPgnNode.counter + "\u2026");
+				move.appendChild(moveNumber);
+			}
+
+			// Write the notation
+			var notation = document.createTextNode(formatMoveNotation(currentPgnNode.notation));
+			move.appendChild(notation);
+
+			// Write the NAGs
+			for(var k=0; k<currentPgnNode.nags.length; ++k) {
+				var nag = document.createTextNode(" " + formatNag(currentPgnNode.nags[k]));
+				move.appendChild(nag);
+			}
+
+			// The move DOM node must also contain a hidden DIV element holding the
+			// FEN representation of the current position. This FEN string is used
+			// to manage the navigation frame.
+			var miniboard = document.createElement("div");
+			miniboard.classList.add("jsChessLib-navigation-source");
+			miniboard.innerHTML = positionToFEN(currentPgnNode.position);
+			move.setAttribute("onclick", "showNavigationFrame(this)"); ///TODO: make showNavigationFrame accessible
+			move.appendChild(miniboard);
+
+			// Commentary associated to the current move
+			var commentary = renderCommentary(currentPgnNode, depth, squareSize, showCoordinates);
+			if(commentary!=null) {
+				retVal.append(commentary);
+			}
+
+			// Sub-variations starting from the current point in PGN tree
+			for(var k=0; k<currentPgnNode.variations.length; ++k) {
+				var newVariation = renderVariation(currentPgnNode.variations[k], depth+1,
+					squareSize, showCoordinates);
+				retVal.appendChild(retVal);
+			}
+
+			// Back to the current line
+			forcePrintMoveNumber = (currentPgnNode.commentary!=null) || (currentPgnNode.variations.length>0);
+			currentPgnNode = currentPgnNode.next;
+		}
+
+		// Return the result
+		return retVal;
+	}
+
+	/**
+	 * Create a new DOM node to render a whole PGN tree. This function may return
+	 * null if no move tree is defined in the given PGN item.
+	 *
+	 * @param {PGNItem} pgnItem PGN item object whose associated move tree should be rendered.
+	 * @param {Number} squareSize Size of the sprite to use to render the diagrams (if any).
+	 * @param {Boolean} showCoordinates Whether the row and column coordinates should be
+	 *        displayed on diagrams (if any).
+	 */
+	function renderMoves(pgnItem, squareSize, showCoordinates)
+	{
+		// Nothing to do if no move tree
+		if(pgnItem.mainVariation==null) {
+			return null;
+		}
+
+		// Otherwise, the result is obtained by rendering the main variation
+		var retVal = renderVariation(pgnItem.mainVariation, 0, squareSize, showCoordinates);
+		retVal.classList.add("jsChessLib-value-moves");
+		return retVal;
+	}
+
+	/**
 	 * Replace the content of a DOM node with a text value from a PGN field. Here
 	 * is an example, for the event field (i.e. fieldName=='Event'):
 	 *
@@ -549,6 +704,55 @@ var jsChessRenderer = (function()
 	}
 
 	/**
+	 * Substitution method for the special replacement token moves (which stands
+	 * for the move tree associated to a PGN item). Example:
+	 *
+	 * Before substitution:
+	 * <div class="jsChessLib-field-moves">
+	 *   <span class="jsChessLib-anchor-moves"></span>
+	 * </div>
+	 *
+	 * After substitution:
+	 * <div class="jsChessLib-field-moves">
+	 *   <span class="jsChessLib-value-moves jsChessLib-variation-main">1.e4 e5</span>
+	 * </div>
+	 *
+	 * @see {@link renderMoves} for more details on how the move tree is rendered.
+	 * @param {Element} parentNode Each child of this node having a class attribute
+	 *        set to "jsChessLib-field-moves" will be targeted by the substitution.
+	 * @param {PGNItem} pgnItem PGN item object corresponding to the game to process.
+	 * @param {Number} squareSize Size of the sprite to use to render the diagrams (if any).
+	 * @param {Boolean} showCoordinates Whether the row and column coordinates should be
+	 *        displayed on diagrams (if any).
+	 */
+	function substituteMoves(parentNode, pgnItem, squareSize, showCoordinates)
+	{
+		var fieldNodes = parentNode.getElementsByClassName("jsChessLib-field-moves");
+		for(var k=0; k<fieldNodes.length; ++k) {
+			var fieldNode = fieldNodes[k];
+
+			// Hide the field if no move tree is available
+			if(pgnItem.mainVariation==null) {
+				fieldNode.classList.add("jsChessLib-invisible");
+			}
+
+			// Process each anchor node
+			var anchorNodes = fieldNode.getElementsByClassName("jsChessLib-anchor-moves");
+			for(var l=0; l<fieldNodes.length; ++l) {
+				var anchorNode = anchorNodes[l];
+				var valueNode  = renderMoves(pgnItem, squareSize, showCoordinates);
+				if(valueNode==null) {
+					anchorNode.classList.add   ("jsChessLib-value-moves" );
+					anchorNode.classList.remove("jsChessLib-anchor-moves");
+				}
+				else {
+					anchorNode.parentNode.replaceChild(valueNode, anchorNode);
+				}
+			}
+		}
+	}
+
+	/**
 	 * Interpret the text in the given DOM node as a FEN string, and replace the
 	 * node with a graphically-rendered chessboard corresponding to the FEN string.
 	 *
@@ -642,6 +846,7 @@ var jsChessRenderer = (function()
 			substituteSimpleField(domNodeOut, "Annotator", pgnItem);
 			substituteFullName(domNodeOut, WHITE, pgnItem);
 			substituteFullName(domNodeOut, BLACK, pgnItem);
+			substituteMoves(domNodeOut, pgnItem, 32, true); //TODO: diagram parameters
 
 			// The input node is made invisible, while the output node is revealed.
 			domNodeIn .classList.add   ("jsChessLib-invisible");
