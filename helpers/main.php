@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Helper functions for RPB Chessboard
+ * Common helper functions for RPB Chessboard
  */
-abstract class RPBChessBoardHelper
+abstract class RPBChessBoardMainHelper
 {
 	/**
 	 * Global ID counter

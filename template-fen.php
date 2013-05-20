@@ -1,10 +1,10 @@
 <?php
 
 	// Helper
-	require_once(RPBCHESSBOARD_ABSPATH . 'helper.php');
+	require_once(RPBCHESSBOARD_ABSPATH . 'helpers/main.php');
 
 	// ID for the current element
-	$currentID = RPBChessBoardHelper::makeID();
+	$currentID = RPBChessBoardMainHelper::makeID();
 
 	// Deal with wordpress auto-filtering
 	$content = str_replace('&#8211;', '-', $content);
@@ -14,11 +14,11 @@
 <script type="text/javascript">
 	jsChessRenderer.processFENByID(
 		"<?php echo $currentID; ?>",
-		<?php echo RPBChessBoardHelper::readSquareSize($atts); ?>,
-		<?php echo RPBChessBoardHelper::readShowCoordinates($atts); ?>
+		<?php echo RPBChessBoardMainHelper::readSquareSize($atts); ?>,
+		<?php echo RPBChessBoardMainHelper::readShowCoordinates($atts); ?>
 	);
 </script>
 
 <?php
-	RPBChessBoardHelper::printJavascriptActivationWarning();
+	RPBChessBoardMainHelper::printJavascriptActivationWarning();
 ?>
