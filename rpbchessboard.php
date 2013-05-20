@@ -63,12 +63,12 @@ function rpbchessboard_shortcode_fen($atts, $content)
 	return ob_get_clean();
 }
 
-// Short-code for diagrams
-/*add_shortcode('pgndiagram', 'rpbchessboard_shortcode_diagram');
+// Short-code [pgndiagram]
+add_shortcode('pgndiagram', 'rpbchessboard_shortcode_diagram');
 function rpbchessboard_shortcode_diagram($atts)
 {
-	return '<span class="chess4web-template-InlinedPosition"></span>';
-}*/
+	return '<span class="jsChessLib-anchor-diagram"></span>';
+}
 
 // Short-code [pgn][/pgn]
 add_shortcode('pgn', 'rpbchessboard_shortcode_pgn');
