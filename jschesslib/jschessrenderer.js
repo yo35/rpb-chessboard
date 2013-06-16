@@ -32,6 +32,11 @@ var jsChessRenderer = (function()
 	var module = {};
 
 	/**
+	 * Name of the global variable used to access the functions of the module
+	 */
+	var moduleName = "jsChessRenderer";
+
+	/**
 	 * URL to the folder containing the current file.
 	 */
 	var baseURL = null;
@@ -78,7 +83,7 @@ var jsChessRenderer = (function()
 	var whiteSquareColor = "#f0dec7";
 
 	/**
-	 * Default size for the squares of displayed chessboards
+	 * Default size for the squares of displayed chessboards.
 	 */
 	module.option.defaultSquareSize = 32;
 
@@ -86,6 +91,16 @@ var jsChessRenderer = (function()
 	 * Whether row and column coordinates should be visible or not on chessboards by default.
 	 */
 	module.option.defaultShowCoordinates = false;
+
+	/**
+	 * Square size for navigation frame.
+	 */
+	module.option.navigationFrameSquareSize = 32;
+
+	/**
+	 * Whether row and column coordinates should be visible or not in the navigation frame.
+	 */
+	module.option.navigationFrameShowCoordinates = false;
 
 	/**
 	 * Month names
@@ -551,7 +566,7 @@ var jsChessRenderer = (function()
 			var miniboard = document.createElement("div");
 			miniboard.classList.add("jsChessLib-navigation-source");
 			miniboard.innerHTML = positionToFEN(currentPgnNode.position);
-			move.setAttribute("onclick", "showNavigationFrame(this)"); ///TODO: make showNavigationFrame accessible
+			defineOnClickCallback(move, "showNavigationFrame(this)");
 			move.appendChild(miniboard);
 
 			// Commentary associated to the current move
@@ -842,6 +857,9 @@ var jsChessRenderer = (function()
 			var pgnItems = parsePGN(domNodeIn.innerHTML);
 			var pgnItem  = pgnItems[0]; // only the first item is taken into account
 
+			// Create the navigation frame if necessary
+			makeNavigationFrame(domNodeOut);
+
 			// Substitution
 			substituteSimpleField(domNodeOut, "Event"    , pgnItem);
 			substituteSimpleField(domNodeOut, "Site"     , pgnItem);
@@ -899,6 +917,163 @@ var jsChessRenderer = (function()
 		);
 	}
 
+	/**
+	 * Set the attribute 'onclick' of the given DOM node to call one of the public
+	 * method of the current module.
+	 *
+	 * @param {Element} domNode Targeted node.
+	 * @param {String} methodToCall Public method to call, with its arguments (if any).
+	 */
+	function defineOnClickCallback(domNode, methodToCall)
+	{
+		domNode.setAttribute("onclick", moduleName + "." + methodToCall + ";");
+	}
+
+	/**
+	 * Create a new button DOM node with the given label and callback.
+	 *
+	 * @param {String} label Label of the button.
+	 * @param {String} methodToCall Public method to call when the button is clicked,
+	 *        with its arguments (if any).
+	 */
+	function makeNewButton(label, methodToCall)
+	{
+		var retVal = document.createElement("input");
+		retVal.setAttribute("type", "button");
+		retVal.setAttribute("value", label);
+		defineOnClickCallback(retVal, methodToCall);
+		return retVal;
+	}
+
+	/**
+	 * Create the navigation frame, if it does not exist yet. The frame is
+	 * appended as a child of the given DOM node.
+	 *
+	 * @param {Element} parentNode The newly created navigation frame will be
+	 *        appended as a child of this node.
+	 */
+	function makeNavigationFrame(parentNode)
+	{
+		if(document.getElementById("jsChessLib-navigation-frame")!=null) {
+			return;
+		}
+
+		// Create the new DOM node that will hold the navigation frame.
+		var frame = document.createElement("div");
+		frame.setAttribute("id", "jsChessLib-navigation-frame");
+		frame.classList.add("jsChessLib-invisible");
+		jQuery(document).ready(function($){
+			if(typeof($("#jsChessLib-navigation-frame").draggable)=="function") {
+				$("#jsChessLib-navigation-frame").draggable({ handle: "#jsChessLib-navigation-title" });
+			}
+		});
+		parentNode.appendChild(frame);
+
+		// Close button
+		var closeButton    = makeNewButton("x", "hideNavigationFrame()");
+		var closeButtonDiv = document.createElement("div");
+		closeButtonDiv.setAttribute("id", "jsChessLib-navigation-close");
+		closeButtonDiv.appendChild(closeButton);
+		frame.appendChild(closeButtonDiv);
+
+		// Title bar
+		var titleBar = document.createElement("div");
+		titleBar.setAttribute("id", "jsChessLib-navigation-title");
+		frame.appendChild(titleBar);
+
+		// Board container
+		var boardContainer = document.createElement("div");
+		boardContainer.setAttribute("id", "jsChessLib-navigation-content");
+		frame.appendChild(boardContainer);
+
+		// Buttons
+		var buttonBar = document.createElement("div");
+		buttonBar.setAttribute("id", "jsChessLib-navigation-buttons");
+		frame.appendChild(buttonBar);
+		var firstButton = makeNewButton("<<", "goFirstMove()");
+		var prevButton  = makeNewButton("<" , "goPrevMove()" );
+		var nextButton  = makeNewButton(">" , "goNextMove()" );
+		var lastButton  = makeNewButton(">>", "goLastMove()" );
+		buttonBar.appendChild(firstButton);
+		buttonBar.appendChild(prevButton );
+		buttonBar.appendChild(nextButton );
+		buttonBar.appendChild(lastButton );
+	}
+
+	/**
+	 * Extract the position associated to the given DOM node, which is supposed
+	 * to have class 'jsChessLib-move'. The position is defined by a FEN string,
+	 * inside a sub-node with class 'jsChessLib-navigation-source'.
+	 *
+	 * @param {Element} domNode Node having class 'jsChessLib-move' holding the
+	 *        position to extract.
+	 */
+	function extractNavigationPosition(domNode)
+	{
+		var target = domNode.getElementsByClassName("jsChessLib-navigation-source");
+		var fen    = target[0].innerHTML;
+		try {
+			return parseFEN(fen);
+		}
+		catch(err) {
+			if(err instanceof ParsingException) {
+				printDebug(err.message);
+				return null;
+			}
+			else {
+				throw err;
+			}
+		}
+	}
+
+	/**
+	 * Show the navigation frame if not visible yet, and update the diagram in this
+	 * frame with the position corresponding to the move that is referred by the
+	 * given DOM node. By the way, this node must have class 'jsChessLib-move',
+	 * otherwise nothing happens.
+	 *
+	 * @param {Element} domNode Node having class 'jsChessLib-move' holding the
+	 *        position to display in the navigation frame.
+	 */
+	module.showNavigationFrame = function(domNode)
+	{
+		if(domNode==null || !domNode.classList.contains("jsChessLib-move")) {
+			return;
+		}
+
+		// Remove the selected-move flag from the previously selected node, if any.
+		var prevSelectedNode = document.getElementById("jsChessLib-selected-move");
+		if(domNode==prevSelectedNode) {
+			return;
+		}
+		if(prevSelectedNode!=null) {
+			prevSelectedNode.removeAttribute("id");
+		}
+
+		// Parse the FEN that defines the position.
+		var position = extractNavigationPosition(domNode);
+		if(position==null) {
+			return;
+		}
+
+		// Set the selected-move flag on the current node.
+		domNode.setAttribute("id", "jsChessLib-selected-move");
+
+		// Fill the miniboard in the navigation frame
+		var target = document.getElementById("jsChessLib-navigation-content");
+		while(target.hasChildNodes()) {
+			target.removeChild(target.lastChild);
+		}
+		target.appendChild(renderPosition(position, module.option.navigationFrameSquareSize,
+			module.option.navigationFrameShowCoordinates));
+
+		// Make the navigation frame visible
+		var navigationFrame = document.getElementById("jsChessLib-navigation-frame");
+		navigationFrame.classList.remove("jsChessLib-invisible");
+	}
+
+
+
 
 
 
@@ -932,67 +1107,7 @@ function getElementsByClass(searchClass, tagName, domNode, recursive)
 
 
 
-/**
- * Creates the chess4web-navigation-frame if it does not exist
- */
-function makeNavigationFrame(parentNode)
-{
-	if(document.getElementById("chess4web-navigation-frame")!=null) {
-		return;
-	}
-	var retVal = document.createElement("div");
-	retVal.setAttribute("id", "chess4web-navigation-frame");
-	jQuery(document).ready(function($){
-		if(typeof($("#chess4web-navigation-frame").draggable)=="function") {
-			$("#chess4web-navigation-frame").draggable({ handle: "#chess4web-navigation-title" });
-		}
-	});
-	parentNode.appendChild(retVal);
 
-	// Function that creates a button
-	function makeNewButton(label)
-	{
-		var newButton = document.createElement("input");
-		newButton.setAttribute("type", "button");
-		newButton.setAttribute("value", label);
-		return newButton;
-	}
-
-	// Close button
-	var closeButtonDiv = document.createElement("div");
-	closeButtonDiv.setAttribute("id", "chess4web-navigation-close");
-	var closeButton = makeNewButton("x");
-	closeButton.setAttribute("onclick", "hideNavigationFrame()");
-	closeButtonDiv.appendChild(closeButton);
-	retVal.appendChild(closeButtonDiv);
-
-	// Title bar
-	var titleBar = document.createElement("div");
-	titleBar.setAttribute("id", "chess4web-navigation-title");
-	retVal.appendChild(titleBar);
-
-	// Board container
-	var boardData = document.createElement("div");
-	boardData.setAttribute("id", "chess4web-navigation-content");
-	retVal.appendChild(boardData);
-
-	// Buttons
-	var buttonBar = document.createElement("div");
-	buttonBar.setAttribute("id", "chess4web-navigation-buttons");
-	retVal.appendChild(buttonBar);
-	var firstButton = makeNewButton("<<");
-	var prevButton  = makeNewButton("<" );
-	var nextButton  = makeNewButton(">" );
-	var lastButton  = makeNewButton(">>");
-	firstButton.setAttribute("onclick", "goFirstMove()");
-	prevButton .setAttribute("onclick", "goPrevMove()" );
-	nextButton .setAttribute("onclick", "goNextMove()" );
-	lastButton .setAttribute("onclick", "goLastMove()" );
-	buttonBar.appendChild(firstButton);
-	buttonBar.appendChild(prevButton );
-	buttonBar.appendChild(nextButton );
-	buttonBar.appendChild(lastButton );
-}
 
 /**
  * Go to the first move
@@ -1091,59 +1206,9 @@ function hideNavigationFrame()
 	}
 }
 
-/**
- * Show or update the navigation frame
- */
-function showNavigationFrame(domNode)
-{
-	if(domNode==null) {
-		return;
-	}
 
-	// Remove the selected-move flag from the previously selected node
-	var prevSelectedNode = document.getElementById("chess4web-selected-move");
-	if(domNode==prevSelectedNode) {
-		return;
-	}
-	if(prevSelectedNode!=null) {
-		prevSelectedNode.removeAttribute("id");
-	}
 
-	// Set the selected-move flag on the new node
-	domNode.setAttribute("id", "chess4web-selected-move");
 
-	// Fill the miniboard in the navigation frame
-	var position = expandMiniboard(domNode);
-	var target = document.getElementById("chess4web-navigation-content");
-	target.innerHTML = "";
-	target.appendChild(position);
-
-	// Show the navigation frame
-	var navigationFrame = document.getElementById("chess4web-navigation-frame");
-	navigationFrame.classList.add("chess4web-show-me");
-}
-
-/**
- * Return the table corresponding to the content of a DOM node
- */
-function expandMiniboard(domNode)
-{
-	var target = getElementsByClass("chess4web-position-miniature", "div", domNode);
-	var fen = target[0].innerHTML;
-	try {
-		var position  = parseFEN(fen);
-		var miniboard = renderPosition(position, chess4webDefaultMiniboardSquareSize, chess4webDefaultMiniboardShowCoordinate);
-		return miniboard;
-	}
-	catch(err) {
-		if(err instanceof PGNException) {
-			printDebug(err.message);
-		}
-		else {
-			throw err;
-		}
-	}
-}
 
 
 
