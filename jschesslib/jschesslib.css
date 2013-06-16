@@ -41,32 +41,32 @@ pre.jsChessLib-pgn-source {
 	display: none;
 }
 
-div#chess4web-navigation-frame {
-	display: none;
+div#jsChessLib-navigation-frame {
+	display: block;
 	position: fixed;
 	left : 60%;
 	top  : 20%;
-}
-
-div.chess4web-show-me#chess4web-navigation-frame {
-	display: block;
 	width: auto;
 }
 
-div#chess4web-navigation-frame #chess4web-navigation-close {
+div#jsChessLib-navigation-frame.jsChessLib-invisible {
+	display: none;
+}
+
+div#jsChessLib-navigation-frame #jsChessLib-navigation-close {
 	float: right;
 }
 
-div#chess4web-navigation-frame #chess4web-navigation-title {
+div#jsChessLib-navigation-frame #jsChessLib-navigation-title {
 	cursor: move;
 }
 
-div#chess4web-navigation-frame #chess4web-navigation-content {
+div#jsChessLib-navigation-frame #jsChessLib-navigation-content {
 	clear: both;
 	padding: 10px 10px 5px;
 }
 
-div#chess4web-navigation-frame #chess4web-navigation-buttons {
+div#jsChessLib-navigation-frame #jsChessLib-navigation-buttons {
 	text-align: center;
 }
 
