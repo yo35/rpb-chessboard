@@ -930,19 +930,22 @@ var jsChessRenderer = (function()
 	}
 
 	/**
-	 * Create a new button DOM node with the given label and callback.
+	 * Create a new button DOM node with the given label and callback, and append it
+	 * to the given parent node.
 	 *
+	 * @param {Element} parentNode The newly created button frame will be appended
+	 *        as a child of this node.
 	 * @param {String} label Label of the button.
 	 * @param {String} methodToCall Public method to call when the button is clicked,
 	 *        with its arguments (if any).
 	 */
-	function makeNewButton(label, methodToCall)
+	function makeNewButton(parentNode, label, methodToCall)
 	{
-		var retVal = document.createElement("input");
-		retVal.setAttribute("type", "button");
-		retVal.setAttribute("value", label);
-		defineOnClickCallback(retVal, methodToCall);
-		return retVal;
+		var button = document.createElement("input");
+		button.setAttribute("type", "button");
+		button.setAttribute("value", label);
+		defineOnClickCallback(button, methodToCall);
+		parentNode.appendChild(button);
 	}
 
 	/**
@@ -970,11 +973,10 @@ var jsChessRenderer = (function()
 		parentNode.appendChild(frame);
 
 		// Close button
-		var closeButton    = makeNewButton("x", "hideNavigationFrame()");
-		var closeButtonDiv = document.createElement("div");
-		closeButtonDiv.setAttribute("id", "jsChessLib-navigation-close");
-		closeButtonDiv.appendChild(closeButton);
-		frame.appendChild(closeButtonDiv);
+		var closeButton = document.createElement("div");
+		closeButton.setAttribute("id", "jsChessLib-navigation-close");
+		makeNewButton(closeButton, "x", "hideNavigationFrame()");
+		frame.appendChild(closeButton);
 
 		// Title bar
 		var titleBar = document.createElement("div");
@@ -990,14 +992,10 @@ var jsChessRenderer = (function()
 		var buttonBar = document.createElement("div");
 		buttonBar.setAttribute("id", "jsChessLib-navigation-buttons");
 		frame.appendChild(buttonBar);
-		var firstButton = makeNewButton("<<", "goFirstMove()");
-		var prevButton  = makeNewButton("<" , "goPrevMove()" );
-		var nextButton  = makeNewButton(">" , "goNextMove()" );
-		var lastButton  = makeNewButton(">>", "goLastMove()" );
-		buttonBar.appendChild(firstButton);
-		buttonBar.appendChild(prevButton );
-		buttonBar.appendChild(nextButton );
-		buttonBar.appendChild(lastButton );
+		makeNewButton(buttonBar, "<<", "goFirstMove()");
+		makeNewButton(buttonBar, "<" , "goPrevMove()" );
+		makeNewButton(buttonBar, ">" , "goNextMove()" );
+		makeNewButton(buttonBar, ">>", "goLastMove()" );
 	}
 
 	/**
@@ -1072,6 +1070,102 @@ var jsChessRenderer = (function()
 		navigationFrame.classList.remove("jsChessLib-invisible");
 	}
 
+	/**
+	 * Hide the navigation frame if visible.
+	 */
+	module.hideNavigationFrame = function()
+	{
+		var navigationFrame = document.getElementById("jsChessLib-navigation-frame");
+		navigationFrame.classList.add("jsChessLib-invisible");
+		var selectedNode = document.getElementById("jsChessLib-selected-move");
+		if(selectedNode!=null) {
+			selectedNode.removeAttribute("id");
+		}
+	}
+
+	/**
+	 * Go to the first move of the current variation
+	 */
+	module.goFirstMove = function()
+	{
+		// Retrieve node corresponding to the current move
+		var currentSelectedNode = document.getElementById("jsChessLib-selected-move");
+		if(currentSelectedNode==null) {
+			return;
+		}
+
+		// All the move nodes in with the same parent
+		var moveNodes = getElementsByClass("chess4web-move", "span", currentSelectedNode.parentNode, false);
+		if(moveNodes.length>0) {
+			showNavigationFrame(moveNodes[0]);
+		}
+	}
+
+	/**
+	 * Go to the previous move of the current variation
+	 */
+	module.goPrevMove = function()
+	{
+		// Retrieve node corresponding to the current move
+		var currentSelectedNode = document.getElementById("jsChessLib-selected-move");
+		if(currentSelectedNode==null) {
+			return;
+		}
+
+		// All the move nodes in with the same parent
+		var moveNodes = getElementsByClass("chess4web-move", "span", currentSelectedNode.parentNode, false);
+		for(var k=0; k<moveNodes.length; ++k) {
+			if(moveNodes[k]==currentSelectedNode) {
+				if(k>0) {
+					showNavigationFrame(moveNodes[k-1]);
+				}
+				return;
+			}
+		}
+	}
+
+	/**
+	 * Go to the next move of the current variation
+	 */
+	module.goNextMove = function()
+	{
+		// Retrieve node corresponding to the current move
+		var currentSelectedNode = document.getElementById("jsChessLib-selected-move");
+		if(currentSelectedNode==null) {
+			return;
+		}
+
+		// All the move nodes in with the same parent
+		var moveNodes = getElementsByClass("chess4web-move", "span", currentSelectedNode.parentNode, false);
+		for(var k=0; k<moveNodes.length; ++k) {
+			if(moveNodes[k]==currentSelectedNode) {
+				if(k<moveNodes.length-1) {
+					showNavigationFrame(moveNodes[k+1]);
+				}
+				return;
+			}
+		}
+	}
+
+	/**
+	 * Go to the last move of the current variation
+	 */
+	module.goLastMove = function()
+	{
+		// Retrieve node corresponding to the current move
+		var currentSelectedNode = document.getElementById("jsChessLib-selected-move");
+		if(currentSelectedNode==null) {
+			return;
+		}
+
+		// All the move nodes in with the same parent
+		var moveNodes = getElementsByClass("chess4web-move", "span", currentSelectedNode.parentNode, false);
+		if(moveNodes.length>0) {
+			showNavigationFrame(moveNodes[moveNodes.length-1]);
+		}
+	}
+
+
 
 
 
@@ -1101,116 +1195,6 @@ function getElementsByClass(searchClass, tagName, domNode, recursive)
 	}
 	return retVal;
 }
-
-
-
-
-
-
-
-
-/**
- * Go to the first move
- */
-function goFirstMove()
-{
-	// Retrieve node corresponding to the current move
-	var currentSelectedNode = document.getElementById("chess4web-selected-move");
-	if(currentSelectedNode==null) {
-		return;
-	}
-
-	// All the move nodes in with the same parent
-	var moveNodes = getElementsByClass("chess4web-move", "span", currentSelectedNode.parentNode, false);
-	if(moveNodes.length>0) {
-		showNavigationFrame(moveNodes[0]);
-	}
-}
-
-/**
- * Go to the previous move
- */
-function goPrevMove()
-{
-	// Retrieve node corresponding to the current move
-	var currentSelectedNode = document.getElementById("chess4web-selected-move");
-	if(currentSelectedNode==null) {
-		return;
-	}
-
-	// All the move nodes in with the same parent
-	var moveNodes = getElementsByClass("chess4web-move", "span", currentSelectedNode.parentNode, false);
-	for(var k=0; k<moveNodes.length; ++k) {
-		if(moveNodes[k]==currentSelectedNode) {
-			if(k>0) {
-				showNavigationFrame(moveNodes[k-1]);
-			}
-			return;
-		}
-	}
-}
-
-/**
- * Go to the next move
- */
-function goNextMove()
-{
-	// Retrieve node corresponding to the current move
-	var currentSelectedNode = document.getElementById("chess4web-selected-move");
-	if(currentSelectedNode==null) {
-		return;
-	}
-
-	// All the move nodes in with the same parent
-	var moveNodes = getElementsByClass("chess4web-move", "span", currentSelectedNode.parentNode, false);
-	for(var k=0; k<moveNodes.length; ++k) {
-		if(moveNodes[k]==currentSelectedNode) {
-			if(k<moveNodes.length-1) {
-				showNavigationFrame(moveNodes[k+1]);
-			}
-			return;
-		}
-	}
-}
-
-/**
- * Go to the last move
- */
-function goLastMove()
-{
-	// Retrieve node corresponding to the current move
-	var currentSelectedNode = document.getElementById("chess4web-selected-move");
-	if(currentSelectedNode==null) {
-		return;
-	}
-
-	// All the move nodes in with the same parent
-	var moveNodes = getElementsByClass("chess4web-move", "span", currentSelectedNode.parentNode, false);
-	if(moveNodes.length>0) {
-		showNavigationFrame(moveNodes[moveNodes.length-1]);
-	}
-}
-
-/**
- * Hide the navigation frame
- */
-function hideNavigationFrame()
-{
-	var navigationFrame = document.getElementById("chess4web-navigation-frame");
-	if(navigationFrame!=null) {
-		navigationFrame.classList.remove("chess4web-show-me");
-	}
-	var selectedNode = document.getElementById("chess4web-selected-move");
-	if(selectedNode!=null) {
-		selectedNode.removeAttribute("id");
-	}
-}
-
-
-
-
-
-
 
 
 
