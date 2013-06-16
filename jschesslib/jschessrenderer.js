@@ -1084,6 +1084,23 @@ var jsChessRenderer = (function()
 	}
 
 	/**
+	 * Extract the list of direct children (the grandchildren are not considered)
+	 * of the given DOM node that have the class 'jsChessLib-move'.
+	 *
+	 * @param {Element} domNode Node to search in.
+	 */
+	function extractChildMoves(domNode)
+	{
+		var retVal = new Array();
+		for(var currentNode=domNode.firstChild; currentNode!=null; currentNode=currentNode.nextSibling) {
+			if(currentNode.classList.contains("jsChessLib-move")) {
+				retVal.push(currentNode);
+			}
+		}
+		return retVal;
+	}
+
+	/**
 	 * Go to the first move of the current variation
 	 */
 	module.goFirstMove = function()
@@ -1095,9 +1112,9 @@ var jsChessRenderer = (function()
 		}
 
 		// All the move nodes in with the same parent
-		var moveNodes = getElementsByClass("chess4web-move", "span", currentSelectedNode.parentNode, false);
+		var moveNodes = extractChildMoves(currentSelectedNode.parentNode);
 		if(moveNodes.length>0) {
-			showNavigationFrame(moveNodes[0]);
+			module.showNavigationFrame(moveNodes[0]);
 		}
 	}
 
@@ -1113,11 +1130,11 @@ var jsChessRenderer = (function()
 		}
 
 		// All the move nodes in with the same parent
-		var moveNodes = getElementsByClass("chess4web-move", "span", currentSelectedNode.parentNode, false);
+		var moveNodes = extractChildMoves(currentSelectedNode.parentNode);
 		for(var k=0; k<moveNodes.length; ++k) {
 			if(moveNodes[k]==currentSelectedNode) {
 				if(k>0) {
-					showNavigationFrame(moveNodes[k-1]);
+					module.showNavigationFrame(moveNodes[k-1]);
 				}
 				return;
 			}
@@ -1136,11 +1153,11 @@ var jsChessRenderer = (function()
 		}
 
 		// All the move nodes in with the same parent
-		var moveNodes = getElementsByClass("chess4web-move", "span", currentSelectedNode.parentNode, false);
+		var moveNodes = extractChildMoves(currentSelectedNode.parentNode);
 		for(var k=0; k<moveNodes.length; ++k) {
 			if(moveNodes[k]==currentSelectedNode) {
 				if(k<moveNodes.length-1) {
-					showNavigationFrame(moveNodes[k+1]);
+					module.showNavigationFrame(moveNodes[k+1]);
 				}
 				return;
 			}
@@ -1159,56 +1176,11 @@ var jsChessRenderer = (function()
 		}
 
 		// All the move nodes in with the same parent
-		var moveNodes = getElementsByClass("chess4web-move", "span", currentSelectedNode.parentNode, false);
+		var moveNodes = extractChildMoves(currentSelectedNode.parentNode);
 		if(moveNodes.length>0) {
-			showNavigationFrame(moveNodes[moveNodes.length-1]);
+			module.showNavigationFrame(moveNodes[moveNodes.length-1]);
 		}
 	}
-
-
-
-
-
-
-
-
-
-
-/**
- * Retrieve all the elements with a given class
- * \param searchClass Name of the targeted class
- * \param tagName Type of node to search for (optional, default: '*')
- * \param domNode Root node to search (optional, default: document)
- * \param recursive Set to false to search only within the direct children of the root node (optional, default: true)
- */
-function getElementsByClass(searchClass, tagName, domNode, recursive)
-{
-	if(domNode  ==null) domNode   = document;
-	if(tagName  ==null) tagName   = "*";
-	if(recursive==null) recursive = true;
-	var retVal   = new Array();
-	var elements = domNode.getElementsByTagName(tagName);
-	for(var k=0; k<elements.length; ++k) {
-		if(elements[k].classList.contains(searchClass) && (recursive || domNode==elements[k].parentNode)) {
-			retVal.push(elements[k]);
-		}
-	}
-	return retVal;
-}
-
-
-
-
-/**
- * Hide the given node
- */
-function chess4webHideNode(domNode)
-{
-	domNode.classList.add("chess4web-hide-this");
-}
-
-
-
 
 	// Return the module object
 	return module;
