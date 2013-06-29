@@ -64,14 +64,6 @@ var jsChessRenderer = (function()
 	}
 
 	/**
-	 * The behavior of the module can be modified by changing the properties of
-	 * this object.
-	 *
-	 * @public
-	 */
-	var option = {};
-
-	/**
 	 * Folder where the sprite are located.
 	 *
 	 * @private
@@ -93,76 +85,82 @@ var jsChessRenderer = (function()
 	var whiteSquareColor = "#f0dec7";
 
 	/**
-	 * Default size for the squares of displayed chessboards.
+	 * The behavior of the module can be modified by changing the properties of
+	 * this object.
+	 *
+	 * @public
 	 */
-	option.defaultSquareSize = 32;
-
-	/**
-	 * Whether row and column coordinates should be visible or not on chessboards by default.
-	 */
-	option.defaultShowCoordinates = false;
-
-	/**
-	 * Square size for navigation frame.
-	 */
-	option.navigationFrameSquareSize = 32;
-
-	/**
-	 * Whether row and column coordinates should be visible or not in the navigation frame.
-	 */
-	option.navigationFrameShowCoordinates = false;
-
-	/**
-	 * Month names
-	 */
-	option.monthName =
+	var option =
 	{
-		 1: "january"  ,
-		 2: "february" ,
-		 3: "march"    ,
-		 4: "april"    ,
-		 5: "may"      ,
-		 6: "june"     ,
-		 7: "july"     ,
-		 8: "august"   ,
-		 9: "september",
-		10: "october"  ,
-		11: "november" ,
-		12: "december"
-	};
+		/**
+		 * Default size for the squares of displayed chessboards.
+		 */
+		defaultSquareSize: 32,
 
-	/**
-	 * Piece symbols
-	 */
-	option.pieceSymbol =
-	{
-		"K": "\u265a",
-		"Q": "\u265b",
-		"R": "\u265c",
-		"B": "\u265d",
-		"N": "\u265e",
-		"P": "\u265f"
-	};
+		/**
+		 * Whether row and column coordinates should be visible or not on chessboards by default.
+		 */
+		defaultShowCoordinates: false,
 
-	/**
-	 * Nags
-	 */
-	option.nag =
-	{
-		 1: "!",
-		 2: "?",
-		 3: "!!",
-		 4: "??",
-		 5: "!?",
-		 6: "?!",
-		10: "=",
-		13: "\u221e",
-		14: "+=",
-		15: "=+",
-		16: "\u00b1",
-		17: "\u2213",
-		18: "+\u2212",
-		19: "\u2212+"
+		/**
+		 * Square size for navigation frame.
+		 */
+		navigationFrameSquareSize: 32,
+
+		/**
+		 * Whether row and column coordinates should be visible or not in the navigation frame.
+		 */
+		navigationFrameShowCoordinates: false,
+
+		/**
+		 * Month names
+		 */
+		monthName: {
+			 1: "january"  ,
+			 2: "february" ,
+			 3: "march"    ,
+			 4: "april"    ,
+			 5: "may"      ,
+			 6: "june"     ,
+			 7: "july"     ,
+			 8: "august"   ,
+			 9: "september",
+			10: "october"  ,
+			11: "november" ,
+			12: "december"
+		},
+
+		/**
+		 * Piece symbols
+		 */
+		pieceSymbol: {
+			"K": "\u265a",
+			"Q": "\u265b",
+			"R": "\u265c",
+			"B": "\u265d",
+			"N": "\u265e",
+			"P": "\u265f"
+		},
+
+		/**
+		 * Nags
+		 */
+		nag: {
+			 1: "!",
+			 2: "?",
+			 3: "!!",
+			 4: "??",
+			 5: "!?",
+			 6: "?!",
+			10: "=",
+			13: "\u221e",
+			14: "+=",
+			15: "=+",
+			16: "\u00b1",
+			17: "\u2213",
+			18: "+\u2212",
+			19: "\u2212+"
+		}
 	};
 
 	/**
