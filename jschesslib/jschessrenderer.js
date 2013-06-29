@@ -27,17 +27,16 @@
 var jsChessRenderer = (function()
 {
 	/**
-	 * Module object, that will returned as global variable jsChessRenderer.
-	 */
-	var module = {};
-
-	/**
 	 * Name of the global variable used to access the functions of the module
+	 *
+	 * @private
 	 */
 	var moduleName = "jsChessRenderer";
 
 	/**
 	 * URL to the folder containing the current file.
+	 *
+	 * @private
 	 */
 	var baseURL = null;
 
@@ -45,18 +44,21 @@ var jsChessRenderer = (function()
 	 * Configuration function, that must be call before using the other object
 	 * defined by the jsChessRenderer module.
 	 *
+	 * @public
 	 * @param {String} url URL to the root folder of the JsChessLib library,
 	 *        without the trailing '/' character.
 	 */
-	module.configureBaseURL = function(url)
+	function configureBaseURL(url)
 	{
 		baseURL = url;
 	}
 
 	/**
 	 * Check whether the base URL has already been configured or not.
+	 *
+	 * @public
 	 */
-	module.isBaseURLConfigured = function()
+	function isBaseURLConfigured()
 	{
 		baseURL!=null;
 	}
@@ -64,48 +66,56 @@ var jsChessRenderer = (function()
 	/**
 	 * The behavior of the module can be modified by changing the properties of
 	 * this object.
+	 *
+	 * @public
 	 */
-	module.option = {};
+	var option = {};
 
 	/**
 	 * Folder where the sprite are located.
+	 *
+	 * @private
 	 */
 	var spriteFolder = "sprite";
 
 	/**
 	 * Black square color (CSS color string).
+	 *
+	 * @private
 	 */
 	var blackSquareColor = "#b5876b";
 
 	/**
 	 * White square color (CSS color string).
+	 *
+	 * @private
 	 */
 	var whiteSquareColor = "#f0dec7";
 
 	/**
 	 * Default size for the squares of displayed chessboards.
 	 */
-	module.option.defaultSquareSize = 32;
+	option.defaultSquareSize = 32;
 
 	/**
 	 * Whether row and column coordinates should be visible or not on chessboards by default.
 	 */
-	module.option.defaultShowCoordinates = false;
+	option.defaultShowCoordinates = false;
 
 	/**
 	 * Square size for navigation frame.
 	 */
-	module.option.navigationFrameSquareSize = 32;
+	option.navigationFrameSquareSize = 32;
 
 	/**
 	 * Whether row and column coordinates should be visible or not in the navigation frame.
 	 */
-	module.option.navigationFrameShowCoordinates = false;
+	option.navigationFrameShowCoordinates = false;
 
 	/**
 	 * Month names
 	 */
-	module.option.monthName =
+	option.monthName =
 	{
 		 1: "january"  ,
 		 2: "february" ,
@@ -124,7 +134,7 @@ var jsChessRenderer = (function()
 	/**
 	 * Piece symbols
 	 */
-	module.option.pieceSymbol =
+	option.pieceSymbol =
 	{
 		"K": "\u265a",
 		"Q": "\u265b",
@@ -137,7 +147,7 @@ var jsChessRenderer = (function()
 	/**
 	 * Nags
 	 */
-	module.option.nag =
+	option.nag =
 	{
 		 1: "!",
 		 2: "?",
@@ -159,6 +169,7 @@ var jsChessRenderer = (function()
 	 * Print a debug message. The text is appended in a DOM node identified by
 	 * the ID "jsChessLib-debug". Nothing happens is this DOM node does not exist.
 	 *
+	 * @private
 	 * @param {String} message Message to print.
 	 */
 	function printDebug(message)
@@ -170,9 +181,12 @@ var jsChessRenderer = (function()
 	}
 
 	/**
-	 * Return the URL to the folder containing the sprites of the given size.
+	 * Return the URL to the folder containing the sprites (images representing the chess pieces).
 	 *
-	 * @param {Number} squareSize Size of the sprite to use.
+	 * @private
+	 * @param   {Number} squareSize Size of the sprite to use.
+	 * @returns {String} URL of the folder containing the sprites of the requested size,
+	 *          with the trailing "/" character.
 	 */
 	function spriteBaseURL(squareSize)
 	{
@@ -184,10 +198,14 @@ var jsChessRenderer = (function()
 	}
 
 	/**
-	 * Return the URL to the sprite corresponding to a given colored piece.
+	 * Return the URL to the sprite (always a PNG image) corresponding to a given colored piece.
 	 *
-	 * @param {Number} coloredPiece Colored piece code (e.g. WHITE_KING), or null for an empty sprite.
-	 * @param {Number} squareSize Size of the sprite to use.
+	 * @private
+	 * @param   {Number} coloredPiece Colored piece code (e.g. WHITE_KING),
+	 *          or null for an empty sprite.
+	 * @param   {Number} squareSize Size of the sprite to use.
+	 * @returns {String} URL to the sprite of the requested size and corresponding
+	 *          to the requested colored piece.
 	 */
 	function coloredPieceURL(coloredPiece, squareSize)
 	{
@@ -211,10 +229,13 @@ var jsChessRenderer = (function()
 	}
 
 	/**
-	 * Return the URL to the sprite corresponding to a given color flag.
+	 * Return the URL to the sprite (always a PNG image) corresponding to a given color flag.
 	 *
-	 * @param {Number} color Color code (either BLACK or WHITE).
-	 * @param {Number} squareSize Size of the sprite to use.
+	 * @private
+	 * @param   {Number} color Color code (either BLACK or WHITE).
+	 * @param   {Number} squareSize Size of the sprite to use.
+	 * @returns {String} URL to the sprite of the requested size and corresponding
+	 *          to the requested color.
 	 */
 	function colorURL(color, squareSize)
 	{
@@ -222,10 +243,13 @@ var jsChessRenderer = (function()
 	}
 
 	/**
-	 * Convert a PGN date field value into a human-readable date string. If the
-	 * input is badly-formatted, it is returned "as-is".
+	 * Convert a PGN date field value into a human-readable date string.
+	 * Return null if the special code "????.??.??" is detected.
+	 * Otherwise, if the input is badly-formatted, it is returned "as-is".
 	 *
-	 * @param {String} date Value of a PGN date field.
+	 * @private
+	 * @param   {String} date Value of a PGN date field.
+	 * @returns {String} Human-readable date string.
 	 */
 	function formatDate(date)
 	{
@@ -238,7 +262,7 @@ var jsChessRenderer = (function()
 		else if(date.match(/([0-9]{4})\.([0-9]{2})\.([0-9]{2})/)) {
 			var month = parseInt(RegExp.$2);
 			if(month>=1 && month<=12)
-				return RegExp.$3 + " " + module.option.monthName[month] + " " + RegExp.$1;
+				return RegExp.$3 + " " + option.monthName[month] + " " + RegExp.$1;
 			else
 				return RegExp.$1
 		}
@@ -247,7 +271,7 @@ var jsChessRenderer = (function()
 		else if(date.match(/([0-9]{4})\.([0-9]{2})\.\?\?/)) {
 			var month = parseInt(RegExp.$2);
 			if(month>=1 && month<=12)
-				return module.option.monthName[month] + " " + RegExp.$1;
+				return option.monthName[month] + " " + RegExp.$1;
 			else
 				return RegExp.$1
 		}
@@ -272,7 +296,9 @@ var jsChessRenderer = (function()
 	 * Convert a PGN round field value into a human-readable round string.
 	 * Return null if the special code "?" is detected.
 	 *
-	 * @param {String} round Value of a PGN round field.
+	 * @private
+	 * @param   {String} round Value of a PGN round field.
+	 * @returns {String} Human-readable round string.
 	 */
 	function formatRound(round)
 	{
@@ -288,7 +314,9 @@ var jsChessRenderer = (function()
 	 * Convert a PGN-like move notation into a localized move notation
 	 * (the characters used to specify the pieces is the only localized element).
 	 *
-	 * @param {String} notation PGN-like move notation to convert.
+	 * @private
+	 * @param   {String} notation PGN-like move notation to convert.
+	 * @returns {String} Localized move string.
 	 */
 	function formatMoveNotation(notation)
 	{
@@ -299,12 +327,12 @@ var jsChessRenderer = (function()
 			var retVal = "";
 			for(var k=0; k<notation.length; ++k) {
 				switch(notation.charAt(k)) {
-					case "K": retVal+=module.option.pieceSymbol["K"]; break;
-					case "Q": retVal+=module.option.pieceSymbol["Q"]; break;
-					case "R": retVal+=module.option.pieceSymbol["R"]; break;
-					case "B": retVal+=module.option.pieceSymbol["B"]; break;
-					case "N": retVal+=module.option.pieceSymbol["N"]; break;
-					case "P": retVal+=module.option.pieceSymbol["P"]; break;
+					case "K": retVal+=option.pieceSymbol["K"]; break;
+					case "Q": retVal+=option.pieceSymbol["Q"]; break;
+					case "R": retVal+=option.pieceSymbol["R"]; break;
+					case "B": retVal+=option.pieceSymbol["B"]; break;
+					case "N": retVal+=option.pieceSymbol["N"]; break;
+					case "P": retVal+=option.pieceSymbol["P"]; break;
 					default:
 						retVal += notation.charAt(k);
 						break;
@@ -317,25 +345,29 @@ var jsChessRenderer = (function()
 	/**
 	 * Return the annotation symbol (e.g. "+-", "!?") associated to a numeric NAG code.
 	 *
-	 * @param {Number} nag Numeric NAG code.
+	 * @private
+	 * @param   {Number} nag Numeric NAG code.
+	 * @returns {String} Human-readable NAG symbol.
 	 */
 	function formatNag(nag)
 	{
 		if(nag==null) {
 			return null;
 		}
-		else if(module.option.nag[nag]==null)
+		else if(option.nag[nag]==null)
 			return "$" + nag;
 		else
-			return module.option.nag[nag];
+			return option.nag[nag];
 	}
 
 	/**
 	 * Return a new DOM node representing the given position.
 	 *
-	 * @param {Position} position The chess position to render.
-	 * @param {Number} squareSize Size of the sprite to use.
-	 * @param {Boolean} showCoordinates Whether the row and column coordinates should be displayed.
+	 * @private
+	 * @param   {Position} position The chess position to render.
+	 * @param   {Number} squareSize Size of the sprite to use.
+	 * @param   {Boolean} showCoordinates Whether the row and column coordinates should be displayed.
+	 * @returns {Element} New DOM node representing the requested position.
 	 */
 	function renderPosition(position, squareSize, showCoordinates)
 	{
@@ -403,8 +435,10 @@ var jsChessRenderer = (function()
 	/**
 	 * Return a new DOM node holding information about the one of the players.
 	 *
-	 * @param {PGNItem} pgnItem PGN item object holding the information to render.
-	 * @param {Number} color Color code (either BLACK or WHITE) corresponding to the player to consider.
+	 * @private
+	 * @param   {PGNItem} pgnItem PGN item object holding the information to render.
+	 * @param   {Number} color Color code (either BLACK or WHITE) corresponding to the player to consider.
+	 * @returns {Element} New DOM node showing information about the requested player.
 	 */
 	function renderPlayerInfo(pgnItem, color)
 	{
@@ -462,13 +496,15 @@ var jsChessRenderer = (function()
 	 * Create a new DOM node to render the text commentary associated to the given PGN node.
 	 * This function may return null if no commentary is associated to the PGN node.
 	 *
-	 * @param {PGNNode} pgnNode PGN node object containing the commentary to render.
-	 * @param {Number} depth Depth of the PGN node within its belonging PGN tree.
-	 *        For instance, depth is 0 for the main variation, 1 for a direct sub-variation,
-	 *        2 for a sub-sub-variation, etc...
-	 * @param {Number} squareSize Size of the sprite to use to render the diagrams (if any).
-	 * @param {Boolean} showCoordinates Whether the row and column coordinates should be
-	 *        displayed on diagrams (if any).
+	 * @private
+	 * @param   {PGNNode} pgnNode PGN node object containing the commentary to render.
+	 * @param   {Number} depth Depth of the PGN node within its belonging PGN tree.
+	 *          For instance, depth is 0 for the main variation, 1 for a direct sub-variation,
+	 *          2 for a sub-sub-variation, etc...
+	 * @param   {Number} squareSize Size of the sprite to use to render the diagrams (if any).
+	 * @param   {Boolean} showCoordinates Whether the row and column coordinates should be
+	 *          displayed on diagrams (if any).
+	 * @returns {Element} New DOM node showing the commentary.
 	 */
 	function renderCommentary(pgnNode, depth, squareSize, showCoordinates)
 	{
@@ -504,13 +540,15 @@ var jsChessRenderer = (function()
 	 * Create a new DOM node to render a variation taken from a PGN tree. This function
 	 * is recursive, and never returns null.
 	 *
-	 * @param {PGNVariation} pgnVariation PGN variation object to render.
-	 * @param {Number} depth Depth of the PGN variation within its belonging PGN tree.
-	 *        For instance, depth is 0 for the main variation, 1 for a direct sub-variation,
-	 *        2 for a sub-sub-variation, etc...
-	 * @param {Number} squareSize Size of the sprite to use to render the diagrams (if any).
-	 * @param {Boolean} showCoordinates Whether the row and column coordinates should be
-	 *        displayed on diagrams (if any).
+	 * @private
+	 * @param   {PGNVariation} pgnVariation PGN variation object to render.
+	 * @param   {Number} depth Depth of the PGN variation within its belonging PGN tree.
+	 *          For instance, depth is 0 for the main variation, 1 for a direct sub-variation,
+	 *          2 for a sub-sub-variation, etc...
+	 * @param   {Number} squareSize Size of the sprite to use to render the diagrams (if any).
+	 * @param   {Boolean} showCoordinates Whether the row and column coordinates should be
+	 *          displayed on diagrams (if any).
+	 * @returns {Element} New DOM node showing the variation.
 	 */
 	function renderVariation(pgnVariation, depth, squareSize, showCoordinates)
 	{
@@ -595,10 +633,13 @@ var jsChessRenderer = (function()
 	 * Create a new DOM node to render a whole PGN tree. This function may return
 	 * null if no move tree is defined in the given PGN item.
 	 *
-	 * @param {PGNItem} pgnItem PGN item object whose associated move tree should be rendered.
-	 * @param {Number} squareSize Size of the sprite to use to render the diagrams (if any).
-	 * @param {Boolean} showCoordinates Whether the row and column coordinates should be
-	 *        displayed on diagrams (if any).
+	 * @private
+	 * @param   {PGNItem} pgnItem PGN item object whose associated move tree should be rendered.
+	 * @param   {Number} squareSize Size of the sprite to use to render the diagrams (if any).
+	 * @param   {Boolean} showCoordinates Whether the row and column coordinates should be
+	 *          displayed on diagrams (if any).
+	 * @returns {Element} New DOM node with showing the main variation and the sub-variations
+	 *          (if any) of the PGN item.
 	 */
 	function renderMoves(pgnItem, squareSize, showCoordinates)
 	{
@@ -632,6 +673,7 @@ var jsChessRenderer = (function()
 	 *   Event: <span class="jsChessLib-value-Event"></span>
 	 * </div>
 	 *
+	 * @private
 	 * @param {Element} parentNode Each child of this node having a class attribute
 	 *        set to "jsChessLib-field-[fieldName]" will be targeted by the substitution.
 	 * @param {String} fieldName Name of the PGN field to process.
@@ -689,6 +731,7 @@ var jsChessRenderer = (function()
 	 *   </span>
 	 * </div>
 	 *
+	 * @private
 	 * @param {Element} parentNode Each child of this node having a class attribute
 	 *        set to "jsChessLib-field-fullNameColor" will be targeted by the substitution.
 	 * @param {Number} color Color code corresponding to the player to consider (either BLACK or WHITE).
@@ -732,6 +775,7 @@ var jsChessRenderer = (function()
 	 *   <span class="jsChessLib-value-moves jsChessLib-variation-main">1.e4 e5</span>
 	 * </div>
 	 *
+	 * @private
 	 * @see {@link renderMoves} for more details on how the move tree is rendered.
 	 * @param {Element} parentNode Each child of this node having a class attribute
 	 *        set to "jsChessLib-field-moves" will be targeted by the substitution.
@@ -771,11 +815,12 @@ var jsChessRenderer = (function()
 	 * Interpret the text in the given DOM node as a FEN string, and replace the
 	 * node with a graphically-rendered chessboard corresponding to the FEN string.
 	 *
+	 * @public
 	 * @param {Element} domNode DOM node containing the FEN string to interpret.
 	 * @param {Number} [squareSize] Size of the sprite to use.
 	 * @param {Boolean} [showCoordinates] Whether the row and column coordinates should be displayed.
 	 */
-	module.processFEN = function(domNode, squareSize, showCoordinates)
+	function processFEN(domNode, squareSize, showCoordinates)
 	{
 		// Nothing to do if the DOM node is not valid
 		if(domNode==null) {
@@ -783,8 +828,8 @@ var jsChessRenderer = (function()
 		}
 
 		// Default arguments
-		if(squareSize     ==null) squareSize     =module.option.defaultSquareSize     ;
-		if(showCoordinates==null) showCoordinates=module.option.defaultShowCoordinates;
+		if(squareSize     ==null) squareSize     =option.defaultSquareSize     ;
+		if(showCoordinates==null) showCoordinates=option.defaultShowCoordinates;
 
 		try
 		{
@@ -806,6 +851,7 @@ var jsChessRenderer = (function()
 		// Parsing exception are caught, while other kind of exceptions are forwarded.
 		catch(err) {
 			if(err instanceof ParsingException) {
+				printDebug(err.message);
 				return;
 			}
 			else {
@@ -817,14 +863,15 @@ var jsChessRenderer = (function()
 	/**
 	 * Call the processFEN method on the node identified by the given ID.
 	 *
-	 * @see {@link module.processFEN}
+	 * @public
+	 * @see {@link processFEN}
 	 * @param {String} domID ID of the DOM node to process.
 	 * @param {Number} [squareSize] Size of the sprite to use.
 	 * @param {Boolean} [showCoordinates] Whether the row and column coordinates should be displayed.
 	 */
-	module.processFENByID = function(domID, squareSize, showCoordinates)
+	function processFENByID(domID, squareSize, showCoordinates)
 	{
-		module.processFEN(document.getElementById(domID), squareSize, showCoordinates);
+		processFEN(document.getElementById(domID), squareSize, showCoordinates);
 	}
 
 	/**
@@ -832,6 +879,7 @@ var jsChessRenderer = (function()
 	 * the replacement tokens within domNodeOut with the values parsed from this
 	 * PGN string.
 	 *
+	 * @public
 	 * @see {@link substituteSimpleField}
 	 * @param {Element} domNodeIn
 	 * @param {Element} domNodeOut
@@ -839,7 +887,7 @@ var jsChessRenderer = (function()
 	 * @param {Boolean} [showCoordinates] Whether the row and column coordinates should be
 	 *        displayed on diagrams (if any).
 	 */
-	module.processPGN = function(domNodeIn, domNodeOut, squareSize, showCoordinates)
+	function processPGN(domNodeIn, domNodeOut, squareSize, showCoordinates)
 	{
 		// Nothing to do if one of the DOM node is not valid
 		if(domNodeIn==null || domNodeOut==null) {
@@ -847,8 +895,8 @@ var jsChessRenderer = (function()
 		}
 
 		// Default arguments
-		if(squareSize     ==null) squareSize     =module.option.defaultSquareSize     ;
-		if(showCoordinates==null) showCoordinates=module.option.defaultShowCoordinates;
+		if(squareSize     ==null) squareSize     =option.defaultSquareSize     ;
+		if(showCoordinates==null) showCoordinates=option.defaultShowCoordinates;
 
 		try
 		{
@@ -902,25 +950,24 @@ var jsChessRenderer = (function()
 	 * Call the processPGN method using the node identified by ID 'domID+"-in"' as
 	 * input, and the node identified by ID 'domID+"-out"' as output.
 	 *
-	 * @see {@link module.processPGN}
+	 * @public
+	 * @see {@link processPGN}
 	 * @param {String} domID ID prefix of the DOM nodes to process.
 	 * @param {Number} [squareSize] Size of the sprite to use to render the diagrams (if any).
 	 * @param {Boolean} [showCoordinates] Whether the row and column coordinates should be
 	 *        displayed on diagrams (if any).
 	 */
-	module.processPGNByID = function(domID, squareSize, showCoordinates)
+	function processPGNByID(domID, squareSize, showCoordinates)
 	{
-		module.processPGN(
-			document.getElementById(domID + "-in" ),
-			document.getElementById(domID + "-out"),
-			squareSize, showCoordinates
-		);
+		processPGN(document.getElementById(domID + "-in"), document.getElementById(domID + "-out"),
+			squareSize, showCoordinates);
 	}
 
 	/**
 	 * Set the attribute 'onclick' of the given DOM node to call one of the public
-	 * method of the current module.
+	 * method of the current jsChessRenderer module.
 	 *
+	 * @private
 	 * @param {Element} domNode Targeted node.
 	 * @param {String} methodToCall Public method to call, with its arguments (if any).
 	 */
@@ -933,6 +980,7 @@ var jsChessRenderer = (function()
 	 * Create a new button DOM node with the given label and callback, and append it
 	 * to the given parent node.
 	 *
+	 * @private
 	 * @param {Element} parentNode The newly created button frame will be appended
 	 *        as a child of this node.
 	 * @param {String} label Label of the button.
@@ -952,6 +1000,7 @@ var jsChessRenderer = (function()
 	 * Create the navigation frame, if it does not exist yet. The frame is
 	 * appended as a child of the given DOM node.
 	 *
+	 * @private
 	 * @param {Element} parentNode The newly created navigation frame will be
 	 *        appended as a child of this node.
 	 */
@@ -1003,6 +1052,7 @@ var jsChessRenderer = (function()
 	 * to have class 'jsChessLib-move'. The position is defined by a FEN string,
 	 * inside a sub-node with class 'jsChessLib-navigation-source'.
 	 *
+	 * @private
 	 * @param {Element} domNode Node having class 'jsChessLib-move' holding the
 	 *        position to extract.
 	 */
@@ -1030,10 +1080,11 @@ var jsChessRenderer = (function()
 	 * given DOM node. By the way, this node must have class 'jsChessLib-move',
 	 * otherwise nothing happens.
 	 *
+	 * @public
 	 * @param {Element} domNode Node having class 'jsChessLib-move' holding the
 	 *        position to display in the navigation frame.
 	 */
-	module.showNavigationFrame = function(domNode)
+	function showNavigationFrame(domNode)
 	{
 		if(domNode==null || !domNode.classList.contains("jsChessLib-move")) {
 			return;
@@ -1062,8 +1113,8 @@ var jsChessRenderer = (function()
 		while(target.hasChildNodes()) {
 			target.removeChild(target.lastChild);
 		}
-		target.appendChild(renderPosition(position, module.option.navigationFrameSquareSize,
-			module.option.navigationFrameShowCoordinates));
+		target.appendChild(renderPosition(position, option.navigationFrameSquareSize,
+			option.navigationFrameShowCoordinates));
 
 		// Make the navigation frame visible
 		var navigationFrame = document.getElementById("jsChessLib-navigation-frame");
@@ -1072,8 +1123,10 @@ var jsChessRenderer = (function()
 
 	/**
 	 * Hide the navigation frame if visible.
+	 *
+	 * @public
 	 */
-	module.hideNavigationFrame = function()
+	function hideNavigationFrame()
 	{
 		var navigationFrame = document.getElementById("jsChessLib-navigation-frame");
 		navigationFrame.classList.add("jsChessLib-invisible");
@@ -1087,7 +1140,10 @@ var jsChessRenderer = (function()
 	 * Extract the list of direct children (the grandchildren are not considered)
 	 * of the given DOM node that have the class 'jsChessLib-move'.
 	 *
-	 * @param {Element} domNode Node to search in.
+	 * @private
+	 * @param   {Element} domNode Node to search in.
+	 * @returns {Array} List of DOM nodes whose parent is 'domNode' and who are
+	 *          tagged with the class 'jsChessLib-move'.
 	 */
 	function extractChildMoves(domNode)
 	{
@@ -1101,9 +1157,11 @@ var jsChessRenderer = (function()
 	}
 
 	/**
-	 * Go to the first move of the current variation
+	 * Go to the first move of the current variation.
+	 *
+	 * @public
 	 */
-	module.goFirstMove = function()
+	function goFirstMove()
 	{
 		// Retrieve node corresponding to the current move
 		var currentSelectedNode = document.getElementById("jsChessLib-selected-move");
@@ -1114,14 +1172,16 @@ var jsChessRenderer = (function()
 		// All the move nodes in with the same parent
 		var moveNodes = extractChildMoves(currentSelectedNode.parentNode);
 		if(moveNodes.length>0) {
-			module.showNavigationFrame(moveNodes[0]);
+			showNavigationFrame(moveNodes[0]);
 		}
 	}
 
 	/**
-	 * Go to the previous move of the current variation
+	 * Go to the previous move of the current variation.
+	 *
+	 * @public
 	 */
-	module.goPrevMove = function()
+	function goPrevMove()
 	{
 		// Retrieve node corresponding to the current move
 		var currentSelectedNode = document.getElementById("jsChessLib-selected-move");
@@ -1134,7 +1194,7 @@ var jsChessRenderer = (function()
 		for(var k=0; k<moveNodes.length; ++k) {
 			if(moveNodes[k]==currentSelectedNode) {
 				if(k>0) {
-					module.showNavigationFrame(moveNodes[k-1]);
+					showNavigationFrame(moveNodes[k-1]);
 				}
 				return;
 			}
@@ -1142,9 +1202,11 @@ var jsChessRenderer = (function()
 	}
 
 	/**
-	 * Go to the next move of the current variation
+	 * Go to the next move of the current variation.
+	 *
+	 * @public
 	 */
-	module.goNextMove = function()
+	function goNextMove()
 	{
 		// Retrieve node corresponding to the current move
 		var currentSelectedNode = document.getElementById("jsChessLib-selected-move");
@@ -1157,7 +1219,7 @@ var jsChessRenderer = (function()
 		for(var k=0; k<moveNodes.length; ++k) {
 			if(moveNodes[k]==currentSelectedNode) {
 				if(k<moveNodes.length-1) {
-					module.showNavigationFrame(moveNodes[k+1]);
+					showNavigationFrame(moveNodes[k+1]);
 				}
 				return;
 			}
@@ -1165,9 +1227,11 @@ var jsChessRenderer = (function()
 	}
 
 	/**
-	 * Go to the last move of the current variation
+	 * Go to the last move of the current variation.
+	 *
+	 * @public
 	 */
-	module.goLastMove = function()
+	function goLastMove()
 	{
 		// Retrieve node corresponding to the current move
 		var currentSelectedNode = document.getElementById("jsChessLib-selected-move");
@@ -1178,10 +1242,24 @@ var jsChessRenderer = (function()
 		// All the move nodes in with the same parent
 		var moveNodes = extractChildMoves(currentSelectedNode.parentNode);
 		if(moveNodes.length>0) {
-			module.showNavigationFrame(moveNodes[moveNodes.length-1]);
+			showNavigationFrame(moveNodes[moveNodes.length-1]);
 		}
 	}
 
 	// Return the module object
-	return module;
+	return {
+		configureBaseURL   : configureBaseURL   ,
+		isBaseURLConfigured: isBaseURLConfigured,
+		option             : option             ,
+		processFEN         : processFEN         ,
+		processFENByID     : processFENByID     ,
+		processPGN         : processPGN         ,
+		processPGNByID     : processPGNByID     ,
+		showNavigationFrame: showNavigationFrame,
+		hideNavigationFrame: hideNavigationFrame,
+		goFirstMove        : goFirstMove        ,
+		goPrevMove         : goPrevMove         ,
+		goNextMove         : goNextMove         ,
+		goLastMove         : goLastMove
+	};
 })();
