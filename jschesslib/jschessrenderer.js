@@ -29,13 +29,6 @@
 var jsChessRenderer = (function($)
 {
 	/**
-	 * Name of the global variable used to access the functions of the module
-	 *
-	 * @private
-	 */
-	var moduleName = "jsChessRenderer";
-
-	/**
 	 * URL to the folder containing the current file.
 	 *
 	 * @private
@@ -960,39 +953,6 @@ var jsChessRenderer = (function($)
 	}
 
 	/**
-	 * Set the attribute 'onclick' of the given DOM node to call one of the public
-	 * method of the current jsChessRenderer module.
-	 *
-	 * @private
-	 * @param {Element} domNode Targeted node.
-	 * @param {String} methodToCall Public method to call, with its arguments (if any).
-	 */
-	function defineOnClickCallback(domNode, methodToCall)
-	{
-		domNode.setAttribute("onclick", moduleName + "." + methodToCall + ";");
-	}
-
-	/**
-	 * Create a new button DOM node with the given label and callback, and append it
-	 * to the given parent node.
-	 *
-	 * @private
-	 * @param {Element} parentNode The newly created button frame will be appended
-	 *        as a child of this node.
-	 * @param {String} label Label of the button.
-	 * @param {String} methodToCall Public method to call when the button is clicked,
-	 *        with its arguments (if any).
-	 */
-	function makeNewButton(parentNode, label, methodToCall)
-	{
-		var button = document.createElement("input");
-		button.setAttribute("type", "button");
-		button.setAttribute("value", label);
-		defineOnClickCallback(button, methodToCall);
-		parentNode.appendChild(button);
-	}
-
-	/**
 	 * Create the navigation frame, if it does not exist yet. The frame is
 	 * appended as a child of the given DOM node.
 	 *
@@ -1041,7 +1001,7 @@ var jsChessRenderer = (function($)
 	 * given DOM node. By the way, this node must have class 'jsChessLib-move',
 	 * otherwise nothing happens.
 	 *
-	 * @public
+	 * @private
 	 * @param {Element} domNode Node having class 'jsChessLib-move' holding the
 	 *        position to display in the navigation frame.
 	 */
@@ -1085,7 +1045,7 @@ var jsChessRenderer = (function($)
 	/**
 	 * Hide the navigation frame if visible.
 	 *
-	 * @public
+	 * @private
 	 */
 	function hideNavigationFrame()
 	{
@@ -1120,7 +1080,7 @@ var jsChessRenderer = (function($)
 	/**
 	 * Go to the first move of the current variation.
 	 *
-	 * @public
+	 * @private
 	 */
 	function goFrstMove()
 	{
@@ -1140,7 +1100,7 @@ var jsChessRenderer = (function($)
 	/**
 	 * Go to the previous move of the current variation.
 	 *
-	 * @public
+	 * @private
 	 */
 	function goPrevMove()
 	{
@@ -1165,7 +1125,7 @@ var jsChessRenderer = (function($)
 	/**
 	 * Go to the next move of the current variation.
 	 *
-	 * @public
+	 * @private
 	 */
 	function goNextMove()
 	{
@@ -1190,7 +1150,7 @@ var jsChessRenderer = (function($)
 	/**
 	 * Go to the last move of the current variation.
 	 *
-	 * @public
+	 * @private
 	 */
 	function goLastMove()
 	{
@@ -1215,12 +1175,6 @@ var jsChessRenderer = (function($)
 		processFEN         : processFEN         ,
 		processFENByID     : processFENByID     ,
 		processPGN         : processPGN         ,
-		processPGNByID     : processPGNByID     ,
-		showNavigationFrame: showNavigationFrame,
-		hideNavigationFrame: hideNavigationFrame,
-		goFrstMove         : goFrstMove         ,
-		goPrevMove         : goPrevMove         ,
-		goNextMove         : goNextMove         ,
-		goLastMove         : goLastMove
+		processPGNByID     : processPGNByID
 	};
 })(jQuery);
