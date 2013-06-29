@@ -561,7 +561,7 @@ var jsChessRenderer = (function($)
 			// (i.e. move number, notation, NAGs)
 			var move = $('<span class="jsChessLib-move"></span>').appendTo(retVal);
 			move.data("position", currentPgnNode.position);
-			move.click(function() { showNavigationFrame(this); });
+			move.click(function() { showNavigationFrame($(this)); });
 
 			// Write the move number
 			var moveNumber = $(
@@ -966,7 +966,8 @@ var jsChessRenderer = (function($)
 		{
 			// Create the dialog structure
 			$("#jsChessLib-navigation-frame").dialog({
-				autoOpen: false
+				autoOpen: false,
+				close   : function(event, ui) { unselectMove(); }
 			});
 
 			// Create the buttons
@@ -984,22 +985,14 @@ var jsChessRenderer = (function($)
 	 * otherwise nothing happens.
 	 *
 	 * @private
-	 * @param {Element} domNode Node having class 'jsChessLib-move' holding the
-	 *        position to display in the navigation frame.
+	 * @param {jQuery} domNode Node whose position should be displayed.
+	 *        This node is supposed to be tagged with the class 'jsChessLib-move'.
 	 */
 	function showNavigationFrame(domNode)
 	{
-		if(domNode==null || !domNode.classList.contains("jsChessLib-move")) {
+		// Nothing to do if the move is already selected
+		if(domNode.attr("id")=="jsChessLib-selected-move") {
 			return;
-		}
-
-		// Remove the selected-move flag from the previously selected node, if any.
-		var prevSelectedNode = document.getElementById("jsChessLib-selected-move");
-		if(domNode==prevSelectedNode) {
-			return;
-		}
-		if(prevSelectedNode!=null) {
-			prevSelectedNode.removeAttribute("id");
 		}
 
 		// Retrieve the position corresponding to the current node
@@ -1009,35 +1002,42 @@ var jsChessRenderer = (function($)
 			return;
 		}
 
-		// Set the selected-move flag on the current node.
-		domNode.setAttribute("id", "jsChessLib-selected-move");
+		// Mark the current move as selected
+		selectMove(domNode);
 
 		// Fill the miniboard in the navigation frame
-		var target = document.getElementById("jsChessLib-navigation-content");
-		while(target.hasChildNodes()) {
-			target.removeChild(target.lastChild);
-		}
-		target.appendChild(renderPosition(position, option.navigationFrameSquareSize,
+		var navFrameContent = $("#jsChessLib-navigation-content");
+		navFrameContent.empty();
+		navFrameContent.append(renderPosition(position, option.navigationFrameSquareSize,
 			option.navigationFrameShowCoordinates));
 
 		// Make the navigation frame visible
-		$("#jsChessLib-navigation-frame").dialog("option", "title", $(domNode).text());
-		$("#jsChessLib-navigation-frame").dialog("open");
+		var navFrame = $("#jsChessLib-navigation-frame");
+		navFrame.dialog("option", "title", $(domNode).text());
+		navFrame.dialog("open");
 	}
 
 	/**
-	 * Hide the navigation frame if visible.
+	 * Make the given move appear as selected.
+	 *
+	 * @private
+	 * @param {jQuery} domNode Node to select. This node is supposed to be tagged
+	 *        with the class 'jsChessLib-move'.
+	 */
+	function selectMove(domNode)
+	{
+		unselectMove();
+		domNode.attr("id", "jsChessLib-selected-move");
+	}
+
+	/**
+	 * Unselect the selected move, if any.
 	 *
 	 * @private
 	 */
-	function hideNavigationFrame()
+	function unselectMove()
 	{
-		var navigationFrame = document.getElementById("jsChessLib-navigation-frame");
-		navigationFrame.classList.add("jsChessLib-invisible");
-		var selectedNode = document.getElementById("jsChessLib-selected-move");
-		if(selectedNode!=null) {
-			selectedNode.removeAttribute("id");
-		}
+		$("#jsChessLib-selected-move").attr("id", null);
 	}
 
 	/**
@@ -1076,7 +1076,7 @@ var jsChessRenderer = (function($)
 		// All the move nodes in with the same parent
 		var moveNodes = extractChildMoves(currentSelectedNode.parentNode);
 		if(moveNodes.length>0) {
-			showNavigationFrame(moveNodes[0]);
+			showNavigationFrame($(moveNodes[0]));
 		}
 	}
 
@@ -1098,7 +1098,7 @@ var jsChessRenderer = (function($)
 		for(var k=0; k<moveNodes.length; ++k) {
 			if(moveNodes[k]==currentSelectedNode) {
 				if(k>0) {
-					showNavigationFrame(moveNodes[k-1]);
+					showNavigationFrame($(moveNodes[k-1]));
 				}
 				return;
 			}
@@ -1123,7 +1123,7 @@ var jsChessRenderer = (function($)
 		for(var k=0; k<moveNodes.length; ++k) {
 			if(moveNodes[k]==currentSelectedNode) {
 				if(k<moveNodes.length-1) {
-					showNavigationFrame(moveNodes[k+1]);
+					showNavigationFrame($(moveNodes[k+1]));
 				}
 				return;
 			}
@@ -1146,7 +1146,7 @@ var jsChessRenderer = (function($)
 		// All the move nodes in with the same parent
 		var moveNodes = extractChildMoves(currentSelectedNode.parentNode);
 		if(moveNodes.length>0) {
-			showNavigationFrame(moveNodes[moveNodes.length-1]);
+			showNavigationFrame($(moveNodes[moveNodes.length-1]));
 		}
 	}
 
