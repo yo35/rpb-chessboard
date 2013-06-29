@@ -37,10 +37,6 @@ pre.jsChessLib-pgn-source {
 /******************************************************************************/
 /*** Navigation frame ***/
 
-.jsChessLib-out div.jsChessLib-navigation-source {
-	display: none;
-}
-
 div#jsChessLib-navigation-frame #jsChessLib-navigation-content {
 	text-align: center;
 	padding: 10px 10px 5px;

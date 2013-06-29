@@ -598,14 +598,10 @@ var jsChessRenderer = (function($)
 				move.appendChild(nag);
 			}
 
-			// The move DOM node must also contain a hidden DIV element holding the
-			// FEN representation of the current position. This FEN string is used
-			// to manage the navigation frame.
-			var miniboard = document.createElement("div");
-			miniboard.classList.add("jsChessLib-navigation-source");
-			miniboard.innerHTML = positionToFEN(currentPgnNode.position);
-			defineOnClickCallback(move, "showNavigationFrame(this)");
-			move.appendChild(miniboard);
+			// Save the current position so that it could be displayed in the navigation
+			// frame upon request.
+			$(move).data("position", currentPgnNode.position);
+			$(move).click(function() { showNavigationFrame(this); });
 
 			// Commentary associated to the current move
 			var commentary = renderCommentary(currentPgnNode, depth, squareSize, showCoordinates);
@@ -1040,33 +1036,6 @@ var jsChessRenderer = (function($)
 	}
 
 	/**
-	 * Extract the position associated to the given DOM node, which is supposed
-	 * to have class 'jsChessLib-move'. The position is defined by a FEN string,
-	 * inside a sub-node with class 'jsChessLib-navigation-source'.
-	 *
-	 * @private
-	 * @param {Element} domNode Node having class 'jsChessLib-move' holding the
-	 *        position to extract.
-	 */
-	function extractNavigationPosition(domNode)
-	{
-		var target = domNode.getElementsByClassName("jsChessLib-navigation-source");
-		var fen    = target[0].innerHTML;
-		try {
-			return parseFEN(fen);
-		}
-		catch(err) {
-			if(err instanceof ParsingException) {
-				printDebug(err.message);
-				return null;
-			}
-			else {
-				throw err;
-			}
-		}
-	}
-
-	/**
 	 * Show the navigation frame if not visible yet, and update the diagram in this
 	 * frame with the position corresponding to the move that is referred by the
 	 * given DOM node. By the way, this node must have class 'jsChessLib-move',
@@ -1091,9 +1060,10 @@ var jsChessRenderer = (function($)
 			prevSelectedNode.removeAttribute("id");
 		}
 
-		// Parse the FEN that defines the position.
-		var position = extractNavigationPosition(domNode);
+		// Retrieve the position corresponding to the current node
+		var position = $(domNode).data("position");
 		if(position==null) {
+			$("#jsChessLib-navigation-frame").dialog("close");
 			return;
 		}
 
@@ -1109,8 +1079,6 @@ var jsChessRenderer = (function($)
 			option.navigationFrameShowCoordinates));
 
 		// Make the navigation frame visible
-		//var navigationFrame = document.getElementById("jsChessLib-navigation-frame");
-		//navigationFrame.classList.remove("jsChessLib-invisible");
 		$("#jsChessLib-navigation-frame").dialog("open");
 	}
 
