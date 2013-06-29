@@ -1006,45 +1006,37 @@ var jsChessRenderer = (function($)
 	 */
 	function makeNavigationFrame(parentNode)
 	{
-		if(document.getElementById("jsChessLib-navigation-frame")!=null) {
+		if($("jsChessLib-navigation-frame").length!=0) {
 			return;
 		}
 
-		// Create the new DOM node that will hold the navigation frame.
-		var frame = document.createElement("div");
-		frame.setAttribute("id", "jsChessLib-navigation-frame");
-		frame.classList.add("jsChessLib-invisible");
-		$(document).ready(function($){
-			if(typeof($("#jsChessLib-navigation-frame").draggable)=="function") {
-				$("#jsChessLib-navigation-frame").draggable({ handle: "#jsChessLib-navigation-title" });
-			}
+		// Structure of the navigation frame
+		$(
+			'<div id="jsChessLib-navigation-frame">' +
+				'<div id="jsChessLib-navigation-content"></div>' +
+				'<div id="jsChessLib-navigation-buttons">' +
+					'<button id="jsChessLib-navigation-button-frst">&lt;&lt;</button>' +
+					'<button id="jsChessLib-navigation-button-prev">&lt;</button>' +
+					'<button id="jsChessLib-navigation-button-next">&gt;</button>' +
+					'<button id="jsChessLib-navigation-button-last">&gt;&gt;</button>' +
+				'</div>' +
+			'</div>'
+		).appendTo(parentNode);
+
+		// Widgetization
+		$(document).ready(function()
+		{
+			// Create the dialog structure
+			$("#jsChessLib-navigation-frame").dialog({
+				autoOpen: false
+			});
+
+			// Create the buttons
+			$("#jsChessLib-navigation-button-frst").button().click(function() { goFrstMove(); });
+			$("#jsChessLib-navigation-button-prev").button().click(function() { goPrevMove(); });
+			$("#jsChessLib-navigation-button-next").button().click(function() { goNextMove(); });
+			$("#jsChessLib-navigation-button-last").button().click(function() { goLastMove(); });
 		});
-		parentNode.appendChild(frame);
-
-		// Close button
-		var closeButton = document.createElement("div");
-		closeButton.setAttribute("id", "jsChessLib-navigation-close");
-		makeNewButton(closeButton, "x", "hideNavigationFrame()");
-		frame.appendChild(closeButton);
-
-		// Title bar
-		var titleBar = document.createElement("div");
-		titleBar.setAttribute("id", "jsChessLib-navigation-title");
-		frame.appendChild(titleBar);
-
-		// Board container
-		var boardContainer = document.createElement("div");
-		boardContainer.setAttribute("id", "jsChessLib-navigation-content");
-		frame.appendChild(boardContainer);
-
-		// Buttons
-		var buttonBar = document.createElement("div");
-		buttonBar.setAttribute("id", "jsChessLib-navigation-buttons");
-		frame.appendChild(buttonBar);
-		makeNewButton(buttonBar, "<<", "goFirstMove()");
-		makeNewButton(buttonBar, "<" , "goPrevMove()" );
-		makeNewButton(buttonBar, ">" , "goNextMove()" );
-		makeNewButton(buttonBar, ">>", "goLastMove()" );
 	}
 
 	/**
@@ -1117,8 +1109,9 @@ var jsChessRenderer = (function($)
 			option.navigationFrameShowCoordinates));
 
 		// Make the navigation frame visible
-		var navigationFrame = document.getElementById("jsChessLib-navigation-frame");
-		navigationFrame.classList.remove("jsChessLib-invisible");
+		//var navigationFrame = document.getElementById("jsChessLib-navigation-frame");
+		//navigationFrame.classList.remove("jsChessLib-invisible");
+		$("#jsChessLib-navigation-frame").dialog("open");
 	}
 
 	/**
@@ -1161,7 +1154,7 @@ var jsChessRenderer = (function($)
 	 *
 	 * @public
 	 */
-	function goFirstMove()
+	function goFrstMove()
 	{
 		// Retrieve node corresponding to the current move
 		var currentSelectedNode = document.getElementById("jsChessLib-selected-move");
@@ -1257,7 +1250,7 @@ var jsChessRenderer = (function($)
 		processPGNByID     : processPGNByID     ,
 		showNavigationFrame: showNavigationFrame,
 		hideNavigationFrame: hideNavigationFrame,
-		goFirstMove        : goFirstMove        ,
+		goFrstMove         : goFrstMove         ,
 		goPrevMove         : goPrevMove         ,
 		goNextMove         : goNextMove         ,
 		goLastMove         : goLastMove

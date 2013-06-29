@@ -41,28 +41,8 @@ pre.jsChessLib-pgn-source {
 	display: none;
 }
 
-div#jsChessLib-navigation-frame {
-	display: block;
-	position: fixed;
-	left : 60%;
-	top  : 20%;
-	width: auto;
-}
-
-div#jsChessLib-navigation-frame.jsChessLib-invisible {
-	display: none;
-}
-
-div#jsChessLib-navigation-frame #jsChessLib-navigation-close {
-	float: right;
-}
-
-div#jsChessLib-navigation-frame #jsChessLib-navigation-title {
-	cursor: move;
-}
-
 div#jsChessLib-navigation-frame #jsChessLib-navigation-content {
-	clear: both;
+	text-align: center;
 	padding: 10px 10px 5px;
 }
 
