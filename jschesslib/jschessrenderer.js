@@ -1039,6 +1039,7 @@ var jsChessRenderer = (function($)
 			option.navigationFrameShowCoordinates));
 
 		// Make the navigation frame visible
+		$("#jsChessLib-navigation-frame").dialog("option", "title", $(domNode).text());
 		$("#jsChessLib-navigation-frame").dialog("open");
 	}
 
