@@ -23,8 +23,10 @@
 
 /**
  * Rendering methods for chess-related objects.
+ *
+ * @param {Object} $ jQuery module.
  */
-var jsChessRenderer = (function()
+var jsChessRenderer = (function($)
 {
 	/**
 	 * Name of the global variable used to access the functions of the module
@@ -1012,7 +1014,7 @@ var jsChessRenderer = (function()
 		var frame = document.createElement("div");
 		frame.setAttribute("id", "jsChessLib-navigation-frame");
 		frame.classList.add("jsChessLib-invisible");
-		jQuery(document).ready(function($){
+		$(document).ready(function($){
 			if(typeof($("#jsChessLib-navigation-frame").draggable)=="function") {
 				$("#jsChessLib-navigation-frame").draggable({ handle: "#jsChessLib-navigation-title" });
 			}
@@ -1260,4 +1262,4 @@ var jsChessRenderer = (function()
 		goNextMove         : goNextMove         ,
 		goLastMove         : goLastMove
 	};
-})();
+})(jQuery);
