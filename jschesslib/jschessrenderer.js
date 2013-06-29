@@ -1013,7 +1013,7 @@ var jsChessRenderer = (function($)
 
 		// Make the navigation frame visible
 		var navFrame = $("#jsChessLib-navigation-frame");
-		navFrame.dialog("option", "title", $(domNode).text());
+		navFrame.dialog("option", "title", domNode.text());
 		navFrame.dialog("open");
 	}
 
