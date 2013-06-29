@@ -490,7 +490,7 @@ var jsChessRenderer = (function($)
 	 * This function may return null if no commentary is associated to the PGN node.
 	 *
 	 * @private
-	 * @param   {PGNNode} pgnNode PGN node object containing the commentary to render.
+	 * @param   {PGNNode|PGNVariation} pgnNode PGN node object containing the commentary to render.
 	 * @param   {Number} depth Depth of the PGN node within its belonging PGN tree.
 	 *          For instance, depth is 0 for the main variation, 1 for a direct sub-variation,
 	 *          2 for a sub-sub-variation, etc...
@@ -541,24 +541,16 @@ var jsChessRenderer = (function($)
 	 * @param   {Number} squareSize Size of the sprite to use to render the diagrams (if any).
 	 * @param   {Boolean} showCoordinates Whether the row and column coordinates should be
 	 *          displayed on diagrams (if any).
-	 * @returns {Element} New DOM node showing the variation.
+	 * @returns {jQuery} New DOM node showing the variation.
 	 */
 	function renderVariation(pgnVariation, depth, squareSize, showCoordinates)
 	{
 		// Allocate the returned DOM node
-		var retVal = document.createElement("span");
-		if(depth==0) {
-			retVal.classList.add("jsChessLib-variation-main");
-		}
-		else {
-			retVal.classList.add("jsChessLib-variation-sub");
-		}
+		var retVal = $('<span></span>');
+		retVal.addClass(depth==0 ? "jsChessLib-variation-main" : "jsChessLib-variation-sub");
 
 		// The variation may start by an initial commentary
-		var initialCommentary = renderCommentary(pgnVariation, depth, squareSize, showCoordinates);
-		if(initialCommentary!=null) {
-			retVal.appendChild(initialCommentary);
-		}
+		retVal.append(renderCommentary(pgnVariation, depth, squareSize, showCoordinates));
 
 		// Visit all the PGN nodes (one node per move) within the variation
 		var forcePrintMoveNumber = true;
@@ -567,46 +559,37 @@ var jsChessRenderer = (function($)
 		{
 			// Create the DOM node that will contains the basic move informations
 			// (i.e. move number, notation, NAGs)
-			var move = document.createElement("span");
-			move.classList.add("jsChessLib-move");
-			retVal.appendChild(move);
+			var move = $('<span class="jsChessLib-move"></span>').appendTo(retVal);
+			move.data("position", currentPgnNode.position);
+			move.click(function() { showNavigationFrame(this); });
 
-			// Write the move number, if required.
-			if(currentPgnNode.parent.position.turn==WHITE) {
-				var moveNumber = document.createTextNode(currentPgnNode.counter + ".");
-				move.appendChild(moveNumber);
-			}
-			else if(forcePrintMoveNumber) {
-				var moveNumber = document.createTextNode(currentPgnNode.counter + "\u2026");
-				move.appendChild(moveNumber);
+			// Write the move number
+			var moveNumber = $(
+				'<span class="jsChessLib-move-number">' +
+					currentPgnNode.counter +
+					(currentPgnNode.parent.position.turn==WHITE ? "." : "\u2026") +
+				'</span>'
+			).appendTo(move);
+			if(!(forcePrintMoveNumber || currentPgnNode.parent.position.turn==WHITE)) {
+				moveNumber.addClass("jsChessLib-invisible");
 			}
 
 			// Write the notation
-			var notation = document.createTextNode(formatMoveNotation(currentPgnNode.notation));
-			move.appendChild(notation);
+			move.append(formatMoveNotation(currentPgnNode.notation));
 
-			// Write the NAGs
+			// Write the NAGs (if any)
 			for(var k=0; k<currentPgnNode.nags.length; ++k) {
-				var nag = document.createTextNode(" " + formatNag(currentPgnNode.nags[k]));
-				move.appendChild(nag);
+				move.append(" " + formatNag(currentPgnNode.nags[k]));
 			}
 
-			// Save the current position so that it could be displayed in the navigation
-			// frame upon request.
-			$(move).data("position", currentPgnNode.position);
-			$(move).click(function() { showNavigationFrame(this); });
-
-			// Commentary associated to the current move
-			var commentary = renderCommentary(currentPgnNode, depth, squareSize, showCoordinates);
-			if(commentary!=null) {
-				retVal.appendChild(commentary);
-			}
+			// Write the commentary (if any)
+			retVal.append(renderCommentary(currentPgnNode, depth, squareSize, showCoordinates));
 
 			// Sub-variations starting from the current point in PGN tree
 			for(var k=0; k<currentPgnNode.variations.length; ++k) {
 				var newVariation = renderVariation(currentPgnNode.variations[k], depth+1,
 					squareSize, showCoordinates);
-				retVal.appendChild(newVariation);
+				retVal.append(newVariation);
 			}
 
 			// Back to the current line
@@ -639,8 +622,7 @@ var jsChessRenderer = (function($)
 
 		// Otherwise, the result is obtained by rendering the main variation
 		var retVal = renderVariation(pgnItem.mainVariation, 0, squareSize, showCoordinates);
-		retVal.classList.add("jsChessLib-value-moves");
-		return retVal;
+		return retVal[0];
 	}
 
 	/**
