@@ -1,21 +1,22 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# Copyright (C) 2013 RPB Chessboard
+# This file is distributed under the same license as the RPB Chessboard package.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-10 18:39+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Project-Id-Version: RPB Chessboard 1.4\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/rpbchessboard\n"
+"POT-Creation-Date: 2013-08-10 17:37:40+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2013-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
-"Content-Transfer-Encoding: 8bit\n"
+
+#: helpers/main.php:99
+msgid ""
+"You need to activate javascript to enhance chess game and diagram "
+"visualization."
+msgstr ""
 
 #: rpbchessboard.php:59 rpbchessboard.php:60
 msgid "Chess games and diagrams"
@@ -73,13 +74,50 @@ msgstr ""
 msgid "Initial position"
 msgstr ""
 
-#: helpers/main.php:100
-msgid ""
-"You need to activate javascript to enhance chess game and diagram "
-"visualization."
+#: template-init.php:39
+msgctxt "King symbol"
+msgid "K"
+msgstr ""
+
+#: template-init.php:40
+msgctxt "Queen symbol"
+msgid "K"
+msgstr ""
+
+#: template-init.php:41
+msgctxt "Rook symbol"
+msgid "K"
+msgstr ""
+
+#: template-init.php:42
+msgctxt "Bishop symbol"
+msgid "K"
+msgstr ""
+
+#: template-init.php:43
+msgctxt "Knight symbol"
+msgid "K"
+msgstr ""
+
+#: template-init.php:44
+msgctxt "Pawn symbol"
+msgid "K"
 msgstr ""
 
 #: template-pgn.php:78
-#, php-format
 msgid "Commented by %1$s"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "RPB Chessboard"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"This plugin allows you to print out chess diagrams and PGN-encoded chess "
+"games."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Yoann Le Montagner"
 msgstr ""

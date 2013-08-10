@@ -1,21 +1,28 @@
-# French translations for PACKAGE package.
-# Copyright (C) 2011 THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# Yoann <yoann.le-montagner@m4x.org>, 2011.
+# French translations for RPB Chessboard package.
+# Copyright (C) 2013 Yoann Le Montagner <yo35@melix.net>
+# This file is distributed under the same license as the RPB Chessboard package.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-10 18:39+0200\n"
+"Project-Id-Version: RPB Chessboard 1.4\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/rpbchessboard\n"
+"POT-Creation-Date: 2013-08-10 17:37:40+00:00\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
-"Last-Translator: Yoann <yoann.le-montagner@m4x.org>\n"
+"Last-Translator: Yoann Le Montagner <yo35@melix.net>\n"
 "Language-Team: French\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: helpers/main.php:99
+msgid ""
+"You need to activate javascript to enhance chess game and diagram "
+"visualization."
+msgstr ""
+"Vous devez activer javascript pour améliorer l'affichage des parties et "
+"diagrammes d'échecs."
 
 #: rpbchessboard.php:59 rpbchessboard.php:60
 msgid "Chess games and diagrams"
@@ -73,15 +80,52 @@ msgstr "décembre"
 msgid "Initial position"
 msgstr "Position initiale"
 
-#: helpers/main.php:100
-msgid ""
-"You need to activate javascript to enhance chess game and diagram "
-"visualization."
-msgstr ""
-"Vous devez activer javascript pour améliorer l'affichage des parties et "
-"diagrammes d'échecs."
+#: template-init.php:39
+msgctxt "King symbol"
+msgid "K"
+msgstr "R"
+
+#: template-init.php:40
+msgctxt "Queen symbol"
+msgid "K"
+msgstr "D"
+
+#: template-init.php:41
+msgctxt "Rook symbol"
+msgid "K"
+msgstr "T"
+
+#: template-init.php:42
+msgctxt "Bishop symbol"
+msgid "K"
+msgstr "F"
+
+#: template-init.php:43
+msgctxt "Knight symbol"
+msgid "K"
+msgstr "C"
+
+#: template-init.php:44
+msgctxt "Pawn symbol"
+msgid "K"
+msgstr "P"
 
 #: template-pgn.php:78
-#, php-format
 msgid "Commented by %1$s"
 msgstr "Commentée par %1$s"
+
+#. Plugin Name of the plugin/theme
+msgid "RPB Chessboard"
+msgstr "RPB Chessboard"
+
+#. Description of the plugin/theme
+msgid ""
+"This plugin allows you to print out chess diagrams and PGN-encoded chess "
+"games."
+msgstr ""
+"Ce plugin vous permet d'afficher des diagrammes d'échecs ainsi que des "
+"parties d'échecs encodées au format PGN."
+
+#. Author of the plugin/theme
+msgid "Yoann Le Montagner"
+msgstr "Yoann Le Montagner"
