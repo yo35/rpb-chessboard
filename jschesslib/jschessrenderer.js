@@ -364,66 +364,62 @@ var jsChessRenderer = (function($)
 	 * @param   {Position} position The chess position to render.
 	 * @param   {Number} squareSize Size of the sprite to use.
 	 * @param   {Boolean} showCoordinates Whether the row and column coordinates should be displayed.
-	 * @returns {Element} New DOM node representing the requested position.
+	 * @returns {jQuery} New DOM node representing the requested position.
 	 */
 	function renderPosition(position, squareSize, showCoordinates)
 	{
 		// Create the returned node
-		var retVal = document.createElement("div");
-		retVal.classList.add("jsChessLib-chessboard");
-
-		// Prepare the table
-		var table = document.createElement("table");
-		var tbody = document.createElement("tbody");
-		table.appendChild(tbody);
-		retVal.appendChild(table);
+		var retVal = $('<div class="jsChessLib-chessboard"></div>');
+		var table  = $('<div class="jsChessLib-chessboard-table"></div>');
+		retVal.append(table);
 
 		// For each row...
 		for(var r=ROW_8; r>=ROW_1; --r) {
-			var tr = document.createElement("tr");
-			tbody.appendChild(tr);
+			var tr = $('<div class="jsChessLib-chessboard-row"></div>');
+			table.append(tr);
 
 			// If visible, the row coordinates are shown in the left-most column.
 			if(showCoordinates) {
-				var th = document.createElement("th");
-				th.setAttribute("scope", "row");
-				th.innerHTML = rowToString(r);
-				tr.appendChild(th);
+				var th = $('<div class="jsChessLib-chessboard-header-row">' + rowToString(r) + '</div>');
+				tr.append(th);
 			}
 
 			// Print the squares belonging to the current column
 			for(var c=COLUMN_A; c<=COLUMN_H; ++c) {
 				var squareColor  = (r+c)%2==0 ? blackSquareColor : whiteSquareColor;
 				var coloredPiece = position.board[makeSquare(r, c)];
-				var td  = document.createElement("td" );
-				var img = document.createElement("img");
-				td .setAttribute("style", "background-color: " + squareColor + ";");
-				img.setAttribute("src", coloredPieceURL(coloredPiece, squareSize));
-				td.appendChild(img);
-				tr.appendChild(td);
+				var td = $(
+					'<div class="jsChessLib-chessboard-cell" style="background-color: ' + squareColor + ';">' +
+						'<img src="' + coloredPieceURL(coloredPiece, squareSize) + '" />' +
+					'</div>'
+				);
+				tr.append(td);
 			}
 		}
 
 		// If visible, the column coordinates are shown at the bottom of the table.
 		if(showCoordinates) {
-			var tr  = document.createElement("tr");
-			var th0 = document.createElement("th");
-			tr.appendChild(th0);
+			var tr = $('<div class="jsChessLib-chessboard-row"></div>');
+			table.append(tr);
+
+			// Empty cell
+			var th0 = $('<div class="jsChessLib-chessboard-header-empty"></div>');
+			tr.append(th0);
+
+			// Column headers
 			for(var c=COLUMN_A; c<=COLUMN_H; ++c) {
-				var th = document.createElement("th");
-				th.setAttribute("scope", "column");
-				th.innerHTML = columnToString(c);
-				tr.appendChild(th);
+				var th = $('<div class="jsChessLib-chessboard-header-column">' + columnToString(c) + '</div>');
+				tr.append(th);
 			}
-			tbody.appendChild(tr);
 		}
 
 		// Create the black or white circle on the right of the table,
 		// indicating which player is about to play.
-		var turnNode = document.createElement("img");
-		turnNode.classList.add("jsChessLib-" + (position.turn==WHITE ? "white" : "black") + "-to-play");
-		turnNode.setAttribute("src", colorURL(position.turn, squareSize));
-		retVal.appendChild(turnNode);
+		var turnNode = $(
+			'<img class="jsChessLib-' + (position.turn==WHITE ? "white" : "black") + '-to-play" ' +
+			'src="' + colorURL(position.turn, squareSize) + '" />'
+		);
+		retVal.append(turnNode);
 
 		// Return the result
 		return retVal;
@@ -829,7 +825,7 @@ var jsChessRenderer = (function($)
 			// which replaces the input DOM node.
 			var outputNode = document.createElement("div");
 			outputNode.className = "jsChessLib-out";
-			outputNode.appendChild(positionNode);
+			outputNode.appendChild(positionNode[0]);
 			domNode.parentNode.replaceChild(outputNode, domNode);
 		}
 
@@ -1040,7 +1036,7 @@ var jsChessRenderer = (function($)
 	}
 
 	/**
-	 * Return a contrasted color
+	 * Return a contrasted color.
 	 *
 	 * @private
 	 * @param {String} cssColorString Color specification as mentioned in a CSS property.
