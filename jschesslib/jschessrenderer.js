@@ -261,7 +261,7 @@ var jsChessRenderer = (function($)
 			if(month>=1 && month<=12)
 				return RegExp.$3 + " " + option.monthName[month] + " " + RegExp.$1;
 			else
-				return RegExp.$1
+				return RegExp.$1;
 		}
 
 		// Case "2013.05.??" -> return "may 2013"
@@ -270,7 +270,7 @@ var jsChessRenderer = (function($)
 			if(month>=1 && month<=12)
 				return option.monthName[month] + " " + RegExp.$1;
 			else
-				return RegExp.$1
+				return RegExp.$1;
 		}
 
 		// Case "2013.??.??" -> return "2013"
