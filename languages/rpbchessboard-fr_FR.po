@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-05 18:06+0100\n"
+"POT-Creation-Date: 2013-08-10 18:39+0200\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann <yoann.le-montagner@m4x.org>\n"
 "Language-Team: French\n"
@@ -17,59 +17,71 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: template-pgn.php:64
-msgid "You need to activate javascript to enhance the PGN game visualization."
-msgstr "Vous devez activer javascript pour améliorer l'affichage de la partie."
+#: rpbchessboard.php:59 rpbchessboard.php:60
+msgid "Chess games and diagrams"
+msgstr "Parties et diagrammes d'échecs"
 
-#: template-pgn.php:75
-#, php-format
-msgid "Commented by %1$s"
-msgstr "Commentée par %1$s"
-
-#: template-script.php:9
+#: template-init.php:20
 msgid "january"
 msgstr "janvier"
 
-#: template-script.php:10
+#: template-init.php:21
 msgid "february"
 msgstr "février"
 
-#: template-script.php:11
+#: template-init.php:22
 msgid "march"
 msgstr "mars"
 
-#: template-script.php:12
+#: template-init.php:23
 msgid "april"
 msgstr "avril"
 
-#: template-script.php:13
+#: template-init.php:24
 msgid "may"
 msgstr "mai"
 
-#: template-script.php:14
+#: template-init.php:25
 msgid "june"
 msgstr "juin"
 
-#: template-script.php:15
+#: template-init.php:26
 msgid "july"
 msgstr "juillet"
 
-#: template-script.php:16
+#: template-init.php:27
 msgid "august"
 msgstr "août"
 
-#: template-script.php:17
+#: template-init.php:28
 msgid "september"
 msgstr "septembre"
 
-#: template-script.php:18
+#: template-init.php:29
 msgid "october"
 msgstr "octobre"
 
-#: template-script.php:19
+#: template-init.php:30
 msgid "november"
 msgstr "novembre"
 
-#: template-script.php:20
+#: template-init.php:31
 msgid "december"
 msgstr "décembre"
+
+#: template-init.php:35
+msgid "Initial position"
+msgstr "Position initiale"
+
+#: helpers/main.php:100
+msgid ""
+"You need to activate javascript to enhance chess game and diagram "
+"visualization."
+msgstr ""
+"Vous devez activer javascript pour améliorer l'affichage des parties et "
+"diagrammes d'échecs."
+
+#: template-pgn.php:78
+#, php-format
+msgid "Commented by %1$s"
+msgstr "Commentée par %1$s"

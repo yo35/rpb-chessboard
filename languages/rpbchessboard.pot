@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-05 18:06+0100\n"
+"POT-Creation-Date: 2013-08-10 18:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,59 +17,69 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: template-pgn.php:64
-msgid "You need to activate javascript to enhance the PGN game visualization."
+#: rpbchessboard.php:59 rpbchessboard.php:60
+msgid "Chess games and diagrams"
 msgstr ""
 
-#: template-pgn.php:75
-#, php-format
-msgid "Commented by %1$s"
-msgstr ""
-
-#: template-script.php:9
+#: template-init.php:20
 msgid "january"
 msgstr ""
 
-#: template-script.php:10
+#: template-init.php:21
 msgid "february"
 msgstr ""
 
-#: template-script.php:11
+#: template-init.php:22
 msgid "march"
 msgstr ""
 
-#: template-script.php:12
+#: template-init.php:23
 msgid "april"
 msgstr ""
 
-#: template-script.php:13
+#: template-init.php:24
 msgid "may"
 msgstr ""
 
-#: template-script.php:14
+#: template-init.php:25
 msgid "june"
 msgstr ""
 
-#: template-script.php:15
+#: template-init.php:26
 msgid "july"
 msgstr ""
 
-#: template-script.php:16
+#: template-init.php:27
 msgid "august"
 msgstr ""
 
-#: template-script.php:17
+#: template-init.php:28
 msgid "september"
 msgstr ""
 
-#: template-script.php:18
+#: template-init.php:29
 msgid "october"
 msgstr ""
 
-#: template-script.php:19
+#: template-init.php:30
 msgid "november"
 msgstr ""
 
-#: template-script.php:20
+#: template-init.php:31
 msgid "december"
+msgstr ""
+
+#: template-init.php:35
+msgid "Initial position"
+msgstr ""
+
+#: helpers/main.php:100
+msgid ""
+"You need to activate javascript to enhance chess game and diagram "
+"visualization."
+msgstr ""
+
+#: template-pgn.php:78
+#, php-format
+msgid "Commented by %1$s"
 msgstr ""
