@@ -107,6 +107,7 @@ span.jsChessLib-variation-sub span.jsChessLib-commentary-long {
 .jsChessLib-chessboard {
 	display: block;
 	text-align: center;
+	font-size: 80%;
 	margin-top   : 5px;
 	margin-bottom: 5px;
 }
@@ -128,14 +129,18 @@ span.jsChessLib-variation-sub span.jsChessLib-commentary-long {
 	vertical-align: middle;
 }
 
+.jsChessLib-chessboard-cell {
+	line-height: 0px;
+}
+
 .jsChessLib-chessboard-header-row {
 	padding-left : 5px;
 	padding-right: 5px;
 }
 
 .jsChessLib-chessboard-header-column {
-	padding-top   : 2px;
-	padding-bottom: 2px;
+	padding-top   : 1px;
+	padding-bottom: 1px;
 }
 
 .jsChessLib-chessboard .jsChessLib-black-to-play,
