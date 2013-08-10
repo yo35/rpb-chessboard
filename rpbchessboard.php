@@ -1,7 +1,7 @@
 <?php
 /*
-Plugin Name: RpbChessboard
-Description: This plugin allows you to deal with PGN data.
+Plugin Name: RPB Chessboard
+Description: This plugin allows you to print out chess diagrams and PGN-encoded chess games.
 Author: Yoann Le Montagner
 Version: 1.4
 */
