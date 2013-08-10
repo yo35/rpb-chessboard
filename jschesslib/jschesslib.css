@@ -104,12 +104,38 @@ span.jsChessLib-variation-sub span.jsChessLib-commentary-long {
 /******************************************************************************/
 /*** Board style ***/
 
-.jsChessLib-out .jsChessLib-chessboard {
-	text-align: center;
-}
-
 .jsChessLib-chessboard {
 	display: block;
+	text-align: center;
+	margin-top   : 5px;
+	margin-bottom: 5px;
+}
+
+.jsChessLib-chessboard-table {
+	display: inline-table;
+	border-collapse: collapse;
+}
+
+.jsChessLib-chessboard-row {
+	display: table-row-group;
+}
+
+.jsChessLib-chessboard-header-row,
+.jsChessLib-chessboard-header-column,
+.jsChessLib-chessboard-header-empty,
+.jsChessLib-chessboard-cell {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.jsChessLib-chessboard-header-row {
+	padding-left : 5px;
+	padding-right: 5px;
+}
+
+.jsChessLib-chessboard-header-column {
+	padding-top   : 2px;
+	padding-bottom: 2px;
 }
 
 .jsChessLib-chessboard .jsChessLib-black-to-play,
@@ -126,50 +152,4 @@ span.jsChessLib-variation-sub span.jsChessLib-commentary-long {
 .jsChessLib-chessboard .jsChessLib-white-to-play {
 	vertical-align: bottom;
 	margin-bottom: 15px;
-}
-
-.jsChessLib-chessboard table {
-	background-color: transparent;
-	margin-top   : 5px;
-	margin-bottom: 5px;
-	width: auto;
-	border-collapse: collapse;
-	border-width   : 0px;
-	display: inline-block;
-}
-
-.jsChessLib-chessboard table tr,
-.jsChessLib-chessboard table tr:nth-child(n) {
-	background-color: transparent;
-}
-
-.jsChessLib-chessboard table td {
-	border: solid 1px;
-	padding-top   : 0px;
-	padding-bottom: 0px;
-	padding-left  : 1px;
-	padding-right : 1px;
-}
-
-.jsChessLib-chessboard table th {
-	background-color: transparent;
-	color: inherit;
-	font-weight: normal;
-	font-size  : small ;
-}
-
-.jsChessLib-chessboard table th[scope=column] {
-	padding-top   : 2px;
-	padding-bottom: 2px;
-	padding-left  : 0px;
-	padding-right : 0px;
-	text-align: center;
-}
-
-.jsChessLib-chessboard table th[scope=row] {
-	padding-top   : 0px;
-	padding-bottom: 0px;
-	padding-left  : 5px;
-	padding-right : 5px;
-	vertical-align: middle;
 }
