@@ -959,8 +959,9 @@ var jsChessRenderer = (function($)
 		{
 			// Create the dialog structure
 			$("#jsChessLib-navigation-frame").dialog({
-				autoOpen: false,
-				close   : function(event, ui) { unselectMove(); }
+				autoOpen : false,
+				draggable: true,
+				close    : function(event, ui) { unselectMove(); }
 			});
 
 			// Create the buttons
