@@ -959,9 +959,13 @@ var jsChessRenderer = (function($)
 		{
 			// Create the dialog structure
 			$("#jsChessLib-navigation-frame").dialog({
-				autoOpen : false,
-				draggable: true,
-				close    : function(event, ui) { unselectMove(); }
+				/* Hack to keep the dialog draggable after the page has being scrolled. */
+				create     : function(event, ui) { $(event.target).parent().css("position", "fixed"); },
+				resizeStart: function(event, ui) { $(event.target).parent().css("position", "fixed"); },
+				resizeStop : function(event, ui) { $(event.target).parent().css("position", "fixed"); },
+				/* End of hack */
+				autoOpen: false,
+				close   : function(event, ui) { unselectMove(); }
 			});
 
 			// Create the buttons
@@ -1008,6 +1012,9 @@ var jsChessRenderer = (function($)
 		// Make the navigation frame visible
 		var navFrame = $("#jsChessLib-navigation-frame");
 		navFrame.dialog("option", "title", domNode.text());
+		if(!navFrame.dialog("isOpen")) {
+			navFrame.dialog("option", "position", { my: "center", at: "center", of: window });
+		}
 		navFrame.dialog("open");
 	}
 
