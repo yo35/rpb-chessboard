@@ -1,0 +1,71 @@
+
+/******************************************************************************/
+/*** Warning message in case of inactivated javascript ***/
+
+div.rpbchessboard-javascript-warning {
+	padding-top   : 2px;
+	padding-bottom: 3px;
+	padding-left  : 5px;
+	padding-right : 5px;
+	background-color: #ffd8d8;
+	color: #800000;
+	border: 1px solid #800000;
+}
+
+
+
+/******************************************************************************/
+/*** Style for the PGN template ***/
+
+span.rpbchessboard-white-square {
+	background-color: white;
+	padding-left: 11px;
+	border: 1px solid black;
+}
+
+span.rpbchessboard-black-square {
+	background-color: black;
+	padding-left: 11px;
+	border: 1px solid black;
+}
+
+span.jsChessLib-field-Round {
+	font-style: italic;
+}
+
+div.jsChessLib-field-Annotator {
+	font-style: italic;
+}
+
+div.jsChessLib-field-Result {
+	font-weight: bold;
+}
+
+div.rpbchessboard-game-head div {
+	margin-top   : 4px;
+	margin-bottom: 4px;
+}
+
+div.rpbchessboard-game-head {
+	margin-top: 10px;
+}
+
+div.rpbchessboard-game-body {
+	margin-top: 15px;
+}
+
+
+
+/******************************************************************************/
+/*** Reset the formatting by some templates to standard HTML tags ***/
+
+.entry-content   .jsChessLib-chessboard img,
+.comment-content .jsChessLib-chessboard img,
+.widget          .jsChessLib-chessboard img {
+	box-shadow: none;
+	border    : 0 none;
+	margin-top   : 0px;
+	margin-left  : 0px;
+	margin-bottom: 0px;
+	margin-right : 0px;
+}
