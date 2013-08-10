@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/rpbchessboard\n"
-"POT-Creation-Date: 2013-08-10 17:37:40+00:00\n"
+"POT-Creation-Date: 2013-08-10 18:47:58+00:00\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35@melix.net>\n"
 "Language-Team: French\n"
@@ -87,27 +87,27 @@ msgstr "R"
 
 #: template-init.php:40
 msgctxt "Queen symbol"
-msgid "K"
+msgid "Q"
 msgstr "D"
 
 #: template-init.php:41
 msgctxt "Rook symbol"
-msgid "K"
+msgid "R"
 msgstr "T"
 
 #: template-init.php:42
 msgctxt "Bishop symbol"
-msgid "K"
+msgid "B"
 msgstr "F"
 
 #: template-init.php:43
 msgctxt "Knight symbol"
-msgid "K"
+msgid "N"
 msgstr "C"
 
 #: template-init.php:44
 msgctxt "Pawn symbol"
-msgid "K"
+msgid "P"
 msgstr "P"
 
 #: template-pgn.php:78
