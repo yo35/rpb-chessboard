@@ -983,6 +983,7 @@ var jsChessRenderer = (function($)
 				resizeStop : function(event, ui) { $(event.target).parent().css("position", "fixed"); },
 				/* End of hack */
 				autoOpen: false,
+				width   : "auto",
 				close   : function(event, ui) { unselectMove(); }
 			});
 
