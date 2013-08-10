@@ -118,20 +118,20 @@ var jsChessRenderer = (function($)
 		 * Nags
 		 */
 		nag: {
-			 1: "!",
-			 2: "?",
-			 3: "!!",
-			 4: "??",
-			 5: "!?",
-			 6: "?!",
-			10: "=",
-			13: "\u221e",
-			14: "+=",
-			15: "=+",
-			16: "\u00b1",
-			17: "\u2213",
-			18: "+\u2212",
-			19: "\u2212+"
+			 1: "!",       // good move
+			 2: "?",       // poor move, mistake
+			 3: "!!",      // very good move
+			 4: "??",      // very poor move, blunder
+			 5: "!?",      // speculative or interesting move
+			 6: "?!",      // questionable or dubious move
+			10: "=",       // equal position
+			13: "\u221e",  // unclear position
+			14: "+=",      // White has a slight advantage
+			15: "=+",      // Black has a slight advantage
+			16: "\u00b1",  // White has a moderate advantage
+			17: "\u2213",  // Black has a moderate advantage
+			18: "+\u2212", // White has a decisive advantage
+			19: "\u2212+"  // Black has a decisive advantage
 		}
 	};
 
