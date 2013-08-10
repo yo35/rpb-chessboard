@@ -6,6 +6,11 @@ Author: Yoann Le Montagner
 Version: 1.4
 */
 
+
+
+/******************************************************************************/
+/*** Plugin configuration ***/
+
 // Debug option (comment to release)
 //define('RPBCHESSBOARD_DEBUG', 1);
 
@@ -16,6 +21,12 @@ define('RPBCHESSBOARD_URL'       , site_url().'/wp-content/plugins/'.RPBCHESSBOA
 
 // Enable internationalization
 load_plugin_textdomain('rpbchessboard', false, RPBCHESSBOARD_PLUGIN_DIR.'/languages/');
+
+
+
+
+/******************************************************************************/
+/*** Enqueue the CSS and javascript files ***/
 
 // Enqueue scripts
 add_action('wp_enqueue_scripts', 'rpbchessboard_enqueue_script');
@@ -34,21 +45,28 @@ function rpbchessboard_enqueue_script()
 	wp_enqueue_script('rpbchessboard-jschessrenderer-script');
 }
 
-// Enqueue general styles
+// Enqueue CSS
 add_action('wp_print_styles', 'rpbchessboard_enqueue_css');
 function rpbchessboard_enqueue_css()
 {
+	// Enqueue a jQuery CSS file for the jQuery dialog
 	global $wp_scripts;
 	$ui = $wp_scripts->query('jquery-ui-core');
 	$protocol = is_ssl() ? 'https' : 'http';
 	wp_register_style('jquery-ui', $protocol.'://code.jquery.com/ui/'.$ui->ver.'/themes/smoothness/jquery-ui.css');
 	wp_enqueue_style ('jquery-ui');
 
+	// Local CSS files
 	wp_register_style('rpbchessboard-jschesslib', RPBCHESSBOARD_URL.'/jschesslib/jschesslib.css');
 	wp_register_style('rpbchessboard-main'      , RPBCHESSBOARD_URL.'/rpbchessboard.css');
 	wp_enqueue_style ('rpbchessboard-jschesslib');
 	wp_enqueue_style ('rpbchessboard-main'      );
 }
+
+
+
+/******************************************************************************/
+/*** Back-end ***/
 
 // Administration page
 add_action('admin_menu', 'rpbchessboard_build_admin_menu');
@@ -62,6 +80,11 @@ function rpbchessboard_build_admin_menu()
 	);
 }
 
+
+
+/******************************************************************************/
+/*** Front-end ***/
+
 // Short-code [fen][/fen]
 add_shortcode('fen', 'rpbchessboard_shortcode_fen');
 function rpbchessboard_shortcode_fen($atts, $content)
@@ -72,7 +95,7 @@ function rpbchessboard_shortcode_fen($atts, $content)
 	return ob_get_clean();
 }
 
-// Short-code [pgndiagram]
+// Short-code [pgndiagram] (to be used only within the commentary of a PGN game)
 add_shortcode('pgndiagram', 'rpbchessboard_shortcode_diagram');
 function rpbchessboard_shortcode_diagram($atts)
 {
