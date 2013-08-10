@@ -36,12 +36,12 @@
 
 		// Localized piece symbols
 		jsChessRenderer.option.pieceSymbol = {
-			"K": "R",
-			"Q": "D",
-			"R": "T",
-			"B": "F",
-			"N": "C",
-			"P": "P"
+			"K": "<?php echo _x('K', 'King symbol'  , 'rpbchessboard'); ?>",
+			"Q": "<?php echo _x('Q', 'Queen symbol' , 'rpbchessboard'); ?>",
+			"R": "<?php echo _x('R', 'Rook symbol'  , 'rpbchessboard'); ?>",
+			"B": "<?php echo _x('B', 'Bishop symbol', 'rpbchessboard'); ?>",
+			"N": "<?php echo _x('N', 'Knight symbol', 'rpbchessboard'); ?>",
+			"P": "<?php echo _x('P', 'Pawn symbol'  , 'rpbchessboard'); ?>"
 		};
 	})();
 
