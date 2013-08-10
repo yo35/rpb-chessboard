@@ -416,8 +416,9 @@ var jsChessRenderer = (function($)
 		// Create the black or white circle on the right of the table,
 		// indicating which player is about to play.
 		var turnNode = $(
-			'<img class="jsChessLib-' + (position.turn==WHITE ? "white" : "black") + '-to-play" ' +
-			'src="' + colorURL(position.turn, squareSize) + '" />'
+			'<div class="jsChessLib-' + (position.turn==WHITE ? "white" : "black") + '-to-play">' +
+				'<img src="' + colorURL(position.turn, squareSize) + '" />' +
+			'</div>'
 		);
 		retVal.append(turnNode);
 
