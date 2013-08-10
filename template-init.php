@@ -1,24 +1,20 @@
 <?php
 
-	// Helper
-	require_once(RPBCHESSBOARD_ABSPATH.'helpers/main.php');
-
-	// Debug node
-	RPBChessBoardMainHelper::printDebugNode();
+	// This template is intended to be printed only once
+	if(defined('RPBCHESSBOARD_JSCHESSLIB_INITIALIZED')) {
+		return;
+	}
+	define('RPBCHESSBOARD_JSCHESSLIB_INITIALIZED', 1);
 ?>
+
+<?php if(defined('RPBCHESSBOARD_DEBUG')): // Print the debug node if necessary ?>
+	<pre id="jsChessLib-debug"></pre>
+<?php endif; ?>
 
 <script type="text/javascript">
 
 	(function()
 	{
-		// Exit if already configured
-		if(jsChessRenderer.isBaseURLConfigured()) {
-			return;
-		}
-
-		// Set the base URL
-		jsChessRenderer.configureBaseURL("<?php echo RPBCHESSBOARD_URL; ?>/jschesslib");
-
 		// Localized month names
 		jsChessRenderer.option.monthName = {
 			 1: "<?php echo __('january'  , 'rpbchessboard'); ?>",

@@ -89,22 +89,6 @@ abstract class RPBChessBoardMainHelper
 	}
 
 	/**
-	 * Whether the debug HTML node has already been printed or not
-	 */
-	private static $debugNodePrinted = false;
-
-	/**
-	 * Print the debug HTML node if necessary
-	 */
-	public static function printDebugNode()
-	{
-		if(!self::$debugNodePrinted && defined('RPBCHESSBOARD_DEBUG')) {
-			echo '<pre id="jsChessLib-debug"></pre>';
-			self::$debugNodePrinted = true;
-		}
-	}
-
-	/**
 	 * Print a message to warn the user about javascript activation
 	 */
 	public static function printJavascriptActivationWarning()
