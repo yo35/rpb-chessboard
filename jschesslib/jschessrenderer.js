@@ -136,6 +136,17 @@ var jsChessRenderer = (function($)
 	};
 
 	/**
+	 * Various strings used by the library and printed out to the screen at some
+	 * point. They are made public so that they can be localized.
+	 *
+	 * @public
+	 */
+	var text =
+	{
+		initialPosition: "Initial position"
+	};
+
+	/**
 	 * Print a debug message. The text is appended in a DOM node identified by
 	 * the ID "jsChessLib-debug". Nothing happens is this DOM node does not exist.
 	 *
@@ -540,6 +551,17 @@ var jsChessRenderer = (function($)
 		// Allocate the returned DOM node
 		var retVal = $('<span></span>');
 		retVal.addClass(depth==0 ? "jsChessLib-variation-main" : "jsChessLib-variation-sub");
+
+		// Append a fake move at the beginning of the main variation,
+		// so that it will be possible to display the starting position
+		// in the navigation frame
+		if(depth==0) {
+			var move = $('<span class="jsChessLib-move"><span class="jsChessLib-invisible">'
+				+ text.initialPosition + '</span></span>');
+			move.data("position", pgnVariation.position);
+			move.click(function() { showNavigationFrame($(this)); });
+			retVal.append(move);
+		}
 
 		// The variation may start by an initial commentary
 		retVal.append(renderCommentary(pgnVariation, depth, squareSize, showCoordinates));
@@ -1178,6 +1200,7 @@ var jsChessRenderer = (function($)
 	// Return the module object
 	return {
 		option             : option             ,
+		text               : text               ,
 		processFEN         : processFEN         ,
 		processFENByID     : processFENByID     ,
 		processPGN         : processPGN         ,

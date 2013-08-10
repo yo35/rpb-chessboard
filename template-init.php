@@ -31,6 +31,9 @@
 			12: "<?php echo __('december' , 'rpbchessboard'); ?>"
 		};
 
+		// Localized strings
+		jsChessRenderer.text.initialPosition = "<?php echo __('Initial position', 'rpbchessboard'); ?>";
+
 		// Localized piece symbols
 		jsChessRenderer.option.pieceSymbol = {
 			"K": "R",
