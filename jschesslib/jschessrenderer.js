@@ -24,7 +24,7 @@
 /**
  * Rendering methods for chess-related objects.
  *
- * @param {Object} $ jQuery module.
+ * @param {Object} $ jQuery module. The jQuery-color plugin is supposed to be loaded.
  */
 var jsChessRenderer = (function($)
 {
@@ -1011,6 +1011,26 @@ var jsChessRenderer = (function($)
 	}
 
 	/**
+	 * Return a contrasted color
+	 *
+	 * @private
+	 * @param {String} cssColorString Color specification as mentioned in a CSS property.
+	 */
+	function contrastColor(cssColorString)
+	{
+		// Parsing
+		var color = $.Color(cssColorString); // Require the jQuery-color plugin
+
+		// Two cases based on the value of the lightness component
+		if(color.lightness()>0.5) {
+			return "black";
+		}
+		else {
+			return "white";
+		}
+	}
+
+	/**
 	 * Make the given move appear as selected.
 	 *
 	 * @private
@@ -1021,6 +1041,9 @@ var jsChessRenderer = (function($)
 	{
 		unselectMove();
 		domNode.attr("id", "jsChessLib-selected-move");
+		var color = domNode.css("color");
+		domNode.css("background-color", color);
+		domNode.css("color", contrastColor(color));
 	}
 
 	/**
@@ -1030,7 +1053,9 @@ var jsChessRenderer = (function($)
 	 */
 	function unselectMove()
 	{
-		$("#jsChessLib-selected-move").attr("id", null);
+		var selectedMove = $("#jsChessLib-selected-move");
+		selectedMove.attr("id"   , null);
+		selectedMove.attr("style", null);
 	}
 
 	/**
