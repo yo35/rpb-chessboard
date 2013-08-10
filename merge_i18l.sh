@@ -6,5 +6,8 @@ if [ "$#" -eq "0" ]; then
 	exit
 fi
 
-msgmerge -v -U languages/rpbchessboard-$1.po languages/rpbchessboard.pot
+PO_PREFIX=languages/rpbchessboard
+POT_FILE=languages/rpbchessboard.pot
+
+msgmerge -v -U $PO_PREFIX-$1.po $POT_FILE
 rm languages/*.po~

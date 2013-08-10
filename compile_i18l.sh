@@ -6,4 +6,6 @@ if [ "$#" -eq "0" ]; then
 	exit
 fi
 
-msgfmt -v -o languages/rpbchessboard-$1.mo languages/rpbchessboard-$1.po
+PO_PREFIX=languages/rpbchessboard
+
+msgfmt -v -o $PO_PREFIX-$1.mo $PO_PREFIX-$1.po
