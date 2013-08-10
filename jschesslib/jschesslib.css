@@ -65,6 +65,8 @@ span.jsChessLib-subfield-groupTitleElo:after {
 span.jsChessLib-move {
 	font-weight: bold;
 	display: inline-block;
+	padding-left : 1px;
+	padding-right: 1px;
 }
 
 span.jsChessLib-move,
