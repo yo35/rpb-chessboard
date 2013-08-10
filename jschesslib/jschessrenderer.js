@@ -490,7 +490,7 @@ var jsChessRenderer = (function($)
 	 * @param   {Number} squareSize Size of the sprite to use to render the diagrams (if any).
 	 * @param   {Boolean} showCoordinates Whether the row and column coordinates should be
 	 *          displayed on diagrams (if any).
-	 * @returns {Element} New DOM node showing the commentary.
+	 * @returns {jQuery} New DOM node showing the commentary.
 	 */
 	function renderCommentary(pgnNode, depth, squareSize, showCoordinates)
 	{
@@ -500,25 +500,24 @@ var jsChessRenderer = (function($)
 		}
 
 		// Create the returned object, and parse the commentary string
-		var retVal     = document.createElement("span");
-		var textLength = HTMLtoDOM(pgnNode.commentary, retVal, document);
+		var retVal = $('<span>' + pgnNode.commentary + '</span>');
 
 		// Render diagrams where requested
-		var diagramAnchorNodes = retVal.getElementsByClassName("jsChessLib-anchor-diagram");
-		for(var k=0; k<diagramAnchorNodes.length; ++k) {
-			var diagramAnchorNode = diagramAnchorNodes[k];
-			var diagramNode       = renderPosition(pgnNode.position, squareSize, showCoordinates);
-			diagramAnchorNode.parentNode.replaceChild(diagramNode, diagramAnchorNode);
-		}
+		var atLeastOneDiagram = false;
+		$(".jsChessLib-anchor-diagram", retVal).each(function(index, e)
+		{
+			atLeastOneDiagram = true;
+			$(e).replaceWith(renderPosition(pgnNode.position, squareSize, showCoordinates));
+		});
 
 		// Long commentaries are those that met the two following conditions:
 		//  - they are issued from the main variation (i.e. depth==0),
 		//  - the text is longer than 30 characters or it contains a diagram.
-		var isLongCommentary = (depth==0) && ((textLength>=30) || (diagramAnchorNodes.length>0));
+		var isLongCommentary = (depth==0) && ((pgnNode.commentary.length>=40) || atLeastOneDiagram);
 
 		// Flag the returned node with the right class name (either jsChessLib-commentary-short
 		// or jsChessLib-commentary-long), and return the result
-		retVal.classList.add("jsChessLib-commentary-" + (isLongCommentary ? "long" : "short"));
+		retVal.addClass("jsChessLib-commentary-" + (isLongCommentary ? "long" : "short"));
 		return retVal;
 	}
 
