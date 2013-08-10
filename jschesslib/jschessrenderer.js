@@ -36,29 +36,6 @@ var jsChessRenderer = (function($)
 	var baseURL = null;
 
 	/**
-	 * Configuration function, that must be call before using the other object
-	 * defined by the jsChessRenderer module.
-	 *
-	 * @public
-	 * @param {String} url URL to the root folder of the JsChessLib library,
-	 *        without the trailing '/' character.
-	 */
-	function configureBaseURL(url)
-	{
-		baseURL = url;
-	}
-
-	/**
-	 * Check whether the base URL has already been configured or not.
-	 *
-	 * @public
-	 */
-	function isBaseURLConfigured()
-	{
-		baseURL!=null;
-	}
-
-	/**
 	 * Folder where the sprite are located.
 	 *
 	 * @private
@@ -174,6 +151,26 @@ var jsChessRenderer = (function($)
 	}
 
 	/**
+	 * Return the root URL of the library
+	 *
+	 * @private
+	 */
+	function jsChessLibBaseURL()
+	{
+		if(baseURL==null) {
+			baseURL = "";
+			$("script").each(function(index, e)
+			{
+				var src = $(e).attr("src");
+				if(src!=null && src.match(/^(.*\/)jschessrenderer.js(?:\?.*)?$/)) {
+					baseURL = RegExp.$1;
+				}
+			});
+		}
+		return baseURL;
+	}
+
+	/**
 	 * Return the URL to the folder containing the sprites (images representing the chess pieces).
 	 *
 	 * @private
@@ -183,11 +180,7 @@ var jsChessRenderer = (function($)
 	 */
 	function spriteBaseURL(squareSize)
 	{
-		var retVal = spriteFolder + "/" + squareSize + "/";
-		if(baseURL!=null) {
-			retVal = baseURL + "/" + retVal;
-		}
-		return retVal;
+		return jsChessLibBaseURL() + spriteFolder + "/" + squareSize + "/";
 	}
 
 	/**
@@ -1152,8 +1145,6 @@ var jsChessRenderer = (function($)
 
 	// Return the module object
 	return {
-		configureBaseURL   : configureBaseURL   ,
-		isBaseURLConfigured: isBaseURLConfigured,
 		option             : option             ,
 		processFEN         : processFEN         ,
 		processFENByID     : processFENByID     ,
