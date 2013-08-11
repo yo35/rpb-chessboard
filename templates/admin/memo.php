@@ -1,20 +1,22 @@
 
 <h3><?php _e('Reminder', 'rpbchessboard'); ?></h3>
 
+<p>
+	<?php
+		_e(
+			'This short reminder presents through examples the features provided by the RPB Chessboard plugin, '.
+			'namely the insertion of chess diagrams and games in posts and pages. '.
+			'On the left is the code written in posts and pages; '.
+			'the right column shows the corresponding rendering.',
+		'rpbchessboard');
+	?>
+</p>
+
+
+
+
 
 <h4><?php _e('FEN diagram', 'rpbchessboard'); ?></h4>
-
-<p>
-	<?php echo sprintf(
-		__(
-			'Chess diagrams can be inserted in pages and posts thanks to the %1$s[fen][/fen]%2$s shortcode. '.
-			'See an example below '.
-			'(left: code written by the post or page author; right: what is publicly visible).',
-		'rpbchessboard'),
-		'<span class="rpbchessboard-admin-code-inline">',
-		'</span>'
-	); ?>
-</p>
 
 <div class="rpbchessboard-admin-columns">
 
