@@ -80,8 +80,8 @@
 			[Site "New York, NY USA"]<br/>
 			[Date "1857.11.03"]<br/>
 			[Round "4.6"]<br/>
-			[White "Louis Paulsen"]<br/>
-			[Black "Paul Morphy"]<br/>
+			[White "Paulsen, Louis"]<br/>
+			[Black "Morphy, Paul"]<br/>
 			[Result "0-1"]<br/>
 			<br/>
 			1. e4 e5 2. Nf3 Nc6 3. Nc3 Nf6 4. Bb5 Bc5 5. O-O O-O 6. Nxe5 Re8
@@ -133,6 +133,16 @@
 				'</a>'
 			); ?>
 		</p>
+		<p>
+			<?php echo sprintf(
+				__(
+					'Please note the %1$s[pgndiagram]%2$s tag placed inside a commentary '.
+					'to insert a diagram showing the current position.',
+				'rpbchessboard'),
+				'<span class="rpbchessboard-admin-code-inline">',
+				'</span>'
+			); ?>
+		</p>
 	</div>
 
 	<div class="rpbchessboard-admin-column-right">
@@ -142,8 +152,8 @@
 				[Site "New York, NY USA"]
 				[Date "1857.11.03"]
 				[Round "4.6"]
-				[White "Louis Paulsen"]
-				[Black "Paul Morphy"]
+				[White "Paulsen, Louis"]
+				[Black "Morphy, Paul"]
 				[Result "0-1"]
 
 				1. e4 e5 2. Nf3 Nc6 3. Nc3 Nf6 4. Bb5 Bc5 5. O-O O-O 6. Nxe5 Re8
