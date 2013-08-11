@@ -126,7 +126,7 @@
 				'<span class="rpbchessboard-admin-code-inline">',
 				'</span>',
 				sprintf('<a href="%1$s" target="_blank">',
-					__('http://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation', 'rpbchessboard')
+					__('http://en.wikipedia.org/wiki/Portable_Game_Notation', 'rpbchessboard')
 				),
 				'</a>',
 				'<a href="http://www.chessbase.com/" target="_blank">',
