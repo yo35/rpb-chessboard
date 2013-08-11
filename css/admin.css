@@ -23,11 +23,13 @@
 	box-shadow: 5px 5px 3px #888;
 	padding: 5px 15px 5px;
 	font-family: Times, serif;
-	font-size  : 14px;
+	font-size  : 17px;
+	line-height: 1.3em;
 }
 
 .rpbchessboard-admin-columns {
-	display: table-row;
+	display: table;
+	width: 100%;
 	border-collapse: collapse;
 }
 
@@ -39,10 +41,10 @@
 
 .rpbchessboard-admin-column-left {
 	padding-right: 10px;
-	width: 50%;
+	width: 55%;
 }
 
 .rpbchessboard-admin-column-right {
 	padding-left: 10px;
-	width: 40%;
+	width: 45%;
 }
