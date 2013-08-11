@@ -72,6 +72,10 @@ span.jsChessLib-move {
 	padding-right: 1px;
 }
 
+span.jsChessLib-move:hover {
+	text-decoration: underline;
+}
+
 span.jsChessLib-move.jsChessLib-invisible {
 	display: none;
 }
