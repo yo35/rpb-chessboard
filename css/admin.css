@@ -3,3 +3,46 @@
 	display: inline-block;
 	vertical-align: middle;
 }
+
+.rpbchessboard-admin-code-block,
+.rpbchessboard-admin-code-inline {
+	font-family: Consolas, Monaco, monospace;
+}
+
+.rpbchessboard-admin-code-block {
+	border: solid 1px #c0c0ff;
+	background-color: #f0f0ff;
+	padding: 8px 10px 8px;
+}
+
+.rpbchessboard-admin-visu-block {
+	border: solid 1px #bbb;
+	background-color: white;
+	margin-right : 5px;
+	margin-bottom: 5px;
+	box-shadow: 5px 5px 3px #888;
+	padding: 5px 15px 5px;
+	font-family: Times, serif;
+	font-size  : 14px;
+}
+
+.rpbchessboard-admin-columns {
+	display: table-row;
+	border-collapse: collapse;
+}
+
+.rpbchessboard-admin-column-left,
+.rpbchessboard-admin-column-right {
+	display: table-cell;
+	vertical-align: top;
+}
+
+.rpbchessboard-admin-column-left {
+	padding-right: 10px;
+	width: 50%;
+}
+
+.rpbchessboard-admin-column-right {
+	padding-left: 10px;
+	width: 40%;
+}
