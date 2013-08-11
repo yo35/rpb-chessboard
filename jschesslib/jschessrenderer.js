@@ -553,8 +553,8 @@ var jsChessRenderer = (function($)
 		// so that it will be possible to display the starting position
 		// in the navigation frame
 		if(depth==0) {
-			var move = $('<span class="jsChessLib-move"><span class="jsChessLib-invisible">'
-				+ text.initialPosition + '</span></span>');
+			var move = $('<span class="jsChessLib-move jsChessLib-invisible">'
+				+ text.initialPosition + '</span>');
 			move.data("position", pgnVariation.position);
 			move.click(function() { showNavigationFrame($(this)); });
 			retVal.append(move);
