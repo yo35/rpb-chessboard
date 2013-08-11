@@ -22,7 +22,8 @@ load_plugin_textdomain('rpbchessboard', false, RPBCHESSBOARD_PLUGIN_DIR.'/langua
 
 
 // Enqueue scripts
-add_action('wp_enqueue_scripts', 'rpbchessboard_enqueue_script');
+add_action('wp_enqueue_scripts'   , 'rpbchessboard_enqueue_script');
+add_action('admin_enqueue_scripts', 'rpbchessboard_enqueue_script');
 function rpbchessboard_enqueue_script()
 {
 	wp_register_script('rpbchessboard-jschess-script'        , RPBCHESSBOARD_URL.'/jschesslib/jschess.js'        );
