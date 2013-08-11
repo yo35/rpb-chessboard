@@ -259,7 +259,7 @@ var jsChessRenderer = (function($)
 		else if(date.match(/([0-9]{4})\.([0-9]{2})\.([0-9]{2})/)) {
 			var month = parseInt(RegExp.$2);
 			if(month>=1 && month<=12)
-				return RegExp.$3 + " " + option.monthName[month] + " " + RegExp.$1;
+				return parseInt(RegExp.$3) + " " + option.monthName[month] + " " + RegExp.$1;
 			else
 				return RegExp.$1;
 		}
