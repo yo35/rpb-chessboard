@@ -126,11 +126,18 @@ span.jsChessLib-variation-sub span.jsChessLib-commentary-long {
 .jsChessLib-chessboard-header-empty,
 .jsChessLib-chessboard-cell {
 	display: table-cell;
-	vertical-align: middle;
 }
 
+.jsChessLib-chessboard-header-row,
 .jsChessLib-chessboard-cell {
+	vertical-align: middle;
 	line-height: 0px;
+}
+
+.jsChessLib-chessboard-header-column,
+.jsChessLib-chessboard-header-empty {
+	vertical-align: baseline;
+	line-height: 1ex;
 }
 
 .jsChessLib-chessboard-header-row {
@@ -139,8 +146,8 @@ span.jsChessLib-variation-sub span.jsChessLib-commentary-long {
 }
 
 .jsChessLib-chessboard-header-column {
-	padding-top   : 1px;
-	padding-bottom: 1px;
+	padding-top   : 6px;
+	padding-bottom: 6px;
 }
 
 .jsChessLib-chessboard .jsChessLib-black-to-play,
