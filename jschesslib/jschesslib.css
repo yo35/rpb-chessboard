@@ -130,7 +130,7 @@ span.jsChessLib-variation-sub span.jsChessLib-commentary-long {
 }
 
 .jsChessLib-chessboard-row {
-	display: table-row-group;
+	display: table-row;
 }
 
 .jsChessLib-chessboard-header-row,
