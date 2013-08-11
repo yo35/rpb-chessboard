@@ -2,7 +2,7 @@
 <h3><?php _e('Reminder', 'rpbchessboard'); ?></h3>
 
 
-<h4><?php _e('FEN diagram alone', 'rpbchessboard'); ?></h4>
+<h4><?php _e('FEN diagram', 'rpbchessboard'); ?></h4>
 
 <p>
 	<?php echo sprintf(
@@ -187,7 +187,7 @@
 			<br/>
 			{On l'aura compris, les deux derniers coups des noirs visent à harceler le cavalier blanc.}<br/>
 			<br/>
-			7.Bc4 $1<br/>
+			7. Bc4 $1<br/>
 			<br/>
 			{[pgndiagram] J'avoue avoir sous-estimé la force du coup 7.Fc4.
 			En effet, en m'obligeant à reculer la dame en d6,
@@ -196,12 +196,12 @@
 			je décide donc à ce moment de rechercher des compensations tactiques,
 			et de tendre un piège subtil à mon adversaire.}<br/>
 			<br/>
-			7... Qd6 8.Nxf7<br/>
+			7... Qd6 8. Nxf7<br/>
 			<br/>
 			{Victoire, il est tombé dans mon piège : il a lâché la case g6 !
 			Ni une, ni deux, je m'en empare...}<br/>
 			<br/>
-			8... Qg6 9.Nxh8 Qxg2 10.Rf1 Nb6 $5 11.Bxg8 $2<br/>
+			8... Qg6 9. Nxh8 Qxg2 10.Rf1 Nb6 $5 11.Bxg8 $2<br/>
 			<br/>
 			{[pgndiagram]Je continue à renforcer ma position.
 			Le coup 10...Cb6 m'a ainsi permis de me débarasser de deux de mes pièces non-protégées :
@@ -232,11 +232,7 @@
 				[Result "0-1"]
 				[Annotator "<?php _e('Anonymous 2, who apologizes beforehand for this game!', 'rpbchessboard'); ?>"]
 
-				1. e4 c5 2. c3 d5 3.exd5 Qxd5 4. d4 e5 5. Nf3 e4 6. Ne5 Nd7
-
-				{On l'aura compris, les deux derniers coups des noirs visent à harceler le cavalier blanc.}
-
-				7.Bc4 $1
+				1. e4 c5 2. c3 d5 3.exd5 Qxd5 4. d4 e5 5. Nf3 e4 6. Ne5 Nd7 $4 7. Bc4 $1
 
 				{<span class="jsChessLib-anchor-diagram"></span> J'avoue avoir sous-estimé la force du coup 7.Fc4.
 				En effet, en m'obligeant à reculer la dame en d6,
@@ -245,12 +241,18 @@
 				je décide donc à ce moment de rechercher des compensations tactiques,
 				et de tendre un piège subtil à mon adversaire.}
 
-				7... Qd6 8.Nxf7
+				7... Qd6 8. Nxf7
 
 				{Victoire, il est tombé dans mon piège : il a lâché la case g6 !
 				Ni une, ni deux, je m'en empare...}
 
-				8... Qg6 9.Nxh8 Qxg2 10.Rf1 Nb6 $5 11.Bxg8 $2
+				8... Qg6 9. Nxh8
+
+				({<?php _e('I must admit that on', 'rpbchessboard'); ?>}
+				9. O-O
+				{<?php _e('it would have been challenging for Black to come back in the game.', 'rpbchessboard'); ?>})
+
+				9... Qxg2 10.Rf1 Nb6 $5 11.Bxg8 $2
 
 				{
 					<span class="jsChessLib-anchor-diagram"></span>
@@ -263,7 +265,10 @@
 				}
 
 				11... Bh3 12. Bf7+ Kd8 13. Nd2 cxd4 14. cxd4 Bb4 15. a3 $6
-				{<?php _e('Unforseen move...', 'rpbchessboard'); ?>}
+
+				(15. Qe2 Ke7 16. a3 Bxd2+ 17. Bxd2 Qxf1+ 18. Qxf1 Bxf1 19. Kxf1 Rxh8 20. Bb3 $18
+				{<?php _e('and White has no problem.', 'rpbchessboard'); ?>})
+
 				15...Qxf1# 0-1
 			</pre>
 			<div class="jsChessLib-invisible" id="rpbchessboard-admin-example3-out">
