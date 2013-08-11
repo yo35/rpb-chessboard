@@ -17,16 +17,21 @@ div.rpbchessboard-javascript-warning {
 /******************************************************************************/
 /*** Style for the PGN template ***/
 
+span.rpbchessboard-white-square,
+span.rpbchessboard-black-square {
+	width : 1.2em;
+	height: 1.2em;
+	vertical-align: middle;
+	display: inline-block;
+	border: 1px solid black;
+}
+
 span.rpbchessboard-white-square {
 	background-color: white;
-	padding-left: 11px;
-	border: 1px solid black;
 }
 
 span.rpbchessboard-black-square {
 	background-color: black;
-	padding-left: 11px;
-	border: 1px solid black;
 }
 
 span.jsChessLib-field-Round {
