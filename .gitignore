@@ -1,3 +1,5 @@
 .buildpath
 .project
 .settings
+js/chess.js
+js/chessboard.js
