@@ -2,7 +2,6 @@
 .ChessWidget {
 	display: block;
 	text-align: center;
-	font-size: 80%;
 	margin-top   : 5px;
 	margin-bottom: 5px;
 }
@@ -10,6 +9,7 @@
 .ChessWidget-table {
 	display: inline-table;
 	border-collapse: collapse;
+	font-size: 80%;
 }
 
 .ChessWidget-row {
