@@ -58,7 +58,7 @@ Pgn = (function(Chess)
 		'inf': 13,             // unclear position
 		'=+' : 15, '=/+' : 15, // Black has a slight advantage
 		'-/+': 17,             // Black has a moderate advantage
-		'-+' : 19,             // Black has a decisive advantage
+		'-+' : 19              // Black has a decisive advantage
 	};
 
 
