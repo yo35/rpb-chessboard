@@ -1,0 +1,54 @@
+
+.ChessWidget {
+	display: block;
+	text-align: center;
+	font-size: 80%;
+	margin-top   : 5px;
+	margin-bottom: 5px;
+}
+
+.ChessWidget-table {
+	display: inline-table;
+	border-collapse: collapse;
+}
+
+.ChessWidget-row {
+	display: table-row;
+}
+
+.ChessWidget-row-header,
+.ChessWidget-column-header,
+.ChessWidget-corner-header,
+.ChessWidget-fake-header,
+.ChessWidget-fake-cell,
+.ChessWidget-cell {
+	display: table-cell;
+}
+
+.ChessWidget-row-header,
+.ChessWidget-fake-cell,
+.ChessWidget-cell {
+	vertical-align: middle;
+	line-height: 0px;
+}
+
+.ChessWidget-corner-header,
+.ChessWidget-fake-header,
+.ChessWidget-column-header {
+	vertical-align: baseline;
+	line-height: 1ex;
+}
+
+.ChessWidget-row-header {
+	padding-left : 5px;
+	padding-right: 5px;
+}
+
+.ChessWidget-column-header {
+	padding-top   : 6px;
+	padding-bottom: 6px;
+}
+
+.ChessWidget-fake-cell img {
+	margin-left: 8px;
+}
