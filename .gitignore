@@ -2,4 +2,4 @@
 .project
 .settings
 js/chess.js
-js/chessboard.js
+js/sprite
