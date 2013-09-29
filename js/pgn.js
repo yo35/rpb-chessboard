@@ -40,6 +40,7 @@ Pgn = (function(Chess)
 	 * The most common NAGs, and their correspond numeric code.
 	 *
 	 * @private
+	 * @constant
 	 *
 	 * @memberof Pgn
 	 */
