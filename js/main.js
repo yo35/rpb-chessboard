@@ -1,6 +1,11 @@
 
 /**
+ * Read the text in the DOM node identified by `nodeInID`, try to interpret it
+ * as a FEN string, and render the corresponding chessboard widget
+ * in the DOM node identified by `nodeOutID`.
  *
+ * @param {string} nodeInID
+ * @param {string} nodeOutID
  */
 function processFEN(nodeInID, nodeOutID)
 {

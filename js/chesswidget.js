@@ -1,6 +1,6 @@
 
 /**
- * Tools to create chess diagram in HTML pages.
+ * Tools to create chessboard widgets in HTML pages.
  *
  * @author Yoann Le Montagner
  * @namespace ChessWidget
