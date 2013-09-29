@@ -60,9 +60,12 @@ function rpbchessboard_enqueue_css()
 
 	// Local CSS files
 	wp_register_style('rpbchessboard-jschesslib', RPBCHESSBOARD_URL.'/jschesslib/jschesslib.css');
-	wp_register_style('rpbchessboard-chesswidget', RPBCHESSBOARD_URL.'/css/chesswidget.css');
-	wp_register_style('rpbchessboard-main'       , RPBCHESSBOARD_URL.'/css/rpbchessboard.css');
+	wp_register_style('rpbchessboard-mainold'    , RPBCHESSBOARD_URL.'/css/rpbchessboard.css');
 	wp_enqueue_style ('rpbchessboard-jschesslib');
+	wp_enqueue_style ('rpbchessboard-mainold'   );
+
+	wp_register_style('rpbchessboard-chesswidget', RPBCHESSBOARD_URL.'/css/chesswidget.css');
+	wp_register_style('rpbchessboard-main'       , RPBCHESSBOARD_URL.'/css/main.css');
 	wp_enqueue_style ('rpbchessboard-chesswidget');
 	wp_enqueue_style ('rpbchessboard-main'       );
 
