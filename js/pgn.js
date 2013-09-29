@@ -37,6 +37,32 @@ Pgn = (function(Chess)
 
 
 	/**
+	 * The most common NAGs, and their correspond numeric code.
+	 *
+	 * @private
+	 *
+	 * @memberof Pgn
+	 */
+	var SPECIAL_NAGS_LOOKUP = {
+		'!!' :  3,             // very good move
+		'!'  :  1,             // good move
+		'!?' :  5,             // interesting move
+		'?!' :  6,             // questionable move
+		'?'  :  2,             // bad move
+		'??' :  4,             // very bad move
+		'+-' : 18,             // White has a decisive advantage
+		'+/-': 16,             // White has a moderate advantage
+		'+=' : 14, '+/=' : 14, // White has a slight advantage
+		'='  : 10,             // equal position
+		'inf': 13,             // unclear position
+		'=+' : 15, '=/+' : 15, // Black has a slight advantage
+		'-/+': 17,             // Black has a moderate advantage
+		'-+' : 19,             // Black has a decisive advantage
+	};
+
+
+
+	/**
 	 * PGN parsing function.
 	 *
 	 * @param {string} pgnString String to parse.
@@ -89,34 +115,6 @@ Pgn = (function(Chess)
 		}
 
 		/**
-		 * Auxilliary function used to post-process NAGs.
-		 *
-		 * @param {string} nagString Either a special NAG (!, ?!, etc...) or $[1-9][0-9]*.
-		 * @returns {number}
-		 */
-		function parseNAGs(nagString)
-		{
-			switch(nagString) {
-				case '!!' : return  3; // very good move
-				case '!'  : return  1; // good move
-				case '!?' : return  5; // interesting move
-				case '?!' : return  6; // questionable move
-				case '?'  : return  2; // bad move
-				case '??' : return  4; // very bad move
-				case '+-' : return 18; // White has a decisive advantage
-				case '+/-': return 16; // White has a moderate advantage
-				case '+=' : return 14; // White has a slight advantage
-				case '='  : return 10; // equal position
-				case 'inf': return 13; // unclear position
-				case '=+' : return 15; // Black has a slight advantage
-				case '-/+': return 17; // Black has a moderate advantage
-				case '-+' : return 19; // Black has a decisive advantage
-				default:
-					return parseInt(nagString.substr(1));
-			}
-		}
-
-		/**
 		 * Read the next token in the input string.
 		 *
 		 * @returns {boolean} false if no token have been read (meaning that the end of the string have been reached).
@@ -145,9 +143,11 @@ Pgn = (function(Chess)
 			}
 
 			// Match a NAG
-			else if(/^(!!|!\?|!|\?\?|\?!|\?|\+\-|\+\/\-|\+=|=\+|\-\/\+|\-\+|=|inf|\$[1-9][0-9]*)/.test(s)) {
+			else if(/^((!!|!\?|!|\?\?|\?!|\?|\+\/?\-|\+\/?=|=\/?\+|\-\/?\+|=|inf)|\$([1-9][0-9]*))/.test(s)) {
+				console.log("Nag detected: $2=["+RegExp.$2+"] $3=["+RegExp.$3+"]");
+				console.log(RegExp.$2, RegExp.$3);
 				token      = TOKEN_NAG;
-				tokenValue = parseNAGs(RegExp.$1);
+				tokenValue = RegExp.$3.length==0 ? SPECIAL_NAGS_LOOKUP[RegExp.$2] : parseInt(RegExp.$3);
 			}
 
 			// Match a commentary
