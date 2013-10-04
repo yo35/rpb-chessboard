@@ -333,6 +333,144 @@ Pgn = (function(Chess)
 
 	/**
 	 * @constructor
+	 * @alias Item
+	 * @memberof Pgn
+	 *
+	 * @classdesc
+	 * Represent a chess game in a PGN file, i.e. the headers (meta-information such
+	 * as the name of the players, the date, the event, etc.), the tree structure
+	 * representing the played moves together with the possible variations,
+	 * and finally the result of the game.
+	 *
+	 * @desc Create a new chess game.
+	 */
+	function Item()
+	{
+		/**
+		 * @member {object} _headers
+		 * @memberof Pgn.Item
+		 * @instance
+		 * @desc Associative array holding the meta-information associated to the game.
+		 * @private
+		 */
+		this._headers = {};
+
+		/**
+		 * @member {string} _initialPosition
+		 * @memberof Pgn.Item
+		 * @instance
+		 * @desc Initial position (encoded as a FEN string).
+		 * @private
+		 */
+		this._initialPosition = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+
+		/**
+		 * @member {number} _initialMoveCounter
+		 * @memberof Pgn.Item
+		 * @instance
+		 * @desc Initial move counter.
+		 * @private
+		 */
+		this._initialMoveCounter = 0;
+
+		/**
+		 * @member {Pgn.Variation} _mainVariation
+		 * @memberof Pgn.Item
+		 * @instance
+		 * @desc Main variation of the game.
+		 * @private
+		 */
+		this._mainVariation = new Variation(this);
+
+		/**
+		 * @member {string} result
+		 * @memberof Pgn.Item
+		 * @instance
+		 * @desc Result of the game (may be '1-0', '0-1', '1/2-1/2' or '*').
+		 */
+		this.result = '*';
+	}
+
+	/**
+	 * Getter/setter for the headers of the game
+	 *
+	 * @param {string} key Header to access to.
+	 * @param {string} [value=undefined]
+	 *
+	 * If undefined, the method reads the meta-information identified by `key`,
+	 * and return it. Otherwise, this meta-information is set, and the old value
+	 * is returned.
+	 *
+	 * @returns {string}
+	 */
+	Item.prototype.header = function(key, value)
+	{
+		var retVal = this._headers[key];
+		if(value!==undefined) {
+			this._headers[key] = value;
+		}
+		return retVal;
+	};
+
+	/**
+	 * Initial position of the game.
+	 *
+	 * @returns {string}
+	 */
+	Item.prototype.initialPosition = function()
+	{
+		return this._initialPosition;
+	};
+
+	/**
+	 * Value of the move counter to use for the first move.
+	 *
+	 * @returns {number}
+	 */
+	Item.prototype.initialMoveCounter = function()
+	{
+		return this._initialMoveCounter;
+	};
+
+	/**
+	 * Main variation.
+	 *
+	 * @return {Pgn.Variation}
+	 */
+	Item.prototype.mainVariation = function()
+	{
+		return this._mainVariation;
+	};
+
+	/**
+	 * Define the initial position and move number.
+	 *
+	 * @params {string} fen FEN-formatted string representing the new initial position.
+	 * @returns {boolean} True if the operation succeed (i.e. if `fen` is a valid FEN string).
+	 */
+	Item.prototype.defineInitialPosition = function(fen)
+	{
+		// Validate the FEN string.
+		var p = new Chess.position(fen);
+		if(!p.validate_fen()) {
+			return false;
+		}
+
+		// Validate the full-move number in the FEN string.
+		if(!/^.* ([0-9]+)\s*$/.test(fen)) {
+			return false;
+		}
+		var fullMoveNumber = parseInt(RegExp.$1);
+
+		// Save the data
+		this._initialPosition    = fen;
+		this._initialMoveCounter = 2*(fullMoveNumber - 1) + (p.turn()=='w' ? 0 : 1);
+	};
+
+
+
+	/**
+	 * @constructor
 	 * @alias ParsingException
 	 * @memberof Pgn
 	 *
@@ -532,6 +670,7 @@ Pgn = (function(Chess)
 	return {
 		Node            : Node            ,
 		Variation       : Variation       ,
+		Item            : Item            ,
 		ParsingException: ParsingException,
 		parse           : parse
 	};
