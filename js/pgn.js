@@ -451,8 +451,8 @@ Pgn = (function(Chess)
 	Item.prototype.defineInitialPosition = function(fen)
 	{
 		// Validate the FEN string.
-		var p = new Chess.position(fen);
-		if(!p.validate_fen()) {
+		var p = new Chess(fen);
+		if(p.fen()!=fen) {
 			return false;
 		}
 
@@ -465,6 +465,7 @@ Pgn = (function(Chess)
 		// Save the data
 		this._initialPosition    = fen;
 		this._initialMoveCounter = 2*(fullMoveNumber - 1) + (p.turn()=='w' ? 0 : 1);
+		return true;
 	};
 
 
