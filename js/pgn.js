@@ -15,6 +15,324 @@ Pgn = (function(Chess)
 {
 	/**
 	 * @constructor
+	 * @alias Node
+	 * @memberof Pgn
+	 *
+	 * @classdesc
+	 * Represent one move in the tree structure formed by a chess game with multiple variations.
+	 *
+	 * @desc Create a new node in the tree structure representing a chess game.
+	 *
+	 * @param {(Pgn.Node|Pgn.Variation)} parent
+	 * @param {string} move
+	 */
+	function Node(parent, move)
+	{
+		/**
+		 * @member {(Pgn.Node|Pgn.Variation)} _parent
+		 * @memberof Pgn.Node
+		 * @instance
+		 * @desc Parent of the current node.
+		 * @private
+		 */
+		this._parent = parent;
+
+		/**
+		 * @member {string} _move
+		 * @memberof Pgn.Node
+		 * @instance
+		 * @desc SAN description of the move.
+		 * @private
+		 */
+		this._move = move;
+
+		/**
+		 * @member {string} _position
+		 * @memberof Pgn.Node
+		 * @instance
+		 * @desc Chess position obtained after the current move (encoded as a FEN string).
+		 * @private
+		 */
+		var position = new Chess(parent.position());
+		if(position.move(move)==null) {
+			this._position = '';
+		}
+		else {
+			this._position = position.fen();
+		}
+
+		/**
+		 * @member {number} _moveCounter
+		 * @memberof Pgn.Node
+		 * @instance
+		 * @desc Move counter (not to be confused with the full-move number).
+		 * @private
+		 */
+		this._moveCounter = (parent instanceof Variation) ? parent.moveCounter() : parent.moveCounter()+1;
+
+		/**
+		 * @member {number[]} nags
+		 * @memberof Pgn.Node
+		 * @instance
+		 * @desc List of NAGs associated to the current move.
+		 */
+		this.nags = [];
+
+		/**
+		 * @member {string} commentary
+		 * @memberof Pgn.Node
+		 * @instance
+		 * @desc Commentary associated to the current move (an empty string means no-commentary).
+		 */
+		this.commentary = '';
+
+		/**
+		 * @member {Pgn.Variation[]} _variations
+		 * @memberof Pgn.Node
+		 * @instance
+		 * @desc Variations that could be played instead of the current move.
+		 * @private
+		 */
+		this._variations = [];
+
+		/**
+		 * @member {Pgn.Node} _next
+		 * @memberof Pgn.Node
+		 * @instance
+		 * @desc Next move (may be null if the current move is the last move of the variation).
+		 * @private
+		 */
+		this._next = null;
+	}
+
+	/**
+	 * Whether the current node have been created from a valid move.
+	 *
+	 * @returns {boolean}
+	 */
+	Node.prototype.valid = function()
+	{
+		return this._position.length!=0;
+	};
+
+	/**
+	 * Move associated to the current node.
+	 *
+	 * @returns {string}
+	 */
+	Node.prototype.move = function()
+	{
+		return this._move;
+	};
+
+	/**
+	 * Chess position before the current move (encoded as a FEN string).
+	 *
+	 * @returns {string}
+	 */
+	Node.prototype.positionBefore = function()
+	{
+		return this._parent.position();
+	};
+
+	/**
+	 * Chess position obtained after the current move (encoded as a FEN string).
+	 *
+	 * @returns {string}
+	 */
+	Node.prototype.position = function()
+	{
+		return this._position;
+	};
+
+	/**
+	 * Move counter. This counter is incremented each time a move is played, either
+	 * by white or by black. Even values of the move counter denote a move played by
+	 * white, odd values a move played by black.
+	 *
+	 * The move counter must not be confused with the full-move number, which is
+	 * incremented only after a black move.
+	 *
+	 * @returns {number}
+	 */
+	Node.prototype.moveCounter = function()
+	{
+		return this._moveCounter;
+	};
+
+	/**
+	 * Full-move number. It starts at 1, and is incremented after every black moves.
+	 *
+	 * @returns {number}
+	 */
+	Node.prototype.fullMoveNumber = function()
+	{
+		return Math.floor(this._moveCounter / 2) + 1;
+	};
+
+	/**
+	 * Color the side corresponding to the current move.
+	 *
+	 * @returns {string} Either 'w' or 'b'.
+	 */
+	Node.prototype.moveColor = function()
+	{
+		return (this._moveCounter%2==0) ? 'w' : 'b';
+	};
+
+	/**
+	 * Next move within the same variation.
+	 *
+	 * @returns {Pgn.Node} May be null if the current move is the last move of the variation.
+	 */
+	Node.prototype.next = function()
+	{
+		return this._next;
+	};
+
+	/**
+	 * Number of variations that can be followed instead of the current move.
+	 *
+	 * @return {number}
+	 */
+	Node.prototype.nbVariations = function()
+	{
+		return this._variations.length;
+	};
+
+	/**
+	 * Return the k^th variation that can be followed instead of the current move.
+	 *
+	 * @param {number} k Variation index.
+	 * @returns {Pgn.Variation}
+	 */
+	Node.prototype.variation = function(k)
+	{
+		return this._variations[k];
+	};
+
+	/**
+	 * Define the move that immediatly follows the one represented by the current node.
+	 *
+	 * @param {string} move The new move to be played.
+	 * @returns {Pgn.Node} The newly created node.
+	 */
+	Node.prototype.play = function(move)
+	{
+		this._next = new Node(this, move);
+		return this._next;
+	};
+
+	/**
+	 * Add a new variation to the current move.
+	 *
+	 * @returns {Pgn.Variation} The newly created variation, with no node.
+	 */
+	Node.prototype.addVariation = function()
+	{
+		var newVariation = new Variation(this);
+		this._variations.push(newVariation);
+		return newVariation;
+	};
+
+
+
+	/**
+	 * @constructor
+	 * @alias Variation
+	 * @memberof Pgn
+	 *
+	 * @classdesc
+	 * Represent one variation in the tree structure formed by a chess game, meaning
+	 * a starting chess position and list of played consecutively from this position.
+	 *
+	 * @desc Initiate a new variation.
+	 *
+	 * @param {(Pgn.Node|Pgn.Item)} parent Parent node in the tree structure.
+	 */
+	function Variation(parent)
+	{
+		/**
+		 * @member {(Pgn.Node|Pgn.Item)} _parent
+		 * @memberof Pgn.Variation
+		 * @instance
+		 * @desc Parent of the current variation.
+		 * @private
+		 */
+		this._parent = parent;
+
+		/**
+		 * @member {number[]} nags
+		 * @memberof Pgn.Variation
+		 * @instance
+		 * @desc List of NAGs associated to the beginning of the variation.
+		 */
+		this.nags = [];
+
+		/**
+		 * @member {string} commentary
+		 * @memberof Pgn.Variation
+		 * @instance
+		 * @desc Commentary associated to the beginning of the variation (an empty string means no-commentary).
+		 */
+		this.commentary = '';
+
+		/**
+		 * @member {Pgn.Node} _first
+		 * @memberof Pgn.Variation
+		 * @instance
+		 * @desc First move of the variation.
+		 * @private
+		 */
+		this._first = null;
+	}
+
+	/**
+	 * Chess position at the beginning of the variation (encoded as a FEN string).
+	 *
+	 * @returns {string}
+	 */
+	Variation.prototype.position = function()
+	{
+		return (this._parent instanceof Node) ? this._parent.positionBefore() : this._parent.initialPosition();
+	};
+
+	/**
+	 * Move counter to use for the first move of the variation.
+	 *
+	 * @returns {number}
+	 */
+	Variation.prototype.moveCounter = function()
+	{
+		return (this._parent instanceof Node) ? this._parent.moveCounter() : this._parent.initialMoveCounter();
+	};
+
+	/**
+	 * First move of the current variation.
+	 *
+	 * @returns {Pgn.Node} May be null if the variation is empty.
+	 */
+	Variation.prototype.first = function()
+	{
+		return this._first;
+	};
+
+	/**
+	 * Define the first move of the variation.
+	 *
+	 * @param {string} move The new to be played.
+	 * @returns {Pgn.Node} The newly created node.
+	 */
+	Variation.prototype.play = function(move)
+	{
+		this._first = new Node(this, move);
+		return this._first;
+	};
+
+
+
+	/**
+	 * @constructor
 	 * @alias ParsingException
 	 * @memberof Pgn
 	 *
@@ -212,6 +530,8 @@ Pgn = (function(Chess)
 
 	// Returned the module object
 	return {
+		Node            : Node            ,
+		Variation       : Variation       ,
 		ParsingException: ParsingException,
 		parse           : parse
 	};
