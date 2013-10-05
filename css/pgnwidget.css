@@ -13,6 +13,38 @@ pre.jsChessLib-pgn-source {
 }*/
 
 
+/******************************************************************************/
+/*** Parsing error box ***/
+
+.PgnWidget-error {
+	padding: 4px 8px 4px;
+	background-color: #ffe8e8;
+	border: solid 1px #a00000;
+	color: #a00000;
+	font-size: 90%;
+}
+
+.PgnWidget-error-title,
+.PgnWidget-error-message,
+.PgnWidget-error-at {
+	display: block;
+}
+
+.PgnWidget-error-title {
+	font-weight: bold;
+	font-style: italic;
+}
+
+.PgnWidget-error-at pre {
+	margin : 6px;
+	padding: 10px 8px 0px;
+	background-color: #ffffe0;
+	color: #404000;
+	font-size: 90%;
+	line-height: 1em;
+}
+
+
 
 /******************************************************************************/
 /*** Navigation frame ***/

@@ -206,22 +206,6 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	}
 
 	/**
-	 * Return a new DOM node holding information about the one of the players.
-	 *
-	 * @private
-	 *
-	 * @param {Pgn.Item} pgnItem The player information are read for this Pgn.Item object.
-	 * @param {string} color Either `'w'` or `'b'`.
-	 * @returns {jQuery}
-	 *
-	 * @memberof PgnWidget
-	 */
-	/*function renderPlayerInfo(pgnItem, color)
-	{
-	///TODO: remove
-	}*/
-
-	/**
 	 * Create a new DOM node to render the text commentary associated to the given PGN node.
 	 * This function may return null if no commentary is associated to the PGN node.
 	 *
@@ -474,63 +458,6 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 			anchors.removeClass('PgnWidget-anchor-fullName' + color);
 		});
 	}
-	/*
-
-		// For all the replacement fields...
-		var fieldNodes = parentNode.getElementsByClassName("jsChessLib-field-fullName" + nameField);
-		for(var k=0; k<fieldNodes.length; ++k) {
-			var fieldNode = fieldNodes[k];
-
-			// Hide the field if no name is available
-			if(pgnItem[nameField]==null) {
-				fieldNode.classList.add("jsChessLib-invisible");
-			}
-
-			// Process each anchor node
-			var anchorNodes = fieldNode.getElementsByClassName("jsChessLib-anchor-fullName" + nameField);
-			for(var l=0; l<anchorNodes.length; ++l) {
-				var anchorNode = anchorNodes[l];
-				var valueNode  = renderPlayerInfo(pgnItem, color);
-				anchorNode.parentNode.replaceChild(valueNode, anchorNode);
-			}
-		}
-
-
-		// Returned node
-		color = (color=='w') ? 'White' : 'Black';
-		var retVal = $('<span class="PgnWidget-value-fullName'+color+'"></span>');
-
-		// Player name sub-field
-		retVal.append($('<span class="PgnWidget-subfield-playerName">' + pgnItem.header(color) + '</span>'));
-
-		// Group title + elo
-		var title = pgnItem.header(color + 'Title');
-		var elo   = pgnItem.header(color + 'Elo'  );
-		var titleDefined = (title!=null && title!="-");
-		var eloDefined   = (elo  !=null && elo  !="?");
-		if(titleDefined || eloDefined) {
-			var groupTitleEloSubField = $('<span class="PgnWidget-subfield-groupTitleElo"></span>');
-			retVal.append(groupTitleEloSubField);
-
-			// Title sub-field
-			if(titleDefined) {
-				groupTitleEloSubField.append($('<span class="PgnWidget-subfield-title">' + title + '</span>'));
-			}
-
-			// Separator
-			if(titleDefined && eloDefined) {
-				groupTitleEloSubField.append(' ');
-			}
-
-			// Elo sub-field
-			if(eloDefined) {
-				groupTitleEloSubField.append($('<span class="PgnWidget-subfield-elo">' + elo + '</span>'));
-			}
-		}
-
-		// Return the result
-		return retVal;
-	}*/
 
 	/**
 	 * Substitution method for the special replacement token moves (which stands
@@ -589,6 +516,7 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	function displayErrorMessage(error, targetNode)
 	{
 		targetNode.empty();
+		targetNode.addClass('PgnWidget-error');
 		$('<span class="PgnWidget-error-title">Error while analysing a PGN string.</span>').appendTo(targetNode);
 		$('<span class="PgnWidget-error-message">' + error.message + '</span>').appendTo(targetNode);
 		if(error.pos>=0) {
@@ -604,7 +532,7 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 				at.append('Occurred at position ' + error.pos + ':');
 
 				// p1 => begin of the extracted sub-string
-				var p1 = pos - 20;
+				var p1 = error.pos - 10;
 				var e1 = '...';
 				if(p1<=0) {
 					p1 = 0;
@@ -612,7 +540,7 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 				}
 
 				// p2 => end of the extracted sub-string (actually one character after)
-				var p2 = pos + 40;
+				var p2 = error.pos + 40;
 				var e2 = '...';
 				if(p2>=error.pgnString.length) {
 					p2 = error.pgnString.length;
@@ -621,8 +549,8 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 
 				// Extract the sub-string around the position where the parsing fails.
 				var text = e1 + error.pgnString.substr(p1, p2-p1) + e2;
-				text.replace(/\n/g, ' ');
-				text += '\n' + Array(1 + e1.length + (pos-p1)).join(' ') + '^^^';
+				text = text.replace(/\n|\t/g, ' ');
+				text += '\n' + Array(1 + e1.length + (error.pos-p1)).join(' ') + '^^^';
 				$('<pre>' + text + '</pre>').appendTo(at);
 			}
 		}
