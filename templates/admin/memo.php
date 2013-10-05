@@ -207,7 +207,7 @@
 					</div>
 				</div>
 				<div class="rpbchessboard-game-body PgnWidget-field-moves">
-					<span class="PgnWidget-anchor-moves"></span>
+					<div class="PgnWidget-anchor-moves"></div>
 					<div class="PgnWidget-field-Result">
 						<span class="PgnWidget-anchor-Result"></span>
 					</div>
