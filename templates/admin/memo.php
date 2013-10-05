@@ -104,9 +104,7 @@
 			?>}<br/>
 			<br/>
 			17... Qxf3 $3 18. gxf3 Rg6+ 19. Kh1 Bh3 20. Rd1<br/>
-			<br/>
 			({<?php _e('Not', 'rpbchessboard'); ?>} 20. Rg1 Rxg1+ 21. Kxg1 Re1+ $19)<br/>
-			<br/>
 			20... Bg2+ 21. Kg1 Bxf3+ 22. Kf1 Bg2+<br/>
 			<br/>
 			(22...Rg2 $1 {<?php _e('would have won more quickly. For instance:', 'rpbchessboard'); ?>}
@@ -178,9 +176,7 @@
 				}
 
 				17... Qxf3 $3 18. gxf3 Rg6+ 19. Kh1 Bh3 20. Rd1
-
 				({<?php _e('Not', 'rpbchessboard'); ?>} 20. Rg1 Rxg1+ 21. Kxg1 Re1+ $19)
-
 				20... Bg2+ 21. Kg1 Bxf3+ 22. Kf1 Bg2+
 
 				(22...Rg2 $1 {<?php _e('would have won more quickly. For instance:', 'rpbchessboard'); ?>}
