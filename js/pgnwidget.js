@@ -918,8 +918,6 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	return {
 		option             : option             ,
 		text               : text               ,
-		processFEN         : processFEN         ,
-		processFENByID     : processFENByID     ,
 		processPGN         : processPGN         ,
 		processPGNByID     : processPGNByID
 	};
