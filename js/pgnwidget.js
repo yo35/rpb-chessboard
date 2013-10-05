@@ -592,7 +592,7 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 				if(error instanceof Pgn.ParsingException) {
 					displayErrorMessage(error, targetNode);
 				}
-				else { // unkown exception are re-thrown
+				else { // unknown exception are re-thrown
 					throw error;
 				}
 			}
