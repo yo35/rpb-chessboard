@@ -195,7 +195,7 @@ Pgn = (function(Chess)
 	 *
 	 * @return {number}
 	 */
-	Node.prototype.nbVariations = function()
+	Node.prototype.variations = function()
 	{
 		return this._variations.length;
 	};
