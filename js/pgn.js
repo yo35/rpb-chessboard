@@ -524,6 +524,7 @@ Pgn = (function(Chess)
 	 * PGN parsing function.
 	 *
 	 * @param {string} pgnString String to parse.
+	 * @returns {Pgn.Item[]}
 	 * @throws {ParsingException}
 	 *
 	 * @memberof Pgn
@@ -533,20 +534,17 @@ Pgn = (function(Chess)
 		// Token types
 		const TOKEN_HEADER          = 1; // Ex: [White "Kasparov, G."]
 		const TOKEN_MOVE            = 2; // [BKNQRa-h1-8xO\-=\+#]+ (with an optional move number)
-		const TOKEN_NAG             = 3; // $[1-9][0-9]* or !! ! !? ?! ? ?? +- +/- += = inf =+ -/+ -+
+		const TOKEN_NAG             = 3; // $[1-9][0-9]* or !! ! !? ?! ? ?? +- +/- +/= += = inf =+ =/+ -/+ -+
 		const TOKEN_COMMENTARY      = 4; // {some text}
 		const TOKEN_BEGIN_VARIATION = 5; // (
 		const TOKEN_END_VARIATION   = 6; // )
 		const TOKEN_END_OF_GAME     = 7; // 1-0, 0-1, 1/2-1/2 or *
 
-		// State variables
+		// State variables for lexical analysis (performed by the function consumeToken()).
 		var pos            = 0;     // current position in the string
 		var emptyLineFound = false; // whether an empty line has been encountered by skipBlank()
 		var token          = 0;     // current token
 		var tokenValue     = null;  // current token value (if any)
-
-		var retVal     = Array();
-		var item       = null;
 
 		/**
 		 * Skip the blank and newline characters.
@@ -601,9 +599,7 @@ Pgn = (function(Chess)
 			}
 
 			// Match a NAG
-			else if(/^((!!|!\?|!|\?\?|\?!|\?|\+\/?\-|\+\/?=|=\/?\+|\-\/?\+|=|inf)|\$([1-9][0-9]*))/.test(s)) {
-				console.log("Nag detected: $2=["+RegExp.$2+"] $3=["+RegExp.$3+"]");
-				console.log(RegExp.$2, RegExp.$3);
+			else if(/^(([!\?][!\?]?|\+\/?[\-=]|[\-=]\/?\+|=|inf)|\$([1-9][0-9]*))/.test(s)) {
 				token      = TOKEN_NAG;
 				tokenValue = RegExp.$3.length==0 ? SPECIAL_NAGS_LOOKUP[RegExp.$2] : parseInt(RegExp.$3);
 			}
@@ -641,6 +637,10 @@ Pgn = (function(Chess)
 			pos += RegExp.$1.length;
 			return true;
 		}
+
+		// State variable for syntaxic analysis.
+		var retVal = Array();
+		var item   = null;
 
 		//TODO: remove this
 		while(consumeToken()) {
