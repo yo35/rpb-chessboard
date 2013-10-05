@@ -392,7 +392,23 @@ Pgn = (function(Chess)
 	}
 
 	/**
-	 * Getter/setter for the headers of the game
+	 * List all the headers defined for the game.
+	 *
+	 * @returns {string[]}
+	 */
+	Item.prototype.headers = function()
+	{
+		var retVal = new Array();
+		for(var h in this._headers) {
+			if(this._headers.hasOwnProperty(h)) {
+				retVal.push(h);
+			}
+		}
+		return retVal;
+	};
+
+	/**
+	 * Getter/setter for the headers of the game.
 	 *
 	 * @param {string} key Header to access to.
 	 * @param {string} [value=undefined]
