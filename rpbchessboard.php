@@ -26,9 +26,6 @@ add_action('wp_enqueue_scripts'   , 'rpbchessboard_enqueue_script');
 add_action('admin_enqueue_scripts', 'rpbchessboard_enqueue_script');
 function rpbchessboard_enqueue_script()
 {
-	wp_register_script('rpbchessboard-jschess-script'        , RPBCHESSBOARD_URL.'/jschesslib/jschess.js'        );
-	wp_register_script('rpbchessboard-jschesspgn-script'     , RPBCHESSBOARD_URL.'/jschesslib/jschesspgn.js'     );
-	wp_register_script('rpbchessboard-jschessrenderer-script', RPBCHESSBOARD_URL.'/jschesslib/jschessrenderer.js');
 	wp_register_script('rpbchessboard-chessjs'    , RPBCHESSBOARD_URL.'/js/chess.js/chess.min.js');
 	wp_register_script('rpbchessboard-pgn'        , RPBCHESSBOARD_URL.'/js/pgn.js');
 	wp_register_script('rpbchessboard-chesswidget', RPBCHESSBOARD_URL.'/js/chesswidget.js');
@@ -39,9 +36,6 @@ function rpbchessboard_enqueue_script()
 	wp_enqueue_script('jquery-ui-resizable');
 	wp_enqueue_script('jquery-ui-dialog'   );
 	wp_enqueue_script('jquery-ui-button'   );
-	wp_enqueue_script('rpbchessboard-jschess-script'        );
-	wp_enqueue_script('rpbchessboard-jschesspgn-script'     );
-	wp_enqueue_script('rpbchessboard-jschessrenderer-script');
 	wp_enqueue_script('rpbchessboard-chessjs'    );
 	wp_enqueue_script('rpbchessboard-pgn'        );
 	wp_enqueue_script('rpbchessboard-chesswidget');
@@ -62,12 +56,11 @@ function rpbchessboard_enqueue_css()
 	wp_register_style('jquery-ui', $protocol.'://code.jquery.com/ui/'.$ui->ver.'/themes/smoothness/jquery-ui.css');
 	wp_enqueue_style ('jquery-ui');
 
-	// Local CSS files
-	wp_register_style('rpbchessboard-jschesslib', RPBCHESSBOARD_URL.'/jschesslib/jschesslib.css');
+	//TODO: remove this CSS include
 	wp_register_style('rpbchessboard-mainold'    , RPBCHESSBOARD_URL.'/css/rpbchessboard.css');
-	wp_enqueue_style ('rpbchessboard-jschesslib');
 	wp_enqueue_style ('rpbchessboard-mainold'   );
 
+	// Local CSS files
 	wp_register_style('rpbchessboard-chesswidget', RPBCHESSBOARD_URL.'/css/chesswidget.css');
 	wp_register_style('rpbchessboard-pgnwidget'  , RPBCHESSBOARD_URL.'/css/pgnwidget.css'  );
 	wp_register_style('rpbchessboard-main'       , RPBCHESSBOARD_URL.'/css/main.css');
