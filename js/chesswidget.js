@@ -20,7 +20,7 @@ ChessWidget = (function(Chess, $)
 	 * in a HTML page.
 	 *
 	 * This structure allows to resolve option values in a hierarchical manner:
-	 * each ChessDiagram.Options object holds a reference to a parent
+	 * each ChessWidget.Options object holds a reference to a parent
 	 * ChessWidget.Options object; if one option field is undefined in the
 	 * current ChessWidget.Options object, then its value will be determined
 	 * based on the value of the parent ChessWidget.Options object.
@@ -168,7 +168,7 @@ ChessWidget = (function(Chess, $)
 	 *
 	 * @returns {string}
 	 *
-	 * @memberof ChessDiagram
+	 * @memberof ChessWidget
 	 */
 	function rootURL()
 	{
@@ -194,7 +194,7 @@ ChessWidget = (function(Chess, $)
 	 * @param {number} squareSize
 	 * @returns {String}
 	 *
-	 * @memberof ChessDiagram
+	 * @memberof ChessWidget
 	 */
 	function spriteBaseURL(squareSize)
 	{
@@ -211,7 +211,7 @@ ChessWidget = (function(Chess, $)
 	 * @param {number} squareSize
 	 * @returns {String}
 	 *
-	 * @memberof ChessDiagram
+	 * @memberof ChessWidget
 	 */
 	function coloredPieceURL(coloredPiece, squareSize)
 	{
@@ -231,7 +231,7 @@ ChessWidget = (function(Chess, $)
 	 * @param {number} squareSize
 	 * @returns {string}
 	 *
-	 * @memberof ChessDiagram
+	 * @memberof ChessWidget
 	 */
 	function colorURL(color, squareSize)
 	{
@@ -255,10 +255,10 @@ ChessWidget = (function(Chess, $)
 	 * FEN-formatted string. If the parsing fails, an empty chess position will
 	 * be represented.
 	 *
-	 * @params {ChessDiagram.Options} [options=null] Diagram options, or null to use the default ones.
+	 * @params {ChessWidget.Options} [options=null] Diagram options, or null to use the default ones.
 	 * @returns {jQuery}
 	 *
-	 * @memberof ChessDiagram
+	 * @memberof ChessWidget
 	 */
 	function make(position, options)
 	{
