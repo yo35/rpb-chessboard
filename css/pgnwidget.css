@@ -111,3 +111,8 @@
 .PgnWidget-variation-sub:after {
 	content: ")";
 }
+
+.PgnWidget-longCommentary {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
