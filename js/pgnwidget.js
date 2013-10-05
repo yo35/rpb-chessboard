@@ -941,7 +941,6 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	return {
 		option             : option             ,
 		text               : text               ,
-		processPGN         : processPGN         ,
-		processPGNByID     : processPGNByID
+		makeAt: makeAt
 	};
 })(Chess, Pgn, ChessWidget, jQuery);
