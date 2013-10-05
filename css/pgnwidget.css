@@ -6,11 +6,6 @@
 	display: none;
 }
 
-/*
-pre.jsChessLib-fen-source,
-pre.jsChessLib-pgn-source {
-	white-space: pre-wrap;
-}*/
 
 
 /******************************************************************************/
@@ -50,12 +45,12 @@ pre.jsChessLib-pgn-source {
 /******************************************************************************/
 /*** Navigation frame ***/
 
-div#jsChessLib-navigation-frame #jsChessLib-navigation-content {
+#PgnWidget-navigation-frame #PgnWidget-navigation-content {
 	text-align: center;
 	padding: 10px 10px 5px;
 }
 
-div#jsChessLib-navigation-frame #jsChessLib-navigation-buttons {
+#PgnWidget-navigation-frame #PgnWidget-navigation-buttons {
 	text-align: center;
 }
 
