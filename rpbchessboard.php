@@ -69,8 +69,10 @@ function rpbchessboard_enqueue_css()
 	wp_enqueue_style ('rpbchessboard-mainold'   );
 
 	wp_register_style('rpbchessboard-chesswidget', RPBCHESSBOARD_URL.'/css/chesswidget.css');
+	wp_register_style('rpbchessboard-pgnwidget'  , RPBCHESSBOARD_URL.'/css/pgnwidget.css'  );
 	wp_register_style('rpbchessboard-main'       , RPBCHESSBOARD_URL.'/css/main.css');
 	wp_enqueue_style ('rpbchessboard-chesswidget');
+	wp_enqueue_style ('rpbchessboard-pgnwidget'  );
 	wp_enqueue_style ('rpbchessboard-main'       );
 
 	// Additional CSS for the back-end
