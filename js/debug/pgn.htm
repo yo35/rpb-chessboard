@@ -113,6 +113,9 @@
 		{
 			// Variation header
 			var text = "-+";
+			if(variation.isLongVariation()) {
+				text += "<LONG";
+			}
 			for(var k=0; k<variation.nags.length; ++k) {
 				text += " $" + variation.nags[k];
 			}

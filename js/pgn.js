@@ -96,6 +96,15 @@ Pgn = (function(Chess)
 		this.commentary = '';
 
 		/**
+		 * @member {boolean} areLongVariations
+		 * @memberof Pgn.Node
+		 * @instance
+		 * @desc Whether the variations associated to the move should be considred as a "long" variations,
+		 *       and therefored displayed in isolated blocks.
+		 */
+		this.areLongVariations = false;
+
+		/**
 		 * @member {Pgn.Variation[]} _variations
 		 * @memberof Pgn.Node
 		 * @instance
@@ -314,6 +323,20 @@ Pgn = (function(Chess)
 	Variation.prototype.moveCounter = function()
 	{
 		return (this._parent instanceof Node) ? this._parent.moveCounter() : this._parent.initialMoveCounter();
+	};
+
+	/**
+	 * Whether the current variation is considered as a "long" variation, i.e. a variation that
+	 * should be displayed in an isolated block.
+	 *
+	 * All the variations that starts from a given node have the same status: they are all long,
+	 * or they are all short.
+	 *
+	 * @returns {boolean}
+	 */
+	Variation.prototype.isLongVariation = function()
+	{
+		return (this._parent instanceof Node) ? this._parent.areLongVariations : true;
 	};
 
 	/**
@@ -737,6 +760,9 @@ Pgn = (function(Chess)
 			else if(token==TOKEN_BEGIN_VARIATION) {
 				if(!(node instanceof Node)) {
 					throw new ParsingException(pgnString, tokenPos, 'Unexpected begin of variation.');
+				}
+				if(emptyLineFound) {
+					node.areLongVariations = true;
 				}
 				nodeStack.push(node);
 				node = node.addVariation();
