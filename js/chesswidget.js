@@ -267,6 +267,7 @@ ChessWidget = (function(Chess, $)
 
 		// If the `position` argument is a string, try to parse it as a FEN-formatted string.
 		if(typeof(position)=='string') {
+			position = position.replace(/^\s+|\s+$/g, '');
 			position = new Chess(position);
 		}
 

@@ -51,7 +51,9 @@
 	<div class="rpbchessboard-admin-column-right">
 		<div class="rpbchessboard-admin-visu-block">
 			<p><?php _e('White to move and mate in two:', 'rpbchessboard'); ?></p>
-			<pre id="rpbchessboard-admin-example1-in">r2qkbnr/ppp2ppp/2np4/4N3/2B1P3/2N5/PPPP1PPP/R1BbK2R w KQkq - 0 6</pre>
+			<pre id="rpbchessboard-admin-example1-in">
+				r2qkbnr/ppp2ppp/2np4/4N3/2B1P3/2N5/PPPP1PPP/R1BbK2R w KQkq - 0 6
+			</pre>
 			<div id="rpbchessboard-admin-example1-out" class="rpbchessboard-invisible"></div>
 			<script type="text/javascript">
 				processFEN('rpbchessboard-admin-example1-in', 'rpbchessboard-admin-example1-out');
