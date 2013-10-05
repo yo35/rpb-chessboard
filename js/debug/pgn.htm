@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Debugging pgn.js</title>
+	
+	<!-- Dependencies -->
+	<script type="text/javascript" src="../chess.js/chess.js"></script>
+	<script type="text/javascript" src="../pgn.js"></script>
+	
+	<!-- Test function -->
+	<script type="text/javascript">
+	
+		/**
+		 *
+		 */
+		function testPgn(pgnString)
+		{
+			// Main node: the results will written in this node.
+			var mainNode = document.getElementById("testPgn");
+			
+			// Write separator
+			mainNode.appendChild(document.createElement("hr"));
+			
+			// Write source
+			var pre = document.createElement("pre");
+			pre.className = "source";
+			pre.appendChild(document.createTextNode(pgnString));
+			mainNode.appendChild(pre);
+			
+			// Parsing the data
+			try {
+				pgn = Pgn.parse(pgnString);
+			}
+			
+			// Catching PGN error
+			catch(error) {
+				if(error instanceof Pgn.ParsingException) {
+					var message = document.createElement("div");
+					message.className = "message";
+					message.appendChild(document.createTextNode(error.message));
+					var ellip = document.createElement("span");
+					ellip.className = "ellipsis";
+					ellip.appendChild(document.createTextNode(ellipsis(error.pgnString, error.pos, 50)));
+					var at = document.createElement("div");
+					at.className = "at";
+					at.appendChild(document.createTextNode("Error at position " + error.pos + ":"));
+					at.appendChild(ellip);
+					var div = document.createElement("div");
+					div.className = "error";
+					div.appendChild(message);
+					div.appendChild(at);
+					mainNode.appendChild(div);
+				}
+				
+				// Other errors => re-throw them
+				else {
+					throw error;
+				}
+			}
+		}
+		
+		/**
+		 * Return a substring of string `s` starting at position `pos` and of length
+		 * at most equal to `maxLength`. 
+		 */
+		function ellipsis(s, pos, maxLength) {
+			if(s.length - pos>maxLength) {
+				return s.substr(pos, maxLength) + "...";
+			}
+			else {
+				return s.substr(pos);
+			}
+		}
+	
+	</script>
+	
+	<!-- Custom CSS elements -->
+	<style type="text/css">
+		.source {
+			background-color: #f0f0ff;
+			padding: 5px;
+		}
+		
+		.error {
+			background-color: #ffe0e0;
+			padding: 5px;
+		}
+		
+		.error .message {
+			font-weight: bold;
+			margin-bottom: 5px;
+		}
+		
+		.error .ellipsis {
+			font-family: monospace;
+		}
+		
+		.error .ellipsis:before {
+			content: " ";
+		}
+		
+	</style>
+</head>
+
+<body>
+	<h1>Debugging pgn.js</h1>
+	<div id="testPgn"></div>
+	<script type="text/javascript">
+		
+		// Test 0 -> generates an error
+		testPgn('Bad data');
+		
+		// Test 1
+		testPgn(
+			'[Event "Scholar\'s mate"]\n' +
+			'[Site "*"]\n' +
+			'[Date "2013.??.??"]\n' +
+			'[Round "?"]\n' +
+			'[White "Player 1"]\n' +
+			'[Black "Player 2"]\n' +
+			'[Result "1-0"]\n' +
+			'\n' +
+			'1. e4 e5 2. Bc4 Nc6 3. Qh5 Nf6 4. Qxf7# 1-0' 
+		);
+	
+	</script>
+</body>
+
+</html>
