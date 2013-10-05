@@ -602,14 +602,14 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 		makeNavigationFrame(targetNode);
 
 		// Substitution
-		substituteSimpleField(targetNode, "Event"    , pgn);
-		substituteSimpleField(targetNode, "Site"     , pgn);
-		substituteSimpleField(targetNode, "Date"     , pgn, formatDate );
-		substituteSimpleField(targetNode, "Round"    , pgn, formatRound);
-		substituteSimpleField(targetNode, "White"    , pgn);
-		substituteSimpleField(targetNode, "Black"    , pgn);
-		substituteSimpleField(targetNode, "Result"   , pgn);
-		substituteSimpleField(targetNode, "Annotator", pgn);
+		substituteSimpleField(targetNode, 'Event'    , pgn);
+		substituteSimpleField(targetNode, 'Site'     , pgn);
+		substituteSimpleField(targetNode, 'Date'     , pgn, formatDate );
+		substituteSimpleField(targetNode, 'Round'    , pgn, formatRound);
+		substituteSimpleField(targetNode, 'White'    , pgn);
+		substituteSimpleField(targetNode, 'Black'    , pgn);
+		substituteSimpleField(targetNode, 'Result'   , pgn);
+		substituteSimpleField(targetNode, 'Annotator', pgn);
 		substituteFullName(targetNode, 'w', pgn);
 		substituteFullName(targetNode, 'b', pgn);
 		substituteMoves(targetNode, pgn, options);
