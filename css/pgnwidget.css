@@ -98,6 +98,21 @@ div#jsChessLib-navigation-frame #jsChessLib-navigation-buttons {
 }
 
 .PgnWidget-move,
-.PgnWidget-commentary {
+.PgnWidget-commentary,
+.PgnWidget-variation-sub {
 	margin-right: 5px;
+}
+
+.PgnWidget-move:last-child,
+.PgnWidget-commentary:last-child,
+.PgnWidget-variation-sub:last-child {
+	margin-right: 0px;
+}
+
+.PgnWidget-variation-sub:before {
+	content: "(";
+}
+
+.PgnWidget-variation-sub:after {
+	content: ")";
 }
