@@ -40,7 +40,7 @@ function processPGN(nodeInID, nodeOutID)
 	var nodeOut = jQuery('#' + nodeOutID);
 
 	// Read the PGN string from the nodeIn
-	var pgn = nodeIn.text();
+	var pgn = nodeIn.html();
 
 	// PGN rendering
 	PgnWidget.makeAt(pgn, nodeOut);

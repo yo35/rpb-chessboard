@@ -384,7 +384,7 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 
 			// Process each anchor node
 			var anchors = $('.PgnWidget-anchor-' + fieldName, e);
-			anchors.text(value);
+			anchors.append($('<span>' + value + '</span>'));
 			anchors.addClass   ('PgnWidget-value-'  + fieldName);
 			anchors.removeClass('PgnWidget-anchor-' + fieldName);
 		});
