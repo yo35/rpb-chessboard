@@ -263,7 +263,10 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 			'<span class="PgnWidget-shortVariation"></span>'
 		);
 		retVal.addClass('PgnWidget-variation-' + (depth==0 ? 'main' : 'sub'));
+
+		// State variables
 		var moveGroup = $('<span class="PgnWidget-moveGroup"></span>').appendTo(retVal);
+		var prevMove  = null;
 
 		// Append a fake move at the beginning of the main variation,
 		// so that it will be possible to display the starting position
@@ -274,6 +277,7 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 			).appendTo(moveGroup);
 			move.data('position', pgnVariation.position());
 			move.click(function() { showNavigationFrame($(this)); });
+			prevMove = move;
 		}
 
 		// The variation may start with an initial commentary.
@@ -289,6 +293,13 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 			var move = $('<span class="PgnWidget-move"></span>').appendTo(moveGroup);
 			move.data('position', pgnNode.position());
 			move.click(function() { showNavigationFrame($(this)); });
+
+			// Link to the previous move, if any
+			if(prevMove!=null) {
+				prevMove.data('nextMove', move    );
+				move    .data('prevMove', prevMove);
+			}
+			prevMove = move;
 
 			// Write the move number
 			var moveNumber = $(
@@ -695,7 +706,7 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	function showNavigationFrame(domNode)
 	{
 		// Nothing to do if no node is provided or if the move is already selected.
-		if(domNode.length==0 || domNode.attr('id')=='PgnWidget-selected-move') {
+		if(domNode==null || domNode.attr('id')=='PgnWidget-selected-move') {
 			return;
 		}
 
@@ -779,7 +790,11 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	 */
 	function goFrstMove()
 	{
-		showNavigationFrame($('#PgnWidget-selected-move').prevAll('.PgnWidget-move').last());
+		var target = $('#PgnWidget-selected-move');
+		while(target.data('prevMove')!=null) {
+			target = target.data('prevMove');
+		}
+		showNavigationFrame(target);
 	}
 
 	/**
@@ -790,7 +805,7 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	 */
 	function goPrevMove()
 	{
-		showNavigationFrame($('#PgnWidget-selected-move').prevAll('.PgnWidget-move').first());
+		showNavigationFrame($('#PgnWidget-selected-move').data('prevMove'));
 	}
 
 	/**
@@ -801,7 +816,7 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	 */
 	function goNextMove()
 	{
-		showNavigationFrame($('#PgnWidget-selected-move').nextAll('.PgnWidget-move').first());
+		showNavigationFrame($('#PgnWidget-selected-move').data('nextMove'));
 	}
 
 	/**
@@ -812,7 +827,11 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	 */
 	function goLastMove()
 	{
-		showNavigationFrame($('#PgnWidget-selected-move').nextAll('.PgnWidget-move').last());
+		var target = $('#PgnWidget-selected-move');
+		while(target.data('nextMove')!=null) {
+			target = target.data('nextMove');
+		}
+		showNavigationFrame(target);
 	}
 
 	// Return the module object
