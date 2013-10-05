@@ -696,7 +696,7 @@ Pgn = (function(Chess)
 			}
 
 			// NAG
-			else if(token==NAG) {
+			else if(token==TOKEN_NAG) {
 				node.nags.push(tokenValue);
 			}
 
