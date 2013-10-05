@@ -215,12 +215,12 @@ Pgn = (function(Chess)
 	 * Define the move that immediatly follows the one represented by the current node.
 	 *
 	 * @param {string} move The new move to be played.
-	 * @returns {Pgn.Node} The newly created node.
+	 * @returns {boolean} True if the move has actually been played, false if the move was badly formatted or illegal.
 	 */
 	Node.prototype.play = function(move)
 	{
 		this._next = new Node(this, move);
-		return this._next;
+		return this._next.valid();
 	};
 
 	/**
@@ -321,12 +321,12 @@ Pgn = (function(Chess)
 	 * Define the first move of the variation.
 	 *
 	 * @param {string} move The new to be played.
-	 * @returns {Pgn.Node} The newly created node.
+	 * @returns {boolean} True if the move has actually been played, false if the move was badly formatted or illegal.
 	 */
 	Variation.prototype.play = function(move)
 	{
 		this._first = new Node(this, move);
-		return this._first;
+		return this._first.valid();
 	};
 
 
@@ -545,6 +545,7 @@ Pgn = (function(Chess)
 		var emptyLineFound = false; // whether an empty line has been encountered by skipBlank()
 		var token          = 0;     // current token
 		var tokenValue     = null;  // current token value (if any)
+		var tokenPos       = 0;     // position of the current token in the string
 
 		/**
 		 * Skip the blank and newline characters.
@@ -585,45 +586,53 @@ Pgn = (function(Chess)
 
 			// Remaining part of the string
 			s = pgnString.substr(pos);
+			var deltaPos = 0;
 
 			// Match a game header (ex: [White "Kasparov, G."])
 			if(/^(\[\s*(\w+)\s+\"([^\"]*)\"\s*\])/.test(s)) {
+				deltaPos   = RegExp.$1.length;
 				token      = TOKEN_HEADER;
 				tokenValue = {key: RegExp.$2, value: RegExp.$3};
 			}
 
 			// Match a move
 			else if(/^((?:[1-9][0-9]*\s*\.(?:\.\.)?\s*)?(O-O-O|O-O|[KQRBNP]?[a-h]?[1-8]?x?[a-h][1-8](?:=?[KQRBNP])?[\+#]?))/.test(s)) {
+				deltaPos   = RegExp.$1.length;
 				token      = TOKEN_MOVE;
 				tokenValue = RegExp.$2;
 			}
 
 			// Match a NAG
 			else if(/^(([!\?][!\?]?|\+\/?[\-=]|[\-=]\/?\+|=|inf)|\$([1-9][0-9]*))/.test(s)) {
+				deltaPos   = RegExp.$1.length;
 				token      = TOKEN_NAG;
 				tokenValue = RegExp.$3.length==0 ? SPECIAL_NAGS_LOOKUP[RegExp.$2] : parseInt(RegExp.$3);
 			}
 
 			// Match a commentary
 			else if(/^(\{([^\{\}]*)\})/.test(s)) {
+				deltaPos   = RegExp.$1.length;
 				token      = TOKEN_COMMENTARY;
-				tokenValue = RegExp.$2;
+				tokenValue = RegExp.$2.replace(/^\s+|\s+$/g, '');
 			}
 
 			// Match the beginning of a variation
 			else if(/^(\()/.test(s)) {
+				deltaPos   = RegExp.$1.length;
 				token      = TOKEN_BEGIN_VARIATION;
 				tokenValue = null;
 			}
 
 			// Match the end of a variation
 			else if(/^(\))/.test(s)) {
+				deltaPos   = RegExp.$1.length;
 				token      = TOKEN_END_VARIATION;
 				tokenValue = null;
 			}
 
 			// Match a end-of-game marker
 			else if(/^(1\-0|0\-1|1\/2\-1\/2|\*)/.test(s)) {
+				deltaPos   = RegExp.$1.length;
 				token      = TOKEN_END_OF_GAME;
 				tokenValue = RegExp.$1;
 			}
@@ -634,36 +643,111 @@ Pgn = (function(Chess)
 			}
 
 			// Increment the character pointer and return the result
-			pos += RegExp.$1.length;
+			tokenPos = pos;
+			pos += deltaPos;
 			return true;
 		}
 
 		// State variable for syntaxic analysis.
-		var retVal = Array();
-		var item   = null;
+		var retVal        = Array(); // returned object (array of Pgn.Item)
+		var item          = null;    // item being parsed (if any)
+		var node          = null;    // current node (or variation) to which the next move should be appended
+		var headerAllowed = false;   // indicate whether the parsing is currently in the header section of an item
+		var nodeStack     = Array(); // when starting to parse a variation, its parent node is stacked here
+
+		// Token loop
+		while(consumeToken())
+		{
+			// Create a new item if necessary
+			if(item==null) {
+				item          = new Item();
+				node          = item.mainVariation();
+				headerAllowed = true;
+			}
+
+			// Matching anything else different from a header means that headers are not allowed
+			// anymore for the current item.
+			if(token!=TOKEN_HEADER) {
+				headerAllowed = false;
+			}
+
+			// Header
+			if(token==TOKEN_HEADER) {
+				if(!headerAllowed) {
+					throw new ParsingException(pgnString, tokenPos, 'Unexpected PGN item header.');
+				}
+				item.header(tokenValue.key, tokenValue.value);
+
+				// The header 'FEN' has a special meaning, in that it is used to define a custom
+				// initial position, that may be different from the usual one.
+				if(tokenValue.key=='FEN') {
+					if(!item.defineInitialPosition(tokenValue.value)) {
+						throw new ParsingException(pgnString, tokenPos, 'Invalid FEN string.');
+					}
+				}
+			}
+
+			// Move
+			else if(token==TOKEN_MOVE) {
+				if(!node.play(tokenValue)) {
+					throw new ParsingException(pgnString, tokenPos, 'Invalid move.');
+				}
+				node = (node instanceof Variation) ? node.first() : node.next();
+			}
+
+			// NAG
+			else if(token==NAG) {
+				node.nags.push(tokenValue);
+			}
+
+			// Commentary
+			else if(token==TOKEN_COMMENTARY) {
+				node.commentary = tokenValue;
+			}
+
+			// Begin of variation
+			else if(token==TOKEN_BEGIN_VARIATION) {
+				if(!(node instanceof Node)) {
+					throw new ParsingException(pgnString, tokenPos, 'Unexpected begin of variation.');
+				}
+				nodeStack.push(node);
+				node = node.addVariation();
+			}
+
+			// End of variation
+			else if(token==TOKEN_END_VARIATION) {
+				if(nodeStack.length==0) {
+					throw new ParsingException(pgnString, tokenPos, 'Unexpected end of variation.');
+				}
+				node = nodeStack.pop();
+			}
+
+			// End-of-game
+			else if(token==TOKEN_END_OF_GAME) {
+				if(nodeStack.length>0) {
+					throw new ParsingException(pgnString, tokenPos, 'Unexpected end of game: there are pending variations.');
+				}
+				item.result = tokenValue;
+				retVal.push(item);
+				item = null;
+				node = null;
+			}
+		}
+
+		// Return the result
+		if(item!=null) {
+			throw new ParsingException(pgnString, pgnString.length, 'Unexpected end of text: there is a pending item.');
+		}
+		return retVal;
 
 		//TODO: remove this
-		while(consumeToken()) {
+		/*while(consumeToken()) {
 			if(emptyLineFound) {
 				console.log('<empty line>');
 			}
 			console.log(token, tokenValue);
-		}
-
-
-
-
-		/*skipBlank();
-		while(pos<pgnString.length) {
-			if(emptyLineFound) {
-				console.log('<empty line>');
-			}
-			console.log(pgnString.charAt(pos) + ' at pos. ' + pos);
-			++pos;
-			skipBlank();
 		}*/
 	}
-
 
 
 
