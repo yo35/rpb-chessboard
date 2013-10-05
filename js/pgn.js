@@ -739,14 +739,6 @@ Pgn = (function(Chess)
 			throw new ParsingException(pgnString, pgnString.length, 'Unexpected end of text: there is a pending item.');
 		}
 		return retVal;
-
-		//TODO: remove this
-		/*while(consumeToken()) {
-			if(emptyLineFound) {
-				console.log('<empty line>');
-			}
-			console.log(token, tokenValue);
-		}*/
 	}
 
 
