@@ -216,10 +216,10 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	 *
 	 * @memberof PgnWidget
 	 */
-	function renderPlayerInfo(pgnItem, color)
+	/*function renderPlayerInfo(pgnItem, color)
 	{
-
-	}
+	///TODO: remove
+	}*/
 
 	/**
 	 * Create a new DOM node to render the text commentary associated to the given PGN node.
@@ -576,92 +576,115 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	}
 
 	/**
-	 * Interpret the text in the DOM node domNodeIn as a PGN string, and process
-	 * the replacement tokens within domNodeOut with the values parsed from this
-	 * PGN string.
+	 * Display the error message resulting from a PGN parsing into the given DOM node.
+	 * All the existing content of this node is cleared.
 	 *
-	 * @public
-	 * @see {@link substituteSimpleField}
-	 * @param {Element} domNodeIn
-	 * @param {Element} domNodeOut
-	 * @param {Number} [squareSize] Size of the sprite to use to render the diagrams (if any).
-	 * @param {Boolean} [showCoordinates] Whether the row and column coordinates should be
-	 *        displayed on diagrams (if any).
+	 * @private
+	 *
+	 * @param {Pgn.ParsingException} error
+	 * @param {jQuery} targetNode
+	 *
+	 * @memberof PgnWidget
 	 */
-	function processPGN(domNodeIn, domNodeOut, squareSize, showCoordinates)
+	function displayErrorMessage(error, targetNode)
 	{
-		// Nothing to do if one of the DOM node is not valid
-		if(domNodeIn==null || domNodeOut==null) {
-			return;
-		}
+		targetNode.empty();
+		$('<span class="PgnWidget-error-title">Error while analysing a PGN string.</span>').appendTo(targetNode);
+		$('<span class="PgnWidget-error-message">' + error.message + '</span>').appendTo(targetNode);
+		if(error.pos>=0) {
+			var at = $('<span class="PgnWidget-error-at"></span>').appendTo(targetNode);
 
-		// Default arguments
-		if(squareSize     ==null) squareSize     =option.defaultSquareSize     ;
-		if(showCoordinates==null) showCoordinates=option.defaultShowCoordinates;
-
-		try
-		{
-			// Interpret the text within the input DOM node as a PGN string, and
-			// construct the associated PGN item object.
-			var pgnItems = parsePGN(domNodeIn.innerHTML);
-			var pgnItem  = pgnItems[0]; // only the first item is taken into account
-
-			// Create the navigation frame if necessary
-			makeNavigationFrame(domNodeOut);
-
-			// Substitution
-			substituteSimpleField(domNodeOut, "Event"    , pgnItem);
-			substituteSimpleField(domNodeOut, "Site"     , pgnItem);
-			substituteSimpleField(domNodeOut, "Date"     , pgnItem, formatDate );
-			substituteSimpleField(domNodeOut, "Round"    , pgnItem, formatRound);
-			substituteSimpleField(domNodeOut, "White"    , pgnItem);
-			substituteSimpleField(domNodeOut, "Black"    , pgnItem);
-			substituteSimpleField(domNodeOut, "Result"   , pgnItem);
-			substituteSimpleField(domNodeOut, "Annotator", pgnItem);
-			substituteFullName(domNodeOut, WHITE, pgnItem);
-			substituteFullName(domNodeOut, BLACK, pgnItem);
-			substituteMoves(domNodeOut, pgnItem, squareSize, showCoordinates);
-
-			// The input node is made invisible, while the output node is revealed.
-			domNodeIn .classList.add   ("jsChessLib-invisible");
-			domNodeOut.classList.remove("jsChessLib-invisible");
-			domNodeOut.classList.add   ("jsChessLib-out"      );
-		}
-
-		// Parsing exception are caught, while other kind of exceptions are forwarded.
-		catch(err) {
-			if(err instanceof PGNException) {
-				printDebug(err.message);
-				var pos1 = Math.max(0, err.position-50);
-				var lg1  = err.position-pos1;
-				var pos2 = err.position;
-				var lg2  = Math.min(50, err.pgnString.length-pos2);
-				printDebug(
-					"..." + err.pgnString.substr(pos1, lg1) + "{{{ERROR THERE}}}"
-					+ err.pgnString.substr(pos2, lg2) + "..."
-				);
+			// Special case: error at the end of the string
+			if(error.pos>=error.pgnString.length) {
+				at.append('Occurred at the end of string.');
 			}
+
+			// Otherwise, extract a sub-string of the PGN source around the position where the parsing fails.
 			else {
-				throw err;
+				at.append('Occurred at position ' + error.pos + ':');
+
+				// p1 => begin of the extracted sub-string
+				var p1 = pos - 20;
+				var e1 = '...';
+				if(p1<=0) {
+					p1 = 0;
+					e1 = '';
+				}
+
+				// p2 => end of the extracted sub-string (actually one character after)
+				var p2 = pos + 40;
+				var e2 = '...';
+				if(p2>=error.pgnString.length) {
+					p2 = error.pgnString.length;
+					e2 = '';
+				}
+
+				// Extract the sub-string around the position where the parsing fails.
+				var text = e1 + error.pgnString.substr(p1, p2-p1) + e2;
+				text.replace(/\n/g, ' ');
+				text += '\n' + Array(1 + e1.length + (pos-p1)).join(' ') + '^^^';
+				$('<pre>' + text + '</pre>').appendTo(at);
 			}
 		}
 	}
 
 	/**
-	 * Call the processPGN method using the node identified by ID 'domID+"-in"' as
-	 * input, and the node identified by ID 'domID+"-out"' as output.
+	 * Fill a DOM node with the information contained in a PGN item object.
 	 *
-	 * @public
-	 * @see {@link processPGN}
-	 * @param {String} domID ID prefix of the DOM nodes to process.
-	 * @param {Number} [squareSize] Size of the sprite to use to render the diagrams (if any).
-	 * @param {Boolean} [showCoordinates] Whether the row and column coordinates should be
-	 *        displayed on diagrams (if any).
+	 * @param {(Pgn.Item|string)} pgn PGN data to represent.
+	 *
+	 * If the argument is a string, the function will try to parse it as a
+	 * PGN-formatted string. If the parsing fails, or if the string contains no PGN item,
+	 * the targeted DOM node is cleared, and an error message is displayed instead.
+	 *
+	 * @param {jQuery} targetNode
+	 * @param {ChessWidget.Options} [options=null] Default set of options for displaying inline diagrams.
+	 *
+	 * @memberof PgnWidget
 	 */
-	function processPGNByID(domID, squareSize, showCoordinates)
+	function makeAt(pgn, targetNode, options)
 	{
-		processPGN(document.getElementById(domID + "-in"), document.getElementById(domID + "-out"),
-			squareSize, showCoordinates);
+		// Default options
+		if(options==null) {
+			options = new Options();
+		}
+
+		// PGN parsing
+		if(typeof(pgn)=='string') {
+			try {
+				var items = Pgn.parse(pgn);
+				if(items.length==0) {
+					throw new Pgn.ParsingException(pgn, null, 'Unexpected empty PGN data.');
+				}
+				pgn = items[0];
+			}
+
+			// Catch the parsing errors
+			catch(error) {
+				if(error instanceof Pgn.ParsingException) {
+					displayErrorMessage(error, targetNode);
+				}
+				else { // unkown exception are re-thrown
+					throw error;
+				}
+			}
+		}
+
+		// Create the navigation frame if necessary
+		makeNavigationFrame(targetNode);
+
+		// Substitution
+		substituteSimpleField(targetNode, "Event"    , pgn);
+		substituteSimpleField(targetNode, "Site"     , pgn);
+		substituteSimpleField(targetNode, "Date"     , pgn, formatDate );
+		substituteSimpleField(targetNode, "Round"    , pgn, formatRound);
+		substituteSimpleField(targetNode, "White"    , pgn);
+		substituteSimpleField(targetNode, "Black"    , pgn);
+		substituteSimpleField(targetNode, "Result"   , pgn);
+		substituteSimpleField(targetNode, "Annotator", pgn);
+		substituteFullName(targetNode, 'w', pgn);
+		substituteFullName(targetNode, 'b', pgn);
+		substituteMoves(targetNode, pgn, options);
 	}
 
 	/**
