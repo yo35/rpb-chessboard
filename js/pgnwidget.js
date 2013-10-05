@@ -287,7 +287,7 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 		// Visit all the PGN nodes (one node per move) within the variation
 		var forcePrintMoveNumber = true;
 		var pgnNode              = pgnVariation.first();
-		while(currentPgnNode!=null)
+		while(pgnNode!=null)
 		{
 			// Create the DOM node that will contains the basic move informations
 			// (i.e. move number, notation, NAGs)
@@ -323,7 +323,7 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 
 			// Back to the current variation
 			forcePrintMoveNumber = (pgnNode.commentary!='' || pgnNode.variations()>0);
-			currentPgnNode = currentPgnNode.next;
+			pgnNode = pgnNode.next();
 		}
 
 		// Return the result
@@ -568,7 +568,7 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 			}
 
 			// Process each anchor node
-			var anchors = $('.PgnWidget-anchor-moves' + color, e);
+			var anchors = $('.PgnWidget-anchor-moves', e);
 			anchors.append(renderMoves(pgnItem, options));
 			anchors.addClass   ('PgnWidget-value-moves' );
 			anchors.removeClass('PgnWidget-anchor-moves');
@@ -646,7 +646,7 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	{
 		// Default options
 		if(options==null) {
-			options = new Options();
+			options = new ChessWidget.Options();
 		}
 
 		// PGN parsing
