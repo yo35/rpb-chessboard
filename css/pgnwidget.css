@@ -42,6 +42,7 @@ pre.jsChessLib-pgn-source {
 	color: #404000;
 	font-size: 90%;
 	line-height: 1em;
+	white-space: pre-wrap;
 }
 
 
