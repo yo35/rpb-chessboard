@@ -247,9 +247,7 @@ ChessWidget = (function(Chess, $)
 	/**
 	 * Create a new DOM node representing a chess diagram.
 	 *
-	 * @param {(Chess|string)} Chess position
-	 *
-	 * Chess position to represent.
+	 * @param {(Chess|string)} position Chess position to represent.
 	 *
 	 * If the argument is a string, the function will try to parse it as a
 	 * FEN-formatted string. If the parsing fails, an empty chess position will
