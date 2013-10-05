@@ -94,25 +94,30 @@
 
 .PgnWidget-move,
 .PgnWidget-commentary,
-.PgnWidget-variation-sub {
+.PgnWidget-shortVariation {
 	margin-right: 5px;
 }
 
 .PgnWidget-move:last-child,
 .PgnWidget-commentary:last-child,
-.PgnWidget-variation-sub:last-child {
+.PgnWidget-shortVariation:last-child {
 	margin-right: 0px;
 }
 
-.PgnWidget-variation-sub:before {
+.PgnWidget-shortVariation:before {
 	content: "(";
 }
 
-.PgnWidget-variation-sub:after {
+.PgnWidget-shortVariation:after {
 	content: ")";
 }
 
-.PgnWidget-longCommentary {
-	margin-top: 5px;
+.PgnWidget-longCommentary,
+.PgnWidget-longVariation.PgnWidget-variation-sub {
+	margin-top   : 5px;
 	margin-bottom: 5px;
+}
+
+.PgnWidget-longVariation.PgnWidget-variation-sub {
+	margin-left: 20px;
 }

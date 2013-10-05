@@ -258,7 +258,11 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	function renderVariation(pgnVariation, depth, options)
 	{
 		// Allocate the returned DOM node
-		var retVal = $('<span class="PgnWidget-variation-'+(depth==0 ? 'main' : 'sub')+'"></span>');
+		var retVal = $(pgnVariation.isLongVariation() ?
+			'<div class="PgnWidget-longVariation"></div>' :
+			'<span class="PgnWidget-shortVariation"></span>'
+		);
+		retVal.addClass('PgnWidget-variation-' + (depth==0 ? 'main' : 'sub'));
 		var moveGroup = $('<span class="PgnWidget-moveGroup"></span>').appendTo(retVal);
 
 		// Append a fake move at the beginning of the main variation,
@@ -317,8 +321,14 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 			}
 
 			// Sub-variations starting from the current point in PGN tree
-			for(var k=0; k<pgnNode.variations(); ++k) {
-				moveGroup.append(renderVariation(pgnNode.variation(k), depth+1, options));
+			if(pgnNode.variations()>0) {
+				var variationParent = pgnNode.areLongVariations ? retVal : moveGroup;
+				for(var k=0; k<pgnNode.variations(); ++k) {
+					variationParent.append(renderVariation(pgnNode.variation(k), depth+1, options));
+				}
+				if(pgnNode.areLongVariations) {
+					moveGroup = $('<span class="PgnWidget-moveGroup"></span>').appendTo(retVal);
+				}
 			}
 
 			// Back to the current variation
