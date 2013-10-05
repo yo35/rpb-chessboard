@@ -79,13 +79,13 @@ Pgn = (function(Chess)
 		this.nags = [];
 
 		/**
-		 * @member {boolean} longCommentary
+		 * @member {boolean} isLongCommentary
 		 * @memberof Pgn.Node
 		 * @instance
 		 * @desc Whether the commentary associated to the move should be considred as a "long" commentary,
 		 *       and therefored displayed in an isolated block.
 		 */
-		this.longCommentary = false;
+		this.isLongCommentary = false;
 
 		/**
 		 * @member {string} commentary
@@ -728,7 +728,7 @@ Pgn = (function(Chess)
 			// Commentary
 			else if(token==TOKEN_COMMENTARY) {
 				if((node instanceof Node) && emptyLineFound) {
-					node.longCommentary = true;
+					node.isLongCommentary = true;
 				}
 				node.commentary = tokenValue;
 			}
