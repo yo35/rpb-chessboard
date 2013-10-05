@@ -92,24 +92,11 @@ div#jsChessLib-navigation-frame #jsChessLib-navigation-buttons {
 	display: none;
 }
 
-span.jsChessLib-move,
-span.jsChessLib-commentary-short {
-	margin-right: 5px;
-}
-
-span.jsChessLib-commentary-long,
-span.jsChessLib-variation-main,
-span.jsChessLib-variation-sub {
-	display: block;
-}
-
-span.jsChessLib-commentary-long,
-span.jsChessLib-variation-sub {
-	margin-left  : 10px;
-	margin-top   :  4px;
-	margin-bottom:  4px;
-}
-
 .PgnWidget-variation-sub .PgnWidget-move {
 	font-weight: inherit;
+}
+
+.PgnWidget-move,
+.PgnWidget-commentary {
+	margin-right: 5px;
 }
