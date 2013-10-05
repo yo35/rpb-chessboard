@@ -9,6 +9,7 @@
  * @requires pgn.js
  * @requires chesswidget.js
  * @requires jQuery
+ * @requires jQuery-color
  */
 var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 {
@@ -148,7 +149,7 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	 */
 	function formatRound(round)
 	{
-		return (round==null || round=="?") ? null : round;
+		return (round==null || round=='?') ? null : round;
 	}
 
 	/**
@@ -200,7 +201,7 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 			return null;
 		}
 		else if(option.nag[nag]==null)
-			return "$" + nag;
+			return '$' + nag;
 		else
 			return option.nag[nag];
 	}
@@ -229,7 +230,7 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 		var retVal = $('<span class="PgnWidget-commentary">' + pgnNode.commentary + '</span>');
 
 		// Render diagrams where requested
-		$(".PgnWidget-anchor-diagram", retVal).each(function(index, e) {
+		$('.PgnWidget-anchor-diagram', retVal).each(function(index, e) {
 			$(e).replaceWith(ChessWidget.make(pgnNode.position(), options));
 		});
 
@@ -276,17 +277,17 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 			// Create the DOM node that will contains the basic move informations
 			// (i.e. move number, notation, NAGs)
 			var move = $('<span class="PgnWidget-move"></span>').appendTo(retVal);
-			move.data("position", pgnNode.position());
+			move.data('position', pgnNode.position());
 			move.click(function() { showNavigationFrame($(this)); });
 
 			// Write the move number
 			var moveNumber = $(
 				'<span class="PgnWidget-move-number">' +
-					pgnNode.fullMoveNumber() + (pgnNode.moveColor()=='w' ? "." : "\u2026") +
+					pgnNode.fullMoveNumber() + (pgnNode.moveColor()=='w' ? '.' : '\u2026') +
 				'</span>'
 			).appendTo(move);
 			if(!(forcePrintMoveNumber || pgnNode.moveColor()=='w')) {
-				moveNumber.addClass("PgnWidget-invisible");
+				moveNumber.addClass('PgnWidget-invisible');
 			}
 
 			// Write the notation
@@ -312,22 +313,6 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 
 		// Return the result
 		return retVal;
-	}
-
-	/**
-	 * Create a new DOM node to render the main variation (with its associated sub-variation if any).
-	 *
-	 * @private
-	 *
-	 * @param {Pgn.Item} pgnItem PGN item object whose associated move tree should be rendered.
-	 * @param {ChessWidget.Options} options Default set of options for displaying inline diagrams.
-	 * @returns {jQuery}
-	 *
-	 * @memberof PgnWidget
-	 */
-	function renderMoves(pgnItem, options)
-	{
-		return renderVariation(pgnItem.mainVariation(), 0, options);
 	}
 
 	/**
@@ -436,8 +421,8 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 			// Title + elo
 			var title = pgnItem.header(color + 'Title');
 			var elo   = pgnItem.header(color + 'Elo'  );
-			var titleDefined = (title!=null && title!="-");
-			var eloDefined   = (elo  !=null && elo  !="?");
+			var titleDefined = (title!=null && title!='-');
+			var eloDefined   = (elo  !=null && elo  !='?');
 
 			// Process each anchor node
 			var anchors = $('.PgnWidget-anchor-fullName' + color, e);
@@ -496,7 +481,7 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 
 			// Process each anchor node
 			var anchors = $('.PgnWidget-anchor-moves', e);
-			anchors.append(renderMoves(pgnItem, options));
+			anchors.append(renderVariation(pgnItem.mainVariation(), 0, options));
 			anchors.addClass   ('PgnWidget-value-moves' );
 			anchors.removeClass('PgnWidget-anchor-moves');
 		});
@@ -620,24 +605,26 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	 * appended as a child of the given DOM node.
 	 *
 	 * @private
-	 * @param {Element} parentNode The newly created navigation frame will be
-	 *        appended as a child of this node.
+	 *
+	 * @param {jQuery} parentNode
+	 *
+	 * @memberof PgnWidget
 	 */
 	function makeNavigationFrame(parentNode)
 	{
-		if($("jsChessLib-navigation-frame").length!=0) {
+		if($('#PgnWidget-navigation-frame').length!=0) {
 			return;
 		}
 
 		// Structure of the navigation frame
 		$(
-			'<div id="jsChessLib-navigation-frame">' +
-				'<div id="jsChessLib-navigation-content"></div>' +
-				'<div id="jsChessLib-navigation-buttons">' +
-					'<button id="jsChessLib-navigation-button-frst">&lt;&lt;</button>' +
-					'<button id="jsChessLib-navigation-button-prev">&lt;</button>' +
-					'<button id="jsChessLib-navigation-button-next">&gt;</button>' +
-					'<button id="jsChessLib-navigation-button-last">&gt;&gt;</button>' +
+			'<div id="PgnWidget-navigation-frame" class="PgnWidget-invisible">' +
+				'<div id="PgnWidget-navigation-content"></div>' +
+				'<div id="PgnWidget-navigation-buttons">' +
+					'<button id="PgnWidget-navigation-button-frst">&lt;&lt;</button>' +
+					'<button id="PgnWidget-navigation-button-prev">&lt;</button>' +
+					'<button id="PgnWidget-navigation-button-next">&gt;</button>' +
+					'<button id="PgnWidget-navigation-button-last">&gt;&gt;</button>' +
 				'</div>' +
 			'</div>'
 		).appendTo(parentNode);
@@ -645,47 +632,45 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 		// Widgetization
 		$(document).ready(function()
 		{
+			// Remove the temporary "invisible" flag.
+			$('#PgnWidget-navigation-frame').removeClass('PgnWidget-invisible');
+
 			// Create the dialog structure
-			$("#jsChessLib-navigation-frame").dialog({
+			$('#PgnWidget-navigation-frame').dialog({
 				/* Hack to keep the dialog draggable after the page has being scrolled. */
-				create     : function(event, ui) { $(event.target).parent().css("position", "fixed"); },
-				resizeStart: function(event, ui) { $(event.target).parent().css("position", "fixed"); },
-				resizeStop : function(event, ui) { $(event.target).parent().css("position", "fixed"); },
+				create     : function(event, ui) { $(event.target).parent().css('position', 'fixed'); },
+				resizeStart: function(event, ui) { $(event.target).parent().css('position', 'fixed'); },
+				resizeStop : function(event, ui) { $(event.target).parent().css('position', 'fixed'); },
 				/* End of hack */
 				autoOpen: false,
-				width   : "auto",
+				width   : 'auto',
 				close   : function(event, ui) { unselectMove(); }
 			});
 
 			// Create the buttons
-			$("#jsChessLib-navigation-button-frst").button().click(function() { goFrstMove(); });
-			$("#jsChessLib-navigation-button-prev").button().click(function() { goPrevMove(); });
-			$("#jsChessLib-navigation-button-next").button().click(function() { goNextMove(); });
-			$("#jsChessLib-navigation-button-last").button().click(function() { goLastMove(); });
+			$('#PgnWidget-navigation-button-frst').button().click(function() { goFrstMove(); });
+			$('#PgnWidget-navigation-button-prev').button().click(function() { goPrevMove(); });
+			$('#PgnWidget-navigation-button-next').button().click(function() { goNextMove(); });
+			$('#PgnWidget-navigation-button-last').button().click(function() { goLastMove(); });
 		});
 	}
 
 	/**
 	 * Show the navigation frame if not visible yet, and update the diagram in this
 	 * frame with the position corresponding to the move that is referred by the
-	 * given DOM node. By the way, this node must have class 'jsChessLib-move',
+	 * given DOM node. By the way, this node must have class 'PgnWidget-move',
 	 * otherwise nothing happens.
 	 *
 	 * @private
-	 * @param {jQuery} domNode Node whose position should be displayed.
-	 *        This node is supposed to be tagged with the class 'jsChessLib-move'.
+	 *
+	 * @param {jQuery} domNode
+	 *
+	 * @memberof PgnWidget
 	 */
 	function showNavigationFrame(domNode)
 	{
-		// Nothing to do if the move is already selected
-		if(domNode.attr("id")=="jsChessLib-selected-move") {
-			return;
-		}
-
-		// Retrieve the position corresponding to the current node
-		var position = $(domNode).data("position");
-		if(position==null) {
-			$("#jsChessLib-navigation-frame").dialog("close");
+		// Nothing to do if no node is provided or if the move is already selected.
+		if(domNode.length==0 || domNode.attr('id')=='PgnWidget-selected-move') {
 			return;
 		}
 
@@ -693,37 +678,40 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 		selectMove(domNode);
 
 		// Fill the miniboard in the navigation frame
-		var navFrameContent = $("#jsChessLib-navigation-content");
+		var navFrameContent = $('#PgnWidget-navigation-content');
 		navFrameContent.empty();
-		navFrameContent.append(renderPosition(position, option.navigationFrameSquareSize,
-			option.navigationFrameShowCoordinates));
+		navFrameContent.append(ChessWidget.make(domNode.data('position')));
 
 		// Make the navigation frame visible
-		var navFrame = $("#jsChessLib-navigation-frame");
-		navFrame.dialog("option", "title", domNode.text());
-		if(!navFrame.dialog("isOpen")) {
-			navFrame.dialog("option", "position", { my: "center", at: "center", of: window });
+		var navFrame = $('#PgnWidget-navigation-frame');
+		navFrame.dialog('option', 'title', domNode.text());
+		if(!navFrame.dialog('isOpen')) {
+			navFrame.dialog('option', 'position', { my: 'center', at: 'center', of: window });
 		}
-		navFrame.dialog("open");
+		navFrame.dialog('open');
 	}
 
 	/**
 	 * Return a contrasted color.
 	 *
 	 * @private
-	 * @param {String} cssColorString Color specification as mentioned in a CSS property.
+	 *
+	 * @param {String} colorString Color specification as mentioned in a CSS property.
+	 * @returns {string}
+	 *
+	 * @memberof PgnWidget
 	 */
-	function contrastColor(cssColorString)
+	function contrastedColor(colorString)
 	{
 		// Parsing
-		var color = $.Color(cssColorString); // Require the jQuery-color plugin
+		var color = $.Color(colorString); // Require the jQuery-color plugin
 
 		// Two cases based on the value of the lightness component
 		if(color.lightness()>0.5) {
-			return "black";
+			return 'black';
 		}
 		else {
-			return "white";
+			return 'white';
 		}
 	}
 
@@ -731,138 +719,75 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	 * Make the given move appear as selected.
 	 *
 	 * @private
-	 * @param {jQuery} domNode Node to select. This node is supposed to be tagged
-	 *        with the class 'jsChessLib-move'.
+	 *
+	 * @param {jQuery} domNode Node to select (it is supposed to be have class 'PgnWidget-move').
+	 *
+	 * @memberof PgnWidget
 	 */
 	function selectMove(domNode)
 	{
 		unselectMove();
-		domNode.attr("id", "jsChessLib-selected-move");
-		var color = domNode.css("color");
-		domNode.css("background-color", color);
-		domNode.css("color", contrastColor(color));
+		domNode.attr('id', 'PgnWidget-selected-move');
+		var color = domNode.css('color');
+		domNode.css('background-color', color);
+		domNode.css('color', contrastedColor(color));
 	}
 
 	/**
 	 * Unselect the selected move, if any.
 	 *
 	 * @private
+	 * @memberof PgnWidget
 	 */
 	function unselectMove()
 	{
-		var selectedMove = $("#jsChessLib-selected-move");
-		selectedMove.attr("id"   , null);
-		selectedMove.attr("style", null);
-	}
-
-	/**
-	 * Extract the list of direct children (the grandchildren are not considered)
-	 * of the given DOM node that have the class 'jsChessLib-move'.
-	 *
-	 * @private
-	 * @param   {Element} domNode Node to search in.
-	 * @returns {Array} List of DOM nodes whose parent is 'domNode' and who are
-	 *          tagged with the class 'jsChessLib-move'.
-	 */
-	function extractChildMoves(domNode)
-	{
-		var retVal = new Array();
-		for(var currentNode=domNode.firstChild; currentNode!=null; currentNode=currentNode.nextSibling) {
-			if(currentNode.classList.contains("jsChessLib-move")) {
-				retVal.push(currentNode);
-			}
-		}
-		return retVal;
+		var selectedMove = $('#PgnWidget-selected-move');
+		selectedMove.attr('id'   , null);
+		selectedMove.attr('style', null);
 	}
 
 	/**
 	 * Go to the first move of the current variation.
 	 *
 	 * @private
+	 * @memberof PgnWidget
 	 */
 	function goFrstMove()
 	{
-		// Retrieve node corresponding to the current move
-		var currentSelectedNode = document.getElementById("jsChessLib-selected-move");
-		if(currentSelectedNode==null) {
-			return;
-		}
-
-		// All the move nodes in with the same parent
-		var moveNodes = extractChildMoves(currentSelectedNode.parentNode);
-		if(moveNodes.length>0) {
-			showNavigationFrame($(moveNodes[0]));
-		}
+		showNavigationFrame($('#PgnWidget-selected-move').prevAll('.PgnWidget-move').last());
 	}
 
 	/**
 	 * Go to the previous move of the current variation.
 	 *
 	 * @private
+	 * @memberof PgnWidget
 	 */
 	function goPrevMove()
 	{
-		// Retrieve node corresponding to the current move
-		var currentSelectedNode = document.getElementById("jsChessLib-selected-move");
-		if(currentSelectedNode==null) {
-			return;
-		}
-
-		// All the move nodes in with the same parent
-		var moveNodes = extractChildMoves(currentSelectedNode.parentNode);
-		for(var k=0; k<moveNodes.length; ++k) {
-			if(moveNodes[k]==currentSelectedNode) {
-				if(k>0) {
-					showNavigationFrame($(moveNodes[k-1]));
-				}
-				return;
-			}
-		}
+		showNavigationFrame($('#PgnWidget-selected-move').prevAll('.PgnWidget-move').first());
 	}
 
 	/**
 	 * Go to the next move of the current variation.
 	 *
 	 * @private
+	 * @memberof PgnWidget
 	 */
 	function goNextMove()
 	{
-		// Retrieve node corresponding to the current move
-		var currentSelectedNode = document.getElementById("jsChessLib-selected-move");
-		if(currentSelectedNode==null) {
-			return;
-		}
-
-		// All the move nodes in with the same parent
-		var moveNodes = extractChildMoves(currentSelectedNode.parentNode);
-		for(var k=0; k<moveNodes.length; ++k) {
-			if(moveNodes[k]==currentSelectedNode) {
-				if(k<moveNodes.length-1) {
-					showNavigationFrame($(moveNodes[k+1]));
-				}
-				return;
-			}
-		}
+		showNavigationFrame($('#PgnWidget-selected-move').nextAll('.PgnWidget-move').first());
 	}
 
 	/**
 	 * Go to the last move of the current variation.
 	 *
 	 * @private
+	 * @memberof PgnWidget
 	 */
 	function goLastMove()
 	{
-		// Retrieve node corresponding to the current move
-		var currentSelectedNode = document.getElementById("jsChessLib-selected-move");
-		if(currentSelectedNode==null) {
-			return;
-		}
-
-		// All the move nodes in with the same parent
-		var moveNodes = extractChildMoves(currentSelectedNode.parentNode);
-		if(moveNodes.length>0) {
-			showNavigationFrame($(moveNodes[moveNodes.length-1]));
-		}
+		showNavigationFrame($('#PgnWidget-selected-move').nextAll('.PgnWidget-move').last());
 	}
 
 	// Return the module object
