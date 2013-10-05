@@ -52,7 +52,7 @@
 		<div class="rpbchessboard-admin-visu-block">
 			<p><?php _e('White to move and mate in two:', 'rpbchessboard'); ?></p>
 			<pre id="rpbchessboard-admin-example1-in">r2qkbnr/ppp2ppp/2np4/4N3/2B1P3/2N5/PPPP1PPP/R1BbK2R w KQkq - 0 6</pre>
-			<div id="rpbchessboard-admin-example1-out"></div>
+			<div id="rpbchessboard-admin-example1-out" class="rpbchessboard-invisible"></div>
 			<script type="text/javascript">
 				processFEN('rpbchessboard-admin-example1-in', 'rpbchessboard-admin-example1-out');
 			</script>
@@ -150,7 +150,7 @@
 
 	<div class="rpbchessboard-admin-column-right">
 		<div class="rpbchessboard-admin-visu-block">
-			<pre class="jsChessLib-pgn-source" id="rpbchessboard-admin-example3-in">
+			<pre id="rpbchessboard-admin-example2-in">
 				[Event "1<sup>st</sup> American Chess Congress"]
 				[Site "New York, NY USA"]
 				[Date "1857.11.03"]
@@ -165,7 +165,7 @@
 				17. Qa6
 
 				{
-					<span class="jsChessLib-anchor-diagram"></span>
+					<span class="PgnWidget-anchor-diagram">a</span>
 					<?php
 						_e(
 							'Morphy took twelve minutes over his next move, '.
@@ -188,31 +188,31 @@
 				{<?php _e('Absolutely forced.', 'rpbchessboard'); ?>}
 				25... Bxf1 26. Rxf1 Re2 27. Ra1 Rh6 28. d4 Be3 0-1
 			</pre>
-			<div class="jsChessLib-invisible" id="rpbchessboard-admin-example3-out">
+			<div id="rpbchessboard-admin-example2-out" class="rpbchessboard-invisible">
 				<div class="rpbchessboard-game-head">
-					<div class="jsChessLib-field-fullNameWhite">
-						<span class="rpbchessboard-white-square">&nbsp;</span>
-						<span class="jsChessLib-anchor-fullNameWhite"></span>
+					<div class="PgnWidget-field-fullNameWhite">
+						<span class="rpbchessboard-white-square"></span>
+						<span class="PgnWidget-anchor-fullNameWhite"></span>
 					</div>
-					<div class="jsChessLib-field-fullNameBlack">
-						<span class="rpbchessboard-black-square">&nbsp;</span>
-						<span class="jsChessLib-anchor-fullNameBlack"></span>
+					<div class="PgnWidget-field-fullNameBlack">
+						<span class="rpbchessboard-black-square"></span>
+						<span class="PgnWidget-anchor-fullNameBlack"></span>
 					</div>
-					<div class="jsChessLib-field-Event">
-						<span class="jsChessLib-anchor-Event"></span>
-						<span class="jsChessLib-field-Round">(<span class="jsChessLib-anchor-Round"></span>)</span>
-						<span class="jsChessLib-field-Date">- <span class="jsChessLib-anchor-Date"></span></span>
+					<div class="PgnWidget-field-Event">
+						<span class="PgnWidget-anchor-Event"></span>
+						<span class="PgnWidget-field-Round">(<span class="PgnWidget-anchor-Round"></span>)</span>
+						<span class="PgnWidget-field-Date">- <span class="PgnWidget-anchor-Date"></span></span>
 					</div>
 				</div>
-				<div class="rpbchessboard-game-body jsChessLib-field-moves">
-					<span class="jsChessLib-anchor-moves"></span>
-					<div class="jsChessLib-field-Result">
-						<span class="jsChessLib-anchor-Result"></span>
+				<div class="rpbchessboard-game-body PgnWidget-field-moves">
+					<span class="PgnWidget-anchor-moves"></span>
+					<div class="PgnWidget-field-Result">
+						<span class="PgnWidget-anchor-Result"></span>
 					</div>
 				</div>
 			</div>
 			<script type="text/javascript">
-				jsChessRenderer.processPGNByID("rpbchessboard-admin-example3");
+				processPGN('rpbchessboard-admin-example2-in', 'rpbchessboard-admin-example2-out');
 			</script>
 		</div>
 	</div>
