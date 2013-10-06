@@ -1,11 +1,7 @@
 
 <div id="rpbchessboard-admin-options">
 
-	<h3><?php _e('Options', 'rpbchessboard'); ?></h3>
-
-
-
-	<h4><?php _e('Default chessboard aspect', 'rpbchessboard'); ?></h4>
+	<h3><?php _e('Default chessboard aspect', 'rpbchessboard'); ?></h3>
 
 	<div class="rpbchessboard-admin-columns">
 
