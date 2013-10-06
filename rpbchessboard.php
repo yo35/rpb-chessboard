@@ -36,6 +36,7 @@ function rpbchessboard_enqueue_script()
 	wp_enqueue_script('jquery-ui-resizable');
 	wp_enqueue_script('jquery-ui-dialog'   );
 	wp_enqueue_script('jquery-ui-button'   );
+	wp_enqueue_script('jquery-ui-slider'   );
 	wp_enqueue_script('rpbchessboard-chessjs'    );
 	wp_enqueue_script('rpbchessboard-pgn'        );
 	wp_enqueue_script('rpbchessboard-chesswidget');
