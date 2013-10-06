@@ -68,3 +68,12 @@
 #rpbchessboard-admin-memo .rpbchessboard-admin-column-right {
 	width: 50%;
 }
+
+
+
+/******************************************************************************/
+/*** Options tab ***/
+
+#rpbchessboard-admin-options .rpbchessboard-admin-column-left {
+	width: 250px;
+}
