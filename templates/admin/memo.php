@@ -56,7 +56,8 @@
 			</pre>
 			<div id="rpbchessboard-admin-example1-out" class="rpbchessboard-invisible"></div>
 			<script type="text/javascript">
-				processFEN('rpbchessboard-admin-example1-in', 'rpbchessboard-admin-example1-out');
+				processFEN('rpbchessboard-admin-example1-in', 'rpbchessboard-admin-example1-out',
+					{squareSize: 28});
 			</script>
 			<p>
 				<?php _e(
@@ -210,7 +211,8 @@
 				</div>
 			</div>
 			<script type="text/javascript">
-				processPGN('rpbchessboard-admin-example2-in', 'rpbchessboard-admin-example2-out');
+				processPGN('rpbchessboard-admin-example2-in', 'rpbchessboard-admin-example2-out',
+					{squareSize: 28});
 			</script>
 		</div>
 	</div>

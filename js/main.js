@@ -1,13 +1,22 @@
 
 /**
+ * Default options applicable to the chess widgets.
+ * @type {ChessWidget.Options}
+ */
+var defaultChessWidgetOptions = null;
+
+
+
+/**
  * Read the text in the DOM node identified by `nodeInID`, try to interpret it
  * as a FEN string, and render the corresponding chessboard widget
  * in the DOM node identified by `nodeOutID`.
  *
  * @param {string} nodeInID
  * @param {string} nodeOutID
+ * @param {ChessWidget.Attributes} [chessWidgetAttributes=null]
  */
-function processFEN(nodeInID, nodeOutID)
+function processFEN(nodeInID, nodeOutID, chessWidgetAttributes)
 {
 	// Retrieve the nodes
 	var nodeIn  = jQuery('#' + nodeInID );
@@ -17,13 +26,16 @@ function processFEN(nodeInID, nodeOutID)
 	var fen = nodeIn.text();
 
 	// Clear nodeOut and put the chess widget as its child
+	var options = new ChessWidget.Options(defaultChessWidgetOptions, chessWidgetAttributes);
 	nodeOut.empty();
-	nodeOut.append(ChessWidget.make(fen));
+	nodeOut.append(ChessWidget.make(fen, options));
 
 	// Make nodeIn invisible
 	nodeIn .addClass   ('rpbchessboard-invisible');
 	nodeOut.removeClass('rpbchessboard-invisible');
 }
+
+
 
 /**
  * Read the text in the DOM node identified by `nodeInID`, try to interpret it
@@ -32,8 +44,9 @@ function processFEN(nodeInID, nodeOutID)
  *
  * @param {string} nodeInID
  * @param {string} nodeOutID
+ * @param {ChessWidget.Attributes} [chessWidgetAttributes=null]
  */
-function processPGN(nodeInID, nodeOutID)
+function processPGN(nodeInID, nodeOutID, chessWidgetAttributes)
 {
 	// Retrieve the nodes
 	var nodeIn  = jQuery('#' + nodeInID );
@@ -43,7 +56,8 @@ function processPGN(nodeInID, nodeOutID)
 	var pgn = nodeIn.html();
 
 	// PGN rendering
-	PgnWidget.makeAt(pgn, nodeOut);
+	var options = new ChessWidget.Options(defaultChessWidgetOptions, chessWidgetAttributes);
+	PgnWidget.makeAt(pgn, nodeOut, options);
 
 	// Make nodeIn invisible, and nodeOut visible.
 	nodeIn .addClass   ('rpbchessboard-invisible');

@@ -11,6 +11,11 @@
 ChessWidget = (function(Chess, $)
 {
 	/**
+	 * @typedef {{squareSize: number, showCoordinates: boolean}} Attributes
+	 * @desc Compact definition of a set of options applicable to a chess widget.
+	 */
+
+	/**
 	 * @constructor
 	 * @alias Options
 	 * @memberof ChessWidget
@@ -28,8 +33,9 @@ ChessWidget = (function(Chess, $)
 	 * @desc Create a new set of options.
 	 *
 	 * @param {ChessWidget.Options} [parent=null]
+	 * @param {ChessWidget.Attributes} [val=null] Pre-defined values for the options.
 	 */
-	function Options(parent)
+	function Options(parent, val)
 	{
 		/**
 		 * @member {ChessWidget.Options} _parent
@@ -57,6 +63,12 @@ ChessWidget = (function(Chess, $)
 		 * @private
 		 */
 		this._showCoordinates = null;
+
+		// Default values
+		if(val!=null) {
+			if(val.squareSize     !=null) this.setSquareSize     (val.squareSize     );
+			if(val.showCoordinates!=null) this.setShowCoordinates(val.showCoordinates);
+		}
 	}
 
 	/**
