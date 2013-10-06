@@ -1,8 +1,42 @@
 
+
+/******************************************************************************/
+/*** Miscellaneous ***/
+
 #rpbchessboard-admin-icon {
 	display: inline-block;
 	vertical-align: middle;
 }
+
+
+
+/******************************************************************************/
+/*** Column layout ***/
+
+.rpbchessboard-admin-columns {
+	display: table;
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.rpbchessboard-admin-column-left,
+.rpbchessboard-admin-column-right {
+	display: table-cell;
+	vertical-align: top;
+}
+
+.rpbchessboard-admin-column-left {
+	padding-right: 10px;
+}
+
+.rpbchessboard-admin-column-right {
+	padding-left: 10px;
+}
+
+
+
+/******************************************************************************/
+/*** Memo tab ***/
 
 .rpbchessboard-admin-code-block,
 .rpbchessboard-admin-code-inline {
@@ -27,24 +61,10 @@
 	line-height: 1.3em;
 }
 
-.rpbchessboard-admin-columns {
-	display: table;
-	width: 100%;
-	border-collapse: collapse;
-}
-
-.rpbchessboard-admin-column-left,
-.rpbchessboard-admin-column-right {
-	display: table-cell;
-	vertical-align: top;
-}
-
-.rpbchessboard-admin-column-left {
-	padding-right: 10px;
+#rpbchessboard-admin-memo .rpbchessboard-admin-column-left {
 	width: 50%;
 }
 
-.rpbchessboard-admin-column-right {
-	padding-left: 10px;
+#rpbchessboard-admin-memo .rpbchessboard-admin-column-right {
 	width: 50%;
 }
