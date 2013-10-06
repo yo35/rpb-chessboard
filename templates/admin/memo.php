@@ -1,8 +1,6 @@
 
 <div id="rpbchessboard-admin-memo">
 
-	<h3><?php _e('Reminder', 'rpbchessboard'); ?></h3>
-
 	<p>
 		<?php
 			_e(
@@ -18,7 +16,7 @@
 
 
 
-	<h4><?php _e('FEN diagram', 'rpbchessboard'); ?></h4>
+	<h3><?php _e('FEN diagram', 'rpbchessboard'); ?></h3>
 
 	<div class="rpbchessboard-admin-columns">
 
@@ -76,7 +74,7 @@
 
 
 
-	<h4><?php _e('PGN game', 'rpbchessboard'); ?></h4>
+	<h3><?php _e('PGN game', 'rpbchessboard'); ?></h3>
 
 	<div class="rpbchessboard-admin-columns">
 
