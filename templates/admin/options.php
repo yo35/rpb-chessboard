@@ -31,7 +31,7 @@
 	<script type="text/javascript">
 
 		// Initial variables
-		var squareSize      = 32  ;
+		var squareSize      = <?php echo json_encode($model->getSquareSize()); ?>;
 		var showCoordinates = true;
 
 
