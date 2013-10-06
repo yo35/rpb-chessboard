@@ -5,7 +5,7 @@
 
 
 
-	<h4><?php _e('Chessboard aspect', 'rpbchessboard'); ?></h4>
+	<h4><?php _e('Default chessboard aspect', 'rpbchessboard'); ?></h4>
 
 	<div class="rpbchessboard-admin-columns">
 
@@ -13,10 +13,16 @@
 			<p>
 				<input type="hidden" id="rpbchessboard-admin-squareSize" />
 				<?php echo sprintf(
-					__('Square size: %1$s pixels.', 'rpbchessboard'),
+					__('Square size: %1$s pixels', 'rpbchessboard'),
 					'<span id="rpbchessboard-admin-squareSize-label"></span>'
 				); ?>
 				<div id="rpbchessboard-admin-squareSize-slider"></div>
+			</p>
+			<p>
+				<input type="checkbox" id="rpbchessboard-admin-showCoordinates"></input>
+				<label for="rpbchessboard-admin-showCoordinates">
+					<?php _e('Show coordinates', 'rpbchessboard'); ?>
+				</label>
 			</p>
 		</div>
 
@@ -29,7 +35,8 @@
 	<script type="text/javascript">
 
 		// Initial variables
-		var squareSize = 32;
+		var squareSize      = 32  ;
+		var showCoordinates = true;
 
 
 		// Refresh the tuning widget
@@ -37,7 +44,8 @@
 		{
 			// Build the option specifier object
 			var options = new ChessWidget.Options(null);
-			options.setSquareSize(squareSize);
+			options.setSquareSize     (squareSize     );
+			options.setShowCoordinates(showCoordinates);
 
 			// Actual refresh
 			var widget = ChessWidget.make('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', options);
@@ -50,8 +58,8 @@
 		}
 
 
-		// Callback for the slider
-		function onSlide($, newSquareSize)
+		// Callback for the squareSize slider
+		function onSquareSizeChange($, newSquareSize)
 		{
 			if(newSquareSize==squareSize) {
 				return;
@@ -61,14 +69,31 @@
 		}
 
 
+		// Callback for the showCoordinates checkbox
+		function onShowCoordinatesChange($, newShowCoordinates)
+		{
+			if(newShowCoordinates==showCoordinates) {
+				return;
+			}
+			showCoordinates = newShowCoordinates;
+			refreshTuningWidget($);
+		}
+
+
 		// Initialization
 		jQuery(document).ready(function($)
 		{
-			// Create the slider
+			// Create the squareSize slider
 			$('#rpbchessboard-admin-squareSize-slider').slider({
 				value: squareSize,
 				min: 24, max: 64, step: 4,
-				slide: function( event, ui ) { onSlide($, ui.value); }
+				slide: function( event, ui ) { onSquareSizeChange($, ui.value); }
+			});
+
+			// Create the showCoordinates checkbox
+			$('#rpbchessboard-admin-showCoordinates').prop('checked', showCoordinates);
+			$('#rpbchessboard-admin-showCoordinates').change(function() {
+				onShowCoordinatesChange($, $('#rpbchessboard-admin-showCoordinates').prop('checked'));
 			});
 
 			// Create the tuning widget
