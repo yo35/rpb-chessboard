@@ -4,7 +4,7 @@
 		<img src="<?php echo RPBCHESSBOARD_URL."/images/admin.png"; ?>" />
 	</div>
 	<?php
-		_e('Chess games and diagrams', 'rpbchessboard');
-		echo ' - ' . $model->getTitle();
+		echo __('Chess games and diagrams', 'rpbchessboard') . ' - ' .
+			htmlspecialchars($model->getTitle());
 	?>
 </h2>
