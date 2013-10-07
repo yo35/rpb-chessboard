@@ -1,6 +1,6 @@
 <?php
 
-require_once(RPBCHESSBOARD_ABSPATH.'models/admin/abstractmodel.php');
+require_once(RPBCHESSBOARD_ABSPATH.'models/abstractmodel.php');
 
 /**
  * Model associated to the 'Memo' page in the backend.
