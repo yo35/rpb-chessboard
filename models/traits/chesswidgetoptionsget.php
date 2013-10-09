@@ -23,4 +23,16 @@ class RPBChessboardTraitChessWidgetOptionsGet extends RPBChessboardAbstractTrait
 		}
 		return $this->squareSize;
 	}
+
+
+	/**
+	 * Default show-coordinates parameter for the chessboard widgets.
+	 */
+	public function getDefaultShowCoordinates()
+	{
+		if(is_null($this->showCoordinates)) {
+			$this->showCoordinates = (int)(self::loadWPOption('squareSize', 1))!=0;
+		}
+		return $this->showCoordinates;
+	}
 }

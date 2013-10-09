@@ -31,8 +31,8 @@
 	<script type="text/javascript">
 
 		// Initial variables
-		var squareSize      = <?php echo json_encode($model->getDefaultSquareSize()); ?>;
-		var showCoordinates = true;
+		var squareSize      = <?php echo json_encode($model->getDefaultSquareSize     ()); ?>;
+		var showCoordinates = <?php echo json_encode($model->getDefaultShowCoordinates()); ?>;
 
 
 		// Refresh the tuning widget
