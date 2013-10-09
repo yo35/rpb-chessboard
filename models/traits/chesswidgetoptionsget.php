@@ -16,10 +16,10 @@ class RPBChessboardTraitChessWidgetOptionsGet extends RPBChessboardAbstractTrait
 	/**
 	 * Default square size for the chessboard widgets.
 	 */
-	public function getSquareSize()
+	public function getDefaultSquareSize()
 	{
 		if(is_null($this->squareSize)) {
-			$this->squareSize = self::loadWPOption('squareSize', 32);
+			$this->squareSize = (int)(self::loadWPOption('squareSize', 32));
 		}
 		return $this->squareSize;
 	}
