@@ -21,7 +21,8 @@ class RPBChessboardControllerAdmin
 	}
 
 	/**
-	 * Load (if necessary) and return the model.
+	 * Load (if necessary) and return the model. The model name provided in the constructor
+	 * is supposed to derive from the class RPBChessboardAbstractAdminModel.
 	 */
 	public function getModel()
 	{
