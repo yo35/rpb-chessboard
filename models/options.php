@@ -1,17 +1,18 @@
 <?php
 
-require_once(RPBCHESSBOARD_ABSPATH.'models/abstractmodel.php');
+require_once(RPBCHESSBOARD_ABSPATH.'models/abstractadminmodel.php');
 
 /**
  * Model associated to the 'Options' page in the backend.
  *
  * @author Yoann Le Montagner
  */
-class RPBChessboardModelOptions extends RPBChessboardAbstractModel
+class RPBChessboardModelOptions extends RPBChessboardAbstractAdminModel
 {
 	public function __construct()
 	{
-		parent::__construct(array('ChessWidgetOptionsGet'));
+		parent::__construct();
+		$this->loadTrait('ChessWidgetOptionsGet');
 	}
 
 	public function getTitle()

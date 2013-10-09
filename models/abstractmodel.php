@@ -19,15 +19,11 @@ abstract class RPBChessboardAbstractModel
 	private $name = null;
 	private $methodIndex = array();
 
+
 	/**
 	 * Constructor
 	 */
-	protected function __construct($traits = array())
-	{
-		foreach($traits as $trait) {
-			$this->importTrait($trait);
-		}
-	}
+	public function __construct() {}
 
 
 	/**
@@ -49,7 +45,7 @@ abstract class RPBChessboardAbstractModel
 	/**
 	 * Import a trait to the current class.
 	 */
-	private function importTrait($traitName)
+	public function loadTrait($traitName)
 	{
 		// Load the definition of the trait, and instantiate it.
 		$fileName  = strtolower($traitName);
