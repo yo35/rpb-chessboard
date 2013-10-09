@@ -32,12 +32,10 @@ function rpbchessboard_admin_page_memo   () { rpbchessboard_load_controller('Mem
 function rpbchessboard_admin_page_options() { rpbchessboard_load_controller('Options'); }
 
 
-// Load the controller with the required name, and execute it.
-function rpbchessboard_load_controller($shortname)
+// Load the controller with the corresponding model name, and execute it.
+function rpbchessboard_load_controller($modelName)
 {
-	$filename = strtolower($shortname);
-	$name     = 'RPBChessboardController' . $shortname;
-	require_once(RPBCHESSBOARD_ABSPATH.'controllers/admin/'.$filename.'.php');
-	$controller = new $name();
+	require_once(RPBCHESSBOARD_ABSPATH.'controllers/admin.php');
+	$controller = new RPBChessboardControllerAdmin($modelName);
 	$controller->run();
 }
