@@ -3,11 +3,12 @@
 require_once(RPBCHESSBOARD_ABSPATH.'models/traits/abstracttrait.php');
 
 /**
- * Trait for loading the options of associated to chessboard widgets from the WP database.
+ * Trait for loading the default options of associated to chessboard widgets
+ * from the WP database.
  *
  * @author Yoann Le Montagner
  */
-class RPBChessboardTraitChessWidgetOptionsGet extends RPBChessboardAbstractTrait
+class RPBChessboardTraitChessWidgetDefaultOptions extends RPBChessboardAbstractTrait
 {
 	private $squareSize      = null;
 	private $showCoordinates = null;

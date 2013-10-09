@@ -12,7 +12,7 @@ class RPBChessboardModelOptions extends RPBChessboardAbstractAdminModel
 	public function __construct()
 	{
 		parent::__construct();
-		$this->loadTrait('ChessWidgetOptionsGet');
+		$this->loadTrait('ChessWidgetDefaultOptions');
 	}
 
 	public function getTitle()
