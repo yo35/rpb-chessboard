@@ -19,4 +19,24 @@ class RPBChessboardModelOptions extends RPBChessboardAbstractAdminModel
 	{
 		return __('Options', 'rpbchessboard');
 	}
+
+	/**
+	 * URL to which the the request for modifying the options of the plugin will be dispatched.
+	 *
+	 * @return string
+	 */
+	public function getFormActionURL()
+	{
+		return site_url().'/wp-admin/admin.php?page=rpbchessboard-options';
+	}
+
+	/**
+	 * Action code corresponding to the request for modifying the options of the plugin.
+	 *
+	 * @return string
+	 */
+	public function getFormAction()
+	{
+		return 'SetOptions';
+	}
 }
