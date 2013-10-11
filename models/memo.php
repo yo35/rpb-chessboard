@@ -2,6 +2,7 @@
 
 require_once(RPBCHESSBOARD_ABSPATH.'models/abstractadminmodel.php');
 
+
 /**
  * Model associated to the 'Memo' page in the backend.
  *

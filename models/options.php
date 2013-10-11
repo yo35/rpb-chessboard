@@ -2,6 +2,7 @@
 
 require_once(RPBCHESSBOARD_ABSPATH.'models/abstractadminmodel.php');
 
+
 /**
  * Model associated to the 'Options' page in the backend.
  *
@@ -21,6 +22,7 @@ class RPBChessboardModelOptions extends RPBChessboardAbstractAdminModel
 		return __('Options', 'rpbchessboard');
 	}
 
+
 	/**
 	 * URL to which the the request for modifying the options of the plugin will be dispatched.
 	 *
@@ -30,6 +32,7 @@ class RPBChessboardModelOptions extends RPBChessboardAbstractAdminModel
 	{
 		return site_url().'/wp-admin/admin.php?page=rpbchessboard-options';
 	}
+
 
 	/**
 	 * Action code corresponding to the request for modifying the options of the plugin.

@@ -63,6 +63,8 @@ abstract class RPBChessboardAbstractModel
 
 	/**
 	 * Return the name of the model.
+	 *
+	 * @return string
 	 */
 	public function getName()
 	{
