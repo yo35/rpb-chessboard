@@ -31,7 +31,7 @@ abstract class RPBChessboardAbstractAdminModel extends RPBChessboardAbstractMode
 
 	/**
 	 * Return the name of the action that should be performed by the server.
-	 * The action is initiated by the user when clicking on a 'submit' button in
+	 * The action is initiated by the user when clicking on a "submit" button in
 	 * an HTML form with its method attribute set to POST.
 	 *
 	 * This function may return null if no action was posted.
