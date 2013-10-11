@@ -19,7 +19,7 @@
 					<div id="rpbchessboard-admin-squareSize-slider"></div>
 				</p>
 				<p>
-					<input type="checkbox" id="rpbchessboard-admin-showCoordinates" name="showCoordinates"></input>
+					<input type="checkbox" id="rpbchessboard-admin-showCoordinates" name="showCoordinates" value="1" />
 					<label for="rpbchessboard-admin-showCoordinates">
 						<?php _e('Show coordinates', 'rpbchessboard'); ?>
 					</label>
@@ -31,6 +31,10 @@
 			</div>
 
 		</div>
+
+		<p class="submit">
+			<input type="submit" class="button-primary" value="<?php _e('Save changes', 'rpbchessboard'); ?>" />
+		</p>
 
 		<script type="text/javascript">
 
