@@ -10,7 +10,7 @@ require_once(RPBCHESSBOARD_ABSPATH.'helpers/validation.php');
  *
  * @author Yoann Le Montagner
  */
-class RPBChessboardTraitChessWidgetDefaultOptions extends RPBChessboardAbstractTrait
+class RPBChessboardTraitChessWidgetDefault extends RPBChessboardAbstractTrait
 {
 	private $squareSize      = null;
 	private $showCoordinates = null;
