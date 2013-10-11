@@ -34,4 +34,16 @@ abstract class RPBChessboardHelperValidation
 			return min(max($value, self::MINIMUM_SQUARE_SIZE), self::MAXIMUM_SQUARE_SIZE);
 		}
 	}
+
+
+	/**
+	 * Validate a chessboard widget show-coordinates parameter.
+	 *
+	 * @param mixed $value
+	 * @return boolean May be null is the value is not valid.
+	 */
+	public static function validateShowCoordinates($value)
+	{
+		return filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+	}
 }
