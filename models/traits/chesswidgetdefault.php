@@ -17,6 +17,17 @@ class RPBChessboardTraitChessWidgetDefault extends RPBChessboardAbstractTrait
 
 
 	/**
+	 * Initial default square size of the chessboard widgets.
+	 */
+	const DEFAULT_SQUARE_SIZE = 32;
+
+	/**
+	 * Initial default show-coordinates parameter of the chessboard widgets.
+	 */
+	const DEFAULT_SHOW_COORDINATES = true;
+
+
+	/**
 	 * Default square size for the chessboard widgets.
 	 *
 	 * @return int
@@ -25,7 +36,7 @@ class RPBChessboardTraitChessWidgetDefault extends RPBChessboardAbstractTrait
 	{
 		if(is_null($this->squareSize)) {
 			$value = RPBChessboardHelperValidation::validateSquareSize(get_option('rpbchessboard_squareSize'));
-			return is_null($value) ? 32 : $value; // TODO: default value somewhere else.
+			return is_null($value) ? self::DEFAULT_SQUARE_SIZE : $value;
 		}
 		return $this->squareSize;
 	}
@@ -40,7 +51,7 @@ class RPBChessboardTraitChessWidgetDefault extends RPBChessboardAbstractTrait
 	{
 		if(is_null($this->showCoordinates)) {
 			$value = RPBChessboardHelperValidation::validateShowCoordinates(get_option('rpbchessboard_showCoordinates'));
-			return is_null($value) ? true : $value; // TODO: default value somewhere else.
+			return is_null($value) ? self::DEFAULT_SHOW_COORDINATES : $value;
 		}
 		return $this->showCoordinates;
 	}
