@@ -19,6 +19,7 @@
 					<div id="rpbchessboard-admin-squareSize-slider"></div>
 				</p>
 				<p>
+					<input type="hidden" name="showCoordinates" value="0" />
 					<input type="checkbox" id="rpbchessboard-admin-showCoordinates" name="showCoordinates" value="1" />
 					<label for="rpbchessboard-admin-showCoordinates">
 						<?php _e('Show coordinates', 'rpbchessboard'); ?>
