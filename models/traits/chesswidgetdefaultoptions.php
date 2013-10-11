@@ -18,6 +18,8 @@ class RPBChessboardTraitChessWidgetDefaultOptions extends RPBChessboardAbstractT
 
 	/**
 	 * Default square size for the chessboard widgets.
+	 *
+	 * @return int
 	 */
 	public function getDefaultSquareSize()
 	{
@@ -31,6 +33,8 @@ class RPBChessboardTraitChessWidgetDefaultOptions extends RPBChessboardAbstractT
 
 	/**
 	 * Default show-coordinates parameter for the chessboard widgets.
+	 *
+	 * @return boolean
 	 */
 	public function getDefaultShowCoordinates()
 	{
