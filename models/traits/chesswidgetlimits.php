@@ -32,4 +32,15 @@ class RPBChessboardTraitChessWidgetLimits extends RPBChessboardAbstractTrait
 	{
 		return RPBChessboardHelperValidation::MAXIMUM_SQUARE_SIZE;
 	}
+
+
+	/**
+	 * The square size of the chessboard widgets must be a multiple of this value.
+	 *
+	 * @return int
+	 */
+	public function getStepSquareSize()
+	{
+		return RPBChessboardHelperValidation::STEP_SQUARE_SIZE;
+	}
 }
