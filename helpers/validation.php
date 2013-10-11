@@ -44,6 +44,12 @@ abstract class RPBChessboardHelperValidation
 	 */
 	public static function validateShowCoordinates($value)
 	{
-		return filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+		$value = filter_var($value, FILTER_VALIDATE_INT);
+		if($value===false) {
+			return null;
+		}
+		else {
+			return $value!=0;
+		}
 	}
 }
