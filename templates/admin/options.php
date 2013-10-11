@@ -90,7 +90,9 @@
 				// Create the squareSize slider
 				$('#rpbchessboard-admin-squareSize-slider').slider({
 					value: squareSize,
-					min: 24, max: 64, step: 4,
+					min: <?php echo json_encode($model->getMinimumSquareSize()); ?>,
+					max: <?php echo json_encode($model->getMaximumSquareSize()); ?>,
+					step: 4, //TODO: remove
 					slide: function( event, ui ) { onSquareSizeChange($, ui.value); }
 				});
 
