@@ -2,6 +2,7 @@
 
 require_once(RPBCHESSBOARD_ABSPATH.'models/abstractmodel.php');
 
+
 /**
  * Base class for the models used in the backend of the RPBChessboard plugin.
  *
