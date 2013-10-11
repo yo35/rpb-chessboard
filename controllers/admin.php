@@ -44,6 +44,13 @@ class RPBChessboardControllerAdmin
 		// Load the model
 		$model = $this->getModel();
 
+		// Process the post-action, if any.
+		$action = $model->getPostAction();
+		if(!is_null($action)) {
+			$model->loadTrait('Action' . $action);
+			$model->processRequest();
+		}
+
 		// Create the view
 		require_once(RPBCHESSBOARD_ABSPATH.'views/admin.php');
 		$view = new RPBChessboardViewAdmin($model);
