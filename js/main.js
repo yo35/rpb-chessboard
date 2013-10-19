@@ -20,6 +20,18 @@ function hideJavascriptWarning(nodeID)
 
 
 /**
+ * Define the default aspect options for the chess widgets.
+ *
+ * @param {ChessWidget.Attributes} chessWidgetAttributes
+ */
+function defineDefaultChessWidgetOptions(chessWidgetAttributes)
+{
+	defaultChessWidgetOptions = new ChessWidget.Options(null, chessWidgetAttributes);
+}
+
+
+
+/**
  * Read the text in the DOM node identified by `nodeInID`, try to interpret it
  * as a FEN string, and render the corresponding chessboard widget
  * in the DOM node identified by `nodeOutID`.
