@@ -227,8 +227,7 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 		}
 
 		// Create the returned object, and parse the commentary string
-		var isLongCommentary = (pgnNode instanceof Pgn.Node) && pgnNode.isLongCommentary;
-		var retVal = $(isLongCommentary ?
+		var retVal = $(pgnNode.isLongCommentary ?
 			'<div class="PgnWidget-longCommentary">' + pgnNode.commentary + '</div>' :
 			'<span class="PgnWidget-commentary">' + pgnNode.commentary + '</span>'
 		);
@@ -264,9 +263,21 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 		);
 		retVal.addClass('PgnWidget-variation-' + (depth==0 ? 'main' : 'sub'));
 
+		// The variation may start with an initial commentary.
+		var initialCommentary = renderCommentary(pgnVariation, depth, options);
+		if(initialCommentary!=null) {
+			if(pgnVariation.isLongCommentary) { // Long commentaries do not belong to any move group.
+				retVal.append(initialCommentary);
+				initialCommentary = null;
+			}
+		}
+
 		// State variables
 		var moveGroup = $('<span class="PgnWidget-moveGroup"></span>').appendTo(retVal);
 		var prevMove  = null;
+		if(initialCommentary!=null) {
+			moveGroup.append(initialCommentary);
+		}
 
 		// Append a fake move at the beginning of the main variation,
 		// so that it will be possible to display the starting position
@@ -279,9 +290,6 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 			move.click(function() { showNavigationFrame($(this)); });
 			prevMove = move;
 		}
-
-		// The variation may start with an initial commentary.
-		moveGroup.append(renderCommentary(pgnVariation, depth, options));
 
 		// Visit all the PGN nodes (one node per move) within the variation
 		var forcePrintMoveNumber = true;

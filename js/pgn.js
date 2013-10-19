@@ -288,6 +288,15 @@ Pgn = (function(Chess)
 		this.nags = [];
 
 		/**
+		 * @member {boolean} isLongCommentary
+		 * @memberof Pgn.Variation
+		 * @instance
+		 * @desc Whether the commentary at the beginning of the variation should be considred as a "long" commentary,
+		 *       and therefored displayed in an isolated block.
+		 */
+		this.isLongCommentary = false;
+
+		/**
 		 * @member {string} commentary
 		 * @memberof Pgn.Variation
 		 * @instance
@@ -739,6 +748,9 @@ Pgn = (function(Chess)
 			else if(token==TOKEN_MOVE) {
 				if(!node.play(tokenValue)) {
 					throw new ParsingException(pgnString, tokenPos, 'Invalid move.');
+				}
+				if((node instanceof Variation) && emptyLineFound) {
+					node.isLongCommentary = true;
 				}
 				node = (node instanceof Variation) ? node.first() : node.next();
 			}
