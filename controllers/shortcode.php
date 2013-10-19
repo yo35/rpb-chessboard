@@ -44,8 +44,19 @@ class RPBChessboardControllerShortcode extends RPBChessboardAbstractController
 	 */
 	public function run()
 	{
+		// Load the model
+		$model = $this->getModel();
+
+		// Create the view
+		$viewName  = $model->getViewName();
+		$fileName  = strtolower($viewName);
+		$className = 'RPBChessboardView' . $viewName;
+		require_once(RPBCHESSBOARD_ABSPATH.'views/'.$fileName.'.php');
+		$view = new $className($model);
+
+		// Display the view
 		ob_start();
-		echo 'TODO';
+		$view->display();
 		return ob_get_clean();
 	}
 }
