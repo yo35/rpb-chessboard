@@ -389,26 +389,26 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	 */
 	function substituteSimpleField(parentNode, fieldName, pgnItem, formatFunc)
 	{
-		$('.PgnWidget-field-' + fieldName, parentNode).each(function(index, e)
-		{
-			// Determine the text that is to be inserted.
-			var value = pgnItem.header(fieldName);
-			if(formatFunc!=null) {
-				value = formatFunc(value);
-			}
+		// Fields to target
+		var fields = $('.PgnWidget-field-' + fieldName, parentNode);
 
-			// Hide the field if no value is available.
-			if(value==null) {
-				e.addClass('PgnWidget-invisible');
-				value = '';
-			}
+		// Determine the text that is to be inserted.
+		var value = pgnItem.header(fieldName);
+		if(formatFunc!=null) {
+			value = formatFunc(value);
+		}
 
-			// Process each anchor node
-			var anchors = $('.PgnWidget-anchor-' + fieldName, e);
-			anchors.append($('<span>' + value + '</span>'));
-			anchors.addClass   ('PgnWidget-value-'  + fieldName);
-			anchors.removeClass('PgnWidget-anchor-' + fieldName);
-		});
+		// Hide the field if no value is available.
+		if(value==null) {
+			fields.addClass('PgnWidget-invisible');
+			value = '';
+		}
+
+		// Process each anchor node
+		var anchors = $('.PgnWidget-anchor-' + fieldName, fields);
+		anchors.append($('<span>' + value + '</span>'));
+		anchors.addClass   ('PgnWidget-value-'  + fieldName);
+		anchors.removeClass('PgnWidget-anchor-' + fieldName);
 	}
 
 	/**
@@ -445,39 +445,39 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	 */
 	function substituteFullName(parentNode, color, pgnItem)
 	{
+		// Fields to target
 		color = (color=='w') ? 'White' : 'Black';
-		$('.PgnWidget-field-fullName' + color, parentNode).each(function(index, e)
-		{
-			// Hide the field if no name is available
-			var name = pgnItem.header(color);
-			if(name==null) {
-				e.addClass('PgnWidget-invisible');
-			}
+		var fields = $('.PgnWidget-field-fullName' + color, parentNode);
 
-			// Title + elo
-			var title = pgnItem.header(color + 'Title');
-			var elo   = pgnItem.header(color + 'Elo'  );
-			var titleDefined = (title!=null && title!='-');
-			var eloDefined   = (elo  !=null && elo  !='?');
+		// Hide the field if no name is available
+		var name = pgnItem.header(color);
+		if(name==null) {
+			fields.addClass('PgnWidget-invisible');
+		}
 
-			// Process each anchor node
-			var anchors = $('.PgnWidget-anchor-fullName' + color, e);
-			anchors.append($('<span class="PgnWidget-subfield-playerName">' + name + '</span>'));
-			if(titleDefined || eloDefined) {
-				var group = $('<span class="PgnWidget-subfield-groupTitleElo"></span>').appendTo(anchors);
-				if(titleDefined) {
-					group.append($('<span class="PgnWidget-subfield-title">' + title + '</span>'));
-				}
-				if(titleDefined && eloDefined) {
-					group.append(' ');
-				}
-				if(eloDefined) {
-					group.append($('<span class="PgnWidget-subfield-elo">' + elo + '</span>'));
-				}
+		// Title + elo
+		var title = pgnItem.header(color + 'Title');
+		var elo   = pgnItem.header(color + 'Elo'  );
+		var titleDefined = (title!=null && title!='-');
+		var eloDefined   = (elo  !=null && elo  !='?');
+
+		// Process each anchor node
+		var anchors = $('.PgnWidget-anchor-fullName' + color, fields);
+		anchors.append($('<span class="PgnWidget-subfield-playerName">' + name + '</span>'));
+		if(titleDefined || eloDefined) {
+			var group = $('<span class="PgnWidget-subfield-groupTitleElo"></span>').appendTo(anchors);
+			if(titleDefined) {
+				group.append($('<span class="PgnWidget-subfield-title">' + title + '</span>'));
 			}
-			anchors.addClass   ('PgnWidget-value-fullName'  + color);
-			anchors.removeClass('PgnWidget-anchor-fullName' + color);
-		});
+			if(titleDefined && eloDefined) {
+				group.append(' ');
+			}
+			if(eloDefined) {
+				group.append($('<span class="PgnWidget-subfield-elo">' + elo + '</span>'));
+			}
+		}
+		anchors.addClass   ('PgnWidget-value-fullName'  + color);
+		anchors.removeClass('PgnWidget-anchor-fullName' + color);
 	}
 
 	/**
@@ -508,19 +508,19 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	 */
 	function substituteMoves(parentNode, pgnItem, options)
 	{
-		$('.PgnWidget-field-moves', parentNode).each(function(index, e)
-		{
-			// Hide the field if no move tree is available
-			if(pgnItem.mainVariation().first()==null && pgnItem.mainVariation().commentary=='') {
-				e.addClass('PgnWidget-invisible');
-			}
+		// Fields to target
+		var fields = $('.PgnWidget-field-moves', parentNode);
 
-			// Process each anchor node
-			var anchors = $('.PgnWidget-anchor-moves', e);
-			anchors.append(renderVariation(pgnItem.mainVariation(), 0, options));
-			anchors.addClass   ('PgnWidget-value-moves' );
-			anchors.removeClass('PgnWidget-anchor-moves');
-		});
+		// Hide the field if no move tree is available
+		if(pgnItem.mainVariation().first()==null && pgnItem.mainVariation().commentary=='') {
+			fields.addClass('PgnWidget-invisible');
+		}
+
+		// Process each anchor node
+		var anchors = $('.PgnWidget-anchor-moves', fields);
+		anchors.append(renderVariation(pgnItem.mainVariation(), 0, options));
+		anchors.addClass   ('PgnWidget-value-moves' );
+		anchors.removeClass('PgnWidget-anchor-moves');
 	}
 
 	/**
