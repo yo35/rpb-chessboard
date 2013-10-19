@@ -5,7 +5,7 @@ require_once(RPBCHESSBOARD_ABSPATH.'helpers/validation.php');
 
 
 /**
- * Trait for loading the default options of associated to chessboard widgets
+ * Trait for loading the default options associated to chessboard widgets
  * from the WP database.
  *
  * @author Yoann Le Montagner
@@ -36,7 +36,7 @@ class RPBChessboardTraitChessWidgetDefault extends RPBChessboardAbstractTrait
 	{
 		if(is_null($this->squareSize)) {
 			$value = RPBChessboardHelperValidation::validateSquareSize(get_option('rpbchessboard_squareSize'));
-			return is_null($value) ? self::DEFAULT_SQUARE_SIZE : $value;
+			$this->squareSize = is_null($value) ? self::DEFAULT_SQUARE_SIZE : $value;
 		}
 		return $this->squareSize;
 	}
@@ -51,7 +51,7 @@ class RPBChessboardTraitChessWidgetDefault extends RPBChessboardAbstractTrait
 	{
 		if(is_null($this->showCoordinates)) {
 			$value = RPBChessboardHelperValidation::validateShowCoordinates(get_option('rpbchessboard_showCoordinates'));
-			return is_null($value) ? self::DEFAULT_SHOW_COORDINATES : $value;
+			$this->showCoordinates = is_null($value) ? self::DEFAULT_SHOW_COORDINATES : $value;
 		}
 		return $this->showCoordinates;
 	}
