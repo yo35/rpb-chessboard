@@ -4,7 +4,7 @@ require_once(RPBCHESSBOARD_ABSPATH.'models/abstracttoplevelshortcodemodel.php');
 
 
 /**
- * Model associated to the [pgn][/pgn] short-code page in the frontend.
+ * Model associated to the [pgn][/pgn] short-code in the frontend.
  *
  * @author Yoann Le Montagner
  */
