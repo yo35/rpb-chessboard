@@ -45,13 +45,13 @@ abstract class RPBChessboardAbstractModel
 	/**
 	 * Import a trait to the current class.
 	 */
-	public function loadTrait($traitName)
+	public function loadTrait($traitName, $args=null)
 	{
 		// Load the definition of the trait, and instantiate it.
 		$fileName  = strtolower($traitName);
 		$className = 'RPBChessboardTrait' . $traitName;
 		require_once(RPBCHESSBOARD_ABSPATH.'models/traits/'.$fileName.'.php');
-		$trait = new $className();
+		$trait = new $className($args);
 
 		// List all the public methods of the trait, and register them
 		// to the method index of the current model.
