@@ -4,9 +4,11 @@
 }
 
 .rpbchessboard-in {
-	font-family: Consolas, Monaco, monospace;
 	text-align: left;
-	color: #505000;
+	font-family: Consolas, Monaco, monospace;
+	font-size: 12px;
+	line-height: 1.3em;
+	color: #404000;
 	border: solid 1px #808000;
 	background-color: #ffffe0;
 	padding: 8px 10px 8px;
