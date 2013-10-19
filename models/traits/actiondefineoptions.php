@@ -51,7 +51,8 @@ class RPBChessboardTraitActionDefineOptions extends RPBChessboardAbstractActionT
 	public function getPostShowCoordinates()
 	{
 	if(array_key_exists('showCoordinates', $_POST)) {
-			return RPBChessboardHelperValidation::validateShowCoordinates($_POST['showCoordinates']);
+			$value = RPBChessboardHelperValidation::prefilterBooleanFromInt($_POST['showCoordinates']);
+			return RPBChessboardHelperValidation::validateShowCoordinates($value);
 		}
 		else {
 			return null;

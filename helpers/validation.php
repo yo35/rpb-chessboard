@@ -51,12 +51,21 @@ abstract class RPBChessboardHelperValidation
 	 */
 	public static function validateShowCoordinates($value)
 	{
+		return (is_null($value) || $value==='') ? null : filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+	}
+
+
+	/**
+	 * Validate a boolean specified as an integer value.
+	 *
+	 * @param mixed $value
+	 * @return boolean May be null is the value is not valid.
+	 */
+	public static function prefilterBooleanFromInt($value)
+	{
 		$value = filter_var($value, FILTER_VALIDATE_INT);
-		if($value===false) {
-			return null;
-		}
-		else {
-			return $value!=0;
-		}
+		if     ($value===0) return false;
+		else if($value===1) return true ;
+		else                return null ;
 	}
 }
