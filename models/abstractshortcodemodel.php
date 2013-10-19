@@ -38,6 +38,17 @@ abstract class RPBChessboardAbstractShortcodeModel extends RPBChessboardAbstract
 
 
 	/**
+	 * Return the attributes passed with the short-code.
+	 *
+	 * @return array
+	 */
+	public function getAttributes()
+	{
+		return $this->atts;
+	}
+
+
+	/**
 	 * Return the enclosed short-code content.
 	 *
 	 * @return string
