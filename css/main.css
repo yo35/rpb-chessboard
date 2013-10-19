@@ -2,3 +2,12 @@
 .rpbchessboard-invisible {
 	display: none;
 }
+
+.rpbchessboard-in {
+	font-family: Consolas, Monaco, monospace;
+	text-align: left;
+	color: #505000;
+	border: solid 1px #808000;
+	background-color: #ffffe0;
+	padding: 8px 10px 8px;
+}
