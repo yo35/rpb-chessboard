@@ -9,6 +9,6 @@
 	processFEN(
 		<?php echo json_encode($model->getTopLevelItemID()); ?> + '-in',
 		<?php echo json_encode($model->getTopLevelItemID()); ?> + '-out',
-		null
+		{<?php echo $model->getCustomOptionsAsJavascript(); ?>}
 	);
 </script>

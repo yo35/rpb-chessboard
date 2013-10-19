@@ -31,13 +31,32 @@ class RPBChessboardTraitChessWidgetCustom extends RPBChessboardAbstractTrait
 
 
 	/**
+	 * Return a string representing all the defined custom chessboard widget options
+	 * in a JSON form.
+	 *
+	 * @return string This string can be inlined in a javascript script.
+	 */
+	public function getCustomOptionsAsJavascript()
+	{
+		$retVal = array();
+		if(!is_null($this->getCustomSquareSize())) {
+			$retVal[] = 'squareSize: ' . json_encode($this->getCustomSquareSize());
+		}
+		if(!is_null($this->getCustomShowCoordinates())) {
+			$retVal[] = 'showCoordinates: ' . json_encode($this->getCustomShowCoordinates());
+		}
+		return implode(', ', $retVal);
+	}
+
+
+	/**
 	 * Custom square size for the chessboard widgets.
 	 *
 	 * @return int May be null if this parameter is let undefined.
 	 */
 	public function getCustomSquareSize()
 	{
-		if(!$this->$squareSizeDefined) {
+		if(!$this->squareSizeDefined) {
 			$this->squareSize = RPBChessboardHelperValidation::validateSquareSize($this->atts['square_size']);
 			$this->squareSizeDefined = true;
 		}
@@ -50,7 +69,7 @@ class RPBChessboardTraitChessWidgetCustom extends RPBChessboardAbstractTrait
 	 *
 	 * @return boolean May be null if this parameter is let undefined.
 	 */
-	public function getDefaultShowCoordinates()
+	public function getCustomShowCoordinates()
 	{
 		if(!$this->showCoordinatesDefined) {
 			$this->showCoordinates = RPBChessboardHelperValidation::validateShowCoordinates($this->atts['show_coordinates']);
