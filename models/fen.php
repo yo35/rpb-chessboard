@@ -11,15 +11,6 @@ require_once(RPBCHESSBOARD_ABSPATH.'models/abstracttoplevelshortcodemodel.php');
 class RPBChessboardModelFen extends RPBChessboardAbstractTopLevelShortcodeModel
 {
 	/**
-	 * Return the name of the view to use.
-	 */
-	public function getViewName()
-	{
-		return 'TopLevelShortcode';
-	}
-
-
-	/**
 	 * By default, the wordpress engine may turn some hypen characters (ASCII)
 	 * into dash characters (non-ASCII). This should be reversed in order to
 	 * allow FEN parsing.
