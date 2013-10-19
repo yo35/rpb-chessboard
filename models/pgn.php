@@ -37,6 +37,9 @@ class RPBChessboardModelPgn extends RPBChessboardAbstractTopLevelShortcodeModel
 		// Trim the content.
 		$content = trim($content);
 
+		// Replace the ellipsis character with '...'.
+		$content = str_replace('&#8230;', '...', $content);
+
 		// Return the result
 		return $content;
 	}
