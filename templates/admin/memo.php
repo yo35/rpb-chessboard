@@ -166,7 +166,7 @@
 					17. Qa6
 
 					{
-						<span class="PgnWidget-anchor-diagram"></span>
+						&lt;span class="PgnWidget-anchor-diagram"&gt;&lt;/span&gt;
 						<?php
 							_e(
 								'Morphy took twelve minutes over his next move, '.
