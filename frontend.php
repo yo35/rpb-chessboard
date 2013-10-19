@@ -4,10 +4,7 @@
 add_shortcode('fen', 'rpbchessboard_shortcode_fen');
 function rpbchessboard_shortcode_fen($atts, $content)
 {
-	ob_start();
-	include(RPBCHESSBOARD_ABSPATH.'template-init.php');
-	include(RPBCHESSBOARD_ABSPATH.'template-fen.php');
-	return ob_get_clean();
+	return rpbchessboard_load_controller('Fen', $atts, $content);
 }
 
 
@@ -27,4 +24,13 @@ function rpbchessboard_shortcode_pgn($atts, $content='')
 	include(RPBCHESSBOARD_ABSPATH.'template-init.php');
 	include(RPBCHESSBOARD_ABSPATH.'template-pgn.php');
 	return ob_get_clean();
+}
+
+
+// Load the controller with the corresponding model name, and execute it.
+function rpbchessboard_load_controller($modelName, $atts, $content)
+{
+	require_once(RPBCHESSBOARD_ABSPATH.'controllers/shortcode.php');
+	$controller = new RPBChessboardControllerShortcode($modelName, $atts, $content);
+	return $controller->run();
 }
