@@ -20,10 +20,7 @@ function rpbchessboard_shortcode_diagram($atts)
 add_shortcode('pgn', 'rpbchessboard_shortcode_pgn');
 function rpbchessboard_shortcode_pgn($atts, $content='')
 {
-	ob_start();
-	include(RPBCHESSBOARD_ABSPATH.'template-init.php');
-	include(RPBCHESSBOARD_ABSPATH.'template-pgn.php');
-	return ob_get_clean();
+	return rpbchessboard_load_controller('Pgn', $atts, $content);
 }
 
 
