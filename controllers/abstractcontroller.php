@@ -23,8 +23,7 @@ abstract class RPBChessboardAbstractController
 
 
 	/**
-	 * Load (if necessary) and return the model. The model name provided in the constructor
-	 * is supposed to derive from the class RPBChessboardAbstractShortcodeModel.
+	 * Load (if necessary) and return the model.
 	 */
 	public function getModel()
 	{
@@ -33,9 +32,21 @@ abstract class RPBChessboardAbstractController
 			$fileName  = strtolower($modelName);
 			$className = 'RPBChessboardModel' . $modelName;
 			require_once(RPBCHESSBOARD_ABSPATH.'models/'.$fileName.'.php');
-			$this->model = new $className();
+			$this->model = $this->loadModel($className);
 		}
 		return $this->model;
+	}
+
+
+	/**
+	 * Instanciate a model object.
+	 *
+	 * @param string $className Class name of the model to instanciate.
+	 * @return RPBChessboardAbstractModel
+	 */
+	protected function loadModel($className)
+	{
+		return new $className();
 	}
 
 
