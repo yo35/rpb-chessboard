@@ -21,6 +21,7 @@
 }
 
 .rpbchessboard-in {
+	white-space: pre-line;
 	font-family: monospace;
 	color: #404000;
 	border: solid 1px #808000;
