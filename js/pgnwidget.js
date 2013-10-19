@@ -637,7 +637,7 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 		substituteFullName(targetNode, 'b', pgn);
 		substituteMoves(targetNode, pgn, options);
 
-		// Indicate that the parsing succeed.
+		// Indicate that the parsing succeeded.
 		return true;
 	}
 
