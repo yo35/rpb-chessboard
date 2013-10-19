@@ -51,10 +51,10 @@
 		<div class="rpbchessboard-admin-column-right">
 			<div class="rpbchessboard-admin-visu-block">
 				<p><?php _e('White to move and mate in two:', 'rpbchessboard'); ?></p>
-				<pre id="rpbchessboard-admin-example1-in">
+				<div id="rpbchessboard-admin-example1-in" class="rpbchessboard-in">
 					r2qkbnr/ppp2ppp/2np4/4N3/2B1P3/2N5/PPPP1PPP/R1BbK2R w KQkq - 0 6
-				</pre>
-				<div id="rpbchessboard-admin-example1-out" class="rpbchessboard-invisible"></div>
+				</div>
+				<div id="rpbchessboard-admin-example1-out" class="rpbchessboard-out rpbchessboard-invisible"></div>
 				<script type="text/javascript">
 					processFEN('rpbchessboard-admin-example1-in', 'rpbchessboard-admin-example1-out',
 						{squareSize: 28});
@@ -151,7 +151,7 @@
 
 		<div class="rpbchessboard-admin-column-right">
 			<div class="rpbchessboard-admin-visu-block">
-				<pre id="rpbchessboard-admin-example2-in">
+				<div id="rpbchessboard-admin-example2-in" class="rpbchessboard-in">
 					[Event "1<sup>st</sup> American Chess Congress"]
 					[Site "New York, NY USA"]
 					[Date "1857.11.03"]
@@ -186,8 +186,8 @@
 					23. Kg1 Bh3+ 24. Kh1 Bxf2 25. Qf1
 					{<?php _e('Absolutely forced.', 'rpbchessboard'); ?>}
 					25... Bxf1 26. Rxf1 Re2 27. Ra1 Rh6 28. d4 Be3 0-1
-				</pre>
-				<div id="rpbchessboard-admin-example2-out" class="rpbchessboard-invisible">
+				</div>
+				<div id="rpbchessboard-admin-example2-out" class="rpbchessboard-out rpbchessboard-invisible">
 					<div class="rpbchessboard-game-head">
 						<div class="PgnWidget-field-fullNameWhite">
 							<span class="rpbchessboard-white-square"></span>
