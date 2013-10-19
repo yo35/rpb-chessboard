@@ -12,18 +12,49 @@ abstract class RPBChessboardAbstractShortcodeModel extends RPBChessboardAbstract
 {
 	private $atts   ;
 	private $content;
+	private $contentFiltered = false;
 
 
 	/**
 	 * Constructor
 	 *
 	 * @param array $atts Attributes passed with the short-code.
-	 * @param string $content Enclosed short-code content.
+	 * @param string $content Short-code enclosed content.
 	 */
 	public function __construct($atts, $content)
 	{
 		parent::__construct();
 		$this->atts    = $atts==='' ? array() : $atts;
 		$this->content = $content;
+	}
+
+
+	/**
+	 * Return the enclosed short-code content.
+	 *
+	 * @return string
+	 */
+	public function getContent()
+	{
+		if(!$this->contentFiltered) {
+			$this->content = $this->filterShortcodeContent($this->content);
+			$this->contentFiltered = true;
+		}
+		return $this->content;
+	}
+
+
+	/**
+	 * Pre-process the short-code enclosed content, for instance to get rid of the
+	 * auto-format HTML tags introduced by the Wordpress engine. By default, this
+	 * function returns the raw content "as-is". The function should be re-implemented
+	 * in the derived models.
+	 *
+	 * @param string $content Raw content.
+	 * @return string Filtered content.
+	 */
+	protected function filterShortcodeContent($content)
+	{
+		return $content;
 	}
 }
