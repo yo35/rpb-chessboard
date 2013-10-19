@@ -13,6 +13,7 @@ class RPBChessboardViewTopLevelShortcode extends RPBChessboardAbstractView
 	public function display()
 	{
 		$model = $this->getModel();
+		include(RPBCHESSBOARD_ABSPATH.'templates/shortcode/javascriptwarning.php');
 		include(RPBCHESSBOARD_ABSPATH.'templates/shortcode/'.strtolower($model->getTemplateName()).'.php');
 	}
 }

@@ -2,15 +2,7 @@
 /******************************************************************************/
 /*** Warning message in case of inactivated javascript ***/
 
-div.rpbchessboard-javascript-warning {
-	padding-top   : 2px;
-	padding-bottom: 3px;
-	padding-left  : 5px;
-	padding-right : 5px;
-	background-color: #ffd8d8;
-	color: #800000;
-	border: 1px solid #800000;
-}
+
 
 
 

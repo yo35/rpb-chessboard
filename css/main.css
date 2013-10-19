@@ -3,13 +3,26 @@
 	display: none;
 }
 
+.rpbchessboard-javascript-warning,
 .rpbchessboard-in {
 	text-align: left;
-	font-family: Consolas, Monaco, monospace;
 	font-size: 12px;
 	line-height: 1.3em;
+	padding: 8px 10px 8px;
+	margin-top   : 5px;
+	margin-bottom: 5px;
+}
+
+.rpbchessboard-javascript-warning {
+	font-family: sans-serif;
+	color: #800000;
+	border: 1px solid #800000;
+	background-color: #ffd8d8;
+}
+
+.rpbchessboard-in {
+	font-family: monospace;
 	color: #404000;
 	border: solid 1px #808000;
 	background-color: #ffffe0;
-	padding: 8px 10px 8px;
 }

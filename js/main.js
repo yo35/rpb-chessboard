@@ -8,6 +8,18 @@ var defaultChessWidgetOptions = null;
 
 
 /**
+ * Hide the node corresponding to the given ID.
+ *
+ * @param {string} nodeID
+ */
+function hideJavascriptWarning(nodeID)
+{
+	jQuery('#' + nodeID).addClass('rpbchessboard-invisible');
+}
+
+
+
+/**
  * Read the text in the DOM node identified by `nodeInID`, try to interpret it
  * as a FEN string, and render the corresponding chessboard widget
  * in the DOM node identified by `nodeOutID`.
