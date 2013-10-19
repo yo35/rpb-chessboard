@@ -15,7 +15,30 @@ abstract class RPBChessboardAbstractTopLevelShortcodeModel extends RPBChessboard
 
 
 	/**
+	 * Whether the javascript initialization template needs to be enqueued.
+	 *
+	 * @return boolean
+	 */
+	public function isTemplateInitRequired()
+	{
+		return !self::$javascriptInitEnqueued;
+	}
+
+
+	/**
+	 * Prepare the model for being used by the javascript initialization template.
+	 */
+	public function prepareForTemplateInit()
+	{
+		$this->loadTrait('ChessWidgetDefault');
+		self::$javascriptInitEnqueued = true;
+	}
+
+
+	/**
 	 * Return the name of the view to use.
+	 *
+	 * @return string
 	 */
 	public function getViewName()
 	{
@@ -38,6 +61,8 @@ abstract class RPBChessboardAbstractTopLevelShortcodeModel extends RPBChessboard
 	/**
 	 * Return the ID to use (maybe as a prefix) to identify the HTML nodes that
 	 * need to be identify in the top-level shortcode view.
+	 *
+	 * @return string
 	 */
 	public function getTopLevelItemID()
 	{
@@ -64,4 +89,10 @@ abstract class RPBChessboardAbstractTopLevelShortcodeModel extends RPBChessboard
 	 * Global ID counter.
 	 */
 	private static $idCounter = 0;
+
+
+	/**
+	 * Flag indicating whether the initialization of the javascript objects has been done yet.
+	 */
+	private static $javascriptInitEnqueued = false;
 }
