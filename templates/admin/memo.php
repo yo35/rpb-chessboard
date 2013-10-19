@@ -202,6 +202,9 @@
 							<span class="PgnWidget-field-Round">(<span class="PgnWidget-anchor-Round"></span>)</span>
 							<span class="PgnWidget-field-Date">- <span class="PgnWidget-anchor-Date"></span></span>
 						</div>
+						<div class="PgnWidget-field-Annotator">
+							<?php echo sprintf(__('Commented by %1$s', 'rpbchessboard'), '<span class="PgnWidget-anchor-Annotator"></span>'); ?>
+						</div>
 					</div>
 					<div class="rpbchessboard-game-body PgnWidget-field-moves">
 						<div class="PgnWidget-anchor-moves"></div>
