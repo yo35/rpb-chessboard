@@ -152,7 +152,7 @@
 		<div class="rpbchessboard-admin-column-right">
 			<div class="rpbchessboard-admin-visu-block">
 				<div id="rpbchessboard-admin-example2-in" class="rpbchessboard-in">
-					[Event "1<sup>st</sup> American Chess Congress"]
+					[Event "1&lt;sup&gt;st&lt;/sup&gt; American Chess Congress"]
 					[Site "New York, NY USA"]
 					[Date "1857.11.03"]
 					[Round "4.6"]

@@ -77,7 +77,7 @@ function processPGN(nodeInID, nodeOutID, chessWidgetAttributes)
 	var nodeOut = jQuery('#' + nodeOutID);
 
 	// Read the PGN string from the nodeIn
-	var pgn = nodeIn.html();
+	var pgn = nodeIn.text();
 
 	// PGN rendering
 	var options = new ChessWidget.Options(defaultChessWidgetOptions, chessWidgetAttributes);
