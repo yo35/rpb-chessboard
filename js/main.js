@@ -81,9 +81,11 @@ function processPGN(nodeInID, nodeOutID, chessWidgetAttributes)
 
 	// PGN rendering
 	var options = new ChessWidget.Options(defaultChessWidgetOptions, chessWidgetAttributes);
-	PgnWidget.makeAt(pgn, nodeOut, options);
+	var parsingSucceeded = PgnWidget.makeAt(pgn, nodeOut, options);
 
 	// Make nodeIn invisible, and nodeOut visible.
-	nodeIn .addClass   ('rpbchessboard-invisible');
+	if(parsingSucceeded) {
+		nodeIn.addClass('rpbchessboard-invisible');
+	}
 	nodeOut.removeClass('rpbchessboard-invisible');
 }

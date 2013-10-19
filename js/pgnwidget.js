@@ -588,6 +588,7 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	 *
 	 * @param {jQuery} targetNode
 	 * @param {ChessWidget.Options} [options=null] Default set of options for displaying inline diagrams.
+	 * @returns {boolean} False if the parsing of the PGN string fails, true otherwise.
 	 *
 	 * @memberof PgnWidget
 	 */
@@ -612,6 +613,7 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 			catch(error) {
 				if(error instanceof Pgn.ParsingException) {
 					displayErrorMessage(error, targetNode);
+					return false;
 				}
 				else { // unknown exception are re-thrown
 					throw error;
@@ -634,6 +636,9 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 		substituteFullName(targetNode, 'w', pgn);
 		substituteFullName(targetNode, 'b', pgn);
 		substituteMoves(targetNode, pgn, options);
+
+		// Indicate that the parsing succeed.
+		return true;
 	}
 
 	/**
