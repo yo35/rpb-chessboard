@@ -16,7 +16,7 @@ abstract class RPBChessboardAbstractShortcodeModel extends RPBChessboardAbstract
 
 
 	/**
-	 * Constructor
+	 * Constructor.
 	 *
 	 * @param array $atts Attributes passed with the short-code.
 	 * @param string $content Short-code enclosed content.
