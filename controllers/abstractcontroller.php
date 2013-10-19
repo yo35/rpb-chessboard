@@ -39,9 +39,9 @@ abstract class RPBChessboardAbstractController
 
 
 	/**
-	 * Instanciate a model object.
+	 * Instantiate a model object.
 	 *
-	 * @param string $className Class name of the model to instanciate.
+	 * @param string $className Class name of the model to instantiate.
 	 * @return RPBChessboardAbstractModel
 	 */
 	protected function loadModel($className)
