@@ -11,16 +11,22 @@
 
 			<div class="rpbchessboard-admin-column-left">
 				<p>
-					<input type="hidden" id="rpbchessboard-admin-squareSize" name="squareSize" />
-					<?php echo sprintf(
-						__('Square size: %1$s pixels', 'rpbchessboard'),
-						'<span id="rpbchessboard-admin-squareSize-label"></span>'
-					); ?>
+					<?php
+						echo sprintf(__('Square size: %1$s pixels', 'rpbchessboard'),
+							'<input type="text" id="rpbchessboard-admin-squareSize" name="squareSize" '.
+								'size="'.htmlspecialchars($model->getDigitNumberForSquareSize()).'" '.
+								'maxLength="'.htmlspecialchars($model->getDigitNumberForSquareSize()).'" '.
+								'value="'.htmlspecialchars($model->getDefaultSquareSize()).'" '.
+							'/>'
+						);
+					?>
 					<div id="rpbchessboard-admin-squareSize-slider"></div>
 				</p>
 				<p>
 					<input type="hidden" name="showCoordinates" value="0" />
-					<input type="checkbox" id="rpbchessboard-admin-showCoordinates" name="showCoordinates" value="1" />
+					<input type="checkbox" id="rpbchessboard-admin-showCoordinates" name="showCoordinates" value="1"
+						<?php if($model->getDefaultShowCoordinates()): ?>checked="yes"<?php endif; ?>
+					/>
 					<label for="rpbchessboard-admin-showCoordinates">
 						<?php _e('Show coordinates', 'rpbchessboard'); ?>
 					</label>
@@ -39,9 +45,9 @@
 
 		<script type="text/javascript">
 
-			// Initial variables
-			var squareSize      = <?php echo json_encode($model->getDefaultSquareSize     ()); ?>;
-			var showCoordinates = <?php echo json_encode($model->getDefaultShowCoordinates()); ?>;
+			// State variables
+			var squareSize     ;
+			var showCoordinates;
 
 
 			// Refresh the tuning widget
@@ -58,7 +64,6 @@
 				$('#rpbchessboard-admin-tuning-widget').append(widget);
 
 				// Additional labels and form fields
-				$('#rpbchessboard-admin-squareSize-label').text(squareSize);
 				$('#rpbchessboard-admin-squareSize').val(squareSize);
 			}
 
@@ -88,6 +93,13 @@
 			// Initialization
 			jQuery(document).ready(function($)
 			{
+				// Load the initial values
+				squareSize      = $('#rpbchessboard-admin-squareSize'     ).val();
+				showCoordinates = $('#rpbchessboard-admin-showCoordinates').prop('checked');
+
+				// Disable the square-size text field
+				$('#rpbchessboard-admin-squareSize').prop('readonly', true);
+
 				// Create the squareSize slider
 				$('#rpbchessboard-admin-squareSize-slider').slider({
 					value: squareSize,
@@ -98,7 +110,6 @@
 				});
 
 				// Create the showCoordinates checkbox
-				$('#rpbchessboard-admin-showCoordinates').prop('checked', showCoordinates);
 				$('#rpbchessboard-admin-showCoordinates').change(function() {
 					onShowCoordinatesChange($, $('#rpbchessboard-admin-showCoordinates').prop('checked'));
 				});

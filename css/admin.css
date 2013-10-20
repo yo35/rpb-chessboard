@@ -77,3 +77,7 @@
 #rpbchessboard-admin-options .rpbchessboard-admin-column-left {
 	width: 250px;
 }
+
+#rpbchessboard-admin-squareSize {
+	text-align: right;
+}
