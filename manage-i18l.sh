@@ -1,13 +1,8 @@
 #!/bin/sh
 # Useful script to manage the localization in a Wordpress plugin project
 
-PLUGIN_NAME=rpbchessboard
-LANGUAGE_FOLDER=languages
-POT_FILE=$LANGUAGE_FOLDER/$PLUGIN_NAME.pot
-PO_PREFIX=$LANGUAGE_FOLDER/$PLUGIN_NAME
-MO_PREFIX=$LANGUAGE_FOLDER/$PLUGIN_NAME
 
-# First argument: action
+# The first argument determine the action to perform.
 if [ "$#" -eq "0" ]; then
 	echo 'Usage: ./manage-i18l.sh <command> ...'
 	echo 'The available commands are:'
@@ -17,6 +12,13 @@ if [ "$#" -eq "0" ]; then
 	exit
 fi
 
+
+PLUGIN_NAME=rpbchessboard
+LANGUAGE_FOLDER=languages
+POT_FILE=$LANGUAGE_FOLDER/$PLUGIN_NAME.pot
+PO_PREFIX=$LANGUAGE_FOLDER/$PLUGIN_NAME
+MO_PREFIX=$LANGUAGE_FOLDER/$PLUGIN_NAME
+TRANSLATOR_KW=i18l
 COMMAND=$1
 
 
@@ -24,15 +26,9 @@ COMMAND=$1
 # Command 'extract'
 if [ "$COMMAND" = "extract" ]; then
 	
-	# Check the argument
-	if [ "$#" -eq "1" ]; then
-		echo 'Usage: ./manage-i18l.sh extract <path_to_makepot.php>'
-		exit
-	fi
-	
 	# Do the job
-	php $2 wp-plugin .
-	mv $PLUGIN_NAME.pot $POT_FILE
+	xgettext --from-code=UTF-8 --language=PHP -c$TRANSLATOR_KW -k__ -k_e -o $POT_FILE `find . -name '*.php'`
+	sed -i -e "s/^#\. *$TRANSLATOR_KW *\(.*\)$/#  \1/" $POT_FILE
 	exit
 fi
 
