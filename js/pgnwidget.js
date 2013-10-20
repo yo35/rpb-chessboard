@@ -14,53 +14,27 @@
 var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 {
 	/**
-	 * The behavior of the module can be modified by changing the properties of
-	 * this object.
-	 *
-	 * @public
-	 */
-	var option =
-	{
-		/**
-		 * Month names
-		 */
-		monthName: {
-			 1: "january"  ,
-			 2: "february" ,
-			 3: "march"    ,
-			 4: "april"    ,
-			 5: "may"      ,
-			 6: "june"     ,
-			 7: "july"     ,
-			 8: "august"   ,
-			 9: "september",
-			10: "october"  ,
-			11: "november" ,
-			12: "december"
-		},
-
-		/**
-		 * Piece symbols
-		 */
-		pieceSymbol: {
-			"K": "\u265a",
-			"Q": "\u265b",
-			"R": "\u265c",
-			"B": "\u265d",
-			"N": "\u265e",
-			"P": "\u265f"
-		}
-	};
-
-	/**
 	 * Various strings used by the library and printed out to the screen at some
 	 * point. They are made public so that they can be localized.
 	 *
 	 * @public
 	 * @memberof PgnWidget
 	 */
-	var text = {
-		initialPosition: 'Initial position'
+	var text =
+	{
+		// Miscellaneous
+		initialPosition: 'Initial position',
+
+		// Month names
+		months: [
+			'January', 'February', 'March'    , 'April'  , 'May'     , 'June'    ,
+			'July'   , 'August'  , 'September', 'October', 'November', 'December'
+		],
+
+		// Chess piece symbols
+		pieceSymbols: {
+			'K':'K', 'Q':'Q', 'R':'R', 'B':'B', 'N':'N', 'P':'P'
+		}
 	};
 
 	/**
@@ -77,25 +51,28 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	 */
 	function formatDate(date)
 	{
-		// Null input
-		if(date==null) {
+		// Null input or case "????.??.??" -> no date is defined.
+		if(date==null || date=='????.??.??') {
 			return null;
 		}
 
 		// Case "2013.05.20" -> return "20 may 2013"
 		else if(date.match(/([0-9]{4})\.([0-9]{2})\.([0-9]{2})/)) {
 			var month = parseInt(RegExp.$2);
-			if(month>=1 && month<=12)
-				return parseInt(RegExp.$3) + " " + option.monthName[month] + " " + RegExp.$1;
+			if(month>=1 && month<=12) {
+				var dateObj = new Date(RegExp.$1, RegExp.$2-1, RegExp.$3);
+				return dateObj.toLocaleDateString(); //null, { year: 'numeric', month: 'long', day: 'numeric' });
+			}
 			else
 				return RegExp.$1;
 		}
 
-		// Case "2013.05.??" -> return "may 2013"
+		// Case "2013.05.??" -> return "May 2013"
 		else if(date.match(/([0-9]{4})\.([0-9]{2})\.\?\?/)) {
 			var month = parseInt(RegExp.$2);
-			if(month>=1 && month<=12)
-				return option.monthName[month] + " " + RegExp.$1;
+			if(month>=1 && month<=12) {
+				return text.months[month-1] + ' ' + RegExp.$1;
+			}
 			else
 				return RegExp.$1;
 		}
@@ -103,11 +80,6 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 		// Case "2013.??.??" -> return "2013"
 		else if(date.match(/([0-9]{4})\.\?\?\.\?\?/)) {
 			return RegExp.$1;
-		}
-
-		// Case "????.??.??" -> no date is defined
-		else if(date=="????.??.??") {
-			return null;
 		}
 
 		// Badly-formatted input -> return it "as-is"
@@ -175,7 +147,7 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 			for(var k=0; k<notation.length; ++k) {
 				var c = notation.charAt(k);
 				if(c=='K' || c=='Q' || c=='R' || c=='B' || c=='N' || c=='P') {
-					retVal += option.pieceSymbol[c];
+					retVal += text.pieceSymbols[c];
 				}
 				else {
 					retVal += c;
@@ -879,7 +851,6 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 
 	// Return the module object
 	return {
-		option             : option             ,
 		text  : text  ,
 		makeAt: makeAt
 	};
