@@ -1,3 +1,6 @@
+<?php
+	include(RPBCHESSBOARD_ABSPATH.'templates/localization.php');
+?>
 
 <div id="rpbchessboard-admin-memo">
 

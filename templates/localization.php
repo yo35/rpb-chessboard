@@ -1,18 +1,5 @@
-<?php
-	require_once(RPBCHESSBOARD_ABSPATH.'helpers/json.php');
-?>
 
 <script type="text/javascript">
-
-	// Load the default chess widget aspect options.
-	defineDefaultChessWidgetOptions(
-		<?php
-			echo RPBChessboardHelperJSON::formatChessWidgetAttributes(
-				$model->getDefaultSquareSize     (),
-				$model->getDefaultShowCoordinates()
-			);
-		?>
-	);
 
 	// Localization: miscellaneous
 	PgnWidget.text.initialPosition = '<?php _e('Initial position', 'rpbchessboard'); ?>';
