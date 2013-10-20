@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-20 17:54+0200\n"
+"POT-Creation-Date: 2013-10-20 18:51+0200\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35@melix.net>\n"
 "Language-Team: French\n"
@@ -46,7 +46,7 @@ msgstr "Afficher les coordonnées"
 msgid "Save changes"
 msgstr "Enregistrer les modifications"
 
-#: templates/admin/header.php:7 backend.php:9 backend.php:16 backend.php:23
+#: templates/admin/header.php:7 backend.php:9 backend.php:17 backend.php:24
 msgid "Chess games and diagrams"
 msgstr "Parties et diagrammes d'échecs"
 
@@ -73,11 +73,11 @@ msgstr "Trait aux blancs, mat en deux&nbsp;:"
 
 #: templates/admin/memo.php:33 templates/admin/memo.php:67
 msgid ""
-"This position is known as Légal Mate. It is named after the French player "
-"François Antoine de Kermeur Sire de Legale (1702-1792)."
+"This position is known as the Légal Trap. It is named after the French "
+"player François Antoine de Legall de Kermeur (1702&ndash;1792)."
 msgstr ""
-"Cette position est appelée Mat de Legal. Elle doit son nom au joueur "
-"français François Antoine de Kermeur Sire de Legale (1702-1792)."
+"Cette position est appelée mat de Legal. Elle doit son nom au joueur "
+"français François Antoine de Kermur Sire de Legale (1702&ndash;1792)."
 
 #: templates/admin/memo.php:40
 #, php-format
@@ -230,11 +230,11 @@ msgstr "C"
 msgid "P"
 msgstr "P"
 
-#: models/options.php:22 backend.php:23 backend.php:24
+#: models/options.php:22 backend.php:24 backend.php:25
 msgid "Options"
 msgstr "Options"
 
-#: models/memo.php:15 backend.php:16 backend.php:17
+#: models/memo.php:15 backend.php:17 backend.php:18
 msgid "Memo"
 msgstr "Mémo"
 

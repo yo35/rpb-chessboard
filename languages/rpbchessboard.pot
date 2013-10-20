@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-20 18:00+0200\n"
+"POT-Creation-Date: 2013-10-20 18:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,7 +45,7 @@ msgstr ""
 msgid "Save changes"
 msgstr ""
 
-#: templates/admin/header.php:7 backend.php:9 backend.php:16 backend.php:23
+#: templates/admin/header.php:7 backend.php:9 backend.php:17 backend.php:24
 msgid "Chess games and diagrams"
 msgstr ""
 
@@ -67,8 +67,8 @@ msgstr ""
 
 #: templates/admin/memo.php:33 templates/admin/memo.php:67
 msgid ""
-"This position is known as Légal Mate. It is named after the French player "
-"François Antoine de Kermeur Sire de Legale (1702-1792)."
+"This position is known as the Légal Trap. It is named after the French "
+"player François Antoine de Legall de Kermeur (1702&ndash;1792)."
 msgstr ""
 
 #: templates/admin/memo.php:40
@@ -209,11 +209,11 @@ msgstr ""
 msgid "P"
 msgstr ""
 
-#: models/options.php:22 backend.php:23 backend.php:24
+#: models/options.php:22 backend.php:24 backend.php:25
 msgid "Options"
 msgstr ""
 
-#: models/memo.php:15 backend.php:16 backend.php:17
+#: models/memo.php:15 backend.php:17 backend.php:18
 msgid "Memo"
 msgstr ""
 

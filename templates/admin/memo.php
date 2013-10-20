@@ -30,8 +30,8 @@
 				[fen]r2qkbnr/ppp2ppp/2np4/4N3/2B1P3/2N5/PPPP1PPP/R1BbK2R w KQkq - 0 6[/fen]
 				<br/><br/>
 				<?php _e(
-					'This position is known as Légal Mate. '.
-					'It is named after the French player François Antoine de Kermeur Sire de Legale (1702-1792).'
+					'This position is known as the Légal Trap. '.
+					'It is named after the French player François Antoine de Legall de Kermeur (1702&ndash;1792).'
 				, 'rpbchessboard'); ?>
 			</div>
 			<p>
@@ -64,8 +64,8 @@
 				</script>
 				<p>
 					<?php _e(
-						'This position is known as Légal Mate. '.
-						'It is named after the French player François Antoine de Kermeur Sire de Legale (1702-1792).'
+						'This position is known as the Légal Trap. '.
+						'It is named after the French player François Antoine de Legall de Kermeur (1702&ndash;1792).'
 					, 'rpbchessboard'); ?>
 				</p>
 			</div>
