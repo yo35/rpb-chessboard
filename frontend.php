@@ -12,13 +12,13 @@ function rpbchessboard_shortcode_fen($atts, $content)
 add_shortcode('pgndiagram', 'rpbchessboard_shortcode_diagram');
 function rpbchessboard_shortcode_diagram($atts)
 {
-	return '<span class="jsChessLib-anchor-diagram"></span>';
+	return rpbchessboard_load_controller('PgnDiagram', $atts, '');
 }
 
 
 // Short-code [pgn][/pgn]
 add_shortcode('pgn', 'rpbchessboard_shortcode_pgn');
-function rpbchessboard_shortcode_pgn($atts, $content='')
+function rpbchessboard_shortcode_pgn($atts, $content)
 {
 	return rpbchessboard_load_controller('Pgn', $atts, $content);
 }
