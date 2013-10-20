@@ -8,7 +8,7 @@
 		<?php
 			_e(
 				'This short reminder presents through examples the features provided by the RPB Chessboard plugin, '.
-				'namely the insertion of chess diagrams and games in posts and pages. '.
+				'namely the insertion of chess diagrams and games in Wordpress websites. '.
 				'On the left is the code written in posts and pages; '.
 				'the right column shows the corresponding rendering.',
 			'rpbchessboard');
@@ -31,20 +31,20 @@
 				<br/><br/>
 				<?php _e(
 					'This position is known as Légal Mate. '.
-					'It is named after the French player François Antoine de Kermeur Sire de Legale (1702-1795).'
+					'It is named after the French player François Antoine de Kermeur Sire de Legale (1702-1792).'
 				, 'rpbchessboard'); ?>
 			</div>
 			<p>
 				<?php echo sprintf(
 					__(
 						'The string between the %1$s[fen][/fen]%2$s tags describe the position. '.
-						'The used notation follows the %3$sForsyth-Edwards notation (FEN)%4$s. '.
-						'A comprehensive description of the FEN format is available on %3$sWikipedia%4$s.',
+						'The used notation follows the %3$sFEN format%4$s (Forsyth-Edwards Notation). '.
+						'A comprehensive description of this FEN notation is available on %3$sWikipedia%4$s.',
 					'rpbchessboard'),
 					'<span class="rpbchessboard-admin-code-inline">',
 					'</span>',
 					sprintf('<a href="%1$s" target="_blank">',
-						__('http://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation', 'rpbchessboard')
+						__('http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation', 'rpbchessboard')
 					),
 					'</a>'
 				); ?>
@@ -65,7 +65,7 @@
 				<p>
 					<?php _e(
 						'This position is known as Légal Mate. '.
-						'It is named after the French player François Antoine de Kermeur Sire de Legale (1702-1795).'
+						'It is named after the French player François Antoine de Kermeur Sire de Legale (1702-1792).'
 					, 'rpbchessboard'); ?>
 				</p>
 			</div>
