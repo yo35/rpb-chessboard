@@ -35,6 +35,18 @@ class RPBChessboardTraitChessWidgetLimits extends RPBChessboardAbstractTrait
 
 
 	/**
+	 * Number of digits of the maximum square size parameter.
+	 *
+	 * @return int
+	 */
+	public function getDigitNumberForSquareSize()
+	{
+		$maxVal = $this->getMaximumSquareSize();
+		return 1 + floor(log10($maxVal));
+	}
+
+
+	/**
 	 * The square size of the chessboard widgets must be a multiple of this value.
 	 *
 	 * @return int
