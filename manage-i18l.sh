@@ -14,6 +14,7 @@ fi
 
 
 PLUGIN_NAME=rpbchessboard
+PLUGIN_MAIN_FILE=$PLUGIN_NAME.php
 LANGUAGE_FOLDER=languages
 POT_FILE=$LANGUAGE_FOLDER/$PLUGIN_NAME.pot
 PO_PREFIX=$LANGUAGE_FOLDER/$PLUGIN_NAME
@@ -28,6 +29,7 @@ if [ "$COMMAND" = "extract" ]; then
 	
 	# Do the job
 	xgettext --from-code=UTF-8 --language=PHP -c$TRANSLATOR_KW -k__ -k_e -o $POT_FILE `find . -name '*.php'`
+	sed -n -e "s/^Description: *\(.*\)\$/\n#: $PLUGIN_MAIN_FILE\nmsgid \"\1\"\nmsgstr \"\"/p" $PLUGIN_MAIN_FILE >> $POT_FILE
 	sed -i -e "s/^#\. *$TRANSLATOR_KW *\(.*\)$/#. \1/" $POT_FILE
 	exit
 fi
