@@ -8,7 +8,7 @@ function rpbchessboard_admin_register_interface()
 	add_menu_page(
 		__('Chess games and diagrams', 'rpbchessboard'),
 		__('Chess', 'rpbchessboard'),
-		'manage_options', 'rpbchessboard', rpbchessboard_admin_page_memo,
+		'edit_posts', 'rpbchessboard', rpbchessboard_admin_page_memo,
 		RPBCHESSBOARD_URL.'/images/admin-small.png'
 	);
 
@@ -16,7 +16,7 @@ function rpbchessboard_admin_register_interface()
 	add_submenu_page('rpbchessboard',
 		__('Chess games and diagrams', 'rpbchessboard') . ' - ' . __('Memo', 'rpbchessboard'),
 		__('Memo', 'rpbchessboard'),
-		'manage_options', 'rpbchessboard', rpbchessboard_admin_page_memo
+		'edit_posts', 'rpbchessboard', rpbchessboard_admin_page_memo
 	);
 
 	// Page "options"
