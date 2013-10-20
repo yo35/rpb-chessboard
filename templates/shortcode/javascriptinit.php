@@ -1,10 +1,17 @@
+<?php
+	require_once(RPBCHESSBOARD_ABSPATH.'helpers/json.php');
+?>
 
 <script type="text/javascript">
 
 	// Load the default chess widget aspect options.
-	defineDefaultChessWidgetOptions({
-		squareSize     : <?php echo json_encode($model->getDefaultSquareSize     ()); ?>,
-		showCoordinates: <?php echo json_encode($model->getDefaultShowCoordinates()); ?>
-	});
+	defineDefaultChessWidgetOptions(
+		<?php
+			echo RPBChessboardHelperJSON::formatChessWidgetAttributes(
+				$model->getDefaultSquareSize     (),
+				$model->getDefaultShowCoordinates()
+			);
+		?>
+	);
 
 </script>
