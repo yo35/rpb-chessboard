@@ -40,6 +40,11 @@ class RPBChessboardModelPgn extends RPBChessboardAbstractTopLevelShortcodeModel
 		// Replace the ellipsis character with '...'.
 		$content = str_replace('&#8230;', '...', $content);
 
+		// Apply the short-code replacement function of Wordpress to the PGN comments.
+		$content = preg_replace_callback('/{([^{}]*)}/', function ($matches) {
+			return '{' . do_shortcode($matches[1]) . '}';
+		}, $content);
+
 		// Return the result
 		return $content;
 	}
