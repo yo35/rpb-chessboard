@@ -8,7 +8,8 @@ function rpbchessboard_admin_register_interface()
 	add_menu_page(
 		__('Chess games and diagrams', 'rpbchessboard'),
 		__('Chess', 'rpbchessboard'),
-		'manage_options', 'rpbchessboard', rpbchessboard_admin_page_memo
+		'manage_options', 'rpbchessboard', rpbchessboard_admin_page_memo,
+		RPBCHESSBOARD_URL.'/images/admin-small.png'
 	);
 
 	// Page "memo" (same slug code that for the menu, to make it the default page).
