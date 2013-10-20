@@ -49,26 +49,6 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 			"B": "\u265d",
 			"N": "\u265e",
 			"P": "\u265f"
-		},
-
-		/**
-		 * Nags
-		 */
-		nag: {
-			 1: "!",       // good move
-			 2: "?",       // poor move, mistake
-			 3: "!!",      // very good move
-			 4: "??",      // very poor move, blunder
-			 5: "!?",      // speculative or interesting move
-			 6: "?!",      // questionable or dubious move
-			10: "=",       // equal position
-			13: "\u221e",  // unclear position
-			14: "+=",      // White has a slight advantage
-			15: "=+",      // Black has a slight advantage
-			16: "\u00b1",  // White has a moderate advantage
-			17: "\u2213",  // Black has a moderate advantage
-			18: "+\u2212", // White has a decisive advantage
-			19: "\u2212+"  // Black has a decisive advantage
 		}
 	};
 
@@ -206,6 +186,31 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	}
 
 	/**
+	 * The human-readable symbols corresponding to most common NAGs.
+	 *
+	 * @private
+	 * @constant
+	 *
+	 * @memberof PgnWidget
+	 */
+	var SPECIAL_NAGS_LOOKUP = {
+		 3: "!!",      // very good move
+		 1: "!",       // good move
+		 5: "!?",      // interesting move
+		 6: "?!",      // questionable move
+		 2: "?",       // bad move
+		 4: "??",      // very bad move
+		18: "+\u2212", // White has a decisive advantage
+		16: "\u00b1",  // White has a moderate advantage
+		14: "\u2a72",  // White has a slight advantage
+		10: "=",       // equal position
+		13: "\u221e",  // unclear position
+		15: "\u2a71",  // Black has a slight advantage
+		17: "\u2213",  // Black has a moderate advantage
+		19: "\u2212+"  // Black has a decisive advantage
+	};
+
+	/**
 	 * Return the annotation symbol (e.g. "+-", "!?") associated to a numeric NAG code.
 	 *
 	 * @private
@@ -217,13 +222,9 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	 */
 	function formatNag(nag)
 	{
-		if(nag==null) {
-			return null;
-		}
-		else if(option.nag[nag]==null)
-			return '$' + nag;
-		else
-			return option.nag[nag];
+		if(nag==null) return null;
+		else if(SPECIAL_NAGS_LOOKUP[nag]==null) return '$' + nag;
+		else return SPECIAL_NAGS_LOOKUP[nag];
 	}
 
 	/**
