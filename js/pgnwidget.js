@@ -213,13 +213,12 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	 * @private
 	 *
 	 * @param {(Pgn.Node|Pgn.Variation)} pgnNode Node or variation object containing the commentary to render.
-	 * @param {number} depth Depth of the PGN node within its belonging PGN tree (0 for the main variation, 1 for a direct sub-variation, etc...)
 	 * @param {ChessWidget.Options} options Default set of options for displaying inline diagrams.
 	 * @returns {jQuery}
 	 *
 	 * @memberof PgnWidget
 	 */
-	function renderCommentary(pgnNode, depth, options)
+	function renderCommentary(pgnNode, options)
 	{
 		// Nothing to do if no commentary is defined on the current PGN node.
 		if(pgnNode.commentary=='') {
@@ -264,7 +263,7 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 		retVal.addClass('PgnWidget-variation-' + (depth==0 ? 'main' : 'sub'));
 
 		// The variation may start with an initial commentary.
-		var initialCommentary = renderCommentary(pgnVariation, depth, options);
+		var initialCommentary = renderCommentary(pgnVariation, options);
 		if(initialCommentary!=null) {
 			if(pgnVariation.isLongCommentary) { // Long commentaries do not belong to any move group.
 				retVal.append(initialCommentary);
@@ -328,7 +327,7 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 			}
 
 			// Write the commentary (if any)
-			var commentary = renderCommentary(pgnNode, depth, options);
+			var commentary = renderCommentary(pgnNode, options);
 			if(commentary!=null) {
 				if(pgnNode.isLongCommentary) { // Long commentaries do not belong to any move group.
 					retVal.append(commentary);
