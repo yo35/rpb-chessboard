@@ -115,7 +115,7 @@
 				{<?php _e('Absolutely forced.', 'rpbchessboard'); ?>}
 				25... Bxf1 26. Rxf1 Re2 27. Ra1 Rh6 28. d4 Be3 0-1
 				<br/><br/>
-				[/png]
+				[/pgn]
 			</div>
 			<p>
 				<?php echo sprintf(
