@@ -232,8 +232,18 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 		);
 
 		// Render diagrams where requested
-		$('.PgnWidget-anchor-diagram', retVal).each(function(index, e) {
-			$(e).replaceWith(ChessWidget.make(pgnNode.position(), options));
+		$('.PgnWidget-anchor-diagram', retVal).each(function(index, e)
+		{
+			// Try to parse the content of the node as a JSON string.
+			var attributes = null;
+			try {
+				attributes = $.parseJSON('{' + $(e).text() + '}');
+			}
+			catch(err) {}
+
+			// Render the diagram with the proper options
+			var currentOptions = attributes==null ? options : new ChessWidget.Options(options, attributes);
+			$(e).replaceWith(ChessWidget.make(pgnNode.position(), currentOptions));
 		});
 
 		// Return the result
