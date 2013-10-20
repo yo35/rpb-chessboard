@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/rpbchessboard\n"
-"POT-Creation-Date: 2013-08-10 18:47:58+00:00\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-10-20 17:54+0200\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35@melix.net>\n"
 "Language-Team: French\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: helpers/main.php:99
+#: templates/shortcode/javascriptwarning.php:4
 msgid ""
 "You need to activate javascript to enhance chess game and diagram "
 "visualization."
@@ -24,108 +24,228 @@ msgstr ""
 "Vous devez activer javascript pour améliorer l'affichage des parties et "
 "diagrammes d'échecs."
 
-#: rpbchessboard.php:59 rpbchessboard.php:60
-msgid "Chess games and diagrams"
-msgstr "Parties et diagrammes d'échecs"
-
-#: template-init.php:20
-msgid "january"
-msgstr "janvier"
-
-#: template-init.php:21
-msgid "february"
-msgstr "février"
-
-#: template-init.php:22
-msgid "march"
-msgstr "mars"
-
-#: template-init.php:23
-msgid "april"
-msgstr "avril"
-
-#: template-init.php:24
-msgid "may"
-msgstr "mai"
-
-#: template-init.php:25
-msgid "june"
-msgstr "juin"
-
-#: template-init.php:26
-msgid "july"
-msgstr "juillet"
-
-#: template-init.php:27
-msgid "august"
-msgstr "août"
-
-#: template-init.php:28
-msgid "september"
-msgstr "septembre"
-
-#: template-init.php:29
-msgid "october"
-msgstr "octobre"
-
-#: template-init.php:30
-msgid "november"
-msgstr "novembre"
-
-#: template-init.php:31
-msgid "december"
-msgstr "décembre"
-
-#: template-init.php:35
-msgid "Initial position"
-msgstr "Position initiale"
-
-#: template-init.php:39
-msgctxt "King symbol"
-msgid "K"
-msgstr "R"
-
-#: template-init.php:40
-msgctxt "Queen symbol"
-msgid "Q"
-msgstr "D"
-
-#: template-init.php:41
-msgctxt "Rook symbol"
-msgid "R"
-msgstr "T"
-
-#: template-init.php:42
-msgctxt "Bishop symbol"
-msgid "B"
-msgstr "F"
-
-#: template-init.php:43
-msgctxt "Knight symbol"
-msgid "N"
-msgstr "C"
-
-#: template-init.php:44
-msgctxt "Pawn symbol"
-msgid "P"
-msgstr "P"
-
-#: template-pgn.php:78
+#: templates/shortcode/pgn.php:25 templates/admin/memo.php:209
+#, php-format
 msgid "Commented by %1$s"
 msgstr "Commentée par %1$s"
 
-#. Plugin Name of the plugin/theme
-msgid "RPB Chessboard"
-msgstr "RPB Chessboard"
+#: templates/admin/options.php:8
+msgid "Default chessboard aspect"
+msgstr "Apparance des diagrammes par défaut"
 
-#. Description of the plugin/theme
+#: templates/admin/options.php:16
+#, php-format
+msgid "Square size: %1$s pixels"
+msgstr "Taille des cases&nbsp;: %1$s pixels"
+
+#: templates/admin/options.php:25
+msgid "Show coordinates"
+msgstr "Afficher les coordonnées"
+
+#: templates/admin/options.php:37
+msgid "Save changes"
+msgstr "Enregistrer les modifications"
+
+#: templates/admin/header.php:7 backend.php:9 backend.php:16 backend.php:23
+msgid "Chess games and diagrams"
+msgstr "Parties et diagrammes d'échecs"
+
+#: templates/admin/memo.php:10
+msgid ""
+"This short reminder presents through examples the features provided by the "
+"RPB Chessboard plugin, namely the insertion of chess diagrams and games in "
+"Wordpress websites. On the left is the code written in posts and pages; the "
+"right column shows the corresponding rendering."
+msgstr ""
+"Ce court pense-bête présente au travers d'exemples les fonctionnalités "
+"offertes par le plugin RPB Chessboard, à savoir l'insertion de diagrammes et "
+"parties d'échecs dans les sites webs Wordpress. La colonne de gauche montre "
+"le code écrit dans les articles et les pages, la colonne de droite le rendu "
+"correspondant."
+
+#: templates/admin/memo.php:22
+msgid "FEN diagram"
+msgstr "Diagramme FEN"
+
+#: templates/admin/memo.php:28 templates/admin/memo.php:56
+msgid "White to move and mate in two:"
+msgstr "Trait aux blancs, mat en deux&nbsp;:"
+
+#: templates/admin/memo.php:33 templates/admin/memo.php:67
+msgid ""
+"This position is known as Légal Mate. It is named after the French player "
+"François Antoine de Kermeur Sire de Legale (1702-1792)."
+msgstr ""
+"Cette position est appelée Mat de Legal. Elle doit son nom au joueur "
+"français François Antoine de Kermeur Sire de Legale (1702-1792)."
+
+#: templates/admin/memo.php:40
+#, php-format
+msgid ""
+"The string between the %1$s[fen][/fen]%2$s tags describe the position. The "
+"used notation follows the %3$sFEN format%4$s (Forsyth-Edwards Notation). A "
+"comprehensive description of this FEN notation is available on %3$sWikipedia"
+"%4$s."
+msgstr ""
+"Le texte entre les balises %1$s[fen][/fen]%2$s décrit la position. La "
+"notation utilisée suit le %3$sformat FEN%4$s (<em>Forsyth-Edwards Notation</"
+"em>). Une description exhaustive de cette notation FEN est disponible sur "
+"%3$sWikipedia%4$s."
+
+#: templates/admin/memo.php:47
+msgid "http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation"
+msgstr "http://fr.wikipedia.org/wiki/Notation_Forsyth-Edwards"
+
+#: templates/admin/memo.php:80
+msgid "PGN game"
+msgstr "Partie PGN"
+
+#: templates/admin/memo.php:104 templates/admin/memo.php:175
+msgid ""
+"Morphy took twelve minutes over his next move, probably to assure himself "
+"that the combination was sound and that he had a forced win in every "
+"variation."
+msgstr ""
+"Morphy réfléchit douze minutes sur le coup suivant, sans doute pour "
+"s'assurer que la combinaison était correcte et que le gain était forcé dans "
+"toutes les variantes."
+
+#: templates/admin/memo.php:111 templates/admin/memo.php:183
+msgid "Not"
+msgstr "Pas"
+
+#: templates/admin/memo.php:114 templates/admin/memo.php:186
+msgid "would have won more quickly. For instance:"
+msgstr "aurait gagné plus rapidement. Par exemple&nbsp;:"
+
+#: templates/admin/memo.php:118 templates/admin/memo.php:190
+msgid "Absolutely forced."
+msgstr "Complètement forcé."
+
+#: templates/admin/memo.php:126
+#, php-format
+msgid ""
+"The code between the %1$s[pgn][/pgn]%2$s tags describe the game. The used "
+"notation follows the standard %3$sPGN format%4$s. It can be copy-pasted from "
+"a .pgn file generated by any chess database software, including %5$sChessbase"
+"%6$s, %7$sScid%8$s, etc..."
+msgstr ""
+"Le code placé entre les balises %1$s[pgn][/pgn]%2$s décrit la partie. La "
+"notation utilisée suit le %3$sformat PGN%4$s usuel. Il peut être copié-collé "
+"à partir d'un fichier .pgn généré par n'importe quel logiciel de base de "
+"données échiquéenne, notamment %5$sChessbase%6$s, %7$sScid%8$s, etc..."
+
+#: templates/admin/memo.php:134
+msgid "http://en.wikipedia.org/wiki/Portable_Game_Notation"
+msgstr "http://fr.wikipedia.org/wiki/Portable_Game_Notation"
+
+#: templates/admin/memo.php:146
+#, php-format
+msgid ""
+"Please note the %1$s[pgndiagram]%2$s tag placed inside a commentary to "
+"insert a diagram showing the current position."
+msgstr ""
+"Remarquez la balise %1$s[pgndiagram]%2$s placée dans un commentaire pour "
+"insérer un diagramme montrant la position courante."
+
+#: templates/localization.php:5
+msgid "Initial position"
+msgstr "Position initiale"
+
+#: templates/localization.php:9
+msgid "January"
+msgstr "Janvier"
+
+#: templates/localization.php:10
+msgid "February"
+msgstr "Février"
+
+#: templates/localization.php:11
+msgid "March"
+msgstr "Mars"
+
+#: templates/localization.php:12
+msgid "April"
+msgstr "Avril"
+
+#: templates/localization.php:13
+msgid "May"
+msgstr "Mai"
+
+#: templates/localization.php:14
+msgid "June"
+msgstr "Juin"
+
+#: templates/localization.php:15
+msgid "July"
+msgstr "Juillet"
+
+#: templates/localization.php:16
+msgid "August"
+msgstr "Août"
+
+#: templates/localization.php:17
+msgid "September"
+msgstr "Septembre"
+
+#: templates/localization.php:18
+msgid "October"
+msgstr "Octobre"
+
+#: templates/localization.php:19
+msgid "November"
+msgstr "Novembre"
+
+#: templates/localization.php:20
+msgid "December"
+msgstr "Décembre"
+
+#. King symbol
+#: templates/localization.php:25
+msgid "K"
+msgstr "R"
+
+#. Queen symbol
+#: templates/localization.php:26
+msgid "Q"
+msgstr "D"
+
+#. Rook symbol
+#: templates/localization.php:27
+msgid "R"
+msgstr "T"
+
+#. Bishop symbol
+#: templates/localization.php:28
+msgid "B"
+msgstr "F"
+
+#. Knight symbol
+#: templates/localization.php:29
+msgid "N"
+msgstr "C"
+
+#. Pawn symbol
+#: templates/localization.php:30
+msgid "P"
+msgstr "P"
+
+#: models/options.php:22 backend.php:23 backend.php:24
+msgid "Options"
+msgstr "Options"
+
+#: models/memo.php:15 backend.php:16 backend.php:17
+msgid "Memo"
+msgstr "Mémo"
+
+#: backend.php:10
+msgid "Chess"
+msgstr "Échecs"
+
+#: rpbchessboard.php
 msgid ""
 "This plugin allows you to print out chess diagrams and PGN-encoded chess "
 "games."
 msgstr ""
 "Ce plugin vous permet d'afficher des diagrammes d'échecs ainsi que des "
 "parties d'échecs encodées au format PGN."
-
-#. Author of the plugin/theme
-msgid "Yoann Le Montagner"
-msgstr "Yoann Le Montagner"
