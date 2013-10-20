@@ -153,6 +153,26 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	}
 
 	/**
+	 * Convert a PGN result field value into a human-readable string.
+	 * Return null if the special code "*" is detected.
+	 *
+	 * @private
+	 *
+	 * @param {string} result Value of a PGN result field.
+	 * @returns {string}
+	 *
+	 * @memberof PgnWidget
+	 */
+	function formatResult(result)
+	{
+		if(result==null || result=='*') return null;
+		else if(result=='1/2-1/2') return '&#189;&#8211;&#189;';
+		else if(result=='1-0') return '1&#8211;0';
+		else if(result=='0-1') return '0&#8211;1';
+		else return result;
+	}
+
+	/**
 	 * Convert a SAN move notation into a localized move notation
 	 * (the characters used to specify the pieces is the only localized element).
 	 *
@@ -648,7 +668,7 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 		substituteSimpleField(targetNode, 'Round'    , pgn, formatRound);
 		substituteSimpleField(targetNode, 'White'    , pgn);
 		substituteSimpleField(targetNode, 'Black'    , pgn);
-		substituteSimpleField(targetNode, 'Result'   , pgn);
+		substituteSimpleField(targetNode, 'Result'   , pgn, formatResult);
 		substituteSimpleField(targetNode, 'Annotator', pgn);
 		substituteFullName(targetNode, 'w', pgn);
 		substituteFullName(targetNode, 'b', pgn);
