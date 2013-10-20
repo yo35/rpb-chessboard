@@ -28,7 +28,7 @@ if [ "$COMMAND" = "extract" ]; then
 	
 	# Do the job
 	xgettext --from-code=UTF-8 --language=PHP -c$TRANSLATOR_KW -k__ -k_e -o $POT_FILE `find . -name '*.php'`
-	sed -i -e "s/^#\. *$TRANSLATOR_KW *\(.*\)$/#  \1/" $POT_FILE
+	sed -i -e "s/^#\. *$TRANSLATOR_KW *\(.*\)$/#. \1/" $POT_FILE
 	exit
 fi
 
@@ -46,7 +46,7 @@ if [ "$COMMAND" = "merge" ]; then
 	
 	# Do the job
 	msgmerge -v -U $PO_PREFIX-$2.po $POT_FILE
-	rm $LANGUAGE_FOLDER/*.po~
+	rm -f $LANGUAGE_FOLDER/*.po~
 	exit
 fi
 
