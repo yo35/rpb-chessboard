@@ -18,8 +18,8 @@ abstract class RPBChessboardHelperJSON
 	public static function formatChessWidgetAttributes($squareSize, $showCoordinates)
 	{
 		$retVal = array();
-		if(!is_null($squareSize     )) $retVal[] = 'squareSize: '      . json_encode($squareSize     );
-		if(!is_null($showCoordinates)) $retVal[] = 'showCoordinates: ' . json_encode($showCoordinates);
+		if(!is_null($squareSize     )) $retVal[] = '"squareSize": '      . json_encode($squareSize     );
+		if(!is_null($showCoordinates)) $retVal[] = '"showCoordinates": ' . json_encode($showCoordinates);
 		return '{' . implode(', ', $retVal) . '}';
 	}
 }
