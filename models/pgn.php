@@ -10,16 +10,20 @@ require_once(RPBCHESSBOARD_ABSPATH.'models/abstracttoplevelshortcodemodel.php');
  */
 class RPBChessboardModelPgn extends RPBChessboardAbstractTopLevelShortcodeModel
 {
-	/**
-	 * Constructor.
-	 *
-	 * @param array $atts Attributes passed with the short-code.
-	 * @param string $content Short-code enclosed content.
-	 */
 	public function __construct($atts, $content)
 	{
 		parent::__construct($atts, $content);
 		$this->loadTrait('ChessWidgetCustom', $this->getAttributes());
+	}
+
+	public function isInitializationTemplateRequired()
+	{
+		return true;
+	}
+
+	public function isLocalizationTemplateRequired()
+	{
+		return true;
 	}
 
 

@@ -13,9 +13,11 @@ class RPBChessboardViewTopLevelShortcode extends RPBChessboardAbstractView
 	public function display()
 	{
 		$model = $this->getModel();
-		if($model->isTemplateInitRequired()) {
-			$model->prepareForTemplateInit();
-			include(RPBCHESSBOARD_ABSPATH.'templates/shortcode/javascriptinit.php');
+		if($model->mustEnqueueInitializationTemplate()) {
+			include(RPBCHESSBOARD_ABSPATH.'templates/shortcode/initialization.php');
+		}
+		if($model->mustEnqueueLocalizationTemplate()) {
+			include(RPBCHESSBOARD_ABSPATH.'templates/localization.php');
 		}
 		include(RPBCHESSBOARD_ABSPATH.'templates/shortcode/javascriptwarning.php');
 		include(RPBCHESSBOARD_ABSPATH.'templates/shortcode/'.strtolower($model->getTemplateName()).'.php');

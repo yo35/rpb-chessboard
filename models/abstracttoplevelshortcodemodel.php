@@ -15,23 +15,59 @@ abstract class RPBChessboardAbstractTopLevelShortcodeModel extends RPBChessboard
 
 
 	/**
-	 * Whether the javascript initialization template needs to be enqueued.
+	 * Whether the current model needs the initialization template.
+	 * This function may be overriden by derived classes.
 	 *
-	 * @return boolean
+	 * @return boolean False by default.
 	 */
-	public function isTemplateInitRequired()
+	public function isInitializationTemplateRequired()
 	{
-		return !self::$javascriptInitEnqueued;
+		return false;
 	}
 
 
 	/**
-	 * Prepare the model for being used by the javascript initialization template.
+	 * Whether the current model needs the localization template.
+	 * This function may be overriden by derived classes.
+	 *
+	 * @return boolean False by default.
 	 */
-	public function prepareForTemplateInit()
+	public function isLocalizationTemplateRequired()
 	{
+		return false;
+	}
+
+
+	/**
+	 * Mark the initialization template as enqueued if not done yet and if required.
+	 * This function should be called from the view.
+	 *
+	 * @return boolean
+	 */
+	public function mustEnqueueInitializationTemplate()
+	{
+		if(self::$initializationAlreadyEnqueued || !$this->isInitializationTemplateRequired()) {
+			return false;
+		}
 		$this->loadTrait('ChessWidgetDefault');
-		self::$javascriptInitEnqueued = true;
+		self::$initializationAlreadyEnqueued = true;
+		return true;
+	}
+
+
+	/**
+	 * Mark the localization template as enqueued if not done yet and if required.
+	 * This function should be called from the view.
+	 *
+	 * @return boolean
+	 */
+	public function mustEnqueueLocalizationTemplate()
+	{
+		if(self::$localizationAlreadyEnqueued || !$this->isLocalizationTemplateRequired()) {
+			return false;
+		}
+		self::$localizationAlreadyEnqueued = true;
+		return true;
 	}
 
 
@@ -92,7 +128,12 @@ abstract class RPBChessboardAbstractTopLevelShortcodeModel extends RPBChessboard
 
 
 	/**
-	 * Flag indicating whether the initialization of the javascript objects has been done yet.
+	 * Flag indicating whether the initialization template has already been enqueued or not.
 	 */
-	private static $javascriptInitEnqueued = false;
+	private static $initializationAlreadyEnqueued = false;
+
+	/**
+	 * Flag indicating whether the localization template has already been enqueued or not.
+	 */
+	private static $localizationAlreadyEnqueued = false;
 }
