@@ -57,10 +57,10 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	 * point. They are made public so that they can be localized.
 	 *
 	 * @public
+	 * @memberof PgnWidget
 	 */
-	var text =
-	{
-		initialPosition: "Initial position"
+	var text = {
+		initialPosition: 'Initial position'
 	};
 
 	/**
@@ -880,7 +880,8 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	// Return the module object
 	return {
 		option             : option             ,
-		text               : text               ,
+		text  : text  ,
 		makeAt: makeAt
 	};
+
 })(Chess, Pgn, ChessWidget, jQuery);
