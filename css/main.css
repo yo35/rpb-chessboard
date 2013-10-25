@@ -24,7 +24,7 @@
 .rpbchessboard-javascript-warning {
 	font-family: sans-serif;
 	color: #800000;
-	border: 1px solid #800000;
+	border: 1px solid #d00000;
 	background-color: #ffd8d8;
 }
 
@@ -32,7 +32,7 @@
 	white-space: pre-line;
 	font-family: monospace;
 	color: #404000;
-	border: solid 1px #808000;
+	border: solid 1px #b0b000;
 	background-color: #ffffe0;
 }
 

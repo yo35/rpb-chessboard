@@ -12,32 +12,32 @@
 /*** Parsing error box ***/
 
 .PgnWidget-error {
-	padding: 4px 8px 4px;
-	background-color: #ffe8e8;
-	border: solid 1px #a00000;
-	color: #a00000;
-	font-size: 90%;
-}
-
-.PgnWidget-error-title,
-.PgnWidget-error-message,
-.PgnWidget-error-at {
-	display: block;
+	text-align: left;
+	font-family: sans-serif;
+	font-size: 12px;
+	line-height: 1.3em;
+	color: #800000;
+	background-color: #ffd8d8;
+	border: solid 1px #d00000;
+	padding: 8px 10px 8px;
+	margin-top   : 5px;
+	margin-bottom: 5px;
 }
 
 .PgnWidget-error-title {
 	font-weight: bold;
 	font-style: italic;
+	margin-bottom: 4px;
 }
 
-.PgnWidget-error-at pre {
-	margin : 6px;
-	padding: 10px 8px 0px;
-	background-color: #ffffe0;
-	color: #404000;
-	font-size: 90%;
-	line-height: 1em;
+.PgnWidget-error-at-code {
 	white-space: pre-wrap;
+	font-family: monospace;
+	color: #404000;
+	border: solid 1px #b0b000;
+	background-color: #ffffe0;
+	padding: 10px 8px 0px;
+	margin-top: 4px;
 }
 
 
