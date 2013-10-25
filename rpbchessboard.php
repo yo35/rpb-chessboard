@@ -4,7 +4,7 @@ Plugin Name: RPB Chessboard
 Description: This plugin allows you to print out chess diagrams and PGN-encoded chess games.
 Text Domain: rpbchessboard
 Author: Yoann Le Montagner
-Version: 1.4
+Version: 1.99
 */
 
 
