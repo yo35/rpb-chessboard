@@ -9,53 +9,11 @@
 /******************************************************************************/
 /*** Style for the PGN template ***/
 
-span.rpbchessboard-white-square,
-span.rpbchessboard-black-square {
-	width : 1.2em;
-	height: 1.2em;
-	vertical-align: middle;
-	display: inline-block;
-	border: 1px solid black;
-}
-
-span.rpbchessboard-white-square {
-	background-color: white;
-}
-
-span.rpbchessboard-black-square {
-	background-color: black;
-}
-
-span.jsChessLib-field-Round {
-	font-style: italic;
-}
-
-div.jsChessLib-field-Annotator {
-	font-style: italic;
-}
-
-div.jsChessLib-field-Result {
-	font-weight: bold;
-}
-
-div.rpbchessboard-game-head div {
-	margin-top   : 4px;
-	margin-bottom: 4px;
-}
-
-div.rpbchessboard-game-head {
-	margin-top: 10px;
-}
-
-div.rpbchessboard-game-body {
-	margin-top: 15px;
-}
-
 
 
 /******************************************************************************/
 /*** Reset the formatting by some templates to standard HTML tags ***/
-
+/*
 .entry-content   .jsChessLib-chessboard img,
 .comment-content .jsChessLib-chessboard img,
 .widget          .jsChessLib-chessboard img {
@@ -66,3 +24,4 @@ div.rpbchessboard-game-body {
 	margin-bottom: 0px;
 	margin-right : 0px;
 }
+*/
