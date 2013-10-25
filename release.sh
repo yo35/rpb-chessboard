@@ -13,6 +13,6 @@ mkdir $OUTPUT_FOLDER
 cp -r ${SOURCE_FILES[*]} $OUTPUT_FOLDER
 
 # Special third-party libs
-mkdir $OUTPUT_FOLDER/chess.js
-cp -r chess.js/* $OUTPUT_FOLDER/chess.js
+mkdir $OUTPUT_FOLDER/chess-js
+cp -r chess-js/* $OUTPUT_FOLDER/chess-js
 
