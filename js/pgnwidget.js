@@ -546,12 +546,19 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	 */
 	function displayErrorMessage(error, targetNode)
 	{
+		// Prepare the target node.
 		targetNode.empty();
 		targetNode.addClass('PgnWidget-error');
-		$('<span class="PgnWidget-error-title">Error while analysing a PGN string.</span>').appendTo(targetNode);
-		$('<span class="PgnWidget-error-message">' + error.message + '</span>').appendTo(targetNode);
+		$('<div class="PgnWidget-error-title">Error while analysing a PGN string.</div>').appendTo(targetNode);
+
+		// Display the error message.
+		if(!(error.message==null || error.message.length==0)) {
+			$('<div class="PgnWidget-error-message">' + error.message + '</div>').appendTo(targetNode);
+		}
+
+		// Display where the error occurred.
 		if(error.pos>=0) {
-			var at = $('<span class="PgnWidget-error-at"></span>').appendTo(targetNode);
+			var at = $('<div class="PgnWidget-error-at"></div>').appendTo(targetNode);
 
 			// Special case: error at the end of the string
 			if(error.pos>=error.pgnString.length) {
@@ -582,7 +589,7 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 				var text = e1 + error.pgnString.substr(p1, p2-p1) + e2;
 				text = text.replace(/\n|\t/g, ' ');
 				text += '\n' + Array(1 + e1.length + (error.pos-p1)).join(' ') + '^^^';
-				$('<pre>' + text + '</pre>').appendTo(at);
+				$('<div class="PgnWidget-error-at-code">' + text + '</div>').appendTo(at);
 			}
 		}
 	}
