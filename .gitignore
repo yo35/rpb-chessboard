@@ -1,4 +1,6 @@
-.buildpath
-.project
-.settings
-js/chess.js
+/.buildpath
+/.project
+/.settings
+
+/chess.js
+
