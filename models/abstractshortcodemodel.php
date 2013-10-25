@@ -24,7 +24,7 @@ abstract class RPBChessboardAbstractShortcodeModel extends RPBChessboardAbstract
 	public function __construct($atts, $content)
 	{
 		parent::__construct();
-		$this->atts    = $atts==='' ? array() : $atts;
+		$this->atts    = is_array($atts) ? $atts : array();
 		$this->content = $content;
 	}
 
