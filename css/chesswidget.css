@@ -1,4 +1,21 @@
 
+/******************************************************************************/
+/*** Reset the CSS attributes that may affect the <img> tag ***/
+
+.ChessWidget img {
+	box-shadow: none;
+	border: 0 none;
+	margin-top   : 0px;
+	margin-left  : 0px;
+	margin-bottom: 0px;
+	margin-right : 0px;
+}
+
+
+
+/******************************************************************************/
+/*** General aspect of the chessboard ***/
+
 .ChessWidget {
 	display: block;
 	text-align: center;
