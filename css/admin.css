@@ -100,3 +100,29 @@
 #rpbchessboard-admin-squareSize {
 	text-align: right;
 }
+
+
+
+/******************************************************************************/
+/*** About tab ***/
+
+#rpbchessboard-admin-translator-list {
+	display: table;
+}
+
+#rpbchessboard-admin-translator-list div {
+	display: table-row;
+}
+
+#rpbchessboard-admin-translator-list dt,
+#rpbchessboard-admin-translator-list dd {
+	display: table-cell;
+}
+
+#rpbchessboard-admin-translator-list dd {
+	padding-left: 15px;
+}
+
+#rpbchessboard-admin-translator-list img {
+	vertical-align: middle;
+}

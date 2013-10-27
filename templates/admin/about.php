@@ -27,9 +27,15 @@
 
 
 	<h3><?php _e('Translation', 'rpbchessboard'); ?></h3>
-	<dl>
-		<dt>English</dt><dd>Yoann Le Montagner</dd>
-		<dt>Français</dt><dd>Yoann Le Montagner</dd>
+	<dl id="rpbchessboard-admin-translator-list">
+		<div>
+			<dt><img src="<?php echo RPBCHESSBOARD_URL.'/images/flags/gb.png'; ?>" />English</dt>
+			<dd>Yoann Le Montagner</dd>
+		</div>
+		<div>
+			<dt><img src="<?php echo RPBCHESSBOARD_URL.'/images/flags/fr.png'; ?>" />Français</dt>
+			<dd>Yoann Le Montagner</dd>
+		</div>
 	</dl>
 	<p class="description">
 		<?php echo sprintf(
