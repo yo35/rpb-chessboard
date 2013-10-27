@@ -50,7 +50,7 @@ function rpbchessboard_admin_register_interface()
 	add_submenu_page('rpbchessboard',
 		__('Chess games and diagrams', 'rpbchessboard') . ' - ' . __('About', 'rpbchessboard'),
 		__('About', 'rpbchessboard'),
-		'edit_posts', 'rpbchessboard-about', rpbchessboard_admin_page_about
+		'manage_options', 'rpbchessboard-about', rpbchessboard_admin_page_about
 	);
 }
 
