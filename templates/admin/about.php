@@ -40,7 +40,7 @@
 				'If you encounter some bugs with this plugin, or if you wish to get new features in the future versions, '.
 				'you can report/propose them in the bug tracker at %1$s.',
 			'rpbchessboard'),
-			'<a href="https://github.com/yo35/rpbchessboard/issues">https://github.com/yo35/rpbchessboard/issues</a>');
+			'<a href="https://github.com/yo35/rpbchessboard/issues" target="_blank">https://github.com/yo35/rpbchessboard/issues</a>');
 		?>
 	</p>
 
@@ -77,7 +77,7 @@
 				'The full text of this license is available at %1$s. A copy of this document '.
 				'is also provided with the plugin source code.',
 			'rpbchessboard'),
-			'<a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>');
+			'<a href="http://www.gnu.org/licenses/gpl-3.0.html" target="_blank">http://www.gnu.org/licenses/gpl-3.0.html</a>');
 		?>
 	</p>
 
