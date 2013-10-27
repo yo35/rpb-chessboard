@@ -45,12 +45,20 @@ function rpbchessboard_admin_register_interface()
 		__('Options', 'rpbchessboard'),
 		'manage_options', 'rpbchessboard-options', rpbchessboard_admin_page_options
 	);
+
+	// Page "about"
+	add_submenu_page('rpbchessboard',
+		__('Chess games and diagrams', 'rpbchessboard') . ' - ' . __('About', 'rpbchessboard'),
+		__('About', 'rpbchessboard'),
+		'edit_posts', 'rpbchessboard-about', rpbchessboard_admin_page_about
+	);
 }
 
 
 // Page hooks
 function rpbchessboard_admin_page_memo   () { rpbchessboard_load_controller('Memo'   ); }
 function rpbchessboard_admin_page_options() { rpbchessboard_load_controller('Options'); }
+function rpbchessboard_admin_page_about  () { rpbchessboard_load_controller('About'  ); }
 
 
 // Load the controller with the corresponding model name, and execute it.
