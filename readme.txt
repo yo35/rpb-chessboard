@@ -1,7 +1,7 @@
 === RPB Chessboard ===
 Contributors: yo35
 Tags: chess, chessboard, fen, pgn
-Requires at least: 3.0.1
+Requires at least: 2.6
 Tested up to: 3.6.1
 Stable tag: trunk
 License: GPLv3
