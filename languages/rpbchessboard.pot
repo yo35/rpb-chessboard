@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-20 19:04+0200\n"
+"POT-Creation-Date: 2013-10-27 11:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,45 +17,73 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: templates/shortcode/javascriptwarning.php:4
+#: templates/shortcode/javascriptwarning.php:25
 msgid ""
 "You need to activate javascript to enhance chess game and diagram "
 "visualization."
 msgstr ""
 
-#: templates/shortcode/pgn.php:25 templates/admin/memo.php:209
+#: templates/shortcode/pgn.php:47 templates/admin/memo.php:231
 #, php-format
 msgid "Commented by %1$s"
 msgstr ""
 
-#: templates/admin/options.php:8
+#: templates/admin/about.php:25
+msgid "Author"
+msgstr ""
+
+#: templates/admin/about.php:29
+msgid "Translation"
+msgstr ""
+
+#: templates/admin/about.php:37
+#, php-format
+msgid ""
+"If you are interested in translating this plugin into your language, please "
+"contact the author %1$s."
+msgstr ""
+
+#: templates/admin/about.php:44
+msgid "License"
+msgstr ""
+
+#: templates/admin/about.php:48
+#, php-format
+msgid ""
+"This plugin is distributed under the GNU General Public License version 3 "
+"(GPLv3). The full text of this license is available at %1$s. A copy of this "
+"document is also provided with the plugin source code."
+msgstr ""
+
+#: templates/admin/options.php:29
 msgid "Default chessboard aspect"
 msgstr ""
 
-#: templates/admin/options.php:16
+#: templates/admin/options.php:36
 #, php-format
 msgid "Square size: %1$s pixels"
 msgstr ""
 
-#: templates/admin/options.php:25
+#: templates/admin/options.php:52
 msgid "Show coordinates"
 msgstr ""
 
-#: templates/admin/options.php:37
+#: templates/admin/options.php:64
 msgid "Save changes"
 msgstr ""
 
-#: templates/admin/header.php:7 backend.php:9 backend.php:17 backend.php:24
+#: templates/admin/header.php:28 backend.php:29 backend.php:37 backend.php:44
+#: backend.php:51
 msgid "Chess games and diagrams"
 msgstr ""
 
-#: templates/admin/header.php:14
+#: templates/admin/header.php:35
 msgid ""
 "To work properly, the RPB Chessboard plugin needs javascript to be activated "
 "in your browser."
 msgstr ""
 
-#: templates/admin/memo.php:10
+#: templates/admin/memo.php:32
 msgid ""
 "This short reminder presents through examples the features provided by the "
 "RPB Chessboard plugin, namely the insertion of chess diagrams and games in "
@@ -63,21 +91,21 @@ msgid ""
 "right column shows the corresponding rendering."
 msgstr ""
 
-#: templates/admin/memo.php:22
+#: templates/admin/memo.php:44
 msgid "FEN diagram"
 msgstr ""
 
-#: templates/admin/memo.php:28 templates/admin/memo.php:56
+#: templates/admin/memo.php:50 templates/admin/memo.php:78
 msgid "White to move and mate in two:"
 msgstr ""
 
-#: templates/admin/memo.php:33 templates/admin/memo.php:67
+#: templates/admin/memo.php:55 templates/admin/memo.php:89
 msgid ""
 "This position is known as the Légal Trap. It is named after the French "
 "player François Antoine de Legall de Kermeur (1702&ndash;1792)."
 msgstr ""
 
-#: templates/admin/memo.php:40
+#: templates/admin/memo.php:62
 #, php-format
 msgid ""
 "The string between the %1$s[fen][/fen]%2$s tags describe the position. The "
@@ -86,34 +114,34 @@ msgid ""
 "%4$s."
 msgstr ""
 
-#: templates/admin/memo.php:47
+#: templates/admin/memo.php:69
 msgid "http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation"
 msgstr ""
 
-#: templates/admin/memo.php:80
+#: templates/admin/memo.php:102
 msgid "PGN game"
 msgstr ""
 
-#: templates/admin/memo.php:104 templates/admin/memo.php:175
+#: templates/admin/memo.php:126 templates/admin/memo.php:197
 msgid ""
 "Morphy took twelve minutes over his next move, probably to assure himself "
 "that the combination was sound and that he had a forced win in every "
 "variation."
 msgstr ""
 
-#: templates/admin/memo.php:111 templates/admin/memo.php:183
+#: templates/admin/memo.php:133 templates/admin/memo.php:205
 msgid "Not"
 msgstr ""
 
-#: templates/admin/memo.php:114 templates/admin/memo.php:186
+#: templates/admin/memo.php:136 templates/admin/memo.php:208
 msgid "would have won more quickly. For instance:"
 msgstr ""
 
-#: templates/admin/memo.php:118 templates/admin/memo.php:190
+#: templates/admin/memo.php:140 templates/admin/memo.php:212
 msgid "Absolutely forced."
 msgstr ""
 
-#: templates/admin/memo.php:126
+#: templates/admin/memo.php:148
 #, php-format
 msgid ""
 "The code between the %1$s[pgn][/pgn]%2$s tags describe the game. The used "
@@ -122,108 +150,112 @@ msgid ""
 "%6$s, %7$sScid%8$s, etc..."
 msgstr ""
 
-#: templates/admin/memo.php:134
+#: templates/admin/memo.php:156
 msgid "http://en.wikipedia.org/wiki/Portable_Game_Notation"
 msgstr ""
 
-#: templates/admin/memo.php:146
+#: templates/admin/memo.php:168
 #, php-format
 msgid ""
 "Please note the %1$s[pgndiagram]%2$s tag placed inside a commentary to "
 "insert a diagram showing the current position."
 msgstr ""
 
-#: templates/localization.php:5
+#: templates/localization.php:26
 msgid "Initial position"
 msgstr ""
 
-#: templates/localization.php:9
+#: templates/localization.php:30
 msgid "January"
 msgstr ""
 
-#: templates/localization.php:10
+#: templates/localization.php:31
 msgid "February"
 msgstr ""
 
-#: templates/localization.php:11
+#: templates/localization.php:32
 msgid "March"
 msgstr ""
 
-#: templates/localization.php:12
+#: templates/localization.php:33
 msgid "April"
 msgstr ""
 
-#: templates/localization.php:13
+#: templates/localization.php:34
 msgid "May"
 msgstr ""
 
-#: templates/localization.php:14
+#: templates/localization.php:35
 msgid "June"
 msgstr ""
 
-#: templates/localization.php:15
+#: templates/localization.php:36
 msgid "July"
 msgstr ""
 
-#: templates/localization.php:16
+#: templates/localization.php:37
 msgid "August"
 msgstr ""
 
-#: templates/localization.php:17
+#: templates/localization.php:38
 msgid "September"
 msgstr ""
 
-#: templates/localization.php:18
+#: templates/localization.php:39
 msgid "October"
 msgstr ""
 
-#: templates/localization.php:19
+#: templates/localization.php:40
 msgid "November"
 msgstr ""
 
-#: templates/localization.php:20
+#: templates/localization.php:41
 msgid "December"
 msgstr ""
 
 #. King symbol
-#: templates/localization.php:25
+#: templates/localization.php:46
 msgid "K"
 msgstr ""
 
 #. Queen symbol
-#: templates/localization.php:26
+#: templates/localization.php:47
 msgid "Q"
 msgstr ""
 
 #. Rook symbol
-#: templates/localization.php:27
+#: templates/localization.php:48
 msgid "R"
 msgstr ""
 
 #. Bishop symbol
-#: templates/localization.php:28
+#: templates/localization.php:49
 msgid "B"
 msgstr ""
 
 #. Knight symbol
-#: templates/localization.php:29
+#: templates/localization.php:50
 msgid "N"
 msgstr ""
 
 #. Pawn symbol
-#: templates/localization.php:30
+#: templates/localization.php:51
 msgid "P"
 msgstr ""
 
-#: models/options.php:22 backend.php:24 backend.php:25
+#: models/about.php:33 backend.php:51 backend.php:52
+msgid "About"
+msgstr ""
+
+#: models/options.php:40 backend.php:44 backend.php:45
 msgid "Options"
 msgstr ""
 
-#: models/memo.php:15 backend.php:17 backend.php:18
+#: models/memo.php:33 backend.php:37 backend.php:38
 msgid "Memo"
 msgstr ""
 
-#: backend.php:10
+#: backend.php:30
 msgid "Chess"
 msgstr ""
 
