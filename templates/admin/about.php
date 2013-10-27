@@ -22,6 +22,28 @@
 
 <div id="rpbchessboard-admin-about">
 
+	<h3><?php _e('The plugin', 'rpbchessboard'); ?></h3>
+	<p>
+		TODO: link to the plugin page on wordpress.org .
+	</p>
+	<p>
+		<?php _e(
+			'RPB Chessboard allows you to typeset and display chess games and diagrams '.
+			'in the posts and pages of your Wordpress blog, '.
+			'using the standard FEN and PGN notations.',
+			'rpbchessboard');
+		?>
+	</p>
+	<p class="description">
+		<?php echo sprintf(
+			__(
+				'If you encounter some bugs with this plugin, or if you wish to get new features in the future versions, '.
+				'you can report/propose them in the bug tracker at %1$s.',
+			'rpbchessboard'),
+			'<a href="https://github.com/yo35/rpbchessboard/issues">https://github.com/yo35/rpbchessboard/issues</a>');
+		?>
+	</p>
+
 	<h3><?php _e('Author', 'rpbchessboard'); ?></h3>
 	<p>Yoann Le Montagner</p>
 

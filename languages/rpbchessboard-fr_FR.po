@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-27 11:23+0100\n"
+"POT-Creation-Date: 2013-10-27 13:59+0100\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35@melix.net>\n"
 "Language-Team: French\n"
@@ -30,14 +30,39 @@ msgid "Commented by %1$s"
 msgstr "Commentée par %1$s"
 
 #: templates/admin/about.php:25
+msgid "The plugin"
+msgstr "Le plugin"
+
+#: templates/admin/about.php:31
+msgid ""
+"RPB Chessboard allows you to typeset and display chess games and diagrams in "
+"the posts and pages of your Wordpress blog, using the standard FEN and PGN "
+"notations."
+msgstr ""
+"RPB Chessboard vous permet d'éditer et d'afficher des parties et des "
+"diagrammes d'échecs dans les articles et pages de votre blog Wordpress, en "
+"utilisant les notations usuelles FEN et PGN."
+
+#: templates/admin/about.php:40
+#, php-format
+msgid ""
+"If you encounter some bugs with this plugin, or if you wish to get new "
+"features in the future versions, you can report/propose them in the bug "
+"tracker at %1$s."
+msgstr ""
+"Si vous rencontrez des bugs avec ce plugin, ou bien si vous souhaitez voir "
+"implémenté de nouvelles fonctionnalités dans les versions futures, vous "
+"pouvez les signaler/proposer dans le <em>bug tracker</em> à l'adresse %1$s."
+
+#: templates/admin/about.php:47
 msgid "Author"
 msgstr "Auteur"
 
-#: templates/admin/about.php:29
+#: templates/admin/about.php:51
 msgid "Translation"
 msgstr "Traduction"
 
-#: templates/admin/about.php:37
+#: templates/admin/about.php:65
 #, php-format
 msgid ""
 "If you are interested in translating this plugin into your language, please "
@@ -46,11 +71,11 @@ msgstr ""
 "Si vous souhaitez traduire ce plugin dans votre langue, merci de contacter "
 "l'auteur %1$s."
 
-#: templates/admin/about.php:44
+#: templates/admin/about.php:72
 msgid "License"
 msgstr "Licence"
 
-#: templates/admin/about.php:48
+#: templates/admin/about.php:76
 #, php-format
 msgid ""
 "This plugin is distributed under the GNU General Public License version 3 "
@@ -290,8 +315,8 @@ msgstr "Échecs"
 
 #: rpbchessboard.php
 msgid ""
-"This plugin allows you to print out chess diagrams and PGN-encoded chess "
-"games."
+"This plugin allows you to typeset and display chess diagrams and PGN-encoded "
+"chess games."
 msgstr ""
-"Ce plugin vous permet d'afficher des diagrammes d'échecs ainsi que des "
-"parties d'échecs encodées au format PGN."
+"Ce plugin vous permet d'éditer et d'afficher des diagrammes d'échecs ainsi "
+"que des parties d'échecs encodées au format PGN."
