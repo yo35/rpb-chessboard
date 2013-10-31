@@ -23,7 +23,7 @@
 PLUGIN_NAME = rpbchessboard
 
 # Plugin files
-SRC_FOLDERS          = controllers css helpers images js languages models templates views
+SRC_FOLDERS          = chess-js controllers css helpers images js languages models templates views
 SRC_PHP_FILES        = $(wildcard *.php)
 SRC_WORDPRESS_README = wordpress.readme.txt
 SRC_SPECIAL_FILES    = LICENSE README.md $(wildcard screenshot-*.png)
