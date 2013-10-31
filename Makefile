@@ -20,7 +20,7 @@
 
 
 # Plugin name ("no space" lower case version)
-PLUGIN_NAME = rpbchessboard
+PLUGIN_NAME = rpb-chessboard
 
 # Plugin files
 SRC_FOLDERS          = chess-js controllers css helpers images js languages models templates views
