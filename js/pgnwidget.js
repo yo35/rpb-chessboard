@@ -720,9 +720,10 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 				resizeStart: function(event, ui) { $(event.target).parent().css('position', 'fixed'); },
 				resizeStop : function(event, ui) { $(event.target).parent().css('position', 'fixed'); },
 				/* End of hack */
-				autoOpen: false,
-				width   : 'auto',
-				close   : function(event, ui) { unselectMove(); }
+				autoOpen   : false,
+				dialogClass: 'wp-dialog',
+				width      : 'auto',
+				close      : function(event, ui) { unselectMove(); }
 			});
 
 			// Create the buttons

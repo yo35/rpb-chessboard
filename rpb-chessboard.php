@@ -70,12 +70,8 @@ function rpbchessboard_enqueue_script()
 add_action(is_admin() ? 'admin_print_styles' : 'wp_print_styles', 'rpbchessboard_enqueue_css');
 function rpbchessboard_enqueue_css()
 {
-	// Enqueue a jQuery CSS file for the jQuery dialog
-	global $wp_scripts;
-	$ui = $wp_scripts->query('jquery-ui-core');
-	$protocol = is_ssl() ? 'https' : 'http';
-	wp_register_style('jquery-ui', $protocol.'://code.jquery.com/ui/'.$ui->ver.'/themes/smoothness/jquery-ui.css');
-	wp_enqueue_style ('jquery-ui');
+	// jQuery CSS
+	wp_enqueue_style('wp-jquery-ui-dialog');
 
 	// Local CSS files
 	wp_register_style('rpbchessboard-chesswidget', RPBCHESSBOARD_URL.'/css/chesswidget.css');
