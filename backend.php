@@ -46,6 +46,13 @@ function rpbchessboard_admin_register_interface()
 		'manage_options', 'rpbchessboard-options', rpbchessboard_admin_page_options
 	);
 
+	// Page "help"
+	add_submenu_page('rpbchessboard',
+		__('Chess games and diagrams', 'rpbchessboard') . ' - ' . __('Help', 'rpbchessboard'),
+		__('Help', 'rpbchessboard'),
+		'edit_posts', 'rpbchessboard-help', rpbchessboard_admin_page_help
+	);
+
 	// Page "about"
 	add_submenu_page('rpbchessboard',
 		__('Chess games and diagrams', 'rpbchessboard') . ' - ' . __('About', 'rpbchessboard'),
@@ -58,6 +65,7 @@ function rpbchessboard_admin_register_interface()
 // Page hooks
 function rpbchessboard_admin_page_memo   () { rpbchessboard_load_controller('Memo'   ); }
 function rpbchessboard_admin_page_options() { rpbchessboard_load_controller('Options'); }
+function rpbchessboard_admin_page_help   () { rpbchessboard_load_controller('Help'   ); }
 function rpbchessboard_admin_page_about  () { rpbchessboard_load_controller('About'  ); }
 
 
