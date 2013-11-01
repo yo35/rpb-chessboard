@@ -76,7 +76,10 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 1. Typesetting and rendering a chess diagram.
 2. Typesetting and rendering a chess game with comments and sub-variations.
-
+3. Chess diagram in a post with the Twenty Ten theme.
+4. Chess game in a post with the Twenty Ten theme.
+5. When clicking on a move, a popup frame is displayed, showing the corresponding position.
+6. Chess game with comments and sub-variations.
 
 
 == Changelog ==
