@@ -21,6 +21,7 @@
 
 /*
 Plugin Name: RPB Chessboard
+Plugin URI: http://wordpress.org/plugins/rpb-chessboard/
 Description: This plugin allows you to typeset and display chess diagrams and PGN-encoded chess games.
 Text Domain: rpbchessboard
 Author: Yoann Le Montagner
