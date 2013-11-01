@@ -24,11 +24,13 @@
 
 	<h3><?php _e('The plugin', 'rpbchessboard'); ?></h3>
 	<p>
-		TODO: link to the plugin page on wordpress.org .
+		<a href="http://wordpress.org/plugins/rpb-chessboard/">http://wordpress.org/plugins/rpb-chessboard/</a><br/>
+		<a href="https://github.com/yo35/rpb-chessboard">https://github.com/yo35/rpb-chessboard</a>
+		<?php echo '('.__('developer link', 'rpbchessboard').')'; ?>
 	</p>
 	<p>
 		<?php _e(
-			'RPB Chessboard allows you to typeset and display chess games and diagrams '.
+			'The RPB Chessboard plugin allows you to typeset and display chess games and diagrams '.
 			'in the posts and pages of your Wordpress blog, '.
 			'using the standard FEN and PGN notations.',
 			'rpbchessboard');
@@ -40,7 +42,7 @@
 				'If you encounter some bugs with this plugin, or if you wish to get new features in the future versions, '.
 				'you can report/propose them in the bug tracker at %1$s.',
 			'rpbchessboard'),
-			'<a href="https://github.com/yo35/rpbchessboard/issues" target="_blank">https://github.com/yo35/rpbchessboard/issues</a>');
+			'<a href="https://github.com/yo35/rpb-chessboard/issues" target="_blank">https://github.com/yo35/rpb-chessboard/issues</a>');
 		?>
 	</p>
 
