@@ -22,8 +22,6 @@ and [PGN](http://en.wikipedia.org/wiki/Portable_Game_Notation) notations.
 **Examples**
 
 `
-The initial position:
-
 [fen]rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1[/fen]
 `
 
