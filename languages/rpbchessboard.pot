@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-01 15:44+0100\n"
+"POT-Creation-Date: 2013-11-02 23:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,6 +26,121 @@ msgstr ""
 #: templates/shortcode/pgn.php:47 templates/admin/memo.php:231
 #, php-format
 msgid "Commented by %1$s"
+msgstr ""
+
+#: templates/admin/help.php:28 templates/admin/memo.php:44
+msgid "FEN diagram"
+msgstr ""
+
+#: templates/admin/help.php:32 templates/admin/memo.php:102
+msgid "PGN game"
+msgstr ""
+
+#: templates/admin/help.php:45
+#, php-format
+msgid "Chess diagrams with the %1$s[fen][/fen]%2$s tags"
+msgstr ""
+
+#: templates/admin/help.php:53
+msgid "FEN format"
+msgstr ""
+
+#: templates/admin/help.php:58
+#, php-format
+msgid ""
+"The string between the %1$s[fen][/fen]%2$s tags describe the position. The "
+"used notation follows the %3$sFEN format%4$s (Forsyth-Edwards Notation), "
+"which is comprehensively described on %3$sWikipedia%4$s. The FEN syntax is "
+"summarized here through a few representative examples."
+msgstr ""
+
+#: templates/admin/help.php:66 templates/admin/memo.php:69
+msgid "http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation"
+msgstr ""
+
+#: templates/admin/help.php:77
+msgid "Empty position"
+msgstr ""
+
+#: templates/admin/help.php:78 templates/localization.php:26
+msgid "Initial position"
+msgstr ""
+
+#: templates/admin/help.php:79
+msgid "After 1.e4"
+msgstr ""
+
+#: templates/admin/help.php:80
+msgid "Who can castle?"
+msgstr ""
+
+#: templates/admin/help.php:81
+msgid "Légal Trap"
+msgstr ""
+
+#: templates/admin/help.php:91
+msgid "An empty position."
+msgstr ""
+
+#: templates/admin/help.php:116
+msgid "The initial position."
+msgstr ""
+
+#: templates/admin/help.php:143
+#, php-format
+msgid ""
+"After 1.e4. Notice the 4<sup>th</sup> field in the FEN string (%1$s), "
+"indicating the square where <em>en passant</em> can be done (if there were a "
+"black pawn either in d4 or in f4)."
+msgstr ""
+
+#: templates/admin/help.php:173
+msgid "Who can castle? And where?"
+msgstr ""
+
+#: templates/admin/help.php:178
+#, php-format
+msgid ""
+"Here, the 3<sup>rd</sup> field in the FEN string (%1$s) indicates that only "
+"king-side white castling is available. Other castling availabilities might "
+"be indicated with characters %2$s (queen-side white castling), %3$s (king-"
+"side black castling), and %4$s (queen-side black castling). If neither side "
+"can castle, the 3<sup>rd</sup> FEN field is set to %5$s."
+msgstr ""
+
+#: templates/admin/help.php:214
+msgid "The Légal Trap."
+msgstr ""
+
+#: templates/admin/help.php:236
+msgid "Attributes"
+msgstr ""
+
+#: templates/admin/help.php:240
+msgid ""
+"The aspect of the chess diagrams can be customized thanks to the following "
+"attributes."
+msgstr ""
+
+#: templates/admin/help.php:250
+msgid "Square size"
+msgstr ""
+
+#: templates/admin/help.php:251
+msgid "Coordinates"
+msgstr ""
+
+#: templates/admin/help.php:258
+#, php-format
+msgid ""
+"The %1$s attribute controls the size (in pixels) of the chessboard squares."
+msgstr ""
+
+#: templates/admin/help.php:301
+#, php-format
+msgid ""
+"The %1$s attribute controls whether the row and columns coordinates are "
+"displayed or not."
 msgstr ""
 
 #: templates/admin/about.php:25
@@ -96,7 +211,7 @@ msgid "Save changes"
 msgstr ""
 
 #: templates/admin/header.php:28 backend.php:29 backend.php:37 backend.php:44
-#: backend.php:51
+#: backend.php:51 backend.php:58
 msgid "Chess games and diagrams"
 msgstr ""
 
@@ -112,10 +227,6 @@ msgid ""
 "RPB Chessboard plugin, namely the insertion of chess diagrams and games in "
 "Wordpress websites. On the left is the code written in posts and pages; the "
 "right column shows the corresponding rendering."
-msgstr ""
-
-#: templates/admin/memo.php:44
-msgid "FEN diagram"
 msgstr ""
 
 #: templates/admin/memo.php:50 templates/admin/memo.php:78
@@ -135,14 +246,6 @@ msgid ""
 "used notation follows the %3$sFEN format%4$s (Forsyth-Edwards Notation). A "
 "comprehensive description of this FEN notation is available on %3$sWikipedia"
 "%4$s."
-msgstr ""
-
-#: templates/admin/memo.php:69
-msgid "http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation"
-msgstr ""
-
-#: templates/admin/memo.php:102
-msgid "PGN game"
 msgstr ""
 
 #: templates/admin/memo.php:126 templates/admin/memo.php:197
@@ -182,10 +285,6 @@ msgstr ""
 msgid ""
 "Please note the %1$s[pgndiagram]%2$s tag placed inside a commentary to "
 "insert a diagram showing the current position."
-msgstr ""
-
-#: templates/localization.php:26
-msgid "Initial position"
 msgstr ""
 
 #: templates/localization.php:30
@@ -266,7 +365,11 @@ msgstr ""
 msgid "P"
 msgstr ""
 
-#: models/about.php:33 backend.php:51 backend.php:52
+#: models/help.php:33 backend.php:51 backend.php:52
+msgid "Help"
+msgstr ""
+
+#: models/about.php:33 backend.php:58 backend.php:59
 msgid "About"
 msgstr ""
 

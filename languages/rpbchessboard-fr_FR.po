@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-01 15:44+0100\n"
+"POT-Creation-Date: 2013-11-02 23:17+0100\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35@melix.net>\n"
 "Language-Team: French\n"
@@ -28,6 +28,138 @@ msgstr ""
 #, php-format
 msgid "Commented by %1$s"
 msgstr "Commentée par %1$s"
+
+#: templates/admin/help.php:28 templates/admin/memo.php:44
+msgid "FEN diagram"
+msgstr "Diagramme FEN"
+
+#: templates/admin/help.php:32 templates/admin/memo.php:102
+msgid "PGN game"
+msgstr "Partie PGN"
+
+#: templates/admin/help.php:45
+#, php-format
+msgid "Chess diagrams with the %1$s[fen][/fen]%2$s tags"
+msgstr "Diagrammes d'échecs au moyen des balises %1$s[fen][/fen]%2$s"
+
+#: templates/admin/help.php:53
+msgid "FEN format"
+msgstr "Format FEN"
+
+#: templates/admin/help.php:58
+#, php-format
+msgid ""
+"The string between the %1$s[fen][/fen]%2$s tags describe the position. The "
+"used notation follows the %3$sFEN format%4$s (Forsyth-Edwards Notation), "
+"which is comprehensively described on %3$sWikipedia%4$s. The FEN syntax is "
+"summarized here through a few representative examples."
+msgstr ""
+"Le texte entre les balises %1$s[fen][/fen]%2$s décrit la position. La "
+"notation utilisée suit le %3$sformat FEN%4$s (<em>Forsyth-Edwards "
+"Notation</em>), lequel est décrit de façon exhaustive sur %3$sWikipédia%4$s. "
+"La syntaxe FEN est résumée ici au travers d'exemples explicatifs."
+
+#: templates/admin/help.php:66 templates/admin/memo.php:69
+msgid "http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation"
+msgstr "http://fr.wikipedia.org/wiki/Notation_Forsyth-Edwards"
+
+#: templates/admin/help.php:77
+msgid "Empty position"
+msgstr "Position vide"
+
+#: templates/admin/help.php:78 templates/localization.php:26
+msgid "Initial position"
+msgstr "Position initiale"
+
+#: templates/admin/help.php:79
+msgid "After 1.e4"
+msgstr "Après 1.e4"
+
+#: templates/admin/help.php:80
+msgid "Who can castle?"
+msgstr "Qui peut roquer&nbsp;?"
+
+#: templates/admin/help.php:81
+msgid "Légal Trap"
+msgstr "Mat de Legal"
+
+#: templates/admin/help.php:91
+msgid "An empty position."
+msgstr "Une position vide."
+
+#: templates/admin/help.php:116
+msgid "The initial position."
+msgstr "La position initiale."
+
+#: templates/admin/help.php:143
+#, php-format
+msgid ""
+"After 1.e4. Notice the 4<sup>th</sup> field in the FEN string (%1$s), "
+"indicating the square where <em>en passant</em> can be done (if there were a "
+"black pawn either in d4 or in f4)."
+msgstr ""
+"Après 1.e4. On remarquera le 4<sup>e</sup> champ dans le texte au format FEN "
+"(%1$s), qui indique la case sur laquelle la prise en passant est possible "
+"(s'il y avait un pion noir en d4 ou en f4)."
+
+#: templates/admin/help.php:173
+msgid "Who can castle? And where?"
+msgstr "Qui peut roquer&nbsp;? Et où&nbsp;?"
+
+#: templates/admin/help.php:178
+#, php-format
+msgid ""
+"Here, the 3<sup>rd</sup> field in the FEN string (%1$s) indicates that only "
+"king-side white castling is available. Other castling availabilities might "
+"be indicated with characters %2$s (queen-side white castling), %3$s (king-"
+"side black castling), and %4$s (queen-side black castling). If neither side "
+"can castle, the 3<sup>rd</sup> FEN field is set to %5$s."
+msgstr ""
+"Ici, le 3<sup>e</sup> champ dans le texte au format FEN (%1$s) indique que "
+"seul le petit roque blanc est authorisé. Les autres possibilités de roque "
+"peuvent être indiquées grâce aux caractères %2$s (grand roque blanc), %3$s "
+"(petit roque noir), et  %4$s (grand roque noir). Si aucun camp ne peut "
+"roquer, on indique %5$s dans le 3<sup>e</sup> champ FEN."
+
+#: templates/admin/help.php:214
+msgid "The Légal Trap."
+msgstr "Le mat de Legal."
+
+#: templates/admin/help.php:236
+msgid "Attributes"
+msgstr "Attributs"
+
+#: templates/admin/help.php:240
+msgid ""
+"The aspect of the chess diagrams can be customized thanks to the following "
+"attributes."
+msgstr ""
+"L'aspect des diagrammes peut être personnalisé au moyen des attributs "
+"suivants."
+
+#: templates/admin/help.php:250
+msgid "Square size"
+msgstr "Taille des cases"
+
+#: templates/admin/help.php:251
+msgid "Coordinates"
+msgstr "Coordonnées"
+
+#: templates/admin/help.php:258
+#, php-format
+msgid ""
+"The %1$s attribute controls the size (in pixels) of the chessboard squares."
+msgstr ""
+"L'attribut %1$s détermine la taille (en pixels) des cases de l'échiquier."
+
+#: templates/admin/help.php:301
+#, php-format
+msgid ""
+"The %1$s attribute controls whether the row and columns coordinates are "
+"displayed or not."
+msgstr ""
+"L'attribut %1$s détermine si les noms des rangées et des colonnes sont ou non "
+"affichés."
 
 #: templates/admin/about.php:25
 msgid "The plugin"
@@ -109,7 +241,7 @@ msgid "Save changes"
 msgstr "Enregistrer les modifications"
 
 #: templates/admin/header.php:28 backend.php:29 backend.php:37 backend.php:44
-#: backend.php:51
+#: backend.php:51 backend.php:58
 msgid "Chess games and diagrams"
 msgstr "Parties et diagrammes d'échecs"
 
@@ -134,10 +266,6 @@ msgstr ""
 "le code écrit dans les articles et les pages, la colonne de droite le rendu "
 "correspondant."
 
-#: templates/admin/memo.php:44
-msgid "FEN diagram"
-msgstr "Diagramme FEN"
-
 #: templates/admin/memo.php:50 templates/admin/memo.php:78
 msgid "White to move and mate in two:"
 msgstr "Trait aux blancs, mat en deux&nbsp;:"
@@ -161,15 +289,7 @@ msgstr ""
 "Le texte entre les balises %1$s[fen][/fen]%2$s décrit la position. La "
 "notation utilisée suit le %3$sformat FEN%4$s (<em>Forsyth-Edwards Notation</"
 "em>). Une description exhaustive de cette notation FEN est disponible sur "
-"%3$sWikipedia%4$s."
-
-#: templates/admin/memo.php:69
-msgid "http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation"
-msgstr "http://fr.wikipedia.org/wiki/Notation_Forsyth-Edwards"
-
-#: templates/admin/memo.php:102
-msgid "PGN game"
-msgstr "Partie PGN"
+"%3$sWikipédia%4$s."
 
 #: templates/admin/memo.php:126 templates/admin/memo.php:197
 msgid ""
@@ -218,10 +338,6 @@ msgid ""
 msgstr ""
 "Remarquez la balise %1$s[pgndiagram]%2$s placée dans un commentaire pour "
 "insérer un diagramme montrant la position courante."
-
-#: templates/localization.php:26
-msgid "Initial position"
-msgstr "Position initiale"
 
 #: templates/localization.php:30
 msgid "January"
@@ -301,7 +417,11 @@ msgstr "C"
 msgid "P"
 msgstr "P"
 
-#: models/about.php:33 backend.php:51 backend.php:52
+#: models/help.php:33 backend.php:51 backend.php:52
+msgid "Help"
+msgstr "Aide"
+
+#: models/about.php:33 backend.php:58 backend.php:59
 msgid "About"
 msgstr "À propos"
 
