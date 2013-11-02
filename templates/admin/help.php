@@ -278,7 +278,7 @@
 					</div>
 					<div>
 						<div class="rpbchessboard-admin-code-block">
-							[fen square_size=40] ... [/fen]
+							[fen square_size=48] ... [/fen]
 						</div>
 						<div class="rpbchessboard-admin-visu-block">
 							<div id="rpbchessboard-admin-squareSize-example2-in" class="rpbchessboard-in">
