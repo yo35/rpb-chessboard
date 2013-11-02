@@ -105,6 +105,23 @@
 
 
 /******************************************************************************/
+/*** Help tab ***/
+
+#rpbchessboard-admin-help .subsubsub {
+	float: none;
+}
+
+#rpbchessboard-admin-help .subsubsub li:after {
+	content: "|";
+}
+
+#rpbchessboard-admin-help .subsubsub li:last-child:after {
+	content: none;
+}
+
+
+
+/******************************************************************************/
 /*** About tab ***/
 
 #rpbchessboard-admin-translator-list {

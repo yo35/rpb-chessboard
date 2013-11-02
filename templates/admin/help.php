@@ -20,4 +20,68 @@
  ******************************************************************************/
 ?>
 
-Coming soon...
+<div id="rpbchessboard-admin-help">
+
+	<ul class="subsubsub">
+
+		<li id="rpbchessboard-admin-help-fen-button">
+			<a href="javascript: showTab(jQuery,'rpbchessboard-admin-help-fen');"><?php _e('FEN diagram', 'rpbchessboard'); ?></a>
+		</li>
+
+		<li id="rpbchessboard-admin-help-pgn-button">
+			<a href="javascript: showTab(jQuery,'rpbchessboard-admin-help-pgn');"><?php _e('PGN game', 'rpbchessboard'); ?></a>
+		</li>
+
+	</ul>
+
+
+
+
+	<div id="rpbchessboard-admin-help-fen">
+		TODO: help FEN
+	</div>
+
+
+
+
+
+	<div id="rpbchessboard-admin-help-pgn">
+		TODO: help PGN
+	</div>
+
+
+
+
+
+	<script type="text/javascript">
+
+		// List of tabs
+		var tabs = [
+			'rpbchessboard-admin-help-fen',
+			'rpbchessboard-admin-help-pgn'
+		];
+
+		// Function to display a tab
+		function showTab($, tabID)
+		{
+			for(var k=0; k<tabs.length; ++k) {
+				if(tabs[k]==tabID) {
+					$('#' + tabID).removeClass('rpbchessboard-invisible');
+					$('#' + tabID + '-button > a').addClass('current');
+				}
+				else {
+					$('#' + tabs[k]).addClass('rpbchessboard-invisible');
+					$('#' + tabs[k] + '-button > a').removeClass('current');
+				}
+			}
+		}
+
+		// Initialization
+		jQuery(document).ready(function($)
+		{
+			showTab($, 'rpbchessboard-admin-help-fen');
+		});
+
+	</script>
+
+</div>
