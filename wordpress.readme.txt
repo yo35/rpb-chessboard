@@ -83,6 +83,10 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 == Changelog ==
 
+= 1.99.5 =
+* Fix issue #1.
+* Documentation for the FEN tag.
+
 = 1.99.4 =
 * Clean the credits page in the backend.
 * Fix: missing theming for the jQuery widgets in the backend.
