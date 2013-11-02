@@ -22,12 +22,7 @@
 
 <div id="rpbchessboard-admin-about">
 
-	<h3><?php _e('The plugin', 'rpbchessboard'); ?></h3>
-	<p>
-		<a href="http://wordpress.org/plugins/rpb-chessboard/">http://wordpress.org/plugins/rpb-chessboard/</a><br/>
-		<a href="https://github.com/yo35/rpb-chessboard">https://github.com/yo35/rpb-chessboard</a>
-		<?php echo '('.__('developer link', 'rpbchessboard').')'; ?>
-	</p>
+	<h3>RPB Chessboard</h3>
 	<p>
 		<?php _e(
 			'The RPB Chessboard plugin allows you to typeset and display chess games and diagrams '.
@@ -35,6 +30,12 @@
 			'using the standard FEN and PGN notations.',
 			'rpbchessboard');
 		?>
+	</p>
+	<p>
+		<a href="http://wordpress.org/plugins/rpb-chessboard/" target="_blank">http://wordpress.org/plugins/rpb-chessboard/</a>
+		<br/>
+		<a href="https://github.com/yo35/rpb-chessboard" target="_blank">https://github.com/yo35/rpb-chessboard</a>
+		<?php echo '('.__('developer link', 'rpbchessboard').')'; ?>
 	</p>
 	<p class="description">
 		<?php echo sprintf(
@@ -45,6 +46,11 @@
 			'<a href="https://github.com/yo35/rpb-chessboard/issues" target="_blank">https://github.com/yo35/rpb-chessboard/issues</a>');
 		?>
 	</p>
+
+
+	<h3><?php _e('Plugin version', 'rpbchessboard'); ?></h3>
+	<p><?php echo htmlspecialchars($model->getPluginVersion()); ?></p>
+
 
 	<h3><?php _e('Author', 'rpbchessboard'); ?></h3>
 	<p>Yoann Le Montagner</p>
