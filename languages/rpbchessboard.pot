@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-02 23:17+0100\n"
+"POT-Creation-Date: 2013-11-03 00:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -143,22 +143,18 @@ msgid ""
 "displayed or not."
 msgstr ""
 
-#: templates/admin/about.php:25
-msgid "The plugin"
-msgstr ""
-
-#: templates/admin/about.php:29
-msgid "developer link"
-msgstr ""
-
-#: templates/admin/about.php:33
+#: templates/admin/about.php:28
 msgid ""
 "The RPB Chessboard plugin allows you to typeset and display chess games and "
 "diagrams in the posts and pages of your Wordpress blog, using the standard "
 "FEN and PGN notations."
 msgstr ""
 
-#: templates/admin/about.php:42
+#: templates/admin/about.php:38
+msgid "developer link"
+msgstr ""
+
+#: templates/admin/about.php:43
 #, php-format
 msgid ""
 "If you encounter some bugs with this plugin, or if you wish to get new "
@@ -166,26 +162,30 @@ msgid ""
 "tracker at %1$s."
 msgstr ""
 
-#: templates/admin/about.php:49
+#: templates/admin/about.php:51
+msgid "Plugin version"
+msgstr ""
+
+#: templates/admin/about.php:55
 msgid "Author"
 msgstr ""
 
-#: templates/admin/about.php:53
+#: templates/admin/about.php:59
 msgid "Translation"
 msgstr ""
 
-#: templates/admin/about.php:67
+#: templates/admin/about.php:73
 #, php-format
 msgid ""
 "If you are interested in translating this plugin into your language, please "
 "contact the author %1$s."
 msgstr ""
 
-#: templates/admin/about.php:74
+#: templates/admin/about.php:80
 msgid "License"
 msgstr ""
 
-#: templates/admin/about.php:78
+#: templates/admin/about.php:84
 #, php-format
 msgid ""
 "This plugin is distributed under the GNU General Public License version 3 "
@@ -369,7 +369,7 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#: models/about.php:33 backend.php:58 backend.php:59
+#: models/about.php:36 backend.php:58 backend.php:59
 msgid "About"
 msgstr ""
 

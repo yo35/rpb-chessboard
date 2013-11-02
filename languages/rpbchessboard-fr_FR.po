@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-02 23:17+0100\n"
+"POT-Creation-Date: 2013-11-03 00:16+0100\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35@melix.net>\n"
 "Language-Team: French\n"
@@ -55,9 +55,9 @@ msgid ""
 "summarized here through a few representative examples."
 msgstr ""
 "Le texte entre les balises %1$s[fen][/fen]%2$s décrit la position. La "
-"notation utilisée suit le %3$sformat FEN%4$s (<em>Forsyth-Edwards "
-"Notation</em>), lequel est décrit de façon exhaustive sur %3$sWikipédia%4$s. "
-"La syntaxe FEN est résumée ici au travers d'exemples explicatifs."
+"notation utilisée suit le %3$sformat FEN%4$s (<em>Forsyth-Edwards Notation</"
+"em>), lequel est décrit de façon exhaustive sur %3$sWikipédia%4$s. La "
+"syntaxe FEN est résumée ici au travers d'exemples explicatifs."
 
 #: templates/admin/help.php:66 templates/admin/memo.php:69
 msgid "http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation"
@@ -158,18 +158,10 @@ msgid ""
 "The %1$s attribute controls whether the row and columns coordinates are "
 "displayed or not."
 msgstr ""
-"L'attribut %1$s détermine si les noms des rangées et des colonnes sont ou non "
-"affichés."
+"L'attribut %1$s détermine si les noms des rangées et des colonnes sont ou "
+"non affichés."
 
-#: templates/admin/about.php:25
-msgid "The plugin"
-msgstr "Le plugin"
-
-#: templates/admin/about.php:29
-msgid "developer link"
-msgstr "lien pour les développeurs"
-
-#: templates/admin/about.php:33
+#: templates/admin/about.php:28
 msgid ""
 "The RPB Chessboard plugin allows you to typeset and display chess games and "
 "diagrams in the posts and pages of your Wordpress blog, using the standard "
@@ -179,7 +171,11 @@ msgstr ""
 "des diagrammes d'échecs dans les articles et pages de votre blog Wordpress, "
 "en utilisant les notations usuelles FEN et PGN."
 
-#: templates/admin/about.php:42
+#: templates/admin/about.php:38
+msgid "developer link"
+msgstr "lien pour les développeurs"
+
+#: templates/admin/about.php:43
 #, php-format
 msgid ""
 "If you encounter some bugs with this plugin, or if you wish to get new "
@@ -190,15 +186,19 @@ msgstr ""
 "implémenté de nouvelles fonctionnalités dans les versions futures, vous "
 "pouvez les signaler/proposer dans le <em>bug tracker</em> à l'adresse %1$s."
 
-#: templates/admin/about.php:49
+#: templates/admin/about.php:51
+msgid "Plugin version"
+msgstr "Version du plugin"
+
+#: templates/admin/about.php:55
 msgid "Author"
 msgstr "Auteur"
 
-#: templates/admin/about.php:53
+#: templates/admin/about.php:59
 msgid "Translation"
 msgstr "Traduction"
 
-#: templates/admin/about.php:67
+#: templates/admin/about.php:73
 #, php-format
 msgid ""
 "If you are interested in translating this plugin into your language, please "
@@ -207,11 +207,11 @@ msgstr ""
 "Si vous souhaitez traduire ce plugin dans votre langue, merci de contacter "
 "l'auteur %1$s."
 
-#: templates/admin/about.php:74
+#: templates/admin/about.php:80
 msgid "License"
 msgstr "Licence"
 
-#: templates/admin/about.php:78
+#: templates/admin/about.php:84
 #, php-format
 msgid ""
 "This plugin is distributed under the GNU General Public License version 3 "
@@ -421,7 +421,7 @@ msgstr "P"
 msgid "Help"
 msgstr "Aide"
 
-#: models/about.php:33 backend.php:58 backend.php:59
+#: models/about.php:36 backend.php:58 backend.php:59
 msgid "About"
 msgstr "À propos"
 
