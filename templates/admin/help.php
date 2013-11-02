@@ -37,6 +37,7 @@
 
 
 
+
 	<div id="rpbchessboard-admin-help-fen">
 
 		<h3>
@@ -70,7 +71,7 @@
 
 
 
-		<div id="rpbchessboard-admin-fenExamples">
+		<div id="rpbchessboard-admin-fenExamples" class="rpbchessboard-admin-tabs">
 
 			<ul>
 				<li><?php _e('Empty position'  , 'rpbchessboard'); ?></li>
@@ -85,12 +86,12 @@
 					[fen]8/8/8/8/8/8/8/8 w - - 0 1[/fen]
 				</div>
 				<div class="rpbchessboard-admin-columns">
-					<div class="rpbchessboard-admin-column rpbchessboard-admin-column-left">
+					<div class="rpbchessboard-admin-column-left">
 						<p>
 							<?php _e('An empty position.', 'rpbchessboard'); ?>
 						</p>
 					</div>
-					<div class="rpbchessboard-admin-column rpbchessboard-admin-column-right">
+					<div class="rpbchessboard-admin-column-right">
 						<div class="rpbchessboard-admin-visu-block">
 							<div id="rpbchessboard-admin-exampleFen0-in" class="rpbchessboard-in">
 								8/8/8/8/8/8/8/8 w - - 0 1
@@ -110,12 +111,12 @@
 					[fen]rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1[/fen]
 				</div>
 				<div class="rpbchessboard-admin-columns">
-					<div class="rpbchessboard-admin-column rpbchessboard-admin-column-left">
+					<div class="rpbchessboard-admin-column-left">
 						<p>
 							<?php _e('The initial position.', 'rpbchessboard'); ?>
 						</p>
 					</div>
-					<div class="rpbchessboard-admin-column rpbchessboard-admin-column-right">
+					<div class="rpbchessboard-admin-column-right">
 						<div class="rpbchessboard-admin-visu-block">
 							<div id="rpbchessboard-admin-exampleFen1-in" class="rpbchessboard-in">
 								rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
@@ -135,7 +136,7 @@
 					[fen]rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1[/fen]
 				</div>
 				<div class="rpbchessboard-admin-columns">
-					<div class="rpbchessboard-admin-column rpbchessboard-admin-column-left">
+					<div class="rpbchessboard-admin-column-left">
 						<p>
 							<?php echo sprintf(
 								__(
@@ -147,7 +148,7 @@
 							); ?>
 						</p>
 					</div>
-					<div class="rpbchessboard-admin-column rpbchessboard-admin-column-right">
+					<div class="rpbchessboard-admin-column-right">
 						<div class="rpbchessboard-admin-visu-block">
 							<div id="rpbchessboard-admin-exampleFen2-in" class="rpbchessboard-in">
 								rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
@@ -167,7 +168,7 @@
 					[fen]r3k2r/8/8/8/8/8/8/R3K2R b K - 0 1[/fen]
 				</div>
 				<div class="rpbchessboard-admin-columns">
-					<div class="rpbchessboard-admin-column rpbchessboard-admin-column-left">
+					<div class="rpbchessboard-admin-column-left">
 						<p>
 							<?php echo sprintf(
 								__(
@@ -185,7 +186,7 @@
 							); ?>
 						</p>
 					</div>
-					<div class="rpbchessboard-admin-column rpbchessboard-admin-column-right">
+					<div class="rpbchessboard-admin-column-right">
 						<div class="rpbchessboard-admin-visu-block">
 							<div id="rpbchessboard-admin-exampleFen3-in" class="rpbchessboard-in">
 								r3k2r/8/8/8/8/8/8/R3K2R b K - 0 1
@@ -205,12 +206,12 @@
 					[fen]r2q1bnr/ppp1kBpp/2np4/3NN3/4P3/8/PPPP1PPP/R1BbK2R b KQ - 2 7[/fen]
 				</div>
 				<div class="rpbchessboard-admin-columns">
-					<div class="rpbchessboard-admin-column rpbchessboard-admin-column-left">
+					<div class="rpbchessboard-admin-column-left">
 						<p>
 							<?php _e('The Légal Trap.', 'rpbchessboard'); ?>
 						</p>
 					</div>
-					<div class="rpbchessboard-admin-column rpbchessboard-admin-column-right">
+					<div class="rpbchessboard-admin-column-right">
 						<div class="rpbchessboard-admin-visu-block">
 							<div id="rpbchessboard-admin-exampleFen4-in" class="rpbchessboard-in">
 								r2q1bnr/ppp1kBpp/2np4/3NN3/4P3/8/PPPP1PPP/R1BbK2R b KQ - 2 7
@@ -226,6 +227,12 @@
 			</div>
 
 		</div>
+
+
+
+		<h4><?php _e('Attributes', 'rpbchessboard'); ?></h4>
+
+		<p>TODO</p>
 
 	</div>
 

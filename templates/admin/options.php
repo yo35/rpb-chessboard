@@ -30,7 +30,7 @@
 
 		<div class="rpbchessboard-admin-columns">
 
-			<div class="rpbchessboard-admin-column rpbchessboard-admin-column-left">
+			<div class="rpbchessboard-admin-column-left">
 				<p>
 					<?php
 						echo sprintf(__('Square size: %1$s pixels', 'rpbchessboard'),
@@ -54,7 +54,7 @@
 				</p>
 			</div>
 
-			<div class="rpbchessboard-admin-column rpbchessboard-admin-column-right">
+			<div class="rpbchessboard-admin-column-right">
 				<div id="rpbchessboard-admin-tuning-widget"></div>
 			</div>
 
