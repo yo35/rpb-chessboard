@@ -295,7 +295,46 @@
 			</div>
 
 			<div>
-				TODO
+				<p>
+					<?php echo sprintf(
+						__(
+							'The %1$s attribute controls whether the row and columns coordinates are displayed or not.',
+						'rpbchessboard'),
+						'<span class="rpbchessboard-admin-code-inline">show_coordinates</span>'
+					); ?>
+				</p>
+				<div class="rpbchessboard-admin-columns">
+					<div>
+						<div class="rpbchessboard-admin-code-block">
+							[fen show_coordinates=true] ... [/fen]
+						</div>
+						<div class="rpbchessboard-admin-visu-block">
+							<div id="rpbchessboard-admin-showCoordinates-example1-in" class="rpbchessboard-in">
+								rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
+							</div>
+							<div id="rpbchessboard-admin-showCoordinates-example1-out" class="rpbchessboard-out rpbchessboard-invisible"></div>
+							<script type="text/javascript">
+								processFEN('rpbchessboard-admin-showCoordinates-example1-in', 'rpbchessboard-admin-showCoordinates-example1-out',
+									{squareSize: 28, showCoordinates: true});
+							</script>
+						</div>
+					</div>
+					<div>
+						<div class="rpbchessboard-admin-code-block">
+							[fen show_coordinates=false] ... [/fen]
+						</div>
+						<div class="rpbchessboard-admin-visu-block">
+							<div id="rpbchessboard-admin-showCoordinates-example2-in" class="rpbchessboard-in">
+								rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
+							</div>
+							<div id="rpbchessboard-admin-showCoordinates-example2-out" class="rpbchessboard-out rpbchessboard-invisible"></div>
+							<script type="text/javascript">
+								processFEN('rpbchessboard-admin-showCoordinates-example2-in', 'rpbchessboard-admin-showCoordinates-example2-out',
+									{squareSize: 28, showCoordinates: false});
+							</script>
+						</div>
+					</div>
+				</div>
 			</div>
 
 		</div>
