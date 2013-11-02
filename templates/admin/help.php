@@ -170,10 +170,13 @@
 				<div class="rpbchessboard-admin-columns">
 					<div class="rpbchessboard-admin-column-left">
 						<p>
+							<?php _e('Who can castle? And where?', 'rpbchessboard'); ?>
+						</p>
+						<p>
 							<?php echo sprintf(
 								__(
-									'Who can castle? And where? Here, the 3<sup>rd</sup> field in the FEN string (%1$s) '.
-									'indicates that only king-side white castling is available. Other castling availabilities '.
+									'Here, the 3<sup>rd</sup> field in the FEN string (%1$s) indicates '.
+									'that only king-side white castling is available. Other castling availabilities '.
 									'might be indicated with characters %2$s (queen-side white castling), '.
 									'%3$s (king-side black castling), and %4$s (queen-side black castling). '.
 									'If neither side can castle, the 3<sup>rd</sup> FEN field is set to %5$s.',
@@ -232,7 +235,70 @@
 
 		<h4><?php _e('Attributes', 'rpbchessboard'); ?></h4>
 
-		<p>TODO</p>
+		<p>
+			<?php
+				_e('The aspect of the chess diagrams can be customized thanks to the following attributes.',
+					'rpbchessboard');
+			?>
+		</p>
+
+
+
+		<div id="rpbchessboard-admin-fenAttributes" class="rpbchessboard-admin-tabs">
+
+			<ul>
+				<li><?php _e('Square size', 'rpbchessboard'); ?></li>
+				<li><?php _e('Coordinates', 'rpbchessboard'); ?></li>
+			</ul>
+
+			<div>
+				<p>
+					<?php echo sprintf(
+						__(
+							'The %1$s attribute controls the size (in pixels) of the chessboard squares.',
+						'rpbchessboard'),
+						'<span class="rpbchessboard-admin-code-inline">square_size</span>'
+					); ?>
+				</p>
+				<div class="rpbchessboard-admin-columns">
+					<div>
+						<div class="rpbchessboard-admin-code-block">
+							[fen square_size=24] ... [/fen]
+						</div>
+						<div class="rpbchessboard-admin-visu-block">
+							<div id="rpbchessboard-admin-squareSize-example1-in" class="rpbchessboard-in">
+								rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
+							</div>
+							<div id="rpbchessboard-admin-squareSize-example1-out" class="rpbchessboard-out rpbchessboard-invisible"></div>
+							<script type="text/javascript">
+								processFEN('rpbchessboard-admin-squareSize-example1-in', 'rpbchessboard-admin-squareSize-example1-out',
+									{squareSize: 24});
+							</script>
+						</div>
+					</div>
+					<div>
+						<div class="rpbchessboard-admin-code-block">
+							[fen square_size=40] ... [/fen]
+						</div>
+						<div class="rpbchessboard-admin-visu-block">
+							<div id="rpbchessboard-admin-squareSize-example2-in" class="rpbchessboard-in">
+								rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
+							</div>
+							<div id="rpbchessboard-admin-squareSize-example2-out" class="rpbchessboard-out rpbchessboard-invisible"></div>
+							<script type="text/javascript">
+								processFEN('rpbchessboard-admin-squareSize-example2-in', 'rpbchessboard-admin-squareSize-example2-out',
+									{squareSize: 48});
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div>
+				TODO
+			</div>
+
+		</div>
 
 	</div>
 
@@ -271,13 +337,21 @@
 			}
 		}
 
-		// Function to display a tab (sub-level)
-		function showSubTab($, tabIndex)
+		// Set-up the tab layout (sub-level)
+		function tabLayoutSetUp($, tabContainerID, defaultIndex)
 		{
-			$('#rpbchessboard-admin-fenExamples > div').addClass('rpbchessboard-invisible')
-				.eq(tabIndex).removeClass('rpbchessboard-invisible');
-			$('#rpbchessboard-admin-fenExamples > ul > li').removeClass('rpbchessboard-admin-selected')
-				.eq(tabIndex).addClass('rpbchessboard-admin-selected');
+			var clickHandler = function(index)
+			{
+				$('#' + tabContainerID + ' > div').addClass('rpbchessboard-invisible')
+					.eq(index).removeClass('rpbchessboard-invisible');
+				$('#' + tabContainerID + ' > ul > li').removeClass('rpbchessboard-admin-selected')
+					.eq(index).addClass('rpbchessboard-admin-selected');
+			};
+			$('#' + tabContainerID + ' > ul > li').each(function(index, e)
+			{
+				$(e).click(function() { clickHandler(index); });
+			});
+			clickHandler(defaultIndex);
 		}
 
 		// Initialization
@@ -286,12 +360,9 @@
 			// Main tabs
 			showTab($, 'rpbchessboard-admin-help-fen');
 
-			// Tabs for FEN examples
-			$('#rpbchessboard-admin-fenExamples > ul > li').each(function(index, e)
-			{
-				$(e).click(function() { showSubTab($, index); });
-			});
-			showSubTab($, 1);
+			// Tab layouts
+			tabLayoutSetUp($, 'rpbchessboard-admin-fenExamples'  , 1);
+			tabLayoutSetUp($, 'rpbchessboard-admin-fenAttributes', 0);
 		});
 
 	</script>

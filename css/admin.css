@@ -104,6 +104,14 @@
 	background: #fcfcfc;
 }
 
+.rpbchessboard-admin-tabs > div > p:first-child {
+	margin-top: 0px;
+}
+
+.rpbchessboard-admin-tabs > div > p:last-child {
+	margin-bottom: 0px;
+}
+
 
 
 /******************************************************************************/
@@ -176,11 +184,11 @@
 	content: none;
 }
 
-#rpbchessboard-admin-help-fen .rpbchessboard-admin-column-left {
+#rpbchessboard-admin-fenExamples .rpbchessboard-admin-column-left {
 	width: 40%;
 }
 
-#rpbchessboard-admin-help-fen .rpbchessboard-admin-column-right {
+#rpbchessboard-admin-fenExamples .rpbchessboard-admin-column-right {
 	width: 60%;
 }
 
@@ -190,6 +198,14 @@
 
 #rpbchessboard-admin-fenExamples > div {
 	width: 80%;
+}
+
+#rpbchessboard-admin-fenAttributes > ul {
+	width: 15%;
+}
+
+#rpbchessboard-admin-fenAttributes > div {
+	width: 85%;
 }
 
 
