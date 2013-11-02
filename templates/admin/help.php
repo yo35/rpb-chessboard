@@ -70,16 +70,42 @@
 
 
 
-		<div id="rpbchessboard-admin-examplesFen">
+		<div id="rpbchessboard-admin-fenExamples">
 
 			<ul>
+				<li><?php _e('Empty position'  , 'rpbchessboard'); ?></li>
 				<li><?php _e('Initial position', 'rpbchessboard'); ?></li>
 				<li><?php _e('After 1.e4'      , 'rpbchessboard'); ?></li>
 				<li><?php _e('Who can castle?' , 'rpbchessboard'); ?></li>
-				<li><?php _e('Légal Trap.'     , 'rpbchessboard'); ?></li>
+				<li><?php _e('Légal Trap'      , 'rpbchessboard'); ?></li>
 			</ul>
 
-			<div id="rpbchessboard-admin-exampleFen1">
+			<div>
+				<div class="rpbchessboard-admin-code-block">
+					[fen]8/8/8/8/8/8/8/8 w - - 0 1[/fen]
+				</div>
+				<div class="rpbchessboard-admin-columns">
+					<div class="rpbchessboard-admin-column rpbchessboard-admin-column-left">
+						<p>
+							<?php _e('An empty position.', 'rpbchessboard'); ?>
+						</p>
+					</div>
+					<div class="rpbchessboard-admin-column rpbchessboard-admin-column-right">
+						<div class="rpbchessboard-admin-visu-block">
+							<div id="rpbchessboard-admin-exampleFen0-in" class="rpbchessboard-in">
+								8/8/8/8/8/8/8/8 w - - 0 1
+							</div>
+							<div id="rpbchessboard-admin-exampleFen0-out" class="rpbchessboard-out rpbchessboard-invisible"></div>
+							<script type="text/javascript">
+								processFEN('rpbchessboard-admin-exampleFen0-in', 'rpbchessboard-admin-exampleFen0-out',
+									{squareSize: 28});
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div>
 				<div class="rpbchessboard-admin-code-block">
 					[fen]rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1[/fen]
 				</div>
@@ -104,7 +130,7 @@
 				</div>
 			</div>
 
-			<div id="rpbchessboard-admin-exampleFen2">
+			<div>
 				<div class="rpbchessboard-admin-code-block">
 					[fen]rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1[/fen]
 				</div>
@@ -136,7 +162,7 @@
 				</div>
 			</div>
 
-			<div id="rpbchessboard-admin-exampleFen3">
+			<div>
 				<div class="rpbchessboard-admin-code-block">
 					[fen]r3k2r/8/8/8/8/8/8/R3K2R b K - 0 1[/fen]
 				</div>
@@ -174,14 +200,14 @@
 				</div>
 			</div>
 
-			<div id="rpbchessboard-admin-exampleFen4">
+			<div>
 				<div class="rpbchessboard-admin-code-block">
 					[fen]r2q1bnr/ppp1kBpp/2np4/3NN3/4P3/8/PPPP1PPP/R1BbK2R b KQ - 2 7[/fen]
 				</div>
 				<div class="rpbchessboard-admin-columns">
 					<div class="rpbchessboard-admin-column rpbchessboard-admin-column-left">
 						<p>
-							<?php _e('Légal Trap.', 'rpbchessboard'); ?>
+							<?php _e('The Légal Trap.', 'rpbchessboard'); ?>
 						</p>
 					</div>
 					<div class="rpbchessboard-admin-column rpbchessboard-admin-column-right">
@@ -241,10 +267,10 @@
 		// Function to display a tab (sub-level)
 		function showSubTab($, tabIndex)
 		{
-			$('#rpbchessboard-admin-examplesFen > div').addClass('rpbchessboard-invisible')
+			$('#rpbchessboard-admin-fenExamples > div').addClass('rpbchessboard-invisible')
 				.eq(tabIndex).removeClass('rpbchessboard-invisible');
-			$('#rpbchessboard-admin-examplesFen > ul > li').addClass('rpbchessboard-admin-selected')
-				.eq(tabIndex).removeClass('rpbchessboard-admin-selected');
+			$('#rpbchessboard-admin-fenExamples > ul > li').removeClass('rpbchessboard-admin-selected')
+				.eq(tabIndex).addClass('rpbchessboard-admin-selected');
 		}
 
 		// Initialization
@@ -254,11 +280,11 @@
 			showTab($, 'rpbchessboard-admin-help-fen');
 
 			// Tabs for FEN examples
-			$('#rpbchessboard-admin-examplesFen > ul > li').each(function(index, e)
+			$('#rpbchessboard-admin-fenExamples > ul > li').each(function(index, e)
 			{
 				$(e).click(function() { showSubTab($, index); });
 			});
-			showSubTab($, 0);
+			showSubTab($, 1);
 		});
 
 	</script>

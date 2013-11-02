@@ -126,11 +126,61 @@
 }
 
 #rpbchessboard-admin-help-fen .rpbchessboard-admin-column-left {
-	width: 33%;
+	width: 40%;
 }
 
 #rpbchessboard-admin-help-fen .rpbchessboard-admin-column-right {
-	width: 67%;
+	width: 60%;
+}
+
+#rpbchessboard-admin-fenExamples {
+	display: table;
+	width: 100%;
+}
+
+#rpbchessboard-admin-fenExamples > ul,
+#rpbchessboard-admin-fenExamples > div {
+	display: table-cell;
+}
+
+#rpbchessboard-admin-fenExamples > div.rpbchessboard-invisible {
+	display: none;
+}
+
+#rpbchessboard-admin-fenExamples > ul {
+	width: 20%;
+}
+
+#rpbchessboard-admin-fenExamples > div {
+	width: 80%;
+	border: solid 1px #dfdfdf;
+	background: #fcfcfc;
+	padding: 10px;
+}
+
+#rpbchessboard-admin-fenExamples > ul > li {
+	border-top   : solid 1px #dfdfdf;
+	border-left  : solid 1px #dfdfdf;
+	border-right : none;
+	border-bottom: none;
+	background: #ececec;
+	padding: 5px;
+	margin : 0px;
+	text-align: center;
+	cursor: pointer;
+	color: rgb(33, 117, 155);
+}
+
+#rpbchessboard-admin-fenExamples > ul > li:hover {
+	color: rgb(213, 78, 33);
+}
+
+#rpbchessboard-admin-fenExamples > ul > li:last-child {
+	border-bottom: solid 1px #dfdfdf;
+}
+
+#rpbchessboard-admin-fenExamples > ul > li.rpbchessboard-admin-selected {
+	background: #fcfcfc;
 }
 
 
