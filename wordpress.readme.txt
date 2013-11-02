@@ -80,7 +80,12 @@ please have a look to the general [plugin management page](http://codex.wordpres
 6. Chess game with comments and sub-variations.
 
 
+
 == Changelog ==
+
+= 1.99.4 =
+* Clean the credits page in the backend.
+* Fix: missing theming for the jQuery widgets in the backend.
 
 = 1.99.3 =
 * Fix: use the WP theming for jQuery dialogs to avoid conflicts between CSS.
