@@ -45,7 +45,7 @@
 
 	<div class="rpbchessboard-admin-columns">
 
-		<div class="rpbchessboard-admin-column-left">
+		<div class="rpbchessboard-admin-column rpbchessboard-admin-column-left">
 			<div class="rpbchessboard-admin-code-block">
 				<?php _e('White to move and mate in two:', 'rpbchessboard'); ?>
 				<br/><br/>
@@ -73,7 +73,7 @@
 			</p>
 		</div>
 
-		<div class="rpbchessboard-admin-column-right">
+		<div class="rpbchessboard-admin-column rpbchessboard-admin-column-right">
 			<div class="rpbchessboard-admin-visu-block">
 				<p><?php _e('White to move and mate in two:', 'rpbchessboard'); ?></p>
 				<div id="rpbchessboard-admin-example1-in" class="rpbchessboard-in">
@@ -103,7 +103,7 @@
 
 	<div class="rpbchessboard-admin-columns">
 
-		<div class="rpbchessboard-admin-column-left">
+		<div class="rpbchessboard-admin-column rpbchessboard-admin-column-left">
 			<div class="rpbchessboard-admin-code-block">
 				[pgn]
 				<br/><br/>
@@ -174,7 +174,7 @@
 			</p>
 		</div>
 
-		<div class="rpbchessboard-admin-column-right">
+		<div class="rpbchessboard-admin-column rpbchessboard-admin-column-right">
 			<div class="rpbchessboard-admin-visu-block">
 				<div id="rpbchessboard-admin-example2-in" class="rpbchessboard-in">
 					[Event "1&lt;sup&gt;st&lt;/sup&gt; American Chess Congress"]

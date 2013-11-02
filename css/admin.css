@@ -38,18 +38,19 @@
 	border-collapse: collapse;
 }
 
-.rpbchessboard-admin-column-left,
-.rpbchessboard-admin-column-right {
+.rpbchessboard-admin-column {
 	display: table-cell;
 	vertical-align: top;
-}
-
-.rpbchessboard-admin-column-left {
+	padding-left : 10px;
 	padding-right: 10px;
 }
 
-.rpbchessboard-admin-column-right {
-	padding-left: 10px;
+.rpbchessboard-admin-column:first-child {
+	padding-left: 0px;
+}
+
+.rpbchessboard-admin-column:last-child {
+	padding-right: 0px;
 }
 
 
