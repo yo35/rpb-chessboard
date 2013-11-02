@@ -67,6 +67,7 @@
 	border: solid 1px #c0c0ff;
 	background-color: #f0f0ff;
 	padding: 8px 10px 8px;
+	margin-bottom: 1em;
 }
 
 .rpbchessboard-admin-visu-block {
@@ -122,6 +123,14 @@
 
 #rpbchessboard-admin-help .subsubsub li:last-child:after {
 	content: none;
+}
+
+#rpbchessboard-admin-help-fen .rpbchessboard-admin-column-left {
+	width: 33%;
+}
+
+#rpbchessboard-admin-help-fen .rpbchessboard-admin-column-right {
+	width: 67%;
 }
 
 

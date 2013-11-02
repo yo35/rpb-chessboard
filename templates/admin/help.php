@@ -48,6 +48,9 @@
 		</h3>
 
 
+
+		<h4><?php _e('FEN format', 'rpbchessboard'); ?></h4>
+
 		<p>
 			<?php echo sprintf(
 				__(
@@ -66,107 +69,134 @@
 		</p>
 
 
-		<div class="rpbchessboard-admin-columns">
 
-			<div class="rpbchessboard-admin-column">
+		<div id="rpbchessboard-admin-examplesFen">
+
+			<ul>
+				<li><?php _e('Initial position', 'rpbchessboard'); ?></li>
+				<li><?php _e('After 1.e4'      , 'rpbchessboard'); ?></li>
+				<li><?php _e('Who can castle?' , 'rpbchessboard'); ?></li>
+				<li><?php _e('Légal Trap.'     , 'rpbchessboard'); ?></li>
+			</ul>
+
+			<div id="rpbchessboard-admin-exampleFen1">
 				<div class="rpbchessboard-admin-code-block">
 					[fen]rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1[/fen]
 				</div>
-				<div class="rpbchessboard-admin-visu-block">
-					<div id="rpbchessboard-admin-exampleFen1-in" class="rpbchessboard-in">
-						rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
+				<div class="rpbchessboard-admin-columns">
+					<div class="rpbchessboard-admin-column rpbchessboard-admin-column-left">
+						<p>
+							<?php _e('The initial position.', 'rpbchessboard'); ?>
+						</p>
 					</div>
-					<div id="rpbchessboard-admin-exampleFen1-out" class="rpbchessboard-out rpbchessboard-invisible"></div>
-					<script type="text/javascript">
-						processFEN('rpbchessboard-admin-exampleFen1-in', 'rpbchessboard-admin-exampleFen1-out',
-							{squareSize: 28});
-					</script>
+					<div class="rpbchessboard-admin-column rpbchessboard-admin-column-right">
+						<div class="rpbchessboard-admin-visu-block">
+							<div id="rpbchessboard-admin-exampleFen1-in" class="rpbchessboard-in">
+								rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
+							</div>
+							<div id="rpbchessboard-admin-exampleFen1-out" class="rpbchessboard-out rpbchessboard-invisible"></div>
+							<script type="text/javascript">
+								processFEN('rpbchessboard-admin-exampleFen1-in', 'rpbchessboard-admin-exampleFen1-out',
+									{squareSize: 28});
+							</script>
+						</div>
+					</div>
 				</div>
-				<p>
-					<?php _e('The initial position.', 'rpbchessboard'); ?>
-				</p>
 			</div>
 
-			<div class="rpbchessboard-admin-column">
+			<div id="rpbchessboard-admin-exampleFen2">
 				<div class="rpbchessboard-admin-code-block">
 					[fen]rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1[/fen]
 				</div>
-				<div class="rpbchessboard-admin-visu-block">
-					<div id="rpbchessboard-admin-exampleFen2-in" class="rpbchessboard-in">
-						rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+				<div class="rpbchessboard-admin-columns">
+					<div class="rpbchessboard-admin-column rpbchessboard-admin-column-left">
+						<p>
+							<?php echo sprintf(
+								__(
+									'After 1.e4. Notice the 4<sup>th</sup> field in the FEN string (%1$s), '.
+									'indicating the square where <em>en passant</em> can be done '.
+									'(if there were a black pawn either in d4 or in f4).',
+								'rpbchessboard'),
+								'<span class="rpbchessboard-admin-code-inline">&quot;e3&quot;</span>'
+							); ?>
+						</p>
 					</div>
-					<div id="rpbchessboard-admin-exampleFen2-out" class="rpbchessboard-out rpbchessboard-invisible"></div>
-					<script type="text/javascript">
-						processFEN('rpbchessboard-admin-exampleFen2-in', 'rpbchessboard-admin-exampleFen2-out',
-							{squareSize: 28});
-					</script>
+					<div class="rpbchessboard-admin-column rpbchessboard-admin-column-right">
+						<div class="rpbchessboard-admin-visu-block">
+							<div id="rpbchessboard-admin-exampleFen2-in" class="rpbchessboard-in">
+								rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+							</div>
+							<div id="rpbchessboard-admin-exampleFen2-out" class="rpbchessboard-out rpbchessboard-invisible"></div>
+							<script type="text/javascript">
+								processFEN('rpbchessboard-admin-exampleFen2-in', 'rpbchessboard-admin-exampleFen2-out',
+									{squareSize: 28});
+							</script>
+						</div>
+					</div>
 				</div>
-				<p>
-					<?php echo sprintf(
-						__(
-							'After 1.e4. Notice the 4<sup>th</sup> field in the FEN string (%1$s), '.
-							'indicating the square where <em>en passant</em> can be done '.
-							'(if there were a black pawn either in d4 or in f4).',
-						'rpbchessboard'),
-						'<span class="rpbchessboard-admin-code-inline">&quot;e3&quot;</span>'
-					); ?>
-				</p>
 			</div>
 
-		</div>
-
-
-		<div class="rpbchessboard-admin-columns">
-
-			<div class="rpbchessboard-admin-column">
+			<div id="rpbchessboard-admin-exampleFen3">
 				<div class="rpbchessboard-admin-code-block">
 					[fen]r3k2r/8/8/8/8/8/8/R3K2R b K - 0 1[/fen]
 				</div>
-				<div class="rpbchessboard-admin-visu-block">
-					<div id="rpbchessboard-admin-exampleFen3-in" class="rpbchessboard-in">
-						r3k2r/8/8/8/8/8/8/R3K2R b K - 0 1
+				<div class="rpbchessboard-admin-columns">
+					<div class="rpbchessboard-admin-column rpbchessboard-admin-column-left">
+						<p>
+							<?php echo sprintf(
+								__(
+									'Who can castle? And where? Here, the 3<sup>rd</sup> field in the FEN string (%1$s) '.
+									'indicates that only king-side white castling is available. Other castling availabilities '.
+									'might be indicated with characters %2$s (queen-side white castling), '.
+									'%3$s (king-side black castling), and %4$s (queen-side black castling). '.
+									'If neither side can castle, the 3<sup>rd</sup> FEN field is set to %5$s.',
+								'rpbchessboard'),
+								'<span class="rpbchessboard-admin-code-inline">&quot;K&quot;</span>',
+								'<span class="rpbchessboard-admin-code-inline">&quot;Q&quot;</span>',
+								'<span class="rpbchessboard-admin-code-inline">&quot;k&quot;</span>',
+								'<span class="rpbchessboard-admin-code-inline">&quot;q&quot;</span>',
+								'<span class="rpbchessboard-admin-code-inline">&quot;-&quot;</span>'
+							); ?>
+						</p>
 					</div>
-					<div id="rpbchessboard-admin-exampleFen3-out" class="rpbchessboard-out rpbchessboard-invisible"></div>
-					<script type="text/javascript">
-						processFEN('rpbchessboard-admin-exampleFen3-in', 'rpbchessboard-admin-exampleFen3-out',
-							{squareSize: 28});
-					</script>
+					<div class="rpbchessboard-admin-column rpbchessboard-admin-column-right">
+						<div class="rpbchessboard-admin-visu-block">
+							<div id="rpbchessboard-admin-exampleFen3-in" class="rpbchessboard-in">
+								r3k2r/8/8/8/8/8/8/R3K2R b K - 0 1
+							</div>
+							<div id="rpbchessboard-admin-exampleFen3-out" class="rpbchessboard-out rpbchessboard-invisible"></div>
+							<script type="text/javascript">
+								processFEN('rpbchessboard-admin-exampleFen3-in', 'rpbchessboard-admin-exampleFen3-out',
+									{squareSize: 28});
+							</script>
+						</div>
+					</div>
 				</div>
-				<p>
-					<?php echo sprintf(
-						__(
-							'Who can castle? And where? Here, the 3<sup>rd</sup> field in the FEN string (%1$s) '.
-							'indicates that only king-side white castling is available. Other castling availabilities '.
-							'might be indicated with characters %2$s (queen-side white castling), '.
-							'%3$s (king-side black castling), and %4$s (queen-side black castling). '.
-							'If neither side can castle, the 3<sup>rd</sup> FEN field is set to %5$s.',
-						'rpbchessboard'),
-						'<span class="rpbchessboard-admin-code-inline">&quot;K&quot;</span>',
-						'<span class="rpbchessboard-admin-code-inline">&quot;Q&quot;</span>',
-						'<span class="rpbchessboard-admin-code-inline">&quot;k&quot;</span>',
-						'<span class="rpbchessboard-admin-code-inline">&quot;q&quot;</span>',
-						'<span class="rpbchessboard-admin-code-inline">&quot;-&quot;</span>'
-					); ?>
-				</p>
 			</div>
 
-			<div class="rpbchessboard-admin-column">
+			<div id="rpbchessboard-admin-exampleFen4">
 				<div class="rpbchessboard-admin-code-block">
 					[fen]r2q1bnr/ppp1kBpp/2np4/3NN3/4P3/8/PPPP1PPP/R1BbK2R b KQ - 2 7[/fen]
 				</div>
-				<div class="rpbchessboard-admin-visu-block">
-					<div id="rpbchessboard-admin-exampleFen4-in" class="rpbchessboard-in">
-						r2q1bnr/ppp1kBpp/2np4/3NN3/4P3/8/PPPP1PPP/R1BbK2R b KQ - 2 7
+				<div class="rpbchessboard-admin-columns">
+					<div class="rpbchessboard-admin-column rpbchessboard-admin-column-left">
+						<p>
+							<?php _e('Légal Trap.', 'rpbchessboard'); ?>
+						</p>
 					</div>
-					<div id="rpbchessboard-admin-exampleFen4-out" class="rpbchessboard-out rpbchessboard-invisible"></div>
-					<script type="text/javascript">
-						processFEN('rpbchessboard-admin-exampleFen4-in', 'rpbchessboard-admin-exampleFen4-out',
-							{squareSize: 28});
-					</script>
+					<div class="rpbchessboard-admin-column rpbchessboard-admin-column-right">
+						<div class="rpbchessboard-admin-visu-block">
+							<div id="rpbchessboard-admin-exampleFen4-in" class="rpbchessboard-in">
+								r2q1bnr/ppp1kBpp/2np4/3NN3/4P3/8/PPPP1PPP/R1BbK2R b KQ - 2 7
+							</div>
+							<div id="rpbchessboard-admin-exampleFen4-out" class="rpbchessboard-out rpbchessboard-invisible"></div>
+							<script type="text/javascript">
+								processFEN('rpbchessboard-admin-exampleFen4-in', 'rpbchessboard-admin-exampleFen4-out',
+									{squareSize: 28});
+							</script>
+						</div>
+					</div>
 				</div>
-				<p>
-					<?php _e('Légal Trap.', 'rpbchessboard'); ?>
-				</p>
 			</div>
 
 		</div>
@@ -187,13 +217,13 @@
 
 	<script type="text/javascript">
 
-		// List of tabs
+		// List of top-level tabs
 		var tabs = [
 			'rpbchessboard-admin-help-fen',
 			'rpbchessboard-admin-help-pgn'
 		];
 
-		// Function to display a tab
+		// Function to display a tab (top-level)
 		function showTab($, tabID)
 		{
 			for(var k=0; k<tabs.length; ++k) {
@@ -208,10 +238,27 @@
 			}
 		}
 
+		// Function to display a tab (sub-level)
+		function showSubTab($, tabIndex)
+		{
+			$('#rpbchessboard-admin-examplesFen > div').addClass('rpbchessboard-invisible')
+				.eq(tabIndex).removeClass('rpbchessboard-invisible');
+			$('#rpbchessboard-admin-examplesFen > ul > li').addClass('rpbchessboard-admin-selected')
+				.eq(tabIndex).removeClass('rpbchessboard-admin-selected');
+		}
+
 		// Initialization
 		jQuery(document).ready(function($)
 		{
+			// Main tabs
 			showTab($, 'rpbchessboard-admin-help-fen');
+
+			// Tabs for FEN examples
+			$('#rpbchessboard-admin-examplesFen > ul > li').each(function(index, e)
+			{
+				$(e).click(function() { showSubTab($, index); });
+			});
+			showSubTab($, 0);
 		});
 
 	</script>
