@@ -56,7 +56,7 @@
 
 
 /******************************************************************************/
-/*** Memo tab ***/
+/*** Code and visualization blocks ***/
 
 .rpbchessboard-admin-code-block,
 .rpbchessboard-admin-code-inline {
@@ -80,6 +80,11 @@
 	font-size  : 17px;
 	line-height: 1.3em;
 }
+
+
+
+/******************************************************************************/
+/*** Memo tab ***/
 
 #rpbchessboard-admin-memo .rpbchessboard-admin-column-left {
 	width: 50%;
