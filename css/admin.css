@@ -61,12 +61,12 @@
 .rpbchessboard-admin-tabs {
 	display: table;
 	width: 100%;
-	border-collapse: collapse;
 }
 
 .rpbchessboard-admin-tabs > ul,
 .rpbchessboard-admin-tabs > div {
 	display: table-cell;
+	vertical-align: top;
 }
 
 .rpbchessboard-admin-tabs > div.rpbchessboard-invisible {
@@ -205,6 +205,19 @@
 }
 
 #rpbchessboard-admin-fenAttributes > div {
+	width: 85%;
+}
+
+#rpbchessboard-admin-pgnExamples .rpbchessboard-admin-column-left,
+#rpbchessboard-admin-pgnExamples .rpbchessboard-admin-column-right {
+	width: 50%;
+}
+
+#rpbchessboard-admin-pgnExamples > ul {
+	width: 15%;
+}
+
+#rpbchessboard-admin-pgnExamples > div {
 	width: 85%;
 }
 
