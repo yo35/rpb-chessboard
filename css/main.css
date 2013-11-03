@@ -86,16 +86,13 @@
 	font-weight: bold;
 }
 
-.rpbchessboard-game-head {
-	margin-top: 5px;
+.rpbchessboard-game-head,
+.rpbchessboard-game-body {
+	margin-top   : 8px;
+	margin-bottom: 8px;
 }
 
 .rpbchessboard-game-head div {
 	margin-top   : 4px;
 	margin-bottom: 4px;
-}
-
-.rpbchessboard-game-body {
-	margin-top   : 10px;
-	margin-bottom:  5px;
 }
