@@ -236,4 +236,125 @@
 
 	</div>
 
+
+
+
+
+	<h4><?php _e('Annotations', 'rpbchessboard'); ?></h4>
+
+	<div id="rpbchessboard-admin-pgnAnnotations" class="rpbchessboard-admin-columns">
+		<div class="rpbchessboard-admin-column-left">
+			<div class="rpbchessboard-admin-code-block">
+				[pgn] 1.e4 !! ! !? ?! ? ?? +- +/- +/= = inf =/+ -/+ -+ * [/pgn]
+			</div>
+		</div>
+		<div class="rpbchessboard-admin-column-right">
+			<div class="rpbchessboard-admin-visu-block">
+				<div id="rpbchessboard-admin-annotations-example-in" class="rpbchessboard-in">
+					1.e4 !! ! !? ?! ? ?? +- +/- +/= = inf =/+ -/+ -+ *
+				</div>
+				<div id="rpbchessboard-admin-annotations-example-out" class="rpbchessboard-out rpbchessboard-invisible">
+					<?php include(RPBCHESSBOARD_ABSPATH.'templates/common/pgncontent.php'); ?>
+				</div>
+				<script type="text/javascript">
+					processPGN('rpbchessboard-admin-annotations-example-in', 'rpbchessboard-admin-annotations-example-out');
+				</script>
+			</div>
+		</div>
+	</div>
+
+	<p>
+		<?php echo sprintf(
+			__(
+				'Notice that the chess database softwares may introduce annotations such as '.
+				'%1$s&quot;$x&quot;%2$s where %1$s&quot;x&quot;%2$s is replaced with one or more digits '.
+				'(for instance, %1$s&quot;1.e4 $1&quot;%2$s). This is what is advocated by the PGN norm, '.
+				'and there are equivalences between this syntax and the human-readable one '.
+				'(for instance %1$s&quot;$1&quot;%2$s is equivalent to %1$s&quot;!&quot;%2$s). '.
+				'Both syntaxes are understood by the RPB Chessboard plugin.',
+			'rpbchessboard'),
+			'<span class="rpbchessboard-admin-code-inline">',
+			'</span>'
+		); ?>
+	</p>
+
+
+
+
+
+	<h4><?php _e('Commentaries', 'rpbchessboard'); ?></h4>
+
+	<div id="rpbchessboard-admin-pgnCommentaries" class="rpbchessboard-admin-columns">
+		<div class="rpbchessboard-admin-column-left">
+			<div class="rpbchessboard-admin-code-block">
+				[pgn]<br/>
+				1. d4
+				{<?php
+					echo sprintf(__('I\'m a %1$sshort%2$s commentary.', 'rpbchessboard'),
+						'&lt;strong style=&quot;color:red;&quot;&gt;', '&lt;/strong&gt;');
+				?>}
+				1... Nf6 2. c4 e6 3. Nc3 Bb4 4. Qc2 d5 5. cxd5 Qxd5 6. Nf3 Qf5 7. Qxf5 exf5
+				8. a3 Be7 9. Bg5 Be6 10. e3 c6 11. Bd3 Nbd7 12. O-O h6 13. Bh4<br/>
+				<br/>
+				{<?php
+					echo sprintf(__('I\'m a %1$slong%2$s commentary.', 'rpbchessboard'),
+						'&lt;strong style=&quot;color:red;&quot;&gt;', '&lt;/strong&gt;');
+				?>}<br/>
+				<br/>
+				13... a5 14. Rac1 O-O 15. Ne2 g5 16. Bg3 Ne4 17. Nc3 Nxc3 18. Rxc3 Nf6
+				19. Rcc1 Rfd8 20. Rfd1 Rac8 *<br/>
+				[/pgn]
+			</div>
+		</div>
+		<div class="rpbchessboard-admin-column-right">
+			<div class="rpbchessboard-admin-visu-block">
+				<div id="rpbchessboard-admin-commentaries-example-in" class="rpbchessboard-in">
+					1. d4
+					{<?php
+						echo sprintf(__('I\'m a %1$sshort%2$s commentary.', 'rpbchessboard'),
+							'&lt;strong style=&quot;color:red;&quot;&gt;', '&lt;/strong&gt;');
+					?>}
+					1... Nf6 2. c4 e6 3. Nc3 Bb4 4. Qc2 d5 5. cxd5 Qxd5 6. Nf3 Qf5 7. Qxf5 exf5
+					8. a3 Be7 9. Bg5 Be6 10. e3 c6 11. Bd3 Nbd7 12. O-O h6 13. Bh4
+
+					{<?php
+						echo sprintf(__('I\'m a %1$slong%2$s commentary.', 'rpbchessboard'),
+							'&lt;strong style=&quot;color:red;&quot;&gt;', '&lt;/strong&gt;');
+					?>}
+
+					13... a5 14. Rac1 O-O 15. Ne2 g5 16. Bg3 Ne4 17. Nc3 Nxc3 18. Rxc3 Nf6
+					19. Rcc1 Rfd8 20. Rfd1 Rac8 *
+				</div>
+				<div id="rpbchessboard-admin-commentaries-example-out" class="rpbchessboard-out rpbchessboard-invisible">
+					<?php include(RPBCHESSBOARD_ABSPATH.'templates/common/pgncontent.php'); ?>
+				</div>
+				<script type="text/javascript">
+					processPGN('rpbchessboard-admin-commentaries-example-in', 'rpbchessboard-admin-commentaries-example-out');
+				</script>
+			</div>
+		</div>
+	</div>
+
+	<p>
+		<?php echo sprintf(
+			__(
+				'Text commentaries can be inserted, surrounded with braces. They can be rendered '.
+				'either inlined within the move sequence (&quot;short commentary&quot; style), '.
+				'or as separated blocks (&quot;long commentary&quot; style). To insert a commentary '.
+				'as a separated block, let two blank lines before and after it in the PGN string. '.
+				'Also, notice that HTML tags are allowed within commentaries.',
+			'rpbchessboard'),
+			'<span class="rpbchessboard-admin-code-inline">',
+			'</span>'
+		); ?>
+	</p>
+
+
+
+
+
+	<h4><?php _e('Variations', 'rpbchessboard'); ?></h4>
+
+	<p>TODO</p>
+
 </div>

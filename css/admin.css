@@ -221,6 +221,13 @@
 	width: 85%;
 }
 
+#rpbchessboard-admin-pgnAnnotations .rpbchessboard-admin-column-left,
+#rpbchessboard-admin-pgnAnnotations .rpbchessboard-admin-column-right,
+#rpbchessboard-admin-pgnCommentaries .rpbchessboard-admin-column-left,
+#rpbchessboard-admin-pgnCommentaries .rpbchessboard-admin-column-right {
+	width: 50%;
+}
+
 
 
 /******************************************************************************/
