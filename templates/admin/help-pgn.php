@@ -357,4 +357,77 @@
 
 	<p>TODO</p>
 
+
+
+
+
+	<h4>
+		<?php echo sprintf(
+			__('Diagrams with the %1$s[pgndiagram]%2$s tag', 'rpbchessboard'),
+			'<span class="rpbchessboard-admin-code-inline">',
+			'</span>'
+		); ?>
+	</h4>
+
+	<div id="rpbchessboard-admin-pgnDiagrams" class="rpbchessboard-admin-columns">
+		<div class="rpbchessboard-admin-column-left">
+			<div class="rpbchessboard-admin-code-block">
+				[pgn]<br/>
+				1. e4 c5 {[pgndiagram]
+				<?php
+					_e('This opening is called the Sicilian defence. A possible continuation is:', 'rpbchessboard');
+				?>}
+				2. Nf3 d6 *<br/>
+				[/pgn]
+			</div>
+			<p>
+				<?php echo sprintf(
+					__(
+						'Notice that %1$s[pgndiagram]%2$s tags must be inserted only in PGN commentaries.',
+					'rpbchessboard'),
+					'<span class="rpbchessboard-admin-code-inline">',
+					'</span>'
+				); ?>
+			</p>
+		</div>
+		<div class="rpbchessboard-admin-column-right">
+			<div class="rpbchessboard-admin-visu-block">
+				<div id="rpbchessboard-admin-pgnDiagrams-example-in" class="rpbchessboard-in">
+					1. e4 c5 {&lt;span class=&quot;PgnWidget-anchor-diagram&quot;&gt;&lt;/span&gt;
+					<?php
+						_e('This opening is called the Sicilian defence. A possible continuation is:', 'rpbchessboard');
+					?>}
+					2. Nf3 d6 *
+				</div>
+				<div id="rpbchessboard-admin-pgnDiagrams-example-out" class="rpbchessboard-out rpbchessboard-invisible">
+					<?php include(RPBCHESSBOARD_ABSPATH.'templates/common/pgncontent.php'); ?>
+				</div>
+				<script type="text/javascript">
+					processPGN('rpbchessboard-admin-pgnDiagrams-example-in', 'rpbchessboard-admin-pgnDiagrams-example-out',
+						{squareSize: 28});
+				</script>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+	<h4><?php _e('Attributes', 'rpbchessboard'); ?></h4>
+
+	<p>
+		<?php echo sprintf(
+			__(
+				'The %1$s[pgn][/pgn]%2$s and %1$s[pgndiagram]%2$s tags accept the same attributes '.
+				'as the %1$s[fen][/fen]%2$s ones. For instance, using '.
+				'%1$s[pgn square_size=...] ... [/pgn]%2$s will affect the size of all the '.
+				'chess diagrams inserted in the commentaries of the corresponding chess game. '.
+				'Setting %1$s[pgndiagram square_size=...]%2$s will affect only the corresponding diagram.',
+			'rpbchessboard'),
+			'<span class="rpbchessboard-admin-code-inline">',
+			'</span>'
+		); ?>
+	</p>
+
 </div>
