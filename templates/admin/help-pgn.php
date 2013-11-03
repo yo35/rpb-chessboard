@@ -150,12 +150,12 @@
 			<p>
 				<?php echo sprintf(
 					__(
-						'Normally, the strict PGN syntax requires that each PGN string starts with '.
+						'Normally, the strict PGN syntax requires that each PGN entry starts with '.
 						'7 compulsory headers: %1$s[Event &quot;...&quot;]%2$s, '.
 						'%1$s[Site &quot;...&quot;]%2$s, %1$s[Date &quot;...&quot;]%2$s, '.
 						'%1$s[Round &quot;...&quot;]%2$s, %1$s[White &quot;...&quot;]%2$s, '.
 						'%1$s[Black &quot;...&quot;]%2$s, and %1$s[Result &quot;...&quot;]%2$s. '.
-						'However, they are all optional here.',
+						'However, the RPB Chessboard plugin consider them as optional.',
 					'rpbchessboard'),
 					'<span class="rpbchessboard-admin-code-inline">',
 					'</span>'
@@ -269,8 +269,8 @@
 				'Notice that the chess database softwares may introduce annotations such as '.
 				'%1$s&quot;$x&quot;%2$s where %1$s&quot;x&quot;%2$s is replaced with one or more digits '.
 				'(for instance, %1$s&quot;1.e4 $1&quot;%2$s). This is what is advocated by the PGN norm, '.
-				'and there are equivalences between this syntax and the human-readable one '.
-				'(for instance %1$s&quot;$1&quot;%2$s is equivalent to %1$s&quot;!&quot;%2$s). '.
+				'which defines equivalences between this syntax and the human-readable one '.
+				'(for instance, %1$s&quot;$1&quot;%2$s is equivalent to %1$s&quot;!&quot;%2$s). '.
 				'Both syntaxes are understood by the RPB Chessboard plugin.',
 			'rpbchessboard'),
 			'<span class="rpbchessboard-admin-code-inline">',
