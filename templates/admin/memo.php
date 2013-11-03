@@ -107,13 +107,13 @@
 			<div class="rpbchessboard-admin-code-block">
 				[pgn]
 				<br/><br/>
-				[Event "1&lt;sup&gt;st&lt;/sup&gt; American Chess Congress"]<br/>
-				[Site "New York, NY USA"]<br/>
-				[Date "1857.11.03"]<br/>
-				[Round "4.6"]<br/>
-				[White "Paulsen, Louis"]<br/>
-				[Black "Morphy, Paul"]<br/>
-				[Result "0-1"]<br/>
+				[Event &quot;1&lt;sup&gt;st&lt;/sup&gt; American Chess Congress&quot;]<br/>
+				[Site &quot;New York, NY USA&quot;]<br/>
+				[Date &quot;1857.11.03&quot;]<br/>
+				[Round &quot;4.6&quot;]<br/>
+				[White &quot;Paulsen, Louis&quot;]<br/>
+				[Black &quot;Morphy, Paul&quot;]<br/>
+				[Result &quot;0-1&quot;]<br/>
 				<br/>
 				1. e4 e5 2. Nf3 Nc6 3. Nc3 Nf6 4. Bb5 Bc5 5. O-O O-O 6. Nxe5 Re8
 				7. Nxc6 dxc6 8. Bc4 b5 9. Be2 Nxe4 10. Nxe4 Rxe4 11. Bf3 Re6
@@ -177,13 +177,13 @@
 		<div class="rpbchessboard-admin-column-right">
 			<div class="rpbchessboard-admin-visu-block">
 				<div id="rpbchessboard-admin-example2-in" class="rpbchessboard-in">
-					[Event "1&lt;sup&gt;st&lt;/sup&gt; American Chess Congress"]
-					[Site "New York, NY USA"]
-					[Date "1857.11.03"]
-					[Round "4.6"]
-					[White "Paulsen, Louis"]
-					[Black "Morphy, Paul"]
-					[Result "0-1"]
+					[Event &quot;1&lt;sup&gt;st&lt;/sup&gt; American Chess Congress&quot;]
+					[Site &quot;New York, NY USA&quot;]
+					[Date &quot;1857.11.03&quot;]
+					[Round &quot;4.6&quot;]
+					[White &quot;Paulsen, Louis&quot;]
+					[Black &quot;Morphy, Paul&quot;]
+					[Result &quot;0-1&quot;]
 
 					1. e4 e5 2. Nf3 Nc6 3. Nc3 Nf6 4. Bb5 Bc5 5. O-O O-O 6. Nxe5 Re8
 					7. Nxc6 dxc6 8. Bc4 b5 9. Be2 Nxe4 10. Nxe4 Rxe4 11. Bf3 Re6
@@ -191,7 +191,7 @@
 					17. Qa6
 
 					{
-						&lt;span class="PgnWidget-anchor-diagram"&gt;&lt;/span&gt;
+						&lt;span class=&quot;PgnWidget-anchor-diagram&quot;&gt;&lt;/span&gt;
 						<?php
 							_e(
 								'Morphy took twelve minutes over his next move, '.
