@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-04 18:16+0100\n"
+"POT-Creation-Date: 2013-11-04 22:26+0100\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35@melix.net>\n"
 "Language-Team: French\n"
@@ -212,21 +212,30 @@ msgstr ""
 "suivants."
 
 #: templates/admin/help-fen.php:245
+msgid "Orientation"
+msgstr "Orientation"
+
+#: templates/admin/help-fen.php:246
 msgid "Square size"
 msgstr "Taille des cases"
 
-#: templates/admin/help-fen.php:246
+#: templates/admin/help-fen.php:247
 msgid "Coordinates"
 msgstr "Coordonnées"
 
-#: templates/admin/help-fen.php:254
+#: templates/admin/help-fen.php:255
+#, php-format
+msgid "The %1$s attribute controls whether the chessboard is rotated or not."
+msgstr "L'attribut %1$s détermine si l'échiquier est ou non retourné."
+
+#: templates/admin/help-fen.php:299
 #, php-format
 msgid ""
 "The %1$s attribute controls the size (in pixels) of the chessboard squares."
 msgstr ""
 "L'attribut %1$s détermine la taille (en pixels) des cases de l'échiquier."
 
-#: templates/admin/help-fen.php:298
+#: templates/admin/help-fen.php:343
 #, php-format
 msgid ""
 "The %1$s attribute controls whether the row and columns coordinates are "

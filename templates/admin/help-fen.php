@@ -242,9 +242,54 @@
 	<div id="rpbchessboard-admin-fenAttributes" class="rpbchessboard-admin-tabs">
 
 		<ul>
+			<li><?php _e('Orientation', 'rpbchessboard'); ?></li>
 			<li><?php _e('Square size', 'rpbchessboard'); ?></li>
 			<li><?php _e('Coordinates', 'rpbchessboard'); ?></li>
 		</ul>
+
+
+		<div>
+			<p>
+				<?php echo sprintf(
+					__(
+						'The %1$s attribute controls whether the chessboard is rotated or not.',
+					'rpbchessboard'),
+					'<span class="rpbchessboard-admin-code-inline">flip</span>'
+				); ?>
+			</p>
+			<div class="rpbchessboard-admin-columns">
+				<div>
+					<div class="rpbchessboard-admin-code-block">
+						[fen flip=true] ... [/fen]
+					</div>
+					<div class="rpbchessboard-admin-visu-block">
+						<div id="rpbchessboard-admin-flip-example1-in" class="rpbchessboard-in">
+							rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
+						</div>
+						<div id="rpbchessboard-admin-flip-example1-out" class="rpbchessboard-out rpbchessboard-invisible"></div>
+						<script type="text/javascript">
+							processFEN('rpbchessboard-admin-flip-example1-in', 'rpbchessboard-admin-flip-example1-out',
+								{squareSize: 28, flip: true});
+						</script>
+					</div>
+				</div>
+				<div>
+					<div class="rpbchessboard-admin-code-block">
+						[fen flip=false] ... [/fen]
+					</div>
+					<div class="rpbchessboard-admin-visu-block">
+						<div id="rpbchessboard-admin-flip-example2-in" class="rpbchessboard-in">
+							rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
+						</div>
+						<div id="rpbchessboard-admin-flip-example2-out" class="rpbchessboard-out rpbchessboard-invisible"></div>
+						<script type="text/javascript">
+							processFEN('rpbchessboard-admin-flip-example2-in', 'rpbchessboard-admin-flip-example2-out',
+								{squareSize: 28, flip: false});
+						</script>
+					</div>
+				</div>
+			</div>
+		</div>
 
 
 		<div>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-04 18:16+0100\n"
+"POT-Creation-Date: 2013-11-04 22:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -185,20 +185,29 @@ msgid ""
 msgstr ""
 
 #: templates/admin/help-fen.php:245
-msgid "Square size"
+msgid "Orientation"
 msgstr ""
 
 #: templates/admin/help-fen.php:246
+msgid "Square size"
+msgstr ""
+
+#: templates/admin/help-fen.php:247
 msgid "Coordinates"
 msgstr ""
 
-#: templates/admin/help-fen.php:254
+#: templates/admin/help-fen.php:255
+#, php-format
+msgid "The %1$s attribute controls whether the chessboard is rotated or not."
+msgstr ""
+
+#: templates/admin/help-fen.php:299
 #, php-format
 msgid ""
 "The %1$s attribute controls the size (in pixels) of the chessboard squares."
 msgstr ""
 
-#: templates/admin/help-fen.php:298
+#: templates/admin/help-fen.php:343
 #, php-format
 msgid ""
 "The %1$s attribute controls whether the row and columns coordinates are "
