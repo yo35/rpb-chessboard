@@ -21,7 +21,6 @@
 
 
 require_once(RPBCHESSBOARD_ABSPATH.'models/abstractshortcodemodel.php');
-require_once(RPBCHESSBOARD_ABSPATH.'helpers/json.php');
 
 
 /**
@@ -29,9 +28,6 @@ require_once(RPBCHESSBOARD_ABSPATH.'helpers/json.php');
  */
 class RPBChessboardModelPgnDiagram extends RPBChessboardAbstractShortcodeModel
 {
-	private $chessWidgetAttributes = null;
-
-
 	/**
 	 * Constructor.
 	 *
@@ -53,27 +49,5 @@ class RPBChessboardModelPgnDiagram extends RPBChessboardAbstractShortcodeModel
 	public function getViewName()
 	{
 		return 'PgnDiagram';
-	}
-
-
-	/**
-	 * Return the list of aspect options applicable to chess widgets, in a JSON-format.
-	 */
-	public function getChessWidgetAttributes()
-	{
-		if(is_null($this->chessWidgetAttributes))
-		{
-			// Concatenate all the attributes in a JSON format.
-			$str = RPBChessboardHelperJSON::formatChessWidgetAttributes(
-				$this->getCustomFlip           (),
-				$this->getCustomSquareSize     (),
-				$this->getCustomShowCoordinates()
-			);
-
-			// Trim the brace characters to fulfill the PGN comment syntax.
-			// TODO: a true escaping mechanism in PGN comments would be cleaner.
-			$this->chessWidgetAttributes = preg_replace('/^{|}$/', '', $str);
-		}
-		return $this->chessWidgetAttributes;
 	}
 }

@@ -42,4 +42,16 @@ abstract class RPBChessboardHelperJSON
 		if(!is_null($showCoordinates)) $retVal[] = '"showCoordinates": ' . json_encode($showCoordinates);
 		return '{' . implode(', ', $retVal) . '}';
 	}
+
+
+	/**
+	 * Trim the braces of a string.
+	 *
+	 * @param string $str
+	 * @return string
+	 */
+	public static function trimBraces($str)
+	{
+		return preg_replace('/^{|}$/', '', $str);
+	}
 }
