@@ -67,6 +67,15 @@ ChessWidget = (function(Chess, $)
 		this._parent = parent;
 
 		/**
+		 * @member {boolean} _flip
+		 * @memberof ChessWidget.Options
+		 * @instance
+		 * @desc Whether the diagram should be represented in a flipped manner.
+		 * @private
+		 */
+		this._flip = null;
+
+		/**
 		 * @member {number} _squareSize
 		 * @memberof ChessWidget.Options
 		 * @instance
@@ -86,6 +95,7 @@ ChessWidget = (function(Chess, $)
 
 		// Default values
 		if(val!=null) {
+			if(val.flip           !=null) this.setFlip           (val.flip           );
 			if(val.squareSize     !=null) this.setSquareSize     (val.squareSize     );
 			if(val.showCoordinates!=null) this.setShowCoordinates(val.showCoordinates);
 		}
@@ -99,9 +109,25 @@ ChessWidget = (function(Chess, $)
 	Options.prototype.clone = function()
 	{
 		var retVal = new Options(this._parent);
+		retVal._flip            = this._flip           ;
 		retVal._squareSize      = this._squareSize     ;
 		retVal._showCoordinates = this._showCoordinates;
 		return retVal;
+	};
+
+	/**
+	 * Return the flip-board option value.
+	 *
+	 * @returns {number}
+	 */
+	Options.prototype.getFlip = function()
+	{
+		if(this._flip==null) {
+			return this._parent==null ? false : this._parent.getFlip();
+		}
+		else {
+			return this._flip;
+		}
 	};
 
 	/**
@@ -135,6 +161,31 @@ ChessWidget = (function(Chess, $)
 	};
 
 	/**
+	 * Set the flip-board option value.
+	 *
+	 * @param {(boolean|string)} [value=null]
+	 * New value (null means that the value corresponding getter will read
+	 * determine the value from the ChessWidget.Options parent object.
+	 */
+	Options.prototype.setFlip = function(value)
+	{
+		if(value==null) {
+			this._flip = null;
+		}
+		else {
+			if(typeof(value)=="string") {
+				value = value.toLowerCase();
+				if     (value=="true" ) this._flip = true ;
+				else if(value=="false") this._flip = false;
+				else                    this._flip = null ;
+			}
+			else {
+				this._flip = value ? true : false;
+			}
+		}
+	};
+
+	/**
 	 * Set the square-size option value.
 	 *
 	 * @param {(number|string)} [value=null]
@@ -164,7 +215,7 @@ ChessWidget = (function(Chess, $)
 	Options.prototype.setShowCoordinates = function(value)
 	{
 		if(value==null) {
-			this._squareSize = null;
+			this._showCoordinates = null;
 		}
 		else {
 			if(typeof(value)=="string") {
@@ -304,6 +355,7 @@ ChessWidget = (function(Chess, $)
 		}
 
 		// Read the options
+		var flip             = options.getFlip           ();
 		var squareSize       = options.getSquareSize     ();
 		var showCoordinates  = options.getShowCoordinates();
 		var whiteSquareColor = "#f0dec7"; //TODO: read this from options
@@ -316,8 +368,8 @@ ChessWidget = (function(Chess, $)
 		retVal.append(table);
 
 		// Rows, columns
-		var ROWS    = ['8', '7', '6', '5', '4', '3', '2', '1'];
-		var COLUMNS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+		var ROWS    = flip ? ['1','2','3','4','5','6','7','8'] : ['8','7','6','5','4','3','2','1'];
+		var COLUMNS = flip ? ['h','g','f','e','d','c','b','a'] : ['a','b','c','d','e','f','g','h'];
 
 		// For each row...
 		for(var r=0; r<8; ++r) {

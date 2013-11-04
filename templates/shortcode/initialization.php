@@ -30,6 +30,7 @@
 	defineDefaultChessWidgetOptions(
 		<?php
 			echo RPBChessboardHelperJSON::formatChessWidgetAttributes(
+				null,
 				$model->getDefaultSquareSize     (),
 				$model->getDefaultShowCoordinates()
 			);

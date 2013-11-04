@@ -38,6 +38,7 @@
 		<?php echo json_encode($model->getTopLevelItemID()); ?> + '-out',
 		<?php
 			echo RPBChessboardHelperJSON::formatChessWidgetAttributes(
+				$model->getCustomFlip           (),
 				$model->getCustomSquareSize     (),
 				$model->getCustomShowCoordinates()
 			);

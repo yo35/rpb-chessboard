@@ -65,6 +65,7 @@ class RPBChessboardModelPgnDiagram extends RPBChessboardAbstractShortcodeModel
 		{
 			// Concatenate all the attributes in a JSON format.
 			$str = RPBChessboardHelperJSON::formatChessWidgetAttributes(
+				$this->getCustomFlip           (),
 				$this->getCustomSquareSize     (),
 				$this->getCustomShowCoordinates()
 			);

@@ -31,8 +31,10 @@ require_once(RPBCHESSBOARD_ABSPATH.'helpers/validation.php');
 class RPBChessboardTraitChessWidgetCustom extends RPBChessboardAbstractTrait
 {
 	private $atts;
+	private $flipDefined            = false;
 	private $squareSizeDefined      = false;
 	private $showCoordinatesDefined = false;
+	private $flip           ;
 	private $squareSize     ;
 	private $showCoordinates;
 
@@ -45,6 +47,21 @@ class RPBChessboardTraitChessWidgetCustom extends RPBChessboardAbstractTrait
 	public function __construct($atts)
 	{
 		$this->atts = $atts;
+	}
+
+
+	/**
+	 * Custom flip-board parameter for the chessboard widgets.
+	 *
+	 * @return boolean May be null if this parameter is let undefined.
+	 */
+	public function getCustomFlip()
+	{
+		if(!$this->flipDefined) {
+			$this->flip = RPBChessboardHelperValidation::validateFlip($this->atts['flip']);
+			$this->flipDefined = true;
+		}
+		return $this->flip;
 	}
 
 
