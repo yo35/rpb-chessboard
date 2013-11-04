@@ -83,6 +83,9 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 == Changelog ==
 
+= 1.99.6 =
+* Documentation for the PGN tag.
+
 = 1.99.5 =
 * Fix issue #1.
 * Documentation for the FEN tag.
