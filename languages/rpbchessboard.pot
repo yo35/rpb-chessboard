@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-03 00:16+0100\n"
+"POT-Creation-Date: 2013-11-04 18:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,124 +23,12 @@ msgid ""
 "visualization."
 msgstr ""
 
-#: templates/shortcode/pgn.php:47 templates/admin/memo.php:231
-#, php-format
-msgid "Commented by %1$s"
-msgstr ""
-
-#: templates/admin/help.php:28 templates/admin/memo.php:44
+#: templates/admin/help.php:32 templates/admin/memo.php:44
 msgid "FEN diagram"
 msgstr ""
 
-#: templates/admin/help.php:32 templates/admin/memo.php:102
+#: templates/admin/help.php:36 templates/admin/memo.php:102
 msgid "PGN game"
-msgstr ""
-
-#: templates/admin/help.php:45
-#, php-format
-msgid "Chess diagrams with the %1$s[fen][/fen]%2$s tags"
-msgstr ""
-
-#: templates/admin/help.php:53
-msgid "FEN format"
-msgstr ""
-
-#: templates/admin/help.php:58
-#, php-format
-msgid ""
-"The string between the %1$s[fen][/fen]%2$s tags describe the position. The "
-"used notation follows the %3$sFEN format%4$s (Forsyth-Edwards Notation), "
-"which is comprehensively described on %3$sWikipedia%4$s. The FEN syntax is "
-"summarized here through a few representative examples."
-msgstr ""
-
-#: templates/admin/help.php:66 templates/admin/memo.php:69
-msgid "http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation"
-msgstr ""
-
-#: templates/admin/help.php:77
-msgid "Empty position"
-msgstr ""
-
-#: templates/admin/help.php:78 templates/localization.php:26
-msgid "Initial position"
-msgstr ""
-
-#: templates/admin/help.php:79
-msgid "After 1.e4"
-msgstr ""
-
-#: templates/admin/help.php:80
-msgid "Who can castle?"
-msgstr ""
-
-#: templates/admin/help.php:81
-msgid "Légal Trap"
-msgstr ""
-
-#: templates/admin/help.php:91
-msgid "An empty position."
-msgstr ""
-
-#: templates/admin/help.php:116
-msgid "The initial position."
-msgstr ""
-
-#: templates/admin/help.php:143
-#, php-format
-msgid ""
-"After 1.e4. Notice the 4<sup>th</sup> field in the FEN string (%1$s), "
-"indicating the square where <em>en passant</em> can be done (if there were a "
-"black pawn either in d4 or in f4)."
-msgstr ""
-
-#: templates/admin/help.php:173
-msgid "Who can castle? And where?"
-msgstr ""
-
-#: templates/admin/help.php:178
-#, php-format
-msgid ""
-"Here, the 3<sup>rd</sup> field in the FEN string (%1$s) indicates that only "
-"king-side white castling is available. Other castling availabilities might "
-"be indicated with characters %2$s (queen-side white castling), %3$s (king-"
-"side black castling), and %4$s (queen-side black castling). If neither side "
-"can castle, the 3<sup>rd</sup> FEN field is set to %5$s."
-msgstr ""
-
-#: templates/admin/help.php:214
-msgid "The Légal Trap."
-msgstr ""
-
-#: templates/admin/help.php:236
-msgid "Attributes"
-msgstr ""
-
-#: templates/admin/help.php:240
-msgid ""
-"The aspect of the chess diagrams can be customized thanks to the following "
-"attributes."
-msgstr ""
-
-#: templates/admin/help.php:250
-msgid "Square size"
-msgstr ""
-
-#: templates/admin/help.php:251
-msgid "Coordinates"
-msgstr ""
-
-#: templates/admin/help.php:258
-#, php-format
-msgid ""
-"The %1$s attribute controls the size (in pixels) of the chessboard squares."
-msgstr ""
-
-#: templates/admin/help.php:301
-#, php-format
-msgid ""
-"The %1$s attribute controls whether the row and columns coordinates are "
-"displayed or not."
 msgstr ""
 
 #: templates/admin/about.php:28
@@ -210,6 +98,247 @@ msgstr ""
 msgid "Save changes"
 msgstr ""
 
+#: templates/admin/help-fen.php:27
+#, php-format
+msgid "Chess diagrams with the %1$s[fen][/fen]%2$s tags"
+msgstr ""
+
+#: templates/admin/help-fen.php:37
+msgid "FEN format"
+msgstr ""
+
+#: templates/admin/help-fen.php:42
+#, php-format
+msgid ""
+"The string between the %1$s[fen][/fen]%2$s tags describe the position. The "
+"used notation follows the %3$sFEN format%4$s (Forsyth-Edwards Notation), "
+"which is comprehensively described on %3$sWikipedia%4$s. The FEN syntax is "
+"summarized here through a few representative examples."
+msgstr ""
+
+#: templates/admin/help-fen.php:50 templates/admin/memo.php:69
+msgid "http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation"
+msgstr ""
+
+#: templates/admin/help-fen.php:63
+msgid "Empty position"
+msgstr ""
+
+#: templates/admin/help-fen.php:64 templates/localization.php:26
+msgid "Initial position"
+msgstr ""
+
+#: templates/admin/help-fen.php:65
+msgid "After 1.e4"
+msgstr ""
+
+#: templates/admin/help-fen.php:66
+msgid "Who can castle?"
+msgstr ""
+
+#: templates/admin/help-fen.php:67
+msgid "Légal Trap"
+msgstr ""
+
+#: templates/admin/help-fen.php:78
+msgid "An empty position."
+msgstr ""
+
+#: templates/admin/help-fen.php:104
+msgid "The initial position."
+msgstr ""
+
+#: templates/admin/help-fen.php:132
+#, php-format
+msgid ""
+"After 1.e4. Notice the 4<sup>th</sup> field in the FEN string (%1$s), "
+"indicating the square where <em>en passant</em> can be done (if there were a "
+"black pawn either in d4 or in f4)."
+msgstr ""
+
+#: templates/admin/help-fen.php:163
+msgid "Who can castle? And where?"
+msgstr ""
+
+#: templates/admin/help-fen.php:168
+#, php-format
+msgid ""
+"Here, the 3<sup>rd</sup> field in the FEN string (%1$s) indicates that only "
+"king-side white castling is available. Other castling availabilities might "
+"be indicated with characters %2$s (queen-side white castling), %3$s (king-"
+"side black castling), and %4$s (queen-side black castling). If neither side "
+"can castle, the 3<sup>rd</sup> FEN field is set to %5$s."
+msgstr ""
+
+#: templates/admin/help-fen.php:205
+msgid "The Légal Trap."
+msgstr ""
+
+#: templates/admin/help-fen.php:229 templates/admin/help-pgn.php:457
+msgid "Attributes"
+msgstr ""
+
+#: templates/admin/help-fen.php:233
+msgid ""
+"The aspect of the chess diagrams can be customized thanks to the following "
+"attributes."
+msgstr ""
+
+#: templates/admin/help-fen.php:245
+msgid "Square size"
+msgstr ""
+
+#: templates/admin/help-fen.php:246
+msgid "Coordinates"
+msgstr ""
+
+#: templates/admin/help-fen.php:254
+#, php-format
+msgid ""
+"The %1$s attribute controls the size (in pixels) of the chessboard squares."
+msgstr ""
+
+#: templates/admin/help-fen.php:298
+#, php-format
+msgid ""
+"The %1$s attribute controls whether the row and columns coordinates are "
+"displayed or not."
+msgstr ""
+
+#: templates/admin/help-pgn.php:27
+#, php-format
+msgid "Chess games with the %1$s[pgn][/pgn]%2$s tags"
+msgstr ""
+
+#: templates/admin/help-pgn.php:37
+msgid "PGN format"
+msgstr ""
+
+#: templates/admin/help-pgn.php:42
+#, php-format
+msgid ""
+"The string between the %1$s[pgn][/pgn]%2$s tags describe the game. The used "
+"notation follows the standard %3$sPGN format%4$s, and can be automatically "
+"generated by the common chess database softwares, including %5$sChessbase"
+"%6$s, %7$sScid%8$s, etc... The PGN syntax is summarized here through a few "
+"representative examples."
+msgstr ""
+
+#: templates/admin/help-pgn.php:51 templates/admin/memo.php:156
+msgid "http://en.wikipedia.org/wiki/Portable_Game_Notation"
+msgstr ""
+
+#: templates/admin/help-pgn.php:69
+msgid "Game with no headers"
+msgstr ""
+
+#: templates/admin/help-pgn.php:70
+msgid "Custom starting position"
+msgstr ""
+
+#: templates/admin/help-pgn.php:131 templates/admin/help-pgn.php:139
+msgid "Stalemate."
+msgstr ""
+
+#: templates/admin/help-pgn.php:153
+#, php-format
+msgid ""
+"Normally, the strict PGN syntax requires that each PGN entry starts with 7 "
+"compulsory headers: %1$s[Event &quot;...&quot;]%2$s, %1$s[Site &quot;..."
+"&quot;]%2$s, %1$s[Date &quot;...&quot;]%2$s, %1$s[Round &quot;..."
+"&quot;]%2$s, %1$s[White &quot;...&quot;]%2$s, %1$s[Black &quot;..."
+"&quot;]%2$s, and %1$s[Result &quot;...&quot;]%2$s. However, the RPB "
+"Chessboard plugin consider them as optional."
+msgstr ""
+
+#: templates/admin/help-pgn.php:196
+#, php-format
+msgid ""
+"The %1$s[FEN &quot;...&quot;]%2$s header might be used to specify that the "
+"game starts with a custom position. Additionally, the strict PGN syntax "
+"requires that %1$s[SetUp &quot;1&quot;]%2$s is added when using the %1$s[FEN "
+"&quot;...&quot;]%2$s header."
+msgstr ""
+
+#: templates/admin/help-pgn.php:243
+msgid "Annotations"
+msgstr ""
+
+#: templates/admin/help-pgn.php:269
+#, php-format
+msgid ""
+"Notice that the chess database softwares may introduce annotations such as "
+"%1$s&quot;$x&quot;%2$s where %1$s&quot;x&quot;%2$s is replaced with one or "
+"more digits (for instance, %1$s&quot;1.e4 $1&quot;%2$s). This is what is "
+"advocated by the PGN norm, which defines equivalences between this syntax "
+"and the human-readable one (for instance, %1$s&quot;$1&quot;%2$s is "
+"equivalent to %1$s&quot;!&quot;%2$s). Both syntaxes are understood by the "
+"RPB Chessboard plugin."
+msgstr ""
+
+#: templates/admin/help-pgn.php:285
+msgid "Commentaries"
+msgstr ""
+
+#: templates/admin/help-pgn.php:293 templates/admin/help-pgn.php:314
+#, php-format
+msgid "I'm a %1$sshort%2$s commentary."
+msgstr ""
+
+#: templates/admin/help-pgn.php:300 templates/admin/help-pgn.php:321
+#, php-format
+msgid "I'm a %1$slong%2$s commentary."
+msgstr ""
+
+#: templates/admin/help-pgn.php:341
+msgid ""
+"Text commentaries can be inserted, surrounded with braces. They can be "
+"rendered either inlined within the move sequence (&quot;short "
+"commentary&quot; style), or as separated blocks (&quot;long commentary&quot; "
+"style). To insert a commentary as a separated block, let two blank lines "
+"before and after it in the PGN string. Also, notice that HTML tags are "
+"allowed within commentaries."
+msgstr ""
+
+#: templates/admin/help-pgn.php:356
+msgid "Variations"
+msgstr ""
+
+#: templates/admin/help-pgn.php:394
+msgid ""
+"As for commentaries, variations can be rendered either inlined within the "
+"move sequence, or as separated blocks if they are surrounded with two blank "
+"lines in the PGN string."
+msgstr ""
+
+#: templates/admin/help-pgn.php:406
+#, php-format
+msgid "Diagrams with the %1$s[pgndiagram]%2$s tag"
+msgstr ""
+
+#: templates/admin/help-pgn.php:418 templates/admin/help-pgn.php:438
+msgid ""
+"This opening is called the Sicilian defence. A possible continuation is:"
+msgstr ""
+
+#: templates/admin/help-pgn.php:426
+#, php-format
+msgid ""
+"Notice that %1$s[pgndiagram]%2$s tags must be inserted only in PGN "
+"commentaries."
+msgstr ""
+
+#: templates/admin/help-pgn.php:462
+#, php-format
+msgid ""
+"The %1$s[pgn][/pgn]%2$s and %1$s[pgndiagram]%2$s tags accept the same "
+"attributes as the %1$s[fen][/fen]%2$s ones. For instance, using %1$s[pgn "
+"square_size=...] ... [/pgn]%2$s will affect the size of all the chess "
+"diagrams inserted in the commentaries of the corresponding chess game. "
+"Setting %1$s[pgndiagram square_size=...]%2$s will affect only the "
+"corresponding diagram."
+msgstr ""
+
 #: templates/admin/header.php:28 backend.php:29 backend.php:37 backend.php:44
 #: backend.php:51 backend.php:58
 msgid "Chess games and diagrams"
@@ -276,15 +405,16 @@ msgid ""
 "%6$s, %7$sScid%8$s, etc..."
 msgstr ""
 
-#: templates/admin/memo.php:156
-msgid "http://en.wikipedia.org/wiki/Portable_Game_Notation"
-msgstr ""
-
 #: templates/admin/memo.php:168
 #, php-format
 msgid ""
 "Please note the %1$s[pgndiagram]%2$s tag placed inside a commentary to "
 "insert a diagram showing the current position."
+msgstr ""
+
+#: templates/common/pgncontent.php:38
+#, php-format
+msgid "Commented by %1$s"
 msgstr ""
 
 #: templates/localization.php:30
