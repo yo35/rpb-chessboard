@@ -225,6 +225,8 @@
 #rpbchessboard-admin-pgnAnnotations .rpbchessboard-admin-column-right,
 #rpbchessboard-admin-pgnCommentaries .rpbchessboard-admin-column-left,
 #rpbchessboard-admin-pgnCommentaries .rpbchessboard-admin-column-right,
+#rpbchessboard-admin-pgnVariations .rpbchessboard-admin-column-left,
+#rpbchessboard-admin-pgnVariations .rpbchessboard-admin-column-right,
 #rpbchessboard-admin-pgnDiagrams .rpbchessboard-admin-column-left,
 #rpbchessboard-admin-pgnDiagrams .rpbchessboard-admin-column-right {
 	width: 50%;

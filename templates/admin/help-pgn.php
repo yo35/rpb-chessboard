@@ -355,7 +355,47 @@
 
 	<h4><?php _e('Variations', 'rpbchessboard'); ?></h4>
 
-	<p>TODO</p>
+	<div id="rpbchessboard-admin-pgnVariations" class="rpbchessboard-admin-columns">
+		<div class="rpbchessboard-admin-column-left">
+			<div class="rpbchessboard-admin-code-block">
+				[pgn]<br/>
+				1. e4 e5 (1... c5) (1... e6) 2. Nf3 Nc6 3. Bb5<br/>
+				<br/>
+				(3. Bc4 Bc5 (3... Be7) 4.d4)<br/>
+				(3. d4 exd4 4. Nxd4 Bc5 5. Be3 Qf6)<br/>
+				<br/>
+				3... a6 4. Ba4 *<br/>
+				[/pgn]
+			</div>
+		</div>
+		<div class="rpbchessboard-admin-column-right">
+			<div class="rpbchessboard-admin-visu-block">
+				<div id="rpbchessboard-admin-variations-example-in" class="rpbchessboard-in">
+					1. e4 e5 (1... c5) (1... e6) 2. Nf3 Nc6 3. Bb5
+
+					(3. Bc4 Bc5 (3... Be7) 4.d4)
+					(3. d4 exd4 4. Nxd4 Bc5 5. Be3 Qf6)
+
+					3... a6 4. Ba4 *
+				</div>
+				<div id="rpbchessboard-admin-variations-example-out" class="rpbchessboard-out rpbchessboard-invisible">
+					<?php include(RPBCHESSBOARD_ABSPATH.'templates/common/pgncontent.php'); ?>
+				</div>
+				<script type="text/javascript">
+					processPGN('rpbchessboard-admin-variations-example-in', 'rpbchessboard-admin-variations-example-out');
+				</script>
+			</div>
+		</div>
+	</div>
+
+	<p>
+		<?php
+			_e(
+				'As for commentaries, variations can be rendered either inlined within the move sequence, '.
+				'or as separated blocks if they are surrounded with two blank lines in the PGN string.',
+			'rpbchessboard');
+		?>
+	</p>
 
 
 
