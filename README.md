@@ -20,7 +20,7 @@ https://github.com/yo35/rpb-chessboard (developer link)
 Features
 --------
 
-* Customizable aspect for the chessboards (size, coordinates, etc...).
+* Customizable aspect for the chessboards (orientation, size, etc...).
 * Support commentaries and sub-variations in PGN-encoded games.
 * Support HTML formatting in PGN commentaries.
 
