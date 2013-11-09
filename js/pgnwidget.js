@@ -678,6 +678,20 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 		return true;
 	}
 
+
+	/**
+	 * Information relative to the navigation frame.
+	 *
+	 * @private
+	 * @memberof PgnWidget
+	 */
+	var navFrameInfo =
+	{
+		squareSize  : null,
+		initialState: null
+	};
+
+
 	/**
 	 * Create the navigation frame, if it does not exist yet. The frame is
 	 * appended as a child of the given DOM node.
@@ -723,6 +737,7 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 				autoOpen   : false,
 				dialogClass: 'wp-dialog',
 				width      : 'auto',
+				resize     : function(event, ui) { onResize(ui); },
 				close      : function(event, ui) { unselectMove(); }
 			});
 
@@ -733,6 +748,45 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 			$('#PgnWidget-navigation-button-last').button().click(function() { goLastMove(); });
 		});
 	}
+
+
+	/**
+	 * Handler for the navigation frame 'resize' event.
+	 *
+	 * @param {object} ui
+	 *
+	 * @private
+	 * @memberof PgnWidget
+	 */
+	function onResize(ui)
+	{
+		// Save the reference state
+		if(navFrameInfo.initialState==null) {
+			navFrameInfo.initialState = {
+				squareSize: navFrameInfo.squareSize,
+				height    : ui.originalSize.height,
+				width     : ui.originalSize.width
+			};
+		}
+
+		// Determine the new square-size
+		function newSqSz(deltaPerSquare)
+		{
+			var delta = Math.floor(deltaPerSquare / ChessWidget.STEP_SQUARE_SIZE) * ChessWidget.STEP_SQUARE_SIZE;
+			return Math.min(Math.max(navFrameInfo.initialState.squareSize + delta,
+				ChessWidget.MINIMUM_SQUARE_SIZE), ChessWidget.MAXIMUM_SQUARE_SIZE);
+		}
+		var newSqSzForH   = newSqSz((ui.size.height-navFrameInfo.initialState.height) / 8);
+		var newSqSzForW   = newSqSz((ui.size.width -navFrameInfo.initialState.width ) / 9);
+		var newSquareSize = Math.min(newSqSzForH, newSqSzForW);
+
+		// Update the chessboard widget if necessary
+		if(newSquareSize!=navFrameInfo.squareSize) {
+			navFrameInfo.squareSize = newSquareSize;
+			refreshNavigationFrameWidget($('#PgnWidget-selected-move'));
+		}
+	}
+
 
 	/**
 	 * Show the navigation frame if not visible yet, and update the diagram in this
@@ -756,10 +810,13 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 		// Mark the current move as selected
 		selectMove(domNode);
 
+		// Determine the options to use to render the chessboard widget
+		if(navFrameInfo.squareSize==null) {
+			navFrameInfo.squareSize = 32; // TODO: use the options associated to the current move.
+		}
+
 		// Fill the miniboard in the navigation frame
-		var navFrameContent = $('#PgnWidget-navigation-content');
-		navFrameContent.empty();
-		navFrameContent.append(ChessWidget.make(domNode.data('position')));
+		refreshNavigationFrameWidget(domNode);
 
 		// Make the navigation frame visible
 		var navFrame = $('#PgnWidget-navigation-frame');
@@ -769,6 +826,23 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 		}
 		navFrame.dialog('open');
 	}
+
+
+	/**
+	 * Refresh the chessboard widget in the navigation frame.
+	 *
+	 * @param {jQuery} selectedMove
+	 *
+	 * @private
+	 * @memberof PgnWidget
+	 */
+	function refreshNavigationFrameWidget(selectedMove)
+	{
+		var position = selectedMove.data('position');
+		var opts     = new ChessWidget.Options(null, {squareSize: navFrameInfo.squareSize});
+		$('#PgnWidget-navigation-content').empty().append(ChessWidget.make(position, opts));
+	}
+
 
 	/**
 	 * Return a contrasted color.
