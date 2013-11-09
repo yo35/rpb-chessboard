@@ -83,6 +83,10 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 == Changelog ==
 
+= 2.0 =
+* Add: flip attribute (to change the orientation of the chessboards).
+* Auto-size the chessbard in the navigation frame generated with [pgn][/pgn].
+
 = 1.99.6 =
 * Documentation for the PGN tag.
 
