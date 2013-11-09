@@ -100,8 +100,9 @@ function processPGN(nodeInID, nodeOutID, chessWidgetAttributes)
 	var pgn = nodeIn.text();
 
 	// PGN rendering
-	var options = new ChessWidget.Options(defaultChessWidgetOptions, chessWidgetAttributes);
-	var parsingSucceeded = PgnWidget.makeAt(pgn, nodeOut, options);
+	var inlineOptions = new ChessWidget.Options(defaultChessWidgetOptions, chessWidgetAttributes);
+	var navOptions    = new ChessWidget.Options(defaultChessWidgetOptions, {flip: inlineOptions.getFlip()});
+	var parsingSucceeded = PgnWidget.makeAt(pgn, nodeOut, inlineOptions, navOptions);
 
 	// Make nodeIn invisible, and nodeOut visible.
 	if(parsingSucceeded) {
