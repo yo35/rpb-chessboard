@@ -31,6 +31,34 @@
 ChessWidget = (function(Chess, $)
 {
 	/**
+	 * Minimal value for the square-size parameter.
+	 *
+	 * @constant
+	 * @public
+	 * @memberof ChessWidget
+	 */
+	var MINIMUM_SQUARE_SIZE = 24;
+
+	/**
+	 * Maximal value for the square-size parameter.
+	 *
+	 * @constant
+	 * @public
+	 * @memberof ChessWidget
+	 */
+	var MAXIMUM_SQUARE_SIZE = 64;
+
+	/**
+	 * Increment value for the square-size parameter.
+	 *
+	 * @constant
+	 * @public
+	 * @memberof ChessWidget
+	 */
+	var STEP_SQUARE_SIZE = 4;
+
+
+	/**
 	 * @typedef {{squareSize: number, showCoordinates: boolean}} Attributes
 	 * @desc Compact definition of a set of options applicable to a chess widget.
 	 */
@@ -199,8 +227,8 @@ ChessWidget = (function(Chess, $)
 		}
 		else {
 			// Acceptable values are integers multiple of 4 and between 24 and 64.
-			value = Math.min(Math.max(value, 24), 64);
-			value = 4 * Math.round(value / 4);
+			value = Math.min(Math.max(value, MINIMUM_SQUARE_SIZE), MAXIMUM_SQUARE_SIZE);
+			value = STEP_SQUARE_SIZE * Math.round(value / STEP_SQUARE_SIZE);
 			this._squareSize = isNaN(value) ? null : value;
 		}
 	};
@@ -434,6 +462,9 @@ ChessWidget = (function(Chess, $)
 
 	// Returned the module object
 	return {
+		MINIMUM_SQUARE_SIZE: MINIMUM_SQUARE_SIZE,
+		MAXIMUM_SQUARE_SIZE: MAXIMUM_SQUARE_SIZE,
+		STEP_SQUARE_SIZE   : STEP_SQUARE_SIZE   ,
 		Options: Options,
 		make   : make
 	};
