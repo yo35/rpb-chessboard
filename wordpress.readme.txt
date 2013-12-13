@@ -2,7 +2,7 @@
 Contributors: yo35
 Tags: chess, chessboard, fen, pgn, games
 Requires at least: 2.6
-Tested up to: 3.7.1
+Tested up to: 3.8
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -83,9 +83,12 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 == Changelog ==
 
+= 2.0.1 =
+* Tested up to Wordpress 3.8.
+
 = 2.0 =
 * Add: flip attribute (to change the orientation of the chessboards).
-* Auto-size the chessbard in the navigation frame generated with [pgn][/pgn].
+* Auto-size the chessboard in the navigation frame generated with [pgn][/pgn].
 
 = 1.99.6 =
 * Documentation for the PGN tag.
