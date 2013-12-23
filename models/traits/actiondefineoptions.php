@@ -42,6 +42,10 @@ class RPBChessboardTraitActionDefineOptions extends RPBChessboardAbstractActionT
 		if(!is_null($value)) {
 			update_option('rpbchessboard_showCoordinates', $value ? 1 : 0);
 		}
+
+		// Set the compatibility parameters
+		$this->updateBooleanParameter('fenCompatibilityMode', $this->getPostFENCompatibilityMode());
+		$this->updateBooleanParameter('pgnCompatibilityMode', $this->getPostPGNCompatibilityMode());
 	}
 
 
@@ -68,12 +72,66 @@ class RPBChessboardTraitActionDefineOptions extends RPBChessboardAbstractActionT
 	 */
 	public function getPostShowCoordinates()
 	{
-	if(array_key_exists('showCoordinates', $_POST)) {
+		if(array_key_exists('showCoordinates', $_POST)) {
 			$value = RPBChessboardHelperValidation::prefilterBooleanFromInt($_POST['showCoordinates']);
 			return RPBChessboardHelperValidation::validateShowCoordinates($value);
 		}
 		else {
 			return null;
 		}
+	}
+
+
+	/**
+	 * New FEN-compatibility-mode parameter.
+	 *
+	 * @return boolean
+	 */
+	public function getPostFENCompatibilityMode()
+	{
+		return $this->getPostBooleanParameter('fenCompatibilityMode');
+	}
+
+
+	/**
+	 * New PGN-compatibility-mode parameter.
+	 *
+	 * @return boolean
+	 */
+	public function getPostPGNCompatibilityMode()
+	{
+		return $this->getPostBooleanParameter('pgnCompatibilityMode');
+	}
+
+
+	/**
+	 * Return and validate a boolean post parameter with the given name.
+	 *
+	 * @param string $paramName Name of the parameter to return.
+	 * @return boolean
+	 */
+	private function getPostBooleanParameter($paramName)
+	{
+		if(array_key_exists($paramName, $_POST)) {
+			return RPBChessboardHelperValidation::prefilterBooleanFromInt($_POST[$paramName]);
+		}
+		else {
+			return null;
+		}
+	}
+
+
+	/**
+	 * Update a global boolean parameter.
+	 *
+	 * @param string $key Name of the parameter in the dedicated WP table.
+	 * @param boolean $value New value (if null, nothing happens).
+	 */
+	private function updateBooleanParameter($key, $value)
+	{
+		if(is_null($value)) {
+			return;
+		}
+		update_option('rpbchessboard_' . $key, $value ? 1 : 0);
 	}
 }

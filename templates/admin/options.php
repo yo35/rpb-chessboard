@@ -60,6 +60,28 @@
 
 		</div>
 
+		<h3><?php _e('Compatibility with other chess plugins', 'rpbchessboard'); ?></h3>
+
+		<p>
+			<input type="hidden" name="fenCompatibilityMode" value="0" />
+			<input type="checkbox" id="rpbchessboard-admin-fenCompatibilityMode" name="fenCompatibilityMode" value="1"
+				<?php if($model->getFENCompatibilityMode()): ?>checked="yes"<?php endif; ?>
+			/>
+			<label for="rpbchessboard-admin-fenCompatibilityMode">
+				<?php _e('Compatibility mode for the FEN diagram shortcode', 'rpbchessboard'); ?>
+			</label>
+		</p>
+
+		<p>
+			<input type="hidden" name="pgnCompatibilityMode" value="0" />
+			<input type="checkbox" id="rpbchessboard-admin-pgnCompatibilityMode" name="pgnCompatibilityMode" value="1"
+				<?php if($model->getPGNCompatibilityMode()): ?>checked="yes"<?php endif; ?>
+			/>
+			<label for="rpbchessboard-admin-pgnCompatibilityMode">
+				<?php _e('Compatibility mode for the PGN game shortcode', 'rpbchessboard'); ?>
+			</label>
+		</p>
+
 		<p class="submit">
 			<input type="submit" class="button-primary" value="<?php _e('Save changes', 'rpbchessboard'); ?>" />
 		</p>

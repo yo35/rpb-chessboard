@@ -33,6 +33,7 @@ class RPBChessboardModelOptions extends RPBChessboardAbstractAdminModel
 		parent::__construct();
 		$this->loadTrait('ChessWidgetDefault');
 		$this->loadTrait('ChessWidgetLimits' );
+		$this->loadTrait('Compatibility'     );
 	}
 
 	public function getTitle()
