@@ -22,11 +22,6 @@
 /******************************************************************************/
 /*** Miscellaneous ***/
 
-#rpbchessboard-admin-icon {
-	display: inline-block;
-	vertical-align: middle;
-}
-
 
 
 /******************************************************************************/
@@ -123,8 +118,8 @@
 }
 
 .rpbchessboard-admin-code-block {
-	border: solid 1px #c0c0ff;
-	background-color: #f0f0ff;
+	border: solid 1px #bbb;
+	background-color: #e8ffe0;
 	padding: 8px 10px 8px;
 	margin-bottom: 1em;
 }
@@ -139,6 +134,12 @@
 	font-family: Times, serif;
 	font-size  : 17px;
 	line-height: 1.3em;
+}
+
+.rpbchessboard-admin-visu-block p {
+	font-family: inherit;
+	font-size  : inherit;
+	line-height: inherit;
 }
 
 
