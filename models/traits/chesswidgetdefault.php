@@ -68,8 +68,7 @@ class RPBChessboardTraitChessWidgetDefault extends RPBChessboardAbstractTrait
 	public function getDefaultShowCoordinates()
 	{
 		if(is_null($this->showCoordinates)) {
-			$value = RPBChessboardHelperValidation::prefilterBooleanFromInt(get_option('rpbchessboard_showCoordinates'));
-			$value = RPBChessboardHelperValidation::validateShowCoordinates($value);
+			$value = RPBChessboardHelperValidation::validateBooleanFromInt(get_option('rpbchessboard_showCoordinates'));
 			$this->showCoordinates = is_null($value) ? self::DEFAULT_SHOW_COORDINATES : $value;
 		}
 		return $this->showCoordinates;

@@ -88,7 +88,7 @@ class RPBChessboardTraitChessWidgetCustom extends RPBChessboardAbstractTrait
 	public function getCustomShowCoordinates()
 	{
 		if(!$this->showCoordinatesDefined) {
-			$this->showCoordinates = RPBChessboardHelperValidation::validateShowCoordinates($this->atts['show_coordinates']);
+			$this->showCoordinates = RPBChessboardHelperValidation::validateBoolean($this->atts['show_coordinates']);
 			$this->showCoordinatesDefined = true;
 		}
 		return $this->showCoordinates;

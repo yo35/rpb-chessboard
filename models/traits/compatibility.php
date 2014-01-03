@@ -43,7 +43,7 @@ class RPBChessboardTraitCompatibility extends RPBChessboardAbstractTrait
 	public function getFENCompatibilityMode()
 	{
 		if(is_null($this->fenCompatibilityMode)) {
-			$value = RPBChessboardHelperValidation::prefilterBooleanFromInt(get_option('rpbchessboard_fenCompatibilityMode'));
+			$value = RPBChessboardHelperValidation::validateBooleanFromInt(get_option('rpbchessboard_fenCompatibilityMode'));
 			$this->fenCompatibilityMode = is_null($value) ? false : $value;
 		}
 		return $this->fenCompatibilityMode;
@@ -59,7 +59,7 @@ class RPBChessboardTraitCompatibility extends RPBChessboardAbstractTrait
 	public function getPGNCompatibilityMode()
 	{
 		if(is_null($this->pgnCompatibilityMode)) {
-			$value = RPBChessboardHelperValidation::prefilterBooleanFromInt(get_option('rpbchessboard_pgnCompatibilityMode'));
+			$value = RPBChessboardHelperValidation::validateBooleanFromInt(get_option('rpbchessboard_pgnCompatibilityMode'));
 			$this->pgnCompatibilityMode = is_null($value) ? false : $value;
 		}
 		return $this->pgnCompatibilityMode;

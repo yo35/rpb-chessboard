@@ -37,13 +37,8 @@ class RPBChessboardTraitActionDefineOptions extends RPBChessboardAbstractActionT
 			update_option('rpbchessboard_squareSize', $value);
 		}
 
-		// Set the show-coordinates parameter
-		$value = $this->getPostShowCoordinates();
-		if(!is_null($value)) {
-			update_option('rpbchessboard_showCoordinates', $value ? 1 : 0);
-		}
-
-		// Set the compatibility parameters
+		// Set the boolean parameters
+		$this->updateBooleanParameter('showCoordinates'     , $this->getPostShowCoordinates     ());
 		$this->updateBooleanParameter('fenCompatibilityMode', $this->getPostFENCompatibilityMode());
 		$this->updateBooleanParameter('pgnCompatibilityMode', $this->getPostPGNCompatibilityMode());
 	}
@@ -72,20 +67,14 @@ class RPBChessboardTraitActionDefineOptions extends RPBChessboardAbstractActionT
 	 */
 	public function getPostShowCoordinates()
 	{
-		if(array_key_exists('showCoordinates', $_POST)) {
-			$value = RPBChessboardHelperValidation::prefilterBooleanFromInt($_POST['showCoordinates']);
-			return RPBChessboardHelperValidation::validateShowCoordinates($value);
-		}
-		else {
-			return null;
-		}
+		return $this->getPostBooleanParameter('showCoordinates');
 	}
 
 
 	/**
 	 * New FEN-compatibility-mode parameter.
 	 *
-	 * @return boolean
+	 * @return boolean May be null if the corresponding POST field is undefined or invalid.
 	 */
 	public function getPostFENCompatibilityMode()
 	{
@@ -96,7 +85,7 @@ class RPBChessboardTraitActionDefineOptions extends RPBChessboardAbstractActionT
 	/**
 	 * New PGN-compatibility-mode parameter.
 	 *
-	 * @return boolean
+	 * @return boolean May be null if the corresponding POST field is undefined or invalid.
 	 */
 	public function getPostPGNCompatibilityMode()
 	{
@@ -108,12 +97,12 @@ class RPBChessboardTraitActionDefineOptions extends RPBChessboardAbstractActionT
 	 * Return and validate a boolean post parameter with the given name.
 	 *
 	 * @param string $paramName Name of the parameter to return.
-	 * @return boolean
+	 * @return boolean May be null if the corresponding POST field is undefined or invalid.
 	 */
 	private function getPostBooleanParameter($paramName)
 	{
 		if(array_key_exists($paramName, $_POST)) {
-			return RPBChessboardHelperValidation::prefilterBooleanFromInt($_POST[$paramName]);
+			return RPBChessboardHelperValidation::validateBooleanFromInt($_POST[$paramName]);
 		}
 		else {
 			return null;

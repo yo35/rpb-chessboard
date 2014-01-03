@@ -74,12 +74,12 @@ abstract class RPBChessboardHelperValidation
 
 
 	/**
-	 * Validate a chessboard widget show-coordinates parameter.
+	 * Validate a boolean.
 	 *
 	 * @param mixed $value
 	 * @return boolean May be null is the value is not valid.
 	 */
-	public static function validateShowCoordinates($value)
+	public static function validateBoolean($value)
 	{
 		return (is_null($value) || $value==='') ? null : filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
 	}
@@ -91,7 +91,7 @@ abstract class RPBChessboardHelperValidation
 	 * @param mixed $value
 	 * @return boolean May be null is the value is not valid.
 	 */
-	public static function prefilterBooleanFromInt($value)
+	public static function validateBooleanFromInt($value)
 	{
 		$value = filter_var($value, FILTER_VALIDATE_INT);
 		if     ($value===0) return false;
