@@ -83,6 +83,9 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 == Changelog ==
 
+= 2.1 =
+* Compatibility mode to avoid conflicts with other plugins that might use the [fen][/fen] and [pgn][/pgn] shortcodes.
+
 = 2.0.1 =
 * Tested up to Wordpress 3.8.
 
