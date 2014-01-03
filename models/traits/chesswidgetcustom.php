@@ -58,7 +58,7 @@ class RPBChessboardTraitChessWidgetCustom extends RPBChessboardAbstractTrait
 	public function getCustomFlip()
 	{
 		if(!$this->flipDefined) {
-			$this->flip = RPBChessboardHelperValidation::validateFlip($this->atts['flip']);
+			$this->flip = RPBChessboardHelperValidation::validateBoolean($this->atts['flip']);
 			$this->flipDefined = true;
 		}
 		return $this->flip;

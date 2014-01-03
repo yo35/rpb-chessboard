@@ -42,18 +42,6 @@ abstract class RPBChessboardHelperValidation
 
 
 	/**
-	 * Validate a chessboard widget flip-board parameter.
-	 *
-	 * @param mixed $value
-	 * @return boolean May be null is the value is not valid.
-	 */
-	public static function validateFlip($value)
-	{
-		return (is_null($value) || $value==='') ? null : filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
-	}
-
-
-	/**
 	 * Validate a chessboard widget square size parameter.
 	 *
 	 * @param mixed $value
