@@ -50,21 +50,9 @@ abstract class RPBChessboardAbstractController
 			$fileName  = strtolower($modelName);
 			$className = 'RPBChessboardModel' . $modelName;
 			require_once(RPBCHESSBOARD_ABSPATH.'models/'.$fileName.'.php');
-			$this->model = $this->loadModel($className);
+			$this->model = new $className();
 		}
 		return $this->model;
-	}
-
-
-	/**
-	 * Instantiate a model object.
-	 *
-	 * @param string $className Class name of the model to instantiate.
-	 * @return RPBChessboardAbstractModel
-	 */
-	protected function loadModel($className)
-	{
-		return new $className();
 	}
 
 
