@@ -24,9 +24,10 @@
 
 	<h3>
 		<?php echo sprintf(
-			__('Chess diagrams with the %1$s[fen][/fen]%2$s tags', 'rpbchessboard'),
+			__('Chess diagrams with the %1$s[%3$s][/%3$s]%2$s tags', 'rpbchessboard'),
 			'<span class="rpbchessboard-admin-code-inline">',
-			'</span>'
+			'</span>',
+			htmlspecialchars($model->getFENShortcode())
 		); ?>
 	</h3>
 
@@ -39,16 +40,15 @@
 	<p>
 		<?php echo sprintf(
 			__(
-				'The string between the %1$s[fen][/fen]%2$s tags describe the position. '.
-				'The used notation follows the %3$sFEN format%4$s (Forsyth-Edwards Notation), '.
-				'which is comprehensively described on %3$sWikipedia%4$s. '.
+				'The string between the %1$s[%3$s][/%3$s]%2$s tags describe the position. '.
+				'The used notation follows the %4$sFEN format%5$s (Forsyth-Edwards Notation), '.
+				'which is comprehensively described on %4$sWikipedia%5$s. '.
 				'The FEN syntax is summarized here through a few representative examples.',
 			'rpbchessboard'),
 			'<span class="rpbchessboard-admin-code-inline">',
 			'</span>',
-			sprintf('<a href="%1$s" target="_blank">',
-				__('http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation', 'rpbchessboard')
-			),
+			htmlspecialchars($model->getFENShortcode()),
+			sprintf('<a href="%1$s" target="_blank">', __('http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation', 'rpbchessboard')),
 			'</a>'
 		); ?>
 	</p>
@@ -70,7 +70,10 @@
 
 		<div>
 			<div class="rpbchessboard-admin-code-block">
-				[fen]8/8/8/8/8/8/8/8 w - - 0 1[/fen]
+				<?php echo sprintf(
+					'[%1$s]8/8/8/8/8/8/8/8 w - - 0 1[/%1$s]',
+					htmlspecialchars($model->getFENShortcode())
+				); ?>
 			</div>
 			<div class="rpbchessboard-admin-columns">
 				<div class="rpbchessboard-admin-column-left">
@@ -96,7 +99,10 @@
 
 		<div>
 			<div class="rpbchessboard-admin-code-block">
-				[fen]rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1[/fen]
+				<?php echo sprintf(
+					'[%1$s]rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1[/%1$s]',
+					htmlspecialchars($model->getFENShortcode())
+				); ?>
 			</div>
 			<div class="rpbchessboard-admin-columns">
 				<div class="rpbchessboard-admin-column-left">
@@ -122,7 +128,10 @@
 
 		<div>
 			<div class="rpbchessboard-admin-code-block">
-				[fen]rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1[/fen]
+				<?php echo sprintf(
+					'[%1$s]rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1[/%1$s]',
+					htmlspecialchars($model->getFENShortcode())
+				); ?>
 			</div>
 			<div class="rpbchessboard-admin-columns">
 				<div class="rpbchessboard-admin-column-left">
@@ -155,7 +164,10 @@
 
 		<div>
 			<div class="rpbchessboard-admin-code-block">
-				[fen]r3k2r/8/8/8/8/8/8/R3K2R b K - 0 1[/fen]
+				<?php echo sprintf(
+					'[%1$s]r3k2r/8/8/8/8/8/8/R3K2R b K - 0 1[/%1$s]',
+					htmlspecialchars($model->getFENShortcode())
+				); ?>
 			</div>
 			<div class="rpbchessboard-admin-columns">
 				<div class="rpbchessboard-admin-column-left">
@@ -197,7 +209,10 @@
 
 		<div>
 			<div class="rpbchessboard-admin-code-block">
-				[fen]r2q1bnr/ppp1kBpp/2np4/3NN3/4P3/8/PPPP1PPP/R1BbK2R b KQ - 2 7[/fen]
+				<?php echo sprintf(
+					'[%1$s]r2q1bnr/ppp1kBpp/2np4/3NN3/4P3/8/PPPP1PPP/R1BbK2R b KQ - 2 7[/%1$s]',
+					htmlspecialchars($model->getFENShortcode())
+				); ?>
 			</div>
 			<div class="rpbchessboard-admin-columns">
 				<div class="rpbchessboard-admin-column-left">
@@ -260,7 +275,10 @@
 			<div class="rpbchessboard-admin-columns">
 				<div>
 					<div class="rpbchessboard-admin-code-block">
-						[fen flip=true] ... [/fen]
+						<?php echo sprintf(
+							'[%1$s flip=true] ... [/%1$s]',
+							htmlspecialchars($model->getFENShortcode())
+						); ?>
 					</div>
 					<div class="rpbchessboard-admin-visu-block">
 						<div id="rpbchessboard-admin-flip-example1-in" class="rpbchessboard-in">
@@ -275,7 +293,10 @@
 				</div>
 				<div>
 					<div class="rpbchessboard-admin-code-block">
-						[fen flip=false] ... [/fen]
+						<?php echo sprintf(
+							'[%1$s flip=false] ... [/%1$s]',
+							htmlspecialchars($model->getFENShortcode())
+						); ?>
 					</div>
 					<div class="rpbchessboard-admin-visu-block">
 						<div id="rpbchessboard-admin-flip-example2-in" class="rpbchessboard-in">
@@ -304,7 +325,10 @@
 			<div class="rpbchessboard-admin-columns">
 				<div>
 					<div class="rpbchessboard-admin-code-block">
-						[fen square_size=24] ... [/fen]
+						<?php echo sprintf(
+							'[%1$s square_size=24] ... [/%1$s]',
+							htmlspecialchars($model->getFENShortcode())
+						); ?>
 					</div>
 					<div class="rpbchessboard-admin-visu-block">
 						<div id="rpbchessboard-admin-squareSize-example1-in" class="rpbchessboard-in">
@@ -319,7 +343,10 @@
 				</div>
 				<div>
 					<div class="rpbchessboard-admin-code-block">
-						[fen square_size=48] ... [/fen]
+						<?php echo sprintf(
+							'[%1$s square_size=48] ... [/%1$s]',
+							htmlspecialchars($model->getFENShortcode())
+						); ?>
 					</div>
 					<div class="rpbchessboard-admin-visu-block">
 						<div id="rpbchessboard-admin-squareSize-example2-in" class="rpbchessboard-in">
@@ -348,7 +375,10 @@
 			<div class="rpbchessboard-admin-columns">
 				<div>
 					<div class="rpbchessboard-admin-code-block">
-						[fen show_coordinates=true] ... [/fen]
+						<?php echo sprintf(
+							'[%1$s show_coordinates=true] ... [/%1$s]',
+							htmlspecialchars($model->getFENShortcode())
+						); ?>
 					</div>
 					<div class="rpbchessboard-admin-visu-block">
 						<div id="rpbchessboard-admin-showCoordinates-example1-in" class="rpbchessboard-in">
@@ -363,7 +393,10 @@
 				</div>
 				<div>
 					<div class="rpbchessboard-admin-code-block">
-						[fen show_coordinates=false] ... [/fen]
+						<?php echo sprintf(
+							'[%1$s show_coordinates=false] ... [/%1$s]',
+							htmlspecialchars($model->getFENShortcode())
+						); ?>
 					</div>
 					<div class="rpbchessboard-admin-visu-block">
 						<div id="rpbchessboard-admin-showCoordinates-example2-in" class="rpbchessboard-in">

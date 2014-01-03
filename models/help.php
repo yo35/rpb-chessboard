@@ -28,6 +28,12 @@ require_once(RPBCHESSBOARD_ABSPATH.'models/abstractadminmodel.php');
  */
 class RPBChessboardModelHelp extends RPBChessboardAbstractAdminModel
 {
+	public function __construct()
+	{
+		parent::__construct();
+		$this->loadTrait('Compatibility');
+	}
+
 	public function getTitle()
 	{
 		return __('Help', 'rpbchessboard');
