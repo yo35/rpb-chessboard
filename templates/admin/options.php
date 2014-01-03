@@ -62,13 +62,30 @@
 
 		<h3><?php _e('Compatibility with other chess plugins', 'rpbchessboard'); ?></h3>
 
+		<p class="description">
+			<?php echo sprintf(
+				__(
+					'By default, the RPB Chessboard plugin use the %1$s[fen][/fen]%2$s '.
+					'and %1$s[pgn][/pgn]%2$s tags for FEN diagrams and PGN games. '.
+					'However, this behavior cause conflicts when other Wordpress plugins '.
+					'(typically chess plugins) that use the same tags are simultaneously in use. '.
+					'Activating the compatibility mode for the FEN diagram tag makes RPB Chessboard '.
+					'use %1$s[fen_compat][/fen_compat]%2$s instead of %1$s[fen][/fen]%2$s '.
+					'to avoid those conflicts. Similarly, with the PGN compatibility mode, '.
+					'%1$s[pgn_compat][/pgn_compat]%2$s is used instead of %1$s[pgn][/pgn]%2$s.',
+				'rpbchessboard'),
+				'<span class="rpbchessboard-admin-code-inline">',
+				'</span>'
+			); ?>
+		</p>
+
 		<p>
 			<input type="hidden" name="fenCompatibilityMode" value="0" />
 			<input type="checkbox" id="rpbchessboard-admin-fenCompatibilityMode" name="fenCompatibilityMode" value="1"
 				<?php if($model->getFENCompatibilityMode()): ?>checked="yes"<?php endif; ?>
 			/>
 			<label for="rpbchessboard-admin-fenCompatibilityMode">
-				<?php _e('Compatibility mode for the FEN diagram shortcode', 'rpbchessboard'); ?>
+				<?php _e('Compatibility mode for the FEN diagram tag', 'rpbchessboard'); ?>
 			</label>
 		</p>
 
@@ -78,7 +95,7 @@
 				<?php if($model->getPGNCompatibilityMode()): ?>checked="yes"<?php endif; ?>
 			/>
 			<label for="rpbchessboard-admin-pgnCompatibilityMode">
-				<?php _e('Compatibility mode for the PGN game shortcode', 'rpbchessboard'); ?>
+				<?php _e('Compatibility mode for the PGN game tag', 'rpbchessboard'); ?>
 			</label>
 		</p>
 

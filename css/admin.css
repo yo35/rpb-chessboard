@@ -115,6 +115,7 @@
 .rpbchessboard-admin-code-block,
 .rpbchessboard-admin-code-inline {
 	font-family: Consolas, Monaco, monospace;
+	font-style : normal;
 }
 
 .rpbchessboard-admin-code-block {
