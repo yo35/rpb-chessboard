@@ -27,7 +27,7 @@
 <script type="text/javascript">
 
 	// Load the default chess widget aspect options.
-	defineDefaultChessWidgetOptions(
+	defaultChessWidgetOptions =
 		<?php
 			echo RPBChessboardHelperJSON::formatChessWidgetAttributes(
 				null,
@@ -35,6 +35,6 @@
 				$model->getDefaultShowCoordinates()
 			);
 		?>
-	);
+	;
 
 </script>

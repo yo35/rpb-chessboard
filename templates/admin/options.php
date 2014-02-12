@@ -114,9 +114,10 @@
 			function refreshTuningWidget($)
 			{
 				// Build the option specifier object
-				var options = new ChessWidget.Options(null);
-				options.setSquareSize     (squareSize     );
-				options.setShowCoordinates(showCoordinates);
+				var options = {
+					squareSize     : squareSize     ,
+					showCoordinates: showCoordinates
+				};
 
 				// Actual refresh
 				var widget = ChessWidget.make('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', options);

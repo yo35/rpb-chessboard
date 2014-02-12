@@ -21,7 +21,7 @@
 
 /**
  * Default options applicable to the chess widgets.
- * @type {ChessWidget.Options}
+ * @type {ChessWidget.Attributes}
  */
 var defaultChessWidgetOptions = null;
 
@@ -40,27 +40,15 @@ function hideJavascriptWarning(nodeID)
 
 
 /**
- * Define the default aspect options for the chess widgets.
- *
- * @param {ChessWidget.Attributes} chessWidgetAttributes
- */
-function defineDefaultChessWidgetOptions(chessWidgetAttributes)
-{
-	defaultChessWidgetOptions = new ChessWidget.Options(null, chessWidgetAttributes);
-}
-
-
-
-/**
  * Read the text in the DOM node identified by `nodeInID`, try to interpret it
  * as a FEN string, and render the corresponding chessboard widget
  * in the DOM node identified by `nodeOutID`.
  *
  * @param {string} nodeInID
  * @param {string} nodeOutID
- * @param {ChessWidget.Attributes} [chessWidgetAttributes=null]
+ * @param {ChessWidget.Attributes} [options=null]
  */
-function processFEN(nodeInID, nodeOutID, chessWidgetAttributes)
+function processFEN(nodeInID, nodeOutID, options)
 {
 	// Retrieve the nodes
 	var nodeIn  = jQuery('#' + nodeInID );
@@ -70,9 +58,9 @@ function processFEN(nodeInID, nodeOutID, chessWidgetAttributes)
 	var fen = nodeIn.text();
 
 	// Clear nodeOut and put the chess widget as its child
-	var options = new ChessWidget.Options(defaultChessWidgetOptions, chessWidgetAttributes);
+	var currentOptions = options==null ? defaultChessWidgetOptions : jQuery.extend({}, defaultChessWidgetOptions, options);
 	nodeOut.empty();
-	nodeOut.append(ChessWidget.make(fen, options));
+	nodeOut.append(ChessWidget.make(fen, currentOptions));
 
 	// Make nodeIn invisible
 	nodeIn .addClass   ('rpbchessboard-invisible');
@@ -88,9 +76,9 @@ function processFEN(nodeInID, nodeOutID, chessWidgetAttributes)
  *
  * @param {string} nodeInID
  * @param {string} nodeOutID
- * @param {ChessWidget.Attributes} [chessWidgetAttributes=null]
+ * @param {ChessWidget.Attributes} [options=null]
  */
-function processPGN(nodeInID, nodeOutID, chessWidgetAttributes)
+function processPGN(nodeInID, nodeOutID, options)
 {
 	// Retrieve the nodes
 	var nodeIn  = jQuery('#' + nodeInID );
@@ -100,8 +88,8 @@ function processPGN(nodeInID, nodeOutID, chessWidgetAttributes)
 	var pgn = nodeIn.text();
 
 	// PGN rendering
-	var inlineOptions = new ChessWidget.Options(defaultChessWidgetOptions, chessWidgetAttributes);
-	var navOptions    = new ChessWidget.Options(defaultChessWidgetOptions, {flip: inlineOptions.getFlip()});
+	var inlineOptions = options==null ? defaultChessWidgetOptions : jQuery.extend({}, defaultChessWidgetOptions, options);
+	var navOptions    = options==null ? defaultChessWidgetOptions : jQuery.extend({}, defaultChessWidgetOptions, {flip: options.flip});
 	var parsingSucceeded = PgnWidget.makeAt(pgn, nodeOut, inlineOptions, navOptions);
 
 	// Make nodeIn invisible, and nodeOut visible.
