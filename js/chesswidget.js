@@ -59,205 +59,14 @@ ChessWidget = (function(Chess, $)
 
 
 	/**
-	 * @typedef {{squareSize: number, showCoordinates: boolean}} Attributes
-	 * @desc Compact definition of a set of options applicable to a chess widget.
+	 * @typedef {{
+	 *   flip           : boolean,
+	 *   squareSize     : number ,
+	 *   showCoordinates: boolean
+	 * }} Attributes
+	 *
+	 * @desc Set of options applicable to a chess widget.
 	 */
-
-	/**
-	 * @constructor
-	 * @alias Options
-	 * @memberof ChessWidget
-	 *
-	 * @classdesc
-	 * Container for options that might affect the appearance of a chess diagram
-	 * in a HTML page.
-	 *
-	 * This structure allows to resolve option values in a hierarchical manner:
-	 * each ChessWidget.Options object holds a reference to a parent
-	 * ChessWidget.Options object; if one option field is undefined in the
-	 * current ChessWidget.Options object, then its value will be determined
-	 * based on the value of the parent ChessWidget.Options object.
-	 *
-	 * @desc Create a new set of options.
-	 *
-	 * @param {ChessWidget.Options} [parent=null]
-	 * @param {ChessWidget.Attributes} [val=null] Pre-defined values for the options.
-	 */
-	function Options(parent, val)
-	{
-		/**
-		 * @member {ChessWidget.Options} _parent
-		 * @memberof ChessWidget.Options
-		 * @instance
-		 * @desc Parent of the current set of options.
-		 * @private
-		 */
-		this._parent = parent;
-
-		/**
-		 * @member {boolean} _flip
-		 * @memberof ChessWidget.Options
-		 * @instance
-		 * @desc Whether the diagram should be represented in a flipped manner.
-		 * @private
-		 */
-		this._flip = null;
-
-		/**
-		 * @member {number} _squareSize
-		 * @memberof ChessWidget.Options
-		 * @instance
-		 * @desc Size of the squares of the diagram (in pixel).
-		 * @private
-		 */
-		this._squareSize = null;
-
-		/**
-		 * @member {boolean} _showCoordinates
-		 * @memberof ChessWidget.Options
-		 * @instance
-		 * @desc Whether the row and column coordinates should be shown in the diagram.
-		 * @private
-		 */
-		this._showCoordinates = null;
-
-		// Default values
-		if(val!=null) {
-			if(val.flip           !=null) this.setFlip           (val.flip           );
-			if(val.squareSize     !=null) this.setSquareSize     (val.squareSize     );
-			if(val.showCoordinates!=null) this.setShowCoordinates(val.showCoordinates);
-		}
-	}
-
-	/**
-	 * Duplicate a ChessWidget.Options object.
-	 *
-	 * @returns {ChessWidget.Options}
-	 */
-	Options.prototype.clone = function()
-	{
-		var retVal = new Options(this._parent);
-		retVal._flip            = this._flip           ;
-		retVal._squareSize      = this._squareSize     ;
-		retVal._showCoordinates = this._showCoordinates;
-		return retVal;
-	};
-
-	/**
-	 * Return the flip-board option value.
-	 *
-	 * @returns {number}
-	 */
-	Options.prototype.getFlip = function()
-	{
-		if(this._flip==null) {
-			return this._parent==null ? false : this._parent.getFlip();
-		}
-		else {
-			return this._flip;
-		}
-	};
-
-	/**
-	 * Return the square-size option value.
-	 *
-	 * @returns {number}
-	 */
-	Options.prototype.getSquareSize = function()
-	{
-		if(this._squareSize==null) {
-			return this._parent==null ? 32 : this._parent.getSquareSize();
-		}
-		else {
-			return this._squareSize;
-		}
-	};
-
-	/**
-	 * Return the show-coordinates option value.
-	 *
-	 * @returns {boolean}
-	 */
-	Options.prototype.getShowCoordinates = function()
-	{
-		if(this._showCoordinates==null) {
-			return this._parent==null ? true : this._parent.getShowCoordinates();
-		}
-		else {
-			return this._showCoordinates;
-		}
-	};
-
-	/**
-	 * Set the flip-board option value.
-	 *
-	 * @param {(boolean|string)} [value=null]
-	 * New value (null means that the value corresponding getter will read
-	 * determine the value from the ChessWidget.Options parent object.
-	 */
-	Options.prototype.setFlip = function(value)
-	{
-		if(value==null) {
-			this._flip = null;
-		}
-		else {
-			if(typeof(value)=="string") {
-				value = value.toLowerCase();
-				if     (value=="true" ) this._flip = true ;
-				else if(value=="false") this._flip = false;
-				else                    this._flip = null ;
-			}
-			else {
-				this._flip = value ? true : false;
-			}
-		}
-	};
-
-	/**
-	 * Set the square-size option value.
-	 *
-	 * @param {(number|string)} [value=null]
-	 * New value (null means that the value corresponding getter will read
-	 * determine the value from the ChessWidget.Options parent object.
-	 */
-	Options.prototype.setSquareSize = function(value)
-	{
-		if(value==null) {
-			this._squareSize = null;
-		}
-		else {
-			// Acceptable values are integers multiple of 4 and between 24 and 64.
-			value = Math.min(Math.max(value, MINIMUM_SQUARE_SIZE), MAXIMUM_SQUARE_SIZE);
-			value = STEP_SQUARE_SIZE * Math.round(value / STEP_SQUARE_SIZE);
-			this._squareSize = isNaN(value) ? null : value;
-		}
-	};
-
-	/**
-	 * Set the show-coordinates option value.
-	 *
-	 * @param {(boolean|string)} [value=null]
-	 * New value (null means that the value corresponding getter will read
-	 * determine the value from the ChessWidget.Options parent object.
-	 */
-	Options.prototype.setShowCoordinates = function(value)
-	{
-		if(value==null) {
-			this._showCoordinates = null;
-		}
-		else {
-			if(typeof(value)=="string") {
-				value = value.toLowerCase();
-				if     (value=="true" ) this._showCoordinates = true ;
-				else if(value=="false") this._showCoordinates = false;
-				else                    this._showCoordinates = null ;
-			}
-			else {
-				this._showCoordinates = value ? true : false;
-			}
-		}
-	};
-
 
 
 	/**
@@ -271,6 +80,7 @@ ChessWidget = (function(Chess, $)
 	 * @memberof ChessWidget
 	 */
 	var _rootURL = null;
+
 
 	/**
 	 * Return the root URL of the library.
@@ -296,6 +106,7 @@ ChessWidget = (function(Chess, $)
 		return _rootURL;
 	}
 
+
 	/**
 	 * Return the URL to the folder containing the sprites (images representing the chess pieces),
 	 * with the trailing "/" character.
@@ -312,6 +123,7 @@ ChessWidget = (function(Chess, $)
 		var retVal = rootURL() + 'sprite/' + squareSize + '/';
 		return retVal;
 	}
+
 
 	/**
 	 * Return the URL to the sprite (a PNG image) corresponding to a given colored piece.
@@ -332,6 +144,7 @@ ChessWidget = (function(Chess, $)
 			'.png';
 		return retVal;
 	}
+
 
 	/**
 	 * Return the URL to the sprite (a PNG image) corresponding to a given color flag.
@@ -355,6 +168,29 @@ ChessWidget = (function(Chess, $)
 		return retVal;
 	}
 
+
+	/**
+	 * Validate a square-size option value.
+	 *
+	 * @param {object} value Value to be validated.
+	 * @returns {number} Validated value.
+	 *
+	 * @memberof ChessWidget
+	 */
+	function validateSquareSize(value)
+	{
+		if(value==null) {
+			return 32;
+		}
+		else {
+			value = Number(value);
+			value = Math.min(Math.max(value, MINIMUM_SQUARE_SIZE), MAXIMUM_SQUARE_SIZE);
+			value = STEP_SQUARE_SIZE * Math.round(value / STEP_SQUARE_SIZE);
+			return value;
+		}
+	}
+
+
 	/**
 	 * Create a new DOM node representing a chess diagram.
 	 *
@@ -364,7 +200,7 @@ ChessWidget = (function(Chess, $)
 	 * FEN-formatted string. If the parsing fails, an empty chess position will
 	 * be represented.
 	 *
-	 * @params {ChessWidget.Options} [options=null] Diagram options, or null to use the default ones.
+	 * @params {ChessWidget.Attributes} [options=null] Diagram options, or null to use the default ones.
 	 * @returns {jQuery}
 	 *
 	 * @memberof ChessWidget
@@ -373,7 +209,7 @@ ChessWidget = (function(Chess, $)
 	{
 		// Default options
 		if(options==null) {
-			options = new Options();
+			options = Object();
 		}
 
 		// If the `position` argument is a string, try to parse it as a FEN-formatted string.
@@ -383,9 +219,9 @@ ChessWidget = (function(Chess, $)
 		}
 
 		// Read the options
-		var flip             = options.getFlip           ();
-		var squareSize       = options.getSquareSize     ();
-		var showCoordinates  = options.getShowCoordinates();
+		var flip             = options.flip==null ? false : Boolean(options.flip);
+		var squareSize       = validateSquareSize(options.squareSize);
+		var showCoordinates  = options.showCoordinates==null ? true : Boolean(options.showCoordinates);
 		var whiteSquareColor = "#f0dec7"; //TODO: read this from options
 		var blackSquareColor = "#b5876b"; //TODO: read this from options
 		var squareColor = {light: whiteSquareColor, dark: blackSquareColor};
@@ -465,8 +301,8 @@ ChessWidget = (function(Chess, $)
 		MINIMUM_SQUARE_SIZE: MINIMUM_SQUARE_SIZE,
 		MAXIMUM_SQUARE_SIZE: MAXIMUM_SQUARE_SIZE,
 		STEP_SQUARE_SIZE   : STEP_SQUARE_SIZE   ,
-		Options: Options,
-		make   : make
+		validateSquareSize : validateSquareSize ,
+		make               : make
 	};
 
 })(Chess, jQuery);
