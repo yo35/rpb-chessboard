@@ -66,9 +66,9 @@
 		}
 		$('#squareSize').slider({
 			value: $('#a').chessboard('option', 'squareSize'),
-			min  : ChessWidget.MINIMUM_SQUARE_SIZE,
-			max  : ChessWidget.MAXIMUM_SQUARE_SIZE,
-			step : ChessWidget.STEP_SQUARE_SIZE   ,
+			min  : $.chessboard.MINIMUM_SQUARE_SIZE,
+			max  : $.chessboard.MAXIMUM_SQUARE_SIZE,
+			step : $.chessboard.STEP_SQUARE_SIZE   ,
 			slide: function( event, ui ) { $('#a').chessboard('option', 'squareSize', ui.value); refreshSquareSizeLabel(); }
 		});
 		refreshSquareSizeLabel();

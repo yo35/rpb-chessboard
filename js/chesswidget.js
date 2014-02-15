@@ -465,8 +465,18 @@ ChessWidget = (function(Chess, $)
 				$('<div class="ChessWidget-fake-header"></div>').appendTo(tr);
 			}
 		}
-
 	});
+
+
+	/**
+	 * Public constants.
+	 */
+	$.chessboard =
+	{
+		MINIMUM_SQUARE_SIZE: MINIMUM_SQUARE_SIZE,
+		MAXIMUM_SQUARE_SIZE: MAXIMUM_SQUARE_SIZE,
+		STEP_SQUARE_SIZE   : STEP_SQUARE_SIZE
+	};
 
 
 
