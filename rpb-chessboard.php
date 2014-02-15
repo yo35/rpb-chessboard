@@ -51,7 +51,7 @@ function rpbchessboard_enqueue_script()
 	wp_enqueue_script('jquery-ui-button'   );
 	wp_register_script('rpbchessboard-chessjs'    , RPBCHESSBOARD_URL.'/chess-js/chess.min.js');
 	wp_register_script('rpbchessboard-pgn'        , RPBCHESSBOARD_URL.'/js/pgn.js');
-	wp_register_script('rpbchessboard-chesswidget', RPBCHESSBOARD_URL.'/js/chesswidget.js');
+	wp_register_script('rpbchessboard-chesswidget', RPBCHESSBOARD_URL.'/js/chesswidget.js', array('jquery-ui-widget'));
 	wp_register_script('rpbchessboard-pgnwidget'  , RPBCHESSBOARD_URL.'/js/pgnwidget.js'  );
 	wp_register_script('rpbchessboard-main'       , RPBCHESSBOARD_URL.'/js/main.js');
 	wp_enqueue_script('rpbchessboard-chessjs'    );

@@ -27,6 +27,7 @@
  *
  * @requires chess.js {@link https://github.com/jhlywa/chess.js}
  * @requires jQuery
+ * @requires jQuery UI
  */
 ChessWidget = (function(Chess, $)
 {
@@ -466,7 +467,6 @@ ChessWidget = (function(Chess, $)
 			}
 		}
 	}); /* End of $.widget('chess.chessboard', ... ) */
-
 
 	/**
 	 * Public constants.
