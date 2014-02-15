@@ -27,7 +27,8 @@
  *
  * @requires chess.js {@link https://github.com/jhlywa/chess.js}
  * @requires jQuery
- * @requires jQuery UI
+ * @requires jQuery UI Widget
+ * @requires jQuery UI Selectable
  */
 ChessWidget = (function(Chess, $)
 {
