@@ -408,21 +408,45 @@ ChessWidget = (function(Chess, $)
 
 
 		/**
-		 * Resize the widget so that it fits in a box of size `width` x `height`.
+		 * When the widget is placed in a resizable container (such as a jQuery resizable frame or dialog),
+		 * it is often suitable to let the container control the widget size. This can be done
+		 * as follows:
+		 *
+		 *   $('#my-chessboard-widget).chessboard('sizeControlledByContainer', $('#container'));
+		 *
+		 * The options that controls the aspect of the chessboard ('squareSize', 'showCoordinates', etc...)
+		 * should not be modified in this mode.
+		 *
+		 * @param {jQuery} container
 		 */
-		fitIn: function(width, height)
+		sizeControlledByContainer: function(container)
 		{
-			var table = $(':first-child', this.element);
-			var deltaW = width  - table.width ();
-			var deltaH = height - table.height();
-			var deltaWPerSq = Math.floor(deltaW / 9 / STEP_SQUARE_SIZE) * STEP_SQUARE_SIZE;
-			var deltaHPerSq = Math.floor(deltaH / 8 / STEP_SQUARE_SIZE) * STEP_SQUARE_SIZE;
-			var newSquareSize = Math.min(Math.max(this.options.squareSize + Math.min(deltaWPerSq, deltaHPerSq),
-				MINIMUM_SQUARE_SIZE), MAXIMUM_SQUARE_SIZE);
-			if(newSquareSize!=this.options.squareSize) {
-				this.options.squareSize = newSquareSize;
-				this._refresh();
-			}
+			var obj = this;
+			container.on('resize', function(event, ui)
+			{
+				// Save the initial information about the geometry of the widget and its container.
+				if(obj._initialGeometryInfo==null) {
+					obj._initialGeometryInfo = {
+						squareSize: obj.options.squareSize,
+						height    : ui.originalSize.height,
+						width     : ui.originalSize.width
+					};
+				}
+
+				// Compute the new square size parameter.
+				var deltaW = ui.size.width  - obj._initialGeometryInfo.width ;
+				var deltaH = ui.size.height - obj._initialGeometryInfo.height;
+				var deltaWPerSq = Math.floor(deltaW / 9 / STEP_SQUARE_SIZE) * STEP_SQUARE_SIZE;
+				var deltaHPerSq = Math.floor(deltaH / 8 / STEP_SQUARE_SIZE) * STEP_SQUARE_SIZE;
+				var newSquareSize = obj._initialGeometryInfo.squareSize + Math.min(deltaWPerSq, deltaHPerSq);
+				newSquareSize = Math.min(Math.max(newSquareSize, MINIMUM_SQUARE_SIZE), MAXIMUM_SQUARE_SIZE);
+
+				// Update the widget if necessary.
+				if(newSquareSize!=obj.options.squareSize) {
+					obj.options.squareSize = newSquareSize;
+					obj._refresh();
+				}
+			});
 		},
 
 

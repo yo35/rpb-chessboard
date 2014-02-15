@@ -82,17 +82,17 @@
 	<hr/>
 
 	<p>Resize me...</p>
-	<div id="box" class="ui-widget-content" style="background: #e0ffe0;">
+	<div id="box" class="ui-widget-content" style="background: #e0ffe0; display: inline-block;">
 		<div id="b"></div>
+		<div style="background: blue; width: 90%; height: 20px;"></div>
 	</div>
 
 	<script type="text/javascript">
 		$(document).ready(function()
 		{
 			$('#b').chessboard({ position: 'start' });
-			$('#box').resizable({
-				resize: function(event, ui) { $('#b').chessboard('fitIn', ui.size.width, ui.size.height); }
-			});
+			$('#box').resizable();
+			$('#b').chessboard('sizeControlledByContainer', $('#box'));
 		});
 	</script>
 
