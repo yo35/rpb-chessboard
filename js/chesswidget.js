@@ -193,6 +193,37 @@ ChessWidget = (function(Chess, $)
 
 
 	/**
+	 * Ensure that the given string is trimmed.
+	 *
+	 * @private
+	 *
+	 * @param {string} position
+	 * @returns {string}
+	 */
+	function filterOptionPosition(position)
+	{
+		return position.replace(/^\s+|\s+$/g, '');
+	}
+
+
+	/**
+	 * Ensure that the given number is a valid square size.
+	 *
+	 * @private
+	 *
+	 * @param {number} squareSize
+	 * @returns {number}
+	 */
+	function filterOptionSquareSize(squareSize)
+	{
+		squareSize = Math.min(Math.max(squareSize, MINIMUM_SQUARE_SIZE), MAXIMUM_SQUARE_SIZE);
+		squareSize = STEP_SQUARE_SIZE * Math.round(squareSize / STEP_SQUARE_SIZE);
+		return squareSize;
+	}
+
+
+
+	/**
 	 * Create a new DOM node representing a chess diagram.
 	 *
 	 * @param {(Chess|string)} position Chess position to represent.
@@ -341,6 +372,8 @@ ChessWidget = (function(Chess, $)
 		_create: function()
 		{
 			this.element.addClass('chess-chessboard').disableSelection();
+			this.options.position   = filterOptionPosition  (this.options.position  );
+			this.options.squareSize = filterOptionSquareSize(this.options.squareSize);
 			this._refresh();
 		},
 
@@ -360,13 +393,12 @@ ChessWidget = (function(Chess, $)
 		_setOption: function(key, value)
 		{
 			if(key=='position') {
-				value = value.replace(/^\s+|\s+$/g, ''); // Trim the value.
+				value = filterOptionPosition(value);
 				this._position = null; // The FEN needs to be re-parsed.
 			}
 
 			else if(key=='squareSize') {
-				value = Math.min(Math.max(value, MINIMUM_SQUARE_SIZE), MAXIMUM_SQUARE_SIZE);
-				value = STEP_SQUARE_SIZE * Math.round(value / STEP_SQUARE_SIZE);
+				value = filterOptionSquareSize(value);
 			}
 
 			this.options[key] = value;
