@@ -36,7 +36,8 @@
 /******************************************************************************/
 /*** General aspect of the chessboard ***/
 
-.ChessWidget {
+.ChessWidget,
+.chess-chessboard {
 	display: block;
 	text-align: center;
 	margin-top   : 5px;

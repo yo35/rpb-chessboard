@@ -295,6 +295,180 @@ ChessWidget = (function(Chess, $)
 	}
 
 
+	/**
+	 * Register a 'chessboard' widget in the jQuery widget framework.
+	 */
+	$.widget('chess.chessboard',
+	{
+		/**
+		 * Default options.
+		 */
+		options:
+		{
+			/**
+			 * String describing the chess position (FEN format).
+			 */
+			position: '8/8/8/8/8/8/8/8 w - - 0 1',
+
+			/**
+			 * Whether the chessboard is flipped or not.
+			 */
+			flip: false,
+
+			/**
+			 * Size of the squares (in pixel).
+			 */
+			squareSize: 32,
+
+			/**
+			 * Whether the row and column coordinates are shown or not.
+			 */
+			showCoordinates: true
+		},
+
+
+		/**
+		 * The chess position.
+		 * @type {Chess}
+		 */
+		_position: null,
+
+
+		/**
+		 * Constructor.
+		 */
+		_create: function()
+		{
+			this.element.addClass('chess-chessboard').disableSelection();
+			this._refresh();
+		},
+
+
+		/**
+		 * Destructor.
+		 */
+		_destroy: function()
+		{
+			this.element.removeClass('chess-chessboard').enableSelection();
+		},
+
+
+		/**
+		 * Option setter.
+		 */
+		_setOption: function(key, value)
+		{
+			if(key=='position') {
+				value = value.replace(/^\s+|\s+$/g, ''); // Trim the value.
+				this._position = null; // The FEN needs to be re-parsed.
+			}
+
+			else if(key=='squareSize') {
+				value = Math.min(Math.max(value, MINIMUM_SQUARE_SIZE), MAXIMUM_SQUARE_SIZE);
+				value = STEP_SQUARE_SIZE * Math.round(value / STEP_SQUARE_SIZE);
+			}
+
+			this.options[key] = value;
+			this._refresh();
+		},
+
+
+		/**
+		 * Resize the widget so that it fits in a box of size `width` x `height`.
+		 */
+		fitIn: function(width, height)
+		{
+			var table = $(':first-child', this.element);
+			var deltaW = width  - table.width ();
+			var deltaH = height - table.height();
+			var deltaWPerSq = Math.floor(deltaW / 9 / STEP_SQUARE_SIZE) * STEP_SQUARE_SIZE;
+			var deltaHPerSq = Math.floor(deltaH / 8 / STEP_SQUARE_SIZE) * STEP_SQUARE_SIZE;
+			var newSquareSize = Math.min(Math.max(this.options.squareSize + Math.min(deltaWPerSq, deltaHPerSq),
+				MINIMUM_SQUARE_SIZE), MAXIMUM_SQUARE_SIZE);
+			if(newSquareSize!=this.options.squareSize) {
+				this.options.squareSize = newSquareSize;
+				this._refresh();
+			}
+		},
+
+
+		/**
+		 * Refresh the widget.
+		 */
+		_refresh: function()
+		{
+			// Parse the FEN-formatted position string, if necessary.
+			if(this._position==null) {
+				var fen = this.options.position;
+				switch(fen) {
+					case 'start': fen='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'; break;
+					case 'empty': fen='8/8/8/8/8/8/9/8 w - - 0 1'; break;
+				}
+				this._position = new Chess(fen);
+			}
+
+			// Square colors
+			var whiteSquareColor = "#f0dec7"; //TODO: read this from options
+			var blackSquareColor = "#b5876b"; //TODO: read this from options
+			var squareColor = {light: whiteSquareColor, dark: blackSquareColor};
+
+			// Rows, columns
+			var ROWS    = this.options.flip ? ['1','2','3','4','5','6','7','8'] : ['8','7','6','5','4','3','2','1'];
+			var COLUMNS = this.options.flip ? ['h','g','f','e','d','c','b','a'] : ['a','b','c','d','e','f','g','h'];
+
+			// Clear the target node and create the table object.
+			this.element.empty();
+			var table = $('<div class="ChessWidget-table"></div>').appendTo(this.element);
+
+			// For each row...
+			for(var r=0; r<8; ++r) {
+				var tr = $('<div class="ChessWidget-row"></div>').appendTo(table);
+
+				// If visible, the row coordinates are shown in the left-most column.
+				if(this.options.showCoordinates) {
+					$('<div class="ChessWidget-row-header">' + ROWS[r] + '</div>').appendTo(tr);
+				}
+
+				// Print the squares belonging to the current column.
+				for(var c=0; c<8; ++c) {
+					var sq = COLUMNS[c] + ROWS[r];
+					$(
+						'<div class="ChessWidget-cell" style="background-color: ' + squareColor[this._position.square_color(sq)] + ';">' +
+							'<img src="' + coloredPieceURL(this._position.get(sq), this.options.squareSize) + '" />' +
+						'</div>'
+					).appendTo(tr);
+				}
+
+				// Add a "fake" cell at the end of the row: this last column will contain the turn flag.
+				var fakeCell = $('<div class="ChessWidget-fake-cell"></div>').appendTo(tr);
+
+				// Add the turn flag to the current fake cell if required.
+				var turn = this._position.turn();
+				if((ROWS[r]=='8' && turn=='b') || (ROWS[r]=='1' && turn=='w')) {
+					$('<img src="' + colorURL(turn, this.options.squareSize) + '" />').appendTo(fakeCell);
+				}
+			}
+
+			// If visible, the column coordinates are shown at the bottom of the table.
+			if(this.options.showCoordinates) {
+				var tr = $('<div class="ChessWidget-row"></div>').appendTo(table);
+
+				// Empty cell
+				$('<div class="ChessWidget-corner-header"></div>').appendTo(tr);
+
+				// Column headers
+				for(var c=0; c<8; ++c) {
+					$('<div class="ChessWidget-column-header">' + COLUMNS[c] + '</div>').appendTo(tr);
+				}
+
+				// Empty cell below the "fake" cell columns
+				$('<div class="ChessWidget-fake-header"></div>').appendTo(tr);
+			}
+		}
+
+	});
+
+
 
 	// Returned the module object
 	return {
