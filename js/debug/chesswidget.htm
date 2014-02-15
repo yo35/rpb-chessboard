@@ -7,22 +7,95 @@
 
 	<!-- Dependencies -->
 	<script type="text/javascript" src="../../chess-js/chess.js"></script>
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 	<script type="text/javascript" src="../chesswidget.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"/>
 	<link rel="stylesheet" type="text/css" href="../../css/chesswidget.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/admin.css"/>
 	
 </head>
 
 <body>
 	<h1>Sandbox for chesswidget.js</h1>
-	<div id="anchor"></div>
+
+	<hr/>
+
+	<div class="rpbchessboard-admin-columns">
+		<div class="rpbchessboard-admin-column" style="width: 30%;">
+			<form>
+				<p>
+					<input id="make-empty"  type="button" value="Empty position"  /><br/>
+					<input id="make-start"  type="button" value="Start position"  /><br/>
+					<input id="make-custom" type="button" value="Custom position" />
+				</p>
+				<p>
+					<input id="flip" type="checkbox" />
+					<label for="flip">Flip</label>
+				</p>
+				<p>
+					<label for="squareSize-value">Square size</label>
+					<input id="squareSize-value" type="text" readonly="yes" size="3"/>
+					<div id="squareSize"></div>
+				</p>
+				<p>
+					<input id="showCoordinates" type="checkbox" />
+					<label for="showCoordinates">Show coordinates</label>
+				</p>
+			</form>
+		</div>
+		<div class="rpbchessboard-admin-column" style="width: 70%; background: #e0ffe0;">
+			<div id="a"></div>
+		</div>
+	</div>
+
 	<script type="text/javascript">
 
-		// Initial position
-		$('#anchor').append(ChessWidget.make('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', {squareSize: 44}));
-		$('#anchor').append($('<hr/>'));
+		$('#a').chessboard({ position: 'start' });
+
+		$('#make-empty' ).button().click(function() { $('#a').chessboard('option', 'position', 'empty'); });
+		$('#make-start' ).button().click(function() { $('#a').chessboard('option', 'position', 'start'); });
+		$('#make-custom').button().click(function() { $('#a').chessboard('option', 'position', '8/8/8/8/8/4k3/q7/4K3 b - - 0 1'); });
+
+		$('#flip').prop('checked', $('#a').chessboard('option', 'flip')).button().click(function() {
+			$('#a').chessboard('option', 'flip', $('#flip').prop('checked'));
+		});
+
+		function refreshSquareSizeLabel() {
+			$('#squareSize-value').val($('#a').chessboard('option', 'squareSize'));
+		}
+		$('#squareSize').slider({
+			value: $('#a').chessboard('option', 'squareSize'),
+			min  : ChessWidget.MINIMUM_SQUARE_SIZE,
+			max  : ChessWidget.MAXIMUM_SQUARE_SIZE,
+			step : ChessWidget.STEP_SQUARE_SIZE   ,
+			slide: function( event, ui ) { $('#a').chessboard('option', 'squareSize', ui.value); refreshSquareSizeLabel(); }
+		});
+		refreshSquareSizeLabel();
+
+		$('#showCoordinates').prop('checked', $('#a').chessboard('option', 'showCoordinates')).change(function() {
+			$('#a').chessboard('option', 'showCoordinates', $('#showCoordinates').prop('checked'));
+		});
 
 	</script>
+
+	<hr/>
+
+	<p>Resize me...</p>
+	<div id="box" class="ui-widget-content" style="background: #e0ffe0;">
+		<div id="b"></div>
+	</div>
+
+	<script type="text/javascript">
+		$(document).ready(function()
+		{
+			$('#b').chessboard({ position: 'start' });
+			$('#box').resizable({
+				resize: function(event, ui) { $('#b').chessboard('fitIn', ui.size.width, ui.size.height); }
+			});
+		});
+	</script>
+
 </body>
 
 </html>
