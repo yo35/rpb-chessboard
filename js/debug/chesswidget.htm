@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Sandbox for chesswidget.js</title>
+
+	<!-- Dependencies -->
+	<script type="text/javascript" src="../../chess-js/chess.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="../chesswidget.js"></script>
+	<link rel="stylesheet" type="text/css" href="../../css/chesswidget.css"/>
+	
+</head>
+
+<body>
+	<h1>Sandbox for chesswidget.js</h1>
+	<div id="anchor"></div>
+	<script type="text/javascript">
+
+		// Initial position
+		$('#anchor').append(ChessWidget.make('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', {squareSize: 44}));
+		$('#anchor').append($('<hr/>'));
+
+	</script>
+</body>
+
+</html>
