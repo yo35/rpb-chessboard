@@ -417,6 +417,9 @@ ChessWidget = (function(Chess, $)
 		 * The options that controls the aspect of the chessboard ('squareSize', 'showCoordinates', etc...)
 		 * should not be modified in this mode.
 		 *
+		 * TODO: Does not work if for instance only the height of the container is constrained by the chessboard,
+		 * but not its width.
+		 *
 		 * @param {jQuery} container
 		 */
 		sizeControlledByContainer: function(container)
