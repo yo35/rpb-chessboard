@@ -465,7 +465,7 @@ ChessWidget = (function(Chess, $)
 				$('<div class="ChessWidget-fake-header"></div>').appendTo(tr);
 			}
 		}
-	});
+	}); /* End of $.widget('chess.chessboard', ... ) */
 
 
 	/**
