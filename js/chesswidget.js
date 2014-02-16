@@ -315,54 +315,61 @@
 			var ROWS    = this.options.flip ? ['1','2','3','4','5','6','7','8'] : ['8','7','6','5','4','3','2','1'];
 			var COLUMNS = this.options.flip ? ['h','g','f','e','d','c','b','a'] : ['a','b','c','d','e','f','g','h'];
 
-			// Clear the target node and create the table object.
-			this.element.empty();
-			var table = $('<div class="uichess-chessboard-table"></div>').appendTo(this.element);
+			// Open the "table" node.
+			var content = '<div class="uichess-chessboard-table">';
 
 			// For each row...
 			for(var r=0; r<8; ++r) {
-				var tr = $('<div class="uichess-chessboard-row"></div>').appendTo(table);
+				content += '<div class="uichess-chessboard-row">';
 
 				// If visible, the row coordinates are shown in the left-most column.
 				if(this.options.showCoordinates) {
-					$('<div class="uichess-chessboard-row-header">' + ROWS[r] + '</div>').appendTo(tr);
+					content += '<div class="uichess-chessboard-row-header">' + ROWS[r] + '</div>';
 				}
 
 				// Print the squares belonging to the current column.
 				for(var c=0; c<8; ++c) {
 					var sq = COLUMNS[c] + ROWS[r];
-					$(
+					content +=
 						'<div class="uichess-chessboard-cell" style="background-color: ' + squareColor[this._position.square_color(sq)] + ';">' +
 							'<img src="' + coloredPieceURL(this._position.get(sq), this.options.squareSize) + '" />' +
 						'</div>'
-					).appendTo(tr);
+					;
 				}
 
-				// Add a "fake" cell at the end of the row: this last column will contain the turn flag.
-				var fakeCell = $('<div class="uichess-chessboard-fake-cell"></div>').appendTo(tr);
-
-				// Add the turn flag to the current fake cell if required.
+				// Add a "fake" cell at the end of the row: this last column will contain the turn flag, if necessary.
+				content += '<div class="uichess-chessboard-fake-cell">';
 				var turn = this._position.turn();
 				if((ROWS[r]=='8' && turn=='b') || (ROWS[r]=='1' && turn=='w')) {
-					$('<img src="' + colorURL(turn, this.options.squareSize) + '" />').appendTo(fakeCell);
+					content += '<img src="' + colorURL(turn, this.options.squareSize) + '" />';
 				}
+
+				// End of the "fake" cell and end of the row.
+				content += '</div></div>';
 			}
 
 			// If visible, the column coordinates are shown at the bottom of the table.
 			if(this.options.showCoordinates) {
-				var tr = $('<div class="uichess-chessboard-row"></div>').appendTo(table);
+				content += '<div class="uichess-chessboard-row">';
 
 				// Empty cell
-				$('<div class="uichess-chessboard-corner-header"></div>').appendTo(tr);
+				content += '<div class="uichess-chessboard-corner-header"></div>';
 
 				// Column headers
 				for(var c=0; c<8; ++c) {
-					$('<div class="uichess-chessboard-column-header">' + COLUMNS[c] + '</div>').appendTo(tr);
+					content += '<div class="uichess-chessboard-column-header">' + COLUMNS[c] + '</div>';
 				}
 
-				// Empty cell below the "fake" cell columns
-				$('<div class="uichess-chessboard-fake-header"></div>').appendTo(tr);
+				// Empty cell below the "fake" cell columns + end of the row.
+				content += '<div class="uichess-chessboard-fake-header"></div></div>';
 			}
+
+			// Close the "table" node.
+			content += '</div>'
+
+			// Clear the target node and render its content.
+			this.element.empty();
+			$(content).appendTo(this.element);
 		}
 	}); /* End of $.widget('uichess.chessboard', ... ) */
 
