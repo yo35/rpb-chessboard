@@ -2,7 +2,7 @@
 Contributors: yo35
 Tags: chess, chessboard, fen, pgn, games
 Requires at least: 2.6
-Tested up to: 3.8
+Tested up to: 3.8.1
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -48,6 +48,8 @@ and [PGN](http://en.wikipedia.org/wiki/Portable_Game_Notation) notations.
  * Customizable aspect for the chessboards (orientation, size, etc...).
  * Support commentaries and sub-variations in PGN-encoded games.
  * Support HTML formatting in PGN commentaries.
+ * Compatibility mode to avoid conflicts with the other plugins that also use
+   the `[fen][/fen]` and `[pgn][/pgn]` shortcodes.
 
 If you encounter some bugs with this plugin, or if you wish to get new features
 in the future versions, you can report/propose them in the bug tracker at
@@ -82,6 +84,10 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 
 == Changelog ==
+
+= 2.2 =
+* Faster rendering of the chess diagrams.
+* Tested up to Wordpress 3.8.1.
 
 = 2.1 =
 * Compatibility mode to avoid conflicts with other plugins that might use the [fen][/fen] and [pgn][/pgn] shortcodes.

@@ -23,6 +23,8 @@ Features
 * Customizable aspect for the chessboards (orientation, size, etc...).
 * Support commentaries and sub-variations in PGN-encoded games.
 * Support HTML formatting in PGN commentaries.
+* Compatibility mode to avoid conflicts with the other plugins that also use
+  the `[fen][/fen]` and `[pgn][/pgn]` shortcodes.
 
 RPB Chessboard uses the [chess.js](https://github.com/jhlywa/chess.js) javascript
 library for FEN (and to some extent PGN) parsing.
