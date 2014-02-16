@@ -324,7 +324,7 @@
 
 				// If visible, the row coordinates are shown in the left-most column.
 				if(this.options.showCoordinates) {
-					content += '<div class="uichess-chessboard-row-header">' + ROWS[r] + '</div>';
+					content += '<div class="uichess-chessboard-rowHeader">' + ROWS[r] + '</div>';
 				}
 
 				// Print the squares belonging to the current column.
@@ -338,7 +338,7 @@
 				}
 
 				// Add a "fake" cell at the end of the row: this last column will contain the turn flag, if necessary.
-				content += '<div class="uichess-chessboard-fake-cell">';
+				content += '<div class="uichess-chessboard-turnCell">';
 				var turn = this._position.turn();
 				if((ROWS[r]=='8' && turn=='b') || (ROWS[r]=='1' && turn=='w')) {
 					content += '<img src="' + colorURL(turn, this.options.squareSize) + '" />';
@@ -350,18 +350,18 @@
 
 			// If visible, the column coordinates are shown at the bottom of the table.
 			if(this.options.showCoordinates) {
-				content += '<div class="uichess-chessboard-row">';
+				content += '<div class="uichess-chessboard-lastRow">';
 
 				// Empty cell
-				content += '<div class="uichess-chessboard-corner-header"></div>';
+				content += '<div class="uichess-chessboard-cornerHeader"></div>';
 
 				// Column headers
 				for(var c=0; c<8; ++c) {
-					content += '<div class="uichess-chessboard-column-header">' + COLUMNS[c] + '</div>';
+					content += '<div class="uichess-chessboard-columnHeader">' + COLUMNS[c] + '</div>';
 				}
 
 				// Empty cell below the "fake" cell columns + end of the row.
-				content += '<div class="uichess-chessboard-fake-header"></div></div>';
+				content += '<div class="uichess-chessboard-turnHeader"></div></div>';
 			}
 
 			// Close the "table" node.
