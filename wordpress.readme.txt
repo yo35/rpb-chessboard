@@ -85,6 +85,9 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 == Changelog ==
 
+= 2.2.1 =
+* Fix parsing bug (castle moves with check).
+
 = 2.2 =
 * Faster rendering of the chess diagrams.
 * Tested up to Wordpress 3.8.1.
