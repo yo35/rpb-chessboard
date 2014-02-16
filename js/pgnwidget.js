@@ -750,7 +750,7 @@ var PgnWidget = (function(Chess, Pgn, $)
 
 			// Create the chessboard widget
 			$('#PgnWidget-navigation-content').chessboard(navOptions);
-			$('#PgnWidget-navigation-content').chessboard('sizeControlledByContainer', $('#PgnWidget-navigation-frame'));
+			$('#PgnWidget-navigation-content').chessboard('sizeControlledByContainer', $('#PgnWidget-navigation-frame'), 'dialogresize');
 
 			// Create the buttons
 			$('#PgnWidget-navigation-button-frst').button().click(function() { goFrstMove(); });

@@ -283,11 +283,12 @@
 		 * but not its width.
 		 *
 		 * @param {jQuery} container
+		 * @param {string} eventName Name of the event triggered when the container is resized.
 		 */
-		sizeControlledByContainer: function(container)
+		sizeControlledByContainer: function(container, eventName)
 		{
 			var obj = this;
-			container.on('resize', function(event, ui)
+			container.on(eventName, function(event, ui)
 			{
 				// Save the initial information about the geometry of the widget and its container.
 				if(obj._initialGeometryInfo==null) {
