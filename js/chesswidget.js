@@ -37,7 +37,7 @@
 	 * @constant
 	 * @public
 	 */
-	var MINIMUM_SQUARE_SIZE = 24;
+	var MINIMUM_SQUARE_SIZE = 20;
 
 	/**
 	 * Maximal value for the square-size parameter.
@@ -53,7 +53,7 @@
 	 * @constant
 	 * @public
 	 */
-	var STEP_SQUARE_SIZE = 4;
+	var STEP_SQUARE_SIZE = 1;
 
 
 	/**

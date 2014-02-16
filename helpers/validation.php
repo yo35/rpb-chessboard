@@ -28,7 +28,7 @@ abstract class RPBChessboardHelperValidation
 	/**
 	 * Minimum square size of the chessboard widgets.
 	 */
-	const MINIMUM_SQUARE_SIZE = 24;
+	const MINIMUM_SQUARE_SIZE = 20;
 
 	/**
 	 * Maximum square size of the chessboard widgets.
@@ -38,7 +38,7 @@ abstract class RPBChessboardHelperValidation
 	/**
 	 * The square size of the chessboard widgets must be a multiple of this value.
 	 */
-	const STEP_SQUARE_SIZE = 4;
+	const STEP_SQUARE_SIZE = 1;
 
 
 	/**
