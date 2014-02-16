@@ -39,6 +39,7 @@
 	 */
 	var MINIMUM_SQUARE_SIZE = 20;
 
+
 	/**
 	 * Maximal value for the square-size parameter.
 	 *
@@ -46,14 +47,6 @@
 	 * @public
 	 */
 	var MAXIMUM_SQUARE_SIZE = 64;
-
-	/**
-	 * Increment value for the square-size parameter.
-	 *
-	 * @constant
-	 * @public
-	 */
-	var STEP_SQUARE_SIZE = 1;
 
 
 	/**
@@ -109,9 +102,7 @@
 	 */
 	function filterOptionSquareSize(squareSize)
 	{
-		squareSize = Math.min(Math.max(squareSize, MINIMUM_SQUARE_SIZE), MAXIMUM_SQUARE_SIZE);
-		squareSize = STEP_SQUARE_SIZE * Math.round(squareSize / STEP_SQUARE_SIZE);
-		return squareSize;
+		return Math.min(Math.max(squareSize, MINIMUM_SQUARE_SIZE), MAXIMUM_SQUARE_SIZE);
 	}
 
 
@@ -227,8 +218,8 @@
 				// Compute the new square size parameter.
 				var deltaW = ui.size.width  - obj._initialGeometryInfo.width ;
 				var deltaH = ui.size.height - obj._initialGeometryInfo.height;
-				var deltaWPerSq = Math.floor(deltaW / 9 / STEP_SQUARE_SIZE) * STEP_SQUARE_SIZE;
-				var deltaHPerSq = Math.floor(deltaH / 8 / STEP_SQUARE_SIZE) * STEP_SQUARE_SIZE;
+				var deltaWPerSq = Math.floor(deltaW / 9);
+				var deltaHPerSq = Math.floor(deltaH / 8);
 				var newSquareSize = obj._initialGeometryInfo.squareSize + Math.min(deltaWPerSq, deltaHPerSq);
 				newSquareSize = Math.min(Math.max(newSquareSize, MINIMUM_SQUARE_SIZE), MAXIMUM_SQUARE_SIZE);
 
@@ -342,8 +333,7 @@
 	$.chessboard =
 	{
 		MINIMUM_SQUARE_SIZE: MINIMUM_SQUARE_SIZE,
-		MAXIMUM_SQUARE_SIZE: MAXIMUM_SQUARE_SIZE,
-		STEP_SQUARE_SIZE   : STEP_SQUARE_SIZE
+		MAXIMUM_SQUARE_SIZE: MAXIMUM_SQUARE_SIZE
 	};
 
 })(Chess, jQuery);

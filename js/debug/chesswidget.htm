@@ -68,7 +68,6 @@
 			value: $('#a').chessboard('option', 'squareSize'),
 			min  : $.chessboard.MINIMUM_SQUARE_SIZE,
 			max  : $.chessboard.MAXIMUM_SQUARE_SIZE,
-			step : $.chessboard.STEP_SQUARE_SIZE   ,
 			slide: function( event, ui ) { $('#a').chessboard('option', 'squareSize', ui.value); refreshSquareSizeLabel(); }
 		});
 		refreshSquareSizeLabel();
@@ -102,7 +101,7 @@
 
 	<script type="text/javascript">
 		var nbFlip            = 2;
-		var nbSquareSize      = 1 + ($.chessboard.MAXIMUM_SQUARE_SIZE-$.chessboard.MINIMUM_SQUARE_SIZE)/$.chessboard.STEP_SQUARE_SIZE;
+		var nbSquareSize      = 1 + ($.chessboard.MAXIMUM_SQUARE_SIZE - $.chessboard.MINIMUM_SQUARE_SIZE);
 		var nbShowCoordinates = 2;
 		for(var k=0; k<nbFlip*nbSquareSize*nbShowCoordinates; ++k) {
 			$('<div id="d' + k + '"></div>').appendTo($('#c'));
@@ -111,7 +110,7 @@
 		{
 			var k=0;
 			for(var p=0; p<nbFlip; ++p) {
-				for(var q=$.chessboard.MINIMUM_SQUARE_SIZE; q<=$.chessboard.MAXIMUM_SQUARE_SIZE; q+=$.chessboard.STEP_SQUARE_SIZE) {
+				for(var q=$.chessboard.MINIMUM_SQUARE_SIZE; q<=$.chessboard.MAXIMUM_SQUARE_SIZE; ++q) {
 					for(var r=0; r<nbShowCoordinates; ++r) {
 						$('#d' + k).chessboard({
 							position       : 'start',

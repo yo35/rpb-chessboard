@@ -62,15 +62,4 @@ class RPBChessboardTraitChessWidgetLimits extends RPBChessboardAbstractTrait
 		$maxVal = $this->getMaximumSquareSize();
 		return 1 + floor(log10($maxVal));
 	}
-
-
-	/**
-	 * The square size of the chessboard widgets must be a multiple of this value.
-	 *
-	 * @return int
-	 */
-	public function getStepSquareSize()
-	{
-		return RPBChessboardHelperValidation::STEP_SQUARE_SIZE;
-	}
 }

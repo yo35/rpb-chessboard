@@ -30,15 +30,11 @@ abstract class RPBChessboardHelperValidation
 	 */
 	const MINIMUM_SQUARE_SIZE = 20;
 
+
 	/**
 	 * Maximum square size of the chessboard widgets.
 	 */
 	const MAXIMUM_SQUARE_SIZE = 64;
-
-	/**
-	 * The square size of the chessboard widgets must be a multiple of this value.
-	 */
-	const STEP_SQUARE_SIZE = 1;
 
 
 	/**
@@ -54,9 +50,7 @@ abstract class RPBChessboardHelperValidation
 			return null;
 		}
 		else {
-			$value = min(max($value, self::MINIMUM_SQUARE_SIZE), self::MAXIMUM_SQUARE_SIZE);
-			$value = round($value / self::STEP_SQUARE_SIZE) * self::STEP_SQUARE_SIZE;
-			return $value;
+			return min(max($value, self::MINIMUM_SQUARE_SIZE), self::MAXIMUM_SQUARE_SIZE);
 		}
 	}
 

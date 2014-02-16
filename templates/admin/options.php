@@ -148,7 +148,6 @@
 					value: squareSize,
 					min: <?php echo json_encode($model->getMinimumSquareSize()); ?>,
 					max: <?php echo json_encode($model->getMaximumSquareSize()); ?>,
-					step: <?php echo json_encode($model->getStepSquareSize()); ?>,
 					slide: function( event, ui ) { onSquareSizeChange($, ui.value); }
 				});
 
