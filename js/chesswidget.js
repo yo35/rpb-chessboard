@@ -23,7 +23,6 @@
  * Tools to create chessboard widgets in HTML pages.
  *
  * @author Yoann Le Montagner
- * @namespace ChessWidget
  *
  * @requires chess.js {@link https://github.com/jhlywa/chess.js}
  * @requires jQuery
@@ -37,7 +36,6 @@
 	 *
 	 * @constant
 	 * @public
-	 * @memberof ChessWidget
 	 */
 	var MINIMUM_SQUARE_SIZE = 24;
 
@@ -46,7 +44,6 @@
 	 *
 	 * @constant
 	 * @public
-	 * @memberof ChessWidget
 	 */
 	var MAXIMUM_SQUARE_SIZE = 64;
 
@@ -55,7 +52,6 @@
 	 *
 	 * @constant
 	 * @public
-	 * @memberof ChessWidget
 	 */
 	var STEP_SQUARE_SIZE = 4;
 
@@ -63,12 +59,11 @@
 	/**
 	 * Root URL of the library.
 	 *
-	 * Use the method ChessWidget.rootURL to get the root URL of the library,
+	 * Use the method `rootURL` to get the root URL of the library,
 	 * instead of reading this variable directly.
 	 *
 	 * @type {string}
 	 * @private
-	 * @memberof ChessWidget
 	 */
 	var _rootURL = null;
 
@@ -76,11 +71,7 @@
 	/**
 	 * Return the root URL of the library.
 	 *
-	 * @private
-	 *
 	 * @returns {string}
-	 *
-	 * @memberof ChessWidget
 	 */
 	function rootURL()
 	{
@@ -102,12 +93,8 @@
 	 * Return the URL to the folder containing the sprites (images representing the chess pieces),
 	 * with the trailing "/" character.
 	 *
-	 * @private
-	 *
 	 * @param {number} squareSize
 	 * @returns {String}
-	 *
-	 * @memberof ChessWidget
 	 */
 	function spriteBaseURL(squareSize)
 	{
@@ -119,13 +106,9 @@
 	/**
 	 * Return the URL to the sprite (a PNG image) corresponding to a given colored piece.
 	 *
-	 * @private
-	 *
 	 * @param {string} coloredPiece
 	 * @param {number} squareSize
 	 * @returns {String}
-	 *
-	 * @memberof ChessWidget
 	 */
 	function coloredPieceURL(coloredPiece, squareSize)
 	{
@@ -140,13 +123,9 @@
 	/**
 	 * Return the URL to the sprite (a PNG image) corresponding to a given color flag.
 	 *
-	 * @private
-	 *
 	 * @param {string} color
 	 * @param {number} squareSize
 	 * @returns {string}
-	 *
-	 * @memberof ChessWidget
 	 */
 	function colorURL(color, squareSize)
 	{
@@ -163,8 +142,6 @@
 	/**
 	 * Ensure that the given string is trimmed.
 	 *
-	 * @private
-	 *
 	 * @param {string} position
 	 * @returns {string}
 	 */
@@ -176,8 +153,6 @@
 
 	/**
 	 * Ensure that the given number is a valid square size.
-	 *
-	 * @private
 	 *
 	 * @param {number} squareSize
 	 * @returns {number}
@@ -193,7 +168,7 @@
 	/**
 	 * Register a 'chessboard' widget in the jQuery widget framework.
 	 */
-	$.widget('chess.chessboard',
+	$.widget('uichess.chessboard',
 	{
 		/**
 		 * Default options.
@@ -234,7 +209,7 @@
 		 */
 		_create: function()
 		{
-			this.element.addClass('chess-chessboard').disableSelection();
+			this.element.addClass('uichess-chessboard').disableSelection();
 			this.options.position   = filterOptionPosition  (this.options.position  );
 			this.options.squareSize = filterOptionSquareSize(this.options.squareSize);
 			this._refresh();
@@ -246,7 +221,7 @@
 		 */
 		_destroy: function()
 		{
-			this.element.removeClass('chess-chessboard').enableSelection();
+			this.element.removeClass('uichess-chessboard').enableSelection();
 		},
 
 
@@ -342,29 +317,29 @@
 
 			// Clear the target node and create the table object.
 			this.element.empty();
-			var table = $('<div class="ChessWidget-table"></div>').appendTo(this.element);
+			var table = $('<div class="uichess-chessboard-table"></div>').appendTo(this.element);
 
 			// For each row...
 			for(var r=0; r<8; ++r) {
-				var tr = $('<div class="ChessWidget-row"></div>').appendTo(table);
+				var tr = $('<div class="uichess-chessboard-row"></div>').appendTo(table);
 
 				// If visible, the row coordinates are shown in the left-most column.
 				if(this.options.showCoordinates) {
-					$('<div class="ChessWidget-row-header">' + ROWS[r] + '</div>').appendTo(tr);
+					$('<div class="uichess-chessboard-row-header">' + ROWS[r] + '</div>').appendTo(tr);
 				}
 
 				// Print the squares belonging to the current column.
 				for(var c=0; c<8; ++c) {
 					var sq = COLUMNS[c] + ROWS[r];
 					$(
-						'<div class="ChessWidget-cell" style="background-color: ' + squareColor[this._position.square_color(sq)] + ';">' +
+						'<div class="uichess-chessboard-cell" style="background-color: ' + squareColor[this._position.square_color(sq)] + ';">' +
 							'<img src="' + coloredPieceURL(this._position.get(sq), this.options.squareSize) + '" />' +
 						'</div>'
 					).appendTo(tr);
 				}
 
 				// Add a "fake" cell at the end of the row: this last column will contain the turn flag.
-				var fakeCell = $('<div class="ChessWidget-fake-cell"></div>').appendTo(tr);
+				var fakeCell = $('<div class="uichess-chessboard-fake-cell"></div>').appendTo(tr);
 
 				// Add the turn flag to the current fake cell if required.
 				var turn = this._position.turn();
@@ -375,21 +350,21 @@
 
 			// If visible, the column coordinates are shown at the bottom of the table.
 			if(this.options.showCoordinates) {
-				var tr = $('<div class="ChessWidget-row"></div>').appendTo(table);
+				var tr = $('<div class="uichess-chessboard-row"></div>').appendTo(table);
 
 				// Empty cell
-				$('<div class="ChessWidget-corner-header"></div>').appendTo(tr);
+				$('<div class="uichess-chessboard-corner-header"></div>').appendTo(tr);
 
 				// Column headers
 				for(var c=0; c<8; ++c) {
-					$('<div class="ChessWidget-column-header">' + COLUMNS[c] + '</div>').appendTo(tr);
+					$('<div class="uichess-chessboard-column-header">' + COLUMNS[c] + '</div>').appendTo(tr);
 				}
 
 				// Empty cell below the "fake" cell columns
-				$('<div class="ChessWidget-fake-header"></div>').appendTo(tr);
+				$('<div class="uichess-chessboard-fake-header"></div>').appendTo(tr);
 			}
 		}
-	}); /* End of $.widget('chess.chessboard', ... ) */
+	}); /* End of $.widget('uichess.chessboard', ... ) */
 
 
 	/**

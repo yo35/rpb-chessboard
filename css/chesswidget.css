@@ -22,7 +22,7 @@
 /******************************************************************************/
 /*** Reset the CSS attributes that may affect the <img> tag ***/
 
-.ChessWidget img {
+.uichess-chessboard img {
 	box-shadow: none;
 	border: 0 none;
 	margin-top   : 0px;
@@ -36,57 +36,56 @@
 /******************************************************************************/
 /*** General aspect of the chessboard ***/
 
-.ChessWidget,
-.chess-chessboard {
+.uichess-chessboard {
 	display: block;
 	text-align: center;
 	margin-top   : 5px;
 	margin-bottom: 5px;
 }
 
-.ChessWidget-table {
+.uichess-chessboard-table {
 	display: inline-table;
 	border-collapse: collapse;
 	font-size: 80%;
 }
 
-.ChessWidget-row {
+.uichess-chessboard-row {
 	display: table-row;
 }
 
-.ChessWidget-row-header,
-.ChessWidget-column-header,
-.ChessWidget-corner-header,
-.ChessWidget-fake-header,
-.ChessWidget-fake-cell,
-.ChessWidget-cell {
+.uichess-chessboard-row-header,
+.uichess-chessboard-column-header,
+.uichess-chessboard-corner-header,
+.uichess-chessboard-fake-header,
+.uichess-chessboard-fake-cell,
+.uichess-chessboard-cell {
 	display: table-cell;
 }
 
-.ChessWidget-row-header,
-.ChessWidget-fake-cell,
-.ChessWidget-cell {
+.uichess-chessboard-row-header,
+.uichess-chessboard-fake-cell,
+.uichess-chessboard-cell {
 	vertical-align: middle;
 	line-height: 0px;
 }
 
-.ChessWidget-corner-header,
-.ChessWidget-fake-header,
-.ChessWidget-column-header {
+.uichess-chessboard-corner-header,
+.uichess-chessboard-fake-header,
+.uichess-chessboard-column-header {
 	vertical-align: baseline;
 	line-height: 1ex;
 }
 
-.ChessWidget-row-header {
+.uichess-chessboard-row-header {
 	padding-left : 5px;
 	padding-right: 5px;
 }
 
-.ChessWidget-column-header {
+.uichess-chessboard-column-header {
 	padding-top   : 6px;
 	padding-bottom: 6px;
 }
 
-.ChessWidget-fake-cell img {
+.uichess-chessboard-fake-cell img {
 	margin-left: 8px;
 }
