@@ -21,7 +21,7 @@
 
 /**
  * Default options applicable to the chess widgets.
- * @type {ChessWidget.Attributes}
+ * @type {object}
  */
 var defaultChessWidgetOptions = null;
 
@@ -46,7 +46,7 @@ function hideJavascriptWarning(nodeID)
  *
  * @param {string} nodeInID
  * @param {string} nodeOutID
- * @param {ChessWidget.Attributes} [options=null]
+ * @param {object} [options=null]
  */
 function processFEN(nodeInID, nodeOutID, options)
 {
@@ -58,9 +58,11 @@ function processFEN(nodeInID, nodeOutID, options)
 	var fen = nodeIn.text();
 
 	// Clear nodeOut and put the chess widget as its child
-	var currentOptions = options==null ? defaultChessWidgetOptions : jQuery.extend({}, defaultChessWidgetOptions, options);
-	nodeOut.empty();
-	nodeOut.append(ChessWidget.make(fen, currentOptions));
+	var currentOptions = jQuery.extend({ position: fen }, defaultChessWidgetOptions);
+	if(options!=null) {
+		jQuery.extend(currentOptions, options);
+	}
+	nodeOut.chessboard(currentOptions);
 
 	// Make nodeIn invisible
 	nodeIn .addClass   ('rpbchessboard-invisible');
@@ -76,7 +78,7 @@ function processFEN(nodeInID, nodeOutID, options)
  *
  * @param {string} nodeInID
  * @param {string} nodeOutID
- * @param {ChessWidget.Attributes} [options=null]
+ * @param {object} [options=null]
  */
 function processPGN(nodeInID, nodeOutID, options)
 {
@@ -89,7 +91,10 @@ function processPGN(nodeInID, nodeOutID, options)
 
 	// PGN rendering
 	var inlineOptions = options==null ? defaultChessWidgetOptions : jQuery.extend({}, defaultChessWidgetOptions, options);
-	var navOptions    = options==null ? defaultChessWidgetOptions : jQuery.extend({}, defaultChessWidgetOptions, {flip: options.flip});
+	var navOptions    = jQuery.extend({ flip: false }, defaultChessWidgetOptions);
+	if(options!=null && options.flip!=null) {
+		navOptions.flip = options.flip;
+	}
 	var parsingSucceeded = PgnWidget.makeAt(pgn, nodeOut, inlineOptions, navOptions);
 
 	// Make nodeIn invisible, and nodeOut visible.

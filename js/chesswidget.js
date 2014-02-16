@@ -30,7 +30,7 @@
  * @requires jQuery UI Widget
  * @requires jQuery UI Selectable
  */
-ChessWidget = (function(Chess, $)
+(function(Chess, $)
 {
 	/**
 	 * Minimal value for the square-size parameter.
@@ -58,17 +58,6 @@ ChessWidget = (function(Chess, $)
 	 * @memberof ChessWidget
 	 */
 	var STEP_SQUARE_SIZE = 4;
-
-
-	/**
-	 * @typedef {{
-	 *   flip           : boolean,
-	 *   squareSize     : number ,
-	 *   showCoordinates: boolean
-	 * }} Attributes
-	 *
-	 * @desc Set of options applicable to a chess widget.
-	 */
 
 
 	/**
@@ -172,28 +161,6 @@ ChessWidget = (function(Chess, $)
 
 
 	/**
-	 * Validate a square-size option value.
-	 *
-	 * @param {object} value Value to be validated.
-	 * @returns {number} Validated value.
-	 *
-	 * @memberof ChessWidget
-	 */
-	function validateSquareSize(value)
-	{
-		if(value==null) {
-			return 32;
-		}
-		else {
-			value = Number(value);
-			value = Math.min(Math.max(value, MINIMUM_SQUARE_SIZE), MAXIMUM_SQUARE_SIZE);
-			value = STEP_SQUARE_SIZE * Math.round(value / STEP_SQUARE_SIZE);
-			return value;
-		}
-	}
-
-
-	/**
 	 * Ensure that the given string is trimmed.
 	 *
 	 * @private
@@ -220,111 +187,6 @@ ChessWidget = (function(Chess, $)
 		squareSize = Math.min(Math.max(squareSize, MINIMUM_SQUARE_SIZE), MAXIMUM_SQUARE_SIZE);
 		squareSize = STEP_SQUARE_SIZE * Math.round(squareSize / STEP_SQUARE_SIZE);
 		return squareSize;
-	}
-
-
-
-	/**
-	 * Create a new DOM node representing a chess diagram.
-	 *
-	 * @param {(Chess|string)} position Chess position to represent.
-	 *
-	 * If the argument is a string, the function will try to parse it as a
-	 * FEN-formatted string. If the parsing fails, an empty chess position will
-	 * be represented.
-	 *
-	 * @params {ChessWidget.Attributes} [options=null] Diagram options, or null to use the default ones.
-	 * @returns {jQuery}
-	 *
-	 * @memberof ChessWidget
-	 */
-	function make(position, options)
-	{
-		// Default options
-		if(options==null) {
-			options = Object();
-		}
-
-		// If the `position` argument is a string, try to parse it as a FEN-formatted string.
-		if(typeof(position)=='string') {
-			position = position.replace(/^\s+|\s+$/g, '');
-			position = new Chess(position);
-		}
-
-		// Read the options
-		var flip             = options.flip==null ? false : Boolean(options.flip);
-		var squareSize       = validateSquareSize(options.squareSize);
-		var showCoordinates  = options.showCoordinates==null ? true : Boolean(options.showCoordinates);
-		var whiteSquareColor = "#f0dec7"; //TODO: read this from options
-		var blackSquareColor = "#b5876b"; //TODO: read this from options
-		var squareColor = {light: whiteSquareColor, dark: blackSquareColor};
-
-		// Create the returned node
-		var retVal = $('<div class="ChessWidget"></div>');
-		var table  = $('<div class="ChessWidget-table"></div>');
-		retVal.append(table);
-
-		// Rows, columns
-		var ROWS    = flip ? ['1','2','3','4','5','6','7','8'] : ['8','7','6','5','4','3','2','1'];
-		var COLUMNS = flip ? ['h','g','f','e','d','c','b','a'] : ['a','b','c','d','e','f','g','h'];
-
-		// For each row...
-		for(var r=0; r<8; ++r) {
-			var tr = $('<div class="ChessWidget-row"></div>');
-			table.append(tr);
-
-			// If visible, the row coordinates are shown in the left-most column.
-			if(showCoordinates) {
-				var th = $('<div class="ChessWidget-row-header">' + ROWS[r] + '</div>');
-				tr.append(th);
-			}
-
-			// Print the squares belonging to the current column
-			for(var c=0; c<8; ++c) {
-				var sq = COLUMNS[c] + ROWS[r];
-				var td = $(
-					'<div class="ChessWidget-cell" style="background-color: ' + squareColor[position.square_color(sq)] + ';">' +
-						'<img src="' + coloredPieceURL(position.get(sq), squareSize) + '" />' +
-					'</div>'
-				);
-				tr.append(td);
-			}
-
-			// Add a "fake" cell at the end of the row: this last column will contain
-			// the turn flag.
-			var fakeCell = $('<div class="ChessWidget-fake-cell"></div>');
-			tr.append(fakeCell);
-
-			// Add the turn flag to the current fake cell if required.
-			var turn = position.turn();
-			if((ROWS[r]=='8' && turn=='b') || (ROWS[r]=='1' && turn=='w')) {
-				var img = $('<img src="' + colorURL(turn, squareSize) + '" />');
-				fakeCell.append(img);
-			}
-		}
-
-		// If visible, the column coordinates are shown at the bottom of the table.
-		if(showCoordinates) {
-			var tr = $('<div class="ChessWidget-row"></div>');
-			table.append(tr);
-
-			// Empty cell
-			var th0 = $('<div class="ChessWidget-corner-header"></div>');
-			tr.append(th0);
-
-			// Column headers
-			for(var c=0; c<8; ++c) {
-				var th = $('<div class="ChessWidget-column-header">' + COLUMNS[c] + '</div>');
-				tr.append(th);
-			}
-
-			// Empty cell below the "fake" cell columns
-			var thFake = $('<div class="ChessWidget-fake-header"></div>');
-			tr.append(thFake);
-		}
-
-		// Return the result
-		return retVal;
 	}
 
 
@@ -528,6 +390,7 @@ ChessWidget = (function(Chess, $)
 		}
 	}); /* End of $.widget('chess.chessboard', ... ) */
 
+
 	/**
 	 * Public constants.
 	 */
@@ -536,17 +399,6 @@ ChessWidget = (function(Chess, $)
 		MINIMUM_SQUARE_SIZE: MINIMUM_SQUARE_SIZE,
 		MAXIMUM_SQUARE_SIZE: MAXIMUM_SQUARE_SIZE,
 		STEP_SQUARE_SIZE   : STEP_SQUARE_SIZE
-	};
-
-
-
-	// Returned the module object
-	return {
-		MINIMUM_SQUARE_SIZE: MINIMUM_SQUARE_SIZE,
-		MAXIMUM_SQUARE_SIZE: MAXIMUM_SQUARE_SIZE,
-		STEP_SQUARE_SIZE   : STEP_SQUARE_SIZE   ,
-		validateSquareSize : validateSquareSize ,
-		make               : make
 	};
 
 })(Chess, jQuery);

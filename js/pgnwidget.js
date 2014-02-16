@@ -31,7 +31,7 @@
  * @requires jQuery
  * @requires jQuery-color
  */
-var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
+var PgnWidget = (function(Chess, Pgn, $)
 {
 	/**
 	 * Various strings used by the library and printed out to the screen at some
@@ -233,7 +233,7 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	 * @private
 	 *
 	 * @param {(Pgn.Node|Pgn.Variation)} pgnNode Node or variation object containing the commentary to render.
-	 * @param {ChessWidget.Attributes} options Default set of options for displaying inline diagrams.
+	 * @param {object} options Default set of options for displaying inline diagrams.
 	 * @returns {jQuery}
 	 *
 	 * @memberof PgnWidget
@@ -255,14 +255,14 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 		$('.PgnWidget-anchor-diagram', retVal).each(function(index, e)
 		{
 			// Try to parse the content of the node as a JSON string.
-			var currentOptions = options;
+			var currentOptions = $.extend({ position: pgnNode.position() }, options);
 			try {
-				currentOptions = $.extend({}, options, $.parseJSON('{' + $(e).text() + '}'));
+				$.extend(currentOptions, $.parseJSON('{' + $(e).text() + '}'));
 			}
 			catch(err) {}
 
-			// Render the diagram with the proper options
-			$(e).replaceWith(ChessWidget.make(pgnNode.position(), currentOptions));
+			// Render the diagram
+			$(e).chessboard(currentOptions);
 		});
 
 		// Return the result
@@ -278,8 +278,8 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	 *
 	 * @param {Pgn.Variation} pgnVariation PGN variation object to render.
 	 * @param {number} depth Depth of the PGN node within its belonging PGN tree (0 for the main variation, 1 for a direct sub-variation, etc...)
-	 * @param {ChessWidget.Attributes} inlineOptions Default set of options for displaying inline diagrams.
-	 * @param {ChessWidget.Attributes} navOptions Set of options to use for the navigation frame.
+	 * @param {object} inlineOptions Default set of options for displaying inline diagrams.
+	 * @param {object} navOptions Set of options to use for the navigation frame.
 	 * @returns {jQuery}
 	 *
 	 * @memberof PgnWidget
@@ -545,8 +545,8 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	 * will be targeted by the substitution.
 	 *
 	 * @param {Pgn.Item} pgnItem Contain the information to display.
-	 * @param {ChessWidget.Attributes} inlineOptions Default set of options for displaying inline diagrams.
-	 * @param {ChessWidget.Attributes} navOptions Set of options to use for the navigation frame.
+	 * @param {object} inlineOptions Default set of options for displaying inline diagrams.
+	 * @param {object} navOptions Set of options to use for the navigation frame.
 	 *
 	 * @memberof PgnWidget
 	 */
@@ -640,8 +640,8 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	 * the targeted DOM node is cleared, and an error message is displayed instead.
 	 *
 	 * @param {jQuery} targetNode
-	 * @param {ChessWidget.Attributes} [inlineOptions=null] Default set of options for displaying inline diagrams.
-	 * @param {ChessWidget.Attributes} [navOptions=null] Set of options to use for the navigation frame.
+	 * @param {object} [inlineOptions=null] Default set of options for displaying inline diagrams.
+	 * @param {object} [navOptions=null] Set of options to use for the navigation frame.
 	 * @returns {boolean} False if the parsing of the PGN string fails, true otherwise.
 	 *
 	 * @memberof PgnWidget
@@ -679,7 +679,7 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 		}
 
 		// Create the navigation frame if necessary
-		makeNavigationFrame(targetNode);
+		makeNavigationFrame(targetNode, navOptions);
 
 		// Substitution
 		substituteSimpleField(targetNode, 'Event'    , pgn);
@@ -700,29 +700,17 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 
 
 	/**
-	 * Information relative to the navigation frame.
-	 *
-	 * @private
-	 * @memberof PgnWidget
-	 */
-	var navFrameInfo =
-	{
-		squareSize  : null,
-		initialState: null
-	};
-
-
-	/**
 	 * Create the navigation frame, if it does not exist yet. The frame is
 	 * appended as a child of the given DOM node.
 	 *
 	 * @private
 	 *
 	 * @param {jQuery} parentNode
+	 * @param {object} navOptions Set of options to use for the navigation frame.
 	 *
 	 * @memberof PgnWidget
 	 */
-	function makeNavigationFrame(parentNode)
+	function makeNavigationFrame(parentNode, navOptions)
 	{
 		if($('#PgnWidget-navigation-frame').length!=0) {
 			return;
@@ -757,9 +745,12 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 				autoOpen   : false,
 				dialogClass: 'wp-dialog',
 				width      : 'auto',
-				resize     : function(event, ui) { onResize(ui); },
 				close      : function(event, ui) { unselectMove(); }
 			});
+
+			// Create the chessboard widget
+			$('#PgnWidget-navigation-content').chessboard(navOptions);
+			$('#PgnWidget-navigation-content').chessboard('sizeControlledByContainer', $('#PgnWidget-navigation-frame'));
 
 			// Create the buttons
 			$('#PgnWidget-navigation-button-frst').button().click(function() { goFrstMove(); });
@@ -767,44 +758,6 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 			$('#PgnWidget-navigation-button-next').button().click(function() { goNextMove(); });
 			$('#PgnWidget-navigation-button-last').button().click(function() { goLastMove(); });
 		});
-	}
-
-
-	/**
-	 * Handler for the navigation frame 'resize' event.
-	 *
-	 * @param {object} ui
-	 *
-	 * @private
-	 * @memberof PgnWidget
-	 */
-	function onResize(ui)
-	{
-		// Save the reference state
-		if(navFrameInfo.initialState==null) {
-			navFrameInfo.initialState = {
-				squareSize: navFrameInfo.squareSize,
-				height    : ui.originalSize.height,
-				width     : ui.originalSize.width
-			};
-		}
-
-		// Determine the new square-size
-		function newSqSz(deltaPerSquare)
-		{
-			var delta = Math.floor(deltaPerSquare / ChessWidget.STEP_SQUARE_SIZE) * ChessWidget.STEP_SQUARE_SIZE;
-			return Math.min(Math.max(navFrameInfo.initialState.squareSize + delta,
-				ChessWidget.MINIMUM_SQUARE_SIZE), ChessWidget.MAXIMUM_SQUARE_SIZE);
-		}
-		var newSqSzForH   = newSqSz((ui.size.height-navFrameInfo.initialState.height) / 8);
-		var newSqSzForW   = newSqSz((ui.size.width -navFrameInfo.initialState.width ) / 9);
-		var newSquareSize = Math.min(newSqSzForH, newSqSzForW);
-
-		// Update the chessboard widget if necessary
-		if(newSquareSize!=navFrameInfo.squareSize) {
-			navFrameInfo.squareSize = newSquareSize;
-			refreshNavigationFrameWidget($('#PgnWidget-selected-move'));
-		}
 	}
 
 
@@ -830,11 +783,6 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 		// Mark the current move as selected
 		selectMove(domNode);
 
-		// Determine the options to use to render the chessboard widget
-		if(navFrameInfo.squareSize==null) {
-			navFrameInfo.squareSize = ChessWidget.validateSquareSize(domNode.data('navOptions').squareSize);
-		}
-
 		// Fill the miniboard in the navigation frame
 		refreshNavigationFrameWidget(domNode);
 
@@ -858,9 +806,12 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 	 */
 	function refreshNavigationFrameWidget(selectedMove)
 	{
-		var position = selectedMove.data('position'  );
-		var opts     = $.extend({}, selectedMove.data('navOptions'), {squareSize: navFrameInfo.squareSize});
-		$('#PgnWidget-navigation-content').empty().append(ChessWidget.make(position, opts));
+		var target = $('#PgnWidget-navigation-content');
+		target.chessboard('option', 'position', selectedMove.data('position'));
+		var flip = selectedMove.data('navOptions').flip;
+		if(flip!=null && flip!=target.chessboard('option', 'flip')) {
+			target.chessboard('option', 'flip', flip);
+		}
 	}
 
 
@@ -984,4 +935,4 @@ var PgnWidget = (function(Chess, Pgn, ChessWidget, $)
 		makeAt: makeAt
 	};
 
-})(Chess, Pgn, ChessWidget, jQuery);
+})(Chess, Pgn, jQuery);
