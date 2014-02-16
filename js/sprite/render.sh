@@ -24,26 +24,30 @@ fi
 current_size=$size_min
 while [ $current_size -le $size_max ]; do
 
-	# Create the output directory
-	mkdir -p $current_size
-	
-	# Export the files
-	inkscape -e $current_size/bb.png -w $current_size -h $current_size bb.svg
-	inkscape -e $current_size/bk.png -w $current_size -h $current_size bk.svg
-	inkscape -e $current_size/bn.png -w $current_size -h $current_size bn.svg
-	inkscape -e $current_size/bp.png -w $current_size -h $current_size bp.svg
-	inkscape -e $current_size/bq.png -w $current_size -h $current_size bq.svg
-	inkscape -e $current_size/br.png -w $current_size -h $current_size br.svg
-	inkscape -e $current_size/wb.png -w $current_size -h $current_size wb.svg
-	inkscape -e $current_size/wk.png -w $current_size -h $current_size wk.svg
-	inkscape -e $current_size/wn.png -w $current_size -h $current_size wn.svg
-	inkscape -e $current_size/wp.png -w $current_size -h $current_size wp.svg
-	inkscape -e $current_size/wq.png -w $current_size -h $current_size wq.svg
-	inkscape -e $current_size/wr.png -w $current_size -h $current_size wr.svg
-	inkscape -e $current_size/clear.png -w $current_size -h $current_size clear.svg
-	inkscape -e $current_size/black.png -w $current_size -h $current_size black.svg
-	inkscape -e $current_size/white.png -w $current_size -h $current_size white.svg
-	
+	# Export the SVG files into PNG
+	inkscape -e bb.png -w $current_size -h $current_size bb.svg
+	inkscape -e bk.png -w $current_size -h $current_size bk.svg
+	inkscape -e bn.png -w $current_size -h $current_size bn.svg
+	inkscape -e bp.png -w $current_size -h $current_size bp.svg
+	inkscape -e bq.png -w $current_size -h $current_size bq.svg
+	inkscape -e br.png -w $current_size -h $current_size br.svg
+	inkscape -e bx.png -w $current_size -h $current_size bx.svg
+	inkscape -e wb.png -w $current_size -h $current_size wb.svg
+	inkscape -e wk.png -w $current_size -h $current_size wk.svg
+	inkscape -e wn.png -w $current_size -h $current_size wn.svg
+	inkscape -e wp.png -w $current_size -h $current_size wp.svg
+	inkscape -e wq.png -w $current_size -h $current_size wq.svg
+	inkscape -e wr.png -w $current_size -h $current_size wr.svg
+	inkscape -e wx.png -w $current_size -h $current_size wx.svg
+
+	# Montage
+	convert +append b?.png b.png
+	convert +append w?.png w.png
+	convert -append ?.png all-$current_size.png
+
+	# Remove the temporary files
+	rm ??.png ?.png
+
 	# Increment the counter
 	current_size=`expr $current_size + $step`
 done
