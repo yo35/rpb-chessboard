@@ -19,23 +19,6 @@
  ******************************************************************************/
 
 
-/******************************************************************************/
-/*** Reset the CSS attributes that may affect the <img> tag ***/
-
-.uichess-chessboard img {
-	box-shadow: none;
-	border: 0 none;
-	margin-top   : 0px;
-	margin-left  : 0px;
-	margin-bottom: 0px;
-	margin-right : 0px;
-}
-
-
-
-/******************************************************************************/
-/*** General aspect of the chessboard ***/
-
 .uichess-chessboard {
 	display: block;
 	text-align: center;
@@ -87,6 +70,6 @@
 	padding-bottom: 6px;
 }
 
-.uichess-chessboard-turnCell img {
+.uichess-chessboard-turnCell .uichess-chessboard-turnFlag {
 	margin-left: 8px;
 }

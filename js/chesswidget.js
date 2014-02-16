@@ -90,56 +90,6 @@
 
 
 	/**
-	 * Return the URL to the folder containing the sprites (images representing the chess pieces),
-	 * with the trailing "/" character.
-	 *
-	 * @param {number} squareSize
-	 * @returns {String}
-	 */
-	function spriteBaseURL(squareSize)
-	{
-		var retVal = rootURL() + 'sprite/' + squareSize + '/';
-		return retVal;
-	}
-
-
-	/**
-	 * Return the URL to the sprite (a PNG image) corresponding to a given colored piece.
-	 *
-	 * @param {string} coloredPiece
-	 * @param {number} squareSize
-	 * @returns {String}
-	 */
-	function coloredPieceURL(coloredPiece, squareSize)
-	{
-		var retVal =
-			spriteBaseURL(squareSize) +
-			(coloredPiece==null ? 'clear' : (coloredPiece.color + coloredPiece.type)) +
-			'.png';
-		return retVal;
-	}
-
-
-	/**
-	 * Return the URL to the sprite (a PNG image) corresponding to a given color flag.
-	 *
-	 * @param {string} color
-	 * @param {number} squareSize
-	 * @returns {string}
-	 */
-	function colorURL(color, squareSize)
-	{
-		var retVal = spriteBaseURL(squareSize);
-		switch(color) {
-			case 'w': retVal+='white.png'; break;
-			case 'b': retVal+='black.png'; break;
-			default: retVal+='clear.png'; break;
-		}
-		return retVal;
-	}
-
-
-	/**
 	 * Ensure that the given string is trimmed.
 	 *
 	 * @param {string} position
@@ -307,13 +257,17 @@
 			}
 
 			// Square colors
-			var whiteSquareColor = "#f0dec7"; //TODO: read this from options
-			var blackSquareColor = "#b5876b"; //TODO: read this from options
-			var squareColor = {light: whiteSquareColor, dark: blackSquareColor};
+			var SQUARE_COLOR = { light: '#f0dec7', dark: '#b5876b' };
 
 			// Rows, columns
 			var ROWS    = this.options.flip ? ['1','2','3','4','5','6','7','8'] : ['8','7','6','5','4','3','2','1'];
 			var COLUMNS = this.options.flip ? ['h','g','f','e','d','c','b','a'] : ['a','b','c','d','e','f','g','h'];
+
+			// Offset for image alignment
+			var SQUARE_SIZE  = this.options.squareSize;
+			var SPRITE_URL   = rootURL() + 'sprite/all-' + SQUARE_SIZE + '.png';
+			var OFFSET_PIECE = { b:0, k:SQUARE_SIZE, n:2*SQUARE_SIZE, p:3*SQUARE_SIZE, q:4*SQUARE_SIZE, r:5*SQUARE_SIZE, x:6*SQUARE_SIZE };
+			var OFFSET_COLOR = { b:0, w:SQUARE_SIZE };
 
 			// Open the "table" node.
 			var content = '<div class="uichess-chessboard-table">';
@@ -330,18 +284,26 @@
 				// Print the squares belonging to the current column.
 				for(var c=0; c<8; ++c) {
 					var sq = COLUMNS[c] + ROWS[r];
-					content +=
-						'<div class="uichess-chessboard-cell" style="background-color: ' + squareColor[this._position.square_color(sq)] + ';">' +
-							'<img src="' + coloredPieceURL(this._position.get(sq), this.options.squareSize) + '" />' +
-						'</div>'
-					;
+					var cp = this._position.get(sq);
+					content += '<div class="uichess-chessboard-cell" style="' +
+						'width: ' + SQUARE_SIZE + 'px; height: ' + SQUARE_SIZE + 'px; ' +
+						'background-color: ' + SQUARE_COLOR[this._position.square_color(sq)] + ';';
+					if(cp!=null) {
+						content += ' background-image: url(' + SPRITE_URL + ');';
+						content += ' background-position: -' + OFFSET_PIECE[cp.type] + 'px -' + OFFSET_COLOR[cp.color] + 'px;';
+					}
+					content += '"></div>';
 				}
 
 				// Add a "fake" cell at the end of the row: this last column will contain the turn flag, if necessary.
 				content += '<div class="uichess-chessboard-turnCell">';
 				var turn = this._position.turn();
 				if((ROWS[r]=='8' && turn=='b') || (ROWS[r]=='1' && turn=='w')) {
-					content += '<img src="' + colorURL(turn, this.options.squareSize) + '" />';
+					content += '<div class="uichess-chessboard-turnFlag" style="' +
+						'width: ' + SQUARE_SIZE + 'px; height: ' + SQUARE_SIZE + 'px; ' +
+						'background-image: url(' + SPRITE_URL + '); ' +
+						'background-position: -' + OFFSET_PIECE['x'] + 'px -' + OFFSET_COLOR[turn] + 'px;' +
+					'"></div>';
 				}
 
 				// End of the "fake" cell and end of the row.
