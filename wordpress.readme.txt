@@ -48,8 +48,8 @@ and [PGN](http://en.wikipedia.org/wiki/Portable_Game_Notation) notations.
  * Customizable aspect for the chessboards (orientation, size, etc...).
  * Support commentaries and sub-variations in PGN-encoded games.
  * Support HTML formatting in PGN commentaries.
- * Compatibility mode to avoid conflicts with the other plugins that also use
-   the `[fen][/fen]` and `[pgn][/pgn]` shortcodes.
+ * Compatibility mode to avoid conflicts with the other plugins that use
+   the `[fen][/fen]` and `[pgn][/pgn]` shortcodes too.
 
 If you encounter some bugs with this plugin, or if you wish to get new features
 in the future versions, you can report/propose them in the bug tracker at
