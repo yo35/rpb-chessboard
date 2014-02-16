@@ -673,7 +673,7 @@ Pgn = (function(Chess)
 			}
 
 			// Match a move
-			else if(/^((?:[1-9][0-9]*\s*\.(?:\.\.)?\s*)?(O-O-O|O-O|[KQRBNP]?[a-h]?[1-8]?x?[a-h][1-8](?:=?[KQRBNP])?[\+#]?))/.test(s)) {
+			else if(/^((?:[1-9][0-9]*\s*\.(?:\.\.)?\s*)?((?:O-O-O|O-O|[KQRBNP]?[a-h]?[1-8]?x?[a-h][1-8](?:=?[KQRBNP])?)[\+#]?))/.test(s)) {
 				deltaPos   = RegExp.$1.length;
 				token      = TOKEN_MOVE;
 				tokenValue = RegExp.$2;
