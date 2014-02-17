@@ -119,6 +119,15 @@
 
 
 	/**
+	 * Ensure that the given string is a valid value for the `allowMoves` option.
+	 */
+	function filterOptionAllowMoves(allowMoves)
+	{
+		return allowMoves=='all' ? allowMoves : 'none';
+	}
+
+
+	/**
 	 * Register a 'chessboard' widget in the jQuery widget framework.
 	 */
 	$.widget('uichess.chessboard',
@@ -146,7 +155,18 @@
 			/**
 			 * Whether the row and column coordinates are shown or not.
 			 */
-			showCoordinates: true
+			showCoordinates: true,
+
+			/**
+			 * Whether the user can moves the pieces or not, and which type of move is allowed.
+			 *
+			 * Available values are:
+			 * * 'none': no move is allowed, drag & drop is disabled.
+			 * * 'all': all moves are allowed, legal or not.
+			 *
+			 * TODO: mode to allow only legal moves.
+			 */
+			allowMoves: 'none'
 		},
 
 
@@ -165,6 +185,7 @@
 			this.element.addClass('uichess-chessboard').disableSelection();
 			this.options.position   = filterOptionPosition  (this.options.position  );
 			this.options.squareSize = filterOptionSquareSize(this.options.squareSize);
+			this.options.allowMoves = filterOptionAllowMoves(this.options.allowMoves);
 			this._refresh();
 		},
 
@@ -190,6 +211,10 @@
 
 			else if(key=='squareSize') {
 				value = filterOptionSquareSize(value);
+			}
+
+			else if(key=='allowMoves') {
+				value = filterOptionAllowMoves(value);
 			}
 
 			this.options[key] = value;
@@ -339,6 +364,12 @@
 			// Clear the target node and render its content.
 			this.element.empty();
 			$(content).appendTo(this.element);
+
+			// Enable the drag & drop feature if necessary.
+			if(this.options.allowMoves=='all') {
+				this._tagSquares();
+				this._makePiecesDraggable();
+			}
 		},
 
 
