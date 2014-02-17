@@ -83,6 +83,18 @@
 
 
 	/**
+	 * Return the URL to the image containing the sprites for the given square size.
+	 *
+	 * @param {number} squareSize
+	 * @returns {string}
+	 */
+	function spriteURL(squareSize)
+	{
+		return rootURL() + 'sprite/all-' + squareSize + '.png';
+	}
+
+
+	/**
 	 * Ensure that the given string is trimmed.
 	 *
 	 * @param {string} position
@@ -256,7 +268,7 @@
 
 			// Offset for image alignment
 			var SQUARE_SIZE  = this.options.squareSize;
-			var SPRITE_URL   = rootURL() + 'sprite/all-' + SQUARE_SIZE + '.png';
+			var SPRITE_URL   = spriteURL(SQUARE_SIZE);
 			var OFFSET_PIECE = { b:0, k:SQUARE_SIZE, n:2*SQUARE_SIZE, p:3*SQUARE_SIZE, q:4*SQUARE_SIZE, r:5*SQUARE_SIZE, x:6*SQUARE_SIZE };
 			var OFFSET_COLOR = { b:0, w:SQUARE_SIZE };
 
@@ -276,25 +288,29 @@
 				for(var c=0; c<8; ++c) {
 					var sq = COLUMNS[c] + ROWS[r];
 					var cp = this._position.get(sq);
-					content += '<div class="uichess-chessboard-cell" style="' +
+					var clazz = 'uichess-chessboard-cell';
+					var style =
 						'width: ' + SQUARE_SIZE + 'px; height: ' + SQUARE_SIZE + 'px; ' +
 						'background-color: ' + SQUARE_COLOR[this._position.square_color(sq)] + ';';
 					if(cp!=null) {
-						content += ' background-image: url(' + SPRITE_URL + ');';
-						content += ' background-position: -' + OFFSET_PIECE[cp.type] + 'px -' + OFFSET_COLOR[cp.color] + 'px;';
+						clazz += ' uichess-chessboard-piece';
+						style +=
+							' background-image: url(' + SPRITE_URL + ');' +
+							' background-position: -' + OFFSET_PIECE[cp.type] + 'px -' + OFFSET_COLOR[cp.color] + 'px;';
 					}
-					content += '"></div>';
+					content += '<div class="' + clazz + '" style="' + style + '"></div>';
 				}
 
 				// Add a "fake" cell at the end of the row: this last column will contain the turn flag, if necessary.
 				content += '<div class="uichess-chessboard-turnCell">';
 				var turn = this._position.turn();
 				if((ROWS[r]=='8' && turn=='b') || (ROWS[r]=='1' && turn=='w')) {
-					content += '<div class="uichess-chessboard-turnFlag" style="' +
-						'width: ' + SQUARE_SIZE + 'px; height: ' + SQUARE_SIZE + 'px; ' +
-						'background-image: url(' + SPRITE_URL + '); ' +
-						'background-position: -' + OFFSET_PIECE['x'] + 'px -' + OFFSET_COLOR[turn] + 'px;' +
-					'"></div>';
+					content +=
+						'<div class="uichess-chessboard-turnFlag" style="' +
+							'width: ' + SQUARE_SIZE + 'px; height: ' + SQUARE_SIZE + 'px; ' +
+							'background-image: url(' + SPRITE_URL + '); ' +
+							'background-position: -' + OFFSET_PIECE['x'] + 'px -' + OFFSET_COLOR[turn] + 'px;' +
+						'"></div>';
 				}
 
 				// End of the "fake" cell and end of the row.
@@ -323,7 +339,91 @@
 			// Clear the target node and render its content.
 			this.element.empty();
 			$(content).appendTo(this.element);
+		},
+
+
+		/**
+		 * Tag each square of the chessboard with its name (for instance: 'e4').
+		 * The name of the square is then available through:
+		 *
+		 *   $(e).data('square');
+		 *
+		 * Where `e` is a DOM object with the class `uichess-chessboard-cell`.
+		 */
+		_tagSquares: function()
+		{
+			var ROWS    = this.options.flip ? ['1','2','3','4','5','6','7','8'] : ['8','7','6','5','4','3','2','1'];
+			var COLUMNS = this.options.flip ? ['h','g','f','e','d','c','b','a'] : ['a','b','c','d','e','f','g','h'];
+			var r = 0;
+			var c = 0;
+			$('.uichess-chessboard-cell', this.element).each(function()
+			{
+				$(this).data('square', COLUMNS[c] + ROWS[r]);
+				++c;
+				if(c==8) {
+					c = 0;
+					++r;
+				}
+			});
+		},
+
+
+		/**
+		 * Make the pieces on the board draggable.
+		 */
+		_makePiecesDraggable: function()
+		{
+			// Some constants.
+			var SQUARE_SIZE  = this.options.squareSize;
+			var SPRITE_URL   = spriteURL(SQUARE_SIZE);
+
+			// The pieces must be contained in the area occupied by the chessboard squares.
+			var posTopLeft     = $('.uichess-chessboard-cell:first', this.element).position();
+			var posBottomRight = $('.uichess-chessboard-cell:last' , this.element).position();
+			var draggableArea  = [posTopLeft.left, posTopLeft.top, posBottomRight.left, posBottomRight.top];
+
+			// Make each piece draggable.
+			$('.uichess-chessboard-piece', this.element).each(function()
+			{
+				var background_position = $(this).css('background-position');
+				$(this).draggable({
+					cursor     : 'move',
+					cursorAt   : { top: SQUARE_SIZE/2, left: SQUARE_SIZE/2 },
+					containment: draggableArea,
+					helper: function()
+					{
+						return $(
+							'<div style="' +
+								'width: ' + SQUARE_SIZE + 'px; height: ' + SQUARE_SIZE + 'px; ' +
+								'background-image: url(' + SPRITE_URL + '); ' + 'background-position: ' + background_position +
+							'"></div>'
+						);
+					},
+					start: function()
+					{
+						$(this).css('background-position', '').css('background-image', '');
+					},
+					stop: function()
+					{
+						$(this).css('background-position', background_position).css('background-image', 'url(' + SPRITE_URL + ')');
+					}
+				});
+			});
+
+			// Make each square an available drop target.
+			$('.uichess-chessboard-cell', this.element).each(function()
+			{
+				$(this).droppable({
+					accept    : '.uichess-chessboard-piece',
+					hoverClass: 'uichess-chessboard-cellHover',
+					drop: function(event, ui)
+					{
+						console.log('Move from ' + ui.draggable.data('square') + ' to ' + $(this).data('square')); // TODO: trigger an event instead.
+					}
+				});
+			});
 		}
+
 	}); /* End of $.widget('uichess.chessboard', ... ) */
 
 

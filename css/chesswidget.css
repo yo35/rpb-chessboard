@@ -73,3 +73,7 @@
 .uichess-chessboard-turnCell .uichess-chessboard-turnFlag {
 	margin-left: 8px;
 }
+
+.uichess-chessboard-cellHover {
+	box-shadow: 0 0 5px 2px #ffa000 inset;
+}
