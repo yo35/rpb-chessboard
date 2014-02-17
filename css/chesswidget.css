@@ -46,9 +46,12 @@
 	display: table-cell;
 }
 
-.uichess-chessboard-rowHeader,
 .uichess-chessboard-turnCell,
 .uichess-chessboard-cell {
+	line-height: 0px;
+}
+
+.uichess-chessboard-rowHeader {
 	vertical-align: middle;
 	line-height: 0px;
 }
