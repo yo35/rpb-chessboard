@@ -318,7 +318,7 @@
 			}
 
 			// Close the "table" node.
-			content += '</div>'
+			content += '</div>';
 
 			// Clear the target node and render its content.
 			this.element.empty();
