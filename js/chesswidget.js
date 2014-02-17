@@ -313,17 +313,20 @@
 				for(var c=0; c<8; ++c) {
 					var sq = COLUMNS[c] + ROWS[r];
 					var cp = this._position.get(sq);
-					var clazz = 'uichess-chessboard-cell';
-					var style =
-						'width: ' + SQUARE_SIZE + 'px; height: ' + SQUARE_SIZE + 'px; ' +
-						'background-color: ' + SQUARE_COLOR[this._position.square_color(sq)] + ';';
+					content +=
+						'<div class="uichess-chessboard-cell" style="' +
+							'width: ' + SQUARE_SIZE + 'px; height: ' + SQUARE_SIZE + 'px; ' +
+							'background-color: ' + SQUARE_COLOR[this._position.square_color(sq)] + ';' +
+						'">';
 					if(cp!=null) {
-						clazz += ' uichess-chessboard-piece';
-						style +=
-							' background-image: url(' + SPRITE_URL + ');' +
-							' background-position: -' + OFFSET_PIECE[cp.type] + 'px -' + OFFSET_COLOR[cp.color] + 'px;';
+						content +=
+							'<div class="uichess-chessboard-piece" style="' +
+								'width: ' + SQUARE_SIZE + 'px; height: ' + SQUARE_SIZE + 'px; ' +
+								'background-image: url(' + SPRITE_URL + '); ' +
+								'background-position: -' + OFFSET_PIECE[cp.type] + 'px -' + OFFSET_COLOR[cp.color] + 'px;' +
+							'"></div>';
 					}
-					content += '<div class="' + clazz + '" style="' + style + '"></div>';
+					content += '</div>';
 				}
 
 				// Add a "fake" cell at the end of the row: this last column will contain the turn flag, if necessary.
@@ -411,34 +414,16 @@
 			// The pieces must be contained in the area occupied by the chessboard squares.
 			var posTopLeft     = $('.uichess-chessboard-cell:first', this.element).position();
 			var posBottomRight = $('.uichess-chessboard-cell:last' , this.element).position();
-			var draggableArea  = [posTopLeft.left, posTopLeft.top, posBottomRight.left, posBottomRight.top];
+			var draggableArea  = [posTopLeft.left - 2*SQUARE_SIZE, posTopLeft.top - 2*SQUARE_SIZE,
+				posBottomRight.left + 2*SQUARE_SIZE, posBottomRight.top + 2*SQUARE_SIZE];
 
 			// Make each piece draggable.
-			$('.uichess-chessboard-piece', this.element).each(function()
-			{
-				var background_position = $(this).css('background-position');
-				$(this).draggable({
-					cursor     : 'move',
-					cursorAt   : { top: SQUARE_SIZE/2, left: SQUARE_SIZE/2 },
-					containment: draggableArea,
-					helper: function()
-					{
-						return $(
-							'<div style="' +
-								'width: ' + SQUARE_SIZE + 'px; height: ' + SQUARE_SIZE + 'px; ' +
-								'background-image: url(' + SPRITE_URL + '); ' + 'background-position: ' + background_position +
-							'"></div>'
-						);
-					},
-					start: function()
-					{
-						$(this).css('background-position', '').css('background-image', '');
-					},
-					stop: function()
-					{
-						$(this).css('background-position', background_position).css('background-image', 'url(' + SPRITE_URL + ')');
-					}
-				});
+			$('.uichess-chessboard-piece', this.element).draggable({
+				cursor        : 'move',
+				cursorAt      : { top: SQUARE_SIZE/2, left: SQUARE_SIZE/2 },
+				containment   : draggableArea,
+				revert        : true,
+				revertDuration: 0
 			});
 
 			// Make each square an available drop target.
@@ -449,7 +434,8 @@
 					hoverClass: 'uichess-chessboard-cellHover',
 					drop: function(event, ui)
 					{
-						console.log('Move from ' + ui.draggable.data('square') + ' to ' + $(this).data('square')); // TODO: trigger an event instead.
+						console.log('Move from ' + ui.draggable.parent().data('square') + ' to ' + $(this).data('square')); // TODO: trigger an event instead.
+						$(this).append(ui.draggable);
 					}
 				});
 			});
