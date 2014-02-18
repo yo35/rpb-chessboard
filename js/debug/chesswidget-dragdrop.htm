@@ -27,7 +27,7 @@
 					<label for="flip">Flip</label>
 				</p>
 			</form>
-			<div id="info"></div>
+			<pre id="info"></pre>
 		</div>
 		<div class="rpbchessboard-admin-column" style="width: 60%; background: #e0ffe0;">
 			<div id="a"></div>
@@ -36,7 +36,17 @@
 
 	<script type="text/javascript">
 
-		$('#a').chessboard({ position: 'start', squareSize: 48, allowMoves: 'all' });
+		$('#a').chessboard({
+			position  : 'start',
+			squareSize: 48,
+			allowMoves: 'all',
+			move: function(event, ui)
+			{
+				$('#info')
+					.append('<div>Move from ' + ui.from + ' to ' + ui.to + '</div>')
+					.append('<div>' + $('#a').chessboard('option', 'position') + '</div>');
+			}
+		});
 
 		$('#flip').prop('checked', $('#a').chessboard('option', 'flip')).button().click(function() {
 			$('#a').chessboard('option', 'flip', $('#flip').prop('checked'));

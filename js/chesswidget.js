@@ -376,18 +376,37 @@
 			});
 
 			// Make each square an available drop target.
-			$('.uichess-chessboard-cell', this.element).each(function()
-			{
-				$(this).droppable({
-					accept    : '.uichess-chessboard-piece',
-					hoverClass: 'uichess-chessboard-cellHover',
-					drop: function(event, ui)
-					{
-						console.log('Move from ' + ui.draggable.parent().data('square') + ' to ' + $(this).data('square')); // TODO: trigger an event instead.
-						$(this).append(ui.draggable);
-					}
-				});
+			var obj = this;
+			$('.uichess-chessboard-cell', this.element).droppable({
+				accept    : '.uichess-chessboard-piece',
+				hoverClass: 'uichess-chessboard-cellHover',
+				drop: function(event, ui)
+				{
+					var target      = $(event.target);
+					var movingPiece = ui.draggable;
+					var move        = { from: movingPiece.parent().data('square'), to: target.data('square') };
+					obj._dragDropCallback(move, movingPiece, target);
+				}
 			});
+		},
+
+
+		/**
+		 * Called when a piece is dropped on a square.
+		 *
+		 * @param {{from: string, to: string}} move The origin and destination squares.
+		 * @param {jQuery} movingPiece DOM node representing the moving piece.
+		 * @param {jQuery} target DOM node representing the destination square.
+		 */
+		_dragDropCallback: function(move, movingPiece, target)
+		{
+			if(move.from==move.to) {
+				return;
+			}
+			target.empty().append(movingPiece);
+			this._position.put(this._position.remove(move.from), move.to);
+			this.options.position = this._position.fen();
+			this._trigger('move', null, move);
 		}
 
 	}); /* End of $.widget('uichess.chessboard', ... ) */
