@@ -429,11 +429,15 @@
 			// "Legal moves" mode -> check if the proposed move is legal, and handle
 			// the special situations (promotion, castle, en-passant...) that may be encountered.
 			else if(this.options.allowMoves=='legal') {
-				move = this._position.move(move);
-				console.log(move);
-				if(move==null) {
-					return;
+				var newMove = this._position.move(move);
+				if(newMove==null) {
+					move.promotion = 'q'; // TODO: allow other types of promoted pieces.
+					newMove = this._position.move(move);
+					if(newMove==null) {
+						return;
+					}
 				}
+				move = newMove;
 
 				// Move the moving piece to its destination square.
 				target.empty().append(movingPiece);
@@ -453,7 +457,10 @@
 
 				// Promotion move -> change the type of the promoted piece.
 				if(move.flags.contains('p')) {
-					// TODO
+					var SQUARE_SIZE  = this.options.squareSize;
+					var OFFSET_PIECE = { b:0, k:SQUARE_SIZE, n:2*SQUARE_SIZE, p:3*SQUARE_SIZE, q:4*SQUARE_SIZE, r:5*SQUARE_SIZE, x:6*SQUARE_SIZE };
+					var OFFSET_COLOR = { b:0, w:SQUARE_SIZE };
+					movingPiece.css('background-position', '-' + OFFSET_PIECE[move.promotion] + 'px -' + OFFSET_COLOR[move.color] + 'px');
 				}
 
 				// Switch the turn flag.
