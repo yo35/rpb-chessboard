@@ -23,6 +23,10 @@
 		<div class="rpbchessboard-admin-column" style="width: 40%;">
 			<form>
 				<p>
+					<input id="make-start"  type="button" value="Start position"  /><br/>
+					<input id="make-custom" type="button" value="Custom position" />
+				</p>
+				<p>
 					<input id="flip" type="checkbox" />
 					<label for="flip">Flip</label>
 				</p>
@@ -54,6 +58,11 @@
 					.append('<div>Move from ' + ui.from + ' to ' + ui.to + '</div>')
 					.append('<div>' + $('#a').chessboard('option', 'position') + '</div>');
 			}
+		});
+
+		$('#make-start' ).button().click(function() { $('#a').chessboard('option', 'position', 'start'); });
+		$('#make-custom').button().click(function() {
+			$('#a').chessboard('option', 'position', 'r3k3/1bn3nP/1P6/2n3n1/R4pP1/8/Q2P3R/8 w kq - 0 1');
 		});
 
 		$('#flip').prop('checked', $('#a').chessboard('option', 'flip')).button().click(function() {
