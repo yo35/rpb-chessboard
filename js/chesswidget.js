@@ -50,51 +50,6 @@
 
 
 	/**
-	 * Root URL of the library.
-	 *
-	 * Use the method `rootURL` to get the root URL of the library,
-	 * instead of reading this variable directly.
-	 *
-	 * @type {string}
-	 * @private
-	 */
-	var _rootURL = null;
-
-
-	/**
-	 * Return the root URL of the library.
-	 *
-	 * @returns {string}
-	 */
-	function rootURL()
-	{
-		if(_rootURL==null) {
-			_rootURL = "";
-			$("script").each(function(index, e)
-			{
-				var src = $(e).attr("src");
-				if(src!=null && src.match(/^(.*\/)chesswidget.js(?:\?.*)?$/)) {
-					_rootURL = RegExp.$1;
-				}
-			});
-		}
-		return _rootURL;
-	}
-
-
-	/**
-	 * Return the URL to the image containing the sprites for the given square size.
-	 *
-	 * @param {number} squareSize
-	 * @returns {string}
-	 */
-	function spriteURL(squareSize)
-	{
-		return rootURL() + 'sprite/all-' + squareSize + '.png';
-	}
-
-
-	/**
 	 * Ensure that the given string is trimmed.
 	 *
 	 * @param {string} position
@@ -293,7 +248,6 @@
 
 			// Offset for image alignment
 			var SQUARE_SIZE  = this.options.squareSize;
-			var SPRITE_URL   = spriteURL(SQUARE_SIZE);
 			var OFFSET_PIECE = { b:0, k:SQUARE_SIZE, n:2*SQUARE_SIZE, p:3*SQUARE_SIZE, q:4*SQUARE_SIZE, r:5*SQUARE_SIZE, x:6*SQUARE_SIZE };
 			var OFFSET_COLOR = { b:0, w:SQUARE_SIZE };
 
@@ -320,9 +274,7 @@
 						'">';
 					if(cp!=null) {
 						content +=
-							'<div class="uichess-chessboard-piece" style="' +
-								'width: ' + SQUARE_SIZE + 'px; height: ' + SQUARE_SIZE + 'px; ' +
-								'background-image: url(' + SPRITE_URL + '); ' +
+							'<div class="uichess-chessboard-piece uichess-chessboard-sprite' + SQUARE_SIZE + '" style="' +
 								'background-position: -' + OFFSET_PIECE[cp.type] + 'px -' + OFFSET_COLOR[cp.color] + 'px;' +
 							'"></div>';
 					}
@@ -334,9 +286,7 @@
 				var turn = this._position.turn();
 				if((ROWS[r]=='8' && turn=='b') || (ROWS[r]=='1' && turn=='w')) {
 					content +=
-						'<div class="uichess-chessboard-turnFlag" style="' +
-							'width: ' + SQUARE_SIZE + 'px; height: ' + SQUARE_SIZE + 'px; ' +
-							'background-image: url(' + SPRITE_URL + '); ' +
+						'<div class="uichess-chessboard-turnFlag uichess-chessboard-sprite' + SQUARE_SIZE + '" style="' +
 							'background-position: -' + OFFSET_PIECE['x'] + 'px -' + OFFSET_COLOR[turn] + 'px;' +
 						'"></div>';
 				}
@@ -407,9 +357,8 @@
 		 */
 		_makePiecesDraggable: function()
 		{
-			// Some constants.
+			// Current size of the squares.
 			var SQUARE_SIZE  = this.options.squareSize;
-			var SPRITE_URL   = spriteURL(SQUARE_SIZE);
 
 			// The pieces must be contained in the area occupied by the chessboard squares.
 			var posTopLeft     = $('.uichess-chessboard-cell:first', this.element).position();
