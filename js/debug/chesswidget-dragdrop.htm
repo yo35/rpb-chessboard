@@ -26,6 +26,14 @@
 					<input id="flip" type="checkbox" />
 					<label for="flip">Flip</label>
 				</p>
+				<p>
+					Allow moves:
+					<span id="allowMoves">
+						<input id="allowMoves-none"  type="radio" name="allowMoves" value="none" /><label for="allowMoves-none" >None</label>
+						<input id="allowMoves-all"   type="radio" name="allowMoves" value="all"  /><label for="allowMoves-all"  >All</label>
+						<input id="allowMoves-legal" type="radio" name="allowMoves" value="legal"/><label for="allowMoves-legal">Legal</label>
+					</span>
+				</p>
 			</form>
 			<pre id="info"></pre>
 		</div>
@@ -39,7 +47,6 @@
 		$('#a').chessboard({
 			position  : 'start',
 			squareSize: 48,
-			//allowMoves: 'all',
 			allowMoves: 'legal',
 			move: function(event, ui)
 			{
@@ -51,6 +58,13 @@
 
 		$('#flip').prop('checked', $('#a').chessboard('option', 'flip')).button().click(function() {
 			$('#a').chessboard('option', 'flip', $('#flip').prop('checked'));
+		});
+
+		$('#allowMoves-' + $('#a').chessboard('option', 'allowMoves')).prop('checked', true);
+		$('#allowMoves input').each(function(index, e) {
+			$(e).click(function() {
+				$('#a').chessboard('option', 'allowMoves', $(e).val());
+			});
 		});
 
 	</script>
