@@ -233,7 +233,7 @@
 				var fen = this.options.position;
 				switch(fen) {
 					case 'start': fen='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'; break;
-					case 'empty': fen='8/8/8/8/8/8/9/8 w - - 0 1'; break;
+					case 'empty': fen='8/8/8/8/8/8/8/8 w - - 0 1'; break;
 				}
 				this._position = new Chess(fen);
 			}
