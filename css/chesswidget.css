@@ -77,6 +77,10 @@
 	margin-left: 8px;
 }
 
+.uichess-chessboard-inactiveFlag {
+	display: none;
+}
+
 .uichess-chessboard-cellHover {
 	box-shadow: 0 0 5px 2px #ffa000 inset;
 }

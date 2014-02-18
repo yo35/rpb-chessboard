@@ -78,7 +78,7 @@
 	 */
 	function filterOptionAllowMoves(allowMoves)
 	{
-		return allowMoves=='all' ? allowMoves : 'none';
+		return (allowMoves=='all' || allowMoves=='legal') ? allowMoves : 'none';
 	}
 
 
@@ -118,8 +118,7 @@
 			 * Available values are:
 			 * * 'none': no move is allowed, drag & drop is disabled.
 			 * * 'all': all moves are allowed, legal or not.
-			 *
-			 * TODO: mode to allow only legal moves.
+			 * * 'legal': only legal moves are allowed.
 			 */
 			allowMoves: 'none'
 		},
@@ -283,12 +282,14 @@
 
 				// Add a "fake" cell at the end of the row: this last column will contain the turn flag, if necessary.
 				content += '<div class="uichess-chessboard-turnCell">';
-				var turn = this._position.turn();
-				if((ROWS[r]=='8' && turn=='b') || (ROWS[r]=='1' && turn=='w')) {
-					content +=
-						'<div class="uichess-chessboard-turnFlag uichess-chessboard-sprite' + SQUARE_SIZE + '" style="' +
-							'background-position: -' + OFFSET_PIECE['x'] + 'px -' + OFFSET_COLOR[turn] + 'px;' +
-						'"></div>';
+				if(ROWS[r]=='8' || ROWS[r]=='1') {
+					var style = 'background-position: -' + OFFSET_PIECE['x'] + 'px -' + OFFSET_COLOR[ROWS[r]=='8' ? 'b' : 'w'] + 'px;';
+					var clazz = 'uichess-chessboard-turnFlag uichess-chessboard-sprite' + SQUARE_SIZE;
+					var turn  = this._position.turn();
+					if((ROWS[r]=='8' && turn=='w') || (ROWS[r]=='1' && turn=='b')) {
+						clazz += ' uichess-chessboard-inactiveFlag';
+					}
+					content += '<div class="' + clazz + '" style="' + style + '"></div>';
 				}
 
 				// End of the "fake" cell and end of the row.
@@ -319,7 +320,7 @@
 			$(content).appendTo(this.element);
 
 			// Enable the drag & drop feature if necessary.
-			if(this.options.allowMoves=='all') {
+			if(this.options.allowMoves=='all' || this.options.allowMoves=='legal') {
 				this._tagSquares();
 				this._makePiecesDraggable();
 			}
@@ -348,6 +349,21 @@
 					c = 0;
 					++r;
 				}
+			});
+		},
+
+
+		/**
+		 * Fetch the DOM node corresponding to a given square.
+		 *
+		 * @param {string} square
+		 * @returns {jQuery}
+		 */
+		_fetchSquare: function(square)
+		{
+			return $('.uichess-chessboard-cell', this.element).filter(function(index)
+			{
+				return $(this).data('square')==square;
 			});
 		},
 
@@ -385,6 +401,9 @@
 					var target      = $(event.target);
 					var movingPiece = ui.draggable;
 					var move        = { from: movingPiece.parent().data('square'), to: target.data('square') };
+					if(move.from==move.to) {
+						return;
+					}
 					obj._dragDropCallback(move, movingPiece, target);
 				}
 			});
@@ -400,11 +419,48 @@
 		 */
 		_dragDropCallback: function(move, movingPiece, target)
 		{
-			if(move.from==move.to) {
-				return;
+			// "All moves" mode -> move the moving piece to its destination square,
+			// clearing the latter beforehand if necessary.
+			if(this.options.allowMoves=='all') {
+				this._position.put(this._position.remove(move.from), move.to);
+				target.empty().append(movingPiece);
 			}
-			target.empty().append(movingPiece);
-			this._position.put(this._position.remove(move.from), move.to);
+
+			// "Legal moves" mode -> check if the proposed move is legal, and handle
+			// the special situations (promotion, castle, en-passant...) that may be encountered.
+			else if(this.options.allowMoves=='legal') {
+				move = this._position.move(move);
+				console.log(move);
+				if(move==null) {
+					return;
+				}
+
+				// Move the moving piece to its destination square.
+				target.empty().append(movingPiece);
+
+				// Castling move -> move the rook.
+				if(move.flags.contains('k') || move.flags.contains('q')) {
+					var row   = move.color=='w' ? '1' : '8';
+					var rookFrom = this._fetchSquare((move.flags.contains('k') ? 'h' : 'a') + row);
+					var rookTo   = this._fetchSquare((move.flags.contains('k') ? 'f' : 'd') + row);
+					rookTo.empty().append($('.uichess-chessboard-piece', rookFrom));
+				}
+
+				// En-passant move -> remove the taken pawn.
+				if(move.flags.contains('e')) {
+					this._fetchSquare(move.to[0] + move.from[1]).empty();
+				}
+
+				// Promotion move -> change the type of the promoted piece.
+				if(move.flags.contains('p')) {
+					// TODO
+				}
+
+				// Switch the turn flag.
+				$('.uichess-chessboard-turnFlag', this.element).toggleClass('uichess-chessboard-inactiveFlag');
+			}
+
+			// Refresh the FEN string coding the position, and trigger the 'move' event.
 			this.options.position = this._position.fen();
 			this._trigger('move', null, move);
 		}

@@ -39,7 +39,8 @@
 		$('#a').chessboard({
 			position  : 'start',
 			squareSize: 48,
-			allowMoves: 'all',
+			//allowMoves: 'all',
+			allowMoves: 'legal',
 			move: function(event, ui)
 			{
 				$('#info')
