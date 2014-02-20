@@ -405,6 +405,7 @@
 			if(this.options.allowMoves=='all' || this.options.allowMoves=='legal') {
 				this._tagSquares();
 				this._makePiecesDraggable();
+				this._makeSquareDroppable();
 			}
 		},
 
@@ -451,33 +452,17 @@
 
 
 		/**
-		 * Make the pieces on the board draggable.
+		 * Make the squares of the board acceptable targets for pieces and spare pieces.
 		 */
-		_makePiecesDraggable: function()
+		_makeSquareDroppable: function()
 		{
-			// Current size of the squares.
-			var SQUARE_SIZE  = this.options.squareSize;
-
-			// The pieces must be contained in the area occupied by the chessboard squares.
-			var posTopLeft     = $('.uichess-chessboard-square:first', this.element).position();
-			var posBottomRight = $('.uichess-chessboard-square:last' , this.element).position();
-			var draggableArea  = [posTopLeft.left - 2*SQUARE_SIZE, posTopLeft.top - 2*SQUARE_SIZE,
-				posBottomRight.left + 2*SQUARE_SIZE, posBottomRight.top + 2*SQUARE_SIZE];
-
-			// Make each piece draggable.
-			$('.uichess-chessboard-piece', this.element).draggable({
-				cursor        : 'move',
-				cursorAt      : { top: SQUARE_SIZE/2, left: SQUARE_SIZE/2 },
-				containment   : draggableArea,
-				revert        : true,
-				revertDuration: 0
-			});
-
-			// Make each square an available drop target.
 			var obj = this;
 			$('.uichess-chessboard-square', this.element).droppable({
-				accept    : '.uichess-chessboard-piece',
 				hoverClass: 'uichess-chessboard-squareHover',
+				accept: function(e)
+				{
+					return $(e).closest('.uichess-chessboard-table').get(0)==$('.uichess-chessboard-table', obj.element).get(0);
+				},
 				drop: function(event, ui)
 				{
 					var target      = $(event.target);
@@ -488,6 +473,21 @@
 					}
 					obj._dragDropCallback(move, movingPiece, target);
 				}
+			});
+		},
+
+
+		/**
+		 * Make the pieces on the board draggable.
+		 */
+		_makePiecesDraggable: function()
+		{
+			var SQUARE_SIZE = this.options.squareSize;
+			$('.uichess-chessboard-piece', this.element).draggable({
+				cursor        : 'move',
+				cursorAt      : { top: SQUARE_SIZE/2, left: SQUARE_SIZE/2 },
+				revert        : true,
+				revertDuration: 0
 			});
 		},
 
