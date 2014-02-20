@@ -63,7 +63,7 @@
 }
 
 .uichess-chessboard-squareHover {
-	box-shadow: 0 0 5px 2px #ffa000 inset;
+	box-shadow: 0 0 7px 3px #ffb000 inset;
 }
 
 .uichess-chessboard-sparePiecesBottomRow .uichess-chessboard-sparePiece {
