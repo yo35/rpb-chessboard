@@ -260,10 +260,45 @@
 			var OFFSET_PIECE = { b:0, k:SQUARE_SIZE, n:2*SQUARE_SIZE, p:3*SQUARE_SIZE, q:4*SQUARE_SIZE, r:5*SQUARE_SIZE, x:6*SQUARE_SIZE };
 			var OFFSET_COLOR = { b:0, w:SQUARE_SIZE };
 
+			// Spare pieces (per column)
+			var SPARE_PIECES = ['','p','n','b','r','q','k',''];
+
 			// Open the "table" node.
 			var content = '<div class="uichess-chessboard-table">';
 
+
+			//////////////////////////////////////////////////////////////////////////
+			// Spare pieces top row.
+			//////////////////////////////////////////////////////////////////////////
+			if(this.options.sparePieces) {
+				content += '<div class="uichess-chessboard-row uichess-chessboard-sparePiecesTopRow">';
+
+				// Empty cell (above the column of coordinates 1,2,...,8).
+				if(this.options.showCoordinates) {
+					content += '<div class="uichess-chessboard-cell"></div>';
+				}
+
+				// Spare pieces.
+				var color = this.options.flip ? 'w' : 'b';
+				for(var c=0; c<8; ++c) {
+					content += '<div class="uichess-chessboard-cell">';
+					if(SPARE_PIECES[c] != '') {
+						content +=
+							'<div class="uichess-chessboard-sparePiece uichess-chessboard-sprite' + SQUARE_SIZE + '" style="' +
+								'background-position: -' + OFFSET_PIECE[SPARE_PIECES[c]] + 'px -' + OFFSET_COLOR[color] + 'px;' +
+							'"></div>';
+					}
+					content += '</div>';
+				}
+
+				// Empty cell (above the turn flag) + end of the row.
+				content += '<div class="uichess-chessboard-cell"></div></div>';
+			}
+
+
+			//////////////////////////////////////////////////////////////////////////
 			// For each row...
+			//////////////////////////////////////////////////////////////////////////
 			for(var r=0; r<8; ++r) {
 				content += '<div class="uichess-chessboard-row">';
 
@@ -290,7 +325,7 @@
 					content += '</div>';
 				}
 
-				// Add a "fake" cell at the end of the row: this last column will contain the turn flag, if necessary.
+				// Add an additional cell at the end of the row: this last column will contain the turn flag, if necessary.
 				content += '<div class="uichess-chessboard-cell">';
 				if(ROWS[r]=='8' || ROWS[r]=='1') {
 					var style = 'background-position: -' + OFFSET_PIECE['x'] + 'px -' + OFFSET_COLOR[ROWS[r]=='8' ? 'b' : 'w'] + 'px;';
@@ -302,15 +337,18 @@
 					content += '<div class="' + clazz + '" style="' + style + '"></div>';
 				}
 
-				// End of the "fake" cell and end of the row.
+				// End of the additional cell and end of the row.
 				content += '</div></div>';
 			}
 
+
+			//////////////////////////////////////////////////////////////////////////
 			// If visible, the column coordinates are shown at the bottom of the table.
+			//////////////////////////////////////////////////////////////////////////
 			if(this.options.showCoordinates) {
 				content += '<div class="uichess-chessboard-row">';
 
-				// Empty cell
+				// Empty cell (below the column of coordinates 1,2,...,8).
 				content += '<div class="uichess-chessboard-cell"></div>';
 
 				// Column headers
@@ -318,9 +356,43 @@
 					content += '<div class="uichess-chessboard-cell uichess-chessboard-columnCoordinate">' + COLUMNS[c] + '</div>';
 				}
 
-				// Empty cell below the "fake" cell columns + end of the row.
+				// Empty cell (below the turn flag) + end of the row.
 				content += '<div class="uichess-chessboard-cell"></div></div>';
 			}
+
+
+			//////////////////////////////////////////////////////////////////////////
+			// Spare pieces bottom row.
+			//////////////////////////////////////////////////////////////////////////
+			if(this.options.sparePieces) {
+				content += '<div class="uichess-chessboard-row uichess-chessboard-sparePiecesBottomRow">';
+
+				// Empty cell (below the column of coordinates 1,2,...,8).
+				if(this.options.showCoordinates) {
+					content += '<div class="uichess-chessboard-cell"></div>';
+				}
+
+				// Spare pieces.
+				var color = this.options.flip ? 'b' : 'w';
+				for(var c=0; c<8; ++c) {
+					content += '<div class="uichess-chessboard-cell">';
+					if(SPARE_PIECES[c] != '') {
+						content +=
+							'<div class="uichess-chessboard-sparePiece uichess-chessboard-sprite' + SQUARE_SIZE + '" style="' +
+								'background-position: -' + OFFSET_PIECE[SPARE_PIECES[c]] + 'px -' + OFFSET_COLOR[color] + 'px;' +
+							'"></div>';
+					}
+					content += '</div>';
+				}
+
+				// Empty cell (below the turn flag) + end of the row.
+				content += '<div class="uichess-chessboard-cell"></div></div>';
+			}
+
+
+			//////////////////////////////////////////////////////////////////////////
+			// End of the table
+			//////////////////////////////////////////////////////////////////////////
 
 			// Close the "table" node.
 			content += '</div>';

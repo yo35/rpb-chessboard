@@ -66,6 +66,14 @@
 	box-shadow: 0 0 5px 2px #ffa000 inset;
 }
 
+.uichess-chessboard-sparePiecesBottomRow .uichess-chessboard-sparePiece {
+	margin-top: 8px;
+}
+
+.uichess-chessboard-sparePiecesTopRow .uichess-chessboard-sparePiece {
+	margin-bottom: 8px;
+}
+
 .uichess-chessboard-sprite20 { width: 20px; height: 20px; background-image: url(sprite/all-20.png); }
 .uichess-chessboard-sprite21 { width: 21px; height: 21px; background-image: url(sprite/all-21.png); }
 .uichess-chessboard-sprite22 { width: 22px; height: 22px; background-image: url(sprite/all-22.png); }

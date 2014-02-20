@@ -51,7 +51,8 @@
 		$('#a').chessboard({
 			position  : 'start',
 			squareSize: 48,
-			allowMoves: 'legal',
+			allowMoves: 'all',
+			sparePieces: true,
 			move: function(event, ui)
 			{
 				$('#info')
