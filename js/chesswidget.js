@@ -532,7 +532,8 @@
 				cursor        : 'move',
 				cursorAt      : { top: SQUARE_SIZE/2, left: SQUARE_SIZE/2 },
 				revert        : true,
-				revertDuration: 0
+				revertDuration: 0,
+				zIndex        : 100
 			});
 		},
 
@@ -550,7 +551,8 @@
 				cursorAt      : { top: SQUARE_SIZE/2, left: SQUARE_SIZE/2 },
 				helper        : 'clone',
 				revert        : true,
-				revertDuration: 0
+				revertDuration: 0,
+				zIndex        : 100
 			});
 		},
 
