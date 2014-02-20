@@ -32,48 +32,29 @@
 	font-size: 80%;
 }
 
-.uichess-chessboard-row,
-.uichess-chessboard-lastRow {
+.uichess-chessboard-row {
 	display: table-row;
 }
 
-.uichess-chessboard-rowHeader,
-.uichess-chessboard-columnHeader,
-.uichess-chessboard-cornerHeader,
-.uichess-chessboard-cell,
-.uichess-chessboard-turnHeader,
-.uichess-chessboard-turnCell {
-	display: table-cell;
-}
-
-.uichess-chessboard-turnCell,
 .uichess-chessboard-cell {
+	display: table-cell;
 	line-height: 0px;
 }
 
-.uichess-chessboard-rowHeader {
+.uichess-chessboard-cell.uichess-chessboard-rowCoordinate {
 	vertical-align: middle;
-	line-height: 0px;
-}
-
-.uichess-chessboard-cornerHeader,
-.uichess-chessboard-turnHeader,
-.uichess-chessboard-columnHeader {
-	vertical-align: baseline;
-	line-height: 1ex;
-}
-
-.uichess-chessboard-rowHeader {
 	padding-left : 5px;
 	padding-right: 5px;
 }
 
-.uichess-chessboard-columnHeader {
+.uichess-chessboard-cell.uichess-chessboard-columnCoordinate {
+	vertical-align: baseline;
+	line-height: 1ex;
 	padding-top   : 6px;
 	padding-bottom: 6px;
 }
 
-.uichess-chessboard-turnCell .uichess-chessboard-turnFlag {
+.uichess-chessboard-turnFlag {
 	margin-left: 8px;
 }
 
@@ -81,7 +62,7 @@
 	display: none;
 }
 
-.uichess-chessboard-cellHover {
+.uichess-chessboard-squareHover {
 	box-shadow: 0 0 5px 2px #ffa000 inset;
 }
 

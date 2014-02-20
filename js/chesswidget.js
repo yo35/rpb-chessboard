@@ -125,7 +125,12 @@
 			 * * 'all': all moves are allowed, legal or not.
 			 * * 'legal': only legal moves are allowed.
 			 */
-			allowMoves: 'none'
+			allowMoves: 'none',
+
+			/**
+			 * Spare pieces.
+			 */
+			sparePieces: false
 		},
 
 
@@ -264,7 +269,7 @@
 
 				// If visible, the row coordinates are shown in the left-most column.
 				if(this.options.showCoordinates) {
-					content += '<div class="uichess-chessboard-rowHeader">' + ROWS[r] + '</div>';
+					content += '<div class="uichess-chessboard-cell uichess-chessboard-rowCoordinate">' + ROWS[r] + '</div>';
 				}
 
 				// Print the squares belonging to the current column.
@@ -272,7 +277,7 @@
 					var sq = COLUMNS[c] + ROWS[r];
 					var cp = this._position.get(sq);
 					content +=
-						'<div class="uichess-chessboard-cell" style="' +
+						'<div class="uichess-chessboard-cell uichess-chessboard-square" style="' +
 							'width: ' + SQUARE_SIZE + 'px; height: ' + SQUARE_SIZE + 'px; ' +
 							'background-color: ' + SQUARE_COLOR[this._position.square_color(sq)] + ';' +
 						'">';
@@ -286,7 +291,7 @@
 				}
 
 				// Add a "fake" cell at the end of the row: this last column will contain the turn flag, if necessary.
-				content += '<div class="uichess-chessboard-turnCell">';
+				content += '<div class="uichess-chessboard-cell">';
 				if(ROWS[r]=='8' || ROWS[r]=='1') {
 					var style = 'background-position: -' + OFFSET_PIECE['x'] + 'px -' + OFFSET_COLOR[ROWS[r]=='8' ? 'b' : 'w'] + 'px;';
 					var clazz = 'uichess-chessboard-turnFlag uichess-chessboard-sprite' + SQUARE_SIZE;
@@ -303,18 +308,18 @@
 
 			// If visible, the column coordinates are shown at the bottom of the table.
 			if(this.options.showCoordinates) {
-				content += '<div class="uichess-chessboard-lastRow">';
+				content += '<div class="uichess-chessboard-row">';
 
 				// Empty cell
-				content += '<div class="uichess-chessboard-cornerHeader"></div>';
+				content += '<div class="uichess-chessboard-cell"></div>';
 
 				// Column headers
 				for(var c=0; c<8; ++c) {
-					content += '<div class="uichess-chessboard-columnHeader">' + COLUMNS[c] + '</div>';
+					content += '<div class="uichess-chessboard-cell uichess-chessboard-columnCoordinate">' + COLUMNS[c] + '</div>';
 				}
 
 				// Empty cell below the "fake" cell columns + end of the row.
-				content += '<div class="uichess-chessboard-turnHeader"></div></div>';
+				content += '<div class="uichess-chessboard-cell"></div></div>';
 			}
 
 			// Close the "table" node.
@@ -346,7 +351,7 @@
 			var COLUMNS = this.options.flip ? ['h','g','f','e','d','c','b','a'] : ['a','b','c','d','e','f','g','h'];
 			var r = 0;
 			var c = 0;
-			$('.uichess-chessboard-cell', this.element).each(function()
+			$('.uichess-chessboard-square', this.element).each(function()
 			{
 				$(this).data('square', COLUMNS[c] + ROWS[r]);
 				++c;
@@ -366,7 +371,7 @@
 		 */
 		_fetchSquare: function(square)
 		{
-			return $('.uichess-chessboard-cell', this.element).filter(function(index)
+			return $('.uichess-chessboard-square', this.element).filter(function(index)
 			{
 				return $(this).data('square')==square;
 			});
@@ -382,8 +387,8 @@
 			var SQUARE_SIZE  = this.options.squareSize;
 
 			// The pieces must be contained in the area occupied by the chessboard squares.
-			var posTopLeft     = $('.uichess-chessboard-cell:first', this.element).position();
-			var posBottomRight = $('.uichess-chessboard-cell:last' , this.element).position();
+			var posTopLeft     = $('.uichess-chessboard-square:first', this.element).position();
+			var posBottomRight = $('.uichess-chessboard-square:last' , this.element).position();
 			var draggableArea  = [posTopLeft.left - 2*SQUARE_SIZE, posTopLeft.top - 2*SQUARE_SIZE,
 				posBottomRight.left + 2*SQUARE_SIZE, posBottomRight.top + 2*SQUARE_SIZE];
 
@@ -398,9 +403,9 @@
 
 			// Make each square an available drop target.
 			var obj = this;
-			$('.uichess-chessboard-cell', this.element).droppable({
+			$('.uichess-chessboard-square', this.element).droppable({
 				accept    : '.uichess-chessboard-piece',
-				hoverClass: 'uichess-chessboard-cellHover',
+				hoverClass: 'uichess-chessboard-squareHover',
 				drop: function(event, ui)
 				{
 					var target      = $(event.target);
