@@ -28,6 +28,8 @@
  * @requires jQuery
  * @requires jQuery UI Widget
  * @requires jQuery UI Selectable
+ * @requires jQuery UI Draggable
+ * @requires jQuery UI Droppable
  */
 (function(Chess, $)
 {
@@ -75,6 +77,9 @@
 
 	/**
 	 * Ensure that the given string is a valid value for the `allowMoves` option.
+	 *
+	 * @param {string} allowMoves
+	 * @returns {string}
 	 */
 	function filterOptionAllowMoves(allowMoves)
 	{
