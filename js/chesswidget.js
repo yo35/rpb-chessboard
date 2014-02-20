@@ -401,11 +401,19 @@
 			this.element.empty();
 			$(content).appendTo(this.element);
 
-			// Enable the drag & drop feature if necessary.
-			if(this.options.allowMoves=='all' || this.options.allowMoves=='legal') {
+			// Enable the drag & drops feature if necessary.
+			var draggablePieces = this.options.allowMoves=='all' || this.options.allowMoves=='legal';
+			var sparePieces     = this.options.sparePieces;
+			if(draggablePieces || sparePieces) {
 				this._tagSquares();
-				this._makePiecesDraggable();
 				this._makeSquareDroppable();
+			}
+			if(draggablePieces) {
+				this._makePiecesDraggable();
+			}
+			if(sparePieces) {
+				this._tagSparePieces();
+				this._makeSparePiecesDraggable();
 			}
 		},
 
@@ -416,7 +424,7 @@
 		 *
 		 *   $(e).data('square');
 		 *
-		 * Where `e` is a DOM object with the class `uichess-chessboard-cell`.
+		 * Where `e` is a DOM object with the class `uichess-chessboard-square`.
 		 */
 		_tagSquares: function()
 		{
@@ -431,6 +439,32 @@
 				if(c==8) {
 					c = 0;
 					++r;
+				}
+			});
+		},
+
+
+		/**
+		 * Tag each spare piece of the chessboard with its name (for instance: `{type: 'k', color: 'b'}`).
+		 * The name of the piece is then available through:
+		 *
+		 *   $(e).data('piece');
+		 *
+		 * Where `e` is a DOM object with the class `uichess-chessboard-sparePiece`.
+		 */
+		_tagSparePieces: function()
+		{
+			var TYPES  = ['p','n','b','r','q','k'];
+			var COLORS = this.options.flip ? ['w','b'] : ['b','w'];
+			var t = 0;
+			var c = 0;
+			$('.uichess-chessboard-sparePiece', this.element).each(function()
+			{
+				$(this).data('piece', { type: TYPES[t], color: COLORS[c] });
+				++t;
+				if(t==6) {
+					t = 0;
+					++c;
 				}
 			});
 		},
@@ -467,11 +501,20 @@
 				{
 					var target      = $(event.target);
 					var movingPiece = ui.draggable;
-					var move        = { from: movingPiece.parent().data('square'), to: target.data('square') };
-					if(move.from==move.to) {
-						return;
+
+					// The draggable is a spare piece.
+					if(movingPiece.hasClass('uichess-chessboard-sparePiece')) {
+						var piece = ui.draggable.data('piece');
+						obj._doAddSparePiece(target.data('square'), {type: piece.type, color: piece.color}, target);
 					}
-					obj._dragDropCallback(move, movingPiece, target);
+
+					// The draggable is a piece from the board.
+					if(movingPiece.hasClass('uichess-chessboard-piece')) {
+						var move = { from: movingPiece.parent().data('square'), to: target.data('square') };
+						if(move.from!=move.to) {
+							obj._doMove(move, movingPiece, target);
+						}
+					}
 				}
 			});
 		},
@@ -479,13 +522,33 @@
 
 		/**
 		 * Make the pieces on the board draggable.
+		 *
+		 * @param {jQuery} [target=this.element] Only the children of `target` are affected.
 		 */
-		_makePiecesDraggable: function()
+		_makePiecesDraggable: function(target)
 		{
 			var SQUARE_SIZE = this.options.squareSize;
-			$('.uichess-chessboard-piece', this.element).draggable({
+			$('.uichess-chessboard-piece', target===undefined ? this.element : target).draggable({
 				cursor        : 'move',
 				cursorAt      : { top: SQUARE_SIZE/2, left: SQUARE_SIZE/2 },
+				revert        : true,
+				revertDuration: 0
+			});
+		},
+
+
+		/**
+		 * Make the spare pieces draggable.
+		 *
+		 * @param {jQuery} [target=this.element] Only the children of `target` are affected.
+		 */
+		_makeSparePiecesDraggable: function(target)
+		{
+			var SQUARE_SIZE = this.options.squareSize;
+			$('.uichess-chessboard-sparePiece', target===undefined ? this.element : target).draggable({
+				cursor        : 'move',
+				cursorAt      : { top: SQUARE_SIZE/2, left: SQUARE_SIZE/2 },
+				helper        : 'clone',
 				revert        : true,
 				revertDuration: 0
 			});
@@ -499,7 +562,7 @@
 		 * @param {jQuery} movingPiece DOM node representing the moving piece.
 		 * @param {jQuery} target DOM node representing the destination square.
 		 */
-		_dragDropCallback: function(move, movingPiece, target)
+		_doMove: function(move, movingPiece, target)
 		{
 			// "All moves" mode -> move the moving piece to its destination square,
 			// clearing the latter beforehand if necessary.
@@ -552,6 +615,39 @@
 			// Refresh the FEN string coding the position, and trigger the 'move' event.
 			this.options.position = this._position.fen();
 			this._trigger('move', null, move);
+		},
+
+
+		/**
+		 * Called when a spare piece is dropped on a square.
+		 *
+		 * @param {string} square The name of the square on which the piece is dropped.
+		 * @param {{type: string, color: string}} piece The dropped piece.
+		 * @param {jQuery} target DOM node representing the targeted square.
+		 */
+		_doAddSparePiece: function(square, piece, target)
+		{
+			// Update the internal chess object.
+			this._position.put(piece, square);
+
+			// Update the DOM tree.
+			var SQUARE_SIZE  = this.options.squareSize;
+			var OFFSET_PIECE = { b:0, k:SQUARE_SIZE, n:2*SQUARE_SIZE, p:3*SQUARE_SIZE, q:4*SQUARE_SIZE, r:5*SQUARE_SIZE, x:6*SQUARE_SIZE };
+			var OFFSET_COLOR = { b:0, w:SQUARE_SIZE };
+			$(
+				'<div class="uichess-chessboard-piece uichess-chessboard-sprite' + SQUARE_SIZE + '" style="' +
+					'background-position: -' + OFFSET_PIECE[piece.type] + 'px -' + OFFSET_COLOR[piece.color] + 'px;' +
+				'"></div>'
+			).appendTo(target.empty());
+
+			// Make the new piece draggable if necessary.
+			if(this.options.allowMoves=='all' || this.options.allowMoves=='legal') {
+				this._makePiecesDraggable(target);
+			}
+
+			// Refresh the FEN string coding the position, and trigger the 'add' event.
+			this.options.position = this._position.fen();
+			this._trigger('add', null, {square: square, piece: piece});
 		}
 
 	}); /* End of $.widget('uichess.chessboard', ... ) */

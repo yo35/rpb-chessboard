@@ -23,6 +23,7 @@
 		<div class="rpbchessboard-admin-column" style="width: 40%;">
 			<form>
 				<p>
+					<input id="make-empty"  type="button" value="Empty position"  /><br/>
 					<input id="make-start"  type="button" value="Start position"  /><br/>
 					<input id="make-custom" type="button" value="Custom position" />
 				</p>
@@ -38,6 +39,10 @@
 						<input id="allowMoves-legal" type="radio" name="allowMoves" value="legal"/><label for="allowMoves-legal">Legal</label>
 					</span>
 				</p>
+				<p>
+					<input id="sparePieces" type="checkbox" />
+					<label for="sparePieces">Spare pieces</label>
+				</p>
 			</form>
 			<pre id="info"></pre>
 		</div>
@@ -45,6 +50,8 @@
 			<div id="a"></div>
 		</div>
 	</div>
+
+	<hr/>
 
 	<div class="rpbchessboard-admin-columns">
 		<div class="rpbchessboard-admin-column" style="width: 33%;">
@@ -70,17 +77,23 @@
 				$('#info')
 					.append('<div>Move from ' + ui.from + ' to ' + ui.to + '</div>')
 					.append('<div>' + $('#a').chessboard('option', 'position') + '</div>');
+			},
+			add: function(event, ui)
+			{
+				$('#info')
+					.append('<div>Add ' + ui.piece.type + ui.piece.color + ' in ' + ui.square + '</div>')
+					.append('<div>' + $('#a').chessboard('option', 'position') + '</div>');
 			}
 		});
 
 		$('#b1').chessboard({
-			position  : 'start',
+			position  : 'empty',
 			squareSize: 28,
 			allowMoves: 'all'
 		});
 
 		$('#b2').chessboard({
-			position  : 'empty',
+			position  : 'start',
 			squareSize: 28,
 			allowMoves: 'all'
 		});
@@ -91,6 +104,7 @@
 			allowMoves: 'all'
 		});
 
+		$('#make-empty' ).button().click(function() { $('#a').chessboard('option', 'position', 'empty'); });
 		$('#make-start' ).button().click(function() { $('#a').chessboard('option', 'position', 'start'); });
 		$('#make-custom').button().click(function() {
 			$('#a').chessboard('option', 'position', 'r3k3/1bn3nP/1P6/2n3n1/R4pP1/8/Q2P3R/8 w kq - 0 1');
@@ -105,6 +119,10 @@
 			$(e).click(function() {
 				$('#a').chessboard('option', 'allowMoves', $(e).val());
 			});
+		});
+
+		$('#sparePieces').prop('checked', $('#a').chessboard('option', 'sparePieces')).change(function() {
+			$('#a').chessboard('option', 'sparePieces', $('#sparePieces').prop('checked'));
 		});
 
 	</script>
