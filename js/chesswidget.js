@@ -52,18 +52,6 @@
 
 
 	/**
-	 * Ensure that the given string is trimmed.
-	 *
-	 * @param {string} position
-	 * @returns {string}
-	 */
-	function filterOptionPosition(position)
-	{
-		return position.replace(/^\s+|\s+$/g, '');
-	}
-
-
-	/**
 	 * Ensure that the given number is a valid square size.
 	 *
 	 * @param {number} squareSize
@@ -147,7 +135,7 @@
 		_create: function()
 		{
 			this.element.addClass('uichess-chessboard').disableSelection();
-			this.options.position   = filterOptionPosition  (this.options.position  );
+			this.options.position   = this._initializePosition(this.options.position);
 			this.options.squareSize = filterOptionSquareSize(this.options.squareSize);
 			this.options.allowMoves = filterOptionAllowMoves(this.options.allowMoves);
 			this._refresh();
@@ -169,8 +157,7 @@
 		_setOption: function(key, value)
 		{
 			if(key=='position') {
-				value = filterOptionPosition(value);
-				this._position = null; // The FEN needs to be re-parsed.
+				value = this._initializePosition(value);
 			}
 
 			else if(key=='squareSize') {
@@ -183,6 +170,31 @@
 
 			this.options[key] = value;
 			this._refresh();
+		},
+
+
+		/**
+		 * Initialize the internal `Chess` object with the given FEN string.
+		 *
+		 * @returns {string}
+		 */
+		_initializePosition: function(fen)
+		{
+			// Trim the input.
+			fen = fen.replace(/^\s+|\s+$/g, '');
+
+			// Convert the special input values into FEN.
+			switch(fen) {
+				case 'start': fen='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'; break;
+				case 'empty': fen='8/8/8/8/8/8/8/8 w - - 0 1'; break;
+			}
+
+			// Parse the FEN string.
+			this._position = new Chess(fen);
+			fen = this._position.fen();
+
+			// Return the validated FEN string.
+			return fen;
 		},
 
 
@@ -238,16 +250,6 @@
 		 */
 		_refresh: function()
 		{
-			// Parse the FEN-formatted position string, if necessary.
-			if(this._position==null) {
-				var fen = this.options.position;
-				switch(fen) {
-					case 'start': fen='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'; break;
-					case 'empty': fen='8/8/8/8/8/8/8/8 w - - 0 1'; break;
-				}
-				this._position = new Chess(fen);
-			}
-
 			// Square colors
 			var SQUARE_COLOR = { light: '#f0dec7', dark: '#b5876b' };
 
