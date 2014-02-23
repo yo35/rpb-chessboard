@@ -20,10 +20,6 @@
  ******************************************************************************/
 ?>
 
-<?php
-	require_once(RPBCHESSBOARD_ABSPATH.'helpers/json.php');
-?>
-
 <div id="<?php echo htmlspecialchars($model->getTopLevelItemID()); ?>-in" class="rpbchessboard-in"><?php
 	echo htmlspecialchars($model->getContent());
 ?></div>
@@ -34,12 +30,6 @@
 	processFEN(
 		<?php echo json_encode($model->getTopLevelItemID()); ?> + '-in',
 		<?php echo json_encode($model->getTopLevelItemID()); ?> + '-out',
-		<?php
-			echo RPBChessboardHelperJSON::formatChessWidgetAttributes(
-				$model->getCustomFlip           (),
-				$model->getCustomSquareSize     (),
-				$model->getCustomShowCoordinates()
-			);
-		?>
+		<?php echo json_encode(array_merge($model->getDefaultAll(), $model->getCustomAll())); ?>
 	);
 </script>

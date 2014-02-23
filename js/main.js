@@ -20,14 +20,6 @@
 
 
 /**
- * Default options applicable to the chess widgets.
- * @type {object}
- */
-var defaultChessWidgetOptions = null;
-
-
-
-/**
  * Hide the node corresponding to the given ID.
  *
  * @param {string} nodeID
@@ -58,7 +50,7 @@ function processFEN(nodeInID, nodeOutID, options)
 	var fen = nodeIn.text();
 
 	// Clear nodeOut and put the chess widget as its child
-	var currentOptions = jQuery.extend({ position: fen }, defaultChessWidgetOptions);
+	var currentOptions = { position: fen };
 	if(options!=null) {
 		jQuery.extend(currentOptions, options);
 	}
@@ -90,8 +82,8 @@ function processPGN(nodeInID, nodeOutID, options)
 	var pgn = nodeIn.text();
 
 	// PGN rendering
-	var inlineOptions = options==null ? defaultChessWidgetOptions : jQuery.extend({}, defaultChessWidgetOptions, options);
-	var navOptions    = jQuery.extend({ flip: false }, defaultChessWidgetOptions);
+	var inlineOptions = options==null ? {} : options;
+	var navOptions    = { flip: false };
 	if(options!=null && options.flip!=null) {
 		navOptions.flip = options.flip;
 	}
