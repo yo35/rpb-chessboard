@@ -32,6 +32,7 @@ class RPBChessboardTraitChessWidgetDefault extends RPBChessboardAbstractTrait
 {
 	private $squareSize      = null;
 	private $showCoordinates = null;
+	private $allParameters   = null;
 
 
 	/**
@@ -39,10 +40,27 @@ class RPBChessboardTraitChessWidgetDefault extends RPBChessboardAbstractTrait
 	 */
 	const DEFAULT_SQUARE_SIZE = 32;
 
+
 	/**
 	 * Initial default show-coordinates parameter of the chessboard widgets.
 	 */
 	const DEFAULT_SHOW_COORDINATES = true;
+
+
+	/**
+	 * Return all the default parameters in a "key => value" array.
+	 *
+	 * @return array
+	 */
+	public function getDefaultAll()
+	{
+		if(is_null($this->allParameters)) {
+			$this->allParameters = array();
+			$this->allParameters['squareSize'     ] = $this->getDefaultSquareSize     ();
+			$this->allParameters['showCoordinates'] = $this->getDefaultShowCoordinates();
+		}
+		return $this->allParameters;
+	}
 
 
 	/**

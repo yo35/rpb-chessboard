@@ -37,6 +37,7 @@ class RPBChessboardTraitChessWidgetCustom extends RPBChessboardAbstractTrait
 	private $flip           ;
 	private $squareSize     ;
 	private $showCoordinates;
+	private $allParameters  ;
 
 
 	/**
@@ -47,6 +48,37 @@ class RPBChessboardTraitChessWidgetCustom extends RPBChessboardAbstractTrait
 	public function __construct($atts)
 	{
 		$this->atts = $atts;
+	}
+
+
+	/**
+	 * Return all the non-null parameters in a "key => value" array.
+	 *
+	 * @return array
+	 */
+	public function getCustomAll()
+	{
+		if(is_null($this->allParameters)) {
+			$this->allParameters = array();
+			$this->appendParameter('flip'           , $this->getCustomFlip           ());
+			$this->appendParameter('squareSize'     , $this->getCustomSquareSize     ());
+			$this->appendParameter('showCoordinates', $this->getCustomShowCoordinates());
+		}
+		return $this->allParameters;
+	}
+
+
+	/**
+	 * Auxilliary function used to build the array `$this->allParameters`.
+	 *
+	 * @param string $key
+	 * @param mixed $value
+	 */
+	private function appendParameter($key, $value)
+	{
+		if(!is_null($value)) {
+			$this->allParameters[$key] = $value;
+		}
 	}
 
 

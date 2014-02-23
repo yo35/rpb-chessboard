@@ -31,13 +31,17 @@ class RPBChessboardViewTopLevelShortcode extends RPBChessboardAbstractView
 	public function display()
 	{
 		$model = $this->getModel();
-		if($model->mustEnqueueInitializationTemplate()) {
-			include(RPBCHESSBOARD_ABSPATH.'templates/shortcode/initialization.php');
-		}
-		if($model->mustEnqueueLocalizationTemplate()) {
+		if(!self::$localizationTemplateAlreadyEnqueued) {
 			include(RPBCHESSBOARD_ABSPATH.'templates/localization.php');
+			self::$localizationTemplateAlreadyEnqueued = true;
 		}
 		include(RPBCHESSBOARD_ABSPATH.'templates/shortcode/javascriptwarning.php');
 		include(RPBCHESSBOARD_ABSPATH.'templates/shortcode/'.strtolower($model->getTemplateName()).'.php');
 	}
+
+
+	/**
+	 * Flag to indicate whether the localization template has already been enqueued or not.
+	 */
+	private static $localizationTemplateAlreadyEnqueued = false;
 }

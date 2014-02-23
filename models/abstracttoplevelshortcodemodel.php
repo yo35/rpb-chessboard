@@ -33,63 +33,6 @@ abstract class RPBChessboardAbstractTopLevelShortcodeModel extends RPBChessboard
 
 
 	/**
-	 * Whether the current model needs the initialization template.
-	 * This function may be overriden by derived classes.
-	 *
-	 * @return boolean False by default.
-	 */
-	public function isInitializationTemplateRequired()
-	{
-		return false;
-	}
-
-
-	/**
-	 * Whether the current model needs the localization template.
-	 * This function may be overriden by derived classes.
-	 *
-	 * @return boolean False by default.
-	 */
-	public function isLocalizationTemplateRequired()
-	{
-		return false;
-	}
-
-
-	/**
-	 * Mark the initialization template as enqueued if not done yet and if required.
-	 * This function should be called from the view.
-	 *
-	 * @return boolean
-	 */
-	public function mustEnqueueInitializationTemplate()
-	{
-		if(self::$initializationAlreadyEnqueued || !$this->isInitializationTemplateRequired()) {
-			return false;
-		}
-		$this->loadTrait('ChessWidgetDefault');
-		self::$initializationAlreadyEnqueued = true;
-		return true;
-	}
-
-
-	/**
-	 * Mark the localization template as enqueued if not done yet and if required.
-	 * This function should be called from the view.
-	 *
-	 * @return boolean
-	 */
-	public function mustEnqueueLocalizationTemplate()
-	{
-		if(self::$localizationAlreadyEnqueued || !$this->isLocalizationTemplateRequired()) {
-			return false;
-		}
-		self::$localizationAlreadyEnqueued = true;
-		return true;
-	}
-
-
-	/**
 	 * Return the name of the view to use.
 	 *
 	 * @return string
@@ -143,15 +86,4 @@ abstract class RPBChessboardAbstractTopLevelShortcodeModel extends RPBChessboard
 	 * Global ID counter.
 	 */
 	private static $idCounter = 0;
-
-
-	/**
-	 * Flag indicating whether the initialization template has already been enqueued or not.
-	 */
-	private static $initializationAlreadyEnqueued = false;
-
-	/**
-	 * Flag indicating whether the localization template has already been enqueued or not.
-	 */
-	private static $localizationAlreadyEnqueued = false;
 }
