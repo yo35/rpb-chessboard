@@ -20,14 +20,6 @@
  ******************************************************************************/
 ?>
 
-<?php
-	require_once(RPBCHESSBOARD_ABSPATH.'helpers/json.php');
-?>
-
 <span class="PgnWidget-anchor-diagram"><?php
-	echo htmlspecialchars(RPBChessboardHelperJSON::trimBraces(RPBChessboardHelperJSON::formatChessWidgetAttributes(
-		$model->getCustomFlip           (),
-		$model->getCustomSquareSize     (),
-		$model->getCustomShowCoordinates()
-	)));
+	echo htmlspecialchars($model->getDiagramOptions());
 ?></span>

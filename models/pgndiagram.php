@@ -28,6 +28,9 @@ require_once(RPBCHESSBOARD_ABSPATH.'models/abstractshortcodemodel.php');
  */
 class RPBChessboardModelPgnDiagram extends RPBChessboardAbstractShortcodeModel
 {
+	private $diagramOptions = null;
+
+
 	/**
 	 * Constructor.
 	 *
@@ -49,5 +52,20 @@ class RPBChessboardModelPgnDiagram extends RPBChessboardAbstractShortcodeModel
 	public function getViewName()
 	{
 		return 'PgnDiagram';
+	}
+
+
+	/**
+	 * Value that should be printed in the DOM node that replaces the short-code.
+	 *
+	 * @return string
+	 */
+	public function getDiagramOptions()
+	{
+		if(is_null($this->diagramOptions)) {
+			$this->diagramOptions = json_encode($this->getCustomAll());
+			$this->diagramOptions = preg_replace('/^{|}$/', '', $this->diagramOptions); // trim the braces
+		}
+		return $this->diagramOptions;
 	}
 }
