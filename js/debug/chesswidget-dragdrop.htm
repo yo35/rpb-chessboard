@@ -43,6 +43,9 @@
 					<input id="sparePieces" type="checkbox" />
 					<label for="sparePieces">Spare pieces</label>
 				</p>
+				<p>
+					<input id="change-turn" type="button" value="Change turn" />
+				</p>
 			</form>
 			<pre id="info"></pre>
 		</div>
@@ -123,6 +126,17 @@
 
 		$('#sparePieces').prop('checked', $('#a').chessboard('option', 'sparePieces')).change(function() {
 			$('#a').chessboard('option', 'sparePieces', $('#sparePieces').prop('checked'));
+		});
+
+		$('#change-turn' ).button().click(function()
+		{
+			switch($('#a').chessboard('turn')) {
+				case 'w': $('#a').chessboard('turn', 'b'); return;
+				case 'b': $('#a').chessboard('turn', 'w'); return;
+				default:
+					alert('Unknown turn: ' + $('#a').chessboard('turn'));
+					break;
+			}
 		});
 
 	</script>

@@ -199,6 +199,38 @@
 
 
 		/**
+		 * Get or set the turn flag.
+		 */
+		turn: function(turn)
+		{
+			// No value passed, act as a getter.
+			if(turn===undefined) {
+				return this._position.turn();
+			}
+
+			// Otherwise, act as a setter.
+			else {
+				if(!(turn=='w' || turn=='b')) {
+					return;
+				}
+
+				// Compose the new FEN string.
+				var fields = this.options.position.split(/\s+/);
+				if(fields[1]==turn) {
+					return;
+				}
+				fields[1] = turn;
+				var newFen = fields.join(' ');
+
+				// Update the widget.
+				$('.uichess-chessboard-turnFlag', this.element).toggleClass('uichess-chessboard-inactiveFlag');
+				this._position = new Chess(newFen);
+				this.options.position = this._position.fen();
+			}
+		},
+
+
+		/**
 		 * When the widget is placed in a resizable container (such as a jQuery resizable frame or dialog),
 		 * it is often suitable to let the container control the widget size. This can be done
 		 * as follows:
