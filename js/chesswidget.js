@@ -170,6 +170,10 @@
 
 			this.options[key] = value;
 			this._refresh();
+
+			if(key=='position') {
+				this._trigger('change', null, this.options.position);
+			}
 		},
 
 
@@ -232,6 +236,7 @@
 				$('.uichess-chessboard-turnFlag', this.element).toggleClass('uichess-chessboard-inactiveFlag');
 				this._position = new Chess(newFen);
 				this.options.position = this._position.fen();
+				this._trigger('change', null, this.options.position);
 			}
 		},
 
@@ -265,6 +270,7 @@
 				// Update the widget.
 				this._position = new Chess(newFen);
 				this.options.position = this._position.fen();
+				this._trigger('change', null, this.options.position);
 			}
 		},
 
@@ -298,6 +304,7 @@
 				// Update the widget.
 				this._position = new Chess(newFen);
 				this.options.position = this._position.fen();
+				this._trigger('change', null, this.options.position);
 			}
 		},
 
@@ -723,6 +730,7 @@
 			// Refresh the FEN string coding the position, and trigger the 'move' event.
 			this.options.position = this._position.fen();
 			this._trigger('move', null, move);
+			this._trigger('change', null, this.options.position);
 		},
 
 
@@ -756,6 +764,7 @@
 			// Refresh the FEN string coding the position, and trigger the 'add' event.
 			this.options.position = this._position.fen();
 			this._trigger('add', null, {square: square, piece: piece});
+			this._trigger('change', null, this.options.position);
 		}
 
 	}); /* End of $.widget('uichess.chessboard', ... ) */

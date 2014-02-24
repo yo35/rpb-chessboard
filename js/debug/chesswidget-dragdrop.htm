@@ -78,15 +78,15 @@
 			sparePieces: true,
 			move: function(event, ui)
 			{
-				$('#info')
-					.append('<div>Move from ' + ui.from + ' to ' + ui.to + '</div>')
-					.append('<div>' + $('#a').chessboard('option', 'position') + '</div>');
+				$('#info').append('<div>Move from ' + ui.from + ' to ' + ui.to + '</div>')
 			},
 			add: function(event, ui)
 			{
-				$('#info')
-					.append('<div>Add ' + ui.piece.type + ui.piece.color + ' in ' + ui.square + '</div>')
-					.append('<div>' + $('#a').chessboard('option', 'position') + '</div>');
+				$('#info').append('<div>Add ' + ui.piece.type + ui.piece.color + ' in ' + ui.square + '</div>')
+			},
+			change: function(event, ui)
+			{
+				$('#info').append('<div>' + $('#a').chessboard('option', 'position') + '</div>');
 			}
 		});
 
