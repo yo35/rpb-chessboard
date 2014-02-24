@@ -220,6 +220,9 @@
 					return;
 				}
 				fields[1] = turn;
+				if(fields[3].length==2) { // update the "en-passant" field if necessary
+					fields[3] = fields[3].charAt(0) + (turn=='w' ? '6' : '3');
+				}
 				var newFen = fields.join(' ');
 
 				// Update the widget.

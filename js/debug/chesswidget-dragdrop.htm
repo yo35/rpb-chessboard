@@ -30,6 +30,7 @@
 				<p>
 					<input id="flip" type="checkbox" />
 					<label for="flip">Flip</label>
+					<input id="print-fen" type="button" value="Print FEN" />
 				</p>
 				<p>
 					Allow moves:
@@ -115,6 +116,10 @@
 
 		$('#flip').prop('checked', $('#a').chessboard('option', 'flip')).button().click(function() {
 			$('#a').chessboard('option', 'flip', $('#flip').prop('checked'));
+		});
+
+		$('#print-fen').button().click(function() {
+			$('#info').append('<div>' + $('#a').chessboard('option', 'position') + '</div>');
 		});
 
 		$('#allowMoves-' + $('#a').chessboard('option', 'allowMoves')).prop('checked', true);
