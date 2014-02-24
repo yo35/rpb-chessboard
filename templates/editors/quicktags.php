@@ -34,8 +34,26 @@
 					<?php _e('Clear', 'rpbchessboard'); ?>
 				</button>
 			</p>
+			<p>
+				<?php _e('Turn:', 'rpbchessboard'); ?><br/>
+				<span id="rpbchessboard-editFen-turn">
+					<label for="rpbchessboard-editFen-turn-w">
+						<span class="rpbchessboard-editFen-turnFlag uichess-chessboard-sprite36" style="background-position: -216px -36px;"></span>
+					</label>
+					<input id="rpbchessboard-editFen-turn-w" type="radio" name="turn" value="w" />
+					&nbsp;
+					<label for="rpbchessboard-editFen-turn-b">
+						<span class="rpbchessboard-editFen-turnFlag uichess-chessboard-sprite36" style="background-position: -216px -0px;"></span>
+					</label>
+					<input id="rpbchessboard-editFen-turn-b" type="radio" name="turn" value="b" />
+				</span>
+			</p>
 			TODO
 		</div>
+	</div>
+	<div id="rpbchessboard-editFen-fenArea">
+		<span><?php _e('FEN:', 'rpbchessboard'); ?></span>
+		<input id="rpbchessboard-editFen-fen" type="text" />
 	</div>
 	<form id="rpbchessboard-editFen-form">
 		<div class="submitbox">
@@ -62,18 +80,32 @@
 			return;
 		}
 
+		// FEN widget.
+		var fen = $('#rpbchessboard-editFen-fen');
+		fen.prop('readonly', true);
+
 		// Create the chessboard widget.
-		$('#rpbchessboard-editFen-chessboard').chessboard({
+		var cb = $('#rpbchessboard-editFen-chessboard');
+		cb.chessboard({
 			position   : 'start',
 			squareSize : 40,
 			allowMoves : 'all',
-			sparePieces: true
+			sparePieces: true,
+			change: function(event, ui) { fen.val(ui); }
+		});
+		fen.val(cb.chessboard('option', 'position'));
+
+		// Turn widget.
+		$('#rpbchessboard-editFen-turn-' + cb.chessboard('turn')).prop('checked', true);
+		$('#rpbchessboard-editFen-turn input').each(function(index, e)
+		{
+			$(e).click(function() { cb.chessboard('turn', $(e).val()); });
 		});
 
 		// Buttons 'reset' and 'clear'.
 		function resetPosition(fen)
 		{
-			$('#rpbchessboard-editFen-chessboard').chessboard('option', 'position', fen);
+			cb.chessboard('option', 'position', fen);
 		}
 		$('#rpbchessboard-editFen-reset').button().click(function() { resetPosition('start'); });
 		$('#rpbchessboard-editFen-clear').button().click(function() { resetPosition('empty'); });
@@ -90,7 +122,7 @@
 			event.preventDefault();
 			$('#rpbchessboard-editFen-dialog').dialog('close');
 			QTags.insertContent(
-				'[fen]' + $('#rpbchessboard-editFen-chessboard').chessboard('option', 'position') + '[/fen]'
+				'[fen]' + cb.chessboard('option', 'position') + '[/fen]'
 			);
 		});
 

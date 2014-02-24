@@ -269,10 +269,30 @@
 	justify-content: space-between;
 }
 
+#rpbchessboard-editFen-fenArea {
+	margin: 0px 10px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+#rpbchessboard-editFen-fenArea > span {
+	margin-right: 5px;
+}
+
+#rpbchessboard-editFen-fenArea > input {
+	width: 100%;
+}
+
 #rpbchessboard-editFen-update {
 	order: 1;
 }
 
 #rpbchessboard-editFen-cancel {
 	order: 0;
+}
+
+.rpbchessboard-editFen-turnFlag {
+	display: inline-block;
+	vertical-align: middle;
 }
