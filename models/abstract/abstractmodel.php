@@ -56,20 +56,20 @@ abstract class RPBChessboardAbstractModel
 			$modelName = $this->getName();
 			throw new Exception("Invalid call to method `$method` in the model `$modelName`.");
 		}
-		return $trait->$method($args);
+		return call_user_func_array(array($trait, $method), $args);
 	}
 
 
 	/**
 	 * Import a trait to the current class.
 	 */
-	public function loadTrait($traitName, $args=null)
+	public function loadTrait($traitName, $arg1=null, $arg2=null, $arg3=null)
 	{
 		// Load the definition of the trait, and instantiate it.
 		$fileName  = strtolower($traitName);
 		$className = 'RPBChessboardTrait' . $traitName;
 		require_once(RPBCHESSBOARD_ABSPATH.'models/traits/'.$fileName.'.php');
-		$trait = new $className($args);
+		$trait = new $className($arg1, $arg2, $arg3);
 
 		// List all the public methods of the trait, and register them
 		// to the method index of the current model.

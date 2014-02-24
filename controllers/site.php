@@ -84,18 +84,9 @@ class RPBChessboardControllerSite extends RPBChessboardAbstractController
 	 */
 	private static function runShortcode($modelName, $atts, $content)
 	{
-		// Load the model
-		$fileName  = strtolower($modelName);
-		$className = 'RPBChessboardModel' . $modelName;
-		require_once(RPBCHESSBOARD_ABSPATH.'models/'.$fileName.'.php');
-		$model = new $className($atts, $content);
-
-		// Load the view
-		$viewName  = $model->getViewName();
-		$fileName  = strtolower($viewName);
-		$className = 'RPBChessboardView' . $viewName;
-		require_once(RPBCHESSBOARD_ABSPATH.'views/'.$fileName.'.php');
-		$view = new $className($model);
+		// Load the model and the view
+		$model = self::loadModel($modelName, $atts, $content);
+		$view  = self::loadView($model);
 
 		// Display the view
 		ob_start();

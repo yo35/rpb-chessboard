@@ -46,13 +46,34 @@ abstract class RPBChessboardAbstractController
 	public function getModel()
 	{
 		if(is_null($this->model)) {
-			$modelName = $this->modelName;
-			$fileName  = strtolower($modelName);
-			$className = 'RPBChessboardModel' . $modelName;
-			require_once(RPBCHESSBOARD_ABSPATH.'models/'.$fileName.'.php');
-			$this->model = new $className();
+			$this->model = self::loadModel($this->modelName);
 		}
 		return $this->model;
+	}
+
+
+	/**
+	 * Load the model corresponding to the given model name.
+	 */
+	public static function loadModel($modelName, $arg1=null, $arg2=null, $arg3=null)
+	{
+		$fileName  = strtolower($modelName);
+		$className = 'RPBChessboardModel' . $modelName;
+		require_once(RPBCHESSBOARD_ABSPATH.'models/'.$fileName.'.php');
+		return new $className($arg1, $arg2, $arg3);
+	}
+
+
+	/**
+	 * Load the view whose name is returned by `$model->getViewName()`.
+	 */
+	public static function loadView($model)
+	{
+		$viewName  = $model->getViewName();
+		$fileName  = strtolower($viewName);
+		$className = 'RPBChessboardView' . $viewName;
+		require_once(RPBCHESSBOARD_ABSPATH.'views/'.$fileName.'.php');
+		return new $className($model);
 	}
 
 

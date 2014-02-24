@@ -56,8 +56,7 @@ class RPBChessboardControllerAdmin extends RPBChessboardAbstractController
 		}
 
 		// Create the view
-		require_once(RPBCHESSBOARD_ABSPATH.'views/admin.php');
-		$view = new RPBChessboardViewAdmin($model);
+		$view = self::loadView($model);
 
 		// Display the view
 		$view->display();
