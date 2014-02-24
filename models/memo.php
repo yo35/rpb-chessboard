@@ -20,7 +20,7 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH.'models/abstractadminmodel.php');
+require_once(RPBCHESSBOARD_ABSPATH.'models/abstract/abstractadminmodel.php');
 
 
 /**

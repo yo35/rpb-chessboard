@@ -20,24 +20,31 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH.'models/abstractmodel.php');
+require_once(RPBCHESSBOARD_ABSPATH.'models/abstract/abstractshortcodemodel.php');
 
 
 /**
- * Base class for the models used in the backend of the RPBChessboard plugin.
+ * Base model class for the top-level shortcodes ([fen][/fen] and [pgn][/pgn])
+ * in the frontend.
  */
-abstract class RPBChessboardAbstractAdminModel extends RPBChessboardAbstractModel
+abstract class RPBChessboardAbstractTopLevelShortcodeModel extends RPBChessboardAbstractShortcodeModel
 {
+	private $topLevelItemID = null;
+
+
 	/**
-	 * Title of the page in the backend.
+	 * Return the name of the view to use.
 	 *
 	 * @return string
 	 */
-	public abstract function getTitle();
+	public function getViewName()
+	{
+		return 'TopLevelShortcode';
+	}
 
 
 	/**
-	 * Return the name of the template to use to display the page in the backend.
+	 * Return the name of the template to use.
 	 * By default, the template to use is the one with the same name than the model.
 	 *
 	 * @return string
@@ -49,16 +56,34 @@ abstract class RPBChessboardAbstractAdminModel extends RPBChessboardAbstractMode
 
 
 	/**
-	 * Return the name of the action that should be performed by the server.
-	 * The action is initiated by the user when clicking on a "submit" button in
-	 * an HTML form with its method attribute set to POST.
-	 *
-	 * This function may return null if no action was posted.
+	 * Return the ID to use (maybe as a prefix) to identify the HTML nodes that
+	 * need to be identify in the top-level shortcode view.
 	 *
 	 * @return string
 	 */
-	public function getPostAction()
+	public function getTopLevelItemID()
 	{
-		return array_key_exists('action', $_POST) ? $_POST['action'] : null;
+		if(is_null($this->topLevelItemID)) {
+			$this->topLevelItemID = self::makeID();
+		}
+		return $this->topLevelItemID;
 	}
+
+
+	/**
+	 * Allocate a new HTML node ID.
+	 *
+	 * @return string
+	 */
+	private static function makeID()
+	{
+		++self::$idCounter;
+		return 'rpbchessboard-item'.self::$idCounter;
+	}
+
+
+	/**
+	 * Global ID counter.
+	 */
+	private static $idCounter = 0;
 }
