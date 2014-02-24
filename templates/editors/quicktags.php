@@ -106,6 +106,7 @@
 		function resetPosition(fen)
 		{
 			cb.chessboard('option', 'position', fen);
+			$('#rpbchessboard-editFen-turn-' + cb.chessboard('turn')).prop('checked', true);
 		}
 		$('#rpbchessboard-editFen-reset').button().click(function() { resetPosition('start'); });
 		$('#rpbchessboard-editFen-clear').button().click(function() { resetPosition('empty'); });
