@@ -20,11 +20,6 @@
 
 
 /******************************************************************************/
-/*** Miscellaneous ***/
-
-
-
-/******************************************************************************/
 /*** Column layout ***/
 
 .rpbchessboard-admin-columns {
@@ -258,4 +253,26 @@
 
 #rpbchessboard-admin-translator-list img {
 	vertical-align: middle;
+}
+
+
+
+/******************************************************************************/
+/*** Edit FEN dialog ***/
+
+#rpbchessboard-editFen-dialog .submitbox {
+	padding: 5px 10px;
+	font-size: 11px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+}
+
+#rpbchessboard-editFen-update {
+	order: 1;
+}
+
+#rpbchessboard-editFen-cancel {
+	order: 0;
 }

@@ -60,6 +60,7 @@
 		// Create the dialog.
 		$('#rpbchessboard-editFen-dialog').removeClass('rbpchessboard-invisible').dialog({
 			autoOpen   : false,
+			modal      : true,
 			dialogClass: 'wp-dialog',
 			title      : '<?php _e('Insert a chess diagram', 'rpbchessboard'); ?>',
 			width      : 500
@@ -78,7 +79,7 @@
 	// Register the button.
 	QTags.addButton(
 		'rpbchessboard-editFen-button',
-		'<?php _e('Chessboard', 'rpbchessboard'); ?>',
+		'<?php _e('chessboard', 'rpbchessboard'); ?>',
 		rpbchessboard_editFenCallback
 	);
 
