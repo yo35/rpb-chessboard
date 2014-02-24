@@ -21,8 +21,23 @@
 ?>
 
 <div id="rpbchessboard-editFen-dialog" class="rbpchessboard-invisible">
-	<form>
-		<div id="rpbchessboard-editFen-chessboard"></div>
+	<div class="rpbchessboard-admin-columns">
+		<div style="width: 65%;">
+			<div id="rpbchessboard-editFen-chessboard"></div>
+		</div>
+		<div style="width: 35%;">
+			<p>
+				<button id="rpbchessboard-editFen-reset" title="<?php _e('Set the initial position', 'rpbchessboard'); ?>">
+					<?php _e('Reset', 'rpbchessboard'); ?>
+				</button>
+				<button id="rpbchessboard-editFen-clear" title="<?php _e('Clear the chessboard', 'rpbchessboard'); ?>">
+					<?php _e('Clear', 'rpbchessboard'); ?>
+				</button>
+			</p>
+			TODO
+		</div>
+	</div>
+	<form id="rpbchessboard-editFen-form">
 		<div class="submitbox">
 			<div id="rpbchessboard-editFen-update">
 				<input class="button-primary" type="submit" name="rpbchessboard-editFen-submit" value="<?php
@@ -39,13 +54,11 @@
 
 <script type="text/javascript">
 
-	var rpbchessboard_editFenDialogBuilt = false;
-
-
 	// Build the 'editFen' dialog, if not done yet.
 	function rpbchessboard_editFenDialog($)
 	{
-		if(rpbchessboard_editFenDialogBuilt) {
+		// Nothing to do if the dialog has already been initialized.
+		if(!$('#rpbchessboard-editFen-dialog').hasClass('rbpchessboard-invisible')) {
 			return;
 		}
 
@@ -57,13 +70,37 @@
 			sparePieces: true
 		});
 
+		// Buttons 'reset' and 'clear'.
+		function resetPosition(fen)
+		{
+			$('#rpbchessboard-editFen-chessboard').chessboard('option', 'position', fen);
+		}
+		$('#rpbchessboard-editFen-reset').button().click(function() { resetPosition('start'); });
+		$('#rpbchessboard-editFen-clear').button().click(function() { resetPosition('empty'); });
+
+		// Button 'cancel'.
+		$('#rpbchessboard-editFen-cancel a').click(function()
+		{
+			$('#rpbchessboard-editFen-dialog').dialog('close');
+		});
+
+		// Submit button.
+		$('#rpbchessboard-editFen-form').submit(function(event)
+		{
+			event.preventDefault();
+			$('#rpbchessboard-editFen-dialog').dialog('close');
+			QTags.insertContent(
+				'[fen]' + $('#rpbchessboard-editFen-chessboard').chessboard('option', 'position') + '[/fen]'
+			);
+		});
+
 		// Create the dialog.
 		$('#rpbchessboard-editFen-dialog').removeClass('rbpchessboard-invisible').dialog({
 			autoOpen   : false,
 			modal      : true,
 			dialogClass: 'wp-dialog',
-			title      : '<?php _e('Insert a chess diagram', 'rpbchessboard'); ?>',
-			width      : 500
+			title      : '<?php _e('Insert/edit chess diagram', 'rpbchessboard'); ?>',
+			width      : 650
 		});
 	}
 
