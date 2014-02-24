@@ -48,14 +48,6 @@ abstract class RPBChessboardAbstractShortcodeModel extends RPBChessboardAbstract
 
 
 	/**
-	 * Return the name of the view to use.
-	 *
-	 * @return string
-	 */
-	public abstract function getViewName();
-
-
-	/**
 	 * Return the attributes passed with the short-code.
 	 *
 	 * @return array

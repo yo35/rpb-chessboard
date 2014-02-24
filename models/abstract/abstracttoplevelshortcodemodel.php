@@ -32,26 +32,9 @@ abstract class RPBChessboardAbstractTopLevelShortcodeModel extends RPBChessboard
 	private $topLevelItemID = null;
 
 
-	/**
-	 * Return the name of the view to use.
-	 *
-	 * @return string
-	 */
 	public function getViewName()
 	{
 		return 'TopLevelShortcode';
-	}
-
-
-	/**
-	 * Return the name of the template to use.
-	 * By default, the template to use is the one with the same name than the model.
-	 *
-	 * @return string
-	 */
-	public function getTemplateName()
-	{
-		return $this->getName();
 	}
 
 

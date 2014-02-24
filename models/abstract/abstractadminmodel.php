@@ -28,24 +28,18 @@ require_once(RPBCHESSBOARD_ABSPATH.'models/abstract/abstractmodel.php');
  */
 abstract class RPBChessboardAbstractAdminModel extends RPBChessboardAbstractModel
 {
+	public function getViewName()
+	{
+		return 'Admin';
+	}
+
+
 	/**
 	 * Title of the page in the backend.
 	 *
 	 * @return string
 	 */
 	public abstract function getTitle();
-
-
-	/**
-	 * Return the name of the template to use to display the page in the backend.
-	 * By default, the template to use is the one with the same name than the model.
-	 *
-	 * @return string
-	 */
-	public function getTemplateName()
-	{
-		return $this->getName();
-	}
 
 
 	/**

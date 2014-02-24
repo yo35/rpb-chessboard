@@ -96,4 +96,26 @@ abstract class RPBChessboardAbstractModel
 		}
 		return $this->name;
 	}
+
+
+	/**
+	 * Return the name of the view to use. By default, this is the model name.
+	 *
+	 * @return string
+	 */
+	public function getViewName()
+	{
+		return $this->getName();
+	}
+
+
+	/**
+	 * Return the name of the template to use. By default, this is the model name.
+	 *
+	 * @return string
+	 */
+	public function getTemplateName()
+	{
+		return $this->getName();
+	}
 }
