@@ -31,11 +31,6 @@ class RPBChessboardViewEditors extends RPBChessboardAbstractView
 	public function display()
 	{
 		$model = $this->getModel();
-		// TODO
-		?>
-			<script type="text/javascript">
-				alert('Hello world!');
-			</script>
-		<?php
+		include(RPBCHESSBOARD_ABSPATH.'templates/editors/quicktags.php');
 	}
 }
