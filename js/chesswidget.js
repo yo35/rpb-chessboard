@@ -200,6 +200,9 @@
 
 		/**
 		 * Get or set the turn flag.
+		 *
+		 * @param {string} turn 'w' or 'b' (or nothing to get the current value).
+		 * @returns {undefined|string}
 		 */
 		turn: function(turn)
 		{
@@ -227,6 +230,72 @@
 
 				// Update the widget.
 				$('.uichess-chessboard-turnFlag', this.element).toggleClass('uichess-chessboard-inactiveFlag');
+				this._position = new Chess(newFen);
+				this.options.position = this._position.fen();
+			}
+		},
+
+
+		/**
+		 * Get or set the castle right flags.
+		 *
+		 * @param {string} castleRights 'K', 'Q', 'k', 'q', or a combination of these flags (or nothing to get the current value).
+		 * @returns {undefined|string}
+		 */
+		castleRights: function(castleRights)
+		{
+			var fields = this.options.position.split(/\s+/);
+			var currentCastleRights = fields[2]=='-' ? '' : fields[2];
+
+			// No value passed, act as a getter.
+			if(value===undefined) {
+				return currentCastleRights;
+			}
+
+			// Otherwise, act as a setter.
+			else {
+				if(castleRights==currentCastleRights || !castleRights.match(/^K?Q?k?q?$/)) {
+					return;
+				}
+
+				// Compose the new FEN string.
+				fields[2] = castleRights=='' ? '-' : castleRights;
+				var newFen = fields.join(' ');
+
+				// Update the widget.
+				this._position = new Chess(newFen);
+				this.options.position = this._position.fen();
+			}
+		},
+
+
+		/**
+		 * Get or set the "en-passant" flag.
+		 *
+		 * @param {string} enPassant 'a', 'b', ... , 'h', or '' (or nothing to get the current value).
+		 * @returns {undefined|string}
+		 */
+		enPassant: function(enPassant)
+		{
+			var fields = this.options.position.split(/\s+/);
+			var currentEnPassant = fields[3].length==2 ? fields[3].charAt(0) : '';
+
+			// No value passed, act as a getter.
+			if(enPassant===undefined) {
+				return currentEnPassant;
+			}
+
+			// Otherwise, act as a setter.
+			else {
+				if(enPassant==currentEnPassant || !currentEnPassant.match(/^[a-h]?$/)) {
+					return;
+				}
+
+				// Compose the new FEN string.
+				fields[3] = enPassant=='' ? '-' : (enPassant + (fields[1]=='w' ? '6' : '3'));
+				var newFen = fields.join(' ');
+
+				// Update the widget.
 				this._position = new Chess(newFen);
 				this.options.position = this._position.fen();
 			}
