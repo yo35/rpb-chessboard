@@ -85,6 +85,9 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 == Changelog ==
 
+= 2.2.2 =
+* Improve compatibility with IE <= 10.
+
 = 2.2.1 =
 * Fix parsing bug (castle moves with check).
 
