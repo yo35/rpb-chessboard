@@ -609,13 +609,13 @@ Pgn = (function(Chess)
 	function parse(pgnString)
 	{
 		// Token types
-		const TOKEN_HEADER          = 1; // Ex: [White "Kasparov, G."]
-		const TOKEN_MOVE            = 2; // [BKNQRa-h1-8xO\-=\+#]+ (with an optional move number)
-		const TOKEN_NAG             = 3; // $[1-9][0-9]* or !! ! !? ?! ? ?? +- +/- +/= += = inf =+ =/+ -/+ -+
-		const TOKEN_COMMENTARY      = 4; // {some text}
-		const TOKEN_BEGIN_VARIATION = 5; // (
-		const TOKEN_END_VARIATION   = 6; // )
-		const TOKEN_END_OF_GAME     = 7; // 1-0, 0-1, 1/2-1/2 or *
+		var /* const */ TOKEN_HEADER          = 1; // Ex: [White "Kasparov, G."]
+		var /* const */ TOKEN_MOVE            = 2; // [BKNQRa-h1-8xO\-=\+#]+ (with an optional move number)
+		var /* const */ TOKEN_NAG             = 3; // $[1-9][0-9]* or !! ! !? ?! ? ?? +- +/- +/= += = inf =+ =/+ -/+ -+
+		var /* const */ TOKEN_COMMENTARY      = 4; // {some text}
+		var /* const */ TOKEN_BEGIN_VARIATION = 5; // (
+		var /* const */ TOKEN_END_VARIATION   = 6; // )
+		var /* const */ TOKEN_END_OF_GAME     = 7; // 1-0, 0-1, 1/2-1/2 or *
 
 		// State variables for lexical analysis (performed by the function consumeToken()).
 		var pos            = 0;     // current position in the string
