@@ -260,6 +260,17 @@
 /******************************************************************************/
 /*** Edit FEN dialog ***/
 
+#rpbchessboard-editFen-castleRights {
+	text-align: center;
+	table-layout: fixed;
+	margin-top: 5px;
+}
+
+#rpbchessboard-editFen-castleRights td {
+	vertical-align: middle;
+	padding: 0px 5px 0px;
+}
+
 #rpbchessboard-editFen-dialog .submitbox {
 	padding: 5px 10px;
 	font-size: 11px;
