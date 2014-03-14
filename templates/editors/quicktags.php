@@ -108,10 +108,23 @@
 	// Build the 'editFen' dialog, if not done yet.
 	function rpbchessboard_editFenDialog($, fen)
 	{
-		// If the argument 'fen' is not define, assume that the start position is requested.
+		// If the argument 'fen' is not defined, then the dialog is set-up in the "add-mode",
+		// meaning that it is assumed that the user wants to insert a new FEN string in the text.
 		if(fen===undefined) {
+			var isAddMode = true;
 			fen = 'start';
 		}
+
+		// Otherwise, the dialog is set-up in the "editMode", meaning that it is assumed that
+		// the user wants to edit an existing FEN string.
+		else {
+			var isAddMode = false;
+		}
+
+
+		// Configure the dialog in add or edit mode.
+		$('#rpbchessboard-editFen-dialog').data('isAddMode', isAddMode);
+		// TODO: show the add or the edit submit button depending on the context
 
 
 		// Method to call to initialize the dialog with a given FEN string.
@@ -205,9 +218,11 @@
 		{
 			event.preventDefault();
 			$('#rpbchessboard-editFen-dialog').dialog('close');
-			QTags.insertContent(
-				'[fen]' + cb.chessboard('option', 'position') + '[/fen]'
-			);
+			var newContent = cb.chessboard('option', 'position');
+			if($('#rpbchessboard-editFen-dialog').data('isAddMode')) {
+				newContent = '[fen]' + newContent + '[/fen]'; //TODO: [fen_compat]
+			}
+			QTags.insertContent(newContent);
 		});
 
 
@@ -225,7 +240,57 @@
 	// Callback called when the user clicks on the 'editFen' button.
 	function rpbchessboard_editFenCallback(button, canvas, editor)
 	{
-		rpbchessboard_editFenDialog(jQuery);
+		var posBegin = canvas.selectionStart;
+		var posEnd   = canvas.selectionEnd  ;
+		var text     = canvas.value;
+
+		// Search for the first occurence of the closing tag '[/fen]' after the begin of the selection.
+		function searchFrom(str, pos, re) {
+			if(pos>str.length) {
+				return -1;
+			}
+			else {
+				var retVal = str.substr(pos).search(re);
+				return retVal<0 ? -1 : retVal+pos;
+			}
+		}
+		var reClose = /\[\/fen\]/g; //TODO: [fen_compat]
+		var posClose = searchFrom(text, Math.max(0, posBegin-5), reClose); //TODO: [fen_compat]
+
+		// Search for the last occurence of the opening tag '[fen ... ]' before the detected closing tag.
+		function searchFromBackward(str, pos, re)
+		{
+			str = str.substr(0, pos);
+			var retVal = -1;
+			while(true) {
+				var newOccurence = searchFrom(str, retVal+1, re);
+				if(newOccurence<0) {
+					break;
+				}
+				retVal = newOccurence;
+			}
+			return retVal;
+		}
+		var reOpen = /\[fen[^\[\]]*\]/g; //TODO: [fen_compat]
+		var posOpen = posClose<0 ? -1 : searchFromBackward(text, posClose, reOpen);
+
+		// If both the open and the close tag were found, and if:
+		// posOpen <= posBegin <= posEnd <= posClose + (length of the close tag),
+		// then set-up the dialog to edit the string enclosed by the tags...
+		if(posOpen>=0 && posClose>=0 && posOpen<=posBegin && posEnd<=posClose+6) { //TODO: [fen_compat]
+			var lengthOfOpenTag = text.substr(posOpen).match(reOpen)[0].length;
+			var fen = text.substr(posOpen+lengthOfOpenTag, posClose-posOpen-lengthOfOpenTag);
+			canvas.selectionStart = posOpen + lengthOfOpenTag;
+			canvas.selectionEnd   = posClose;
+			rpbchessboard_editFenDialog(jQuery, fen);
+		}
+
+		// Otherwise, set-up the dialog to add a new FEN string.
+		else {
+			rpbchessboard_editFenDialog(jQuery);
+		}
+
+		// Show the dialog.
 		jQuery('#rpbchessboard-editFen-dialog').dialog('open');
 	}
 
