@@ -58,7 +58,8 @@
 	margin-left: 8px;
 }
 
-.uichess-chessboard-inactiveFlag {
+.uichess-chessboard-inactiveFlag,
+.uichess-chessboard-trash .uichess-chessboard-piece {
 	display: none;
 }
 

@@ -652,6 +652,7 @@
 		 */
 		_makeTrashDroppable: function()
 		{
+			var obj = this;
 			var tableNode = $('.uichess-chessboard-table', this.element).get(0);
 			$('.uichess-chessboard-trash', this.element).droppable({
 				hoverClass: 'uichess-chessboard-trashHover',
@@ -659,6 +660,10 @@
 				{
 					return $(e).hasClass('uichess-chessboard-piece') &&
 						$(e).closest('.uichess-chessboard-table').get(0)==tableNode;
+				},
+				drop: function(event, ui)
+				{
+					obj._doRemovePiece(ui.draggable.parent().data('square'), ui.draggable, $(event.target));
 				}
 			});
 		},
@@ -795,6 +800,29 @@
 			// Refresh the FEN string coding the position, and trigger the 'add' event.
 			this.options.position = this._position.fen();
 			this._trigger('add', null, {square: square, piece: piece});
+			this._trigger('change', null, this.options.position);
+		},
+
+
+		/**
+		 * Called when a piece is sent to the trash.
+		 *
+		 * @param {string} square The name of the square that contains the piece to trash.
+		 * @param {jQuery} movingPiece DOM node representing the moving piece.
+		 * @param {jQuery} target DOM node representing the trash.
+		 */
+		_doRemovePiece: function(square, movingPiece, target)
+		{
+			// Update the internal chess object.
+			this._position.remove(square);
+
+			// Update the DOM tree. The moving piece must not be directly deleted in order
+			// to complete the drag process.
+			target.empty().append(movingPiece);
+
+			// Refresh the FEN string coding the position, and trigger the 'remove' event.
+			this.options.position = this._position.fen();
+			this._trigger('remove', null, square);
 			this._trigger('change', null, this.options.position);
 		}
 
