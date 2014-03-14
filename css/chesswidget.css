@@ -66,6 +66,11 @@
 	box-shadow: 0 0 7px 3px #ffb000 inset;
 }
 
+.uichess-chessboard-trashHover {
+	background-color: #ffb000;
+	border-radius: 7px;
+}
+
 .uichess-chessboard-sparePiecesBottomRow .uichess-chessboard-trash,
 .uichess-chessboard-sparePiecesBottomRow .uichess-chessboard-sparePiece {
 	margin-top: 8px;

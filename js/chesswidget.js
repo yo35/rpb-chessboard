@@ -539,6 +539,7 @@
 			if(sparePieces) {
 				this._tagSparePieces();
 				this._makeSparePiecesDraggable();
+				this._makeTrashDroppable();
 			}
 		},
 
@@ -616,11 +617,12 @@
 		_makeSquareDroppable: function()
 		{
 			var obj = this;
+			var tableNode = $('.uichess-chessboard-table', this.element).get(0);
 			$('.uichess-chessboard-square', this.element).droppable({
 				hoverClass: 'uichess-chessboard-squareHover',
 				accept: function(e)
 				{
-					return $(e).closest('.uichess-chessboard-table').get(0)==$('.uichess-chessboard-table', obj.element).get(0);
+					return $(e).closest('.uichess-chessboard-table').get(0)==tableNode;
 				},
 				drop: function(event, ui)
 				{
@@ -640,6 +642,23 @@
 							obj._doMove(move, movingPiece, target);
 						}
 					}
+				}
+			});
+		},
+
+
+		/**
+		 * Make the trash icons acceptable targets for pieces.
+		 */
+		_makeTrashDroppable: function()
+		{
+			var tableNode = $('.uichess-chessboard-table', this.element).get(0);
+			$('.uichess-chessboard-trash', this.element).droppable({
+				hoverClass: 'uichess-chessboard-trashHover',
+				accept: function(e)
+				{
+					return $(e).hasClass('uichess-chessboard-piece') &&
+						$(e).closest('.uichess-chessboard-table').get(0)==tableNode;
 				}
 			});
 		},
