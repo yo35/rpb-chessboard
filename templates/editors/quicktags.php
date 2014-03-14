@@ -106,29 +106,51 @@
 <script type="text/javascript">
 
 	// Build the 'editFen' dialog, if not done yet.
-	function rpbchessboard_editFenDialog($)
+	function rpbchessboard_editFenDialog($, fen)
 	{
-		// Nothing to do if the dialog has already been initialized.
+		// If the argument 'fen' is not define, assume that the start position is requested.
+		if(fen===undefined) {
+			fen = 'start';
+		}
+
+
+		// Method to call to initialize the dialog with a given FEN string.
+		function resetPosition(fen)
+		{
+			var cb = $('#rpbchessboard-editFen-chessboard');
+			cb.chessboard('option', 'position', fen);
+			$('#rpbchessboard-editFen-turn-' + cb.chessboard('turn')).prop('checked', true);
+			var castleRights = cb.chessboard('castleRights');
+			$('#rpbchessboard-editFen-castle-wk').prop('checked', castleRights.contains('K'));
+			$('#rpbchessboard-editFen-castle-wq').prop('checked', castleRights.contains('Q'));
+			$('#rpbchessboard-editFen-castle-bk').prop('checked', castleRights.contains('k'));
+			$('#rpbchessboard-editFen-castle-bq').prop('checked', castleRights.contains('q'));
+			$('#rpbchessboard-editFen-enPassant').val(cb.chessboard('enPassant'));
+		}
+
+
+		// If the dialog has already been initialized, just reset the position, and exit.
 		if(!$('#rpbchessboard-editFen-dialog').hasClass('rpbchessboard-invisible')) {
+			resetPosition(fen);
 			return;
 		}
 
 
 		// FEN widget.
-		var fen = $('#rpbchessboard-editFen-fen');
-		fen.prop('readonly', true);
+		var textField = $('#rpbchessboard-editFen-fen');
+		textField.prop('readonly', true);
 
 
 		// Create the chessboard widget.
 		var cb = $('#rpbchessboard-editFen-chessboard');
 		cb.chessboard({
-			position   : 'start',
+			position   : fen,
 			squareSize : 40,
 			allowMoves : 'all',
 			sparePieces: true,
-			change: function(event, ui) { fen.val(ui); }
+			change: function(event, ui) { textField.val(ui); }
 		});
-		fen.val(cb.chessboard('option', 'position'));
+		textField.val(cb.chessboard('option', 'position'));
 
 
 		// Turn widget.
@@ -140,20 +162,23 @@
 
 
 		// Castle rights widget.
-		function resetCastleRights()
-		{
-			var castleRights = '';
-			if($('#rpbchessboard-editFen-castle-wk').prop('checked')) castleRights += 'K';
-			if($('#rpbchessboard-editFen-castle-wq').prop('checked')) castleRights += 'Q';
-			if($('#rpbchessboard-editFen-castle-bk').prop('checked')) castleRights += 'k';
-			if($('#rpbchessboard-editFen-castle-bq').prop('checked')) castleRights += 'q';
-			cb.chessboard('castleRights', castleRights);
-		}
 		var castleRights = cb.chessboard('castleRights');
-		$('#rpbchessboard-editFen-castle-wk').prop('checked', castleRights.contains('K')).click(resetCastleRights);
-		$('#rpbchessboard-editFen-castle-wq').prop('checked', castleRights.contains('Q')).click(resetCastleRights);
-		$('#rpbchessboard-editFen-castle-bk').prop('checked', castleRights.contains('k')).click(resetCastleRights);
-		$('#rpbchessboard-editFen-castle-bq').prop('checked', castleRights.contains('q')).click(resetCastleRights);
+		$('#rpbchessboard-editFen-castle-wk').prop('checked', castleRights.contains('K'));
+		$('#rpbchessboard-editFen-castle-wq').prop('checked', castleRights.contains('Q'));
+		$('#rpbchessboard-editFen-castle-bk').prop('checked', castleRights.contains('k'));
+		$('#rpbchessboard-editFen-castle-bq').prop('checked', castleRights.contains('q'));
+		$('#rpbchessboard-editFen-castleRights input').each(function(index, e)
+		{
+			$(e).click(function()
+			{
+				var castleRights = '';
+				if($('#rpbchessboard-editFen-castle-wk').prop('checked')) castleRights += 'K';
+				if($('#rpbchessboard-editFen-castle-wq').prop('checked')) castleRights += 'Q';
+				if($('#rpbchessboard-editFen-castle-bk').prop('checked')) castleRights += 'k';
+				if($('#rpbchessboard-editFen-castle-bq').prop('checked')) castleRights += 'q';
+				cb.chessboard('castleRights', castleRights);
+			});
+		});
 
 
 		// En-passant widget.
@@ -164,17 +189,6 @@
 
 
 		// Buttons 'reset' and 'clear'.
-		function resetPosition(fen)
-		{
-			cb.chessboard('option', 'position', fen);
-			$('#rpbchessboard-editFen-turn-' + cb.chessboard('turn')).prop('checked', true);
-			var castleRights = cb.chessboard('castleRights');
-			$('#rpbchessboard-editFen-castle-wk').prop('checked', castleRights.contains('K'));
-			$('#rpbchessboard-editFen-castle-wq').prop('checked', castleRights.contains('Q'));
-			$('#rpbchessboard-editFen-castle-bk').prop('checked', castleRights.contains('k'));
-			$('#rpbchessboard-editFen-castle-bq').prop('checked', castleRights.contains('q'));
-			$('#rpbchessboard-editFen-enPassant').val(cb.chessboard('enPassant'));
-		}
 		$('#rpbchessboard-editFen-reset').button().click(function() { resetPosition('start'); });
 		$('#rpbchessboard-editFen-clear').button().click(function() { resetPosition('empty'); });
 
