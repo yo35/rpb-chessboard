@@ -27,14 +27,6 @@
 		</div>
 		<div style="width: 35%;">
 			<p>
-				<button id="rpbchessboard-editFen-reset" title="<?php _e('Set the initial position', 'rpbchessboard'); ?>">
-					<?php _e('Reset', 'rpbchessboard'); ?>
-				</button>
-				<button id="rpbchessboard-editFen-clear" title="<?php _e('Clear the chessboard', 'rpbchessboard'); ?>">
-					<?php _e('Clear', 'rpbchessboard'); ?>
-				</button>
-			</p>
-			<p>
 				<?php _e('Turn:', 'rpbchessboard'); ?><br/>
 				<span id="rpbchessboard-editFen-turn">
 					<label for="rpbchessboard-editFen-turn-w">
@@ -68,7 +60,28 @@
 					</tr>
 				</tbody></table>
 			</p>
-			TODO
+			<p>
+				<label for="rpbchessboard-editFen-enPassant"><?php _e('En passant column:', 'rpbchessboard'); ?></label>
+				<select id="rpbchessboard-editFen-enPassant">
+					<option value="">-</option>
+					<option value="a">a</option>
+					<option value="b">b</option>
+					<option value="c">c</option>
+					<option value="d">d</option>
+					<option value="e">e</option>
+					<option value="f">f</option>
+					<option value="g">g</option>
+					<option value="h">h</option>
+				</select>
+			</p>
+			<p>
+				<button id="rpbchessboard-editFen-reset" title="<?php _e('Set the initial position', 'rpbchessboard'); ?>">
+					<?php _e('Reset', 'rpbchessboard'); ?>
+				</button>
+				<button id="rpbchessboard-editFen-clear" title="<?php _e('Clear the chessboard', 'rpbchessboard'); ?>">
+					<?php _e('Clear', 'rpbchessboard'); ?>
+				</button>
+			</p>
 		</div>
 	</div>
 	<div id="rpbchessboard-editFen-fenArea">
@@ -126,7 +139,7 @@
 		});
 
 
-		// Castle rights
+		// Castle rights widget.
 		function resetCastleRights()
 		{
 			var castleRights = '';
@@ -143,6 +156,13 @@
 		$('#rpbchessboard-editFen-castle-bq').prop('checked', castleRights.contains('q')).click(resetCastleRights);
 
 
+		// En-passant widget.
+		$('#rpbchessboard-editFen-enPassant').val(cb.chessboard('enPassant')).change(function()
+		{
+			cb.chessboard('enPassant', $('#rpbchessboard-editFen-enPassant').val());
+		});
+
+
 		// Buttons 'reset' and 'clear'.
 		function resetPosition(fen)
 		{
@@ -153,6 +173,7 @@
 			$('#rpbchessboard-editFen-castle-wq').prop('checked', castleRights.contains('Q'));
 			$('#rpbchessboard-editFen-castle-bk').prop('checked', castleRights.contains('k'));
 			$('#rpbchessboard-editFen-castle-bq').prop('checked', castleRights.contains('q'));
+			$('#rpbchessboard-editFen-enPassant').val(cb.chessboard('enPassant'));
 		}
 		$('#rpbchessboard-editFen-reset').button().click(function() { resetPosition('start'); });
 		$('#rpbchessboard-editFen-clear').button().click(function() { resetPosition('empty'); });
