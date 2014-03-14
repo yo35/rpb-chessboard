@@ -253,7 +253,7 @@
 			var currentCastleRights = fields[2]=='-' ? '' : fields[2];
 
 			// No value passed, act as a getter.
-			if(value===undefined) {
+			if(castleRights===undefined) {
 				return currentCastleRights;
 			}
 
