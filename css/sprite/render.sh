@@ -39,11 +39,13 @@ while [ $current_size -le $size_max ]; do
 	inkscape -e wq.png -w $current_size -h $current_size wq.svg
 	inkscape -e wr.png -w $current_size -h $current_size wr.svg
 	inkscape -e wx.png -w $current_size -h $current_size wx.svg
+	convert trash.png -resize "$current_size"x"$current_size" x0.png
 
 	# Montage
 	convert +append b?.png b.png
 	convert +append w?.png w.png
-	convert -append ?.png all-$current_size.png
+	convert +append x?.png x.png
+	convert -append b.png w.png x.png all-$current_size.png
 
 	# Remove the temporary files
 	rm ??.png ?.png

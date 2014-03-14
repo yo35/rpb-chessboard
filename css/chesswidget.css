@@ -66,10 +66,12 @@
 	box-shadow: 0 0 7px 3px #ffb000 inset;
 }
 
+.uichess-chessboard-sparePiecesBottomRow .uichess-chessboard-trash,
 .uichess-chessboard-sparePiecesBottomRow .uichess-chessboard-sparePiece {
 	margin-top: 8px;
 }
 
+.uichess-chessboard-sparePiecesTopRow .uichess-chessboard-trash,
 .uichess-chessboard-sparePiecesTopRow .uichess-chessboard-sparePiece {
 	margin-bottom: 8px;
 }

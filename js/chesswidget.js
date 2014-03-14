@@ -371,10 +371,10 @@
 			// Offset for image alignment
 			var SQUARE_SIZE  = this.options.squareSize;
 			var OFFSET_PIECE = { b:0, k:SQUARE_SIZE, n:2*SQUARE_SIZE, p:3*SQUARE_SIZE, q:4*SQUARE_SIZE, r:5*SQUARE_SIZE, x:6*SQUARE_SIZE };
-			var OFFSET_COLOR = { b:0, w:SQUARE_SIZE };
+			var OFFSET_COLOR = { b:0, w:SQUARE_SIZE, x:2*SQUARE_SIZE };
 
 			// Spare pieces (per column)
-			var SPARE_PIECES = ['','p','n','b','r','q','k',''];
+			var SPARE_PIECES = ['p','n','b','r','q','k','','0'];
 
 			// Open the "table" node.
 			var content = '<div class="uichess-chessboard-table">';
@@ -395,7 +395,13 @@
 				var color = this.options.flip ? 'w' : 'b';
 				for(var c=0; c<8; ++c) {
 					content += '<div class="uichess-chessboard-cell">';
-					if(SPARE_PIECES[c] != '') {
+					if(SPARE_PIECES[c].match(/^[0-9]$/)) {
+						content +=
+							'<div class="uichess-chessboard-trash uichess-chessboard-sprite' + SQUARE_SIZE + '" style="' +
+								'background-position: -' + (SPARE_PIECES[c] * SQUARE_SIZE) + 'px -' + OFFSET_COLOR['x'] + 'px;' +
+							'"></div>';
+					}
+					else if(SPARE_PIECES[c].match(/^[bknpqr]$/)) {
 						content +=
 							'<div class="uichess-chessboard-sparePiece uichess-chessboard-sprite' + SQUARE_SIZE + '" style="' +
 								'background-position: -' + OFFSET_PIECE[SPARE_PIECES[c]] + 'px -' + OFFSET_COLOR[color] + 'px;' +
@@ -489,7 +495,13 @@
 				var color = this.options.flip ? 'b' : 'w';
 				for(var c=0; c<8; ++c) {
 					content += '<div class="uichess-chessboard-cell">';
-					if(SPARE_PIECES[c] != '') {
+					if(SPARE_PIECES[c].match(/^[0-9]$/)) {
+						content +=
+							'<div class="uichess-chessboard-trash uichess-chessboard-sprite' + SQUARE_SIZE + '" style="' +
+								'background-position: -' + (SPARE_PIECES[c] * SQUARE_SIZE) + 'px -' + OFFSET_COLOR['x'] + 'px;' +
+							'"></div>';
+					}
+					else if(SPARE_PIECES[c].match(/^[bknpqr]$/)) {
 						content +=
 							'<div class="uichess-chessboard-sparePiece uichess-chessboard-sprite' + SQUARE_SIZE + '" style="' +
 								'background-position: -' + OFFSET_PIECE[SPARE_PIECES[c]] + 'px -' + OFFSET_COLOR[color] + 'px;' +
