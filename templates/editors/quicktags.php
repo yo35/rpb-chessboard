@@ -220,7 +220,8 @@
 			$('#rpbchessboard-editFen-dialog').dialog('close');
 			var newContent = cb.chessboard('option', 'position');
 			if($('#rpbchessboard-editFen-dialog').data('isAddMode')) {
-				newContent = '[fen]' + newContent + '[/fen]'; //TODO: [fen_compat]
+				var fenShortcode = <?php echo json_encode($model->getFENShortcode()); ?>;
+				newContent = '[' + fenShortcode + ']' + newContent + '[/' + fenShortcode + ']';
 			}
 			QTags.insertContent(newContent);
 		});
@@ -240,9 +241,10 @@
 	// Callback called when the user clicks on the 'editFen' button.
 	function rpbchessboard_editFenCallback(button, canvas, editor)
 	{
-		var posBegin = canvas.selectionStart;
-		var posEnd   = canvas.selectionEnd  ;
-		var text     = canvas.value;
+		var posBegin     = canvas.selectionStart;
+		var posEnd       = canvas.selectionEnd;
+		var text         = canvas.value;
+		var fenShortcode = <?php echo json_encode($model->getFENShortcode()); ?>;
 
 		// Search for the first occurence of the closing tag '[/fen]' after the begin of the selection.
 		function searchFrom(str, pos, re) {
@@ -254,8 +256,9 @@
 				return retVal<0 ? -1 : retVal+pos;
 			}
 		}
-		var reClose = /\[\/fen\]/g; //TODO: [fen_compat]
-		var posClose = searchFrom(text, Math.max(0, posBegin-5), reClose); //TODO: [fen_compat]
+		var lgClose  = 3 + fenShortcode.length;
+		var reClose  = new RegExp('\\[\\/' + fenShortcode + '\\]', 'g');
+		var posClose = searchFrom(text, Math.max(0, posBegin-lgClose+1), reClose);
 
 		// Search for the last occurence of the opening tag '[fen ... ]' before the detected closing tag.
 		function searchFromBackward(str, pos, re)
@@ -271,16 +274,16 @@
 			}
 			return retVal;
 		}
-		var reOpen = /\[fen[^\[\]]*\]/g; //TODO: [fen_compat]
+		var reOpen  = new RegExp('\\[' + fenShortcode + '[^\\[\\]]*\\]', 'g');
 		var posOpen = posClose<0 ? -1 : searchFromBackward(text, posClose, reOpen);
 
 		// If both the open and the close tag were found, and if:
 		// posOpen <= posBegin <= posEnd <= posClose + (length of the close tag),
 		// then set-up the dialog to edit the string enclosed by the tags...
-		if(posOpen>=0 && posClose>=0 && posOpen<=posBegin && posEnd<=posClose+6) { //TODO: [fen_compat]
-			var lengthOfOpenTag = text.substr(posOpen).match(reOpen)[0].length;
-			var fen = text.substr(posOpen+lengthOfOpenTag, posClose-posOpen-lengthOfOpenTag);
-			canvas.selectionStart = posOpen + lengthOfOpenTag;
+		if(posOpen>=0 && posClose>=0 && posOpen<=posBegin && posEnd<=posClose+lgClose) {
+			var lgOpen = text.substr(posOpen).match(reOpen)[0].length;
+			var fen    = text.substr(posOpen + lgOpen, posClose - posOpen - lgOpen);
+			canvas.selectionStart = posOpen + lgOpen;
 			canvas.selectionEnd   = posClose;
 			rpbchessboard_editFenDialog(jQuery, fen);
 		}

@@ -31,6 +31,13 @@ class RPBChessboardModelEditors extends RPBChessboardAbstractModel
 	private $quicktagsLoaded = null;
 
 
+	public function __construct()
+	{
+		parent::__construct();
+		$this->loadTrait('Compatibility');
+	}
+
+
 	/**
 	 * Whether the Quicktags API is loaded or not.
 	 */
