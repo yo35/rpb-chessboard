@@ -96,14 +96,14 @@ please have a look to the general [plugin management page](http://codex.wordpres
 * Tested up to Wordpress 3.8.1.
 
 = 2.1 =
-* Compatibility mode to avoid conflicts with other plugins that might use the [fen][/fen] and [pgn][/pgn] shortcodes.
+* Compatibility mode to avoid conflicts with other plugins that might use the `[fen][/fen]` and `[pgn][/pgn]` shortcodes.
 
 = 2.0.1 =
 * Tested up to Wordpress 3.8.
 
 = 2.0 =
 * Add: flip attribute (to change the orientation of the chessboards).
-* Auto-size the chessboard in the navigation frame generated with [pgn][/pgn].
+* Auto-size the chessboard in the navigation frame generated with `[pgn][/pgn]`.
 
 = 1.99.6 =
 * Documentation for the PGN tag.
