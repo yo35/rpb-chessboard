@@ -91,9 +91,7 @@
 	<form id="rpbchessboard-editFen-form">
 		<div class="submitbox">
 			<div id="rpbchessboard-editFen-update">
-				<input class="button-primary" type="submit" name="rpbchessboard-editFen-submit" value="<?php
-					_e('Add the chess diagram', 'rpbchessboard');
-				?>"></input>
+				<input class="button-primary" type="submit" id="rpbchessboard-editFen-submit" value="" />
 			</div>
 			<div id="rpbchessboard-editFen-cancel">
 				<a class="submitdelete deletion" href="#"><?php _e('Cancel', 'rpbchessboard'); ?></a>
@@ -124,7 +122,10 @@
 
 		// Configure the dialog in add or edit mode.
 		$('#rpbchessboard-editFen-dialog').data('isAddMode', isAddMode);
-		// TODO: show the add or the edit submit button depending on the context
+		$('#rpbchessboard-editFen-submit').val(isAddMode ?
+			'<?php _e('Add a new chess diagram', 'rpbchessboard'); ?>' :
+			'<?php _e('Update the chess diagram', 'rpbchessboard'); ?>'
+		);
 
 
 		// Method to call to initialize the dialog with a given FEN string.
@@ -232,7 +233,7 @@
 			autoOpen   : false,
 			modal      : true,
 			dialogClass: 'wp-dialog',
-			title      : '<?php _e('Insert/edit chess diagram', 'rpbchessboard'); ?>',
+			title      : '<?php _e('Insert/edit a chess diagram', 'rpbchessboard'); ?>',
 			width      : 650
 		});
 	}
