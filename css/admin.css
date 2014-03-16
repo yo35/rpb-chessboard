@@ -274,6 +274,10 @@
 #rpbchessboard-editFen-dialog .submitbox {
 	padding: 5px 10px;
 	font-size: 11px;
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -282,6 +286,10 @@
 
 #rpbchessboard-editFen-fenArea {
 	margin: 0px 10px;
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
