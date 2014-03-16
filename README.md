@@ -25,6 +25,7 @@ Features
 * Support HTML formatting in PGN commentaries.
 * Compatibility mode to avoid conflicts with the other plugins that use
   the `[fen][/fen]` and `[pgn][/pgn]` shortcodes too.
+* Interactive creation and modification of the chess diagrams in the text editor.
 
 RPB Chessboard uses the [chess.js](https://github.com/jhlywa/chess.js) javascript
 library for FEN (and to some extent PGN) parsing.
@@ -74,3 +75,8 @@ combination was sound and that he had a forced win in every variation.}
 ```
 
 <img alt="screenshot-6" src="screenshot-6.png" width="600" />
+
+
+### Interactive creation and modification of the chess diagrams ###
+
+<img alt="screenshot-7" src="screenshot-7.png" width="600" />

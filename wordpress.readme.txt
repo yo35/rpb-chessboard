@@ -50,6 +50,7 @@ and [PGN](http://en.wikipedia.org/wiki/Portable_Game_Notation) notations.
  * Support HTML formatting in PGN commentaries.
  * Compatibility mode to avoid conflicts with the other plugins that use
    the `[fen][/fen]` and `[pgn][/pgn]` shortcodes too.
+ * Interactive creation and modification of the chess diagrams in the text editor.
 
 If you encounter some bugs with this plugin, or if you wish to get new features
 in the future versions, you can report/propose them in the bug tracker at
@@ -80,6 +81,7 @@ please have a look to the general [plugin management page](http://codex.wordpres
 4. Chess game in a post with the Twenty Ten theme.
 5. When clicking on a move, a popup frame is displayed, showing the corresponding position.
 6. Chess game with commentaries and sub-variations.
+7. Interactive creation and modification of the chess diagrams in the text editor.
 
 
 
