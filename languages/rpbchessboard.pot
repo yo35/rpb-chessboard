@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-03 18:41+0100\n"
+"POT-Creation-Date: 2014-03-16 13:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -527,6 +527,58 @@ msgstr ""
 #. Pawn symbol
 #: templates/localization.php:51
 msgid "P"
+msgstr ""
+
+#: templates/editors/quicktags.php:30
+msgid "Turn:"
+msgstr ""
+
+#: templates/editors/quicktags.php:44
+msgid "Castling availability:"
+msgstr ""
+
+#: templates/editors/quicktags.php:64
+msgid "En passant column:"
+msgstr ""
+
+#: templates/editors/quicktags.php:78
+msgid "Set the initial position"
+msgstr ""
+
+#: templates/editors/quicktags.php:79
+msgid "Reset"
+msgstr ""
+
+#: templates/editors/quicktags.php:81
+msgid "Clear the chessboard"
+msgstr ""
+
+#: templates/editors/quicktags.php:82
+msgid "Clear"
+msgstr ""
+
+#: templates/editors/quicktags.php:88
+msgid "FEN:"
+msgstr ""
+
+#: templates/editors/quicktags.php:97
+msgid "Cancel"
+msgstr ""
+
+#: templates/editors/quicktags.php:126
+msgid "Add a new chess diagram"
+msgstr ""
+
+#: templates/editors/quicktags.php:127
+msgid "Update the chess diagram"
+msgstr ""
+
+#: templates/editors/quicktags.php:236
+msgid "Insert/edit a chess diagram"
+msgstr ""
+
+#: templates/editors/quicktags.php:305
+msgid "chessboard"
 msgstr ""
 
 #: models/help.php:39 backend.php:51 backend.php:52

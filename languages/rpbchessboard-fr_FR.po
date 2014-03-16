@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-03 17:13+0100\n"
+"POT-Creation-Date: 2014-03-16 13:22+0100\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35@melix.net>\n"
 "Language-Team: French\n"
@@ -124,14 +124,14 @@ msgid ""
 "pgn_compat]%2$s is used instead of %1$s[pgn][/pgn]%2$s."
 msgstr ""
 "Par défaut, le plugin RPB Chessboard utilise les balises %1$s[fen][/fen]%2$s "
-"et %1$s[pgn][/pgn]%2$s pour les diagrammes FEN et les parties PGN. Cependant, "
-"ce comportement entraîne des conflits lorsque d'autres plugins Wordpress "
-"(typiquement d'autres plugins d'échecs) utilisant les mêmes balises sont "
-"utilisés en même temps. Activer le mode de compatibilité pour la balise de "
-"diagramme FEN force RPB Chessboard à utiliser %1$s[fen_compat][/fen_compat]%2$s "
-"au lieu de %1$s[fen][/fen]%2$s afin d'éviter ces conflits. De même, avec le "
-"mode de compatibilité PGN, %1$s[pgn_compat][/pgn_compat]%2$s est utilisé au "
-"lieu de %1$s[pgn][/pgn]%2$s."
+"et %1$s[pgn][/pgn]%2$s pour les diagrammes FEN et les parties PGN. "
+"Cependant, ce comportement entraîne des conflits lorsque d'autres plugins "
+"Wordpress (typiquement d'autres plugins d'échecs) utilisant les mêmes "
+"balises sont utilisés en même temps. Activer le mode de compatibilité pour "
+"la balise de diagramme FEN force RPB Chessboard à utiliser %1$s[fen_compat][/"
+"fen_compat]%2$s au lieu de %1$s[fen][/fen]%2$s afin d'éviter ces conflits. "
+"De même, avec le mode de compatibilité PGN, %1$s[pgn_compat][/"
+"pgn_compat]%2$s est utilisé au lieu de %1$s[pgn][/pgn]%2$s."
 
 #: templates/admin/options.php:88
 msgid "Compatibility mode for the FEN diagram tag"
@@ -632,6 +632,58 @@ msgstr "C"
 #: templates/localization.php:51
 msgid "P"
 msgstr "P"
+
+#: templates/editors/quicktags.php:30
+msgid "Turn:"
+msgstr "Trait&nbsp;:"
+
+#: templates/editors/quicktags.php:44
+msgid "Castling availability:"
+msgstr "Roques possibles&nbsp;:"
+
+#: templates/editors/quicktags.php:64
+msgid "En passant column:"
+msgstr "Prise en passant possible sur la colonne&nbsp;:"
+
+#: templates/editors/quicktags.php:78
+msgid "Set the initial position"
+msgstr "Mettre en place la position de départ"
+
+#: templates/editors/quicktags.php:79
+msgid "Reset"
+msgstr "Ré-initialiser"
+
+#: templates/editors/quicktags.php:81
+msgid "Clear the chessboard"
+msgstr "Vider l'échiquier"
+
+#: templates/editors/quicktags.php:82
+msgid "Clear"
+msgstr "Vider"
+
+#: templates/editors/quicktags.php:88
+msgid "FEN:"
+msgstr "FEN&nbsp;:"
+
+#: templates/editors/quicktags.php:97
+msgid "Cancel"
+msgstr "Annuler"
+
+#: templates/editors/quicktags.php:126
+msgid "Add a new chess diagram"
+msgstr "Ajouter un nouveau diagramme"
+
+#: templates/editors/quicktags.php:127
+msgid "Update the chess diagram"
+msgstr "Mettre à jour le diagramme"
+
+#: templates/editors/quicktags.php:236
+msgid "Insert/edit a chess diagram"
+msgstr "Insérer/éditer un diagramme"
+
+#: templates/editors/quicktags.php:305
+msgid "chessboard"
+msgstr "échiquier"
 
 #: models/help.php:39 backend.php:51 backend.php:52
 msgid "Help"
