@@ -54,7 +54,7 @@ class RPBChessboardModelPgn extends RPBChessboardAbstractTopLevelShortcodeModel
 		$content = str_replace('&#8230;', '...', $content);
 
 		// Apply the short-code replacement function of Wordpress to the PGN comments.
-		$content = preg_replace_callback('/{([^{}]*)}/', array(self, doShortcode), $content);
+		$content = preg_replace_callback('/{([^{}]*)}/', array(__CLASS__, 'doShortcode'), $content);
 
 		// Return the result
 		return $content;
