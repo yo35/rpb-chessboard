@@ -31,13 +31,10 @@ require_once(RPBCHESSBOARD_ABSPATH.'helpers/validation.php');
 class RPBChessboardTraitChessWidgetCustom extends RPBChessboardAbstractTrait
 {
 	private $atts;
-	private $flipDefined            = false;
-	private $squareSizeDefined      = false;
-	private $showCoordinatesDefined = false;
+	private $allParameters;
 	private $flip           ;
 	private $squareSize     ;
 	private $showCoordinates;
-	private $allParameters  ;
 
 
 	/**
@@ -58,7 +55,7 @@ class RPBChessboardTraitChessWidgetCustom extends RPBChessboardAbstractTrait
 	 */
 	public function getCustomAll()
 	{
-		if(is_null($this->allParameters)) {
+		if(!isset($this->allParameters)) {
 			$this->allParameters = array();
 			$this->appendParameter('flip'           , $this->getCustomFlip           ());
 			$this->appendParameter('squareSize'     , $this->getCustomSquareSize     ());
@@ -89,9 +86,9 @@ class RPBChessboardTraitChessWidgetCustom extends RPBChessboardAbstractTrait
 	 */
 	public function getCustomFlip()
 	{
-		if(!$this->flipDefined) {
-			$this->flip = RPBChessboardHelperValidation::validateBoolean($this->atts['flip']);
-			$this->flipDefined = true;
+		if(!isset($this->flip)) {
+			$this->flip = isset($this->atts['flip']) ?
+				RPBChessboardHelperValidation::validateBoolean($this->atts['flip']) : null;
 		}
 		return $this->flip;
 	}
@@ -104,9 +101,9 @@ class RPBChessboardTraitChessWidgetCustom extends RPBChessboardAbstractTrait
 	 */
 	public function getCustomSquareSize()
 	{
-		if(!$this->squareSizeDefined) {
-			$this->squareSize = RPBChessboardHelperValidation::validateSquareSize($this->atts['square_size']);
-			$this->squareSizeDefined = true;
+		if(!isset($this->squareSize)) {
+			$this->squareSize = isset($this->atts['square_size']) ?
+				RPBChessboardHelperValidation::validateSquareSize($this->atts['square_size']) : null;
 		}
 		return $this->squareSize;
 	}
@@ -119,9 +116,9 @@ class RPBChessboardTraitChessWidgetCustom extends RPBChessboardAbstractTrait
 	 */
 	public function getCustomShowCoordinates()
 	{
-		if(!$this->showCoordinatesDefined) {
-			$this->showCoordinates = RPBChessboardHelperValidation::validateBoolean($this->atts['show_coordinates']);
-			$this->showCoordinatesDefined = true;
+		if(!isset($this->showCoordinates)) {
+			$this->showCoordinates = isset($this->atts['show_coordinates']) ?
+				RPBChessboardHelperValidation::validateBoolean($this->atts['show_coordinates']) : null;
 		}
 		return $this->showCoordinates;
 	}
