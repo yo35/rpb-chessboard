@@ -87,6 +87,9 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 == Changelog ==
 
+= 2.3.1 =
+* Fix warnings issued by WP in debug mode.
+
 = 2.3 =
 * Dialog to create/edit FEN chess diagrams in the text editor.
 
