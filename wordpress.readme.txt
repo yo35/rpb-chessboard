@@ -87,48 +87,48 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 == Changelog ==
 
-= 2.3.1 =
+= 2.3.1 (April 4, 2014) =
 * Fix warnings issued by WP in debug mode.
 
-= 2.3 =
+= 2.3 (March 16, 2014) =
 * Dialog to create/edit FEN chess diagrams in the text editor.
 
-= 2.2.2 =
+= 2.2.2 (March 13, 2014) =
 * Improve compatibility with IE <= 10.
 
-= 2.2.1 =
-* Fix parsing bug (castle moves with check).
+= 2.2.1 (February 16, 2014) =
+* Fix parsing bug (castle moves with check, reported as issue #3).
 
-= 2.2 =
+= 2.2 (February 16, 2014) =
 * Faster rendering of the chess diagrams.
 * Tested up to Wordpress 3.8.1.
 
-= 2.1 =
+= 2.1 (January 3, 2014) =
 * Compatibility mode to avoid conflicts with other plugins that might use the `[fen][/fen]` and `[pgn][/pgn]` shortcodes.
 
-= 2.0.1 =
+= 2.0.1 (December 13, 2013) =
 * Tested up to Wordpress 3.8.
 
-= 2.0 =
+= 2.0 (November 10, 2013) =
 * Add: flip attribute (to change the orientation of the chessboards).
 * Auto-size the chessboard in the navigation frame generated with `[pgn][/pgn]`.
 
-= 1.99.6 =
+= 1.99.6 (November 4, 2013) =
 * Documentation for the PGN tag.
 
-= 1.99.5 =
+= 1.99.5 (November 2, 2013) =
 * Fix issue #1.
 * Documentation for the FEN tag.
 
-= 1.99.4 =
+= 1.99.4 (November 2, 2013) =
 * Clean the credits page in the backend.
 * Fix: missing theming for the jQuery widgets in the backend.
 
-= 1.99.3 =
+= 1.99.3 (November 1, 2013) =
 * Fix: use the WP theming for jQuery dialogs to avoid conflicts between CSS.
 
-= 1.99.2 =
+= 1.99.2 (October 31, 2013) =
 * Fix: rpbchessboard.php is renamed as rpb-chessboard.php (allocated slug name on the WP repository).
 
-= 1.99.1 =
+= 1.99.1 (October 31, 2013) =
 * First public version.
