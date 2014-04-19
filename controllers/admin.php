@@ -49,10 +49,9 @@ class RPBChessboardControllerAdmin extends RPBChessboardAbstractController
 		$model = $this->getModel();
 
 		// Process the post-action, if any.
-		$action = $model->getPostAction();
-		if(!is_null($action)) {
-			$model->loadTrait('Action' . $action);
-			$model->processRequest();
+		switch($model->getPostAction()) {
+			case 'update-options': $this->executeAction('PostOptions', 'updateOptions'); break;
+			default: break;
 		}
 
 		// Create the view
@@ -60,5 +59,19 @@ class RPBChessboardControllerAdmin extends RPBChessboardAbstractController
 
 		// Display the view
 		$view->display();
+	}
+
+
+	/**
+	 * Load the trait `$traitName`, and execute the method `$methodName` supposedly defined by the trait.
+	 *
+	 * @param string $traitName
+	 * @param string $methodName
+	 */
+	private function executeAction($traitName, $methodName)
+	{
+		$model = $this->getModel();
+		$model->loadTrait($traitName);
+		$model->$methodName();
 	}
 }

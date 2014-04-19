@@ -20,16 +20,19 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH.'models/traits/abstractactiontrait.php');
+require_once(RPBCHESSBOARD_ABSPATH.'models/traits/abstracttrait.php');
 require_once(RPBCHESSBOARD_ABSPATH.'helpers/validation.php');
 
 
 /**
  * Process the request resulting from a click in the "Options" form in the backend.
  */
-class RPBChessboardTraitActionDefineOptions extends RPBChessboardAbstractActionTrait
+class RPBChessboardTraitPostOptions extends RPBChessboardAbstractTrait
 {
-	public function processRequest()
+	/**
+	 * Update the plugin general options.
+	 */
+	public function updateOptions()
 	{
 		// Set the square size parameter
 		$value = $this->getPostSquareSize();

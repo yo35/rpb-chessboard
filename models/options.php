@@ -60,6 +60,6 @@ class RPBChessboardModelOptions extends RPBChessboardAbstractAdminModel
 	 */
 	public function getFormAction()
 	{
-		return 'DefineOptions';
+		return 'update-options';
 	}
 }

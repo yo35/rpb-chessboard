@@ -24,7 +24,7 @@
 
 	<form action="<?php echo htmlspecialchars($model->getFormActionURL()); ?>" method="post">
 
-		<input type="hidden" name="action" value="<?php echo htmlspecialchars($model->getFormAction()); ?>" />
+		<input type="hidden" name="rpbchessboard_action" value="<?php echo htmlspecialchars($model->getFormAction()); ?>" />
 
 		<h3><?php _e('Default chessboard aspect', 'rpbchessboard'); ?></h3>
 

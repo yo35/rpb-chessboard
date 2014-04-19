@@ -28,6 +28,9 @@ require_once(RPBCHESSBOARD_ABSPATH.'models/abstract/abstractmodel.php');
  */
 abstract class RPBChessboardAbstractAdminModel extends RPBChessboardAbstractModel
 {
+	private $postAction;
+
+
 	public function getViewName()
 	{
 		return 'Admin';
@@ -47,12 +50,15 @@ abstract class RPBChessboardAbstractAdminModel extends RPBChessboardAbstractMode
 	 * The action is initiated by the user when clicking on a "submit" button in
 	 * an HTML form with its method attribute set to POST.
 	 *
-	 * This function may return null if no action was posted.
+	 * This function may return an empty string if no action is required.
 	 *
 	 * @return string
 	 */
 	public function getPostAction()
 	{
-		return array_key_exists('action', $_POST) ? $_POST['action'] : null;
+		if(!isset($this->postAction)) {
+			$this->postAction = isset($_POST['rpbchessboard_action']) ? $_POST['rpbchessboard_action'] : '';
+		}
+		return $this->postAction;
 	}
 }
