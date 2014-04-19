@@ -28,7 +28,7 @@ require_once(RPBCHESSBOARD_ABSPATH.'models/abstract/abstractshortcodemodel.php')
  */
 class RPBChessboardModelPgnDiagram extends RPBChessboardAbstractShortcodeModel
 {
-	private $diagramOptions = null;
+	private $diagramOptions;
 
 
 	/**
@@ -62,7 +62,7 @@ class RPBChessboardModelPgnDiagram extends RPBChessboardAbstractShortcodeModel
 	 */
 	public function getDiagramOptions()
 	{
-		if(is_null($this->diagramOptions)) {
+		if(!isset($this->diagramOptions)) {
 			$this->diagramOptions = json_encode($this->getCustomAll());
 			$this->diagramOptions = preg_replace('/^{|}$/', '', $this->diagramOptions); // trim the braces
 		}

@@ -28,7 +28,7 @@ require_once(RPBCHESSBOARD_ABSPATH.'models/abstract/abstractmodel.php');
  */
 class RPBChessboardModelEditors extends RPBChessboardAbstractModel
 {
-	private $quicktagsLoaded = null;
+	private $quicktagsLoaded;
 
 
 	public function __construct()
@@ -43,7 +43,7 @@ class RPBChessboardModelEditors extends RPBChessboardAbstractModel
 	 */
 	public function isQuicktagsLoaded()
 	{
-		if(is_null($this->quicktagsLoaded)) {
+		if(!isset($this->quicktagsLoaded)) {
 			$this->quicktagsLoaded = wp_script_is('quicktags');
 		}
 		return $this->quicktagsLoaded;

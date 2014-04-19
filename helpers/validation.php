@@ -63,7 +63,7 @@ abstract class RPBChessboardHelperValidation
 	 */
 	public static function validateBoolean($value)
 	{
-		return (is_null($value) || $value==='') ? null : filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+		return ($value===null || $value==='') ? null : filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
 	}
 
 

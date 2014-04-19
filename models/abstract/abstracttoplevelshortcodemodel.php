@@ -29,7 +29,7 @@ require_once(RPBCHESSBOARD_ABSPATH.'models/abstract/abstractshortcodemodel.php')
  */
 abstract class RPBChessboardAbstractTopLevelShortcodeModel extends RPBChessboardAbstractShortcodeModel
 {
-	private $topLevelItemID = null;
+	private $topLevelItemID;
 
 
 	public function getViewName()
@@ -46,7 +46,7 @@ abstract class RPBChessboardAbstractTopLevelShortcodeModel extends RPBChessboard
 	 */
 	public function getTopLevelItemID()
 	{
-		if(is_null($this->topLevelItemID)) {
+		if(!isset($this->topLevelItemID)) {
 			$this->topLevelItemID = self::makeID();
 		}
 		return $this->topLevelItemID;

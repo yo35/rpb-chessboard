@@ -34,7 +34,7 @@
  */
 abstract class RPBChessboardAbstractModel
 {
-	private $name = null;
+	private $name;
 	private $methodIndex = array();
 
 
@@ -52,7 +52,7 @@ abstract class RPBChessboardAbstractModel
 	public function __call($method, $args)
 	{
 		$trait = $this->methodIndex[$method];
-		if(is_null($trait)) {
+		if(!isset($trait)) {
 			$modelName = $this->getName();
 			throw new Exception("Invalid call to method `$method` in the model `$modelName`.");
 		}
@@ -86,13 +86,8 @@ abstract class RPBChessboardAbstractModel
 	 */
 	public function getName()
 	{
-		if(is_null($this->name)) {
-			if(preg_match('/^RPBChessboardModel(.*)$/', get_class($this), $matches)) {
-				$this->name = $matches[1];
-			}
-			else {
-				$this->name = '';
-			}
+		if(!isset($this->name)) {
+			$this->name = preg_match('/^RPBChessboardModel(.*)$/', get_class($this), $matches) ? $matches[1] : '';
 		}
 		return $this->name;
 	}

@@ -30,7 +30,6 @@ require_once(RPBCHESSBOARD_ABSPATH.'helpers/validation.php');
  */
 class RPBChessboardTraitChessWidgetCustom extends RPBChessboardAbstractTrait
 {
-	private $atts;
 	private $allParameters;
 	private $flip           ;
 	private $squareSize     ;
@@ -44,7 +43,9 @@ class RPBChessboardTraitChessWidgetCustom extends RPBChessboardAbstractTrait
 	 */
 	public function __construct($atts)
 	{
-		$this->atts = $atts;
+		$this->flip            = isset($atts['flip'            ]) ? RPBChessboardHelperValidation::validateBoolean   ($atts['flip'            ]) : null;
+		$this->squareSize      = isset($atts['square_size'     ]) ? RPBChessboardHelperValidation::validateSquareSize($atts['square_size'     ]) : null;
+		$this->showCoordinates = isset($atts['show_coordinates']) ? RPBChessboardHelperValidation::validateBoolean   ($atts['show_coordinates']) : null;
 	}
 
 
@@ -57,9 +58,9 @@ class RPBChessboardTraitChessWidgetCustom extends RPBChessboardAbstractTrait
 	{
 		if(!isset($this->allParameters)) {
 			$this->allParameters = array();
-			$this->appendParameter('flip'           , $this->getCustomFlip           ());
-			$this->appendParameter('squareSize'     , $this->getCustomSquareSize     ());
-			$this->appendParameter('showCoordinates', $this->getCustomShowCoordinates());
+			$this->appendParameter('flip'           , $this->flip           );
+			$this->appendParameter('squareSize'     , $this->squareSize     );
+			$this->appendParameter('showCoordinates', $this->showCoordinates);
 		}
 		return $this->allParameters;
 	}
@@ -73,7 +74,7 @@ class RPBChessboardTraitChessWidgetCustom extends RPBChessboardAbstractTrait
 	 */
 	private function appendParameter($key, $value)
 	{
-		if(!is_null($value)) {
+		if(isset($value)) {
 			$this->allParameters[$key] = $value;
 		}
 	}
@@ -86,10 +87,6 @@ class RPBChessboardTraitChessWidgetCustom extends RPBChessboardAbstractTrait
 	 */
 	public function getCustomFlip()
 	{
-		if(!isset($this->flip)) {
-			$this->flip = isset($this->atts['flip']) ?
-				RPBChessboardHelperValidation::validateBoolean($this->atts['flip']) : null;
-		}
 		return $this->flip;
 	}
 
@@ -101,10 +98,6 @@ class RPBChessboardTraitChessWidgetCustom extends RPBChessboardAbstractTrait
 	 */
 	public function getCustomSquareSize()
 	{
-		if(!isset($this->squareSize)) {
-			$this->squareSize = isset($this->atts['square_size']) ?
-				RPBChessboardHelperValidation::validateSquareSize($this->atts['square_size']) : null;
-		}
 		return $this->squareSize;
 	}
 
@@ -116,10 +109,6 @@ class RPBChessboardTraitChessWidgetCustom extends RPBChessboardAbstractTrait
 	 */
 	public function getCustomShowCoordinates()
 	{
-		if(!isset($this->showCoordinates)) {
-			$this->showCoordinates = isset($this->atts['show_coordinates']) ?
-				RPBChessboardHelperValidation::validateBoolean($this->atts['show_coordinates']) : null;
-		}
 		return $this->showCoordinates;
 	}
 }

@@ -26,7 +26,7 @@
 abstract class RPBChessboardAbstractController
 {
 	private $modelName;
-	private $model = null;
+	private $model;
 
 
 	/**
@@ -45,7 +45,7 @@ abstract class RPBChessboardAbstractController
 	 */
 	public function getModel()
 	{
-		if(is_null($this->model)) {
+		if(!isset($this->model)) {
 			$this->model = self::loadModel($this->modelName);
 		}
 		return $this->model;

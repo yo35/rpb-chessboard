@@ -30,9 +30,9 @@ require_once(RPBCHESSBOARD_ABSPATH.'helpers/validation.php');
  */
 class RPBChessboardTraitChessWidgetDefault extends RPBChessboardAbstractTrait
 {
-	private $squareSize      = null;
-	private $showCoordinates = null;
-	private $allParameters   = null;
+	private $squareSize     ;
+	private $showCoordinates;
+	private $allParameters  ;
 
 
 	/**
@@ -54,7 +54,7 @@ class RPBChessboardTraitChessWidgetDefault extends RPBChessboardAbstractTrait
 	 */
 	public function getDefaultAll()
 	{
-		if(is_null($this->allParameters)) {
+		if(!isset($this->allParameters)) {
 			$this->allParameters = array();
 			$this->allParameters['squareSize'     ] = $this->getDefaultSquareSize     ();
 			$this->allParameters['showCoordinates'] = $this->getDefaultShowCoordinates();
@@ -70,9 +70,9 @@ class RPBChessboardTraitChessWidgetDefault extends RPBChessboardAbstractTrait
 	 */
 	public function getDefaultSquareSize()
 	{
-		if(is_null($this->squareSize)) {
+		if(!isset($this->squareSize)) {
 			$value = RPBChessboardHelperValidation::validateSquareSize(get_option('rpbchessboard_squareSize'));
-			$this->squareSize = is_null($value) ? self::DEFAULT_SQUARE_SIZE : $value;
+			$this->squareSize = isset($value) ? $value : self::DEFAULT_SQUARE_SIZE;
 		}
 		return $this->squareSize;
 	}
@@ -85,9 +85,9 @@ class RPBChessboardTraitChessWidgetDefault extends RPBChessboardAbstractTrait
 	 */
 	public function getDefaultShowCoordinates()
 	{
-		if(is_null($this->showCoordinates)) {
+		if(!isset($this->showCoordinates)) {
 			$value = RPBChessboardHelperValidation::validateBooleanFromInt(get_option('rpbchessboard_showCoordinates'));
-			$this->showCoordinates = is_null($value) ? self::DEFAULT_SHOW_COORDINATES : $value;
+			$this->showCoordinates = isset($value) ? $value : self::DEFAULT_SHOW_COORDINATES;
 		}
 		return $this->showCoordinates;
 	}
