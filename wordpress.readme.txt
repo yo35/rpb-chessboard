@@ -2,7 +2,7 @@
 Contributors: yo35
 Tags: chess, chessboard, fen, pgn, games
 Requires at least: 2.6
-Tested up to: 3.8.1
+Tested up to: 3.9
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -86,6 +86,10 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 
 == Changelog ==
+
+= 2.3.2 (April 19, 2014) =
+* Tested up to Wordpress 3.9.
+* Minor code cleaning.
 
 = 2.3.1 (April 4, 2014) =
 * Fix warnings issued by WP in debug mode.
