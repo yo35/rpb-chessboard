@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-16 13:22+0100\n"
+"POT-Creation-Date: 2014-04-26 18:36+0200\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35@melix.net>\n"
 "Language-Team: French\n"
@@ -16,23 +16,49 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: templates/shortcode/javascriptwarning.php:25
-msgid ""
-"You need to activate javascript to enhance chess game and diagram "
-"visualization."
-msgstr ""
-"Vous devez activer javascript pour améliorer l'affichage des parties et "
-"diagrammes d'échecs."
+#: wp/adminpages.php:38 wp/adminpages.php:46 wp/adminpages.php:60
+msgid "Chess games and diagrams"
+msgstr "Parties et diagrammes d'échecs"
 
-#: templates/admin/help.php:32 templates/admin/memo.php:44
+#: wp/adminpages.php:39
+msgid "Chess"
+msgstr "Échecs"
+
+#: wp/adminpages.php:46 wp/adminpages.php:47
+msgid "Memo"
+msgstr "Mémo"
+
+#: wp/adminpages.php:53
+#, php-format
+msgid "Settings of the %1$s plugin"
+msgstr "Options du plugin %1$s"
+
+#: wp/adminpages.php:54
+msgid "Settings"
+msgstr "Options"
+
+#: wp/adminpages.php:60 wp/adminpages.php:61
+msgid "Help"
+msgstr "Aide"
+
+#: wp/adminpages.php:67
+#, php-format
+msgid "About %1$s"
+msgstr "À propos de %1$s"
+
+#: wp/adminpages.php:68
+msgid "About"
+msgstr "À propos"
+
+#: templates/adminpage/help.php:32 templates/adminpage/memo.php:44
 msgid "FEN diagram"
 msgstr "Diagramme FEN"
 
-#: templates/admin/help.php:36 templates/admin/memo.php:104
+#: templates/adminpage/help.php:36 templates/adminpage/memo.php:104
 msgid "PGN game"
 msgstr "Partie PGN"
 
-#: templates/admin/about.php:28
+#: templates/adminpage/about.php:27
 msgid ""
 "The RPB Chessboard plugin allows you to typeset and display chess games and "
 "diagrams in the posts and pages of your Wordpress blog, using the standard "
@@ -42,11 +68,11 @@ msgstr ""
 "des diagrammes d'échecs dans les articles et pages de votre blog Wordpress, "
 "en utilisant les notations usuelles FEN et PGN."
 
-#: templates/admin/about.php:38
+#: templates/adminpage/about.php:37
 msgid "developer link"
 msgstr "lien pour les développeurs"
 
-#: templates/admin/about.php:43
+#: templates/adminpage/about.php:42
 #, php-format
 msgid ""
 "If you encounter some bugs with this plugin, or if you wish to get new "
@@ -57,19 +83,19 @@ msgstr ""
 "implémenté de nouvelles fonctionnalités dans les versions futures, vous "
 "pouvez les signaler/proposer dans le <em>bug tracker</em> à l'adresse %1$s."
 
-#: templates/admin/about.php:51
+#: templates/adminpage/about.php:50
 msgid "Plugin version"
 msgstr "Version du plugin"
 
-#: templates/admin/about.php:55
+#: templates/adminpage/about.php:54
 msgid "Author"
 msgstr "Auteur"
 
-#: templates/admin/about.php:59
+#: templates/adminpage/about.php:58
 msgid "Translation"
 msgstr "Traduction"
 
-#: templates/admin/about.php:73
+#: templates/adminpage/about.php:72
 #, php-format
 msgid ""
 "If you are interested in translating this plugin into your language, please "
@@ -78,11 +104,11 @@ msgstr ""
 "Si vous souhaitez traduire ce plugin dans votre langue, merci de contacter "
 "l'auteur %1$s."
 
-#: templates/admin/about.php:80
+#: templates/adminpage/about.php:79
 msgid "License"
 msgstr "Licence"
 
-#: templates/admin/about.php:84
+#: templates/adminpage/about.php:83
 #, php-format
 msgid ""
 "This plugin is distributed under the GNU General Public License version 3 "
@@ -94,24 +120,24 @@ msgstr ""
 "l'adresse %1$s. Une copie de ce document est également fournie avec le code "
 "source du plugin."
 
-#: templates/admin/options.php:29
+#: templates/adminpage/options.php:29
 msgid "Default chessboard aspect"
 msgstr "Apparance des diagrammes par défaut"
 
-#: templates/admin/options.php:36
+#: templates/adminpage/options.php:36
 #, php-format
 msgid "Square size: %1$s pixels"
 msgstr "Taille des cases&nbsp;: %1$s pixels"
 
-#: templates/admin/options.php:52
+#: templates/adminpage/options.php:52
 msgid "Show coordinates"
 msgstr "Afficher les coordonnées"
 
-#: templates/admin/options.php:63
+#: templates/adminpage/options.php:63
 msgid "Compatibility with other chess plugins"
 msgstr "Compatibilité avec les autres plugins d'échecs"
 
-#: templates/admin/options.php:68
+#: templates/adminpage/options.php:68
 #, php-format
 msgid ""
 "By default, the RPB Chessboard plugin use the %1$s[fen][/fen]%2$s and %1$s"
@@ -133,28 +159,28 @@ msgstr ""
 "De même, avec le mode de compatibilité PGN, %1$s[pgn_compat][/"
 "pgn_compat]%2$s est utilisé au lieu de %1$s[pgn][/pgn]%2$s."
 
-#: templates/admin/options.php:88
+#: templates/adminpage/options.php:88
 msgid "Compatibility mode for the FEN diagram tag"
 msgstr "Mode de compatibilité pour la balise de diagramme FEN"
 
-#: templates/admin/options.php:98
+#: templates/adminpage/options.php:98
 msgid "Compatibility mode for the PGN game tag"
 msgstr "Mode de compatibilité pour la balise de partie PGN"
 
-#: templates/admin/options.php:103
+#: templates/adminpage/options.php:103
 msgid "Save changes"
 msgstr "Enregistrer les modifications"
 
-#: templates/admin/help-fen.php:27
+#: templates/adminpage/help-fen.php:27
 #, php-format
 msgid "Chess diagrams with the %1$s[%3$s][/%3$s]%2$s tags"
 msgstr "Diagrammes d'échecs au moyen des balises %1$s[%3$s][/%3$s]%2$s"
 
-#: templates/admin/help-fen.php:38
+#: templates/adminpage/help-fen.php:38
 msgid "FEN format"
 msgstr "Format FEN"
 
-#: templates/admin/help-fen.php:43
+#: templates/adminpage/help-fen.php:43
 #, php-format
 msgid ""
 "The string between the %1$s[%3$s][/%3$s]%2$s tags describe the position. The "
@@ -167,39 +193,39 @@ msgstr ""
 "em>), lequel est décrit de façon exhaustive sur %4$sWikipédia%5$s. La "
 "syntaxe FEN est résumée ici au travers d'exemples explicatifs."
 
-#: templates/admin/help-fen.php:51 templates/admin/memo.php:72
+#: templates/adminpage/help-fen.php:51 templates/adminpage/memo.php:72
 msgid "http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation"
 msgstr "http://fr.wikipedia.org/wiki/Notation_Forsyth-Edwards"
 
-#: templates/admin/help-fen.php:63
+#: templates/adminpage/help-fen.php:63
 msgid "Empty position"
 msgstr "Position vide"
 
-#: templates/admin/help-fen.php:64 templates/localization.php:26
+#: templates/adminpage/help-fen.php:64 templates/localization.php:26
 msgid "Initial position"
 msgstr "Position initiale"
 
-#: templates/admin/help-fen.php:65
+#: templates/adminpage/help-fen.php:65
 msgid "After 1.e4"
 msgstr "Après 1.e4"
 
-#: templates/admin/help-fen.php:66
+#: templates/adminpage/help-fen.php:66
 msgid "Who can castle?"
 msgstr "Qui peut roquer&nbsp;?"
 
-#: templates/admin/help-fen.php:67
+#: templates/adminpage/help-fen.php:67
 msgid "Légal Trap"
 msgstr "Mat de Legal"
 
-#: templates/admin/help-fen.php:81
+#: templates/adminpage/help-fen.php:81
 msgid "An empty position."
 msgstr "Une position vide."
 
-#: templates/admin/help-fen.php:110
+#: templates/adminpage/help-fen.php:110
 msgid "The initial position."
 msgstr "La position initiale."
 
-#: templates/admin/help-fen.php:141
+#: templates/adminpage/help-fen.php:141
 #, php-format
 msgid ""
 "After 1.e4. Notice the 4<sup>th</sup> field in the FEN string (%1$s), "
@@ -210,11 +236,11 @@ msgstr ""
 "(%1$s), qui indique la case sur laquelle la prise en passant est possible "
 "(s'il y avait un pion noir en d4 ou en f4)."
 
-#: templates/admin/help-fen.php:175
+#: templates/adminpage/help-fen.php:175
 msgid "Who can castle? And where?"
 msgstr "Qui peut roquer&nbsp;? Et où&nbsp;?"
 
-#: templates/admin/help-fen.php:180
+#: templates/adminpage/help-fen.php:180
 #, php-format
 msgid ""
 "Here, the 3<sup>rd</sup> field in the FEN string (%1$s) indicates that only "
@@ -229,15 +255,15 @@ msgstr ""
 "(petit roque noir), et  %4$s (grand roque noir). Si aucun camp ne peut "
 "roquer, on indique %5$s dans le 3<sup>e</sup> champ FEN."
 
-#: templates/admin/help-fen.php:220
+#: templates/adminpage/help-fen.php:220
 msgid "The Légal Trap."
 msgstr "Le mat de Legal."
 
-#: templates/admin/help-fen.php:244 templates/admin/help-pgn.php:457
+#: templates/adminpage/help-fen.php:244 templates/adminpage/help-pgn.php:457
 msgid "Attributes"
 msgstr "Attributs"
 
-#: templates/admin/help-fen.php:248
+#: templates/adminpage/help-fen.php:248
 msgid ""
 "The aspect of the chess diagrams can be customized thanks to the following "
 "attributes."
@@ -245,31 +271,31 @@ msgstr ""
 "L'aspect des diagrammes peut être personnalisé au moyen des attributs "
 "suivants."
 
-#: templates/admin/help-fen.php:260
+#: templates/adminpage/help-fen.php:260
 msgid "Orientation"
 msgstr "Orientation"
 
-#: templates/admin/help-fen.php:261
+#: templates/adminpage/help-fen.php:261
 msgid "Square size"
 msgstr "Taille des cases"
 
-#: templates/admin/help-fen.php:262
+#: templates/adminpage/help-fen.php:262
 msgid "Coordinates"
 msgstr "Coordonnées"
 
-#: templates/admin/help-fen.php:270
+#: templates/adminpage/help-fen.php:270
 #, php-format
 msgid "The %1$s attribute controls whether the chessboard is rotated or not."
 msgstr "L'attribut %1$s détermine si l'échiquier est ou non retourné."
 
-#: templates/admin/help-fen.php:320
+#: templates/adminpage/help-fen.php:320
 #, php-format
 msgid ""
 "The %1$s attribute controls the size (in pixels) of the chessboard squares."
 msgstr ""
 "L'attribut %1$s détermine la taille (en pixels) des cases de l'échiquier."
 
-#: templates/admin/help-fen.php:370
+#: templates/adminpage/help-fen.php:370
 #, php-format
 msgid ""
 "The %1$s attribute controls whether the row and columns coordinates are "
@@ -278,16 +304,16 @@ msgstr ""
 "L'attribut %1$s détermine si les noms des rangées et des colonnes sont ou "
 "non affichés."
 
-#: templates/admin/help-pgn.php:27
+#: templates/adminpage/help-pgn.php:27
 #, php-format
 msgid "Chess games with the %1$s[%3$s][/%3$s]%2$s tags"
 msgstr "Parties d'échecs au moyen des balises %1$s[%3$s][/%3$s]%2$s"
 
-#: templates/admin/help-pgn.php:38
+#: templates/adminpage/help-pgn.php:38
 msgid "PGN format"
 msgstr "Format PGN"
 
-#: templates/admin/help-pgn.php:43
+#: templates/adminpage/help-pgn.php:43
 #, php-format
 msgid ""
 "The string between the %1$s[%3$s][/%3$s]%2$s tags describe the game. The "
@@ -302,23 +328,23 @@ msgstr ""
 "tels que %5$sChessbase%7$s, %6$sScid%7$s, etc... La syntaxe PGN est résumée "
 "ici au travers d'exemples explicatifs."
 
-#: templates/admin/help-pgn.php:52 templates/admin/memo.php:158
+#: templates/adminpage/help-pgn.php:52 templates/adminpage/memo.php:158
 msgid "http://en.wikipedia.org/wiki/Portable_Game_Notation"
 msgstr "http://fr.wikipedia.org/wiki/Portable_Game_Notation"
 
-#: templates/admin/help-pgn.php:67
+#: templates/adminpage/help-pgn.php:67
 msgid "Game with no headers"
 msgstr "Partie sans en-têtes"
 
-#: templates/admin/help-pgn.php:68
+#: templates/adminpage/help-pgn.php:68
 msgid "Custom starting position"
 msgstr "Position de départ particulière"
 
-#: templates/admin/help-pgn.php:129 templates/admin/help-pgn.php:137
+#: templates/adminpage/help-pgn.php:129 templates/adminpage/help-pgn.php:137
 msgid "Stalemate."
 msgstr "Pat."
 
-#: templates/admin/help-pgn.php:151
+#: templates/adminpage/help-pgn.php:151
 #, php-format
 msgid ""
 "Normally, the strict PGN syntax requires that each PGN entry starts with 7 "
@@ -335,7 +361,7 @@ msgstr ""
 "&quot;]%2$s, et %1$s[Result &quot;...&quot;]%2$s. Cependant, le plugin RPB "
 "Chessboard considère ceux-ci comme optionnels."
 
-#: templates/admin/help-pgn.php:194
+#: templates/adminpage/help-pgn.php:194
 #, php-format
 msgid ""
 "The %1$s[FEN &quot;...&quot;]%2$s header might be used to specify that the "
@@ -348,11 +374,11 @@ msgstr ""
 "%1$s[SetUp &quot;1&quot;]%2$s soit ajouté lorsque l'en-tête %1$s[FEN "
 "&quot;...&quot;]%2$s est utilisé."
 
-#: templates/admin/help-pgn.php:241
+#: templates/adminpage/help-pgn.php:241
 msgid "Annotations"
 msgstr "Annotations"
 
-#: templates/admin/help-pgn.php:269
+#: templates/adminpage/help-pgn.php:269
 #, php-format
 msgid ""
 "Notice that the chess database softwares may introduce annotations such as "
@@ -372,21 +398,21 @@ msgstr ""
 "&quot;%2$s sont équivalents). Les deux syntaxes sont gérées par le plugin "
 "RPB Chessboard."
 
-#: templates/admin/help-pgn.php:285
+#: templates/adminpage/help-pgn.php:285
 msgid "Commentaries"
 msgstr "Commentaires"
 
-#: templates/admin/help-pgn.php:293 templates/admin/help-pgn.php:314
+#: templates/adminpage/help-pgn.php:293 templates/adminpage/help-pgn.php:314
 #, php-format
 msgid "I'm a %1$sshort%2$s commentary."
 msgstr "Je suis un commentaire %1$scourt%2$s."
 
-#: templates/admin/help-pgn.php:300 templates/admin/help-pgn.php:321
+#: templates/adminpage/help-pgn.php:300 templates/adminpage/help-pgn.php:321
 #, php-format
 msgid "I'm a %1$slong%2$s commentary."
 msgstr "Je suis un commentaire %1$slong%2$s."
 
-#: templates/admin/help-pgn.php:341
+#: templates/adminpage/help-pgn.php:341
 msgid ""
 "Text commentaries can be inserted, surrounded with braces. They can be "
 "rendered either inlined within the move sequence (&quot;short "
@@ -403,11 +429,11 @@ msgstr ""
 "PGN. À noter en outre que les balises HTML sont autorisées dans les "
 "commentaires."
 
-#: templates/admin/help-pgn.php:356
+#: templates/adminpage/help-pgn.php:356
 msgid "Variations"
 msgstr "Variantes"
 
-#: templates/admin/help-pgn.php:394
+#: templates/adminpage/help-pgn.php:394
 msgid ""
 "As for commentaries, variations can be rendered either inlined within the "
 "move sequence, or as separated blocks if they are surrounded with two blank "
@@ -417,19 +443,19 @@ msgstr ""
 "sein de la liste de coups, soit sous la forme d'un bloc isolé lorsqu'elles "
 "sont encadrées par deux lignes vierges dans le texte PGN."
 
-#: templates/admin/help-pgn.php:406
+#: templates/adminpage/help-pgn.php:406
 #, php-format
 msgid "Diagrams with the %1$s[pgndiagram]%2$s tag"
 msgstr "Diagrammes au moyen de la balise %1$s[pgndiagram]%2$s"
 
-#: templates/admin/help-pgn.php:418 templates/admin/help-pgn.php:438
+#: templates/adminpage/help-pgn.php:418 templates/adminpage/help-pgn.php:438
 msgid ""
 "This opening is called the Sicilian defence. A possible continuation is:"
 msgstr ""
 "Cette ouverture s'appelle la défense sicilienne. Une suite possible "
 "est&nbsp;:"
 
-#: templates/admin/help-pgn.php:426
+#: templates/adminpage/help-pgn.php:426
 #, php-format
 msgid ""
 "Notice that %1$s[pgndiagram]%2$s tags must be inserted only in PGN "
@@ -438,7 +464,7 @@ msgstr ""
 "À noter que la balise %1$s[pgndiagram]%2$s ne peut être insérée que dans un "
 "commentaire PGN."
 
-#: templates/admin/help-pgn.php:462
+#: templates/adminpage/help-pgn.php:462
 #, php-format
 msgid ""
 "The %1$s[%4$s][/%4$s]%2$s and %1$s[pgndiagram]%2$s tags accept the same "
@@ -455,12 +481,7 @@ msgstr ""
 "%1$s[pgndiagram square_size=...]%2$s n'affectera au contraire que la taille "
 "du diagramme correspondant."
 
-#: templates/admin/header.php:25 backend.php:29 backend.php:37 backend.php:44
-#: backend.php:51 backend.php:58
-msgid "Chess games and diagrams"
-msgstr "Parties et diagrammes d'échecs"
-
-#: templates/admin/header.php:32
+#: templates/adminpage/header.php:27
 msgid ""
 "To work properly, the RPB Chessboard plugin needs javascript to be activated "
 "in your browser."
@@ -468,7 +489,7 @@ msgstr ""
 "Pour fonctionner correctement, le plugin RPB Chessboard a besoin que "
 "javascript soit activé dans votre navigateur."
 
-#: templates/admin/memo.php:32
+#: templates/adminpage/memo.php:32
 msgid ""
 "This short reminder presents through examples the features provided by the "
 "RPB Chessboard plugin, namely the insertion of chess diagrams and games in "
@@ -481,11 +502,11 @@ msgstr ""
 "le code écrit dans les articles et les pages, la colonne de droite le rendu "
 "correspondant."
 
-#: templates/admin/memo.php:50 templates/admin/memo.php:80
+#: templates/adminpage/memo.php:50 templates/adminpage/memo.php:80
 msgid "White to move and mate in two:"
 msgstr "Trait aux blancs, mat en deux&nbsp;:"
 
-#: templates/admin/memo.php:58 templates/admin/memo.php:91
+#: templates/adminpage/memo.php:58 templates/adminpage/memo.php:91
 msgid ""
 "This position is known as the Légal Trap. It is named after the French "
 "player François Antoine de Legall de Kermeur (1702&ndash;1792)."
@@ -493,7 +514,7 @@ msgstr ""
 "Cette position est appelée mat de Legal. Elle doit son nom au joueur "
 "français François Antoine de Kermur Sire de Legale (1702&ndash;1792)."
 
-#: templates/admin/memo.php:65
+#: templates/adminpage/memo.php:65
 #, php-format
 msgid ""
 "The string between the %1$s[%3$s][/%3$s]%2$s tags describe the position. The "
@@ -506,7 +527,7 @@ msgstr ""
 "em>). Une description exhaustive de cette notation FEN est disponible sur "
 "%4$sWikipédia%5$s."
 
-#: templates/admin/memo.php:128 templates/admin/memo.php:196
+#: templates/adminpage/memo.php:128 templates/adminpage/memo.php:196
 msgid ""
 "Morphy took twelve minutes over his next move, probably to assure himself "
 "that the combination was sound and that he had a forced win in every "
@@ -516,19 +537,19 @@ msgstr ""
 "s'assurer que la combinaison était correcte et que le gain était forcé dans "
 "toutes les variantes."
 
-#: templates/admin/memo.php:135 templates/admin/memo.php:204
+#: templates/adminpage/memo.php:135 templates/adminpage/memo.php:204
 msgid "Not"
 msgstr "Pas"
 
-#: templates/admin/memo.php:138 templates/admin/memo.php:207
+#: templates/adminpage/memo.php:138 templates/adminpage/memo.php:207
 msgid "would have won more quickly. For instance:"
 msgstr "aurait gagné plus rapidement. Par exemple&nbsp;:"
 
-#: templates/admin/memo.php:142 templates/admin/memo.php:211
+#: templates/adminpage/memo.php:142 templates/adminpage/memo.php:211
 msgid "Absolutely forced."
 msgstr "Complètement forcé."
 
-#: templates/admin/memo.php:150
+#: templates/adminpage/memo.php:150
 #, php-format
 msgid ""
 "The code between the %1$s[%3$s][/%3$s]%2$s tags describe the game. The used "
@@ -541,7 +562,7 @@ msgstr ""
 "à partir d'un fichier .pgn généré par n'importe quel logiciel de base de "
 "données échiquéenne, notamment %5$sChessbase%7$s, %6$sScid%7$s, etc..."
 
-#: templates/admin/memo.php:167
+#: templates/adminpage/memo.php:167
 #, php-format
 msgid ""
 "Please note the %1$s[pgndiagram]%2$s tag placed inside a commentary to "
@@ -549,6 +570,14 @@ msgid ""
 msgstr ""
 "Remarquez la balise %1$s[pgndiagram]%2$s placée dans un commentaire pour "
 "insérer un diagramme montrant la position courante."
+
+#: templates/shortcode/javascriptwarning.php:25
+msgid ""
+"You need to activate javascript to enhance chess game and diagram "
+"visualization."
+msgstr ""
+"Vous devez activer javascript pour améliorer l'affichage des parties et "
+"diagrammes d'échecs."
 
 #: templates/common/pgncontent.php:38
 #, php-format
@@ -665,45 +694,29 @@ msgstr "Vider"
 msgid "FEN:"
 msgstr "FEN&nbsp;:"
 
-#: templates/editors/quicktags.php:97
-msgid "Cancel"
-msgstr "Annuler"
-
-#: templates/editors/quicktags.php:126
+#: templates/editors/quicktags.php:133
 msgid "Add a new chess diagram"
 msgstr "Ajouter un nouveau diagramme"
 
-#: templates/editors/quicktags.php:127
+#: templates/editors/quicktags.php:134
 msgid "Update the chess diagram"
 msgstr "Mettre à jour le diagramme"
 
-#: templates/editors/quicktags.php:236
+#: templates/editors/quicktags.php:209
 msgid "Insert/edit a chess diagram"
 msgstr "Insérer/éditer un diagramme"
 
-#: templates/editors/quicktags.php:305
+#: templates/editors/quicktags.php:213
+msgid "Cancel"
+msgstr "Annuler"
+
+#: templates/editors/quicktags.php:303
 msgid "chessboard"
 msgstr "échiquier"
 
-#: models/help.php:39 backend.php:51 backend.php:52
-msgid "Help"
-msgstr "Aide"
-
-#: models/about.php:36 backend.php:58 backend.php:59
-msgid "About"
-msgstr "À propos"
-
-#: models/options.php:41 backend.php:44 backend.php:45
-msgid "Options"
-msgstr "Options"
-
-#: models/memo.php:39 backend.php:37 backend.php:38
-msgid "Memo"
-msgstr "Mémo"
-
-#: backend.php:30
-msgid "Chess"
-msgstr "Échecs"
+#: models/traits/postoptions.php:85
+msgid "Settings saved."
+msgstr "Options enregistrées."
 
 #: rpb-chessboard.php
 msgid ""
