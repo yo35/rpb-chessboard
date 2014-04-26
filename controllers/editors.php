@@ -20,7 +20,7 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH.'controllers/abstractcontroller.php');
+require_once(RPBCHESSBOARD_ABSPATH . 'controllers/abstractcontroller.php');
 
 
 /**
@@ -42,16 +42,12 @@ class RPBChessboardControllerEditors extends RPBChessboardAbstractController
 	 */
 	public function run()
 	{
-		// Load the model
-		$model = $this->getModel();
-
 		// Nothing to do if the Quicktags API is not loaded.
-		if(!$model->isQuicktagsLoaded()) {
+		if(!$this->getModel()->isQuicktagsLoaded()) {
 			return;
 		}
 
-		// Load and display the view
-		$view = self::loadView($model);
-		$view->display();
+		// Load and display the view.
+		$this->getView()->display();
 	}
 }

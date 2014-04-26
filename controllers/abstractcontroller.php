@@ -20,6 +20,9 @@
  ******************************************************************************/
 
 
+require_once(RPBCHESSBOARD_ABSPATH . 'helpers/loader.php');
+
+
 /**
  * Base class for the controllers.
  */
@@ -27,6 +30,7 @@ abstract class RPBChessboardAbstractController
 {
 	private $modelName;
 	private $model;
+	private $view;
 
 
 	/**
@@ -46,34 +50,21 @@ abstract class RPBChessboardAbstractController
 	public function getModel()
 	{
 		if(!isset($this->model)) {
-			$this->model = self::loadModel($this->modelName);
+			$this->model = RPBChessboardHelperLoader::loadModel($this->modelName);
 		}
 		return $this->model;
 	}
 
 
 	/**
-	 * Load the model corresponding to the given model name.
+	 * Load (if necessary) and return the view.
 	 */
-	public static function loadModel($modelName, $arg1=null, $arg2=null, $arg3=null)
+	public function getView()
 	{
-		$fileName  = strtolower($modelName);
-		$className = 'RPBChessboardModel' . $modelName;
-		require_once(RPBCHESSBOARD_ABSPATH.'models/'.$fileName.'.php');
-		return new $className($arg1, $arg2, $arg3);
-	}
-
-
-	/**
-	 * Load the view whose name is returned by `$model->getViewName()`.
-	 */
-	public static function loadView($model)
-	{
-		$viewName  = $model->getViewName();
-		$fileName  = strtolower($viewName);
-		$className = 'RPBChessboardView' . $viewName;
-		require_once(RPBCHESSBOARD_ABSPATH.'views/'.$fileName.'.php');
-		return new $className($model);
+		if(!isset($this->view)) {
+			$this->view = RPBChessboardHelperLoader::loadView($this->getModel());
+		}
+		return $this->view;
 	}
 
 

@@ -20,7 +20,7 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH.'controllers/abstractcontroller.php');
+require_once(RPBCHESSBOARD_ABSPATH . 'controllers/abstractcontroller.php');
 
 
 /**
@@ -85,8 +85,8 @@ class RPBChessboardControllerSite extends RPBChessboardAbstractController
 	private static function runShortcode($modelName, $atts, $content)
 	{
 		// Load the model and the view
-		$model = self::loadModel($modelName, $atts, $content);
-		$view  = self::loadView($model);
+		$model = RPBChessboardHelperLoader::loadModel($modelName, $atts, $content);
+		$view  = RPBChessboardHelperLoader::loadView($model);
 
 		// Display the view
 		ob_start();

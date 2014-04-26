@@ -20,52 +20,44 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH . 'controllers/abstractcontroller.php');
-
-
 /**
- * Controller for the backend.
+ * Helper functions for dynamic class loading.
  */
-class RPBChessboardControllerAdmin extends RPBChessboardAbstractController
+abstract class RPBChessboardHelperLoader
 {
 	/**
-	 * Constructor
-	 *
-	 * @param string $modelName Name of the model to use. It is supposed to refer
-	 *        to a model that inherits from the class RPBChessboardAbstractAdminModel.
+	 * Load the model corresponding to the given model name.
 	 */
-	public function __construct($modelName)
+	public static function loadModel($modelName, $arg1=null, $arg2=null, $arg3=null)
 	{
-		parent::__construct($modelName);
+		$fileName  = strtolower($modelName);
+		$className = 'RPBChessboardModel' . $modelName;
+		require_once(RPBCHESSBOARD_ABSPATH . 'models/' . $fileName . '.php');
+		return new $className($arg1, $arg2, $arg3);
 	}
 
 
 	/**
-	 * Entry-point of the controller.
+	 * Load the model corresponding to the given trait name.
 	 */
-	public function run()
+	public static function loadTrait($traitName, $arg1=null, $arg2=null, $arg3=null)
 	{
-		// Process the post-action, if any.
-		switch($this->getModel()->getPostAction()) {
-			case 'update-options': $this->executeAction('PostOptions', 'updateOptions'); break;
-			default: break;
-		}
-
-		// Create and display the view.
-		$this->getView()->display();
+		$fileName  = strtolower($traitName);
+		$className = 'RPBChessboardTrait' . $traitName;
+		require_once(RPBCHESSBOARD_ABSPATH . 'models/traits/' . $fileName . '.php');
+		return new $className($arg1, $arg2, $arg3);
 	}
 
 
 	/**
-	 * Load the trait `$traitName`, and execute the method `$methodName` supposedly defined by the trait.
-	 *
-	 * @param string $traitName
-	 * @param string $methodName
+	 * Load the view whose name is returned by `$model->getViewName()`.
 	 */
-	private function executeAction($traitName, $methodName)
+	public static function loadView($model)
 	{
-		$model = $this->getModel();
-		$model->loadTrait($traitName);
-		$model->$methodName();
+		$viewName  = $model->getViewName();
+		$fileName  = strtolower($viewName);
+		$className = 'RPBChessboardView' . $viewName;
+		require_once(RPBCHESSBOARD_ABSPATH . 'views/' . $fileName . '.php');
+		return new $className($model);
 	}
 }
