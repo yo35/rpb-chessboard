@@ -87,6 +87,11 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 == Changelog ==
 
+= 2.4 (April 26, 2014) =
+* German translation (thanks to mliebelt).
+* Fix browser compatibility issue (bug with the FEN dialog, reported as issue #5).
+* PHP code refactoring (backend).
+
 = 2.3.2 (April 19, 2014) =
 * Tested up to Wordpress 3.9.
 * Minor code cleaning.
