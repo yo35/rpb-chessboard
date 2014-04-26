@@ -22,11 +22,11 @@
 
 <h2><?php echo htmlspecialchars($model->getTitle()); ?></h2>
 
-<div id="rpbchessboard-admin-javascript-warning" class="rpbchessboard-javascript-warning">
-	<?php
+<div id="rpbchessboard-admin-javascript-warning" class="error">
+	<p><?php
 		_e('To work properly, the RPB Chessboard plugin needs javascript to be activated in your browser.',
 			'rpbchessboard');
-	?>
+	?></p>
 </div>
 
 <?php if($model->getPostMessage()!=''): ?>
