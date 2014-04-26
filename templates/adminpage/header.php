@@ -20,12 +20,7 @@
  ******************************************************************************/
 ?>
 
-<h2>
-	<?php
-		echo __('Chess games and diagrams', 'rpbchessboard') . ' &ndash; ' .
-			htmlspecialchars($model->getTitle());
-	?>
-</h2>
+<h2><?php echo htmlspecialchars($model->getTitle()); ?></h2>
 
 <div id="rpbchessboard-admin-javascript-warning" class="rpbchessboard-javascript-warning">
 	<?php

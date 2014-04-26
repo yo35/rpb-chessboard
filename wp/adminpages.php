@@ -50,8 +50,8 @@ abstract class RPBChessboardAdminPages
 
 		// Page "options"
 		add_submenu_page('rpbchessboard',
-			__('Chess games and diagrams', 'rpbchessboard') . ' - ' . __('Options', 'rpbchessboard'),
-			__('Options', 'rpbchessboard'),
+			sprintf(__('Settings of the %1$s plugin', 'rpbchessboard'), 'RPB Chessboard'),
+			__('Settings', 'rpbchessboard'),
 			'manage_options', 'rpbchessboard-options', array(__CLASS__, 'callbackPageOptions')
 		);
 
@@ -64,7 +64,7 @@ abstract class RPBChessboardAdminPages
 
 		// Page "about"
 		add_submenu_page('rpbchessboard',
-			__('Chess games and diagrams', 'rpbchessboard') . ' - ' . __('About', 'rpbchessboard'),
+			sprintf(__('About %1$s', 'rpbchessboard'), 'RPB Chessboard'),
 			__('About', 'rpbchessboard'),
 			'manage_options', 'rpbchessboard-about', array(__CLASS__, 'callbackPageAbout')
 		);

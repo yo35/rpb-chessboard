@@ -22,7 +22,6 @@
 
 <div id="rpbchessboard-admin-about">
 
-	<h3>RPB Chessboard</h3>
 	<p>
 		<?php _e(
 			'The RPB Chessboard plugin allows you to typeset and display chess games and diagrams '.
