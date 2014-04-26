@@ -88,16 +88,6 @@
 		<span><?php _e('FEN:', 'rpbchessboard'); ?></span>
 		<input id="rpbchessboard-editFen-fen" type="text" />
 	</div>
-	<form id="rpbchessboard-editFen-form">
-		<div class="submitbox">
-			<div id="rpbchessboard-editFen-update">
-				<input class="button-primary" type="submit" id="rpbchessboard-editFen-submit" value="" />
-			</div>
-			<div id="rpbchessboard-editFen-cancel">
-				<a class="submitdelete deletion" href="#"><?php _e('Cancel', 'rpbchessboard'); ?></a>
-			</div>
-		</div>
-	</form>
 </div>
 
 
@@ -109,23 +99,15 @@
 		// If the argument 'fen' is not defined, then the dialog is set-up in the "add-mode",
 		// meaning that it is assumed that the user wants to insert a new FEN string in the text.
 		if(fen===undefined) {
-			var isAddMode = true;
+			$('#rpbchessboard-editFen-dialog').data('isAddMode', true);
 			fen = 'start';
 		}
 
 		// Otherwise, the dialog is set-up in the "editMode", meaning that it is assumed that
 		// the user wants to edit an existing FEN string.
 		else {
-			var isAddMode = false;
+			$('#rpbchessboard-editFen-dialog').data('isAddMode', false);
 		}
-
-
-		// Configure the dialog in add or edit mode.
-		$('#rpbchessboard-editFen-dialog').data('isAddMode', isAddMode);
-		$('#rpbchessboard-editFen-submit').val(isAddMode ?
-			'<?php _e('Add a new chess diagram', 'rpbchessboard'); ?>' :
-			'<?php _e('Update the chess diagram', 'rpbchessboard'); ?>'
-		);
 
 
 		// Method to call to initialize the dialog with a given FEN string.
@@ -143,9 +125,21 @@
 		}
 
 
+		// Method to call to set the title of the text of the submit button.
+		function resetSubmitButtonText()
+		{
+			$('#rpbchessboard-editFen-submit').button('option', 'label',
+				$('#rpbchessboard-editFen-dialog').data('isAddMode') ?
+				<?php echo json_encode(__('Add a new chess diagram', 'rpbchessboard')); ?> :
+				<?php echo json_encode(__('Update the chess diagram', 'rpbchessboard')); ?>
+			);
+		}
+
+
 		// If the dialog has already been initialized, just reset the position, and exit.
 		if(!$('#rpbchessboard-editFen-dialog').hasClass('rpbchessboard-invisible')) {
 			resetPosition(fen);
+			resetSubmitButtonText();
 			return;
 		}
 
@@ -207,35 +201,39 @@
 		$('#rpbchessboard-editFen-clear').button().click(function() { resetPosition('empty'); });
 
 
-		// Button 'cancel'.
-		$('#rpbchessboard-editFen-cancel a').click(function()
-		{
-			$('#rpbchessboard-editFen-dialog').dialog('close');
-		});
-
-
-		// Submit button.
-		$('#rpbchessboard-editFen-form').submit(function(event)
-		{
-			event.preventDefault();
-			$('#rpbchessboard-editFen-dialog').dialog('close');
-			var newContent = cb.chessboard('option', 'position');
-			if($('#rpbchessboard-editFen-dialog').data('isAddMode')) {
-				var fenShortcode = <?php echo json_encode($model->getFENShortcode()); ?>;
-				newContent = '[' + fenShortcode + ']' + newContent + '[/' + fenShortcode + ']';
-			}
-			QTags.insertContent(newContent);
-		});
-
-
 		// Create the dialog.
 		$('#rpbchessboard-editFen-dialog').removeClass('rpbchessboard-invisible').dialog({
 			autoOpen   : false,
 			modal      : true,
 			dialogClass: 'wp-dialog',
 			title      : '<?php _e('Insert/edit a chess diagram', 'rpbchessboard'); ?>',
-			width      : 650
+			width      : 650,
+			buttons    : [
+				{
+					'text' : <?php echo json_encode(__('Cancel', 'rpbchessboard')); ?>,
+					'click': function() { $(this).dialog('close'); }
+				},
+				{
+					'class': 'button-primary',
+					'id'   : 'rpbchessboard-editFen-submit',
+					'text' : '',
+					'click': function()
+					{
+						$(this).dialog('close');
+						var newContent = cb.chessboard('option', 'position');
+						if($(this).data('isAddMode')) {
+							var fenShortcode = <?php echo json_encode($model->getFENShortcode()); ?>;
+							newContent = '[' + fenShortcode + ']' + newContent + '[/' + fenShortcode + ']';
+						}
+						QTags.insertContent(newContent);
+					}
+				}
+			]
 		});
+
+
+		// Initialize the label of the submit button.
+		resetSubmitButtonText();
 	}
 
 

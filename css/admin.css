@@ -271,19 +271,6 @@
 	padding: 0px 5px 0px;
 }
 
-#rpbchessboard-editFen-dialog .submitbox {
-	padding: 5px 10px;
-	font-size: 11px;
-	display: -webkit-box;
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: -webkit-flex;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
-}
-
 #rpbchessboard-editFen-fenArea {
 	margin: 0px 10px;
 	display: -webkit-box;
@@ -301,14 +288,6 @@
 
 #rpbchessboard-editFen-fenArea > input {
 	width: 100%;
-}
-
-#rpbchessboard-editFen-update {
-	order: 1;
-}
-
-#rpbchessboard-editFen-cancel {
-	order: 0;
 }
 
 .rpbchessboard-editFen-turnFlag {
