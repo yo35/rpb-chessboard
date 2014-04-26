@@ -20,22 +20,43 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH.'models/abstract/abstractadminmodel.php');
+require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/adminpage.php');
 
 
 /**
- * Model associated to the 'Help' page in the backend.
+ * Model associated to the 'About' page in the backend.
  */
-class RPBChessboardModelHelp extends RPBChessboardAbstractAdminModel
+class RPBChessboardModelAdminPageAbout extends RPBChessboardAbstractModelAdminPage
 {
-	public function __construct()
+	private $pluginInfo;
+
+
+	protected function makeTitle()
 	{
-		parent::__construct();
-		$this->loadTrait('Compatibility');
+		return __('About', 'rpbchessboard');
 	}
 
-	public function getTitle()
+
+	/**
+	 * Current version of the plugin
+	 *
+	 * @return string
+	 */
+	public function getPluginVersion()
 	{
-		return __('Help', 'rpbchessboard');
+		$this->loadPluginInfo();
+		return $this->pluginInfo['Version'];
+	}
+
+
+	/**
+	 * Load the information concerning the plugin.
+	 */
+	private function loadPluginInfo()
+	{
+		if($this->pluginInfo!=null) {
+			return;
+		}
+		$this->pluginInfo = get_plugin_data(RPBCHESSBOARD_ABSPATH . 'rpb-chessboard.php');
 	}
 }

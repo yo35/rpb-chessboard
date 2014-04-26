@@ -70,10 +70,10 @@ function rpbchessboard_admin_page_about  () { rpbchessboard_load_controller('Abo
 
 
 // Load the controller with the corresponding model name, and execute it.
-function rpbchessboard_load_controller($modelName)
+function rpbchessboard_load_controller($adminPageName)
 {
-	require_once(RPBCHESSBOARD_ABSPATH.'controllers/admin.php');
-	$controller = new RPBChessboardControllerAdmin($modelName);
+	require_once(RPBCHESSBOARD_ABSPATH . 'controllers/adminpage.php');
+	$controller = new RPBChessboardControllerAdminPage('AdminPage' . $adminPageName);
 	$controller->run();
 }
 

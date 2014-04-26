@@ -20,43 +20,47 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH.'models/abstract/abstractadminmodel.php');
+require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/adminpage.php');
 
 
 /**
- * Model associated to the 'About' page in the backend.
+ * Model associated to the 'Options' page in the backend.
  */
-class RPBChessboardModelAbout extends RPBChessboardAbstractAdminModel
+class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdminPage
 {
-	private $pluginInfo;
-
-
-	public function getTitle()
+	public function __construct()
 	{
-		return __('About', 'rpbchessboard');
+		parent::__construct();
+		$this->loadTrait('ChessWidgetDefault');
+		$this->loadTrait('ChessWidgetLimits' );
+		$this->loadTrait('Compatibility'     );
+	}
+
+
+	protected function makeTitle()
+	{
+		return __('Options', 'rpbchessboard');
 	}
 
 
 	/**
-	 * Current version of the plugin
+	 * URL to which the the request for modifying the options of the plugin will be dispatched.
 	 *
 	 * @return string
 	 */
-	public function getPluginVersion()
+	public function getFormActionURL()
 	{
-		$this->loadPluginInfo();
-		return $this->pluginInfo['Version'];
+		return site_url().'/wp-admin/admin.php?page=rpbchessboard-options';
 	}
 
 
 	/**
-	 * Load the information concerning the plugin.
+	 * Action code corresponding to the request for modifying the options of the plugin.
+	 *
+	 * @return string
 	 */
-	private function loadPluginInfo()
+	public function getFormAction()
 	{
-		if($this->pluginInfo!=null) {
-			return;
-		}
-		$this->pluginInfo = get_plugin_data(RPBCHESSBOARD_ABSPATH.'rpb-chessboard.php');
+		return 'update-options';
 	}
 }

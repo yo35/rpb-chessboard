@@ -20,46 +20,23 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH.'models/abstract/abstractadminmodel.php');
+require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/adminpage.php');
 
 
 /**
- * Model associated to the 'Options' page in the backend.
+ * Model associated to the 'Memo' page in the backend.
  */
-class RPBChessboardModelOptions extends RPBChessboardAbstractAdminModel
+class RPBChessboardModelAdminPageMemo extends RPBChessboardAbstractModelAdminPage
 {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->loadTrait('ChessWidgetDefault');
-		$this->loadTrait('ChessWidgetLimits' );
-		$this->loadTrait('Compatibility'     );
-	}
-
-	public function getTitle()
-	{
-		return __('Options', 'rpbchessboard');
+		$this->loadTrait('Compatibility');
 	}
 
 
-	/**
-	 * URL to which the the request for modifying the options of the plugin will be dispatched.
-	 *
-	 * @return string
-	 */
-	public function getFormActionURL()
+	protected function makeTitle()
 	{
-		return site_url().'/wp-admin/admin.php?page=rpbchessboard-options';
-	}
-
-
-	/**
-	 * Action code corresponding to the request for modifying the options of the plugin.
-	 *
-	 * @return string
-	 */
-	public function getFormAction()
-	{
-		return 'update-options';
+		return __('Memo', 'rpbchessboard');
 	}
 }

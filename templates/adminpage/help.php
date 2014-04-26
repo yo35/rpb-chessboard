@@ -40,8 +40,8 @@
 
 
 
-	<?php include(RPBCHESSBOARD_ABSPATH.'templates/admin/help-fen.php'); ?>
-	<?php include(RPBCHESSBOARD_ABSPATH.'templates/admin/help-pgn.php'); ?>
+	<?php include(RPBCHESSBOARD_ABSPATH . 'templates/adminpage/help-fen.php'); ?>
+	<?php include(RPBCHESSBOARD_ABSPATH . 'templates/adminpage/help-pgn.php'); ?>
 
 
 
