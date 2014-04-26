@@ -61,9 +61,13 @@ class RPBChessboardControllerAdminPage extends RPBChessboardAbstractController
 	 *
 	 * @param string $traitName
 	 * @param string $methodName
+	 * @param string $capability Required capability to execute the action. Default is `'manage_options'`.
 	 */
-	private function executeAction($traitName, $methodName)
+	private function executeAction($traitName, $methodName, $capability='manage_options')
 	{
+		if(!current_user_can($capability)) {
+			return;
+		}
 		$model = $this->getModel();
 		$model->loadTrait($traitName);
 		$model->$methodName();
