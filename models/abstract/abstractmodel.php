@@ -38,6 +38,7 @@ require_once(RPBCHESSBOARD_ABSPATH . 'helpers/loader.php');
 abstract class RPBChessboardAbstractModel
 {
 	private $name;
+	private $templateName;
 	private $methodIndex = array();
 
 
@@ -111,6 +112,18 @@ abstract class RPBChessboardAbstractModel
 	 */
 	public function getTemplateName()
 	{
-		return $this->getName();
+		return isset($this->templateName) ? $this->templateName : $this->getName();
+	}
+
+
+	/**
+	 * Change the name of the template to use.
+	 *
+	 * @param string $templateName Null to use the default template, which is the one
+	 *        that has the same name as the model.
+	 */
+	public function setTemplateName($templateName)
+	{
+		$this->templateName = $templateName;
 	}
 }
