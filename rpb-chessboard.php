@@ -89,6 +89,17 @@ function rpbchessboard_enqueue_css()
 }
 
 
+// Plugin administration pages
+if(is_admin()) {
+	add_action('admin_menu', 'rpbchessboard_init_admin_pages');
+	function rpbchessboard_init_admin_pages()
+	{
+		require_once(RPBCHESSBOARD_ABSPATH . 'wp/adminpages.php');
+		RPBChessboardAdminPages::register();
+	}
+}
+
+
 // Load either the back-end or the front-end depending on the context
 if(is_admin()) {
 	require_once(RPBCHESSBOARD_ABSPATH.'backend.php');
