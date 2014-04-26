@@ -739,20 +739,20 @@
 				target.empty().append(movingPiece);
 
 				// Castling move -> move the rook.
-				if(move.flags.contains('k') || move.flags.contains('q')) {
+				if(move.flags.indexOf('k')>=0 || move.flags.indexOf('q')>=0) {
 					var row   = move.color=='w' ? '1' : '8';
-					var rookFrom = this._fetchSquare((move.flags.contains('k') ? 'h' : 'a') + row);
-					var rookTo   = this._fetchSquare((move.flags.contains('k') ? 'f' : 'd') + row);
+					var rookFrom = this._fetchSquare((move.flags.indexOf('k')>=0 ? 'h' : 'a') + row);
+					var rookTo   = this._fetchSquare((move.flags.indexOf('k')>=0 ? 'f' : 'd') + row);
 					rookTo.empty().append($('.uichess-chessboard-piece', rookFrom));
 				}
 
 				// En-passant move -> remove the taken pawn.
-				if(move.flags.contains('e')) {
+				if(move.flags.indexOf('e')>=0) {
 					this._fetchSquare(move.to[0] + move.from[1]).empty();
 				}
 
 				// Promotion move -> change the type of the promoted piece.
-				if(move.flags.contains('p')) {
+				if(move.flags.indexOf('p')>=0) {
 					var SQUARE_SIZE  = this.options.squareSize;
 					var OFFSET_PIECE = { b:0, k:SQUARE_SIZE, n:2*SQUARE_SIZE, p:3*SQUARE_SIZE, q:4*SQUARE_SIZE, r:5*SQUARE_SIZE, x:6*SQUARE_SIZE };
 					var OFFSET_COLOR = { b:0, w:SQUARE_SIZE };

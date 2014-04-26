@@ -135,10 +135,10 @@
 			cb.chessboard('option', 'position', fen);
 			$('#rpbchessboard-editFen-turn-' + cb.chessboard('turn')).prop('checked', true);
 			var castleRights = cb.chessboard('castleRights');
-			$('#rpbchessboard-editFen-castle-wk').prop('checked', castleRights.contains('K'));
-			$('#rpbchessboard-editFen-castle-wq').prop('checked', castleRights.contains('Q'));
-			$('#rpbchessboard-editFen-castle-bk').prop('checked', castleRights.contains('k'));
-			$('#rpbchessboard-editFen-castle-bq').prop('checked', castleRights.contains('q'));
+			$('#rpbchessboard-editFen-castle-wk').prop('checked', castleRights.indexOf('K')>=0);
+			$('#rpbchessboard-editFen-castle-wq').prop('checked', castleRights.indexOf('Q')>=0);
+			$('#rpbchessboard-editFen-castle-bk').prop('checked', castleRights.indexOf('k')>=0);
+			$('#rpbchessboard-editFen-castle-bq').prop('checked', castleRights.indexOf('q')>=0);
 			$('#rpbchessboard-editFen-enPassant').val(cb.chessboard('enPassant'));
 		}
 
@@ -177,10 +177,10 @@
 
 		// Castle rights widget.
 		var castleRights = cb.chessboard('castleRights');
-		$('#rpbchessboard-editFen-castle-wk').prop('checked', castleRights.contains('K'));
-		$('#rpbchessboard-editFen-castle-wq').prop('checked', castleRights.contains('Q'));
-		$('#rpbchessboard-editFen-castle-bk').prop('checked', castleRights.contains('k'));
-		$('#rpbchessboard-editFen-castle-bq').prop('checked', castleRights.contains('q'));
+		$('#rpbchessboard-editFen-castle-wk').prop('checked', castleRights.indexOf('K')>=0);
+		$('#rpbchessboard-editFen-castle-wq').prop('checked', castleRights.indexOf('Q')>=0);
+		$('#rpbchessboard-editFen-castle-bk').prop('checked', castleRights.indexOf('k')>=0);
+		$('#rpbchessboard-editFen-castle-bq').prop('checked', castleRights.indexOf('q')>=0);
 		$('#rpbchessboard-editFen-castleRights input').each(function(index, e)
 		{
 			$(e).click(function()
