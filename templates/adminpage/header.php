@@ -29,6 +29,12 @@
 	?>
 </div>
 
+<?php if($model->getPostMessage()!=''): ?>
+	<div class="updated">
+		<p><?php echo htmlspecialchars($model->getPostMessage()); ?></p>
+	</div>
+<?php endif; ?>
+
 <script type="text/javascript">
 	hideJavascriptWarning('rpbchessboard-admin-javascript-warning');
 </script>

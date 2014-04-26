@@ -70,6 +70,6 @@ class RPBChessboardControllerAdminPage extends RPBChessboardAbstractController
 		}
 		$model = $this->getModel();
 		$model->loadTrait($traitName);
-		$model->$methodName();
+		$model->setPostMessage($model->$methodName());
 	}
 }

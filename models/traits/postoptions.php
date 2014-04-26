@@ -31,6 +31,8 @@ class RPBChessboardTraitPostOptions extends RPBChessboardAbstractTrait
 {
 	/**
 	 * Update the plugin general options.
+	 *
+	 * @return string
 	 */
 	public function updateOptions()
 	{
@@ -44,6 +46,9 @@ class RPBChessboardTraitPostOptions extends RPBChessboardAbstractTrait
 		$this->updateBooleanParameter('showCoordinates'     , $this->getPostShowCoordinates     ());
 		$this->updateBooleanParameter('fenCompatibilityMode', $this->getPostFENCompatibilityMode());
 		$this->updateBooleanParameter('pgnCompatibilityMode', $this->getPostPGNCompatibilityMode());
+
+		// Notify the user.
+		return __('Settings saved.', 'rpbchessboard');
 	}
 
 

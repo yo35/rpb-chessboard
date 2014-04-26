@@ -31,6 +31,7 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 	private $adminPageName;
 	private $title;
 	private $postAction;
+	private $postMessage;
 
 
 	/**
@@ -97,5 +98,28 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 			$this->postAction = isset($_POST['rpbchessboard_action']) ? $_POST['rpbchessboard_action'] : '';
 		}
 		return $this->postAction;
+	}
+
+
+	/**
+	 * Human-readable message informing the user about the result of the POST action.
+	 * or an empty string if no action were performed.
+	 *
+	 * @return string
+	 */
+	public function getPostMessage()
+	{
+		return isset($this->postMessage) ? $this->postMessage : '';
+	}
+
+
+	/**
+	 * Set the POST action message.
+	 *
+	 * @param string $message
+	 */
+	public function setPostMessage($message)
+	{
+		$this->postMessage = $message;
 	}
 }
