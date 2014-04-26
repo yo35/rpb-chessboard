@@ -21,7 +21,7 @@
 
 
 /**
- * Base class for the views used by the RPBChessboard plugin.
+ * Base class for the views.
  */
 abstract class RPBChessboardAbstractView
 {
@@ -38,16 +38,16 @@ abstract class RPBChessboardAbstractView
 
 
 	/**
-	 * Method called the controller to display the view.
-	 */
-	public abstract function display();
-
-
-	/**
 	 * Model associated to the view.
 	 */
 	public function getModel()
 	{
 		return $this->model;
 	}
+
+
+	/**
+	 * Method called the controller to display the view.
+	 */
+	public abstract function display();
 }
