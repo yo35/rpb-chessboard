@@ -24,15 +24,15 @@ require_once(RPBCHESSBOARD_ABSPATH . 'controllers/abstractcontroller.php');
 
 
 /**
- * Controller for the backend.
+ * Show the requested plugin administration page.
  */
-class RPBChessboardControllerAdmin extends RPBChessboardAbstractController
+class RPBChessboardControllerAdminPage extends RPBChessboardAbstractController
 {
 	/**
 	 * Constructor
 	 *
 	 * @param string $modelName Name of the model to use. It is supposed to refer
-	 *        to a model that inherits from the class RPBChessboardAbstractAdminModel.
+	 *        to a model that inherits from the class RPBChessboardAbstractModelAdminPage.
 	 */
 	public function __construct($modelName)
 	{

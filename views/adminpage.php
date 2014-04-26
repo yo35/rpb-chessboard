@@ -20,20 +20,20 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH.'views/abstractview.php');
+require_once(RPBCHESSBOARD_ABSPATH . 'views/abstractview.php');
 
 
 /**
- * Generic view for the administration pages.
+ * Generic view for the plugin administration pages.
  */
-class RPBChessboardViewAdmin extends RPBChessboardAbstractView
+class RPBChessboardViewAdminPage extends RPBChessboardAbstractView
 {
 	public function display()
 	{
 		$model = $this->getModel();
 		echo '<div class="wrap rpbchessboard-admin">';
-		include(RPBCHESSBOARD_ABSPATH.'templates/admin/header.php');
-		include(RPBCHESSBOARD_ABSPATH.'templates/admin/'.strtolower($model->getTemplateName()).'.php');
+		include(RPBCHESSBOARD_ABSPATH . 'templates/adminpage/header.php');
+		include(RPBCHESSBOARD_ABSPATH . 'templates/adminpage/' . strtolower($model->getTemplateName()) . '.php');
 		echo '</div>';
 	}
 }
