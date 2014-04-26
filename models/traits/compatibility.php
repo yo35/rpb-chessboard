@@ -30,8 +30,8 @@ require_once(RPBCHESSBOARD_ABSPATH.'helpers/validation.php');
  */
 class RPBChessboardTraitCompatibility extends RPBChessboardAbstractTrait
 {
-	private $fenCompatibilityMode;
-	private $pgnCompatibilityMode;
+	private static $fenCompatibilityMode;
+	private static $pgnCompatibilityMode;
 
 
 	/**
@@ -42,11 +42,11 @@ class RPBChessboardTraitCompatibility extends RPBChessboardAbstractTrait
 	 */
 	public function getFENCompatibilityMode()
 	{
-		if(!isset($this->fenCompatibilityMode)) {
+		if(!isset(self::$fenCompatibilityMode)) {
 			$value = RPBChessboardHelperValidation::validateBooleanFromInt(get_option('rpbchessboard_fenCompatibilityMode'));
-			$this->fenCompatibilityMode = isset($value) ? $value : false;
+			self::$fenCompatibilityMode = isset($value) ? $value : false;
 		}
-		return $this->fenCompatibilityMode;
+		return self::$fenCompatibilityMode;
 	}
 
 
@@ -58,11 +58,11 @@ class RPBChessboardTraitCompatibility extends RPBChessboardAbstractTrait
 	 */
 	public function getPGNCompatibilityMode()
 	{
-		if(!isset($this->pgnCompatibilityMode)) {
+		if(!isset(self::$pgnCompatibilityMode)) {
 			$value = RPBChessboardHelperValidation::validateBooleanFromInt(get_option('rpbchessboard_pgnCompatibilityMode'));
-			$this->pgnCompatibilityMode = isset($value) ? $value : false;
+			self::$pgnCompatibilityMode = isset($value) ? $value : false;
 		}
-		return $this->pgnCompatibilityMode;
+		return self::$pgnCompatibilityMode;
 	}
 
 

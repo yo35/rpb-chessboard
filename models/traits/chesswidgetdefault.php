@@ -30,9 +30,9 @@ require_once(RPBCHESSBOARD_ABSPATH.'helpers/validation.php');
  */
 class RPBChessboardTraitChessWidgetDefault extends RPBChessboardAbstractTrait
 {
-	private $squareSize     ;
-	private $showCoordinates;
-	private $allParameters  ;
+	private static $allParameters  ;
+	private static $squareSize     ;
+	private static $showCoordinates;
 
 
 	/**
@@ -54,12 +54,13 @@ class RPBChessboardTraitChessWidgetDefault extends RPBChessboardAbstractTrait
 	 */
 	public function getDefaultAll()
 	{
-		if(!isset($this->allParameters)) {
-			$this->allParameters = array();
-			$this->allParameters['squareSize'     ] = $this->getDefaultSquareSize     ();
-			$this->allParameters['showCoordinates'] = $this->getDefaultShowCoordinates();
+		if(!isset(self::$allParameters)) {
+			self::$allParameters = array(
+				'squareSize'      => $this->getDefaultSquareSize     (),
+				'showCoordinates' => $this->getDefaultShowCoordinates()
+			);
 		}
-		return $this->allParameters;
+		return self::$allParameters;
 	}
 
 
@@ -70,11 +71,11 @@ class RPBChessboardTraitChessWidgetDefault extends RPBChessboardAbstractTrait
 	 */
 	public function getDefaultSquareSize()
 	{
-		if(!isset($this->squareSize)) {
+		if(!isset(self::$squareSize)) {
 			$value = RPBChessboardHelperValidation::validateSquareSize(get_option('rpbchessboard_squareSize'));
-			$this->squareSize = isset($value) ? $value : self::DEFAULT_SQUARE_SIZE;
+			self::$squareSize = isset($value) ? $value : self::DEFAULT_SQUARE_SIZE;
 		}
-		return $this->squareSize;
+		return self::$squareSize;
 	}
 
 
@@ -85,10 +86,10 @@ class RPBChessboardTraitChessWidgetDefault extends RPBChessboardAbstractTrait
 	 */
 	public function getDefaultShowCoordinates()
 	{
-		if(!isset($this->showCoordinates)) {
+		if(!isset(self::$showCoordinates)) {
 			$value = RPBChessboardHelperValidation::validateBooleanFromInt(get_option('rpbchessboard_showCoordinates'));
-			$this->showCoordinates = isset($value) ? $value : self::DEFAULT_SHOW_COORDINATES;
+			self::$showCoordinates = isset($value) ? $value : self::DEFAULT_SHOW_COORDINATES;
 		}
-		return $this->showCoordinates;
+		return self::$showCoordinates;
 	}
 }
