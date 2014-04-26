@@ -37,12 +37,6 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 	}
 
 
-	protected function makeTitle()
-	{
-		return __('Options', 'rpbchessboard');
-	}
-
-
 	/**
 	 * URL to which the the request for modifying the options of the plugin will be dispatched.
 	 *

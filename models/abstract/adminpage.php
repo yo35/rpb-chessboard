@@ -76,18 +76,10 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 	public function getTitle()
 	{
 		if(!isset($this->title)) {
-			$this->title = $this->makeTitle();
+			$this->title = get_admin_page_title();
 		}
 		return $this->title;
 	}
-
-
-	/**
-	 * Build and return the human-readable title of the page.
-	 *
-	 * @return string
-	 */
-	protected abstract function makeTitle();
 
 
 	/**

@@ -33,10 +33,4 @@ class RPBChessboardModelAdminPageMemo extends RPBChessboardAbstractModelAdminPag
 		parent::__construct();
 		$this->loadTrait('Compatibility');
 	}
-
-
-	protected function makeTitle()
-	{
-		return __('Memo', 'rpbchessboard');
-	}
 }

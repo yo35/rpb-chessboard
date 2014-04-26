@@ -33,10 +33,4 @@ class RPBChessboardModelAdminPageHelp extends RPBChessboardAbstractModelAdminPag
 		parent::__construct();
 		$this->loadTrait('Compatibility');
 	}
-
-
-	protected function makeTitle()
-	{
-		return __('Help', 'rpbchessboard');
-	}
 }

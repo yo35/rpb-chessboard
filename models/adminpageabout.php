@@ -31,12 +31,6 @@ class RPBChessboardModelAdminPageAbout extends RPBChessboardAbstractModelAdminPa
 	private $pluginInfo;
 
 
-	protected function makeTitle()
-	{
-		return __('About', 'rpbchessboard');
-	}
-
-
 	/**
 	 * Current version of the plugin
 	 *
