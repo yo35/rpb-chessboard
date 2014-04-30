@@ -60,8 +60,11 @@ abstract class RPBChessboardAbstractTopLevelShortcodeModel extends RPBChessboard
 	 */
 	private static function makeID()
 	{
+		if(!isset(self::$idPrefix)) {
+			self::$idPrefix = 'rpbchessboard-' . uniqid() . '-';
+		}
 		++self::$idCounter;
-		return 'rpbchessboard-item'.self::$idCounter;
+		return self::$idPrefix . self::$idCounter;
 	}
 
 
@@ -69,4 +72,10 @@ abstract class RPBChessboardAbstractTopLevelShortcodeModel extends RPBChessboard
 	 * Global ID counter.
 	 */
 	private static $idCounter = 0;
+
+
+	/**
+	 * Prefix for the dynamically allocated DOM IDs.
+	 */
+	private static $idPrefix;
 }
