@@ -43,12 +43,12 @@
 
 	// Localization: chess piece symbols
 	PgnWidget.text.pieceSymbols = {
-		'K': '<?php /*i18l King symbol   */ _e('K', 'rpbchessboard'); ?>',
-		'Q': '<?php /*i18l Queen symbol  */ _e('Q', 'rpbchessboard'); ?>',
-		'R': '<?php /*i18l Rook symbol   */ _e('R', 'rpbchessboard'); ?>',
-		'B': '<?php /*i18l Bishop symbol */ _e('B', 'rpbchessboard'); ?>',
-		'N': '<?php /*i18l Knight symbol */ _e('N', 'rpbchessboard'); ?>',
-		'P': '<?php /*i18l Pawn symbol   */ _e('P', 'rpbchessboard'); ?>'
+		'K': '<?php /*i18n King symbol   */ _e('K', 'rpbchessboard'); ?>',
+		'Q': '<?php /*i18n Queen symbol  */ _e('Q', 'rpbchessboard'); ?>',
+		'R': '<?php /*i18n Rook symbol   */ _e('R', 'rpbchessboard'); ?>',
+		'B': '<?php /*i18n Bishop symbol */ _e('B', 'rpbchessboard'); ?>',
+		'N': '<?php /*i18n Knight symbol */ _e('N', 'rpbchessboard'); ?>',
+		'P': '<?php /*i18n Pawn symbol   */ _e('P', 'rpbchessboard'); ?>'
 	};
 
 </script>
