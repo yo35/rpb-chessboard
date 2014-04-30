@@ -87,6 +87,9 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 == Changelog ==
 
+= 2.4.1 (April 30, 2014) =
+* Improve code robustness with respect to dynamically loaded content (e.g. through AJAX requests).
+
 = 2.4 (April 26, 2014) =
 * German translation (thanks to mliebelt).
 * Fix browser compatibility issue (bug with the FEN dialog, reported as issue #5).

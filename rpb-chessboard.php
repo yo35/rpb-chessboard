@@ -26,7 +26,7 @@ Description: This plugin allows you to typeset and display chess diagrams and PG
 Text Domain: rpbchessboard
 Author: Yoann Le Montagner
 License: GPLv3
-Version: 2.4
+Version: 2.4.1
 */
 
 
