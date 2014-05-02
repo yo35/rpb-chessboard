@@ -77,7 +77,7 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 	public function getTitle()
 	{
 		if(!isset($this->title)) {
-			$this->title = htmlspecialchars_decode(get_admin_page_title(), ENT_QUOTES);
+			$this->title = html_entity_decode(get_admin_page_title(), ENT_QUOTES);
 		}
 		return $this->title;
 	}
