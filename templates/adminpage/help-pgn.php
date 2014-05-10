@@ -272,7 +272,7 @@
 				'which defines equivalences between this syntax and the human-readable one '.
 				'(for instance, %1$s&quot;$1&quot;%2$s is equivalent to %1$s&quot;!&quot;%2$s). '.
 				'Both syntaxes are understood by the RPB Chessboard plugin. '.
-				'%3$sList of NAGs%4$s.',
+				'See the %3$slist of NAGs%4$s.',
 			'rpbchessboard'),
 			'<span class="rpbchessboard-admin-code-inline">',
 			'</span>',

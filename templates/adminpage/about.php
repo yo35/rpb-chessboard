@@ -25,7 +25,7 @@
 	<p>
 		<?php echo sprintf(
 			__(
-				'RPB Chessboard plugin allows you to typeset and display chess games and diagrams '.
+				'RPB Chessboard allows you to typeset and display chess games and diagrams '.
 				'in the posts and pages of your WordPress blog, '.
 				'using the standard %1$sFEN%3$s and %2$sPGN%3$s notations.',
 			'rpbchessboard'),
@@ -105,7 +105,7 @@
 			__(
 				'This plugin is distributed under the terms of the %1$sGNU General Public License version 3%3$s (GPLv3), '.
 				'as published by the %2$sFree Software Foundation%3$s. The full text of this license '.
-				'is available at %4$s. A copy of this document is also provided with the plugin source.',
+				'is available at %4$s. A copy of this document is also provided with the plugin source code.',
 			'rpbchessboard'),
 			'<a href="http://www.gnu.org/licenses/gpl.html" target="_blank">',
 			'<a href="http://www.fsf.org/" target="_blank">',
