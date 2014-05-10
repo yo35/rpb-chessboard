@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-26 18:36+0200\n"
+"POT-Creation-Date: 2014-05-10 20:59+0200\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35@melix.net>\n"
 "Language-Team: French\n"
@@ -58,67 +58,108 @@ msgstr "Diagramme FEN"
 msgid "PGN game"
 msgstr "Partie PGN"
 
-#: templates/adminpage/about.php:27
+#: templates/adminpage/about.php:28
+#, php-format
 msgid ""
-"The RPB Chessboard plugin allows you to typeset and display chess games and "
-"diagrams in the posts and pages of your Wordpress blog, using the standard "
-"FEN and PGN notations."
+"RPB Chessboard allows you to typeset and display chess games and diagrams in "
+"the posts and pages of your WordPress blog, using the standard %1$sFEN%3$s "
+"and %2$sPGN%3$s notations."
 msgstr ""
-"Le plugin RPB Chessboard vous permet d'éditer et d'afficher des parties et "
-"des diagrammes d'échecs dans les articles et pages de votre blog Wordpress, "
-"en utilisant les notations usuelles FEN et PGN."
+"RPB Chessboard vous permet d'éditer et d'afficher des parties et des "
+"diagrammes d'échecs dans les articles et pages de votre blog Wordpress, en "
+"utilisant les notations usuelles %1$sFEN%3$s et %2$sPGN%3$s."
 
-#: templates/adminpage/about.php:37
-msgid "developer link"
-msgstr "lien pour les développeurs"
+#: templates/adminpage/about.php:32 templates/adminpage/help-fen.php:51
+#: templates/adminpage/memo.php:72
+msgid "http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation"
+msgstr "http://fr.wikipedia.org/wiki/Notation_Forsyth-Edwards"
 
-#: templates/adminpage/about.php:42
+#: templates/adminpage/about.php:33 templates/adminpage/help-pgn.php:52
+#: templates/adminpage/memo.php:158
+msgid "http://en.wikipedia.org/wiki/Portable_Game_Notation"
+msgstr "http://fr.wikipedia.org/wiki/Portable_Game_Notation"
+
+#: templates/adminpage/about.php:39
+msgid "Ask for help"
+msgstr "Demander de l'aide"
+
+#: templates/adminpage/about.php:39
+msgid "Report a problem"
+msgstr "Signaler un problème"
+
+#: templates/adminpage/about.php:45
 #, php-format
 msgid ""
 "If you encounter some bugs with this plugin, or if you wish to get new "
-"features in the future versions, you can report/propose them in the bug "
-"tracker at %1$s."
+"features in the future versions, you can report/propose them in the "
+"%1$sGitHub bug tracker%2$s."
 msgstr ""
 "Si vous rencontrez des bugs avec ce plugin, ou bien si vous souhaitez voir "
 "implémenté de nouvelles fonctionnalités dans les versions futures, vous "
-"pouvez les signaler/proposer dans le <em>bug tracker</em> à l'adresse %1$s."
+"pouvez les signaler/proposer dans le %1$s<em>bug tracker</em> GitHub%2$s."
 
-#: templates/adminpage/about.php:50
+#: templates/adminpage/about.php:54
 msgid "Plugin version"
 msgstr "Version du plugin"
 
-#: templates/adminpage/about.php:54
+#: templates/adminpage/about.php:58
+msgid "Links"
+msgstr "Liens"
+
+#: templates/adminpage/about.php:63
+msgid "plugin page on WordPress.org"
+msgstr "page du plugin sur WordPress.org"
+
+#: templates/adminpage/about.php:67
+msgid "source code on GitHub"
+msgstr "code source sur GitHub"
+
+#: templates/adminpage/about.php:72
 msgid "Author"
 msgstr "Auteur"
 
-#: templates/adminpage/about.php:58
+#: templates/adminpage/about.php:76
 msgid "Translation"
 msgstr "Traduction"
 
-#: templates/adminpage/about.php:72
+#: templates/adminpage/about.php:94
 #, php-format
 msgid ""
 "If you are interested in translating this plugin into your language, please "
-"contact the author %1$s."
+"%1$scontact the author%2$s."
 msgstr ""
-"Si vous souhaitez traduire ce plugin dans votre langue, merci de contacter "
-"l'auteur %1$s."
+"Si vous souhaitez traduire ce plugin dans votre langue, merci de "
+"%1$scontacter l'auteur%2$s."
 
-#: templates/adminpage/about.php:79
+#: templates/adminpage/about.php:102
 msgid "License"
 msgstr "Licence"
 
-#: templates/adminpage/about.php:83
+#: templates/adminpage/about.php:106
 #, php-format
 msgid ""
-"This plugin is distributed under the GNU General Public License version 3 "
-"(GPLv3). The full text of this license is available at %1$s. A copy of this "
-"document is also provided with the plugin source code."
+"This plugin is distributed under the terms of the %1$sGNU General Public "
+"License version 3%3$s (GPLv3), as published by the %2$sFree Software "
+"Foundation%3$s. The full text of this license is available at %4$s. A copy "
+"of this document is also provided with the plugin source code."
 msgstr ""
-"Ce plugin est distribué sous les termes de la <em>GNU General Public License "
-"version 3</em> (GPLv3). Le texte complet de cette licence est disponible à "
-"l'adresse %1$s. Une copie de ce document est également fournie avec le code "
+"Ce plugin est distribué sous les termes de la %1$s<em>GNU General Public "
+"License</em> version 3%3$s (GPLv3), telle que publiée par la %2$sFree "
+"Software Foundation%3$s. Le texte complet de cette licence est disponible à "
+"l'adresse %4$s. Une copie de ce document est également fournie avec le code "
 "source du plugin."
+
+#: templates/adminpage/about.php:118
+msgid ""
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for "
+"more details."
+msgstr ""
+"Ce programme est distribué dans l'espoir qu'il vous sera utile, mais SANS "
+"AUCUNE GARANTIE&nbsp;: sans même la garantie implicite de "
+"COMMERCIALISABILITÉ ni d'ADÉQUATION À UN OBJECTIF PARTICULIER. Consultez la "
+"<em>GNU General Public License</em> pour plus de détails."
 
 #: templates/adminpage/options.php:29
 msgid "Default chessboard aspect"
@@ -193,10 +234,6 @@ msgstr ""
 "em>), lequel est décrit de façon exhaustive sur %4$sWikipédia%5$s. La "
 "syntaxe FEN est résumée ici au travers d'exemples explicatifs."
 
-#: templates/adminpage/help-fen.php:51 templates/adminpage/memo.php:72
-msgid "http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation"
-msgstr "http://fr.wikipedia.org/wiki/Notation_Forsyth-Edwards"
-
 #: templates/adminpage/help-fen.php:63
 msgid "Empty position"
 msgstr "Position vide"
@@ -259,7 +296,7 @@ msgstr ""
 msgid "The Légal Trap."
 msgstr "Le mat de Legal."
 
-#: templates/adminpage/help-fen.php:244 templates/adminpage/help-pgn.php:457
+#: templates/adminpage/help-fen.php:244 templates/adminpage/help-pgn.php:460
 msgid "Attributes"
 msgstr "Attributs"
 
@@ -328,10 +365,6 @@ msgstr ""
 "tels que %5$sChessbase%7$s, %6$sScid%7$s, etc... La syntaxe PGN est résumée "
 "ici au travers d'exemples explicatifs."
 
-#: templates/adminpage/help-pgn.php:52 templates/adminpage/memo.php:158
-msgid "http://en.wikipedia.org/wiki/Portable_Game_Notation"
-msgstr "http://fr.wikipedia.org/wiki/Portable_Game_Notation"
-
 #: templates/adminpage/help-pgn.php:67
 msgid "Game with no headers"
 msgstr "Partie sans en-têtes"
@@ -375,8 +408,8 @@ msgstr ""
 "&quot;...&quot;]%2$s est utilisé."
 
 #: templates/adminpage/help-pgn.php:241
-msgid "Annotations"
-msgstr "Annotations"
+msgid "NAGs (aka. <em>Numeric Annotation Glyphs</em>)"
+msgstr "NAGs (aka. <em>Numeric Annotation Glyphs</em>)"
 
 #: templates/adminpage/help-pgn.php:269
 #, php-format
@@ -387,7 +420,7 @@ msgid ""
 "advocated by the PGN norm, which defines equivalences between this syntax "
 "and the human-readable one (for instance, %1$s&quot;$1&quot;%2$s is "
 "equivalent to %1$s&quot;!&quot;%2$s). Both syntaxes are understood by the "
-"RPB Chessboard plugin."
+"RPB Chessboard plugin. See the %3$slist of NAGs%4$s."
 msgstr ""
 "Veuillez noter que les logiciels de base de données échiquéenne peuvent "
 "introduire des annotations telles que %1$s&quot;$x&quot;%2$s, où %1$s&quot;"
@@ -396,30 +429,33 @@ msgstr ""
 "définit des équivalences entre cette syntaxe et celle &quot;humainement "
 "compréhensible&quot; (par exemple, %1$s&quot;$1&quot;%2$s et %1$s&quot;!"
 "&quot;%2$s sont équivalents). Les deux syntaxes sont gérées par le plugin "
-"RPB Chessboard."
+"RPB Chessboard. Voir la %3$sliste des NAGs%4$s."
 
-#: templates/adminpage/help-pgn.php:285
-msgid "Commentaries"
+#: templates/adminpage/help-pgn.php:279
+msgid "http://en.wikipedia.org/wiki/Numeric_Annotation_Glyphs"
+msgstr "http://fr.wikipedia.org/wiki/Portable_Game_Notation#NAG"
+
+#: templates/adminpage/help-pgn.php:288
+msgid "Comments"
 msgstr "Commentaires"
 
-#: templates/adminpage/help-pgn.php:293 templates/adminpage/help-pgn.php:314
+#: templates/adminpage/help-pgn.php:296 templates/adminpage/help-pgn.php:317
 #, php-format
-msgid "I'm a %1$sshort%2$s commentary."
+msgid "I'm a %1$sshort%2$s comment."
 msgstr "Je suis un commentaire %1$scourt%2$s."
 
-#: templates/adminpage/help-pgn.php:300 templates/adminpage/help-pgn.php:321
+#: templates/adminpage/help-pgn.php:303 templates/adminpage/help-pgn.php:324
 #, php-format
-msgid "I'm a %1$slong%2$s commentary."
+msgid "I'm a %1$slong%2$s comment."
 msgstr "Je suis un commentaire %1$slong%2$s."
 
-#: templates/adminpage/help-pgn.php:341
+#: templates/adminpage/help-pgn.php:344
 msgid ""
-"Text commentaries can be inserted, surrounded with braces. They can be "
-"rendered either inlined within the move sequence (&quot;short "
-"commentary&quot; style), or as separated blocks (&quot;long commentary&quot; "
-"style). To insert a commentary as a separated block, let two blank lines "
-"before and after it in the PGN string. Also, notice that HTML tags are "
-"allowed within commentaries."
+"Text comments can be inserted, surrounded with braces. They can be rendered "
+"either inlined within the move sequence (&quot;short comment&quot; style), "
+"or as separated blocks (&quot;long comment&quot; style). To insert a comment "
+"as a separated block, let two blank lines before and after it in the PGN "
+"string. Also, notice that HTML tags are allowed within comments."
 msgstr ""
 "Des commentaires textuels peuvent être insérés, encadrés par des accolades. "
 "Ceux-ci peuvent être affichés soit au sein de la liste de coups (style &quot;"
@@ -429,50 +465,49 @@ msgstr ""
 "PGN. À noter en outre que les balises HTML sont autorisées dans les "
 "commentaires."
 
-#: templates/adminpage/help-pgn.php:356
+#: templates/adminpage/help-pgn.php:359
 msgid "Variations"
 msgstr "Variantes"
 
-#: templates/adminpage/help-pgn.php:394
+#: templates/adminpage/help-pgn.php:397
 msgid ""
-"As for commentaries, variations can be rendered either inlined within the "
-"move sequence, or as separated blocks if they are surrounded with two blank "
-"lines in the PGN string."
+"As for comments, variations can be rendered either inlined within the move "
+"sequence, or as separated blocks if they are surrounded with two blank lines "
+"in the PGN string."
 msgstr ""
 "Comme pour les commentaires, les variantes peuvent être affichées soit au "
 "sein de la liste de coups, soit sous la forme d'un bloc isolé lorsqu'elles "
 "sont encadrées par deux lignes vierges dans le texte PGN."
 
-#: templates/adminpage/help-pgn.php:406
+#: templates/adminpage/help-pgn.php:409
 #, php-format
 msgid "Diagrams with the %1$s[pgndiagram]%2$s tag"
 msgstr "Diagrammes au moyen de la balise %1$s[pgndiagram]%2$s"
 
-#: templates/adminpage/help-pgn.php:418 templates/adminpage/help-pgn.php:438
+#: templates/adminpage/help-pgn.php:421 templates/adminpage/help-pgn.php:441
 msgid ""
 "This opening is called the Sicilian defence. A possible continuation is:"
 msgstr ""
 "Cette ouverture s'appelle la défense sicilienne. Une suite possible "
 "est&nbsp;:"
 
-#: templates/adminpage/help-pgn.php:426
+#: templates/adminpage/help-pgn.php:429
 #, php-format
 msgid ""
-"Notice that %1$s[pgndiagram]%2$s tags must be inserted only in PGN "
-"commentaries."
+"Notice that %1$s[pgndiagram]%2$s tags must be inserted only in PGN comments."
 msgstr ""
 "À noter que la balise %1$s[pgndiagram]%2$s ne peut être insérée que dans un "
 "commentaire PGN."
 
-#: templates/adminpage/help-pgn.php:462
+#: templates/adminpage/help-pgn.php:465
 #, php-format
 msgid ""
 "The %1$s[%4$s][/%4$s]%2$s and %1$s[pgndiagram]%2$s tags accept the same "
 "attributes as the %1$s[%3$s][/%3$s]%2$s ones. For instance, using %1$s[%4$s "
 "square_size=...] ... [/%4$s]%2$s will affect the size of all the chess "
-"diagrams inserted in the commentaries of the corresponding chess game. "
-"Setting %1$s[pgndiagram square_size=...]%2$s will affect only the "
-"corresponding diagram."
+"diagrams inserted in the comments of the corresponding chess game. Setting "
+"%1$s[pgndiagram square_size=...]%2$s will affect only the corresponding "
+"diagram."
 msgstr ""
 "Les balises %1$s[%4$s][/%4$s]%2$s et %1$s[pgndiagram]%2$s acceptent les "
 "mêmes attributs que %1$s[%3$s][/%3$s]%2$s. Par exemple, spécifier %1$s[%4$s "
@@ -565,8 +600,8 @@ msgstr ""
 #: templates/adminpage/memo.php:167
 #, php-format
 msgid ""
-"Please note the %1$s[pgndiagram]%2$s tag placed inside a commentary to "
-"insert a diagram showing the current position."
+"Please note the %1$s[pgndiagram]%2$s tag placed inside a comment to insert a "
+"diagram showing the current position."
 msgstr ""
 "Remarquez la balise %1$s[pgndiagram]%2$s placée dans un commentaire pour "
 "insérer un diagramme montrant la position courante."
@@ -725,3 +760,9 @@ msgid ""
 msgstr ""
 "Ce plugin vous permet d'éditer et d'afficher des diagrammes d'échecs ainsi "
 "que des parties d'échecs encodées au format PGN."
+
+#~ msgid "developer link"
+#~ msgstr "lien pour les développeurs"
+
+#~ msgid "Annotations"
+#~ msgstr "Annotations"
