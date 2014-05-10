@@ -234,6 +234,11 @@
 /******************************************************************************/
 /*** About page ***/
 
+#rpbchessboard-admin-about ul {
+	list-style: square outside;
+	padding-left: 1.5em;
+}
+
 #rpbchessboard-admin-translator-list {
 	display: table;
 }
@@ -248,7 +253,7 @@
 }
 
 #rpbchessboard-admin-translator-list dd {
-	padding-left: 15px;
+	padding-left: 1.5em;
 }
 
 #rpbchessboard-admin-translator-list img {
