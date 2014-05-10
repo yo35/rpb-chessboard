@@ -23,7 +23,7 @@
  * Tools to parse PGN text data.
  *
  * Compared to the built-in `Chess#load_png` method provided by the chess.js
- * library, the parsing functions defined below support commentaries
+ * library, the parsing functions defined below support comments
  * and variations in PGN games.
  *
  * @author Yoann Le Montagner
@@ -99,21 +99,21 @@ Pgn = (function(Chess)
 		this.nags = [];
 
 		/**
-		 * @member {boolean} isLongCommentary
+		 * @member {boolean} isLongComment
 		 * @memberof Pgn.Node
 		 * @instance
-		 * @desc Whether the commentary associated to the move should be considred as a "long" commentary,
+		 * @desc Whether the text comment associated to the move should be considred as a "long" comment,
 		 *       and therefored displayed in an isolated block.
 		 */
-		this.isLongCommentary = false;
+		this.isLongComment = false;
 
 		/**
-		 * @member {string} commentary
+		 * @member {string} comment
 		 * @memberof Pgn.Node
 		 * @instance
-		 * @desc Commentary associated to the current move (an empty string means no-commentary).
+		 * @desc Text comment associated to the current move (an empty string means no-comment).
 		 */
-		this.commentary = '';
+		this.comment = '';
 
 		/**
 		 * @member {boolean} areLongVariations
@@ -308,21 +308,21 @@ Pgn = (function(Chess)
 		this.nags = [];
 
 		/**
-		 * @member {boolean} isLongCommentary
+		 * @member {boolean} isLongComment
 		 * @memberof Pgn.Variation
 		 * @instance
-		 * @desc Whether the commentary at the beginning of the variation should be considred as a "long" commentary,
+		 * @desc Whether the text comment at the beginning of the variation should be considred as a "long" comment,
 		 *       and therefored displayed in an isolated block.
 		 */
-		this.isLongCommentary = false;
+		this.isLongComment = false;
 
 		/**
-		 * @member {string} commentary
+		 * @member {string} comment
 		 * @memberof Pgn.Variation
 		 * @instance
-		 * @desc Commentary associated to the beginning of the variation (an empty string means no-commentary).
+		 * @desc Text comment associated to the beginning of the variation (an empty string means no-comment).
 		 */
-		this.commentary = '';
+		this.comment = '';
 
 		/**
 		 * @member {Pgn.Node} _first
@@ -612,7 +612,7 @@ Pgn = (function(Chess)
 		var /* const */ TOKEN_HEADER          = 1; // Ex: [White "Kasparov, G."]
 		var /* const */ TOKEN_MOVE            = 2; // [BKNQRa-h1-8xO\-=\+#]+ (with an optional move number)
 		var /* const */ TOKEN_NAG             = 3; // $[1-9][0-9]* or !! ! !? ?! ? ?? +- +/- +/= += = inf =+ =/+ -/+ -+
-		var /* const */ TOKEN_COMMENTARY      = 4; // {some text}
+		var /* const */ TOKEN_COMMENT         = 4; // {some text}
 		var /* const */ TOKEN_BEGIN_VARIATION = 5; // (
 		var /* const */ TOKEN_END_VARIATION   = 6; // )
 		var /* const */ TOKEN_END_OF_GAME     = 7; // 1-0, 0-1, 1/2-1/2 or *
@@ -686,10 +686,10 @@ Pgn = (function(Chess)
 				tokenValue = RegExp.$3.length==0 ? SPECIAL_NAGS_LOOKUP[RegExp.$2] : parseInt(RegExp.$3);
 			}
 
-			// Match a commentary
+			// Match a comment
 			else if(/^(\{([^\{\}]*)\})/.test(s)) {
 				deltaPos   = RegExp.$1.length;
-				token      = TOKEN_COMMENTARY;
+				token      = TOKEN_COMMENT;
 				tokenValue = RegExp.$2.replace(/^\s+|\s+$/g, '');
 			}
 
@@ -770,7 +770,7 @@ Pgn = (function(Chess)
 					throw new ParsingException(pgnString, tokenPos, 'Invalid move.');
 				}
 				if((node instanceof Variation) && emptyLineFound) {
-					node.isLongCommentary = true;
+					node.isLongComment = true;
 				}
 				node = (node instanceof Variation) ? node.first() : node.next();
 			}
@@ -780,12 +780,12 @@ Pgn = (function(Chess)
 				node.nags.push(tokenValue);
 			}
 
-			// Commentary
-			else if(token==TOKEN_COMMENTARY) {
+			// Comment
+			else if(token==TOKEN_COMMENT) {
 				if((node instanceof Node) && emptyLineFound) {
-					node.isLongCommentary = true;
+					node.isLongComment = true;
 				}
-				node.commentary = tokenValue;
+				node.comment = tokenValue;
 			}
 
 			// Begin of variation

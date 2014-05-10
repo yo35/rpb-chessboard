@@ -119,8 +119,8 @@
 			for(var k=0; k<variation.nags.length; ++k) {
 				text += " $" + variation.nags[k];
 			}
-			if(variation.commentary!="") {
-				text += " {" + variation.commentary + "}";
+			if(variation.comment!="") {
+				text += " {" + variation.comment + "}";
 			}
 			dom.appendChild(document.createTextNode(indentFirst + text + "\n"));
 
@@ -133,9 +133,9 @@
 				for(var k=0; k<node.nags.length; ++k) {
 					text += " $" + node.nags[k];
 				}
-				if(node.commentary!="") {
-					text += " {" + node.commentary + "}";
-					if(node.isLongCommentary) {
+				if(node.comment!="") {
+					text += " {" + node.comment + "}";
+					if(node.isLongComment) {
 						text += "<LONG";
 					}
 				}

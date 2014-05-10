@@ -114,13 +114,13 @@
 }
 
 .PgnWidget-move,
-.PgnWidget-commentary,
+.PgnWidget-comment,
 .PgnWidget-shortVariation {
 	margin-right: 5px;
 }
 
 .PgnWidget-move:last-child,
-.PgnWidget-commentary:last-child,
+.PgnWidget-comment:last-child,
 .PgnWidget-shortVariation:last-child {
 	margin-right: 0px;
 }
@@ -133,7 +133,7 @@
 	content: ")";
 }
 
-.PgnWidget-longCommentary,
+.PgnWidget-longComment,
 .PgnWidget-longVariation.PgnWidget-variation-sub {
 	margin-top   : 5px;
 	margin-bottom: 5px;

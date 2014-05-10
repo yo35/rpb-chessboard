@@ -164,7 +164,7 @@
 			<p>
 				<?php echo sprintf(
 					__(
-						'Please note the %1$s[pgndiagram]%2$s tag placed inside a commentary '.
+						'Please note the %1$s[pgndiagram]%2$s tag placed inside a comment '.
 						'to insert a diagram showing the current position.',
 					'rpbchessboard'),
 					'<span class="rpbchessboard-admin-code-inline">',

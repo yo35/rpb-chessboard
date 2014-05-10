@@ -227,28 +227,28 @@ var PgnWidget = (function(Chess, Pgn, $)
 
 
 	/**
-	 * Create a new DOM node to render the text commentary associated to the given PGN node.
-	 * This function may return null if no commentary is associated to the PGN node.
+	 * Create a new DOM node to render the text comment associated to the given PGN node.
+	 * This function may return null if no comment is associated to the PGN node.
 	 *
 	 * @private
 	 *
-	 * @param {(Pgn.Node|Pgn.Variation)} pgnNode Node or variation object containing the commentary to render.
+	 * @param {(Pgn.Node|Pgn.Variation)} pgnNode Node or variation object containing the comment to render.
 	 * @param {object} options Default set of options for displaying inline diagrams.
 	 * @returns {jQuery}
 	 *
 	 * @memberof PgnWidget
 	 */
-	function renderCommentary(pgnNode, options)
+	function renderComment(pgnNode, options)
 	{
-		// Nothing to do if no commentary is defined on the current PGN node.
-		if(pgnNode.commentary=='') {
+		// Nothing to do if no comment is defined on the current PGN node.
+		if(pgnNode.comment=='') {
 			return null;
 		}
 
-		// Create the returned object, and parse the commentary string
-		var retVal = $(pgnNode.isLongCommentary ?
-			'<div class="PgnWidget-longCommentary">' + pgnNode.commentary + '</div>' :
-			'<span class="PgnWidget-commentary">' + pgnNode.commentary + '</span>'
+		// Create the returned object, and parse the comment string
+		var retVal = $(pgnNode.isLongComment ?
+			'<div class="PgnWidget-longComment">' + pgnNode.comment + '</div>' :
+			'<span class="PgnWidget-comment">' + pgnNode.comment + '</span>'
 		);
 
 		// Render diagrams where requested
@@ -293,20 +293,20 @@ var PgnWidget = (function(Chess, Pgn, $)
 		);
 		retVal.addClass('PgnWidget-variation-' + (depth==0 ? 'main' : 'sub'));
 
-		// The variation may start with an initial commentary.
-		var initialCommentary = renderCommentary(pgnVariation, inlineOptions);
-		if(initialCommentary!=null) {
-			if(pgnVariation.isLongCommentary) { // Long commentaries do not belong to any move group.
-				retVal.append(initialCommentary);
-				initialCommentary = null;
+		// The variation may start with an initial comment.
+		var initialComment = renderComment(pgnVariation, inlineOptions);
+		if(initialComment!=null) {
+			if(pgnVariation.isLongComment) { // Long comments do not belong to any move group.
+				retVal.append(initialComment);
+				initialComment = null;
 			}
 		}
 
 		// State variables
 		var moveGroup = $('<span class="PgnWidget-moveGroup"></span>').appendTo(retVal);
 		var prevMove  = null;
-		if(initialCommentary!=null) {
-			moveGroup.append(initialCommentary);
+		if(initialComment!=null) {
+			moveGroup.append(initialComment);
 		}
 
 		// Append a fake move at the beginning of the main variation,
@@ -359,15 +359,15 @@ var PgnWidget = (function(Chess, Pgn, $)
 				move.append(' ' + formatNag(pgnNode.nags[k]));
 			}
 
-			// Write the commentary (if any)
-			var commentary = renderCommentary(pgnNode, inlineOptions);
-			if(commentary!=null) {
-				if(pgnNode.isLongCommentary) { // Long commentaries do not belong to any move group.
-					retVal.append(commentary);
+			// Write the comment (if any)
+			var comment = renderComment(pgnNode, inlineOptions);
+			if(comment!=null) {
+				if(pgnNode.isLongComment) { // Long comments do not belong to any move group.
+					retVal.append(comment);
 					moveGroup = $('<span class="PgnWidget-moveGroup"></span>').appendTo(retVal);
 				}
 				else {
-					moveGroup.append(commentary);
+					moveGroup.append(comment);
 				}
 			}
 
@@ -383,7 +383,7 @@ var PgnWidget = (function(Chess, Pgn, $)
 			}
 
 			// Back to the current variation
-			forcePrintMoveNumber = (pgnNode.commentary!='' || pgnNode.variations()>0);
+			forcePrintMoveNumber = (pgnNode.comment!='' || pgnNode.variations()>0);
 			pgnNode = pgnNode.next();
 		}
 
@@ -556,7 +556,7 @@ var PgnWidget = (function(Chess, Pgn, $)
 		var fields = $('.PgnWidget-field-moves', parentNode);
 
 		// Hide the field if no move tree is available
-		if(pgnItem.mainVariation().first()==null && pgnItem.mainVariation().commentary=='') {
+		if(pgnItem.mainVariation().first()==null && pgnItem.mainVariation().comment=='') {
 			fields.addClass('PgnWidget-invisible');
 		}
 
