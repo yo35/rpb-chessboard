@@ -238,9 +238,9 @@
 
 
 
-	<h4><?php _e('Annotations', 'rpbchessboard'); ?></h4>
+	<h4><?php _e('NAGs (aka. <em>Numeric Annotation Glyphs</em>)', 'rpbchessboard'); ?></h4>
 
-	<div id="rpbchessboard-admin-pgnAnnotations" class="rpbchessboard-admin-columns">
+	<div id="rpbchessboard-admin-pgnNAGs" class="rpbchessboard-admin-columns">
 		<div class="rpbchessboard-admin-column-left">
 			<div class="rpbchessboard-admin-code-block">
 				[<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]
@@ -250,14 +250,14 @@
 		</div>
 		<div class="rpbchessboard-admin-column-right">
 			<div class="rpbchessboard-admin-visu-block">
-				<div id="rpbchessboard-admin-annotations-example-in" class="rpbchessboard-in">
+				<div id="rpbchessboard-admin-NAGs-example-in" class="rpbchessboard-in">
 					1.e4 !! ! !? ?! ? ?? +- +/- +/= = inf =/+ -/+ -+ *
 				</div>
-				<div id="rpbchessboard-admin-annotations-example-out" class="rpbchessboard-out rpbchessboard-invisible">
+				<div id="rpbchessboard-admin-NAGs-example-out" class="rpbchessboard-out rpbchessboard-invisible">
 					<?php include(RPBCHESSBOARD_ABSPATH.'templates/common/pgncontent.php'); ?>
 				</div>
 				<script type="text/javascript">
-					processPGN('rpbchessboard-admin-annotations-example-in', 'rpbchessboard-admin-annotations-example-out');
+					processPGN('rpbchessboard-admin-NAGs-example-in', 'rpbchessboard-admin-NAGs-example-out');
 				</script>
 			</div>
 		</div>
@@ -271,10 +271,13 @@
 				'(for instance, %1$s&quot;1.e4 $1&quot;%2$s). This is what is advocated by the PGN norm, '.
 				'which defines equivalences between this syntax and the human-readable one '.
 				'(for instance, %1$s&quot;$1&quot;%2$s is equivalent to %1$s&quot;!&quot;%2$s). '.
-				'Both syntaxes are understood by the RPB Chessboard plugin.',
+				'Both syntaxes are understood by the RPB Chessboard plugin. '.
+				'%3$sList of NAGs%4$s.',
 			'rpbchessboard'),
 			'<span class="rpbchessboard-admin-code-inline">',
-			'</span>'
+			'</span>',
+			sprintf('<a href="%1$s" target="_blank">', __('http://en.wikipedia.org/wiki/Numeric_Annotation_Glyphs', 'rpbchessboard')),
+			'</a>'
 		); ?>
 	</p>
 
