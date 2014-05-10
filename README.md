@@ -1,19 +1,22 @@
 RPB Chessboard
 ==============
 
-
-Presentation
-------------
-
-RPB Chessboard is a plugin for the [Wordpress](http://wordpress.org/) website
-and blog CMS (_content management system_).
-This plugin allows you to typeset and display chess games and diagrams
-in the posts and pages of your Wordpress website,
+RPB Chessboard is a plugin for [WordPress](http://wordpress.org/),
+the popular blog [CMS](http://en.wikipedia.org/wiki/Content_management_system).
+It allows to typeset and display chess games and diagrams on posts and pages of your WordPress blogs,
 using the standard [FEN](http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation)
 and [PGN](http://en.wikipedia.org/wiki/Portable_Game_Notation) notations.
 
-http://wordpress.org/plugins/rpb-chessboard/  
-https://github.com/yo35/rpb-chessboard (developer link)
+**http://yo35.org/rpb-chessboard/**  
+https://wordpress.org/plugins/rpb-chessboard/ (plugin page on WordPress.org)  
+https://github.com/yo35/rpb-chessboard (source code on GitHub)
+
+
+
+Live demo
+---------
+
+http://yo35.org/rpb-chessboard/live-demo/
 
 
 
@@ -21,14 +24,16 @@ Features
 --------
 
 * Customizable aspect for the chessboards (orientation, size, etc...).
-* Support commentaries and sub-variations in PGN-encoded games.
-* Support HTML formatting in PGN commentaries.
+* Support comments and sub-variations in PGN-encoded games.
+* Support HTML formatting in PGN comments.
 * Compatibility mode to avoid conflicts with the other plugins that use
   the `[fen][/fen]` and `[pgn][/pgn]` shortcodes too.
-* Interactive creation and modification of the chess diagrams in the text editor.
+* Graphical assistant to create and modify chess diagrams in the post/page editor.
 
-RPB Chessboard uses the [chess.js](https://github.com/jhlywa/chess.js) javascript
-library for FEN (and to some extent PGN) parsing.
+If you encounter some bugs with this program, or if you wish to get new features
+in the future versions, you can report/propose them
+in the [GitHub bug tracker](https://github.com/yo35/rpb-chessboard/issues),
+or send an [email to the author](mailto:yo35@melix.net).
 
 
 
@@ -44,7 +49,7 @@ Examples & Screenshots
 <img alt="screenshot-3" src="screenshot-3.png" width="600" />
 
 
-### Chess game with commentaries and sub-variations ###
+### Chess game with comments and sub-variations ###
 
 ```
 [pgn]
@@ -63,10 +68,10 @@ Examples & Screenshots
 {[pgndiagram] Morphy took twelve minutes over his next move, probably to assure himself that the
 combination was sound and that he had a forced win in every variation.}
 
-17... Qxf3 $3 18. gxf3 Rg6+ 19. Kh1 Bh3 20. Rd1 ({Not} 20. Rg1 Rxg1+ 21. Kxg1 Re1+ $19)
+17... Qxf3 !! 18. gxf3 Rg6+ 19. Kh1 Bh3 20. Rd1 ({Not} 20. Rg1 Rxg1+ 21. Kxg1 Re1+ -+)
 20... Bg2+ 21. Kg1 Bxf3+ 22. Kf1 Bg2+
 
-(22...Rg2 $1 {would have won more quickly. For instance:} 23. Qd3 Rxf2+ 24. Kg1 Rg2+ 25. Kh1 Rg1#)
+(22...Rg2 ! {would have won more quickly. For instance:} 23. Qd3 Rxf2+ 24. Kg1 Rg2+ 25. Kh1 Rg1#)
 
 23. Kg1 Bh3+ 24. Kh1 Bxf2 25. Qf1 {Absolutely forced.} 25... Bxf1 26. Rxf1 Re2 27. Ra1 Rh6
 28. d4 Be3 0-1
@@ -77,6 +82,20 @@ combination was sound and that he had a forced win in every variation.}
 <img alt="screenshot-6" src="screenshot-6.png" width="600" />
 
 
-### Interactive creation and modification of the chess diagrams ###
+### Graphical assistant for chess diagrams creation/modification ###
 
 <img alt="screenshot-7" src="screenshot-7.png" width="600" />
+
+
+
+Translation
+-----------
+
+Currently, RPB Chessboard is available in the following languages:
+
+* English,
+* French,
+* German.
+
+If you are interested in translating this plugin into your language,
+please [contact the author](mailto:yo35@melix.net).

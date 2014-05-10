@@ -7,19 +7,26 @@ Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-This plugin allows you to typeset and display chess diagrams and PGN-encoded
-chess games in the posts and pages of your Wordpress blog.
+This plugin allows you to typeset and display chess diagrams and PGN-encoded chess games.
 
 
 
 == Description ==
 
 RPB Chessboard allows you to typeset and display chess games and diagrams
-in the posts and pages of your Wordpress blog,
+in the posts and pages of your WordPress blog,
 using the standard [FEN](http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation)
 and [PGN](http://en.wikipedia.org/wiki/Portable_Game_Notation) notations.
 
-**Examples**
+= Links =
+
+ * **http://yo35.org/rpb-chessboard/**
+ * https://github.com/yo35/rpb-chessboard (GitHub repository)
+
+[See the live demo](http://yo35.org/rpb-chessboard/live-demo/).
+[Ask for help or report a problem](https://github.com/yo35/rpb-chessboard/issues).
+
+= Examples =
 
 `
 [fen]rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1[/fen]
@@ -28,33 +35,28 @@ and [PGN](http://en.wikipedia.org/wiki/Portable_Game_Notation) notations.
 `
 [pgn]
 
-[Site "Vienna"]
-[Date "1809.??.??"]
-[White "Napoleon I"]
-[Black "The Automaton"]
+[White "Bill Gates"]
+[Black "Magnus Carlsen"]
 [Result "0-1"]
 
-1. e4 e5 2. Qf3 Nc6 3. Bc4 Nf6 4. Ne2 Bc5 5. a3 d6 6. O-O Bg4 7. Qd3 Nh5
-8. h3 Bxe2 9. Qxe2 Nf4 10. Qe1 Nd4 11. Bb3 Nxh3+ 12. Kh2 Qh4 13. g3 Nf3+
-14. Kg2 Nxe1+ 15. Rxe1 Qg4 16. d3 Bxf2 17. Rh1 Qxg3+ 18. Kf1 Bd4
-19. Ke2 Qg2+ 20. Kd1 Qxh1+ 21. Kd2 Qg2+ 22. Ke1 Ng1 23. Nc3 Bxc3+
-24. bxc3 Qe2# 0-1
+1. e4 Nc6 2. Nf3 d5 3. Bd3 Nf6 4. exd5 Qxd5 5. Nc3 Qh5 6. O-O Bg4 7. h3 Ne5
+8. hxg4 Nfxg4 9. Nxe5 Qh2# 0-1
 
 [/pgn]
 `
 
-**Features**
+= Features =
 
  * Customizable aspect for the chessboards (orientation, size, etc...).
- * Support commentaries and sub-variations in PGN-encoded games.
- * Support HTML formatting in PGN commentaries.
+ * Support comments and sub-variations in PGN-encoded games.
+ * Support HTML formatting in PGN comments.
  * Compatibility mode to avoid conflicts with the other plugins that use
    the `[fen][/fen]` and `[pgn][/pgn]` shortcodes too.
- * Interactive creation and modification of the chess diagrams in the text editor.
+ * Graphical assistant to create and modify chess diagrams in the post/page editor.
 
 If you encounter some bugs with this plugin, or if you wish to get new features
-in the future versions, you can report/propose them in the bug tracker at
-https://github.com/yo35/rpb-chessboard/issues.
+in the future versions, you can report/propose them
+in the [GitHub bug tracker](https://github.com/yo35/rpb-chessboard/issues).
 
 
 
@@ -76,12 +78,12 @@ please have a look to the general [plugin management page](http://codex.wordpres
 == Screenshots ==
 
 1. Typesetting and rendering a chess diagram.
-2. Typesetting and rendering a chess game with commentaries and sub-variations.
+2. Typesetting and rendering a chess game with comments and sub-variations.
 3. Chess diagram in a post with the Twenty Ten theme.
 4. Chess game in a post with the Twenty Ten theme.
 5. When clicking on a move, a popup frame is displayed, showing the corresponding position.
-6. Chess game with commentaries and sub-variations.
-7. Interactive creation and modification of the chess diagrams in the text editor.
+6. Chess game with comments and sub-variations. HTML formatting in text comments is supported.
+7. Graphical assistant to create and modify chess diagrams in the post/page editor.
 
 
 
