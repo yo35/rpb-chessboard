@@ -25,8 +25,9 @@ PLUGIN_NAME = rpb-chessboard
 # Plugin files
 SRC_FOLDERS          = chess-js controllers css helpers images js languages models templates views wp
 SRC_PHP_FILES        = $(wildcard *.php)
+SRC_ASSETS           = assets
 SRC_WORDPRESS_README = wordpress.readme.txt
-SRC_SPECIAL_FILES    = LICENSE README.md $(wildcard screenshot-*.png)
+SRC_INFO_FILES       = LICENSE README.md
 
 # Localization
 I18N_LANGUAGE_FOLDER    = languages
@@ -39,8 +40,7 @@ I18N_PO_FILES           = $(wildcard $(I18N_LANGUAGE_FOLDER)/*.po)
 I18N_MO_FILES           = $(patsubst %.po,%.mo,$(I18N_PO_FILES))
 
 # Do not modify
-TMP_FOLDER       = tmp
-SNAPSHOT_FOLDER  = $(TMP_FOLDER)/$(PLUGIN_NAME)
+SNAPSHOT_FOLDER  = tmp
 SNAPSHOT_ARCHIVE = $(PLUGIN_NAME).zip
 
 # Various commands
@@ -96,11 +96,12 @@ $(I18N_POT_FILE): $(I18N_SOURCE_FILES)
 # Pack the source files into a zip file, ready for Wordpress deployment
 pack:
 	@rm -rf $(SNAPSHOT_FOLDER) $(SNAPSHOT_ARCHIVE)
-	@mkdir -p $(SNAPSHOT_FOLDER)
-	@cp -r $(SRC_FOLDERS) $(SRC_PHP_FILES) $(SRC_SPECIAL_FILES) $(SNAPSHOT_FOLDER)
-	@cp $(SRC_WORDPRESS_README) $(SNAPSHOT_FOLDER)/readme.txt
-	@cd $(TMP_FOLDER) && zip -qr ../$(SNAPSHOT_ARCHIVE) $(PLUGIN_NAME)
-	@rm -rf $(TMP_FOLDER)
+	@mkdir -p $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)
+	@cp -r $(SRC_FOLDERS) $(SRC_PHP_FILES) $(SRC_INFO_FILES) $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)
+	@cp $(SRC_WORDPRESS_README) $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)/readme.txt
+	@cp -r $(SRC_ASSETS) $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)-assets
+	@cd $(SNAPSHOT_FOLDER) && zip -qr ../$(SNAPSHOT_ARCHIVE) $(PLUGIN_NAME) $(PLUGIN_NAME)-assets
+	@rm -rf $(SNAPSHOT_FOLDER)
 	@$(ECHO) "$(SNAPSHOT_ARCHIVE) updated"
 
 

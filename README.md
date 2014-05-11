@@ -46,7 +46,7 @@ Examples & Screenshots
 [fen]r1bqkbnr/pppp1ppp/2n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3[/fen]
 ```
 
-<img alt="screenshot-3" src="screenshot-3.png" width="600" />
+<img alt="screenshot-3" src="assets/screenshot-3.png" width="600" />
 
 
 ### Chess game with comments and sub-variations ###
@@ -79,12 +79,12 @@ combination was sound and that he had a forced win in every variation.}
 [/pgn]
 ```
 
-<img alt="screenshot-6" src="screenshot-6.png" width="600" />
+<img alt="screenshot-6" src="assets/screenshot-6.png" width="600" />
 
 
 ### Graphical assistant for chess diagrams creation/modification ###
 
-<img alt="screenshot-7" src="screenshot-7.png" width="600" />
+<img alt="screenshot-7" src="assets/screenshot-7.png" width="600" />
 
 
 
