@@ -21,7 +21,7 @@
 
 
 /**
- * Register the plugin administration pages in the Wordpress backend.
+ * Register the plugin administration pages in the WordPress backend.
  *
  * This class is not constructible. Call the static method `register()`
  * to trigger the registration operations.

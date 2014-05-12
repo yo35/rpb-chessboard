@@ -37,7 +37,7 @@ class RPBChessboardModelFen extends RPBChessboardAbstractTopLevelShortcodeModel
 
 
 	/**
-	 * By default, the wordpress engine may turn some hypen characters (ASCII)
+	 * By default, the WordPress engine may turn some hypen characters (ASCII)
 	 * into dash characters (non-ASCII). This should be reversed in order to
 	 * allow FEN parsing.
 	 */

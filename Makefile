@@ -59,7 +59,7 @@ help:
 	@$(ECHO) " * make i18n-extract: extract the strings to translate."
 	@$(ECHO) " * make i18n-merge: merge the translation files (*.po) with the template (.pot)."
 	@$(ECHO) " * make i18n-compile: compile the translation files (*.po) into binaries (*.mo)."
-	@$(ECHO) " * make pack: pack the source files into a zip file, ready for Wordpress deployment."
+	@$(ECHO) " * make pack: pack the source files into a zip file, ready for WordPress deployment."
 	@$(ECHO) " * make help: show this help."
 
 
@@ -93,7 +93,7 @@ $(I18N_POT_FILE): $(I18N_SOURCE_FILES)
 	@$(MSGFMT) -o $@ $^
 
 
-# Pack the source files into a zip file, ready for Wordpress deployment
+# Pack the source files into a zip file, ready for WordPress deployment
 pack:
 	@rm -rf $(SNAPSHOT_FOLDER) $(SNAPSHOT_ARCHIVE)
 	@mkdir -p $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)

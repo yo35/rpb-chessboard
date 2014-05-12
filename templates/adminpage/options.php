@@ -67,7 +67,7 @@
 				__(
 					'By default, the RPB Chessboard plugin use the %1$s[fen][/fen]%2$s '.
 					'and %1$s[pgn][/pgn]%2$s tags for FEN diagrams and PGN games. '.
-					'However, this behavior cause conflicts when other Wordpress plugins '.
+					'However, this behavior cause conflicts when other WordPress plugins '.
 					'(typically chess plugins) that use the same tags are simultaneously in use. '.
 					'Activating the compatibility mode for the FEN diagram tag makes RPB Chessboard '.
 					'use %1$s[fen_compat][/fen_compat]%2$s instead of %1$s[fen][/fen]%2$s '.

@@ -37,7 +37,7 @@ class RPBChessboardModelPgn extends RPBChessboardAbstractTopLevelShortcodeModel
 
 
 	/**
-	 * By default, the wordpress engine turn the line breaks into the corresponding
+	 * By default, the WordPress engine turn the line breaks into the corresponding
 	 * HTML tag (<br/>), or into paragraph separator tags (<p></p>).
 	 * This filter cancel this operation.
 	 */
@@ -53,7 +53,7 @@ class RPBChessboardModelPgn extends RPBChessboardAbstractTopLevelShortcodeModel
 		// Replace the ellipsis character with '...'.
 		$content = str_replace('&#8230;', '...', $content);
 
-		// Apply the short-code replacement function of Wordpress to the PGN comments.
+		// Apply the short-code replacement function provided by the WP engine to the PGN comments.
 		$content = preg_replace_callback('/{([^{}]*)}/', array(__CLASS__, 'doShortcode'), $content);
 
 		// Return the result
