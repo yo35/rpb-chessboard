@@ -105,6 +105,28 @@
 
 
 /******************************************************************************/
+/*** Floating objects ***/
+
+.rpbchessboard-admin-floatleft {
+	float: left;
+	margin-right: 1em;
+}
+
+.rpbchessboard-admin-floatright {
+	float: right;
+	margin-left: 1em;
+}
+
+.rpbchessboard-admin-clearfix:after {
+		display: block;
+		visibility: hidden;
+		content: " ";
+		clear: both;
+}
+
+
+
+/******************************************************************************/
 /*** Code and visualization blocks ***/
 
 .rpbchessboard-admin-code-block,

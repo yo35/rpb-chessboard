@@ -22,6 +22,10 @@
 
 <div id="rpbchessboard-admin-about">
 
+	<div class="rpbchessboard-admin-floatleft">
+		<img src="<?php echo htmlspecialchars($model->getIconURL()); ?>" alt="RPB Chessboard icon" />
+	</div>
+
 	<p>
 		<?php echo sprintf(
 			__(
@@ -39,7 +43,7 @@
 			<?php echo sprintf('%1$s / %2$s', __('Ask for help', 'rpbchessboard'), __('Report a problem', 'rpbchessboard')); ?>
 		</a>
 	</p>
-	<p class="description">
+	<p class="description rpbchessboard-admin-clearfix">
 		<?php echo sprintf(
 			__(
 				'If you encounter some bugs with this plugin, or if you wish to get new features in the future versions, '.
