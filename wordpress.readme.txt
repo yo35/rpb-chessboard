@@ -89,9 +89,12 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 == Changelog ==
 
+= 2.4.3 (May 12, 2014) =
+* Plugin icon & banner.
+
 = 2.4.2 (May 10, 2014) =
 * Update the documentation and add links toward Yo35.org.
-* Tested up to Wordpress 3.9.
+* Tested up to Wordpress 3.9.1.
 
 = 2.4.1 (April 30, 2014) =
 * Improve code robustness with respect to dynamically loaded content (e.g. through AJAX requests).
