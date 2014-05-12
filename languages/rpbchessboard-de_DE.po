@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 2.3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-10 20:59+0200\n"
+"POT-Creation-Date: 2014-05-12 15:09+0200\n"
 "PO-Revision-Date: 2014-04-26 16:53+0100\n"
 "Last-Translator: Markus Liebelt <markusliebelt@gmail.com>\n"
 "Language-Team: German\n"
@@ -58,7 +58,7 @@ msgstr "FEN Diagramm"
 msgid "PGN game"
 msgstr "PGN Partie"
 
-#: templates/adminpage/about.php:28
+#: templates/adminpage/about.php:32
 #, php-format
 msgid ""
 "RPB Chessboard allows you to typeset and display chess games and diagrams in "
@@ -69,25 +69,25 @@ msgstr ""
 "Diagrammen in Blog Posts und Seiten ihres Wordpress Blogs mit Verwendung der "
 "Standards %1$sFEN%3$s und %2$sPGN%3$s darzustellen."
 
-#: templates/adminpage/about.php:32 templates/adminpage/help-fen.php:51
+#: templates/adminpage/about.php:36 templates/adminpage/help-fen.php:51
 #: templates/adminpage/memo.php:72
 msgid "http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation"
 msgstr "http://de.wikipedia.org/wiki/Forsyth-Edwards_Notation"
 
-#: templates/adminpage/about.php:33 templates/adminpage/help-pgn.php:52
+#: templates/adminpage/about.php:37 templates/adminpage/help-pgn.php:52
 #: templates/adminpage/memo.php:158
 msgid "http://en.wikipedia.org/wiki/Portable_Game_Notation"
 msgstr "http://de.wikipedia.org/wiki/Portable_Game_Notation"
 
-#: templates/adminpage/about.php:39
+#: templates/adminpage/about.php:43
 msgid "Ask for help"
 msgstr ""
 
-#: templates/adminpage/about.php:39
+#: templates/adminpage/about.php:43
 msgid "Report a problem"
 msgstr ""
 
-#: templates/adminpage/about.php:45
+#: templates/adminpage/about.php:49
 #, php-format
 msgid ""
 "If you encounter some bugs with this plugin, or if you wish to get new "
@@ -98,31 +98,31 @@ msgstr ""
 "zukünftigen Versionen bekommen wollen, so können sie einen Fehlerbericht im "
 "%1$sGitHub Tracker%2$s einstellen."
 
-#: templates/adminpage/about.php:54
+#: templates/adminpage/about.php:58
 msgid "Plugin version"
 msgstr "Plugin Version"
 
-#: templates/adminpage/about.php:58
+#: templates/adminpage/about.php:62
 msgid "Links"
 msgstr ""
 
-#: templates/adminpage/about.php:63
+#: templates/adminpage/about.php:67
 msgid "plugin page on WordPress.org"
 msgstr ""
 
-#: templates/adminpage/about.php:67
+#: templates/adminpage/about.php:71
 msgid "source code on GitHub"
 msgstr ""
 
-#: templates/adminpage/about.php:72
+#: templates/adminpage/about.php:76
 msgid "Author"
 msgstr "Autor"
 
-#: templates/adminpage/about.php:76
+#: templates/adminpage/about.php:80
 msgid "Translation"
 msgstr "Übersetzung"
 
-#: templates/adminpage/about.php:94
+#: templates/adminpage/about.php:98
 #, php-format
 msgid ""
 "If you are interested in translating this plugin into your language, please "
@@ -131,11 +131,11 @@ msgstr ""
 "Wenn Sie an der Übersetzung des Plugsin in ihre Sprache interessiert sind, "
 "bitte setzen Sie sich mit dem Autor %1$sin Kontakt%2$s."
 
-#: templates/adminpage/about.php:102
+#: templates/adminpage/about.php:106
 msgid "License"
 msgstr "Lizenz"
 
-#: templates/adminpage/about.php:106
+#: templates/adminpage/about.php:110
 #, php-format
 msgid ""
 "This plugin is distributed under the terms of the %1$sGNU General Public "
@@ -144,7 +144,7 @@ msgid ""
 "of this document is also provided with the plugin source code."
 msgstr ""
 
-#: templates/adminpage/about.php:118
+#: templates/adminpage/about.php:122
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -174,7 +174,7 @@ msgstr "Kompatibilität mit anderen Schach Plugins"
 msgid ""
 "By default, the RPB Chessboard plugin use the %1$s[fen][/fen]%2$s and %1$s"
 "[pgn][/pgn]%2$s tags for FEN diagrams and PGN games. However, this behavior "
-"cause conflicts when other Wordpress plugins (typically chess plugins) that "
+"cause conflicts when other WordPress plugins (typically chess plugins) that "
 "use the same tags are simultaneously in use. Activating the compatibility "
 "mode for the FEN diagram tag makes RPB Chessboard use %1$s[fen_compat][/"
 "fen_compat]%2$s instead of %1$s[fen][/fen]%2$s to avoid those conflicts. "
@@ -183,7 +183,7 @@ msgid ""
 msgstr ""
 "Standardmäßig verwendet das RPB Chessboard Plugin die %1$s[fen][/fen]%2$s "
 "und %1$s[pgn][/pgn]%2$s Tags für die FEN Diagramme und PGN Partien. Dieses "
-"Verhalten kann jedoch Konflikte bei der Nutzung anderer Wordpress Plugins "
+"Verhalten kann jedoch Konflikte bei der Nutzung anderer WordPress Plugins "
 "(üblicherweise Schach-Plugins) hervorrufen, wenn diese dieselben Tags "
 "benutzen. Wenn Sie den Kompatibilitätsmodus für das FEN Diagramm-Tag "
 "aktivieren, so verwendet das RPB Chessboard %1$s[fen_compat][/"
@@ -519,12 +519,12 @@ msgstr ""
 msgid ""
 "This short reminder presents through examples the features provided by the "
 "RPB Chessboard plugin, namely the insertion of chess diagrams and games in "
-"Wordpress websites. On the left is the code written in posts and pages; the "
+"WordPress websites. On the left is the code written in posts and pages; the "
 "right column shows the corresponding rendering."
 msgstr ""
 "Diese kurze Zusammenfassung zeigt durch Beispiele die Feature, die durch RPB "
 "Chessboard Plugin bereitgestellt werden, speziell das Einfügen von "
-"Schachdiagrammen und Partien in Wordpress-Websites. Auf der linken Seite "
+"Schachdiagrammen und Partien in WordPress-Websites. Auf der linken Seite "
 "wird der Code von Blog Posts und Seiten gezeigt, auf der rechten Seite sieht "
 "man dann die entsprechende Darstellung."
 
