@@ -15,8 +15,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="admin-small.svg"
-   inkscape:export-filename="/home/yoann/Echecs/web/wp-content/plugins/rpbchessboard/images/admin-small.png"
+   sodipodi:docname="menu.svg"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -84,7 +83,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="33.256116"
-     inkscape:cx="4.0816586"
+     inkscape:cx="9.0245438"
      inkscape:cy="9.7110792"
      inkscape:document-units="px"
      inkscape:current-layer="g4035"
@@ -116,125 +115,115 @@
       <rect
          style="fill:#a0a0a0;fill-opacity:1;stroke:none"
          id="rect4127"
-         width="3.5"
-         height="3.5"
-         x="1"
-         y="1047.8622" />
+         width="4"
+         height="4"
+         x="0"
+         y="1048.3622" />
       <rect
          style="fill:#ffffff;fill-opacity:1;stroke:none"
          id="rect4127-7-5"
-         width="3.5"
-         height="3.5"
-         x="4.5"
-         y="1047.8622" />
+         width="4"
+         height="4"
+         x="4"
+         y="1048.3622" />
       <rect
          style="fill:#a0a0a0;fill-opacity:1;stroke:none"
-         id="rect4127-4"
-         width="3.5"
-         height="3.5"
+         id="rect4127-0"
+         width="4"
+         height="4"
          x="8"
-         y="1047.8622" />
+         y="1048.3622" />
       <rect
          style="fill:#ffffff;fill-opacity:1;stroke:none"
-         id="rect4127-7-5-1"
-         width="3.5"
-         height="3.5"
-         x="11.5"
-         y="1047.8622" />
+         id="rect4127-7-5-6"
+         width="4"
+         height="4"
+         x="12"
+         y="1048.3622" />
       <rect
          style="fill:#a0a0a0;fill-opacity:1;stroke:none"
-         id="rect4127-8"
-         width="3.5"
-         height="3.5"
-         x="11.5"
+         id="rect4127-04"
+         width="4"
+         height="4"
+         x="4"
          y="1044.3622" />
       <rect
          style="fill:#ffffff;fill-opacity:1;stroke:none"
-         id="rect4127-7-5-3"
-         width="3.5"
-         height="3.5"
-         x="1"
-         y="1044.3622" />
-      <rect
-         style="fill:#a0a0a0;fill-opacity:1;stroke:none"
-         id="rect4127-4-5"
-         width="3.5"
-         height="3.5"
-         x="4.5000005"
-         y="1044.3622" />
-      <rect
-         style="fill:#ffffff;fill-opacity:1;stroke:none"
-         id="rect4127-7-5-1-1"
-         width="3.5"
-         height="3.5"
+         id="rect4127-7-5-0"
+         width="4"
+         height="4"
          x="8"
          y="1044.3622" />
       <rect
          style="fill:#a0a0a0;fill-opacity:1;stroke:none"
-         id="rect4127-44"
-         width="3.5000002"
-         height="3.5"
-         x="1"
-         y="1040.8622" />
+         id="rect4127-0-3"
+         width="4"
+         height="4"
+         x="12.000001"
+         y="1044.3622" />
       <rect
          style="fill:#ffffff;fill-opacity:1;stroke:none"
-         id="rect4127-7-5-33"
-         width="3.5000002"
-         height="3.5"
-         x="4.5"
-         y="1040.8622" />
+         id="rect4127-7-5-6-2"
+         width="4"
+         height="4"
+         x="0"
+         y="1044.3622" />
       <rect
          style="fill:#a0a0a0;fill-opacity:1;stroke:none"
-         id="rect4127-4-8"
-         width="3.5000002"
-         height="3.5"
-         x="8"
-         y="1040.8622" />
+         id="rect4127-3"
+         width="4"
+         height="4"
+         x="0"
+         y="1040.3622" />
       <rect
          style="fill:#ffffff;fill-opacity:1;stroke:none"
-         id="rect4127-7-5-1-9"
-         width="3.5000002"
-         height="3.5"
-         x="11.5"
-         y="1040.8622" />
+         id="rect4127-7-5-62"
+         width="4"
+         height="4"
+         x="3.9999995"
+         y="1040.3622" />
       <rect
          style="fill:#a0a0a0;fill-opacity:1;stroke:none"
-         id="rect4127-8-1"
-         width="3.5000002"
-         height="3.5"
-         x="11.5"
-         y="1037.3622" />
+         id="rect4127-0-4"
+         width="4"
+         height="4"
+         x="7.9999995"
+         y="1040.3622" />
       <rect
          style="fill:#ffffff;fill-opacity:1;stroke:none"
-         id="rect4127-7-5-3-6"
-         width="3.5000002"
-         height="3.5"
-         x="1"
-         y="1037.3622" />
+         id="rect4127-7-5-6-9"
+         width="4"
+         height="4"
+         x="12"
+         y="1040.3622" />
       <rect
          style="fill:#a0a0a0;fill-opacity:1;stroke:none"
-         id="rect4127-4-5-3"
-         width="3.5000002"
-         height="3.5"
-         x="4.5000005"
-         y="1037.3622" />
+         id="rect4127-04-7"
+         width="4"
+         height="4"
+         x="3.9999995"
+         y="1036.3622" />
       <rect
          style="fill:#ffffff;fill-opacity:1;stroke:none"
-         id="rect4127-7-5-1-1-6"
-         width="3.5000002"
-         height="3.5"
-         x="8"
-         y="1037.3622" />
+         id="rect4127-7-5-0-6"
+         width="4"
+         height="4"
+         x="7.9999995"
+         y="1036.3622" />
       <rect
-         style="fill:none;fill-opacity:1;stroke:#606060;stroke-width:1;stroke-opacity:1"
-         id="rect4268"
-         width="15.000001"
-         height="15"
-         x="1036.8622"
-         y="-15.5"
-         transform="matrix(0,1,-1,0,0,0)"
-         inkscape:export-xdpi="90"
-         inkscape:export-ydpi="90" />
+         style="fill:#a0a0a0;fill-opacity:1;stroke:none"
+         id="rect4127-0-3-7"
+         width="4"
+         height="4"
+         x="12"
+         y="1036.3622" />
+      <rect
+         style="fill:#ffffff;fill-opacity:1;stroke:none"
+         id="rect4127-7-5-6-2-1"
+         width="4"
+         height="4"
+         x="0"
+         y="1036.3622" />
     </g>
   </g>
 </svg>
