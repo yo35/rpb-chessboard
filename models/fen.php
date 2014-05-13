@@ -32,7 +32,7 @@ class RPBChessboardModelFen extends RPBChessboardAbstractTopLevelShortcodeModel
 	{
 		parent::__construct($atts, $content);
 		$this->loadTrait('ChessWidgetDefault');
-		$this->loadTrait('ChessWidgetCustom', $this->getAttributes());
+		$this->loadTrait('ChessWidgetCustom', array($this->getAttributes()));
 	}
 
 

@@ -40,7 +40,7 @@ class RPBChessboardModelPgnDiagram extends RPBChessboardAbstractShortcodeModel
 	public function __construct($atts, $content)
 	{
 		parent::__construct($atts, $content);
-		$this->loadTrait('ChessWidgetCustom', $this->getAttributes());
+		$this->loadTrait('ChessWidgetCustom', array($this->getAttributes()));
 	}
 
 

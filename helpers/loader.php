@@ -28,24 +28,26 @@ abstract class RPBChessboardHelperLoader
 	/**
 	 * Load the model corresponding to the given model name.
 	 */
-	public static function loadModel($modelName, $arg1=null, $arg2=null, $arg3=null)
+	public static function loadModel($modelName, $args=array())
 	{
 		$fileName  = strtolower($modelName);
 		$className = 'RPBChessboardModel' . $modelName;
 		require_once(RPBCHESSBOARD_ABSPATH . 'models/' . $fileName . '.php');
-		return new $className($arg1, $arg2, $arg3);
+		$clazz = new ReflectionClass($className);
+		return $clazz->newInstanceArgs($args);
 	}
 
 
 	/**
 	 * Load the model corresponding to the given trait name.
 	 */
-	public static function loadTrait($traitName, $arg1=null, $arg2=null, $arg3=null)
+	public static function loadTrait($traitName, $args=array())
 	{
 		$fileName  = strtolower($traitName);
 		$className = 'RPBChessboardTrait' . $traitName;
 		require_once(RPBCHESSBOARD_ABSPATH . 'models/traits/' . $fileName . '.php');
-		return new $className($arg1, $arg2, $arg3);
+		$clazz = new ReflectionClass($className);
+		return $clazz->newInstanceArgs($args);
 	}
 
 

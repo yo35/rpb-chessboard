@@ -85,7 +85,7 @@ class RPBChessboardControllerSite extends RPBChessboardAbstractController
 	private static function runShortcode($modelName, $atts, $content)
 	{
 		// Load the model and the view
-		$model = RPBChessboardHelperLoader::loadModel($modelName, $atts, $content);
+		$model = RPBChessboardHelperLoader::loadModel($modelName, array($atts, $content));
 		$view  = RPBChessboardHelperLoader::loadView($model);
 
 		// Display the view

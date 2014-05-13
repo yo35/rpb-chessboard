@@ -67,10 +67,10 @@ abstract class RPBChessboardAbstractModel
 	/**
 	 * Import a trait to the current class.
 	 */
-	public function loadTrait($traitName, $arg1=null, $arg2=null, $arg3=null)
+	public function loadTrait($traitName, $args=array())
 	{
 		// Load the definition of the trait, and instantiate it.
-		$trait = RPBChessboardHelperLoader::loadTrait($traitName, $arg1, $arg2, $arg3);
+		$trait = RPBChessboardHelperLoader::loadTrait($traitName, $args);
 
 		// List all the public methods of the trait, and register them
 		// to the method index of the current model.
