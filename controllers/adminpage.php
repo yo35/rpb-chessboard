@@ -31,12 +31,11 @@ class RPBChessboardControllerAdminPage extends RPBChessboardAbstractController
 	/**
 	 * Constructor
 	 *
-	 * @param string $modelName Name of the model to use. It is supposed to refer
-	 *        to a model that inherits from the class RPBChessboardAbstractModelAdminPage.
+	 * @param string $adminPageName Name of the administration page.
 	 */
-	public function __construct($modelName)
+	public function __construct($adminPageName)
 	{
-		parent::__construct($modelName);
+		parent::__construct('AdminPage' . $adminPageName);
 	}
 
 

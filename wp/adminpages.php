@@ -85,7 +85,7 @@ abstract class RPBChessboardAdminPages
 	private static function printAdminPage($adminPageName)
 	{
 		require_once(RPBCHESSBOARD_ABSPATH . 'controllers/adminpage.php');
-		$controller = new RPBChessboardControllerAdminPage('AdminPage' . $adminPageName);
+		$controller = new RPBChessboardControllerAdminPage($adminPageName);
 		$controller->run();
 	}
 }
