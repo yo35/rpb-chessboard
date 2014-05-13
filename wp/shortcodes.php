@@ -20,70 +20,61 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH . 'controllers/abstractcontroller.php');
+require_once(RPBCHESSBOARD_ABSPATH . 'helpers/loader.php');
 
 
 /**
- * Controller for the frontend.
+ * Register the plugin shortcodes.
+ *
+ * This class is not constructible. Call the static method `register()`
+ * to trigger the registration operations.
  */
-class RPBChessboardControllerSite extends RPBChessboardAbstractController
+abstract class RPBChessboardShortcodes
 {
 	/**
-	 * Constructor
+	 * Register the plugin shortcodes. Must be called only once.
 	 */
-	public function __construct()
+	public static function register()
 	{
-		parent::__construct('Site');
-	}
-
-
-	/**
-	 * Entry-point of the controller.
-	 */
-	public function run()
-	{
-		// Load the model
-		$model = $this->getModel();
+		// Compatibility information -> describe which shortcode should be used to insert FEN diagrams,
+		// which one to insert PGN games, etc...
+		$compatibility = RPBChessboardHelperLoader::loadTrait('Compatibility');
+		$fenShortcode = $compatibility->getFENShortcode();
+		$pgnShortcode = $compatibility->getPGNShortcode();
 
 		// Register the shortcodes
-		add_shortcode($model->getFENShortcode(), array('RPBChessboardControllerSite', 'runShortcodeFen'       ));
-		add_shortcode('pgndiagram'             , array('RPBChessboardControllerSite', 'runShortcodePgnDiagram'));
-		add_shortcode($model->getPGNShortcode(), array('RPBChessboardControllerSite', 'runShortcodePgn'       ));
+		add_shortcode($fenShortcode, array(__CLASS__, 'callbackShortcodeFEN'       ));
+		add_shortcode($pgnShortcode, array(__CLASS__, 'callbackShortcodePGN'       ));
+		add_shortcode('pgndiagram' , array(__CLASS__, 'callbackShortcodePGNDiagram'));
 	}
 
 
-	/**
-	 * Callback method for the [fen][/fen] shortcode.
-	 */
-	public static function runShortcodeFen($atts, $content)
-	{
-		return self::runShortcode('Fen', $atts, $content);
-	}
+	public static function callbackShortcodeFEN       ($atts, $content='') { return self::runShortcode('FEN'       , $atts, $content); }
+	public static function callbackShortcodePGN       ($atts, $content='') { return self::runShortcode('PGN'       , $atts, $content); }
+	public static function callbackShortcodePGNDiagram($atts, $content='') { return self::runShortcode('PGNDiagram', $atts, $content); }
 
 
 	/**
-	 * Callback method for the [pgndiagram] shortcode.
+	 * Process a shortcode.
+	 *
+	 * @param string $shortcodeName
+	 * @param array $atts
+	 * @param string $content
+	 * @return string
 	 */
-	public static function runShortcodePgnDiagram($atts)
+	private static function runShortcode($shortcodeName, $atts, $content)
 	{
-		return self::runShortcode('PgnDiagram', $atts, '');
-	}
+		// TODO: reimplement this method with a dedicated controller
 
+		// TODO: rename the shortcode models
+		$modelName = $shortcodeName;
+		switch($shortcodeName) {
+			case 'FEN': $modelName='Fen'; break;
+			case 'PGN': $modelName='Pgn'; break;
+			case 'PGNDiagram': $modelName='PgnDiagram'; break;
+			default: break;
+		}
 
-	/**
-	 * Callback method for the [pgn][/pgn] shortcode.
-	 */
-	public static function runShortcodePgn($atts, $content)
-	{
-		return self::runShortcode('Pgn', $atts, $content);
-	}
-
-
-	/**
-	 * Generic callback method for the shortcodes.
-	 */
-	private static function runShortcode($modelName, $atts, $content)
-	{
 		// Load the model and the view
 		$model = RPBChessboardHelperLoader::loadModel($modelName, array($atts, $content));
 		$view  = RPBChessboardHelperLoader::loadView($model);

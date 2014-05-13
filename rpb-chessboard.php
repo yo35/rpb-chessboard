@@ -101,10 +101,16 @@ if(is_admin()) {
 }
 
 
+// Shortcodes
+add_action('init', 'rpbchessboard_init_shortcodes');
+function rpbchessboard_init_shortcodes()
+{
+	require_once(RPBCHESSBOARD_ABSPATH . 'wp/shortcodes.php');
+	RPBChessboardShortcodes::register();
+}
+
+
 // Load either the back-end or the front-end depending on the context
 if(is_admin()) {
-	require_once(RPBCHESSBOARD_ABSPATH.'backend.php');
-}
-else {
-	require_once(RPBCHESSBOARD_ABSPATH.'frontend.php');
+	require_once(RPBCHESSBOARD_ABSPATH.'backend.php'); //TODO: remove
 }
