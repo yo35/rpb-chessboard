@@ -29,6 +29,7 @@ require_once(RPBCHESSBOARD_ABSPATH . 'helpers/loader.php');
 abstract class RPBChessboardAbstractController
 {
 	private $modelName;
+	private $modelArgs;
 	private $model;
 	private $view;
 
@@ -37,10 +38,13 @@ abstract class RPBChessboardAbstractController
 	 * Constructor
 	 *
 	 * @param string $modelName Name of the model to use.
+	 * @param array $modelArgs Arguments to pass to the constructor of the model
+	 *        (similar to what is passed to the `call_user_func_array()` function).
 	 */
-	protected function __construct($modelName)
+	protected function __construct($modelName, $modelArgs=array())
 	{
 		$this->modelName = $modelName;
+		$this->modelArgs = $modelArgs;
 	}
 
 
@@ -50,7 +54,7 @@ abstract class RPBChessboardAbstractController
 	public function getModel()
 	{
 		if(!isset($this->model)) {
-			$this->model = RPBChessboardHelperLoader::loadModel($this->modelName);
+			$this->model = RPBChessboardHelperLoader::loadModel($this->modelName, $this->modelArgs);
 		}
 		return $this->model;
 	}
