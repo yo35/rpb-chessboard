@@ -43,7 +43,7 @@ abstract class RPBChessboardAbstractModel
 
 
 	/**
-	 * Constructor
+	 * Constructor.
 	 */
 	public function __construct() {}
 
@@ -66,11 +66,14 @@ abstract class RPBChessboardAbstractModel
 
 	/**
 	 * Import a trait to the current class.
+	 *
+	 * @param string $traitName Name of the trait.
+	 * @param mixed ... Arguments to pass to the trait (optional).
 	 */
-	public function loadTrait($traitName, $args=array())
+	public function loadTrait($traitName)
 	{
 		// Load the definition of the trait, and instantiate it.
-		$trait = RPBChessboardHelperLoader::loadTrait($traitName, $args);
+		$trait = call_user_func_array(array('RPBChessboardHelperLoader', 'loadTrait'), func_get_args());
 
 		// List all the public methods of the trait, and register them
 		// to the method index of the current model.
