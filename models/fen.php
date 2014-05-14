@@ -34,15 +34,4 @@ class RPBChessboardModelFen extends RPBChessboardAbstractTopLevelShortcodeModel
 		$this->loadTrait('ChessWidgetDefault');
 		$this->loadTrait('ChessWidgetCustom', array($this->getAttributes()));
 	}
-
-
-	/**
-	 * By default, the WordPress engine may turn some hypen characters (ASCII)
-	 * into dash characters (non-ASCII). This should be reversed in order to
-	 * allow FEN parsing.
-	 */
-	protected function filterShortcodeContent($content)
-	{
-		return str_replace('&#8211;', '-', $content);
-	}
 }

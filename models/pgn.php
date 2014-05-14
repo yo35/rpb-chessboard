@@ -37,35 +37,26 @@ class RPBChessboardModelPgn extends RPBChessboardAbstractTopLevelShortcodeModel
 
 
 	/**
-	 * By default, the WordPress engine turn the line breaks into the corresponding
-	 * HTML tag (<br/>), or into paragraph separator tags (<p></p>).
-	 * This filter cancel this operation.
+	 * Apply some auto-format traitments to the text comments.
+	 *
+	 * These traitments used to be performed by the WP engine on the whole post/page content
+	 * (see wp-includes/default-filters.php, filter `'the_content'`).
+	 * However, the [pgn][/pgn] shortcode is processed in a low-level manner,
+	 * therefore its content is preserved from these traitments, that must be applied
+	 * to each text comment individually.
 	 */
 	protected function filterShortcodeContent($content)
 	{
-		// Replace the </p><p> and <br/> with line breaks.
-		$content = preg_replace('/ *<\/p>\s*<p> */', "\n\n", $content);
-		$content = preg_replace('/<br *\/>\n/', "\n", $content);
-
-		// Trim the content.
-		$content = trim($content);
-
-		// Replace the ellipsis character with '...'.
-		$content = str_replace('&#8230;', '...', $content);
-
-		// Apply the short-code replacement function provided by the WP engine to the PGN comments.
-		$content = preg_replace_callback('/{([^{}]*)}/', array(__CLASS__, 'doShortcode'), $content);
-
-		// Return the result
-		return $content;
+		return preg_replace_callback('/{([^{}]*)}/', array(__CLASS__, 'processTextComment'), $content);
 	}
 
 
 	/**
 	 * Callback called to process the matched comments between the [pgn][/pgn] tags.
 	 */
-	private static function doShortcode($matches)
+	private static function processTextComment($m)
 	{
-		return '{' . do_shortcode($matches[1]) . '}';
+		$comment = convert_chars(convert_smilies(wptexturize($m[1])));
+		return '{' . do_shortcode($comment) . '}';
 	}
 }
