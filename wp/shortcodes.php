@@ -91,7 +91,7 @@ abstract class RPBChessboardShortcodes
 		}
 
 		// Load the model and the view
-		$model = RPBChessboardHelperLoader::loadModel($modelName, array($atts, $content));
+		$model = RPBChessboardHelperLoader::loadModel($modelName, $atts, $content);
 		$view  = RPBChessboardHelperLoader::loadView($model);
 
 		// Display the view
