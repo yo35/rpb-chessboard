@@ -380,6 +380,7 @@
 			var headers = '<div class="uichess-chessgame-headers">';
 			headers += this._playerNameHeader('White');
 			headers += this._playerNameHeader('Black');
+			headers += this._eventHeader();
 			headers += '</div>';
 
 
@@ -453,7 +454,34 @@
 			// Add the closing tag and return the result.
 			header += '</div>';
 			return header;
+		},
+
+
+		/**
+		 * Build the header containing the event-related information (event + round).
+		 *
+		 * @return {string}
+		 */
+		_eventHeader: function()
+		{
+			// Retrieve the event -> no header is returned if the name not available.
+			var event = this._game.header('Event');
+			if(event===null) {
+				return '';
+			}
+
+			// Retrieve the round.
+			var round = formatRound(this._game.header('Round'));
+
+			// Build and return the header.
+			var header = '<div class="uichess-chessgame-event">' + event;
+			if(round !== null) {
+				header += '<span class="uichess-chessgame-round">' + round + '</span>';
+			}
+			header += '</div>';
+			return header;
 		}
+
 
 	});
 

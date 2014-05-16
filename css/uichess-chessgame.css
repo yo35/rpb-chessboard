@@ -58,7 +58,7 @@
 
 
 /******************************************************************************/
-/*** Player name headers ***/
+/*** PGN headers ***/
 
 .uichess-chessgame-colorTag {
 	width : 1.2em;
@@ -76,14 +76,20 @@
 	background-color: black;
 }
 
-.uichess-chessgame-titleRatingGroup:before {
+.uichess-chessgame-titleRatingGroup:before,
+.uichess-chessgame-round:before {
 	content: " (";
 }
 
-.uichess-chessgame-titleRatingGroup:after {
+.uichess-chessgame-titleRatingGroup:after,
+.uichess-chessgame-round:after {
 	content: ")";
 }
 
 .uichess-chessgame-playerTitle + .uichess-chessgame-playerRating:before {
 	content: " ";
+}
+
+.uichess-chessgame-round {
+	font-style: italic;
 }
