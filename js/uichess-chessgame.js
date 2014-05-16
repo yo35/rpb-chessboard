@@ -109,6 +109,19 @@
 
 
 	/**
+	 * Convert a PGN site field value into a human-readable site string.
+	 * Return null if the special code "?" is detected.
+	 *
+	 * @param {string} site Value of a PGN site field.
+	 * @returns {string}
+	 */
+	function formatSite(site)
+	{
+		return (site===null || site==='?') ? null : site;
+	}
+
+
+	/**
 	 * Convert a PGN round field value into a human-readable round string.
 	 * Return null if the special code "?" is detected.
 	 *
@@ -381,6 +394,7 @@
 			headers += this._playerNameHeader('White');
 			headers += this._playerNameHeader('Black');
 			headers += this._eventHeader();
+			headers += this._datePlaceHeader();
 			headers += '</div>';
 
 
@@ -478,6 +492,29 @@
 			if(round !== null) {
 				header += '<span class="uichess-chessgame-round">' + round + '</span>';
 			}
+			header += '</div>';
+			return header;
+		},
+
+
+		/**
+		 * Build the header containing the date/place information.
+		 *
+		 * @return {string}
+		 */
+		_datePlaceHeader: function()
+		{
+			// Retrieve the date and the site field.
+			var date = formatDate(this._game.header('Date'));
+			var site = formatSite(this._game.header('Site'));
+			if(date===null && site===null) {
+				return '';
+			}
+
+			// Build and return the header.
+			var header = '<div class="uichess-chessgame-datePlaceGroup">';
+			if(date !== null) header += '<span class="uichess-chessgame-date">' + date + '</span>';
+			if(site !== null) header += '<span class="uichess-chessgame-site">' + site + '</span>';
 			header += '</div>';
 			return header;
 		}

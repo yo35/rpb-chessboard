@@ -78,7 +78,7 @@
 
 .uichess-chessgame-titleRatingGroup:before,
 .uichess-chessgame-round:before {
-	content: " (";
+	content: "\a0("; /* \a0 == &nbsp; */
 }
 
 .uichess-chessgame-titleRatingGroup:after,
@@ -87,9 +87,13 @@
 }
 
 .uichess-chessgame-playerTitle + .uichess-chessgame-playerRating:before {
-	content: " ";
+	content: "\a0"; /* \a0 == &nbsp; */
 }
 
 .uichess-chessgame-round {
 	font-style: italic;
+}
+
+.uichess-chessgame-date + .uichess-chessgame-site:before {
+	content: "\a0\2013\a0"; /* \a0 == &nbsp;   \2013 == &ndash; */
 }
