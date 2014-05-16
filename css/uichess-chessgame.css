@@ -1,0 +1,56 @@
+/******************************************************************************
+ *                                                                            *
+ *    This file is part of RPB Chessboard, a Wordpress plugin.                *
+ *    Copyright (C) 2013-2014  Yoann Le Montagner <yo35 -at- melix.net>       *
+ *                                                                            *
+ *    This program is free software: you can redistribute it and/or modify    *
+ *    it under the terms of the GNU General Public License as published by    *
+ *    the Free Software Foundation, either version 3 of the License, or       *
+ *    (at your option) any later version.                                     *
+ *                                                                            *
+ *    This program is distributed in the hope that it will be useful,         *
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of          *
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           *
+ *    GNU General Public License for more details.                            *
+ *                                                                            *
+ *    You should have received a copy of the GNU General Public License       *
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.   *
+ *                                                                            *
+ ******************************************************************************/
+
+
+
+/******************************************************************************/
+/*** Parsing error box ***/
+
+.uichess-chessgame-error {
+	text-align: left;
+	font-family: sans-serif;
+	font-size: 12px;
+	line-height: 1.3em;
+	color: #800;
+	background-color: #fdd;
+	border: solid 1px #c00;
+	padding: 0.75em;
+}
+
+.uichess-chessgame-errorTitle {
+	font-weight: bold;
+	font-style: italic;
+}
+
+.uichess-chessgame-errorMessage,
+.uichess-chessgame-errorAt,
+.uichess-chessgame-errorAtCode { 
+	margin-top: 0.4em;
+}
+
+.uichess-chessgame-errorAtCode {
+	white-space: pre-wrap;
+	font-family: monospace;
+	line-height: 1.5em;
+	color: #400;
+	border: solid 1px #aa0;
+	background-color: #ffd;
+	padding: 0.75em 1em 0.15em;
+}

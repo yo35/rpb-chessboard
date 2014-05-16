@@ -208,6 +208,48 @@
 
 
 	/**
+	 * Ellipsis function.
+	 *
+	 * Example: if `text` is `0123456789`, then `ellipsis(text, 5, 2, 1)` returns
+	 * the following string:
+	 *
+	 * ```
+	 * ...4567...
+	 *     ^
+	 * ```
+	 *
+	 * @param {string} text Text from a substring must be extracted.
+	 * @param {number} pos Index of the character in `text` around which the substring must be extracted.
+	 * @param {number} backwardCharacters Number of characters to keep before `pos`.
+	 * @param {number} forwardCharacters Number of characters to keep after `pos`.
+	 * @return string
+	 */
+	function ellipsisAt(text, pos, backwardCharacters, forwardCharacters)
+	{
+		// p1 => begin of the extracted sub-string
+		var p1 = pos - backwardCharacters;
+		var e1 = '...';
+		if(p1<=0) {
+			p1 = 0;
+			e1 = '';
+		}
+
+		// p2 => one character after the end of the extracted sub-string
+		var p2 = pos + 1 + forwardCharacters;
+		var e2 = '...';
+		if(p2 >= text.length) {
+			p2 = text.length;
+			e2 = '';
+		}
+
+		// Extract the sub-string around the requested position.
+		var retVal = e1 + text.substr(p1, p2-p1) + e2;
+		retVal = retVal.replace(/\n|\t/g, ' ');
+		return retVal + '\n' + Array(1 + e1.length + pos - p1).join(' ') + '^';
+	}
+
+
+	/**
 	 * Register a 'chessgame' widget in the jQuery widget framework.
 	 */
 	$.widget('uichess.chessgame',
@@ -215,7 +257,20 @@
 		/**
 		 * Default options.
 		 */
-		options: {},
+		options:
+		{
+			/**
+			 * String describing the game (PGN format).
+			 */
+			pgn: '*'
+		},
+
+
+		/**
+		 * Hold the parsed information about the displayed chess game.
+		 * @type {Pgn.Item}
+		 */
+		_game: null,
 
 
 		/**
@@ -224,6 +279,7 @@
 		_create: function()
 		{
 			this.element.addClass('uichess-chessgame');
+			this.options.pgn = this._initializePGN(this.options.pgn);
 			this._refresh();
 		},
 
@@ -238,11 +294,96 @@
 
 
 		/**
+		 * Initialize the internal Pgn.Item object that contains the parsed PGN data.
+		 *
+		 * @returns {string}
+		 */
+		_initializePGN: function(pgn)
+		{
+			// Ensure that the input is actually a string.
+			if(typeof pgn !== 'string') {
+				pgn = '*';
+			}
+
+			// Trim the input.
+			pgn = pgn.replace(/^\s+|\s+$/g, '');
+
+			// Parse the input assuming a PGN format.
+			try {
+				var items = Pgn.parse(pgn);
+				if(items.length===0) {
+					throw new Pgn.ParsingException(pgn, null, 'Unexpected empty PGN data.');
+				}
+				else if(items.length > 1) {
+					throw new Pgn.ParsingException(pgn, null, 'The PGN data is expected to contain only one game.');
+				}
+				this._game = items[0];
+			}
+			catch(error) {
+				if(error instanceof Pgn.ParsingException) { // parsing errors are reported to the user
+					this._game = error;
+				}
+				else { // unknown exceptions are re-thrown
+					this._game = null;
+					throw error;
+				}
+			}
+
+			// Return the validated PGN string.
+			return pgn;
+		},
+
+
+		/**
 		 * Refresh the widget.
 		 */
 		_refresh: function()
 		{
-			$('<div>TODO</div>').appendTo(this.element.empty());
+			this.element.empty();
+			if(this._game === null) {
+				return;
+			}
+
+			// Handle parsing error problems.
+			if(this._game instanceof Pgn.ParsingException) {
+				this._printErrorMessage();
+				return;
+			}
+
+			$('<div>TODO</div>').appendTo(this.element);
+		},
+
+
+		/**
+		 * Build the error message resulting from a PGN parsing error.
+		 */
+		_printErrorMessage: function()
+		{
+			// Build the error report box.
+			var content = '<div class="uichess-chessgame-error">' +
+				'<div class="uichess-chessgame-errorTitle">Error while analysing a PGN string.</div>';
+
+			// Optional message.
+			if(this._game.message !== null) {
+				content += '<div class="uichess-chessgame-errorMessage">' + this._game.message + '</div>';
+			}
+
+			// Display where the error has occurred.
+			if(this._game.pos !== null && this._game.pos >= 0) {
+				content += '<div class="uichess-chessgame-errorAt">';
+				if(this._game.pos >= this._game.pgnString.length) {
+					content += 'Occurred at the end of the string.';
+				}
+				else {
+					content += 'Occurred at position ' + this._game.pos + ':' + '<div class="uichess-chessgame-errorAtCode">' +
+						ellipsisAt(this._game.pgnString, this._game.pos, 10, 40) + '</div>';
+				}
+				content += '</div>';
+			}
+
+			// Close the error report box, and update the DOM element.
+			content += '</div>';
+			$(content).appendTo(this.element);
 		}
 
 	});
@@ -587,68 +728,6 @@
 		anchors.append(renderVariation(pgnItem.mainVariation(), 0, inlineOptions, navOptions));
 		anchors.addClass   ('PgnWidget-value-moves' );
 		anchors.removeClass('PgnWidget-anchor-moves');
-	}
-
-
-	/**
-	 * Display the error message resulting from a PGN parsing into the given DOM node.
-	 * All the existing content of this node is cleared.
-	 *
-	 * @private
-	 *
-	 * @param {Pgn.ParsingException} error
-	 * @param {jQuery} targetNode
-	 *
-	 * @memberof PgnWidget
-	 */
-	function displayErrorMessage(error, targetNode)
-	{
-		// Prepare the target node.
-		targetNode.empty();
-		targetNode.addClass('PgnWidget-error');
-		$('<div class="PgnWidget-error-title">Error while analysing a PGN string.</div>').appendTo(targetNode);
-
-		// Display the error message.
-		if(!(error.message==null || error.message.length==0)) {
-			$('<div class="PgnWidget-error-message">' + error.message + '</div>').appendTo(targetNode);
-		}
-
-		// Display where the error occurred.
-		if(error.pos>=0) {
-			var at = $('<div class="PgnWidget-error-at"></div>').appendTo(targetNode);
-
-			// Special case: error at the end of the string
-			if(error.pos>=error.pgnString.length) {
-				at.append('Occurred at the end of string.');
-			}
-
-			// Otherwise, extract a sub-string of the PGN source around the position where the parsing fails.
-			else {
-				at.append('Occurred at position ' + error.pos + ':');
-
-				// p1 => begin of the extracted sub-string
-				var p1 = error.pos - 10;
-				var e1 = '...';
-				if(p1<=0) {
-					p1 = 0;
-					e1 = '';
-				}
-
-				// p2 => end of the extracted sub-string (actually one character after)
-				var p2 = error.pos + 40;
-				var e2 = '...';
-				if(p2>=error.pgnString.length) {
-					p2 = error.pgnString.length;
-					e2 = '';
-				}
-
-				// Extract the sub-string around the position where the parsing fails.
-				var text = e1 + error.pgnString.substr(p1, p2-p1) + e2;
-				text = text.replace(/\n|\t/g, ' ');
-				text += '\n' + Array(1 + e1.length + (error.pos-p1)).join(' ') + '^^^';
-				$('<div class="PgnWidget-error-at-code">' + text + '</div>').appendTo(at);
-			}
-		}
 	}
 
 

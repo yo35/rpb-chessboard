@@ -18,6 +18,7 @@
 	
 	<!-- Tested component -->
 	<script type="text/javascript" src="../uichess-chessgame.js"></script>
+	<link rel="stylesheet" type="text/css" href="../../css/uichess-chessgame.css" />
 
 </head>
 
@@ -35,7 +36,7 @@
 	<script type="text/javascript">
 
 		// Create the widget.
-		$('#a').chessgame();
+		$('#a').chessgame({ pgn: '1. e4 bad character *' });
 
 		// Clear button: destroy the widget.
 		$('#clear-button').click(function() { $('#a').chessgame('destroy'); });
