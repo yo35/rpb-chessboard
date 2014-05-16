@@ -68,7 +68,7 @@
 	"scripturl"   : false,    // Allow script-targeted URLs, e.g. `href="javascript: ... "`.
 	"smarttabs"   : false,    // Tolerate mixed tabs and spaces when the latter are used for alignmnent only.
 	"shadow"      : false,    // Allow re-defining variables later in code, e.g. `var x=1; ... var x=2;`.
-	"sub"         : false,    // Allow `dict['key']` even when `dict.key` is possible.
+	"sub"         : true ,    // Allow `dict['key']` even when `dict.key` is possible.
 	"supernew"    : false,    // Tolerate `new function () { ... };` and `new Object;`.
 	"validthis"   : false,    // Allow `this` to be used in non-constructor functions.
 	"noyield"     : false,    // Allow generator functions without `yield` statement.

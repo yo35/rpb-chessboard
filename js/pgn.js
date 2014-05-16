@@ -31,8 +31,11 @@
  *
  * @requires chess.js {@link https://github.com/jhlywa/chess.js}
  */
-Pgn = (function(Chess)
+var Pgn = (function(Chess) /* exported Pgn */
 {
+	'use strict';
+
+
 	/**
 	 * @constructor
 	 * @alias Node
@@ -74,12 +77,7 @@ Pgn = (function(Chess)
 		 * @private
 		 */
 		var position = new Chess(parent.position());
-		if(position.move(move)==null) {
-			this._position = '';
-		}
-		else {
-			this._position = position.fen();
-		}
+		this._position = position.move(move)===null ? '' : position.fen();
 
 		/**
 		 * @member {number} _moveCounter
@@ -143,6 +141,7 @@ Pgn = (function(Chess)
 		this._next = null;
 	}
 
+
 	/**
 	 * Whether the current node have been created from a valid move.
 	 *
@@ -150,8 +149,9 @@ Pgn = (function(Chess)
 	 */
 	Node.prototype.valid = function()
 	{
-		return this._position.length!=0;
+		return this._position.length !== 0;
 	};
+
 
 	/**
 	 * Move associated to the current node.
@@ -163,6 +163,7 @@ Pgn = (function(Chess)
 		return this._move;
 	};
 
+
 	/**
 	 * Chess position before the current move (encoded as a FEN string).
 	 *
@@ -173,6 +174,7 @@ Pgn = (function(Chess)
 		return this._parent.position();
 	};
 
+
 	/**
 	 * Chess position obtained after the current move (encoded as a FEN string).
 	 *
@@ -182,6 +184,7 @@ Pgn = (function(Chess)
 	{
 		return this._position;
 	};
+
 
 	/**
 	 * Move counter. This counter is incremented each time a move is played, either
@@ -198,6 +201,7 @@ Pgn = (function(Chess)
 		return this._moveCounter;
 	};
 
+
 	/**
 	 * Full-move number. It starts at 1, and is incremented after every black moves.
 	 *
@@ -208,6 +212,7 @@ Pgn = (function(Chess)
 		return Math.floor(this._moveCounter / 2) + 1;
 	};
 
+
 	/**
 	 * Color the side corresponding to the current move.
 	 *
@@ -215,8 +220,9 @@ Pgn = (function(Chess)
 	 */
 	Node.prototype.moveColor = function()
 	{
-		return (this._moveCounter%2==0) ? 'w' : 'b';
+		return (this._moveCounter%2 === 0) ? 'w' : 'b';
 	};
+
 
 	/**
 	 * Next move within the same variation.
@@ -228,6 +234,7 @@ Pgn = (function(Chess)
 		return this._next;
 	};
 
+
 	/**
 	 * Number of variations that can be followed instead of the current move.
 	 *
@@ -237,6 +244,7 @@ Pgn = (function(Chess)
 	{
 		return this._variations.length;
 	};
+
 
 	/**
 	 * Return the k^th variation that can be followed instead of the current move.
@@ -249,6 +257,7 @@ Pgn = (function(Chess)
 		return this._variations[k];
 	};
 
+
 	/**
 	 * Define the move that immediatly follows the one represented by the current node.
 	 *
@@ -260,6 +269,7 @@ Pgn = (function(Chess)
 		this._next = new Node(this, move);
 		return this._next.valid();
 	};
+
 
 	/**
 	 * Add a new variation to the current move.
@@ -334,6 +344,7 @@ Pgn = (function(Chess)
 		this._first = null;
 	}
 
+
 	/**
 	 * Chess position at the beginning of the variation (encoded as a FEN string).
 	 *
@@ -344,6 +355,7 @@ Pgn = (function(Chess)
 		return (this._parent instanceof Node) ? this._parent.positionBefore() : this._parent.initialPosition();
 	};
 
+
 	/**
 	 * Move counter to use for the first move of the variation.
 	 *
@@ -353,6 +365,7 @@ Pgn = (function(Chess)
 	{
 		return (this._parent instanceof Node) ? this._parent.moveCounter() : this._parent.initialMoveCounter();
 	};
+
 
 	/**
 	 * Whether the current variation is considered as a "long" variation, i.e. a variation that
@@ -368,6 +381,7 @@ Pgn = (function(Chess)
 		return (this._parent instanceof Node) ? this._parent.areLongVariations : true;
 	};
 
+
 	/**
 	 * First move of the current variation.
 	 *
@@ -377,6 +391,7 @@ Pgn = (function(Chess)
 	{
 		return this._first;
 	};
+
 
 	/**
 	 * Define the first move of the variation.
@@ -452,6 +467,7 @@ Pgn = (function(Chess)
 		this.result = '*';
 	}
 
+
 	/**
 	 * List all the headers defined for the game.
 	 *
@@ -459,7 +475,7 @@ Pgn = (function(Chess)
 	 */
 	Item.prototype.headers = function()
 	{
-		var retVal = new Array();
+		var retVal = [];
 		for(var h in this._headers) {
 			if(this._headers.hasOwnProperty(h)) {
 				retVal.push(h);
@@ -467,6 +483,7 @@ Pgn = (function(Chess)
 		}
 		return retVal;
 	};
+
 
 	/**
 	 * Getter/setter for the headers of the game.
@@ -482,12 +499,13 @@ Pgn = (function(Chess)
 	 */
 	Item.prototype.header = function(key, value)
 	{
-		var retVal = this._headers[key];
-		if(value!==undefined) {
+		var retVal = (key in this._headers) ? this._headers[key] : null;
+		if(value !== undefined) {
 			this._headers[key] = value;
 		}
-		return (key in this._headers) ? this._headers[key] : null;
+		return retVal;
 	};
+
 
 	/**
 	 * Initial position of the game.
@@ -499,6 +517,7 @@ Pgn = (function(Chess)
 		return this._initialPosition;
 	};
 
+
 	/**
 	 * Value of the move counter to use for the first move.
 	 *
@@ -508,6 +527,7 @@ Pgn = (function(Chess)
 	{
 		return this._initialMoveCounter;
 	};
+
 
 	/**
 	 * Main variation.
@@ -519,6 +539,7 @@ Pgn = (function(Chess)
 		return this._mainVariation;
 	};
 
+
 	/**
 	 * Define the initial position and move number.
 	 *
@@ -529,7 +550,7 @@ Pgn = (function(Chess)
 	{
 		// Validate the FEN string.
 		var p = new Chess(fen);
-		if(p.fen()!=fen) {
+		if(p.fen() !== fen) {
 			return false;
 		}
 
@@ -537,11 +558,11 @@ Pgn = (function(Chess)
 		if(!/^.* ([0-9]+)\s*$/.test(fen)) {
 			return false;
 		}
-		var fullMoveNumber = parseInt(RegExp.$1);
+		var fullMoveNumber = parseInt(RegExp.$1, 10);
 
 		// Save the data
 		this._initialPosition    = fen;
-		this._initialMoveCounter = 2*(fullMoveNumber - 1) + (p.turn()=='w' ? 0 : 1);
+		this._initialMoveCounter = 2*(fullMoveNumber - 1) + (p.turn() === 'w' ? 0 : 1);
 		return true;
 	};
 
@@ -631,7 +652,7 @@ Pgn = (function(Chess)
 		{
 			var newLineCount = 0;
 			while(pos<pgnString.length) {
-				s = pgnString.substr(pos);
+				var s = pgnString.substr(pos);
 				if(/^([ \f\t\v])+/.test(s)) { // match spaces
 					pos += RegExp.$1.length;
 				}
@@ -662,7 +683,7 @@ Pgn = (function(Chess)
 			}
 
 			// Remaining part of the string
-			s = pgnString.substr(pos);
+			var s = pgnString.substr(pos);
 			var deltaPos = 0;
 
 			// Match a game header (ex: [White "Kasparov, G."])
@@ -683,7 +704,7 @@ Pgn = (function(Chess)
 			else if(/^(([!\?][!\?]?|\+\/?[\-=]|[\-=]\/?\+|=|inf)|\$([1-9][0-9]*))/.test(s)) {
 				deltaPos   = RegExp.$1.length;
 				token      = TOKEN_NAG;
-				tokenValue = RegExp.$3.length==0 ? SPECIAL_NAGS_LOOKUP[RegExp.$2] : parseInt(RegExp.$3);
+				tokenValue = RegExp.$3.length === 0 ? SPECIAL_NAGS_LOOKUP[RegExp.$2] : parseInt(RegExp.$3, 10);
 			}
 
 			// Match a comment
@@ -726,17 +747,17 @@ Pgn = (function(Chess)
 		}
 
 		// State variable for syntaxic analysis.
-		var retVal        = Array(); // returned object (array of Pgn.Item)
-		var item          = null;    // item being parsed (if any)
-		var node          = null;    // current node (or variation) to which the next move should be appended
-		var headerAllowed = false;   // indicate whether the parsing is currently in the header section of an item
-		var nodeStack     = Array(); // when starting to parse a variation, its parent node is stacked here
+		var retVal        = [];    // returned object (array of Pgn.Item)
+		var item          = null;  // item being parsed (if any)
+		var node          = null;  // current node (or variation) to which the next move should be appended
+		var headerAllowed = false; // indicate whether the parsing is currently in the header section of an item
+		var nodeStack     = [];    // when starting to parse a variation, its parent node is stacked here
 
 		// Token loop
 		while(consumeToken())
 		{
 			// Create a new item if necessary
-			if(item==null) {
+			if(item === null) {
 				item          = new Item();
 				node          = item.mainVariation();
 				headerAllowed = true;
@@ -744,84 +765,90 @@ Pgn = (function(Chess)
 
 			// Matching anything else different from a header means that headers are not allowed
 			// anymore for the current item.
-			if(token!=TOKEN_HEADER) {
+			if(token !== TOKEN_HEADER) {
 				headerAllowed = false;
 			}
 
-			// Header
-			if(token==TOKEN_HEADER) {
-				if(!headerAllowed) {
-					throw new ParsingException(pgnString, tokenPos, 'Unexpected PGN item header.');
-				}
-				item.header(tokenValue.key, tokenValue.value);
-
-				// The header 'FEN' has a special meaning, in that it is used to define a custom
-				// initial position, that may be different from the usual one.
-				if(tokenValue.key=='FEN') {
-					if(!item.defineInitialPosition(tokenValue.value)) {
-						throw new ParsingException(pgnString, tokenPos, 'Invalid FEN string.');
+			// Token type switch
+			switch(token)
+			{
+				// Header
+				case TOKEN_HEADER:
+					if(!headerAllowed) {
+						throw new ParsingException(pgnString, tokenPos, 'Unexpected PGN item header.');
 					}
-				}
-			}
+					item.header(tokenValue.key, tokenValue.value);
 
-			// Move
-			else if(token==TOKEN_MOVE) {
-				if(!node.play(tokenValue)) {
-					throw new ParsingException(pgnString, tokenPos, 'Invalid move.');
-				}
-				if((node instanceof Variation) && emptyLineFound) {
-					node.isLongComment = true;
-				}
-				node = (node instanceof Variation) ? node.first() : node.next();
-			}
+					// The header 'FEN' has a special meaning, in that it is used to define a custom
+					// initial position, that may be different from the usual one.
+					if(tokenValue.key === 'FEN') {
+						if(!item.defineInitialPosition(tokenValue.value)) {
+							throw new ParsingException(pgnString, tokenPos, 'Invalid FEN string.');
+						}
+					}
+					break;
 
-			// NAG
-			else if(token==TOKEN_NAG) {
-				node.nags.push(tokenValue);
-			}
+				// Move
+				case TOKEN_MOVE:
+					if(!node.play(tokenValue)) {
+						throw new ParsingException(pgnString, tokenPos, 'Invalid move.');
+					}
+					if((node instanceof Variation) && emptyLineFound) {
+						node.isLongComment = true;
+					}
+					node = (node instanceof Variation) ? node.first() : node.next();
+					break;
 
-			// Comment
-			else if(token==TOKEN_COMMENT) {
-				if((node instanceof Node) && emptyLineFound) {
-					node.isLongComment = true;
-				}
-				node.comment = tokenValue;
-			}
+				// NAG
+				case TOKEN_NAG:
+					node.nags.push(tokenValue);
+					break;
 
-			// Begin of variation
-			else if(token==TOKEN_BEGIN_VARIATION) {
-				if(!(node instanceof Node)) {
-					throw new ParsingException(pgnString, tokenPos, 'Unexpected begin of variation.');
-				}
-				if(emptyLineFound) {
-					node.areLongVariations = true;
-				}
-				nodeStack.push(node);
-				node = node.addVariation();
-			}
+				// Comment
+				case TOKEN_COMMENT:
+					if((node instanceof Node) && emptyLineFound) {
+						node.isLongComment = true;
+					}
+					node.comment = tokenValue;
+					break;
 
-			// End of variation
-			else if(token==TOKEN_END_VARIATION) {
-				if(nodeStack.length==0) {
-					throw new ParsingException(pgnString, tokenPos, 'Unexpected end of variation.');
-				}
-				node = nodeStack.pop();
-			}
+				// Begin of variation
+				case TOKEN_BEGIN_VARIATION:
+					if(!(node instanceof Node)) {
+						throw new ParsingException(pgnString, tokenPos, 'Unexpected begin of variation.');
+					}
+					if(emptyLineFound) {
+						node.areLongVariations = true;
+					}
+					nodeStack.push(node);
+					node = node.addVariation();
+					break;
 
-			// End-of-game
-			else if(token==TOKEN_END_OF_GAME) {
-				if(nodeStack.length>0) {
-					throw new ParsingException(pgnString, tokenPos, 'Unexpected end of game: there are pending variations.');
-				}
-				item.result = tokenValue;
-				retVal.push(item);
-				item = null;
-				node = null;
-			}
-		}
+				// End of variation
+				case TOKEN_END_VARIATION:
+					if(nodeStack.length === 0) {
+						throw new ParsingException(pgnString, tokenPos, 'Unexpected end of variation.');
+					}
+					node = nodeStack.pop();
+					break;
+
+					// End-of-game
+				case TOKEN_END_OF_GAME:
+					if(nodeStack.length>0) {
+						throw new ParsingException(pgnString, tokenPos, 'Unexpected end of game: there are pending variations.');
+					}
+					item.result = tokenValue;
+					retVal.push(item);
+					item = null;
+					node = null;
+					break;
+
+			} // switch(token)
+
+		} // while(consume(token()))
 
 		// Return the result
-		if(item!=null) {
+		if(item !== null) {
 			throw new ParsingException(pgnString, pgnString.length, 'Unexpected end of text: there is a pending item.');
 		}
 		return retVal;
@@ -838,4 +865,4 @@ Pgn = (function(Chess)
 		parse           : parse
 	};
 
-})(Chess);
+})( /* global Chess */ Chess );

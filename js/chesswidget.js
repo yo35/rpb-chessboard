@@ -33,6 +33,9 @@
  */
 (function(Chess, $)
 {
+	'use strict';
+
+
 	/**
 	 * Minimal value for the square-size parameter.
 	 *
@@ -71,7 +74,7 @@
 	 */
 	function filterOptionAllowMoves(allowMoves)
 	{
-		return (allowMoves=='all' || allowMoves=='legal') ? allowMoves : 'none';
+		return (allowMoves === 'all' || allowMoves === 'legal') ? allowMoves : 'none';
 	}
 
 
@@ -156,22 +159,16 @@
 		 */
 		_setOption: function(key, value)
 		{
-			if(key=='position') {
-				value = this._initializePosition(value);
-			}
-
-			else if(key=='squareSize') {
-				value = filterOptionSquareSize(value);
-			}
-
-			else if(key=='allowMoves') {
-				value = filterOptionAllowMoves(value);
+			switch(key) {
+				case 'position'  : value = this._initializePosition(value); break;
+				case 'squareSize': value = filterOptionSquareSize(value); break;
+				case 'allowMoves': value = filterOptionAllowMoves(value); break;
 			}
 
 			this.options[key] = value;
 			this._refresh();
 
-			if(key=='position') {
+			if(key === 'position') {
 				this._trigger('change', null, this.options.position);
 			}
 		},
@@ -217,18 +214,18 @@
 
 			// Otherwise, act as a setter.
 			else {
-				if(!(turn=='w' || turn=='b')) {
+				if(turn !== 'w' && turn !== 'b') {
 					return;
 				}
 
 				// Compose the new FEN string.
 				var fields = this.options.position.split(/\s+/);
-				if(fields[1]==turn) {
+				if(fields[1] === turn) {
 					return;
 				}
 				fields[1] = turn;
-				if(fields[3].length==2) { // update the "en-passant" field if necessary
-					fields[3] = fields[3].charAt(0) + (turn=='w' ? '6' : '3');
+				if(fields[3].length === 2) { // update the "en-passant" field if necessary
+					fields[3] = fields[3].charAt(0) + (turn === 'w' ? '6' : '3');
 				}
 				var newFen = fields.join(' ');
 
@@ -250,7 +247,7 @@
 		castleRights: function(castleRights)
 		{
 			var fields = this.options.position.split(/\s+/);
-			var currentCastleRights = fields[2]=='-' ? '' : fields[2];
+			var currentCastleRights = fields[2] === '-' ? '' : fields[2];
 
 			// No value passed, act as a getter.
 			if(castleRights===undefined) {
@@ -259,12 +256,12 @@
 
 			// Otherwise, act as a setter.
 			else {
-				if(castleRights==currentCastleRights || !castleRights.match(/^K?Q?k?q?$/)) {
+				if(castleRights === currentCastleRights || !castleRights.match(/^K?Q?k?q?$/)) {
 					return;
 				}
 
 				// Compose the new FEN string.
-				fields[2] = castleRights=='' ? '-' : castleRights;
+				fields[2] = castleRights === '' ? '-' : castleRights;
 				var newFen = fields.join(' ');
 
 				// Update the widget.
@@ -284,7 +281,7 @@
 		enPassant: function(enPassant)
 		{
 			var fields = this.options.position.split(/\s+/);
-			var currentEnPassant = fields[3].length==2 ? fields[3].charAt(0) : '';
+			var currentEnPassant = fields[3].length === 2 ? fields[3].charAt(0) : '';
 
 			// No value passed, act as a getter.
 			if(enPassant===undefined) {
@@ -293,12 +290,12 @@
 
 			// Otherwise, act as a setter.
 			else {
-				if(enPassant==currentEnPassant || !currentEnPassant.match(/^[a-h]?$/)) {
+				if(enPassant === currentEnPassant || !currentEnPassant.match(/^[a-h]?$/)) {
 					return;
 				}
 
 				// Compose the new FEN string.
-				fields[3] = enPassant=='' ? '-' : (enPassant + (fields[1]=='w' ? '6' : '3'));
+				fields[3] = enPassant === '' ? '-' : (enPassant + (fields[1] === 'w' ? '6' : '3'));
 				var newFen = fields.join(' ');
 
 				// Update the widget.
@@ -331,7 +328,7 @@
 			container.on(eventName, function(event, ui)
 			{
 				// Save the initial information about the geometry of the widget and its container.
-				if(obj._initialGeometryInfo==null) {
+				if(obj._initialGeometryInfo === undefined) {
 					obj._initialGeometryInfo = {
 						squareSize: obj.options.squareSize,
 						height    : ui.originalSize.height,
@@ -348,7 +345,7 @@
 				newSquareSize = Math.min(Math.max(newSquareSize, MINIMUM_SQUARE_SIZE), MAXIMUM_SQUARE_SIZE);
 
 				// Update the widget if necessary.
-				if(newSquareSize!=obj.options.squareSize) {
+				if(newSquareSize !== obj.options.squareSize) {
 					obj.options.squareSize = newSquareSize;
 					obj._refresh();
 				}
@@ -376,6 +373,9 @@
 			// Spare pieces (per column)
 			var SPARE_PIECES = ['p','n','b','r','q','k','','0'];
 
+			// Loop and temporary variables.
+			var color, c, r;
+
 			// Open the "table" node.
 			var content = '<div class="uichess-chessboard-table">';
 
@@ -392,8 +392,8 @@
 				}
 
 				// Spare pieces.
-				var color = this.options.flip ? 'w' : 'b';
-				for(var c=0; c<8; ++c) {
+				color = this.options.flip ? 'w' : 'b';
+				for(c=0; c<8; ++c) {
 					content += '<div class="uichess-chessboard-cell">';
 					if(SPARE_PIECES[c].match(/^[0-9]$/)) {
 						content +=
@@ -418,7 +418,7 @@
 			//////////////////////////////////////////////////////////////////////////
 			// For each row...
 			//////////////////////////////////////////////////////////////////////////
-			for(var r=0; r<8; ++r) {
+			for(r=0; r<8; ++r) {
 				content += '<div class="uichess-chessboard-row">';
 
 				// If visible, the row coordinates are shown in the left-most column.
@@ -427,15 +427,15 @@
 				}
 
 				// Print the squares belonging to the current column.
-				for(var c=0; c<8; ++c) {
+				for(c=0; c<8; ++c) {
 					var sq = COLUMNS[c] + ROWS[r];
 					var cp = this._position.get(sq);
 					content +=
 						'<div class="uichess-chessboard-cell uichess-chessboard-square" style="' +
 							'width: ' + SQUARE_SIZE + 'px; height: ' + SQUARE_SIZE + 'px; ' +
-							'background-color: ' + SQUARE_COLOR[this._position.square_color(sq)] + ';' +
+							'background-color: ' + SQUARE_COLOR[this._position.square_color(sq)] + ';' + /* jshint ignore:line */
 						'">';
-					if(cp!=null) {
+					if(cp !== null) {
 						content +=
 							'<div class="uichess-chessboard-piece uichess-chessboard-sprite' + SQUARE_SIZE + '" style="' +
 								'background-position: -' + OFFSET_PIECE[cp.type] + 'px -' + OFFSET_COLOR[cp.color] + 'px;' +
@@ -446,11 +446,11 @@
 
 				// Add an additional cell at the end of the row: this last column will contain the turn flag, if necessary.
 				content += '<div class="uichess-chessboard-cell">';
-				if(ROWS[r]=='8' || ROWS[r]=='1') {
-					var style = 'background-position: -' + OFFSET_PIECE['x'] + 'px -' + OFFSET_COLOR[ROWS[r]=='8' ? 'b' : 'w'] + 'px;';
+				if(ROWS[r] === '8' || ROWS[r] === '1') {
+					var style = 'background-position: -' + OFFSET_PIECE['x'] + 'px -' + OFFSET_COLOR[ROWS[r] === '8' ? 'b' : 'w'] + 'px;';
 					var clazz = 'uichess-chessboard-turnFlag uichess-chessboard-sprite' + SQUARE_SIZE;
 					var turn  = this._position.turn();
-					if((ROWS[r]=='8' && turn=='w') || (ROWS[r]=='1' && turn=='b')) {
+					if((ROWS[r] === '8' && turn === 'w') || (ROWS[r] === '1' && turn === 'b')) {
 						clazz += ' uichess-chessboard-inactiveFlag';
 					}
 					content += '<div class="' + clazz + '" style="' + style + '"></div>';
@@ -471,7 +471,7 @@
 				content += '<div class="uichess-chessboard-cell"></div>';
 
 				// Column headers
-				for(var c=0; c<8; ++c) {
+				for(c=0; c<8; ++c) {
 					content += '<div class="uichess-chessboard-cell uichess-chessboard-columnCoordinate">' + COLUMNS[c] + '</div>';
 				}
 
@@ -492,8 +492,8 @@
 				}
 
 				// Spare pieces.
-				var color = this.options.flip ? 'b' : 'w';
-				for(var c=0; c<8; ++c) {
+				color = this.options.flip ? 'b' : 'w';
+				for(c=0; c<8; ++c) {
 					content += '<div class="uichess-chessboard-cell">';
 					if(SPARE_PIECES[c].match(/^[0-9]$/)) {
 						content +=
@@ -527,7 +527,7 @@
 			$(content).appendTo(this.element);
 
 			// Enable the drag & drops feature if necessary.
-			var draggablePieces = this.options.allowMoves=='all' || this.options.allowMoves=='legal';
+			var draggablePieces = this.options.allowMoves === 'all' || this.options.allowMoves === 'legal';
 			var sparePieces     = this.options.sparePieces;
 			if(draggablePieces || sparePieces) {
 				this._tagSquares();
@@ -562,7 +562,7 @@
 			{
 				$(this).data('square', COLUMNS[c] + ROWS[r]);
 				++c;
-				if(c==8) {
+				if(c === 8) {
 					c = 0;
 					++r;
 				}
@@ -588,7 +588,7 @@
 			{
 				$(this).data('piece', { type: TYPES[t], color: COLORS[c] });
 				++t;
-				if(t==6) {
+				if(t === 6) {
 					t = 0;
 					++c;
 				}
@@ -604,9 +604,9 @@
 		 */
 		_fetchSquare: function(square)
 		{
-			return $('.uichess-chessboard-square', this.element).filter(function(index)
+			return $('.uichess-chessboard-square', this.element).filter(function()
 			{
-				return $(this).data('square')==square;
+				return $(this).data('square') === square;
 			});
 		},
 
@@ -622,7 +622,7 @@
 				hoverClass: 'uichess-chessboard-squareHover',
 				accept: function(e)
 				{
-					return $(e).closest('.uichess-chessboard-table').get(0)==tableNode;
+					return $(e).closest('.uichess-chessboard-table').get(0) === tableNode;
 				},
 				drop: function(event, ui)
 				{
@@ -638,7 +638,7 @@
 					// The draggable is a piece from the board.
 					if(movingPiece.hasClass('uichess-chessboard-piece')) {
 						var move = { from: movingPiece.parent().data('square'), to: target.data('square') };
-						if(move.from!=move.to) {
+						if(move.from !== move.to) {
 							obj._doMove(move, movingPiece, target);
 						}
 					}
@@ -658,8 +658,7 @@
 				hoverClass: 'uichess-chessboard-trashHover',
 				accept: function(e)
 				{
-					return $(e).hasClass('uichess-chessboard-piece') &&
-						$(e).closest('.uichess-chessboard-table').get(0)==tableNode;
+					return $(e).hasClass('uichess-chessboard-piece') && $(e).closest('.uichess-chessboard-table').get(0) === tableNode;
 				},
 				drop: function(event, ui)
 				{
@@ -717,19 +716,19 @@
 		{
 			// "All moves" mode -> move the moving piece to its destination square,
 			// clearing the latter beforehand if necessary.
-			if(this.options.allowMoves=='all') {
+			if(this.options.allowMoves === 'all') {
 				this._position.put(this._position.remove(move.from), move.to);
 				target.empty().append(movingPiece);
 			}
 
 			// "Legal moves" mode -> check if the proposed move is legal, and handle
 			// the special situations (promotion, castle, en-passant...) that may be encountered.
-			else if(this.options.allowMoves=='legal') {
+			else if(this.options.allowMoves === 'legal') {
 				var newMove = this._position.move(move);
-				if(newMove==null) {
+				if(newMove === null) {
 					move.promotion = 'q'; // TODO: allow other types of promoted pieces.
 					newMove = this._position.move(move);
-					if(newMove==null) {
+					if(newMove === null) {
 						return;
 					}
 				}
@@ -739,20 +738,20 @@
 				target.empty().append(movingPiece);
 
 				// Castling move -> move the rook.
-				if(move.flags.indexOf('k')>=0 || move.flags.indexOf('q')>=0) {
-					var row   = move.color=='w' ? '1' : '8';
-					var rookFrom = this._fetchSquare((move.flags.indexOf('k')>=0 ? 'h' : 'a') + row);
-					var rookTo   = this._fetchSquare((move.flags.indexOf('k')>=0 ? 'f' : 'd') + row);
+				if(move.flags.indexOf('k') >= 0 || move.flags.indexOf('q') >= 0) {
+					var row   = move.color === 'w' ? '1' : '8';
+					var rookFrom = this._fetchSquare((move.flags.indexOf('k') >= 0 ? 'h' : 'a') + row);
+					var rookTo   = this._fetchSquare((move.flags.indexOf('k') >= 0 ? 'f' : 'd') + row);
 					rookTo.empty().append($('.uichess-chessboard-piece', rookFrom));
 				}
 
 				// En-passant move -> remove the taken pawn.
-				if(move.flags.indexOf('e')>=0) {
+				if(move.flags.indexOf('e') >= 0) {
 					this._fetchSquare(move.to[0] + move.from[1]).empty();
 				}
 
 				// Promotion move -> change the type of the promoted piece.
-				if(move.flags.indexOf('p')>=0) {
+				if(move.flags.indexOf('p') >= 0) {
 					var SQUARE_SIZE  = this.options.squareSize;
 					var OFFSET_PIECE = { b:0, k:SQUARE_SIZE, n:2*SQUARE_SIZE, p:3*SQUARE_SIZE, q:4*SQUARE_SIZE, r:5*SQUARE_SIZE, x:6*SQUARE_SIZE };
 					var OFFSET_COLOR = { b:0, w:SQUARE_SIZE };
@@ -793,7 +792,7 @@
 			).appendTo(target.empty());
 
 			// Make the new piece draggable if necessary.
-			if(this.options.allowMoves=='all' || this.options.allowMoves=='legal') {
+			if(this.options.allowMoves === 'all' || this.options.allowMoves === 'legal') {
 				this._makePiecesDraggable(target);
 			}
 
@@ -838,4 +837,4 @@
 		MAXIMUM_SQUARE_SIZE: MAXIMUM_SQUARE_SIZE
 	};
 
-})(Chess, jQuery);
+})( /* global Chess */ Chess, /* global jQuery */ jQuery );
