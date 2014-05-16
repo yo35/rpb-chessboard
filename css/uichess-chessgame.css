@@ -90,7 +90,8 @@
 	content: "\a0"; /* \a0 == &nbsp; */
 }
 
-.uichess-chessgame-round {
+.uichess-chessgame-round,
+.uichess-chessgame-annotator {
 	font-style: italic;
 }
 

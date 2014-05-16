@@ -35,26 +35,35 @@
  */
 (function(Chess, Pgn, $)
 {
+
 	/**
-	 * Various strings used by the library and printed out to the screen at some
-	 * point. They are made public so that they can be localized.
-	 *
-	 * @public
-	 * @memberof PgnWidget
+	 * Internationalization constants.
 	 */
-	var text =
+	$.chessgame =
 	{
+		/**
+		 * Annotator field template.
+		 * @type {string}
+		 */
+		ANNOTATED_BY: 'Annotated by %1$s',
+
 		// Miscellaneous
 		initialPosition: 'Initial position',
 
-		// Month names
-		months: [
+		/**
+		 * Month names.
+		 * @type {string[]}
+		 */
+		MONTHS: [
 			'January', 'February', 'March'    , 'April'  , 'May'     , 'June'    ,
 			'July'   , 'August'  , 'September', 'October', 'November', 'December'
 		],
 
-		// Chess piece symbols
-		pieceSymbols: {
+		/**
+		 * Chess piece symbols.
+		 * @type {{K:string, Q:string, R:string, B:string, N:string, P:string}}
+		 */
+		PIECE_SYMBOLS: {
 			'K':'K', 'Q':'Q', 'R':'R', 'B':'B', 'N':'N', 'P':'P'
 		}
 	};
@@ -90,7 +99,7 @@
 		else if(date.match(/([0-9]{4})\.([0-9]{2})\.\?\?/)) {
 			var month = parseInt(RegExp.$2);
 			if(month>=1 && month<=12) {
-				return text.months[month-1] + ' ' + RegExp.$1;
+				return $.chessgame.MONTHS[month-1] + ' ' + RegExp.$1;
 			}
 			else
 				return RegExp.$1;
@@ -198,7 +207,7 @@
 			for(var k=0; k<notation.length; ++k) {
 				var c = notation.charAt(k);
 				if(c==='K' || c==='Q' || c==='R' || c==='B' || c==='N' || c==='P') {
-					retVal += text.pieceSymbols[c];
+					retVal += $.chessgame.PIECE_SYMBOLS[c];
 				}
 				else {
 					retVal += c;
@@ -395,6 +404,7 @@
 			headers += this._playerNameHeader('Black');
 			headers += this._eventHeader();
 			headers += this._datePlaceHeader();
+			headers += this._annotatorHeader();
 			headers += '</div>';
 
 
@@ -516,6 +526,26 @@
 			if(date !== null) header += '<span class="uichess-chessgame-date">' + date + '</span>';
 			if(site !== null) header += '<span class="uichess-chessgame-site">' + site + '</span>';
 			header += '</div>';
+			return header;
+		},
+
+
+		/**
+		 * Build the header containing the annotator information.
+		 *
+		 * @return {string}
+		 */
+		_annotatorHeader: function()
+		{
+			// Retrieve the annotator field.
+			var annotator = this._game.header('Annotator');
+			if(annotator===null) {
+				return '';
+			}
+
+			// Build and return the header.
+			var header = '<div class="uichess-chessgame-annotator">' + $.chessgame.ANNOTATED_BY.replace(/%1\$s/g,
+				'<span class="uichess-chessgame-annotatorName">' + annotator + '</span>') + '</div>';
 			return header;
 		}
 
@@ -687,70 +717,6 @@
 		// Return the result
 		return retVal;
 	}
-
-
-	/**
-	 * Replace the content of a DOM node with a text value from a PGN field. Here
-	 * is an example, for the event field (i.e. fieldName=='Event'):
-	 *
-	 * Before substitution:
-	 * <div class="PgnWidget-field-Event">
-	 *   Event: <span class="PgnWidget-anchor-Event"></span>
-	 * </div>
-	 *
-	 * After substitution, if the event field is defined:
-	 * <div class="PgnWidget-field-Event">
-	 *   Event: <span class="PgnWidget-value-Event">Aeroflot Open</span>
-	 * </div>
-	 *
-	 * After substitution, if the event field is undefined or null:
-	 * <div class="PgnWidget-field-Event PgnWidget-invisible">
-	 *   Event: <span class="PgnWidget-value-Event"></span>
-	 * </div>
-	 *
-	 * @private
-	 *
-	 * @param {jQuery} parentNode
-	 *
-	 * Each child of this node having a class attribute set to "PgnWidget-field-[fieldName]"
-	 * will be targeted by the substitution.
-	 *
-	 * @param {string} fieldName Name of the PGN field to process.
-	 * @param {Pgn.Item} pgnItem Contain the information to display.
-	 * @param {function} [formatFunc=null]
-	 *
-	 * If provided, the content of the current PGN field will be filtered by this function,
-	 * and the returned value will be used as substitution text. Otherwise, the content
-	 * of the PGN field is used "as-is".
-	 *
-	 * @memberof PgnWidget
-	 */
-	function substituteSimpleField(parentNode, fieldName, pgnItem, formatFunc)
-	{
-		// Fields to target
-		var fields = $('.PgnWidget-field-' + fieldName, parentNode);
-
-		// Determine the text that is to be inserted.
-		var value = pgnItem.header(fieldName);
-		if(formatFunc!=null) {
-			value = formatFunc(value);
-		}
-
-		// Hide the field if no value is available.
-		if(value==null) {
-			fields.addClass('PgnWidget-invisible');
-			value = '';
-		}
-
-		// Process each anchor node
-		var anchors = $('.PgnWidget-anchor-' + fieldName, fields);
-		anchors.append($('<span>' + value + '</span>'));
-		anchors.addClass   ('PgnWidget-value-'  + fieldName);
-		anchors.removeClass('PgnWidget-anchor-' + fieldName);
-	}
-
-
-
 
 
 	/**
