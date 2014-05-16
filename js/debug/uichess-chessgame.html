@@ -31,12 +31,31 @@
 
 	<hr/>
 
+	<div id="b"></div>
+
+	<hr/>
+
 	<button id="clear-button">Clear</button>
 
 	<script type="text/javascript">
 
-		// Create the widget.
-		$('#a').chessgame({ pgn: '1. e4 bad character *' });
+		// Create the widget on #a.
+		$('#a').chessgame({ pgn:
+			'[White "Kasparov, G."]\n' +
+			'[Black "Karkov, A."]\n' +
+			'[WhiteElo "2820"]\n' +
+			'[WhiteTitle "GM"]\n' +
+			'[BlackTitle "GM"]\n' +
+			'1. e4 *'
+		});
+
+		// Create the widget on #b.
+		$('#b').chessgame({ pgn:
+			'[White "Kasparov, G."]\n' +
+			'[Black "Dupont"]\n' +
+			'[WhiteElo "2820"]\n' +
+			'1. e4 *'
+		});
 
 		// Clear button: destroy the widget.
 		$('#clear-button').click(function() { $('#a').chessgame('destroy'); });

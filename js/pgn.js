@@ -486,7 +486,7 @@ Pgn = (function(Chess)
 		if(value!==undefined) {
 			this._headers[key] = value;
 		}
-		return retVal;
+		return (key in this._headers) ? this._headers[key] : null;
 	};
 
 	/**

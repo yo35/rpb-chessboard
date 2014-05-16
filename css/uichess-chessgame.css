@@ -54,3 +54,36 @@
 	background-color: #ffd;
 	padding: 0.75em 1em 0.15em;
 }
+
+
+
+/******************************************************************************/
+/*** Player name headers ***/
+
+.uichess-chessgame-colorTag {
+	width : 1.2em;
+	height: 1.2em;
+	vertical-align: middle;
+	display: inline-block;
+	border: 1px solid black;
+}
+
+.uichess-chessgame-whitePlayer .uichess-chessgame-colorTag {
+	background-color: white;
+}
+
+.uichess-chessgame-blackPlayer .uichess-chessgame-colorTag {
+	background-color: black;
+}
+
+.uichess-chessgame-titleRatingGroup:before {
+	content: " (";
+}
+
+.uichess-chessgame-titleRatingGroup:after {
+	content: ")";
+}
+
+.uichess-chessgame-playerTitle + .uichess-chessgame-playerRating:before {
+	content: " ";
+}

@@ -122,6 +122,32 @@
 
 
 	/**
+	 * Convert a PGN title field value into a human-readable title string.
+	 * Return null if the special code "-" is detected.
+	 *
+	 * @param {string} title Value of a PGN title field.
+	 * @returns {string}
+	 */
+	function formatTitle(title)
+	{
+		return (title===null || title==='-') ? null : title;
+	}
+
+
+	/**
+	 * Convert a PGN rating field value into a human-readable rating string.
+	 * Return null if the special code "?" is detected.
+	 *
+	 * @param {string} rating Value of a PGN rating field.
+	 * @returns {string}
+	 */
+	function formatRating(rating)
+	{
+		return (rating===null || rating==='?') ? null : rating;
+	}
+
+
+	/**
 	 * Convert a PGN result field value into a human-readable string.
 	 * Return null if the special code "*" is detected.
 	 *
@@ -350,7 +376,14 @@
 				return;
 			}
 
-			$('<div>TODO</div>').appendTo(this.element);
+			// Headers
+			var headers = '<div class="uichess-chessgame-headers">';
+			headers += this._playerNameHeader('White');
+			headers += this._playerNameHeader('Black');
+			headers += '</div>';
+
+
+			$('<div>' + headers + '</div>').appendTo(this.element);
 		},
 
 
@@ -384,6 +417,42 @@
 			// Close the error report box, and update the DOM element.
 			content += '</div>';
 			$(content).appendTo(this.element);
+		},
+
+
+		/**
+		 * Build the header containing the player-related information (name, rating, title)
+		 * corresponding to the requested color.
+		 *
+		 * @param {string} color Either 'White' or 'Black'.
+		 * @return {string}
+		 */
+		_playerNameHeader: function(color)
+		{
+			// Retrieve the name of the player -> no header is returned if the name not available.
+			var name = this._game.header(color);
+			if(name===null) {
+				return '';
+			}
+
+			// Build the returned header.
+			var header = '<div class="uichess-chessgame-' + color.toLowerCase() + 'Player">' +
+				'<span class="uichess-chessgame-colorTag"></span> ' +
+				'<span class="uichess-chessgame-playerName">' + name + '</span>';
+
+			// Title + rating
+			var title  = formatTitle (this._game.header(color + 'Title'));
+			var rating = formatRating(this._game.header(color + 'Elo'  ));
+			if(title !== null || rating !== null) {
+				header += '<span class="uichess-chessgame-titleRatingGroup">';
+				if(title  !== null) header += '<span class="uichess-chessgame-playerTitle">'  + title  + '</span>';
+				if(rating !== null) header += '<span class="uichess-chessgame-playerRating">' + rating + '</span>';
+				header += '</span>'
+			}
+
+			// Add the closing tag and return the result.
+			header += '</div>';
+			return header;
 		}
 
 	});
@@ -616,74 +685,7 @@
 	}
 
 
-	/**
-	 * Substitution method for the special replacement tokens fullNameWhite and
-	 * fullNameBlack. Example:
-	 *
-	 * Before substitution:
-	 * <div class="PgnWidget-field-fullNameWhite">
-	 *   White player: <span class="PgnWidget-anchor-fullNameWhite"></span>
-	 * </div>
-	 *
-	 * After substitution:
-	 * <div class="PgnWidget-field-fullNameWhite">
-	 *   White player: <span class="PgnWidget-value-fullNameWhite">
-	 *     <span class="PgnWidget-subfield-playerName">Kasparov, Garry</span>
-	 *     <span class="PgnWidget-subfield-groupTitleElo">
-	 *       <span class="PgnWidget-subfield-title">GM</span>
-	 *       <span class="PgnWidget-subfield-elo">2812</span>
-	 *     </span>
-	 *   </span>
-	 * </div>
-	 *
-	 * @private
-	 *
-	 * @param {jQuery} parentNode
-	 *
-	 * Each child of this node having a class attribute set to "PgnWidget-field-fullNameColor"
-	 * will be targeted by the substitution.
-	 *
-	 * @param {string} color Either 'w' or 'b'.
-	 * @param {Pgn.Item} pgnItem Contain the information to display.
-	 *
-	 * @memberof PgnWidget
-	 */
-	function substituteFullName(parentNode, color, pgnItem)
-	{
-		// Fields to target
-		color = (color=='w') ? 'White' : 'Black';
-		var fields = $('.PgnWidget-field-fullName' + color, parentNode);
 
-		// Hide the field if no name is available
-		var name = pgnItem.header(color);
-		if(name==null) {
-			fields.addClass('PgnWidget-invisible');
-		}
-
-		// Title + elo
-		var title = pgnItem.header(color + 'Title');
-		var elo   = pgnItem.header(color + 'Elo'  );
-		var titleDefined = (title!=null && title!='-');
-		var eloDefined   = (elo  !=null && elo  !='?');
-
-		// Process each anchor node
-		var anchors = $('.PgnWidget-anchor-fullName' + color, fields);
-		anchors.append($('<span class="PgnWidget-subfield-playerName">' + name + '</span>'));
-		if(titleDefined || eloDefined) {
-			var group = $('<span class="PgnWidget-subfield-groupTitleElo"></span>').appendTo(anchors);
-			if(titleDefined) {
-				group.append($('<span class="PgnWidget-subfield-title">' + title + '</span>'));
-			}
-			if(titleDefined && eloDefined) {
-				group.append(' ');
-			}
-			if(eloDefined) {
-				group.append($('<span class="PgnWidget-subfield-elo">' + elo + '</span>'));
-			}
-		}
-		anchors.addClass   ('PgnWidget-value-fullName'  + color);
-		anchors.removeClass('PgnWidget-anchor-fullName' + color);
-	}
 
 
 	/**
