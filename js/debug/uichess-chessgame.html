@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Sandbox for uichess-chessgame.js</title>
+
+	<!-- Third-party required components -->
+	<script type="text/javascript" src="../../chess-js/chess.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+	
+	<!-- Other required components -->
+	<script type="text/javascript" src="../pgn.js"></script>
+	<script type="text/javascript" src="../chesswidget.js"></script>
+	<link rel="stylesheet" type="text/css" href="../../css/chesswidget.css" />
+	
+	<!-- Tested component -->
+	<script type="text/javascript" src="../uichess-chessgame.js"></script>
+
+</head>
+
+<body>
+	<h1>Sandbox for uichess-chessgame.js</h1>
+
+	<hr/>
+
+	<div id="a"></div>
+
+	<hr/>
+
+	<button id="clear-button">Clear</button>
+
+	<script type="text/javascript">
+
+		// Create the widget.
+		$('#a').chessgame();
+
+		// Clear button: destroy the widget.
+		$('#clear-button').click(function() { $('#a').chessgame('destroy'); });
+
+	</script>
+
+</body>
+
+</html>
