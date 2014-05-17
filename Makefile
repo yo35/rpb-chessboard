@@ -24,7 +24,7 @@ PLUGIN_NAME = rpb-chessboard
 
 # Plugin files
 SRC_FOLDERS          = chess-js controllers css helpers images js languages models templates views wp
-SRC_PHP_FILES        = $(wildcard *.php)
+SRC_MAIN_FILE        = $(PLUGIN_NAME).php
 SRC_ASSETS           = assets
 SRC_WORDPRESS_README = wordpress.readme.txt
 SRC_INFO_FILES       = LICENSE README.md
@@ -34,7 +34,6 @@ I18N_LANGUAGE_FOLDER    = languages
 I18N_TEXT_DOMAIN        = rpbchessboard
 I18N_TRANSLATOR_KEYWORD = i18n
 I18N_SOURCE_FILES       = $(shell find . -name '*.php')
-I18N_MAIN_SOURCE_FILE   = $(PLUGIN_NAME).php
 I18N_POT_FILE           = $(I18N_LANGUAGE_FOLDER)/$(I18N_TEXT_DOMAIN).pot
 I18N_PO_FILES           = $(wildcard $(I18N_LANGUAGE_FOLDER)/*.po)
 I18N_MO_FILES           = $(patsubst %.po,%.mo,$(I18N_PO_FILES))
@@ -77,7 +76,7 @@ i18n-compile: $(I18N_MO_FILES)
 $(I18N_POT_FILE): $(I18N_SOURCE_FILES)
 	@$(ECHO) "Updating file $@..."
 	@$(XGETTEXT) -o $@ $^
-	@$(SED) -n -e "s/^Description: *\(.*\)/\n#: $(I18N_MAIN_SOURCE_FILE)\nmsgid \"\1\"\nmsgstr \"\"/p" $(I18N_MAIN_SOURCE_FILE) >> $@
+	@$(SED) -n -e "s/^Description: *\(.*\)/\n#: $(SRC_MAIN_FILE)\nmsgid \"\1\"\nmsgstr \"\"/p" $(SRC_MAIN_FILE) >> $@
 	@$(SED) -i -e "s/^#\. *$(I18N_TRANSLATOR_KEYWORD) *\(.*\)/#. \1/" $@
 
 # PO and POT file merging
@@ -97,7 +96,7 @@ $(I18N_POT_FILE): $(I18N_SOURCE_FILES)
 pack:
 	@rm -rf $(SNAPSHOT_FOLDER) $(SNAPSHOT_ARCHIVE)
 	@mkdir -p $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)
-	@cp -r $(SRC_FOLDERS) $(SRC_PHP_FILES) $(SRC_INFO_FILES) $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)
+	@cp -r $(SRC_FOLDERS) $(SRC_MAIN_FILE) $(SRC_INFO_FILES) $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)
 	@cp $(SRC_WORDPRESS_README) $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)/readme.txt
 	@cp -r $(SRC_ASSETS) $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)-assets
 	@cd $(SNAPSHOT_FOLDER) && zip -qr ../$(SNAPSHOT_ARCHIVE) $(PLUGIN_NAME) $(PLUGIN_NAME)-assets
