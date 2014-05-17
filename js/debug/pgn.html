@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Debugging pgn.js</title>
+	<title>Sandbox for pgn.js</title>
 
 	<!-- Dependencies -->
 	<script type="text/javascript" src="../../chess-js/chess.js"></script>
@@ -12,72 +12,8 @@
 	<!-- Test function -->
 	<script type="text/javascript">
 
-		/**
-		 * Try to parse a PGN string, and report the result.
-		 */
-		function testPgn(pgnString)
-		{
-			// Main node: the results will written in this node.
-			var mainNode = document.getElementById("testPgn");
+		/* global Pgn */
 
-			// Write separator
-			mainNode.appendChild(document.createElement("hr"));
-
-			// Write source
-			var pre = document.createElement("pre");
-			pre.className = "source";
-			pre.appendChild(document.createTextNode(pgnString));
-			mainNode.appendChild(pre);
-
-			// Parse the data
-			try {
-				pgn = Pgn.parse(pgnString);
-				for(var k=0; k<pgn.length; ++k)
-				{
-					// Create a DOM node for each item
-					var div = document.createElement("pre");
-					div.className = "item";
-					mainNode.appendChild(div);
-
-					// Print the item
-					printHeaders(div, pgn[k]);
-					div.appendChild(document.createTextNode("\n"));
-					printVariation(div, pgn[k].mainVariation(), "", "");
-					div.appendChild(document.createTextNode("\n"));
-					div.appendChild(document.createTextNode("Result: "+ pgn[k].result));
-				}
-			}
-
-			// Catch PGN errors
-			catch(error) {
-				if(error instanceof Pgn.ParsingException)
-				{
-					var div = document.createElement("div");
-					div.className = "error";
-					mainNode.appendChild(div);
-
-					var message = document.createElement("div");
-					message.className = "message";
-					message.appendChild(document.createTextNode(error.message));
-					div.appendChild(message);
-
-					var at = document.createElement("div");
-					at.className = "at";
-					at.appendChild(document.createTextNode("Error at position " + error.pos + ":"));
-					div.appendChild(at);
-
-					var ellip = document.createElement("span");
-					ellip.className = "ellipsis";
-					ellip.appendChild(document.createTextNode(ellipsis(error.pgnString, error.pos, 50)));
-					at.appendChild(ellip);
-				}
-
-				// Other errors => re-throw them
-				else {
-					throw error;
-				}
-			}
-		}
 
 		/**
 		 * Return a substring of string `s` starting at position `pos` and of length
@@ -85,75 +21,158 @@
 		 */
 		function ellipsis(s, pos, maxLength)
 		{
+			'use strict';
+
 			if(s.length - pos>maxLength) {
-				return s.substr(pos, maxLength) + "...";
+				return s.substr(pos, maxLength) + '...';
 			}
 			else {
 				return s.substr(pos);
 			}
 		}
 
+
 		/**
 		 * Print the headers of PGN item
 		 */
 		function printHeaders(dom, item)
 		{
+			'use strict';
+
 			var headers = item.headers();
 			for(var k=0; k<headers.length; ++k) {
 				var key  = headers[k];
-				var text = key + " = [" + item.header(key) + "]";
-				dom.appendChild(document.createTextNode(text + "\n"));
+				var text = key + ' = [' + item.header(key) + ']';
+				dom.appendChild(document.createTextNode(text + '\n'));
 			}
 		}
+
 
 		/**
 		 * Print a PGN variation
 		 */
 		function printVariation(dom, variation, indent, indentFirst)
 		{
+			'use strict';
+
 			// Variation header
-			var text = "-+";
+			var text = '-+';
 			if(variation.isLongVariation()) {
-				text += "<LONG";
+				text += '<LONG';
 			}
-			for(var k=0; k<variation.nags.length; ++k) {
-				text += " $" + variation.nags[k];
+			for(var k=0; k<variation.nags().length; ++k) {
+				text += ' $' + variation.nags()[k];
 			}
-			if(variation.comment!="") {
-				text += " {" + variation.comment + "}";
+			if(variation.comment() !== null) {
+				text += ' {' + variation.comment() + '}';
+				if(variation.isLongComment()) {
+					text += '<LONG';
+				}
 			}
-			dom.appendChild(document.createTextNode(indentFirst + text + "\n"));
+			dom.appendChild(document.createTextNode(indentFirst + text + '\n'));
 
 			// List of moves
 			var node = variation.first();
-			while(node!=null)
+			while(node !== null)
 			{
 				// Describe the move
-				var text = "(" + node.moveCounter() + ") " + node.move();
-				for(var k=0; k<node.nags.length; ++k) {
-					text += " $" + node.nags[k];
+				var text = '(' + node.moveCounter() + ') ' + node.move();
+				for(var k=0; k<node.nags().length; ++k) {
+					text += ' $' + node.nags()[k];
 				}
-				if(node.comment!="") {
-					text += " {" + node.comment + "}";
-					if(node.isLongComment) {
-						text += "<LONG";
+				if(node.comment() !== null) {
+					text += ' {' + node.comment() + '}';
+					if(node.isLongComment()) {
+						text += '<LONG';
 					}
 				}
 
 				// Print it to the current DOM node
-				dom.appendChild(document.createTextNode(indent + text + "\n"));
+				dom.appendChild(document.createTextNode(indent + text + '\n'));
 
 				// Print the sub-variations
 				for(var k=0; k<node.variations(); ++k) {
-					dom.appendChild(document.createTextNode(indent + " |\n"));
-					printVariation(dom, node.variation(k), indent+" |  ", indent+" +--");
+					dom.appendChild(document.createTextNode(indent + ' |\n'));
+					printVariation(dom, node.variation(k), indent + ' |  ', indent + ' +--');
 				}
 				if(node.variations()>0) {
-					dom.appendChild(document.createTextNode(indent + " |\n"));
+					dom.appendChild(document.createTextNode(indent + ' |\n'));
 				}
 
 				// Go to the next move
 				node = node.next();
+			}
+		}
+
+
+		/**
+		 * Try to parse a PGN string, and report the result.
+		 */
+		function testPgn(pgnString)
+		{
+			'use strict';
+
+			// Main node: the results will written in this node.
+			var mainNode = document.getElementById('testPgn');
+
+			// Write separator
+			mainNode.appendChild(document.createElement('hr'));
+
+			// Write source
+			var pre = document.createElement('pre');
+			pre.className = 'source';
+			pre.appendChild(document.createTextNode(pgnString));
+			mainNode.appendChild(pre);
+
+			// Parse the data
+			try {
+				var pgn = Pgn.parse(pgnString);
+				for(var k=0; k<pgn.length; ++k)
+				{
+					// Create a DOM node for each item
+					var div = document.createElement('pre');
+					div.className = 'item';
+					mainNode.appendChild(div);
+
+					// Print the item
+					printHeaders(div, pgn[k]);
+					div.appendChild(document.createTextNode('\n'));
+					printVariation(div, pgn[k].mainVariation(), '', '');
+					div.appendChild(document.createTextNode('\n'));
+					div.appendChild(document.createTextNode('Result: ' + pgn[k].result()));
+				}
+			}
+
+			// Catch PGN errors
+			catch(error) {
+				if(error instanceof Pgn.Error)
+				{
+					var div = document.createElement('div');
+					div.className = 'error';
+					mainNode.appendChild(div);
+
+					var message = document.createElement('div');
+					message.className = 'message';
+					message.appendChild(document.createTextNode(error.message));
+					div.appendChild(message);
+
+					if(error.pos !== null) {
+						var at = document.createElement('div');
+						at.className = 'at';
+						at.appendChild(document.createTextNode('Error at position ' + error.pos + ':'));
+						div.appendChild(at);
+
+						var ellip = document.createElement('span');
+						ellip.className = 'ellipsis';
+						ellip.appendChild(document.createTextNode(ellipsis(error.pgnString, error.pos, 50)));
+						at.appendChild(ellip);
+					}
+				}
+
+				// Other errors => re-throw them
+				else {
+					throw error;
+				}
 			}
 		}
 
@@ -193,7 +212,7 @@
 </head>
 
 <body>
-	<h1>Debugging pgn.js</h1>
+	<h1>Sandbox for pgn.js</h1>
 	<div id="testPgn"></div>
 	<script type="text/javascript">
 
@@ -268,6 +287,37 @@
 			'[FEN "r2q1b1r/ppn2kpp/2p1b3/3nP3/2BPQ3/P1N5/1PP3PP/R1B1K2R w KQ - 1 14"]\n' +
 			'[SetUp "1"]\n' +
 			'14. O-O+ Ke8 *'
+		);
+
+		// Test 6
+		testPgn(
+			'[Event "Game with strange long/short descriptors"]\n' +
+			'{Head of variation, no empty line before => short}\n' +
+			'1.e4 e5 (\n' +
+			'\n' +
+			'{In short variation => short}\n' +
+			'\n' +
+			'1...e6 +-\n' +
+			'\n' +
+			'{In short variation => short}\n' +
+			'\n' +
+			') 2.Nf3 Nc6 3.Bb5\n' +
+			'\n' +
+			'({No empty line => short} 3.Bc4 Bc5 {No empty line => short})\n' +
+			'\n' +
+			'3...a6 4.Bxc6\n' +
+			'\n' +
+			'(\n' +
+			'\n' +
+			'{Supposed to be long}\n' +
+			'\n' +
+			'4. Ba4 b5\n' +
+			'\n' +
+			'{Supposed to be long}\n' +
+			'\n' +
+			')\n' +
+			'\n' +
+			'4... dxc6 1/2-1/2'
 		);
 
 	</script>
