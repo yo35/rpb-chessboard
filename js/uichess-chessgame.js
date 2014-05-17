@@ -368,10 +368,10 @@
 				this._game = Pgn.parseOne(pgn);
 			}
 			catch(error) {
-				if(error instanceof Pgn.ParsingException) { // parsing errors are reported to the user
+				if(error instanceof Pgn.Error) { // Parsing errors are reported to the user.
 					this._game = error;
 				}
-				else { // unknown exceptions are re-thrown
+				else { // Unknown exceptions are re-thrown.
 					this._game = null;
 					throw error;
 				}
@@ -393,7 +393,7 @@
 			}
 
 			// Handle parsing error problems.
-			if(this._game instanceof Pgn.ParsingException) {
+			if(this._game instanceof Pgn.Error) {
 				this._printErrorMessage();
 				return;
 			}
@@ -575,35 +575,49 @@
 		 */
 		_buildVariation: function(variation, depth)
 		{
-			// Open a new DOM node for the variation. This is always a <div> node,
-			// but in case of short variations, it is displayed as a <span> node.
-			var retVal = '<div class="uichess-chessgame-' + (depth === 0 ? 'main' : 'sub') + 'Variation ' +
+			// Open a new DOM node for the variation.
+			var tag = variation.isLongVariation() ? 'div' : 'span';
+			var retVal = '<' + tag + ' class="uichess-chessgame-' + (depth === 0 ? 'main' : 'sub') + 'Variation ' +
 				'uichess-chessgame-' + (variation.isLongVariation() ? 'long' : 'short') + 'Variation">';
 
-			// Indicates whether a <div> node (intended to contains moves, short-comments and variations)
-			// is currently opened or not.
-			var moveGroupOpened = false;
+			// The flag `moveGroupOpened` indicates whether a `<div class="moveGroup">` node
+			// is currently opened or not. Move group nodes are supposed to contain moves,
+			// short-comments and short-variations when the parent variation is long.
+			// In short variations, there is no move groups.
+			var enableMoveGroups = variation.isLongVariation();
+			var moveGroupOpened  = false;
 
-			// Write the initial comment, if any.
-			if(variation.comment !== '') {
-				var initialComment = this._buildComment(variation.comment, variation.isLongComment);
-				if(variation.isLongComment) {
-					retVal += initialComment;
-				}
-				else {
-					retVal += '<div>' + initialComment;
+			// Open a new move group if necessary.
+			function openMoveGroup()
+			{
+				if(enableMoveGroups && !moveGroupOpened) {
+					retVal += '<div class="uichess-chessgame-moveGroup">';
 					moveGroupOpened = true;
 				}
+			}
+
+			// Close the current move group, if any.
+			function closeMoveGroup()
+			{
+				if(moveGroupOpened) {
+					retVal += '</div>';
+					moveGroupOpened = false;
+				}
+			}
+
+			// Write the initial comment, if any.
+			if(variation.comment() !== null) {
+				if(!variation.isLongComment()) {
+					openMoveGroup();
+				}
+				retVal += this._buildComment(variation.comment(), variation.isLongComment());
 			}
 
 			// Append a fake move at the beginning of the main variation, so that it will be possible
 			// to display the starting position in the navigation frame.
 			if(depth === 0) {
-				if(!moveGroupOpened) {
-					retVal += '<div>';
-					moveGroupOpened = true;
-				}
-				retVal += '<span class="uichess-chessgame-move uichess-chessgame-initialPosition" ' +
+				openMoveGroup();
+				retVal += '<span class="uichess-chessgame-move uichess-chessgame-bootstrapMove" ' +
 					'data-position="' + variation.position() + '">' + $.chessgame.INITIAL_POSITION + '</span>';
 			}
 
@@ -612,64 +626,43 @@
 			var node = variation.first();
 			while(node !== null)
 			{
-				// Open the move group if not done yet.
-				if(!moveGroupOpened) {
-					retVal += '<div>';
-					moveGroupOpened = true;
-				}
-
 				// Write the move, including directly related information (i.e. move number + NAGs).
-				var printMoveNumber = forcePrintMoveNumber || node.moveColor() === 'w';
-				var moveNumberClass = 'uichess-chessgame-moveNumber' + (printMoveNumber ? '' : ' uichess-chessgame-hiddenMoveNumber');
-				var moveNumberText  = node.fullMoveNumber() + (node.moveColor() === 'w' ? '.' : '\u2026');
-				retVal += '<span class="uichess-chessgame-move" data-position="' + node.position() + '">' +
-					'<span class="' + moveNumberClass + '">' + moveNumberText + '</span>' +
-					formatMoveNotation(node.move());
-				for(var k=0; k<node.nags.length; ++k) {
-					retVal += ' ' + formatNag(node.nags[k]);
-				}
-				retVal += '</span>';
+				openMoveGroup();
+				retVal += this._buildMove(node, forcePrintMoveNumber);
 
 				// Write the comment (if any).
-				if(node.comment !== '') {
-					var comment = this._buildComment(node.comment, node.isLongComment);
-					if(node.isLongComment) {
-						retVal += '</div>' + comment + '<div>';
+				if(node.comment() !== null) {
+					if(node.isLongComment()) {
+						closeMoveGroup();
 					}
-					else {
-						retVal += comment;
-					}
-				}
-
-				// Close the current move group if some long variations are about to be printed.
-				if(node.areLongVariations && node.variations() > 0) {
-					retVal += '</div>';
-					moveGroupOpened = false;
+					retVal += this._buildComment(node.comment(), node.isLongComment());
 				}
 
 				// Write the sub-variations.
 				for(var k=0; k<node.variations(); ++k) {
+					if(node.variation(k).isLongVariation()) {
+						closeMoveGroup();
+					}
+					else {
+						openMoveGroup();
+					}
 					retVal += this._buildVariation(node.variation(k), depth+1);
 				}
 
 				// Back to the current variation, go to the next move.
-				forcePrintMoveNumber = (node.comment !== '' || node.variations() > 0);
+				forcePrintMoveNumber = (node.comment() !== null || node.variations() > 0);
 				node = node.next();
-
-			} // while(node !== null)
+			}
 
 			// Close the opened DOM nodes, and returned the result.
-			if(moveGroupOpened) {
-				retVal += '</div>';
-				moveGroupOpened = false;
-			}
-			retVal += '</div>';
+			closeMoveGroup();
+			retVal += '</' + tag + '>';
 			return retVal;
 		},
 
 
 		/**
-		 * Build the given text comment.
+		 * Build the DOM node corresponding to the given text comment.
 		 *
 		 * @param {string} comment
 		 * @param {boolean} isLongComment
@@ -677,8 +670,42 @@
 		 */
 		_buildComment: function(comment, isLongComment)
 		{
-			return '<div class="uichess-chessgame-' + (isLongComment ? 'long' : 'short') + 'Comment">' +
-				comment + '</div>';
+			var tag = isLongComment ? 'div' : 'span';
+			return '<' + tag + ' class="uichess-chessgame-' + (isLongComment ? 'long' : 'short') + 'Comment">' +
+				comment + '</' + tag + '>';
+		},
+
+
+		/**
+		 * Build the DOM node corresponding to the given move (move number, SAN notation, NAGs).
+		 *
+		 * @param {Pgn.Node} node
+		 * @param {boolean} forcePrintMoveNumber
+		 * @return {string}
+		 */
+		_buildMove: function(node, forcePrintMoveNumber)
+		{
+			// Create the DOM node.
+			var retVal = '<span class="uichess-chessgame-move" data-position="' + node.position() + '">';
+
+			// Move number
+			var printMoveNumber = forcePrintMoveNumber || node.moveColor() === 'w';
+			var moveNumberClass = 'uichess-chessgame-moveNumber' + (printMoveNumber ? '' : ' uichess-chessgame-hiddenMoveNumber');
+			var moveNumberText  = node.fullMoveNumber() + (node.moveColor() === 'w' ? '.' : '\u2026');
+			retVal += '<span class="' + moveNumberClass + '">' + moveNumberText + '</span>';
+
+			// SAN notation.
+			retVal += formatMoveNotation(node.move());
+
+			// NAGs
+			var nags = node.nags();
+			for(var k=0; k<nags.length; ++k) {
+				retVal += ' ' + formatNag(nags[k]);
+			}
+
+			// Close the DOM node.
+			retVal += '</span>';
+			return retVal;
 		}
 
 	});

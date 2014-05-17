@@ -98,3 +98,53 @@
 .uichess-chessgame-date + .uichess-chessgame-site:before {
 	content: "\a0\2013\a0"; /* \a0 == &nbsp;   \2013 == &ndash; */
 }
+
+
+
+/******************************************************************************/
+/*** PGN body ***/
+
+.uichess-chessgame-move {
+	font-weight: bold;
+	display: inline-block;
+	padding-left : 1px;
+	padding-right: 1px;
+}
+
+.uichess-chessgame-move.uichess-chessgame-bootstrapMove {
+	display: none;
+}
+
+.uichess-chessgame-subVariation .uichess-chessgame-move {
+	font-weight: inherit;
+}
+
+.uichess-chessgame-move,
+.uichess-chessgame-shortComment,
+.uichess-chessgame-shortVariation {
+	margin-right: 0.4em;
+}
+
+.uichess-chessgame-move:last-child,
+.uichess-chessgame-shortComment:last-child,
+.uichess-chessgame-shortVariation:last-child {
+	margin-right: 0px;
+}
+
+.uichess-chessgame-shortVariation:before {
+	content: "(";
+}
+
+.uichess-chessgame-shortVariation:after {
+	content: ")";
+}
+
+.uichess-chessgame-longComment,
+.uichess-chessgame-longVariation.uichess-chessgame-subVariation {
+	margin-top   : 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.uichess-chessgame-longVariation.uichess-chessgame-subVariation {
+	margin-left: 1.5em;
+}
