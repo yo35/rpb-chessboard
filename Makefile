@@ -43,13 +43,14 @@ SNAPSHOT_FOLDER  = tmp
 SNAPSHOT_ARCHIVE = $(PLUGIN_NAME).zip
 
 # Various commands
-ECHO     = echo
-SED      = sed
-TOUCH    = touch
-XGETTEXT = xgettext --from-code=UTF-8 --language=PHP -c$(I18N_TRANSLATOR_KEYWORD) -k__ -k_e
-MSGMERGE = msgmerge -v
-MSGFMT   = msgfmt -v
-
+ECHO      = echo
+SED       = sed
+TOUCH     = touch
+XGETTEXT  = xgettext --from-code=UTF-8 --language=PHP -c$(I18N_TRANSLATOR_KEYWORD) -k__ -k_e
+MSGMERGE  = msgmerge -v
+MSGFMT    = msgfmt -v
+COLOR_IN  = \033[34;1m
+COLOR_OUT = \033[0m
 
 # Help notice
 all: help
@@ -74,21 +75,21 @@ i18n-compile: $(I18N_MO_FILES)
 
 # POT file generation
 $(I18N_POT_FILE): $(I18N_SOURCE_FILES)
-	@$(ECHO) "Updating file $@..."
+	@$(ECHO) "$(COLOR_IN)Updating file $@...$(COLOR_OUT)"
 	@$(XGETTEXT) -o $@ $^
 	@$(SED) -n -e "s/^Description: *\(.*\)/\n#: $(SRC_MAIN_FILE)\nmsgid \"\1\"\nmsgstr \"\"/p" $(SRC_MAIN_FILE) >> $@
 	@$(SED) -i -e "s/^#\. *$(I18N_TRANSLATOR_KEYWORD) *\(.*\)/#. \1/" $@
 
 # PO and POT file merging
 %.po: $(I18N_POT_FILE)
-	@$(ECHO) "Merging file $@..."
+	@$(ECHO) "$(COLOR_IN)Merging file $@...$(COLOR_OUT)"
 	@$(MSGMERGE) -U $@ $^
 	@$(TOUCH) $@
 	@rm -f $(I18N_LANGUAGE_FOLDER)/*.po~
 
 # PO file compilation
 %.mo: %.po
-	@$(ECHO) "Compiling file $@..."
+	@$(ECHO) "$(COLOR_IN)Compiling file $@...$(COLOR_OUT)"
 	@$(MSGFMT) -o $@ $^
 
 
@@ -101,7 +102,7 @@ pack:
 	@cp -r $(SRC_ASSETS) $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)-assets
 	@cd $(SNAPSHOT_FOLDER) && zip -qr ../$(SNAPSHOT_ARCHIVE) $(PLUGIN_NAME) $(PLUGIN_NAME)-assets
 	@rm -rf $(SNAPSHOT_FOLDER)
-	@$(ECHO) "$(SNAPSHOT_ARCHIVE) updated"
+	@$(ECHO) "$(COLOR_IN)$(SNAPSHOT_ARCHIVE) updated$(COLOR_OUT)"
 
 
 # Make's stuff
