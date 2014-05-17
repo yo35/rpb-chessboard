@@ -100,7 +100,7 @@ var Pgn = (function(Chess) /* exported Pgn */
 		 * @member {boolean} isLongComment
 		 * @memberof Pgn.Node
 		 * @instance
-		 * @desc Whether the text comment associated to the move should be considred as a "long" comment,
+		 * @desc Whether the text comment associated to the move should be considered as a "long" comment,
 		 *       and therefored displayed in an isolated block.
 		 */
 		this.isLongComment = false;
@@ -117,7 +117,7 @@ var Pgn = (function(Chess) /* exported Pgn */
 		 * @member {boolean} areLongVariations
 		 * @memberof Pgn.Node
 		 * @instance
-		 * @desc Whether the variations associated to the move should be considred as a "long" variations,
+		 * @desc Whether the variations associated to the move should be considered as a "long" variations,
 		 *       and therefored displayed in isolated blocks.
 		 */
 		this.areLongVariations = false;
@@ -321,7 +321,7 @@ var Pgn = (function(Chess) /* exported Pgn */
 		 * @member {boolean} isLongComment
 		 * @memberof Pgn.Variation
 		 * @instance
-		 * @desc Whether the text comment at the beginning of the variation should be considred as a "long" comment,
+		 * @desc Whether the text comment at the beginning of the variation should be considered as a "long" comment,
 		 *       and therefored displayed in an isolated block.
 		 */
 		this.isLongComment = false;
