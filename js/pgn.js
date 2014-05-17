@@ -855,6 +855,34 @@ var Pgn = (function(Chess) /* exported Pgn */
 	}
 
 
+	/**
+	 * PGN parsing function (exactly one expected item).
+	 *
+	 * @param {string} pgnString String to parse.
+	 * @returns {Pgn.Item}
+	 * @throws {ParsingException}
+	 *
+	 * @memberof Pgn
+	 */
+	function parseOne(pgnString)
+	{
+		var items = Pgn.parse(pgnString);
+		switch(items.length) {
+
+			// No item found -> throw an exception.
+			case 0:
+				throw new ParsingException(pgnString, null, 'Unexpected empty PGN data.');
+
+			// 1 item found -> return it.
+			case 1:
+				return items[0];
+
+			// More than 1 item found -> throw an exception.
+			default:
+				throw new ParsingException(pgnString, null, 'The PGN data is expected to contain only one game.');
+		}
+	}
+
 
 	// Returned the module object
 	return {
@@ -862,7 +890,8 @@ var Pgn = (function(Chess) /* exported Pgn */
 		Variation       : Variation       ,
 		Item            : Item            ,
 		ParsingException: ParsingException,
-		parse           : parse
+		parse           : parse           ,
+		parseOne        : parseOne
 	};
 
 })( /* global Chess */ Chess );

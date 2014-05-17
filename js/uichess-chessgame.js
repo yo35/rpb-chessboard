@@ -358,14 +358,7 @@
 
 			// Parse the input assuming a PGN format.
 			try {
-				var items = Pgn.parse(pgn);
-				if(items.length===0) {
-					throw new Pgn.ParsingException(pgn, null, 'Unexpected empty PGN data.');
-				}
-				else if(items.length > 1) {
-					throw new Pgn.ParsingException(pgn, null, 'The PGN data is expected to contain only one game.');
-				}
-				this._game = items[0];
+				this._game = Pgn.parseOne(pgn);
 			}
 			catch(error) {
 				if(error instanceof Pgn.ParsingException) { // parsing errors are reported to the user
