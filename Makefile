@@ -29,11 +29,14 @@ SRC_ASSETS           = assets
 SRC_WORDPRESS_README = wordpress.readme.txt
 SRC_INFO_FILES       = LICENSE README.md
 
+# Files by type
+JS_FILES  = $(shell find js -name '*.js')
+PHP_FILES = $(shell find . -name '*.php')
+
 # Localization
 I18N_LANGUAGE_FOLDER    = languages
 I18N_TEXT_DOMAIN        = rpbchessboard
 I18N_TRANSLATOR_KEYWORD = i18n
-I18N_SOURCE_FILES       = $(shell find . -name '*.php')
 I18N_POT_FILE           = $(I18N_LANGUAGE_FOLDER)/$(I18N_TEXT_DOMAIN).pot
 I18N_PO_FILES           = $(wildcard $(I18N_LANGUAGE_FOLDER)/*.po)
 I18N_MO_FILES           = $(patsubst %.po,%.mo,$(I18N_PO_FILES))
@@ -49,6 +52,7 @@ TOUCH     = touch
 XGETTEXT  = xgettext --from-code=UTF-8 --language=PHP -c$(I18N_TRANSLATOR_KEYWORD) -k__ -k_e
 MSGMERGE  = msgmerge -v
 MSGFMT    = msgfmt -v
+JSHINT    = jshint
 COLOR_IN  = \033[34;1m
 COLOR_OUT = \033[0m
 
@@ -59,6 +63,7 @@ help:
 	@$(ECHO) " * make i18n-extract: extract the strings to translate."
 	@$(ECHO) " * make i18n-merge: merge the translation files (*.po) with the template (.pot)."
 	@$(ECHO) " * make i18n-compile: compile the translation files (*.po) into binaries (*.mo)."
+	@$(ECHO) " * make lint-js: run the static analysis of JavaScript files."
 	@$(ECHO) " * make pack: pack the source files into a zip file, ready for WordPress deployment."
 	@$(ECHO) " * make help: show this help."
 
@@ -74,11 +79,12 @@ i18n-compile: $(I18N_MO_FILES)
 
 
 # POT file generation
-$(I18N_POT_FILE): $(I18N_SOURCE_FILES)
+$(I18N_POT_FILE): $(PHP_FILES)
 	@$(ECHO) "$(COLOR_IN)Updating file $@...$(COLOR_OUT)"
 	@$(XGETTEXT) -o $@ $^
 	@$(SED) -n -e "s/^Description: *\(.*\)/\n#: $(SRC_MAIN_FILE)\nmsgid \"\1\"\nmsgstr \"\"/p" $(SRC_MAIN_FILE) >> $@
 	@$(SED) -i -e "s/^#\. *$(I18N_TRANSLATOR_KEYWORD) *\(.*\)/#. \1/" $@
+
 
 # PO and POT file merging
 %.po: $(I18N_POT_FILE)
@@ -87,14 +93,21 @@ $(I18N_POT_FILE): $(I18N_SOURCE_FILES)
 	@$(TOUCH) $@
 	@rm -f $(I18N_LANGUAGE_FOLDER)/*.po~
 
+
 # PO file compilation
 %.mo: %.po
 	@$(ECHO) "$(COLOR_IN)Compiling file $@...$(COLOR_OUT)"
 	@$(MSGFMT) -o $@ $^
 
 
+# JavaScript validation
+lint-js:
+	@$(ECHO) "$(COLOR_IN)Checking the JavaScript files...$(COLOR_OUT)"
+	@$(JSHINT) $(JS_FILES)
+
+
 # Pack the source files into a zip file, ready for WordPress deployment
-pack:
+pack: lint-js
 	@rm -rf $(SNAPSHOT_FOLDER) $(SNAPSHOT_ARCHIVE)
 	@mkdir -p $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)
 	@cp -r $(SRC_FOLDERS) $(SRC_MAIN_FILE) $(SRC_INFO_FILES) $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)
@@ -106,4 +119,4 @@ pack:
 
 
 # Make's stuff
-.PHONY: i18n-extract i18n-merge i18n-compile pack help
+.PHONY: help i18n-extract i18n-merge i18n-compile lint-js pack
