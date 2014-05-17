@@ -47,8 +47,11 @@
 		 */
 		ANNOTATED_BY: 'Annotated by %1$s',
 
-		// Miscellaneous
-		initialPosition: 'Initial position',
+		/**
+		 * Initial position label.
+		 * @type {string}
+		 */
+		INITIAL_POSITION: 'Initial position',
 
 		/**
 		 * Month names.
@@ -400,8 +403,13 @@
 			headers += this._annotatorHeader();
 			headers += '</div>';
 
+			// Body
+			var body = '<div class="uichess-chessgame-body">';
+			body += this._buildMoves();
+			body += '</div>';
 
-			$('<div>' + headers + '</div>').appendTo(this.element);
+			// Render the content.
+			$(headers + body).appendTo(this.element);
 		},
 
 
@@ -540,290 +548,137 @@
 			var header = '<div class="uichess-chessgame-annotator">' + $.chessgame.ANNOTATED_BY.replace(/%1\$s/g,
 				'<span class="uichess-chessgame-annotatorName">' + annotator + '</span>') + '</div>';
 			return header;
-		}
+		},
 
+
+		/**
+		 * Build the move tree.
+		 *
+		 * @return {string}
+		 */
+		_buildMoves: function()
+		{
+			return this._buildVariation(this._game.mainVariation(), 0);
+		},
+
+
+		/**
+		 * Build the move tree corresponding to the given variation.
+		 *
+		 * @param {Pgn.Variation} variation
+		 * @param {number} depth
+		 * @return {string}
+		 */
+		_buildVariation: function(variation, depth)
+		{
+			// Open a new DOM node for the variation. This is always a <div> node,
+			// but in case of short variations, it is displayed as a <span> node.
+			var retVal = '<div class="uichess-chessgame-' + (depth === 0 ? 'main' : 'sub') + 'Variation ' +
+				'uichess-chessgame-' + (variation.isLongVariation() ? 'long' : 'short') + 'Variation">';
+
+			// Indicates whether a <div> node (intended to contains moves, short-comments and variations)
+			// is currently opened or not.
+			var moveGroupOpened = false;
+
+			// Write the initial comment, if any.
+			if(variation.comment !== '') {
+				var initialComment = this._buildComment(variation.comment, variation.isLongComment);
+				if(variation.isLongComment) {
+					retVal += initialComment;
+				}
+				else {
+					retVal += '<div>' + initialComment;
+					moveGroupOpened = true;
+				}
+			}
+
+			// Append a fake move at the beginning of the main variation, so that it will be possible
+			// to display the starting position in the navigation frame.
+			if(depth==0) {
+				if(!moveGroupOpened) {
+					retVal += '<div>';
+					moveGroupOpened = true;
+				}
+				retVal += '<span class="uichess-chessgame-move uichess-chessgame-initialPosition" ' +
+					'data-position="' + pgnVariation.position() + '">' + $.chessgame.INITIAL_POSITION + '</span>';
+			}
+
+			// Visit all the PGN nodes (one node per move) within the variation.
+			var forcePrintMoveNumber = true;
+			var node = pgnVariation.first();
+			while(node !== null)
+			{
+				// Open the move group if not done yet.
+				if(!moveGroupOpened) {
+					retVal += '<div>';
+					moveGroupOpened = true;
+				}
+
+				// Write the move, including directly related information (i.e. move number + NAGs).
+				var printMoveNumber = forcePrintMoveNumber || pgnNode.moveColor() === 'w';
+				var moveNumberClass = 'uichess-chessgame-moveNumber' + (printMoveNumber ? '' : ' uichess-chessgame-hiddenMoveNumber');
+				var moveNumberText  = node.fullMoveNumber() + (pgnNode.moveColor() === 'w' ? '.' : '\u2026');
+				retVal += '<span class="uichess-chessgame-move" data-position="' + node.position() + '">' +
+					'<span class="' + moveNumberClass + '">' + moveNumberText + '</span>' +
+					formatMoveNotation(node.move());
+				for(var k=0; k<node.nags.length; ++k) {
+					retVal += ' ' + formatNag(node.nags[k]);
+				}
+				retVal += '</span>';
+
+				// Write the comment (if any).
+				if(node.comment !== '') {
+					var comment = this._buildComment(node.comment, node.isLongComment);
+					if(node.isLongComment) {
+						retVal += '</div>' + comment + '<div>';
+					}
+					else {
+						retVal += comment;
+					}
+				}
+
+				// Close the current move group if some long variations are about to be printed.
+				if(node.areLongVariations() && node.variations() > 0) {
+					retVal += '</div>';
+					moveGroupOpened = false;
+				}
+
+				// Write the sub-variations.
+				for(var k=0; k<pgnNode.variations(); ++k) {
+					retVal += this._buildVariation(node.variation(k), depth+1);
+				}
+
+				// Back to the current variation, go to the next move.
+				forcePrintMoveNumber = (node.comment !== '' || node.variations() > 0);
+				node = node.next();
+
+			} // while(node !== null)
+
+			// Close the opened DOM nodes, and returned the result.
+			if(moveGroupOpened) {
+				retVal += '</div>';
+				moveGroupOpened = false;
+			}
+			retVal += '</div>';
+			return retVal;
+		},
+
+
+		/**
+		 * Build the given text comment.
+		 *
+		 * @param {string} comment
+		 * @param {boolean} isLongComment
+		 * @return {string}
+		 */
+		_buildComment: function(comment, isLongComment)
+		{
+			return '<div class="uichess-chessgame-' + (isLongComment ? 'long' : 'short') + 'Comment">' +
+				comment + '</div>';
+		}
 
 	});
 
-
-	/**
-	 * Create a new DOM node to render the text comment associated to the given PGN node.
-	 * This function may return null if no comment is associated to the PGN node.
-	 *
-	 * @private
-	 *
-	 * @param {(Pgn.Node|Pgn.Variation)} pgnNode Node or variation object containing the comment to render.
-	 * @param {object} options Default set of options for displaying inline diagrams.
-	 * @returns {jQuery}
-	 *
-	 * @memberof PgnWidget
-	 */
-	function renderComment(pgnNode, options)
-	{
-		// Nothing to do if no comment is defined on the current PGN node.
-		if(pgnNode.comment=='') {
-			return null;
-		}
-
-		// Create the returned object, and parse the comment string
-		var retVal = $(pgnNode.isLongComment ?
-			'<div class="PgnWidget-longComment">' + pgnNode.comment + '</div>' :
-			'<span class="PgnWidget-comment">' + pgnNode.comment + '</span>'
-		);
-
-		// Render diagrams where requested
-		$('.PgnWidget-anchor-diagram', retVal).each(function(index, e)
-		{
-			// Try to parse the content of the node as a JSON string.
-			var currentOptions = $.extend({ position: pgnNode.position() }, options);
-			try {
-				$.extend(currentOptions, $.parseJSON('{' + $(e).text() + '}'));
-			}
-			catch(err) {}
-
-			// Render the diagram
-			$(e).chessboard(currentOptions);
-		});
-
-		// Return the result
-		return retVal;
-	}
-
-
-	/**
-	 * Create a new DOM node to render a variation taken from a PGN tree. This function
-	 * is recursive, and never returns null.
-	 *
-	 * @private
-	 *
-	 * @param {Pgn.Variation} pgnVariation PGN variation object to render.
-	 * @param {number} depth Depth of the PGN node within its belonging PGN tree (0 for the main variation, 1 for a direct sub-variation, etc...)
-	 * @param {object} inlineOptions Default set of options for displaying inline diagrams.
-	 * @param {object} navOptions Set of options to use for the navigation frame.
-	 * @returns {jQuery}
-	 *
-	 * @memberof PgnWidget
-	 */
-	function renderVariation(pgnVariation, depth, inlineOptions, navOptions)
-	{
-		// Allocate the returned DOM node
-		var retVal = $(pgnVariation.isLongVariation() ?
-			'<div class="PgnWidget-longVariation"></div>' :
-			'<span class="PgnWidget-shortVariation"></span>'
-		);
-		retVal.addClass('PgnWidget-variation-' + (depth==0 ? 'main' : 'sub'));
-
-		// The variation may start with an initial comment.
-		var initialComment = renderComment(pgnVariation, inlineOptions);
-		if(initialComment!=null) {
-			if(pgnVariation.isLongComment) { // Long comments do not belong to any move group.
-				retVal.append(initialComment);
-				initialComment = null;
-			}
-		}
-
-		// State variables
-		var moveGroup = $('<span class="PgnWidget-moveGroup"></span>').appendTo(retVal);
-		var prevMove  = null;
-		if(initialComment!=null) {
-			moveGroup.append(initialComment);
-		}
-
-		// Append a fake move at the beginning of the main variation,
-		// so that it will be possible to display the starting position
-		// in the navigation frame.
-		if(depth==0) {
-			var move = $(
-				'<span class="PgnWidget-move PgnWidget-invisible">' + text.initialPosition + '</span>'
-			).appendTo(moveGroup);
-			move.data('position'  , pgnVariation.position());
-			move.data('navOptions', navOptions);
-			move.click(function() { showNavigationFrame($(this)); });
-			prevMove = move;
-		}
-
-		// Visit all the PGN nodes (one node per move) within the variation
-		var forcePrintMoveNumber = true;
-		var pgnNode              = pgnVariation.first();
-		while(pgnNode!=null)
-		{
-			// Create the DOM node that will contains the basic move informations
-			// (i.e. move number, notation, NAGs)
-			var move = $('<span class="PgnWidget-move"></span>').appendTo(moveGroup);
-			move.data('position'  , pgnNode.position());
-			move.data('navOptions', navOptions);
-			move.click(function() { showNavigationFrame($(this)); });
-
-			// Link to the previous move, if any
-			if(prevMove!=null) {
-				prevMove.data('nextMove', move    );
-				move    .data('prevMove', prevMove);
-			}
-			prevMove = move;
-
-			// Write the move number
-			var moveNumber = $(
-				'<span class="PgnWidget-move-number">' +
-					pgnNode.fullMoveNumber() + (pgnNode.moveColor()=='w' ? '.' : '\u2026') +
-				'</span>'
-			).appendTo(move);
-			if(!(forcePrintMoveNumber || pgnNode.moveColor()=='w')) {
-				moveNumber.addClass('PgnWidget-invisible');
-			}
-
-			// Write the notation
-			move.append(formatMoveNotation(pgnNode.move()));
-
-			// Write the NAGs (if any)
-			for(var k=0; k<pgnNode.nags.length; ++k) {
-				move.append(' ' + formatNag(pgnNode.nags[k]));
-			}
-
-			// Write the comment (if any)
-			var comment = renderComment(pgnNode, inlineOptions);
-			if(comment!=null) {
-				if(pgnNode.isLongComment) { // Long comments do not belong to any move group.
-					retVal.append(comment);
-					moveGroup = $('<span class="PgnWidget-moveGroup"></span>').appendTo(retVal);
-				}
-				else {
-					moveGroup.append(comment);
-				}
-			}
-
-			// Sub-variations starting from the current point in PGN tree
-			if(pgnNode.variations()>0) {
-				var variationParent = pgnNode.areLongVariations ? retVal : moveGroup;
-				for(var k=0; k<pgnNode.variations(); ++k) {
-					variationParent.append(renderVariation(pgnNode.variation(k), depth+1, inlineOptions, navOptions));
-				}
-				if(pgnNode.areLongVariations) {
-					moveGroup = $('<span class="PgnWidget-moveGroup"></span>').appendTo(retVal);
-				}
-			}
-
-			// Back to the current variation
-			forcePrintMoveNumber = (pgnNode.comment!='' || pgnNode.variations()>0);
-			pgnNode = pgnNode.next();
-		}
-
-		// Return the result
-		return retVal;
-	}
-
-
-	/**
-	 * Substitution method for the special replacement token moves (which stands
-	 * for the move tree associated to a PGN item). Example:
-	 *
-	 * Before substitution:
-	 * <div class="PgnWidget-field-moves">
-	 *   <span class="PgnWidget-anchor-moves"></span>
-	 * </div>
-	 *
-	 * After substitution:
-	 * <div class="PgnWidget-field-moves">
-	 *   <span class="PgnWidget-value-moves">1.e4 e5</span>
-	 * </div>
-	 *
-	 * @private
-	 *
-	 * @param {jQuery} parentNode
-	 *
-	 * Each child of this node having a class attribute set to "PgnWidget-field-moves"
-	 * will be targeted by the substitution.
-	 *
-	 * @param {Pgn.Item} pgnItem Contain the information to display.
-	 * @param {object} inlineOptions Default set of options for displaying inline diagrams.
-	 * @param {object} navOptions Set of options to use for the navigation frame.
-	 *
-	 * @memberof PgnWidget
-	 */
-	function substituteMoves(parentNode, pgnItem, inlineOptions, navOptions)
-	{
-		// Fields to target
-		var fields = $('.PgnWidget-field-moves', parentNode);
-
-		// Hide the field if no move tree is available
-		if(pgnItem.mainVariation().first()==null && pgnItem.mainVariation().comment=='') {
-			fields.addClass('PgnWidget-invisible');
-		}
-
-		// Process each anchor node
-		var anchors = $('.PgnWidget-anchor-moves', fields);
-		anchors.append(renderVariation(pgnItem.mainVariation(), 0, inlineOptions, navOptions));
-		anchors.addClass   ('PgnWidget-value-moves' );
-		anchors.removeClass('PgnWidget-anchor-moves');
-	}
-
-
-	/**
-	 * Fill a DOM node with the information contained in a PGN item object.
-	 *
-	 * @param {(Pgn.Item|string)} pgn PGN data to represent.
-	 *
-	 * If the argument is a string, the function will try to parse it as a
-	 * PGN-formatted string. If the parsing fails, or if the string contains no PGN item,
-	 * the targeted DOM node is cleared, and an error message is displayed instead.
-	 *
-	 * @param {jQuery} targetNode
-	 * @param {object} [inlineOptions=null] Default set of options for displaying inline diagrams.
-	 * @param {object} [navOptions=null] Set of options to use for the navigation frame.
-	 * @returns {boolean} False if the parsing of the PGN string fails, true otherwise.
-	 *
-	 * @memberof PgnWidget
-	 */
-	function makeAt(pgn, targetNode, inlineOptions, navOptions)
-	{
-		// Default options
-		if(inlineOptions==null) {
-			inlineOptions = null;
-		}
-		if(navOptions==null) {
-			navOptions = null;
-		}
-
-		// PGN parsing
-		if(typeof(pgn)=='string') {
-			try {
-				var items = Pgn.parse(pgn);
-				if(items.length==0) {
-					throw new Pgn.ParsingException(pgn, null, 'Unexpected empty PGN data.');
-				}
-				pgn = items[0];
-			}
-
-			// Catch the parsing errors
-			catch(error) {
-				if(error instanceof Pgn.ParsingException) {
-					displayErrorMessage(error, targetNode);
-					return false;
-				}
-				else { // unknown exception are re-thrown
-					throw error;
-				}
-			}
-		}
-
-		// Create the navigation frame if necessary
-		makeNavigationFrame(targetNode, navOptions);
-
-		// Substitution
-		substituteSimpleField(targetNode, 'Event'    , pgn);
-		substituteSimpleField(targetNode, 'Site'     , pgn);
-		substituteSimpleField(targetNode, 'Date'     , pgn, formatDate );
-		substituteSimpleField(targetNode, 'Round'    , pgn, formatRound);
-		substituteSimpleField(targetNode, 'White'    , pgn);
-		substituteSimpleField(targetNode, 'Black'    , pgn);
-		substituteSimpleField(targetNode, 'Result'   , pgn, formatResult);
-		substituteSimpleField(targetNode, 'Annotator', pgn);
-		substituteFullName(targetNode, 'w', pgn);
-		substituteFullName(targetNode, 'b', pgn);
-		substituteMoves(targetNode, pgn, inlineOptions, navOptions);
-
-		// Indicate that the parsing succeeded.
-		return true;
-	}
 
 
 	/**
