@@ -373,9 +373,6 @@
 			// Spare pieces (per column)
 			var SPARE_PIECES = ['p','n','b','r','q','k','','0'];
 
-			// Loop and temporary variables.
-			var color, c, r;
-
 			// Open the "table" node.
 			var content = '<div class="uichess-chessboard-table">';
 
@@ -392,8 +389,8 @@
 				}
 
 				// Spare pieces.
-				color = this.options.flip ? 'w' : 'b';
-				for(c=0; c<8; ++c) {
+				var color = this.options.flip ? 'w' : 'b';
+				for(var c=0; c<8; ++c) {
 					content += '<div class="uichess-chessboard-cell">';
 					if(SPARE_PIECES[c].match(/^[0-9]$/)) {
 						content +=
@@ -418,7 +415,7 @@
 			//////////////////////////////////////////////////////////////////////////
 			// For each row...
 			//////////////////////////////////////////////////////////////////////////
-			for(r=0; r<8; ++r) {
+			for(var r=0; r<8; ++r) {
 				content += '<div class="uichess-chessboard-row">';
 
 				// If visible, the row coordinates are shown in the left-most column.
@@ -427,7 +424,7 @@
 				}
 
 				// Print the squares belonging to the current column.
-				for(c=0; c<8; ++c) {
+				for(var c=0; c<8; ++c) {
 					var sq = COLUMNS[c] + ROWS[r];
 					var cp = this._position.get(sq);
 					content +=
@@ -471,7 +468,7 @@
 				content += '<div class="uichess-chessboard-cell"></div>';
 
 				// Column headers
-				for(c=0; c<8; ++c) {
+				for(var c=0; c<8; ++c) {
 					content += '<div class="uichess-chessboard-cell uichess-chessboard-columnCoordinate">' + COLUMNS[c] + '</div>';
 				}
 
@@ -492,8 +489,8 @@
 				}
 
 				// Spare pieces.
-				color = this.options.flip ? 'b' : 'w';
-				for(c=0; c<8; ++c) {
+				var color = this.options.flip ? 'b' : 'w';
+				for(var c=0; c<8; ++c) {
 					content += '<div class="uichess-chessboard-cell">';
 					if(SPARE_PIECES[c].match(/^[0-9]$/)) {
 						content +=

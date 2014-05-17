@@ -67,7 +67,7 @@
 	"proto"       : false,    // Allow usage of __proto__ property.
 	"scripturl"   : false,    // Allow script-targeted URLs, e.g. `href="javascript: ... "`.
 	"smarttabs"   : false,    // Tolerate mixed tabs and spaces when the latter are used for alignmnent only.
-	"shadow"      : false,    // Allow re-defining variables later in code, e.g. `var x=1; ... var x=2;`.
+	"shadow"      : true ,    // Allow re-defining variables later in code, e.g. `var x=1; ... var x=2;`.
 	"sub"         : true ,    // Allow `dict['key']` even when `dict.key` is possible.
 	"supernew"    : false,    // Tolerate `new function () { ... };` and `new Object;`.
 	"validthis"   : false,    // Allow `this` to be used in non-constructor functions.

@@ -35,6 +35,8 @@
  */
 (function(Chess, Pgn, $)
 {
+	'use strict';
+
 
 	/**
 	 * Internationalization constants.
@@ -89,23 +91,25 @@
 
 		// Case "2013.05.20" -> return "20 may 2013"
 		else if(date.match(/([0-9]{4})\.([0-9]{2})\.([0-9]{2})/)) {
-			var month = parseInt(RegExp.$2);
+			var month = parseInt(RegExp.$2, 10);
 			if(month>=1 && month<=12) {
 				var dateObj = new Date(RegExp.$1, RegExp.$2-1, RegExp.$3);
 				return dateObj.toLocaleDateString(); //null, { year: 'numeric', month: 'long', day: 'numeric' });
 			}
-			else
+			else {
 				return RegExp.$1;
+			}
 		}
 
 		// Case "2013.05.??" -> return "May 2013"
 		else if(date.match(/([0-9]{4})\.([0-9]{2})\.\?\?/)) {
-			var month = parseInt(RegExp.$2);
+			var month = parseInt(RegExp.$2, 10);
 			if(month>=1 && month<=12) {
 				return $.chessgame.MONTHS[month-1] + ' ' + RegExp.$1;
 			}
-			else
+			else {
 				return RegExp.$1;
+			}
 		}
 
 		// Case "2013.??.??" -> return "2013"
@@ -227,20 +231,20 @@
 	 * @constant
 	 */
 	var SPECIAL_NAGS_LOOKUP = {
-		 3: "!!",      // very good move
-		 1: "!",       // good move
-		 5: "!?",      // interesting move
-		 6: "?!",      // questionable move
-		 2: "?",       // bad move
-		 4: "??",      // very bad move
-		18: "+\u2212", // White has a decisive advantage
-		16: "\u00b1",  // White has a moderate advantage
-		14: "\u2a72",  // White has a slight advantage
-		10: "=",       // equal position
-		13: "\u221e",  // unclear position
-		15: "\u2a71",  // Black has a slight advantage
-		17: "\u2213",  // Black has a moderate advantage
-		19: "\u2212+"  // Black has a decisive advantage
+		 3: '!!',      // very good move
+		 1: '!',       // good move
+		 5: '!?',      // interesting move
+		 6: '?!',      // questionable move
+		 2: '?',       // bad move
+		 4: '??',      // very bad move
+		18: '+\u2212', // White has a decisive advantage
+		16: '\u00b1',  // White has a moderate advantage
+		14: '\u2a72',  // White has a slight advantage
+		10: '=',       // equal position
+		13: '\u221e',  // unclear position
+		15: '\u2a71',  // Black has a slight advantage
+		17: '\u2213',  // Black has a moderate advantage
+		19: '\u2212+'  // Black has a decisive advantage
 	};
 
 
@@ -252,9 +256,9 @@
 	 */
 	function formatNag(nag)
 	{
-		if(nag===null) return null;
-		else if(nag in SPECIAL_NAGS_LOOKUP) return SPECIAL_NAGS_LOOKUP[nag];
-		else return '$' + nag;
+		if(nag===null) { return null; }
+		else if(nag in SPECIAL_NAGS_LOOKUP) { return SPECIAL_NAGS_LOOKUP[nag]; }
+		else { return '$' + nag; }
 	}
 
 
@@ -296,7 +300,7 @@
 		// Extract the sub-string around the requested position.
 		var retVal = e1 + text.substr(p1, p2-p1) + e2;
 		retVal = retVal.replace(/\n|\t/g, ' ');
-		return retVal + '\n' + Array(1 + e1.length + pos - p1).join(' ') + '^';
+		return retVal + '\n' + new Array(1 + e1.length + pos - p1).join(' ') + '^';
 	}
 
 
@@ -471,9 +475,9 @@
 			var rating = formatRating(this._game.header(color + 'Elo'  ));
 			if(title !== null || rating !== null) {
 				header += '<span class="uichess-chessgame-titleRatingGroup">';
-				if(title  !== null) header += '<span class="uichess-chessgame-playerTitle">'  + title  + '</span>';
-				if(rating !== null) header += '<span class="uichess-chessgame-playerRating">' + rating + '</span>';
-				header += '</span>'
+				if(title  !== null) { header += '<span class="uichess-chessgame-playerTitle">'  + title  + '</span>'; }
+				if(rating !== null) { header += '<span class="uichess-chessgame-playerRating">' + rating + '</span>'; }
+				header += '</span>';
 			}
 
 			// Add the closing tag and return the result.
@@ -524,8 +528,8 @@
 
 			// Build and return the header.
 			var header = '<div class="uichess-chessgame-datePlaceGroup">';
-			if(date !== null) header += '<span class="uichess-chessgame-date">' + date + '</span>';
-			if(site !== null) header += '<span class="uichess-chessgame-site">' + site + '</span>';
+			if(date !== null) { header += '<span class="uichess-chessgame-date">' + date + '</span>'; }
+			if(site !== null) { header += '<span class="uichess-chessgame-site">' + site + '</span>'; }
 			header += '</div>';
 			return header;
 		},
@@ -594,18 +598,18 @@
 
 			// Append a fake move at the beginning of the main variation, so that it will be possible
 			// to display the starting position in the navigation frame.
-			if(depth==0) {
+			if(depth === 0) {
 				if(!moveGroupOpened) {
 					retVal += '<div>';
 					moveGroupOpened = true;
 				}
 				retVal += '<span class="uichess-chessgame-move uichess-chessgame-initialPosition" ' +
-					'data-position="' + pgnVariation.position() + '">' + $.chessgame.INITIAL_POSITION + '</span>';
+					'data-position="' + variation.position() + '">' + $.chessgame.INITIAL_POSITION + '</span>';
 			}
 
 			// Visit all the PGN nodes (one node per move) within the variation.
 			var forcePrintMoveNumber = true;
-			var node = pgnVariation.first();
+			var node = variation.first();
 			while(node !== null)
 			{
 				// Open the move group if not done yet.
@@ -615,9 +619,9 @@
 				}
 
 				// Write the move, including directly related information (i.e. move number + NAGs).
-				var printMoveNumber = forcePrintMoveNumber || pgnNode.moveColor() === 'w';
+				var printMoveNumber = forcePrintMoveNumber || node.moveColor() === 'w';
 				var moveNumberClass = 'uichess-chessgame-moveNumber' + (printMoveNumber ? '' : ' uichess-chessgame-hiddenMoveNumber');
-				var moveNumberText  = node.fullMoveNumber() + (pgnNode.moveColor() === 'w' ? '.' : '\u2026');
+				var moveNumberText  = node.fullMoveNumber() + (node.moveColor() === 'w' ? '.' : '\u2026');
 				retVal += '<span class="uichess-chessgame-move" data-position="' + node.position() + '">' +
 					'<span class="' + moveNumberClass + '">' + moveNumberText + '</span>' +
 					formatMoveNotation(node.move());
@@ -638,13 +642,13 @@
 				}
 
 				// Close the current move group if some long variations are about to be printed.
-				if(node.areLongVariations() && node.variations() > 0) {
+				if(node.areLongVariations && node.variations() > 0) {
 					retVal += '</div>';
 					moveGroupOpened = false;
 				}
 
 				// Write the sub-variations.
-				for(var k=0; k<pgnNode.variations(); ++k) {
+				for(var k=0; k<node.variations(); ++k) {
 					retVal += this._buildVariation(node.variation(k), depth+1);
 				}
 
@@ -909,12 +913,5 @@
 		}
 		showNavigationFrame(target);
 	}
-
-
-	// Return the module object
-	return {
-		text  : text  ,
-		makeAt: makeAt
-	};
 
 })(Chess, Pgn, jQuery);
