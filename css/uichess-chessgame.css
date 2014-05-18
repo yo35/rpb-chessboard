@@ -144,7 +144,9 @@
 }
 
 .uichess-chessgame-longVariation.uichess-chessgame-subVariation {
-	margin-left: 1.5em;
+	position: relative;
+	left: 1.5em;
+	width: calc(100% - 1.5em);
 }
 
 

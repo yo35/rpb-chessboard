@@ -96,6 +96,51 @@
 		</div>
 	</div>
 
+	<hr/>
+
+	<h2>Layout in presence of floating objects</h2>
+
+	<div id="container2">
+		<div class="float-object"></div>
+		<div id="e"></div>
+		<div class="clear-floats"></div>
+	</div>
+
+	<style>
+
+		#container2 {
+			background-color: #eee;
+			width: 50%;
+		}
+
+		#container2 .uichess-chessgame-longVariation {
+			background-color: #ddd;
+		}
+
+		#container2 .uichess-chessgame-longVariation .uichess-chessgame-longVariation {
+			background-color: #ccc;
+		}
+
+		#container2 .uichess-chessgame-longVariation .uichess-chessgame-longVariation .uichess-chessgame-longVariation {
+			background-color: #bbb;
+		}
+
+		.float-object {
+			float: left;
+			background-color: red;
+			width : 200px;
+			height: 200px;
+			margin-right : 10px;
+			margin-bottom: 10px;
+		}
+
+		.clear-floats {
+			clear: both;
+		}
+
+	</style>
+
+
 	<script type="text/javascript">
 
 		/* global $ */
@@ -182,6 +227,28 @@
 		});
 		$('#d3').chessgame({ pgn:
 			'1. e4 e5 2. Nf3 Nc6 3. Nc3 Nf6 4. Bb5 Bc5 5. O-O O-O 6. Nxe5 Re8 7. Nxc6 dxc6 8. Bc4 b5 *\n'
+		});
+
+		// Floats
+		$('#e').chessgame({ pgn:
+			'[White "Player 1"]\n' +
+			'[Black "Player 2"]\n' +
+			'[Result "1/2-1/2"]\n' +
+			'1.e4 d6\n' +
+			'\n' +
+			'(1...e6 2.d4 d5 3.e5 c5)\n' +
+			'\n' +
+			'(1...c5 2.Nf3 e6\n' +
+			'\n' +
+			'(3...Nf6 4.d4 cxd4 5.Nxd4 e5)\n' +
+			'\n' +
+			'3.d4 cxd4 4.Nxd4 Nf6 5.Nc3)\n'+
+			'\n' +
+			'(1...e5 2.Nf3 Nc6 3.Bb5 a6 4.Bxc6 dxc6 5.O-O Bg4 6.h3 h5 7.d3 Qf6 8.Nbd2 Ne7 9.Re1 Ng6)\n' +
+			'\n' +
+			'(1...c6 2.d4 d5)\n' +
+			'\n' +
+			'2.d4 1/2-1/2'
 		});
 
 	</script>
