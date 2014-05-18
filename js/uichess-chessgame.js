@@ -75,6 +75,22 @@
 
 
 	/**
+	 * Convert a PGN standard field into a human-readable site string.
+	 * Return null if the special code "?" is detected.
+	 *
+	 * The fields processed with this filter include "Site", "Event", "Round",
+	 * "White", "Black", "WhiteElo", "BlackElo".
+	 *
+	 * @param {string} value Value of a PGN standard field.
+	 * @returns {string}
+	 */
+	function formatDefault(value)
+	{
+		return (value===null || value==='?') ? null : value;
+	}
+
+
+	/**
 	 * Convert a PGN date field value into a human-readable date string.
 	 * Return null if the special code "????.??.??" is detected.
 	 * Otherwise, if the input is badly-formatted, it is returned "as-is".
@@ -125,58 +141,6 @@
 
 
 	/**
-	 * Convert a PGN site field value into a human-readable site string.
-	 * Return null if the special code "?" is detected.
-	 *
-	 * @param {string} site Value of a PGN site field.
-	 * @returns {string}
-	 */
-	function formatSite(site)
-	{
-		return (site===null || site==='?') ? null : site;
-	}
-
-
-	/**
-	 * Convert a PGN round field value into a human-readable round string.
-	 * Return null if the special code "?" is detected.
-	 *
-	 * @param {string} round Value of a PGN round field.
-	 * @returns {string}
-	 */
-	function formatRound(round)
-	{
-		return (round===null || round==='?') ? null : round;
-	}
-
-
-	/**
-	 * Convert a PGN title field value into a human-readable title string.
-	 * Return null if the special code "-" is detected.
-	 *
-	 * @param {string} title Value of a PGN title field.
-	 * @returns {string}
-	 */
-	function formatTitle(title)
-	{
-		return (title===null || title==='-') ? null : title;
-	}
-
-
-	/**
-	 * Convert a PGN rating field value into a human-readable rating string.
-	 * Return null if the special code "?" is detected.
-	 *
-	 * @param {string} rating Value of a PGN rating field.
-	 * @returns {string}
-	 */
-	function formatRating(rating)
-	{
-		return (rating===null || rating==='?') ? null : rating;
-	}
-
-
-	/**
 	 * Convert a PGN result field value into a human-readable string.
 	 * Return null if the special code "*" is detected.
 	 *
@@ -192,6 +156,19 @@
 			case '0-1':          return '0&#8211;1';
 			default:             return result;
 		}
+	}
+
+
+	/**
+	 * Convert a PGN title field value into a human-readable title string.
+	 * Return null if the special code "-" is detected.
+	 *
+	 * @param {string} title Value of a PGN title field.
+	 * @returns {string}
+	 */
+	function formatTitle(title)
+	{
+		return (title===null || title==='-') ? null : title;
 	}
 
 
@@ -460,7 +437,7 @@
 		_playerNameHeader: function(color)
 		{
 			// Retrieve the name of the player -> no header is returned if the name not available.
-			var name = this._game.header(color);
+			var name = formatDefault(this._game.header(color));
 			if(name===null) {
 				return '';
 			}
@@ -471,8 +448,8 @@
 				'<span class="uichess-chessgame-playerName">' + name + '</span>';
 
 			// Title + rating
-			var title  = formatTitle (this._game.header(color + 'Title'));
-			var rating = formatRating(this._game.header(color + 'Elo'  ));
+			var title  = formatTitle  (this._game.header(color + 'Title'));
+			var rating = formatDefault(this._game.header(color + 'Elo'  ));
 			if(title !== null || rating !== null) {
 				header += '<span class="uichess-chessgame-titleRatingGroup">';
 				if(title  !== null) { header += '<span class="uichess-chessgame-playerTitle">'  + title  + '</span>'; }
@@ -494,13 +471,13 @@
 		_eventHeader: function()
 		{
 			// Retrieve the event -> no header is returned if the name not available.
-			var event = this._game.header('Event');
+			var event = formatDefault(this._game.header('Event'));
 			if(event===null) {
 				return '';
 			}
 
 			// Retrieve the round.
-			var round = formatRound(this._game.header('Round'));
+			var round = formatDefault(this._game.header('Round'));
 
 			// Build and return the header.
 			var header = '<div class="uichess-chessgame-event">' + event;
@@ -520,8 +497,8 @@
 		_datePlaceHeader: function()
 		{
 			// Retrieve the date and the site field.
-			var date = formatDate(this._game.header('Date'));
-			var site = formatSite(this._game.header('Site'));
+			var date = formatDate   (this._game.header('Date'));
+			var site = formatDefault(this._game.header('Site'));
 			if(date===null && site===null) {
 				return '';
 			}
@@ -543,7 +520,7 @@
 		_annotatorHeader: function()
 		{
 			// Retrieve the annotator field.
-			var annotator = this._game.header('Annotator');
+			var annotator = formatDefault(this._game.header('Annotator'));
 			if(annotator===null) {
 				return '';
 			}
