@@ -41,6 +41,61 @@
 
 	<hr/>
 
+	<h2>Check the vertical spacing</h2>
+
+	<style>
+
+		#container {
+			display: flex;
+		}
+
+		#container > div {
+			margin-right: 10px;
+			background-color: red;
+		}
+
+		#container > div:last-child {
+			margin-right: 0px;
+		}
+
+		#container p {
+			background-color: darkcyan;
+			margin-top: 0px;
+			margin-bottom: 0px;
+		}
+
+		#container .uichess-chessgame {
+			background-color: green;
+		}
+
+		#container .uichess-chessgame .uichess-chessgame-headers {
+			background-color: yellow;
+		}
+
+		#container .uichess-chessgame .uichess-chessgame-body {
+			background-color: lightblue;
+		}
+
+	</style>
+
+	<div id="container">
+		<div>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel dui ante.</p>
+			<div id="d1"></div>
+			<p>Donec egestas augue orci, eu tincidunt odio aliquet in.</p>
+		</div>
+		<div>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel dui ante.</p>
+			<div id="d2"></div>
+			<p>Donec egestas augue orci, eu tincidunt odio aliquet in.</p>
+		</div>
+		<div>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel dui ante.</p>
+			<div id="d3"></div>
+			<p>Donec egestas augue orci, eu tincidunt odio aliquet in.</p>
+		</div>
+	</div>
+
 	<script type="text/javascript">
 
 		/* global $ */
@@ -101,6 +156,31 @@
 			'\n' +
 			'23. Kg1 Bh3+ 24. Kh1 Bxf2 25. Qf1 {Absolutely forced.} 25... Bxf1 26. Rxf1 Re2\n' +
 			'27. Ra1 Rh6 28. d4 Be3 0-1'
+		});
+
+		// Vertical spacing
+		$('#d1').chessgame({ pgn:
+			'[Event "?"]\n' +
+			'[Site "?"]\n' +
+			'[Date "????.??.??"]\n' +
+			'[Round "?"]\n' +
+			'[White "Player 1"]\n' +
+			'[Black "Player 2"]\n' +
+			'[Result "*"]\n' +
+			'1. e4 e5 2. Nf3 Nc6 3. Nc3 Nf6 4. Bb5 Bc5 5. O-O O-O 6. Nxe5 Re8 7. Nxc6 dxc6 8. Bc4 b5 *\n'
+		});
+		$('#d2').chessgame({ pgn:
+			'[Event "?"]\n' +
+			'[Site "?"]\n' +
+			'[Date "????.??.??"]\n' +
+			'[Round "?"]\n' +
+			'[White "Player 1"]\n' +
+			'[Black "Player 2"]\n' +
+			'[Result "*"]\n' +
+			'*'
+		});
+		$('#d3').chessgame({ pgn:
+			'1. e4 e5 2. Nf3 Nc6 3. Nc3 Nf6 4. Bb5 Bc5 5. O-O O-O 6. Nxe5 Re8 7. Nxc6 dxc6 8. Bc4 b5 *\n'
 		});
 
 	</script>

@@ -376,18 +376,21 @@
 			}
 
 			// Headers
-			var headers = '<div class="uichess-chessgame-headers">';
+			var headers = '';
 			headers += this._playerNameHeader('White');
 			headers += this._playerNameHeader('Black');
 			headers += this._eventHeader();
 			headers += this._datePlaceHeader();
 			headers += this._annotatorHeader();
-			headers += '</div>';
+			if(headers !== '') {
+				headers = '<div class="uichess-chessgame-headers">' + headers + '</div>';
+			}
 
 			// Body
-			var body = '<div class="uichess-chessgame-body">';
-			body += this._buildMoves();
-			body += '</div>';
+			var body = this._buildMoves();
+			if(body !== '') {
+				body = '<div class="uichess-chessgame-body">' + body + '</body>';
+			}
 
 			// Render the content.
 			$(headers + body).appendTo(this.element);
@@ -552,6 +555,11 @@
 		 */
 		_buildVariation: function(variation, depth)
 		{
+			// Nothing to do if the variation if empty.
+			if(variation.comment() === null && variation.first() === null) {
+				return '';
+			}
+
 			// Open a new DOM node for the variation.
 			var tag = variation.isLongVariation() ? 'div' : 'span';
 			var retVal = '<' + tag + ' class="uichess-chessgame-' + (depth === 0 ? 'main' : 'sub') + 'Variation ' +
@@ -616,18 +624,23 @@
 				}
 
 				// Write the sub-variations.
+				var nonEmptySubVariations = 0;
 				for(var k=0; k<node.variations(); ++k) {
-					if(node.variation(k).isLongVariation()) {
-						closeMoveGroup();
+					var subVariation = this._buildVariation(node.variation(k), depth+1);
+					if(subVariation !== '') {
+						if(node.variation(k).isLongVariation()) {
+							closeMoveGroup();
+						}
+						else {
+							openMoveGroup();
+						}
+						retVal += subVariation;
+						++nonEmptySubVariations;
 					}
-					else {
-						openMoveGroup();
-					}
-					retVal += this._buildVariation(node.variation(k), depth+1);
 				}
 
 				// Back to the current variation, go to the next move.
-				forcePrintMoveNumber = (node.comment() !== null || node.variations() > 0);
+				forcePrintMoveNumber = (node.comment() !== null || nonEmptySubVariations > 0);
 				node = node.next();
 			}
 
