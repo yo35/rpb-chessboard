@@ -127,6 +127,10 @@
 	content: ")";
 }
 
+.uichess-chessgame-result {
+	font-weight: bold;
+}
+
 .uichess-chessgame-move,
 .uichess-chessgame-shortComment,
 .uichess-chessgame-shortVariation {
@@ -162,5 +166,9 @@
 }
 
 .uichess-chessgame-headers + .uichess-chessgame-body {
+	margin-top: 0.25em;
+}
+
+.uichess-chessgame-headers + .uichess-chessgame-body.uichess-chessgame-moreSpace {
 	margin-top: 0.5em;
 }

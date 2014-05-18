@@ -387,10 +387,7 @@
 			}
 
 			// Body
-			var body = this._buildMoves();
-			if(body !== '') {
-				body = '<div class="uichess-chessgame-body">' + body + '</body>';
-			}
+			var body = this._buildBody();
 
 			// Render the content.
 			$(headers + body).appendTo(this.element);
@@ -540,9 +537,18 @@
 		 *
 		 * @return {string}
 		 */
-		_buildMoves: function()
+		_buildBody: function()
 		{
-			return this._buildVariation(this._game.mainVariation(), 0);
+			var mainVariation = this._buildVariation(this._game.mainVariation(), true, formatResult(this._game.result()));
+
+			// Nothing to do if the main variation is empty.
+			if(mainVariation.content === '') {
+				return '';
+			}
+
+			// Otherwise, wrap it into a DIV node.
+			var bodyClass = 'uichess-chessgame-body' + (mainVariation.divCount > 1 ? ' uichess-chessgame-moreSpace' : '');
+			return '<div class="' + bodyClass + '">' + mainVariation.content + '</div>';
 		},
 
 
@@ -550,19 +556,20 @@
 		 * Build the move tree corresponding to the given variation.
 		 *
 		 * @param {Pgn.Variation} variation
-		 * @param {number} depth
-		 * @return {string}
+		 * @param {boolean} isMainVariation
+		 * @param {null|string} result Must be set to null for sub-variations.
+		 * @return {string|{content:string, divCount:number}} The second form is only used for the main variation.
 		 */
-		_buildVariation: function(variation, depth)
+		_buildVariation: function(variation, isMainVariation, result)
 		{
 			// Nothing to do if the variation if empty.
-			if(variation.comment() === null && variation.first() === null) {
-				return '';
+			if(variation.comment() === null && variation.first() === null && result === null) {
+				return isMainVariation ? { content: '', divCount: 0 } : '';
 			}
 
 			// Open a new DOM node for the variation.
 			var tag = variation.isLongVariation() ? 'div' : 'span';
-			var retVal = '<' + tag + ' class="uichess-chessgame-' + (depth === 0 ? 'main' : 'sub') + 'Variation ' +
+			var retVal = '<' + tag + ' class="uichess-chessgame-' + (isMainVariation ? 'main' : 'sub') + 'Variation ' +
 				'uichess-chessgame-' + (variation.isLongVariation() ? 'long' : 'short') + 'Variation">';
 
 			// The flag `moveGroupOpened` indicates whether a `<div class="moveGroup">` node
@@ -571,6 +578,7 @@
 			// In short variations, there is no move groups.
 			var enableMoveGroups = variation.isLongVariation();
 			var moveGroupOpened  = false;
+			var divCount         = 0;
 
 			// Open a new move group if necessary.
 			function openMoveGroup()
@@ -578,6 +586,7 @@
 				if(enableMoveGroups && !moveGroupOpened) {
 					retVal += '<div class="uichess-chessgame-moveGroup">';
 					moveGroupOpened = true;
+					++divCount;
 				}
 			}
 
@@ -592,7 +601,9 @@
 
 			// Write the initial comment, if any.
 			if(variation.comment() !== null) {
-				if(!variation.isLongComment()) {
+				if(variation.isLongComment()) {
+					++divCount;
+				} else {
 					openMoveGroup();
 				}
 				retVal += this._buildComment(variation.comment(), variation.isLongComment());
@@ -600,7 +611,7 @@
 
 			// Append a fake move at the beginning of the main variation, so that it will be possible
 			// to display the starting position in the navigation frame.
-			if(depth === 0) {
+			if(isMainVariation) {
 				openMoveGroup();
 				retVal += '<span class="uichess-chessgame-move uichess-chessgame-bootstrapMove" ' +
 					'data-position="' + variation.position() + '">' + $.chessgame.INITIAL_POSITION + '</span>';
@@ -619,6 +630,7 @@
 				if(node.comment() !== null) {
 					if(node.isLongComment()) {
 						closeMoveGroup();
+						++divCount;
 					}
 					retVal += this._buildComment(node.comment(), node.isLongComment());
 				}
@@ -626,12 +638,12 @@
 				// Write the sub-variations.
 				var nonEmptySubVariations = 0;
 				for(var k=0; k<node.variations(); ++k) {
-					var subVariation = this._buildVariation(node.variation(k), depth+1);
+					var subVariation = this._buildVariation(node.variation(k), false, null);
 					if(subVariation !== '') {
 						if(node.variation(k).isLongVariation()) {
 							closeMoveGroup();
-						}
-						else {
+							++divCount;
+						} else {
 							openMoveGroup();
 						}
 						retVal += subVariation;
@@ -644,10 +656,16 @@
 				node = node.next();
 			}
 
+			// Append the result and the end of the main variation.
+			if(isMainVariation && result !== null) {
+				openMoveGroup();
+				retVal += '<span class="uichess-chessgame-result">' + result + '</span>';
+			}
+
 			// Close the opened DOM nodes, and returned the result.
 			closeMoveGroup();
 			retVal += '</' + tag + '>';
-			return retVal;
+			return isMainVariation ? { content: retVal, divCount: divCount } : retVal;
 		},
 
 
