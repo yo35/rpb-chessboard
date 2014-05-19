@@ -613,7 +613,7 @@
 			// to display the starting position in the navigation frame.
 			if(isMainVariation) {
 				openMoveGroup();
-				retVal += '<span class="uichess-chessgame-move uichess-chessgame-bootstrapMove" ' +
+				retVal += '<span class="uichess-chessgame-move uichess-chessgame-hidden" ' +
 					'data-position="' + variation.position() + '">' + $.chessgame.INITIAL_POSITION + '</span>';
 			}
 
@@ -698,7 +698,7 @@
 
 			// Move number
 			var printMoveNumber = forcePrintMoveNumber || node.moveColor() === 'w';
-			var moveNumberClass = 'uichess-chessgame-moveNumber' + (printMoveNumber ? '' : ' uichess-chessgame-hiddenMoveNumber');
+			var moveNumberClass = 'uichess-chessgame-moveNumber' + (printMoveNumber ? '' : ' uichess-chessgame-hidden');
 			var moveNumberText  = node.fullMoveNumber() + (node.moveColor() === 'w' ? '.' : '\u2026');
 			retVal += '<span class="' + moveNumberClass + '">' + moveNumberText + '</span>';
 

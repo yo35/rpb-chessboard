@@ -111,7 +111,8 @@
 	padding-right: 1px;
 }
 
-.uichess-chessgame-move.uichess-chessgame-bootstrapMove {
+.uichess-chessgame-move.uichess-chessgame-hidden,
+.uichess-chessgame-moveNumber.uichess-chessgame-hidden {
 	display: none;
 }
 
