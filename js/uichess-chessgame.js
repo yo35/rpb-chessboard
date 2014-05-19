@@ -30,7 +30,7 @@
  * @requires jQuery
  * @requires jQuery UI Widget
  * @requires jQuery Color (optional, only if the navigation board feature is enabled)
- * @requires jQuery UI Dialog (optional, only if the framed navigation feature is enabled)
+ * @requires jQuery UI Dialog (optional, only if the framed navigation board feature is enabled)
  *
  * TODO: check required packages
  */
