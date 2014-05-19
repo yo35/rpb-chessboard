@@ -29,7 +29,8 @@
  * @requires chesswidget.js
  * @requires jQuery
  * @requires jQuery UI Widget
- * @requires jQuery-color
+ * @requires jQuery Color (optional, only if the navigation board feature is enabled)
+ * @requires jQuery UI Dialog (optional, only if the framed navigation feature is enabled)
  *
  * TODO: check required packages
  */
@@ -282,6 +283,19 @@
 
 
 	/**
+	 * Return a contrasted color.
+	 *
+	 * @param {string} colorString Color specification as mentioned in a CSS property.
+	 * @returns {string}
+	 */
+	function contrastedColor(colorString)
+	{
+		var color = $.Color(colorString); // Require the jQuery Color plugin.
+		return color.lightness() > 0.5 ? 'black' : 'white';
+	}
+
+
+	/**
 	 * Ensure that the given argument is a valid value for the navigation board property.
 	 *
 	 * @param {string} value
@@ -320,7 +334,12 @@
 			 * - 'none': no navigation board.
 			 * - 'frame': navigation board in a jQuery frame independent of the page content.
 			 */
-			navigationBoard: 'frame'
+			navigationBoard: 'frame',
+
+			/**
+			 * Whether the navigation board and the diagrams are flipped or not.
+			 */
+			flip: false
 		},
 
 
@@ -348,7 +367,8 @@
 		 */
 		_destroy: function()
 		{
-			this.element.empty().removeClass('uichess-chessgame');
+			this._destroyContent();
+			this.element.removeClass('uichess-chessgame');
 		},
 
 
@@ -402,11 +422,24 @@
 
 
 		/**
+		 * Destroy the widget content, prior to a refresh or a widget destruction.
+		 */
+		_destroyContent: function()
+		{
+			var navigationFrameTarget = $('#uichess-chessgame-navigationFrameTarget', this.element);
+			if(navigationFrameTarget.length !== 0) {
+				$('#uichess-chessgame-navigationFrame').dialog('close');
+			}
+			this.element.empty();
+		},
+
+
+		/**
 		 * Refresh the widget.
 		 */
 		_refresh: function()
 		{
-			this.element.empty();
+			this._destroyContent();
 			if(this._game === null) {
 				return;
 			}
@@ -431,8 +464,16 @@
 			// Body
 			var body = this._buildBody();
 
-			// Render the content.
+			// Render the content, and exit if the navigation board feature is disabled.
 			$(headers + body).appendTo(this.element);
+			if(this.options.navigationBoard === 'none') {
+				return;
+			}
+
+			// Make the moves clickable.
+			var obj = this;
+			$('.uichess-chessgame-move', this.element).click(function() { obj._updateNavigationBoard($(this)); });
+
 		},
 
 
@@ -589,7 +630,9 @@
 			}
 
 			// Otherwise, wrap it into a DIV node.
-			var bodyClass = 'uichess-chessgame-body' + (mainVariation.divCount > 1 ? ' uichess-chessgame-moreSpace' : '');
+			var bodyClass = 'uichess-chessgame-body';
+			if(mainVariation.divCount > 1) { bodyClass += ' uichess-chessgame-moreSpace'; }
+			if(this.options.navigationBoard !== 'none') { bodyClass += ' uichess-chessgame-clickableMoves'; }
 			return '<div class="' + bodyClass + '">' + mainVariation.content + '</div>';
 		},
 
@@ -756,184 +799,153 @@
 			// Close the DOM node.
 			retVal += '</span>';
 			return retVal;
+		},
+
+
+		/**
+		 * Select the given move and update the navigation board accordingly.
+		 *
+		 * @param {jQuery} move
+		 */
+		_updateNavigationBoard: function(move)
+		{
+			if(move.hasClass('uichess-chessgame-selectedMove')) {
+				return;
+			}
+
+			// If the navigation board should be shown within the dedicated frame,
+			// ensure that the latter has been built.
+			if(this.options.navigationBoard === 'frame') {
+				buildNavigationFrame();
+			}
+
+			// Update the selected move and the mini-board.
+			this._updateNavigationBoardWidget(move);
+			this._updateSelectedMove(move);
+
+			// If the navigation board is in the dedicated frame, update its title,
+			// and ensure that it is visible.
+			if(this.options.navigationBoard === 'frame') {
+				var frame = $('#uichess-chessgame-navigationFrame');
+				frame.dialog('option', 'title', move.text());
+				if(!frame.dialog('isOpen')) {
+					frame.dialog('option', 'position', { my: 'center', at: 'center', of: window });
+					frame.dialog('open');
+				}
+			}
+		},
+
+
+		/**
+		 * Refresh the navigation chessboard widget.
+		 *
+		 * @param {jQuery} move
+		 */
+		_updateNavigationBoardWidget: function(move)
+		{
+			var widget = this.options.navigationBoard === 'frame' ?
+				$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationBoard') :
+				null; // TODO: selector for the navigation board when not in the dedicated frame
+
+			// Update the position.
+			widget.chessboard('option', 'position', move.data('position'));
+
+			// Flip the board if necessary.
+			if(this.options.flip !== widget.chessboard('option', 'flip')) {
+				widget.chessboard('option', 'flip', this.options.flip);
+			}
+		},
+
+
+		/**
+		 * Make the given move appear as selected.
+		 *
+		 * @param {jQuery} move
+		 */
+		_updateSelectedMove: function(move)
+		{
+			var global = this.options.navigationBoard === 'frame';
+
+			// Unselect the previously selected move, if any.
+			unselectMove(global ? null : $('.uichess-chessgame-selectedMove', this.element));
+
+			// Update the ID/class attributes.
+			move.addClass('uichess-chessgame-selectedMove');
+			if(global) {
+				move.attr('id', 'uichess-chessgame-navigationFrameTarget');
+			}
+
+			// Highlight the selected move.
+			var color = move.css('color');
+			move.css('background-color', color);
+			move.css('color', contrastedColor(color));
 		}
 
 	});
 
 
-
-	/**
-	 * Create the navigation frame, if it does not exist yet. The frame is
-	 * appended as a child of the given DOM node.
-	 *
-	 * @private
-	 *
-	 * @param {jQuery} parentNode
-	 * @param {object} navOptions Set of options to use for the navigation frame.
-	 *
-	 * @memberof PgnWidget
-	 */
-	function makeNavigationFrame(parentNode, navOptions)
-	{
-		if($('#PgnWidget-navigation-frame').length!=0) {
-			return;
-		}
-
-		// Structure of the navigation frame
-		$(
-			'<div id="PgnWidget-navigation-frame" class="PgnWidget-invisible">' +
-				'<div id="PgnWidget-navigation-content"></div>' +
-				'<div id="PgnWidget-navigation-buttons">' +
-					'<button id="PgnWidget-navigation-button-frst">&lt;&lt;</button>' +
-					'<button id="PgnWidget-navigation-button-prev">&lt;</button>' +
-					'<button id="PgnWidget-navigation-button-next">&gt;</button>' +
-					'<button id="PgnWidget-navigation-button-last">&gt;&gt;</button>' +
-				'</div>' +
-			'</div>'
-		).appendTo(parentNode);
-
-		// Widgetization
-		$(document).ready(function()
-		{
-			// Remove the temporary "invisible" flag.
-			$('#PgnWidget-navigation-frame').removeClass('PgnWidget-invisible');
-
-			// Create the dialog structure
-			$('#PgnWidget-navigation-frame').dialog({
-				/* Hack to keep the dialog draggable after the page has being scrolled. */
-				create     : function(event, ui) { $(event.target).parent().css('position', 'fixed'); },
-				resizeStart: function(event, ui) { $(event.target).parent().css('position', 'fixed'); },
-				resizeStop : function(event, ui) { $(event.target).parent().css('position', 'fixed'); },
-				/* End of hack */
-				autoOpen   : false,
-				dialogClass: 'wp-dialog',
-				width      : 'auto',
-				close      : function(event, ui) { unselectMove(); }
-			});
-
-			// Create the chessboard widget
-			$('#PgnWidget-navigation-content').chessboard(navOptions);
-			$('#PgnWidget-navigation-content').chessboard('sizeControlledByContainer', $('#PgnWidget-navigation-frame'), 'dialogresize');
-
-			// Create the buttons
-			$('#PgnWidget-navigation-button-frst').button().click(function() { goFrstMove(); });
-			$('#PgnWidget-navigation-button-prev').button().click(function() { goPrevMove(); });
-			$('#PgnWidget-navigation-button-next').button().click(function() { goNextMove(); });
-			$('#PgnWidget-navigation-button-last').button().click(function() { goLastMove(); });
-		});
-	}
-
-
-	/**
-	 * Show the navigation frame if not visible yet, and update the diagram in this
-	 * frame with the position corresponding to the move that is referred by the
-	 * given DOM node. By the way, this node must have class 'PgnWidget-move',
-	 * otherwise nothing happens.
-	 *
-	 * @private
-	 *
-	 * @param {jQuery} domNode
-	 *
-	 * @memberof PgnWidget
-	 */
-	function showNavigationFrame(domNode)
-	{
-		// Nothing to do if no node is provided or if the move is already selected.
-		if(domNode==null || domNode.attr('id')=='PgnWidget-selected-move') {
-			return;
-		}
-
-		// Mark the current move as selected
-		selectMove(domNode);
-
-		// Fill the miniboard in the navigation frame
-		refreshNavigationFrameWidget(domNode);
-
-		// Make the navigation frame visible
-		var navFrame = $('#PgnWidget-navigation-frame');
-		navFrame.dialog('option', 'title', domNode.text());
-		if(!navFrame.dialog('isOpen')) {
-			navFrame.dialog('option', 'position', { my: 'center', at: 'center', of: window });
-		}
-		navFrame.dialog('open');
-	}
-
-
-	/**
-	 * Refresh the chessboard widget in the navigation frame.
-	 *
-	 * @param {jQuery} selectedMove
-	 *
-	 * @private
-	 * @memberof PgnWidget
-	 */
-	function refreshNavigationFrameWidget(selectedMove)
-	{
-		var target = $('#PgnWidget-navigation-content');
-		target.chessboard('option', 'position', selectedMove.data('position'));
-		var flip = selectedMove.data('navOptions').flip;
-		if(flip!=null && flip!=target.chessboard('option', 'flip')) {
-			target.chessboard('option', 'flip', flip);
-		}
-	}
-
-
-	/**
-	 * Return a contrasted color.
-	 *
-	 * @private
-	 *
-	 * @param {String} colorString Color specification as mentioned in a CSS property.
-	 * @returns {string}
-	 *
-	 * @memberof PgnWidget
-	 */
-	function contrastedColor(colorString)
-	{
-		// Parsing
-		var color = $.Color(colorString); // Require the jQuery-color plugin
-
-		// Two cases based on the value of the lightness component
-		if(color.lightness()>0.5) {
-			return 'black';
-		}
-		else {
-			return 'white';
-		}
-	}
-
-
-	/**
-	 * Make the given move appear as selected.
-	 *
-	 * @private
-	 *
-	 * @param {jQuery} domNode Node to select (it is supposed to be have class 'PgnWidget-move').
-	 *
-	 * @memberof PgnWidget
-	 */
-	function selectMove(domNode)
-	{
-		unselectMove();
-		domNode.attr('id', 'PgnWidget-selected-move');
-		var color = domNode.css('color');
-		domNode.css('background-color', color);
-		domNode.css('color', contrastedColor(color));
-	}
-
-
 	/**
 	 * Unselect the selected move, if any.
 	 *
-	 * @private
-	 * @memberof PgnWidget
+	 * @param {jQuery} [target] Move to unselect. If not provided, `#uichess-chessgame-navigationFrameTarget` is targeted.
 	 */
-	function unselectMove()
+	function unselectMove(target)
 	{
-		var selectedMove = $('#PgnWidget-selected-move');
-		selectedMove.attr('id'   , null);
-		selectedMove.attr('style', null);
+		if(target === undefined || target === null) {
+			target = $('#uichess-chessgame-navigationFrameTarget');
+		}
+		target.attr('style', null).attr('id', null).removeClass('uichess-chessgame-selectedMove');
 	}
+
+
+	/**
+	 * Create the navigation frame, if it does not exist yet.
+	 */
+	function buildNavigationFrame()
+	{
+		if($('#uichess-chessgame-navigationFrame').length !== 0) {
+			return;
+		}
+
+		// Structure of the navigation frame.
+		$(
+			'<div id="uichess-chessgame-navigationFrame">' +
+				'<div class="uichess-chessgame-navigationBoard"></div>' +
+				'<div class="uichess-chessgame-navigationButtons">TODO' +
+					//'<button id="PgnWidget-navigation-button-frst">&lt;&lt;</button>' +
+					//'<button id="PgnWidget-navigation-button-prev">&lt;</button>' +
+					//'<button id="PgnWidget-navigation-button-next">&gt;</button>' +
+					//'<button id="PgnWidget-navigation-button-last">&gt;&gt;</button>' +
+				'</div>' +
+			'</div>'
+		).appendTo($('body'));
+
+		// Create the dialog widget.
+		$('#uichess-chessgame-navigationFrame').dialog({
+			/* Hack to keep the dialog draggable after the page has being scrolled. */
+			create     : function(event) { $(event.target).parent().css('position', 'fixed'); },
+			resizeStart: function(event) { $(event.target).parent().css('position', 'fixed'); },
+			resizeStop : function(event) { $(event.target).parent().css('position', 'fixed'); },
+			/* End of hack */
+			autoOpen   : false,
+			//dialogClass: 'wp-dialog', // TODO: customize
+			width      : 'auto',
+			close      : function() { unselectMove(); }
+		});
+
+		// Create the chessboard widget.
+		var widget = $('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationBoard');
+		widget.chessboard();
+		widget.chessboard('sizeControlledByContainer', $('#uichess-chessgame-navigationFrame'), 'dialogresize');
+
+		// Create the buttons.
+		//$('#PgnWidget-navigation-button-frst').button().click(function() { goFrstMove(); });
+		//$('#PgnWidget-navigation-button-prev').button().click(function() { goPrevMove(); });
+		//$('#PgnWidget-navigation-button-next').button().click(function() { goNextMove(); });
+		//$('#PgnWidget-navigation-button-last').button().click(function() { goLastMove(); });
+	}
+
+
 
 
 	/**

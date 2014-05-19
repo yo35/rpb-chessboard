@@ -116,6 +116,11 @@
 	display: none;
 }
 
+.uichess-chessgame-clickableMoves .uichess-chessgame-move:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
 .uichess-chessgame-subVariation .uichess-chessgame-move {
 	font-weight: inherit;
 }

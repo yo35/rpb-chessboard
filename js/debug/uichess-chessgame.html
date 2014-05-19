@@ -29,11 +29,10 @@
 
 	<div id="a"></div>
 
-	<button id="clear-button">Clear</button>
-
 	<hr/>
 
 	<div id="b"></div>
+	<button id="clear-button">Clear</button>
 
 	<hr/>
 
@@ -163,9 +162,6 @@
 			'1/2-1/2'
 		});
 
-		// Clear button: destroy the widget.
-		$('#clear-button').click(function() { $('#a').chessgame('destroy'); });
-
 		// Create a widget on #b.
 		$('#b').chessgame({ pgn:
 			'[White "Kasparov, G."]\n' +
@@ -174,8 +170,11 @@
 			'[Event "Exhibition"]\n' +
 			'[Date "????.??.??"]\n' +
 			'[Site "Some unknown place"]\n' +
-			'1. e4 *'
+			'1. e4 e5 *'
 		});
+
+		// Clear button: destroy the widget.
+		$('#clear-button').click(function() { $('#b').chessgame('destroy'); });
 
 		// Create a widget on #c.
 		$('#c').chessgame({ pgn:
