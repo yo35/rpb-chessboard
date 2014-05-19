@@ -282,6 +282,23 @@
 
 
 	/**
+	 * Ensure that the given argument is a valid value for the navigation board property.
+	 *
+	 * @param {string} value
+	 * @returns {string}
+	 */
+	function filterNavigationBoard(value)
+	{
+		switch(value) {
+			case 'frame':
+				return value;
+			default:
+				return 'none';
+		}
+	}
+
+
+	/**
 	 * Register a 'chessgame' widget in the jQuery widget framework.
 	 */
 	$.widget('uichess.chessgame',
@@ -294,7 +311,16 @@
 			/**
 			 * String describing the game (PGN format).
 			 */
-			pgn: '*'
+			pgn: '*',
+
+			/**
+			 * Position of the navigation board.
+			 *
+			 * Available values are:
+			 * - 'none': no navigation board.
+			 * - 'frame': navigation board in a jQuery frame independent of the page content.
+			 */
+			navigationBoard: 'frame'
 		},
 
 
@@ -312,6 +338,7 @@
 		{
 			this.element.addClass('uichess-chessgame');
 			this.options.pgn = this._initializePGN(this.options.pgn);
+			this.options.navigationBoard = filterNavigationBoard(this.options.navigationBoard);
 			this._refresh();
 		},
 
@@ -322,6 +349,21 @@
 		_destroy: function()
 		{
 			this.element.empty().removeClass('uichess-chessgame');
+		},
+
+
+		/**
+		 * Option setter.
+		 */
+		_setOption: function(key, value)
+		{
+			switch(key) {
+				case 'pgn': value = this._initializePGN(value); break;
+				case 'navigationBoard': value = filterNavigationBoard(value); break;
+			}
+
+			this.options[key] = value;
+			this._refresh();
 		},
 
 
