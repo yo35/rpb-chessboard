@@ -28,8 +28,8 @@
  * @requires jQuery
  * @requires jQuery UI Widget
  * @requires jQuery UI Selectable
- * @requires jQuery UI Draggable
- * @requires jQuery UI Droppable
+ * @requires jQuery UI Draggable (optional, only if the moveable piece feature is enabled)
+ * @requires jQuery UI Droppable (optional, only if the moveable piece feature is enabled)
  */
 (function(Chess, $)
 {
