@@ -38,37 +38,57 @@
 
 
 	/**
-	 * Internationalization constants.
+	 * Public static properties.
 	 */
 	$.chessgame =
 	{
 		/**
-		 * Annotator field template.
+		 * Default options for the chessboard in the navigation frame.
+		 * @type {object}
+		 */
+		navigationFrameOptions: {},
+
+
+		/**
+		 * Dialog class for the navigation frame.
 		 * @type {string}
 		 */
-		ANNOTATED_BY: 'Annotated by %1$s',
+		navigationFrameClass: '',
+
 
 		/**
-		 * Initial position label.
-		 * @type {string}
+		 * Internationalization constants.
 		 */
-		INITIAL_POSITION: 'Initial position',
+		i18n:
+		{
+			/**
+			 * Annotator field template.
+			 * @type {string}
+			 */
+			ANNOTATED_BY: 'Annotated by %1$s',
 
-		/**
-		 * Month names.
-		 * @type {string[]}
-		 */
-		MONTHS: [
-			'January', 'February', 'March'    , 'April'  , 'May'     , 'June'    ,
-			'July'   , 'August'  , 'September', 'October', 'November', 'December'
-		],
+			/**
+			 * Initial position label.
+			 * @type {string}
+			 */
+			INITIAL_POSITION: 'Initial position',
 
-		/**
-		 * Chess piece symbols.
-		 * @type {{K:string, Q:string, R:string, B:string, N:string, P:string}}
-		 */
-		PIECE_SYMBOLS: {
-			'K':'K', 'Q':'Q', 'R':'R', 'B':'B', 'N':'N', 'P':'P'
+			/**
+			 * Month names.
+			 * @type {string[]}
+			 */
+			MONTHS: [
+				'January', 'February', 'March'    , 'April'  , 'May'     , 'June'    ,
+				'July'   , 'August'  , 'September', 'October', 'November', 'December'
+			],
+
+			/**
+			 * Chess piece symbols.
+			 * @type {{K:string, Q:string, R:string, B:string, N:string, P:string}}
+			 */
+			PIECE_SYMBOLS: {
+				'K':'K', 'Q':'Q', 'R':'R', 'B':'B', 'N':'N', 'P':'P'
+			}
 		}
 	};
 
@@ -120,7 +140,7 @@
 		else if(date.match(/([0-9]{4})\.([0-9]{2})\.\?\?/)) {
 			var month = parseInt(RegExp.$2, 10);
 			if(month>=1 && month<=12) {
-				return $.chessgame.MONTHS[month-1] + ' ' + RegExp.$1;
+				return $.chessgame.i18n.MONTHS[month-1] + ' ' + RegExp.$1;
 			}
 			else {
 				return RegExp.$1;
@@ -190,7 +210,7 @@
 			for(var k=0; k<notation.length; ++k) {
 				var c = notation.charAt(k);
 				if(c==='K' || c==='Q' || c==='R' || c==='B' || c==='N' || c==='P') {
-					retVal += $.chessgame.PIECE_SYMBOLS[c];
+					retVal += $.chessgame.i18n.PIECE_SYMBOLS[c];
 				}
 				else {
 					retVal += c;
@@ -337,6 +357,13 @@
 			 * - 'right': navigation board in floating node on the right of the headers and moves.
 			 */
 			navigationBoard: 'frame',
+
+
+			/**
+			 * Options for the navigation chessboard widget.
+			 */
+			navigationBoardOptions: {},
+
 
 			/**
 			 * Whether the navigation board and the diagrams are flipped or not.
@@ -600,7 +627,7 @@
 		_makeNavigationBoxWidgets: function()
 		{
 			// Set-up the navigation board.
-			$('.uichess-chessgame-navigationBoard', this.element).chessboard();
+			$('.uichess-chessgame-navigationBoard', this.element).chessboard(this.options.navigationBoardOptions);
 
 			// Navigation buttons
 			var obj = this;
@@ -748,7 +775,7 @@
 			}
 
 			// Build and return the header.
-			var header = '<div class="uichess-chessgame-annotator">' + $.chessgame.ANNOTATED_BY.replace(/%1\$s/g,
+			var header = '<div class="uichess-chessgame-annotator">' + $.chessgame.i18n.ANNOTATED_BY.replace(/%1\$s/g,
 				'<span class="uichess-chessgame-annotatorName">' + annotator + '</span>') + '</div>';
 			return header;
 		},
@@ -942,7 +969,7 @@
 		_buildInitialMove: function()
 		{
 			return '<div class="uichess-chessgame-move uichess-chessgame-initialMove" ' +
-				'data-position="' + this._game.initialPosition() + '">' + $.chessgame.INITIAL_POSITION + '</div>';
+				'data-position="' + this._game.initialPosition() + '">' + $.chessgame.i18n.INITIAL_POSITION + '</div>';
 		},
 
 
@@ -1091,14 +1118,14 @@
 			resizeStop : function(event) { $(event.target).parent().css('position', 'fixed'); },
 			/* End of hack */
 			autoOpen   : false,
-			//dialogClass: 'wp-dialog', // TODO: customize
+			dialogClass: $.chessgame.navigationFrameClass,
 			width      : 'auto',
 			close      : function() { unselectMove(); }
 		});
 
 		// Create the chessboard widget.
 		var widget = $('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationBoard');
-		widget.chessboard();
+		widget.chessboard($.chessgame.navigationFrameOptions);
 		widget.chessboard('sizeControlledByContainer', $('#uichess-chessgame-navigationFrame'), 'dialogresize');
 
 		// Create the buttons.
