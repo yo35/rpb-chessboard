@@ -24,7 +24,6 @@
  *
  * @author Yoann Le Montagner
  *
- * @requires chess.js {@link https://github.com/jhlywa/chess.js}
  * @requires pgn.js
  * @requires chesswidget.js
  * @requires jQuery
@@ -34,7 +33,7 @@
  *
  * TODO: check required packages
  */
-(function(Chess, Pgn, $)
+(function(Pgn, $)
 {
 	'use strict';
 
@@ -1088,4 +1087,4 @@
 			'</div>';
 	}
 
-})(Chess, Pgn, jQuery);
+})(/* global Pgn */ Pgn, /* global jQuery */ jQuery);
