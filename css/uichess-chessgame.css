@@ -190,17 +190,17 @@ div.uichess-chessgame-variation > div:last-child {
 	margin-top: 0px;
 }
 
-.uichess-chessgame-navigationBoard.uichess-chessgame-floatLeft,
-.uichess-chessgame-navigationBoard.uichess-chessgame-floatRight {
+.uichess-chessgame-navigationBox.uichess-chessgame-floatLeft,
+.uichess-chessgame-navigationBox.uichess-chessgame-floatRight {
 	margin-bottom: 0.5em;
 }
 
-.uichess-chessgame-navigationBoard.uichess-chessgame-floatLeft {
+.uichess-chessgame-navigationBox.uichess-chessgame-floatLeft {
 	float: left;
 	margin-right: 0.5em;
 }
 
-.uichess-chessgame-navigationBoard.uichess-chessgame-floatRight {
+.uichess-chessgame-navigationBox.uichess-chessgame-floatRight {
 	float: right;
 	margin-left: 0.5em;
 }
@@ -211,4 +211,8 @@ div.uichess-chessgame-variation > div:last-child {
 
 .uichess-chessgame-clearRigth {
 	clear: right;
+}
+
+.uichess-chessgame-navigationButtons {
+	text-align: center;
 }

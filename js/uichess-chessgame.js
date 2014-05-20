@@ -392,6 +392,56 @@
 
 
 		/**
+		 * Go to the first move of the variation of the currently selected move.
+		 */
+		goFirstMove: function()
+		{
+			var target = $('.uichess-chessgame-selectedMove', this.element);
+			if(target.length === 0) {
+				return;
+			}
+			while(target.data('prevMove') !== undefined) {
+				target = target.data('prevMove');
+			}
+			this._updateNavigationBoard(target);
+		},
+
+
+		/**
+		 * Go to the previous move of the currently selected move.
+		 */
+		goPreviousMove: function()
+		{
+			this._updateNavigationBoard($('.uichess-chessgame-selectedMove', this.element).data('prevMove'));
+		},
+
+
+		/**
+		 * Go to the next move of the currently selected move.
+		 */
+		goNextMove: function()
+		{
+			this._updateNavigationBoard($('.uichess-chessgame-selectedMove', this.element).data('nextMove'));
+		},
+
+
+		/**
+		 * Go to the last move of the variation of the currently selected move.
+		 */
+		goLastMove: function()
+		{
+			var target = $('.uichess-chessgame-selectedMove', this.element);
+			if(target.length === 0) {
+				return;
+			}
+			while(target.data('nextMove') !== undefined) {
+				target = target.data('nextMove');
+			}
+			this._updateNavigationBoard(target);
+		},
+
+
+		/**
 		 * Initialize the internal Pgn.Item object that contains the parsed PGN data.
 		 *
 		 * @returns {string}
@@ -450,7 +500,7 @@
 
 			// Handle parsing error problems.
 			if(this._game instanceof Pgn.Error) {
-				this._printErrorMessage();
+				$(this._buildErrorMessage()).appendTo(this.element);
 				return;
 			}
 
@@ -476,58 +526,119 @@
 				case 'floatLeft':
 				case 'floatRight':
 					suffix = '<div class="uichess-chessgame-' + this.options.navigationBoard.replace('float', 'clear') + '"></div>';
-					prefix = '<div class="uichess-chessgame-navigationBoard uichess-chessgame-' + this.options.navigationBoard + '"></div>';
+					prefix = '<div class="uichess-chessgame-navigationBox uichess-chessgame-' + this.options.navigationBoard + '">' +
+						buildNavigationSkeleton() + '</div>';
 					break;
 			}
 
-			// Render the content, and exit if the navigation board feature is disabled.
+			// Render the content.
 			$(prefix + move0 + headers + body + suffix).appendTo(this.element);
 			if(this.options.navigationBoard === 'none') {
 				return;
 			}
 
-			// Make the moves clickable.
-			var obj = this;
-			$('.uichess-chessgame-move', this.element).click(function() { obj._updateNavigationBoard($(this)); });
-
-			// Set-up the navigation chessboard widget.
-			if(this.options.navigationBoard !== 'none' && this.options.navigationBoard !== 'frame') {
-				$('.uichess-chessgame-navigationBoard', this.element).chessboard();
-				this._updateNavigationBoard($('.uichess-chessgame-move', this.element).first());
+			// Activate the navigation board, if required.
+			if(this.options.navigationBoard !== 'none') {
+				this._makeMovesClickable();
+				this._makeMovesRelated();
+				if(this.options.navigationBoard !== 'frame') {
+					this._makeNavigationBoxWidgets();
+				}
 			}
 		},
 
 
 		/**
-		 * Build the error message resulting from a PGN parsing error.
+		 * Make the moves clickable: when clicked, the navigation board is updated to show
+		 * the position after the corresponding move.
 		 */
-		_printErrorMessage: function()
+		_makeMovesClickable: function()
+		{
+			var obj = this;
+			$('.uichess-chessgame-move', this.element).click(function() { obj._updateNavigationBoard($(this)); });
+		},
+
+
+		/**
+		 * For each move, add pointer to its predecessor and its successor in the variation.
+		 */
+		_makeMovesRelated: function()
+		{
+			// For each variation...
+			$('.uichess-chessgame-variation').each(function(index, element)
+			{
+				// Retrieve the moves of the variation.
+				var variation = $(element);
+				var moves     = variation.is('div') ?
+					variation.children('.uichess-chessgame-moveGroup').children('.uichess-chessgame-move') :
+					variation.children('.uichess-chessgame-move');
+
+				// Link each move to its successor and its predecessor.
+				var previousMove = null;
+				moves.each(function(index, element) {
+					var move = $(element);
+					if(previousMove !== null) {
+						move.data('prevMove', previousMove);
+						previousMove.data('nextMove', move);
+					}
+					previousMove = move;
+				});
+			});
+		},
+
+
+		/**
+		 * Initialize the navigation box widgets.
+		 */
+		_makeNavigationBoxWidgets: function()
+		{
+			// Set-up the navigation board.
+			$('.uichess-chessgame-navigationBoard', this.element).chessboard();
+
+			// Navigation buttons
+			var obj = this;
+			$('.uichess-chessgame-navigationButtonFrst').click(function() { obj.goFirstMove   (); });
+			$('.uichess-chessgame-navigationButtonPrev').click(function() { obj.goPreviousMove(); });
+			$('.uichess-chessgame-navigationButtonNext').click(function() { obj.goNextMove    (); });
+			$('.uichess-chessgame-navigationButtonLast').click(function() { obj.goLastMove    (); });
+
+			// Show the initial position on the navigation board.
+			this._updateNavigationBoard($('.uichess-chessgame-move', this.element).first()); ///TODO: selector for the first move.
+		},
+
+
+		/**
+		 * Build the error message resulting from a PGN parsing error.
+		 *
+		 * @returns {string}
+		 */
+		_buildErrorMessage: function()
 		{
 			// Build the error report box.
-			var content = '<div class="uichess-chessgame-error">' +
+			var retVal = '<div class="uichess-chessgame-error">' +
 				'<div class="uichess-chessgame-errorTitle">Error while analysing a PGN string.</div>';
 
 			// Optional message.
 			if(this._game.message !== null) {
-				content += '<div class="uichess-chessgame-errorMessage">' + this._game.message + '</div>';
+				retVal += '<div class="uichess-chessgame-errorMessage">' + this._game.message + '</div>';
 			}
 
 			// Display where the error has occurred.
 			if(this._game.pos !== null && this._game.pos >= 0) {
-				content += '<div class="uichess-chessgame-errorAt">';
+				retVal += '<div class="uichess-chessgame-errorAt">';
 				if(this._game.pos >= this._game.pgnString.length) {
-					content += 'Occurred at the end of the string.';
+					retVal += 'Occurred at the end of the string.';
 				}
 				else {
-					content += 'Occurred at position ' + this._game.pos + ':' + '<div class="uichess-chessgame-errorAtCode">' +
+					retVal += 'Occurred at position ' + this._game.pos + ':' + '<div class="uichess-chessgame-errorAtCode">' +
 						ellipsisAt(this._game.pgnString, this._game.pos, 10, 40) + '</div>';
 				}
-				content += '</div>';
+				retVal += '</div>';
 			}
 
-			// Close the error report box, and update the DOM element.
-			content += '</div>';
-			$(content).appendTo(this.element);
+			// Close the error report box, and return the result.
+			retVal += '</div>';
+			return retVal;
 		},
 
 
@@ -830,11 +941,11 @@
 		/**
 		 * Select the given move and update the navigation board accordingly.
 		 *
-		 * @param {jQuery} move
+		 * @param {jQuery} [move] Nothing is done if null or undefined.
 		 */
 		_updateNavigationBoard: function(move)
 		{
-			if(move.hasClass('uichess-chessgame-selectedMove')) {
+			if(move === undefined || move === null || move.hasClass('uichess-chessgame-selectedMove')) {
 				return;
 			}
 
@@ -933,17 +1044,7 @@
 		}
 
 		// Structure of the navigation frame.
-		$(
-			'<div id="uichess-chessgame-navigationFrame">' +
-				'<div class="uichess-chessgame-navigationBoard"></div>' +
-				'<div class="uichess-chessgame-navigationButtons">TODO' +
-					//'<button id="PgnWidget-navigation-button-frst">&lt;&lt;</button>' +
-					//'<button id="PgnWidget-navigation-button-prev">&lt;</button>' +
-					//'<button id="PgnWidget-navigation-button-next">&gt;</button>' +
-					//'<button id="PgnWidget-navigation-button-last">&gt;&gt;</button>' +
-				'</div>' +
-			'</div>'
-		).appendTo($('body'));
+		$('<div id="uichess-chessgame-navigationFrame">' + buildNavigationSkeleton() + '</div>').appendTo($('body'));
 
 		// Create the dialog widget.
 		$('#uichess-chessgame-navigationFrame').dialog({
@@ -971,61 +1072,20 @@
 	}
 
 
-
-
 	/**
-	 * Go to the first move of the current variation.
+	 * Build the DOM nodes that will be used as a skeleton for the navigation board and buttons.
 	 *
-	 * @private
-	 * @memberof PgnWidget
+	 * @returns {string}
 	 */
-	function goFrstMove()
+	function buildNavigationSkeleton()
 	{
-		var target = $('#PgnWidget-selected-move');
-		while(target.data('prevMove')!=null) {
-			target = target.data('prevMove');
-		}
-		showNavigationFrame(target);
-	}
-
-
-	/**
-	 * Go to the previous move of the current variation.
-	 *
-	 * @private
-	 * @memberof PgnWidget
-	 */
-	function goPrevMove()
-	{
-		showNavigationFrame($('#PgnWidget-selected-move').data('prevMove'));
-	}
-
-
-	/**
-	 * Go to the next move of the current variation.
-	 *
-	 * @private
-	 * @memberof PgnWidget
-	 */
-	function goNextMove()
-	{
-		showNavigationFrame($('#PgnWidget-selected-move').data('nextMove'));
-	}
-
-
-	/**
-	 * Go to the last move of the current variation.
-	 *
-	 * @private
-	 * @memberof PgnWidget
-	 */
-	function goLastMove()
-	{
-		var target = $('#PgnWidget-selected-move');
-		while(target.data('nextMove')!=null) {
-			target = target.data('nextMove');
-		}
-		showNavigationFrame(target);
+		return '<div class="uichess-chessgame-navigationBoard"></div>' +
+			'<div class="uichess-chessgame-navigationButtons">' +
+				'<button class="uichess-chessgame-navigationButtonFrst">&lt;&lt;</button>' +
+				'<button class="uichess-chessgame-navigationButtonPrev">&lt;</button>' +
+				'<button class="uichess-chessgame-navigationButtonNext">&gt;</button>' +
+				'<button class="uichess-chessgame-navigationButtonLast">&gt;&gt;</button>' +
+			'</div>';
 	}
 
 })(Chess, Pgn, jQuery);
