@@ -1043,6 +1043,35 @@
 
 
 	/**
+	 * Callback for the buttons of the navigation frame.
+	 *
+	 * @param {string} methodName
+	 */
+	function navigationFrameButtonCallback(methodName)
+	{
+		var widget = $('#uichess-chessgame-navigationFrameTarget').closest('.uichess-chessgame');
+		widget.chessgame(methodName);
+	}
+
+
+	/**
+	 * Build the DOM nodes that will be used as a skeleton for the navigation board and buttons.
+	 *
+	 * @returns {string}
+	 */
+	function buildNavigationSkeleton()
+	{
+		return '<div class="uichess-chessgame-navigationBoard"></div>' +
+			'<div class="uichess-chessgame-navigationButtons">' +
+				'<button class="uichess-chessgame-navigationButtonFrst">&lt;&lt;</button>' +
+				'<button class="uichess-chessgame-navigationButtonPrev">&lt;</button>' +
+				'<button class="uichess-chessgame-navigationButtonNext">&gt;</button>' +
+				'<button class="uichess-chessgame-navigationButtonLast">&gt;&gt;</button>' +
+			'</div>';
+	}
+
+
+	/**
 	 * Create the navigation frame, if it does not exist yet.
 	 */
 	function buildNavigationFrame()
@@ -1073,27 +1102,10 @@
 		widget.chessboard('sizeControlledByContainer', $('#uichess-chessgame-navigationFrame'), 'dialogresize');
 
 		// Create the buttons.
-		//$('#PgnWidget-navigation-button-frst').button().click(function() { goFrstMove(); });
-		//$('#PgnWidget-navigation-button-prev').button().click(function() { goPrevMove(); });
-		//$('#PgnWidget-navigation-button-next').button().click(function() { goNextMove(); });
-		//$('#PgnWidget-navigation-button-last').button().click(function() { goLastMove(); });
-	}
-
-
-	/**
-	 * Build the DOM nodes that will be used as a skeleton for the navigation board and buttons.
-	 *
-	 * @returns {string}
-	 */
-	function buildNavigationSkeleton()
-	{
-		return '<div class="uichess-chessgame-navigationBoard"></div>' +
-			'<div class="uichess-chessgame-navigationButtons">' +
-				'<button class="uichess-chessgame-navigationButtonFrst">&lt;&lt;</button>' +
-				'<button class="uichess-chessgame-navigationButtonPrev">&lt;</button>' +
-				'<button class="uichess-chessgame-navigationButtonNext">&gt;</button>' +
-				'<button class="uichess-chessgame-navigationButtonLast">&gt;&gt;</button>' +
-			'</div>';
+		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonFrst').click(function() { navigationFrameButtonCallback('goFirstMove'   ); });
+		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonPrev').click(function() { navigationFrameButtonCallback('goPreviousMove'); });
+		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonNext').click(function() { navigationFrameButtonCallback('goNextMove'    ); });
+		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonLast').click(function() { navigationFrameButtonCallback('goLastMove'    ); });
 	}
 
 })(/* global Pgn */ Pgn, /* global jQuery */ jQuery);
