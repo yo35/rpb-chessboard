@@ -249,7 +249,7 @@ var Pgn = (function(Chess) /* exported Pgn */
 	/**
 	 * Number of variations that can be followed instead of the current move.
 	 *
-	 * @return {number}
+	 * @returns {number}
 	 */
 	Node.prototype.variations = function()
 	{
@@ -508,7 +508,7 @@ var Pgn = (function(Chess) /* exported Pgn */
 	/**
 	 * Main variation.
 	 *
-	 * @return {Pgn.Variation}
+	 * @returns {Pgn.Variation}
 	 */
 	Item.prototype.mainVariation = function()
 	{
@@ -523,7 +523,7 @@ var Pgn = (function(Chess) /* exported Pgn */
 	 * Otherwise, `value` replaces the old game result, which is returned.
 	 *
 	 * @param {string} [value=undefined] Must be `'1-0'`, `'0-1'`, `'1/2-1/2'` or `'*'`.
-	 * @return {string}
+	 * @returns {string}
 	 */
 	Item.prototype.result = function(value)
 	{

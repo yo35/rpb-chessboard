@@ -255,7 +255,7 @@
 	 * @param {number} pos Index of the character in `text` around which the substring must be extracted.
 	 * @param {number} backwardCharacters Number of characters to keep before `pos`.
 	 * @param {number} forwardCharacters Number of characters to keep after `pos`.
-	 * @return string
+	 * @returns {string}
 	 */
 	function ellipsisAt(text, pos, backwardCharacters, forwardCharacters)
 	{
@@ -536,7 +536,7 @@
 		 * corresponding to the requested color.
 		 *
 		 * @param {string} color Either 'White' or 'Black'.
-		 * @return {string}
+		 * @returns {string}
 		 */
 		_playerNameHeader: function(color)
 		{
@@ -570,7 +570,7 @@
 		/**
 		 * Build the header containing the event-related information (event + round).
 		 *
-		 * @return {string}
+		 * @returns {string}
 		 */
 		_eventHeader: function()
 		{
@@ -596,7 +596,7 @@
 		/**
 		 * Build the header containing the date/place information.
 		 *
-		 * @return {string}
+		 * @returns {string}
 		 */
 		_datePlaceHeader: function()
 		{
@@ -619,7 +619,7 @@
 		/**
 		 * Build the header containing the annotator information.
 		 *
-		 * @return {string}
+		 * @returns {string}
 		 */
 		_annotatorHeader: function()
 		{
@@ -639,7 +639,7 @@
 		/**
 		 * Build the move tree.
 		 *
-		 * @return {string}
+		 * @returns {string}
 		 */
 		_buildBody: function()
 		{
@@ -664,7 +664,7 @@
 		 * @param {Pgn.Variation} variation
 		 * @param {boolean} isMainVariation
 		 * @param {null|string} result Must be set to null for sub-variations.
-		 * @return {string|{content:string, divCount:number}} The second form is only used for the main variation.
+		 * @returns {string|{content:string, divCount:number}} The second form is only used for the main variation.
 		 */
 		_buildVariation: function(variation, isMainVariation, result)
 		{
@@ -772,7 +772,7 @@
 		 *
 		 * @param {string} comment
 		 * @param {boolean} isLongComment
-		 * @return {string}
+		 * @returns {string}
 		 */
 		_buildComment: function(comment, isLongComment)
 		{
@@ -787,7 +787,7 @@
 		 *
 		 * @param {Pgn.Node} node
 		 * @param {boolean} forcePrintMoveNumber
-		 * @return {string}
+		 * @returns {string}
 		 */
 		_buildMove: function(node, forcePrintMoveNumber)
 		{
