@@ -465,8 +465,9 @@
 				headers = '<div class="uichess-chessgame-headers">' + headers + '</div>';
 			}
 
-			// Body
-			var body = this._buildBody();
+			// Body and initial move
+			var move0 = this._buildInitialMove();
+			var body  = this._buildBody();
 
 			// Navigation board
 			var prefix = '';
@@ -480,7 +481,7 @@
 			}
 
 			// Render the content, and exit if the navigation board feature is disabled.
-			$(prefix + headers + body + suffix).appendTo(this.element);
+			$(prefix + move0 + headers + body + suffix).appendTo(this.element);
 			if(this.options.navigationBoard === 'none') {
 				return;
 			}
@@ -492,7 +493,7 @@
 			// Set-up the navigation chessboard widget.
 			if(this.options.navigationBoard !== 'none' && this.options.navigationBoard !== 'frame') {
 				$('.uichess-chessgame-navigationBoard', this.element).chessboard();
-				this._updateNavigationBoard($('.uichess-chessgame-move', this.element).first()); // TODO: no-move case
+				this._updateNavigationBoard($('.uichess-chessgame-move', this.element).first());
 			}
 		},
 
@@ -714,14 +715,6 @@
 				retVal += this._buildComment(variation.comment(), variation.isLongComment());
 			}
 
-			// Append a fake move at the beginning of the main variation, so that it will be possible
-			// to display the starting position in the navigation frame.
-			if(isMainVariation) {
-				openMoveGroup();
-				retVal += '<span class="uichess-chessgame-move uichess-chessgame-hidden" ' +
-					'data-position="' + variation.position() + '">' + $.chessgame.INITIAL_POSITION + '</span>';
-			}
-
 			// Visit all the PGN nodes (one node per move) within the variation.
 			var forcePrintMoveNumber = true;
 			var node = variation.first();
@@ -819,6 +812,20 @@
 			// Close the DOM node.
 			retVal += '</span>';
 			return retVal;
+		},
+
+
+		/**
+		 * Build the DOM node corresponding to the "initial-position-move",
+		 * which is always hidden, but must be added to make possible to display
+		 * the initial position in the navigation board.
+		 *
+		 * @returns {string}
+		 */
+		_buildInitialMove: function()
+		{
+			return '<div class="uichess-chessgame-move uichess-chessgame-hidden" ' +
+				'data-position="' + this._game.initialPosition() + '">' + $.chessgame.INITIAL_POSITION + '</div>';
 		},
 
 
