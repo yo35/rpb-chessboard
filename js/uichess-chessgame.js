@@ -305,6 +305,8 @@
 	{
 		switch(value) {
 			case 'frame':
+			case 'floatLeft':
+			case 'floatRight':
 				return value;
 			default:
 				return 'none';
@@ -333,6 +335,8 @@
 			 * Available values are:
 			 * - 'none': no navigation board.
 			 * - 'frame': navigation board in a jQuery frame independent of the page content.
+			 * - 'left': navigation board in floating node on the left of the headers and moves.
+			 * - 'right': navigation board in floating node on the right of the headers and moves.
 			 */
 			navigationBoard: 'frame',
 
@@ -464,8 +468,19 @@
 			// Body
 			var body = this._buildBody();
 
+			// Navigation board
+			var prefix = '';
+			var suffix = '';
+			switch(this.options.navigationBoard) {
+				case 'floatLeft':
+				case 'floatRight':
+					suffix = '<div class="uichess-chessgame-' + this.options.navigationBoard.replace('float', 'clear') + '"></div>';
+					prefix = '<div class="uichess-chessgame-navigationBoard uichess-chessgame-' + this.options.navigationBoard + '"></div>';
+					break;
+			}
+
 			// Render the content, and exit if the navigation board feature is disabled.
-			$(headers + body).appendTo(this.element);
+			$(prefix + headers + body + suffix).appendTo(this.element);
 			if(this.options.navigationBoard === 'none') {
 				return;
 			}
@@ -474,6 +489,11 @@
 			var obj = this;
 			$('.uichess-chessgame-move', this.element).click(function() { obj._updateNavigationBoard($(this)); });
 
+			// Set-up the navigation chessboard widget.
+			if(this.options.navigationBoard !== 'none' && this.options.navigationBoard !== 'frame') {
+				$('.uichess-chessgame-navigationBoard', this.element).chessboard();
+				this._updateNavigationBoard($('.uichess-chessgame-move', this.element).first()); // TODO: no-move case
+			}
 		},
 
 
@@ -845,7 +865,7 @@
 		{
 			var widget = this.options.navigationBoard === 'frame' ?
 				$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationBoard') :
-				null; // TODO: selector for the navigation board when not in the dedicated frame
+				$('.uichess-chessgame-navigationBoard', this.element);
 
 			// Update the position.
 			widget.chessboard('option', 'position', move.data('position'));

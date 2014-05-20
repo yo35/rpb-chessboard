@@ -180,3 +180,35 @@
 .uichess-chessgame-headers + .uichess-chessgame-body.uichess-chessgame-moreSpace {
 	margin-top: 0.5em;
 }
+
+
+
+/******************************************************************************/
+/*** Navigation board ***/
+
+.uichess-chessgame-navigationBoard.uichess-chessboard {
+	margin-top: 0px;
+}
+
+.uichess-chessgame-navigationBoard.uichess-chessgame-floatLeft,
+.uichess-chessgame-navigationBoard.uichess-chessgame-floatRight {
+	margin-bottom: 0.5em;
+}
+
+.uichess-chessgame-navigationBoard.uichess-chessgame-floatLeft {
+	float: left;
+	margin-right: 0.5em;
+}
+
+.uichess-chessgame-navigationBoard.uichess-chessgame-floatRight {
+	float: right;
+	margin-left: 0.5em;
+}
+
+.uichess-chessgame-clearLeft {
+	clear: left;
+}
+
+.uichess-chessgame-clearRigth {
+	clear: right;
+}
