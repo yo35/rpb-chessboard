@@ -20,7 +20,7 @@
 
 
 /**
- * Tools to represent PGN data in HTML pages.
+ * jQuery widget to display a chess game.
  *
  * @author Yoann Le Montagner
  *
@@ -30,8 +30,7 @@
  * @requires jQuery UI Widget
  * @requires jQuery Color (optional, only if the navigation board feature is enabled)
  * @requires jQuery UI Dialog (optional, only if the framed navigation board feature is enabled)
- *
- * TODO: check required packages
+ * @requires jQuery UI Resizable (optional, only if the framed navigation board feature is enabled)
  */
 (function(Pgn, $)
 {
@@ -894,6 +893,7 @@
 		 */
 		_buildComment: function(comment, isLongComment)
 		{
+			//TODO: diagrams in comments
 			var tag = isLongComment ? 'div' : 'span';
 			return '<' + tag + ' class="uichess-chessgame-comment">' + comment + '</' + tag + '>';
 		},
