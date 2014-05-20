@@ -583,6 +583,15 @@
 					previousMove = move;
 				});
 			});
+
+			// The initial move must be linked specifically since it does not belong to any variation.
+			var initialMove = $('.uichess-chessgame-initialMove', this.element);
+			var allMoves    = $('.uichess-chessgame-variation .uichess-chessgame-move', this.element);
+			if(allMoves.length !== 0) {
+				var secondMove = allMoves.first();
+				secondMove.data('prevMove', initialMove);
+				initialMove.data('nextMove', secondMove);
+			}
 		},
 
 
@@ -602,7 +611,7 @@
 			$('.uichess-chessgame-navigationButtonLast').click(function() { obj.goLastMove    (); });
 
 			// Show the initial position on the navigation board.
-			this._updateNavigationBoard($('.uichess-chessgame-move', this.element).first()); ///TODO: selector for the first move.
+			this._updateNavigationBoard($('.uichess-chessgame-initialMove', this.element));
 		},
 
 
@@ -932,7 +941,7 @@
 		 */
 		_buildInitialMove: function()
 		{
-			return '<div class="uichess-chessgame-move uichess-chessgame-hidden" ' +
+			return '<div class="uichess-chessgame-move uichess-chessgame-initialMove" ' +
 				'data-position="' + this._game.initialPosition() + '">' + $.chessgame.INITIAL_POSITION + '</div>';
 		},
 
