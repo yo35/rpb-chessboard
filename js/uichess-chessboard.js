@@ -20,7 +20,7 @@
 
 
 /**
- * Tools to create chessboard widgets in HTML pages.
+ * jQuery widget to create chess diagrams.
  *
  * @author Yoann Le Montagner
  *
@@ -52,6 +52,16 @@
 	 * @public
 	 */
 	var MAXIMUM_SQUARE_SIZE = 64;
+
+
+	/**
+	 * Public static properties.
+	 */
+	$.chessboard =
+	{
+		MINIMUM_SQUARE_SIZE: MINIMUM_SQUARE_SIZE,
+		MAXIMUM_SQUARE_SIZE: MAXIMUM_SQUARE_SIZE
+	};
 
 
 	/**
@@ -822,16 +832,6 @@
 			this._trigger('change', null, this.options.position);
 		}
 
-	}); /* End of $.widget('uichess.chessboard', ... ) */
-
-
-	/**
-	 * Public constants.
-	 */
-	$.chessboard =
-	{
-		MINIMUM_SQUARE_SIZE: MINIMUM_SQUARE_SIZE,
-		MAXIMUM_SQUARE_SIZE: MAXIMUM_SQUARE_SIZE
-	};
+	}); /* $.widget('uichess.chessboard', { ... }) */
 
 })( /* global Chess */ Chess, /* global jQuery */ jQuery );

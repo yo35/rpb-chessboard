@@ -25,7 +25,7 @@
  * @author Yoann Le Montagner
  *
  * @requires pgn.js
- * @requires chesswidget.js
+ * @requires uichess-chessboard.js
  * @requires jQuery
  * @requires jQuery UI Widget
  * @requires jQuery Color (optional, only if the navigation board feature is enabled)
@@ -90,7 +90,8 @@
 				'K':'K', 'Q':'Q', 'R':'R', 'B':'B', 'N':'N', 'P':'P'
 			}
 		}
-	};
+
+	}; /* $.chessgame = { ... } */
 
 
 	/**
@@ -1052,7 +1053,7 @@
 			move.css('color', contrastedColor(color));
 		}
 
-	});
+	}); /* $.widget('uichess.chessgame', { ... }) */
 
 
 	/**
