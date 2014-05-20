@@ -125,11 +125,11 @@
 	font-weight: inherit;
 }
 
-.uichess-chessgame-shortVariation:before {
+span.uichess-chessgame-variation:before {
 	content: "(";
 }
 
-.uichess-chessgame-shortVariation:after {
+span.uichess-chessgame-variation:after {
 	content: ")";
 }
 
@@ -137,19 +137,19 @@
 	font-weight: bold;
 }
 
-.uichess-chessgame-move,
-.uichess-chessgame-shortComment,
-.uichess-chessgame-shortVariation {
+span.uichess-chessgame-move,
+span.uichess-chessgame-comment,
+span.uichess-chessgame-variation {
 	margin-right: 0.4em;
 }
 
-.uichess-chessgame-move:last-child,
-.uichess-chessgame-shortComment:last-child,
-.uichess-chessgame-shortVariation:last-child {
+span.uichess-chessgame-move:last-child,
+span.uichess-chessgame-comment:last-child,
+span.uichess-chessgame-variation:last-child {
 	margin-right: 0px;
 }
 
-.uichess-chessgame-longVariation.uichess-chessgame-subVariation {
+div.uichess-chessgame-subVariation {
 	position: relative;
 	left: 1.5em;
 	width: calc(100% - 1.5em);
@@ -164,12 +164,12 @@
 	margin-bottom: 0.25em;
 }
 
-.uichess-chessgame-longVariation > div {
+div.uichess-chessgame-variation > div {
 	margin-bottom: 0.5em;
 }
 
 .uichess-chessgame-headers > div:last-child,
-.uichess-chessgame-longVariation > div:last-child {
+div.uichess-chessgame-variation > div:last-child {
 	margin-bottom: 0px;
 }
 

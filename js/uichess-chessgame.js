@@ -675,8 +675,7 @@
 
 			// Open a new DOM node for the variation.
 			var tag = variation.isLongVariation() ? 'div' : 'span';
-			var retVal = '<' + tag + ' class="uichess-chessgame-' + (isMainVariation ? 'main' : 'sub') + 'Variation ' +
-				'uichess-chessgame-' + (variation.isLongVariation() ? 'long' : 'short') + 'Variation">';
+			var retVal = '<' + tag + ' class="uichess-chessgame-variation' + (isMainVariation ? '' : ' uichess-chessgame-subVariation') + '">';
 
 			// The flag `moveGroupOpened` indicates whether a `<div class="moveGroup">` node
 			// is currently opened or not. Move group nodes are supposed to contain moves,
@@ -777,8 +776,7 @@
 		_buildComment: function(comment, isLongComment)
 		{
 			var tag = isLongComment ? 'div' : 'span';
-			return '<' + tag + ' class="uichess-chessgame-' + (isLongComment ? 'long' : 'short') + 'Comment">' +
-				comment + '</' + tag + '>';
+			return '<' + tag + ' class="uichess-chessgame-comment">' + comment + '</' + tag + '>';
 		},
 
 
