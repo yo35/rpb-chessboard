@@ -3,26 +3,27 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Sandbox for chesswidget.js</title>
+	<title>Sandbox for uichess-chessboard.js</title>
 
-	<!-- Dependencies -->
+	<!-- Third-party required components -->
 	<script type="text/javascript" src="../../chess-js/chess.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-	<script type="text/javascript" src="../chesswidget.js"></script>
-	<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"/>
-	<link rel="stylesheet" type="text/css" href="../../css/chesswidget.css"/>
-	<link rel="stylesheet" type="text/css" href="../../css/admin.css"/>
+	<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+
+	<!-- Tested component -->
+	<script type="text/javascript" src="../uichess-chessboard.js"></script>
+	<link rel="stylesheet" type="text/css" href="../../css/uichess-chessboard.css" />
 
 </head>
 
 <body>
-	<h1>Sandbox for chesswidget.js</h1>
+	<h1>Sandbox for uichess-chessboard.js</h1>
 
 	<hr/>
 
-	<div class="rpbchessboard-admin-columns">
-		<div class="rpbchessboard-admin-column" style="width: 30%;">
+	<div style="display: flex;">
+		<div style="width: 30%;">
 			<form>
 				<p>
 					<input id="make-empty"  type="button" value="Empty position"  /><br/>
@@ -32,6 +33,7 @@
 				<p>
 					<input id="flip" type="checkbox" />
 					<label for="flip">Flip</label>
+					<input id="clear" type="button" value="Clear the widget" />
 				</p>
 				<p>
 					<label for="squareSize-value">Square size</label>
@@ -44,7 +46,7 @@
 				</p>
 			</form>
 		</div>
-		<div class="rpbchessboard-admin-column" style="width: 70%; background: #e0ffe0;">
+		<div style="width: 70%; background: #e0ffe0;">
 			<div id="a"></div>
 		</div>
 	</div>
@@ -60,6 +62,8 @@
 		$('#flip').prop('checked', $('#a').chessboard('option', 'flip')).button().click(function() {
 			$('#a').chessboard('option', 'flip', $('#flip').prop('checked'));
 		});
+
+		$('#clear').button().click(function() { $('#a').chessboard('destroy'); });
 
 		function refreshSquareSizeLabel() {
 			$('#squareSize-value').val($('#a').chessboard('option', 'squareSize'));
