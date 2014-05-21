@@ -685,10 +685,10 @@ var Pgn = (function(Chess) /* exported Pgn */
 			}
 
 			// Match a comment
-			else if(/^(\{([^\{\}]*)\})/.test(s)) {
+			else if(/^(\{((?:\\\\|\\\{|\\\}|[^\{\}])*)\})/.test(s)) {
 				deltaPos   = RegExp.$1.length;
 				token      = TOKEN_COMMENT;
-				tokenValue = RegExp.$2.replace(/^\s+|\s+$/g, '');
+				tokenValue = RegExp.$2.replace(/\\(\\|\{|\})/g, '$1').replace(/^\s+|\s+$/g, '');
 			}
 
 			// Match the beginning of a variation
