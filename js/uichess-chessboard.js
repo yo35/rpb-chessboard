@@ -160,7 +160,7 @@
 		 */
 		_destroy: function()
 		{
-			this.element.removeClass('uichess-chessboard').enableSelection();
+			this.element.empty().removeClass('uichess-chessboard').enableSelection();
 		},
 
 
