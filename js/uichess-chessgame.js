@@ -632,10 +632,10 @@
 
 			// Navigation buttons
 			var obj = this;
-			$('.uichess-chessgame-navigationButtonFrst').click(function() { obj.goFirstMove   (); });
-			$('.uichess-chessgame-navigationButtonPrev').click(function() { obj.goPreviousMove(); });
-			$('.uichess-chessgame-navigationButtonNext').click(function() { obj.goNextMove    (); });
-			$('.uichess-chessgame-navigationButtonLast').click(function() { obj.goLastMove    (); });
+			$('.uichess-chessgame-navigationButtonFrst', this.element).click(function() { obj.goFirstMove   (); });
+			$('.uichess-chessgame-navigationButtonPrev', this.element).click(function() { obj.goPreviousMove(); });
+			$('.uichess-chessgame-navigationButtonNext', this.element).click(function() { obj.goNextMove    (); });
+			$('.uichess-chessgame-navigationButtonLast', this.element).click(function() { obj.goLastMove    (); });
 
 			// Show the initial position on the navigation board.
 			this._updateNavigationBoard($('.uichess-chessgame-initialMove', this.element));
