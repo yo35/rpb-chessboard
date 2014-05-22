@@ -40,105 +40,7 @@
 
 	<hr/>
 
-	<h2>Check the vertical spacing</h2>
-
-	<style>
-
-		#container {
-			display: flex;
-		}
-
-		#container > div {
-			margin-right: 10px;
-			background-color: red;
-		}
-
-		#container > div:last-child {
-			margin-right: 0px;
-		}
-
-		#container p {
-			background-color: darkcyan;
-			margin-top: 0px;
-			margin-bottom: 0px;
-		}
-
-		#container .uichess-chessgame {
-			background-color: green;
-		}
-
-		#container .uichess-chessgame .uichess-chessgame-headers {
-			background-color: yellow;
-		}
-
-		#container .uichess-chessgame .uichess-chessgame-body {
-			background-color: lightblue;
-		}
-
-	</style>
-
-	<div id="container">
-		<div>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel dui ante.</p>
-			<div id="d1"></div>
-			<p>Donec egestas augue orci, eu tincidunt odio aliquet in.</p>
-		</div>
-		<div>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel dui ante.</p>
-			<div id="d2"></div>
-			<p>Donec egestas augue orci, eu tincidunt odio aliquet in.</p>
-		</div>
-		<div>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel dui ante.</p>
-			<div id="d3"></div>
-			<p>Donec egestas augue orci, eu tincidunt odio aliquet in.</p>
-		</div>
-	</div>
-
-	<hr/>
-
-	<h2>Layout in presence of floating objects</h2>
-
-	<div id="container2">
-		<div class="float-object"></div>
-		<div id="e"></div>
-		<div class="clear-floats"></div>
-	</div>
-
-	<style>
-
-		#container2 {
-			background-color: #eee;
-			width: 50%;
-		}
-
-		#container2 div.uichess-chessgame-variation {
-			background-color: #ddd;
-		}
-
-		#container2 div.uichess-chessgame-variation div.uichess-chessgame-variation {
-			background-color: #ccc;
-		}
-
-		#container2 div.uichess-chessgame-variation div.uichess-chessgame-variation div.uichess-chessgame-variation {
-			background-color: #bbb;
-		}
-
-		.float-object {
-			float: left;
-			background-color: red;
-			width : 200px;
-			height: 200px;
-			margin-right : 10px;
-			margin-bottom: 10px;
-		}
-
-		.clear-floats {
-			clear: both;
-		}
-
-	</style>
-
+	<div id="d"></div>
 
 	<script type="text/javascript">
 
@@ -203,51 +105,12 @@
 			'27. Ra1 Rh6 28. d4 Be3 0-1'
 		});
 
-		// Vertical spacing
-		$('#d1').chessgame({ navigationBoard: 'frame', pgn:
-			'[Event "?"]\n' +
-			'[Site "?"]\n' +
-			'[Date "????.??.??"]\n' +
-			'[Round "?"]\n' +
-			'[White "Player 1"]\n' +
-			'[Black "Player 2"]\n' +
-			'[Result "*"]\n' +
-			'1. e4 e5 2. Nf3 Nc6 3. Nc3 Nf6 4. Bb5 Bc5 5. O-O O-O 6. Nxe5 Re8 7. Nxc6 dxc6 8. Bc4 b5 *\n'
-		});
-		$('#d2').chessgame({ navigationBoard: 'frame', pgn:
-			'[Event "?"]\n' +
-			'[Site "?"]\n' +
-			'[Date "????.??.??"]\n' +
-			'[Round "?"]\n' +
-			'[White "Player 1"]\n' +
-			'[Black "Player 2"]\n' +
-			'[Result "*"]\n' +
-			'*'
-		});
-		$('#d3').chessgame({ navigationBoard: 'frame', pgn:
-			'1. e4 e5 2. Nf3 Nc6 3. Nc3 Nf6 4. Bb5 Bc5 5. O-O O-O 6. Nxe5 Re8 7. Nxc6 dxc6 8. Bc4 b5 *\n'
-		});
-
-		// Floats
-		$('#e').chessgame({ navigationBoard: 'frame', pgn:
-			'[White "Player 1"]\n' +
-			'[Black "Player 2"]\n' +
-			'[Result "1/2-1/2"]\n' +
-			'1.e4 d6\n' +
-			'\n' +
-			'(1...e6 2.d4 d5 3.e5 c5)\n' +
-			'\n' +
-			'(1...c5 2.Nf3 e6\n' +
-			'\n' +
-			'(3...Nf6 4.d4 cxd4 5.Nxd4 e5)\n' +
-			'\n' +
-			'3.d4 cxd4 4.Nxd4 Nf6 5.Nc3)\n'+
-			'\n' +
-			'(1...e5 2.Nf3 Nc6 3.Bb5 a6 4.Bxc6 dxc6 5.O-O Bg4 6.h3 h5 7.d3 Qf6 8.Nbd2 Ne7 9.Re1 Ng6 10.d4 Nf4)\n' +
-			'\n' +
-			'(1...c6 2.d4 d5)\n' +
-			'\n' +
-			'2.d4 1/2-1/2'
+		// Create a widget on #d.
+		$('#d').chessgame({ navigationBoard: 'frame', pgn:
+			'[Result "1-0"]\n' +
+			'[FEN "r2q1b1r/ppn2kpp/2p1b3/3nP3/2BPQ3/P1N5/1PP3PP/R1B1K2R w KQ - 1 14"]\n' +
+			'[SetUp "1"]\n' +
+			'14. O-O+ Ke8 15. Qf3 Nxc3 16. Bxe6 Nxe6 Qf7# 1-0'
 		});
 
 	</script>
