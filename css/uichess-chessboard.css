@@ -48,8 +48,7 @@
 .uichess-chessboard-cell.uichess-chessboard-columnCoordinate {
 	vertical-align: baseline;
 	line-height: 1ex;
-	padding-top   : 6px;
-	padding-bottom: 6px;
+	padding-top: 6px;
 }
 
 .uichess-chessboard-turnFlag {
