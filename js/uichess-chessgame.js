@@ -874,7 +874,7 @@
 				} else {
 					openMoveGroup();
 				}
-				retVal += this._buildComment(variation.comment(), variation.isLongComment());
+				retVal += this._buildComment(variation);
 			}
 
 			// Visit all the PGN nodes (one node per move) within the variation.
@@ -892,7 +892,7 @@
 						closeMoveGroup();
 						++divCount;
 					}
-					retVal += this._buildComment(node.comment(), node.isLongComment());
+					retVal += this._buildComment(node);
 				}
 
 				// Write the sub-variations.
@@ -932,15 +932,15 @@
 		/**
 		 * Build the DOM node corresponding to the given text comment.
 		 *
-		 * @param {string} comment
-		 * @param {boolean} isLongComment
+		 * @param {Pgn.Node|Pgn.Variation} node
 		 * @returns {string}
 		 */
-		_buildComment: function(comment, isLongComment)
+		_buildComment: function(node)
 		{
 			//TODO: diagrams in comments
-			var tag = isLongComment ? 'div' : 'span';
-			return '<' + tag + ' class="uichess-chessgame-comment">' + comment + '</' + tag + '>';
+			var tag = node.isLongComment() ? 'div' : 'span';
+			return '<' + tag + ' class="uichess-chessgame-comment" data-position="' + node.position() + '">' +
+				node.comment() + '</' + tag + '>';
 		},
 
 
