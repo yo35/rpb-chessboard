@@ -357,7 +357,7 @@
 			 * - 'left': navigation board in floating node on the left of the headers and moves.
 			 * - 'right': navigation board in floating node on the right of the headers and moves.
 			 */
-			navigationBoard: 'frame',
+			navigationBoard: 'none',
 
 
 			/**
