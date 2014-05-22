@@ -334,6 +334,21 @@
 
 
 	/**
+	 * Filter the options passed to the chessboard widgets.
+	 *
+	 * @param {object} value
+	 * @returns {object}
+	 */
+	function filterChessboardOptions(value)
+	{
+		return {
+			squareSize     : value.squareSize     ,
+			showCoordinates: value.showCoordinates
+		};
+	}
+
+
+	/**
 	 * Register a 'chessgame' widget in the jQuery widget framework.
 	 */
 	$.widget('uichess.chessgame',
@@ -387,7 +402,8 @@
 		{
 			this.element.addClass('uichess-chessgame');
 			this.options.pgn = this._initializePGN(this.options.pgn);
-			this.options.navigationBoard = filterNavigationBoard(this.options.navigationBoard);
+			this.options.navigationBoard        = filterNavigationBoard  (this.options.navigationBoard       );
+			this.options.navigationBoardOptions = filterChessboardOptions(this.options.navigationBoardOptions);
 			this._refresh();
 		},
 
@@ -409,7 +425,8 @@
 		{
 			switch(key) {
 				case 'pgn': value = this._initializePGN(value); break;
-				case 'navigationBoard': value = filterNavigationBoard(value); break;
+				case 'navigationBoard'       : value = filterNavigationBoard  (value); break;
+				case 'navigationBoardOptions': value = filterChessboardOptions(value); break;
 			}
 
 			this.options[key] = value;
@@ -1126,7 +1143,7 @@
 
 		// Create the chessboard widget.
 		var widget = $('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationBoard');
-		widget.chessboard($.chessgame.navigationFrameOptions);
+		widget.chessboard(filterChessboardOptions($.chessgame.navigationFrameOptions));
 		widget.chessboard('sizeControlledByContainer', $('#uichess-chessgame-navigationFrame'), 'dialogresize');
 
 		// Create the buttons.

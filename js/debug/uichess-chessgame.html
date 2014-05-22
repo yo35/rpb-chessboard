@@ -177,7 +177,7 @@
 		$('#clear-button').click(function() { $('#b').chessgame('destroy'); });
 
 		// Create a widget on #c.
-		$('#c').chessgame({ navigationBoard: 'floatLeft', pgn:
+		$('#c').chessgame({ navigationBoard: 'floatLeft', navigationBoardOptions: { squareSize: 24 }, pgn:
 			'[Event "1st American Chess Congress"]\n' +
 			'[Site "New York, NY USA"]\n' +
 			'[Date "1857.11.03"]\n' +
