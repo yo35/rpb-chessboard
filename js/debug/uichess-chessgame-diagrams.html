@@ -63,7 +63,7 @@
 		$('.color-button').click(function() { $('#container').toggleClass('colored'); });
 
 		// Create a widget on #a.
-		$('#a').chessgame({ navigationBoard: 'frame', pgn:
+		$('#a').chessgame({ navigationBoard: 'frame', diagramOptions: { squareSize: 40 }, flip: true, pgn:
 			'[White "Bill Gates"]\n' +
 			'[Black "Magnus Carlsen"]\n' +
 			'[Result "0-1"]\n' +

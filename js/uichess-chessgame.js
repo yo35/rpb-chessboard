@@ -374,12 +374,15 @@
 			 */
 			navigationBoard: 'none',
 
-
 			/**
 			 * Options for the navigation chessboard widget.
 			 */
 			navigationBoardOptions: {},
 
+			/**
+			 * Options for the chessboard diagrams in the comments.
+			 */
+			diagramOptions: {},
 
 			/**
 			 * Whether the navigation board and the diagrams are flipped or not.
@@ -404,6 +407,7 @@
 			this.options.pgn = this._initializePGN(this.options.pgn);
 			this.options.navigationBoard        = filterNavigationBoard  (this.options.navigationBoard       );
 			this.options.navigationBoardOptions = filterChessboardOptions(this.options.navigationBoardOptions);
+			this.options.diagramOptions         = filterChessboardOptions(this.options.diagramOptions        );
 			this._refresh();
 		},
 
@@ -427,6 +431,7 @@
 				case 'pgn': value = this._initializePGN(value); break;
 				case 'navigationBoard'       : value = filterNavigationBoard  (value); break;
 				case 'navigationBoardOptions': value = filterChessboardOptions(value); break;
+				case 'diagramOptions'        : value = filterChessboardOptions(value); break;
 			}
 
 			this.options[key] = value;
@@ -576,9 +581,9 @@
 
 			// Render the content.
 			$(prefix + move0 + headers + body + suffix).appendTo(this.element);
-			if(this.options.navigationBoard === 'none') {
-				return;
-			}
+
+			// Render the diagrams in comments.
+			this._makeDiagrams();
 
 			// Activate the navigation board, if required.
 			if(this.options.navigationBoard !== 'none') {
@@ -588,6 +593,33 @@
 					this._makeNavigationBoxWidgets();
 				}
 			}
+		},
+
+
+		/**
+		 * Render the diagrams inserted in text comments.
+		 */
+		_makeDiagrams: function()
+		{
+			var obj = this;
+			$('.uichess-chessgame-comment .uichess-chessgame-diagramAnchor', this.element).each(function(index, element)
+			{
+				var anchor = $(element);
+
+				// Retrieve the position
+				var position = anchor.closest('.uichess-chessgame-comment').data('position');
+
+				// Build the option set to pass to the chessboard widget constructor.
+				var options = { position: position, flip: obj.options.flip };
+				$.extend(options, obj.options.diagramOptions);
+				try {
+					$.extend(options, filterChessboardOptions($.parseJSON(anchor.text())));
+				}
+				catch(error) {} // The content of the node is ignored if it is not a valid JSON-encoded object.
+
+				// Render the diagram.
+				anchor.empty().removeClass('uichess-chessgame-diagramAnchor').addClass('uichess-chessgame-diagram').chessboard(options);
+			});
 		},
 
 
@@ -937,7 +969,6 @@
 		 */
 		_buildComment: function(node)
 		{
-			//TODO: diagrams in comments
 			var tag = node.isLongComment() ? 'div' : 'span';
 			return '<' + tag + ' class="uichess-chessgame-comment" data-position="' + node.position() + '">' +
 				node.comment() + '</' + tag + '>';
