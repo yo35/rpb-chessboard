@@ -1,0 +1,56 @@
+/******************************************************************************
+ *                                                                            *
+ *    This file is part of RPB Chessboard, a Wordpress plugin.                *
+ *    Copyright (C) 2013-2014  Yoann Le Montagner <yo35 -at- melix.net>       *
+ *                                                                            *
+ *    This program is free software: you can redistribute it and/or modify    *
+ *    it under the terms of the GNU General Public License as published by    *
+ *    the Free Software Foundation, either version 3 of the License, or       *
+ *    (at your option) any later version.                                     *
+ *                                                                            *
+ *    This program is distributed in the hope that it will be useful,         *
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of          *
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           *
+ *    GNU General Public License for more details.                            *
+ *                                                                            *
+ *    You should have received a copy of the GNU General Public License       *
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.   *
+ *                                                                            *
+ ******************************************************************************/
+
+
+@font-face {
+	font-family: 'Chess Alpha';
+	src: url('chessalpha-webfont.eot');
+	src:
+		url('chessalpha-webfont.eot?#iefix') format('embedded-opentype'),
+		url('chessalpha-webfont.woff') format('woff'),
+		url('chessalpha-webfont.ttf') format('truetype'),
+		url('chessalpha-webfont.svg#chess_alphabook') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Chess Merida';
+	src: url('chessmerida-webfont.eot');
+	src:
+		url('chessmerida-webfont.eot?#iefix') format('embedded-opentype'),
+		url('chessmerida-webfont.woff') format('woff'),
+		url('chessmerida-webfont.ttf') format('truetype'),
+		url('chessmerida-webfont.svg#chess_meridabook') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Chess Pirat';
+	src: url('chesspirat-webfont.eot');
+	src:
+		url('chesspirat-webfont.eot?#iefix') format('embedded-opentype'),
+		url('chesspirat-webfont.woff') format('woff'),
+		url('chesspirat-webfont.ttf') format('truetype'),
+		url('chesspirat-webfont.svg#chess_piratbook') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
