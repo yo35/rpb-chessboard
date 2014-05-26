@@ -4,33 +4,27 @@ FullName: Chess Merida
 FamilyName: Chess Merida
 Weight: Book
 Copyright: 
-UComments: "2014-5-25: Created." 
+UComments: "2014-5-26: Created." 
 Version: 1.0
 ItalicAngle: 0
-UnderlinePosition: 0
-UnderlineWidth: 0
+UnderlinePosition: -204.8
+UnderlineWidth: 102.4
 Ascent: 1638
 Descent: 410
 LayerCount: 2
 Layer: 0 0 "Arri+AOgA-re"  1
 Layer: 1 0 "Avant"  0
-XUID: [1021 371 517992737 219563]
-FSType: 8
+XUID: [1021 371 517992737 1522594]
 OS2Version: 0
 OS2_WeightWidthSlopeOnly: 0
 OS2_UseTypoMetrics: 1
-CreationTime: 1401048889
-ModificationTime: 1401049121
-PfmFamily: 17
-TTFWeight: 400
-TTFWidth: 5
-LineGap: 377
-VLineGap: 0
+CreationTime: 1401134767
+ModificationTime: 1401134864
 OS2TypoAscent: 0
 OS2TypoAOffset: 1
 OS2TypoDescent: 0
 OS2TypoDOffset: 1
-OS2TypoLinegap: 377
+OS2TypoLinegap: 0
 OS2WinAscent: 0
 OS2WinAOffset: 1
 OS2WinDescent: 0
@@ -48,7 +42,7 @@ NameList: Adobe Glyph List
 DisplaySize: -36
 AntiAlias: 1
 FitToEm: 1
-WinInfo: 51 17 8
+WinInfo: 42 14 8
 BeginPrivate: 0
 EndPrivate
 BeginChars: 256 6
