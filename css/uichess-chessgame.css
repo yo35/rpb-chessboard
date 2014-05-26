@@ -116,6 +116,10 @@
 	display: none;
 }
 
+.ui-dialog-title .uichess-chessgame-moveNumber.uichess-chessgame-hidden {
+	display: inline;
+}
+
 .uichess-chessgame-clickableMoves .uichess-chessgame-move:hover {
 	text-decoration: underline;
 	cursor: pointer;

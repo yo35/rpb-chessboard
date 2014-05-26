@@ -1142,11 +1142,11 @@
 			// and ensure that it is visible.
 			if(this.options.navigationBoard === 'frame') {
 				var frame = $('#uichess-chessgame-navigationFrame');
-				frame.dialog('option', 'title', move.text());
 				if(!frame.dialog('isOpen')) {
 					frame.dialog('option', 'position', { my: 'center', at: 'center', of: window });
 					frame.dialog('open');
 				}
+				$('.ui-dialog-title', frame.closest('.ui-dialog')).empty().append(move.html());
 			}
 		},
 
