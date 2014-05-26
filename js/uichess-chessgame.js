@@ -57,6 +57,13 @@
 
 
 		/**
+		 * Default chess font to use for figurines.
+		 * @type {string}
+		 */
+		chessFont: 'alpha',
+
+
+		/**
 		 * Internationalization constants.
 		 */
 		i18n:
@@ -86,9 +93,7 @@
 			 * Chess piece symbols.
 			 * @type {{K:string, Q:string, R:string, B:string, N:string, P:string}}
 			 */
-			PIECE_SYMBOLS: {
-				'K':'K', 'Q':'Q', 'R':'R', 'B':'B', 'N':'N', 'P':'P'
-			}
+			PIECE_SYMBOLS: { 'K':'K', 'Q':'Q', 'R':'R', 'B':'B', 'N':'N', 'P':'P' }
 		}
 
 	}; /* $.chessgame = { ... } */
@@ -334,6 +339,41 @@
 
 
 	/**
+	 * Ensure that the given argument is a valid chess font name.
+	 *
+	 * @param {string} font
+	 * @returns {{font:string, pieceSymbolTable:object}}
+	 */
+	function filterChessFontName(font)
+	{
+		// Ensure that the input is a valid chess font name.
+		switch(font) {
+			case 'merida':
+			case 'pirat':
+				break;
+			default:
+				font = 'alpha';
+				break;
+		}
+
+		// Build the corresponding chess font set.
+		var prefix = '<span class="uichess-chessgame-' + font + 'Font">';
+		var suffix = '</span>';
+		var pieceSymbolTable = {
+			'K': prefix + 'K' + suffix,
+			'Q': prefix + 'Q' + suffix,
+			'R': prefix + 'R' + suffix,
+			'B': prefix + 'B' + suffix,
+			'N': prefix + 'N' + suffix,
+			'P': prefix + 'P' + suffix
+		};
+
+		// Return the result.
+		return { font: font, pieceSymbolTable: pieceSymbolTable };
+	}
+
+
+	/**
 	 * Filter the options passed to the chessboard widgets.
 	 *
 	 * @param {object} value
@@ -387,7 +427,19 @@
 			/**
 			 * Whether the navigation board and the diagrams are flipped or not.
 			 */
-			flip: false
+			flip: false,
+
+			/**
+			 * Type of piece symbols to use to render the move notation.
+			 *
+			 * Available values are:
+			 * - 'native': use the first letter of the piece names (in English).
+			 * - 'localized': use the symbols defined by `$.chessgame.i18n.PIECE_SYMBOLS`.
+			 * - 'figurines': use the figurines defined by the default chess font `$.chessgame.chessFont`.
+			 * - ':' + chess font name: use the figurines defined by the specified chess font.
+			 * - '(' + six letters + ')': use custom letters.
+			 */
+			pieceSymbols: 'native'
 		},
 
 
@@ -399,12 +451,20 @@
 
 
 		/**
+		 * Translation table for chess piece symbols.
+		 * @type {{K:string, Q:string, R:string, B:string, N:string, P:string}}
+		 */
+		_pieceSymbolTable: null,
+
+
+		/**
 		 * Constructor.
 		 */
 		_create: function()
 		{
 			this.element.addClass('uichess-chessgame');
-			this.options.pgn = this._initializePGN(this.options.pgn);
+			this.options.pgn          = this._initializePGN         (this.options.pgn         );
+			this.options.pieceSymbols = this._initializePieceSymbols(this.options.pieceSymbols);
 			this.options.navigationBoard        = filterNavigationBoard  (this.options.navigationBoard       );
 			this.options.navigationBoardOptions = filterChessboardOptions(this.options.navigationBoardOptions);
 			this.options.diagramOptions         = filterChessboardOptions(this.options.diagramOptions        );
@@ -428,7 +488,8 @@
 		_setOption: function(key, value)
 		{
 			switch(key) {
-				case 'pgn': value = this._initializePGN(value); break;
+				case 'pgn'         : value = this._initializePGN         (value); break;
+				case 'pieceSymbols': value = this._initializePieceSymbols(value); break;
 				case 'navigationBoard'       : value = filterNavigationBoard  (value); break;
 				case 'navigationBoardOptions': value = filterChessboardOptions(value); break;
 				case 'diagramOptions'        : value = filterChessboardOptions(value); break;
@@ -492,6 +553,7 @@
 		/**
 		 * Initialize the internal Pgn.Item object that contains the parsed PGN data.
 		 *
+		 * @param {string} pgn
 		 * @returns {string}
 		 */
 		_initializePGN: function(pgn)
@@ -520,6 +582,66 @@
 
 			// Return the validated PGN string.
 			return pgn;
+		},
+
+
+		/**
+		 * Initialize the internal object that describes how to represent the chess pieces
+		 * in SAN notation.
+		 *
+		 * @param {string} pieceSymbols
+		 * @returns {string}
+		 */
+		_initializePieceSymbols: function(pieceSymbols)
+		{
+			var FIELDS = ['K', 'Q', 'R', 'B', 'N', 'P'];
+
+			// Descriptors: 6 custom letters.
+			if(/^\([a-zA-Z]{6}\)$/.test(pieceSymbols)) {
+				pieceSymbols = pieceSymbols.toUpperCase();
+				this._pieceSymbolTable = {};
+				for(var k=0; k<6; ++k) {
+					this._pieceSymbolTable[FIELDS[k]] = pieceSymbols.substr(k+1, 1);
+				}
+			}
+
+			// Descriptors: figurines, using a custom chess font.
+			else if(/^:\w+$/.test(pieceSymbols)) {
+				var info = filterChessFontName(pieceSymbols.substr(1));
+				pieceSymbols = ':' + info.font;
+				this._pieceSymbolTable = info.pieceSymbolTable;
+			}
+
+			// Special values: native (English initials, localized initials, or figurines
+			// using the default chess font).
+			else {
+				switch(pieceSymbols) {
+
+					// Figurines using the default chess font.
+					case 'figurine':
+						this._pieceSymbolTable = filterChessFontName($.chessgame.chessFont).pieceSymbolTable;
+						break;
+
+					// Localized initials.
+					case 'localized':
+						this._pieceSymbolTable = {};
+						for(var k=0; k<6; ++k) {
+							var field = FIELDS[k];
+							this._pieceSymbolTable[field] = (field in $.chessgame.i18n.PIECE_SYMBOLS) ?
+								$.chessgame.i18n.PIECE_SYMBOLS[field] : field;
+						}
+						break;
+
+					// English initials (also the fallback case).
+					default:
+						this._pieceSymbolTable = { 'K':'K', 'Q':'Q', 'R':'R', 'B':'B', 'N':'N', 'P':'P' };
+						pieceSymbols = 'native';
+						break;
+				}
+			}
+
+			// Return the validated input.
+			return pieceSymbols
 		},
 
 
