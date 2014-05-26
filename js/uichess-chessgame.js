@@ -198,36 +198,6 @@
 
 
 	/**
-	 * Convert a SAN move notation into a localized move notation
-	 * (the characters used to specify the pieces is the only localized element).
-	 *
-	 * SAN notation is the format use for moves in PGN text files.
-	 *
-	 * @param {string} notation SAN move notation to convert.
-	 * @returns {string} Localized move string.
-	 */
-	function formatMoveNotation(notation)
-	{
-		if(notation===null) {
-			return null;
-		}
-		else {
-			var retVal = '';
-			for(var k=0; k<notation.length; ++k) {
-				var c = notation.charAt(k);
-				if(c==='K' || c==='Q' || c==='R' || c==='B' || c==='N' || c==='P') {
-					retVal += $.chessgame.i18n.PIECE_SYMBOLS[c];
-				}
-				else {
-					retVal += c;
-				}
-			}
-			return retVal;
-		}
-	}
-
-
-	/**
 	 * The human-readable symbols corresponding to most common NAGs.
 	 *
 	 * @constant
@@ -1116,7 +1086,10 @@
 			retVal += '<span class="' + moveNumberClass + '">' + moveNumberText + '</span>';
 
 			// SAN notation.
-			retVal += formatMoveNotation(node.move());
+			var pieceSymbolTable = this._pieceSymbolTable;
+			retVal += node.move().replace(/[KQRBNP]/g, function(match) {
+				return pieceSymbolTable[match];
+			});
 
 			// NAGs
 			var nags = node.nags();

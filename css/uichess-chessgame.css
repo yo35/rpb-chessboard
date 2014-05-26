@@ -155,6 +155,10 @@ div.uichess-chessgame-subVariation {
 	width: calc(100% - 1.5em);
 }
 
+.uichess-chessgame-alphaFont  { font-family: "Chess Alpha" , sans-serif; }
+.uichess-chessgame-meridaFont { font-family: "Chess Merida", sans-serif; }
+.uichess-chessgame-piratFont  { font-family: "Chess Pirat" , sans-serif; }
+
 
 
 /******************************************************************************/

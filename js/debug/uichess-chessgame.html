@@ -11,6 +11,9 @@
 	<script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 	<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
 
+	<!-- Fonts -->
+	<link rel="stylesheet" type="text/css" href="../../fonts/chess-fonts.css" />
+
 	<!-- Other required components -->
 	<script type="text/javascript" src="../pgn.js"></script>
 	<script type="text/javascript" src="../uichess-chessboard.js"></script>
@@ -41,6 +44,14 @@
 	<hr/>
 
 	<div id="d"></div>
+
+	<hr/>
+
+	<div id="e1"></div>
+	<div id="e2"></div>
+	<div id="e3"></div>
+	<div id="e4"></div>
+	<div id="e5"></div>
 
 	<script type="text/javascript">
 
@@ -112,6 +123,15 @@
 			'[SetUp "1"]\n' +
 			'14. O-O+ Ke8 15. Qf3 Nxc3 16. Bxe6 Nxe6 Qf7# 1-0'
 		});
+
+		// Test the piece symbols features
+		var pgn = '1.e4 Nf6 2.Bc4 Rg8 3.Bxf7+ Kxf7 4.Qh5+ (4.Qf3 Ke8 5.d4 Rh8 6.Bg5 Nxe4) *';
+		$.chessgame.i18n.PIECE_SYMBOLS = { 'K':'R', 'Q':'D', 'R':'T', 'B':'F', 'N':'C', 'P':'P' };
+		$('#e1').chessgame({ navigationBoard: 'frame', pgn: pgn, pieceSymbols: 'localized' });
+		$('#e2').chessgame({ navigationBoard: 'frame', pgn: pgn, pieceSymbols: 'figurine' });
+		$('#e3').chessgame({ navigationBoard: 'frame', pgn: pgn, pieceSymbols: ':merida'  });
+		$('#e4').chessgame({ navigationBoard: 'frame', pgn: pgn, pieceSymbols: ':pirat'   });
+		$('#e5').chessgame({ navigationBoard: 'frame', pgn: pgn, pieceSymbols: '(abcdef)' });
 
 	</script>
 
