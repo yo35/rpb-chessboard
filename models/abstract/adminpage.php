@@ -30,6 +30,9 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 {
 	private $adminPageName;
 	private $title;
+	private $subPages;
+	private $defaultSubPageName;
+	private $selectedSubPageName;
 	private $postAction;
 	private $postMessage;
 
@@ -40,7 +43,6 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 	public function __construct()
 	{
 		parent::__construct();
-		$this->setTemplateName($this->getAdminPageName());
 	}
 
 
@@ -52,6 +54,16 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 	public function getViewName()
 	{
 		return 'AdminPage';
+	}
+
+
+	/**
+	 * The name of the template to use is the name of the selected sub-page if any,
+	 * or the name of the administration page if no sub-page is defined.
+	 */
+	public function getTemplateName()
+	{
+		return isset($this->subPages) ? $this->getSelectedSubPageName() : $this->getAdminPageName();
 	}
 
 
@@ -80,6 +92,136 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 			$this->title = html_entity_decode(get_admin_page_title(), ENT_QUOTES);
 		}
 		return $this->title;
+	}
+
+
+	/**
+	 * Whether the page has sub-pages or not.
+	 *
+	 * @return boolean
+	 */
+	public function hasSubPages()
+	{
+		return isset($this->subPages);
+	}
+
+
+	/**
+	 * Return the name of the selected sub-page.
+	 *
+	 * @return string An empty string is returned if no sub-page is defined.
+	 */
+	public function getSelectedSubPageName()
+	{
+		$this->initializeSelectedSubPageInfo();
+		return $this->selectedSubPageName;
+	}
+
+
+	/**
+	 * List of the sub-pages.
+	 *
+	 * Each entry of the returned array has the following fields:
+	 *  - `name` (string): name of the sub-page (also the template name).
+	 *  - `label` (string): human-readable label for the sub-page button.
+	 *  - `link` (string): HTTP link to activate the sub-page.
+	 *  - `selected` (boolean): whether the given sub-page is currently selected or not.
+	 *
+	 * @return array
+	 */
+	public function getSubPages()
+	{
+		$this->initializeSelectedSubPageInfo();
+		return isset($this->subPages) ? $this->subPages : array();
+	}
+
+
+	/**
+	 * Initialize the name of the selected sub-page and the `selected` flags in
+	 * the sub-page list.
+	 */
+	private function initializeSelectedSubPageInfo()
+	{
+		if(isset($this->selectedSubPageName)) {
+			return;
+		}
+
+		// Regular case => use the GET parameter `rpbchessboard_subpage` or the default subpage name
+		// to determine the currently selected sub-page.
+		if(isset($this->subPages))
+		{
+			// Filter the GET parameter 'rpbchessboard_subpage' to ensure that it actually corresponds
+			// to a sub-page name.
+			if(isset($_GET['rpbchessboard_subpage'])) {
+				$target = $_GET['rpbchessboard_subpage'];
+				$valid  = false;
+				foreach($this->subPages as $subPage) {
+					if($target === $subPage->name) {
+						$valid = true;
+						break;
+					}
+				}
+			}
+
+			// Use the default sub-page if the GET parameter 'rpbchessboard_subpage'
+			// is either undefined or invalid.
+			$this->selectedSubPageName = (isset($target) && $valid) ? $target : $this->defaultSubPageName;
+
+			// Update the `selected` flags in the sub-page list.
+			foreach($this->subPages as $subPage) {
+				$subPage->selected = ($this->selectedSubPageName === $subPage->name);
+			}
+		}
+
+		// Fallback case if no sub-page exists.
+		else {
+			$this->selectedSubPageName = '';
+		}
+	}
+
+
+	/**
+	 * Register a new sub-page.
+	 *
+	 * @param string $name
+	 * @param string $label
+	 * @param boolean $default=false
+	 */
+	protected function addSubPage($name, $label, $default=false)
+	{
+		// Initialize the sub-page array.
+		if(!isset($this->subPages)) {
+			$this->subPages = array();
+		}
+
+		// Push the new-page at the end of the sub-page list.
+		$this->subPages[] = (object) array(
+			'name'  => $name,
+			'label' => $label,
+			'link'  => self::makeSubPageLink($name)
+		);
+
+		// Mark the sub-page as the default one if it explicitly requested
+		// or if it is the first created sub-page.
+		if(!isset($this->defaultSubPageName) || $default) {
+			$this->defaultSubPageName = $name;
+		}
+
+		// The name of the selected page needs to be updated now.
+		$this->selectedSubPageName = null;
+	}
+
+
+	/**
+	 * Link to the sub-page named `$subPageName` in the current page.
+	 *
+	 * @param string $subPageName
+	 * @return string
+	 */
+	private static function makeSubPageLink($subPageName)
+	{
+		global $pagenow;
+		return admin_url($pagenow) . '?page=' . urlencode($_GET['page']) . '&rpbchessboard_subpage=' . urlencode($subPageName);
 	}
 
 

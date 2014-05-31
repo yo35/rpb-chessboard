@@ -31,8 +31,23 @@
 	</div>
 </noscript>
 
-<?php if($model->getPostMessage()!=''): ?>
+<?php if($model->getPostMessage() !== ''): ?>
 	<div class="updated">
 		<p><?php echo htmlspecialchars($model->getPostMessage()); ?></p>
 	</div>
+<?php endif; ?>
+
+<?php if($model->hasSubPages()): ?>
+	<ul id="rpbchessboard-be-subPageSelector" class="subsubsub">
+		<?php foreach($model->getSubPages() as $subPage): ?>
+
+			<li>
+				<a
+					href="<?php echo htmlspecialchars($subPage->link); ?>"
+					class="<?php if($subPage->selected) { echo 'current'; } ?>"
+				><?php echo htmlspecialchars($subPage->label); ?></a>
+			</li>
+
+		<?php endforeach; ?>
+	</ul>
 <?php endif; ?>

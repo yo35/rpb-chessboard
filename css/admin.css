@@ -128,6 +128,23 @@
 
 
 /******************************************************************************/
+/*** Sub-page selector ***/
+
+#rpbchessboard-be-subPageSelector {
+	float: none;
+}
+
+#rpbchessboard-be-subPageSelector li:after {
+	content: "|";
+}
+
+#rpbchessboard-be-subPageSelector li:last-child:after {
+	content: none;
+}
+
+
+
+/******************************************************************************/
 /*** Source code and visualization blocks ***/
 
 .rpbchessboard-be-sourceCode {
@@ -196,18 +213,6 @@ div.rpbchessboard-be-sourceCode {
 
 /******************************************************************************/
 /*** Help page ***/
-
-#rpbchessboard-admin-help .subsubsub {
-	float: none;
-}
-
-#rpbchessboard-admin-help .subsubsub li:after {
-	content: "|";
-}
-
-#rpbchessboard-admin-help .subsubsub li:last-child:after {
-	content: none;
-}
 
 #rpbchessboard-admin-fenExamples .rpbchessboard-admin-column-left {
 	width: 40%;
