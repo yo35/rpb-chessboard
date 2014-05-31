@@ -21,7 +21,7 @@
 ?>
 
 <div id="rpbchessboard-editFen-dialog" class="rpbchessboard-invisible">
-	<div class="rpbchessboard-admin-columns">
+	<div class="rpbchessboard-be-columns">
 		<div style="width: 65%;">
 			<div id="rpbchessboard-editFen-chessboard"></div>
 		</div>

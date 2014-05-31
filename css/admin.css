@@ -22,25 +22,26 @@
 /******************************************************************************/
 /*** Column layout ***/
 
-.rpbchessboard-admin-columns {
-	display: table;
-	width: 100%;
-	border-collapse: collapse;
+.rpbchessboard-be-columns {
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	flex-direction: row;
 }
 
-.rpbchessboard-admin-columns > div {
-	display: table-cell;
-	vertical-align: top;
-	padding-left : 10px;
-	padding-right: 10px;
+.rpbchessboard-be-columns > div {
+	margin-left : 10px;
+	margin-right: 10px;
 }
 
-.rpbchessboard-admin-columns > div:first-child {
-	padding-left: 0px;
+.rpbchessboard-be-columns > div:first-child {
+	margin-left: 0px;
 }
 
-.rpbchessboard-admin-columns > div:last-child {
-	padding-right: 0px;
+.rpbchessboard-be-columns > div:last-child {
+	margin-right: 0px;
 }
 
 
@@ -107,17 +108,17 @@
 /******************************************************************************/
 /*** Floating objects ***/
 
-.rpbchessboard-admin-floatleft {
+.rpbchessboard-be-floatLeft {
 	float: left;
 	margin-right: 1em;
 }
 
-.rpbchessboard-admin-floatright {
+.rpbchessboard-be-floatRight {
 	float: right;
 	margin-left: 1em;
 }
 
-.rpbchessboard-admin-clearfix:after {
+.rpbchessboard-be-clearfix:after {
 		display: block;
 		visibility: hidden;
 		content: " ";
@@ -127,37 +128,46 @@
 
 
 /******************************************************************************/
-/*** Code and visualization blocks ***/
+/*** Source code and visualization blocks ***/
 
-.rpbchessboard-admin-code-block,
-.rpbchessboard-admin-code-inline {
+.rpbchessboard-be-sourceCode {
 	font-family: Consolas, Monaco, monospace;
 	font-style : normal;
 }
 
-.rpbchessboard-admin-code-block {
+div.rpbchessboard-be-sourceCode {
 	border: solid 1px #bbb;
-	background-color: #ffffe0;
+	background-color: #ffd;
 	padding: 8px 10px 8px;
 	margin-bottom: 1em;
 }
 
-.rpbchessboard-admin-visu-block {
+.rpbchessboard-be-visuBlock {
 	border: solid 1px #bbb;
 	background-color: white;
 	margin-right : 5px;
 	margin-bottom: 5px;
 	box-shadow: 5px 5px 3px #888;
-	padding: 5px 15px 5px;
+	padding: 10px 15px 10px;
 	font-family: Times, serif;
 	font-size  : 17px;
 	line-height: 1.3em;
 }
 
-.rpbchessboard-admin-visu-block p {
+.rpbchessboard-be-visuBlock > * {
 	font-family: inherit;
 	font-size  : inherit;
 	line-height: inherit;
+	margin-top   : 15px;
+	margin-bottom: 15px;
+}
+
+.rpbchessboard-be-visuBlock > *:first-child {
+	margin-top: 0px;
+}
+
+.rpbchessboard-be-visuBlock > *:last-child {
+	margin-bottom: 0px;
 }
 
 
@@ -165,11 +175,7 @@
 /******************************************************************************/
 /*** Memo page ***/
 
-#rpbchessboard-admin-memo .rpbchessboard-admin-column-left {
-	width: 50%;
-}
-
-#rpbchessboard-admin-memo .rpbchessboard-admin-column-right {
+#rpbchessboard-memoPage .rpbchessboard-be-columns > div {
 	width: 50%;
 }
 
@@ -256,30 +262,31 @@
 /******************************************************************************/
 /*** About page ***/
 
-#rpbchessboard-admin-about ul {
+#rpbchessboard-aboutPage ul {
 	list-style: square outside;
 	padding-left: 1.5em;
 }
 
-#rpbchessboard-admin-translator-list {
+.rpbchessboard-be-translatorList {
 	display: table;
 }
 
-#rpbchessboard-admin-translator-list div {
+.rpbchessboard-be-translatorList div {
 	display: table-row;
 }
 
-#rpbchessboard-admin-translator-list dt,
-#rpbchessboard-admin-translator-list dd {
+.rpbchessboard-be-translatorList dt,
+.rpbchessboard-be-translatorList dd {
 	display: table-cell;
 }
 
-#rpbchessboard-admin-translator-list dd {
+.rpbchessboard-be-translatorList dd {
 	padding-left: 1.5em;
 }
 
-#rpbchessboard-admin-translator-list img {
+.rpbchessboard-be-translatorList img {
 	vertical-align: middle;
+	margin-right: 0.25em;
 }
 
 
