@@ -47,65 +47,6 @@
 
 
 /******************************************************************************/
-/*** Tab layout ***/
-
-.rpbchessboard-admin-tabs {
-	display: table;
-	width: 100%;
-}
-
-.rpbchessboard-admin-tabs > ul,
-.rpbchessboard-admin-tabs > div {
-	display: table-cell;
-	vertical-align: top;
-}
-
-.rpbchessboard-admin-tabs > div.rpbchessboard-invisible {
-	display: none;
-}
-
-.rpbchessboard-admin-tabs > div {
-	border: solid 1px #dfdfdf;
-	background: #fcfcfc;
-	padding: 10px;
-}
-
-.rpbchessboard-admin-tabs > ul > li {
-	border-top   : solid 1px #dfdfdf;
-	border-left  : solid 1px #dfdfdf;
-	border-right : none;
-	border-bottom: none;
-	background: #ececec;
-	padding: 5px;
-	margin : 0px;
-	text-align: center;
-	cursor: pointer;
-	color: rgb(33, 117, 155);
-}
-
-.rpbchessboard-admin-tabs > ul > li:hover {
-	color: rgb(213, 78, 33);
-}
-
-.rpbchessboard-admin-tabs > ul > li:last-child {
-	border-bottom: solid 1px #dfdfdf;
-}
-
-.rpbchessboard-admin-tabs > ul > li.rpbchessboard-admin-selected {
-	background: #fcfcfc;
-}
-
-.rpbchessboard-admin-tabs > div > p:first-child {
-	margin-top: 0px;
-}
-
-.rpbchessboard-admin-tabs > div > p:last-child {
-	margin-bottom: 0px;
-}
-
-
-
-/******************************************************************************/
 /*** Floating objects ***/
 
 .rpbchessboard-be-floatLeft {
@@ -190,6 +131,28 @@ div.rpbchessboard-be-sourceCode {
 
 
 /******************************************************************************/
+/*** jQuery tabs (with no theme) ***/
+
+.rpbchessboard-be-tabs.ui-tabs .ui-tabs-panel {
+	border: solid 1px #ddd;
+	background: #fcfcfc;
+}
+
+.rpbchessboard-be-tabs.ui-tabs .ui-tabs-nav li {
+	border-top : solid 1px #ddd;
+	border-left: solid 1px #ddd;
+	border-right: solid 1px #ddd;
+	background: #eee;
+	cursor: pointer;
+}
+
+.rpbchessboard-be-tabs.ui-tabs .ui-tabs-nav li.ui-tabs-active {
+	background: #fcfcfc;
+}
+
+
+
+/******************************************************************************/
 /*** Memo page ***/
 
 #rpbchessboard-memoPage .rpbchessboard-be-columns > div {
@@ -212,30 +175,22 @@ div.rpbchessboard-be-sourceCode {
 
 
 /******************************************************************************/
-/*** Help page ***/
+/*** Help pages ***/
 
-#rpbchessboard-admin-fenExamples .rpbchessboard-admin-column-left {
-	width: 40%;
+#rpbchessboard-helpFenPage .rpbchessboard-be-columns > div {
+	width: 50%;
+}
+
+#rpbchessboard-helpFenPage #rpbchessboard-fenAttribute2 .rpbchessboard-be-columns > div:nth-child(1) {
+	width: 33%;
+}
+
+#rpbchessboard-helpFenPage #rpbchessboard-fenAttribute2 .rpbchessboard-be-columns > div:nth-child(2) {
+	width: 67%;
 }
 
 #rpbchessboard-admin-fenExamples .rpbchessboard-admin-column-right {
 	width: 60%;
-}
-
-#rpbchessboard-admin-fenExamples > ul {
-	width: 20%;
-}
-
-#rpbchessboard-admin-fenExamples > div {
-	width: 80%;
-}
-
-#rpbchessboard-admin-fenAttributes > ul {
-	width: 15%;
-}
-
-#rpbchessboard-admin-fenAttributes > div {
-	width: 85%;
 }
 
 #rpbchessboard-admin-pgnExamples .rpbchessboard-admin-column-left,

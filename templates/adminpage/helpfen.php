@@ -20,12 +20,12 @@
  ******************************************************************************/
 ?>
 
-<div id="rpbchessboard-admin-help-fen">
+<div id="rpbchessboard-helpFenPage">
 
 	<h3>
 		<?php echo sprintf(
 			__('Chess diagrams with the %1$s[%3$s][/%3$s]%2$s tags', 'rpbchessboard'),
-			'<span class="rpbchessboard-admin-code-inline">',
+			'<span class="rpbchessboard-be-sourceCode">',
 			'</span>',
 			htmlspecialchars($model->getFENShortcode())
 		); ?>
@@ -45,7 +45,7 @@
 				'which is comprehensively described on %4$sWikipedia%5$s. '.
 				'The FEN syntax is summarized here through a few representative examples.',
 			'rpbchessboard'),
-			'<span class="rpbchessboard-admin-code-inline">',
+			'<span class="rpbchessboard-be-sourceCode">',
 			'</span>',
 			htmlspecialchars($model->getFENShortcode()),
 			sprintf('<a href="%1$s" target="_blank">', __('http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation', 'rpbchessboard')),
@@ -57,183 +57,181 @@
 
 
 
-	<div id="rpbchessboard-admin-fenExamples" class="rpbchessboard-admin-tabs">
+	<div id="rpbchessboard-fenExamples" class="rpbchessboard-be-tabs">
 
 		<ul>
-			<li><?php _e('Empty position'  , 'rpbchessboard'); ?></li>
-			<li><?php _e('Initial position', 'rpbchessboard'); ?></li>
-			<li><?php _e('After 1.e4'      , 'rpbchessboard'); ?></li>
-			<li><?php _e('Who can castle?' , 'rpbchessboard'); ?></li>
-			<li><?php _e('Légal Trap'      , 'rpbchessboard'); ?></li>
+			<li><a href="#rpbchessboard-fenExample1"><?php _e('Empty position'  , 'rpbchessboard'); ?></a></li>
+			<li><a href="#rpbchessboard-fenExample2"><?php _e('Initial position', 'rpbchessboard'); ?></a></li>
+			<li><a href="#rpbchessboard-fenExample3"><?php _e('After 1.e4'      , 'rpbchessboard'); ?></a></li>
+			<li><a href="#rpbchessboard-fenExample4"><?php _e('Who can castle?' , 'rpbchessboard'); ?></a></li>
+			<li><a href="#rpbchessboard-fenExample5"><?php _e('Légal Trap'      , 'rpbchessboard'); ?></a></li>
 		</ul>
 
 
-		<div>
-			<div class="rpbchessboard-admin-code-block">
-				<?php echo sprintf(
-					'[%1$s]8/8/8/8/8/8/8/8 w - - 0 1[/%1$s]',
-					htmlspecialchars($model->getFENShortcode())
-				); ?>
-			</div>
-			<div class="rpbchessboard-admin-columns">
-				<div class="rpbchessboard-admin-column-left">
-					<p>
-						<?php _e('An empty position.', 'rpbchessboard'); ?>
-					</p>
+		<div id="rpbchessboard-fenExample1">
+			<div class="rpbchessboard-be-columns">
+				<div>
+					<div class="rpbchessboard-be-sourceCode">
+						<?php echo sprintf('[%1$s]8/8/8/8/8/8/8/8 w - - 0 1[/%1$s]',
+							htmlspecialchars($model->getFENShortcode())); ?>
+					</div>
+					<p><?php _e('An empty position.', 'rpbchessboard'); ?></p>
 				</div>
-				<div class="rpbchessboard-admin-column-right">
-					<div class="rpbchessboard-admin-visu-block">
-						<div id="rpbchessboard-admin-exampleFen0-in" class="rpbchessboard-in">
-							8/8/8/8/8/8/8/8 w - - 0 1
+				<div>
+					<div class="rpbchessboard-be-visuBlock">
+						<div>
+							<div id="rpbchessboard-fenExample1-anchor"></div>
+							<script type="text/javascript">
+								jQuery(document).ready(function($) {
+									$('#rpbchessboard-fenExample1-anchor').chessboard({
+										squareSize: 28,
+										position: '8/8/8/8/8/8/8/8 w - - 0 1'
+									});
+								});
+							</script>
 						</div>
-						<div id="rpbchessboard-admin-exampleFen0-out" class="rpbchessboard-out rpbchessboard-invisible"></div>
-						<script type="text/javascript">
-							processFEN('rpbchessboard-admin-exampleFen0-in', 'rpbchessboard-admin-exampleFen0-out',
-								{squareSize: 28});
-						</script>
 					</div>
 				</div>
 			</div>
 		</div>
 
 
-		<div>
-			<div class="rpbchessboard-admin-code-block">
-				<?php echo sprintf(
-					'[%1$s]rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1[/%1$s]',
-					htmlspecialchars($model->getFENShortcode())
-				); ?>
-			</div>
-			<div class="rpbchessboard-admin-columns">
-				<div class="rpbchessboard-admin-column-left">
-					<p>
-						<?php _e('The initial position.', 'rpbchessboard'); ?>
-					</p>
+		<div id="rpbchessboard-fenExample2">
+			<div class="rpbchessboard-be-columns">
+				<div>
+					<div class="rpbchessboard-be-sourceCode">
+						<?php echo sprintf('[%1$s]rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1[/%1$s]',
+							htmlspecialchars($model->getFENShortcode())); ?>
+					</div>
+					<p><?php _e('The initial position.', 'rpbchessboard'); ?></p>
 				</div>
-				<div class="rpbchessboard-admin-column-right">
-					<div class="rpbchessboard-admin-visu-block">
-						<div id="rpbchessboard-admin-exampleFen1-in" class="rpbchessboard-in">
-							rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
+				<div>
+					<div class="rpbchessboard-be-visuBlock">
+						<div>
+							<div id="rpbchessboard-fenExample2-anchor"></div>
+							<script type="text/javascript">
+								jQuery(document).ready(function($) {
+									$('#rpbchessboard-fenExample2-anchor').chessboard({
+										squareSize: 28,
+										position: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
+									});
+								});
+							</script>
 						</div>
-						<div id="rpbchessboard-admin-exampleFen1-out" class="rpbchessboard-out rpbchessboard-invisible"></div>
-						<script type="text/javascript">
-							processFEN('rpbchessboard-admin-exampleFen1-in', 'rpbchessboard-admin-exampleFen1-out',
-								{squareSize: 28});
-						</script>
 					</div>
 				</div>
 			</div>
 		</div>
 
 
-		<div>
-			<div class="rpbchessboard-admin-code-block">
-				<?php echo sprintf(
-					'[%1$s]rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1[/%1$s]',
-					htmlspecialchars($model->getFENShortcode())
-				); ?>
-			</div>
-			<div class="rpbchessboard-admin-columns">
-				<div class="rpbchessboard-admin-column-left">
-					<p>
-						<?php echo sprintf(
-							__(
-								'After 1.e4. Notice the 4<sup>th</sup> field in the FEN string (%1$s), '.
-								'indicating the square where <em>en passant</em> can be done '.
-								'(if there were a black pawn either in d4 or in f4).',
-							'rpbchessboard'),
-							'<span class="rpbchessboard-admin-code-inline">&quot;e3&quot;</span>'
-						); ?>
-					</p>
+		<div id="rpbchessboard-fenExample3">
+			<div class="rpbchessboard-be-columns">
+				<div>
+					<div class="rpbchessboard-be-sourceCode">
+						<?php echo sprintf('[%1$s]rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1[/%1$s]',
+							htmlspecialchars($model->getFENShortcode())); ?>
+					</div>
+					<p><?php echo sprintf(
+						__(
+							'After 1.e4. Notice the 4<sup>th</sup> field in the FEN string (%1$s), '.
+							'indicating the square where <em>en passant</em> can be done '.
+							'(if there were a black pawn either in d4 or in f4).',
+						'rpbchessboard'),
+						'<span class="rpbchessboard-be-sourceCode">&quot;e3&quot;</span>'
+					); ?></p>
 				</div>
-				<div class="rpbchessboard-admin-column-right">
-					<div class="rpbchessboard-admin-visu-block">
-						<div id="rpbchessboard-admin-exampleFen2-in" class="rpbchessboard-in">
-							rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1
+				<div>
+					<div class="rpbchessboard-be-visuBlock">
+						<div>
+							<div id="rpbchessboard-fenExample3-anchor"></div>
+							<script type="text/javascript">
+								jQuery(document).ready(function($) {
+									$('#rpbchessboard-fenExample3-anchor').chessboard({
+										squareSize: 28,
+										position: 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1'
+									});
+								});
+							</script>
 						</div>
-						<div id="rpbchessboard-admin-exampleFen2-out" class="rpbchessboard-out rpbchessboard-invisible"></div>
-						<script type="text/javascript">
-							processFEN('rpbchessboard-admin-exampleFen2-in', 'rpbchessboard-admin-exampleFen2-out',
-								{squareSize: 28});
-						</script>
 					</div>
 				</div>
 			</div>
 		</div>
 
 
-		<div>
-			<div class="rpbchessboard-admin-code-block">
-				<?php echo sprintf(
-					'[%1$s]r3k2r/8/8/8/8/8/8/R3K2R b K - 0 1[/%1$s]',
-					htmlspecialchars($model->getFENShortcode())
-				); ?>
-			</div>
-			<div class="rpbchessboard-admin-columns">
-				<div class="rpbchessboard-admin-column-left">
-					<p>
-						<?php _e('Who can castle? And where?', 'rpbchessboard'); ?>
-					</p>
-					<p>
-						<?php echo sprintf(
-							__(
-								'Here, the 3<sup>rd</sup> field in the FEN string (%1$s) indicates '.
-								'that only king-side white castling is available. Other castling availabilities '.
-								'might be indicated with characters %2$s (queen-side white castling), '.
-								'%3$s (king-side black castling), and %4$s (queen-side black castling). '.
-								'If neither side can castle, the 3<sup>rd</sup> FEN field is set to %5$s.',
-							'rpbchessboard'),
-							'<span class="rpbchessboard-admin-code-inline">&quot;K&quot;</span>',
-							'<span class="rpbchessboard-admin-code-inline">&quot;Q&quot;</span>',
-							'<span class="rpbchessboard-admin-code-inline">&quot;k&quot;</span>',
-							'<span class="rpbchessboard-admin-code-inline">&quot;q&quot;</span>',
-							'<span class="rpbchessboard-admin-code-inline">&quot;-&quot;</span>'
-						); ?>
-					</p>
+		<div id="rpbchessboard-fenExample4">
+			<div class="rpbchessboard-be-columns">
+				<div>
+					<div class="rpbchessboard-be-sourceCode">
+						<?php echo sprintf('[%1$s]r3k2r/8/8/8/8/8/8/R3K2R b K - 0 1[/%1$s]',
+							htmlspecialchars($model->getFENShortcode())); ?>
+					</div>
+					<p><?php _e('Who can castle? And where?', 'rpbchessboard'); ?></p>
+					<p><?php echo sprintf(
+						__(
+							'Here, the 3<sup>rd</sup> field in the FEN string (%1$s) indicates '.
+							'that only king-side white castling is available. Other castling availabilities '.
+							'might be indicated with characters %2$s (queen-side white castling), '.
+							'%3$s (king-side black castling), and %4$s (queen-side black castling). '.
+							'If neither side can castle, the 3<sup>rd</sup> FEN field is set to %5$s.',
+						'rpbchessboard'),
+						'<span class="rpbchessboard-be-sourceCode">&quot;K&quot;</span>',
+						'<span class="rpbchessboard-be-sourceCode">&quot;Q&quot;</span>',
+						'<span class="rpbchessboard-be-sourceCode">&quot;k&quot;</span>',
+						'<span class="rpbchessboard-be-sourceCode">&quot;q&quot;</span>',
+						'<span class="rpbchessboard-be-sourceCode">&quot;-&quot;</span>'
+					); ?></p>
 				</div>
-				<div class="rpbchessboard-admin-column-right">
-					<div class="rpbchessboard-admin-visu-block">
-						<div id="rpbchessboard-admin-exampleFen3-in" class="rpbchessboard-in">
-							r3k2r/8/8/8/8/8/8/R3K2R b K - 0 1
+				<div>
+					<div class="rpbchessboard-be-visuBlock">
+						<div>
+							<div id="rpbchessboard-fenExample4-anchor"></div>
+							<script type="text/javascript">
+								jQuery(document).ready(function($) {
+									$('#rpbchessboard-fenExample4-anchor').chessboard({
+										squareSize: 28,
+										position: 'r3k2r/8/8/8/8/8/8/R3K2R b K - 0 1'
+									});
+								});
+							</script>
 						</div>
-						<div id="rpbchessboard-admin-exampleFen3-out" class="rpbchessboard-out rpbchessboard-invisible"></div>
-						<script type="text/javascript">
-							processFEN('rpbchessboard-admin-exampleFen3-in', 'rpbchessboard-admin-exampleFen3-out',
-								{squareSize: 28});
-						</script>
 					</div>
 				</div>
 			</div>
 		</div>
 
 
-		<div>
-			<div class="rpbchessboard-admin-code-block">
-				<?php echo sprintf(
-					'[%1$s]r2q1bnr/ppp1kBpp/2np4/3NN3/4P3/8/PPPP1PPP/R1BbK2R b KQ - 2 7[/%1$s]',
-					htmlspecialchars($model->getFENShortcode())
-				); ?>
-			</div>
-			<div class="rpbchessboard-admin-columns">
-				<div class="rpbchessboard-admin-column-left">
-					<p>
-						<?php _e('The Légal Trap.', 'rpbchessboard'); ?>
-					</p>
+		<div id="rpbchessboard-fenExample5">
+			<div class="rpbchessboard-be-columns">
+				<div>
+					<div class="rpbchessboard-be-sourceCode">
+						<?php echo sprintf('[%1$s]r2q1bnr/ppp1kBpp/2np4/3NN3/4P3/8/PPPP1PPP/R1BbK2R b KQ - 2 7[/%1$s]',
+							htmlspecialchars($model->getFENShortcode())); ?>
+					</div>
+					<p><?php _e('The Légal Trap.', 'rpbchessboard'); ?></p>
 				</div>
-				<div class="rpbchessboard-admin-column-right">
-					<div class="rpbchessboard-admin-visu-block">
-						<div id="rpbchessboard-admin-exampleFen4-in" class="rpbchessboard-in">
-							r2q1bnr/ppp1kBpp/2np4/3NN3/4P3/8/PPPP1PPP/R1BbK2R b KQ - 2 7
+				<div>
+					<div class="rpbchessboard-be-visuBlock">
+						<div>
+							<div id="rpbchessboard-fenExample5-anchor"></div>
+							<script type="text/javascript">
+								jQuery(document).ready(function($) {
+									$('#rpbchessboard-fenExample5-anchor').chessboard({
+										squareSize: 28,
+										position: 'r2q1bnr/ppp1kBpp/2np4/3NN3/4P3/8/PPPP1PPP/R1BbK2R b KQ - 2 7'
+									});
+								});
+							</script>
 						</div>
-						<div id="rpbchessboard-admin-exampleFen4-out" class="rpbchessboard-out rpbchessboard-invisible"></div>
-						<script type="text/javascript">
-							processFEN('rpbchessboard-admin-exampleFen4-in', 'rpbchessboard-admin-exampleFen4-out',
-								{squareSize: 28});
-						</script>
 					</div>
 				</div>
 			</div>
 		</div>
+
+
+		<script type="text/javascript">
+			jQuery(document).ready(function($) { $('#rpbchessboard-fenExamples').tabs(); });
+		</script>
 
 	</div>
 
@@ -243,69 +241,139 @@
 
 	<h4><?php _e('Attributes', 'rpbchessboard'); ?></h4>
 
-	<p>
-		<?php
-			_e('The aspect of the chess diagrams can be customized thanks to the following attributes.',
-				'rpbchessboard');
-		?>
-	</p>
+	<p><?php
+		_e('The aspect of the chess diagrams can be customized thanks to the following attributes.',
+			'rpbchessboard');
+	?></p>
 
 
 
 
 
-	<div id="rpbchessboard-admin-fenAttributes" class="rpbchessboard-admin-tabs">
+	<div id="rpbchessboard-fenAttributes" class="rpbchessboard-be-tabs">
 
 		<ul>
-			<li><?php _e('Orientation', 'rpbchessboard'); ?></li>
-			<li><?php _e('Square size', 'rpbchessboard'); ?></li>
-			<li><?php _e('Coordinates', 'rpbchessboard'); ?></li>
+			<li><a href="#rpbchessboard-fenAttribute1"><?php _e('Orientation', 'rpbchessboard'); ?></a></li>
+			<li><a href="#rpbchessboard-fenAttribute2"><?php _e('Square size', 'rpbchessboard'); ?></a></li>
+			<li><a href="#rpbchessboard-fenAttribute3"><?php _e('Coordinates', 'rpbchessboard'); ?></a></li>
 		</ul>
 
 
-		<div>
-			<p>
-				<?php echo sprintf(
-					__(
-						'The %1$s attribute controls whether the chessboard is rotated or not.',
-					'rpbchessboard'),
-					'<span class="rpbchessboard-admin-code-inline">flip</span>'
-				); ?>
-			</p>
-			<div class="rpbchessboard-admin-columns">
+		<div id="rpbchessboard-fenAttribute1">
+			<p><?php echo sprintf(
+				__(
+					'The %1$s attribute controls whether the chessboard is rotated or not.',
+				'rpbchessboard'),
+				'<span class="rpbchessboard-be-sourceCode">flip</span>'
+			); ?></p>
+			<div class="rpbchessboard-be-columns">
 				<div>
-					<div class="rpbchessboard-admin-code-block">
-						<?php echo sprintf(
-							'[%1$s flip=true] ... [/%1$s]',
-							htmlspecialchars($model->getFENShortcode())
-						); ?>
+					<div class="rpbchessboard-be-sourceCode">
+						<?php echo sprintf('[%1$s <strong>flip=true</strong>] ... [/%1$s]', htmlspecialchars($model->getFENShortcode())); ?>
 					</div>
-					<div class="rpbchessboard-admin-visu-block">
-						<div id="rpbchessboard-admin-flip-example1-in" class="rpbchessboard-in">
-							rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
+					<div class="rpbchessboard-be-visuBlock">
+						<div>
+							<div id="rpbchessboard-helpOnFlip-example1"></div>
+							<script type="text/javascript">
+								jQuery(document).ready(function($) {
+									$('#rpbchessboard-helpOnFlip-example1').chessboard({ squareSize: 28, flip: true, position: 'start' });
+								});
+							</script>
 						</div>
-						<div id="rpbchessboard-admin-flip-example1-out" class="rpbchessboard-out rpbchessboard-invisible"></div>
+					</div>
+				</div>
+				<div>
+					<div class="rpbchessboard-be-sourceCode">
+						<?php echo sprintf('[%1$s <strong>flip=false</strong>] ... [/%1$s]', htmlspecialchars($model->getFENShortcode())); ?>
+					</div>
+					<div class="rpbchessboard-be-visuBlock">
+						<div>
+							<div id="rpbchessboard-helpOnFlip-example2"></div>
+							<script type="text/javascript">
+								jQuery(document).ready(function($) {
+									$('#rpbchessboard-helpOnFlip-example2').chessboard({ squareSize: 28, flip: false, position: 'start' });
+								});
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div id="rpbchessboard-fenAttribute2">
+			<p><?php echo sprintf(
+				__(
+					'The %1$s attribute controls the size (in pixels) of the chessboard squares.',
+				'rpbchessboard'),
+				'<span class="rpbchessboard-be-sourceCode">square_size</span>'
+			); ?></p>
+			<div class="rpbchessboard-be-columns">
+				<div>
+					<div class="rpbchessboard-be-sourceCode">
+						<?php echo sprintf('[%1$s <strong>square_size=20</strong>] ... [/%1$s]', htmlspecialchars($model->getFENShortcode())); ?>
+					</div>
+					<div class="rpbchessboard-be-visuBlock">
+						<div>
+							<div id="rpbchessboard-helpOnSquareSize-example1"></div>
+							<script type="text/javascript">
+								jQuery(document).ready(function($) {
+									$('#rpbchessboard-helpOnSquareSize-example1').chessboard({ squareSize: 20, position: 'start' });
+								});
+							</script>
+						</div>
+					</div>
+				</div>
+				<div>
+					<div class="rpbchessboard-be-sourceCode">
+						<?php echo sprintf('[%1$s <strong>square_size=50</strong>] ... [/%1$s]', htmlspecialchars($model->getFENShortcode())); ?>
+					</div>
+					<div class="rpbchessboard-be-visuBlock">
+						<div>
+							<div id="rpbchessboard-helpOnSquareSize-example2"></div>
+							<script type="text/javascript">
+								jQuery(document).ready(function($) {
+									$('#rpbchessboard-helpOnSquareSize-example2').chessboard({ squareSize: 50, position: 'start' });
+								});
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div id="rpbchessboard-fenAttribute3">
+			<p><?php echo sprintf(
+				__(
+					'The %1$s attribute controls whether the row and columns coordinates are displayed or not.',
+				'rpbchessboard'),
+				'<span class="rpbchessboard-be-sourceCode">show_coordinates</span>'
+			); ?></p>
+			<div class="rpbchessboard-be-columns">
+				<div>
+					<div class="rpbchessboard-be-sourceCode">
+						<?php echo sprintf('[%1$s <strong>show_coordinates=true</strong>] ... [/%1$s]', htmlspecialchars($model->getFENShortcode())); ?>
+					</div>
+					<div class="rpbchessboard-be-visuBlock">
+						<div id="rpbchessboard-helpOnShowCoordinates-example1"></div>
 						<script type="text/javascript">
-							processFEN('rpbchessboard-admin-flip-example1-in', 'rpbchessboard-admin-flip-example1-out',
-								{squareSize: 28, flip: true});
+							jQuery(document).ready(function($) {
+								$('#rpbchessboard-helpOnShowCoordinates-example1').chessboard({ squareSize: 28, showCoordinates: true, position: 'start' });
+							});
 						</script>
 					</div>
 				</div>
 				<div>
-					<div class="rpbchessboard-admin-code-block">
-						<?php echo sprintf(
-							'[%1$s flip=false] ... [/%1$s]',
-							htmlspecialchars($model->getFENShortcode())
-						); ?>
+					<div class="rpbchessboard-be-sourceCode">
+						<?php echo sprintf('[%1$s <strong>show_coordinates=false</strong>] ... [/%1$s]', htmlspecialchars($model->getFENShortcode())); ?>
 					</div>
-					<div class="rpbchessboard-admin-visu-block">
-						<div id="rpbchessboard-admin-flip-example2-in" class="rpbchessboard-in">
-							rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
-						</div>
-						<div id="rpbchessboard-admin-flip-example2-out" class="rpbchessboard-out rpbchessboard-invisible"></div>
+					<div class="rpbchessboard-be-visuBlock">
+						<div id="rpbchessboard-helpOnShowCoordinates-example2"></div>
 						<script type="text/javascript">
-							processFEN('rpbchessboard-admin-flip-example2-in', 'rpbchessboard-admin-flip-example2-out',
-								{squareSize: 28, flip: false});
+							jQuery(document).ready(function($) {
+								$('#rpbchessboard-helpOnShowCoordinates-example2').chessboard({ squareSize: 28, showCoordinates: false, position: 'start' });
+							});
 						</script>
 					</div>
 				</div>
@@ -313,104 +381,9 @@
 		</div>
 
 
-		<div>
-			<p>
-				<?php echo sprintf(
-					__(
-						'The %1$s attribute controls the size (in pixels) of the chessboard squares.',
-					'rpbchessboard'),
-					'<span class="rpbchessboard-admin-code-inline">square_size</span>'
-				); ?>
-			</p>
-			<div class="rpbchessboard-admin-columns">
-				<div>
-					<div class="rpbchessboard-admin-code-block">
-						<?php echo sprintf(
-							'[%1$s square_size=24] ... [/%1$s]',
-							htmlspecialchars($model->getFENShortcode())
-						); ?>
-					</div>
-					<div class="rpbchessboard-admin-visu-block">
-						<div id="rpbchessboard-admin-squareSize-example1-in" class="rpbchessboard-in">
-							rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
-						</div>
-						<div id="rpbchessboard-admin-squareSize-example1-out" class="rpbchessboard-out rpbchessboard-invisible"></div>
-						<script type="text/javascript">
-							processFEN('rpbchessboard-admin-squareSize-example1-in', 'rpbchessboard-admin-squareSize-example1-out',
-								{squareSize: 24});
-						</script>
-					</div>
-				</div>
-				<div>
-					<div class="rpbchessboard-admin-code-block">
-						<?php echo sprintf(
-							'[%1$s square_size=48] ... [/%1$s]',
-							htmlspecialchars($model->getFENShortcode())
-						); ?>
-					</div>
-					<div class="rpbchessboard-admin-visu-block">
-						<div id="rpbchessboard-admin-squareSize-example2-in" class="rpbchessboard-in">
-							rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
-						</div>
-						<div id="rpbchessboard-admin-squareSize-example2-out" class="rpbchessboard-out rpbchessboard-invisible"></div>
-						<script type="text/javascript">
-							processFEN('rpbchessboard-admin-squareSize-example2-in', 'rpbchessboard-admin-squareSize-example2-out',
-								{squareSize: 48});
-						</script>
-					</div>
-				</div>
-			</div>
-		</div>
-
-
-		<div>
-			<p>
-				<?php echo sprintf(
-					__(
-						'The %1$s attribute controls whether the row and columns coordinates are displayed or not.',
-					'rpbchessboard'),
-					'<span class="rpbchessboard-admin-code-inline">show_coordinates</span>'
-				); ?>
-			</p>
-			<div class="rpbchessboard-admin-columns">
-				<div>
-					<div class="rpbchessboard-admin-code-block">
-						<?php echo sprintf(
-							'[%1$s show_coordinates=true] ... [/%1$s]',
-							htmlspecialchars($model->getFENShortcode())
-						); ?>
-					</div>
-					<div class="rpbchessboard-admin-visu-block">
-						<div id="rpbchessboard-admin-showCoordinates-example1-in" class="rpbchessboard-in">
-							rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
-						</div>
-						<div id="rpbchessboard-admin-showCoordinates-example1-out" class="rpbchessboard-out rpbchessboard-invisible"></div>
-						<script type="text/javascript">
-							processFEN('rpbchessboard-admin-showCoordinates-example1-in', 'rpbchessboard-admin-showCoordinates-example1-out',
-								{squareSize: 28, showCoordinates: true});
-						</script>
-					</div>
-				</div>
-				<div>
-					<div class="rpbchessboard-admin-code-block">
-						<?php echo sprintf(
-							'[%1$s show_coordinates=false] ... [/%1$s]',
-							htmlspecialchars($model->getFENShortcode())
-						); ?>
-					</div>
-					<div class="rpbchessboard-admin-visu-block">
-						<div id="rpbchessboard-admin-showCoordinates-example2-in" class="rpbchessboard-in">
-							rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
-						</div>
-						<div id="rpbchessboard-admin-showCoordinates-example2-out" class="rpbchessboard-out rpbchessboard-invisible"></div>
-						<script type="text/javascript">
-							processFEN('rpbchessboard-admin-showCoordinates-example2-in', 'rpbchessboard-admin-showCoordinates-example2-out',
-								{squareSize: 28, showCoordinates: false});
-						</script>
-					</div>
-				</div>
-			</div>
-		</div>
+		<script type="text/javascript">
+			jQuery(document).ready(function($) { $('#rpbchessboard-fenAttributes').tabs(); });
+		</script>
 
 	</div>
 
