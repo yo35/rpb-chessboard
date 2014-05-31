@@ -31,7 +31,7 @@ class RPBChessboardViewAdminPage extends RPBChessboardAbstractView
 	public function display()
 	{
 		$model = $this->getModel();
-		echo '<div class="wrap rpbchessboard-admin">';
+		echo '<div class="wrap rpbchessboard-adminPage">';
 		include(RPBCHESSBOARD_ABSPATH . 'templates/adminpage/header.php');
 		include(RPBCHESSBOARD_ABSPATH . 'templates/adminpage/' . strtolower($model->getTemplateName()) . '.php');
 		echo '</div>';

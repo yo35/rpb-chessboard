@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<div id="rpbchessboard-admin-options">
+<div id="rpbchessboard-admin-options" class="rpbchessboard-jQuery-enableSmoothness">
 
 	<form action="<?php echo htmlspecialchars($model->getFormActionURL()); ?>" method="post">
 

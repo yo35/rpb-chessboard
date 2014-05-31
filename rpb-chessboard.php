@@ -61,6 +61,7 @@ function rpbchessboard_enqueue_script()
 	// Additional scripts for the backend.
 	if(is_admin()) {
 		wp_enqueue_script('jquery-ui-slider');
+		wp_enqueue_script('jquery-ui-tabs'  );
 	}
 }
 
@@ -82,7 +83,7 @@ function rpbchessboard_enqueue_css()
 
 	// Additional CSS for the back-end
 	if(is_admin()) {
-		wp_register_style('rpbchessboard-jquery-ui', RPBCHESSBOARD_URL.'/css/jquery-ui-1.10.3.custom.min.css');
+		wp_register_style('rpbchessboard-jquery-ui', RPBCHESSBOARD_URL.'/third-party-libs/jquery/jquery-ui-1.10.4.custom.min.css');
 		wp_register_style('rpbchessboard-admin'    , RPBCHESSBOARD_URL.'/css/admin.css');
 		wp_enqueue_style ('rpbchessboard-jquery-ui');
 		wp_enqueue_style ('rpbchessboard-admin'    );
