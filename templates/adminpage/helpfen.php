@@ -60,11 +60,10 @@
 	<div id="rpbchessboard-fenExamples" class="rpbchessboard-be-tabs">
 
 		<ul>
-			<li><a href="#rpbchessboard-fenExample1"><?php _e('Empty position'  , 'rpbchessboard'); ?></a></li>
-			<li><a href="#rpbchessboard-fenExample2"><?php _e('Initial position', 'rpbchessboard'); ?></a></li>
-			<li><a href="#rpbchessboard-fenExample3"><?php _e('After 1.e4'      , 'rpbchessboard'); ?></a></li>
-			<li><a href="#rpbchessboard-fenExample4"><?php _e('Who can castle?' , 'rpbchessboard'); ?></a></li>
-			<li><a href="#rpbchessboard-fenExample5"><?php _e('Légal Trap'      , 'rpbchessboard'); ?></a></li>
+			<li><a href="#rpbchessboard-fenExample1"><?php _e('Empty position'                , 'rpbchessboard'); ?></a></li>
+			<li><a href="#rpbchessboard-fenExample2"><?php _e('Initial position'              , 'rpbchessboard'); ?></a></li>
+			<li><a href="#rpbchessboard-fenExample3"><?php _e('Who can castle?'               , 'rpbchessboard'); ?></a></li>
+			<li><a href="#rpbchessboard-fenExample4"><?php _e('<em>En passant</em> available?', 'rpbchessboard'); ?></a></li>
 		</ul>
 
 
@@ -128,42 +127,7 @@
 			<div class="rpbchessboard-be-columns">
 				<div>
 					<div class="rpbchessboard-be-sourceCode">
-						<?php echo sprintf('[%1$s]rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1[/%1$s]',
-							htmlspecialchars($model->getFENShortcode())); ?>
-					</div>
-					<p><?php echo sprintf(
-						__(
-							'After 1.e4. Notice the 4<sup>th</sup> field in the FEN string (%1$s), '.
-							'indicating the square where <em>en passant</em> can be done '.
-							'(if there were a black pawn either in d4 or in f4).',
-						'rpbchessboard'),
-						'<span class="rpbchessboard-be-sourceCode">&quot;e3&quot;</span>'
-					); ?></p>
-				</div>
-				<div>
-					<div class="rpbchessboard-be-visuBlock">
-						<div>
-							<div id="rpbchessboard-fenExample3-anchor"></div>
-							<script type="text/javascript">
-								jQuery(document).ready(function($) {
-									$('#rpbchessboard-fenExample3-anchor').chessboard({
-										squareSize: 28,
-										position: 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1'
-									});
-								});
-							</script>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-
-		<div id="rpbchessboard-fenExample4">
-			<div class="rpbchessboard-be-columns">
-				<div>
-					<div class="rpbchessboard-be-sourceCode">
-						<?php echo sprintf('[%1$s]r3k2r/8/8/8/8/8/8/R3K2R b K - 0 1[/%1$s]',
+						<?php echo sprintf('[%1$s]r3k2r/8/8/8/8/8/8/R3K2R b <strong>K</strong> - 0 1[/%1$s]',
 							htmlspecialchars($model->getFENShortcode())); ?>
 					</div>
 					<p><?php _e('Who can castle? And where?', 'rpbchessboard'); ?></p>
@@ -185,10 +149,10 @@
 				<div>
 					<div class="rpbchessboard-be-visuBlock">
 						<div>
-							<div id="rpbchessboard-fenExample4-anchor"></div>
+							<div id="rpbchessboard-fenExample3-anchor"></div>
 							<script type="text/javascript">
 								jQuery(document).ready(function($) {
-									$('#rpbchessboard-fenExample4-anchor').chessboard({
+									$('#rpbchessboard-fenExample3-anchor').chessboard({
 										squareSize: 28,
 										position: 'r3k2r/8/8/8/8/8/8/R3K2R b K - 0 1'
 									});
@@ -201,24 +165,35 @@
 		</div>
 
 
-		<div id="rpbchessboard-fenExample5">
+		<div id="rpbchessboard-fenExample4">
 			<div class="rpbchessboard-be-columns">
 				<div>
 					<div class="rpbchessboard-be-sourceCode">
-						<?php echo sprintf('[%1$s]r2q1bnr/ppp1kBpp/2np4/3NN3/4P3/8/PPPP1PPP/R1BbK2R b KQ - 2 7[/%1$s]',
+						<?php echo sprintf('[%1$s]4k3/pppppppp/8/8/4P3/8/PPPP1PPP/4K3 b - <strong>e3</strong> 0 1[/%1$s]',
 							htmlspecialchars($model->getFENShortcode())); ?>
 					</div>
-					<p><?php _e('The Légal Trap.', 'rpbchessboard'); ?></p>
+					<p><?php _e('Is <em>en passant</em> possible? On which square?', 'rpbchessboard'); ?></p>
+					<p><?php echo sprintf(
+						__(
+							'In this example, White has just played a pawn from e2 to e4: ' .
+							'the 4<sup>th</sup> field in the FEN string is then set to %1$s ' .
+							'to account for the fact that <em>en passant</em> would be possible on this square ' .
+							'if there were a black pawn either in d4 or f4. ' .
+							'Otherwise, this field would be set to %2$s.',
+						'rpbchessboard'),
+						'<span class="rpbchessboard-be-sourceCode">&quot;e3&quot;</span>',
+						'<span class="rpbchessboard-be-sourceCode">&quot;-&quot;</span>'
+					); ?></p>
 				</div>
 				<div>
 					<div class="rpbchessboard-be-visuBlock">
 						<div>
-							<div id="rpbchessboard-fenExample5-anchor"></div>
+							<div id="rpbchessboard-fenExample4-anchor"></div>
 							<script type="text/javascript">
 								jQuery(document).ready(function($) {
-									$('#rpbchessboard-fenExample5-anchor').chessboard({
+									$('#rpbchessboard-fenExample4-anchor').chessboard({
 										squareSize: 28,
-										position: 'r2q1bnr/ppp1kBpp/2np4/3NN3/4P3/8/PPPP1PPP/R1BbK2R b KQ - 2 7'
+										position: '4k3/pppppppp/8/8/4P3/8/PPPP1PPP/4K3 b - e3 0 1'
 									});
 								});
 							</script>
