@@ -611,7 +611,7 @@
 			}
 
 			// Return the validated input.
-			return pieceSymbols
+			return pieceSymbols;
 		},
 
 
