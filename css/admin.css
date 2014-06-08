@@ -177,7 +177,8 @@ div.rpbchessboard-be-sourceCode {
 /******************************************************************************/
 /*** Help pages ***/
 
-#rpbchessboard-helpFenPage .rpbchessboard-be-columns > div {
+#rpbchessboard-helpFenPage .rpbchessboard-be-columns > div,
+#rpbchessboard-helpPgnPage .rpbchessboard-be-columns > div {
 	width: 50%;
 }
 
@@ -187,34 +188,6 @@ div.rpbchessboard-be-sourceCode {
 
 #rpbchessboard-helpFenPage #rpbchessboard-fenAttribute2 .rpbchessboard-be-columns > div:nth-child(2) {
 	width: 67%;
-}
-
-#rpbchessboard-admin-fenExamples .rpbchessboard-admin-column-right {
-	width: 60%;
-}
-
-#rpbchessboard-admin-pgnExamples .rpbchessboard-admin-column-left,
-#rpbchessboard-admin-pgnExamples .rpbchessboard-admin-column-right {
-	width: 50%;
-}
-
-#rpbchessboard-admin-pgnExamples > ul {
-	width: 15%;
-}
-
-#rpbchessboard-admin-pgnExamples > div {
-	width: 85%;
-}
-
-#rpbchessboard-admin-pgnNAGs .rpbchessboard-admin-column-left,
-#rpbchessboard-admin-pgnNAGs .rpbchessboard-admin-column-right,
-#rpbchessboard-admin-pgnComments .rpbchessboard-admin-column-left,
-#rpbchessboard-admin-pgnComments .rpbchessboard-admin-column-right,
-#rpbchessboard-admin-pgnVariations .rpbchessboard-admin-column-left,
-#rpbchessboard-admin-pgnVariations .rpbchessboard-admin-column-right,
-#rpbchessboard-admin-pgnDiagrams .rpbchessboard-admin-column-left,
-#rpbchessboard-admin-pgnDiagrams .rpbchessboard-admin-column-right {
-	width: 50%;
 }
 
 
