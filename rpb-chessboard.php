@@ -47,7 +47,7 @@ function rpbchessboard_enqueue_script()
 {
 	$chessWidgetDeps = array('jquery-ui-widget', 'jquery-ui-selectable', 'jquery-ui-draggable', 'jquery-ui-droppable');
 	$pgnWidgetDeps   = array('jquery-color', 'jquery-ui-resizable', 'jquery-ui-dialog');
-	wp_register_script('rpbchessboard-chessjs'    , RPBCHESSBOARD_URL.'/chess-js/chess.min.js');
+	wp_register_script('rpbchessboard-chessjs'    , RPBCHESSBOARD_URL.'/third-party-libs/chess-js/chess.min.js');
 	wp_register_script('rpbchessboard-pgn'        , RPBCHESSBOARD_URL.'/js/pgn.js');
 	wp_register_script('rpbchessboard-chesswidget', RPBCHESSBOARD_URL.'/js/uichess-chessboard.js', $chessWidgetDeps);
 	wp_register_script('rpbchessboard-pgnwidget'  , RPBCHESSBOARD_URL.'/js/uichess-chessgame.js', $pgnWidgetDeps);
