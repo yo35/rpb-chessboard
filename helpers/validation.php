@@ -56,6 +56,26 @@ abstract class RPBChessboardHelperValidation
 
 
 	/**
+	 * Validation a piece symbol mode parameter.
+	 *
+	 * @param mixed $value
+	 * @return string May be null is the value is not valid.
+	 */
+	public static function validatePieceSymbols($value)
+	{
+		if($value==='native' || $value==='localized' || $value==='figurine') {
+			return $value;
+		}
+		else if(is_string($value) && preg_match('/^[a-zA-Z]{6}$/', $value)) {
+			return strtoupper($value);
+		}
+		else {
+			return null;
+		}
+	}
+
+
+	/**
 	 * Validate a boolean.
 	 *
 	 * @param mixed $value
