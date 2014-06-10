@@ -22,33 +22,38 @@
 
 <script type="text/javascript">
 
-	// Localization: miscellaneous
-	PgnWidget.text.initialPosition = '<?php _e('Initial position', 'rpbchessboard'); ?>';
+	jQuery(document).ready(function($) {
 
-	// Localization: month names
-	PgnWidget.text.months = [
-		'<?php _e('January'  , 'rpbchessboard'); ?>',
-		'<?php _e('February' , 'rpbchessboard'); ?>',
-		'<?php _e('March'    , 'rpbchessboard'); ?>',
-		'<?php _e('April'    , 'rpbchessboard'); ?>',
-		'<?php _e('May'      , 'rpbchessboard'); ?>',
-		'<?php _e('June'     , 'rpbchessboard'); ?>',
-		'<?php _e('July'     , 'rpbchessboard'); ?>',
-		'<?php _e('August'   , 'rpbchessboard'); ?>',
-		'<?php _e('September', 'rpbchessboard'); ?>',
-		'<?php _e('October'  , 'rpbchessboard'); ?>',
-		'<?php _e('November' , 'rpbchessboard'); ?>',
-		'<?php _e('December' , 'rpbchessboard'); ?>'
-	];
+		// Localization for the uichess-chessgame widget.
+		$.chessgame.i18n.ANNOTATED_BY     = <?php echo json_encode(__('Annotated by %1$s', 'rpbchessboard')); ?>;
+		$.chessgame.i18n.INITIAL_POSITION = <?php echo json_encode(__('Initial position' , 'rpbchessboard')); ?>;
 
-	// Localization: chess piece symbols
-	PgnWidget.text.pieceSymbols = {
-		'K': '<?php /*i18n King symbol   */ _e('K', 'rpbchessboard'); ?>',
-		'Q': '<?php /*i18n Queen symbol  */ _e('Q', 'rpbchessboard'); ?>',
-		'R': '<?php /*i18n Rook symbol   */ _e('R', 'rpbchessboard'); ?>',
-		'B': '<?php /*i18n Bishop symbol */ _e('B', 'rpbchessboard'); ?>',
-		'N': '<?php /*i18n Knight symbol */ _e('N', 'rpbchessboard'); ?>',
-		'P': '<?php /*i18n Pawn symbol   */ _e('P', 'rpbchessboard'); ?>'
-	};
+		// Month names.
+		$.chessgame.i18n.MONTHS = [
+			<?php echo json_encode(__('January'  , 'rpbchessboard')); ?>,
+			<?php echo json_encode(__('February' , 'rpbchessboard')); ?>,
+			<?php echo json_encode(__('March'    , 'rpbchessboard')); ?>,
+			<?php echo json_encode(__('April'    , 'rpbchessboard')); ?>,
+			<?php echo json_encode(__('May'      , 'rpbchessboard')); ?>,
+			<?php echo json_encode(__('June'     , 'rpbchessboard')); ?>,
+			<?php echo json_encode(__('July'     , 'rpbchessboard')); ?>,
+			<?php echo json_encode(__('August'   , 'rpbchessboard')); ?>,
+			<?php echo json_encode(__('September', 'rpbchessboard')); ?>,
+			<?php echo json_encode(__('October'  , 'rpbchessboard')); ?>,
+			<?php echo json_encode(__('November' , 'rpbchessboard')); ?>,
+			<?php echo json_encode(__('December' , 'rpbchessboard')); ?>
+		];
+
+		// Chess piece symbols.
+		$.chessgame.i18n.PIECE_SYMBOLS = {
+			'K': <?php /*i18n King symbol   */ echo json_encode(__('K', 'rpbchessboard')); ?>,
+			'Q': <?php /*i18n Queen symbol  */ echo json_encode(__('Q', 'rpbchessboard')); ?>,
+			'R': <?php /*i18n Rook symbol   */ echo json_encode(__('R', 'rpbchessboard')); ?>,
+			'B': <?php /*i18n Bishop symbol */ echo json_encode(__('B', 'rpbchessboard')); ?>,
+			'N': <?php /*i18n Knight symbol */ echo json_encode(__('N', 'rpbchessboard')); ?>,
+			'P': <?php /*i18n Pawn symbol   */ echo json_encode(__('P', 'rpbchessboard')); ?>
+		};
+
+	});
 
 </script>
