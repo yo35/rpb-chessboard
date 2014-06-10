@@ -172,6 +172,32 @@ div.rpbchessboard-be-sourceCode {
 	text-align: right;
 }
 
+#rpbchessboard-optionPage input[name="pieceSymbols"] {
+	margin-left: 3em;
+}
+
+#rpbchessboard-optionPage input[name="pieceSymbols"]:first-child {
+	margin-left: 0px;
+}
+
+.rpbchessboard-pieceSymbolLabel {
+	display: inline-block;
+	width : 40px;
+	height: 40px;
+	background-image: url(sprite/all-40.png);
+	vertical-align: middle;
+}
+
+.rpbchessboard-pieceSymbolField {
+	vertical-align: middle;
+	text-align: center;
+	margin-right: 3em;
+}
+
+.rpbchessboard-pieceSymbolField:last-child {
+	margin-right: 0px;
+}
+
 
 
 /******************************************************************************/
