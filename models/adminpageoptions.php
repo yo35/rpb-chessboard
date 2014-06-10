@@ -31,9 +31,9 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 	public function __construct()
 	{
 		parent::__construct();
-		$this->loadTrait('ChessWidgetDefault');
-		$this->loadTrait('ChessWidgetLimits' );
-		$this->loadTrait('Compatibility'     );
+		$this->loadTrait('ChessboardDefault');
+		$this->loadTrait('ChessboardLimits' );
+		$this->loadTrait('Compatibility'    );
 	}
 
 
@@ -44,7 +44,7 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 	 */
 	public function getFormActionURL()
 	{
-		return site_url().'/wp-admin/admin.php?page=rpbchessboard-options';
+		return admin_url('admin.php') . '?page=rpbchessboard-options';
 	}
 
 

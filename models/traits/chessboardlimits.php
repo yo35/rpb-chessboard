@@ -25,71 +25,41 @@ require_once(RPBCHESSBOARD_ABSPATH.'helpers/validation.php');
 
 
 /**
- * Trait for loading the default options associated to chessboard widgets
- * from the WP database.
+ * Trait for the limit that could be set on the parameters defining the aspect
+ * of chessboard widgets.
  */
-class RPBChessboardTraitChessWidgetDefault extends RPBChessboardAbstractTrait
+class RPBChessboardTraitChessboardLimits extends RPBChessboardAbstractTrait
 {
-	private static $allParameters  ;
-	private static $squareSize     ;
-	private static $showCoordinates;
-
-
 	/**
-	 * Initial default square size of the chessboard widgets.
-	 */
-	const DEFAULT_SQUARE_SIZE = 32;
-
-
-	/**
-	 * Initial default show-coordinates parameter of the chessboard widgets.
-	 */
-	const DEFAULT_SHOW_COORDINATES = true;
-
-
-	/**
-	 * Return all the default parameters in a "key => value" array.
-	 *
-	 * @return array
-	 */
-	public function getDefaultAll()
-	{
-		if(!isset(self::$allParameters)) {
-			self::$allParameters = array(
-				'squareSize'      => $this->getDefaultSquareSize     (),
-				'showCoordinates' => $this->getDefaultShowCoordinates()
-			);
-		}
-		return self::$allParameters;
-	}
-
-
-	/**
-	 * Default square size for the chessboard widgets.
+	 * Minimum square size of the chessboard widgets.
 	 *
 	 * @return int
 	 */
-	public function getDefaultSquareSize()
+	public function getMinimumSquareSize()
 	{
-		if(!isset(self::$squareSize)) {
-			$value = RPBChessboardHelperValidation::validateSquareSize(get_option('rpbchessboard_squareSize'));
-			self::$squareSize = isset($value) ? $value : self::DEFAULT_SQUARE_SIZE;
-		}
-		return self::$squareSize;
+		return RPBChessboardHelperValidation::MINIMUM_SQUARE_SIZE;
 	}
 
 
 	/**
-	 * Default show-coordinates parameter for the chessboard widgets.
+	 * Maximum square size of the chessboard widgets.
 	 *
-	 * @return boolean
+	 * @return int
 	 */
-	public function getDefaultShowCoordinates()
+	public function getMaximumSquareSize()
 	{
-		if(!isset(self::$showCoordinates)) {
-			$value = RPBChessboardHelperValidation::validateBooleanFromInt(get_option('rpbchessboard_showCoordinates'));
-			self::$showCoordinates = isset($value) ? $value : self::DEFAULT_SHOW_COORDINATES;
-		}
-		return self::$showCoordinates;
+		return RPBChessboardHelperValidation::MAXIMUM_SQUARE_SIZE;
+	}
+
+
+	/**
+	 * Number of digits of the maximum square size parameter.
+	 *
+	 * @return int
+	 */
+	public function getDigitNumberForSquareSize()
+	{
+		$maxVal = $this->getMaximumSquareSize();
+		return 1 + floor(log10($maxVal));
 	}
 }
