@@ -103,11 +103,13 @@ if(is_admin()) {
 
 
 // Shortcodes
-add_action('init', 'rpbchessboard_init_shortcodes');
-function rpbchessboard_init_shortcodes()
-{
-	require_once(RPBCHESSBOARD_ABSPATH . 'wp/shortcodes.php');
-	RPBChessboardShortcodes::register();
+if(!is_admin()) {
+	add_action('init', 'rpbchessboard_init_shortcodes');
+	function rpbchessboard_init_shortcodes()
+	{
+		require_once(RPBCHESSBOARD_ABSPATH . 'wp/shortcodes.php');
+		RPBChessboardShortcodes::register();
+	}
 }
 
 
