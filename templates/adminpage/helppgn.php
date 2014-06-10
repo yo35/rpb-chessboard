@@ -402,8 +402,10 @@
 		<div>
 			<div class="rpbchessboard-be-sourceCode">
 				[<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]<br/>
-				1. e4 c5 {[pgndiagram]
-				<?php _e('This opening is called the Sicilian defence. A possible continuation is:', 'rpbchessboard'); ?>}
+				1. e4 c5<br/>
+				<br/>
+				{[pgndiagram] <?php _e('This opening is called the Sicilian defence. A possible continuation is:', 'rpbchessboard'); ?>}<br/>
+				<br/>
 				2. Nf3 d6 *<br/>
 				[/<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]
 			</div>
@@ -426,11 +428,14 @@
 							$('#rpbchessboard-pgnDiagram-anchor').chessgame({
 								diagramOptions: { squareSize: 28 },
 								pgn:
-									'1. e4 c5 {<div class="uichess-chessgame-diagramAnchor"></div> ' +
+									'1. e4 c5\n' +
+									'\n' +
+									'{<div class="uichess-chessgame-diagramAnchor"></div> ' +
 									<?php
 										echo json_encode(__('This opening is called the Sicilian defence. A possible continuation is:', 'rpbchessboard'));
-									?> +
-									'} 2. Nf3 d6 *'
+									?> + '}\n' +
+									'\n' +
+									'2. Nf3 d6 *'
 							});
 						});
 					</script>

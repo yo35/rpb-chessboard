@@ -219,7 +219,7 @@ div.uichess-chessgame-variation > div:last-child {
 
 .uichess-chessgame-navigationButtons {
 	text-align: center;
-	margin-top: 0.5em;
+	margin-top: 0.75em;
 }
 
 
@@ -231,12 +231,12 @@ div.uichess-chessgame-variation > div:last-child {
 	display: none;
 }
 
-.uichess-chessgame-body div.uichess-chessgame-comment .uichess-chessgame-diagram {
+.uichess-chessgame-body .uichess-chessgame-comment .uichess-chessgame-diagram {
 	margin-top   : 0.25em;
 	margin-bottom: 0.25em;
 }
 
-.uichess-chessgame-body.uichess-chessgame-moreSpace div.uichess-chessgame-comment .uichess-chessgame-diagram {
+.uichess-chessgame-body.uichess-chessgame-moreSpace .uichess-chessgame-comment .uichess-chessgame-diagram {
 	margin-top   : 0.5em;
 	margin-bottom: 0.5em;
 }
