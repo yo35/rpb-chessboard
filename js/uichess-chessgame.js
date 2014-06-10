@@ -588,7 +588,7 @@
 				switch(pieceSymbols) {
 
 					// Figurines using the default chess font.
-					case 'figurine':
+					case 'figurines':
 						this._pieceSymbolTable = filterChessFontName($.chessgame.chessFont).pieceSymbolTable;
 						break;
 

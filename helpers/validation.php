@@ -63,7 +63,7 @@ abstract class RPBChessboardHelperValidation
 	 */
 	public static function validatePieceSymbols($value)
 	{
-		if($value==='native' || $value==='localized' || $value==='figurine') {
+		if($value==='native' || $value==='localized' || $value==='figurines') {
 			return $value;
 		}
 		else if(is_string($value) && preg_match('/^[a-zA-Z]{6}$/', $value)) {
