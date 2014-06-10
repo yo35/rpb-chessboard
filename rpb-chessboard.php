@@ -45,18 +45,27 @@ load_plugin_textdomain('rpbchessboard', false, RPBCHESSBOARD_PLUGIN_DIR.'/langua
 add_action(is_admin() ? 'admin_enqueue_scripts' : 'wp_enqueue_scripts', 'rpbchessboard_enqueue_script');
 function rpbchessboard_enqueue_script()
 {
-	$chessWidgetDeps = array('jquery-ui-widget', 'jquery-ui-selectable', 'jquery-ui-draggable', 'jquery-ui-droppable');
-	$pgnWidgetDeps   = array('jquery-color', 'jquery-ui-resizable', 'jquery-ui-dialog');
-	wp_register_script('rpbchessboard-chessjs'    , RPBCHESSBOARD_URL.'/third-party-libs/chess-js/chess.min.js');
-	wp_register_script('rpbchessboard-pgn'        , RPBCHESSBOARD_URL.'/js/pgn.js');
-	wp_register_script('rpbchessboard-chesswidget', RPBCHESSBOARD_URL.'/js/uichess-chessboard.js', $chessWidgetDeps);
-	wp_register_script('rpbchessboard-pgnwidget'  , RPBCHESSBOARD_URL.'/js/uichess-chessgame.js', $pgnWidgetDeps);
-	wp_register_script('rpbchessboard-main'       , RPBCHESSBOARD_URL.'/js/main.js');
-	wp_enqueue_script('rpbchessboard-chessjs'    );
-	wp_enqueue_script('rpbchessboard-pgn'        );
-	wp_enqueue_script('rpbchessboard-chesswidget');
-	wp_enqueue_script('rpbchessboard-pgnwidget'  );
-	wp_enqueue_script('rpbchessboard-main'       );
+	// Chess-js library
+	wp_register_script('rpbchessboard-chessjs', RPBCHESSBOARD_URL . '/third-party-libs/chess-js/chess.min.js');
+
+	// PGN-parsing tools
+	$deps = array('rpbchessboard-chessjs');
+	wp_register_script('rpbchessboard-pgn', RPBCHESSBOARD_URL . '/js/pgn.js', $deps);
+
+	// Chessboard widget
+	$deps = array('rpbchessboard-chessjs', 'jquery-ui-widget', 'jquery-ui-selectable',
+		/* TODO: remove these deps (only used by the editors) -> */  'jquery-ui-draggable', 'jquery-ui-droppable'
+	);
+	wp_register_script('rpbchessboard-chessboard', RPBCHESSBOARD_URL . '/js/uichess-chessboard.js', $deps);
+
+	// Chessgame widget
+	$deps = array('rpbchessboard-pgn', 'rpbchessboard-chessboard', 'jquery-ui-widget', 'jquery-color', 'jquery-ui-resizable', 'jquery-ui-dialog');
+	wp_register_script('rpbchessboard-chessgame', RPBCHESSBOARD_URL . '/js/uichess-chessgame.js', $deps);
+
+	// Enqueue the scripts.
+	include(RPBCHESSBOARD_ABSPATH . 'templates/localization.php');
+	wp_enqueue_script('rpbchessboard-chessboard');
+	wp_enqueue_script('rpbchessboard-chessgame' );
 
 	// Additional scripts for the backend.
 	if(is_admin()) {
