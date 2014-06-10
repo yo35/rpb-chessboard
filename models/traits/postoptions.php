@@ -31,6 +31,7 @@ class RPBChessboardTraitPostOptions extends RPBChessboardAbstractTrait
 {
 	private $squareSize;
 	private $showCoordinates;
+	private $pieceSymbols;
 	private $fenCompatibilityMode;
 	private $pgnCompatibilityMode;
 
@@ -45,22 +46,68 @@ class RPBChessboardTraitPostOptions extends RPBChessboardAbstractTrait
 			$this->squareSize = RPBChessboardHelperValidation::validateSquareSize($_POST['squareSize']);
 		}
 
+		// Load the piece symbol parameter.
+		if(isset($_POST['pieceSymbols'])) {
+			$this->pieceSymbols = self::loadPieceSymbols();
+		}
+
 		// Load the boolean parameters.
-		$this->showCoordinates      = $this->loadBooleanParameter('showCoordinates'     );
-		$this->fenCompatibilityMode = $this->loadBooleanParameter('fenCompatibilityMode');
-		$this->pgnCompatibilityMode = $this->loadBooleanParameter('pgnCompatibilityMode');
+		$this->showCoordinates      = self::loadBooleanParameter('showCoordinates'     );
+		$this->fenCompatibilityMode = self::loadBooleanParameter('fenCompatibilityMode');
+		$this->pgnCompatibilityMode = self::loadBooleanParameter('pgnCompatibilityMode');
+	}
+
+
+	/**
+	 * Load and validate the piece symbol parameter.
+	 *
+	 * @return string
+	 */
+	private static function loadPieceSymbols()
+	{
+		switch($_POST['pieceSymbols']) {
+			case 'english'  : return 'native'   ;
+			case 'localized': return 'localized';
+			case 'figurines': return 'figurines';
+
+			case 'custom':
+				$kingSymbol   = self::loadPieceSymbol('kingSymbol'  );
+				$queenSymbol  = self::loadPieceSymbol('queenSymbol' );
+				$rookSymbol   = self::loadPieceSymbol('rookSymbol'  );
+				$bishopSymbol = self::loadPieceSymbol('bishopSymbol');
+				$knightSymbol = self::loadPieceSymbol('knightSymbol');
+				$pawnSymbol   = self::loadPieceSymbol('pawnSymbol'  );
+				return
+					isset($kingSymbol  ) && isset($queenSymbol ) && isset($rookSymbol) &&
+					isset($bishopSymbol) && isset($knightSymbol) && isset($pawnSymbol) ?
+					'(' . $kingSymbol . $queenSymbol . $rookSymbol . $bishopSymbol . $knightSymbol . $pawnSymbol . ')' : null;
+
+			default: return null;
+		}
+	}
+
+
+	/**
+	 * Load a single piece symbol.
+	 *
+	 * @param string $fieldName
+	 * @return string
+	 */
+	private static function loadPieceSymbol($fieldName)
+	{
+		return isset($_POST[$fieldName]) ? RPBChessboardHelperValidation::validatePieceSymbol($_POST[$fieldName]) : null;
 	}
 
 
 	/**
 	 * Load and validate a boolean post parameter with the given name.
 	 *
-	 * @param string $paramName Name of the parameter to return.
-	 * @return boolean May be null if the corresponding POST field is undefined or invalid.
+	 * @param string $fieldName
+	 * @return boolean
 	 */
-	private function loadBooleanParameter($paramName)
+	private static function loadBooleanParameter($fieldName)
 	{
-		return isset($_POST[$paramName]) ? RPBChessboardHelperValidation::validateBooleanFromInt($_POST[$paramName]) : null;
+		return isset($_POST[$fieldName]) ? RPBChessboardHelperValidation::validateBooleanFromInt($_POST[$fieldName]) : null;
 	}
 
 
@@ -74,6 +121,11 @@ class RPBChessboardTraitPostOptions extends RPBChessboardAbstractTrait
 		// Set the square size parameter.
 		if(isset($this->squareSize)) {
 			update_option('rpbchessboard_squareSize', $this->squareSize);
+		}
+
+		// Set the piece symbol parameter.
+		if(isset($this->pieceSymbols)) {
+			update_option('rpbchessboard_pieceSymbols', $this->pieceSymbols);
 		}
 
 		// Set the boolean parameters.
