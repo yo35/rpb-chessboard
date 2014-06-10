@@ -20,144 +20,94 @@
  ******************************************************************************/
 ?>
 
-<div id="rpbchessboard-admin-options" class="rpbchessboard-jQuery-enableSmoothness">
+<div id="rpbchessboard-optionPage" class="rpbchessboard-jQuery-enableSmoothness">
 
 	<form action="<?php echo htmlspecialchars($model->getFormActionURL()); ?>" method="post">
 
 		<input type="hidden" name="rpbchessboard_action" value="<?php echo htmlspecialchars($model->getFormAction()); ?>" />
 
+
+
+
+
 		<h3><?php _e('Default chessboard aspect', 'rpbchessboard'); ?></h3>
 
-		<div class="rpbchessboard-admin-columns">
+		<div class="rpbchessboard-be-columns">
 
-			<div class="rpbchessboard-admin-column-left">
+			<div>
 				<p>
 					<?php
 						echo sprintf(__('Square size: %1$s pixels', 'rpbchessboard'),
-							'<input type="text" id="rpbchessboard-admin-squareSize" name="squareSize" '.
-								'size="'.htmlspecialchars($model->getDigitNumberForSquareSize()).'" '.
-								'maxLength="'.htmlspecialchars($model->getDigitNumberForSquareSize()).'" '.
-								'value="'.htmlspecialchars($model->getDefaultSquareSize()).'" '.
-							'/>'
+							'<input type="text" id="rpbchessboard-squareSizeField" name="squareSize" '.
+								'size="'      . htmlspecialchars($model->getDigitNumberForSquareSize()) . '" '.
+								'maxLength="' . htmlspecialchars($model->getDigitNumberForSquareSize()) . '" '.
+								'value="'     . htmlspecialchars($model->getDefaultSquareSize       ()) . '"/>'
 						);
 					?>
-					<div id="rpbchessboard-admin-squareSize-slider"></div>
 				</p>
+				<div id="rpbchessboard-squareSizeField-slider"></div>
 				<p>
 					<input type="hidden" name="showCoordinates" value="0" />
-					<input type="checkbox" id="rpbchessboard-admin-showCoordinates" name="showCoordinates" value="1"
+					<input type="checkbox" id="rpbchessboard-showCoordinatesField" name="showCoordinates" value="1"
 						<?php if($model->getDefaultShowCoordinates()): ?>checked="yes"<?php endif; ?>
 					/>
-					<label for="rpbchessboard-admin-showCoordinates">
+					<label for="rpbchessboard-showCoordinatesField">
 						<?php _e('Show coordinates', 'rpbchessboard'); ?>
 					</label>
 				</p>
 			</div>
 
-			<div class="rpbchessboard-admin-column-right">
-				<div id="rpbchessboard-admin-tuning-widget"></div>
+			<div>
+				<div id="rpbchessboard-tuningChessboardWidget"></div>
 			</div>
 
 		</div>
 
-		<h3><?php _e('Compatibility with other chess plugins', 'rpbchessboard'); ?></h3>
-
-		<p class="description">
-			<?php echo sprintf(
-				__(
-					'By default, the RPB Chessboard plugin use the %1$s[fen][/fen]%2$s '.
-					'and %1$s[pgn][/pgn]%2$s tags for FEN diagrams and PGN games. '.
-					'However, this behavior cause conflicts when other WordPress plugins '.
-					'(typically chess plugins) that use the same tags are simultaneously in use. '.
-					'Activating the compatibility mode for the FEN diagram tag makes RPB Chessboard '.
-					'use %1$s[fen_compat][/fen_compat]%2$s instead of %1$s[fen][/fen]%2$s '.
-					'to avoid those conflicts. Similarly, with the PGN compatibility mode, '.
-					'%1$s[pgn_compat][/pgn_compat]%2$s is used instead of %1$s[pgn][/pgn]%2$s.',
-				'rpbchessboard'),
-				'<span class="rpbchessboard-admin-code-inline">',
-				'</span>'
-			); ?>
-		</p>
-
-		<p>
-			<input type="hidden" name="fenCompatibilityMode" value="0" />
-			<input type="checkbox" id="rpbchessboard-admin-fenCompatibilityMode" name="fenCompatibilityMode" value="1"
-				<?php if($model->getFENCompatibilityMode()): ?>checked="yes"<?php endif; ?>
-			/>
-			<label for="rpbchessboard-admin-fenCompatibilityMode">
-				<?php _e('Compatibility mode for the FEN diagram tag', 'rpbchessboard'); ?>
-			</label>
-		</p>
-
-		<p>
-			<input type="hidden" name="pgnCompatibilityMode" value="0" />
-			<input type="checkbox" id="rpbchessboard-admin-pgnCompatibilityMode" name="pgnCompatibilityMode" value="1"
-				<?php if($model->getPGNCompatibilityMode()): ?>checked="yes"<?php endif; ?>
-			/>
-			<label for="rpbchessboard-admin-pgnCompatibilityMode">
-				<?php _e('Compatibility mode for the PGN game tag', 'rpbchessboard'); ?>
-			</label>
-		</p>
-
-		<p class="submit">
-			<input type="submit" class="button-primary" value="<?php _e('Save changes', 'rpbchessboard'); ?>" />
-		</p>
-
 		<script type="text/javascript">
 
-			// State variables
-			var squareSize     ;
-			var showCoordinates;
-
-
-			// Callback for the squareSize slider
-			function onSquareSizeChange($, newSquareSize)
-			{
-				if(newSquareSize==squareSize) {
-					return;
-				}
-				squareSize = newSquareSize;
-				$('#rpbchessboard-admin-squareSize'   ).val(squareSize);
-				$('#rpbchessboard-admin-tuning-widget').chessboard('option', 'squareSize', squareSize);
-			}
-
-
-			// Callback for the showCoordinates checkbox
-			function onShowCoordinatesChange($, newShowCoordinates)
-			{
-				if(newShowCoordinates==showCoordinates) {
-					return;
-				}
-				showCoordinates = newShowCoordinates;
-				$('#rpbchessboard-admin-tuning-widget').chessboard('option', 'showCoordinates', showCoordinates);
-			}
-
-
-			// Initialization
 			jQuery(document).ready(function($)
 			{
-				// Load the initial values
-				squareSize      = $('#rpbchessboard-admin-squareSize'     ).val();
-				showCoordinates = $('#rpbchessboard-admin-showCoordinates').prop('checked');
+				// State variables
+				var squareSize      = $('#rpbchessboard-squareSizeField'     ).val();
+				var showCoordinates = $('#rpbchessboard-showCoordinatesField').prop('checked');
 
-				// Disable the square-size text field
-				$('#rpbchessboard-admin-squareSize').prop('readonly', true);
+				// Callback for the squareSize slider
+				function onSquareSizeChange(newSquareSize)
+				{
+					if(newSquareSize === squareSize) {
+						return;
+					}
+					squareSize = newSquareSize;
+					$('#rpbchessboard-squareSizeField'       ).val(squareSize);
+					$('#rpbchessboard-tuningChessboardWidget').chessboard('option', 'squareSize', squareSize);
+				}
 
-				// Create the squareSize slider
-				$('#rpbchessboard-admin-squareSize-slider').slider({
+				// Callback for the showCoordinates checkbox
+				function onShowCoordinatesChange(newShowCoordinates)
+				{
+					if(newShowCoordinates === showCoordinates) {
+						return;
+					}
+					showCoordinates = newShowCoordinates;
+					$('#rpbchessboard-tuningChessboardWidget').chessboard('option', 'showCoordinates', showCoordinates);
+				}
+
+				// Disable the square-size text field, create a slider instead.
+				$('#rpbchessboard-squareSizeField').prop('readonly', true);
+				$('#rpbchessboard-squareSizeField-slider').slider({
 					value: squareSize,
 					min: <?php echo json_encode($model->getMinimumSquareSize()); ?>,
 					max: <?php echo json_encode($model->getMaximumSquareSize()); ?>,
-					slide: function( event, ui ) { onSquareSizeChange($, ui.value); }
+					slide: function(event, ui) { onSquareSizeChange(ui.value); }
 				});
 
-				// Create the showCoordinates checkbox
-				$('#rpbchessboard-admin-showCoordinates').change(function() {
-					onShowCoordinatesChange($, $('#rpbchessboard-admin-showCoordinates').prop('checked'));
+				// Initialize the show-coordinates checkbox.
+				$('#rpbchessboard-showCoordinatesField').change(function() {
+					onShowCoordinatesChange($('#rpbchessboard-showCoordinatesField').prop('checked'));
 				});
 
-				// Create the tuning widget
-				$('#rpbchessboard-admin-tuning-widget').chessboard({
+				// Create the chessboard widget.
+				$('#rpbchessboard-tuningChessboardWidget').chessboard({
 					position       : 'start'        ,
 					squareSize     : squareSize     ,
 					showCoordinates: showCoordinates
@@ -165,6 +115,56 @@
 			});
 
 		</script>
+
+
+
+
+
+		<h3><?php _e('Compatibility with other chess plugins', 'rpbchessboard'); ?></h3>
+
+		<p class="description">
+			<?php echo sprintf(
+				__(
+					'By default, the RPB Chessboard plugin use the %1$s[fen][/fen]%2$s and %1$s[pgn][/pgn]%2$s tags '.
+					'for FEN diagrams and PGN games. However, this behavior cause conflicts when other WordPress plugins '.
+					'(typically chess plugins) that use the same tags are simultaneously in use. Activating the compatibility mode '.
+					'for the FEN diagram tag makes RPB Chessboard use %1$s[fen_compat][/fen_compat]%2$s instead of %1$s[fen][/fen]%2$s '.
+					'to avoid those conflicts. Similarly, with the PGN compatibility mode, %1$s[pgn_compat][/pgn_compat]%2$s '.
+					'is used instead of %1$s[pgn][/pgn]%2$s.',
+				'rpbchessboard'),
+				'<span class="rpbchessboard-be-sourceCode">',
+				'</span>'
+			); ?>
+		</p>
+
+		<p>
+			<input type="hidden" name="fenCompatibilityMode" value="0" />
+			<input type="checkbox" id="rpbchessboard-fenCompatibilityModeField" name="fenCompatibilityMode" value="1"
+				<?php if($model->getFENCompatibilityMode()): ?>checked="yes"<?php endif; ?>
+			/>
+			<label for="rpbchessboard-fenCompatibilityModeField">
+				<?php _e('Compatibility mode for the FEN diagram tag', 'rpbchessboard'); ?>
+			</label>
+		</p>
+
+		<p>
+			<input type="hidden" name="pgnCompatibilityMode" value="0" />
+			<input type="checkbox" id="rpbchessboard-pgnCompatibilityModeField" name="pgnCompatibilityMode" value="1"
+				<?php if($model->getPGNCompatibilityMode()): ?>checked="yes"<?php endif; ?>
+			/>
+			<label for="rpbchessboard-pgnCompatibilityModeField">
+				<?php _e('Compatibility mode for the PGN game tag', 'rpbchessboard'); ?>
+			</label>
+		</p>
+
+
+
+
+
+
+		<p class="submit">
+			<input type="submit" class="button-primary" value="<?php _e('Save changes', 'rpbchessboard'); ?>" />
+		</p>
 
 	</form>
 

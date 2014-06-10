@@ -164,11 +164,11 @@ div.rpbchessboard-be-sourceCode {
 /******************************************************************************/
 /*** Options page ***/
 
-#rpbchessboard-admin-options .rpbchessboard-admin-column-left {
+#rpbchessboard-optionPage .rpbchessboard-be-columns > div:first-child {
 	width: 250px;
 }
 
-#rpbchessboard-admin-squareSize {
+#rpbchessboard-squareSizeField {
 	text-align: right;
 }
 
