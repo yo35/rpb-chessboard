@@ -20,22 +20,73 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH.'models/traits/abstracttrait.php');
-require_once(RPBCHESSBOARD_ABSPATH.'helpers/validation.php');
+require_once(RPBCHESSBOARD_ABSPATH . 'models/traits/abstracttrait.php');
+require_once(RPBCHESSBOARD_ABSPATH . 'helpers/validation.php');
 
 
 /**
- * Default options for the move notation.
+ * Default general options associated to chessboard and chessgame widgets.
  */
-class RPBChessboardTraitNotationDefault extends RPBChessboardAbstractTrait
+class RPBChessboardTraitDefaultOptions extends RPBChessboardAbstractTrait
 {
-	private static $pieceSymbols;
+	private static $squareSize     ;
+	private static $showCoordinates;
+	private static $pieceSymbols   ;
+	private static $navigationBoard;
+
+
+	/**
+	 * Initial square size of the chessboard widgets.
+	 */
+	const DEFAULT_SQUARE_SIZE = 32;
+
+
+	/**
+	 * Initial value for the show-coordinates parameter of the chessboard widgets.
+	 */
+	const DEFAULT_SHOW_COORDINATES = true;
 
 
 	/**
 	 * Initial move notation mode.
 	 */
 	const DEFAULT_PIECE_SYMBOLS = 'localized';
+
+
+	/**
+	 * Initial navigation board position.
+	 */
+	const DEFAULT_NAVIGATION_BOARD = 'frame';
+
+
+	/**
+	 * Default square size for the chessboard widgets.
+	 *
+	 * @return int
+	 */
+	public function getDefaultSquareSize()
+	{
+		if(!isset(self::$squareSize)) {
+			$value = RPBChessboardHelperValidation::validateSquareSize(get_option('rpbchessboard_squareSize'));
+			self::$squareSize = isset($value) ? $value : self::DEFAULT_SQUARE_SIZE;
+		}
+		return self::$squareSize;
+	}
+
+
+	/**
+	 * Default show-coordinates parameter for the chessboard widgets.
+	 *
+	 * @return boolean
+	 */
+	public function getDefaultShowCoordinates()
+	{
+		if(!isset(self::$showCoordinates)) {
+			$value = RPBChessboardHelperValidation::validateBooleanFromInt(get_option('rpbchessboard_showCoordinates'));
+			self::$showCoordinates = isset($value) ? $value : self::DEFAULT_SHOW_COORDINATES;
+		}
+		return self::$showCoordinates;
+	}
 
 
 	/**
@@ -50,5 +101,20 @@ class RPBChessboardTraitNotationDefault extends RPBChessboardAbstractTrait
 			self::$pieceSymbols = isset($value) ? $value : self::DEFAULT_PIECE_SYMBOLS;
 		}
 		return self::$pieceSymbols;
+	}
+
+
+	/**
+	 * Default navigation board position.
+	 *
+	 * @return string
+	 */
+	public function getDefaultNavigationBoard()
+	{
+		if(!isset(self::$navigationBoard)) {
+			$value = RPBChessboardHelperValidation::validateNavigationBoard(get_option('rpbchessboard_navigationBoard'));
+			self::$navigationBoard = isset($value) ? $value : self::DEFAULT_NAVIGATION_BOARD;
+		}
+		return self::$navigationBoard;
 	}
 }

@@ -36,10 +36,8 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 	public function __construct()
 	{
 		parent::__construct();
-		$this->loadTrait('ChessboardDefault');
-		$this->loadTrait('ChessboardLimits' );
-		$this->loadTrait('NotationDefault'  );
-		$this->loadTrait('Compatibility'    );
+		$this->loadTrait('DefaultOptions');
+		$this->loadTrait('Compatibility' );
 	}
 
 
@@ -62,6 +60,40 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 	public function getFormAction()
 	{
 		return 'update-options';
+	}
+
+
+	/**
+	 * Minimum square size of the chessboard widgets.
+	 *
+	 * @return int
+	 */
+	public function getMinimumSquareSize()
+	{
+		return RPBChessboardHelperValidation::MINIMUM_SQUARE_SIZE;
+	}
+
+
+	/**
+	 * Maximum square size of the chessboard widgets.
+	 *
+	 * @return int
+	 */
+	public function getMaximumSquareSize()
+	{
+		return RPBChessboardHelperValidation::MAXIMUM_SQUARE_SIZE;
+	}
+
+
+	/**
+	 * Number of digits of the maximum square size parameter.
+	 *
+	 * @return int
+	 */
+	public function getDigitNumberForSquareSize()
+	{
+		$maxVal = $this->getMaximumSquareSize();
+		return 1 + floor(log10($maxVal));
 	}
 
 

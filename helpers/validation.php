@@ -88,6 +88,18 @@ abstract class RPBChessboardHelperValidation
 
 
 	/**
+	 * Validate a navigation board position parameter.
+	 *
+	 * @param mixed $value
+	 * @return string May be null is the value is not valid.
+	 */
+	public static function validateNavigationBoard($value)
+	{
+		return ($value==='none' || $value==='frame' || $value==='floatLeft' || $value==='floatRight') ? $value : null;
+	}
+
+
+	/**
 	 * Validate a boolean.
 	 *
 	 * @param mixed $value
