@@ -197,12 +197,12 @@
 
 				// Callback for the localized piece symbol button.
 				$('#rpbchessboard-pieceSymbolButton-localized').change(function() {
-					$('#rpbchessboard-kingSymbolField'  ).val('<?php /*i18n King symbol   */ _e('K', 'rpbchessboard'); ?>');
-					$('#rpbchessboard-queenSymbolField' ).val('<?php /*i18n Queen symbol  */ _e('Q', 'rpbchessboard'); ?>');
-					$('#rpbchessboard-rookSymbolField'  ).val('<?php /*i18n Rook symbol   */ _e('R', 'rpbchessboard'); ?>');
-					$('#rpbchessboard-bishopSymbolField').val('<?php /*i18n Bishop symbol */ _e('B', 'rpbchessboard'); ?>');
-					$('#rpbchessboard-knightSymbolField').val('<?php /*i18n Knight symbol */ _e('N', 'rpbchessboard'); ?>');
-					$('#rpbchessboard-pawnSymbolField'  ).val('<?php /*i18n Pawn symbol   */ _e('P', 'rpbchessboard'); ?>');
+					$('#rpbchessboard-kingSymbolField'  ).val(<?php /*i18n King symbol   */ echo json_encode(__('K', 'rpbchessboard')); ?>);
+					$('#rpbchessboard-queenSymbolField' ).val(<?php /*i18n Queen symbol  */ echo json_encode(__('Q', 'rpbchessboard')); ?>);
+					$('#rpbchessboard-rookSymbolField'  ).val(<?php /*i18n Rook symbol   */ echo json_encode(__('R', 'rpbchessboard')); ?>);
+					$('#rpbchessboard-bishopSymbolField').val(<?php /*i18n Bishop symbol */ echo json_encode(__('B', 'rpbchessboard')); ?>);
+					$('#rpbchessboard-knightSymbolField').val(<?php /*i18n Knight symbol */ echo json_encode(__('N', 'rpbchessboard')); ?>);
+					$('#rpbchessboard-pawnSymbolField'  ).val(<?php /*i18n Pawn symbol   */ echo json_encode(__('P', 'rpbchessboard')); ?>);
 					needInitIfCustomClicked = false;
 					$('.rpbchessboard-pieceSymbolField').prop('readonly', true);
 				});
