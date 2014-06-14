@@ -52,7 +52,7 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 	 */
 	public function getFormActionURL()
 	{
-		return admin_url('admin.php') . '?page=rpbchessboard-options'; // TODO: target the current sub-page
+		return $this->getSubPage($this->getSelectedSubPageName())->link;
 	}
 
 

@@ -137,6 +137,26 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 
 
 	/**
+	 * Return the sub-page corresponding to the given name.
+	 *
+	 * @param string $name
+	 * @return array Null is returned if the corresponding sub-page does not exist.
+	 */
+	public function getSubPage($name)
+	{
+		$this->initializeSelectedSubPageInfo();
+		if(isset($this->subPages)) {
+			foreach($this->subPages as $subPage) {
+				if($name === $subPage->name) {
+					return $subPage;
+				}
+			}
+		}
+		return null;
+	}
+
+
+	/**
 	 * Initialize the name of the selected sub-page and the `selected` flags in
 	 * the sub-page list.
 	 */
