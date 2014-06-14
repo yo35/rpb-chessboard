@@ -63,6 +63,8 @@ UGLIFYJS      = uglifyjs
 UGLIFYJS_ARGS = -c -m
 COLOR_IN      = \033[34;1m
 COLOR_OUT     = \033[0m
+COLOR_ARG_IN  = \033[31m
+COLOR_ARG_OUT = \033[34m
 
 # Help notice
 all: help
@@ -107,7 +109,7 @@ $(I18N_POT_FILE): $(PHP_FILES)
 
 # PO and POT file merging
 $(TEMPORARY_FOLDER)/%.merged: %.po $(I18N_POT_FILE)
-	@$(ECHO) "$(COLOR_IN)Updating PO file [$(COLOR_OUT) $< $(COLOR_IN)]...$(COLOR_OUT)"
+	@$(ECHO) "$(COLOR_IN)Updating PO file [ $(COLOR_ARG_IN)$<$(COLOR_ARG_OUT) ]...$(COLOR_OUT)"
 	@$(MSGMERGE) -U $^
 	@mkdir -p `dirname $@`
 	@$(TOUCH) $@
@@ -115,7 +117,7 @@ $(TEMPORARY_FOLDER)/%.merged: %.po $(I18N_POT_FILE)
 
 # PO file compilation
 %.mo: %.po
-	@$(ECHO) "$(COLOR_IN)Compiling MO file [$(COLOR_OUT) $@ $(COLOR_IN)]...$(COLOR_OUT)"
+	@$(ECHO) "$(COLOR_IN)Compiling MO file [ $(COLOR_ARG_IN)$@$(COLOR_ARG_OUT) ]...$(COLOR_OUT)"
 	@$(MSGFMT) -o $@ $^
 
 
@@ -138,7 +140,7 @@ js-minify: $(JS_MINIFIED_FILES)
 
 # Single JS file minification
 %.min.js: %.js
-	@$(ECHO) "$(COLOR_IN)Minifying JS file [$(COLOR_OUT) $^ $(COLOR_IN)]...$(COLOR_OUT)"
+	@$(ECHO) "$(COLOR_IN)Minifying JS file [ $(COLOR_ARG_IN)$<$(COLOR_ARG_OUT) ]...$(COLOR_OUT)"
 	@$(JSHINT) $^
 	@$(UGLIFYJS) $^ $(UGLIFYJS_ARGS) -o $@
 
