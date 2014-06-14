@@ -237,6 +237,64 @@
 
 
 
+		<h3><?php _e('Default position of the navigation board', 'rpbchessboard'); ?></h3>
+
+		<div id="rpbchessboard-navigationBoardFields">
+
+			<div>
+				<input type="radio" id="rpbchessboard-navigationBoardButton-none" name="navigationBoard" value="none"
+					<?php if($model->getDefaultNavigationBoard()==='none'): ?>checked="yes"<?php endif; ?>
+				/>
+				<label for="rpbchessboard-navigationBoardButton-none">
+					<img src="<?php echo RPBCHESSBOARD_URL . '/images/navigation-board-none.png'; ?>"
+						title="<?php _e('No navigation board', 'rpbchessboard'); ?>"
+						alt="<?php _e('No navigation board', 'rpbchessboard'); ?>"
+					/>
+				</label>
+			</div>
+
+			<div>
+				<input type="radio" id="rpbchessboard-navigationBoardButton-frame" name="navigationBoard" value="frame"
+					<?php if($model->getDefaultNavigationBoard()==='frame'): ?>checked="yes"<?php endif; ?>
+				/>
+				<label for="rpbchessboard-navigationBoardButton-frame">
+					<img src="<?php echo RPBCHESSBOARD_URL . '/images/navigation-board-frame.png'; ?>"
+						title="<?php _e('In a popup frame', 'rpbchessboard'); ?>"
+						alt="<?php _e('In a popup frame', 'rpbchessboard'); ?>"
+					/>
+				</label>
+			</div>
+
+			<div>
+				<input type="radio" id="rpbchessboard-navigationBoardButton-floatLeft" name="navigationBoard" value="floatLeft"
+					<?php if($model->getDefaultNavigationBoard()==='floatLeft'): ?>checked="yes"<?php endif; ?>
+				/>
+				<label for="rpbchessboard-navigationBoardButton-floatLeft">
+					<img src="<?php echo RPBCHESSBOARD_URL . '/images/navigation-board-floatleft.png'; ?>"
+						title="<?php _e('On the left of the move list', 'rpbchessboard'); ?>"
+						alt="<?php _e('On the left', 'rpbchessboard'); ?>"
+					/>
+				</label>
+			</div>
+
+			<div>
+				<input type="radio" id="rpbchessboard-navigationBoardButton-floatRight" name="navigationBoard" value="floatRight"
+					<?php if($model->getDefaultNavigationBoard()==='floatRight'): ?>checked="yes"<?php endif; ?>
+				/>
+				<label for="rpbchessboard-navigationBoardButton-floatRight">
+					<img src="<?php echo RPBCHESSBOARD_URL . '/images/navigation-board-floatright.png'; ?>"
+						title="<?php _e('On the right of the move list', 'rpbchessboard'); ?>"
+						alt="<?php _e('On the right', 'rpbchessboard'); ?>"
+					/>
+				</label>
+			</div>
+
+		</div>
+
+
+
+
+
 		<h3><?php _e('Compatibility with other chess plugins', 'rpbchessboard'); ?></h3>
 
 		<p class="description">

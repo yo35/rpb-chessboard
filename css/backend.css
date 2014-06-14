@@ -198,6 +198,38 @@ div.rpbchessboard-be-sourceCode {
 	margin-right: 0px;
 }
 
+#rpbchessboard-navigationBoardFields {
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	flex-direction: row;
+}
+
+#rpbchessboard-navigationBoardFields > div {
+	margin-left: 30px;
+}
+
+#rpbchessboard-navigationBoardFields > div:first-child {
+	margin-left: 0px;
+}
+
+#rpbchessboard-navigationBoardFields input[name="navigationBoard"] {
+	display: none;
+}
+
+#rpbchessboard-navigationBoardFields input[name="navigationBoard"] + label {
+	display: block;
+	padding: 14px;
+	line-height: 0px;
+}
+
+#rpbchessboard-navigationBoardFields input[name="navigationBoard"]:checked + label {
+	border: solid 4px rgb(0, 116, 162);
+	padding: 10px;
+}
+
 
 
 /******************************************************************************/
