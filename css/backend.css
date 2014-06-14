@@ -22,22 +22,22 @@
 /******************************************************************************/
 /*** Vertical spacing ***/
 
-.rpbchessboard-be-columns,
-div.rpbchessboard-be-sourceCode,
-.rpbchessboard-be-tabs {
+.rpbchessboard-columns,
+div.rpbchessboard-sourceCode,
+.rpbchessboard-tabs {
 	margin: 1em 0px;
 }
 
-.rpbchessboard-be-columns:first-child,
-div.rpbchessboard-be-sourceCode:first-child,
-.rpbchessboard-be-tabs:first-child,
+.rpbchessboard-columns:first-child,
+div.rpbchessboard-sourceCode:first-child,
+.rpbchessboard-tabs:first-child,
 .rpbchessboard-adminPage p:first-child {
 	margin-top: 0px;
 }
 
-.rpbchessboard-be-columns:last-child,
-div.rpbchessboard-be-sourceCode:last-child,
-.rpbchessboard-be-tabs:last-child,
+.rpbchessboard-columns:last-child,
+div.rpbchessboard-sourceCode:last-child,
+.rpbchessboard-tabs:last-child,
 .rpbchessboard-adminPage p:last-child {
 	margin-bottom: 0px;
 }
@@ -47,7 +47,7 @@ div.rpbchessboard-be-sourceCode:last-child,
 /******************************************************************************/
 /*** Column layout ***/
 
-.rpbchessboard-be-columns {
+.rpbchessboard-columns {
 	display: -webkit-box;
 	display: -moz-box;
 	display: -ms-flexbox;
@@ -56,16 +56,16 @@ div.rpbchessboard-be-sourceCode:last-child,
 	flex-direction: row;
 }
 
-.rpbchessboard-be-columns > div {
+.rpbchessboard-columns > div {
 	margin-left : 10px;
 	margin-right: 10px;
 }
 
-.rpbchessboard-be-columns > div:first-child {
+.rpbchessboard-columns > div:first-child {
 	margin-left: 0px;
 }
 
-.rpbchessboard-be-columns > div:last-child {
+.rpbchessboard-columns > div:last-child {
 	margin-right: 0px;
 }
 
@@ -74,17 +74,17 @@ div.rpbchessboard-be-sourceCode:last-child,
 /******************************************************************************/
 /*** Floating objects ***/
 
-.rpbchessboard-be-floatLeft {
+.rpbchessboard-floatLeft {
 	float: left;
 	margin-right: 1em;
 }
 
-.rpbchessboard-be-floatRight {
+.rpbchessboard-floatRight {
 	float: right;
 	margin-left: 1em;
 }
 
-.rpbchessboard-be-clearfix:after {
+.rpbchessboard-clearfix:after {
 		display: block;
 		visibility: hidden;
 		content: " ";
@@ -96,16 +96,16 @@ div.rpbchessboard-be-sourceCode:last-child,
 /******************************************************************************/
 /*** Sub-page selector ***/
 
-#rpbchessboard-be-subPageSelector {
+#rpbchessboard-subPageSelector {
 	float: none;
 	margin-bottom: 1em;
 }
 
-#rpbchessboard-be-subPageSelector li:after {
+#rpbchessboard-subPageSelector li:after {
 	content: "|";
 }
 
-#rpbchessboard-be-subPageSelector li:last-child:after {
+#rpbchessboard-subPageSelector li:last-child:after {
 	content: none;
 }
 
@@ -114,18 +114,18 @@ div.rpbchessboard-be-sourceCode:last-child,
 /******************************************************************************/
 /*** Source code and visualization blocks ***/
 
-.rpbchessboard-be-sourceCode {
+.rpbchessboard-sourceCode {
 	font-family: Consolas, Monaco, monospace;
 	font-style : normal;
 }
 
-div.rpbchessboard-be-sourceCode {
+div.rpbchessboard-sourceCode {
 	border: solid 1px #bbb;
 	background-color: #ffd;
 	padding: 8px 10px 8px;
 }
 
-.rpbchessboard-be-visuBlock {
+.rpbchessboard-visuBlock {
 	border: solid 1px #bbb;
 	background-color: white;
 	margin-right : 5px;
@@ -137,7 +137,7 @@ div.rpbchessboard-be-sourceCode {
 	line-height: 1.3em;
 }
 
-.rpbchessboard-be-visuBlock > * {
+.rpbchessboard-visuBlock > * {
 	font-family: inherit;
 	font-size  : inherit;
 	line-height: inherit;
@@ -145,11 +145,11 @@ div.rpbchessboard-be-sourceCode {
 	margin-bottom: 15px;
 }
 
-.rpbchessboard-be-visuBlock > *:first-child {
+.rpbchessboard-visuBlock > *:first-child {
 	margin-top: 0px;
 }
 
-.rpbchessboard-be-visuBlock > *:last-child {
+.rpbchessboard-visuBlock > *:last-child {
 	margin-bottom: 0px;
 }
 
@@ -158,12 +158,12 @@ div.rpbchessboard-be-sourceCode {
 /******************************************************************************/
 /*** jQuery tabs (with no theme) ***/
 
-.rpbchessboard-be-tabs.ui-tabs .ui-tabs-panel {
+.rpbchessboard-tabs.ui-tabs .ui-tabs-panel {
 	border: solid 1px #ddd;
 	background: #fcfcfc;
 }
 
-.rpbchessboard-be-tabs.ui-tabs .ui-tabs-nav li {
+.rpbchessboard-tabs.ui-tabs .ui-tabs-nav li {
 	border-top : solid 1px #ddd;
 	border-left: solid 1px #ddd;
 	border-right: solid 1px #ddd;
@@ -171,7 +171,7 @@ div.rpbchessboard-be-sourceCode {
 	cursor: pointer;
 }
 
-.rpbchessboard-be-tabs.ui-tabs .ui-tabs-nav li.ui-tabs-active {
+.rpbchessboard-tabs.ui-tabs .ui-tabs-nav li.ui-tabs-active {
 	background: #fcfcfc;
 }
 
@@ -180,7 +180,7 @@ div.rpbchessboard-be-sourceCode {
 /******************************************************************************/
 /*** Memo page ***/
 
-#rpbchessboard-memoPage .rpbchessboard-be-columns > div {
+#rpbchessboard-memoPage .rpbchessboard-columns > div {
 	width: 50%;
 }
 
@@ -189,7 +189,7 @@ div.rpbchessboard-be-sourceCode {
 /******************************************************************************/
 /*** Options page ***/
 
-#rpbchessboard-optionPage .rpbchessboard-be-columns > div:first-child {
+#rpbchessboard-optionPage .rpbchessboard-columns > div:first-child {
 	width: 250px;
 }
 
@@ -261,16 +261,16 @@ div.rpbchessboard-be-sourceCode {
 /******************************************************************************/
 /*** Help pages ***/
 
-#rpbchessboard-helpFenPage .rpbchessboard-be-columns > div,
-#rpbchessboard-helpPgnPage .rpbchessboard-be-columns > div {
+#rpbchessboard-helpFenPage .rpbchessboard-columns > div,
+#rpbchessboard-helpPgnPage .rpbchessboard-columns > div {
 	width: 50%;
 }
 
-#rpbchessboard-helpFenPage #rpbchessboard-fenAttribute2 .rpbchessboard-be-columns > div:nth-child(1) {
+#rpbchessboard-helpFenPage #rpbchessboard-fenAttribute2 .rpbchessboard-columns > div:nth-child(1) {
 	width: 33%;
 }
 
-#rpbchessboard-helpFenPage #rpbchessboard-fenAttribute2 .rpbchessboard-be-columns > div:nth-child(2) {
+#rpbchessboard-helpFenPage #rpbchessboard-fenAttribute2 .rpbchessboard-columns > div:nth-child(2) {
 	width: 67%;
 }
 
@@ -284,24 +284,24 @@ div.rpbchessboard-be-sourceCode {
 	padding-left: 1.5em;
 }
 
-.rpbchessboard-be-translatorList {
+.rpbchessboard-translatorList {
 	display: table;
 }
 
-.rpbchessboard-be-translatorList div {
+.rpbchessboard-translatorList div {
 	display: table-row;
 }
 
-.rpbchessboard-be-translatorList dt,
-.rpbchessboard-be-translatorList dd {
+.rpbchessboard-translatorList dt,
+.rpbchessboard-translatorList dd {
 	display: table-cell;
 }
 
-.rpbchessboard-be-translatorList dd {
+.rpbchessboard-translatorList dd {
 	padding-left: 1.5em;
 }
 
-.rpbchessboard-be-translatorList img {
+.rpbchessboard-translatorList img {
 	vertical-align: middle;
 	margin-right: 0.25em;
 }

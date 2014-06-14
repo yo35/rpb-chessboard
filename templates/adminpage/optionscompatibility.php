@@ -38,7 +38,7 @@
 					'to avoid those conflicts. Similarly, with the PGN compatibility mode, %1$s[pgn_compat][/pgn_compat]%2$s '.
 					'is used instead of %1$s[pgn][/pgn]%2$s.',
 				'rpbchessboard'),
-				'<span class="rpbchessboard-be-sourceCode">',
+				'<span class="rpbchessboard-sourceCode">',
 				'</span>'
 			); ?>
 		</p>

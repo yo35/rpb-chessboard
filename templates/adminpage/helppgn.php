@@ -25,7 +25,7 @@
 	<h3>
 		<?php echo sprintf(
 			__('Chess games with the %1$s[%3$s][/%3$s]%2$s tags', 'rpbchessboard'),
-			'<span class="rpbchessboard-be-sourceCode">',
+			'<span class="rpbchessboard-sourceCode">',
 			'</span>',
 			htmlspecialchars($model->getPGNShortcode())
 		); ?>
@@ -46,7 +46,7 @@
 				'including %5$sChessbase%7$s, %6$sScid%7$s, etc... '.
 				'The PGN syntax is summarized here through a few representative examples.',
 			'rpbchessboard'),
-			'<span class="rpbchessboard-be-sourceCode">',
+			'<span class="rpbchessboard-sourceCode">',
 			'</span>',
 			htmlspecialchars($model->getPGNShortcode()),
 			sprintf('<a href="%1$s" target="_blank">', __('http://en.wikipedia.org/wiki/Portable_Game_Notation', 'rpbchessboard')),
@@ -60,7 +60,7 @@
 
 
 
-	<div id="rpbchessboard-pgnExamples" class="rpbchessboard-be-tabs">
+	<div id="rpbchessboard-pgnExamples" class="rpbchessboard-tabs">
 
 		<ul>
 			<li><a href="#rpbchessboard-pgnExample1"><?php _e('Standard game'           , 'rpbchessboard'); ?></a></li>
@@ -70,9 +70,9 @@
 
 
 		<div id="rpbchessboard-pgnExample1">
-			<div class="rpbchessboard-be-columns">
+			<div class="rpbchessboard-columns">
 				<div>
-					<div class="rpbchessboard-be-sourceCode">
+					<div class="rpbchessboard-sourceCode">
 						[<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]<br/>
 						<br/>
 						[Event &quot;Linares 16&lt;sup&gt;th&lt;sup&gt;&quot;]<br/>
@@ -96,7 +96,7 @@
 					</div>
 				</div>
 				<div>
-					<div class="rpbchessboard-be-visuBlock">
+					<div class="rpbchessboard-visuBlock">
 						<div>
 							<div id="rpbchessboard-pgnExample1-anchor"></div>
 							<script type="text/javascript">
@@ -129,9 +129,9 @@
 
 
 		<div id="rpbchessboard-pgnExample2">
-			<div class="rpbchessboard-be-columns">
+			<div class="rpbchessboard-columns">
 				<div>
-					<div class="rpbchessboard-be-sourceCode">
+					<div class="rpbchessboard-sourceCode">
 						[<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]<br/>
 						1. e3 a5 2. Qh5 Ra6 3. Qxa5 h5 4. Qxc7 Rah6 5. h4 f6 6. Qxd7+ Kf7 7. Qxb7 Qd3
 						8. Qxb8 Qh7 9. Qxc8 Kg6 10. Qe6 {<?php _e('Stalemate.', 'rpbchessboard'); ?>} *<br/>
@@ -139,7 +139,7 @@
 					</div>
 				</div>
 				<div>
-					<div class="rpbchessboard-be-visuBlock">
+					<div class="rpbchessboard-visuBlock">
 						<div>
 							<div id="rpbchessboard-pgnExample2-anchor"></div>
 							<script type="text/javascript">
@@ -163,7 +163,7 @@
 						'%1$s[Round &quot;...&quot;]%2$s, %1$s[White &quot;...&quot;]%2$s, %1$s[Black &quot;...&quot;]%2$s, '.
 						'and %1$s[Result &quot;...&quot;]%2$s. However, the RPB Chessboard plugin consider them as optional.',
 					'rpbchessboard'),
-					'<span class="rpbchessboard-be-sourceCode">',
+					'<span class="rpbchessboard-sourceCode">',
 					'</span>'
 				); ?>
 			</p>
@@ -171,9 +171,9 @@
 
 
 		<div id="rpbchessboard-pgnExample3">
-			<div class="rpbchessboard-be-columns">
+			<div class="rpbchessboard-columns">
 				<div>
-					<div class="rpbchessboard-be-sourceCode">
+					<div class="rpbchessboard-sourceCode">
 						[<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]<br/>
 						<br/>
 						[Event &quot;<?php _e('Endgame example', 'rpbchessboard'); ?>&quot;]<br/>
@@ -193,13 +193,13 @@
 								'starts with a custom position. Additionally, the strict PGN syntax requires that '.
 								'%1$s[SetUp &quot;1&quot;]%2$s is added when using the %1$s[FEN &quot;...&quot;]%2$s header.',
 							'rpbchessboard'),
-							'<span class="rpbchessboard-be-sourceCode">',
+							'<span class="rpbchessboard-sourceCode">',
 							'</span>'
 						); ?>
 					</p>
 				</div>
 				<div>
-					<div class="rpbchessboard-be-visuBlock">
+					<div class="rpbchessboard-visuBlock">
 						<div>
 							<div id="rpbchessboard-pgnExample3-anchor"></div>
 							<script type="text/javascript">
@@ -236,16 +236,16 @@
 
 	<h4><?php _e('NAGs (aka. <em>Numeric Annotation Glyphs</em>)', 'rpbchessboard'); ?></h4>
 
-	<div class="rpbchessboard-be-columns">
+	<div class="rpbchessboard-columns">
 		<div>
-			<div class="rpbchessboard-be-sourceCode">
+			<div class="rpbchessboard-sourceCode">
 				[<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]
 				1.e4 !! ! !? ?! ? ?? +- +/- +/= = inf =/+ -/+ -+ *
 				[/<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]
 			</div>
 		</div>
 		<div>
-			<div class="rpbchessboard-be-visuBlock">
+			<div class="rpbchessboard-visuBlock">
 				<div>
 					<div id="rpbchessboard-pgnNAG-anchor"></div>
 					<script type="text/javascript">
@@ -269,7 +269,7 @@
 				'(for instance, %1$s&quot;$1&quot;%2$s is equivalent to %1$s&quot;!&quot;%2$s). Both syntaxes are understood '.
 				'by the RPB Chessboard plugin. See the %3$slist of NAGs%4$s.',
 			'rpbchessboard'),
-			'<span class="rpbchessboard-be-sourceCode">',
+			'<span class="rpbchessboard-sourceCode">',
 			'</span>',
 			sprintf('<a href="%1$s" target="_blank">', __('http://en.wikipedia.org/wiki/Numeric_Annotation_Glyphs', 'rpbchessboard')),
 			'</a>'
@@ -282,9 +282,9 @@
 
 	<h4><?php _e('Comments', 'rpbchessboard'); ?></h4>
 
-	<div class="rpbchessboard-be-columns">
+	<div class="rpbchessboard-columns">
 		<div>
-			<div class="rpbchessboard-be-sourceCode">
+			<div class="rpbchessboard-sourceCode">
 				[<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]<br/>
 				1. d4
 				{<?php echo sprintf(__('I\'m a %1$sshort%2$s comment.', 'rpbchessboard'),
@@ -301,7 +301,7 @@
 			</div>
 		</div>
 		<div>
-			<div class="rpbchessboard-be-visuBlock">
+			<div class="rpbchessboard-visuBlock">
 				<div>
 					<div id="rpbchessboard-pgnComment-anchor"></div>
 					<script type="text/javascript">
@@ -343,9 +343,9 @@
 
 	<h4><?php _e('Variations', 'rpbchessboard'); ?></h4>
 
-	<div class="rpbchessboard-be-columns">
+	<div class="rpbchessboard-columns">
 		<div>
-			<div class="rpbchessboard-be-sourceCode">
+			<div class="rpbchessboard-sourceCode">
 				[<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]<br/>
 				1. e4 e5 (1... c5) (1... e6) 2. Nf3 Nc6 3. Bb5<br/>
 				<br/>
@@ -358,7 +358,7 @@
 			</div>
 		</div>
 		<div>
-			<div class="rpbchessboard-be-visuBlock">
+			<div class="rpbchessboard-visuBlock">
 				<div>
 					<div id="rpbchessboard-pgnVariation-anchor"></div>
 					<script type="text/javascript">
@@ -395,12 +395,12 @@
 
 	<h4><?php
 		echo sprintf(__('Diagrams with the %1$s[pgndiagram]%2$s tag', 'rpbchessboard'),
-			'<span class="rpbchessboard-be-sourceCode">', '</span>');
+			'<span class="rpbchessboard-sourceCode">', '</span>');
 	?></h4>
 
-	<div class="rpbchessboard-be-columns">
+	<div class="rpbchessboard-columns">
 		<div>
-			<div class="rpbchessboard-be-sourceCode">
+			<div class="rpbchessboard-sourceCode">
 				[<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]<br/>
 				1. e4 c5<br/>
 				<br/>
@@ -414,13 +414,13 @@
 					__(
 						'Notice that %1$s[pgndiagram]%2$s tags must be inserted only in PGN comments.',
 					'rpbchessboard'),
-					'<span class="rpbchessboard-be-sourceCode">',
+					'<span class="rpbchessboard-sourceCode">',
 					'</span>'
 				); ?>
 			</p>
 		</div>
 		<div>
-			<div class="rpbchessboard-be-visuBlock">
+			<div class="rpbchessboard-visuBlock">
 				<div>
 					<div id="rpbchessboard-pgnDiagram-anchor"></div>
 					<script type="text/javascript">
@@ -458,7 +458,7 @@
 				'inserted in the comments of the corresponding chess game. Setting %1$s[pgndiagram square_size=...]%2$s '.
 				'will affect only the corresponding diagram.',
 			'rpbchessboard'),
-			'<span class="rpbchessboard-be-sourceCode">',
+			'<span class="rpbchessboard-sourceCode">',
 			'</span>',
 			htmlspecialchars($model->getFENShortcode()),
 			htmlspecialchars($model->getPGNShortcode())

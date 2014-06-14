@@ -22,7 +22,7 @@
 
 <div id="rpbchessboard-aboutPage">
 
-	<div class="rpbchessboard-be-floatLeft">
+	<div class="rpbchessboard-floatLeft">
 		<img src="<?php echo htmlspecialchars($model->getIconURL()); ?>" alt="RPB Chessboard icon" />
 	</div>
 
@@ -43,7 +43,7 @@
 			<?php echo sprintf('%1$s / %2$s', __('Ask for help', 'rpbchessboard'), __('Report a problem', 'rpbchessboard')); ?>
 		</a>
 	</p>
-	<p class="description rpbchessboard-be-clearfix">
+	<p class="description rpbchessboard-clearfix">
 		<?php echo sprintf(
 			__(
 				'If you encounter some bugs with this plugin, or if you wish to get new features in the future versions, '.
@@ -78,7 +78,7 @@
 
 
 	<h3><?php _e('Translation', 'rpbchessboard'); ?></h3>
-	<dl class="rpbchessboard-be-translatorList">
+	<dl class="rpbchessboard-translatorList">
 		<div>
 			<dt><img src="<?php echo RPBCHESSBOARD_URL.'/images/flags/de.png'; ?>" alt="German flag" />Deutsch</dt>
 			<dd>Markus Liebelt</dd>

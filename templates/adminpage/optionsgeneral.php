@@ -34,7 +34,7 @@
 					'They can be overridden by passing appropriate attributes to these shortcodes: ' .
 					'see %5$shelp on FEN diagram attributes%7$s and %6$shelp on PGN game attributes%7$s for more details.',
 				'rpbchessboard'),
-				'<span class="rpbchessboard-be-sourceCode">',
+				'<span class="rpbchessboard-sourceCode">',
 				'</span>',
 				htmlspecialchars($model->getFENShortcode()),
 				htmlspecialchars($model->getPGNShortcode()),
@@ -50,7 +50,7 @@
 
 		<h3><?php _e('Chessboard aspect', 'rpbchessboard'); ?></h3>
 
-		<div class="rpbchessboard-be-columns">
+		<div class="rpbchessboard-columns">
 
 			<div>
 				<p>

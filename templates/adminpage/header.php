@@ -38,7 +38,7 @@
 <?php endif; ?>
 
 <?php if($model->hasSubPages()): ?>
-	<ul id="rpbchessboard-be-subPageSelector" class="subsubsub">
+	<ul id="rpbchessboard-subPageSelector" class="subsubsub">
 		<?php foreach($model->getSubPages() as $subPage): ?>
 
 			<li>
