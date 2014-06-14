@@ -30,8 +30,9 @@ SRC_WORDPRESS_README = wordpress.readme.txt
 SRC_INFO_FILES       = LICENSE README.md
 
 # Files by type
-JS_FILES  = $(shell find js -name '*.js')
-PHP_FILES = $(shell find . -name '*.php')
+JS_FILES          = $(shell find js -name '*.js' -not -name '*.min.js')
+JS_MINIFIED_FILES = $(patsubst %.js,%.min.js,$(JS_FILES))
+PHP_FILES         = $(shell find . -name '*.php')
 
 # Localization
 I18N_LANGUAGE_FOLDER    = languages
@@ -46,15 +47,17 @@ SNAPSHOT_FOLDER  = tmp
 SNAPSHOT_ARCHIVE = $(PLUGIN_NAME).zip
 
 # Various commands
-ECHO      = echo
-SED       = sed
-TOUCH     = touch
-XGETTEXT  = xgettext --from-code=UTF-8 --language=PHP -c$(I18N_TRANSLATOR_KEYWORD) -k__ -k_e
-MSGMERGE  = msgmerge -v
-MSGFMT    = msgfmt -v
-JSHINT    = jshint
-COLOR_IN  = \033[34;1m
-COLOR_OUT = \033[0m
+ECHO          = echo
+SED           = sed
+TOUCH         = touch
+XGETTEXT      = xgettext --from-code=UTF-8 --language=PHP -c$(I18N_TRANSLATOR_KEYWORD) -k__ -k_e
+MSGMERGE      = msgmerge -v
+MSGFMT        = msgfmt -v
+JSHINT        = jshint
+UGLIFYJS      = uglifyjs
+UGLIFYJS_ARGS = -c -m
+COLOR_IN      = \033[34;1m
+COLOR_OUT     = \033[0m
 
 # Help notice
 all: help
@@ -63,18 +66,29 @@ help:
 	@$(ECHO) " * make i18n-extract: extract the strings to translate."
 	@$(ECHO) " * make i18n-merge: merge the translation files (*.po) with the template (.pot)."
 	@$(ECHO) " * make i18n-compile: compile the translation files (*.po) into binaries (*.mo)."
-	@$(ECHO) " * make lint-js: run the static analysis of JavaScript files."
+	@$(ECHO) " * make js-lint: run the static analysis of JavaScript files."
+	@$(ECHO) " * make js-minify: run the JavaScript minifier tool on JavaScript files."
 	@$(ECHO) " * make pack: pack the source files into a zip file, ready for WordPress deployment."
+	@$(ECHO) " * make clean: remove the automatically generated files."
 	@$(ECHO) " * make help: show this help."
 
 
-# Internationalization: extract the strings to translate
+
+
+################################################################################
+# Internationalization targets
+################################################################################
+
+
+# Extract the strings to translate
 i18n-extract: $(I18N_POT_FILE)
 
-# Internationalization: merge the translation files (*.po) with the template (.pot)
+
+# Merge the translation files (*.po) with the template (.pot)
 i18n-merge: $(I18N_PO_FILES)
 
-# Internationalization: compile the translation files (*.po) into binaries (*.mo)
+
+# Compile the translation files (*.po) into binaries (*.mo)
 i18n-compile: $(I18N_MO_FILES)
 
 
@@ -100,14 +114,39 @@ $(I18N_POT_FILE): $(PHP_FILES)
 	@$(MSGFMT) -o $@ $^
 
 
+
+
+################################################################################
+# JavaScript targets
+################################################################################
+
+
 # JavaScript validation
-lint-js:
+js-lint:
 	@$(ECHO) "$(COLOR_IN)Checking the JavaScript files...$(COLOR_OUT)"
 	@$(JSHINT) $(JS_FILES)
 
 
+# JavaScript minification
+js-minify: $(JS_MINIFIED_FILES)
+
+
+# Single JS file minification
+%.min.js: %.js
+	@$(ECHO) "$(COLOR_IN)Minifying JS file [$(COLOR_OUT) $^ $(COLOR_IN)]...$(COLOR_OUT)"
+	@$(JSHINT) $^
+	@$(UGLIFYJS) $^ $(UGLIFYJS_ARGS) -o $@
+
+
+
+
+################################################################################
+# Other targets
+################################################################################
+
+
 # Pack the source files into a zip file, ready for WordPress deployment
-pack: lint-js
+pack: js-minify
 	@rm -rf $(SNAPSHOT_FOLDER) $(SNAPSHOT_ARCHIVE)
 	@mkdir -p $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)
 	@cp -r $(SRC_FOLDERS) $(SRC_MAIN_FILE) $(SRC_INFO_FILES) $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)
@@ -118,5 +157,10 @@ pack: lint-js
 	@$(ECHO) "$(COLOR_IN)$(SNAPSHOT_ARCHIVE) updated$(COLOR_OUT)"
 
 
+# Clean the automatically generated files
+clean:
+	@rm -rf $(SNAPSHOT_FOLDER) $(SNAPSHOT_ARCHIVE) $(JS_MINIFIED_FILES)
+
+
 # Make's stuff
-.PHONY: help i18n-extract i18n-merge i18n-compile lint-js pack
+.PHONY: help i18n-extract i18n-merge i18n-compile js-lint js-minify pack clean
