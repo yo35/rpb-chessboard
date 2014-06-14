@@ -1,6 +1,7 @@
 /.buildpath
 /.project
 /.settings
+/.temp
 /rpb-chessboard.zip
 /js/*.min.js
 /languages/*.merged
