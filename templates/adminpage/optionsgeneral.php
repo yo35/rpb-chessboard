@@ -195,6 +195,15 @@
 			/>
 		</p>
 
+		<p class="description">
+			<?php
+				_e(
+					'This setting only affects how chess moves are rendered to post/page readers. ' .
+					'Authors must always use English initials when writting PGN content into posts and pages.',
+				'rpbchessboard');
+			?>
+		</p>
+
 		<script type="text/javascript">
 
 			jQuery(document).ready(function($)
@@ -308,6 +317,16 @@
 			</div>
 
 		</div>
+
+		<p class="description">
+			<?php
+				_e(
+					'A navigation board may be added to each PGN game to help post/page readers to follow the progress of the game. ' .
+					'This navigation board is displayed either in a popup frame (in this case, it becomes visible only when the reader ' .
+					'clicks on a move) or close to the move list (then it is visible as soon as the page is loaded).',
+				'rpbchessboard');
+			?>
+		</p>
 
 
 
