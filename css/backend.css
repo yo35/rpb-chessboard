@@ -20,6 +20,31 @@
 
 
 /******************************************************************************/
+/*** Vertical spacing ***/
+
+.rpbchessboard-be-columns,
+div.rpbchessboard-be-sourceCode,
+.rpbchessboard-be-tabs {
+	margin: 1em 0px;
+}
+
+.rpbchessboard-be-columns:first-child,
+div.rpbchessboard-be-sourceCode:first-child,
+.rpbchessboard-be-tabs:first-child,
+.rpbchessboard-adminPage p:first-child {
+	margin-top: 0px;
+}
+
+.rpbchessboard-be-columns:last-child,
+div.rpbchessboard-be-sourceCode:last-child,
+.rpbchessboard-be-tabs:last-child,
+.rpbchessboard-adminPage p:last-child {
+	margin-bottom: 0px;
+}
+
+
+
+/******************************************************************************/
 /*** Column layout ***/
 
 .rpbchessboard-be-columns {
@@ -98,7 +123,6 @@ div.rpbchessboard-be-sourceCode {
 	border: solid 1px #bbb;
 	background-color: #ffd;
 	padding: 8px 10px 8px;
-	margin-bottom: 1em;
 }
 
 .rpbchessboard-be-visuBlock {
@@ -224,6 +248,7 @@ div.rpbchessboard-be-sourceCode {
 	display: block;
 	padding: 14px;
 	line-height: 0px;
+	margin-bottom: calc(1em - 4px);
 }
 
 #rpbchessboard-navigationBoardFields input[name="navigationBoard"]:checked + label {
