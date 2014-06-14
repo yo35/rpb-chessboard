@@ -448,7 +448,7 @@
 
 
 
-	<h4><?php _e('Attributes', 'rpbchessboard'); ?></h4>
+	<h4 id="rpbchessboard-helpOnPgnAttributes"><?php _e('Attributes', 'rpbchessboard'); ?></h4>
 
 	<p>
 		<?php echo sprintf(
