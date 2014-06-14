@@ -45,16 +45,18 @@ load_plugin_textdomain('rpbchessboard', false, RPBCHESSBOARD_PLUGIN_DIR.'/langua
 add_action(is_admin() ? 'admin_enqueue_scripts' : 'wp_enqueue_scripts', 'rpbchessboard_enqueue_script');
 function rpbchessboard_enqueue_script()
 {
+	$ext = WP_DEBUG ? '.js' : '.min.js';
+
 	// Chess-js library
-	wp_register_script('rpbchessboard-chessjs', RPBCHESSBOARD_URL . '/third-party-libs/chess-js/chess.min.js');
+	wp_register_script('rpbchessboard-chessjs', RPBCHESSBOARD_URL . '/third-party-libs/chess-js/chess' . $ext);
 
 	// PGN-parsing tools
-	wp_register_script('rpbchessboard-pgn', RPBCHESSBOARD_URL . '/js/pgn.js', array(
+	wp_register_script('rpbchessboard-pgn', RPBCHESSBOARD_URL . '/js/pgn' . $ext, array(
 		'rpbchessboard-chessjs'
 	));
 
 	// Chessboard widget
-	wp_register_script('rpbchessboard-chessboard', RPBCHESSBOARD_URL . '/js/uichess-chessboard.js', array(
+	wp_register_script('rpbchessboard-chessboard', RPBCHESSBOARD_URL . '/js/uichess-chessboard' . $ext, array(
 		'rpbchessboard-chessjs',
 		'jquery-ui-widget',
 		'jquery-ui-selectable',
@@ -63,7 +65,7 @@ function rpbchessboard_enqueue_script()
 	));
 
 	// Chessgame widget
-	wp_register_script('rpbchessboard-chessgame', RPBCHESSBOARD_URL . '/js/uichess-chessgame.js', array(
+	wp_register_script('rpbchessboard-chessgame', RPBCHESSBOARD_URL . '/js/uichess-chessgame' . $ext, array(
 		'rpbchessboard-pgn',
 		'rpbchessboard-chessboard',
 		'jquery-ui-widget',
