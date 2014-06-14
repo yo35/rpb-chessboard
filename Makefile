@@ -43,12 +43,13 @@ I18N_TEXT_DOMAIN        = rpbchessboard
 I18N_TRANSLATOR_KEYWORD = i18n
 I18N_POT_FILE           = $(I18N_LANGUAGE_FOLDER)/$(I18N_TEXT_DOMAIN).pot
 I18N_PO_FILES           = $(wildcard $(I18N_LANGUAGE_FOLDER)/*.po)
-I18N_MERGED_FILES       = $(patsubst %.po,%.merged,$(I18N_PO_FILES))
 I18N_MO_FILES           = $(patsubst %.po,%.mo,$(I18N_PO_FILES))
 
 # Temporary folders
 TEMPORARY_FOLDER = .temp
 SNAPSHOT_FOLDER  = $(TEMPORARY_FOLDER)/snapshot
+I18N_MERGED_FILES = $(patsubst %.po,$(TEMPORARY_FOLDER)/%.merged,$(I18N_PO_FILES))
+
 
 # Various commands
 ECHO          = echo
@@ -105,9 +106,10 @@ $(I18N_POT_FILE): $(PHP_FILES)
 
 
 # PO and POT file merging
-%.merged: %.po $(I18N_POT_FILE)
+$(TEMPORARY_FOLDER)/%.merged: %.po $(I18N_POT_FILE)
 	@$(ECHO) "$(COLOR_IN)Updating PO file [$(COLOR_OUT) $< $(COLOR_IN)]...$(COLOR_OUT)"
 	@$(MSGMERGE) -U $^
+	@mkdir -p `dirname $@`
 	@$(TOUCH) $@
 
 
@@ -149,7 +151,7 @@ js-minify: $(JS_MINIFIED_FILES)
 
 
 # Pack the source files into a zip file, ready for WordPress deployment
-pack: i18n-compile js-minify init-temp
+pack: i18n-compile js-minify
 	@rm -rf $(SNAPSHOT_FOLDER) $(DEPLOYMENT_FILE)
 	@mkdir -p $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)
 	@cp -r $(SRC_FOLDERS) $(SRC_MAIN_FILE) $(SRC_INFO_FILES) $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)
@@ -164,10 +166,5 @@ clean:
 	@rm -rf $(TEMPORARY_FOLDER) $(DEPLOYMENT_FILE) $(I18N_MERGED_FILES) $(I18N_MO_FILES) $(JS_MINIFIED_FILES)
 
 
-# Ensure that the temporary folder exists
-init-temp:
-	@mkdir -p $(TEMPORARY_FOLDER)
-
-
 # Make's stuff
-.PHONY: help i18n-extract i18n-merge i18n-compile js-lint js-minify pack clean init-temp
+.PHONY: help i18n-extract i18n-merge i18n-compile js-lint js-minify pack clean
