@@ -180,6 +180,10 @@ div.rpbchessboard-sourceCode {
 /******************************************************************************/
 /*** Memo page ***/
 
+#rpbchessboard-memoPage {
+	margin-top: 1em;
+}
+
 #rpbchessboard-memoPage .rpbchessboard-columns > div {
 	width: 50%;
 }
