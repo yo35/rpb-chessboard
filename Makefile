@@ -23,31 +23,35 @@
 PLUGIN_NAME = rpb-chessboard
 
 # Plugin files
-SRC_FOLDERS          = controllers css fonts helpers images js languages models templates third-party-libs views wp
-SRC_MAIN_FILE        = $(PLUGIN_NAME).php
-SRC_ASSETS           = assets
-SRC_WORDPRESS_README = wordpress.readme.txt
-SRC_INFO_FILES       = LICENSE README.md
+SRC_MAIN_FILE         = $(PLUGIN_NAME).php
+SRC_FOLDERS           = controllers css fonts helpers images js languages models templates views wp
+THIRD_PARTY_FOLDER    = third-party-libs
+ASSET_FOLDER          = assets
+WORDPRESS_README_FILE = wordpress.readme.txt
+INFO_FILES            = LICENSE README.md
 
-# Deployment file
+
+# Zip file used for deployment
 DEPLOYMENT_FILE = $(PLUGIN_NAME).zip
 
-# Files by type
-JS_FILES          = $(shell find js -name '*.js' -not -name '*.min.js')
-JS_MINIFIED_FILES = $(patsubst %.js,%.min.js,$(JS_FILES))
-PHP_FILES         = $(shell find . -name '*.php')
 
 # Localization
-I18N_LANGUAGE_FOLDER    = languages
 I18N_TEXT_DOMAIN        = rpbchessboard
 I18N_TRANSLATOR_KEYWORD = i18n
-I18N_POT_FILE           = $(I18N_LANGUAGE_FOLDER)/$(I18N_TEXT_DOMAIN).pot
-I18N_PO_FILES           = $(wildcard $(I18N_LANGUAGE_FOLDER)/*.po)
-I18N_MO_FILES           = $(patsubst %.po,%.mo,$(I18N_PO_FILES))
 
-# Temporary folders
-TEMPORARY_FOLDER = .temp
-SNAPSHOT_FOLDER  = $(TEMPORARY_FOLDER)/snapshot
+
+# Files by type
+PHP_FILES         = $(SRC_MAIN_FILE) $(shell find $(SRC_FOLDERS) -name '*.php')
+JS_FILES          = $(shell find js -name '*.js' -not -name '*.min.js')
+JS_MINIFIED_FILES = $(patsubst %.js,%.min.js,$(JS_FILES))
+I18N_POT_FILE     = languages/$(I18N_TEXT_DOMAIN).pot
+I18N_PO_FILES     = $(wildcard languages/*.po)
+I18N_MO_FILES     = $(patsubst %.po,%.mo,$(I18N_PO_FILES))
+
+
+# Temporary objects
+TEMPORARY_FOLDER  = .temp
+SNAPSHOT_FOLDER   = $(TEMPORARY_FOLDER)/snapshot
 I18N_MERGED_FILES = $(patsubst %.po,$(TEMPORARY_FOLDER)/%.merged,$(I18N_PO_FILES))
 
 
@@ -65,6 +69,7 @@ COLOR_IN      = \033[34;1m
 COLOR_OUT     = \033[0m
 COLOR_ARG_IN  = \033[31m
 COLOR_ARG_OUT = \033[34m
+
 
 # Help notice
 all: help
@@ -103,7 +108,7 @@ i18n-compile: $(I18N_MO_FILES)
 $(I18N_POT_FILE): $(PHP_FILES)
 	@$(ECHO) "$(COLOR_IN)Updating the translation template file...$(COLOR_OUT)"
 	@$(XGETTEXT) -o $@ $^
-	@$(SED) -n -e "s/^Description: *\(.*\)/\n#: $(SRC_MAIN_FILE)\nmsgid \"\1\"\nmsgstr \"\"/p" $(SRC_MAIN_FILE) >> $@
+	@$(SED) -n -e "s/^Description: *\(.*\)/\n#: $<\nmsgid \"\1\"\nmsgstr \"\"/p" $< >> $@
 	@$(SED) -i -e "s/^#\. *$(I18N_TRANSLATOR_KEYWORD) *\(.*\)/#. \1/" $@
 
 
@@ -156,16 +161,16 @@ js-minify: $(JS_MINIFIED_FILES)
 pack: i18n-compile js-minify
 	@rm -rf $(SNAPSHOT_FOLDER) $(DEPLOYMENT_FILE)
 	@mkdir -p $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)
-	@cp -r $(SRC_FOLDERS) $(SRC_MAIN_FILE) $(SRC_INFO_FILES) $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)
-	@cp $(SRC_WORDPRESS_README) $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)/readme.txt
-	@cp -r $(SRC_ASSETS) $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)-assets
+	@cp -r $(SRC_MAIN_FILE) $(SRC_FOLDERS) $(THIRD_PARTY_FOLDER) $(INFO_FILES) $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)
+	@cp $(WORDPRESS_README_FILE) $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)/readme.txt
+	@cp -r $(ASSET_FOLDER) $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)-assets
 	@cd $(SNAPSHOT_FOLDER) && zip -qr ../../$(DEPLOYMENT_FILE) $(PLUGIN_NAME) $(PLUGIN_NAME)-assets
 	@$(ECHO) "$(COLOR_IN)$(DEPLOYMENT_FILE) updated$(COLOR_OUT)"
 
 
 # Clean the automatically generated files
 clean:
-	@rm -rf $(TEMPORARY_FOLDER) $(DEPLOYMENT_FILE) $(I18N_MERGED_FILES) $(I18N_MO_FILES) $(JS_MINIFIED_FILES)
+	@rm -rf $(TEMPORARY_FOLDER) $(DEPLOYMENT_FILE) $(I18N_MO_FILES) $(JS_MINIFIED_FILES)
 
 
 # Make's stuff
