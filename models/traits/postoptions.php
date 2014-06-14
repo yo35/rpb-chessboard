@@ -32,6 +32,7 @@ class RPBChessboardTraitPostOptions extends RPBChessboardAbstractTrait
 	private $squareSize;
 	private $showCoordinates;
 	private $pieceSymbols;
+	private $navigationBoard;
 	private $fenCompatibilityMode;
 	private $pgnCompatibilityMode;
 
@@ -49,6 +50,11 @@ class RPBChessboardTraitPostOptions extends RPBChessboardAbstractTrait
 		// Load the piece symbol parameter.
 		if(isset($_POST['pieceSymbols'])) {
 			$this->pieceSymbols = self::loadPieceSymbols();
+		}
+
+		// Load the navigation board parameter.
+		if(isset($_POST['navigationBoard'])) {
+			$this->navigationBoard = RPBChessboardHelperValidation::validateNavigationBoard($_POST['navigationBoard']);
 		}
 
 		// Load the boolean parameters.
@@ -126,6 +132,11 @@ class RPBChessboardTraitPostOptions extends RPBChessboardAbstractTrait
 		// Set the piece symbol parameter.
 		if(isset($this->pieceSymbols)) {
 			update_option('rpbchessboard_pieceSymbols', $this->pieceSymbols);
+		}
+
+		// Set the navigation board parameter.
+		if(isset($this->navigationBoard)) {
+			update_option('rpbchessboard_navigationBoard', $this->navigationBoard);
 		}
 
 		// Set the boolean parameters.
