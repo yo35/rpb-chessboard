@@ -26,11 +26,29 @@
 
 		<input type="hidden" name="rpbchessboard_action" value="<?php echo htmlspecialchars($model->getFormAction()); ?>" />
 
+		<p>
+			<?php echo sprintf(
+				__(
+					'These settings control the default aspect and behavior settings of the chess diagrams and games ' .
+					'inserted in posts and pages with the %1$s[%3$s][/%3$s]%2$s and %1$s[%4$s][/%4$s]%2$s shortcodes. ' .
+					'They can be overridden by passing appropriate attributes to these shortcodes: ' .
+					'see %5$shelp on FEN diagram attributes%7$s and %6$shelp on PGN game attributes%7$s for more details.',
+				'rpbchessboard'),
+				'<span class="rpbchessboard-be-sourceCode">',
+				'</span>',
+				htmlspecialchars($model->getFENShortcode()),
+				htmlspecialchars($model->getPGNShortcode()),
+				'<a href="' . htmlspecialchars($model->getHelpOnFENAttributesURL()) . '">',
+				'<a href="' . htmlspecialchars($model->getHelpOnPGNAttributesURL()) . '">',
+				'</a>'
+			); ?>
+		</p>
 
 
 
 
-		<h3><?php _e('Default chessboard aspect', 'rpbchessboard'); ?></h3>
+
+		<h3><?php _e('Chessboard aspect', 'rpbchessboard'); ?></h3>
 
 		<div class="rpbchessboard-be-columns">
 
@@ -119,7 +137,7 @@
 
 
 
-		<h3><?php _e('Default piece symbols', 'rpbchessboard'); ?></h3>
+		<h3><?php _e('Piece symbols', 'rpbchessboard'); ?></h3>
 
 		<p>
 			<input type="radio" id="rpbchessboard-pieceSymbolButton-english" name="pieceSymbols" value="english"
@@ -237,7 +255,7 @@
 
 
 
-		<h3><?php _e('Default position of the navigation board', 'rpbchessboard'); ?></h3>
+		<h3><?php _e('Position of the navigation board', 'rpbchessboard'); ?></h3>
 
 		<div id="rpbchessboard-navigationBoardFields">
 
@@ -290,48 +308,6 @@
 			</div>
 
 		</div>
-
-
-
-
-
-		<h3><?php _e('Compatibility with other chess plugins', 'rpbchessboard'); ?></h3>
-
-		<p class="description">
-			<?php echo sprintf(
-				__(
-					'By default, the RPB Chessboard plugin use the %1$s[fen][/fen]%2$s and %1$s[pgn][/pgn]%2$s tags '.
-					'for FEN diagrams and PGN games. However, this behavior cause conflicts when other WordPress plugins '.
-					'(typically chess plugins) that use the same tags are simultaneously in use. Activating the compatibility mode '.
-					'for the FEN diagram tag makes RPB Chessboard use %1$s[fen_compat][/fen_compat]%2$s instead of %1$s[fen][/fen]%2$s '.
-					'to avoid those conflicts. Similarly, with the PGN compatibility mode, %1$s[pgn_compat][/pgn_compat]%2$s '.
-					'is used instead of %1$s[pgn][/pgn]%2$s.',
-				'rpbchessboard'),
-				'<span class="rpbchessboard-be-sourceCode">',
-				'</span>'
-			); ?>
-		</p>
-
-		<p>
-			<input type="hidden" name="fenCompatibilityMode" value="0" />
-			<input type="checkbox" id="rpbchessboard-fenCompatibilityModeField" name="fenCompatibilityMode" value="1"
-				<?php if($model->getFENCompatibilityMode()): ?>checked="yes"<?php endif; ?>
-			/>
-			<label for="rpbchessboard-fenCompatibilityModeField">
-				<?php _e('Compatibility mode for the FEN diagram tag', 'rpbchessboard'); ?>
-			</label>
-		</p>
-
-		<p>
-			<input type="hidden" name="pgnCompatibilityMode" value="0" />
-			<input type="checkbox" id="rpbchessboard-pgnCompatibilityModeField" name="pgnCompatibilityMode" value="1"
-				<?php if($model->getPGNCompatibilityMode()): ?>checked="yes"<?php endif; ?>
-			/>
-			<label for="rpbchessboard-pgnCompatibilityModeField">
-				<?php _e('Compatibility mode for the PGN game tag', 'rpbchessboard'); ?>
-			</label>
-		</p>
-
 
 
 
