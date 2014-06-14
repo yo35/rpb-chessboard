@@ -3,4 +3,6 @@
 /.settings
 /rpb-chessboard.zip
 /js/*.min.js
+/languages/*.merged
+/languages/*.mo
 

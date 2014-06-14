@@ -40,6 +40,7 @@ I18N_TEXT_DOMAIN        = rpbchessboard
 I18N_TRANSLATOR_KEYWORD = i18n
 I18N_POT_FILE           = $(I18N_LANGUAGE_FOLDER)/$(I18N_TEXT_DOMAIN).pot
 I18N_PO_FILES           = $(wildcard $(I18N_LANGUAGE_FOLDER)/*.po)
+I18N_MERGED_FILES       = $(patsubst %.po,%.merged,$(I18N_PO_FILES))
 I18N_MO_FILES           = $(patsubst %.po,%.mo,$(I18N_PO_FILES))
 
 # Do not modify
@@ -51,7 +52,7 @@ ECHO          = echo
 SED           = sed
 TOUCH         = touch
 XGETTEXT      = xgettext --from-code=UTF-8 --language=PHP -c$(I18N_TRANSLATOR_KEYWORD) -k__ -k_e
-MSGMERGE      = msgmerge -v
+MSGMERGE      = msgmerge -v --backup=none
 MSGFMT        = msgfmt -v
 JSHINT        = jshint
 UGLIFYJS      = uglifyjs
@@ -85,7 +86,7 @@ i18n-extract: $(I18N_POT_FILE)
 
 
 # Merge the translation files (*.po) with the template (.pot)
-i18n-merge: $(I18N_PO_FILES)
+i18n-merge: $(I18N_MERGED_FILES)
 
 
 # Compile the translation files (*.po) into binaries (*.mo)
@@ -94,23 +95,22 @@ i18n-compile: $(I18N_MO_FILES)
 
 # POT file generation
 $(I18N_POT_FILE): $(PHP_FILES)
-	@$(ECHO) "$(COLOR_IN)Updating file $@...$(COLOR_OUT)"
+	@$(ECHO) "$(COLOR_IN)Updating the translation template file...$(COLOR_OUT)"
 	@$(XGETTEXT) -o $@ $^
 	@$(SED) -n -e "s/^Description: *\(.*\)/\n#: $(SRC_MAIN_FILE)\nmsgid \"\1\"\nmsgstr \"\"/p" $(SRC_MAIN_FILE) >> $@
 	@$(SED) -i -e "s/^#\. *$(I18N_TRANSLATOR_KEYWORD) *\(.*\)/#. \1/" $@
 
 
 # PO and POT file merging
-%.po: $(I18N_POT_FILE)
-	@$(ECHO) "$(COLOR_IN)Merging file $@...$(COLOR_OUT)"
-	@$(MSGMERGE) -U $@ $^
+%.merged: %.po $(I18N_POT_FILE)
+	@$(ECHO) "$(COLOR_IN)Updating PO file [$(COLOR_OUT) $< $(COLOR_IN)]...$(COLOR_OUT)"
+	@$(MSGMERGE) -U $^
 	@$(TOUCH) $@
-	@rm -f $(I18N_LANGUAGE_FOLDER)/*.po~
 
 
 # PO file compilation
 %.mo: %.po
-	@$(ECHO) "$(COLOR_IN)Compiling file $@...$(COLOR_OUT)"
+	@$(ECHO) "$(COLOR_IN)Compiling MO file [$(COLOR_OUT) $@ $(COLOR_IN)]...$(COLOR_OUT)"
 	@$(MSGFMT) -o $@ $^
 
 
@@ -146,7 +146,7 @@ js-minify: $(JS_MINIFIED_FILES)
 
 
 # Pack the source files into a zip file, ready for WordPress deployment
-pack: js-minify
+pack: i18n-compile js-minify
 	@rm -rf $(SNAPSHOT_FOLDER) $(SNAPSHOT_ARCHIVE)
 	@mkdir -p $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)
 	@cp -r $(SRC_FOLDERS) $(SRC_MAIN_FILE) $(SRC_INFO_FILES) $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)
@@ -159,7 +159,7 @@ pack: js-minify
 
 # Clean the automatically generated files
 clean:
-	@rm -rf $(SNAPSHOT_FOLDER) $(SNAPSHOT_ARCHIVE) $(JS_MINIFIED_FILES)
+	@rm -rf $(SNAPSHOT_FOLDER) $(SNAPSHOT_ARCHIVE) $(I18N_MERGED_FILES) $(I18N_MO_FILES) $(JS_MINIFIED_FILES)
 
 
 # Make's stuff
