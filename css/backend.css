@@ -73,6 +73,7 @@
 
 #rpbchessboard-be-subPageSelector {
 	float: none;
+	margin-bottom: 1em;
 }
 
 #rpbchessboard-be-subPageSelector li:after {
