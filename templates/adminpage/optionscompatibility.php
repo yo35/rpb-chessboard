@@ -33,10 +33,7 @@
 				__(
 					'By default, the RPB Chessboard plugin use the %1$s[fen][/fen]%2$s and %1$s[pgn][/pgn]%2$s tags '.
 					'for FEN diagrams and PGN games. However, this behavior causes conflicts with other WordPress plugins '.
-					'(typically chess plugins) that use the same tags. Activating the compatibility mode '.
-					'for the FEN diagram tag makes RPB Chessboard use %1$s[fen_compat][/fen_compat]%2$s instead of %1$s[fen][/fen]%2$s '.
-					'to avoid those conflicts. Similarly, with the PGN compatibility mode, %1$s[pgn_compat][/pgn_compat]%2$s '.
-					'is used instead of %1$s[pgn][/pgn]%2$s.',
+					'(typically chess plugins) that use the same tags. The compatibility modes are provided to avoid those conflicts.',
 				'rpbchessboard'),
 				'<span class="rpbchessboard-sourceCode">',
 				'</span>'
@@ -55,6 +52,17 @@
 			</label>
 		</p>
 
+		<p class="description">
+			<?php echo sprintf(
+				__(
+					'Activating this option makes RPB Chessboard use %1$s[fen_compat][/fen_compat]%2$s ' .
+					'instead of %1$s[fen][/fen]%2$s for FEN diagrams.',
+				'rpbchessboard'),
+				'<span class="rpbchessboard-sourceCode">',
+				'</span>'
+			); ?>
+		</p>
+
 		<p>
 			<input type="hidden" name="pgnCompatibilityMode" value="0" />
 			<input type="checkbox" id="rpbchessboard-pgnCompatibilityModeField" name="pgnCompatibilityMode" value="1"
@@ -63,6 +71,17 @@
 			<label for="rpbchessboard-pgnCompatibilityModeField">
 				<?php _e('Compatibility mode for the PGN game tag', 'rpbchessboard'); ?>
 			</label>
+		</p>
+
+		<p class="description">
+			<?php echo sprintf(
+				__(
+					'Activating this option makes RPB Chessboard use %1$s[pgn_compat][/pgn_compat]%2$s ' .
+					'instead of %1$s[pgn][/pgn]%2$s for PGN games.',
+				'rpbchessboard'),
+				'<span class="rpbchessboard-sourceCode">',
+				'</span>'
+			); ?>
 		</p>
 
 

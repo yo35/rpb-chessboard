@@ -48,6 +48,10 @@ div.rpbchessboard-sourceCode:last-child,
 	padding-bottom: 0.5em;
 }
 
+.rpbchessboard-adminPage p + p.description {
+	margin-top: -0.75em;
+}
+
 
 
 /******************************************************************************/
@@ -240,6 +244,7 @@ div.rpbchessboard-sourceCode {
 	display: -webkit-flex;
 	display: flex;
 	flex-direction: row;
+	margin-bottom: 0.5em;
 }
 
 #rpbchessboard-navigationBoardFields > div {
@@ -258,7 +263,6 @@ div.rpbchessboard-sourceCode {
 	display: block;
 	padding: 14px;
 	line-height: 0px;
-	margin-bottom: calc(1em - 4px);
 }
 
 #rpbchessboard-navigationBoardFields input[name="navigationBoard"]:checked + label {
