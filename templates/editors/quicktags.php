@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<div id="rpbchessboard-editFen-dialog" class="rpbchessboard-invisible">
+<div id="rpbchessboard-editFen-dialog" class="rpbchessboard-editFen-invisible">
 	<div class="rpbchessboard-columns">
 		<div style="width: 65%;">
 			<div id="rpbchessboard-editFen-chessboard"></div>
@@ -137,7 +137,7 @@
 
 
 		// If the dialog has already been initialized, just reset the position, and exit.
-		if(!$('#rpbchessboard-editFen-dialog').hasClass('rpbchessboard-invisible')) {
+		if(!$('#rpbchessboard-editFen-dialog').hasClass('rpbchessboard-editFen-invisible')) {
 			resetPosition(fen);
 			resetSubmitButtonText();
 			return;
@@ -202,7 +202,7 @@
 
 
 		// Create the dialog.
-		$('#rpbchessboard-editFen-dialog').removeClass('rpbchessboard-invisible').dialog({
+		$('#rpbchessboard-editFen-dialog').removeClass('rpbchessboard-editFen-invisible').dialog({
 			autoOpen   : false,
 			modal      : true,
 			dialogClass: 'wp-dialog',

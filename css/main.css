@@ -19,10 +19,6 @@
  ******************************************************************************/
 
 
-.rpbchessboard-invisible {
-	display: none;
-}
-
 .rpbchessboard-noJavascriptBlock,
 .rpbchessboard-javascriptWarning {
 	text-align: left;
@@ -57,45 +53,4 @@ p.rpbchessboard-spacerBefore {
 
 p.rpbchessboard-spacerAfter {
 	margin-top: 0px !important;
-}
-
-
-
-/******************************************************************************/
-/*** PGN widget enhancement ***/
-
-.rpbchessboard-white-square,
-.rpbchessboard-black-square {
-	width : 1.2em;
-	height: 1.2em;
-	vertical-align: middle;
-	display: inline-block;
-	border: 1px solid black;
-}
-
-.rpbchessboard-white-square {
-	background-color: white;
-}
-
-.rpbchessboard-black-square {
-	background-color: black;
-}
-
-.PgnWidget-field-Annotator {
-	font-style: italic;
-}
-
-.PgnWidget-field-Result {
-	font-weight: bold;
-}
-
-.rpbchessboard-game-head,
-.rpbchessboard-game-body {
-	margin-top   : 8px;
-	margin-bottom: 8px;
-}
-
-.rpbchessboard-game-head div {
-	margin-top   : 4px;
-	margin-bottom: 4px;
 }

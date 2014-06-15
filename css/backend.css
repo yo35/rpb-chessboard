@@ -325,6 +325,10 @@ div.rpbchessboard-sourceCode {
 /******************************************************************************/
 /*** Edit FEN dialog ***/
 
+.rpbchessboard-editFen-invisible {
+	display: none;
+}
+
 #rpbchessboard-editFen-castleRights {
 	text-align: center;
 	table-layout: fixed;
