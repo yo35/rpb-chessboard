@@ -38,6 +38,7 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 		parent::__construct();
 		$this->loadTrait('DefaultOptions');
 		$this->loadTrait('Compatibility' );
+		$this->loadTrait('URLs'          );
 
 		// Create the sub-pages.
 		$this->addSubPage('optionsgeneral'      , __('Default aspect & behavior settings'    , 'rpbchessboard'), true);
@@ -64,28 +65,6 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 	public function getFormAction()
 	{
 		return 'update-options';
-	}
-
-
-	/**
-	 * URL to the attribute section of the FEN help page.
-	 *
-	 * @return string
-	 */
-	public function getHelpOnFENAttributesURL()
-	{
-		return admin_url('admin.php') . '?page=rpbchessboard-help&rpbchessboard_subpage=helpfen#rpbchessboard-helpOnFENAttributes';
-	}
-
-
-	/**
-	 * URL to the attribute section of the PGN help page.
-	 *
-	 * @return string
-	 */
-	public function getHelpOnPGNAttributesURL()
-	{
-		return admin_url('admin.php') . '?page=rpbchessboard-help&rpbchessboard_subpage=helppgn#rpbchessboard-helpOnPGNAttributes';
 	}
 
 
