@@ -75,7 +75,7 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 	public function getAdminPageName()
 	{
 		if(!isset($this->adminPageName)) {
-			$this->adminPageName = preg_match('/^AdminPage(.*)$/', $this->getName(), $matches) ? $matches[1] : '';
+			$this->adminPageName = preg_match('/^AdminPage(.*)$/', $this->getName(), $m) ? $m[1] : '';
 		}
 		return $this->adminPageName;
 	}

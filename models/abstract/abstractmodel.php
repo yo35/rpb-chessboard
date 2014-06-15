@@ -90,7 +90,7 @@ abstract class RPBChessboardAbstractModel
 	public function getName()
 	{
 		if(!isset($this->name)) {
-			$this->name = preg_match('/^RPBChessboardModel(.*)$/', get_class($this), $matches) ? $matches[1] : '';
+			$this->name = preg_match('/^RPBChessboardModel(.*)$/', get_class($this), $m) ? $m[1] : '';
 		}
 		return $this->name;
 	}
