@@ -29,6 +29,7 @@ require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/shortcode.php');
 class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode
 {
 	private $widgetArgs;
+	private $navigationFrameArgs;
 
 	public function __construct($atts, $content)
 	{
@@ -56,9 +57,54 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode
 	public function getWidgetArgs()
 	{
 		if(!isset($this->widgetArgs)) {
-			$this->widgetArgs = array('pgn' => $this->getPGNString()); //TODO
+			$this->widgetArgs = array('pgn' => $this->getPGNString());
+			$atts = $this->getAttributes();
+			$chessboardOptions = array();
+
+			// Orientation
+			$value = isset($atts['flip']) ? RPBChessboardHelperValidation::validateBoolean($atts['flip']) : null;
+			if(isset($value)) {
+				$this->widgetArgs['flip'] = $value;
+			}
+
+			// Square size
+			$value = isset($atts['square_size']) ? RPBChessboardHelperValidation::validateSquareSize($atts['square_size']) : null;
+			$chessboardOptions['squareSize'] = isset($value) ? $value : $this->getDefaultSquareSize();
+
+			// Show coordinates
+			$value = isset($atts['show_coordinates']) ? RPBChessboardHelperValidation::validateBoolean($atts['show_coordinates']) : null;
+			$chessboardOptions['showCoordinates'] = isset($value) ? $value : $this->getDefaultShowCoordinates();
+
+			// Piece symbols
+			$value = isset($atts['piece_symbols']) ? RPBChessboardHelperValidation::validatePieceSymbols($atts['piece_symbols']) : null;
+			$this->widgetArgs['pieceSymbols'] = isset($value) ? $value : $this->getDefaultPieceSymbols();
+
+			// Navigation board
+			$value = isset($atts['navigation_board']) ? RPBChessboardHelperValidation::validateNavigationBoard($atts['navigation_board']) : null;
+			$this->widgetArgs['navigationBoard'] = isset($value) ? $value : $this->getDefaultNavigationBoard();
+
+			// Use the same aspect parameters for the navigation board and the text comment diagrams.
+			$this->widgetArgs['navigationBoardOptions'] = $chessboardOptions;
+			$this->widgetArgs['diagramOptions'        ] = $chessboardOptions;
 		}
 		return $this->widgetArgs;
+	}
+
+
+	/**
+	 * Return the arguments to pass to the navigation frame constructor.
+	 *
+	 * @return array
+	 */
+	public function getNavigationFrameArgs()
+	{
+		if(!isset($this->navigationFrameArgs)) {
+			$this->navigationFrameArgs = array(
+				'squareSize'      => $this->getDefaultSquareSize     (),
+				'showCoordinates' => $this->getDefaultShowCoordinates()
+			);
+		}
+		return $this->navigationFrameArgs;
 	}
 
 
