@@ -55,6 +55,21 @@ div.rpbchessboard-sourceCode:last-child,
 
 
 /******************************************************************************/
+/*** Bullet lists ***/
+
+.rpbchessboard-adminPage ul {
+	list-style: square outside;
+	padding-left: 1.5em;
+}
+
+.rpbchessboard-adminPage ul.subsubsub {
+	list-style: none outside;
+	padding-left: 0px;
+}
+
+
+
+/******************************************************************************/
 /*** Column layout ***/
 
 .rpbchessboard-columns {
@@ -292,11 +307,6 @@ div.rpbchessboard-sourceCode {
 
 /******************************************************************************/
 /*** About page ***/
-
-#rpbchessboard-aboutPage ul {
-	list-style: square outside;
-	padding-left: 1.5em;
-}
 
 .rpbchessboard-translatorList {
 	display: table;

@@ -331,8 +331,7 @@
 			_e(
 				'Text comments can be inserted, surrounded with braces. They can be rendered either inlined within the move sequence '.
 				'(&quot;short comment&quot; style), or as separated blocks (&quot;long comment&quot; style). To insert a comment '.
-				'as a separated block, let two blank lines before and after it in the PGN string. '.
-				'Also, notice that HTML tags are allowed within comments.',
+				'as a separated block, let a blank line before it in the PGN string. Also, notice that HTML tags are allowed within comments.',
 			'rpbchessboard');
 		?>
 	</p>
@@ -384,7 +383,7 @@
 		<?php
 			_e(
 				'As for comments, variations can be rendered either inlined within the move sequence, '.
-				'or as separated blocks if they are surrounded with two blank lines in the PGN string.',
+				'or as separated blocks if they are preceded by a blank line in the PGN string.',
 			'rpbchessboard');
 		?>
 	</p>
@@ -412,7 +411,7 @@
 			<p>
 				<?php echo sprintf(
 					__(
-						'Notice that %1$s[pgndiagram]%2$s tags must be inserted only in PGN comments.',
+						'Notice that %1$s[pgndiagram]%2$s tags must not be inserted outside a PGN comment.',
 					'rpbchessboard'),
 					'<span class="rpbchessboard-sourceCode">',
 					'</span>'
@@ -450,19 +449,157 @@
 
 	<h4 id="rpbchessboard-helpOnPGNAttributes"><?php _e('Attributes', 'rpbchessboard'); ?></h4>
 
-	<p>
-		<?php echo sprintf(
-			__(
-				'The %1$s[%4$s][/%4$s]%2$s and %1$s[pgndiagram]%2$s tags accept the same attributes as the %1$s[%3$s][/%3$s]%2$s ones. '.
-				'For instance, using %1$s[%4$s square_size=...] ... [/%4$s]%2$s will affect the size of all the chess diagrams '.
-				'inserted in the comments of the corresponding chess game. Setting %1$s[pgndiagram square_size=...]%2$s '.
-				'will affect only the corresponding diagram.',
-			'rpbchessboard'),
-			'<span class="rpbchessboard-sourceCode">',
-			'</span>',
-			htmlspecialchars($model->getFENShortcode()),
-			htmlspecialchars($model->getPGNShortcode())
-		); ?>
-	</p>
+
+
+
+
+	<div id="rpbchessboard-pgnAttributes" class="rpbchessboard-tabs">
+
+		<ul>
+			<li><a href="#rpbchessboard-pgnAttribute1"><?php _e('Chessboard aspect', 'rpbchessboard'); ?></a></li>
+			<li><a href="#rpbchessboard-pgnAttribute2"><?php _e('Piece symbols'    , 'rpbchessboard'); ?></a></li>
+			<li><a href="#rpbchessboard-pgnAttribute3"><?php _e('Navigation board' , 'rpbchessboard'); ?></a></li>
+		</ul>
+
+
+		<div id="rpbchessboard-pgnAttribute1">
+			<p>
+				<?php echo sprintf(
+					__(
+						'The %1$s[%4$s][/%4$s]%2$s tag accepts the same attributes as the %1$s[%3$s][/%3$s]%2$s tag:',
+					'rpbchessboard'),
+					'<span class="rpbchessboard-sourceCode">',
+					'</span>',
+					htmlspecialchars($model->getFENShortcode()),
+					htmlspecialchars($model->getPGNShortcode())
+				); ?>
+			</p>
+			<ul>
+				<li>
+					<?php echo sprintf(
+						__(
+							'%1$s, which controls the orientation of the chessboards. For instance, %2$s flips all the diagrams ' .
+							'(and the navigation board if any) of the corresponding PGN game.',
+						'rpbchessboard'),
+						'<span class="rpbchessboard-sourceCode">flip</span>',
+						sprintf('<span class="rpbchessboard-sourceCode">[%1$s flip=true] ... [/%1$s]</span>', htmlspecialchars($model->getPGNShortcode()))
+					); ?>
+				</li>
+				<li>
+					<?php echo sprintf(
+						__('%1$s, which controls the size of the chessboard squares.', 'rpbchessboard'),
+						'<span class="rpbchessboard-sourceCode">square_size</span>'
+					); ?>
+				</li>
+				<li>
+					<?php echo sprintf(
+						__('%1$s, which allows to hide or show the row and column coordinates.', 'rpbchessboard'),
+						'<span class="rpbchessboard-sourceCode">show_coordinates</span>'
+					); ?>
+				</li>
+			</ul>
+			<p>
+				<?php echo sprintf(
+					__('See the %1$shelp on FEN attributes%2$s for more details.', 'rpbchessboard'),
+					sprintf('<a href="%1$s">', htmlspecialchars($model->getHelpOnFENAttributesURL())),
+					'</a>'
+				); ?>
+			</p>
+		</div>
+
+
+		<div id="rpbchessboard-pgnAttribute2">
+			<p>
+				<?php echo sprintf(
+					__(
+						'The %1$s attribute controls how chess pieces are denoted in move notation. Allowed values are:',
+					'rpbchessboard'),
+					'<span class="rpbchessboard-sourceCode">piece_symbols</span>'
+				); ?>
+			</p>
+			<ul>
+				<li>
+					<?php echo sprintf(
+						__('%1$s: first character of the piece name in English.', 'rpbchessboard'),
+						'<span class="rpbchessboard-sourceCode">piece_symbols=native</span>'
+					); ?>
+				</li>
+				<li>
+					<?php echo sprintf(
+						__(
+							'%1$s: first character of the piece name in the blog language if the translation exists, in English otherwise.',
+						'rpbchessboard'),
+						'<span class="rpbchessboard-sourceCode">piece_symbols=localized</span>'
+					); ?>
+				</li>
+				<li>
+					<span class="rpbchessboard-sourceCode">piece_symbols=figurines</span>
+					( <span class="uichess-chessgame-alphaFont">K Q R B N P</span> ).
+				</li>
+				<li>
+					<?php echo sprintf(
+						__(
+							'Any sequence of 6 capital letters surrounded with parenthesis is allowed to set custom symbols. ' .
+							'For instance: %1$s (this particular setting has the same effect as %2$s).',
+						'rpbchessboard'),
+						'<span class="rpbchessboard-sourceCode">piece_symbols=(KQRBNP)</span>',
+						'<span class="rpbchessboard-sourceCode">piece_symbols=native</span>'
+					); ?>
+				</li>
+			</ul>
+			<p>
+				<?php
+					_e(
+						'Note that this attribute only affects how chess moves are rendered to post/page readers. ' .
+						'Authors must always use English initials when writting PGN content into posts and pages.',
+					'rpbchessboard');
+				?>
+			</p>
+		</div>
+
+
+		<div id="rpbchessboard-pgnAttribute3">
+			<p>
+				<?php echo sprintf(
+					__(
+						'The %1$s attribute controls the position of the navigation board. Allowed values are:',
+					'rpbchessboard'),
+					'<span class="rpbchessboard-sourceCode">navigation_board</span>'
+				); ?>
+			</p>
+			<ul>
+				<li>
+					<?php echo sprintf(
+						__('%1$s: no navigation board.', 'rpbchessboard'),
+						'<span class="rpbchessboard-sourceCode">navigation_board=none</span>'
+					); ?>
+				</li>
+				<li>
+					<?php echo sprintf(
+						__(
+							'%1$s: the navigation board is displayed in a popup frame (and it is hidden until the reader clicks on a move).',
+						'rpbchessboard'),
+						'<span class="rpbchessboard-sourceCode">navigation_board=frame</span>'
+					); ?>
+				</li>
+				<li>
+					<?php echo sprintf(
+						__(
+							'%1$s (or %2$s): the navigation board is displayed on the left (or the right) of the move list ' .
+							'(and it is visible as soon as the page is loaded).',
+						'rpbchessboard'),
+						'<span class="rpbchessboard-sourceCode">navigation_board=floatLeft</span>',
+						'<span class="rpbchessboard-sourceCode">floatRight</span>'
+					); ?>
+				</li>
+			</ul>
+		</div>
+
+
+		<script type="text/javascript">
+			jQuery(document).ready(function($) { $('#rpbchessboard-pgnAttributes').tabs(); });
+		</script>
+
+	</div>
 
 </div>

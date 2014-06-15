@@ -32,6 +32,7 @@ class RPBChessboardModelAdminPageHelp extends RPBChessboardAbstractModelAdminPag
 	{
 		parent::__construct();
 		$this->loadTrait('Compatibility');
+		$this->loadTrait('URLs'         );
 
 		// Create the sub-pages.
 		$this->addSubPage('helpfen', __('FEN diagram', 'rpbchessboard'), true);
