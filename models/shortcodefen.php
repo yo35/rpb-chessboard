@@ -75,4 +75,13 @@ class RPBChessboardModelShortcodeFEN extends RPBChessboardAbstractModelShortcode
 		}
 		return $this->widgetArgs;
 	}
+
+
+	/**
+	 * Ensure that the FEN string is trimmed.
+	 */
+	protected function filterShortcodeContent($content)
+	{
+		return trim($content);
+	}
 }
