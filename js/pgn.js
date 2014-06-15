@@ -739,7 +739,6 @@ var Pgn = (function(Chess) /* exported Pgn */
 
 			// Matching anything else different from a header means that the move section
 			// is going to be parse => set-up the root node.
-			// anymore for the current item.
 			if(token !== TOKEN_HEADER && node === null) {
 				node = item.mainVariation();
 			}
@@ -778,8 +777,8 @@ var Pgn = (function(Chess) /* exported Pgn */
 
 				// Comment
 				case TOKEN_COMMENT:
-					node.comment(tokenValue, emptyLineFound); // If the node is a variation, the "long-comment" attribute
-					break;                                    // is overriden when the first move of the variation is encountered.
+					node.comment(tokenValue, emptyLineFound);
+					break;
 
 				// Begin of variation
 				case TOKEN_BEGIN_VARIATION:
