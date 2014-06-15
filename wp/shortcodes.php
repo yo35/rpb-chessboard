@@ -82,7 +82,7 @@ abstract class RPBChessboardShortcodes
 
 		// Load and execute the shortcode controller.
 		require_once(RPBCHESSBOARD_ABSPATH . 'controllers/shortcode.php');
-		$controller = new RPBChessboardControllerAdminPage($shortcodeName, $atts, $content);
+		$controller = new RPBChessboardControllerShortcode($shortcodeName, $atts, $content);
 		return $controller->run();
 	}
 

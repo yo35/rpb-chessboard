@@ -129,7 +129,7 @@ abstract class RPBChessboardAbstractModelShortcode extends RPBChessboardAbstract
 	 *
 	 * @return string
 	 */
-	protected function getUniqueID()
+	public function getUniqueID()
 	{
 		if(!isset($this->uniqueID)) {
 			$this->uniqueID = self::makeUniqueID();
