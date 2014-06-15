@@ -28,6 +28,8 @@ require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/shortcode.php');
  */
 class RPBChessboardModelShortcodeFen extends RPBChessboardAbstractModelShortcode
 {
+	private $widgetArgs;
+
 	public function __construct($atts, $content)
 	{
 		parent::__construct($atts, $content);
@@ -43,5 +45,34 @@ class RPBChessboardModelShortcodeFen extends RPBChessboardAbstractModelShortcode
 	public function getFENString()
 	{
 		return $this->getContent();
+	}
+
+
+	/**
+	 * Return the arguments to pass to the uichess-chessboard widget.
+	 *
+	 * @return array
+	 */
+	public function getWidgetArgs()
+	{
+		if(!isset($this->widgetArgs)) {
+			$this->widgetArgs = array('position' => $this->getFENString());
+			$atts = $this->getAttributes();
+
+			// Orientation
+			$value = isset($atts['flip']) ? RPBChessboardHelperValidation::validateBoolean($atts['flip']) : null;
+			if(isset($value)) {
+				$this->widgetArgs['flip'] = $value;
+			}
+
+			// Square size
+			$value = isset($atts['square_size']) ? RPBChessboardHelperValidation::validateSquareSize($atts['square_size']) : null;
+			$this->widgetArgs['squareSize'] = isset($value) ? $value : $this->getDefaultSquareSize();
+
+			// Show coordinates
+			$value = isset($atts['show_coordinates']) ? RPBChessboardHelperValidation::validateBoolean($atts['show_coordinates']) : null;
+			$this->widgetArgs['showCoordinates'] = isset($value) ? $value : $this->getDefaultShowCoordinates();
+		}
+		return $this->widgetArgs;
 	}
 }

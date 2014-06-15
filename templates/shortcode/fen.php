@@ -38,7 +38,7 @@
 		jQuery(document).ready(function($)
 		{
 			var selector = '#' + <?php echo json_encode($model->getUniqueID()); ?> + ' .rpbchessboard-chessboardAnchor';
-			$(selector).removeClass('rpbchessboard-chessboardAnchor').chessboard(<?php echo json_encode(/* TODO */ array('position' => $model->getFENString()) ); ?>);
+			$(selector).removeClass('rpbchessboard-chessboardAnchor').chessboard(<?php echo json_encode($model->getWidgetArgs()); ?>);
 		});
 
 	</script>
