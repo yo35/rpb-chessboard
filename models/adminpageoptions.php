@@ -74,7 +74,7 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 	 */
 	public function getHelpOnFENAttributesURL()
 	{
-		return admin_url('admin.php') . '?page=rpbchessboard-help&rpbchessboard_subpage=helpfen#rpbchessboard-helpOnFenAttributes';
+		return admin_url('admin.php') . '?page=rpbchessboard-help&rpbchessboard_subpage=helpfen#rpbchessboard-helpOnFENAttributes';
 	}
 
 

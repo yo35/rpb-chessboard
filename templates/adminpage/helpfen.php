@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<div id="rpbchessboard-helpFenPage">
+<div id="rpbchessboard-helpFENPage">
 
 	<h3>
 		<?php echo sprintf(
@@ -214,7 +214,7 @@
 
 
 
-	<h4 id="rpbchessboard-helpOnFenAttributes"><?php _e('Attributes', 'rpbchessboard'); ?></h4>
+	<h4 id="rpbchessboard-helpOnFENAttributes"><?php _e('Attributes', 'rpbchessboard'); ?></h4>
 
 	<p><?php
 		_e('The aspect of the chess diagrams can be customized thanks to the following attributes.',

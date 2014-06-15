@@ -275,16 +275,16 @@ div.rpbchessboard-sourceCode {
 /******************************************************************************/
 /*** Help pages ***/
 
-#rpbchessboard-helpFenPage .rpbchessboard-columns > div,
+#rpbchessboard-helpFENPage .rpbchessboard-columns > div,
 #rpbchessboard-helpPgnPage .rpbchessboard-columns > div {
 	width: 50%;
 }
 
-#rpbchessboard-helpFenPage #rpbchessboard-fenAttribute2 .rpbchessboard-columns > div:nth-child(1) {
+#rpbchessboard-helpFENPage #rpbchessboard-fenAttribute2 .rpbchessboard-columns > div:nth-child(1) {
 	width: 33%;
 }
 
-#rpbchessboard-helpFenPage #rpbchessboard-fenAttribute2 .rpbchessboard-columns > div:nth-child(2) {
+#rpbchessboard-helpFENPage #rpbchessboard-fenAttribute2 .rpbchessboard-columns > div:nth-child(2) {
 	width: 67%;
 }
 

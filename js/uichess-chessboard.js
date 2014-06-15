@@ -237,11 +237,11 @@
 				if(fields[3].length === 2) { // update the "en-passant" field if necessary
 					fields[3] = fields[3].charAt(0) + (turn === 'w' ? '6' : '3');
 				}
-				var newFen = fields.join(' ');
+				var newFEN = fields.join(' ');
 
 				// Update the widget.
 				$('.uichess-chessboard-turnFlag', this.element).toggleClass('uichess-chessboard-inactiveFlag');
-				this._position = new Chess(newFen);
+				this._position = new Chess(newFEN);
 				this.options.position = this._position.fen();
 				this._trigger('change', null, this.options.position);
 			}
@@ -272,10 +272,10 @@
 
 				// Compose the new FEN string.
 				fields[2] = castleRights === '' ? '-' : castleRights;
-				var newFen = fields.join(' ');
+				var newFEN = fields.join(' ');
 
 				// Update the widget.
-				this._position = new Chess(newFen);
+				this._position = new Chess(newFEN);
 				this.options.position = this._position.fen();
 				this._trigger('change', null, this.options.position);
 			}
@@ -306,10 +306,10 @@
 
 				// Compose the new FEN string.
 				fields[3] = enPassant === '' ? '-' : (enPassant + (fields[1] === 'w' ? '6' : '3'));
-				var newFen = fields.join(' ');
+				var newFEN = fields.join(' ');
 
 				// Update the widget.
-				this._position = new Chess(newFen);
+				this._position = new Chess(newFEN);
 				this.options.position = this._position.fen();
 				this._trigger('change', null, this.options.position);
 			}

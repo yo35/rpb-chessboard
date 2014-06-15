@@ -26,7 +26,7 @@ require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/shortcode.php');
 /**
  * Model associated to the [fen][/fen] shortcode.
  */
-class RPBChessboardModelShortcodeFen extends RPBChessboardAbstractModelShortcode
+class RPBChessboardModelShortcodeFEN extends RPBChessboardAbstractModelShortcode
 {
 	private $widgetArgs;
 
