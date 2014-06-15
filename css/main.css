@@ -19,42 +19,38 @@
  ******************************************************************************/
 
 
-/******************************************************************************/
-/*** Miscellaneous ***/
-
 .rpbchessboard-invisible {
 	display: none;
 }
 
-
-
-/******************************************************************************/
-/*** Javascript warning message and source code blocks ***/
-
-.rpbchessboard-javascript-warning,
-.rpbchessboard-in {
+.rpbchessboard-noJavascriptBlock,
+.rpbchessboard-javascriptWarning {
 	text-align: left;
 	font-size: 12px;
 	line-height: 1.3em;
 	padding: 8px 10px 8px;
-	margin-top   : 5px;
-	margin-bottom: 5px;
 }
 
-.rpbchessboard-javascript-warning {
-	font-family: sans-serif;
-	color: #800000;
-	border: 1px solid #d00000;
-	background-color: #ffd8d8;
-}
-
-.rpbchessboard-in {
+.rpbchessboard-noJavascriptBlock {
 	white-space: pre-line;
-	font-family: monospace;
-	color: #404000;
-	border: solid 1px #b0b000;
-	background-color: #ffffe0;
+	font-family: Consolas, Monaco, monospace;
+	font-style: normal;
+	color: #444;
+	border: solid 1px #cc8;
+	background-color: #ffd;
 }
+
+.rpbchessboard-javascriptWarning {
+	font-family: sans-serif;
+	color: #444;
+	border: solid 1px #c88;
+	background-color: #fdd;
+}
+
+.rpbchessboard-noJavascriptBlock + .rpbchessboard-javascriptWarning {
+	margin-top: 0.5em;
+}
+
 
 
 

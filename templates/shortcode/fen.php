@@ -20,16 +20,25 @@
  ******************************************************************************/
 ?>
 
-<div id="<?php echo htmlspecialchars($model->getTopLevelItemID()); ?>-in" class="rpbchessboard-in"><?php
-	echo htmlspecialchars($model->getContent());
-?></div>
+<div id="<?php echo htmlspecialchars($model->getUniqueID()); ?>" class="rpbchessboard-chessboard">
 
-<div id="<?php echo htmlspecialchars($model->getTopLevelItemID()); ?>-out" class="rpbchessboard-out rpbchessboard-invisible"></div>
+	<noscript>
+		<div class="rpbchessboard-noJavascriptBlock"><?php echo htmlspecialchars($model->getFENString()); ?></div>
+		<div class="rpbchessboard-javascriptWarning">
+			<?php _e('You must activate JavaScript to enhance chess diagram visualization.', 'rpbchessboard'); ?>
+		</div>
+	</noscript>
 
-<script type="text/javascript">
-	processFEN(
-		<?php echo json_encode($model->getTopLevelItemID()); ?> + '-in',
-		<?php echo json_encode($model->getTopLevelItemID()); ?> + '-out',
-		<?php echo json_encode(array_merge($model->getDefaultAll(), $model->getCustomAll())); ?>
-	);
-</script>
+	<div class="rpbchessboard-chessboardAnchor"></div>
+
+	<script type="text/javascript">
+
+		jQuery(document).ready(function($)
+		{
+			var selector = '#' + <?php echo json_encode($model->getUniqueID()); ?> + ' .rpbchessboard-chessboardAnchor';
+			$(selector).removeClass('rpbchessboard-chessboardAnchor').chessboard(<?php echo json_encode(/* TODO */ array('position' => $model->getFENString()) ); ?>);
+		});
+
+	</script>
+
+</div>

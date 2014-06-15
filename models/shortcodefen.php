@@ -20,18 +20,28 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH.'models/abstract/abstracttoplevelshortcodemodel.php');
+require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/shortcode.php');
 
 
 /**
- * Model associated to the [fen][/fen] short-code in the frontend.
+ * Model associated to the [fen][/fen] shortcode.
  */
-class RPBChessboardModelFen extends RPBChessboardAbstractTopLevelShortcodeModel
+class RPBChessboardModelShortcodeFen extends RPBChessboardAbstractModelShortcode
 {
 	public function __construct($atts, $content)
 	{
 		parent::__construct($atts, $content);
-		$this->loadTrait('ChessWidgetDefault');
-		$this->loadTrait('ChessWidgetCustom', $this->getAttributes());
+		$this->loadTrait('DefaultOptions');
+	}
+
+
+	/**
+	 * Return the FEN string describing the position.
+	 *
+	 * @return string
+	 */
+	public function getFENString()
+	{
+		return $this->getContent();
 	}
 }
