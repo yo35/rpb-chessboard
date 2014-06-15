@@ -1,9 +1,15 @@
+# Eclipse's stuff
 /.buildpath
 /.project
 /.settings
+
+# Directory for temporary objects
 /.temp
+
+# Deployment file
 /rpb-chessboard.zip
+
+# Automatically generated files
 /js/*.min.js
-/languages/*.merged
 /languages/*.mo
 
