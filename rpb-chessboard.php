@@ -42,8 +42,8 @@ load_plugin_textdomain('rpbchessboard', false, RPBCHESSBOARD_PLUGIN_DIR.'/langua
 
 
 // Enqueue scripts
-add_action(is_admin() ? 'admin_enqueue_scripts' : 'wp_enqueue_scripts', 'rpbchessboard_enqueue_script');
-function rpbchessboard_enqueue_script()
+add_action(is_admin() ? 'admin_enqueue_scripts' : 'wp_enqueue_scripts', 'rpbchessboard_enqueue_scripts');
+function rpbchessboard_enqueue_scripts()
 {
 	$ext = WP_DEBUG ? '.js' : '.min.js';
 
@@ -75,7 +75,6 @@ function rpbchessboard_enqueue_script()
 	));
 
 	// Enqueue the scripts.
-	include(RPBCHESSBOARD_ABSPATH . 'templates/localization.php');
 	wp_enqueue_script('rpbchessboard-chessboard');
 	wp_enqueue_script('rpbchessboard-chessgame' );
 
@@ -84,6 +83,14 @@ function rpbchessboard_enqueue_script()
 		wp_enqueue_script('jquery-ui-slider');
 		wp_enqueue_script('jquery-ui-tabs'  );
 	}
+}
+
+
+// Localization script
+add_action(is_admin() ? 'admin_print_footer_scripts' : 'wp_print_footer_scripts', 'rpbchessboard_footer_scripts');
+function rpbchessboard_footer_scripts()
+{
+	include(RPBCHESSBOARD_ABSPATH . 'templates/localization.php');
 }
 
 

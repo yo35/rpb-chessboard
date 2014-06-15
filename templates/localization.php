@@ -22,7 +22,7 @@
 
 <script type="text/javascript">
 
-	jQuery(document).ready(function($) {
+	(function($) {
 
 		// Localization for the uichess-chessgame widget.
 		$.chessgame.i18n.ANNOTATED_BY     = <?php echo json_encode(__('Annotated by %1$s', 'rpbchessboard')); ?>;
@@ -54,6 +54,6 @@
 			'P': <?php /*i18n Pawn symbol   */ echo json_encode(__('P', 'rpbchessboard')); ?>
 		};
 
-	});
+	})(jQuery);
 
 </script>
