@@ -119,7 +119,7 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode
 	 */
 	protected function filterShortcodeContent($content)
 	{
-		return preg_replace_callback('/{([^{}]*)}/', array(__CLASS__, 'processTextComment'), trim($content));
+		return preg_replace_callback('/{((?:\\\\\\\\|\\\\{|\\\\}|[^{}])*)}/', array(__CLASS__, 'processTextComment'), trim($content));
 	}
 
 
