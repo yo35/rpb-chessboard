@@ -80,24 +80,10 @@ abstract class RPBChessboardShortcodes
 			$content = self::$lowLevelShortcodeContent[$content];
 		}
 
-		// TODO: reimplement this method with a dedicated controller
-		// TODO: rename the shortcode models
-		$modelName = $shortcodeName;
-		switch($shortcodeName) {
-			case 'FEN': $modelName='Fen'; break;
-			case 'PGN': $modelName='Pgn'; break;
-			case 'PGNDiagram': $modelName='PgnDiagram'; break;
-			default: break;
-		}
-
-		// Load the model and the view
-		$model = RPBChessboardHelperLoader::loadModel($modelName, $atts, $content);
-		$view  = RPBChessboardHelperLoader::loadView($model);
-
-		// Display the view
-		ob_start();
-		$view->display();
-		return ob_get_clean();
+		// Load and execute the shortcode controller.
+		require_once(RPBCHESSBOARD_ABSPATH . 'controllers/shortcode.php');
+		$controller = new RPBChessboardControllerAdminPage($shortcodeName, $atts, $content);
+		return $controller->run();
 	}
 
 

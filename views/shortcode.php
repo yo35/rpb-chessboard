@@ -20,62 +20,17 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH.'models/abstract/abstractshortcodemodel.php');
+require_once(RPBCHESSBOARD_ABSPATH . 'views/abstractview.php');
 
 
 /**
- * Base model class for the top-level shortcodes ([fen][/fen] and [pgn][/pgn])
- * in the frontend.
+ * Generic view for the plugin shortcodes.
  */
-abstract class RPBChessboardAbstractTopLevelShortcodeModel extends RPBChessboardAbstractShortcodeModel
+class RPBChessboardViewShortcode extends RPBChessboardAbstractView
 {
-	private $topLevelItemID;
-
-
-	public function getViewName()
+	public function display()
 	{
-		return 'TopLevelShortcode';
+		$model = $this->getModel();
+		include(RPBCHESSBOARD_ABSPATH . 'templates/shortcode/' . strtolower($model->getTemplateName()) . '.php');
 	}
-
-
-	/**
-	 * Return the ID to use (maybe as a prefix) to identify the HTML nodes that
-	 * need to be identify in the top-level shortcode view.
-	 *
-	 * @return string
-	 */
-	public function getTopLevelItemID()
-	{
-		if(!isset($this->topLevelItemID)) {
-			$this->topLevelItemID = self::makeID();
-		}
-		return $this->topLevelItemID;
-	}
-
-
-	/**
-	 * Allocate a new HTML node ID.
-	 *
-	 * @return string
-	 */
-	private static function makeID()
-	{
-		if(!isset(self::$idPrefix)) {
-			self::$idPrefix = 'rpbchessboard-' . uniqid() . '-';
-		}
-		++self::$idCounter;
-		return self::$idPrefix . self::$idCounter;
-	}
-
-
-	/**
-	 * Global ID counter.
-	 */
-	private static $idCounter = 0;
-
-
-	/**
-	 * Prefix for the dynamically allocated DOM IDs.
-	 */
-	private static $idPrefix;
 }

@@ -20,35 +20,71 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH.'models/abstract/abstractmodel.php');
+require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php');
 
 
 /**
- * Base class for the models used in the frontend of the RPBChessboard plugin.
+ * Base class for the models used to render the plugin shortcodes.
  */
-abstract class RPBChessboardAbstractShortcodeModel extends RPBChessboardAbstractModel
+abstract class RPBChessboardAbstractModelShortcode extends RPBChessboardAbstractModel
 {
-	private $atts   ;
+	private $shortcodeName;
+	private $atts;
 	private $content;
 	private $contentFiltered = false;
+	private $uniqueID;
 
 
 	/**
 	 * Constructor.
 	 *
-	 * @param array $atts Attributes passed with the short-code.
-	 * @param string $content Short-code enclosed content.
+	 * @param array $atts Attributes passed with the shortcode.
+	 * @param string $content Shortcode enclosed content.
 	 */
 	public function __construct($atts, $content)
 	{
 		parent::__construct();
-		$this->atts    = is_array($atts) ? $atts : array();
-		$this->content = isset($content) ? $content : '';
+		$this->atts    = (isset($atts   ) && is_array ($atts   )) ? $atts    : array();
+		$this->content = (isset($content) && is_string($content)) ? $content : '';
 	}
 
 
 	/**
-	 * Return the attributes passed with the short-code.
+	 * Use the "Shortcode" view by default.
+	 *
+	 * @return string
+	 */
+	public function getViewName()
+	{
+		return 'Shortcode';
+	}
+
+
+	/**
+	 * The name of the template to use is the name of the shortcode.
+	 */
+	public function getTemplateName()
+	{
+		return $this->getShortcodeName();
+	}
+
+
+	/**
+	 * Name of the shortcode.
+	 *
+	 * @return string
+	 */
+	public function getShortcodeName()
+	{
+		if(!isset($this->shortcodeName)) {
+			$this->shortcodeName = preg_match('/^Shortcode(.*)$/', $this->getName(), $m) ? $m[1] : '';
+		}
+		return $this->shortcodeName;
+	}
+
+
+	/**
+	 * Return the attributes passed with the shortcode.
 	 *
 	 * @return array
 	 */
@@ -59,7 +95,7 @@ abstract class RPBChessboardAbstractShortcodeModel extends RPBChessboardAbstract
 
 
 	/**
-	 * Return the enclosed short-code content.
+	 * Return the enclosed shortcode content.
 	 *
 	 * @return string
 	 */
@@ -86,4 +122,45 @@ abstract class RPBChessboardAbstractShortcodeModel extends RPBChessboardAbstract
 	{
 		return $content;
 	}
+
+
+	/**
+	 * Return a string that may be used as a unique DOM node ID.
+	 *
+	 * @return string
+	 */
+	protected function getUniqueID()
+	{
+		if(!isset($this->uniqueID)) {
+			$this->uniqueID = self::makeUniqueID();
+		}
+		return $this->uniqueID;
+	}
+
+
+	/**
+	 * Allocate a new HTML node ID.
+	 *
+	 * @return string
+	 */
+	private static function makeUniqueID()
+	{
+		if(!isset(self::$idPrefix)) {
+			self::$idPrefix = 'rpbchessboard-' . uniqid() . '-';
+		}
+		++self::$idCounter;
+		return self::$idPrefix . self::$idCounter;
+	}
+
+
+	/**
+	 * Global ID counter.
+	 */
+	private static $idCounter = 0;
+
+
+	/**
+	 * Prefix for the dynamically allocated DOM IDs.
+	 */
+	private static $idPrefix;
 }

@@ -20,28 +20,34 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH.'views/abstractview.php');
+require_once(RPBCHESSBOARD_ABSPATH . 'controllers/abstractcontroller.php');
 
 
 /**
- * Generic view for the short-codes [fen][/fen] and [pgn][/pgn].
+ * Execute the requested shortcode.
  */
-class RPBChessboardViewTopLevelShortcode extends RPBChessboardAbstractView
+class RPBChessboardControllerShortcode extends RPBChessboardAbstractController
 {
-	public function display()
+	/**
+	 * Constructor
+	 *
+	 * @param string $shortcodeName Name of the shortcode.
+	 * @param array $atts
+	 * @param string $content
+	 */
+	public function __construct($shortcodeName, $atts, $content)
 	{
-		$model = $this->getModel();
-		if(!self::$localizationTemplateAlreadyEnqueued) {
-			include(RPBCHESSBOARD_ABSPATH.'templates/localization.php');
-			self::$localizationTemplateAlreadyEnqueued = true;
-		}
-		include(RPBCHESSBOARD_ABSPATH.'templates/shortcode/javascriptwarning.php');
-		include(RPBCHESSBOARD_ABSPATH.'templates/shortcode/'.strtolower($model->getTemplateName()).'.php');
+		parent::__construct('Shortcode' . $shortcodeName, $atts, $content);
 	}
 
 
 	/**
-	 * Flag to indicate whether the localization template has already been enqueued or not.
+	 * Entry-point of the controller.
 	 */
-	private static $localizationTemplateAlreadyEnqueued = false;
+	public function run()
+	{
+		ob_start();
+		$this->getView()->display();
+		return ob_get_clean();
+	}
 }
