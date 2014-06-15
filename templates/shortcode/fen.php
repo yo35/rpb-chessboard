@@ -20,6 +20,8 @@
  ******************************************************************************/
 ?>
 
+<p class="rpbchessboard-spacerBefore"></p>
+
 <div id="<?php echo htmlspecialchars($model->getUniqueID()); ?>" class="rpbchessboard-chessboard">
 
 	<noscript>
@@ -42,3 +44,5 @@
 	</script>
 
 </div>
+
+<p class="rpbchessboard-spacerAfter"></p>
