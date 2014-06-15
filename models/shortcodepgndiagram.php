@@ -20,52 +20,57 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH.'models/abstract/abstractshortcodemodel.php');
+require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/shortcode.php');
 
 
 /**
- * Model associated to the [pgndiagram] short-code page in the frontend.
+ * Model associated to the [pgndiagram] shortcode.
  */
-class RPBChessboardModelPgnDiagram extends RPBChessboardAbstractShortcodeModel
+class RPBChessboardModelShortcodePGNDiagram extends RPBChessboardAbstractModelShortcode
 {
 	private $diagramOptions;
+	private $diagramOptionsAsString;
 
 
 	/**
-	 * Constructor.
+	 * Options specific to the current diagram, that may override the settings defined either
+	 * at the [pgn][/pgn] shortcode level or at the global level.
 	 *
-	 * @param array $atts Attributes passed with the short-code.
-	 * @param string $content Short-code enclosed content.
-	 */
-	public function __construct($atts, $content)
-	{
-		parent::__construct($atts, $content);
-		$this->loadTrait('ChessWidgetCustom', array($this->getAttributes()));
-	}
-
-
-	/**
-	 * Return the name of the view to use.
-	 *
-	 * @return string
-	 */
-	public function getViewName()
-	{
-		return 'PgnDiagram';
-	}
-
-
-	/**
-	 * Value that should be printed in the DOM node that replaces the short-code.
-	 *
-	 * @return string
+	 * @return array
 	 */
 	public function getDiagramOptions()
 	{
 		if(!isset($this->diagramOptions)) {
-			$this->diagramOptions = json_encode($this->getCustomAll());
-			$this->diagramOptions = preg_replace('/^{|}$/', '', $this->diagramOptions); // trim the braces
+			$this->diagramOptions = array();
+			$atts = $this->getAttributes();
+
+			// Square size
+			$value = isset($atts['square_size']) ? RPBChessboardHelperValidation::validateSquareSize($atts['square_size']) : null;
+			if(isset($value)) {
+				$this->diagramOptions['squareSize'] = $value;
+			}
+
+			// Show coordinates
+			$value = isset($atts['show_coordinates']) ? RPBChessboardHelperValidation::validateBoolean($atts['show_coordinates']) : null;
+			if(isset($value)) {
+				$this->diagramOptions['showCoordinates'] = $value;
+			}
 		}
 		return $this->diagramOptions;
+	}
+
+
+	/**
+	 * Diagram specific settings, as a string ready to be inlined in its PGN text comment.
+	 *
+	 * @return string
+	 */
+	public function getDiagramOptionsAsString()
+	{
+		if(!isset($this->diagramOptionsAsString)) {
+			$this->diagramOptionsAsString = json_encode($this->getDiagramOptions());
+			$this->diagramOptionsAsString = preg_replace('/{|}|\\\\/', '\\\\$0', $this->diagramOptionsAsString);
+		}
+		return $this->diagramOptionsAsString;
 	}
 }

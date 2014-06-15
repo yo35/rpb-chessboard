@@ -20,6 +20,6 @@
  ******************************************************************************/
 ?>
 
-<span class="PgnWidget-anchor-diagram"><?php
-	echo htmlspecialchars($model->getDiagramOptions());
-?></span>
+<div class="uichess-chessgame-diagramAnchor"><?php
+	echo htmlspecialchars($model->getDiagramOptionsAsString());
+?></div>
