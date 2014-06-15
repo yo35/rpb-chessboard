@@ -321,7 +321,7 @@
 		<div id="rpbchessboard-fenAttribute3">
 			<p><?php echo sprintf(
 				__(
-					'The %1$s attribute controls whether the row and columns coordinates are displayed or not.',
+					'The %1$s attribute controls whether the row and column coordinates are displayed or not.',
 				'rpbchessboard'),
 				'<span class="rpbchessboard-sourceCode">show_coordinates</span>'
 			); ?></p>
