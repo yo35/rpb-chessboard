@@ -20,19 +20,45 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH.'models/abstract/abstracttoplevelshortcodemodel.php');
+require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/shortcode.php');
 
 
 /**
- * Model associated to the [pgn][/pgn] short-code in the frontend.
+ * Model associated to the [pgn][/pgn] shortcode.
  */
-class RPBChessboardModelPgn extends RPBChessboardAbstractTopLevelShortcodeModel
+class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode
 {
+	private $widgetArgs;
+
 	public function __construct($atts, $content)
 	{
 		parent::__construct($atts, $content);
-		$this->loadTrait('ChessWidgetDefault');
-		$this->loadTrait('ChessWidgetCustom', $this->getAttributes());
+		$this->loadTrait('DefaultOptions');
+	}
+
+
+	/**
+	 * Return the PGN string describing the game.
+	 *
+	 * @return string
+	 */
+	public function getPGNString()
+	{
+		return $this->getContent();
+	}
+
+
+	/**
+	 * Return the arguments to pass to the uichess-chessboard widget.
+	 *
+	 * @return array
+	 */
+	public function getWidgetArgs()
+	{
+		if(!isset($this->widgetArgs)) {
+			$this->widgetArgs = array('pgn' => $this->getPGNString()); //TODO
+		}
+		return $this->widgetArgs;
 	}
 
 
@@ -47,7 +73,7 @@ class RPBChessboardModelPgn extends RPBChessboardAbstractTopLevelShortcodeModel
 	 */
 	protected function filterShortcodeContent($content)
 	{
-		return preg_replace_callback('/{([^{}]*)}/', array(__CLASS__, 'processTextComment'), $content);
+		return preg_replace_callback('/{([^{}]*)}/', array(__CLASS__, 'processTextComment'), trim($content));
 	}
 
 

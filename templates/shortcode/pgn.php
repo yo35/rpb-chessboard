@@ -20,18 +20,29 @@
  ******************************************************************************/
 ?>
 
-<div id="<?php echo htmlspecialchars($model->getTopLevelItemID()); ?>-in" class="rpbchessboard-in"><?php
-	echo htmlspecialchars($model->getContent());
-?></div>
+<p class="rpbchessboard-spacerBefore"></p>
 
-<div id="<?php echo htmlspecialchars($model->getTopLevelItemID()); ?>-out" class="rpbchessboard-out rpbchessboard-invisible">
-	<?php include(RPBCHESSBOARD_ABSPATH.'templates/common/pgncontent.php'); ?>
+<div id="<?php echo htmlspecialchars($model->getUniqueID()); ?>" class="rpbchessboard-chessboard">
+
+	<noscript>
+		<div class="rpbchessboard-noJavascriptBlock"><?php echo htmlspecialchars($model->getPGNString()); ?></div>
+		<div class="rpbchessboard-javascriptWarning">
+			<?php _e('You must activate JavaScript to enhance chess game visualization.', 'rpbchessboard'); ?>
+		</div>
+	</noscript>
+
+	<div class="rpbchessboard-chessgameAnchor"></div>
+
+	<script type="text/javascript">
+
+		jQuery(document).ready(function($)
+		{
+			var selector = '#' + <?php echo json_encode($model->getUniqueID()); ?> + ' .rpbchessboard-chessgameAnchor';
+			$(selector).removeClass('rpbchessboard-chessgameAnchor').chessgame(<?php echo json_encode($model->getWidgetArgs()); ?>);
+		});
+
+	</script>
+
 </div>
 
-<script type="text/javascript">
-	processPGN(
-		<?php echo json_encode($model->getTopLevelItemID()); ?> + '-in',
-		<?php echo json_encode($model->getTopLevelItemID()); ?> + '-out',
-		<?php echo json_encode(array_merge($model->getDefaultAll(), $model->getCustomAll())); ?>
-	);
-</script>
+<p class="rpbchessboard-spacerAfter"></p>
