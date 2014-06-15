@@ -94,6 +94,10 @@ function rpbchessboard_enqueue_css()
 	// jQuery
 	wp_enqueue_style('wp-jquery-ui-dialog');
 
+	// Chess fonts
+	wp_register_style('rpbchessboard-chessfonts', RPBCHESSBOARD_URL . '/fonts/chess-fonts.css');
+	wp_enqueue_style('rpbchessboard-chessfonts');
+
 	// Custom widgets
 	wp_register_style('rpbchessboard-chessboard', RPBCHESSBOARD_URL . '/css/uichess-chessboard.css');
 	wp_register_style('rpbchessboard-chessgame' , RPBCHESSBOARD_URL . '/css/uichess-chessgame.css' );
