@@ -85,7 +85,7 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 	 */
 	public function getHelpOnPGNAttributesURL()
 	{
-		return admin_url('admin.php') . '?page=rpbchessboard-help&rpbchessboard_subpage=helppgn#rpbchessboard-helpOnPgnAttributes';
+		return admin_url('admin.php') . '?page=rpbchessboard-help&rpbchessboard_subpage=helppgn#rpbchessboard-helpOnPGNAttributes';
 	}
 
 

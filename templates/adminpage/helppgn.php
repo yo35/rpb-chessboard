@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<div id="rpbchessboard-helpPgnPage">
+<div id="rpbchessboard-helpPGNPage">
 
 	<h3>
 		<?php echo sprintf(
@@ -448,7 +448,7 @@
 
 
 
-	<h4 id="rpbchessboard-helpOnPgnAttributes"><?php _e('Attributes', 'rpbchessboard'); ?></h4>
+	<h4 id="rpbchessboard-helpOnPGNAttributes"><?php _e('Attributes', 'rpbchessboard'); ?></h4>
 
 	<p>
 		<?php echo sprintf(

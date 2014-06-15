@@ -276,7 +276,7 @@ div.rpbchessboard-sourceCode {
 /*** Help pages ***/
 
 #rpbchessboard-helpFENPage .rpbchessboard-columns > div,
-#rpbchessboard-helpPgnPage .rpbchessboard-columns > div {
+#rpbchessboard-helpPGNPage .rpbchessboard-columns > div {
 	width: 50%;
 }
 

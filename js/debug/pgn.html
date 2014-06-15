@@ -108,12 +108,12 @@
 		/**
 		 * Try to parse a PGN string, and report the result.
 		 */
-		function testPgn(pgnString)
+		function testPGN(pgnString)
 		{
 			'use strict';
 
 			// Main node: the results will written in this node.
-			var mainNode = document.getElementById('testPgn');
+			var mainNode = document.getElementById('test-pgn');
 
 			// Write separator
 			mainNode.appendChild(document.createElement('hr'));
@@ -213,14 +213,14 @@
 
 <body>
 	<h1>Sandbox for pgn.js</h1>
-	<div id="testPgn"></div>
+	<div id="test-pgn"></div>
 	<script type="text/javascript">
 
 		// Test 0 -> generate an error
-		testPgn('Bad data');
+		testPGN('Bad data');
 
 		// Test 1
-		testPgn(
+		testPGN(
 			'[Event "Scholar\'s mate"]\n' +
 			'[Site "*"]\n' +
 			'[Date "2013.??.??"]\n' +
@@ -237,7 +237,7 @@
 		);
 
 		// Test 2
-		testPgn(
+		testPGN(
 			'[Event "Game with comments and NAGs"]\n' +
 			'\n' +
 			'{A comment with braces: ab\\{cd\\}ef\\\\gh\\ij 3 backslashes: \\\\\\\\\\\\}\n' +
@@ -246,7 +246,7 @@
 		);
 
 		// Test 3
-		testPgn(
+		testPGN(
 			'[Event "Game with variations"]\n' +
 			'\n' +
 			'1.e4 e5 (1...e6 +-) 2.Nf3 Nc6 3.Bb5 ({Italian game:} 3.Bc4 Bc5)\n' +
@@ -254,7 +254,7 @@
 		);
 
 		// Test 4
-		testPgn(
+		testPGN(
 			'[Event "1<sup>st</sup> American Chess Congress"]\n' +
 			'[Site "New York, NY USA"]\n' +
 			'[Date "1857.11.03"]\n' +
@@ -281,7 +281,7 @@
 		);
 
 		// Test 5
-		testPgn(
+		testPGN(
 			'[Result "*"]\n' +
 			'[Annotator "gokhan007"]\n' +
 			'[FEN "r2q1b1r/ppn2kpp/2p1b3/3nP3/2BPQ3/P1N5/1PP3PP/R1B1K2R w KQ - 1 14"]\n' +
@@ -290,7 +290,7 @@
 		);
 
 		// Test 6
-		testPgn(
+		testPGN(
 			'[Event "Game with strange long/short descriptors"]\n' +
 			'{Head of variation, no empty line before => short}\n' +
 			'1.e4 e5 (\n' +
