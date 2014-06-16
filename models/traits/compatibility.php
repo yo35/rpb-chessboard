@@ -20,13 +20,13 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH.'models/traits/abstracttrait.php');
-require_once(RPBCHESSBOARD_ABSPATH.'helpers/validation.php');
+require_once(RPBCHESSBOARD_ABSPATH . 'models/traits/abstracttrait.php');
+require_once(RPBCHESSBOARD_ABSPATH . 'helpers/validation.php');
 
 
 /**
- * Trait for loading the options controlling the aspect of chessboard widgets
- * and passed by a short-code attribute.
+ * Compatibility settings with respect to other chess plugins (that may use the
+ * [fen][/fen] and [pgn][/pgn] shortcodes as well).
  */
 class RPBChessboardTraitCompatibility extends RPBChessboardAbstractTrait
 {

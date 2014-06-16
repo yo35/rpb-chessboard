@@ -110,7 +110,7 @@ abstract class RPBChessboardAbstractModelShortcode extends RPBChessboardAbstract
 
 
 	/**
-	 * Pre-process the short-code enclosed content, for instance to get rid of the
+	 * Pre-process the shortcode enclosed content, for instance to get rid of the
 	 * auto-format HTML tags introduced by the WordPress engine. By default, this
 	 * function returns the raw content "as-is". The function should be re-implemented
 	 * in the derived models.

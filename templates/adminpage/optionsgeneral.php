@@ -323,7 +323,7 @@
 				_e(
 					'A navigation board may be added to each PGN game to help post/page readers to follow the progress of the game. ' .
 					'This navigation board is displayed either in a popup frame (in this case, it becomes visible only when the reader ' .
-					'clicks on a move) or close to the move list (then it is visible as soon as the page is loaded).',
+					'clicks on a move) or next to the move list (then it is visible as soon as the page is loaded).',
 				'rpbchessboard');
 			?>
 		</p>

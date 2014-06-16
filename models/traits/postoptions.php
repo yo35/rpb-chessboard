@@ -20,8 +20,8 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH.'models/traits/abstracttrait.php');
-require_once(RPBCHESSBOARD_ABSPATH.'helpers/validation.php');
+require_once(RPBCHESSBOARD_ABSPATH . 'models/traits/abstracttrait.php');
+require_once(RPBCHESSBOARD_ABSPATH . 'helpers/validation.php');
 
 
 /**

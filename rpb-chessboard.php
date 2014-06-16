@@ -37,8 +37,8 @@ define('RPBCHESSBOARD_ABSPATH'   , ABSPATH.'wp-content/plugins/'.RPBCHESSBOARD_P
 define('RPBCHESSBOARD_URL'       , site_url().'/wp-content/plugins/'.RPBCHESSBOARD_PLUGIN_DIR);
 
 
-// Enable internationalization
-load_plugin_textdomain('rpbchessboard', false, RPBCHESSBOARD_PLUGIN_DIR.'/languages/');
+// Enable localization
+load_plugin_textdomain('rpbchessboard', false, RPBCHESSBOARD_PLUGIN_DIR . '/languages/');
 
 
 // Enqueue scripts
@@ -87,8 +87,8 @@ function rpbchessboard_enqueue_scripts()
 
 
 // Localization script
-add_action(is_admin() ? 'admin_print_footer_scripts' : 'wp_print_footer_scripts', 'rpbchessboard_footer_scripts');
-function rpbchessboard_footer_scripts()
+add_action(is_admin() ? 'admin_print_footer_scripts' : 'wp_print_footer_scripts', 'rpbchessboard_localization_script');
+function rpbchessboard_localization_script()
 {
 	include(RPBCHESSBOARD_ABSPATH . 'templates/localization.php');
 }
