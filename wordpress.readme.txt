@@ -89,6 +89,13 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 == Changelog ==
 
+= 2.99 (June 16, 2014) =
+* Add: piece symbol customization.
+* Add: navigation board next to the move list (not only in a popup frame).
+* Fix several bugs related to PGN game parsing and rendering.
+* Code refactoring (use the jQuery widget framework for PGN rendering in particular).
+* Provide minified versions of the JS scripts.
+
 = 2.4.3 (May 12, 2014) =
 * Plugin icon & banner.
 
@@ -153,3 +160,11 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 = 1.99.1 (October 31, 2013) =
 * First public version.
+
+
+
+== Upgrade Notice ==
+
+= 2.99 =
+The way margins above and below `[fen][/fen]` and `[pgn][/pgn]` sections are set has been changed,
+to make it more independent of the theme: you should check the new margins to ensure their correctness.
