@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-16 10:00+0200\n"
+"POT-Creation-Date: 2014-06-16 10:33+0200\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35@melix.net>\n"
 "Language-Team: French\n"
@@ -313,7 +313,7 @@ msgstr ""
 "cette case si un pion noir se trouvait en d4 ou f4. Sinon, ce champ serait "
 "mis à %1$s-%2$s."
 
-#: templates/adminpage/helpfen.php:217 templates/adminpage/helppgn.php:450
+#: templates/adminpage/helpfen.php:217 templates/adminpage/helppgn.php:452
 msgid "Attributes"
 msgstr "Attributs"
 
@@ -458,7 +458,7 @@ msgstr ""
 "détails."
 
 #: templates/adminpage/optionsgeneral.php:51
-#: templates/adminpage/helppgn.php:459
+#: templates/adminpage/helppgn.php:461
 msgid "Chessboard aspect"
 msgstr "Apparance des échiquiers"
 
@@ -472,7 +472,7 @@ msgid "Show coordinates"
 msgstr "Afficher les coordonnées"
 
 #: templates/adminpage/optionsgeneral.php:140
-#: templates/adminpage/helppgn.php:460
+#: templates/adminpage/helppgn.php:462
 msgid "Piece symbols"
 msgstr "Symboles des pièces"
 
@@ -685,25 +685,29 @@ msgstr "Variantes"
 msgid ""
 "As for comments, variations can be rendered either inlined within the move "
 "sequence, or as separated blocks if they are preceded by a blank line in the "
-"PGN string."
+"PGN string. Variations can be nested. However, inlined variations cannot "
+"contain \"block-style\" variations (or \"block-style\" comments)."
 msgstr ""
-"Comme pour les commentaires, les variantes peuvent être affichées soit au "
-"sein de la liste de coups, soit sous la forme d'un bloc isolé lorsqu'elles "
-"sont précédées d'une ligne vierge dans le texte PGN."
+"Comme pour les commentaires, les variantes peuvent être affichées soit \"en "
+"ligne\" au sein de la liste de coups, soit sous la forme d'un bloc isolé "
+"lorsqu'elles sont précédées d'une ligne vierge dans le texte PGN. Les "
+"variantes peuvent être imbriquées les unes dans les autres. Cependant une "
+"variante \"en ligne\" ne peut pas contenir une \"variante-bloc\" (ou un "
+"\"commentaire-bloc\")."
 
-#: templates/adminpage/helppgn.php:396
+#: templates/adminpage/helppgn.php:398
 #, php-format
 msgid "Diagrams with the %1$s[pgndiagram]%2$s tag"
 msgstr "Diagrammes au moyen de la balise %1$s[pgndiagram]%2$s"
 
-#: templates/adminpage/helppgn.php:406 templates/adminpage/helppgn.php:434
+#: templates/adminpage/helppgn.php:408 templates/adminpage/helppgn.php:436
 msgid ""
 "This opening is called the Sicilian defence. A possible continuation is:"
 msgstr ""
 "Cette ouverture s'appelle la défense sicilienne. Une suite possible "
 "est&nbsp;:"
 
-#: templates/adminpage/helppgn.php:414
+#: templates/adminpage/helppgn.php:416
 #, php-format
 msgid ""
 "Notice that %1$s[pgndiagram]%2$s tags must not be inserted outside a PGN "
@@ -712,11 +716,11 @@ msgstr ""
 "À noter que la balise %1$s[pgndiagram]%2$s ne peut être insérée que dans un "
 "commentaire PGN."
 
-#: templates/adminpage/helppgn.php:461
+#: templates/adminpage/helppgn.php:463
 msgid "Navigation board"
 msgstr "Échiquier de navigation"
 
-#: templates/adminpage/helppgn.php:469
+#: templates/adminpage/helppgn.php:471
 #, php-format
 msgid ""
 "The %1$s[%4$s][/%4$s]%2$s tag accepts the same attributes as the %1$s[%3$s][/"
@@ -725,7 +729,7 @@ msgstr ""
 "La balise %1$s[%4$s][/%4$s]%2$s accepte les mêmes attributs que %1$s[%3$s][/"
 "%3$s]%2$s&nbsp;:"
 
-#: templates/adminpage/helppgn.php:481
+#: templates/adminpage/helppgn.php:483
 #, php-format
 msgid ""
 "%1$s, which controls the orientation of the chessboards. For instance, %2$s "
@@ -736,24 +740,24 @@ msgstr ""
 "tous les diagrammes de la partie PGN correspondante (ainsi que l'échiquier "
 "de navigation s'il existe)."
 
-#: templates/adminpage/helppgn.php:490
+#: templates/adminpage/helppgn.php:492
 #, php-format
 msgid "%1$s, which controls the size of the chessboard squares."
 msgstr "%1$s, qui contrôle la taille des cases des échiquiers."
 
-#: templates/adminpage/helppgn.php:496
+#: templates/adminpage/helppgn.php:498
 #, php-format
 msgid "%1$s, which allows to hide or show the row and column coordinates."
 msgstr ""
 "%1$s, qui permet de masquer ou d'afficher les coordonnées des rangées et "
 "colonnes."
 
-#: templates/adminpage/helppgn.php:503
+#: templates/adminpage/helppgn.php:505
 #, php-format
 msgid "See the %1$shelp on FEN attributes%2$s for more details."
 msgstr "Voir %1$sl'aide sur les attributs FEN%2$s pour plus de détails."
 
-#: templates/adminpage/helppgn.php:515
+#: templates/adminpage/helppgn.php:517
 #, php-format
 msgid ""
 "The %1$s attribute controls how chess pieces are denoted in move notation. "
@@ -762,12 +766,12 @@ msgstr ""
 "L'attribut %1$s modifie la façon dont les pièces sont désignées dans la "
 "notation des coups. Les valeurs possibles sont&nbsp;:"
 
-#: templates/adminpage/helppgn.php:523
+#: templates/adminpage/helppgn.php:525
 #, php-format
 msgid "%1$s: first character of the piece name in English."
 msgstr "%1$s&nbsp;: initiale du nom de la pièce en anglais."
 
-#: templates/adminpage/helppgn.php:530
+#: templates/adminpage/helppgn.php:532
 #, php-format
 msgid ""
 "%1$s: first character of the piece name in the blog language if the "
@@ -776,7 +780,7 @@ msgstr ""
 "%1$s&nbsp;: initiale du nom de la pièce dans la langue du blog si une "
 "traduction existe, ou en anglais sinon."
 
-#: templates/adminpage/helppgn.php:542
+#: templates/adminpage/helppgn.php:544
 #, php-format
 msgid ""
 "Any sequence of 6 capital letters surrounded with parenthesis is allowed to "
@@ -787,7 +791,7 @@ msgstr ""
 "peut être utilisée pour spécifier des symboles personnalisés. Par "
 "exemple&nbsp;: %1$s (ce réglage en particulier a le même effet que %2$s)."
 
-#: templates/adminpage/helppgn.php:553
+#: templates/adminpage/helppgn.php:555
 msgid ""
 "Note that this attribute only affects how chess moves are rendered to post/"
 "page readers. Authors must always use English initials when writting PGN "
@@ -797,7 +801,7 @@ msgstr ""
 "aux lecteurs du blog. Les auteurs doivent toujours utiliser les initiales "
 "anglaises lorsqu'ils écrivent des données PGN dans leurs articles et pages."
 
-#: templates/adminpage/helppgn.php:565
+#: templates/adminpage/helppgn.php:567
 #, php-format
 msgid ""
 "The %1$s attribute controls the position of the navigation board. Allowed "
@@ -806,12 +810,12 @@ msgstr ""
 "L'attribut %1$s détermine la position de l'échiquier de navigation. Les "
 "valeurs possibles sont&nbsp;:"
 
-#: templates/adminpage/helppgn.php:573
+#: templates/adminpage/helppgn.php:575
 #, php-format
 msgid "%1$s: no navigation board."
 msgstr "%1$s&nbsp;: pas d'échiquier de navigation."
 
-#: templates/adminpage/helppgn.php:580
+#: templates/adminpage/helppgn.php:582
 #, php-format
 msgid ""
 "%1$s: the navigation board is displayed in a popup frame (and it is hidden "
@@ -820,7 +824,7 @@ msgstr ""
 "%1$s&nbsp;: l'échiquier de navigation est affiché dans un <em>popup</em> (et "
 "reste masqué jusqu'à ce que le lecteur clique sur un coup)."
 
-#: templates/adminpage/helppgn.php:588
+#: templates/adminpage/helppgn.php:590
 #, php-format
 msgid ""
 "%1$s (or %2$s): the navigation board is displayed on the left (or the right) "

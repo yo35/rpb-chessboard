@@ -383,7 +383,9 @@
 		<?php
 			_e(
 				'As for comments, variations can be rendered either inlined within the move sequence, '.
-				'or as separated blocks if they are preceded by a blank line in the PGN string.',
+				'or as separated blocks if they are preceded by a blank line in the PGN string. '.
+				'Variations can be nested. However, inlined variations cannot contain "block-style" variations '.
+				'(or "block-style" comments).',
 			'rpbchessboard');
 		?>
 	</p>
