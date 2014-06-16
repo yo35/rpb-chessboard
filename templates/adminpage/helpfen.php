@@ -176,13 +176,13 @@
 					<p><?php echo sprintf(
 						__(
 							'In this example, White has just played a pawn from e2 to e4: ' .
-							'the 4<sup>th</sup> field in the FEN string is then set to %1$s ' .
+							'the 4<sup>th</sup> field in the FEN string is then set to %1$se3%2$s ' .
 							'to account for the fact that <em>en passant</em> would be possible on this square ' .
 							'if there were a black pawn either in d4 or f4. ' .
-							'Otherwise, this field would be set to %2$s.',
+							'Otherwise, this field would be set to %1$s-%2$s.',
 						'rpbchessboard'),
-						'<span class="rpbchessboard-sourceCode">&quot;e3&quot;</span>',
-						'<span class="rpbchessboard-sourceCode">&quot;-&quot;</span>'
+						'<span class="rpbchessboard-sourceCode">',
+						'</span>'
 					); ?></p>
 				</div>
 				<div>
