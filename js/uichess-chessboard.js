@@ -368,9 +368,6 @@
 		 */
 		_refresh: function()
 		{
-			// Square colors
-			var SQUARE_COLOR = { light: '#f0dec7', dark: '#b5876b' };
-
 			// Rows, columns
 			var ROWS    = this.options.flip ? ['1','2','3','4','5','6','7','8'] : ['8','7','6','5','4','3','2','1'];
 			var COLUMNS = this.options.flip ? ['h','g','f','e','d','c','b','a'] : ['a','b','c','d','e','f','g','h'];
@@ -435,13 +432,12 @@
 
 				// Print the squares belonging to the current column.
 				for(var c=0; c<8; ++c) {
-					var sq = COLUMNS[c] + ROWS[r];
-					var cp = this._position.get(sq);
-					content +=
-						'<div class="uichess-chessboard-cell uichess-chessboard-square" style="' +
-							'width: ' + SQUARE_SIZE + 'px; height: ' + SQUARE_SIZE + 'px; ' +
-							'background-color: ' + SQUARE_COLOR[this._position.square_color(sq)] + ';' + /* jshint ignore:line */
-						'">';
+					var sq    = COLUMNS[c] + ROWS[r];
+					var cp    = this._position.get(sq);
+					var style = 'width:' + SQUARE_SIZE + 'px; height:' + SQUARE_SIZE + 'px;';
+					var clazz = 'uichess-chessboard-cell uichess-chessboard-square ' +
+						'uichess-chessboard-' + this._position.square_color(sq) + 'Square'; /* jshint ignore:line */
+					content += '<div class="' + clazz + '" style="' + style + '">';
 					if(cp !== null) {
 						content +=
 							'<div class="uichess-chessboard-piece uichess-chessboard-sprite' + SQUARE_SIZE + '" style="' +
