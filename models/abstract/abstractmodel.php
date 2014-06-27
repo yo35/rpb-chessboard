@@ -72,7 +72,8 @@ abstract class RPBChessboardAbstractModel
 	public function loadTrait($traitName)
 	{
 		// Load the definition of the trait, and instantiate it.
-		$trait = call_user_func_array(array('RPBChessboardHelperLoader', 'loadTrait'), func_get_args());
+		$args  = func_get_args();
+		$trait = call_user_func_array(array('RPBChessboardHelperLoader', 'loadTrait'), $args);
 
 		// List all the public methods of the trait, and register them
 		// to the method index of the current model.

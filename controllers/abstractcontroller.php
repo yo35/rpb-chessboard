@@ -40,7 +40,8 @@ abstract class RPBChessboardAbstractController
 	 */
 	protected function __construct($modelName)
 	{
-		$this->model = call_user_func_array(array('RPBChessboardHelperLoader', 'loadModel'), func_get_args());
+		$args = func_get_args();
+		$this->model = call_user_func_array(array('RPBChessboardHelperLoader', 'loadModel'), $args);
 	}
 
 

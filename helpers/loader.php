@@ -37,8 +37,14 @@ abstract class RPBChessboardHelperLoader
 		$fileName  = strtolower($modelName);
 		$className = 'RPBChessboardModel' . $modelName;
 		require_once(RPBCHESSBOARD_ABSPATH . 'models/' . $fileName . '.php');
-		$clazz = new ReflectionClass($className);
-		return $clazz->newInstanceArgs(array_slice(func_get_args(), 1));
+		if(func_num_args() === 1) {
+			return new $className;
+		}
+		else {
+			$args  = func_get_args();
+			$clazz = new ReflectionClass($className);
+			return $clazz->newInstanceArgs(array_slice($args, 1));
+		}
 	}
 
 
@@ -54,8 +60,14 @@ abstract class RPBChessboardHelperLoader
 		$fileName  = strtolower($traitName);
 		$className = 'RPBChessboardTrait' . $traitName;
 		require_once(RPBCHESSBOARD_ABSPATH . 'models/traits/' . $fileName . '.php');
-		$clazz = new ReflectionClass($className);
-		return $clazz->newInstanceArgs(array_slice(func_get_args(), 1));
+		if(func_num_args() === 1) {
+			return new $className;
+		}
+		else {
+			$args  = func_get_args();
+			$clazz = new ReflectionClass($className);
+			return $clazz->newInstanceArgs(array_slice($args, 1));
+		}
 	}
 
 
