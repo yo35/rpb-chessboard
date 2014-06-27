@@ -91,7 +91,7 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 = 2.99.1 (June 27, 2014) =
 * Fix compatibility issue with PHP <= 5.2.
-* CSS classes for light- and dark-squares.
+* CSS classes for light- and dark-squares (see issue #13).
 
 = 2.99 (June 16, 2014) =
 * Add: piece symbol customization.
