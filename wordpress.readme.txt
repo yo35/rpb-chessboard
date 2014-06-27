@@ -89,6 +89,10 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 == Changelog ==
 
+= 2.99.1 (June 27, 2014) =
+* Fix compatibility issue with PHP <= 5.2.
+* CSS classes for light- and dark-squares.
+
 = 2.99 (June 16, 2014) =
 * Add: piece symbol customization.
 * Add: navigation board next to the move list (not only in a popup frame).
