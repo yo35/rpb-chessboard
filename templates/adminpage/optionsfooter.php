@@ -38,7 +38,7 @@
 
 				// Ask for confirmation from the user.
 				var message = <?php
-					echo json_encode(__('This will reset all the settings in this page to their default values. Press OK to continue...', 'rpbchessboard'));
+					echo json_encode(__('This will reset all the settings in this page to their default values. Press OK to confirm...', 'rpbchessboard'));
 				?>;
 				if(!confirm(message)) { return; }
 
