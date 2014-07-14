@@ -79,12 +79,12 @@ combination was sound and that he had a forced win in every variation.}
 [/pgn]
 ```
 
-<img alt="screenshot-6" src="assets/screenshot-6.png" width="600" />
+<img alt="screenshot-7" src="assets/screenshot-7.png" width="600" />
 
 
 ### Graphical assistant for chess diagrams creation/modification ###
 
-<img alt="screenshot-7" src="assets/screenshot-7.png" width="600" />
+<img alt="screenshot-8" src="assets/screenshot-8.png" width="600" />
 
 
 
