@@ -86,9 +86,7 @@
 
 
 
-		<p class="submit">
-			<input type="submit" class="button-primary" value="<?php _e('Save changes', 'rpbchessboard'); ?>" />
-		</p>
+		<?php include(RPBCHESSBOARD_ABSPATH . 'templates/adminpage/optionsfooter.php'); ?>
 
 	</form>
 
