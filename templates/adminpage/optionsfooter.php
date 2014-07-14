@@ -36,7 +36,16 @@
 
 				e.preventDefault();
 
-				// TODO
+				// Ask for confirmation from the user.
+				var message = <?php
+					echo json_encode(__('This will reset all the settings in this page to their default values. Press OK to continue...', 'rpbchessboard'));
+				?>;
+				if(!confirm(message)) { return; }
+
+				// Change the action and validate the form.
+				var form = $(this).closest('form');
+				$('input[name="rpbchessboard_action"]', form).val(<?php echo json_encode($model->getFormResetAction()); ?>);
+				form.submit();
 
 			});
 

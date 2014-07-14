@@ -69,6 +69,17 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 
 
 	/**
+	 * Action code to reset the settings of the current page.
+	 *
+	 * @return string
+	 */
+	public function getFormResetAction()
+	{
+		return 'reset-' . $this->getSelectedSubPageName();
+	}
+
+
+	/**
 	 * Minimum square size of the chessboard widgets.
 	 *
 	 * @return int

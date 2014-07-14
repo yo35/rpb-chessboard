@@ -20,57 +20,49 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH . 'controllers/abstractcontroller.php');
+require_once(RPBCHESSBOARD_ABSPATH . 'models/traits/abstracttrait.php');
 
 
 /**
- * Show the requested plugin administration page.
+ * Process a "reset settings" request.
  */
-class RPBChessboardControllerAdminPage extends RPBChessboardAbstractController
+class RPBChessboardTraitResetOptions extends RPBChessboardAbstractTrait
 {
 	/**
-	 * Constructor
+	 * Reset the general settings.
 	 *
-	 * @param string $adminPageName Name of the administration page.
+	 * @return string
 	 */
-	public function __construct($adminPageName)
+	public function resetGeneral()
 	{
-		parent::__construct('AdminPage' . $adminPageName);
+		delete_option('rpbchessboard_squareSize'     );
+		delete_option('rpbchessboard_showCoordinates');
+		delete_option('rpbchessboard_pieceSymbols'   );
+		delete_option('rpbchessboard_navigationBoard');
+		return self::resetMessage();
 	}
 
 
 	/**
-	 * Entry-point of the controller.
+	 * Reset the compatibility settings.
+	 *
+	 * @return string
 	 */
-	public function run()
+	public function resetCompatibility()
 	{
-		// Process the post-action, if any.
-		switch($this->getModel()->getPostAction()) {
-			case 'update-options'            : $this->executeAction('PostOptions' , 'updateOptions'     ); break;
-			case 'reset-optionsgeneral'      : $this->executeAction('ResetOptions', 'resetGeneral'      ); break;
-			case 'reset-optionscompatibility': $this->executeAction('ResetOptions', 'resetCompatibility'); break;
-			default: break;
-		}
-
-		// Create and display the view.
-		$this->getView()->display();
+		delete_option('rpbchessboard_fenCompatibilityMode');
+		delete_option('rpbchessboard_pgnCompatibilityMode');
+		return self::resetMessage();
 	}
 
 
 	/**
-	 * Load the trait `$traitName`, and execute the method `$methodName` supposedly defined by the trait.
+	 * Message returned by the reset methods.
 	 *
-	 * @param string $traitName
-	 * @param string $methodName
-	 * @param string $capability Required capability to execute the action. Default is `'manage_options'`.
+	 * @return string
 	 */
-	private function executeAction($traitName, $methodName, $capability='manage_options')
+	private static function resetMessage()
 	{
-		if(!current_user_can($capability)) {
-			return;
-		}
-		$model = $this->getModel();
-		$model->loadTrait($traitName);
-		$model->setPostMessage($model->$methodName());
+		return __('Settings reseted.', 'rpbchessboard');
 	}
 }
