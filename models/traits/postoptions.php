@@ -140,9 +140,9 @@ class RPBChessboardTraitPostOptions extends RPBChessboardAbstractTrait
 		}
 
 		// Set the boolean parameters.
-		$this->updateBooleanParameter('showCoordinates'     , $this->showCoordinates     );
-		$this->updateBooleanParameter('fenCompatibilityMode', $this->fenCompatibilityMode);
-		$this->updateBooleanParameter('pgnCompatibilityMode', $this->pgnCompatibilityMode);
+		self::updateBooleanParameter('showCoordinates'     , $this->showCoordinates     );
+		self::updateBooleanParameter('fenCompatibilityMode', $this->fenCompatibilityMode);
+		self::updateBooleanParameter('pgnCompatibilityMode', $this->pgnCompatibilityMode);
 
 		// Notify the user.
 		return __('Settings saved.', 'rpbchessboard');
@@ -155,7 +155,7 @@ class RPBChessboardTraitPostOptions extends RPBChessboardAbstractTrait
 	 * @param string $key Name of the parameter in the dedicated WP table.
 	 * @param boolean $value New value (if null, nothing happens).
 	 */
-	private function updateBooleanParameter($key, $value)
+	private static function updateBooleanParameter($key, $value)
 	{
 		if(isset($value)) {
 			update_option('rpbchessboard_' . $key, $value ? 1 : 0);
