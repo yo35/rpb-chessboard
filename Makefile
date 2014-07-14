@@ -110,6 +110,7 @@ $(I18N_POT_FILE): $(PHP_FILES)
 	@$(XGETTEXT) -o $@ $^
 	@$(SED) -n -e "s/^Description: *\(.*\)/\n#: $<\nmsgid \"\1\"\nmsgstr \"\"/p" $< >> $@
 	@$(SED) -i -e "s/^#\. *$(I18N_TRANSLATOR_KEYWORD) *\(.*\)/#. \1/" $@
+	@$(SED) -i -e "/^#:/ { s/:[1-9][0-9]*//g }" $@
 
 
 # PO and POT file merging
