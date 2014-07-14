@@ -90,6 +90,10 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 == Changelog ==
 
+= 3.0 (July 14, 2014) =
+* Add: cancel/reset buttons in the setting pages.
+* Minor fixes.
+
 = 2.99.1 (June 27, 2014) =
 * Fix compatibility issue with PHP <= 5.2.
 * CSS classes for light- and dark-squares (see issue #13).
