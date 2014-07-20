@@ -54,11 +54,11 @@ abstract class RPBChessboardAbstractModel
 	 */
 	public function __call($method, $args)
 	{
-		$trait = $this->methodIndex[$method];
-		if(!isset($trait)) {
+		if(!isset($this->methodIndex[$method])) {
 			$modelName = $this->getName();
 			throw new Exception("Invalid call to method `$method` in the model `$modelName`.");
 		}
+		$trait = $this->methodIndex[$method];
 		return call_user_func_array(array($trait, $method), $args);
 	}
 
