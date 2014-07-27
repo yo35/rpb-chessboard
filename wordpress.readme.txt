@@ -91,6 +91,10 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 == Changelog ==
 
+= 3.1 (July 27, 2014) =
+* Polish translation (thanks to Dawid Ziółkowski).
+* Minor fixes.
+
 = 3.0 (July 14, 2014) =
 * Add: cancel/reset buttons in the setting pages.
 * Minor fixes.
