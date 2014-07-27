@@ -29,6 +29,7 @@ Features
 * Compatibility mode to avoid conflicts with the other plugins that use
   the `[fen][/fen]` and `[pgn][/pgn]` shortcodes too.
 * Graphical assistant to create and modify chess diagrams in the post/page editor.
+* Multi-language support.
 
 If you encounter some bugs with this program, or if you wish to get new features
 in the future versions, you can report/propose them
@@ -85,17 +86,3 @@ combination was sound and that he had a forced win in every variation.}
 ### Graphical assistant for chess diagrams creation/modification ###
 
 <img alt="screenshot-8" src="assets/screenshot-8.png" width="600" />
-
-
-
-Translation
------------
-
-Currently, RPB Chessboard is available in the following languages:
-
-* English,
-* French,
-* German.
-
-If you are interested in translating this plugin into your language,
-please [contact the author](mailto:yo35@melix.net).
