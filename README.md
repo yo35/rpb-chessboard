@@ -33,8 +33,10 @@ Features
 
 If you encounter some bugs with this program, or if you wish to get new features
 in the future versions, you can report/propose them
-in the [GitHub bug tracker](https://github.com/yo35/rpb-chessboard/issues),
-or send an [email to the author](mailto:yo35@melix.net).
+in the [GitHub bug tracker](https://github.com/yo35/rpb-chessboard/issues).
+
+If you are interested in translating this plugin into your language,
+please [contact the author](mailto:yo35@melix.net).
 
 
 
