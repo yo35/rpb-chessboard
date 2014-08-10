@@ -22,7 +22,7 @@
 
 <p class="rpbchessboard-spacerBefore"></p>
 
-<div id="<?php echo htmlspecialchars($model->getUniqueID()); ?>" class="rpbchessboard-chessboard">
+<div id="<?php echo htmlspecialchars($model->getUniqueID()); ?>" class="rpbchessboard-chessgame">
 
 	<noscript>
 		<div class="rpbchessboard-noJavascriptBlock"><?php echo htmlspecialchars($model->getPGNString()); ?></div>
