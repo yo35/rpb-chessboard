@@ -73,6 +73,9 @@ abstract class RPBChessboardScripts
 			wp_enqueue_script('jquery-ui-tabs'  );
 		}
 
+		// Localization
+		self::localizeMomentJS();
+
 		// Inlined scripts
 		add_action(is_admin() ? 'admin_print_footer_scripts' : 'wp_print_footer_scripts', array(__CLASS__, 'callbackInlinedScripts'));
 	}
@@ -80,6 +83,62 @@ abstract class RPBChessboardScripts
 
 	public static function callbackInlinedScripts()
 	{
+		// Localization for RPB Chessboard JavaScript files
 		include(RPBCHESSBOARD_ABSPATH . 'templates/localization.php');
+
+		// Moment.js configuration
+		if(isset(self::$momentJSLocale)) {
+			echo '<script type="text/javascript">moment.locale(' . json_encode(self::$momentJSLocale) . ');</script>';
+		}
+	}
+
+
+	/**
+	 * Determine the locale to use to configure Moment.js, and enqueue the required file.
+	 */
+	private static function localizeMomentJS()
+	{
+		foreach(self::getBlogLanguages() as $langCode)
+		{
+			// Does the translation script file exist for the current locale?
+			$relativeFilePath = 'third-party-libs/moment-js/locales/' . $langCode . '.js';
+			if(!file_exists(RPBCHESSBOARD_ABSPATH . $relativeFilePath)) {
+				continue;
+			}
+
+			// If it exists, enqueue it, set the Moment.js locale, and return.
+			wp_enqueue_script('rpbchessboard-momentjs-locales', RPBCHESSBOARD_URL . '/' . $relativeFilePath, array(
+				'rpbchessboard-momentjs'
+			));
+			self::$momentJSLocale = $langCode;
+			return;
+		}
+
+		// Default locale for Moment.js
+		self::$momentJSLocale = 'en';
+	}
+
+
+	/**
+	 * Locale code to use to configure Moment.js
+	 */
+	private static $momentJSLocale;
+
+
+	/**
+	 * Return an array of language codes that may be relevant for the blog.
+	 *
+	 * @return array
+	 */
+	private static function getBlogLanguages()
+	{
+		$main_language = str_replace('_', '-', strtolower(get_locale()));
+		$retVal = array($main_language);
+
+		if(preg_match('/([a-z]+)\\-([a-z]+)/', $main_language, $m)) {
+			$retVal[] = $m[1];
+		}
+
+		return $retVal;
 	}
 }
