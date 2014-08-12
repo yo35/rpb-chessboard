@@ -27,13 +27,10 @@ require_once(RPBCHESSBOARD_ABSPATH . 'helpers/loader.php');
  * Register the plugin shortcodes.
  *
  * This class is not constructible. Call the static method `register()`
- * to trigger the registration operations.
+ * to trigger the registration operations (must be called only once).
  */
 abstract class RPBChessboardShortcodes
 {
-	/**
-	 * Register the plugin shortcodes. Must be called only once.
-	 */
 	public static function register()
 	{
 		// Compatibility information -> describe which shortcode should be used to insert FEN diagrams,

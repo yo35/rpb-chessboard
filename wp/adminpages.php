@@ -24,13 +24,10 @@
  * Register the plugin administration pages in the WordPress backend.
  *
  * This class is not constructible. Call the static method `register()`
- * to trigger the registration operations.
+ * to trigger the registration operations (must be called only once).
  */
 abstract class RPBChessboardAdminPages
 {
-	/**
-	 * Register the plugin administration pages. Must be called only once.
-	 */
 	public static function register()
 	{
 		// Create the menu
