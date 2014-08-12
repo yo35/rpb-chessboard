@@ -20,9 +20,6 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH . 'helpers/loader.php');
-
-
 /**
  * Register the plugin shortcodes.
  *

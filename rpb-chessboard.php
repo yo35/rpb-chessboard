@@ -41,6 +41,10 @@ define('RPBCHESSBOARD_URL'       , site_url().'/wp-content/plugins/'.RPBCHESSBOA
 load_plugin_textdomain('rpbchessboard', false, RPBCHESSBOARD_PLUGIN_DIR . '/languages/');
 
 
+// MVC loading tools
+require_once(RPBCHESSBOARD_ABSPATH . 'helpers/loader.php');
+
+
 // JavaScript
 add_action(is_admin() ? 'admin_enqueue_scripts' : 'wp_enqueue_scripts', 'rpbchessboard_init_scripts');
 function rpbchessboard_init_scripts()

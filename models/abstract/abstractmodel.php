@@ -20,9 +20,6 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH . 'helpers/loader.php');
-
-
 /**
  * Base class for the models used by the RPBChessboard plugin.
  *
