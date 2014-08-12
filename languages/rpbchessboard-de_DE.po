@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 2.3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-10 11:17+0200\n"
+"POT-Creation-Date: 2014-08-12 21:09+0200\n"
 "PO-Revision-Date: 2014-04-26 16:53+0100\n"
 "Last-Translator: Markus Liebelt <markusliebelt@gmail.com>\n"
 "Language-Team: German\n"
@@ -809,54 +809,6 @@ msgstr "Sie müssen JavaScript aktivieren, um die Notation zu verbessern."
 msgid "Annotated by %1$s"
 msgstr "Kommentiert durch %1$s"
 
-#: templates/localization.php
-msgid "January"
-msgstr "Januar"
-
-#: templates/localization.php
-msgid "February"
-msgstr "Februar"
-
-#: templates/localization.php
-msgid "March"
-msgstr "März"
-
-#: templates/localization.php
-msgid "April"
-msgstr "April"
-
-#: templates/localization.php
-msgid "May"
-msgstr "Mai"
-
-#: templates/localization.php
-msgid "June"
-msgstr "Juni"
-
-#: templates/localization.php
-msgid "July"
-msgstr "Juli"
-
-#: templates/localization.php
-msgid "August"
-msgstr "August"
-
-#: templates/localization.php
-msgid "September"
-msgstr "September"
-
-#: templates/localization.php
-msgid "October"
-msgstr "Oktober"
-
-#: templates/localization.php
-msgid "November"
-msgstr "November"
-
-#: templates/localization.php
-msgid "December"
-msgstr "Dezember"
-
 #: templates/editors/quicktags.php
 msgid "Turn:"
 msgstr "Zug:"
@@ -947,12 +899,6 @@ msgstr ""
 "Dieses Plugin erlaubt, Schachdiagramme und Schachpartien im PGN-Format "
 "darzustellen."
 
-#~ msgid "After 1.e4"
-#~ msgstr "Nach 1.e4"
-
-#~ msgid "Légal Trap"
-#~ msgstr "Die Légal-Falle"
-
 #~ msgid ""
 #~ "After 1.e4. Notice the 4<sup>th</sup> field in the FEN string (%1$s), "
 #~ "indicating the square where <em>en passant</em> can be done (if there "
@@ -961,9 +907,6 @@ msgstr ""
 #~ "Nach 1. e4. Beachten Sie das 4<sup>th</sup> Feld im FEN String (%1$s), "
 #~ "das anzeigt, über welches Feld <em>en passent</em> geschlagen werden kann "
 #~ "(wenn dort ein schwarzer Bauer auf d4 oder f4 stehen würde)."
-
-#~ msgid "The Légal Trap."
-#~ msgstr "Die Légal-Falle."
 
 #~ msgid ""
 #~ "The %1$s[%4$s][/%4$s]%2$s and %1$s[pgndiagram]%2$s tags accept the same "

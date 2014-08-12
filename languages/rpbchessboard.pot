@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-10 11:17+0200\n"
+"POT-Creation-Date: 2014-08-12 21:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -719,54 +719,6 @@ msgstr ""
 #: templates/localization.php
 #, php-format
 msgid "Annotated by %1$s"
-msgstr ""
-
-#: templates/localization.php
-msgid "January"
-msgstr ""
-
-#: templates/localization.php
-msgid "February"
-msgstr ""
-
-#: templates/localization.php
-msgid "March"
-msgstr ""
-
-#: templates/localization.php
-msgid "April"
-msgstr ""
-
-#: templates/localization.php
-msgid "May"
-msgstr ""
-
-#: templates/localization.php
-msgid "June"
-msgstr ""
-
-#: templates/localization.php
-msgid "July"
-msgstr ""
-
-#: templates/localization.php
-msgid "August"
-msgstr ""
-
-#: templates/localization.php
-msgid "September"
-msgstr ""
-
-#: templates/localization.php
-msgid "October"
-msgstr ""
-
-#: templates/localization.php
-msgid "November"
-msgstr ""
-
-#: templates/localization.php
-msgid "December"
 msgstr ""
 
 #: templates/editors/quicktags.php

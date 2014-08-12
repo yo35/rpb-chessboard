@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-10 11:17+0200\n"
+"POT-Creation-Date: 2014-08-12 21:09+0200\n"
 "PO-Revision-Date: 2014-07-15 13:03+0100\n"
 "Last-Translator: Dawid Ziółkowski <kontakt@dawidziolkowski.pl>\n"
 "Language-Team: Dawid Ziółkowski <mr@dawidziolkowski.com>\n"
@@ -850,54 +850,6 @@ msgstr ""
 #, php-format
 msgid "Annotated by %1$s"
 msgstr "Komentator: %1$s"
-
-#: templates/localization.php
-msgid "January"
-msgstr "Styczeń"
-
-#: templates/localization.php
-msgid "February"
-msgstr "Luty"
-
-#: templates/localization.php
-msgid "March"
-msgstr "Marzec"
-
-#: templates/localization.php
-msgid "April"
-msgstr "Kwiecień"
-
-#: templates/localization.php
-msgid "May"
-msgstr "Maj"
-
-#: templates/localization.php
-msgid "June"
-msgstr "Czerwiec"
-
-#: templates/localization.php
-msgid "July"
-msgstr "Lipiec"
-
-#: templates/localization.php
-msgid "August"
-msgstr "Sierpień"
-
-#: templates/localization.php
-msgid "September"
-msgstr "Wrzesień"
-
-#: templates/localization.php
-msgid "October"
-msgstr "Październik"
-
-#: templates/localization.php
-msgid "November"
-msgstr "Listopad"
-
-#: templates/localization.php
-msgid "December"
-msgstr "Grudzień"
 
 #: templates/editors/quicktags.php
 msgid "Turn:"

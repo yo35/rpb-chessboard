@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-10 11:17+0200\n"
+"POT-Creation-Date: 2014-08-12 21:09+0200\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35@melix.net>\n"
 "Language-Team: French\n"
@@ -864,54 +864,6 @@ msgstr ""
 #, php-format
 msgid "Annotated by %1$s"
 msgstr "Commentée par %1$s"
-
-#: templates/localization.php
-msgid "January"
-msgstr "Janvier"
-
-#: templates/localization.php
-msgid "February"
-msgstr "Février"
-
-#: templates/localization.php
-msgid "March"
-msgstr "Mars"
-
-#: templates/localization.php
-msgid "April"
-msgstr "Avril"
-
-#: templates/localization.php
-msgid "May"
-msgstr "Mai"
-
-#: templates/localization.php
-msgid "June"
-msgstr "Juin"
-
-#: templates/localization.php
-msgid "July"
-msgstr "Juillet"
-
-#: templates/localization.php
-msgid "August"
-msgstr "Août"
-
-#: templates/localization.php
-msgid "September"
-msgstr "Septembre"
-
-#: templates/localization.php
-msgid "October"
-msgstr "Octobre"
-
-#: templates/localization.php
-msgid "November"
-msgstr "Novembre"
-
-#: templates/localization.php
-msgid "December"
-msgstr "Décembre"
 
 #: templates/editors/quicktags.php
 msgid "Turn:"
