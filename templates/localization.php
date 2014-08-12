@@ -28,22 +28,6 @@
 		$.chessgame.i18n.ANNOTATED_BY     = <?php echo json_encode(__('Annotated by %1$s', 'rpbchessboard')); ?>;
 		$.chessgame.i18n.INITIAL_POSITION = <?php echo json_encode(__('Initial position' , 'rpbchessboard')); ?>;
 
-		// Month names.
-		$.chessgame.i18n.MONTHS = [
-			<?php echo json_encode(__('January'  , 'rpbchessboard')); ?>,
-			<?php echo json_encode(__('February' , 'rpbchessboard')); ?>,
-			<?php echo json_encode(__('March'    , 'rpbchessboard')); ?>,
-			<?php echo json_encode(__('April'    , 'rpbchessboard')); ?>,
-			<?php echo json_encode(__('May'      , 'rpbchessboard')); ?>,
-			<?php echo json_encode(__('June'     , 'rpbchessboard')); ?>,
-			<?php echo json_encode(__('July'     , 'rpbchessboard')); ?>,
-			<?php echo json_encode(__('August'   , 'rpbchessboard')); ?>,
-			<?php echo json_encode(__('September', 'rpbchessboard')); ?>,
-			<?php echo json_encode(__('October'  , 'rpbchessboard')); ?>,
-			<?php echo json_encode(__('November' , 'rpbchessboard')); ?>,
-			<?php echo json_encode(__('December' , 'rpbchessboard')); ?>
-		];
-
 		// Chess piece symbols.
 		$.chessgame.i18n.PIECE_SYMBOLS = {
 			'K': <?php /*i18n King symbol   */ echo json_encode(__('K', 'rpbchessboard')); ?>,

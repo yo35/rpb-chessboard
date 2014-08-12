@@ -50,6 +50,9 @@ function rpbchessboard_enqueue_scripts()
 	// Chess-js library
 	wp_register_script('rpbchessboard-chessjs', RPBCHESSBOARD_URL . '/third-party-libs/chess-js/chess' . $ext);
 
+	// Moment.js
+	wp_register_script('rpbchessboard-momentjs', RPBCHESSBOARD_URL . '/third-party-libs/moment-js/moment' . $ext);
+
 	// PGN-parsing tools
 	wp_register_script('rpbchessboard-pgn', RPBCHESSBOARD_URL . '/js/pgn' . $ext, array(
 		'rpbchessboard-chessjs'
@@ -68,6 +71,7 @@ function rpbchessboard_enqueue_scripts()
 	wp_register_script('rpbchessboard-chessgame', RPBCHESSBOARD_URL . '/js/uichess-chessgame' . $ext, array(
 		'rpbchessboard-pgn',
 		'rpbchessboard-chessboard',
+		'rpbchessboard-momentjs',
 		'jquery-ui-widget',
 		'jquery-color',
 		'jquery-ui-dialog',

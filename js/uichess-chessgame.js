@@ -26,13 +26,14 @@
  *
  * @requires pgn.js
  * @requires uichess-chessboard.js
+ * @requires Moment.js {@link http://momentjs.com/}
  * @requires jQuery
  * @requires jQuery UI Widget
  * @requires jQuery Color (optional, only if the navigation board feature is enabled)
  * @requires jQuery UI Dialog (optional, only if the framed navigation board feature is enabled)
  * @requires jQuery UI Resizable (optional, only if the framed navigation board feature is enabled)
  */
-(function(Pgn, $)
+(function(Pgn, $, moment)
 {
 	'use strict';
 
@@ -81,15 +82,6 @@
 			INITIAL_POSITION: 'Initial position',
 
 			/**
-			 * Month names.
-			 * @type {string[]}
-			 */
-			MONTHS: [
-				'January', 'February', 'March'    , 'April'  , 'May'     , 'June'    ,
-				'July'   , 'August'  , 'September', 'October', 'November', 'December'
-			],
-
-			/**
 			 * Chess piece symbols.
 			 * @type {{K:string, Q:string, R:string, B:string, N:string, P:string}}
 			 */
@@ -130,27 +122,16 @@
 			return null;
 		}
 
-		// Case "2013.05.20" -> return "20 may 2013"
+		// Case "2013.05.20" -> return "May 20, 2013"
 		else if(date.match(/([0-9]{4})\.([0-9]{2})\.([0-9]{2})/)) {
-			var month = parseInt(RegExp.$2, 10);
-			if(month>=1 && month<=12) {
-				var dateObj = new Date(RegExp.$1, RegExp.$2-1, RegExp.$3);
-				return dateObj.toLocaleDateString(); //null, { year: 'numeric', month: 'long', day: 'numeric' });
-			}
-			else {
-				return RegExp.$1;
-			}
+			var dateObj = moment(RegExp.$1 + '-' + RegExp.$2 + '-' + RegExp.$3);
+			return dateObj.isValid() ? capitalize(dateObj.format('LL')) : date;
 		}
 
 		// Case "2013.05.??" -> return "May 2013"
 		else if(date.match(/([0-9]{4})\.([0-9]{2})\.\?\?/)) {
-			var month = parseInt(RegExp.$2, 10);
-			if(month>=1 && month<=12) {
-				return $.chessgame.i18n.MONTHS[month-1] + ' ' + RegExp.$1;
-			}
-			else {
-				return RegExp.$1;
-			}
+			var dateObj = moment(RegExp.$1 + '-' + RegExp.$2 + '-01');
+			return dateObj.isValid() ? capitalize(dateObj.format('MMMM YYYY')) : date;
 		}
 
 		// Case "2013.??.??" -> return "2013"
@@ -231,6 +212,20 @@
 		if(nag===null) { return null; }
 		else if(nag in SPECIAL_NAGS_LOOKUP) { return SPECIAL_NAGS_LOOKUP[nag]; }
 		else { return '$' + nag; }
+	}
+
+
+	/**
+	 * Capitalization function.
+	 *
+	 * Example: `'hello world'` is turned into `'Hello world'`.
+	 *
+	 * @param {string} text Text to capitalize.
+	 * @returns {string}
+	 */
+	function capitalize(text)
+	{
+		return text.length===0 ? '' : text.charAt(0).toUpperCase() + text.slice(1);
 	}
 
 
@@ -1272,4 +1267,4 @@
 		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonLast').click(function(event) { event.preventDefault(); callback('goLastMove'    ); });
 	}
 
-})(/* global Pgn */ Pgn, /* global jQuery */ jQuery);
+})(/* global Pgn */ Pgn, /* global jQuery */ jQuery, /* global moment */ moment);
