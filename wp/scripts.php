@@ -87,42 +87,42 @@ abstract class RPBChessboardScripts
 		include(RPBCHESSBOARD_ABSPATH . 'templates/localization.php');
 
 		// Moment.js configuration
-		if(isset(self::$momentJSLocale)) {
-			echo '<script type="text/javascript">moment.locale(' . json_encode(self::$momentJSLocale) . ');</script>';
+		if(isset(self::$momentJSLangCode)) {
+			echo '<script type="text/javascript">moment.locale(' . json_encode(self::$momentJSLangCode) . ');</script>';
 		}
 	}
 
 
 	/**
-	 * Determine the locale to use to configure Moment.js, and enqueue the required file.
+	 * Determine the language code to use to configure Moment.js, and enqueue the required file.
 	 */
 	private static function localizeMomentJS()
 	{
-		foreach(self::getBlogLanguages() as $langCode)
+		foreach(self::getBlogLangCodes() as $langCode)
 		{
-			// Does the translation script file exist for the current locale?
+			// Does the translation script file exist for the current language code?
 			$relativeFilePath = 'third-party-libs/moment-js/locales/' . $langCode . '.js';
 			if(!file_exists(RPBCHESSBOARD_ABSPATH . $relativeFilePath)) {
 				continue;
 			}
 
-			// If it exists, enqueue it, set the Moment.js locale, and return.
-			wp_enqueue_script('rpbchessboard-momentjs-locales', RPBCHESSBOARD_URL . '/' . $relativeFilePath, array(
+			// If it exists, enqueue it, set the Moment.js language code, and return.
+			wp_enqueue_script('rpbchessboard-momentjs-localization', RPBCHESSBOARD_URL . '/' . $relativeFilePath, array(
 				'rpbchessboard-momentjs'
 			));
-			self::$momentJSLocale = $langCode;
+			self::$momentJSLangCode = $langCode;
 			return;
 		}
 
-		// Default locale for Moment.js
-		self::$momentJSLocale = 'en';
+		// Default language code for Moment.js
+		self::$momentJSLangCode = 'en';
 	}
 
 
 	/**
-	 * Locale code to use to configure Moment.js
+	 * Language code to use to configure Moment.js
 	 */
-	private static $momentJSLocale;
+	private static $momentJSLangCode;
 
 
 	/**
@@ -130,7 +130,7 @@ abstract class RPBChessboardScripts
 	 *
 	 * @return array
 	 */
-	private static function getBlogLanguages()
+	private static function getBlogLangCodes()
 	{
 		$main_language = str_replace('_', '-', strtolower(get_locale()));
 		$retVal = array($main_language);
