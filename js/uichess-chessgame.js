@@ -65,7 +65,7 @@
 
 
 		/**
-		 * Internationalization constants.
+		 * Localization constants.
 		 */
 		i18n:
 		{
