@@ -45,19 +45,13 @@ load_plugin_textdomain('rpbchessboard', false, RPBCHESSBOARD_PLUGIN_DIR . '/lang
 require_once(RPBCHESSBOARD_ABSPATH . 'helpers/loader.php');
 
 
-// JavaScript
-add_action(is_admin() ? 'admin_enqueue_scripts' : 'wp_enqueue_scripts', 'rpbchessboard_init_scripts');
-function rpbchessboard_init_scripts()
+// JavaScript & CSS
+add_action(is_admin() ? 'admin_enqueue_scripts' : 'wp_enqueue_scripts', 'rpbchessboard_init_js_css');
+function rpbchessboard_init_js_css()
 {
 	require_once(RPBCHESSBOARD_ABSPATH . 'wp/scripts.php');
 	RPBChessboardScripts::register();
-}
 
-
-// CSS
-add_action(is_admin() ? 'admin_enqueue_scripts' : 'wp_enqueue_scripts', 'rpbchessboard_init_style_sheets');
-function rpbchessboard_init_style_sheets()
-{
 	require_once(RPBCHESSBOARD_ABSPATH . 'wp/stylesheets.php');
 	RPBChessboardStyleSheets::register();
 }
