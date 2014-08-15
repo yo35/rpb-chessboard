@@ -132,10 +132,10 @@ abstract class RPBChessboardScripts
 	 */
 	private static function getBlogLangCodes()
 	{
-		$main_language = str_replace('_', '-', strtolower(get_locale()));
-		$retVal = array($main_language);
+		$mainLanguage = str_replace('_', '-', strtolower(get_locale()));
+		$retVal = array($mainLanguage);
 
-		if(preg_match('/([a-z]+)\\-([a-z]+)/', $main_language, $m)) {
+		if(preg_match('/([a-z]+)\\-([a-z]+)/', $mainLanguage, $m)) {
 			$retVal[] = $m[1];
 		}
 
