@@ -83,13 +83,7 @@ abstract class RPBChessboardScripts
 
 	public static function callbackInlinedScripts()
 	{
-		// Localization for RPB Chessboard JavaScript files
 		include(RPBCHESSBOARD_ABSPATH . 'templates/localization.php');
-
-		// Moment.js configuration
-		if(isset(self::$momentJSLangCode)) {
-			echo '<script type="text/javascript">moment.locale(' . json_encode(self::$momentJSLangCode) . ');</script>';
-		}
 	}
 
 
@@ -110,19 +104,9 @@ abstract class RPBChessboardScripts
 			wp_enqueue_script('rpbchessboard-momentjs-localization', RPBCHESSBOARD_URL . '/' . $relativeFilePath, array(
 				'rpbchessboard-momentjs'
 			));
-			self::$momentJSLangCode = $langCode;
 			return;
 		}
-
-		// Default language code for Moment.js
-		self::$momentJSLangCode = 'en';
 	}
-
-
-	/**
-	 * Language code to use to configure Moment.js
-	 */
-	private static $momentJSLangCode;
 
 
 	/**
