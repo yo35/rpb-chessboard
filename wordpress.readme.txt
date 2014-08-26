@@ -94,6 +94,9 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 == Changelog ==
 
+= 3.2.1 (August 26, 2014) =
+* Fix plugin set-up for non-standard WordPress install configurations.
+
 = 3.2 (August 13, 2014) =
 * Improve date rendering and localization.
 * Tested up to WordPress 3.9.2.
