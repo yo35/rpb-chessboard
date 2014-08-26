@@ -29,7 +29,6 @@ require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/adminpage.php');
 class RPBChessboardModelAdminPageAbout extends RPBChessboardAbstractModelAdminPage
 {
 	private $pluginInfo;
-	private $iconURL;
 
 
 	/**
@@ -41,20 +40,6 @@ class RPBChessboardModelAdminPageAbout extends RPBChessboardAbstractModelAdminPa
 	{
 		$this->loadPluginInfo();
 		return $this->pluginInfo['Version'];
-	}
-
-
-	/**
-	 * URL to the plugin icon.
-	 *
-	 * @return string
-	 */
-	public function getIconURL()
-	{
-		if(!isset($this->iconURL)) {
-			$this->iconURL = RPBCHESSBOARD_URL . '/images/rpb-chessboard-icon.png';
-		}
-		return $this->iconURL;
 	}
 
 
