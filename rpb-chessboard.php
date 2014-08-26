@@ -33,7 +33,7 @@ Version: 3.2.1
 
 // Directories
 define('RPBCHESSBOARD_ABSPATH', plugin_dir_path(__FILE__));
-define('RPBCHESSBOARD_URL'    , plugin_dir_url(__FILE__));
+define('RPBCHESSBOARD_URL'    , plugin_dir_url (__FILE__));
 
 
 // Enable localization
