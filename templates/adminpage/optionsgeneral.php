@@ -273,7 +273,7 @@
 					<?php if($model->getDefaultNavigationBoard()==='none'): ?>checked="yes"<?php endif; ?>
 				/>
 				<label for="rpbchessboard-navigationBoardButton-none">
-					<img src="<?php echo RPBCHESSBOARD_URL . '/images/navigation-board-none.png'; ?>"
+					<img src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-board-none.png'; ?>"
 						title="<?php _e('No navigation board', 'rpbchessboard'); ?>"
 						alt="<?php _e('No navigation board', 'rpbchessboard'); ?>"
 					/>
@@ -285,7 +285,7 @@
 					<?php if($model->getDefaultNavigationBoard()==='frame'): ?>checked="yes"<?php endif; ?>
 				/>
 				<label for="rpbchessboard-navigationBoardButton-frame">
-					<img src="<?php echo RPBCHESSBOARD_URL . '/images/navigation-board-frame.png'; ?>"
+					<img src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-board-frame.png'; ?>"
 						title="<?php _e('In a popup frame', 'rpbchessboard'); ?>"
 						alt="<?php _e('In a popup frame', 'rpbchessboard'); ?>"
 					/>
@@ -297,7 +297,7 @@
 					<?php if($model->getDefaultNavigationBoard()==='floatLeft'): ?>checked="yes"<?php endif; ?>
 				/>
 				<label for="rpbchessboard-navigationBoardButton-floatLeft">
-					<img src="<?php echo RPBCHESSBOARD_URL . '/images/navigation-board-floatleft.png'; ?>"
+					<img src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-board-floatleft.png'; ?>"
 						title="<?php _e('On the left of the move list', 'rpbchessboard'); ?>"
 						alt="<?php _e('On the left', 'rpbchessboard'); ?>"
 					/>
@@ -309,7 +309,7 @@
 					<?php if($model->getDefaultNavigationBoard()==='floatRight'): ?>checked="yes"<?php endif; ?>
 				/>
 				<label for="rpbchessboard-navigationBoardButton-floatRight">
-					<img src="<?php echo RPBCHESSBOARD_URL . '/images/navigation-board-floatright.png'; ?>"
+					<img src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-board-floatright.png'; ?>"
 						title="<?php _e('On the right of the move list', 'rpbchessboard'); ?>"
 						alt="<?php _e('On the right', 'rpbchessboard'); ?>"
 					/>

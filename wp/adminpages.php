@@ -35,7 +35,7 @@ abstract class RPBChessboardAdminPages
 			__('Chess games and diagrams', 'rpbchessboard'),
 			__('Chess', 'rpbchessboard'),
 			'edit_posts', 'rpbchessboard', array(__CLASS__, 'callbackPageMemo'),
-			RPBCHESSBOARD_URL . '/images/menu.png'
+			RPBCHESSBOARD_URL . 'images/menu.png'
 		);
 
 		// Page "memo" (same slug code that for the menu, to make it the default page).

@@ -23,7 +23,7 @@
 <div id="rpbchessboard-aboutPage">
 
 	<div class="rpbchessboard-floatLeft">
-		<img src="<?php echo htmlspecialchars($model->getIconURL()); ?>" alt="RPB Chessboard icon" />
+		<img src="<?php echo RPBCHESSBOARD_URL . 'images/rpb-chessboard-icon.png'; ?>" alt="RPB Chessboard icon" />
 	</div>
 
 	<p>
@@ -80,19 +80,19 @@
 	<h3><?php _e('Translation', 'rpbchessboard'); ?></h3>
 	<dl class="rpbchessboard-translatorList">
 		<div>
-			<dt><img src="<?php echo RPBCHESSBOARD_URL.'/images/flags/de.png'; ?>" alt="German flag" />Deutsch</dt>
+			<dt><img src="<?php echo RPBCHESSBOARD_URL . 'images/flags/de.png'; ?>" alt="German flag" />Deutsch</dt>
 			<dd>Markus Liebelt</dd>
 		</div>
 		<div>
-			<dt><img src="<?php echo RPBCHESSBOARD_URL.'/images/flags/gb.png'; ?>" alt="British flag" />English</dt>
+			<dt><img src="<?php echo RPBCHESSBOARD_URL . 'images/flags/gb.png'; ?>" alt="British flag" />English</dt>
 			<dd>Yoann Le Montagner</dd>
 		</div>
 		<div>
-			<dt><img src="<?php echo RPBCHESSBOARD_URL.'/images/flags/fr.png'; ?>" alt="French flag" />Français</dt>
+			<dt><img src="<?php echo RPBCHESSBOARD_URL . 'images/flags/fr.png'; ?>" alt="French flag" />Français</dt>
 			<dd>Yoann Le Montagner</dd>
 		</div>
 		<div>
-			<dt><img src="<?php echo RPBCHESSBOARD_URL.'/images/flags/pl.png'; ?>" alt="Polish flag" />Polski</dt>
+			<dt><img src="<?php echo RPBCHESSBOARD_URL . 'images/flags/pl.png'; ?>" alt="Polish flag" />Polski</dt>
 			<dd><a href="http://dawidziolkowski.com/" target="_blank">Dawid Ziółkowski</a></dd>
 		</div>
 	</dl>

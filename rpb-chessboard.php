@@ -32,13 +32,12 @@ Version: 3.2
 
 
 // Directories
-define('RPBCHESSBOARD_PLUGIN_DIR', basename(dirname(__FILE__)));
-define('RPBCHESSBOARD_ABSPATH'   , ABSPATH.'wp-content/plugins/'.RPBCHESSBOARD_PLUGIN_DIR.'/');
-define('RPBCHESSBOARD_URL'       , site_url().'/wp-content/plugins/'.RPBCHESSBOARD_PLUGIN_DIR);
+define('RPBCHESSBOARD_ABSPATH', plugin_dir_path(__FILE__));
+define('RPBCHESSBOARD_URL'    , plugin_dir_url(__FILE__));
 
 
 // Enable localization
-load_plugin_textdomain('rpbchessboard', false, RPBCHESSBOARD_PLUGIN_DIR . '/languages/');
+load_plugin_textdomain('rpbchessboard', false, basename(dirname(__FILE__)) . '/languages');
 
 
 // MVC loading tools
