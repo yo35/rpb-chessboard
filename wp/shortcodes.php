@@ -53,7 +53,8 @@ abstract class RPBChessboardShortcodes
 		// As the same type of low-level operation is performed here, using this priority level seems to be a good choice.
 		// However, having "official" guidelines or core methods to achieve this would be desirable.
 		//
-		add_filter('the_content', array(__CLASS__, 'preprocessLowLevelShortcodes'), 8);
+		add_filter('the_content' , array(__CLASS__, 'preprocessLowLevelShortcodes'), 8);
+		add_filter('comment_text', array(__CLASS__, 'preprocessLowLevelShortcodes'), 8);
 	}
 
 
