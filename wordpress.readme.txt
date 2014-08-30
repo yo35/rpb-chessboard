@@ -94,6 +94,9 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 == Changelog ==
 
+= 3.2.2 (August 30, 2014) =
+* Fix compatibility issue with the WP Quizz Pro plugin.
+
 = 3.2.1 (August 26, 2014) =
 * Fix plugin set-up for non-standard WordPress install configurations.
 
