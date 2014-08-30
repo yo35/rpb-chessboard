@@ -35,12 +35,16 @@ abstract class RPBChessboardShortcodes
 		$compatibility = RPBChessboardHelperLoader::loadTrait('Compatibility');
 		$fenShortcode = $compatibility->getFENShortcode();
 		$pgnShortcode = $compatibility->getPGNShortcode();
-		self::$lowLevelShortcodes = array($fenShortcode, $pgnShortcode);
+		self::$noTexturizeShortcodes = array($fenShortcode, $pgnShortcode);
+		self::$lowLevelShortcodes    = array($pgnShortcode);
 
 		// Register the shortcodes
 		add_shortcode($fenShortcode, array(__CLASS__, 'callbackShortcodeFEN'       ));
 		add_shortcode($pgnShortcode, array(__CLASS__, 'callbackShortcodePGN'       ));
 		add_shortcode('pgndiagram' , array(__CLASS__, 'callbackShortcodePGNDiagram'));
+
+		// Register the no-texturize shortcodes
+		add_filter('no_texturize_shortcodes', array(__CLASS__, 'registerNoTexturizeShortcodes'));
 
 		// A high-priority filter is required to prevent the WP engine to perform some nasty operations
 		// (e.g. wptexturize, wpautop, etc...) on the text enclosed by the shortcodes.
@@ -53,7 +57,7 @@ abstract class RPBChessboardShortcodes
 	}
 
 
-	public static function callbackShortcodeFEN       ($atts, $content) { return self::runShortcode('FEN'       , true , $atts, $content); }
+	public static function callbackShortcodeFEN       ($atts, $content) { return self::runShortcode('FEN'       , false, $atts, $content); }
 	public static function callbackShortcodePGN       ($atts, $content) { return self::runShortcode('PGN'       , true , $atts, $content); }
 	public static function callbackShortcodePGNDiagram($atts, $content) { return self::runShortcode('PGNDiagram', false, $atts, $content); }
 
@@ -82,6 +86,18 @@ abstract class RPBChessboardShortcodes
 
 
 	/**
+	 * Register the no-texturize shortcodes defined by the plugin with WP engine.
+	 *
+	 * @param array $shortcodes Global list of no-texturize shortcodes.
+	 * @return array
+	 */
+	public static function registerNoTexturizeShortcodes($shortcodes)
+	{
+		return array_merge($shortcodes, self::$noTexturizeShortcodes);
+	}
+
+
+	/**
 	 * Replace the content of the low-level shortcodes with their respective MD5 digest,
 	 * saving the original content in the associative array `self::$lowLevelShortcodeContent`.
 	 *
@@ -105,7 +121,7 @@ abstract class RPBChessboardShortcodes
 	private static function preprocessLowLevelShortcode($m)
 	{
 		// Allow the [[foo]...[/foo]] syntax for escaping a tag.
-		if($m[1]=='[' && $m[5]==']') {
+		if($m[1] === '[' && $m[5] === ']') {
 			return $m[0];
 		}
 
@@ -114,6 +130,13 @@ abstract class RPBChessboardShortcodes
 		self::$lowLevelShortcodeContent[$digest] = $m[4];
 		return '[' . $m[2] . $m[3] . ']' . $digest . '[/' . $m[2] . ']';
 	}
+
+
+	/**
+	 * Shortcodes for which the "texturize" filter performed by the WP engine on post content
+	 * must be disabled.
+	 */
+	private static $noTexturizeShortcodes;
 
 
 	/**

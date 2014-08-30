@@ -82,6 +82,8 @@ class RPBChessboardModelShortcodeFEN extends RPBChessboardAbstractModelShortcode
 	 */
 	protected function filterShortcodeContent($content)
 	{
-		return trim($content);
+		$regex = '\s|<br *\/>';
+		$regex = "(?:$regex)*";
+		return preg_replace("/^$regex|$regex\$/i", '', $content);
 	}
 }
