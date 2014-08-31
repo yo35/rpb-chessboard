@@ -24,11 +24,9 @@
 
 	(function($) {
 
-		// Localization for the uichess-chessgame widget.
 		$.chessgame.i18n.ANNOTATED_BY     = <?php echo json_encode(__('Annotated by %1$s', 'rpbchessboard')); ?>;
 		$.chessgame.i18n.INITIAL_POSITION = <?php echo json_encode(__('Initial position' , 'rpbchessboard')); ?>;
 
-		// Chess piece symbols.
 		$.chessgame.i18n.PIECE_SYMBOLS = {
 			'K': <?php /*i18n King symbol   */ echo json_encode(__('K', 'rpbchessboard')); ?>,
 			'Q': <?php /*i18n Queen symbol  */ echo json_encode(__('Q', 'rpbchessboard')); ?>,
