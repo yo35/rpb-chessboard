@@ -92,6 +92,10 @@
 			<dd>Yoann Le Montagner</dd>
 		</div>
 		<div>
+			<dt><img src="<?php echo RPBCHESSBOARD_URL . 'images/flags/nl.png'; ?>" alt="Dutch flag" />Nederlands</dt>
+			<dd>Ivan Deceuninck</dd>
+		</div>
+		<div>
 			<dt><img src="<?php echo RPBCHESSBOARD_URL . 'images/flags/pl.png'; ?>" alt="Polish flag" />Polski</dt>
 			<dd><a href="http://dawidziolkowski.com/" target="_blank">Dawid Ziółkowski</a></dd>
 		</div>
