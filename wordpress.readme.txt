@@ -94,6 +94,11 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 == Changelog ==
 
+= 3.3 (September 6, 2014) =
+* Dutch translation (thanks to Ivan Deceuninck).
+* Tested up to WordPress 4.0.
+* Minor fixes.
+
 = 3.2.3 (August 30, 2014) =
 * Fix issue with occurring with `[pgn][/pgn]` tags in non-post/page contexts.
 
