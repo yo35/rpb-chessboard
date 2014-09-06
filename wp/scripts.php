@@ -37,6 +37,7 @@ abstract class RPBChessboardScripts
 
 		// Moment.js (http://momentjs.com/)
 		wp_register_script('rpbchessboard-momentjs', RPBCHESSBOARD_URL . 'third-party-libs/moment-js/moment' . $ext);
+		$momentjs = self::localizeJavaScriptLib('rpbchessboard-momentjs', 'third-party-libs/moment-js/locales/%1$s.js');
 
 		// PGN-parsing tools
 		wp_register_script('rpbchessboard-pgn', RPBCHESSBOARD_URL . 'js/pgn' . $ext, array(
@@ -56,7 +57,7 @@ abstract class RPBChessboardScripts
 		wp_register_script('rpbchessboard-chessgame', RPBCHESSBOARD_URL . 'js/uichess-chessgame' . $ext, array(
 			'rpbchessboard-pgn',
 			'rpbchessboard-chessboard',
-			'rpbchessboard-momentjs',
+			$momentjs,
 			'jquery-ui-widget',
 			'jquery-color',
 			'jquery-ui-dialog',
@@ -73,9 +74,6 @@ abstract class RPBChessboardScripts
 			wp_enqueue_script('jquery-ui-tabs'  );
 		}
 
-		// Localization
-		self::localizeMomentJS();
-
 		// Inlined scripts
 		add_action(is_admin() ? 'admin_print_footer_scripts' : 'wp_print_footer_scripts', array(__CLASS__, 'callbackInlinedScripts'));
 	}
@@ -88,24 +86,30 @@ abstract class RPBChessboardScripts
 
 
 	/**
-	 * Determine the language code to use to configure Moment.js, and enqueue the required file.
+	 * Determine the language code to use to configure a given JavaScript library, and enqueue the required file.
+	 *
+	 * @param string $handle Handle of the file to localize.
+	 * @param string $relativeFilePathTemplate Where the localized files should be searched.
+	 * @return string Handle of the localized file a suitable translation has been found, original handle otherwise.
 	 */
-	private static function localizeMomentJS()
+	private static function localizeJavaScriptLib($handle, $relativeFilePathTemplate)
 	{
 		foreach(self::getBlogLangCodes() as $langCode)
 		{
 			// Does the translation script file exist for the current language code?
-			$relativeFilePath = 'third-party-libs/moment-js/locales/' . $langCode . '.js';
+			$relativeFilePath = sprintf($relativeFilePathTemplate, $langCode);
 			if(!file_exists(RPBCHESSBOARD_ABSPATH . $relativeFilePath)) {
 				continue;
 			}
 
-			// If it exists, enqueue it, set the Moment.js language code, and return.
-			wp_enqueue_script('rpbchessboard-momentjs-localization', RPBCHESSBOARD_URL . $relativeFilePath, array(
-				'rpbchessboard-momentjs'
-			));
-			return;
+			// If it exists, register it, and return a handle pointing to the localization file.
+			$localizedHandle = $handle . '-localized';
+			wp_register_script($localizedHandle, RPBCHESSBOARD_URL . $relativeFilePath, array($handle));
+			return $localizedHandle;
 		}
+
+		// Otherwise, if no translation file exists, return the handle of the original library.
+		return $handle;
 	}
 
 
@@ -116,13 +120,20 @@ abstract class RPBChessboardScripts
 	 */
 	private static function getBlogLangCodes()
 	{
-		$mainLanguage = str_replace('_', '-', strtolower(get_locale()));
-		$retVal = array($mainLanguage);
+		if(!isset(self::$blogLangCodes)) {
+			$mainLanguage = str_replace('_', '-', strtolower(get_locale()));
+			self::$blogLangCodes = array($mainLanguage);
 
-		if(preg_match('/([a-z]+)\\-([a-z]+)/', $mainLanguage, $m)) {
-			$retVal[] = $m[1];
+			if(preg_match('/([a-z]+)\\-([a-z]+)/', $mainLanguage, $m)) {
+				self::$blogLangCodes[] = $m[1];
+			}
 		}
-
-		return $retVal;
+		return self::$blogLangCodes;
 	}
+
+
+	/**
+	 * Blog language codes.
+	 */
+	private static $blogLangCodes;
 }
