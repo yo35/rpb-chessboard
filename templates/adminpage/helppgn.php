@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<div id="rpbchessboard-helpPGNPage">
+<div id="rpbchessboard-helpPGNPage" class="rpbchessboard-jQuery-enableNoTheme">
 
 	<h3>
 		<?php echo sprintf(
