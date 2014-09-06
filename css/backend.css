@@ -309,10 +309,21 @@ div.rpbchessboard-sourceCode {
 /*** About page ***/
 
 .rpbchessboard-translatorList {
+	display: flex;
+	display: -webkit-flex;
+	flex-direction: row;
+	-webkit-flex-direction: row;
+}
+
+.rpbchessboard-translatorList > div {
 	display: table;
 }
 
-.rpbchessboard-translatorList div {
+.rpbchessboard-translatorList > div + div {
+	margin-left: 50px;
+}
+
+.rpbchessboard-translatorList > div > div {
 	display: table-row;
 }
 
@@ -322,7 +333,7 @@ div.rpbchessboard-sourceCode {
 }
 
 .rpbchessboard-translatorList dd {
-	padding-left: 1.5em;
+	padding-left: 1em;
 }
 
 .rpbchessboard-translatorList img {
