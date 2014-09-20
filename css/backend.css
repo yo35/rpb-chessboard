@@ -76,12 +76,12 @@ div.rpbchessboard-sourceCode:last-child,
 /* -------------------------------------------------------------------------- */
 
 .rpbchessboard-columns {
-	display: -webkit-box;
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: -webkit-flex;
 	display: flex;
+	display: -webkit-flex;
+	display: -ms-flexbox;
 	flex-direction: row;
+	-webkit-flex-direction: row;
+	-ms-flex-direction: row;
 }
 
 .rpbchessboard-columns > div {
