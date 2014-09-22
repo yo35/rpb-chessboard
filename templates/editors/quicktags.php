@@ -20,6 +20,8 @@
  ******************************************************************************/
 ?>
 
+<?php if(false): ?>
+
 <div id="rpbchessboard-editFen-dialog" class="rpbchessboard-editFen-invisible">
 	<div class="rpbchessboard-columns">
 		<div style="width: 65%;">
@@ -89,6 +91,12 @@
 		<input id="rpbchessboard-editFen-fen" type="text" />
 	</div>
 </div>
+
+<?php else: ?>
+
+	<div id="rpbchessboard-editFENDialog-anchor"></div>
+
+<?php endif; ?>
 
 
 <script type="text/javascript">
@@ -301,7 +309,8 @@
 	QTags.addButton(
 		'rpbchessboard-editFen-button',
 		'<?php _e('chessboard', 'rpbchessboard'); ?>',
-		rpbchessboard_editFenCallback
+		//rpbchessboard_editFenCallback
+		RPBChessboard.showEditFENDialog // TODO
 	);
 
 </script>

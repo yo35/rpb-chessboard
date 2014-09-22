@@ -210,6 +210,79 @@ div.rpbchessboard-sourceCode {
 
 
 /* -------------------------------------------------------------------------- */
+/* Modal dialog */
+/* -------------------------------------------------------------------------- */
+
+.rpbchessboard-modalDialog.rpbchessboard-hidden {
+	display: none;
+}
+
+.rpbchessboard-modalBackdrop {
+	position: fixed;
+	top   : 0px;
+	bottom: 0px;
+	left  : 0px;
+	right : 0px;
+	background: #000;
+	opacity: 0.7;
+	z-index:100100;
+}
+
+.rpbchessboard-modalDialogBox {
+	position: fixed;
+	top : 50%;
+	left: 50%;
+	height: 200px; width: 400px; /* TODO: remove */
+	background: #fff;
+	box-shadow:0 3px 6px rgba(0, 0, 0, 0.3);
+	z-index:100105;
+}
+
+.rpbchessboard-modalTitleBar {
+	background: #fcfcfc;
+	border-bottom: 1px solid #dfdfdf;
+	font-size  : 18px;
+	line-height: 36px;
+	font-weight: 600;
+	height: 36px;
+	padding: 0px 36px 0px 16px;
+}
+
+.rpbchessboard-modalCloseButton {
+	position: absolute;
+	top   : 0px;
+	right : 0px;
+	width : 36px;
+	height: 36px;
+	cursor: pointer;
+	color: #666;
+}
+
+.rpbchessboard-modalCloseButton:before {
+	font: 400 20px/36px dashicons;
+	vertical-align: top;
+	speak: none;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	width : 36px;
+	height: 36px;
+	content: '\f158';
+}
+
+.rpbchessboard-modalCloseButton:focus,
+.rpbchessboard-modalCloseButton:hover {
+	color: #2ea2cc;
+}
+
+.rpbchessboard-modalCloseButton:focus {
+	outline:0;
+	-webkit-box-shadow:0 0 0 1px #5b9dd9,0 0 2px 1px rgba(30,140,190,.8);
+	box-shadow:0 0 0 1px #5b9dd9,0 0 2px 1px rgba(30,140,190,.8)
+}
+
+
+
+/* -------------------------------------------------------------------------- */
 /* Memo page */
 /* -------------------------------------------------------------------------- */
 
