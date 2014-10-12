@@ -67,6 +67,7 @@ abstract class RPBChessboardScripts
 		// Plugin specific
 		wp_register_script('rpbchessboard-backend', RPBCHESSBOARD_URL . 'js/backend' . $ext, array(
 			// TODO
+			'jquery-ui-accordion'
 		));
 
 		// Enqueue the scripts.

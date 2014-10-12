@@ -62,7 +62,7 @@ var RPBChessboard = {};
 		 * Turn field label.
 		 * @type {string}
 		 */
-		TURN: 'Turn:',
+		TURN: 'Turn',
 
 		/**
 		 * Reset button label.
@@ -133,21 +133,25 @@ var RPBChessboard = {};
 					'<div id="rpbchessboard-editFENDialog-chessboard"></div>' +
 				'</div>' +
 				'<div style="width: 35%;">' +
-					'<p>' +
-						RPBChessboard.i18n.TURN + '<br/>' +
-						'<span class="rpbchessboard-editFENDialog-turnField">' +
-							'<label for="rpbchessboard-editFENDialog-turn-w">' +
-								'<span class="rpbchessboard-editFENDialog-turnFlag uichess-chessboard-sprite36" style="background-position: -216px -36px;"></span>' +
-							'</label>' +
-							'<input id="rpbchessboard-editFENDialog-turn-w" type="radio" name="turn" value="w" />' +
-						'</span>' +
-						'<span class="rpbchessboard-editFENDialog-turnField">' +
-							'<label for="rpbchessboard-editFENDialog-turn-b">' +
-								'<span class="rpbchessboard-editFENDialog-turnFlag uichess-chessboard-sprite36" style="background-position: -216px -0px;"></span>' +
-							'</label>' +
-							'<input id="rpbchessboard-editFENDialog-turn-b" type="radio" name="turn" value="b" />' +
-						'</span>' +
-					'</p>' +
+					'<div class="rpbchessboard-jQuery-enableSmoothness">' +
+						'<div id="rpbchessboard-editFENDialog-accordion">' +
+							'<h3>' + RPBChessboard.i18n.TURN + '</h3>' +
+							'<div>' +
+								'<span class="rpbchessboard-editFENDialog-turnField">' +
+									'<label for="rpbchessboard-editFENDialog-turn-w">' +
+										'<span class="rpbchessboard-editFENDialog-turnFlag uichess-chessboard-sprite36" style="background-position: -216px -36px;"></span>' +
+									'</label>' +
+									'<input id="rpbchessboard-editFENDialog-turn-w" type="radio" name="turn" value="w" />' +
+								'</span>' +
+								'<span class="rpbchessboard-editFENDialog-turnField">' +
+									'<label for="rpbchessboard-editFENDialog-turn-b">' +
+										'<span class="rpbchessboard-editFENDialog-turnFlag uichess-chessboard-sprite36" style="background-position: -216px -0px;"></span>' +
+									'</label>' +
+									'<input id="rpbchessboard-editFENDialog-turn-b" type="radio" name="turn" value="b" />' +
+								'</span>' +
+							'</div>' +
+							'<h3>TODO</h3>' +
+							'<div>TODO</div>' +
 					//'<p>'
 					//	<div><?php _e('Castling availability:', 'rpbchessboard'); ?></div>
 					//	<table id="rpbchessboard-editFen-castleRights"><tbody>
@@ -182,6 +186,8 @@ var RPBChessboard = {};
 					//		<option value="h">h</option>
 					//	</select>
 					//</p>
+						'</div>' +
+					'</div>' +
 					'<p>' +
 						'<button id="rpbchessboard-editFENDialog-resetButton" class="button" title="' + RPBChessboard.i18n.RESET_BUTTON_TOOLTIP + '">' +
 							RPBChessboard.i18n.RESET_BUTTON_LABEL +
@@ -211,6 +217,9 @@ var RPBChessboard = {};
 		// Buttons 'reset' and 'clear'
 		$('#rpbchessboard-editFENDialog-resetButton').button().click(function(e) { e.preventDefault(); resetEditFENDialog('start'); });
 		$('#rpbchessboard-editFENDialog-clearButton').button().click(function(e) { e.preventDefault(); resetEditFENDialog('empty'); });
+
+		// Accordion
+		$('#rpbchessboard-editFENDialog-accordion').accordion();
 
 		// Dialog
 		$('#rpbchessboard-editFENDialog').dialog({
