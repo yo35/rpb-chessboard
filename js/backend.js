@@ -59,10 +59,28 @@ var RPBChessboard = {};
 		INSERT_EDIT_CHESS_DIAGRAM: 'Insert/edit a chess diagram',
 
 		/**
-		 * Turn field label.
+		 * Turn tab label.
 		 * @type {string}
 		 */
-		TURN: 'Turn',
+		TURN_TAB_LABEL: 'Turn',
+
+		/**
+		 * Advanced options tab label.
+		 * @type {string}
+		 */
+		ADVANCED_TAB_LABEL: 'Advanced',
+
+		/**
+		 * Castling section title.
+		 * @type {string}
+		 */
+		CASTLING_SECTION_TITLE: 'Castling rights',
+
+		/**
+		 * En passant section title.
+		 * @type {string}
+		 */
+		EN_PASSANT_SECTION_TITLE: 'En passant',
 
 		/**
 		 * Reset button label.
@@ -134,8 +152,10 @@ var RPBChessboard = {};
 				'</div>' +
 				'<div style="width: 35%;">' +
 					'<div class="rpbchessboard-jQuery-enableSmoothness">' +
-						'<div id="rpbchessboard-editFENDialog-accordion">' +
-							'<h3>' + RPBChessboard.i18n.TURN + '</h3>' +
+						'<div id="rpbchessboard-editFENDialog-accordion" class="rpbchessboard-accordion">' +
+
+							// Turn tab
+							'<h3>' + RPBChessboard.i18n.TURN_TAB_LABEL + '</h3>' +
 							'<div>' +
 								'<span class="rpbchessboard-editFENDialog-turnField">' +
 									'<label for="rpbchessboard-editFENDialog-turn-w">' +
@@ -150,42 +170,47 @@ var RPBChessboard = {};
 									'<input id="rpbchessboard-editFENDialog-turn-b" type="radio" name="turn" value="b" />' +
 								'</span>' +
 							'</div>' +
-							'<h3>TODO</h3>' +
-							'<div>TODO</div>' +
-					//'<p>'
-					//	<div><?php _e('Castling availability:', 'rpbchessboard'); ?></div>
-					//	<table id="rpbchessboard-editFen-castleRights"><tbody>
-					//		<tr>
-					//			<td></td>
-					//			<td>O-O-O</td>
-					//			<td>O-O</td>
-					//		</tr>
-					//		<tr>
-					//			<td><span class="rpbchessboard-editFen-turnFlag uichess-chessboard-sprite36" style="background-position: -216px -0px;"></span></td>
-					//			<td><input id="rpbchessboard-editFen-castle-bq" type="checkbox" /></td>
-					//			<td><input id="rpbchessboard-editFen-castle-bk" type="checkbox" /></td>
-					//		</tr>
-					//		<tr>
-					//			<td><span class="rpbchessboard-editFen-turnFlag uichess-chessboard-sprite36" style="background-position: -216px -36px;"></span></td>
-					//			<td><input id="rpbchessboard-editFen-castle-wq" type="checkbox" /></td>
-					//			<td><input id="rpbchessboard-editFen-castle-wk" type="checkbox" /></td>
-					//		</tr>
-					//	</tbody></table>
-					//</p>
-					//<p>
-					//	<label for="rpbchessboard-editFen-enPassant"><?php _e('En passant column:', 'rpbchessboard'); ?></label>
-					//	<select id="rpbchessboard-editFen-enPassant">
-					//		<option value="">-</option>
-					//		<option value="a">a</option>
-					//		<option value="b">b</option>
-					//		<option value="c">c</option>
-					//		<option value="d">d</option>
-					//		<option value="e">e</option>
-					//		<option value="f">f</option>
-					//		<option value="g">g</option>
-					//		<option value="h">h</option>
-					//	</select>
-					//</p>
+
+							// Advanced tab
+							'<h3>' + RPBChessboard.i18n.ADVANCED_TAB_LABEL + '</h3>' +
+							'<div>' +
+								'<div class="rpbchessboard-editFENDialog-sectionTitle">' + RPBChessboard.i18n.CASTLING_SECTION_TITLE + '</div>' +
+								'<div class="rpbchessboard-editFENDialog-sectionContent">' +
+									'<table id="rpbchessboard-editFENDialog-castleRights"><tbody>' +
+										'<tr>' +
+											'<td></td>' +
+											'<td>O-O-O</td>' +
+											'<td>O-O</td>' +
+										'</tr>' +
+										'<tr>' +
+											'<td><span class="rpbchessboard-editFENDialog-turnFlag uichess-chessboard-sprite28" style="background-position: -168px -0px;"></span></td>' +
+											'<td><input id="rpbchessboard-editFENDialog-castle-bq" type="checkbox" /></td>' +
+											'<td><input id="rpbchessboard-editFENDialog-castle-bk" type="checkbox" /></td>' +
+										'</tr>' +
+										'<tr>' +
+											'<td><span class="rpbchessboard-editFENDialog-turnFlag uichess-chessboard-sprite28" style="background-position: -168px -28px;"></span></td>' +
+											'<td><input id="rpbchessboard-editFen-castle-wq" type="checkbox" /></td>' +
+											'<td><input id="rpbchessboard-editFen-castle-wk" type="checkbox" /></td>' +
+										'</tr>' +
+									'</tbody></table>' +
+								'</div>' +
+								'<div class="rpbchessboard-editFENDialog-sectionTitle">' + RPBChessboard.i18n.EN_PASSANT_SECTION_TITLE + '</div>' +
+								'<div class="rpbchessboard-editFENDialog-sectionContent">' +
+									'<label for="rpbchessboard-editFENDialog-enPassant">En passant column:</label>' + // TODO
+									'<select id="rpbchessboard-editFENDialog-enPassant">' +
+										'<option value="">-</option>' +
+										'<option value="a">a</option>' +
+										'<option value="b">b</option>' +
+										'<option value="c">c</option>' +
+										'<option value="d">d</option>' +
+										'<option value="e">e</option>' +
+										'<option value="f">f</option>' +
+										'<option value="g">g</option>' +
+										'<option value="h">h</option>' +
+									'</select>' +
+								'</div>' +
+							'</div>' +
+
 						'</div>' +
 					'</div>' +
 					'<p>' +
@@ -227,7 +252,7 @@ var RPBChessboard = {};
 			modal      : true,
 			dialogClass: 'wp-dialog',
 			title      : RPBChessboard.i18n.INSERT_EDIT_CHESS_DIAGRAM,
-			width      : 650,
+			width      : 750,
 			buttons    : [
 				{
 					'text' : RPBChessboard.i18n.CANCEL_BUTTON_LABEL,

@@ -210,11 +210,16 @@ div.rpbchessboard-sourceCode {
 
 
 /* -------------------------------------------------------------------------- */
-/* Customize jQuery dialogs */
+/* Customize jQuery */
 /* -------------------------------------------------------------------------- */
 
 .ui-front {
 	z-index: 100000;
+}
+
+.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-accordion.ui-accordion .ui-accordion-content {
+	padding-left: 1.25em;
+	padding-right: 1.25em;
 }
 
 
@@ -364,8 +369,27 @@ div.rpbchessboard-sourceCode {
 
 
 
-/******************************************************************************/
-/*** Edit FEN dialog ***/
+/* -------------------------------------------------------------------------- */
+/* Edit FEN dialog */
+/* -------------------------------------------------------------------------- */
+
+.rpbchessboard-editFENDialog-sectionTitle,
+.rpbchessboard-editFENDialog-sectionContent {
+	font-size: 13px;
+	line-height: 1.5em;
+}
+
+.rpbchessboard-editFENDialog-sectionTitle {
+	font-weight: bold;
+}
+
+.rpbchessboard-editFENDialog-sectionTitle + .rpbchessboard-editFENDialog-sectionContent {
+	margin-top: 0.3em;
+}
+
+.rpbchessboard-editFENDialog-sectionContent + .rpbchessboard-editFENDialog-sectionTitle {
+	margin-top: 1em;
+}
 
 .rpbchessboard-editFENDialog-turnField {
 	display: inline-block;
@@ -381,13 +405,13 @@ div.rpbchessboard-sourceCode {
 	vertical-align: middle;
 }
 
-#rpbchessboard-editFen-castleRights {
+#rpbchessboard-editFENDialog-castleRights {
 	text-align: center;
 	table-layout: fixed;
 	margin-top: 5px;
 }
 
-#rpbchessboard-editFen-castleRights td {
+#rpbchessboard-editFENDialog-castleRights td {
 	vertical-align: middle;
 	padding: 0px 5px 0px;
 }
