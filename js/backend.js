@@ -49,7 +49,13 @@ var RPBChessboard = {};
 
 		INSERT_EDIT_CHESS_DIAGRAM: 'Insert/edit a chess diagram',
 
-		TURN_TAB_LABEL: 'Turn',
+		BASIC_TAB_LABEL: 'Basic',
+
+		TURN_SECTION_TITLE: 'Turn',
+
+		ORIENTATION_SECTION_TITLE: 'Orientation',
+
+		FLIP_CHECKBOX_LABEL: 'Flip board',
 
 		ADVANCED_TAB_LABEL: 'Advanced',
 
@@ -76,11 +82,13 @@ var RPBChessboard = {};
 	 *
 	 * @param {string} [fen]
 	 * @param {boolean} [isAddMode]
+	 * @param {object} [options]
 	 */
-	function resetEditFENDialog(fen, isAddMode)
+	function resetEditFENDialog(fen, isAddMode, options)
 	{
+		var cb = $('#rpbchessboard-editFENDialog-chessboard');
+
 		if(typeof fen === 'string') {
-			var cb = $('#rpbchessboard-editFENDialog-chessboard');
 			cb.chessboard('option', 'position', fen);
 			$('#rpbchessboard-editFENDialog-turn-' + cb.chessboard('turn')).prop('checked', true);
 			var castleRights = cb.chessboard('castleRights');
@@ -100,6 +108,15 @@ var RPBChessboard = {};
 			$('#rpbchessboard-editFENDialog-submitButton').button('option', 'label', isAddMode ?
 				RPBChessboard.i18n.SUBMIT_BUTTON_ADD_LABEL : RPBChessboard.i18n.SUBMIT_BUTTON_EDIT_LABEL
 			);
+		}
+
+		if(typeof options === 'object' && options !== null) {
+
+			if('flip' in options && typeof options.flip === 'boolean') {
+				cb.chessboard('option', 'flip', options.flip);
+				$('#rpbchessboard-editFENDialog-flip').prop('checked', options.flip);
+			}
+
 		}
 	}
 
@@ -122,21 +139,29 @@ var RPBChessboard = {};
 					'<div class="rpbchessboard-jQuery-enableSmoothness">' +
 						'<div id="rpbchessboard-editFENDialog-accordion" class="rpbchessboard-accordion">' +
 
-							// Turn tab
-							'<h3>' + RPBChessboard.i18n.TURN_TAB_LABEL + '</h3>' +
+							// Basic tab
+							'<h3>' + RPBChessboard.i18n.BASIC_TAB_LABEL + '</h3>' +
 							'<div>' +
-								'<span class="rpbchessboard-editFENDialog-turnField">' +
-									'<label for="rpbchessboard-editFENDialog-turn-w">' +
-										'<span class="rpbchessboard-editFENDialog-turnFlag uichess-chessboard-sprite36" style="background-position: -216px -36px;"></span>' +
-									'</label>' +
-									'<input id="rpbchessboard-editFENDialog-turn-w" type="radio" name="turn" value="w" />' +
-								'</span>' +
-								'<span class="rpbchessboard-editFENDialog-turnField">' +
-									'<label for="rpbchessboard-editFENDialog-turn-b">' +
-										'<span class="rpbchessboard-editFENDialog-turnFlag uichess-chessboard-sprite36" style="background-position: -216px -0px;"></span>' +
-									'</label>' +
-									'<input id="rpbchessboard-editFENDialog-turn-b" type="radio" name="turn" value="b" />' +
-								'</span>' +
+								'<div class="rpbchessboard-editFENDialog-sectionTitle">' + RPBChessboard.i18n.TURN_SECTION_TITLE + '</div>' +
+								'<div class="rpbchessboard-editFENDialog-sectionContent">' +
+									'<span class="rpbchessboard-editFENDialog-turnField">' +
+										'<label for="rpbchessboard-editFENDialog-turn-w">' +
+											'<span class="rpbchessboard-editFENDialog-turnFlag uichess-chessboard-sprite36" style="background-position: -216px -36px;"></span>' +
+										'</label>' +
+										'<input id="rpbchessboard-editFENDialog-turn-w" type="radio" name="turn" value="w" />' +
+									'</span>' +
+									'<span class="rpbchessboard-editFENDialog-turnField">' +
+										'<label for="rpbchessboard-editFENDialog-turn-b">' +
+											'<span class="rpbchessboard-editFENDialog-turnFlag uichess-chessboard-sprite36" style="background-position: -216px -0px;"></span>' +
+										'</label>' +
+										'<input id="rpbchessboard-editFENDialog-turn-b" type="radio" name="turn" value="b" />' +
+									'</span>' +
+								'</div>' +
+								'<div class="rpbchessboard-editFENDialog-sectionTitle">' + RPBChessboard.i18n.ORIENTATION_SECTION_TITLE + '</div>' +
+								'<div class="rpbchessboard-editFENDialog-sectionContent">' +
+									'<input id="rpbchessboard-editFENDialog-flip" type="checkbox" />' +
+									'<label for="rpbchessboard-editFENDialog-flip">' + RPBChessboard.i18n.FLIP_CHECKBOX_LABEL + '</label>' +
+								'</div>' +
 							'</div>' +
 
 							// Advanced tab
@@ -220,6 +245,24 @@ var RPBChessboard = {};
 			$(elem).click(function() { cb.chessboard('turn', $(elem).val()); });
 		});
 
+		// Flip board widget
+		var flipButton = $('#rpbchessboard-editFENDialog-flip');
+		flipButton.click(function() {
+			cb.chessboard('option', 'flip', flipButton.prop('checked'));
+		});
+
+		// Castle rights widgets
+		$('#rpbchessboard-editFENDialog-castleRights input').each(function(index, elem) {
+			$(elem).click(function() {
+				var castleRights = '';
+				if($('#rpbchessboard-editFENDialog-castle-wk').prop('checked')) castleRights += 'K';
+				if($('#rpbchessboard-editFENDialog-castle-wq').prop('checked')) castleRights += 'Q';
+				if($('#rpbchessboard-editFENDialog-castle-bk').prop('checked')) castleRights += 'k';
+				if($('#rpbchessboard-editFENDialog-castle-bq').prop('checked')) castleRights += 'q';
+				cb.chessboard('castleRights', castleRights);
+			});
+		});
+
 		// En passant widgets
 		var enPassantColumnChooser = $('#rpbchessboard-editFENDialog-enPassant-column');
 		$('#rpbchessboard-editFENDialog-enPassant-disabled').click(function() {
@@ -286,7 +329,7 @@ var RPBChessboard = {};
 	{
 		buildEditFENDialog();
 
-		resetEditFENDialog('r2qkbnr/ppp2ppp/2np4/4N3/2B1P3/2N5/PPPP1PPP/R1BbK2R w k e3 0 6', true);
+		resetEditFENDialog('r2qkbnr/ppp2ppp/2np4/4N3/2B1P3/2N5/PPPP1PPP/R1BbK2R w k e3 0 6', true, {});
 
 		$('#rpbchessboard-editFENDialog').dialog('open');
 

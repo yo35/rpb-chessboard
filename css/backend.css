@@ -411,6 +411,11 @@ div.rpbchessboard-sourceCode {
 	vertical-align: middle;
 }
 
+#rpbchessboard-editFENDialog-flip {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
 #rpbchessboard-editFENDialog-castleRights td {
 	vertical-align: middle;
 	text-align: center;
