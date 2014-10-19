@@ -41,6 +41,8 @@ var RPBChessboard = {};
 	 */
 	RPBChessboard.i18n =
 	{
+		EDITOR_BUTTON_LABEL: 'Chessboard',
+
 		EDIT_CHESS_DIAGRAM_DIALOG_TITLE: 'Insert/edit a chess diagram',
 
 		CANCEL_BUTTON_LABEL: 'Cancel',
@@ -73,6 +75,20 @@ var RPBChessboard = {};
 
 		EN_PASSANT_ENABLED_RADIO_BUTTON_LABEL: 'Possible on column %1$s'
 	};
+
+
+	/**
+	 * General settings.
+	 */
+	RPBChessboard.config =
+	{
+		/**
+		 * FEN shortcode as registered in the WordPress framework.
+		 * @type {string}
+		 */
+		FEN_SHORTCODE: 'fen'
+	};
+
 
 
 	/**
@@ -245,9 +261,8 @@ var RPBChessboard = {};
 		});
 
 		// Flip board widget
-		var flipButton = $('#rpbchessboard-editFENDialog-flip');
-		flipButton.click(function() {
-			cb.chessboard('option', 'flip', flipButton.prop('checked'));
+		$('#rpbchessboard-editFENDialog-flip').click(function() {
+			cb.chessboard('option', 'flip', $(this).prop('checked'));
 		});
 
 		// Buttons 'reset' and 'clear'
@@ -258,10 +273,10 @@ var RPBChessboard = {};
 		$('#rpbchessboard-editFENDialog-castleRights input').each(function(index, elem) {
 			$(elem).click(function() {
 				var castleRights = '';
-				if($('#rpbchessboard-editFENDialog-castle-wk').prop('checked')) castleRights += 'K';
-				if($('#rpbchessboard-editFENDialog-castle-wq').prop('checked')) castleRights += 'Q';
-				if($('#rpbchessboard-editFENDialog-castle-bk').prop('checked')) castleRights += 'k';
-				if($('#rpbchessboard-editFENDialog-castle-bq').prop('checked')) castleRights += 'q';
+				if($('#rpbchessboard-editFENDialog-castle-wk').prop('checked')) { castleRights += 'K'; }
+				if($('#rpbchessboard-editFENDialog-castle-wq').prop('checked')) { castleRights += 'Q'; }
+				if($('#rpbchessboard-editFENDialog-castle-bk').prop('checked')) { castleRights += 'k'; }
+				if($('#rpbchessboard-editFENDialog-castle-bq').prop('checked')) { castleRights += 'q'; }
 				cb.chessboard('castleRights', castleRights);
 			});
 		});
@@ -299,56 +314,61 @@ var RPBChessboard = {};
 					'class': 'button-primary',
 					'id'   : 'rpbchessboard-editFENDialog-submitButton',
 					'text' : '',
-					'click': function() {} // TODO
-					//{
-					//	$(this).dialog('close');
-					//	var newContent = cb.chessboard('option', 'position');
-					//	if($(this).data('isAddMode')) {
-					//		var fenShortcode = <?php echo json_encode($model->getFENShortcode()); ?>;
-					//		newContent = '[' + fenShortcode + ']' + newContent + '[/' + fenShortcode + ']';
-					//	}
-					//	QTags.insertContent(newContent);
-					//}
+					'click': function() {
+						$(this).dialog('close');
+						var callback = $(this).data('callback');
+						if(typeof callback === 'function') {
+							var fen = cb.chessboard('option', 'position');
+							var options = { flip: $('#rpbchessboard-editFENDialog-flip').prop('checked') };
+							callback(fen, options);
+						}
+					}
 				}
 			]
 		});
-
-		//$('.rpbchessboard-modalBackdrop', dialog).click(function() {
-		//	dialog.addClass('rpbchessboard-hidden');
-		//});
 	}
 
 
 	/**
 	 * Build the edit-FEN dialog (if not done yet), and make it visible.
 	 *
-	 * @param {string} [fen=undefined] FEN string of the position to edit, or `undefined` to create a new position.
+	 * @param {function|{fen:string, options:function, callback:function}} args
 	 */
-	RPBChessboard.showEditFENDialog = function(fen)
+	RPBChessboard.showEditFENDialog = function(args)
 	{
+		// Build the dialog
 		buildEditFENDialog();
+		var dialog = $('#rpbchessboard-editFENDialog');
+		dialog.data('callback', null);
 
-		resetEditFENDialog('r2qkbnr/ppp2ppp/2np4/4N3/2B1P3/2N5/PPPP1PPP/R1BbK2R w k e3 0 6', true, {});
+		// 'args' is a callback -> initialize the dialog in "add" mode
+		if(typeof args === 'function') {
+			dialog.data('callback', args);
+			resetEditFENDialog('start', true, {});
+		}
 
+		// 'args' is a struct
+		else if(typeof args === 'object' && args !== null) {
+
+			// Initialize the callback
+			if('callback' in args && typeof args.callback === 'function') {
+				dialog.data('callback', args);
+			}
+
+			// Retrieve the options
+			var options = ('options' in args) ? args.options : null;
+
+			// Initialize the dialog
+			if('fen' in args && typeof args.fen === 'string') {
+				resetEditFENDialog(args.fen, false, options);
+			}
+			else {
+				resetEditFENDialog('start', true, options);
+			}
+		}
+
+		// Show the dialog
 		$('#rpbchessboard-editFENDialog').dialog('open');
-
-
-		// Create the dialog.
-
-
-		// If the argument 'fen' is not defined, then the dialog is set-up in the "add-mode",
-		// meaning that it is assumed that the user wants to insert a new FEN string in the text.
-		//if(fen===undefined) {
-		//	$('#rpbchessboard-editFen-dialog').data('isAddMode', true);
-		//	fen = 'start';
-		//}
-
-		// Otherwise, the dialog is set-up in the "editMode", meaning that it is assumed that
-		// the user wants to edit an existing FEN string.
-		//else {
-		//	$('#rpbchessboard-editFen-dialog').data('isAddMode', false);
-		//}
 	};
-	// TODO
 
 })( /* global RPBChessboard */ RPBChessboard, /* global jQuery */ jQuery );

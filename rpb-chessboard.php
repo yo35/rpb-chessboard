@@ -76,15 +76,3 @@ if(!is_admin()) {
 		RPBChessboardShortcodes::register();
 	}
 }
-
-
-// Custom buttons in the text editors.
-if(is_admin()) {
-	add_action('admin_print_footer_scripts', 'rpbchessboard_admin_customize_editors');
-	function rpbchessboard_admin_customize_editors()
-	{
-		require_once(RPBCHESSBOARD_ABSPATH . 'controllers/editors.php');
-		$controller = new RPBChessboardControllerEditors();
-		$controller->run();
-	}
-}

@@ -84,12 +84,22 @@ abstract class RPBChessboardScripts
 
 		// Inlined scripts
 		add_action(is_admin() ? 'admin_print_footer_scripts' : 'wp_print_footer_scripts', array(__CLASS__, 'callbackInlinedScripts'));
+
+		// QuickTags editor
+		add_action('admin_print_footer_scripts', array(__CLASS__, 'callbackRegisterQuickTagsButtons'));
 	}
 
 
 	public static function callbackInlinedScripts()
 	{
 		include(RPBCHESSBOARD_ABSPATH . 'templates/localization.php');
+	}
+
+
+	public static function callbackRegisterQuickTagsButtons()
+	{
+		echo '<div id="rpbchessboard-editFENDialog-anchor"></div>';
+		echo '<script type="text/javascript" src="' . RPBCHESSBOARD_URL . 'js/quicktags.js"></script>';
 	}
 
 
