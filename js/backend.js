@@ -34,76 +34,32 @@ var RPBChessboard = {};
 	 */
 	RPBChessboard.i18n =
 	{
-		/**
-		 * Cancel button label.
-		 * @type {string}
-		 */
 		CANCEL_BUTTON_LABEL: 'Cancel',
 
-		/**
-		 * Submit button label in add mode.
-		 * @type {string}
-		 */
 		SUBMIT_BUTTON_ADD_LABEL: 'Add a new chess diagram',
 
-		/**
-		 * Submit button label in edit mode.
-		 * @type {string}
-		 */
 		SUBMIT_BUTTON_EDIT_LABEL: 'Update the chess diagram',
 
-		/**
-		 * Edit FEN dialog title.
-		 * @type {string}
-		 */
 		INSERT_EDIT_CHESS_DIAGRAM: 'Insert/edit a chess diagram',
 
-		/**
-		 * Turn tab label.
-		 * @type {string}
-		 */
 		TURN_TAB_LABEL: 'Turn',
 
-		/**
-		 * Advanced options tab label.
-		 * @type {string}
-		 */
 		ADVANCED_TAB_LABEL: 'Advanced',
 
-		/**
-		 * Castling section title.
-		 * @type {string}
-		 */
 		CASTLING_SECTION_TITLE: 'Castling rights',
 
-		/**
-		 * En passant section title.
-		 * @type {string}
-		 */
 		EN_PASSANT_SECTION_TITLE: 'En passant',
 
-		/**
-		 * Reset button label.
-		 * @type {string}
-		 */
+		EN_PASSANT_DISABLED_RADIO_BUTTON_LABEL: 'Not possible',
+
+		EN_PASSANT_ENABLED_RADIO_BUTTON_LABEL: 'Possible on column %1$s',
+
 		RESET_BUTTON_LABEL: 'Reset',
 
-		/**
-		 * Reset button tool-tip.
-		 * @type {string}
-		 */
 		RESET_BUTTON_TOOLTIP: 'Set the initial position',
 
-		/**
-		 * Clear button label.
-		 * @type {string}
-		 */
 		CLEAR_BUTTON_LABEL: 'Clear',
 
-		/**
-		 * Clear button tool-tip.
-		 * @type {string}
-		 */
 		CLEAR_BUTTON_TOOLTIP: 'Clear the chessboard'
 	};
 
@@ -120,12 +76,17 @@ var RPBChessboard = {};
 			var cb = $('#rpbchessboard-editFENDialog-chessboard');
 			cb.chessboard('option', 'position', fen);
 			$('#rpbchessboard-editFENDialog-turn-' + cb.chessboard('turn')).prop('checked', true);
-			//var castleRights = cb.chessboard('castleRights');
-			//$('#rpbchessboard-editFen-castle-wk').prop('checked', castleRights.indexOf('K')>=0);
-			//$('#rpbchessboard-editFen-castle-wq').prop('checked', castleRights.indexOf('Q')>=0);
-			//$('#rpbchessboard-editFen-castle-bk').prop('checked', castleRights.indexOf('k')>=0);
-			//$('#rpbchessboard-editFen-castle-bq').prop('checked', castleRights.indexOf('q')>=0);
-			//$('#rpbchessboard-editFen-enPassant').val(cb.chessboard('enPassant'));
+			var castleRights = cb.chessboard('castleRights');
+			$('#rpbchessboard-editFENDialog-castle-wk').prop('checked', castleRights.indexOf('K')>=0);
+			$('#rpbchessboard-editFENDialog-castle-wq').prop('checked', castleRights.indexOf('Q')>=0);
+			$('#rpbchessboard-editFENDialog-castle-bk').prop('checked', castleRights.indexOf('k')>=0);
+			$('#rpbchessboard-editFENDialog-castle-bq').prop('checked', castleRights.indexOf('q')>=0);
+			var enPassant = cb.chessboard('enPassant');
+			$('#rpbchessboard-editFENDialog-enPassant-' + (enPassant === '' ? 'disabled' : 'enabled')).prop('checked', true);
+			$('#rpbchessboard-editFENDialog-enPassant-column').prop('disabled', enPassant === '');
+			if(enPassant !== '') {
+				$('#rpbchessboard-editFENDialog-enPassant-column').val(enPassant);
+			}
 		}
 
 		if(typeof isAddMode === 'boolean') {
@@ -189,25 +150,38 @@ var RPBChessboard = {};
 										'</tr>' +
 										'<tr>' +
 											'<td><span class="rpbchessboard-editFENDialog-turnFlag uichess-chessboard-sprite28" style="background-position: -168px -28px;"></span></td>' +
-											'<td><input id="rpbchessboard-editFen-castle-wq" type="checkbox" /></td>' +
-											'<td><input id="rpbchessboard-editFen-castle-wk" type="checkbox" /></td>' +
+											'<td><input id="rpbchessboard-editFENDialog-castle-wq" type="checkbox" /></td>' +
+											'<td><input id="rpbchessboard-editFENDialog-castle-wk" type="checkbox" /></td>' +
 										'</tr>' +
 									'</tbody></table>' +
 								'</div>' +
 								'<div class="rpbchessboard-editFENDialog-sectionTitle">' + RPBChessboard.i18n.EN_PASSANT_SECTION_TITLE + '</div>' +
 								'<div class="rpbchessboard-editFENDialog-sectionContent">' +
-									'<label for="rpbchessboard-editFENDialog-enPassant">En passant column:</label>' + // TODO
-									'<select id="rpbchessboard-editFENDialog-enPassant">' +
-										'<option value="">-</option>' +
-										'<option value="a">a</option>' +
-										'<option value="b">b</option>' +
-										'<option value="c">c</option>' +
-										'<option value="d">d</option>' +
-										'<option value="e">e</option>' +
-										'<option value="f">f</option>' +
-										'<option value="g">g</option>' +
-										'<option value="h">h</option>' +
-									'</select>' +
+									'<ul id="rpbchessboard-editFENDialog-enPassantRights">' +
+										'<li>' +
+											'<input id="rpbchessboard-editFENDialog-enPassant-disabled" type="radio" name="enPassant" />' +
+											'<label for="rpbchessboard-editFENDialog-enPassant-disabled">' +
+												RPBChessboard.i18n.EN_PASSANT_DISABLED_RADIO_BUTTON_LABEL +
+											'</label>' +
+										'</li>' +
+										'<li>' +
+											'<input id="rpbchessboard-editFENDialog-enPassant-enabled" type="radio" name="enPassant" />' +
+											'<label for="rpbchessboard-editFENDialog-enPassant-enabled">' +
+												RPBChessboard.i18n.EN_PASSANT_ENABLED_RADIO_BUTTON_LABEL.replace('%1$s',
+													'</label><select id="rpbchessboard-editFENDialog-enPassant-column">' +
+														'<option value="a">a</option>' +
+														'<option value="b">b</option>' +
+														'<option value="c">c</option>' +
+														'<option value="d">d</option>' +
+														'<option value="e">e</option>' +
+														'<option value="f">f</option>' +
+														'<option value="g">g</option>' +
+														'<option value="h">h</option>' +
+													'</select><label for="rpbchessboard-editFENDialog-enPassant-enabled">'
+												) +
+											'</label>' +
+										'</li>' +
+									'</ul>' +
 								'</div>' +
 							'</div>' +
 
@@ -237,6 +211,20 @@ var RPBChessboard = {};
 		$('#rpbchessboard-editFENDialog-turn-' + cb.chessboard('turn')).prop('checked', true);
 		$('.rpbchessboard-editFENDialog-turnField input').each(function(index, elem) {
 			$(elem).click(function() { cb.chessboard('turn', $(elem).val()); });
+		});
+
+		// En passant widgets
+		var enPassantColumnChooser = $('#rpbchessboard-editFENDialog-enPassant-column');
+		$('#rpbchessboard-editFENDialog-enPassant-disabled').click(function() {
+			enPassantColumnChooser.prop('disabled', true);
+			cb.chessboard('enPassant', '');
+		});
+		$('#rpbchessboard-editFENDialog-enPassant-enabled').click(function() {
+			enPassantColumnChooser.prop('disabled', false);
+			enPassantColumnChooser.change();
+		});
+		enPassantColumnChooser.change(function() {
+			cb.chessboard('enPassant', enPassantColumnChooser.val());
 		});
 
 		// Buttons 'reset' and 'clear'
@@ -291,7 +279,7 @@ var RPBChessboard = {};
 	{
 		buildEditFENDialog();
 
-		resetEditFENDialog('r2qkbnr/ppp2ppp/2np4/4N3/2B1P3/2N5/PPPP1PPP/R1BbK2R w KQkq - 0 6', false);
+		resetEditFENDialog('r2qkbnr/ppp2ppp/2np4/4N3/2B1P3/2N5/PPPP1PPP/R1BbK2R w k e3 0 6', true);
 
 		$('#rpbchessboard-editFENDialog').dialog('open');
 

@@ -383,7 +383,7 @@ div.rpbchessboard-sourceCode {
 	font-weight: bold;
 }
 
-.rpbchessboard-editFENDialog-sectionTitle + .rpbchessboard-editFENDialog-sectionContent {
+* + .rpbchessboard-editFENDialog-sectionContent {
 	margin-top: 0.3em;
 }
 
@@ -405,32 +405,23 @@ div.rpbchessboard-sourceCode {
 	vertical-align: middle;
 }
 
-#rpbchessboard-editFENDialog-castleRights {
-	text-align: center;
-	table-layout: fixed;
-	margin-top: 5px;
-}
-
 #rpbchessboard-editFENDialog-castleRights td {
 	vertical-align: middle;
+	text-align: center;
 	padding: 0px 5px 0px;
 }
 
-#rpbchessboard-editFen-fenArea {
-	margin: 0px 10px;
-	display: -webkit-box;
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: -webkit-flex;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
+#rpbchessboard-editFENDialog-castleRights input[type="checkbox"] {
+	margin: 0px;
 }
 
-#rpbchessboard-editFen-fenArea > span {
-	margin-right: 5px;
+#rpbchessboard-editFENDialog-enPassantRights {
+	list-style-type: none;
 }
 
-#rpbchessboard-editFen-fenArea > input {
-	width: 100%;
+#rpbchessboard-editFENDialog-enPassantRights,
+#rpbchessboard-editFENDialog-enPassantRights li,
+#rpbchessboard-editFENDialog-enPassantRights input[type="radio"] {
+	margin-top: 0px;
+	margin-bottom: 0px;
 }
