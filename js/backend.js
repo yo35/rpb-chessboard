@@ -115,10 +115,10 @@ var RPBChessboard = {};
 
 		$('#rpbchessboard-editFENDialog-anchor').append('<div id="rpbchessboard-editFENDialog">' +
 			'<div class="rpbchessboard-columns">' +
-				'<div style="width: 65%;">' +
+				'<div style="width: 450px;">' +
 					'<div id="rpbchessboard-editFENDialog-chessboard"></div>' +
 				'</div>' +
-				'<div style="width: 35%;">' +
+				'<div class="rpbchessboard-stretchable">' +
 					'<div class="rpbchessboard-jQuery-enableSmoothness">' +
 						'<div id="rpbchessboard-editFENDialog-accordion" class="rpbchessboard-accordion">' +
 

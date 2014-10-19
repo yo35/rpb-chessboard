@@ -97,6 +97,12 @@ div.rpbchessboard-sourceCode:last-child,
 	margin-right: 0px;
 }
 
+.rpbchessboard-columns .rpbchessboard-stretchable {
+	flex-grow: 1;
+	-webkit-flex-grow: 1;
+	-ms-flex-grow: 1;
+}
+
 
 
 /* -------------------------------------------------------------------------- */
