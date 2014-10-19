@@ -41,13 +41,13 @@ var RPBChessboard = {};
 	 */
 	RPBChessboard.i18n =
 	{
+		EDIT_CHESS_DIAGRAM_DIALOG_TITLE: 'Insert/edit a chess diagram',
+
 		CANCEL_BUTTON_LABEL: 'Cancel',
 
 		SUBMIT_BUTTON_ADD_LABEL: 'Add a new chess diagram',
 
 		SUBMIT_BUTTON_EDIT_LABEL: 'Update the chess diagram',
-
-		INSERT_EDIT_CHESS_DIAGRAM: 'Insert/edit a chess diagram',
 
 		BASIC_TAB_LABEL: 'Basic',
 
@@ -288,7 +288,7 @@ var RPBChessboard = {};
 			autoOpen   : false,
 			modal      : true,
 			dialogClass: 'wp-dialog',
-			title      : RPBChessboard.i18n.INSERT_EDIT_CHESS_DIAGRAM,
+			title      : RPBChessboard.i18n.EDIT_CHESS_DIAGRAM_DIALOG_TITLE,
 			width      : 750,
 			buttons    : [
 				{
