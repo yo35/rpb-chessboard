@@ -22,7 +22,14 @@
 var RPBChessboard = {};
 
 /**
- * TODO
+ * Miscellaneous functions used by the plugin in the backend.
+ *
+ * @requires uichess-chessboard.js
+ * @requires jQuery
+ * @requires jQuery UI Dialog
+ * @requires jQuery UI Accordion
+ * @requires jQuery UI Draggable
+ * @requires jQuery UI Droppable
  */
 (function(RPBChessboard, $)
 {
@@ -228,8 +235,8 @@ var RPBChessboard = {};
 		});
 
 		// Buttons 'reset' and 'clear'
-		$('#rpbchessboard-editFENDialog-resetButton').button().click(function(e) { e.preventDefault(); resetEditFENDialog('start'); });
-		$('#rpbchessboard-editFENDialog-clearButton').button().click(function(e) { e.preventDefault(); resetEditFENDialog('empty'); });
+		$('#rpbchessboard-editFENDialog-resetButton').click(function(e) { e.preventDefault(); resetEditFENDialog('start'); });
+		$('#rpbchessboard-editFENDialog-clearButton').click(function(e) { e.preventDefault(); resetEditFENDialog('empty'); });
 
 		// Accordion
 		$('#rpbchessboard-editFENDialog-accordion').accordion();

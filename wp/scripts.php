@@ -48,9 +48,7 @@ abstract class RPBChessboardScripts
 		wp_register_script('rpbchessboard-chessboard', RPBCHESSBOARD_URL . 'js/uichess-chessboard' . $ext, array(
 			'rpbchessboard-chessjs',
 			'jquery-ui-widget',
-			'jquery-ui-selectable',
-			'jquery-ui-draggable', // TODO: remove this dependency (only used by the editors)
-			'jquery-ui-droppable'  // TODO: remove this dependency (only used by the editors)
+			'jquery-ui-selectable'
 		));
 
 		// Chessgame widget
@@ -66,8 +64,11 @@ abstract class RPBChessboardScripts
 
 		// Plugin specific
 		wp_register_script('rpbchessboard-backend', RPBCHESSBOARD_URL . 'js/backend' . $ext, array(
-			// TODO
-			'jquery-ui-accordion'
+			'rpbchessboard-chessboard',
+			'jquery-ui-dialog',
+			'jquery-ui-accordion',
+			'jquery-ui-draggable',
+			'jquery-ui-droppable'
 		));
 
 		// Enqueue the scripts.
