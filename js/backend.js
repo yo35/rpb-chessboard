@@ -57,6 +57,12 @@ var RPBChessboard = {};
 
 		FLIP_CHECKBOX_LABEL: 'Flip board',
 
+		SPECIAL_POSITIONS_SECTION_TITLE: 'Special positions',
+
+		START_POSITION_TOOLTIP: 'Set the initial position',
+
+		EMPTY_POSITION_TOOLTIP: 'Clear the chessboard',
+
 		ADVANCED_TAB_LABEL: 'Advanced',
 
 		CASTLING_SECTION_TITLE: 'Castling rights',
@@ -65,15 +71,7 @@ var RPBChessboard = {};
 
 		EN_PASSANT_DISABLED_RADIO_BUTTON_LABEL: 'Not possible',
 
-		EN_PASSANT_ENABLED_RADIO_BUTTON_LABEL: 'Possible on column %1$s',
-
-		RESET_BUTTON_LABEL: 'Reset',
-
-		RESET_BUTTON_TOOLTIP: 'Set the initial position',
-
-		CLEAR_BUTTON_LABEL: 'Clear',
-
-		CLEAR_BUTTON_TOOLTIP: 'Clear the chessboard'
+		EN_PASSANT_ENABLED_RADIO_BUTTON_LABEL: 'Possible on column %1$s'
 	};
 
 
@@ -162,6 +160,15 @@ var RPBChessboard = {};
 									'<input id="rpbchessboard-editFENDialog-flip" type="checkbox" />' +
 									'<label for="rpbchessboard-editFENDialog-flip">' + RPBChessboard.i18n.FLIP_CHECKBOX_LABEL + '</label>' +
 								'</div>' +
+								'<div class="rpbchessboard-editFENDialog-sectionTitle">' + RPBChessboard.i18n.SPECIAL_POSITIONS_SECTION_TITLE + '</div>' +
+								'<div class="rpbchessboard-editFENDialog-sectionContent">' +
+									'<button id="rpbchessboard-editFENDialog-startPosition" class="button rpbchessboard-graphicButton" title="' + RPBChessboard.i18n.START_POSITION_TOOLTIP + '">' +
+										'<div class="rpbchessboard-startPositionIcon"></div>' +
+									'</button>' +
+									'<button id="rpbchessboard-editFENDialog-emptyPosition" class="button rpbchessboard-graphicButton" title="' + RPBChessboard.i18n.EMPTY_POSITION_TOOLTIP + '">' +
+										'<div class="rpbchessboard-emptyPositionIcon"></div>' +
+									'</button>' +
+								'</div>' +
 							'</div>' +
 
 							// Advanced tab
@@ -219,14 +226,6 @@ var RPBChessboard = {};
 
 						'</div>' +
 					'</div>' +
-					'<p>' +
-						'<button id="rpbchessboard-editFENDialog-resetButton" class="button" title="' + RPBChessboard.i18n.RESET_BUTTON_TOOLTIP + '">' +
-							RPBChessboard.i18n.RESET_BUTTON_LABEL +
-						'</button>' +
-						'<button id="rpbchessboard-editFENDialog-clearButton" class="button" title="' + RPBChessboard.i18n.CLEAR_BUTTON_TOOLTIP + '">' +
-							RPBChessboard.i18n.CLEAR_BUTTON_LABEL +
-						'</button>' +
-					'</p>' +
 				'</div>' +
 			'</div>' +
 		'</div>');
@@ -250,6 +249,10 @@ var RPBChessboard = {};
 		flipButton.click(function() {
 			cb.chessboard('option', 'flip', flipButton.prop('checked'));
 		});
+
+		// Buttons 'reset' and 'clear'
+		$('#rpbchessboard-editFENDialog-startPosition').click(function(e) { e.preventDefault(); resetEditFENDialog('start'); });
+		$('#rpbchessboard-editFENDialog-emptyPosition').click(function(e) { e.preventDefault(); resetEditFENDialog('empty'); });
 
 		// Castle rights widgets
 		$('#rpbchessboard-editFENDialog-castleRights input').each(function(index, elem) {
@@ -276,10 +279,6 @@ var RPBChessboard = {};
 		enPassantColumnChooser.change(function() {
 			cb.chessboard('enPassant', enPassantColumnChooser.val());
 		});
-
-		// Buttons 'reset' and 'clear'
-		$('#rpbchessboard-editFENDialog-resetButton').click(function(e) { e.preventDefault(); resetEditFENDialog('start'); });
-		$('#rpbchessboard-editFENDialog-clearButton').click(function(e) { e.preventDefault(); resetEditFENDialog('empty'); });
 
 		// Accordion
 		$('#rpbchessboard-editFENDialog-accordion').accordion();

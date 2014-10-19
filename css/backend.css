@@ -216,6 +216,29 @@ div.rpbchessboard-sourceCode {
 
 
 /* -------------------------------------------------------------------------- */
+/* Icons */
+/* -------------------------------------------------------------------------- */
+
+.button.rpbchessboard-graphicButton {
+	height: auto;
+	padding: 4px;
+}
+
+.rpbchessboard-startPositionIcon {
+	width : 48px;
+	height: 48px;
+	background-image: url(../images/board-start.png);
+}
+
+.rpbchessboard-emptyPositionIcon {
+	width : 48px;
+	height: 48px;
+	background-image: url(../images/board-empty.png);
+}
+
+
+
+/* -------------------------------------------------------------------------- */
 /* Customize jQuery */
 /* -------------------------------------------------------------------------- */
 
@@ -402,7 +425,7 @@ div.rpbchessboard-sourceCode {
 }
 
 .rpbchessboard-editFENDialog-turnField + .rpbchessboard-editFENDialog-turnField,
-#rpbchessboard-editFENDialog p button + button {
+.rpbchessboard-editFENDialog-sectionContent .button + .button {
 	margin-left: 16px;
 }
 
