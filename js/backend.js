@@ -332,7 +332,10 @@ var RPBChessboard = {};
 	/**
 	 * Build the edit-FEN dialog (if not done yet), and make it visible.
 	 *
-	 * @param {function|{fen:string, options:function, callback:function}} args
+	 * @param {function|{fen:string, options:object, callback:function}} args
+	 *
+	 * The callback function is expected to take two arguments: the first is the FEN string
+	 * defined by the user in the dialog, the second an associative array of options.
 	 */
 	RPBChessboard.showEditFENDialog = function(args)
 	{
@@ -352,7 +355,7 @@ var RPBChessboard = {};
 
 			// Initialize the callback
 			if('callback' in args && typeof args.callback === 'function') {
-				dialog.data('callback', args);
+				dialog.data('callback', args.callback);
 			}
 
 			// Retrieve the options
