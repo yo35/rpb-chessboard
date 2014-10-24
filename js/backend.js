@@ -420,8 +420,10 @@ var RPBChessboard = {};
 		var retVal = {};
 		var re = /([a-zA-Z_0-9]+)=([^ \]]+)(?: |\])/g;
 		var m = null;
+		var fun = function(m, p1) { return p1.toUpperCase(); };
 		while((m = re.exec(openingTag)) !== null) {
-			retVal[m[1]] = m[2];
+			var attribute = m[1].toLowerCase().replace(/_([a-z]?)/g, fun);
+			retVal[attribute] = m[2];
 		}
 		return retVal;
 	};

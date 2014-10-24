@@ -23,15 +23,14 @@
  * Register the chess edition function in the QuickTags framework.
  *
  * @requires backend.js
- * @requires jQuery
  */
-(function(RPBChessboard, $)
+(function(RPBChessboard)
 {
 	'use strict';
 
 
 	// Skip if QuickTags is not defined.
-	if(QTags === undefined) {
+	if(/* global QTags */ typeof QTags === 'undefined') {
 		return;
 	}
 
@@ -89,8 +88,8 @@
 			res += ' flip=true';
 		}
 
-		if('square_size'      in options) { res += ' square_size='      + options.square_size     ; }
-		if('show_coordinates' in options) { res += ' show_coordinates=' + options.show_coordinates; }
+		if('squareSize'      in options) { res += ' square_size='      + options.squareSize     ; }
+		if('showCoordinates' in options) { res += ' show_coordinates=' + options.showCoordinates; }
 
 		res += ']' + fen + '[/' + fenShortcode + ']';
 
@@ -101,7 +100,7 @@
 	/**
 	 * Callback for the edit-FEN button.
 	 */
-	function editFENButtonCallback(button, canvas, editor)
+	function editFENButtonCallback(button, canvas)
 	{
 		var posBegin     = canvas.selectionStart;
 		var posEnd       = canvas.selectionEnd;
@@ -147,4 +146,4 @@
 		editFENButtonCallback
 	);
 
-})( /* global RPBChessboard */ RPBChessboard, /* global jQuery */ jQuery);
+})( /* global RPBChessboard */ RPBChessboard);
