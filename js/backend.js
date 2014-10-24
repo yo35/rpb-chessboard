@@ -90,6 +90,34 @@ var RPBChessboard = {};
 	};
 
 
+	/**
+	 * Validate a string as a boolean.
+	 *
+	 * @param {mixed} s
+	 * @returns {?boolean} Null if `s` does not represent a valid boolean.
+	 */
+	function validateBoolean(s) {
+
+		// Trivial case
+		if(typeof s === 'boolean') {
+			return s;
+		}
+
+		// Parsing from string
+		else if(typeof s === 'string') {
+			switch(s.toLowerCase()) {
+				case 'true' : case 'yes': case '1': return true ;
+				case 'false': case 'no' : case '0': return false;
+				default: return null;
+			}
+		}
+
+		// Default case
+		else {
+			return null;
+		}
+	}
+
 
 	/**
 	 * Reset the edit-FEN dialog and initialize it with the given parameters.
@@ -126,9 +154,12 @@ var RPBChessboard = {};
 
 		if(typeof options === 'object' && options !== null) {
 
-			if('flip' in options && typeof options.flip === 'boolean') {
-				cb.chessboard('option', 'flip', options.flip);
-				$('#rpbchessboard-editFENDialog-flip').prop('checked', options.flip);
+			if('flip' in options)  {
+				var flip = validateBoolean(options.flip);
+				if(flip !== null) {
+					cb.chessboard('option', 'flip', flip);
+					$('#rpbchessboard-editFENDialog-flip').prop('checked', flip);
+				}
 			}
 
 		}
@@ -319,7 +350,8 @@ var RPBChessboard = {};
 						var callback = $(this).data('callback');
 						if(typeof callback === 'function') {
 							var fen = cb.chessboard('option', 'position');
-							var options = { flip: $('#rpbchessboard-editFENDialog-flip').prop('checked') };
+							var options = $(this).data('options');
+							options.flip = $('#rpbchessboard-editFENDialog-flip').prop('checked');
 							callback(fen, options);
 						}
 					}
@@ -343,6 +375,7 @@ var RPBChessboard = {};
 		buildEditFENDialog();
 		var dialog = $('#rpbchessboard-editFENDialog');
 		dialog.data('callback', null);
+		dialog.data('options' , null);
 
 		// 'args' is a callback -> initialize the dialog in "add" mode
 		if(typeof args === 'function') {
@@ -359,7 +392,8 @@ var RPBChessboard = {};
 			}
 
 			// Retrieve the options
-			var options = ('options' in args) ? args.options : null;
+			var options = ('options' in args) ? args.options : {};
+			dialog.data('options', options);
 
 			// Initialize the dialog
 			if('fen' in args && typeof args.fen === 'string') {
@@ -372,6 +406,24 @@ var RPBChessboard = {};
 
 		// Show the dialog
 		$('#rpbchessboard-editFENDialog').dialog('open');
+	};
+
+
+	/**
+	 * Parse the attributes attached to an opening shortcode as defined in the WordPress API.
+	 *
+	 * @param {string} openingTag For instance: `'[shortcode attribute1=value1 attribute2=value2]'`
+	 * @returns {object}
+	 */
+	RPBChessboard.parseWordPressShortcodeAttributes = function(openingTag)
+	{
+		var retVal = {};
+		var re = /([a-zA-Z_0-9]+)=([^ \]]+)(?: |\])/g;
+		var m = null;
+		while((m = re.exec(openingTag)) !== null) {
+			retVal[m[1]] = m[2];
+		}
+		return retVal;
 	};
 
 })( /* global RPBChessboard */ RPBChessboard, /* global jQuery */ jQuery );

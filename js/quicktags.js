@@ -85,9 +85,12 @@
 		var fenShortcode = RPBChessboard.config.FEN_SHORTCODE;
 		var res = '[' + fenShortcode;
 
-		if('flip'            in options) { res += ' flip='             + options.flip           ; }
-		if('squareSize'      in options) { res += ' square_size='      + options.squareSize     ; }
-		if('showCoordinates' in options) { res += ' show_coordinates=' + options.showCoordinates; }
+		if('flip' in options && options.flip) {
+			res += ' flip=true';
+		}
+
+		if('square_size'      in options) { res += ' square_size='      + options.square_size     ; }
+		if('show_coordinates' in options) { res += ' show_coordinates=' + options.show_coordinates; }
 
 		res += ']' + fen + '[/' + fenShortcode + ']';
 
@@ -118,11 +121,16 @@
 		// posOpen <= posBegin <= posEnd <= posClose + (length of the close tag),
 		// then set-up the dialog to edit the string enclosed by the tags...
 		if(posOpen>=0 && posClose>=0 && posOpen<=posBegin && posEnd<=posClose+lgClose) {
-			var lgOpen = text.substr(posOpen).match(reOpen)[0].length;
-			var fen    = text.substr(posOpen + lgOpen, posClose - posOpen - lgOpen);
-			canvas.selectionStart = posOpen + lgOpen;
-			canvas.selectionEnd   = posClose;
-			rpbchessboard_editFenDialog(jQuery, fen);
+			var tagOpen = text.substr(posOpen).match(reOpen)[0];
+			var lgOpen  = tagOpen.length;
+			var fen     = text.substr(posOpen + lgOpen, posClose - posOpen - lgOpen);
+			canvas.selectionStart = posOpen;
+			canvas.selectionEnd   = posClose + lgClose;
+			RPBChessboard.showEditFENDialog({
+				callback: editFENDialogCallback,
+				fen: fen,
+				options: RPBChessboard.parseWordPressShortcodeAttributes(tagOpen)
+			});
 		}
 
 		// Otherwise, set-up the dialog to add a new FEN string.
