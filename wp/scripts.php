@@ -30,7 +30,7 @@ abstract class RPBChessboardScripts
 {
 	public static function register()
 	{
-		$ext = WP_DEBUG ? '.js' : '.min.js';
+		$ext = self::getJSFileExtension();
 
 		// chess.js (https://github.com/jhlywa/chess.js)
 		wp_register_script('rpbchessboard-chessjs', RPBCHESSBOARD_URL . 'third-party-libs/chess-js/chess' . $ext);
@@ -102,7 +102,7 @@ abstract class RPBChessboardScripts
 
 	public static function callbackRegisterTinyMCEPlugin($plugins)
 	{
-		$plugins['RPBChessboard'] = RPBCHESSBOARD_URL . 'js/tinymce.js'; // TODO: adjust extension
+		$plugins['RPBChessboard'] = RPBCHESSBOARD_URL . 'js/tinymce' . self::getJSFileExtension();
 		return $plugins;
 	}
 
@@ -116,7 +116,20 @@ abstract class RPBChessboardScripts
 	public static function callbackRegisterQuickTagsButtons()
 	{
 		echo '<div id="rpbchessboard-editFENDialog-anchor"></div>'; // TODO: remove anchor
-		echo '<script type="text/javascript" src="' . RPBCHESSBOARD_URL . 'js/quicktags.js"></script>';
+
+		$url = RPBCHESSBOARD_URL . 'js/quicktags' . self::getJSFileExtension();
+		echo '<script type="text/javascript" src="' . $url . '"></script>';
+	}
+
+
+	/**
+	 * Return the extension to use for the included JS files.
+	 *
+	 * @return string
+	 */
+	private static function getJSFileExtension()
+	{
+		return WP_DEBUG ? '.js' : '.min.js';
 	}
 
 
