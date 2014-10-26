@@ -20,7 +20,9 @@
 
 
 /**
- * TODO
+ * Register the chess edition function in the TinyMCE framework.
+ *
+ * @requires backend.js
  */
 (function(RPBChessboard)
 {
@@ -75,7 +77,7 @@
 	tinymce.PluginManager.add('RPBChessboard', function(editor, url) {
 		editor.addButton('rpb-chessboard', {
 			text: RPBChessboard.i18n.EDITOR_BUTTON_LABEL,
-			icon: false,
+			icon: false, // TODO
 			onclick: function() { editFENButtonCallback(editor); }
     });
 	});

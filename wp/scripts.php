@@ -102,7 +102,7 @@ abstract class RPBChessboardScripts
 
 	public static function callbackRegisterTinyMCEPlugin($plugins)
 	{
-		$plugins['RPBChessboard'] = RPBCHESSBOARD_URL . 'js/tinymce.js';
+		$plugins['RPBChessboard'] = RPBCHESSBOARD_URL . 'js/tinymce.js'; // TODO: adjust extension
 		return $plugins;
 	}
 
@@ -115,7 +115,7 @@ abstract class RPBChessboardScripts
 
 	public static function callbackRegisterQuickTagsButtons()
 	{
-		echo '<div id="rpbchessboard-editFENDialog-anchor"></div>';
+		echo '<div id="rpbchessboard-editFENDialog-anchor"></div>'; // TODO: remove anchor
 		echo '<script type="text/javascript" src="' . RPBCHESSBOARD_URL . 'js/quicktags.js"></script>';
 	}
 
