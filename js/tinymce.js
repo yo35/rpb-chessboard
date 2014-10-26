@@ -29,6 +29,12 @@
 	'use strict';
 
 
+	// Skip if tinymce is not defined.
+	if(/* global tinymce */ typeof tinymce === 'undefined') {
+		return;
+	}
+
+
 	/**
 	 * Callback for the edit-FEN dialog.
 	 */
