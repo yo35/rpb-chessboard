@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-12 21:09+0200\n"
+"POT-Creation-Date: 2014-10-26 20:22+0100\n"
 "PO-Revision-Date: 2014-07-15 13:03+0100\n"
 "Last-Translator: Dawid Ziółkowski <kontakt@dawidziolkowski.pl>\n"
 "Language-Team: Dawid Ziółkowski <mr@dawidziolkowski.com>\n"
@@ -182,11 +182,11 @@ msgstr ""
 #: templates/adminpage/optionscompatibility.php
 #, php-format
 msgid ""
-"By default, the RPB Chessboard plugin use the %1$s[fen][/fen]%2$s and %1$s"
-"[pgn][/pgn]%2$s tags for FEN diagrams and PGN games. However, this behavior "
-"causes conflicts with other WordPress plugins (typically chess plugins) that "
-"use the same tags. The compatibility modes are provided to avoid those "
-"conflicts."
+"By default, the RPB Chessboard plugin use the %1$s[fen][/fen]%2$s and "
+"%1$s[pgn][/pgn]%2$s tags for FEN diagrams and PGN games. However, this "
+"behavior causes conflicts with other WordPress plugins (typically chess "
+"plugins) that use the same tags. The compatibility modes are provided to "
+"avoid those conflicts."
 msgstr ""
 "Domyślnie wtyczka RPB Chessboard używa tagów 1$s[fen][/fen]%2$s i %1$s[pgn][/"
 "pgn]%2$s dla diagramów zapisanych w formacie FEN i partii szachowych "
@@ -204,10 +204,10 @@ msgid ""
 "Activating this option makes RPB Chessboard use %1$s[fen_compat][/"
 "fen_compat]%2$s instead of %1$s[fen][/fen]%2$s for FEN diagrams."
 msgstr ""
-"Aktywacja tej opcji umożliwi wtyczce RPB Chessboard używanie tagów %1$s"
-"[fen_compat][/fen_compat]%2$s zamiast %1$s[fen][/fen]%2$s przy wstawianiu "
-"diagramów w formacie FEN. Dzięki temu uniknie się konfliktów z innymi "
-"wtyczkami szachowymi korzystający z tagu [fen]."
+"Aktywacja tej opcji umożliwi wtyczce RPB Chessboard używanie tagów "
+"%1$s[fen_compat][/fen_compat]%2$s zamiast %1$s[fen][/fen]%2$s przy "
+"wstawianiu diagramów w formacie FEN. Dzięki temu uniknie się konfliktów z "
+"innymi wtyczkami szachowymi korzystający z tagu [fen]."
 
 #: templates/adminpage/optionscompatibility.php
 msgid "Compatibility mode for the PGN game tag"
@@ -219,10 +219,10 @@ msgid ""
 "Activating this option makes RPB Chessboard use %1$s[pgn_compat][/"
 "pgn_compat]%2$s instead of %1$s[pgn][/pgn]%2$s for PGN games."
 msgstr ""
-"Aktywacja tej opcji umożliwi wtyczce RPB Chessboard używanie tagów %1$s"
-"[pgn_compat][/pgn_compat]%2$s zamiast %1$s[pgn][/pgn]%2$s przy wstawianiu "
-"zapisu partii szachowej w formacie PGN. Dzięki temu uniknie się konfliktów z "
-"innymi wtyczkami szachowymi korzystający z tagu [pgn]."
+"Aktywacja tej opcji umożliwi wtyczce RPB Chessboard używanie tagów "
+"%1$s[pgn_compat][/pgn_compat]%2$s zamiast %1$s[pgn][/pgn]%2$s przy "
+"wstawianiu zapisu partii szachowej w formacie PGN. Dzięki temu uniknie się "
+"konfliktów z innymi wtyczkami szachowymi korzystający z tagu [pgn]."
 
 #: templates/adminpage/header.php
 msgid ""
@@ -329,7 +329,7 @@ msgstr ""
 "Niektóre aspekty wyświetlania się diagramów mogą być dostosowane dzięki "
 "poniższym opcjom."
 
-#: templates/adminpage/helpfen.php
+#: templates/adminpage/helpfen.php templates/localization.php
 msgid "Orientation"
 msgstr "Orientacja"
 
@@ -365,7 +365,7 @@ msgstr ""
 msgid "Save changes"
 msgstr "Zapisz zmiany"
 
-#: templates/adminpage/optionsfooter.php templates/editors/quicktags.php
+#: templates/adminpage/optionsfooter.php templates/localization.php
 msgid "Cancel"
 msgstr "Anuluj"
 
@@ -463,16 +463,16 @@ msgstr ""
 #, php-format
 msgid ""
 "These settings control the default aspect and behavior of the chess diagrams "
-"and games inserted in posts and pages with the %1$s[%3$s][/%3$s]%2$s and %1$s"
-"[%4$s][/%4$s]%2$s tags. They can be overridden at each tag by passing "
+"and games inserted in posts and pages with the %1$s[%3$s][/%3$s]%2$s and "
+"%1$s[%4$s][/%4$s]%2$s tags. They can be overridden at each tag by passing "
 "appropriate tag attributes: see %5$shelp on FEN diagram attributes%7$s and "
 "%6$shelp on PGN game attributes%7$s for more details."
 msgstr ""
 "Te ustawienia kontrolują domyślne działanie diagramów sachowych i partii "
-"wstawionych do postów oraz stron za pomocą tagów %1$s[%3$s][/%3$s]%2$s i %1$s"
-"[%4$s][/%4$s]%2$s Mogą być one nadpisane poprzez przekazywanie odpowiednich "
-"atrybutów tagów - zobacz %5$shelp w atrybutach diagramów FEN %7$s i pomoc "
-"dotycząca atrybutów partii w PGN %6$shelp."
+"wstawionych do postów oraz stron za pomocą tagów %1$s[%3$s][/%3$s]%2$s i "
+"%1$s[%4$s][/%4$s]%2$s Mogą być one nadpisane poprzez przekazywanie "
+"odpowiednich atrybutów tagów - zobacz %5$shelp w atrybutach diagramów FEN "
+"%7$s i pomoc dotycząca atrybutów partii w PGN %6$shelp."
 
 #: templates/adminpage/optionsgeneral.php templates/adminpage/helppgn.php
 msgid "Chessboard aspect"
@@ -851,53 +851,66 @@ msgstr ""
 msgid "Annotated by %1$s"
 msgstr "Komentator: %1$s"
 
-#: templates/editors/quicktags.php
-msgid "Turn:"
-msgstr "Tura:"
+#: templates/localization.php
+msgid "Chessboard"
+msgstr ""
 
-#: templates/editors/quicktags.php
-msgid "Castling availability:"
-msgstr "Możliwość roszady:"
-
-#: templates/editors/quicktags.php
-msgid "En passant column:"
-msgstr "Kolumna dla bicia w przelocie (ep.)"
-
-#: templates/editors/quicktags.php
-msgid "Set the initial position"
-msgstr "Pozycja początkowa"
-
-#: templates/editors/quicktags.php
-msgid "Reset"
-msgstr "Reset"
-
-#: templates/editors/quicktags.php
-msgid "Clear the chessboard"
-msgstr "Oczyść szachownicę"
-
-#: templates/editors/quicktags.php
-msgid "Clear"
-msgstr "Wyczyść"
-
-#: templates/editors/quicktags.php
-msgid "FEN:"
-msgstr "FEN:"
-
-#: templates/editors/quicktags.php
-msgid "Add a new chess diagram"
-msgstr "Dodaj nowy diagram"
-
-#: templates/editors/quicktags.php
-msgid "Update the chess diagram"
-msgstr "Uaktualnij diagram"
-
-#: templates/editors/quicktags.php
+#: templates/localization.php
 msgid "Insert/edit a chess diagram"
 msgstr "Wstaw/Edytuj diagram"
 
-#: templates/editors/quicktags.php
-msgid "chessboard"
-msgstr "szachownica"
+#: templates/localization.php
+msgid "Add a new chess diagram"
+msgstr "Dodaj nowy diagram"
+
+#: templates/localization.php
+msgid "Update the chess diagram"
+msgstr "Uaktualnij diagram"
+
+#: templates/localization.php
+msgid "Basic"
+msgstr ""
+
+#: templates/localization.php
+msgid "Turn"
+msgstr "Tura"
+
+#: templates/localization.php
+msgid "Flip board"
+msgstr ""
+
+#: templates/localization.php
+msgid "Special positions"
+msgstr ""
+
+#: templates/localization.php
+msgid "Set the initial position"
+msgstr "Pozycja początkowa"
+
+#: templates/localization.php
+msgid "Clear the chessboard"
+msgstr "Oczyść szachownicę"
+
+#: templates/localization.php
+msgid "Advanced"
+msgstr ""
+
+#: templates/localization.php
+msgid "Castling rights"
+msgstr ""
+
+#: templates/localization.php
+msgid "En passant"
+msgstr ""
+
+#: templates/localization.php
+msgid "Not possible"
+msgstr ""
+
+#: templates/localization.php
+#, php-format
+msgid "Possible on column %1$s"
+msgstr ""
 
 #: wp/adminpages.php
 msgid "Chess games and diagrams"

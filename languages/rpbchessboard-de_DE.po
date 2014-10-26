@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 2.3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-12 21:09+0200\n"
+"POT-Creation-Date: 2014-10-26 20:22+0100\n"
 "PO-Revision-Date: 2014-04-26 16:53+0100\n"
 "Last-Translator: Markus Liebelt <markusliebelt@gmail.com>\n"
 "Language-Team: German\n"
@@ -173,11 +173,11 @@ msgstr ""
 #: templates/adminpage/optionscompatibility.php
 #, fuzzy, php-format
 msgid ""
-"By default, the RPB Chessboard plugin use the %1$s[fen][/fen]%2$s and %1$s"
-"[pgn][/pgn]%2$s tags for FEN diagrams and PGN games. However, this behavior "
-"causes conflicts with other WordPress plugins (typically chess plugins) that "
-"use the same tags. The compatibility modes are provided to avoid those "
-"conflicts."
+"By default, the RPB Chessboard plugin use the %1$s[fen][/fen]%2$s and "
+"%1$s[pgn][/pgn]%2$s tags for FEN diagrams and PGN games. However, this "
+"behavior causes conflicts with other WordPress plugins (typically chess "
+"plugins) that use the same tags. The compatibility modes are provided to "
+"avoid those conflicts."
 msgstr ""
 "Standardmäßig verwendet das RPB Chessboard Plugin die %1$s[fen][/fen]%2$s "
 "und %1$s[pgn][/pgn]%2$s Tags für die FEN Diagramme und PGN Partien. Dieses "
@@ -311,7 +311,7 @@ msgstr ""
 "Einige Aspekte der Schachdiagramme können dank der folgenden Attribute "
 "geändert werden."
 
-#: templates/adminpage/helpfen.php
+#: templates/adminpage/helpfen.php templates/localization.php
 msgid "Orientation"
 msgstr "Orientierung"
 
@@ -349,7 +349,7 @@ msgstr ""
 msgid "Save changes"
 msgstr "Speichere die Änderungen"
 
-#: templates/adminpage/optionsfooter.php templates/editors/quicktags.php
+#: templates/adminpage/optionsfooter.php templates/localization.php
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -450,8 +450,8 @@ msgstr ""
 #, php-format
 msgid ""
 "These settings control the default aspect and behavior of the chess diagrams "
-"and games inserted in posts and pages with the %1$s[%3$s][/%3$s]%2$s and %1$s"
-"[%4$s][/%4$s]%2$s tags. They can be overridden at each tag by passing "
+"and games inserted in posts and pages with the %1$s[%3$s][/%3$s]%2$s and "
+"%1$s[%4$s][/%4$s]%2$s tags. They can be overridden at each tag by passing "
 "appropriate tag attributes: see %5$shelp on FEN diagram attributes%7$s and "
 "%6$shelp on PGN game attributes%7$s for more details."
 msgstr ""
@@ -585,8 +585,8 @@ msgid ""
 "Chessboard plugin consider them as optional."
 msgstr ""
 "Normalerweise erfordert die strikte PGN Syntax, dass jede Partie mit 7 "
-"vorgeschriebenen Metadaten beginn: %1$s[Event &quot;...&quot;]%2$s, %1$s"
-"[Site &quot;...&quot;]%2$s, %1$s[Date &quot;...&quot;]%2$s, %1$s[Round "
+"vorgeschriebenen Metadaten beginn: %1$s[Event &quot;...&quot;]%2$s, "
+"%1$s[Site &quot;...&quot;]%2$s, %1$s[Date &quot;...&quot;]%2$s, %1$s[Round "
 "&quot;...&quot;]%2$s, %1$s[White &quot;...&quot;]%2$s, %1$s[Black &quot;..."
 "&quot;]%2$s, and %1$s[Result &quot;...&quot;]%2$s. Das RPB Chessboard Plugin "
 "betrachtet sie aber als optional."
@@ -809,53 +809,66 @@ msgstr "Sie müssen JavaScript aktivieren, um die Notation zu verbessern."
 msgid "Annotated by %1$s"
 msgstr "Kommentiert durch %1$s"
 
-#: templates/editors/quicktags.php
-msgid "Turn:"
-msgstr "Zug:"
+#: templates/localization.php
+msgid "Chessboard"
+msgstr ""
 
-#: templates/editors/quicktags.php
-msgid "Castling availability:"
-msgstr "Rochade möglich:"
-
-#: templates/editors/quicktags.php
-msgid "En passant column:"
-msgstr "En passent Spalte:"
-
-#: templates/editors/quicktags.php
-msgid "Set the initial position"
-msgstr "Setzt die initiale Position"
-
-#: templates/editors/quicktags.php
-msgid "Reset"
-msgstr "Zurücksetzen"
-
-#: templates/editors/quicktags.php
-msgid "Clear the chessboard"
-msgstr "Leere das Schachbrett"
-
-#: templates/editors/quicktags.php
-msgid "Clear"
-msgstr "Leeren"
-
-#: templates/editors/quicktags.php
-msgid "FEN:"
-msgstr "FEN:"
-
-#: templates/editors/quicktags.php
-msgid "Add a new chess diagram"
-msgstr "Ein neues Schach-Diagramm hinzufügen"
-
-#: templates/editors/quicktags.php
-msgid "Update the chess diagram"
-msgstr "Das Schach-Diagramm ändern"
-
-#: templates/editors/quicktags.php
+#: templates/localization.php
 msgid "Insert/edit a chess diagram"
 msgstr "Einfügen/ändern eines Schach-Diagramms"
 
-#: templates/editors/quicktags.php
-msgid "chessboard"
-msgstr "Schachbrett"
+#: templates/localization.php
+msgid "Add a new chess diagram"
+msgstr "Ein neues Schach-Diagramm hinzufügen"
+
+#: templates/localization.php
+msgid "Update the chess diagram"
+msgstr "Das Schach-Diagramm ändern"
+
+#: templates/localization.php
+msgid "Basic"
+msgstr ""
+
+#: templates/localization.php
+msgid "Turn"
+msgstr ""
+
+#: templates/localization.php
+msgid "Flip board"
+msgstr ""
+
+#: templates/localization.php
+msgid "Special positions"
+msgstr ""
+
+#: templates/localization.php
+msgid "Set the initial position"
+msgstr "Setzt die initiale Position"
+
+#: templates/localization.php
+msgid "Clear the chessboard"
+msgstr "Leere das Schachbrett"
+
+#: templates/localization.php
+msgid "Advanced"
+msgstr ""
+
+#: templates/localization.php
+msgid "Castling rights"
+msgstr ""
+
+#: templates/localization.php
+msgid "En passant"
+msgstr ""
+
+#: templates/localization.php
+msgid "Not possible"
+msgstr ""
+
+#: templates/localization.php
+#, php-format
+msgid "Possible on column %1$s"
+msgstr ""
 
 #: wp/adminpages.php
 msgid "Chess games and diagrams"
@@ -899,6 +912,18 @@ msgstr ""
 "Dieses Plugin erlaubt, Schachdiagramme und Schachpartien im PGN-Format "
 "darzustellen."
 
+#~ msgid "Castling availability:"
+#~ msgstr "Rochade möglich:"
+
+#~ msgid "Reset"
+#~ msgstr "Zurücksetzen"
+
+#~ msgid "Clear"
+#~ msgstr "Leeren"
+
+#~ msgid "FEN:"
+#~ msgstr "FEN:"
+
 #~ msgid ""
 #~ "After 1.e4. Notice the 4<sup>th</sup> field in the FEN string (%1$s), "
 #~ "indicating the square where <em>en passant</em> can be done (if there "
@@ -910,10 +935,10 @@ msgstr ""
 
 #~ msgid ""
 #~ "The %1$s[%4$s][/%4$s]%2$s and %1$s[pgndiagram]%2$s tags accept the same "
-#~ "attributes as the %1$s[%3$s][/%3$s]%2$s ones. For instance, using %1$s"
-#~ "[%4$s square_size=...] ... [/%4$s]%2$s will affect the size of all the "
-#~ "chess diagrams inserted in the comments of the corresponding chess game. "
-#~ "Setting %1$s[pgndiagram square_size=...]%2$s will affect only the "
+#~ "attributes as the %1$s[%3$s][/%3$s]%2$s ones. For instance, using "
+#~ "%1$s[%4$s square_size=...] ... [/%4$s]%2$s will affect the size of all "
+#~ "the chess diagrams inserted in the comments of the corresponding chess "
+#~ "game. Setting %1$s[pgndiagram square_size=...]%2$s will affect only the "
 #~ "corresponding diagram."
 #~ msgstr ""
 #~ "Die %1$s[%4$s][/%4$s]%2$s und %1$s[pgndiagram]%2$s Tags akzeptieren "

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-12 21:09+0200\n"
+"POT-Creation-Date: 2014-10-26 20:22+0100\n"
 "PO-Revision-Date: 2014-09-02 16:48:49+0200\n"
 "Last-Translator: schaaktrainer <jdelemarre@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -178,11 +178,11 @@ msgstr ""
 #: templates/adminpage/optionscompatibility.php
 #, php-format
 msgid ""
-"By default, the RPB Chessboard plugin use the %1$s[fen][/fen]%2$s and %1$s"
-"[pgn][/pgn]%2$s tags for FEN diagrams and PGN games. However, this behavior "
-"causes conflicts with other WordPress plugins (typically chess plugins) that "
-"use the same tags. The compatibility modes are provided to avoid those "
-"conflicts."
+"By default, the RPB Chessboard plugin use the %1$s[fen][/fen]%2$s and "
+"%1$s[pgn][/pgn]%2$s tags for FEN diagrams and PGN games. However, this "
+"behavior causes conflicts with other WordPress plugins (typically chess "
+"plugins) that use the same tags. The compatibility modes are provided to "
+"avoid those conflicts."
 msgstr ""
 "Standaard maakt de RPB Chessboard plugin gebruik van \n"
 "%1$s[fen][/fen]%2$s en %1$s[pgn][/pgn]%2$s tags\n"
@@ -301,7 +301,7 @@ msgid ""
 "attributes."
 msgstr ""
 
-#: templates/adminpage/helpfen.php
+#: templates/adminpage/helpfen.php templates/localization.php
 msgid "Orientation"
 msgstr "Oriëntatie "
 
@@ -335,7 +335,7 @@ msgstr ""
 msgid "Save changes"
 msgstr "Sla wijzigingen op"
 
-#: templates/adminpage/optionsfooter.php templates/editors/quicktags.php
+#: templates/adminpage/optionsfooter.php templates/localization.php
 msgid "Cancel"
 msgstr "Annuleer"
 
@@ -422,8 +422,8 @@ msgstr ""
 #, php-format
 msgid ""
 "These settings control the default aspect and behavior of the chess diagrams "
-"and games inserted in posts and pages with the %1$s[%3$s][/%3$s]%2$s and %1$s"
-"[%4$s][/%4$s]%2$s tags. They can be overridden at each tag by passing "
+"and games inserted in posts and pages with the %1$s[%3$s][/%3$s]%2$s and "
+"%1$s[%4$s][/%4$s]%2$s tags. They can be overridden at each tag by passing "
 "appropriate tag attributes: see %5$shelp on FEN diagram attributes%7$s and "
 "%6$shelp on PGN game attributes%7$s for more details."
 msgstr ""
@@ -648,8 +648,8 @@ msgid ""
 "The %1$s[%4$s][/%4$s]%2$s tag accepts the same attributes as the %1$s[%3$s][/"
 "%3$s]%2$s tag:"
 msgstr ""
-"De %1$s[%4$s][/%4$s]%2$s tag accepteert dezelfde attributen als de %1$s"
-"[%3$s][/%3$s]%2$s tag:"
+"De %1$s[%4$s][/%4$s]%2$s tag accepteert dezelfde attributen als de %1$s[%3$s]"
+"[/%3$s]%2$s tag:"
 
 #: templates/adminpage/helppgn.php
 #, php-format
@@ -753,53 +753,66 @@ msgstr ""
 msgid "Annotated by %1$s"
 msgstr "Geannoteerd door %1$s"
 
-#: templates/editors/quicktags.php
-msgid "Turn:"
-msgstr "Beurt:"
+#: templates/localization.php
+msgid "Chessboard"
+msgstr ""
 
-#: templates/editors/quicktags.php
-msgid "Castling availability:"
-msgstr "Rokade mogelijkheden:"
-
-#: templates/editors/quicktags.php
-msgid "En passant column:"
-msgstr "En passant kolom:"
-
-#: templates/editors/quicktags.php
-msgid "Set the initial position"
-msgstr "Zet de beginstelling op"
-
-#: templates/editors/quicktags.php
-msgid "Reset"
-msgstr "Stel opnieuw in"
-
-#: templates/editors/quicktags.php
-msgid "Clear the chessboard"
-msgstr "Maak het schaakbord leeg"
-
-#: templates/editors/quicktags.php
-msgid "Clear"
-msgstr "Verwijder"
-
-#: templates/editors/quicktags.php
-msgid "FEN:"
-msgstr "FEN:"
-
-#: templates/editors/quicktags.php
-msgid "Add a new chess diagram"
-msgstr "Voeg een nieuw schaakdiagram toe"
-
-#: templates/editors/quicktags.php
-msgid "Update the chess diagram"
-msgstr "Update het schaakdiagram"
-
-#: templates/editors/quicktags.php
+#: templates/localization.php
 msgid "Insert/edit a chess diagram"
 msgstr "Een schaakdiagram invoegen/bewerken"
 
-#: templates/editors/quicktags.php
-msgid "chessboard"
-msgstr "schaakbord"
+#: templates/localization.php
+msgid "Add a new chess diagram"
+msgstr "Voeg een nieuw schaakdiagram toe"
+
+#: templates/localization.php
+msgid "Update the chess diagram"
+msgstr "Update het schaakdiagram"
+
+#: templates/localization.php
+msgid "Basic"
+msgstr ""
+
+#: templates/localization.php
+msgid "Turn"
+msgstr ""
+
+#: templates/localization.php
+msgid "Flip board"
+msgstr ""
+
+#: templates/localization.php
+msgid "Special positions"
+msgstr ""
+
+#: templates/localization.php
+msgid "Set the initial position"
+msgstr "Zet de beginstelling op"
+
+#: templates/localization.php
+msgid "Clear the chessboard"
+msgstr "Maak het schaakbord leeg"
+
+#: templates/localization.php
+msgid "Advanced"
+msgstr ""
+
+#: templates/localization.php
+msgid "Castling rights"
+msgstr ""
+
+#: templates/localization.php
+msgid "En passant"
+msgstr ""
+
+#: templates/localization.php
+msgid "Not possible"
+msgstr ""
+
+#: templates/localization.php
+#, php-format
+msgid "Possible on column %1$s"
+msgstr ""
 
 #: wp/adminpages.php
 msgid "Chess games and diagrams"
