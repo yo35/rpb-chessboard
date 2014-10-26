@@ -68,7 +68,9 @@
 	QTags.addButton(
 		'rpbchessboard-editFENButton',
 		RPBChessboard.i18n.EDITOR_BUTTON_LABEL,
-		editFENButtonCallback
+		editFENButtonCallback,
+		null, null,
+		RPBChessboard.i18n.EDIT_CHESS_DIAGRAM_DIALOG_TITLE
 	);
 
 })( /* global RPBChessboard */ RPBChessboard );

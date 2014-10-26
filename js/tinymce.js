@@ -76,8 +76,8 @@
 	// Register the edit-FEN button.
 	tinymce.PluginManager.add('RPBChessboard', function(editor, url) {
 		editor.addButton('rpb-chessboard', {
-			text: RPBChessboard.i18n.EDITOR_BUTTON_LABEL,
-			icon: false, // TODO
+			title: RPBChessboard.i18n.EDIT_CHESS_DIAGRAM_DIALOG_TITLE,
+			image: url + '/../images/tinymce.png',
 			onclick: function() { editFENButtonCallback(editor); }
     });
 	});
