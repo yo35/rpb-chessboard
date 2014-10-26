@@ -94,6 +94,9 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 == Changelog ==
 
+= 3.4 (October 26, 2014) =
+* Refactor edit-FEN dialog and make it available in TinyMCE editor.
+
 = 3.3 (September 6, 2014) =
 * Dutch translation (thanks to Ivan Deceuninck).
 * Tested up to WordPress 4.0.
