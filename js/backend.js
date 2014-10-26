@@ -154,14 +154,11 @@ var RPBChessboard = {};
 
 		if(typeof options === 'object' && options !== null) {
 
-			if('flip' in options)  {
-				var flip = validateBoolean(options.flip);
-				if(flip !== null) {
-					cb.chessboard('option', 'flip', flip);
-					$('#rpbchessboard-editFENDialog-flip').prop('checked', flip);
-				}
-			}
-
+			// Flip parameter
+			var flip = ('flip' in options) ? validateBoolean(options.flip) : null;
+			if(flip === null) { flip = false; }
+			cb.chessboard('option', 'flip', flip);
+			$('#rpbchessboard-editFENDialog-flip').prop('checked', flip);
 		}
 	}
 
@@ -380,7 +377,8 @@ var RPBChessboard = {};
 		// 'args' is a callback -> initialize the dialog in "add" mode
 		if(typeof args === 'function') {
 			dialog.data('callback', args);
-			resetEditFENDialog('start', true, {});
+			dialog.data('options' , {});
+			resetEditFENDialog('start', true);
 		}
 
 		// 'args' is a struct
@@ -449,6 +447,90 @@ var RPBChessboard = {};
 
 		res += ']' + fen + '[/' + fenShortcode + ']';
 		return res;
+	};
+
+
+	/**
+	 * Search the string `str` starting from position `pos`, for a match with regular expression `re`.
+	 *
+	 * @param {string} str
+	 * @param {number} pos
+	 * @param {RegExp} re
+	 * @return {number}
+	 */
+	function searchFrom(str, pos, re) {
+		if(pos>str.length) {
+			return -1;
+		}
+		else {
+			var retVal = str.substr(pos).search(re);
+			return retVal<0 ? -1 : retVal+pos;
+		}
+	}
+
+
+	/**
+	 * Search the string `str` backward from position `pos`, for a match with regular expression `re`.
+	 *
+	 * @param {string} str
+	 * @param {number} pos
+	 * @param {RegExp} re
+	 * @return {number}
+	 */
+	function searchFromBackward(str, pos, re) {
+		str = str.substr(0, pos);
+		var retVal = -1;
+		while(true) {
+			var newOccurence = searchFrom(str, retVal+1, re);
+			if(newOccurence<0) {
+				break;
+			}
+			retVal = newOccurence;
+		}
+		return retVal;
+	}
+
+
+	/**
+	 * Identity a FEN shortcode within the text `text` around a selected range of characters.
+	 *
+	 * @param {string} text
+	 * @param {number} beginSelection Position where the selection starts within `text`.
+	 * @param {number} endSelection Position where the selection ends within `text`.
+	 * @returns {{beginShortcode:number, endShortcode:number, fen:string, options:object}} Null if no FEN shortcode can be find.
+	 */
+	RPBChessboard.identifyFENShortcodeContent = function(text, beginSelection, endSelection)
+	{
+		var fenShortcode = RPBChessboard.config.FEN_SHORTCODE;
+
+		// Search for the first occurrence of the closing tag '[/fen]' after the begin of the selection.
+		var lgClose  = 3 + fenShortcode.length;
+		var reClose  = new RegExp('\\[\\/' + fenShortcode + '\\]', 'g');
+		var posClose = searchFrom(text, Math.max(0, beginSelection-lgClose+1), reClose);
+
+		// Search for the last occurrence of the opening tag '[fen ... ]' before the detected closing tag.
+		var reOpen  = new RegExp('\\[' + fenShortcode + '[^\\[\\]]*\\]', 'g');
+		var posOpen = posClose<0 ? -1 : searchFromBackward(text, posClose, reOpen);
+
+		// If both the open and the close tag were found, and if:
+		// posOpen <= beginSelection <= endSelection <= posClose + (length of the close tag),
+		// then set-up the dialog to edit the string enclosed by the tags...
+		if(posOpen>=0 && posClose>=0 && posOpen<=beginSelection && endSelection<=posClose+lgClose) {
+			var tagOpen = text.substr(posOpen).match(reOpen)[0];
+			var lgOpen  = tagOpen.length;
+			var fen     = text.substr(posOpen + lgOpen, posClose - posOpen - lgOpen);
+			return {
+				beginShortcode: posOpen,
+				endShortcode: posClose + lgClose,
+				fen: fen,
+				options: RPBChessboard.parseWordPressShortcodeAttributes(tagOpen)
+			};
+		}
+
+		// Otherwise, the input text do not contain a FEN shortcode => return null.
+		else {
+			return null;
+		}
 	};
 
 })( /* global RPBChessboard */ RPBChessboard, /* global jQuery */ jQuery );
