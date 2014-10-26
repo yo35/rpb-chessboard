@@ -79,21 +79,8 @@
 	/**
 	 * Callback for the edit-FEN dialog.
 	 */
-	function editFENDialogCallback(fen, options)
-	{
-		var fenShortcode = RPBChessboard.config.FEN_SHORTCODE;
-		var res = '[' + fenShortcode;
-
-		if('flip' in options && options.flip) {
-			res += ' flip=true';
-		}
-
-		if('squareSize'      in options) { res += ' square_size='      + options.squareSize     ; }
-		if('showCoordinates' in options) { res += ' show_coordinates=' + options.showCoordinates; }
-
-		res += ']' + fen + '[/' + fenShortcode + ']';
-
-		QTags.insertContent(res);
+	function editFENDialogCallback(fen, options) {
+		QTags.insertContent(RPBChessboard.serializeFENShortcodeContent(fen, options));
 	}
 
 

@@ -428,4 +428,27 @@ var RPBChessboard = {};
 		return retVal;
 	};
 
+
+	/**
+	 * Return the text to add to a WordPress post/page to insert a FEN diagram.
+	 *
+	 * @param {string} fen FEN string encoding the chess diagram itself.
+	 * @param {object} options Options to pass to the shortcode.
+	 * @retuns {string}
+	 */
+	RPBChessboard.serializeFENShortcodeContent = function(fen, options)
+	{
+		var fenShortcode = RPBChessboard.config.FEN_SHORTCODE;
+		var res = '[' + fenShortcode;
+
+		if('flip' in options && options.flip) {
+			res += ' flip=true';
+		}
+		if('squareSize'      in options) { res += ' square_size='      + options.squareSize     ; }
+		if('showCoordinates' in options) { res += ' show_coordinates=' + options.showCoordinates; }
+
+		res += ']' + fen + '[/' + fenShortcode + ']';
+		return res;
+	};
+
 })( /* global RPBChessboard */ RPBChessboard, /* global jQuery */ jQuery );
