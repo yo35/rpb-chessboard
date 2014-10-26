@@ -36,7 +36,7 @@
 			'P': <?php /*i18n Pawn symbol   */ echo json_encode(__('P', 'rpbchessboard')); ?>
 		};
 
-		rpb.i18n.EDITOR_BUTTON_LABEL              = <?php echo json_encode(__('Chessboard'                 , 'rpbchessboard')); ?>;
+		rpb.i18n.EDITOR_BUTTON_LABEL              = <?php echo json_encode(__('chessboard'                 , 'rpbchessboard')); ?>;
 		rpb.i18n.EDIT_CHESS_DIAGRAM_DIALOG_TITLE  = <?php echo json_encode(__('Insert/edit a chess diagram', 'rpbchessboard')); ?>;
 		rpb.i18n.CANCEL_BUTTON_LABEL              = <?php echo json_encode(__('Cancel'                     , 'rpbchessboard')); ?>;
 		rpb.i18n.SUBMIT_BUTTON_ADD_LABEL          = <?php echo json_encode(__('Add a new chess diagram'    , 'rpbchessboard')); ?>;

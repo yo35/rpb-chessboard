@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 2.3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-26 20:22+0100\n"
+"POT-Creation-Date: 2014-10-26 20:40+0100\n"
 "PO-Revision-Date: 2014-04-26 16:53+0100\n"
 "Last-Translator: Markus Liebelt <markusliebelt@gmail.com>\n"
 "Language-Team: German\n"
@@ -810,7 +810,7 @@ msgid "Annotated by %1$s"
 msgstr "Kommentiert durch %1$s"
 
 #: templates/localization.php
-msgid "Chessboard"
+msgid "chessboard"
 msgstr ""
 
 #: templates/localization.php
