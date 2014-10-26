@@ -116,8 +116,6 @@ abstract class RPBChessboardScripts
 
 	public static function callbackRegisterQuickTagsButtons()
 	{
-		echo '<div id="rpbchessboard-editFENDialog-anchor"></div>'; // TODO: remove anchor
-
 		$url = RPBCHESSBOARD_URL . 'js/quicktags' . self::getJSFileExtension();
 		echo '<script type="text/javascript" src="' . $url . '"></script>';
 	}

@@ -156,7 +156,7 @@ var RPBChessboard = {};
 			return;
 		}
 
-		$('#rpbchessboard-editFENDialog-anchor').append('<div id="rpbchessboard-editFENDialog">' +
+		$('body').append('<div id="rpbchessboard-editFENDialog">' +
 			'<div class="rpbchessboard-columns">' +
 				'<div style="width: 450px;">' +
 					'<div id="rpbchessboard-editFENDialog-chessboard"></div>' +
