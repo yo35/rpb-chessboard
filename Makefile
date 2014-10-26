@@ -64,7 +64,7 @@ MSGMERGE      = msgmerge -v --backup=none
 MSGFMT        = msgfmt -v
 JSHINT        = jshint
 UGLIFYJS      = uglifyjs
-UGLIFYJS_ARGS = -c -m
+UGLIFYJS_ARGS = -c -nc
 COLOR_IN      = \033[34;1m
 COLOR_OUT     = \033[0m
 COLOR_ARG_IN  = \033[31m
@@ -148,7 +148,7 @@ js-minify: $(JS_MINIFIED_FILES)
 %.min.js: %.js
 	@$(ECHO) "$(COLOR_IN)Minifying JS file [ $(COLOR_ARG_IN)$<$(COLOR_ARG_OUT) ]...$(COLOR_OUT)"
 	@$(JSHINT) $^
-	@$(UGLIFYJS) $^ $(UGLIFYJS_ARGS) -o $@
+	@$(UGLIFYJS) $(UGLIFYJS_ARGS) -o $@ $^
 
 
 
