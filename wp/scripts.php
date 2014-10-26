@@ -85,6 +85,10 @@ abstract class RPBChessboardScripts
 		// Inlined scripts
 		add_action(is_admin() ? 'admin_print_footer_scripts' : 'wp_print_footer_scripts', array(__CLASS__, 'callbackInlinedScripts'));
 
+		// TinyMCE editor
+		add_filter('mce_external_plugins', array(__CLASS__, 'callbackRegisterTinyMCEPlugin'));
+		add_filter('mce_buttons', array(__CLASS__, 'callbackRegisterTinyMCEButtons'));
+
 		// QuickTags editor
 		add_action('admin_print_footer_scripts', array(__CLASS__, 'callbackRegisterQuickTagsButtons'));
 	}
@@ -93,6 +97,19 @@ abstract class RPBChessboardScripts
 	public static function callbackInlinedScripts()
 	{
 		include(RPBCHESSBOARD_ABSPATH . 'templates/localization.php');
+	}
+
+
+	public static function callbackRegisterTinyMCEPlugin($plugins)
+	{
+		$plugins['RPBChessboard'] = RPBCHESSBOARD_URL . 'js/tinymce.js';
+		return $plugins;
+	}
+
+	public static function callbackRegisterTinyMCEButtons($buttons)
+	{
+		array_push($buttons, 'rpb-chessboard');
+		return $buttons;
 	}
 
 
