@@ -42,38 +42,22 @@ var RPBChessboard = {};
 	RPBChessboard.i18n =
 	{
 		EDITOR_BUTTON_LABEL: 'Chessboard',
-
 		EDIT_CHESS_DIAGRAM_DIALOG_TITLE: 'Insert/edit a chess diagram',
-
 		CANCEL_BUTTON_LABEL: 'Cancel',
-
 		SUBMIT_BUTTON_ADD_LABEL: 'Add a new chess diagram',
-
 		SUBMIT_BUTTON_EDIT_LABEL: 'Update the chess diagram',
-
 		BASIC_TAB_LABEL: 'Basic',
-
 		TURN_SECTION_TITLE: 'Turn',
-
 		ORIENTATION_SECTION_TITLE: 'Orientation',
-
 		FLIP_CHECKBOX_LABEL: 'Flip board',
-
 		SPECIAL_POSITIONS_SECTION_TITLE: 'Special positions',
-
 		START_POSITION_TOOLTIP: 'Set the initial position',
-
 		EMPTY_POSITION_TOOLTIP: 'Clear the chessboard',
-
 		ADVANCED_TAB_LABEL: 'Advanced',
-
 		CASTLING_SECTION_TITLE: 'Castling rights',
-
 		EN_PASSANT_SECTION_TITLE: 'En passant',
-
-		EN_PASSANT_DISABLED_RADIO_BUTTON_LABEL: 'Not possible',
-
-		EN_PASSANT_ENABLED_RADIO_BUTTON_LABEL: 'Possible on column %1$s'
+		EN_PASSANT_DISABLED_BUTTON_LABEL: 'Not possible',
+		EN_PASSANT_ENABLED_BUTTON_LABEL: 'Possible on column %1$s'
 	};
 
 
@@ -244,13 +228,13 @@ var RPBChessboard = {};
 										'<li>' +
 											'<input id="rpbchessboard-editFENDialog-enPassant-disabled" type="radio" name="enPassant" />' +
 											'<label for="rpbchessboard-editFENDialog-enPassant-disabled">' +
-												RPBChessboard.i18n.EN_PASSANT_DISABLED_RADIO_BUTTON_LABEL +
+												RPBChessboard.i18n.EN_PASSANT_DISABLED_BUTTON_LABEL +
 											'</label>' +
 										'</li>' +
 										'<li>' +
 											'<input id="rpbchessboard-editFENDialog-enPassant-enabled" type="radio" name="enPassant" />' +
 											'<label for="rpbchessboard-editFENDialog-enPassant-enabled">' +
-												RPBChessboard.i18n.EN_PASSANT_ENABLED_RADIO_BUTTON_LABEL.replace('%1$s',
+												RPBChessboard.i18n.EN_PASSANT_ENABLED_BUTTON_LABEL.replace('%1$s',
 													'</label><select id="rpbchessboard-editFENDialog-enPassant-column">' +
 														'<option value="a">a</option>' +
 														'<option value="b">b</option>' +
