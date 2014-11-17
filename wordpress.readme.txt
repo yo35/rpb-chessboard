@@ -94,6 +94,9 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 == Changelog ==
 
+= 3.4.1 (November 17, 2014) =
+* Fix localization not working on frontend.
+
 = 3.4 (October 26, 2014) =
 * Refactor edit-FEN dialog and make it available in TinyMCE editor.
 
