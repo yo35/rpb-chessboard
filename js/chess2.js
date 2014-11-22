@@ -38,7 +38,7 @@ var Chess2 = {};
 
 	myself.i18n = {};
 
-	// Ordinal integers (from 1 to 8
+	// Ordinal integers (from 1 to 8).
 	myself.i18n.ORDINALS = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th'];
 
 	// FEN parsing error messages
@@ -251,7 +251,7 @@ var Chess2 = {};
 		// Meta-data
 		res += COLOR_SYMBOL.substr(this._turn, 1) + ' ';
 		res += castleRightsToString(this._castleRights) + ' ';
-		res += this._enPassant < 0 ? '-' : COLUMN_SYMBOL.substr(this._enPassant);
+		res += this._enPassant < 0 ? '-' : COLUMN_SYMBOL.substr(this._enPassant, 1);
 
 		// Return the result
 		return res;
@@ -322,7 +322,7 @@ var Chess2 = {};
 			res += '-';
 		}
 		else {
-			res += COLUMN_SYMBOL.substr(this._enPassant) + (this._turn===WHITE ? '6' : '3');
+			res += COLUMN_SYMBOL.substr(this._enPassant, 1) + (this._turn===WHITE ? '6' : '3');
 		}
 
 		// Additional move counting flags
@@ -460,7 +460,7 @@ var Chess2 = {};
 		if(castleRights === '-') {
 			return res;
 		}
-		if((strict ? /^K?Q?k?q?$/ : /^[KQkq]*$/).test(castleRights)) {
+		if(!(strict ? /^K?Q?k?q?$/ : /^[KQkq]*$/).test(castleRights)) {
 			return null;
 		}
 		/* jshint bitwise: false */
