@@ -54,7 +54,6 @@ var Chess2 = {};
 
 
 
-
 	// ---------------------------------------------------------------------------
 	// Exceptions
 	// ---------------------------------------------------------------------------
@@ -130,6 +129,7 @@ var Chess2 = {};
 
 	// String conversion
 	var /* const */ COLORED_PIECE_SYMBOL = 'KkQqRrBbNnPp';
+	var /* const */ PIECE_SYMBOL         = 'kqrbnp';
 	var /* const */ COLOR_SYMBOL         = 'wb';
 	var /* const */ ROW_SYMBOL           = '12345678';
 	var /* const */ COLUMN_SYMBOL        = 'abcdefgh';
@@ -242,16 +242,16 @@ var Chess2 = {};
 		for(var r=7; r>=0; --r) {
 			for(var c=0; c<8; ++c) {
 				var cp = this._board[21 + 10*r + c];
-				res += '| ' + (cp < 0 ? ' ' : COLORED_PIECE_SYMBOL.substr(cp, 1)) + ' ';
+				res += '| ' + (cp < 0 ? ' ' : COLORED_PIECE_SYMBOL[cp]) + ' ';
 			}
 			res += '|\n';
 			res += '+---+---+---+---+---+---+---+---+\n';
 		}
 
 		// Meta-data
-		res += COLOR_SYMBOL.substr(this._turn, 1) + ' ';
+		res += COLOR_SYMBOL[this._turn] + ' ';
 		res += castleRightsToString(this._castleRights) + ' ';
-		res += this._enPassant < 0 ? '-' : COLUMN_SYMBOL.substr(this._enPassant, 1);
+		res += this._enPassant < 0 ? '-' : COLUMN_SYMBOL[this._enPassant];
 
 		// Return the result
 		return res;
@@ -269,13 +269,15 @@ var Chess2 = {};
 			return this._getFEN(0, 1);
 		}
 		else if(arguments.length === 1 && typeof arguments[0] === 'object') {
-			var fiftyMoveClock = ('fiftyMoveClock' in arguments[0]) ? arguments[0].fiftyMoveClock : 0;
-			var fullMoveNumber = ('fullMoveNumber' in arguments[0]) ? arguments[0].fullMoveNumber : 1;
+			var fiftyMoveClock = (typeof arguments[0].fiftyMoveClock === 'number') ? arguments[0].fiftyMoveClock : 0;
+			var fullMoveNumber = (typeof arguments[0].fullMoveNumber === 'number') ? arguments[0].fullMoveNumber : 1;
 			return this._getFEN(fiftyMoveClock, fullMoveNumber);
 		}
-		else if(arguments.length >= 1 && typeof arguments[0] === 'string') {
-			var strict = (arguments.length >= 2 && typeof arguments[1] === 'boolean') ? arguments[1] : false;
-			return this._setFEN(arguments[0], strict);
+		else if(arguments.length === 1 && typeof arguments[0] === 'string') {
+			return this._setFEN(arguments[0], false);
+		}
+		else if(arguments.length >= 2 && typeof arguments[0] === 'string' && typeof arguments[1] === 'boolean') {
+			return this._setFEN(arguments[0], arguments[1]);
 		}
 		else {
 			throw new myself.exceptions.IllegalArgument('Position#fen()');
@@ -308,7 +310,7 @@ var Chess2 = {};
 						res += emptySquareCounter;
 						emptySquareCounter = 0;
 					}
-					res += COLORED_PIECE_SYMBOL.substr(cp, 1);
+					res += COLORED_PIECE_SYMBOL[cp];
 				}
 			}
 			if(emptySquareCounter > 0) {
@@ -317,12 +319,12 @@ var Chess2 = {};
 		}
 
 		// Meta-data
-		res += ' ' + COLOR_SYMBOL.substr(this._turn, 1) + ' ' + castleRightsToString(this._castleRights) + ' ';
+		res += ' ' + COLOR_SYMBOL[this._turn] + ' ' + castleRightsToString(this._castleRights) + ' ';
 		if(this._enPassant < 0) {
 			res += '-';
 		}
 		else {
-			res += COLUMN_SYMBOL.substr(this._enPassant, 1) + (this._turn===WHITE ? '6' : '3');
+			res += COLUMN_SYMBOL[this._enPassant] + (this._turn===WHITE ? '6' : '3');
 		}
 
 		// Additional move counting flags
@@ -453,7 +455,7 @@ var Chess2 = {};
 	 *
 	 * @param {string} castleRights
 	 * @param {boolean} strict
-	 * @return {array} Null if the parsing fails.
+	 * @return {array} `null` if the parsing fails.
 	 */
 	function castleRightsFromString(castleRights, strict) {
 		var res = [0, 0];
@@ -470,6 +472,234 @@ var Chess2 = {};
 		if(castleRights.indexOf('q') >= 0) { res[BLACK] |= 1<<0; }
 		return res;
 	}
+
+
+
+	// ---------------------------------------------------------------------------
+	// Getters/setters
+	// ---------------------------------------------------------------------------
+
+
+	/**
+	 * Get/set the content of a square.
+	 *
+	 * @param {string} square `'e4'` for instance
+	 * @param {string|{type:string, color:string}} [value]
+	 */
+	myself.Position.prototype.square = function(square, value) {
+		if(typeof square !== 'string' || !/^[a-h][1-8]$/.test(square)) {
+			throw new myself.exceptions.IllegalArgument('Position#square()');
+		}
+		var row    = ROW_SYMBOL   .indexOf(square[0]);
+		var column = COLUMN_SYMBOL.indexOf(square[1]);
+		if(typeof value === 'undefined' || value === null) {
+			return getSquare(this, row, column);
+		}
+		else {
+			if(!setSquare(this, row, column, value)) {
+				throw new myself.exceptions.IllegalArgument('Position#square()');
+			}
+		}
+	};
+
+
+	/**
+	 * Return the content of the given square.
+	 *
+	 * @param {number} row
+	 * @param {number} column
+	 * @returns {string|{piece:string, color:string}} `'-'` is returned if the square is empty.
+	 */
+	function getSquare(position, row, column) {
+		var cp = position._board[21 + 10*row + column];
+		return cp < 0 ? '-' : { piece: PIECE_SYMBOL[Math.floor(cp/2)], color: COLOR_SYMBOL[cp%2] };
+	}
+
+
+	/**
+	 * Set the content of the given square.
+	 *
+	 * @param {number} row
+	 * @param {number} column
+	 * @param {string|{piece:string, color:string}} value
+	 */
+	function setSquare(position, row, column, value) {
+		var index = 21 + 10*row + column;
+		if(value === '-') {
+			position._board[index] = EMPTY;
+			position._legal = null;
+			return true;
+		}
+		else if(typeof value === 'object' && typeof value.piece === 'string' && typeof value.color === 'string') {
+			var piece = PIECE_SYMBOL.indexOf(value.piece);
+			var color = COLOR_SYMBOL.indexOf(value.color);
+			if(piece >= 0 && color >= 0) {
+				position._board[index] = piece*2 + color;
+				position._legal = null;
+				return true;
+			}
+		}
+		return false;
+	}
+
+
+	/**
+	 * Get/set the turn flag.
+	 *
+	 * @param {string} [value]
+	 */
+	myself.Position.prototype.turn = function(value) {
+		if(typeof value === 'undefined' || value === null) {
+			return getTurn(this);
+		}
+		else {
+			if(!setTurn(this, value)) {
+				throw new myself.exceptions.IllegalArgument('Position#turn()');
+			}
+		}
+	};
+
+
+	/**
+	 * Return the turn flag.
+	 *
+	 * @returns {string} `'w'` or `'b'`
+	 */
+	function getTurn(position) {
+		return COLOR_SYMBOL[position._turn];
+	}
+
+
+	/**
+	 * Set the turn flag.
+	 *
+	 * @param {string} value `'w'` or `'b'`
+	 */
+	function setTurn(position, value) {
+		if(typeof value === 'string') {
+			var turn = COLOR_SYMBOL.indexOf(value);
+			if(turn >= 0) {
+				position._turn = turn;
+				position._legal = null;
+				return true;
+			}
+		}
+		return false;
+	}
+
+
+	/**
+	 * Get/set the castle rights. TODO: make it chess-960 compatible.
+	 *
+	 * @param {string} color
+	 * @param {string} side
+	 * @param {boolean} [value]
+	 */
+	myself.Position.prototype.castleRights = function(color, side, value) {
+		if(typeof color !== 'string' || !(side==='k' || side==='q')) {
+			throw new myself.exceptions.IllegalArgument('Position#castleRights()');
+		}
+		color = COLOR_SYMBOL.indexOf(color);
+		if(color < 0) {
+			throw new myself.exceptions.IllegalArgument('Position#castleRights()');
+		}
+		var column = side==='k' ? 0 : 7;
+		if(typeof value === 'undefined' || value === null) {
+			return getCastleRights(this, color, column);
+		}
+		else {
+			if(!setCastleRights(this, color, column, value)) {
+				throw new myself.exceptions.IllegalArgument('Position#castleRights()');
+			}
+		}
+	};
+
+
+	/**
+	 * Return the castle rights for the given color and column.
+	 *
+	 * @param {number} color
+	 * @param {number} column
+	 * @returns {boolean}
+	 */
+	function getCastleRights(position, color, column) {
+		/* jshint bitwise: false */
+		return (position._casteRights[color] & (1 << column)) !== 0;
+	}
+
+
+	/**
+	 * Set the castle rights for the given color and column.
+	 *
+	 * @param {number} color
+	 * @param {number} column
+	 * @param {boolean} value
+	 */
+	function setCastleRights(position, color, column, value) {
+		if(typeof value === 'boolean') {
+			/* jshint bitwise: false */
+			if(value) {
+				position._casteRights[color] |= 1 << column;
+			}
+			else {
+				position._casteRights[color] &= ~(1 << column);
+			}
+			position._legal = null;
+			return true;
+		}
+		return false;
+	}
+
+
+	/**
+	 * Get/set the en-passant flag.
+	 *
+	 * @param {string} [value]
+	 */
+	myself.Position.prototype.enPassant = function(value) {
+		if(typeof value === 'undefined' || value === null) {
+			return getEnPassant(this);
+		}
+		else {
+			if(!setEnPassant(this, value)) {
+				throw new myself.exceptions.IllegalArgument('Position#enPassant()');
+			}
+		}
+	};
+
+
+	/**
+	 * Return the en-passant flag.
+	 *
+	 * @returns {string} `'-'`, `'a'`, `'b'`, ... or `'h'`
+	 */
+	function getEnPassant(position) {
+		return position._enPassant < 0 ? '-' : COLUMN_SYMBOL[position._enPassant];
+	}
+
+
+	/**
+	 * Set the en-passant flag.
+	 *
+	 * @param {string} value
+	 */
+	function setEnPassant(position, value) {
+		if(value === '-') {
+			position._enPassant = -1;
+			position._legal = null;
+			return true;
+		}
+		else if(typeof value === 'string') {
+			var enPassant = COLUMN_SYMBOL.indexOf(value);
+			if(enPassant >= 0) {
+				position._enPassant = enPassant;
+				position._legal = null;
+				return true;
+			}
+		}
+		return false;
+	}
+
 
 
 
