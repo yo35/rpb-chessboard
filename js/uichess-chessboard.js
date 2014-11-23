@@ -432,12 +432,10 @@
 
 				// Print the squares belonging to the current column.
 				for(var c=0; c<8; ++c) {
-					var sq    = COLUMNS[c] + ROWS[r];
-					var cp    = this._position.get(sq);
-					var style = 'width:' + SQUARE_SIZE + 'px; height:' + SQUARE_SIZE + 'px;';
-					var clazz = 'uichess-chessboard-cell uichess-chessboard-square ' +
-						'uichess-chessboard-' + this._position.square_color(sq) + 'Square'; /* jshint ignore:line */
-					content += '<div class="' + clazz + '" style="' + style + '">';
+					var sq = COLUMNS[c] + ROWS[r];
+					var cp = this._position.get(sq);
+					content += '<div class="uichess-chessboard-cell uichess-chessboard-square uichess-chessboard-square' + SQUARE_SIZE +
+						' uichess-chessboard-' + this._position.square_color(sq) + 'Square">'; /* jshint ignore:line */
 					if(cp !== null) {
 						content +=
 							'<div class="uichess-chessboard-piece uichess-chessboard-sprite' + SQUARE_SIZE + '" style="' +
