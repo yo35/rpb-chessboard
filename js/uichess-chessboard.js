@@ -368,17 +368,11 @@
 		 */
 		_refresh: function()
 		{
-			// Rows, columns
-			var ROWS    = this.options.flip ? ['1','2','3','4','5','6','7','8'] : ['8','7','6','5','4','3','2','1'];
-			var COLUMNS = this.options.flip ? ['h','g','f','e','d','c','b','a'] : ['a','b','c','d','e','f','g','h'];
-
-			// Offset for image alignment
+			// Aliases
+			var ROWS         = this.options.flip ? '12345678' : '87654321';
+			var COLUMNS      = this.options.flip ? 'hgfedcba' : 'abcdefgh';
 			var SQUARE_SIZE  = this.options.squareSize;
-			var OFFSET_PIECE = { b:0, k:SQUARE_SIZE, n:2*SQUARE_SIZE, p:3*SQUARE_SIZE, q:4*SQUARE_SIZE, r:5*SQUARE_SIZE, x:6*SQUARE_SIZE };
-			var OFFSET_COLOR = { b:0, w:SQUARE_SIZE, x:2*SQUARE_SIZE };
-
-			// Spare pieces (per column)
-			var SPARE_PIECES = ['p','n','b','r','q','k','','0'];
+			var SPARE_PIECES = 'pnbrqk 0';
 
 			// Open the "table" node.
 			var content = '<div class="uichess-chessboard-table">';
@@ -400,16 +394,11 @@
 				for(var c=0; c<8; ++c) {
 					content += '<div class="uichess-chessboard-cell">';
 					if(SPARE_PIECES[c].match(/^[0-9]$/)) {
-						content +=
-							'<div class="uichess-chessboard-trash uichess-chessboard-sprite' + SQUARE_SIZE + '" style="' +
-								'background-position: -' + (SPARE_PIECES[c] * SQUARE_SIZE) + 'px -' + OFFSET_COLOR['x'] + 'px;' +
-							'"></div>';
+						content += '<div class="uichess-chessboard-trash uichess-chessboard-sprite' + SQUARE_SIZE + '"></div>';
 					}
 					else if(SPARE_PIECES[c].match(/^[bknpqr]$/)) {
-						content +=
-							'<div class="uichess-chessboard-sparePiece uichess-chessboard-sprite' + SQUARE_SIZE + '" style="' +
-								'background-position: -' + OFFSET_PIECE[SPARE_PIECES[c]] + 'px -' + OFFSET_COLOR[color] + 'px;' +
-							'"></div>';
+						content += '<div class="uichess-chessboard-sparePiece uichess-chessboard-piece-' + SPARE_PIECES[c] +
+							' uichess-chessboard-color-' + color + ' uichess-chessboard-sprite' + SQUARE_SIZE + '"></div>';
 					}
 					content += '</div>';
 				}
@@ -437,10 +426,8 @@
 					content += '<div class="uichess-chessboard-cell uichess-chessboard-square uichess-chessboard-square' + SQUARE_SIZE +
 						' uichess-chessboard-' + this._position.square_color(sq) + 'Square">'; /* jshint ignore:line */
 					if(cp !== null) {
-						content +=
-							'<div class="uichess-chessboard-piece uichess-chessboard-sprite' + SQUARE_SIZE + '" style="' +
-								'background-position: -' + OFFSET_PIECE[cp.type] + 'px -' + OFFSET_COLOR[cp.color] + 'px;' +
-							'"></div>';
+						content += '<div class="uichess-chessboard-piece uichess-chessboard-piece-' + cp.type +
+							' uichess-chessboard-color-' + cp.color + ' uichess-chessboard-sprite' + SQUARE_SIZE + '"></div>';
 					}
 					content += '</div>';
 				}
@@ -448,13 +435,10 @@
 				// Add an additional cell at the end of the row: this last column will contain the turn flag, if necessary.
 				content += '<div class="uichess-chessboard-cell">';
 				if(ROWS[r] === '8' || ROWS[r] === '1') {
-					var style = 'background-position: -' + OFFSET_PIECE['x'] + 'px -' + OFFSET_COLOR[ROWS[r] === '8' ? 'b' : 'w'] + 'px;';
-					var clazz = 'uichess-chessboard-turnFlag uichess-chessboard-sprite' + SQUARE_SIZE;
+					var color = ROWS[r] === '8' ? 'b' : 'w';
 					var turn  = this._position.turn();
-					if((ROWS[r] === '8' && turn === 'w') || (ROWS[r] === '1' && turn === 'b')) {
-						clazz += ' uichess-chessboard-inactiveFlag';
-					}
-					content += '<div class="' + clazz + '" style="' + style + '"></div>';
+					content += '<div class="uichess-chessboard-turnFlag uichess-chessboard-color-' + color +
+						' uichess-chessboard-sprite' + SQUARE_SIZE + (color===turn ? '' : ' uichess-chessboard-inactiveFlag') + '"></div>';
 				}
 
 				// End of the additional cell and end of the row.
@@ -497,16 +481,11 @@
 				for(var c=0; c<8; ++c) {
 					content += '<div class="uichess-chessboard-cell">';
 					if(SPARE_PIECES[c].match(/^[0-9]$/)) {
-						content +=
-							'<div class="uichess-chessboard-trash uichess-chessboard-sprite' + SQUARE_SIZE + '" style="' +
-								'background-position: -' + (SPARE_PIECES[c] * SQUARE_SIZE) + 'px -' + OFFSET_COLOR['x'] + 'px;' +
-							'"></div>';
+						content += '<div class="uichess-chessboard-trash uichess-chessboard-sprite' + SQUARE_SIZE + '"></div>';
 					}
 					else if(SPARE_PIECES[c].match(/^[bknpqr]$/)) {
-						content +=
-							'<div class="uichess-chessboard-sparePiece uichess-chessboard-sprite' + SQUARE_SIZE + '" style="' +
-								'background-position: -' + OFFSET_PIECE[SPARE_PIECES[c]] + 'px -' + OFFSET_COLOR[color] + 'px;' +
-							'"></div>';
+						content += '<div class="uichess-chessboard-sparePiece uichess-chessboard-piece-' + SPARE_PIECES[c] +
+							' uichess-chessboard-color-' + color + ' uichess-chessboard-sprite' + SQUARE_SIZE + '"></div>';
 					}
 					content += '</div>';
 				}
@@ -555,12 +534,11 @@
 		 */
 		_tagSquares: function()
 		{
-			var ROWS    = this.options.flip ? ['1','2','3','4','5','6','7','8'] : ['8','7','6','5','4','3','2','1'];
-			var COLUMNS = this.options.flip ? ['h','g','f','e','d','c','b','a'] : ['a','b','c','d','e','f','g','h'];
+			var ROWS    = this.options.flip ? '12345678' : '87654321';
+			var COLUMNS = this.options.flip ? 'hgfedcba' : 'abcdefgh';
 			var r = 0;
 			var c = 0;
-			$('.uichess-chessboard-square', this.element).each(function()
-			{
+			$('.uichess-chessboard-square', this.element).each(function() {
 				$(this).data('square', COLUMNS[c] + ROWS[r]);
 				++c;
 				if(c === 8) {
@@ -581,12 +559,11 @@
 		 */
 		_tagSparePieces: function()
 		{
-			var TYPES  = ['p','n','b','r','q','k'];
-			var COLORS = this.options.flip ? ['w','b'] : ['b','w'];
+			var TYPES  = 'pnbrqk';
+			var COLORS = this.options.flip ? 'wb' : 'bw';
 			var t = 0;
 			var c = 0;
-			$('.uichess-chessboard-sparePiece', this.element).each(function()
-			{
+			$('.uichess-chessboard-sparePiece', this.element).each(function() {
 				$(this).data('piece', { type: TYPES[t], color: COLORS[c] });
 				++t;
 				if(t === 6) {
@@ -605,8 +582,7 @@
 		 */
 		_fetchSquare: function(square)
 		{
-			return $('.uichess-chessboard-square', this.element).filter(function()
-			{
+			return $('.uichess-chessboard-square', this.element).filter(function() {
 				return $(this).data('square') === square;
 			});
 		},
@@ -676,10 +652,9 @@
 		 */
 		_makePiecesDraggable: function(target)
 		{
-			var SQUARE_SIZE = this.options.squareSize;
 			$('.uichess-chessboard-piece', target===undefined ? this.element : target).draggable({
 				cursor        : 'move',
-				cursorAt      : { top: SQUARE_SIZE/2, left: SQUARE_SIZE/2 },
+				cursorAt      : { top: this.options.squareSize/2, left: this.options.squareSize/2 },
 				revert        : true,
 				revertDuration: 0,
 				zIndex        : 100
@@ -694,10 +669,9 @@
 		 */
 		_makeSparePiecesDraggable: function(target)
 		{
-			var SQUARE_SIZE = this.options.squareSize;
 			$('.uichess-chessboard-sparePiece', target===undefined ? this.element : target).draggable({
 				cursor        : 'move',
-				cursorAt      : { top: SQUARE_SIZE/2, left: SQUARE_SIZE/2 },
+				cursorAt      : { top: this.options.squareSize/2, left: this.options.squareSize/2 },
 				helper        : 'clone',
 				revert        : true,
 				revertDuration: 0,
@@ -753,10 +727,7 @@
 
 				// Promotion move -> change the type of the promoted piece.
 				if(move.flags.indexOf('p') >= 0) {
-					var SQUARE_SIZE  = this.options.squareSize;
-					var OFFSET_PIECE = { b:0, k:SQUARE_SIZE, n:2*SQUARE_SIZE, p:3*SQUARE_SIZE, q:4*SQUARE_SIZE, r:5*SQUARE_SIZE, x:6*SQUARE_SIZE };
-					var OFFSET_COLOR = { b:0, w:SQUARE_SIZE };
-					movingPiece.css('background-position', '-' + OFFSET_PIECE[move.promotion] + 'px -' + OFFSET_COLOR[move.color] + 'px');
+					movingPiece.removeClass('uichess-chessboard-piece-p').addClass('uichess-chessboard-piece-' + move.promotion);
 				}
 
 				// Switch the turn flag.
@@ -783,14 +754,8 @@
 			this._position.put(piece, square);
 
 			// Update the DOM tree.
-			var SQUARE_SIZE  = this.options.squareSize;
-			var OFFSET_PIECE = { b:0, k:SQUARE_SIZE, n:2*SQUARE_SIZE, p:3*SQUARE_SIZE, q:4*SQUARE_SIZE, r:5*SQUARE_SIZE, x:6*SQUARE_SIZE };
-			var OFFSET_COLOR = { b:0, w:SQUARE_SIZE };
-			$(
-				'<div class="uichess-chessboard-piece uichess-chessboard-sprite' + SQUARE_SIZE + '" style="' +
-					'background-position: -' + OFFSET_PIECE[piece.type] + 'px -' + OFFSET_COLOR[piece.color] + 'px;' +
-				'"></div>'
-			).appendTo(target.empty());
+			$('<div class="uichess-chessboard-piece uichess-chessboard-piece-' + piece.type + ' uichess-chessboard-color-' + piece.color +
+				' uichess-chessboard-sprite' + this.options.squareSize + '"></div>').appendTo(target.empty());
 
 			// Make the new piece draggable if necessary.
 			if(this.options.allowMoves === 'all' || this.options.allowMoves === 'legal') {
