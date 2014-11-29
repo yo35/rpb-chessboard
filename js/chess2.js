@@ -603,7 +603,7 @@ var Chess2 = {};
 		if(color < 0) {
 			throw new myself.exceptions.IllegalArgument('Position#castleRights()');
 		}
-		var column = side==='k' ? 0 : 7;
+		var column = side==='k' ? 7 : 0;
 		if(typeof value === 'undefined' || value === null) {
 			return getCastleRights(this, color, column);
 		}
