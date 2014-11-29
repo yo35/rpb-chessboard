@@ -100,7 +100,7 @@ var Chess2 = {};
 
 
 	// ---------------------------------------------------------------------------
-	// Internal constants
+	// Internal constants and helper methods
 	// ---------------------------------------------------------------------------
 
 	// Colors
@@ -133,6 +133,65 @@ var Chess2 = {};
 	var /* const */ COLOR_SYMBOL         = 'wb';
 	var /* const */ ROW_SYMBOL           = '12345678';
 	var /* const */ COLUMN_SYMBOL        = 'abcdefgh';
+
+
+	/**
+	 * Whether the given colored piece is sliding or not.
+	 *
+	 * @param {number} coloredPiece
+	 * @returns {boolean}
+	 */
+	function isSliding(coloredPiece) {
+		return coloredPiece>=2 && coloredPiece<=7;
+	}
+
+
+	/**
+	 * Return the attack directions of the given colored piece.
+	 *
+	 * @param {number} coloredPiece
+	 * @returns {array}
+	 */
+	function attackDirections(coloredPiece) {
+		switch(coloredPiece) {
+			case WK: case BK: case WQ: case BQ: return [-11, -10, -9, -1, 1, 9, 10, 11]; // king/queen
+			case WR: case BR: return [-10, -1, 1, 10]; // rook
+			case WB: case BB: return [-11, -9, 9, 11]; // bishop
+			case WN: case BN: return [-21, -19, -12, -8, 8, 12, 19, 21]; // knight
+			case WP: return [9, 11]; // white pawn
+			case BP: return [-11, -9]; // black pawn
+			default: break;
+		}
+		return [];
+	}
+
+
+	/**
+	 * Parse a square.
+	 *
+	 * @param {string} square
+	 * @returns {number} `-1` if the input is not valid.
+	 */
+	function parseSquare(square) {
+		if(typeof square !== 'string' || !/^[a-h][1-8]$/.test(square)) {
+			return -1;
+		}
+		var column = COLUMN_SYMBOL.indexOf(square[0]);
+		var row    = ROW_SYMBOL   .indexOf(square[1]);
+		return 21 + 10*row + column;
+	}
+
+
+	/**
+	 * Parse a color.
+	 *
+	 * @param {string} color
+	 * @returns {number} `-1` if the input is not valid.
+	 */
+	function parseColor(color) {
+		return (typeof color === 'string') ? COLOR_SYMBOL.indexOf(color) : -1;
+	}
+
 
 
 
@@ -479,7 +538,6 @@ var Chess2 = {};
 	// Getters/setters
 	// ---------------------------------------------------------------------------
 
-
 	/**
 	 * Get/set the content of a square.
 	 *
@@ -487,16 +545,15 @@ var Chess2 = {};
 	 * @param {string|{type:string, color:string}} [value]
 	 */
 	myself.Position.prototype.square = function(square, value) {
-		if(typeof square !== 'string' || !/^[a-h][1-8]$/.test(square)) {
+		square = parseSquare(square);
+		if(square < 0) {
 			throw new myself.exceptions.IllegalArgument('Position#square()');
 		}
-		var column = COLUMN_SYMBOL.indexOf(square[0]);
-		var row    = ROW_SYMBOL   .indexOf(square[1]);
 		if(typeof value === 'undefined' || value === null) {
-			return getSquare(this, row, column);
+			return getSquare(this, square);
 		}
 		else {
-			if(!setSquare(this, row, column, value)) {
+			if(!setSquare(this, square, value)) {
 				throw new myself.exceptions.IllegalArgument('Position#square()');
 			}
 		}
@@ -506,12 +563,11 @@ var Chess2 = {};
 	/**
 	 * Return the content of the given square.
 	 *
-	 * @param {number} row
-	 * @param {number} column
+	 * @param {number} square
 	 * @returns {string|{piece:string, color:string}} `'-'` is returned if the square is empty.
 	 */
-	function getSquare(position, row, column) {
-		var cp = position._board[21 + 10*row + column];
+	function getSquare(position, square) {
+		var cp = position._board[square];
 		return cp < 0 ? '-' : { piece: PIECE_SYMBOL[Math.floor(cp/2)], color: COLOR_SYMBOL[cp%2] };
 	}
 
@@ -519,14 +575,12 @@ var Chess2 = {};
 	/**
 	 * Set the content of the given square.
 	 *
-	 * @param {number} row
-	 * @param {number} column
+	 * @param {number} square
 	 * @param {string|{piece:string, color:string}} value
 	 */
-	function setSquare(position, row, column, value) {
-		var index = 21 + 10*row + column;
+	function setSquare(position, square, value) {
 		if(value === '-') {
-			position._board[index] = EMPTY;
+			position._board[square] = EMPTY;
 			position._legal = null;
 			return true;
 		}
@@ -534,7 +588,7 @@ var Chess2 = {};
 			var piece = PIECE_SYMBOL.indexOf(value.piece);
 			var color = COLOR_SYMBOL.indexOf(value.color);
 			if(piece >= 0 && color >= 0) {
-				position._board[index] = piece*2 + color;
+				position._board[square] = piece*2 + color;
 				position._legal = null;
 				return true;
 			}
@@ -576,15 +630,15 @@ var Chess2 = {};
 	 * @param {string} value `'w'` or `'b'`
 	 */
 	function setTurn(position, value) {
-		if(typeof value === 'string') {
-			var turn = COLOR_SYMBOL.indexOf(value);
-			if(turn >= 0) {
-				position._turn = turn;
-				position._legal = null;
-				return true;
-			}
+		var turn = parseColor(value);
+		if(turn >= 0) {
+			position._turn = turn;
+			position._legal = null;
+			return true;
 		}
-		return false;
+		else {
+			return false;
+		}
 	}
 
 
@@ -596,11 +650,8 @@ var Chess2 = {};
 	 * @param {boolean} [value]
 	 */
 	myself.Position.prototype.castleRights = function(color, side, value) {
-		if(typeof color !== 'string' || !(side==='k' || side==='q')) {
-			throw new myself.exceptions.IllegalArgument('Position#castleRights()');
-		}
-		color = COLOR_SYMBOL.indexOf(color);
-		if(color < 0) {
+		color = parseColor(color);
+		if(color < 0 || !(side==='k' || side==='q')) {
 			throw new myself.exceptions.IllegalArgument('Position#castleRights()');
 		}
 		var column = side==='k' ? 7 : 0;
@@ -700,6 +751,94 @@ var Chess2 = {};
 		return false;
 	}
 
+
+
+	// ---------------------------------------------------------------------------
+	// Square control / position legality
+	// ---------------------------------------------------------------------------
+
+	/**
+	 * Check if any piece of the given color attacks a given square.
+	 *
+	 * @param {string} square
+	 * @param {string} byWho Either `'w'` or `'b'`
+	 * @param {string} [byWhat] Filter for the type of attacker (for instance, `'kp'` to consider only king and pawn attacks).
+	 *        If `null` or not defined, no filter is applied, and all types of pieces are considered.
+	 * @returns {boolean}
+	 */
+	myself.Position.prototype.isAttacked = function(square, byWho, byWhat) {
+		square = parseSquare(square);
+		byWho  = parseColor (byWho );
+		if(square < 0 || byWho < 0) {
+			throw new myself.exceptions.IllegalArgument('Position#isAttacked()');
+		}
+		if(typeof byWhat === 'undefined' || byWhat === null) {
+			return isAttacked(this, square, byWho);
+		}
+		else if(typeof byWhat === 'string') {
+			for(var piece=0; piece<PIECE_SYMBOL.length; ++piece) {
+				if(byWhat.indexOf(PIECE_SYMBOL[piece])>=0 && isAttackedBy(this, square, piece*2 + byWho)) {
+					return true;
+				}
+			}
+			return false;
+		}
+		else {
+			throw new myself.exceptions.IllegalArgument('Position#isAttacked()');
+		}
+	};
+
+
+	/**
+	 * Check if a given type of piece attacks a given square.
+	 *
+	 * This method can be used even if the position is not legal.
+	 *
+	 * @param {number} square Square index.
+	 * @param {number} attacker Colored piece constant.
+	 * @returns {boolean}
+	 */
+	function isAttackedBy(position, square, attacker) {
+		var directions = attackDirections(attacker);
+		if(isSliding(attacker)) {
+			for(var i=0; i<directions.length; ++i) {
+				var sq = square;
+				while(true) {
+					sq -= directions[i];
+					var cp = position._board[sq];
+					if(cp === attacker) { return true; }
+					else if(cp !== EMPTY) { break; }
+				}
+			}
+		}
+		else {
+			for(var i=0; i<directions.length; ++i) {
+				if(position._board[square - directions[i]] === attacker) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+
+	/**
+	 * Check if any piece of the given color attacks a given square.
+	 *
+	 * This method can be used even if the position is not legal.
+	 *
+	 * @param {number} square Square index.
+	 * @param {number} attackerColor Color constant.
+	 * @returns {boolean}
+	 */
+	function isAttacked(position, square, attackerColor) {
+		for(var piece=0; piece<6; ++piece) {
+			if(isAttackedBy(position, square, piece*2 + attackerColor)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 
 
