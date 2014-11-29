@@ -415,7 +415,7 @@ var Chess2 = {};
 			if(!/^[a-h][36]$/.test(enPassantField)) {
 				throw new myself.exceptions.InvalidFEN(fen, myself.i18n.INVALID_EN_PASSANT_FIELD);
 			}
-			if(strict && enPassantField[1]==='3' && this._turn===WHITE) {
+			if(strict && ((enPassantField[1]==='3' && this._turn===WHITE) || (enPassantField[1]==='6' && this._turn===BLACK))) {
 				throw new myself.exceptions.InvalidFEN(fen, myself.i18n.WRONG_ROW_IN_EN_PASSANT_FIELD);
 			}
 			this._enPassant = COLUMN_SYMBOL.indexOf(enPassantField[0]);

@@ -90,6 +90,26 @@
 			}
 		}
 
+
+		/**
+		 * Check the exception thrown by a function.
+		 */
+		function testError(label, fun, checkException) {
+			'use strict';
+			try {
+				var observedValue = fun();
+				printBadValue(label, observedValue);
+			}
+			catch(exception) {
+				if(checkException(exception)) {
+					printSuccess(label);
+				}
+				else {
+					printException(label, exception);
+				}
+			}
+		}
+
 	</script>
 
 	<style type="text/css">
@@ -108,7 +128,7 @@
 		}
 		.message {
 			font-family: monospace;
-			white-space: pre;
+			white-space: pre-wrap;
 			padding: 3px;
 		}
 	</style>
@@ -128,6 +148,28 @@
 		document.getElementById('run-unit-tests').onclick = function() {
 			'use strict';
 
+			// Generate a predicate to check that an exception is an invalid-FEN exception with the right message.
+			function checkInvalidFEN(code) {
+
+				// Build the error message
+				var message = '<not an error message>';
+				if(typeof code === 'undefined') {
+					message = null;
+				}
+				else if(code in Chess2.i18n) {
+					message = Chess2.i18n[code];
+					for(var i=1; i<arguments.length; ++i) {
+						var re = new RegExp('\\{' + i + '\\}');
+						message = message.replace(re, arguments[i]);
+					}
+				}
+
+				// Generate the predicate
+				return function(exception) {
+					return (exception instanceof Chess2.exceptions.InvalidFEN) && (message === null || message === exception.message);
+				};
+			}
+
 			var startingFEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 			var emptyFEN    = '8/8/8/8/8/8/8/8 w - - 0 1';
 			var customFEN1  = 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b Kk e3 10 5';
@@ -142,6 +184,22 @@
 			test('Constructor \'empty\''   , function() { return (new Chess2.Position('empty')).fen(); }, emptyFEN);
 			test('Constructor FEN-based 1' , function() { return (new Chess2.Position(customFEN1)).fen(optsFEN1); }, customFEN1);
 			test('Constructor FEN-based 2' , function() { return (new Chess2.Position(customFEN2)).fen(optsFEN2); }, customFEN2);
+
+			var customFEN3  = 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b Kq e3 0 1';
+			var customFEN3a = 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b qK e3 0 1';
+			var customFEN3b = 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b Kq e6 0 1';
+			var customFEN3c = 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b Kq e3 00 1';
+
+			// FEN strict
+			test('Set FEN (tolerant) A', function() { var p=new Chess2.Position(); p.fen(customFEN3a); return p.fen(); }, customFEN3);
+			test('Set FEN (tolerant) B', function() { var p=new Chess2.Position(); p.fen(customFEN3b); return p.fen(); }, customFEN3);
+			test('Set FEN (tolerant) C', function() { var p=new Chess2.Position(); p.fen(customFEN3c); return p.fen(); }, customFEN3);
+			test('Set FEN (strict) OK 1', function() { var p=new Chess2.Position(); p.fen(customFEN1, true); return p.fen(optsFEN1); }, customFEN1);
+			test('Set FEN (strict) OK 2', function() { var p=new Chess2.Position(); p.fen(customFEN2, true); return p.fen(optsFEN2); }, customFEN2);
+			test('Set FEN (strict) OK 3', function() { var p=new Chess2.Position(); p.fen(customFEN3, true); return p.fen(); }, customFEN3);
+			testError('Set FEN (strict) NOK A', function() { var p=new Chess2.Position(); p.fen(customFEN3a, true); }, checkInvalidFEN('INVALID_CASTLE_RIGHTS_FIELD'));
+			testError('Set FEN (strict) NOK B', function() { var p=new Chess2.Position(); p.fen(customFEN3b, true); }, checkInvalidFEN('WRONG_ROW_IN_EN_PASSANT_FIEL'));
+			testError('Set FEN (strict) NOK C', function() { var p=new Chess2.Position(); p.fen(customFEN3c, true); }, checkInvalidFEN('INVALID_MOVE_COUNTING_FIELD', '5th'));
 		};
 	</script>
 
