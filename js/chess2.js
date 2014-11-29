@@ -422,7 +422,7 @@ var Chess2 = {};
 		}
 
 		// Move counting flags parsing
-		var moveCountingRegExp = /^[1-9][0-9]*$/;
+		var moveCountingRegExp = strict ? /^(?:0|[1-9][0-9]*)$/ : /^[0-9]+$/;
 		if(!moveCountingRegExp.test(fields[4])) {
 			throw new myself.exceptions.InvalidFEN(fen, myself.i18n.INVALID_MOVE_COUNTING_FIELD, myself.i18n.ORDINALS[4]);
 		}
