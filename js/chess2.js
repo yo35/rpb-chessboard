@@ -490,8 +490,8 @@ var Chess2 = {};
 		if(typeof square !== 'string' || !/^[a-h][1-8]$/.test(square)) {
 			throw new myself.exceptions.IllegalArgument('Position#square()');
 		}
-		var row    = ROW_SYMBOL   .indexOf(square[0]);
-		var column = COLUMN_SYMBOL.indexOf(square[1]);
+		var column = COLUMN_SYMBOL.indexOf(square[0]);
+		var row    = ROW_SYMBOL   .indexOf(square[1]);
 		if(typeof value === 'undefined' || value === null) {
 			return getSquare(this, row, column);
 		}
@@ -624,7 +624,7 @@ var Chess2 = {};
 	 */
 	function getCastleRights(position, color, column) {
 		/* jshint bitwise: false */
-		return (position._casteRights[color] & (1 << column)) !== 0;
+		return (position._castleRights[color] & (1 << column)) !== 0;
 	}
 
 
@@ -639,10 +639,10 @@ var Chess2 = {};
 		if(typeof value === 'boolean') {
 			/* jshint bitwise: false */
 			if(value) {
-				position._casteRights[color] |= 1 << column;
+				position._castleRights[color] |= 1 << column;
 			}
 			else {
-				position._casteRights[color] &= ~(1 << column);
+				position._castleRights[color] &= ~(1 << column);
 			}
 			position._legal = null;
 			return true;
