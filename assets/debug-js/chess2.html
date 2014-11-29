@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Sandbox for chess2.js</title>
+
+	<!-- Tested component -->
+	<script type="text/javascript" src="../../js/chess2.js"></script>
+
+	<script type="text/javascript">
+
+		/* global Chess2 */
+
+
+		/**
+		 * Base report method.
+		 */
+		function printMessage(success, message) {
+			'use strict';
+			var div = document.createElement('div');
+			div.className = 'message ' + (success ? 'success' : 'failure');
+			div.appendChild(document.createTextNode(message));
+			document.getElementById('report').appendChild(div);
+		}
+
+
+		/**
+		 * Report that a test succeeded.
+		 */
+		function printSuccess(label) {
+			'use strict';
+			printMessage(true, label);
+		}
+
+
+		/**
+		 * Print an error message to report that an tested function did not returned what was expected.
+		 */
+		function printBadValue(label, observedValue, expectedValue) {
+			'use strict';
+
+			var message = label + ' => observed >>' + observedValue + '<<';
+			if(typeof expectedValue === 'undefined') {
+				message += ' while error expected';
+			}
+			else {
+				message += ' while expected >>' + expectedValue + '<<';
+			}
+			printMessage(false, message);
+		}
+
+
+		/**
+		 * Print an error message to report that an exception was thrown during a test.
+		 */
+		function printException(label, exception) {
+			'use strict';
+
+			var message = label + ' => ';
+			if(exception instanceof Chess2.exceptions.IllegalArgument) {
+				message += 'illegal argument in ' + exception.fun;
+			}
+			else if(exception instanceof Chess2.exceptions.InvalidFEN) {
+				message += 'bad FEN >>' + exception.fen + '<< => ' + exception.message;
+			}
+			else {
+				message += 'unknown exception => ' + exception;
+			}
+			printMessage(false, message);
+		}
+
+
+		/**
+		 * Check the returned value of a function.
+		 */
+		function test(label, fun, expectedValue) {
+			'use strict';
+			try {
+				var observedValue = fun();
+				if(observedValue === expectedValue) {
+					printSuccess(label);
+				}
+				else {
+					printBadValue(label, observedValue, expectedValue);
+				}
+			}
+			catch(exception) {
+				printException(label, exception);
+			}
+		}
+
+	</script>
+
+	<style type="text/css">
+		#report {
+			display: flex;
+			flex-direction: column;
+		}
+		#report > * + * {
+			margin-top: 5px;
+		}
+		.success {
+			background-color: #cfc;
+		}
+		.failure {
+			background-color: #fcc;
+		}
+		.message {
+			font-family: monospace;
+			white-space: pre;
+			padding: 3px;
+		}
+	</style>
+
+</head>
+
+<body>
+	<h1>Sandbox for chess2.js</h1>
+
+	<button type="button" id="run-unit-tests">Unit tests</button>
+
+	<hr/>
+
+	<div id="report"></div>
+
+	<script type="text/javascript">
+		document.getElementById('run-unit-tests').onclick = function() {
+			'use strict';
+
+			var startingFEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+			var emptyFEN    = '8/8/8/8/8/8/8/8 w - - 0 1';
+			var customFEN1  = 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b Kk e3 10 5';
+			var customFEN2  = 'k7/n1PB4/1K6/8/8/8/8/8 w - - 0 60';
+
+			var optsFEN1 = { fiftyMoveClock: 10, fullMoveNumber: 5 };
+			var optsFEN2 = { fullMoveNumber: 60 };
+
+			// Constructor
+			test('Default constructor'     , function() { return (new Chess2.Position()).fen(); }, startingFEN);
+			test('Constructor \'starting\'', function() { return (new Chess2.Position('starting')).fen(); }, startingFEN);
+			test('Constructor \'empty\''   , function() { return (new Chess2.Position('empty')).fen(); }, emptyFEN);
+			test('Constructor FEN-based 1' , function() { return (new Chess2.Position(customFEN1)).fen(optsFEN1); }, customFEN1);
+			test('Constructor FEN-based 2' , function() { return (new Chess2.Position(customFEN2)).fen(optsFEN2); }, customFEN2);
+		};
+	</script>
+
+</body>
+
+</html>
