@@ -2,7 +2,7 @@
 Contributors: yo35
 Tags: chess, chessboard, fen, pgn, games
 Requires at least: 3.9
-Tested up to: 4.0
+Tested up to: 4.0.1
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -93,6 +93,11 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 
 == Changelog ==
+
+= 3.4.2 (November 23, 2014) =
+* Sprite system refactoring to allow responsive web design (see issue #26).
+* Fix file-collapse issue (see #25).
+* Tested up to WordPress 4.0.1.
 
 = 3.4.1 (November 17, 2014) =
 * Fix localization not working on frontend.

@@ -289,9 +289,6 @@ div.rpbchessboard-sourceCode {
 
 .rpbchessboard-pieceSymbolLabel {
 	display: inline-block;
-	width : 40px;
-	height: 40px;
-	background-image: url(sprite/all-40.png);
 	vertical-align: middle;
 }
 

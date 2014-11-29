@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Sandbox for uichess-chessboard.js (drag &amp; drop)</title>
+
+	<!-- Third-party required components -->
+	<script type="text/javascript" src="../../third-party-libs/chess-js/chess.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+
+	<!-- Tested component -->
+	<script type="text/javascript" src="../../js/uichess-chessboard.js"></script>
+	<link rel="stylesheet" type="text/css" href="../../css/uichess-chessboard.css" />
+
+</head>
+
+<body>
+	<h1>Sandbox for uichess-chessboard.js (drag &amp; drop)</h1>
+
+	<div style="display: flex;">
+		<div style="width: 40%;">
+			<form>
+				<p>
+					<input id="make-empty"  type="button" value="Empty position"  /><br/>
+					<input id="make-start"  type="button" value="Start position"  /><br/>
+					<input id="make-custom" type="button" value="Custom position" />
+				</p>
+				<p>
+					<input id="flip" type="checkbox" />
+					<label for="flip">Flip</label>
+					<input id="print-fen" type="button" value="Print FEN" />
+				</p>
+				<p>
+					Allow moves:
+					<span id="allowMoves">
+						<input id="allowMoves-none"  type="radio" name="allowMoves" value="none" /><label for="allowMoves-none" >None</label>
+						<input id="allowMoves-all"   type="radio" name="allowMoves" value="all"  /><label for="allowMoves-all"  >All</label>
+						<input id="allowMoves-legal" type="radio" name="allowMoves" value="legal"/><label for="allowMoves-legal">Legal</label>
+					</span>
+				</p>
+				<p>
+					<input id="sparePieces" type="checkbox" />
+					<label for="sparePieces">Spare pieces</label>
+				</p>
+				<p>
+					<input id="change-turn" type="button" value="Change turn" />
+				</p>
+			</form>
+			<pre id="info"></pre>
+		</div>
+		<div style="width: 60%; background: #e0ffe0;">
+			<div id="a"></div>
+		</div>
+	</div>
+
+	<hr/>
+
+	<div style="display: flex;">
+		<div style="width: 33%;">
+			<div id="b1"></div>
+		</div>
+		<div style="width: 33%;">
+			<div id="b2"></div>
+		</div>
+		<div style="width: 33%;">
+			<div id="b3"></div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+
+		$('#a').chessboard({
+			position  : 'start',
+			squareSize: 48,
+			allowMoves: 'all',
+			sparePieces: true,
+			move: function(event, ui)
+			{
+				$('#info').append('<div>Move from ' + ui.from + ' to ' + ui.to + '</div>')
+			},
+			add: function(event, ui)
+			{
+				$('#info').append('<div>Add ' + ui.piece.type + ui.piece.color + ' in ' + ui.square + '</div>')
+			},
+			change: function(event, ui)
+			{
+				$('#info').append('<div>' + $('#a').chessboard('option', 'position') + '</div>');
+			}
+		});
+
+		$('#b1').chessboard({
+			position  : 'empty',
+			squareSize: 28,
+			allowMoves: 'all'
+		});
+
+		$('#b2').chessboard({
+			position  : 'start',
+			squareSize: 28,
+			allowMoves: 'all'
+		});
+
+		$('#b3').chessboard({
+			position  : 'r3k3/1bn3nP/1P6/2n3n1/R4pP1/8/Q2P3R/8 w kq - 0 1',
+			squareSize: 20,
+			allowMoves: 'all'
+		});
+
+		$('#make-empty' ).button().click(function() { $('#a').chessboard('option', 'position', 'empty'); });
+		$('#make-start' ).button().click(function() { $('#a').chessboard('option', 'position', 'start'); });
+		$('#make-custom').button().click(function() {
+			$('#a').chessboard('option', 'position', 'r3k3/1bn3nP/1P6/2n3n1/R4pP1/8/Q2P3R/8 w kq - 0 1');
+		});
+
+		$('#flip').prop('checked', $('#a').chessboard('option', 'flip')).button().click(function() {
+			$('#a').chessboard('option', 'flip', $('#flip').prop('checked'));
+		});
+
+		$('#print-fen').button().click(function() {
+			$('#info').append('<div>' + $('#a').chessboard('option', 'position') + '</div>');
+		});
+
+		$('#allowMoves-' + $('#a').chessboard('option', 'allowMoves')).prop('checked', true);
+		$('#allowMoves input').each(function(index, e) {
+			$(e).click(function() {
+				$('#a').chessboard('option', 'allowMoves', $(e).val());
+			});
+		});
+
+		$('#sparePieces').prop('checked', $('#a').chessboard('option', 'sparePieces')).change(function() {
+			$('#a').chessboard('option', 'sparePieces', $('#sparePieces').prop('checked'));
+		});
+
+		$('#change-turn' ).button().click(function()
+		{
+			switch($('#a').chessboard('turn')) {
+				case 'w': $('#a').chessboard('turn', 'b'); return;
+				case 'b': $('#a').chessboard('turn', 'w'); return;
+				default:
+					alert('Unknown turn: ' + $('#a').chessboard('turn'));
+					break;
+			}
+		});
+
+	</script>
+
+</body>
+
+</html>
