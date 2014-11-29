@@ -177,20 +177,20 @@
 				};
 			}
 
-			var startingFEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
-			var emptyFEN    = '8/8/8/8/8/8/8/8 w - - 0 1';
-			var customFEN1  = 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b Kk e3 10 5';
-			var customFEN2  = 'k7/n1PB4/1K6/8/8/8/8/8 w - - 0 60';
+			var startFEN   = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+			var emptyFEN   = '8/8/8/8/8/8/8/8 w - - 0 1';
+			var customFEN1 = 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b Kk e3 10 5';
+			var customFEN2 = 'k7/n1PB4/1K6/8/8/8/8/8 w - - 0 60';
 
 			var optsFEN1 = { fiftyMoveClock: 10, fullMoveNumber: 5 };
 			var optsFEN2 = { fullMoveNumber: 60 };
 
 			// Constructor
-			test('Default constructor'     , function() { return (new Chess2.Position()).fen(); }, startingFEN);
-			test('Constructor \'starting\'', function() { return (new Chess2.Position('starting')).fen(); }, startingFEN);
-			test('Constructor \'empty\''   , function() { return (new Chess2.Position('empty')).fen(); }, emptyFEN);
-			test('Constructor FEN-based 1' , function() { return (new Chess2.Position(customFEN1)).fen(optsFEN1); }, customFEN1);
-			test('Constructor FEN-based 2' , function() { return (new Chess2.Position(customFEN2)).fen(optsFEN2); }, customFEN2);
+			test('Default constructor'    , function() { return (new Chess2.Position()).fen(); }, startFEN);
+			test('Constructor \'start\''  , function() { return (new Chess2.Position('start')).fen(); }, startFEN);
+			test('Constructor \'empty\''  , function() { return (new Chess2.Position('empty')).fen(); }, emptyFEN);
+			test('Constructor FEN-based 1', function() { return (new Chess2.Position(customFEN1)).fen(optsFEN1); }, customFEN1);
+			test('Constructor FEN-based 2', function() { return (new Chess2.Position(customFEN2)).fen(optsFEN2); }, customFEN2);
 
 			var customFEN3  = 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b Kq e3 0 1';
 			var customFEN3a = 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b qK e3 0 1';
