@@ -146,16 +146,13 @@ var Chess2 = {};
 	 * @returns {array}
 	 */
 	function attackDirections(coloredPiece) {
-		switch(coloredPiece) {
-			case WK: case BK: case WQ: case BQ: return [-11, -10, -9, -1, 1, 9, 10, 11]; // king/queen
-			case WR: case BR: return [-10, -1, 1, 10]; // rook
-			case WB: case BB: return [-11, -9, 9, 11]; // bishop
-			case WN: case BN: return [-21, -19, -12, -8, 8, 12, 19, 21]; // knight
-			case WP: return [9, 11]; // white pawn
-			case BP: return [-11, -9]; // black pawn
-			default: break;
-		}
-		return [];
+		if(coloredPiece>=0 && coloredPiece<=3) { return [-17, -16, -15, -1, 1, 15, 16, 17]; } // king/queen
+		else if(coloredPiece===4 || coloredPiece===5) { return [-16, -1, 1, 16]; } // rook
+		else if(coloredPiece===6 || coloredPiece===7) { return [-17, -15, 15, 17]; } // bishop
+		else if(coloredPiece===8 || coloredPiece===9) { return [-33, -31, -18, -14, 14, 18, 31, 33]; } // knight
+		else if(coloredPiece===10) { return [15, 17]; } // white pawn
+		else if(coloredPiece===11) { return [-17, -15]; } // black pawn
+		else { return []; }
 	}
 
 
@@ -198,7 +195,20 @@ var Chess2 = {};
 		}
 		var column = COLUMN_SYMBOL.indexOf(square[0]);
 		var row    = ROW_SYMBOL   .indexOf(square[1]);
-		return 21 + 10*row + column;
+		return row*16 + column;
+	}
+
+
+	/**
+	 * Return the string representation of a square.
+	 *
+	 * @param {number} square
+	 * @returns {string}
+	 */
+	function squareToString(square) {
+		var column = square % 16;
+		var row    = Math.floor(square / 16);
+		return COLUMN_SYMBOL[column] + ROW_SYMBOL[row];
 	}
 
 
@@ -250,18 +260,14 @@ var Chess2 = {};
 	{
 		// Board state
 		this._board = [
-			INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID,
-			INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID,
-			INVALID, EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , INVALID,
-			INVALID, EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , INVALID,
-			INVALID, EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , INVALID,
-			INVALID, EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , INVALID,
-			INVALID, EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , INVALID,
-			INVALID, EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , INVALID,
-			INVALID, EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , INVALID,
-			INVALID, EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , INVALID,
-			INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID,
-			INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID
+			EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID,
+			EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID,
+			EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID,
+			EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID,
+			EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID,
+			EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID,
+			EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID,
+			EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY
 		];
 
 		// Meta-data
@@ -282,18 +288,14 @@ var Chess2 = {};
 	{
 		// Board state
 		this._board = [
-			INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID,
-			INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID,
-			INVALID, WR     , WN     , WB     , WQ     , WK     , WB     , WN     , WR     , INVALID,
-			INVALID, WP     , WP     , WP     , WP     , WP     , WP     , WP     , WP     , INVALID,
-			INVALID, EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , INVALID,
-			INVALID, EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , INVALID,
-			INVALID, EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , INVALID,
-			INVALID, EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , EMPTY  , INVALID,
-			INVALID, BP     , BP     , BP     , BP     , BP     , BP     , BP     , BP     , INVALID,
-			INVALID, BR     , BN     , BB     , BQ     , BK     , BB     , BN     , BR     , INVALID,
-			INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID,
-			INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID
+			WR   , WN   , WB   , WQ   , WK   , WB   , WN   , WR   , INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID,
+			WP   , WP   , WP   , WP   , WP   , WP   , WP   , WP   , INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID,
+			EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID,
+			EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID,
+			EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID,
+			EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID,
+			BP   , BP   , BP   , BP   , BP   , BP   , BP   , BP   , INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID,
+			BR   , BN   , BB   , BQ   , BK   , BB   , BN   , BR
 		];
 
 		// Meta-data
@@ -319,7 +321,7 @@ var Chess2 = {};
 		var res = '+---+---+---+---+---+---+---+---+\n';
 		for(var r=7; r>=0; --r) {
 			for(var c=0; c<8; ++c) {
-				var cp = this._board[21 + 10*r + c];
+				var cp = this._board[r*16 + c];
 				res += '| ' + (cp < 0 ? ' ' : COLORED_PIECE_SYMBOL[cp]) + ' ';
 			}
 			res += '|\n';
@@ -378,7 +380,7 @@ var Chess2 = {};
 			}
 			var emptySquareCounter = 0;
 			for(var c=0; c<8; ++c) {
-				var cp = position._board[21 + 10*r + c];
+				var cp = position._board[r*16 + c];
 				if(cp < 0) {
 					++emptySquareCounter;
 				}
@@ -455,7 +457,7 @@ var Chess2 = {};
 
 				// The current character corresponds to a colored piece symbol -> set the current square accordingly.
 				else if(cp >= 0) {
-					position._board[21 + 10*r + c] = cp;
+					position._board[r*16 + c] = cp;
 					++c;
 				}
 
@@ -518,11 +520,10 @@ var Chess2 = {};
 	 */
 	function castleRightsToString(castleRights) {
 		var res = '';
-		/* jshint bitwise: false */
-		if(castleRights[WHITE] & 1<<7) { res += 'K'; }
-		if(castleRights[WHITE] & 1<<0) { res += 'Q'; }
-		if(castleRights[BLACK] & 1<<7) { res += 'k'; }
-		if(castleRights[BLACK] & 1<<0) { res += 'q'; }
+		if(castleRights[WHITE] /* jshint bitwise:false */ & 1<<7 /* jshint bitwise:true */) { res += 'K'; }
+		if(castleRights[WHITE] /* jshint bitwise:false */ & 1<<0 /* jshint bitwise:true */) { res += 'Q'; }
+		if(castleRights[BLACK] /* jshint bitwise:false */ & 1<<7 /* jshint bitwise:true */) { res += 'k'; }
+		if(castleRights[BLACK] /* jshint bitwise:false */ & 1<<0 /* jshint bitwise:true */) { res += 'q'; }
 		return res === '' ? '-' : res;
 	}
 
@@ -542,11 +543,10 @@ var Chess2 = {};
 		if(!(strict ? /^K?Q?k?q?$/ : /^[KQkq]*$/).test(castleRights)) {
 			return null;
 		}
-		/* jshint bitwise: false */
-		if(castleRights.indexOf('K') >= 0) { res[WHITE] |= 1<<7; }
-		if(castleRights.indexOf('Q') >= 0) { res[WHITE] |= 1<<0; }
-		if(castleRights.indexOf('k') >= 0) { res[BLACK] |= 1<<7; }
-		if(castleRights.indexOf('q') >= 0) { res[BLACK] |= 1<<0; }
+		if(castleRights.indexOf('K') >= 0) { res[WHITE] /* jshint bitwise:false */ |= 1<<7; /* jshint bitwise:true */ }
+		if(castleRights.indexOf('Q') >= 0) { res[WHITE] /* jshint bitwise:false */ |= 1<<0; /* jshint bitwise:true */ }
+		if(castleRights.indexOf('k') >= 0) { res[BLACK] /* jshint bitwise:false */ |= 1<<7; /* jshint bitwise:true */ }
+		if(castleRights.indexOf('q') >= 0) { res[BLACK] /* jshint bitwise:false */ |= 1<<0; /* jshint bitwise:true */ }
 		return res;
 	}
 
@@ -692,8 +692,7 @@ var Chess2 = {};
 	 * @returns {boolean}
 	 */
 	function getCastleRights(position, color, column) {
-		/* jshint bitwise: false */
-		return (position._castleRights[color] & (1 << column)) !== 0;
+		return (position._castleRights[color] /* jshint bitwise:false */ & (1 << column) /* jshint bitwise:true */) !== 0;
 	}
 
 
@@ -706,12 +705,11 @@ var Chess2 = {};
 	 */
 	function setCastleRights(position, color, column, value) {
 		if(typeof value === 'boolean') {
-			/* jshint bitwise: false */
 			if(value) {
-				position._castleRights[color] |= 1 << column;
+				position._castleRights[color] /* jshint bitwise:false */ |= 1 << column; /* jshint bitwise:true */
 			}
 			else {
-				position._castleRights[color] &= ~(1 << column);
+				position._castleRights[color] /* jshint bitwise:false */ &= ~(1 << column); /* jshint bitwise:true */
 			}
 			position._legal = null;
 			return true;
@@ -823,15 +821,19 @@ var Chess2 = {};
 				var sq = square;
 				while(true) {
 					sq -= directions[i];
-					var cp = position._board[sq];
-					if(cp === attacker) { return true; }
-					else if(cp !== EMPTY) { break; }
+					if((sq /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */)===0) {
+						var cp = position._board[sq];
+						if(cp === attacker) { return true; }
+						else if(cp === EMPTY) { continue; }
+					}
+					break;
 				}
 			}
 		}
 		else {
 			for(var i=0; i<directions.length; ++i) {
-				if(position._board[square - directions[i]] === attacker) {
+				var sq = square - directions[i];
+				if((sq /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */)===0 && position._board[sq]===attacker) {
 					return true;
 				}
 			}
@@ -895,12 +897,7 @@ var Chess2 = {};
 		}
 		refreshLegalFlag(this);
 		var square = this._king[color];
-		if(square < 0) {
-			return '-';
-		}
-		var row    = Math.floor((square - 21) / 10);
-		var column = (square - 21) % 10;
-		return COLUMN_SYMBOL[column] + ROW_SYMBOL[row];
+		return square < 0 ? '-' : squareToString(square);
 	};
 
 
@@ -935,8 +932,8 @@ var Chess2 = {};
 
 		// Condition (3)
 		for(var c=0; c<8; ++c) {
-			var cp1 = position._board[21 + c];
-			var cp8 = position._board[91 + c];
+			var cp1 = position._board[c];
+			var cp8 = position._board[112 + c];
 			if(cp1 === WP || cp8 === WP || cp1 === BP || cp8 === BP) {
 				return;
 			}
@@ -946,9 +943,9 @@ var Chess2 = {};
 		for(var color=0; color<2; ++color) {
 			var skipOO  = !getCastleRights(position, color, 7);
 			var skipOOO = !getCastleRights(position, color, 0);
-			var rookHOK = skipOO              || position._board[28 + 70*color] === ROOK*2 + color;
-			var rookAOK = skipOOO             || position._board[21 + 70*color] === ROOK*2 + color;
-			var kingOK  = (skipOO && skipOOO) || position._board[25 + 70*color] === KING*2 + color;
+			var rookHOK = skipOO              || position._board[7 + 112*color] === ROOK*2 + color;
+			var rookAOK = skipOOO             || position._board[0 + 112*color] === ROOK*2 + color;
+			var kingOK  = (skipOO && skipOOO) || position._board[4 + 112*color] === KING*2 + color;
 			if(!(kingOK && rookAOK && rookHOK)) {
 				return;
 			}
@@ -956,9 +953,9 @@ var Chess2 = {};
 
 		// Condition (5)
 		if(position._enPassant >= 0) {
-			var square2 = 21 + 10*(6-position._turn*5) + position._enPassant;
-			var square3 = 21 + 10*(5-position._turn*3) + position._enPassant;
-			var square4 = 21 + 10*(4-position._turn  ) + position._enPassant;
+			var square2 = (6-position._turn*5)*16 + position._enPassant;
+			var square3 = (5-position._turn*3)*16 + position._enPassant;
+			var square4 = (4-position._turn  )*16 + position._enPassant;
 			if(!(position._board[square2]===EMPTY && position._board[square3]===EMPTY && position._board[square4]===PAWN*2+1-position._turn)) {
 				return;
 			}
@@ -978,7 +975,7 @@ var Chess2 = {};
 	function refreshKingSquare(position, color) {
 		var target = KING*2 + color;
 		position._king[color] = -1;
-		for(var sq=21; sq<99; ++sq) {
+		for(var sq=0; sq<120; sq += (sq /* jshint bitwise:false */ & 0x7 /* jshint bitwise:true */)===7 ? 9 : 1) {
 			if(position._board[sq] === target) {
 
 				// If the targeted king is detected on the square sq, two situations may occur:
