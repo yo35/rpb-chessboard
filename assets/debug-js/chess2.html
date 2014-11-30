@@ -278,6 +278,47 @@
 			test('Knight attacks 2', function() { var p=new Chess2.Position('8/8/8/8/8/8/PPP5/NP6 w - - 0 1'); return attacked(p, 'w', 'n'); }, 'c2/b3');
 			test('White pawn attacks', function() { var p=new Chess2.Position('8/8/8/4P3/8/8/8/8 w - - 0 1'); return attacked(p, 'w'); }, 'd6/f6');
 			test('Black pawn attacks', function() { var p=new Chess2.Position('8/8/8/4p3/8/8/8/8 w - - 0 1'); return attacked(p, 'b'); }, 'd4/f4');
+
+			function legalInfo(position) {
+				return position.isLegal() + ':' + position.kingSquare('w') + ':' + position.kingSquare('b');
+			}
+
+			// Legality
+			test('Legality kings OK'   , function() { var p=new Chess2.Position('k7/8/8/8/8/8/8/7K w - - 0 1'); return legalInfo(p); }, 'true:h1:a8');
+			test('Legality missing WK' , function() { var p=new Chess2.Position('7k/8/8/8/8/8/8/8 w - - 0 1'); return legalInfo(p); }, 'false:-:h8');
+			test('Legality missing BK' , function() { var p=new Chess2.Position('8/8/8/8/8/8/8/K7 w - - 0 1'); return legalInfo(p); }, 'false:a1:-');
+			test('Legality too many WK', function() { var p=new Chess2.Position('4k3/8/8/8/8/8/8/K6K w - - 0 1'); return legalInfo(p); }, 'false:-:e8');
+			test('Legality too many BK', function() { var p=new Chess2.Position('k6k/8/8/8/8/8/8/4K3 w - - 0 1'); return legalInfo(p); }, 'false:e1:-');
+			test('Legality white is check 1', function() { var p=new Chess2.Position('4k3/8/8/8/8/2b5/8/4K3 w - - 0 1'); return legalInfo(p); }, 'true:e1:e8');
+			test('Legality white is check 2', function() { var p=new Chess2.Position('4k3/8/8/8/8/2b5/8/4K3 b - - 0 1'); return legalInfo(p); }, 'false:e1:e8');
+			test('Legality black is check 1', function() { var p=new Chess2.Position('4k3/8/5N2/8/8/8/8/4K3 w - - 0 1'); return legalInfo(p); }, 'false:e1:e8');
+			test('Legality black is check 2', function() { var p=new Chess2.Position('4k3/8/5N2/8/8/8/8/4K3 b - - 0 1'); return legalInfo(p); }, 'true:e1:e8');
+			test('Legality pawn on first/last row 1', function() { var p=new Chess2.Position('6p1/8/2k5/8/8/5K2/8/8 w - - 0 1'); return legalInfo(p); }, 'false:f3:c6');
+			test('Legality pawn on first/last row 2', function() { var p=new Chess2.Position('3P4/8/5k2/8/8/2K5/8/8 w - - 0 1'); return legalInfo(p); }, 'false:c3:f6');
+			test('Legality pawn on first/last row 3', function() { var p=new Chess2.Position('8/8/8/2k5/5K2/8/8/4p3 w - - 0 1'); return legalInfo(p); }, 'false:f4:c5');
+			test('Legality pawn on first/last row 4', function() { var p=new Chess2.Position('8/8/8/5k2/2K5/8/8/1P6 w - - 0 1'); return legalInfo(p); }, 'false:c4:f5');
+			test('Legality castling white 1', function() { var p=new Chess2.Position('8/4k3/8/8/8/8/8/R3K2R w KQ - 0 1'); return legalInfo(p); }, 'true:e1:e7');
+			test('Legality castling white 2', function() { var p=new Chess2.Position('8/4k3/8/8/8/8/8/R3K3 w Q - 0 1'); return legalInfo(p); }, 'true:e1:e7');
+			test('Legality castling white 3', function() { var p=new Chess2.Position('8/4k3/8/8/8/8/8/4K2R w K - 0 1'); return legalInfo(p); }, 'true:e1:e7');
+			test('Legality castling white 4', function() { var p=new Chess2.Position('8/4k3/8/8/8/8/8/R3K3 w K - 0 1'); return legalInfo(p); }, 'false:e1:e7');
+			test('Legality castling white 5', function() { var p=new Chess2.Position('8/4k3/8/8/8/8/8/4K2R w Q - 0 1'); return legalInfo(p); }, 'false:e1:e7');
+			test('Legality castling white 6', function() { var p=new Chess2.Position('8/4k3/8/8/8/8/4K3/R7 w Q - 0 1'); return legalInfo(p); }, 'false:e2:e7');
+			test('Legality castling white 7', function() { var p=new Chess2.Position('8/4k3/8/8/8/8/4K3/7R w K - 0 1'); return legalInfo(p); }, 'false:e2:e7');
+			test('Legality castling black 1', function() { var p=new Chess2.Position('r3k2r/8/8/8/8/8/4K3/8 w kq - 0 1'); return legalInfo(p); }, 'true:e2:e8');
+			test('Legality castling black 2', function() { var p=new Chess2.Position('r3k3/8/8/8/8/8/4K3/8 w q - 0 1'); return legalInfo(p); }, 'true:e2:e8');
+			test('Legality castling black 3', function() { var p=new Chess2.Position('4k2r/8/8/8/8/8/4K3/8 w k - 0 1'); return legalInfo(p); }, 'true:e2:e8');
+			test('Legality castling black 4', function() { var p=new Chess2.Position('r3k3/8/8/8/8/8/4K3/8 w k - 0 1'); return legalInfo(p); }, 'false:e2:e8');
+			test('Legality castling black 5', function() { var p=new Chess2.Position('4k2r/8/8/8/8/8/4K3/8 w q - 0 1'); return legalInfo(p); }, 'false:e2:e8');
+			test('Legality castling black 6', function() { var p=new Chess2.Position('r7/4k3/8/8/8/8/4K3/8 w q - 0 1'); return legalInfo(p); }, 'false:e2:e7');
+			test('Legality castling black 7', function() { var p=new Chess2.Position('7r/4k3/8/8/8/8/4K3/8 w k - 0 1'); return legalInfo(p); }, 'false:e2:e7');
+			test('Legality en-passant white 1', function() { var p=new Chess2.Position('4k3/pppppp1p/8/6p1/8/8/PPPPPPPP/4K3 w - g6 0 1'); return legalInfo(p); }, 'true:e1:e8');
+			test('Legality en-passant white 2', function() { var p=new Chess2.Position('4k3/pppppp1p/8/6r1/8/8/PPPPPPPP/4K3 w - g6 0 1'); return legalInfo(p); }, 'false:e1:e8');
+			test('Legality en-passant white 3', function() { var p=new Chess2.Position('4k3/pppppp1p/6P1/6p1/8/8/8/4K3 w - g6 0 1'); return legalInfo(p); }, 'false:e1:e8');
+			test('Legality en-passant white 4', function() { var p=new Chess2.Position('4k3/ppppppPp/8/6p1/8/8/8/4K3 w - g6 0 1'); return legalInfo(p); }, 'false:e1:e8');
+			test('Legality en-passant black 1', function() { var p=new Chess2.Position('4k3/pppppppp/8/8/2P5/8/PP1PPPPP/4K3 b - c3 0 1'); return legalInfo(p); }, 'true:e1:e8');
+			test('Legality en-passant black 2', function() { var p=new Chess2.Position('4k3/pppppppp/8/8/2B5/8/PP1PPPPP/4K3 b - c3 0 1'); return legalInfo(p); }, 'false:e1:e8');
+			test('Legality en-passant black 3', function() { var p=new Chess2.Position('4k3/8/8/8/2P5/2p5/8/4K3 b - c3 0 1'); return legalInfo(p); }, 'false:e1:e8');
+			test('Legality en-passant black 4', function() { var p=new Chess2.Position('4k3/8/8/8/2P5/8/2p5/4K3 b - c3 0 1'); return legalInfo(p); }, 'false:e1:e8');
 		};
 	</script>
 

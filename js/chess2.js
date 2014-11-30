@@ -841,5 +841,147 @@ var Chess2 = {};
 	}
 
 
+	/**
+	 * Check whether the current position is legal or not.
+	 *
+	 * A position is considered to be legal if all the following conditions are met:
+	 *
+	 *  1. There is exactly one white king and one black king on the board.
+	 *  2. The player that is not about to play is not check.
+	 *  3. There are no pawn on rows 1 and 8.
+	 *  4. For each colored castle flag set, there is a rook and a king on the
+	 *     corresponding initial squares.
+	 *  5. The pawn situation is consistent with the en-passant flag if it is set.
+	 *     For instance, if it is set to the 'e' column and black is about to play,
+	 *     the squares e2 and e3 must be empty, and there must be a white pawn on e4.
+	 *
+	 * @returns {boolean}
+	 */
+	myself.Position.prototype.isLegal = function() {
+		refreshLegalFlag(this);
+		return this._legal;
+	};
+
+
+	/**
+	 * Return the square on which is located the king of the given color.
+	 *
+	 * @param {string} color
+	 * @returns {string} Square where is located the searched king. `'-'` is returned
+	 *          if there is no king of the given color or if the are 2 such kings or more.
+	 */
+	myself.Position.prototype.kingSquare = function(color) {
+		color = parseColor(color);
+		if(color < 0) {
+			throw new myself.exceptions.IllegalArgument('Position#kingSquare()');
+		}
+		refreshLegalFlag(this);
+		var square = this._king[color];
+		if(square < 0) {
+			return '-';
+		}
+		var row    = Math.floor((square - 21) / 10);
+		var column = (square - 21) % 10;
+		return COLUMN_SYMBOL[column] + ROW_SYMBOL[row];
+	};
+
+
+	/**
+	 * Refresh the legal flag of the current position if it is set to null
+	 * (which means that the legality state of the position is unknown).
+	 *
+	 * Together with the legal flag, the reference to the squares where the white and
+	 * black kings lie is updated by this function.
+	 *
+	 * TODO: make it chess-960 compatible.
+	 *
+	 * @param {Position} position
+	 */
+	function refreshLegalFlag(position) {
+		if(position._legal !== null) {
+			return;
+		}
+		position._legal = false;
+
+		// Condition (1)
+		refreshKingSquare(position, WHITE);
+		refreshKingSquare(position, BLACK);
+		if(position._king[WHITE] < 0 || position._king[BLACK] < 0) {
+			return;
+		}
+
+		// Condition (2)
+		if(isAttacked(position, position._king[1-position._turn], position._turn)) {
+			return;
+		}
+
+		// Condition (3)
+		for(var c=0; c<8; ++c) {
+			var cp1 = position._board[21 + c];
+			var cp8 = position._board[91 + c];
+			if(cp1 === WP || cp8 === WP || cp1 === BP || cp8 === BP) {
+				return;
+			}
+		}
+
+		// Condition (4)
+		for(var color=0; color<2; ++color) {
+			var skipOO  = !getCastleRights(position, color, 7);
+			var skipOOO = !getCastleRights(position, color, 0);
+			var rookHOK = skipOO              || position._board[28 + 70*color] === ROOK*2 + color;
+			var rookAOK = skipOOO             || position._board[21 + 70*color] === ROOK*2 + color;
+			var kingOK  = (skipOO && skipOOO) || position._board[25 + 70*color] === KING*2 + color;
+			if(!(kingOK && rookAOK && rookHOK)) {
+				return;
+			}
+		}
+
+		// Condition (5)
+		if(position._enPassant >= 0) {
+			var square2 = 21 + 10*(6-position._turn*5) + position._enPassant;
+			var square3 = 21 + 10*(5-position._turn*3) + position._enPassant;
+			var square4 = 21 + 10*(4-position._turn  ) + position._enPassant;
+			if(!(position._board[square2]===EMPTY && position._board[square3]===EMPTY && position._board[square4]===PAWN*2+1-position._turn)) {
+				return;
+			}
+		}
+
+		// At this point, all the conditions (1) to (5) hold, so the position can be flagged as legal.
+		position._legal = true;
+	}
+
+
+	/**
+	 * Detect the kings of the given color that are present on the chess board.
+	 *
+	 * @param {Position} position
+	 * @param {number} color
+	 */
+	function refreshKingSquare(position, color) {
+		var target = KING*2 + color;
+		position._king[color] = -1;
+		for(var sq=21; sq<99; ++sq) {
+			if(position._board[sq] === target) {
+
+				// If the targeted king is detected on the square sq, two situations may occur:
+				// 1) No king was detected on the previously visited squares: then the current
+				//    square is saved, and loop over the next board squares goes on.
+				if(position._king[color] < 0) {
+					position._king[color] = sq;
+				}
+
+				// 2) Another king was detected on the previously visited squares: then the buffer position._king[color]
+				//    is set to the invalid state (-1), and the loop is interrupted.
+				else {
+					position._king[color] = -1;
+					return;
+				}
+			}
+		}
+	}
+
+
+
+
 
 })(Chess2);
