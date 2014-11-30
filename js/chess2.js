@@ -127,33 +127,71 @@ var Chess2 = {};
 	var /* const */ WN =  8; var /* const */ BN =  9;
 	var /* const */ WP = 10; var /* const */ BP = 11;
 
-
-	/**
-	 * Whether the given colored piece is sliding or not.
-	 *
-	 * @param {number} coloredPiece
-	 * @returns {boolean}
-	 */
+	// Whether the given colored piece is sliding or not.
 	function isSliding(coloredPiece) {
 		return coloredPiece>=2 && coloredPiece<=7;
 	}
 
+	// Attack directions per colored piece.
+	var /* const */ ATTACK_DIRECTIONS = [
+		[-17, -16, -15, -1, 1, 15, 16, 17], // king/queen
+		[-17, -16, -15, -1, 1, 15, 16, 17], // king/queen
+		[-17, -16, -15, -1, 1, 15, 16, 17], // king/queen
+		[-17, -16, -15, -1, 1, 15, 16, 17], // king/queen
+		[-16, -1, 1, 16], // rook
+		[-16, -1, 1, 16], // rook
+		[-17, -15, 15, 17], // bishop
+		[-17, -15, 15, 17], // bishop
+		[-33, -31, -18, -14, 14, 18, 31, 33], // knight
+		[-33, -31, -18, -14, 14, 18, 31, 33], // knight
+		[15, 17], // white pawn
+		[-17, -15] // black pawn
+	];
 
-	/**
-	 * Return the attack directions of the given colored piece.
-	 *
-	 * @param {number} coloredPiece
-	 * @returns {array}
-	 */
-	function attackDirections(coloredPiece) {
-		if(coloredPiece>=0 && coloredPiece<=3) { return [-17, -16, -15, -1, 1, 15, 16, 17]; } // king/queen
-		else if(coloredPiece===4 || coloredPiece===5) { return [-16, -1, 1, 16]; } // rook
-		else if(coloredPiece===6 || coloredPiece===7) { return [-17, -15, 15, 17]; } // bishop
-		else if(coloredPiece===8 || coloredPiece===9) { return [-33, -31, -18, -14, 14, 18, 31, 33]; } // knight
-		else if(coloredPiece===10) { return [15, 17]; } // white pawn
-		else if(coloredPiece===11) { return [-17, -15]; } // black pawn
-		else { return []; }
-	}
+	// Displacement lookup per square index difference.
+	var /* const */ DISPLACEMENT_LOOKUP = [
+	 204,    0,    0,    0,    0,    0,    0,   60,    0,    0,    0,    0,    0,    0,  204,    0,
+	   0,  204,    0,    0,    0,    0,    0,   60,    0,    0,    0,    0,    0,  204,    0,    0,
+	   0,    0,  204,    0,    0,    0,    0,   60,    0,    0,    0,    0,  204,    0,    0,    0,
+	   0,    0,    0,  204,    0,    0,    0,   60,    0,    0,    0,  204,    0,    0,    0,    0,
+	   0,    0,    0,    0,  204,    0,    0,   60,    0,    0,  204,    0,    0,    0,    0,    0,
+	   0,    0,    0,    0,    0,  204, 2816, 2108, 2816,  204,    0,    0,    0,    0,    0,    0,
+	   0,    0,    0,    0,    0,  768,  207,   63,  207,  768,    0,    0,    0,    0,    0,    0,
+	  60,   60,   60,   60,   60,   60,   63,    0,   63,   60,   60,   60,   60,   60,   60,    0,
+	   0,    0,    0,    0,    0,  768, 1231, 1087, 1231,  768,    0,    0,    0,    0,    0,    0,
+	   0,    0,    0,    0,    0,  204,  768,   60,  768,  204,    0,    0,    0,    0,    0,    0,
+	   0,    0,    0,    0,  204,    0,    0,   60,    0,    0,  204,    0,    0,    0,    0,    0,
+	   0,    0,    0,  204,    0,    0,    0,   60,    0,    0,    0,  204,    0,    0,    0,    0,
+	   0,    0,  204,    0,    0,    0,    0,   60,    0,    0,    0,    0,  204,    0,    0,    0,
+	   0,  204,    0,    0,    0,    0,    0,   60,    0,    0,    0,    0,    0,  204,    0,    0,
+	 204,    0,    0,    0,    0,    0,    0,   60,    0,    0,    0,    0,    0,    0,  204,    0
+	];
+
+	// Sliding direction
+	var /* const */ SLIDING_DIRECTION = [
+		-17,   0,   0,   0,   0,   0,   0, -16,   0,   0,   0,   0,   0,   0, -15,   0,
+		  0, -17,   0,   0,   0,   0,   0, -16,   0,   0,   0,   0,   0, -15,   0,   0,
+		  0,   0, -17,   0,   0,   0,   0, -16,   0,   0,   0,   0, -15,   0,   0,   0,
+		  0,   0,   0, -17,   0,   0,   0, -16,   0,   0,   0, -15,   0,   0,   0,   0,
+		  0,   0,   0,   0, -17,   0,   0, -16,   0,   0, -15,   0,   0,   0,   0,   0,
+		  0,   0,   0,   0,   0, -17,   0, -16,   0, -15,   0,   0,   0,   0,   0,   0,
+		  0,   0,   0,   0,   0,   0, -17, -16, -15,   0,   0,   0,   0,   0,   0,   0,
+		 -1,  -1,  -1,  -1,  -1,  -1,  -1,   0,   1,   1,   1,   1,   1,   1,   1,   0,
+		  0,   0,   0,   0,   0,   0,  15,  16,  17,   0,   0,   0,   0,   0,   0,   0,
+		  0,   0,   0,   0,   0,  15,   0,  16,   0,  17,   0,   0,   0,   0,   0,   0,
+		  0,   0,   0,   0,  15,   0,   0,  16,   0,   0,  17,   0,   0,   0,   0,   0,
+		  0,   0,   0,  15,   0,   0,   0,  16,   0,   0,   0,  17,   0,   0,   0,   0,
+		  0,   0,  15,   0,   0,   0,   0,  16,   0,   0,   0,   0,  17,   0,   0,   0,
+		  0,  15,   0,   0,   0,   0,   0,  16,   0,   0,   0,   0,   0,  17,   0,   0,
+		 15,   0,   0,   0,   0,   0,   0,  16,   0,   0,   0,   0,   0,   0,  17,   0
+	];
+
+	// Move types
+	var /* const */ NORMAL_MOVE     = 0;
+	var /* const */ TWO_SQUARE_MOVE = 1;
+	var /* const */ EN_PASSANT_MOVE = 2;
+	var /* const */ PROMOTION_MOVE  = 3;
+	var /* const */ CASTLING_MOVE   = 4;
 
 
 	/**
@@ -802,7 +840,7 @@ var Chess2 = {};
 	 * @returns {boolean}
 	 */
 	function isAttackedBy(position, square, attacker) {
-		var directions = attackDirections(attacker);
+		var directions = ATTACK_DIRECTIONS[attacker];
 		if(isSliding(attacker)) {
 			for(var i=0; i<directions.length; ++i) {
 				var sq = square;
@@ -983,6 +1021,187 @@ var Chess2 = {};
 	}
 
 
+
+	// ---------------------------------------------------------------------------
+	// Move generation
+	// ---------------------------------------------------------------------------
+
+
+	/**
+	 * Core algorithm to determine whether a move is legal or not. The verification flow is the following:
+	 *
+	 *  1. Ensure that the position itself is legal.
+	 *  2. Ensure that the origin square contains a piece (denoted as the moving-piece)
+	 *     whose color is the same than the color of the player about to play.
+	 *  3. Ensure that the displacement is geometrically correct, with respect to the moving piece.
+	 *  4. Check the content of the destination square.
+	 *  5. For the sliding pieces (and in case of a 2-square pawn move), ensure that there is no piece
+	 *     on the trajectory.
+	 *
+	 * The displacement is almost ensured to be legal at this point. The last condition to check
+	 * is whether the king of the current player will be in check after the move or not.
+	 *
+	 *  6. Execute the displacement from the origin to the destination square, in such a way that
+	 *     it can be reversed. Only the state of the board is updated at this point.
+	 *  7. Look for king attacks.
+	 *  8. Reverse the displacement.
+	 *
+	 * Castling moves fail at step (3). They are taken out of this flow and processed
+	 * by the dedicated method `isLegalCastling()`.
+	 *
+	 * @param {Position} position
+	 * @param {number} from Index of the origin square.
+	 * @param {number} to Index of the destination square.
+	 * @returns {boolean|object}
+	 */
+	function isLegalDisplacement(position, from, to) {
+
+		// Step (1)
+		if(!position.isLegal()) { return false; }
+
+		// Step (2)
+		var fromContent = position._board[from];
+		var toContent   = position._board[to  ];
+		if(fromContent < 0 || fromContent%2 !== position._turn) { return false; }
+
+		// Miscellaneous variables
+		var movingPiece = Math.floor(fromContent / 2);
+		var displacement = to - from + 119;
+		var moveType = NORMAL_MOVE;
+		var enPassantSquare = -1; // square where a pawn is taken if the move is "en-passant"
+		var updateEnPassant = -1; // new value for the "en-passant" flag if the move is legal
+
+		// Step (3)
+		if((DISPLACEMENT_LOOKUP[displacement] /* jshint bitwise:false */ & 1<<fromContent /* jshint bitwise:true */) === 0) {
+			if(movingPiece === PAWN && displacement !== 151-position._turn*64) {
+				var firstSquareOfRow = (1 + position._turn*5) * 16;
+				if(from < firstSquareOfRow || from >= firstSquareOfRow+8) { return false; }
+				moveType = TWO_SQUARE_MOVE;
+				updateEnPassant = from % 8;
+			}
+			else if(movingPiece === KING && (displacement === 117 || displacement === 121)) {
+				return isLegalCastling(position, from, to);
+			}
+			else {
+				return false;
+			}
+		}
+
+		// Step (4) -> check the content of the destination square
+		if(movingPiece === PAWN) {
+			if(displacement=== 135-position._turn*32 || moveType===TWO_SQUARE_MOVE) { // non-capturing pawn move
+				if(toContent !== EMPTY) { return false; }
+			}
+			else if(toContent === EMPTY) { // en-passant pawn move
+				if(position._enPassant < 0 || to !== (5-position._turn*3)*16 + position._enPassant) { return false; }
+				moveType = EN_PASSANT_MOVE;
+				enPassantSquare = (4-position._turn)*16 + position._enPassant;
+			}
+			else { // regular capturing pawn move
+				if(toContent%2 === position._turn) { return false; }
+			}
+		}
+		else { // piece move
+			if(toContent >= 0 && toContent%2 === position._turn) { return false; }
+		}
+
+		// Step (5) -> For sliding pieces, ensure that there is nothing between the origin and the destination squares.
+		if(isSliding(fromContent)) {
+			var direction = SLIDING_DIRECTION[displacement];
+			for(var sq=from + direction; sq !== to; sq += direction) {
+				if(position._board[sq] !== EMPTY) { return false; }
+			}
+		}
+		else if(moveType===TWO_SQUARE_MOVE) { // 2-square pawn moves also require this test.
+			if(position._board[(from + to) / 2] !== EMPTY) { return false; }
+		}
+
+		// Step (6) -> Execute the displacement (castling moves are processed separately).
+		position._board[to  ] = fromContent;
+		position._board[from] = EMPTY;
+		if(moveType === EN_PASSANT_MOVE) {
+			position._board[enPassantSquare] = EMPTY;
+		}
+
+		// Step (7) -> Is the king safe after the displacement?
+		var kingSquare    = movingPiece===KING ? to : position._king[position._turn];
+		var kingIsInCheck = isAttacked(position, kingSquare, 1-position._turn);
+
+		// Step (8) -> Reverse the displacement.
+		position._board[from] = fromContent;
+		position._board[to  ] = toContent;
+		if(moveType === EN_PASSANT_MOVE) {
+			position._board[enPassantSquare] = PAWN*2 + 1-position._turn;
+		}
+
+		// Final result
+		if(kingIsInCheck) {
+			return false;
+		}
+		else {
+			var updateCastleRights = [0xff, 0xff];
+			if(movingPiece === KING) { updateCastleRights[position._turn] = 0; }
+			if(from <    8) { updateCastleRights[WHITE] /* jshint bitwise:false */ &= ~(1 <<  from    ); /* jshint bitwise:true */ }
+			if(to   <    8) { updateCastleRights[WHITE] /* jshint bitwise:false */ &= ~(1 <<  to      ); /* jshint bitwise:true */ }
+			if(from >= 112) { updateCastleRights[BLACK] /* jshint bitwise:false */ &= ~(1 << (from%16)); /* jshint bitwise:true */ }
+			if(to   >= 112) { updateCastleRights[BLACK] /* jshint bitwise:false */ &= ~(1 << (to  %16)); /* jshint bitwise:true */ }
+			return {
+				type: (movingPiece === PAWN) && (to<8 || to>=112) ? PROMOTION_MOVE : moveType,
+				movingPiece: movingPiece,
+				enPassantSquare: enPassantSquare,
+				updateEnPassant: updateEnPassant,
+				updateCastleRights: updateCastleRights
+			};
+		}
+	}
+
+
+	/**
+	 * Delegated method for checking whether a castling move is legal or not.
+	 *
+	 * TODO: make it chess-960 compatible.
+	 *
+	 * @param {Position} position
+	 * @param {number} from
+	 * @param {number} to
+	 * @returns {boolean|object}
+	 */
+	function isLegalCastling(position, from, to) {
+
+		// Ensure that the given underlying castling is allowed.
+		var column = from < to ? 7 : 0;
+		if((position._castleRights[position._turn] /* jshint bitwise:false */ & 1<<column /* jshint bitwise:true */) === 0) {
+			return false;
+		}
+
+		// Origin and destination squares of the rook involved in the move.
+		var rookFrom = column + position._turn*112;
+		var rookTo   = (from + to) / 2;
+
+		// Ensure that each square between the king and the rook is empty.
+		var offset = from < rookFrom ? 1 : -1;
+		for(var sq=from+offset; sq!==rookFrom; sq+=offset) {
+			if(position._board[sq] !== EMPTY) { return false; }
+		}
+
+		// The origin and destination squares of the king, and the square between them must not be attacked.
+		var byWho = 1-position._turn;
+		if(isAttacked(position, from, byWho) || isAttacked(position, to, byWho) || isAttacked(position, rookTo, byWho)) {
+			return false;
+		}
+
+		// Final result
+		var updateCastleRights = [0xff, 0xff];
+		updateCastleRights[position._turn] = 0;
+		return {
+			type: CASTLING_MOVE,
+			movingPiece: KING,
+			rookFrom: rookFrom,
+			rookTo: rookTo,
+			updateEnPassant: -1,
+			updateCastleRights: updateCastleRights
+		};
+	}
 
 
 
