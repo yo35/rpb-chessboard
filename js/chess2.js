@@ -127,13 +127,6 @@ var Chess2 = {};
 	var /* const */ WN =  8; var /* const */ BN =  9;
 	var /* const */ WP = 10; var /* const */ BP = 11;
 
-	// String conversion
-	var /* const */ COLORED_PIECE_SYMBOL = 'KkQqRrBbNnPp';
-	var /* const */ PIECE_SYMBOL         = 'kqrbnp';
-	var /* const */ COLOR_SYMBOL         = 'wb';
-	var /* const */ ROW_SYMBOL           = '12345678';
-	var /* const */ COLUMN_SYMBOL        = 'abcdefgh';
-
 
 	/**
 	 * Whether the given colored piece is sliding or not.
@@ -167,6 +160,33 @@ var Chess2 = {};
 
 
 	/**
+	 * Return the color of a square.
+	 *
+	 * @param {string} square
+	 * @returns {string} Either `'w'` or `'b'`.
+	 */
+	myself.squareColor = function(square) {
+		if(typeof square === 'string') {
+			if     (/^[aceg][1357]$/.test(square) || /^[bdfh][2468]$/.test(square)) { return 'b'; }
+			else if(/^[aceg][2468]$/.test(square) || /^[bdfh][1357]$/.test(square)) { return 'w'; }
+		}
+		throw new myself.exceptions.IllegalArgument('squareColor()');
+	};
+
+
+
+	// ---------------------------------------------------------------------------
+	// String conversion
+	// ---------------------------------------------------------------------------
+
+	var /* const */ COLORED_PIECE_SYMBOL = 'KkQqRrBbNnPp';
+	var /* const */ PIECE_SYMBOL         = 'kqrbnp';
+	var /* const */ COLOR_SYMBOL         = 'wb';
+	var /* const */ ROW_SYMBOL           = '12345678';
+	var /* const */ COLUMN_SYMBOL        = 'abcdefgh';
+
+
+	/**
 	 * Parse a square.
 	 *
 	 * @param {string} square
@@ -191,21 +211,6 @@ var Chess2 = {};
 	function parseColor(color) {
 		return (typeof color === 'string') ? COLOR_SYMBOL.indexOf(color) : -1;
 	}
-
-
-	/**
-	 * Return the color of a square.
-	 *
-	 * @param {string} square
-	 * @returns {string} Either `'w'` or `'b'`.
-	 */
-	myself.squareColor = function(square) {
-		if(typeof square === 'string') {
-			if     (/^[aceg][1357]$/.test(square) || /^[bdfh][2468]$/.test(square)) { return 'b'; }
-			else if(/^[aceg][2468]$/.test(square) || /^[bdfh][1357]$/.test(square)) { return 'w'; }
-		}
-		throw new myself.exceptions.IllegalArgument('squareColor()');
-	};
 
 
 
