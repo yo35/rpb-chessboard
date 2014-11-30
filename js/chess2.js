@@ -233,7 +233,7 @@ var Chess2 = {};
 			this.clear();
 		}
 		else {
-			this._setFEN(fen, false);
+			setFEN(this, fen, false);
 		}
 	};
 
@@ -339,18 +339,18 @@ var Chess2 = {};
 	myself.Position.prototype.fen = function()
 	{
 		if(arguments.length === 0) {
-			return this._getFEN(0, 1);
+			return getFEN(this, 0, 1);
 		}
 		else if(arguments.length === 1 && typeof arguments[0] === 'object') {
 			var fiftyMoveClock = (typeof arguments[0].fiftyMoveClock === 'number') ? arguments[0].fiftyMoveClock : 0;
 			var fullMoveNumber = (typeof arguments[0].fullMoveNumber === 'number') ? arguments[0].fullMoveNumber : 1;
-			return this._getFEN(fiftyMoveClock, fullMoveNumber);
+			return getFEN(this, fiftyMoveClock, fullMoveNumber);
 		}
 		else if(arguments.length === 1 && typeof arguments[0] === 'string') {
-			return this._setFEN(arguments[0], false);
+			return setFEN(this, arguments[0], false);
 		}
 		else if(arguments.length >= 2 && typeof arguments[0] === 'string' && typeof arguments[1] === 'boolean') {
-			return this._setFEN(arguments[0], arguments[1]);
+			return setFEN(this, arguments[0], arguments[1]);
 		}
 		else {
 			throw new myself.exceptions.IllegalArgument('Position#fen()');
@@ -363,8 +363,7 @@ var Chess2 = {};
 	 *
 	 * @returns {string}
 	 */
-	myself.Position.prototype._getFEN = function(fiftyMoveClock, fullMoveNumber)
-	{
+	function getFEN(position, fiftyMoveClock, fullMoveNumber) {
 		var res = '';
 
 		// Board scanning
@@ -374,7 +373,7 @@ var Chess2 = {};
 			}
 			var emptySquareCounter = 0;
 			for(var c=0; c<8; ++c) {
-				var cp = this._board[21 + 10*r + c];
+				var cp = position._board[21 + 10*r + c];
 				if(cp < 0) {
 					++emptySquareCounter;
 				}
@@ -392,12 +391,12 @@ var Chess2 = {};
 		}
 
 		// Meta-data
-		res += ' ' + COLOR_SYMBOL[this._turn] + ' ' + castleRightsToString(this._castleRights) + ' ';
-		if(this._enPassant < 0) {
+		res += ' ' + COLOR_SYMBOL[position._turn] + ' ' + castleRightsToString(position._castleRights) + ' ';
+		if(position._enPassant < 0) {
 			res += '-';
 		}
 		else {
-			res += COLUMN_SYMBOL[this._enPassant] + (this._turn===WHITE ? '6' : '3');
+			res += COLUMN_SYMBOL[position._enPassant] + (position._turn===WHITE ? '6' : '3');
 		}
 
 		// Additional move counting flags
@@ -405,7 +404,7 @@ var Chess2 = {};
 
 		// Return the result
 		return res;
-	};
+	}
 
 
 	/**
@@ -416,8 +415,8 @@ var Chess2 = {};
 	 * @returns {{fiftyMoveClock:number, fullMoveNumber:number}}
 	 * @throws InvalidFEN
 	 */
-	myself.Position.prototype._setFEN = function(fen, strict)
-	{
+	function setFEN(position, fen, strict) {
+
 		// Trim the input string and split it into 6 fields.
 		fen = fen.replace(/^\s+|\s+$/g, '');
 		var fields = fen.split(/\s+/);
@@ -432,8 +431,8 @@ var Chess2 = {};
 		}
 
 		// Initialize the position
-		this.clear();
-		this._legal = null;
+		position.clear();
+		position._legal = null;
 
 		// Board parsing
 		for(var r=7; r>=0; --r) {
@@ -451,7 +450,7 @@ var Chess2 = {};
 
 				// The current character corresponds to a colored piece symbol -> set the current square accordingly.
 				else if(cp >= 0) {
-					this._board[21 + 10*r + c] = cp;
+					position._board[21 + 10*r + c] = cp;
 					++c;
 				}
 
@@ -471,14 +470,14 @@ var Chess2 = {};
 		}
 
 		// Turn parsing
-		this._turn = COLOR_SYMBOL.indexOf(fields[1]);
-		if(this._turn < 0) {
+		position._turn = COLOR_SYMBOL.indexOf(fields[1]);
+		if(position._turn < 0) {
 			throw new myself.exceptions.InvalidFEN(fen, myself.i18n.INVALID_TURN_FIELD);
 		}
 
 		// Castle-rights parsing
-		this._castleRights = castleRightsFromString(fields[2], strict);
-		if(this._castleRights === null) {
+		position._castleRights = castleRightsFromString(fields[2], strict);
+		if(position._castleRights === null) {
 			throw new myself.exceptions.InvalidFEN(fen, myself.i18n.INVALID_CASTLE_RIGHTS_FIELD);
 		}
 
@@ -488,10 +487,10 @@ var Chess2 = {};
 			if(!/^[a-h][36]$/.test(enPassantField)) {
 				throw new myself.exceptions.InvalidFEN(fen, myself.i18n.INVALID_EN_PASSANT_FIELD);
 			}
-			if(strict && ((enPassantField[1]==='3' && this._turn===WHITE) || (enPassantField[1]==='6' && this._turn===BLACK))) {
+			if(strict && ((enPassantField[1]==='3' && position._turn===WHITE) || (enPassantField[1]==='6' && position._turn===BLACK))) {
 				throw new myself.exceptions.InvalidFEN(fen, myself.i18n.WRONG_ROW_IN_EN_PASSANT_FIELD);
 			}
-			this._enPassant = COLUMN_SYMBOL.indexOf(enPassantField[0]);
+			position._enPassant = COLUMN_SYMBOL.indexOf(enPassantField[0]);
 		}
 
 		// Move counting flags parsing
@@ -503,7 +502,7 @@ var Chess2 = {};
 			throw new myself.exceptions.InvalidFEN(fen, myself.i18n.INVALID_MOVE_COUNTING_FIELD, myself.i18n.ORDINALS[5]);
 		}
 		return { fiftyMoveClock: parseInt(fields[4], 10), fullMoveNumber: parseInt(fields[5], 10) };
-	};
+	}
 
 
 	/**
