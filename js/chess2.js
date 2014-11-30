@@ -200,19 +200,6 @@ var Chess2 = {};
 
 
 	/**
-	 * Return the string representation of a square.
-	 *
-	 * @param {number} square
-	 * @returns {string}
-	 */
-	function squareToString(square) {
-		var column = square % 16;
-		var row    = Math.floor(square / 16);
-		return COLUMN_SYMBOL[column] + ROW_SYMBOL[row];
-	}
-
-
-	/**
 	 * Parse a color.
 	 *
 	 * @param {string} color
@@ -897,7 +884,7 @@ var Chess2 = {};
 		}
 		refreshLegalFlag(this);
 		var square = this._king[color];
-		return square < 0 ? '-' : squareToString(square);
+		return square < 0 ? '-' : COLUMN_SYMBOL[square % 16] + ROW_SYMBOL[Math.floor(square / 16)];
 	};
 
 
