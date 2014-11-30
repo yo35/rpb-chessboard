@@ -193,6 +193,20 @@ var Chess2 = {};
 	}
 
 
+	/**
+	 * Return the color of a square.
+	 *
+	 * @param {string} square
+	 * @returns {string} Either `'w'` or `'b'`.
+	 */
+	myself.squareColor = function(square) {
+		if(typeof square === 'string') {
+			if     (/^[aceg][1357]$/.test(square) || /^[bdfh][2468]$/.test(square)) { return 'b'; }
+			else if(/^[aceg][2468]$/.test(square) || /^[bdfh][1357]$/.test(square)) { return 'w'; }
+		}
+		throw new myself.exceptions.IllegalArgument('squareColor()');
+	};
+
 
 
 	// ---------------------------------------------------------------------------

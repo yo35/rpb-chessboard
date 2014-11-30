@@ -319,6 +319,21 @@
 			test('Legality en-passant black 2', function() { var p=new Chess2.Position('4k3/pppppppp/8/8/2B5/8/PP1PPPPP/4K3 b - c3 0 1'); return legalInfo(p); }, 'false:e1:e8');
 			test('Legality en-passant black 3', function() { var p=new Chess2.Position('4k3/8/8/8/2P5/2p5/8/4K3 b - c3 0 1'); return legalInfo(p); }, 'false:e1:e8');
 			test('Legality en-passant black 4', function() { var p=new Chess2.Position('4k3/8/8/8/2P5/8/2p5/4K3 b - c3 0 1'); return legalInfo(p); }, 'false:e1:e8');
+
+			// Square color
+			function squareColors(asExpected) {
+				var res = '';
+				for(var r=0; r<8; ++r) {
+					for(var c=0; c<8; ++c) {
+						if(res !== '') {
+							res += '/';
+						}
+						res += asExpected ? (c%2 === r%2 ? 'b' : 'w') : Chess2.squareColor(COLUMN[c] + ROW[r]);
+					}
+				}
+				return res;
+			}
+			test('Square color', function() { return squareColors(false); }, squareColors(true));
 		};
 	</script>
 
