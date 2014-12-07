@@ -353,11 +353,57 @@
 				return res;
 			}
 
-			var position1 = 'rnbqkbnr/pppp1ppp/8/1B2p3/4P3/8/PPPP1PPP/RNBQK1NR b KQkq - 0 1';
+			var position1  = 'rnbqkbnr/pppp1ppp/8/1B2p3/4P3/8/PPPP1PPP/RNBQK1NR b KQkq - 0 1';
+			var position2a = 'r3k2r/8/8/5pP1/1pP5/8/8/R3K2R w KQ f6 0 1';
+			var position2b = 'r3k2r/8/8/5pP1/1pP5/8/8/R3K2R w K - 0 1';
+			var position2c = 'r3k2r/8/8/5pP1/1pP5/8/8/R3K2R w Q - 0 1';
+			var position2d = 'r3k2r/8/8/5pP1/1pP5/8/8/R3K2R b kq c3 0 1';
+			var position2e = 'r3k2r/8/8/5pP1/1pP5/8/8/R3K2R b k - 0 1';
+			var position2f = 'r3k2r/8/8/5pP1/1pP5/8/8/R3K2R b q - 0 1';
+			var position3a = 'r4rk1/1p3qb1/pB1p2pp/P3N3/R3R3/2P5/1P2Q1PP/7K b - - 0 29';
+			var position3b = 'r4rk1/1p4b1/pB1p2pp/P3N3/R3R3/2P5/1P2Q1PP/5q1K w - - 1 29';
+			var position3c = 'r4rk1/1p6/p2p2pp/P3b3/R3R3/2P5/1P2Q1PP/5qBK w - - 0 30';
+			var position4a = 'r2q1rk1/6b1/p2p2b1/1p1Nn2p/4p2P/2P1N3/PP2BPQ1/R3K2R w KQ - 0 22';
+			var position4b = '4qr2/r6k/p2p3b/1p1Nn2b/4Q2P/2P1N1R1/PP3P2/2K3R1 b - - 0 27';
+			var position4c = '4qr1k/r7/p2p3b/1p1Nn2b/4QP1P/2P1N1R1/PP6/2K3R1 b - - 0 28';
+			var position5a = 'k7/8/8/b7/8/p6p/P6P/R3K2R w KQ - 0 1';
+			var position5b = 'k7/8/8/8/8/p2b3p/P6P/R3K2R w KQ - 0 1';
+			var position5c = 'k7/8/8/8/8/p4b1p/P6P/R3K2R w KQ - 0 1';
+			var position5d = 'k7/8/7b/8/8/p6p/P6P/R3K2R w KQ - 0 1';
+			var position5e = 'k7/b7/8/8/8/p6p/P6P/R3K2R w KQ - 0 1';
+			var position5f = 'k7/8/8/8/8/p6p/P6P/R2K3R w KQ - 0 1';
+			var position6a = 'r3k2r/p6p/P6P/8/B7/8/8/K7 b kq - 0 1';
+			var position6b = 'r3k2r/p6p/P2B3P/8/8/8/8/K7 b kq - 0 1';
+			var position6c = 'r3k2r/p6p/P4B1P/8/8/8/8/K7 b kq - 0 1';
+			var position6d = 'r3k2r/p6p/P6P/8/8/7B/8/K7 b kq - 0 1';
+			var position6e = 'r3k2r/p6p/P6P/8/8/8/B7/K7 b kq - 0 1';
+			var position6f = 'r2k3r/p6p/P6P/8/8/8/8/K7 b kq - 0 1';
 
 			var moves0a = 'a2a3/a2a4/b1a3/b1c3/b2b3/b2b4/c2c3/c2c4/d2d3/d2d4/e2e3/e2e4/f2f3/f2f4/g1f3/g1h3/g2g3/g2g4/h2h3/h2h4';
 			var moves0b = 'b6a5/b6a6/b6c5/c7c8B/c7c8N/c7c8Q/c7c8R/d7a4/d7b5/d7c6/d7c8/d7e6/d7e8/d7f5/d7g4/d7h3';
 			var moves1  = 'a7a5/a7a6/b7b6/b8a6/b8c6/c7c5/c7c6/d8e7/d8f6/d8g5/d8h4/e8e7/f7f5/f7f6/f8a3/f8b4/f8c5/f8d6/f8e7/g7g5/g7g6/g8e7/g8f6/g8h6/h7h5/h7h6';
+			var moves2a = 'a1a2/a1a3/a1a4/a1a5/a1a6/a1a7/a1a8/a1b1/a1c1/a1d1/c4c5/e1c1/e1d1/e1d2/e1e2/e1f1/e1f2/e1g1/g5f6/g5g6/h1f1/h1g1/h1h2/h1h3/h1h4/h1h5/h1h6/h1h7/h1h8';
+			var moves2b = 'a1a2/a1a3/a1a4/a1a5/a1a6/a1a7/a1a8/a1b1/a1c1/a1d1/c4c5/e1d1/e1d2/e1e2/e1f1/e1f2/e1g1/g5g6/h1f1/h1g1/h1h2/h1h3/h1h4/h1h5/h1h6/h1h7/h1h8';
+			var moves2c = 'a1a2/a1a3/a1a4/a1a5/a1a6/a1a7/a1a8/a1b1/a1c1/a1d1/c4c5/e1c1/e1d1/e1d2/e1e2/e1f1/e1f2/g5g6/h1f1/h1g1/h1h2/h1h3/h1h4/h1h5/h1h6/h1h7/h1h8';
+			var moves2d = 'a8a1/a8a2/a8a3/a8a4/a8a5/a8a6/a8a7/a8b8/a8c8/a8d8/b4b3/b4c3/e8c8/e8d7/e8d8/e8e7/e8f7/e8f8/e8g8/f5f4/h8f8/h8g8/h8h1/h8h2/h8h3/h8h4/h8h5/h8h6/h8h7';
+			var moves2e = 'a8a1/a8a2/a8a3/a8a4/a8a5/a8a6/a8a7/a8b8/a8c8/a8d8/b4b3/e8d7/e8d8/e8e7/e8f7/e8f8/e8g8/f5f4/h8f8/h8g8/h8h1/h8h2/h8h3/h8h4/h8h5/h8h6/h8h7';
+			var moves2f = 'a8a1/a8a2/a8a3/a8a4/a8a5/a8a6/a8a7/a8b8/a8c8/a8d8/b4b3/e8c8/e8d7/e8d8/e8e7/e8f7/e8f8/f5f4/h8f8/h8g8/h8h1/h8h2/h8h3/h8h4/h8h5/h8h6/h8h7';
+			var moves3a = 'a8a7/a8b8/a8c8/a8d8/a8e8/d6d5/d6e5/f7a2/f7b3/f7c4/f7c7/f7d5/f7d7/f7e6/f7e7/f7e8/f7f1/f7f2/f7f3/f7f4/f7f5/f7f6/f8b8/f8c8/f8d8/f8e8/g6g5/g7e5/g7f6/g7h8/g8h7/g8h8/h6h5';
+			var moves3b = 'b6g1/e2f1';
+			var moves3c = 'a4a1/a4a2/a4a3/a4b4/a4c4/a4d4/b2b3/b2b4/c3c4/e2a6/e2b5/e2c2/e2c4/e2d1/e2d2/e2d3/e2e1/e2e3/e2f1/e2f2/e2f3/e2g4/e2h5/e4b4/e4c4/e4d4/e4e3/e4e5/e4f4/e4g4/e4h4/g2g3/g2g4/h2h3/h2h4';
+			var moves4a = 'a1b1/a1c1/a1d1/a2a3/a2a4/b2b3/b2b4/c3c4/d5b4/d5b6/d5c7/d5e7/d5f4/d5f6/e1c1/e1d1/e1d2/e1f1/e1g1/e2b5/e2c4/e2d1/e2d3/e2f1/e2f3/e2g4/e2h5/e3c2/e3c4/e3d1/e3f1/e3f5/e3g4/f2f3/f2f4/g2e4/g2f1/g2f3/g2g1/g2g3/g2g4/g2g5/g2g6/g2h2/g2h3/h1f1/h1g1/h1h2/h1h3';
+			var moves4b = 'e5g6/e8g6/f8f5/h5g6/h7h8';
+			var moves4c = 'a6a5/a7a8/a7b7/a7c7/a7d7/a7e7/a7f7/a7g7/a7h7/b5b4/e5c4/e5c6/e5d3/e5d7/e5f3/e5f7/e5g4/e5g6/e8a8/e8b8/e8c6/e8c8/e8d7/e8d8/e8e6/e8e7/e8f7/e8g6/f8f4/f8f5/f8f6/f8f7/f8g8/h5d1/h5e2/h5f3/h5f7/h5g4/h5g6/h6f4/h6g5/h6g7';
+			var moves5a = 'e1d1/e1e2/e1f1/e1f2';
+			var moves5b = 'a1b1/a1c1/a1d1/e1c1/e1d1/e1d2/e1f2/h1f1/h1g1';
+			var moves5c = 'a1b1/a1c1/a1d1/e1d2/e1f1/e1f2/e1g1/h1f1/h1g1';
+			var moves5d = 'a1b1/a1c1/a1d1/e1d1/e1e2/e1f1/e1f2/e1g1/h1f1/h1g1';
+			var moves5e = 'a1b1/a1c1/a1d1/e1c1/e1d1/e1d2/e1e2/e1f1/h1f1/h1g1';
+			var moves6a = 'e8d8/e8e7/e8f7/e8f8';
+			var moves6b = 'a8b8/a8c8/a8d8/e8c8/e8d7/e8d8/e8f7/h8f8/h8g8';
+			var moves6c = 'a8b8/a8c8/a8d8/e8d7/e8f7/e8f8/e8g8/h8f8/h8g8';
+			var moves6d = 'a8b8/a8c8/a8d8/e8d8/e8e7/e8f7/e8f8/e8g8/h8f8/h8g8';
+			var moves6e = 'a8b8/a8c8/a8d8/e8c8/e8d7/e8d8/e8e7/e8f8/h8f8/h8g8';
 
 			// Move verification
 			testError('Move legality bad-format 1', function() { var p=new Chess2.Position(); return p.isLegalMove('abcd'); }, checkIllegalArgument('Position#isLegalMove()'));
@@ -365,6 +411,30 @@
 			test('Move legality 0b', function() { var p=new Chess2.Position(customFEN2); return legalMoves(p); }, moves0b);
 			test('Move legality 0c', function() { var p=new Chess2.Position('empty'); return legalMoves(p); }, '');
 			test('Move legality 1' , function() { var p=new Chess2.Position(position1); return legalMoves(p); }, moves1);
+			test('Move legality 2a', function() { var p=new Chess2.Position(position2a); return legalMoves(p); }, moves2a);
+			test('Move legality 2b', function() { var p=new Chess2.Position(position2b); return legalMoves(p); }, moves2b);
+			test('Move legality 2c', function() { var p=new Chess2.Position(position2c); return legalMoves(p); }, moves2c);
+			test('Move legality 2d', function() { var p=new Chess2.Position(position2d); return legalMoves(p); }, moves2d);
+			test('Move legality 2e', function() { var p=new Chess2.Position(position2e); return legalMoves(p); }, moves2e);
+			test('Move legality 2f', function() { var p=new Chess2.Position(position2f); return legalMoves(p); }, moves2f);
+			test('Move legality 3a', function() { var p=new Chess2.Position(position3a); return legalMoves(p); }, moves3a);
+			test('Move legality 3b', function() { var p=new Chess2.Position(position3b); return legalMoves(p); }, moves3b);
+			test('Move legality 3c', function() { var p=new Chess2.Position(position3c); return legalMoves(p); }, moves3c);
+			test('Move legality 4a', function() { var p=new Chess2.Position(position4a); return legalMoves(p); }, moves4a);
+			test('Move legality 4b', function() { var p=new Chess2.Position(position4b); return legalMoves(p); }, moves4b);
+			test('Move legality 4c', function() { var p=new Chess2.Position(position4c); return legalMoves(p); }, moves4c);
+			test('Move legality 5a', function() { var p=new Chess2.Position(position5a); return legalMoves(p); }, moves5a);
+			test('Move legality 5b', function() { var p=new Chess2.Position(position5b); return legalMoves(p); }, moves5b);
+			test('Move legality 5c', function() { var p=new Chess2.Position(position5c); return legalMoves(p); }, moves5c);
+			test('Move legality 5d', function() { var p=new Chess2.Position(position5d); return legalMoves(p); }, moves5d);
+			test('Move legality 5e', function() { var p=new Chess2.Position(position5e); return legalMoves(p); }, moves5e);
+			test('Move legality 5f', function() { var p=new Chess2.Position(position5f); return legalMoves(p); }, '');
+			test('Move legality 6a', function() { var p=new Chess2.Position(position6a); return legalMoves(p); }, moves6a);
+			test('Move legality 6b', function() { var p=new Chess2.Position(position6b); return legalMoves(p); }, moves6b);
+			test('Move legality 6c', function() { var p=new Chess2.Position(position6c); return legalMoves(p); }, moves6c);
+			test('Move legality 6d', function() { var p=new Chess2.Position(position6d); return legalMoves(p); }, moves6d);
+			test('Move legality 6e', function() { var p=new Chess2.Position(position6e); return legalMoves(p); }, moves6e);
+			test('Move legality 6f', function() { var p=new Chess2.Position(position6f); return legalMoves(p); }, '');
 		};
 	</script>
 
