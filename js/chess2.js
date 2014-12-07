@@ -188,10 +188,9 @@ var Chess2 = {};
 
 	// Move types
 	var /* const */ NORMAL_MOVE     = 0;
-	var /* const */ TWO_SQUARE_MOVE = 1;
-	var /* const */ EN_PASSANT_MOVE = 2;
-	var /* const */ PROMOTION_MOVE  = 3;
-	var /* const */ CASTLING_MOVE   = 4;
+	var /* const */ EN_PASSANT_MOVE = 1;
+	var /* const */ PROMOTION_MOVE  = 2;
+	var /* const */ CASTLING_MOVE   = 3;
 
 
 	/**
@@ -1026,6 +1025,41 @@ var Chess2 = {};
 	// Move generation
 	// ---------------------------------------------------------------------------
 
+	/**
+	 * Whether a move is legal or not.
+	 *
+	 * @param {string} move
+	 * @returns {boolean}
+	 */
+	myself.Position.prototype.isLegalMove = function(move) {
+		if(typeof move !== 'string') {
+			throw new myself.exceptions.IllegalArgument('Position#isLegalMove()');
+		}
+
+		// Parsing 'g1f3'-style
+		if(/^[a-h][1-8][a-h][1-8][QRBN]?$/.test(move)) {
+			var columnFrom = COLUMN_SYMBOL.indexOf(move[0]);
+			var rowFrom    = ROW_SYMBOL   .indexOf(move[1]);
+			var columnTo   = COLUMN_SYMBOL.indexOf(move[2]);
+			var rowTo      = ROW_SYMBOL   .indexOf(move[3]);
+
+			var moveDescriptor = isLegalDisplacement(this, rowFrom*16+columnFrom, rowTo*16+columnTo);
+			if(moveDescriptor === null) {
+				return false;
+			}
+			else {
+				var hasPromotion = move.length === 5;
+				var needPromotion = moveDescriptor.type === PROMOTION_MOVE;
+				return hasPromotion === needPromotion;
+			}
+		}
+
+		// Unknown move format
+		else {
+			throw new myself.exceptions.IllegalArgument('Position#isLegalMove()');
+		}
+	};
+
 
 	/**
 	 * Core algorithm to determine whether a move is legal or not. The verification flow is the following:
@@ -1076,7 +1110,6 @@ var Chess2 = {};
 			if(movingPiece === PAWN && displacement !== 151-position._turn*64) {
 				var firstSquareOfRow = (1 + position._turn*5) * 16;
 				if(from < firstSquareOfRow || from >= firstSquareOfRow+8) { return false; }
-				moveType = TWO_SQUARE_MOVE;
 				updateEnPassant = from % 8;
 			}
 			else if(movingPiece === KING && (displacement === 117 || displacement === 121)) {
@@ -1089,7 +1122,7 @@ var Chess2 = {};
 
 		// Step (4) -> check the content of the destination square
 		if(movingPiece === PAWN) {
-			if(displacement=== 135-position._turn*32 || moveType===TWO_SQUARE_MOVE) { // non-capturing pawn move
+			if(displacement === 135-position._turn*32 || updateEnPassant >= 0) { // non-capturing pawn move
 				if(toContent !== EMPTY) { return false; }
 			}
 			else if(toContent === EMPTY) { // en-passant pawn move
@@ -1112,7 +1145,7 @@ var Chess2 = {};
 				if(position._board[sq] !== EMPTY) { return false; }
 			}
 		}
-		else if(moveType===TWO_SQUARE_MOVE) { // 2-square pawn moves also require this test.
+		else if(updateEnPassant >= 0) { // 2-square pawn moves also require this test.
 			if(position._board[(from + to) / 2] !== EMPTY) { return false; }
 		}
 
