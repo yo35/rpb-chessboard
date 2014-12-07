@@ -155,8 +155,8 @@ var Chess2 = {};
 	   0,    0,  204,    0,    0,    0,    0,   60,    0,    0,    0,    0,  204,    0,    0,    0,
 	   0,    0,    0,  204,    0,    0,    0,   60,    0,    0,    0,  204,    0,    0,    0,    0,
 	   0,    0,    0,    0,  204,    0,    0,   60,    0,    0,  204,    0,    0,    0,    0,    0,
-	   0,    0,    0,    0,    0,  204, 2816, 2108, 2816,  204,    0,    0,    0,    0,    0,    0,
-	   0,    0,    0,    0,    0,  768,  207,   63,  207,  768,    0,    0,    0,    0,    0,    0,
+	   0,    0,    0,    0,    0,  204,  768,   60,  768,  204,    0,    0,    0,    0,    0,    0,
+	   0,    0,    0,    0,    0,  768, 2255, 2111, 2255,  768,    0,    0,    0,    0,    0,    0,
 	  60,   60,   60,   60,   60,   60,   63,    0,   63,   60,   60,   60,   60,   60,   60,    0,
 	   0,    0,    0,    0,    0,  768, 1231, 1087, 1231,  768,    0,    0,    0,    0,    0,    0,
 	   0,    0,    0,    0,    0,  204,  768,   60,  768,  204,    0,    0,    0,    0,    0,    0,
@@ -1044,13 +1044,13 @@ var Chess2 = {};
 			var rowTo      = ROW_SYMBOL   .indexOf(move[3]);
 
 			var moveDescriptor = isLegalDisplacement(this, rowFrom*16+columnFrom, rowTo*16+columnTo);
-			if(moveDescriptor === null) {
-				return false;
-			}
-			else {
+			if(moveDescriptor) {
 				var hasPromotion = move.length === 5;
 				var needPromotion = moveDescriptor.type === PROMOTION_MOVE;
 				return hasPromotion === needPromotion;
+			}
+			else {
+				return false;
 			}
 		}
 
@@ -1107,7 +1107,7 @@ var Chess2 = {};
 
 		// Step (3)
 		if((DISPLACEMENT_LOOKUP[displacement] /* jshint bitwise:false */ & 1<<fromContent /* jshint bitwise:true */) === 0) {
-			if(movingPiece === PAWN && displacement !== 151-position._turn*64) {
+			if(movingPiece === PAWN && displacement === 151-position._turn*64) {
 				var firstSquareOfRow = (1 + position._turn*5) * 16;
 				if(from < firstSquareOfRow || from >= firstSquareOfRow+8) { return false; }
 				updateEnPassant = from % 8;

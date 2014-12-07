@@ -247,6 +247,7 @@
 
 			var ROW    = '12345678';
 			var COLUMN = 'abcdefgh';
+			var PROMO  = ' BNQR';
 
 			// Return the list of attacked squares in the given position
 			function attacked(position, byWho, byWhat) {
@@ -255,9 +256,7 @@
 					for(var c=0; c<8; ++c) {
 						var square = COLUMN[c] + ROW[r];
 						if(position.isAttacked(square, byWho, byWhat)) {
-							if(res !== '') {
-								res += '/';
-							}
+							if(res !== '') { res += '/'; }
 							res += square;
 						}
 					}
@@ -325,15 +324,47 @@
 				var res = '';
 				for(var r=0; r<8; ++r) {
 					for(var c=0; c<8; ++c) {
-						if(res !== '') {
-							res += '/';
-						}
+						if(res !== '') { res += '/'; }
 						res += asExpected ? (c%2 === r%2 ? 'b' : 'w') : Chess2.squareColor(COLUMN[c] + ROW[r]);
 					}
 				}
 				return res;
 			}
 			test('Square color', function() { return squareColors(false); }, squareColors(true));
+
+			// Return the list of legal moves for the given position
+			function legalMoves(position) {
+				var res = '';
+				for(var cf=0; cf<8; ++cf) {
+					for(var rf=0; rf<8; ++rf) {
+						for(var ct=0; ct<8; ++ct) {
+							for(var rt=0; rt<8; ++rt) {
+								for(var promo=0; promo<PROMO.length; ++promo) {
+									var move = COLUMN[cf] + ROW[rf] + COLUMN[ct] + ROW[rt] + (promo===0 ? '' : PROMO[promo]);
+									if(position.isLegalMove(move)) {
+										if(res !== '') { res += '/'; }
+										res += move;
+									}
+								}
+							}
+						}
+					}
+				}
+				return res;
+			}
+
+			var position1 = 'rnbqkbnr/pppp1ppp/8/1B2p3/4P3/8/PPPP1PPP/RNBQK1NR b KQkq - 0 1';
+
+			var moves0a = 'a2a3/a2a4/b1a3/b1c3/b2b3/b2b4/c2c3/c2c4/d2d3/d2d4/e2e3/e2e4/f2f3/f2f4/g1f3/g1h3/g2g3/g2g4/h2h3/h2h4';
+			var moves0b = 'b6a5/b6a6/b6c5/c7c8B/c7c8N/c7c8Q/c7c8R/d7a4/d7b5/d7c6/d7c8/d7e6/d7e8/d7f5/d7g4/d7h3';
+			var moves1  = 'a7a5/a7a6/b7b6/b8a6/b8c6/c7c5/c7c6/d8e7/d8f6/d8g5/d8h4/e8e7/f7f5/f7f6/f8a3/f8b4/f8c5/f8d6/f8e7/g7g5/g7g6/g8e7/g8f6/g8h6/h7h5/h7h6';
+
+			// Move verification
+			testError('Move legality bad-format 1', function() { var p=new Chess2.Position(); return p.isLegalMove('abcd'); }, checkIllegalArgument('Position#isLegalMove()'));
+			test('Move legality 0a', function() { var p=new Chess2.Position(); return legalMoves(p); }, moves0a);
+			test('Move legality 0b', function() { var p=new Chess2.Position(customFEN2); return legalMoves(p); }, moves0b);
+			test('Move legality 0c', function() { var p=new Chess2.Position('empty'); return legalMoves(p); }, '');
+			test('Move legality 1' , function() { var p=new Chess2.Position(position1); return legalMoves(p); }, moves1);
 		};
 	</script>
 
