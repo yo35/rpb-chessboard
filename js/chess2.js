@@ -186,12 +186,6 @@ var Chess2 = {};
 		 15,   0,   0,   0,   0,   0,   0,  16,   0,   0,   0,   0,   0,   0,  17,   0
 	];
 
-	// Move types
-	var /* const */ NORMAL_MOVE     = 0;
-	var /* const */ EN_PASSANT_MOVE = 1;
-	var /* const */ PROMOTION_MOVE  = 2;
-	var /* const */ CASTLING_MOVE   = 3;
-
 
 	/**
 	 * Return the color of a square.
@@ -1042,16 +1036,8 @@ var Chess2 = {};
 			var rowFrom    = ROW_SYMBOL   .indexOf(move[1]);
 			var columnTo   = COLUMN_SYMBOL.indexOf(move[2]);
 			var rowTo      = ROW_SYMBOL   .indexOf(move[3]);
-
-			var moveDescriptor = isLegalDisplacement(this, rowFrom*16+columnFrom, rowTo*16+columnTo);
-			if(moveDescriptor) {
-				var hasPromotion = move.length === 5;
-				var needPromotion = moveDescriptor.type === PROMOTION_MOVE;
-				return hasPromotion === needPromotion;
-			}
-			else {
-				return false;
-			}
+			var promotion  = move.length === 5 ? PIECE_SYMBOL.indexOf(move[4].toLowerCase()) : -1;
+			return isLegalMove(this, rowFrom*16+columnFrom, rowTo*16+columnTo, promotion, false);
 		}
 
 		// Unknown move format
@@ -1067,28 +1053,31 @@ var Chess2 = {};
 	 *  1. Ensure that the position itself is legal.
 	 *  2. Ensure that the origin square contains a piece (denoted as the moving-piece)
 	 *     whose color is the same than the color of the player about to play.
-	 *  3. Ensure that the displacement is geometrically correct, with respect to the moving piece.
-	 *  4. Check the content of the destination square.
-	 *  5. For the sliding pieces (and in case of a 2-square pawn move), ensure that there is no piece
+	 *  3. Check the promotion field.
+	 *  4. Ensure that the displacement is geometrically correct, with respect to the moving piece.
+	 *  5. Check the content of the destination square.
+	 *  6. For the sliding pieces (and in case of a 2-square pawn move), ensure that there is no piece
 	 *     on the trajectory.
 	 *
-	 * The displacement is almost ensured to be legal at this point. The last condition to check
+	 * The move is almost ensured to be legal at this point. The last condition to check
 	 * is whether the king of the current player will be in check after the move or not.
 	 *
-	 *  6. Execute the displacement from the origin to the destination square, in such a way that
+	 *  7. Execute the displacement from the origin to the destination square, in such a way that
 	 *     it can be reversed. Only the state of the board is updated at this point.
-	 *  7. Look for king attacks.
-	 *  8. Reverse the displacement.
+	 *  8. Look for king attacks.
+	 *  9. Reverse the displacement or update the position flags.
 	 *
-	 * Castling moves fail at step (3). They are taken out of this flow and processed
+	 * Castling moves fail at step (4). They are taken out of this flow and processed
 	 * by the dedicated method `isLegalCastling()`.
 	 *
 	 * @param {Position} position
 	 * @param {number} from Index of the origin square.
 	 * @param {number} to Index of the destination square.
-	 * @returns {boolean|object}
+	 * @param {number} promotion Code of the promoted piece if any, `-1` otherwise.
+	 * @param {boolean} playIfLegal Play the move if it is legal.
+	 * @returns {boolean}
 	 */
-	function isLegalDisplacement(position, from, to) {
+	function isLegalMove(position, from, to, promotion, playIfLegal) {
 
 		// Step (1)
 		if(!position.isLegal()) { return false; }
@@ -1096,16 +1085,23 @@ var Chess2 = {};
 		// Step (2)
 		var fromContent = position._board[from];
 		var toContent   = position._board[to  ];
+		var movingPiece = Math.floor(fromContent / 2);
 		if(fromContent < 0 || fromContent%2 !== position._turn) { return false; }
 
+		// Step (3)
+		if(movingPiece===PAWN && (to<8 || to>=112)) {
+			if(promotion<0) { return false; }
+		}
+		else {
+			if(promotion>=0) { return false; }
+		}
+
 		// Miscellaneous variables
-		var movingPiece = Math.floor(fromContent / 2);
 		var displacement = to - from + 119;
-		var moveType = NORMAL_MOVE;
 		var enPassantSquare = -1; // square where a pawn is taken if the move is "en-passant"
 		var updateEnPassant = -1; // new value for the "en-passant" flag if the move is legal
 
-		// Step (3)
+		// Step (4)
 		if((DISPLACEMENT_LOOKUP[displacement] /* jshint bitwise:false */ & 1<<fromContent /* jshint bitwise:true */) === 0) {
 			if(movingPiece === PAWN && displacement === 151-position._turn*64) {
 				var firstSquareOfRow = (1 + position._turn*5) * 16;
@@ -1113,21 +1109,20 @@ var Chess2 = {};
 				updateEnPassant = from % 8;
 			}
 			else if(movingPiece === KING && (displacement === 117 || displacement === 121)) {
-				return isLegalCastling(position, from, to);
+				return isLegalCastling(position, from, to, playIfLegal);
 			}
 			else {
 				return false;
 			}
 		}
 
-		// Step (4) -> check the content of the destination square
+		// Step (5) -> check the content of the destination square
 		if(movingPiece === PAWN) {
 			if(displacement === 135-position._turn*32 || updateEnPassant >= 0) { // non-capturing pawn move
 				if(toContent !== EMPTY) { return false; }
 			}
 			else if(toContent === EMPTY) { // en-passant pawn move
 				if(position._enPassant < 0 || to !== (5-position._turn*3)*16 + position._enPassant) { return false; }
-				moveType = EN_PASSANT_MOVE;
 				enPassantSquare = (4-position._turn)*16 + position._enPassant;
 			}
 			else { // regular capturing pawn move
@@ -1138,7 +1133,7 @@ var Chess2 = {};
 			if(toContent >= 0 && toContent%2 === position._turn) { return false; }
 		}
 
-		// Step (5) -> For sliding pieces, ensure that there is nothing between the origin and the destination squares.
+		// Step (6) -> For sliding pieces, ensure that there is nothing between the origin and the destination squares.
 		if(isSliding(fromContent)) {
 			var direction = SLIDING_DIRECTION[displacement];
 			for(var sq=from + direction; sq !== to; sq += direction) {
@@ -1149,43 +1144,42 @@ var Chess2 = {};
 			if(position._board[(from + to) / 2] !== EMPTY) { return false; }
 		}
 
-		// Step (6) -> Execute the displacement (castling moves are processed separately).
+		// Step (7) -> Execute the displacement (castling moves are processed separately).
 		position._board[to  ] = fromContent;
 		position._board[from] = EMPTY;
-		if(moveType === EN_PASSANT_MOVE) {
+		if(enPassantSquare >= 0) {
 			position._board[enPassantSquare] = EMPTY;
 		}
 
-		// Step (7) -> Is the king safe after the displacement?
+		// Step (8) -> Is the king safe after the displacement?
 		var kingSquare    = movingPiece===KING ? to : position._king[position._turn];
 		var kingIsInCheck = isAttacked(position, kingSquare, 1-position._turn);
 
-		// Step (8) -> Reverse the displacement.
-		position._board[from] = fromContent;
-		position._board[to  ] = toContent;
-		if(moveType === EN_PASSANT_MOVE) {
-			position._board[enPassantSquare] = PAWN*2 + 1-position._turn;
+		// Step (9a) -> Update the position flags if the move is legal and if the move must be played.
+		if(playIfLegal && !kingIsInCheck) {
+			if(movingPiece===KING) {
+				position._king[position._turn] = to;
+				position._castleRights[position._turn] = 0;
+			}
+			if(from<   8) { position._castleRights[WHITE] /* jshint bitwise:false */ &= ~(1<< from    ); /* jshint bitwise:true */ }
+			if(to  <   8) { position._castleRights[WHITE] /* jshint bitwise:false */ &= ~(1<< to      ); /* jshint bitwise:true */ }
+			if(from>=112) { position._castleRights[BLACK] /* jshint bitwise:false */ &= ~(1<<(from%16)); /* jshint bitwise:true */ }
+			if(to  >=112) { position._castleRights[BLACK] /* jshint bitwise:false */ &= ~(1<<(to  %16)); /* jshint bitwise:true */ }
+			position._enPassant = updateEnPassant;
+			position._turn = 1 - position._turn;
+		}
+
+		// Step (9b) -> Otherwise, reverse the displacement.
+		else {
+			position._board[from] = fromContent;
+			position._board[to  ] = toContent;
+			if(enPassantSquare >= 0) {
+				position._board[enPassantSquare] = PAWN*2 + 1-position._turn;
+			}
 		}
 
 		// Final result
-		if(kingIsInCheck) {
-			return false;
-		}
-		else {
-			var updateCastleRights = [0xff, 0xff];
-			if(movingPiece === KING) { updateCastleRights[position._turn] = 0; }
-			if(from <    8) { updateCastleRights[WHITE] /* jshint bitwise:false */ &= ~(1 <<  from    ); /* jshint bitwise:true */ }
-			if(to   <    8) { updateCastleRights[WHITE] /* jshint bitwise:false */ &= ~(1 <<  to      ); /* jshint bitwise:true */ }
-			if(from >= 112) { updateCastleRights[BLACK] /* jshint bitwise:false */ &= ~(1 << (from%16)); /* jshint bitwise:true */ }
-			if(to   >= 112) { updateCastleRights[BLACK] /* jshint bitwise:false */ &= ~(1 << (to  %16)); /* jshint bitwise:true */ }
-			return {
-				type: (movingPiece === PAWN) && (to<8 || to>=112) ? PROMOTION_MOVE : moveType,
-				movingPiece: movingPiece,
-				enPassantSquare: enPassantSquare,
-				updateEnPassant: updateEnPassant,
-				updateCastleRights: updateCastleRights
-			};
-		}
+		return !kingIsInCheck;
 	}
 
 
@@ -1197,9 +1191,10 @@ var Chess2 = {};
 	 * @param {Position} position
 	 * @param {number} from
 	 * @param {number} to
-	 * @returns {boolean|object}
+	 * @param {boolean} playIfLegal Play the move if it is legal.
+	 * @returns boolean
 	 */
-	function isLegalCastling(position, from, to) {
+	function isLegalCastling(position, from, to, playIfLegal) {
 
 		// Ensure that the given underlying castling is allowed.
 		var column = from < to ? 7 : 0;
@@ -1223,17 +1218,20 @@ var Chess2 = {};
 			return false;
 		}
 
+		// Play the move if requested.
+		if(playIfLegal) {
+			position._board[to]       = KING*2 + position._turn;
+			position._board[from]     = EMPTY;
+			position._board[rookTo]   = ROOK*2 + position._turn;
+			position._board[rookFrom] = EMPTY;
+			position._king[position._turn] = to;
+			position._castleRights[position._turn] = 0;
+			position._enPassant = -1;
+			position._turn = 1 - position._turn;
+		}
+
 		// Final result
-		var updateCastleRights = [0xff, 0xff];
-		updateCastleRights[position._turn] = 0;
-		return {
-			type: CASTLING_MOVE,
-			movingPiece: KING,
-			rookFrom: rookFrom,
-			rookTo: rookTo,
-			updateEnPassant: -1,
-			updateCastleRights: updateCastleRights
-		};
+		return true;
 	}
 
 
