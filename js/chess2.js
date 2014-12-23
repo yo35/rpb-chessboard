@@ -241,6 +241,27 @@ var Chess2 = {};
 	}
 
 
+	/**
+	 * Parse a move given in the "coordinate notation" style (e.g. `g1f3` or `c7b8Q`).
+	 *
+	 * @param {string} move
+	 * @return {boolean|{from:number, to:number, promotion:number}} `false` if the input is not valid.
+	 */
+	function parseCoordinateNotation(move) {
+		if(typeof move === 'string' && /^[a-h][1-8][a-h][1-8][QRBN]?$/.test(move)) {
+			var columnFrom = COLUMN_SYMBOL.indexOf(move[0]);
+			var rowFrom    = ROW_SYMBOL   .indexOf(move[1]);
+			var columnTo   = COLUMN_SYMBOL.indexOf(move[2]);
+			var rowTo      = ROW_SYMBOL   .indexOf(move[3]);
+			var promotion  = move.length === 5 ? PIECE_SYMBOL.indexOf(move[4].toLowerCase()) : -1;
+			return { from: rowFrom*16+columnFrom, to: rowTo*16+columnTo, promotion: promotion };
+		}
+		else {
+			return false;
+		}
+	}
+
+
 
 	// ---------------------------------------------------------------------------
 	// Constructor & string conversion methods
@@ -1026,24 +1047,15 @@ var Chess2 = {};
 	 * @returns {boolean}
 	 */
 	myself.Position.prototype.isLegalMove = function(move) {
-		if(typeof move !== 'string') {
-			throw new myself.exceptions.IllegalArgument('Position#isLegalMove()');
-		}
 
 		// Parsing 'g1f3'-style
-		if(/^[a-h][1-8][a-h][1-8][QRBN]?$/.test(move)) {
-			var columnFrom = COLUMN_SYMBOL.indexOf(move[0]);
-			var rowFrom    = ROW_SYMBOL   .indexOf(move[1]);
-			var columnTo   = COLUMN_SYMBOL.indexOf(move[2]);
-			var rowTo      = ROW_SYMBOL   .indexOf(move[3]);
-			var promotion  = move.length === 5 ? PIECE_SYMBOL.indexOf(move[4].toLowerCase()) : -1;
-			return isLegalMove(this, rowFrom*16+columnFrom, rowTo*16+columnTo, promotion, false);
+		var cn = parseCoordinateNotation(move);
+		if(cn) {
+			return isLegalMove(this, cn.from, cn.to, cn.promotion, false);
 		}
 
 		// Unknown move format
-		else {
-			throw new myself.exceptions.IllegalArgument('Position#isLegalMove()');
-		}
+		throw new myself.exceptions.IllegalArgument('Position#isLegalMove()');
 	};
 
 
