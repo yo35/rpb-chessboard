@@ -342,7 +342,7 @@
 							for(var rt=0; rt<8; ++rt) {
 								for(var promo=0; promo<PROMO.length; ++promo) {
 									var move = COLUMN[cf] + ROW[rf] + COLUMN[ct] + ROW[rt] + (promo===0 ? '' : PROMO[promo]);
-									if(position.isLegalMove(move)) {
+									if(position.isMoveLegal(move)) {
 										if(res !== '') { res += '/'; }
 										res += move;
 									}
@@ -407,7 +407,7 @@
 			var moves6e = 'a8b8/a8c8/a8d8/e8c8/e8d7/e8d8/e8e7/e8f8/h8f8/h8g8';
 
 			// Move verification
-			testError('Move legality bad-format 1', function() { var p=new Chess2.Position(); return p.isLegalMove('abcd'); }, checkIllegalArgument('Position#isLegalMove()'));
+			testError('Move legality bad-format 1', function() { var p=new Chess2.Position(); return p.isMoveLegal('abcd'); }, checkIllegalArgument('Position#isMoveLegal()'));
 			test('Move legality 0a', function() { var p=new Chess2.Position(); return legalMoves(p); }, moves0a);
 			test('Move legality 0b', function() { var p=new Chess2.Position(customFEN2); return legalMoves(p); }, moves0b);
 			test('Move legality 0c', function() { var p=new Chess2.Position('empty'); return legalMoves(p); }, '');

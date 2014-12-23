@@ -1046,16 +1046,16 @@ var Chess2 = {};
 	 * @param {string} move
 	 * @returns {boolean}
 	 */
-	myself.Position.prototype.isLegalMove = function(move) {
+	myself.Position.prototype.isMoveLegal = function(move) {
 
 		// Parsing 'g1f3'-style
 		var cn = parseCoordinateNotation(move);
 		if(cn) {
-			return isLegalMove(this, cn.from, cn.to, cn.promotion, false);
+			return isMoveLegal(this, cn.from, cn.to, cn.promotion, false);
 		}
 
 		// Unknown move format
-		throw new myself.exceptions.IllegalArgument('Position#isLegalMove()');
+		throw new myself.exceptions.IllegalArgument('Position#isMoveLegal()');
 	};
 
 
@@ -1070,7 +1070,7 @@ var Chess2 = {};
 		// Parsing 'g1f3'-style
 		var cn = parseCoordinateNotation(move);
 		if(cn) {
-			return isLegalMove(this, cn.from, cn.to, cn.promotion, true);
+			return isMoveLegal(this, cn.from, cn.to, cn.promotion, true);
 		}
 
 		// Unknown move format
@@ -1108,7 +1108,7 @@ var Chess2 = {};
 	 * @param {boolean} playIfLegal Play the move if it is legal.
 	 * @returns {boolean}
 	 */
-	function isLegalMove(position, from, to, promotion, playIfLegal) {
+	function isMoveLegal(position, from, to, promotion, playIfLegal) {
 
 		// Step (1)
 		if(!position.isLegal()) { return false; }
