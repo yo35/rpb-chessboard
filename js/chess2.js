@@ -1223,7 +1223,7 @@ var Chess2 = {};
 	 * @param {number} from
 	 * @param {number} to
 	 * @param {boolean} playIfLegal Play the move if it is legal.
-	 * @returns boolean
+	 * @returns {boolean}
 	 */
 	function isLegalCastling(position, from, to, playIfLegal) {
 
@@ -1264,6 +1264,35 @@ var Chess2 = {};
 		// Final result
 		return true;
 	}
+
+
+	/**
+	 * Determine if a null-move (i.e. switching the player about to play) can be play in the current position.
+	 * A null-move is possible if the position is legal and if the current player about to play is not in check.
+	 *
+	 * @returns {boolean}
+	 */
+	myself.Position.prototype.isNullMoveLegal = function() {
+		return this.isLegal() && !isAttacked(this, this._king[this._turn], 1-this._turn);
+	};
+
+
+	/**
+	 * Play a null-move on the current position if it is legal.
+	 *
+	 * @returns {boolean} `true` if the move has actually been played, `false` otherwise.
+	 */
+	myself.Position.prototype.playNullMove = function() {
+		if(this.isNullMoveLegal()) {
+			this._turn      = 1 - this._turn;
+			this._enPassant = -1;
+			return true;
+		}
+		else {
+			return false;
+		}
+	};
+
 
 
 

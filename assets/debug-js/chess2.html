@@ -436,6 +436,16 @@
 			test('Move legality 6d', function() { var p=new Chess2.Position(position6d); return legalMoves(p); }, moves6d);
 			test('Move legality 6e', function() { var p=new Chess2.Position(position6e); return legalMoves(p); }, moves6e);
 			test('Move legality 6f', function() { var p=new Chess2.Position(position6f); return legalMoves(p); }, '');
+
+			function nullMoveInfo(p) {
+				return p.isLegal() + ':' + p.isNullMoveLegal();
+			}
+
+			// Null-moves
+			test('Null move 1', function() { var p=new Chess2.Position(); return nullMoveInfo(p); }, 'true:true');
+			test('Null move 2', function() { var p=new Chess2.Position('8/8/8/Kr5k/8/8/8/8 w - - 0 1'); return nullMoveInfo(p); }, 'true:false');
+			test('Null move 3', function() { var p=new Chess2.Position('8/8/8/Kr5k/8/8/8/8 b - - 0 1'); return nullMoveInfo(p); }, 'false:false');
+			test('Play null move', function() { var p=new Chess2.Position('4k3/8/8/4p3/4P3/8/8/4K3 w - e6 0 1'); p.playNullMove(); return p.fen(); }, '4k3/8/8/4p3/4P3/8/8/4K3 b - - 0 1');
 		};
 	</script>
 
