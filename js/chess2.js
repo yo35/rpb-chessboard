@@ -1060,6 +1060,25 @@ var Chess2 = {};
 
 
 	/**
+	 * Play the given move if it is legal.
+	 *
+	 * @param {string} move
+	 * @returns {boolean} `true` if the move has been played and if it is legal, `false` otherwise.
+	 */
+	myself.Position.prototype.play = function(move) {
+
+		// Parsing 'g1f3'-style
+		var cn = parseCoordinateNotation(move);
+		if(cn) {
+			return isLegalMove(this, cn.from, cn.to, cn.promotion, true);
+		}
+
+		// Unknown move format
+		throw new myself.exceptions.IllegalArgument('Position#play()');
+	};
+
+
+	/**
 	 * Core algorithm to determine whether a move is legal or not. The verification flow is the following:
 	 *
 	 *  1. Ensure that the position itself is legal.
