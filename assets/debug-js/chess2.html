@@ -283,6 +283,7 @@
 			}
 
 			// Legality
+			test('Legality starting position', function() { var p=new Chess2.Position(); return legalInfo(p); }, 'true:e1:e8');
 			test('Legality kings OK'   , function() { var p=new Chess2.Position('k7/8/8/8/8/8/8/7K w - - 0 1'); return legalInfo(p); }, 'true:h1:a8');
 			test('Legality missing WK' , function() { var p=new Chess2.Position('7k/8/8/8/8/8/8/8 w - - 0 1'); return legalInfo(p); }, 'false:-:h8');
 			test('Legality missing BK' , function() { var p=new Chess2.Position('8/8/8/8/8/8/8/K7 w - - 0 1'); return legalInfo(p); }, 'false:a1:-');

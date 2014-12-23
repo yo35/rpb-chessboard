@@ -344,7 +344,7 @@ var Chess2 = {};
 
 		// Computed attributes
 		this._legal = true;
-		this._king  = [25 /* e1 */, 95 /* e8 */];
+		this._king  = [4 /* e1 */, 116 /* e8 */];
 	};
 
 
