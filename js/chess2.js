@@ -1316,6 +1316,56 @@ var Chess2 = {};
 
 
 	/**
+	 * Return true if the player that is about to play is in check. If the position is not legal, the returned value is always false.
+	 *
+	 * @returns {boolean}
+	 */
+	myself.Position.prototype.isCheck = function() {
+		return this.isLegal() && isAttacked(this, this._king[this._turn], 1-this._turn);
+	};
+
+
+	/**
+	 * Return true if the player that is about to play is checkmated. If the position is not legal, the returned value is always false.
+	 *
+	 * @returns {boolean}
+	 */
+	myself.Position.prototype.isCheckmate = function() {
+		return this.isLegal() && !this.hasLegalMoves() && isAttacked(this, this._king[this._turn], 1-this._turn);
+	};
+
+
+	/**
+	 * Return true if the player that is about to play is stalemated. If the position is not legal, the returned value is always false.
+	 *
+	 * @returns {boolean}
+	 */
+	myself.Position.prototype.isStalemate = function() {
+		return this.isLegal() && !this.hasLegalMoves() && !isAttacked(this, this._king[this._turn], 1-this._turn);
+	};
+
+
+	/**
+	 * Detect if there exist any legal move in the current position. If the position is not legal, the returned value is always false.
+	 *
+	 * @returns {boolean}
+	 */
+	myself.Position.prototype.hasLegalMoves = function() {
+		return generateMoves(this, false);
+	};
+
+
+	/**
+	 * Return the list of all legal moves in the current position. An empty list is returned if the position itself is not legal.
+	 *
+	 * @returns {string[]} List of moves, specified in "coordinate notation".
+	 */
+	myself.Position.prototype.moves = function() {
+		return generateMoves(this, true);
+	};
+
+
+	/**
 	 * Generate all the legal moves of the given position.
 	 *
 	 * @param {Position} position
