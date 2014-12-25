@@ -245,7 +245,7 @@ var Chess2 = {};
 	 * Parse a move given in the "coordinate notation" style (e.g. `g1f3` or `c7b8Q`).
 	 *
 	 * @param {string} move
-	 * @return {boolean|{from:number, to:number, promotion:number}} `false` if the input is not valid.
+	 * @returns {boolean|{from:number, to:number, promotion:number}} `false` if the input is not valid.
 	 */
 	function parseCoordinateNotation(move) {
 		if(typeof move === 'string' && /^[a-h][1-8][a-h][1-8][QRBN]?$/.test(move)) {
@@ -259,6 +259,27 @@ var Chess2 = {};
 		else {
 			return false;
 		}
+	}
+
+
+	/**
+	 * Return the "coordinate notation" for a move from `from` to `to`.
+	 *
+	 * @param {number} from
+	 * @param {number} to
+	 * @param {number} promotion
+	 * @returns {string}
+	 */
+	function toCoordinateNotation(from, to, promotion) {
+		var columnFrom = from % 8;
+		var rowFrom    = Math.floor(from / 8);
+		var columnTo   = to % 8;
+		var rowTo      = Math.floor(to / 8);
+		var res = COLUMN_SYMBOL[columnFrom] + ROW_SYMBOL[rowFrom] + COLUMN_SYMBOL[columnTo] + ROW_SYMBOL[rowTo];
+		if(promotion >= 0) {
+			res += PIECE_SYMBOL[promotion].toUpperCase();
+		}
+		return res;
 	}
 
 
@@ -572,7 +593,7 @@ var Chess2 = {};
 	 *
 	 * @param {string} castleRights
 	 * @param {boolean} strict
-	 * @return {array} `null` if the parsing fails.
+	 * @returns {array} `null` if the parsing fails.
 	 */
 	function castleRightsFromString(castleRights, strict) {
 		var res = [0, 0];
@@ -1292,6 +1313,115 @@ var Chess2 = {};
 			return false;
 		}
 	};
+
+
+	/**
+	 * Generate all the legal moves of the given position.
+	 *
+	 * @param {Position} position
+	 * @param {boolean} generateAll
+	 * @returns {boolean|string[]} The type of the returned object is determined by the `generateAll` flag:
+	 *
+	 *  * If `generateAll===true`, an array containing all the existing legal moves is returned.
+	 *  * If `generateAll===false`, a boolean is returned, true indicating that there exists some legal moves in the position.
+	 */
+	function generateMoves(position, generateAll) {
+		var res = [];
+
+		// Ensure that the position is legal.
+		if(!position.isLegal()) {
+			return generateAll ? res : false;
+		}
+
+		// For all potential 'from' square...
+		for(var from=0; from<120; from += (from /* jshint bitwise:false */ & 0x7 /* jshint bitwise:true */)===7 ? 9 : 1) {
+
+			// Nothing to do if the current square does not contain a piece of the right color.
+			var fromContent = position._board[from];
+			var movingPiece = Math.floor(fromContent / 2);
+			if(fromContent < 0 || fromContent%2 !== position._turn) {
+				continue;
+			}
+
+			// Generate moves for pawns
+			if(movingPiece === PAWN) {
+
+				// Capturing moves
+				var attackDirections = ATTACK_DIRECTIONS[fromContent];
+				for(var i=0; i<attackDirections.length; ++i) {
+					var to = from + attackDirections[i];
+					if((to /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */)===0) {
+						var toContent = position._board[to];
+						if(toContent >= 0 && toContent%2 !== position._turn) { // regular capturing move
+							// TODO: generate move (maybe promotion)
+						}
+						else if(toContent < 0 && to === (5-position._turn*3)*16 + position._enPassant) { // en-passant move
+							// TODO: generate move (maybe promotion)
+						}
+					}
+				}
+
+				// Non-capturing moves
+				var moveDirection = 16 - position._turn*32;
+				var to = from + moveDirection;
+				if(position._board[to] < 0) {
+					// TODO: generate move (maybe promotion)
+
+					// 2-square pawn move
+					var firstSquareOfRow = (1 + position._turn*5) * 16;
+					if(from>=firstSquareOfRow && from<firstSquareOfRow+8) {
+						to += moveDirection;
+						if(position._board[to] < 0) {
+							// TODO: generate move
+						}
+					}
+				}
+			}
+
+			// Generate moves for sliding pieces
+			else if(isSliding(fromContent)) {
+				var directions = ATTACK_DIRECTIONS[fromContent];
+				for(var i=0; i<directions.length; ++i) {
+					for(var to=from+directions[i]; (to /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */)===0; to+=directions[i]) {
+						var toContent = position._board[to];
+						if(toContent < 0 || toContent%2 !== position._turn) {
+							// TODO: generate move
+						}
+						if(toContent >= 0) { break; }
+					}
+				}
+			}
+
+			// Generate moves for non-sliding non-pawn pieces
+			else {
+				var directions = ATTACK_DIRECTIONS[fromContent];
+				for(var i=0; i<directions.length; ++i) {
+					var to = from + directions[i];
+					if((to /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */)===0) {
+						var toContent = position._board[to];
+						if(toContent < 0 || toContent%2 !== position._turn) {
+							// TODO: generate move
+						}
+					}
+				}
+			}
+
+			// Generate castling moves
+			if(movingPiece === KING && position._castleRights[position._turn] !== 0) {
+				if(isLegalCastling(position, from, from+2, false)) {
+					if(generateAll) { res.push(toCoordinateNotation(from, from+2, -1)); }
+					else { return true; }
+				}
+				if(isLegalCastling(position, from, from-2, false)) {
+					if(generateAll) { res.push(toCoordinateNotation(from, from-2, -1)); }
+					else { return true; }
+				}
+			}
+		}
+
+		// Final result
+		return generateAll ? res : false;
+	}
 
 
 
