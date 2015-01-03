@@ -1161,7 +1161,7 @@ var Chess2 = {};
 				updateEnPassant = from % 8;
 			}
 			else if(movingPiece === KING && (displacement === 117 || displacement === 121)) {
-				return isLegalCastling(position, from, to, playIfLegal);
+				return isCastlingLegal(position, from, to, playIfLegal);
 			}
 			else {
 				return false;
@@ -1246,7 +1246,7 @@ var Chess2 = {};
 	 * @param {boolean} playIfLegal Play the move if it is legal.
 	 * @returns {boolean}
 	 */
-	function isLegalCastling(position, from, to, playIfLegal) {
+	function isCastlingLegal(position, from, to, playIfLegal) {
 
 		// Ensure that the given underlying castling is allowed.
 		var column = from < to ? 7 : 0;
@@ -1458,11 +1458,11 @@ var Chess2 = {};
 
 			// Generate castling moves
 			if(movingPiece === KING && position._castleRights[position._turn] !== 0) {
-				if(isLegalCastling(position, from, from+2, false)) {
+				if(isCastlingLegal(position, from, from+2, false)) {
 					if(generateAll) { res.push(toCoordinateNotation(from, from+2, -1)); }
 					else { return true; }
 				}
-				if(isLegalCastling(position, from, from-2, false)) {
+				if(isCastlingLegal(position, from, from-2, false)) {
 					if(generateAll) { res.push(toCoordinateNotation(from, from-2, -1)); }
 					else { return true; }
 				}
