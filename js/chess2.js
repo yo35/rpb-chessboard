@@ -278,28 +278,6 @@ var Chess2 = {};
 	}
 
 
-	/**
-	 * Return the "coordinate notation" for a move from `from` to `to`.
-	 *
-	 * @param {number} from
-	 * @param {number} to
-	 * @param {number} promotion
-	 * @returns {string}
-	 */
-	function toCoordinateNotation(from, to, promotion) {
-		var columnFrom = from % 8;
-		var rowFrom    = Math.floor(from / 8);
-		var columnTo   = to % 8;
-		var rowTo      = Math.floor(to / 8);
-		var res = COLUMN_SYMBOL[columnFrom] + ROW_SYMBOL[rowFrom] + COLUMN_SYMBOL[columnTo] + ROW_SYMBOL[rowTo];
-		if(promotion >= 0) {
-			res += PIECE_SYMBOL[promotion].toUpperCase();
-		}
-		return res;
-	}
-
-
-
 	// ---------------------------------------------------------------------------
 	// Constructor & string conversion methods
 	// ---------------------------------------------------------------------------
@@ -1101,38 +1079,44 @@ var Chess2 = {};
 	 * DO NOT INSTANTIATE AN OBJECT OF THIS CLASS DIRECTLY FROM CLIENT APPLICATIONS.
 	 */
 	myself.MoveDescriptor = function() {
-		var i = 0;
-		this._type = arguments[i++];
-		this._from = arguments[i++];
-		this._to   = arguments[i++];
-
-		switch(this._type) {
-
-			// Castling move -> MoveDescriptor(CASTLING, from, to, rookFrom, rookTo, updateCastleRights, updateEnPassant, updateKing)
-			case myself.MoveType.CASTLING:
-				this._rookFrom = arguments[i++];
-				this._rookTo   = arguments[i++];
-				break;
-
-			// En-passant move -> MoveDescriptor(EN_PASSANT, from, to, enPassantSquare, updateCastleRights, updateEnPassant, updateKing)
-			case myself.MoveType.EN_PASSANT:
-				this._enPassantSquare = arguments[i++];
-				break;
-
-			// Promotion -> MoveDescriptor(PROMOTION, from, to, promotion, updateCastleRights, updateEnPassant, updateKing)
-			case myself.MoveType.PROMOTION:
-				this._promotion = arguments[i++];
-				break;
-
-			// Normal move -> MoveDescriptor(NORMAL, from, to, updateCastleRights, updateEnPassant, updateKing)
-			default:
-				break;
+		if(arguments[0] instanceof myself.MoveDescriptor) { // Promotion -> MoveDescriptor(descriptor, promotion)
+			this._type               = myself.MoveType.PROMOTION;
+			this._from               = arguments[0]._from;
+			this._to                 = arguments[0]._to;
+			this._promotion          = arguments[1];
+			this._updateCastleRights = arguments[0]._updateCastleRights;
+			this._updateEnPassant    = arguments[0]._updateEnPassant;
+			this._updateKing         = arguments[0]._updateKing;
 		}
+		else {
+			var i = 0;
+			this._type = arguments[i++];
+			this._from = arguments[i++];
+			this._to   = arguments[i++];
 
-		// Additional flags
-		this._updateCastleRights = arguments[i++];
-		this._updateEnPassant    = arguments[i++];
-		this._updateKing         = arguments[i++];
+			switch(this._type) {
+
+				// Castling move -> MoveDescriptor(CASTLING, from, to, rookFrom, rookTo, updateCastleRights, updateEnPassant, updateKing)
+				case myself.MoveType.CASTLING:
+					this._rookFrom = arguments[i++];
+					this._rookTo   = arguments[i++];
+					break;
+
+				// En-passant move -> MoveDescriptor(EN_PASSANT, from, to, enPassantSquare, updateCastleRights, updateEnPassant, updateKing)
+				case myself.MoveType.EN_PASSANT:
+					this._enPassantSquare = arguments[i++];
+					break;
+
+				// Normal move -> MoveDescriptor(NORMAL, from, to, updateCastleRights, updateEnPassant, updateKing)
+				default:
+					break;
+			}
+
+			// Additional flags
+			this._updateCastleRights = arguments[i++];
+			this._updateEnPassant    = arguments[i++];
+			this._updateKing         = arguments[i++];
+		}
 	};
 
 
@@ -1203,6 +1187,20 @@ var Chess2 = {};
 	 */
 	myself.MoveDescriptor.prototype.promotion = function() {
 		return this._type===myself.MoveType.PROMOTION ? PIECE_SYMBOL[Math.floor(this._promotion / 2)] : '-';
+	};
+
+
+	/**
+	 * Return the string representation of the move in coordinate notation (e.g. `'g1f3'` or `'a7a8Q'`).
+	 *
+	 * @returns {string}
+	 */
+	myself.MoveDescriptor.prototype.toString = function() {
+		var res = this.from() + this.to();
+		if(this._type===myself.MoveType.PROMOTION) {
+			res += PIECE_SYMBOL[Math.floor(this._promotion / 2)].toUpperCase();
+		}
+		return res;
 	};
 
 
@@ -1345,6 +1343,29 @@ var Chess2 = {};
 			if(position._board[(from + to) / 2] !== EMPTY) { return false; }
 		}
 
+		// Steps (7) to (9) are delegated to `isKingSafeAfterMove`.
+		var descriptor = isKingSafeAfterMove(position, from, to, promotion, enPassantSquare, updateEnPassant);
+		return descriptor && promotion>=0 ? new myself.MoveDescriptor(descriptor, promotion*2 + position._turn) : descriptor;
+	}
+
+
+	/**
+	 * Check whether the current player king is in check after moving from `from` to `to`.
+	 *
+	 * This function implements the verification steps (7) to (9) as defined in {@link #isMoveLegal}
+	 *
+	 * @param {Position} position
+	 * @param {number} from
+	 * @param {number} to
+	 * @param {number} enPassantSquare Index of the square where the "en-passant" taken pawn lies if any, `-1` otherwise.
+	 * @param {number} updateEnPassant Column where the displacement occurs in case of a two-square pawn move, `-1` otherwise.
+	 * @returns {boolean|MoveDescriptor} The move descriptor if the move is legal, `false` otherwise.
+	 */
+	function isKingSafeAfterMove(position, from, to, enPassantSquare, updateEnPassant) {
+		var fromContent = position._board[from];
+		var toContent   = position._board[to  ];
+		var movingPiece = Math.floor(fromContent / 2);
+
 		// Step (7) -> Execute the displacement (castling moves are processed separately).
 		position._board[to  ] = fromContent;
 		position._board[from] = EMPTY;
@@ -1383,9 +1404,6 @@ var Chess2 = {};
 			// Generate the move descriptor
 			if(enPassantSquare >= 0) {
 				return new myself.MoveDescriptor(myself.MoveType.EN_PASSANT, from, to, enPassantSquare, updateCastleRights, updateEnPassant, updateKing);
-			}
-			else if(promotion >= 0) {
-				return new myself.MoveDescriptor(myself.MoveType.PROMOTION, from, to, promotion*2+position._turn, updateCastleRights, updateEnPassant, updateKing);
 			}
 			else {
 				return new myself.MoveDescriptor(myself.MoveType.NORMAL, from, to, updateCastleRights, updateEnPassant, updateKing);
@@ -1499,17 +1517,41 @@ var Chess2 = {};
 	 * @returns {boolean}
 	 */
 	myself.Position.prototype.hasLegalMoves = function() {
-		return generateMoves(this, false);
+		function MoveFound() {}
+		try {
+			generateMoves(this, function(descriptor) {
+				if(descriptor) { throw new MoveFound(); }
+			});
+			return false;
+		}
+		catch(err) {
+			if(err instanceof MoveFound) { return true; }
+			else { throw err; }
+		}
 	};
 
 
 	/**
 	 * Return the list of all legal moves in the current position. An empty list is returned if the position itself is not legal.
 	 *
-	 * @returns {string[]} List of moves, specified in "coordinate notation".
+	 * @returns {MoveDescriptor[]}
 	 */
 	myself.Position.prototype.moves = function() {
-		return generateMoves(this, true);
+		var res = [];
+		generateMoves(this, function(descriptor, generatePromotions) {
+			if(descriptor) {
+				if(generatePromotions) {
+					res.push(new myself.MoveDescriptor(descriptor, QUEEN *2 + this._turn));
+					res.push(new myself.MoveDescriptor(descriptor, ROOK  *2 + this._turn));
+					res.push(new myself.MoveDescriptor(descriptor, BISHOP*2 + this._turn));
+					res.push(new myself.MoveDescriptor(descriptor, KNIGHT*2 + this._turn));
+				}
+				else {
+					res.push(descriptor);
+				}
+			}
+		});
+		return res;
 	};
 
 
@@ -1517,19 +1559,12 @@ var Chess2 = {};
 	 * Generate all the legal moves of the given position.
 	 *
 	 * @param {Position} position
-	 * @param {boolean} generateAll
-	 * @returns {boolean|string[]} The type of the returned object is determined by the `generateAll` flag:
-	 *
-	 *  * If `generateAll===true`, an array containing all the existing legal moves is returned.
-	 *  * If `generateAll===false`, a boolean is returned, true indicating that there exists some legal moves in the position.
+	 * @param {boolean} processDescriptor Function called when a legal move is found.
 	 */
-	function generateMoves(position, generateAll) {
-		var res = [];
+	function generateMoves(position, processDescriptor) {
 
 		// Ensure that the position is legal.
-		if(!position.isLegal()) {
-			return generateAll ? res : false;
-		}
+		if(!position.isLegal()) { return; }
 
 		// For all potential 'from' square...
 		for(var from=0; from<120; from += (from /* jshint bitwise:false */ & 0x7 /* jshint bitwise:true */)===7 ? 9 : 1) {
@@ -1551,10 +1586,10 @@ var Chess2 = {};
 					if((to /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */)===0) {
 						var toContent = position._board[to];
 						if(toContent >= 0 && toContent%2 !== position._turn) { // regular capturing move
-							// TODO: generate move (maybe promotion)
+							processDescriptor(isKingSafeAfterMove(position, from, to, -1, -1), to<8 || to>=112);
 						}
 						else if(toContent < 0 && to === (5-position._turn*3)*16 + position._enPassant) { // en-passant move
-							// TODO: generate move (maybe promotion)
+							processDescriptor(isKingSafeAfterMove(position, from, to, (4-position._turn)*16 + position._enPassant, -1), false);
 						}
 					}
 				}
@@ -1563,14 +1598,14 @@ var Chess2 = {};
 				var moveDirection = 16 - position._turn*32;
 				var to = from + moveDirection;
 				if(position._board[to] < 0) {
-					// TODO: generate move (maybe promotion)
+					processDescriptor(isKingSafeAfterMove(position, from, to, -1, -1), to<8 || to>=112);
 
 					// 2-square pawn move
 					var firstSquareOfRow = (1 + position._turn*5) * 16;
 					if(from>=firstSquareOfRow && from<firstSquareOfRow+8) {
 						to += moveDirection;
 						if(position._board[to] < 0) {
-							// TODO: generate move
+							processDescriptor(isKingSafeAfterMove(position, from, to, -1, from % 8), false);
 						}
 					}
 				}
@@ -1583,7 +1618,7 @@ var Chess2 = {};
 					for(var to=from+directions[i]; (to /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */)===0; to+=directions[i]) {
 						var toContent = position._board[to];
 						if(toContent < 0 || toContent%2 !== position._turn) {
-							// TODO: generate move
+							processDescriptor(isKingSafeAfterMove(position, from, to, -1, -1), false);
 						}
 						if(toContent >= 0) { break; }
 					}
@@ -1598,7 +1633,7 @@ var Chess2 = {};
 					if((to /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */)===0) {
 						var toContent = position._board[to];
 						if(toContent < 0 || toContent%2 !== position._turn) {
-							// TODO: generate move
+							processDescriptor(isKingSafeAfterMove(position, from, to, -1, -1), false);
 						}
 					}
 				}
@@ -1606,19 +1641,12 @@ var Chess2 = {};
 
 			// Generate castling moves
 			if(movingPiece === KING && position._castleRights[position._turn] !== 0) {
-				if(isCastlingLegal(position, from, from+2, false)) {
-					if(generateAll) { res.push(toCoordinateNotation(from, from+2, -1)); }
-					else { return true; }
-				}
-				if(isCastlingLegal(position, from, from-2, false)) {
-					if(generateAll) { res.push(toCoordinateNotation(from, from-2, -1)); }
-					else { return true; }
+				var to = [from-2, from+2];
+				for(var i=0; i<to.length; ++i) {
+					processDescriptor(isCastlingLegal(position, from, to[i]), false);
 				}
 			}
 		}
-
-		// Final result
-		return generateAll ? res : false;
 	}
 
 
