@@ -132,6 +132,11 @@ var Chess2 = {};
 		return coloredPiece>=2 && coloredPiece<=7;
 	}
 
+	// Whether the given piece is admissible for promotion.
+	function isPromotablePiece(piece) {
+		return piece>=1 && piece<=4;
+	}
+
 	// Attack directions per colored piece.
 	var /* const */ ATTACK_DIRECTIONS = [
 		[-17, -16, -15, -1, 1, 15, 16, 17], // king/queen
@@ -259,7 +264,7 @@ var Chess2 = {};
 	 * @returns {boolean|{from:number, to:number, promotion:number}} `false` if the input is not valid.
 	 */
 	function parseCoordinateNotation(move) {
-		if(typeof move === 'string' && /^[a-h][1-8][a-h][1-8][QRBN]?$/.test(move)) {
+		if(typeof move === 'string' && /^[a-h][1-8][a-h][1-8][KQRBNP]?$/.test(move)) {
 			var columnFrom = COLUMN_SYMBOL.indexOf(move[0]);
 			var rowFrom    = ROW_SYMBOL   .indexOf(move[1]);
 			var columnTo   = COLUMN_SYMBOL.indexOf(move[2]);
@@ -1103,30 +1108,31 @@ var Chess2 = {};
 
 		switch(this._type) {
 
-			// Castling move -> MoveDescriptor(CASTLING, from, to, rookFrom, rookTo, updateCastlingRights, updateEnPassant)
+			// Castling move -> MoveDescriptor(CASTLING, from, to, rookFrom, rookTo, updateCastleRights, updateEnPassant, updateKing)
 			case myself.MoveType.CASTLING:
 				this._rookFrom = arguments[i++];
 				this._rookTo   = arguments[i++];
 				break;
 
-			// En-passant move -> MoveDescriptor(EN_PASSANT, from, to, enPassantSquare, updateCastlingRights, updateEnPassant)
+			// En-passant move -> MoveDescriptor(EN_PASSANT, from, to, enPassantSquare, updateCastleRights, updateEnPassant, updateKing)
 			case myself.MoveType.EN_PASSANT:
 				this._enPassantSquare = arguments[i++];
 				break;
 
-			// Promotion -> MoveDescriptor(PROMOTION, from, to, promotion, updateCastlingRights, updateEnPassant)
+			// Promotion -> MoveDescriptor(PROMOTION, from, to, promotion, updateCastleRights, updateEnPassant, updateKing)
 			case myself.MoveType.PROMOTION:
 				this._promotion = arguments[i++];
 				break;
 
-			// Normal move -> MoveDescriptor(NORMAL, from, to, updateCastlingRights, updateEnPassant)
+			// Normal move -> MoveDescriptor(NORMAL, from, to, updateCastleRights, updateEnPassant, updateKing)
 			default:
 				break;
 		}
 
 		// Additional flags
-		this._updateCastlingRights = arguments[i++];
-		this._updateEnPassant      = arguments[i++];
+		this._updateCastleRights = arguments[i++];
+		this._updateEnPassant    = arguments[i++];
+		this._updateKing         = arguments[i++];
 	};
 
 
@@ -1209,14 +1215,14 @@ var Chess2 = {};
 	 * Whether a move is legal or not.
 	 *
 	 * @param {string} move
-	 * @returns {boolean}
+	 * @returns {boolean|MoveDescriptor} The move descriptor if the move is legal, `false` otherwise.
 	 */
 	myself.Position.prototype.isMoveLegal = function(move) {
 
 		// Parsing 'g1f3'-style
 		var cn = parseCoordinateNotation(move);
 		if(cn) {
-			return isMoveLegal(this, cn.from, cn.to, cn.promotion, false);
+			return isMoveLegal(this, cn.from, cn.to, cn.promotion);
 		}
 
 		// Unknown move format
@@ -1235,7 +1241,7 @@ var Chess2 = {};
 		// Parsing 'g1f3'-style
 		var cn = parseCoordinateNotation(move);
 		if(cn) {
-			return isMoveLegal(this, cn.from, cn.to, cn.promotion, true);
+			return isMoveLegal(this, cn.from, cn.to, cn.promotion, true); // TODO: use move descriptor
 		}
 
 		// Unknown move format
@@ -1261,7 +1267,7 @@ var Chess2 = {};
 	 *  7. Execute the displacement from the origin to the destination square, in such a way that
 	 *     it can be reversed. Only the state of the board is updated at this point.
 	 *  8. Look for king attacks.
-	 *  9. Reverse the displacement or update the position flags.
+	 *  9. Reverse the displacement.
 	 *
 	 * Castling moves fail at step (4). They are taken out of this flow and processed
 	 * by the dedicated method `isLegalCastling()`.
@@ -1270,10 +1276,9 @@ var Chess2 = {};
 	 * @param {number} from Index of the origin square.
 	 * @param {number} to Index of the destination square.
 	 * @param {number} promotion Code of the promoted piece if any, `-1` otherwise.
-	 * @param {boolean} playIfLegal Play the move if it is legal.
-	 * @returns {boolean}
+	 * @returns {boolean|MoveDescriptor} The move descriptor if the move is legal, `false` otherwise.
 	 */
-	function isMoveLegal(position, from, to, promotion, playIfLegal) {
+	function isMoveLegal(position, from, to, promotion) {
 
 		// Step (1)
 		if(!position.isLegal()) { return false; }
@@ -1286,7 +1291,7 @@ var Chess2 = {};
 
 		// Step (3)
 		if(movingPiece===PAWN && (to<8 || to>=112)) {
-			if(promotion<0) { return false; }
+			if(!isPromotablePiece(promotion)) { return false; }
 		}
 		else {
 			if(promotion>=0) { return false; }
@@ -1305,7 +1310,7 @@ var Chess2 = {};
 				updateEnPassant = from % 8;
 			}
 			else if(movingPiece === KING && (displacement === 117 || displacement === 121)) {
-				return isCastlingLegal(position, from, to, playIfLegal);
+				return isCastlingLegal(position, from, to);
 			}
 			else {
 				return false;
@@ -1351,31 +1356,41 @@ var Chess2 = {};
 		var kingSquare    = movingPiece===KING ? to : position._king[position._turn];
 		var kingIsInCheck = isAttacked(position, kingSquare, 1-position._turn);
 
-		// Step (9a) -> Update the position flags if the move is legal and if the move must be played.
-		if(playIfLegal && !kingIsInCheck) {
-			if(movingPiece===KING) {
-				position._king[position._turn] = to;
-				position._castleRights[position._turn] = 0;
-			}
-			if(from<   8) { position._castleRights[WHITE] /* jshint bitwise:false */ &= ~(1<< from    ); /* jshint bitwise:true */ }
-			if(to  <   8) { position._castleRights[WHITE] /* jshint bitwise:false */ &= ~(1<< to      ); /* jshint bitwise:true */ }
-			if(from>=112) { position._castleRights[BLACK] /* jshint bitwise:false */ &= ~(1<<(from%16)); /* jshint bitwise:true */ }
-			if(to  >=112) { position._castleRights[BLACK] /* jshint bitwise:false */ &= ~(1<<(to  %16)); /* jshint bitwise:true */ }
-			position._enPassant = updateEnPassant;
-			position._turn = 1 - position._turn;
-		}
-
-		// Step (9b) -> Otherwise, reverse the displacement.
-		else {
-			position._board[from] = fromContent;
-			position._board[to  ] = toContent;
-			if(enPassantSquare >= 0) {
-				position._board[enPassantSquare] = PAWN*2 + 1-position._turn;
-			}
+		// Step (9) -> Reverse the displacement.
+		position._board[from] = fromContent;
+		position._board[to  ] = toContent;
+		if(enPassantSquare >= 0) {
+			position._board[enPassantSquare] = PAWN*2 + 1-position._turn;
 		}
 
 		// Final result
-		return !kingIsInCheck;
+		if(kingIsInCheck) {
+			return false;
+		}
+		else {
+
+			// Mask for the new castle rights
+			var updateCastleRights = [0xff, 0xff];
+			if(movingPiece === KING) { updateCastleRights[position._turn] = 0; }
+			if(from <    8) { updateCastleRights[WHITE] /* jshint bitwise:false */ &= ~(1 <<  from    ); /* jshint bitwise:true */ }
+			if(to   <    8) { updateCastleRights[WHITE] /* jshint bitwise:false */ &= ~(1 <<  to      ); /* jshint bitwise:true */ }
+			if(from >= 112) { updateCastleRights[BLACK] /* jshint bitwise:false */ &= ~(1 << (from%16)); /* jshint bitwise:true */ }
+			if(to   >= 112) { updateCastleRights[BLACK] /* jshint bitwise:false */ &= ~(1 << (to  %16)); /* jshint bitwise:true */ }
+
+			// New king square
+			var updateKing = movingPiece===KING ? to : position._king[position._turn];
+
+			// Generate the move descriptor
+			if(enPassantSquare >= 0) {
+				return new myself.MoveDescriptor(myself.MoveType.EN_PASSANT, from, to, enPassantSquare, updateCastleRights, updateEnPassant, updateKing);
+			}
+			else if(promotion >= 0) {
+				return new myself.MoveDescriptor(myself.MoveType.PROMOTION, from, to, promotion*2+position._turn, updateCastleRights, updateEnPassant, updateKing);
+			}
+			else {
+				return new myself.MoveDescriptor(myself.MoveType.NORMAL, from, to, updateCastleRights, updateEnPassant, updateKing);
+			}
+		}
 	}
 
 
@@ -1387,10 +1402,9 @@ var Chess2 = {};
 	 * @param {Position} position
 	 * @param {number} from
 	 * @param {number} to
-	 * @param {boolean} playIfLegal Play the move if it is legal.
-	 * @returns {boolean}
+	 * @returns {boolean|MoveDescriptor} The move descriptor if the move is legal, `false` otherwise.
 	 */
-	function isCastlingLegal(position, from, to, playIfLegal) {
+	function isCastlingLegal(position, from, to) {
 
 		// Ensure that the given underlying castling is allowed.
 		var column = from < to ? 7 : 0;
@@ -1414,20 +1428,10 @@ var Chess2 = {};
 			return false;
 		}
 
-		// Play the move if requested.
-		if(playIfLegal) {
-			position._board[to]       = KING*2 + position._turn;
-			position._board[from]     = EMPTY;
-			position._board[rookTo]   = ROOK*2 + position._turn;
-			position._board[rookFrom] = EMPTY;
-			position._king[position._turn] = to;
-			position._castleRights[position._turn] = 0;
-			position._enPassant = -1;
-			position._turn = 1 - position._turn;
-		}
-
-		// Final result
-		return true;
+		// The move is legal -> generate the move descriptor.
+		var updateCastleRights = [0xff, 0xff];
+		updateCastleRights[position._turn] = 0;
+		return new myself.MoveDescriptor(myself.MoveType.CASTLING, from, to, rookFrom, rookTo, updateCastleRights, -1, to);
 	}
 
 
