@@ -824,7 +824,7 @@ var Chess2 = {};
 
 
 	// ---------------------------------------------------------------------------
-	// Square control / position legality
+	// Square control & position legality
 	// ---------------------------------------------------------------------------
 
 	/**
@@ -1083,39 +1083,36 @@ var Chess2 = {};
 			this._type               = myself.MoveType.PROMOTION;
 			this._from               = arguments[0]._from;
 			this._to                 = arguments[0]._to;
-			this._promotion          = arguments[1];
 			this._updateCastleRights = arguments[0]._updateCastleRights;
 			this._updateEnPassant    = arguments[0]._updateEnPassant;
 			this._updateKing         = arguments[0]._updateKing;
+			this._promotion          = arguments[1];
 		}
 		else {
-			var i = 0;
-			this._type = arguments[i++];
-			this._from = arguments[i++];
-			this._to   = arguments[i++];
+			this._type               = arguments[0];
+			this._from               = arguments[1];
+			this._to                 = arguments[2];
+			this._updateCastleRights = arguments[3];
+			this._updateEnPassant    = arguments[4];
+			this._updateKing         = arguments[5];
 
 			switch(this._type) {
 
-				// Castling move -> MoveDescriptor(CASTLING, from, to, rookFrom, rookTo, updateCastleRights, updateEnPassant, updateKing)
+				// Castling move -> MoveDescriptor(CASTLING, from, to, updateCastleRights, updateEnPassant, updateKing, rookFrom, rookTo)
 				case myself.MoveType.CASTLING:
-					this._rookFrom = arguments[i++];
-					this._rookTo   = arguments[i++];
+					this._rookFrom = arguments[6];
+					this._rookTo   = arguments[7];
 					break;
 
-				// En-passant move -> MoveDescriptor(EN_PASSANT, from, to, enPassantSquare, updateCastleRights, updateEnPassant, updateKing)
+				// En-passant move -> MoveDescriptor(EN_PASSANT, from, to, updateCastleRights, updateEnPassant, updateKing, enPassantSquare)
 				case myself.MoveType.EN_PASSANT:
-					this._enPassantSquare = arguments[i++];
+					this._enPassantSquare = arguments[6];
 					break;
 
 				// Normal move -> MoveDescriptor(NORMAL, from, to, updateCastleRights, updateEnPassant, updateKing)
 				default:
 					break;
 			}
-
-			// Additional flags
-			this._updateCastleRights = arguments[i++];
-			this._updateEnPassant    = arguments[i++];
-			this._updateKing         = arguments[i++];
 		}
 	};
 
@@ -1206,8 +1203,38 @@ var Chess2 = {};
 
 
 	// ---------------------------------------------------------------------------
-	// Move generation
+	// Move generation & check/checkmate/stalemate tests
 	// ---------------------------------------------------------------------------
+
+	/**
+	 * Return true if the player that is about to play is in check. If the position is not legal, the returned value is always false.
+	 *
+	 * @returns {boolean}
+	 */
+	myself.Position.prototype.isCheck = function() {
+		return this.isLegal() && isAttacked(this, this._king[this._turn], 1-this._turn);
+	};
+
+
+	/**
+	 * Return true if the player that is about to play is checkmated. If the position is not legal, the returned value is always false.
+	 *
+	 * @returns {boolean}
+	 */
+	myself.Position.prototype.isCheckmate = function() {
+		return this.isLegal() && !this.hasLegalMoves() && isAttacked(this, this._king[this._turn], 1-this._turn);
+	};
+
+
+	/**
+	 * Return true if the player that is about to play is stalemated. If the position is not legal, the returned value is always false.
+	 *
+	 * @returns {boolean}
+	 */
+	myself.Position.prototype.isStalemate = function() {
+		return this.isLegal() && !this.hasLegalMoves() && !isAttacked(this, this._king[this._turn], 1-this._turn);
+	};
+
 
 	/**
 	 * Whether a move is legal or not.
@@ -1229,22 +1256,142 @@ var Chess2 = {};
 
 
 	/**
-	 * Play the given move if it is legal.
+	 * Detect if there exist any legal move in the current position. If the position is not legal, the returned value is always false.
 	 *
-	 * @param {string} move
-	 * @returns {boolean} `true` if the move has been played and if it is legal, `false` otherwise.
+	 * @returns {boolean}
 	 */
-	myself.Position.prototype.play = function(move) {
-
-		// Parsing 'g1f3'-style
-		var cn = parseCoordinateNotation(move);
-		if(cn) {
-			return isMoveLegal(this, cn.from, cn.to, cn.promotion, true); // TODO: use move descriptor
+	myself.Position.prototype.hasLegalMoves = function() {
+		function MoveFound() {}
+		try {
+			generateMoves(this, function(descriptor) {
+				if(descriptor) { throw new MoveFound(); }
+			});
+			return false;
 		}
-
-		// Unknown move format
-		throw new myself.exceptions.IllegalArgument('Position#play()');
+		catch(err) {
+			if(err instanceof MoveFound) { return true; }
+			else { throw err; }
+		}
 	};
+
+
+	/**
+	 * Return the list of all legal moves in the current position. An empty list is returned if the position itself is not legal.
+	 *
+	 * @returns {MoveDescriptor[]}
+	 */
+	myself.Position.prototype.moves = function() {
+		var res = [];
+		generateMoves(this, function(descriptor, generatePromotions) {
+			if(descriptor) {
+				if(generatePromotions) {
+					res.push(new myself.MoveDescriptor(descriptor, QUEEN *2 + this._turn));
+					res.push(new myself.MoveDescriptor(descriptor, ROOK  *2 + this._turn));
+					res.push(new myself.MoveDescriptor(descriptor, BISHOP*2 + this._turn));
+					res.push(new myself.MoveDescriptor(descriptor, KNIGHT*2 + this._turn));
+				}
+				else {
+					res.push(descriptor);
+				}
+			}
+		});
+		return res;
+	};
+
+
+	/**
+	 * Generate all the legal moves of the given position.
+	 *
+	 * @param {Position} position
+	 * @param {boolean} processDescriptor Function called when a legal move is found.
+	 */
+	function generateMoves(position, processDescriptor) {
+
+		// Ensure that the position is legal.
+		if(!position.isLegal()) { return; }
+
+		// For all potential 'from' square...
+		for(var from=0; from<120; from += (from /* jshint bitwise:false */ & 0x7 /* jshint bitwise:true */)===7 ? 9 : 1) {
+
+			// Nothing to do if the current square does not contain a piece of the right color.
+			var fromContent = position._board[from];
+			var movingPiece = Math.floor(fromContent / 2);
+			if(fromContent < 0 || fromContent%2 !== position._turn) {
+				continue;
+			}
+
+			// Generate moves for pawns
+			if(movingPiece === PAWN) {
+
+				// Capturing moves
+				var attackDirections = ATTACK_DIRECTIONS[fromContent];
+				for(var i=0; i<attackDirections.length; ++i) {
+					var to = from + attackDirections[i];
+					if((to /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */)===0) {
+						var toContent = position._board[to];
+						if(toContent >= 0 && toContent%2 !== position._turn) { // regular capturing move
+							processDescriptor(isKingSafeAfterMove(position, from, to, -1, -1), to<8 || to>=112);
+						}
+						else if(toContent < 0 && to === (5-position._turn*3)*16 + position._enPassant) { // en-passant move
+							processDescriptor(isKingSafeAfterMove(position, from, to, (4-position._turn)*16 + position._enPassant, -1), false);
+						}
+					}
+				}
+
+				// Non-capturing moves
+				var moveDirection = 16 - position._turn*32;
+				var to = from + moveDirection;
+				if(position._board[to] < 0) {
+					processDescriptor(isKingSafeAfterMove(position, from, to, -1, -1), to<8 || to>=112);
+
+					// 2-square pawn move
+					var firstSquareOfRow = (1 + position._turn*5) * 16;
+					if(from>=firstSquareOfRow && from<firstSquareOfRow+8) {
+						to += moveDirection;
+						if(position._board[to] < 0) {
+							processDescriptor(isKingSafeAfterMove(position, from, to, -1, from % 8), false);
+						}
+					}
+				}
+			}
+
+			// Generate moves for sliding pieces
+			else if(isSliding(fromContent)) {
+				var directions = ATTACK_DIRECTIONS[fromContent];
+				for(var i=0; i<directions.length; ++i) {
+					for(var to=from+directions[i]; (to /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */)===0; to+=directions[i]) {
+						var toContent = position._board[to];
+						if(toContent < 0 || toContent%2 !== position._turn) {
+							processDescriptor(isKingSafeAfterMove(position, from, to, -1, -1), false);
+						}
+						if(toContent >= 0) { break; }
+					}
+				}
+			}
+
+			// Generate moves for non-sliding non-pawn pieces
+			else {
+				var directions = ATTACK_DIRECTIONS[fromContent];
+				for(var i=0; i<directions.length; ++i) {
+					var to = from + directions[i];
+					if((to /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */)===0) {
+						var toContent = position._board[to];
+						if(toContent < 0 || toContent%2 !== position._turn) {
+							processDescriptor(isKingSafeAfterMove(position, from, to, -1, -1), false);
+						}
+					}
+				}
+			}
+
+			// Generate castling moves
+			if(movingPiece === KING && position._castleRights[position._turn] !== 0) {
+				var to = [from-2, from+2];
+				for(var i=0; i<to.length; ++i) {
+					processDescriptor(isCastlingLegal(position, from, to[i]), false);
+				}
+			}
+		}
+	}
 
 
 	/**
@@ -1403,7 +1550,7 @@ var Chess2 = {};
 
 			// Generate the move descriptor
 			if(enPassantSquare >= 0) {
-				return new myself.MoveDescriptor(myself.MoveType.EN_PASSANT, from, to, enPassantSquare, updateCastleRights, updateEnPassant, updateKing);
+				return new myself.MoveDescriptor(myself.MoveType.EN_PASSANT, from, to, updateCastleRights, updateEnPassant, updateKing, enPassantSquare);
 			}
 			else {
 				return new myself.MoveDescriptor(myself.MoveType.NORMAL, from, to, updateCastleRights, updateEnPassant, updateKing);
@@ -1449,8 +1596,27 @@ var Chess2 = {};
 		// The move is legal -> generate the move descriptor.
 		var updateCastleRights = [0xff, 0xff];
 		updateCastleRights[position._turn] = 0;
-		return new myself.MoveDescriptor(myself.MoveType.CASTLING, from, to, rookFrom, rookTo, updateCastleRights, -1, to);
+		return new myself.MoveDescriptor(myself.MoveType.CASTLING, from, to, updateCastleRights, -1, to, rookFrom, rookTo);
 	}
+
+
+	/**
+	 * Play the given move if it is legal.
+	 *
+	 * @param {string} move
+	 * @returns {boolean} `true` if the move has been played and if it is legal, `false` otherwise.
+	 */
+	myself.Position.prototype.play = function(move) {
+
+		// Parsing 'g1f3'-style
+		var cn = parseCoordinateNotation(move);
+		if(cn) {
+			return isMoveLegal(this, cn.from, cn.to, cn.promotion, true); // TODO: use move descriptor
+		}
+
+		// Unknown move format
+		throw new myself.exceptions.IllegalArgument('Position#play()');
+	};
 
 
 	/**
@@ -1479,176 +1645,6 @@ var Chess2 = {};
 			return false;
 		}
 	};
-
-
-	/**
-	 * Return true if the player that is about to play is in check. If the position is not legal, the returned value is always false.
-	 *
-	 * @returns {boolean}
-	 */
-	myself.Position.prototype.isCheck = function() {
-		return this.isLegal() && isAttacked(this, this._king[this._turn], 1-this._turn);
-	};
-
-
-	/**
-	 * Return true if the player that is about to play is checkmated. If the position is not legal, the returned value is always false.
-	 *
-	 * @returns {boolean}
-	 */
-	myself.Position.prototype.isCheckmate = function() {
-		return this.isLegal() && !this.hasLegalMoves() && isAttacked(this, this._king[this._turn], 1-this._turn);
-	};
-
-
-	/**
-	 * Return true if the player that is about to play is stalemated. If the position is not legal, the returned value is always false.
-	 *
-	 * @returns {boolean}
-	 */
-	myself.Position.prototype.isStalemate = function() {
-		return this.isLegal() && !this.hasLegalMoves() && !isAttacked(this, this._king[this._turn], 1-this._turn);
-	};
-
-
-	/**
-	 * Detect if there exist any legal move in the current position. If the position is not legal, the returned value is always false.
-	 *
-	 * @returns {boolean}
-	 */
-	myself.Position.prototype.hasLegalMoves = function() {
-		function MoveFound() {}
-		try {
-			generateMoves(this, function(descriptor) {
-				if(descriptor) { throw new MoveFound(); }
-			});
-			return false;
-		}
-		catch(err) {
-			if(err instanceof MoveFound) { return true; }
-			else { throw err; }
-		}
-	};
-
-
-	/**
-	 * Return the list of all legal moves in the current position. An empty list is returned if the position itself is not legal.
-	 *
-	 * @returns {MoveDescriptor[]}
-	 */
-	myself.Position.prototype.moves = function() {
-		var res = [];
-		generateMoves(this, function(descriptor, generatePromotions) {
-			if(descriptor) {
-				if(generatePromotions) {
-					res.push(new myself.MoveDescriptor(descriptor, QUEEN *2 + this._turn));
-					res.push(new myself.MoveDescriptor(descriptor, ROOK  *2 + this._turn));
-					res.push(new myself.MoveDescriptor(descriptor, BISHOP*2 + this._turn));
-					res.push(new myself.MoveDescriptor(descriptor, KNIGHT*2 + this._turn));
-				}
-				else {
-					res.push(descriptor);
-				}
-			}
-		});
-		return res;
-	};
-
-
-	/**
-	 * Generate all the legal moves of the given position.
-	 *
-	 * @param {Position} position
-	 * @param {boolean} processDescriptor Function called when a legal move is found.
-	 */
-	function generateMoves(position, processDescriptor) {
-
-		// Ensure that the position is legal.
-		if(!position.isLegal()) { return; }
-
-		// For all potential 'from' square...
-		for(var from=0; from<120; from += (from /* jshint bitwise:false */ & 0x7 /* jshint bitwise:true */)===7 ? 9 : 1) {
-
-			// Nothing to do if the current square does not contain a piece of the right color.
-			var fromContent = position._board[from];
-			var movingPiece = Math.floor(fromContent / 2);
-			if(fromContent < 0 || fromContent%2 !== position._turn) {
-				continue;
-			}
-
-			// Generate moves for pawns
-			if(movingPiece === PAWN) {
-
-				// Capturing moves
-				var attackDirections = ATTACK_DIRECTIONS[fromContent];
-				for(var i=0; i<attackDirections.length; ++i) {
-					var to = from + attackDirections[i];
-					if((to /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */)===0) {
-						var toContent = position._board[to];
-						if(toContent >= 0 && toContent%2 !== position._turn) { // regular capturing move
-							processDescriptor(isKingSafeAfterMove(position, from, to, -1, -1), to<8 || to>=112);
-						}
-						else if(toContent < 0 && to === (5-position._turn*3)*16 + position._enPassant) { // en-passant move
-							processDescriptor(isKingSafeAfterMove(position, from, to, (4-position._turn)*16 + position._enPassant, -1), false);
-						}
-					}
-				}
-
-				// Non-capturing moves
-				var moveDirection = 16 - position._turn*32;
-				var to = from + moveDirection;
-				if(position._board[to] < 0) {
-					processDescriptor(isKingSafeAfterMove(position, from, to, -1, -1), to<8 || to>=112);
-
-					// 2-square pawn move
-					var firstSquareOfRow = (1 + position._turn*5) * 16;
-					if(from>=firstSquareOfRow && from<firstSquareOfRow+8) {
-						to += moveDirection;
-						if(position._board[to] < 0) {
-							processDescriptor(isKingSafeAfterMove(position, from, to, -1, from % 8), false);
-						}
-					}
-				}
-			}
-
-			// Generate moves for sliding pieces
-			else if(isSliding(fromContent)) {
-				var directions = ATTACK_DIRECTIONS[fromContent];
-				for(var i=0; i<directions.length; ++i) {
-					for(var to=from+directions[i]; (to /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */)===0; to+=directions[i]) {
-						var toContent = position._board[to];
-						if(toContent < 0 || toContent%2 !== position._turn) {
-							processDescriptor(isKingSafeAfterMove(position, from, to, -1, -1), false);
-						}
-						if(toContent >= 0) { break; }
-					}
-				}
-			}
-
-			// Generate moves for non-sliding non-pawn pieces
-			else {
-				var directions = ATTACK_DIRECTIONS[fromContent];
-				for(var i=0; i<directions.length; ++i) {
-					var to = from + directions[i];
-					if((to /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */)===0) {
-						var toContent = position._board[to];
-						if(toContent < 0 || toContent%2 !== position._turn) {
-							processDescriptor(isKingSafeAfterMove(position, from, to, -1, -1), false);
-						}
-					}
-				}
-			}
-
-			// Generate castling moves
-			if(movingPiece === KING && position._castleRights[position._turn] !== 0) {
-				var to = [from-2, from+2];
-				for(var i=0; i<to.length; ++i) {
-					processDescriptor(isCastlingLegal(position, from, to[i]), false);
-				}
-			}
-		}
-	}
-
 
 
 
