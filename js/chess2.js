@@ -1183,7 +1183,7 @@ var Chess2 = {};
 	 * @returns {string} `'-'` if not a promotion move.
 	 */
 	myself.MoveDescriptor.prototype.promotion = function() {
-		return this._type===myself.MoveType.PROMOTION ? PIECE_SYMBOL[Math.floor(this._promotion / 2)] : '-';
+		return this._type===myself.MoveType.PROMOTION ? PIECE_SYMBOL[this._promotion] : '-';
 	};
 
 
@@ -1195,7 +1195,7 @@ var Chess2 = {};
 	myself.MoveDescriptor.prototype.toString = function() {
 		var res = this.from() + this.to();
 		if(this._type===myself.MoveType.PROMOTION) {
-			res += PIECE_SYMBOL[Math.floor(this._promotion / 2)].toUpperCase();
+			res += PIECE_SYMBOL[this._promotion].toUpperCase();
 		}
 		return res;
 	};
@@ -1285,10 +1285,10 @@ var Chess2 = {};
 		generateMoves(this, function(descriptor, generatePromotions) {
 			if(descriptor) {
 				if(generatePromotions) {
-					res.push(new myself.MoveDescriptor(descriptor, QUEEN *2 + this._turn));
-					res.push(new myself.MoveDescriptor(descriptor, ROOK  *2 + this._turn));
-					res.push(new myself.MoveDescriptor(descriptor, BISHOP*2 + this._turn));
-					res.push(new myself.MoveDescriptor(descriptor, KNIGHT*2 + this._turn));
+					res.push(new myself.MoveDescriptor(descriptor, QUEEN ));
+					res.push(new myself.MoveDescriptor(descriptor, ROOK  ));
+					res.push(new myself.MoveDescriptor(descriptor, BISHOP));
+					res.push(new myself.MoveDescriptor(descriptor, KNIGHT));
 				}
 				else {
 					res.push(descriptor);
@@ -1492,7 +1492,7 @@ var Chess2 = {};
 
 		// Steps (7) to (9) are delegated to `isKingSafeAfterMove`.
 		var descriptor = isKingSafeAfterMove(position, from, to, promotion, enPassantSquare, updateEnPassant);
-		return descriptor && promotion>=0 ? new myself.MoveDescriptor(descriptor, promotion*2 + position._turn) : descriptor;
+		return descriptor && promotion>=0 ? new myself.MoveDescriptor(descriptor, promotion) : descriptor;
 	}
 
 
@@ -1607,15 +1607,36 @@ var Chess2 = {};
 	 * @returns {boolean} `true` if the move has been played and if it is legal, `false` otherwise.
 	 */
 	myself.Position.prototype.play = function(move) {
+		var descriptor = this.isMoveLegal(move);
+		if(descriptor) {
 
-		// Parsing 'g1f3'-style
-		var cn = parseCoordinateNotation(move);
-		if(cn) {
-			return isMoveLegal(this, cn.from, cn.to, cn.promotion, true); // TODO: use move descriptor
+			// Update the board
+			var cp = descriptor._type===myself.MoveType.PROMOTION ? (descriptor._promotion*2 + this._turn) : this._board[descriptor._from];
+			this._board[descriptor._from] = EMPTY;
+			if(descriptor._type===myself.MoveType.EN_PASSANT) {
+				this._board[descriptor._enPassantSquare] = EMPTY;
+			}
+			else if(descriptor._type===myself.MoveType.CASTLING) {
+				this._board[descriptor._rookFrom] = EMPTY;
+				this._board[descriptor._rookTo  ] = ROOK*2 + this._turn;
+			}
+			this._board[descriptor._to] = cp;
+
+			// Update the flags
+			this._castleRights[WHITE] /* jshint bitwise:false */ &= descriptor._udpateCastleRights[WHITE] /* jshint bitwise:true */;
+			this._castleRights[BLACK] /* jshint bitwise:false */ &= descriptor._udpateCastleRights[BLACK] /* jshint bitwise:true */;
+			this._enPassant = descriptor._updateEnPassant;
+			this._king[this._turn] = descriptor._updateKing;
+
+			// Toggle the turn flag
+			this._turn = 1-this._turn;
+
+			// Final result
+			return true;
 		}
-
-		// Unknown move format
-		throw new myself.exceptions.IllegalArgument('Position#play()');
+		else {
+			return false;
+		}
 	};
 
 
