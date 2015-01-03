@@ -242,6 +242,17 @@ var Chess2 = {};
 
 
 	/**
+	 * Convert a square to string.
+	 *
+	 * @param {number} square
+	 * @returns {string}
+	 */
+	function squareToString(square) {
+		return COLUMN_SYMBOL[square % 16] + ROW_SYMBOL[Math.floor(square / 16)];
+	}
+
+
+	/**
 	 * Parse a move given in the "coordinate notation" style (e.g. `g1f3` or `c7b8Q`).
 	 *
 	 * @param {string} move
@@ -957,7 +968,7 @@ var Chess2 = {};
 		}
 		refreshLegalFlag(this);
 		var square = this._king[color];
-		return square < 0 ? '-' : COLUMN_SYMBOL[square % 16] + ROW_SYMBOL[Math.floor(square / 16)];
+		return square < 0 ? '-' : squareToString(square);
 	};
 
 
@@ -1054,6 +1065,139 @@ var Chess2 = {};
 			}
 		}
 	}
+
+
+
+	// ---------------------------------------------------------------------------
+	// Move descriptor
+	// ---------------------------------------------------------------------------
+
+	/**
+	 * Type of move.
+	 *
+	 * @const
+	 */
+	myself.MoveType = {
+		NORMAL    : 0,
+		CASTLING  : 1,
+		EN_PASSANT: 2,
+		PROMOTION : 3
+	};
+
+
+	/**
+	 * @constructor
+	 * @alias MoveDescriptor
+	 * @memberof Chess2
+	 *
+	 * @classdesc
+	 * Hold the raw information that is required to play a move in a given position.
+	 *
+	 * DO NOT INSTANTIATE AN OBJECT OF THIS CLASS DIRECTLY FROM CLIENT APPLICATIONS.
+	 */
+	myself.MoveDescriptor = function() {
+		var i = 0;
+		this._type = arguments[i++];
+		this._from = arguments[i++];
+		this._to   = arguments[i++];
+
+		switch(this._type) {
+
+			// Castling move -> MoveDescriptor(CASTLING, from, to, rookFrom, rookTo, updateCastlingRights, updateEnPassant)
+			case myself.MoveType.CASTLING:
+				this._rookFrom = arguments[i++];
+				this._rookTo   = arguments[i++];
+				break;
+
+			// En-passant move -> MoveDescriptor(EN_PASSANT, from, to, enPassantSquare, updateCastlingRights, updateEnPassant)
+			case myself.MoveType.EN_PASSANT:
+				this._enPassantSquare = arguments[i++];
+				break;
+
+			// Promotion -> MoveDescriptor(PROMOTION, from, to, promotion, updateCastlingRights, updateEnPassant)
+			case myself.MoveType.PROMOTION:
+				this._promotion = arguments[i++];
+				break;
+
+			// Normal move -> MoveDescriptor(NORMAL, from, to, updateCastlingRights, updateEnPassant)
+			default:
+				break;
+		}
+
+		// Additional flags
+		this._updateCastlingRights = arguments[i++];
+		this._updateEnPassant      = arguments[i++];
+	};
+
+
+	/**
+	 * Type of move.
+	 *
+	 * @returns {number} One of the constant defined by {@link MoveType}.
+	 */
+	myself.MoveDescriptor.prototype.type = function() {
+		return this._type;
+	};
+
+
+	/**
+	 * Start square of the move.
+	 *
+	 * @returns {string}
+	 */
+	myself.MoveDescriptor.prototype.from = function() {
+		return squareToString(this._from);
+	};
+
+
+	/**
+	 * Destination square of the move.
+	 *
+	 * @returns {string}
+	 */
+	myself.MoveDescriptor.prototype.to = function() {
+		return squareToString(this._to);
+	};
+
+
+	/**
+	 * Start square of the rook in case of a castling move.
+	 *
+	 * @returns {string} `'-'` if not a castling move.
+	 */
+	myself.MoveDescriptor.prototype.rookFrom = function() {
+		return this._type===myself.MoveType.CASTLING ? squareToString(this._rookFrom) : '-';
+	};
+
+
+	/**
+	 * Destination square of the rook in case of a castling move.
+	 *
+	 * @returns {string} `'-'` if not a castling move.
+	 */
+	myself.MoveDescriptor.prototype.rookTo = function() {
+		return this._type===myself.MoveType.CASTLING ? squareToString(this._rookTo) : '-';
+	};
+
+
+	/**
+	 * Square where the taken pawn lies in case of a "en-passant" move.
+	 *
+	 * @returns {string} `'-'` if not a "en-passant" move.
+	 */
+	myself.MoveDescriptor.prototype.enPassantSquare = function() {
+		return this._type===myself.MoveType.EN_PASSANT ? squareToString(this._enPassantSquare) : '-';
+	};
+
+
+	/**
+	 * Promoted piece in case of a promotion move.
+	 *
+	 * @returns {string} `'-'` if not a promotion move.
+	 */
+	myself.MoveDescriptor.prototype.promotion = function() {
+		return this._type===myself.MoveType.PROMOTION ? PIECE_SYMBOL[Math.floor(this._promotion / 2)] : '-';
+	};
 
 
 
