@@ -392,7 +392,7 @@
 			}
 			test('Square color', function() { return squareColors(false); }, squareColors(true));
 
-			// Return the list of legal moves for the given position
+			// Look for legal moves in a given position
 			function legalMoves(position) {
 				var res = '' + position.isLegal();
 				for(var cf=0; cf<8; ++cf) {
@@ -408,6 +408,21 @@
 							}
 						}
 					}
+				}
+				return res;
+			}
+
+			// Generate the legal moves in a given position
+			function generateMoves(position) {
+				var res = '' + position.isLegal();
+				var descriptors = position.moves();
+				var moves = [];
+				for(var i=0; i<descriptors.length; ++i) {
+					moves.push(descriptors[i].toString());
+				}
+				moves.sort();
+				for(var i=0; i<moves.length; ++i) {
+					res += '/' + moves[i];
 				}
 				return res;
 			}
@@ -472,10 +487,10 @@
 
 			// Move verification
 			testError('Move legality bad-format 1', function() { var p=new Chess2.Position(); return p.isMoveLegal('abcd'); }, checkIllegalArgument('Position#isMoveLegal()'));
-			test('Move legality 0a', function() { var p=new Chess2.Position(); return legalMoves(p); }, moves0a);
+			test('Move legality 0a', function() { var p=new Chess2.Position(          ); return legalMoves(p); }, moves0a);
 			test('Move legality 0b', function() { var p=new Chess2.Position(customFEN2); return legalMoves(p); }, moves0b);
-			test('Move legality 0c', function() { var p=new Chess2.Position('empty'); return legalMoves(p); }, moves0c);
-			test('Move legality 1' , function() { var p=new Chess2.Position(position1); return legalMoves(p); }, moves1);
+			test('Move legality 0c', function() { var p=new Chess2.Position('empty'   ); return legalMoves(p); }, moves0c);
+			test('Move legality 1' , function() { var p=new Chess2.Position(position1 ); return legalMoves(p); }, moves1 );
 			test('Move legality 2a', function() { var p=new Chess2.Position(position2a); return legalMoves(p); }, moves2a);
 			test('Move legality 2b', function() { var p=new Chess2.Position(position2b); return legalMoves(p); }, moves2b);
 			test('Move legality 2c', function() { var p=new Chess2.Position(position2c); return legalMoves(p); }, moves2c);
@@ -500,8 +515,40 @@
 			test('Move legality 6d', function() { var p=new Chess2.Position(position6d); return legalMoves(p); }, moves6d);
 			test('Move legality 6e', function() { var p=new Chess2.Position(position6e); return legalMoves(p); }, moves6e);
 			test('Move legality 6f', function() { var p=new Chess2.Position(position6f); return legalMoves(p); }, moves6f);
-			test('Move legality 7a', function() { var p=new Chess2.Position(position7a); return legalMoves(p); }, moves7);
-			test('Move legality 7b', function() { var p=new Chess2.Position(position7b); return legalMoves(p); }, moves7);
+			test('Move legality 7a', function() { var p=new Chess2.Position(position7a); return legalMoves(p); }, moves7 );
+			test('Move legality 7b', function() { var p=new Chess2.Position(position7b); return legalMoves(p); }, moves7 );
+
+			// Move generation
+			test('Move generation 0a', function() { var p=new Chess2.Position(          ); return generateMoves(p); }, moves0a);
+			test('Move generation 0b', function() { var p=new Chess2.Position(customFEN2); return generateMoves(p); }, moves0b);
+			test('Move generation 0c', function() { var p=new Chess2.Position('empty'   ); return generateMoves(p); }, moves0c);
+			test('Move generation 1' , function() { var p=new Chess2.Position(position1 ); return generateMoves(p); }, moves1 );
+			test('Move generation 2a', function() { var p=new Chess2.Position(position2a); return generateMoves(p); }, moves2a);
+			test('Move generation 2b', function() { var p=new Chess2.Position(position2b); return generateMoves(p); }, moves2b);
+			test('Move generation 2c', function() { var p=new Chess2.Position(position2c); return generateMoves(p); }, moves2c);
+			test('Move generation 2d', function() { var p=new Chess2.Position(position2d); return generateMoves(p); }, moves2d);
+			test('Move generation 2e', function() { var p=new Chess2.Position(position2e); return generateMoves(p); }, moves2e);
+			test('Move generation 2f', function() { var p=new Chess2.Position(position2f); return generateMoves(p); }, moves2f);
+			test('Move generation 3a', function() { var p=new Chess2.Position(position3a); return generateMoves(p); }, moves3a);
+			test('Move generation 3b', function() { var p=new Chess2.Position(position3b); return generateMoves(p); }, moves3b);
+			test('Move generation 3c', function() { var p=new Chess2.Position(position3c); return generateMoves(p); }, moves3c);
+			test('Move generation 4a', function() { var p=new Chess2.Position(position4a); return generateMoves(p); }, moves4a);
+			test('Move generation 4b', function() { var p=new Chess2.Position(position4b); return generateMoves(p); }, moves4b);
+			test('Move generation 4c', function() { var p=new Chess2.Position(position4c); return generateMoves(p); }, moves4c);
+			test('Move generation 5a', function() { var p=new Chess2.Position(position5a); return generateMoves(p); }, moves5a);
+			test('Move generation 5b', function() { var p=new Chess2.Position(position5b); return generateMoves(p); }, moves5b);
+			test('Move generation 5c', function() { var p=new Chess2.Position(position5c); return generateMoves(p); }, moves5c);
+			test('Move generation 5d', function() { var p=new Chess2.Position(position5d); return generateMoves(p); }, moves5d);
+			test('Move generation 5e', function() { var p=new Chess2.Position(position5e); return generateMoves(p); }, moves5e);
+			test('Move generation 5f', function() { var p=new Chess2.Position(position5f); return generateMoves(p); }, moves5f);
+			test('Move generation 6a', function() { var p=new Chess2.Position(position6a); return generateMoves(p); }, moves6a);
+			test('Move generation 6b', function() { var p=new Chess2.Position(position6b); return generateMoves(p); }, moves6b);
+			test('Move generation 6c', function() { var p=new Chess2.Position(position6c); return generateMoves(p); }, moves6c);
+			test('Move generation 6d', function() { var p=new Chess2.Position(position6d); return generateMoves(p); }, moves6d);
+			test('Move generation 6e', function() { var p=new Chess2.Position(position6e); return generateMoves(p); }, moves6e);
+			test('Move generation 6f', function() { var p=new Chess2.Position(position6f); return generateMoves(p); }, moves6f);
+			test('Move generation 7a', function() { var p=new Chess2.Position(position7a); return generateMoves(p); }, moves7 );
+			test('Move generation 7b', function() { var p=new Chess2.Position(position7b); return generateMoves(p); }, moves7 );
 
 			function nullMoveInfo(p) {
 				return p.isLegal() + ':' + p.isNullMoveLegal();
