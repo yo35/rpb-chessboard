@@ -1607,7 +1607,7 @@ var Chess2 = {};
 	 * @returns {boolean} `true` if the move has been played and if it is legal, `false` otherwise.
 	 */
 	myself.Position.prototype.play = function(move) {
-		var descriptor = this.isMoveLegal(move);
+		var descriptor = (move instanceof myself.MoveDescriptor) ? move : this.isMoveLegal(move);
 		if(descriptor) {
 
 			// Update the board
