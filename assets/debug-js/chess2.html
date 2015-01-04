@@ -427,6 +427,16 @@
 				return res;
 			}
 
+			// Look for check/checkmate/stalemate
+			function ccs(position) {
+				if(position.isLegal()) {
+					return position.isCheck() + ':' + position.isCheckmate() + ':' + position.isStalemate() + ':' + position.hasMove();
+				}
+				else {
+					return '';
+				}
+			}
+
 			var position1  = 'rnbqkbnr/pppp1ppp/8/1B2p3/4P3/8/PPPP1PPP/RNBQK1NR b KQkq - 0 1';
 			var position2a = 'r3k2r/8/8/5pP1/1pP5/8/8/R3K2R w KQ f6 0 1';
 			var position2b = 'r3k2r/8/8/5pP1/1pP5/8/8/R3K2R w K - 0 1';
@@ -484,6 +494,12 @@
 			var moves6e = 'true/a8b8/a8c8/a8d8/e8c8/e8d7/e8d8/e8e7/e8f8/h8f8/h8g8';
 			var moves6f = 'false';
 			var moves7  = 'true';
+
+			var ccsCheckmate = 'true:true:false:false';
+			var ccsCheck     = 'true:false:false:true';
+			var ccsStalemate = 'false:false:true:false';
+			var ccsNormal    = 'false:false:false:true';
+			var ccsIllegal   = '';
 
 			// Move verification
 			testError('Move legality bad-format 1', function() { var p=new Chess2.Position(); return p.isMoveLegal('abcd'); }, checkIllegalArgument('Position#isMoveLegal()'));
@@ -549,6 +565,38 @@
 			test('Move generation 6f', function() { var p=new Chess2.Position(position6f); return generateMoves(p); }, moves6f);
 			test('Move generation 7a', function() { var p=new Chess2.Position(position7a); return generateMoves(p); }, moves7 );
 			test('Move generation 7b', function() { var p=new Chess2.Position(position7b); return generateMoves(p); }, moves7 );
+
+			// Check/Checkmate/Stalemate
+			test('Check/Checkmate/Stalemate 0a', function() { var p=new Chess2.Position(          ); return ccs(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 0b', function() { var p=new Chess2.Position(customFEN2); return ccs(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 0c', function() { var p=new Chess2.Position('empty'   ); return ccs(p); }, ccsIllegal  );
+			test('Check/Checkmate/Stalemate 1' , function() { var p=new Chess2.Position(position1 ); return ccs(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 2a', function() { var p=new Chess2.Position(position2a); return ccs(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 2b', function() { var p=new Chess2.Position(position2b); return ccs(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 2c', function() { var p=new Chess2.Position(position2c); return ccs(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 2d', function() { var p=new Chess2.Position(position2d); return ccs(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 2e', function() { var p=new Chess2.Position(position2e); return ccs(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 2f', function() { var p=new Chess2.Position(position2f); return ccs(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 3a', function() { var p=new Chess2.Position(position3a); return ccs(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 3b', function() { var p=new Chess2.Position(position3b); return ccs(p); }, ccsCheck    );
+			test('Check/Checkmate/Stalemate 3c', function() { var p=new Chess2.Position(position3c); return ccs(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 4a', function() { var p=new Chess2.Position(position4a); return ccs(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 4b', function() { var p=new Chess2.Position(position4b); return ccs(p); }, ccsCheck    );
+			test('Check/Checkmate/Stalemate 4c', function() { var p=new Chess2.Position(position4c); return ccs(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 5a', function() { var p=new Chess2.Position(position5a); return ccs(p); }, ccsCheck    );
+			test('Check/Checkmate/Stalemate 5b', function() { var p=new Chess2.Position(position5b); return ccs(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 5c', function() { var p=new Chess2.Position(position5c); return ccs(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 5d', function() { var p=new Chess2.Position(position5d); return ccs(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 5e', function() { var p=new Chess2.Position(position5e); return ccs(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 5f', function() { var p=new Chess2.Position(position5f); return ccs(p); }, ccsIllegal  );
+			test('Check/Checkmate/Stalemate 6a', function() { var p=new Chess2.Position(position6a); return ccs(p); }, ccsCheck    );
+			test('Check/Checkmate/Stalemate 6b', function() { var p=new Chess2.Position(position6b); return ccs(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 6c', function() { var p=new Chess2.Position(position6c); return ccs(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 6d', function() { var p=new Chess2.Position(position6d); return ccs(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 6e', function() { var p=new Chess2.Position(position6e); return ccs(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 6f', function() { var p=new Chess2.Position(position6f); return ccs(p); }, ccsIllegal  );
+			test('Check/Checkmate/Stalemate 7a', function() { var p=new Chess2.Position(position7a); return ccs(p); }, ccsStalemate);
+			test('Check/Checkmate/Stalemate 7b', function() { var p=new Chess2.Position(position7b); return ccs(p); }, ccsCheckmate);
 
 			function nullMoveInfo(p) {
 				return p.isLegal() + ':' + p.isNullMoveLegal();

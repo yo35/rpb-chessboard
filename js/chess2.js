@@ -1222,7 +1222,7 @@ var Chess2 = {};
 	 * @returns {boolean}
 	 */
 	myself.Position.prototype.isCheckmate = function() {
-		return this.isLegal() && !this.hasLegalMoves() && isAttacked(this, this._king[this._turn], 1-this._turn);
+		return this.isLegal() && !this.hasMove() && isAttacked(this, this._king[this._turn], 1-this._turn);
 	};
 
 
@@ -1232,7 +1232,7 @@ var Chess2 = {};
 	 * @returns {boolean}
 	 */
 	myself.Position.prototype.isStalemate = function() {
-		return this.isLegal() && !this.hasLegalMoves() && !isAttacked(this, this._king[this._turn], 1-this._turn);
+		return this.isLegal() && !this.hasMove() && !isAttacked(this, this._king[this._turn], 1-this._turn);
 	};
 
 
@@ -1260,7 +1260,7 @@ var Chess2 = {};
 	 *
 	 * @returns {boolean}
 	 */
-	myself.Position.prototype.hasLegalMoves = function() {
+	myself.Position.prototype.hasMove = function() {
 		function MoveFound() {}
 		try {
 			generateMoves(this, function(descriptor) {
