@@ -1491,7 +1491,7 @@ var Chess2 = {};
 		}
 
 		// Steps (7) to (9) are delegated to `isKingSafeAfterMove`.
-		var descriptor = isKingSafeAfterMove(position, from, to, promotion, enPassantSquare, updateEnPassant);
+		var descriptor = isKingSafeAfterMove(position, from, to, enPassantSquare, updateEnPassant);
 		return descriptor && promotion>=0 ? new myself.MoveDescriptor(descriptor, promotion) : descriptor;
 	}
 
@@ -1623,8 +1623,8 @@ var Chess2 = {};
 			this._board[descriptor._to] = cp;
 
 			// Update the flags
-			this._castleRights[WHITE] /* jshint bitwise:false */ &= descriptor._udpateCastleRights[WHITE] /* jshint bitwise:true */;
-			this._castleRights[BLACK] /* jshint bitwise:false */ &= descriptor._udpateCastleRights[BLACK] /* jshint bitwise:true */;
+			this._castleRights[WHITE] /* jshint bitwise:false */ &= descriptor._updateCastleRights[WHITE] /* jshint bitwise:true */;
+			this._castleRights[BLACK] /* jshint bitwise:false */ &= descriptor._updateCastleRights[BLACK] /* jshint bitwise:true */;
 			this._enPassant = descriptor._updateEnPassant;
 			this._king[this._turn] = descriptor._updateKing;
 
