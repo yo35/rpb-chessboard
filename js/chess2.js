@@ -291,7 +291,7 @@ var Chess2 = {};
 	 * Represent a chess position, i.e. the state of a 64-square chessboard with a few additional
 	 * information (who is about to play, castling rights, en-passant rights).
 	 *
-	 * @param {string} [fen = 'start'] Either `'start'`, `'empty'`, or a FEN string representing chess position.
+	 * @param {string|Position} [fen = 'start'] Either `'start'`, `'empty'`, an existing position, or a FEN string representing chess position.
 	 * @throws InvalidFEN If the input parameter is neither a correctly formatted FEN string nor `'start'` or `'empty'`.
 	 */
 	myself.Position = function(fen) {
@@ -300,6 +300,14 @@ var Chess2 = {};
 		}
 		else if(fen === 'empty') {
 			this.clear();
+		}
+		else if(fen instanceof myself.Position) {
+			this._board        = fen._board.slice();
+			this._turn         = fen._turn;
+			this._castleRights = fen._castleRights.slice();
+			this._enPassant    = fen._enPassant;
+			this._legal        = fen._legal;
+			this._king         = fen._king.slice();
 		}
 		else {
 			setFEN(this, fen, false);

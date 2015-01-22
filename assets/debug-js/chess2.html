@@ -250,6 +250,12 @@
 			test('Constructor \'empty\''  , function() { return (new Chess2.Position('empty')).fen(); }, emptyFEN);
 			test('Constructor FEN-based 1', function() { return (new Chess2.Position(customFEN1)).fen(optsFEN1); }, customFEN1);
 			test('Constructor FEN-based 2', function() { return (new Chess2.Position(customFEN2)).fen(optsFEN2); }, customFEN2);
+			test('Copy constructor', function() {
+				var p1 = new Chess2.Position(customFEN1);
+				var p2 = new Chess2.Position(p1);
+				p1.clear();
+				return p1.fen() + '|' + p2.fen(optsFEN1);
+			}, emptyFEN + '|' + customFEN1);
 
 			var customFEN3  = 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b Kq e3 0 1';
 			var customFEN3a = 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b qK e3 0 1';
