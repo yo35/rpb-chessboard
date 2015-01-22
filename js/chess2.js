@@ -310,8 +310,8 @@ var Chess2 = {};
 	/**
 	 * Set the position to the empty state.
 	 */
-	myself.Position.prototype.clear = function()
-	{
+	myself.Position.prototype.clear = function() {
+
 		// Board state
 		this._board = [
 			EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID,
@@ -338,8 +338,8 @@ var Chess2 = {};
 	/**
 	 * Set the position to the starting state.
 	 */
-	myself.Position.prototype.reset = function()
-	{
+	myself.Position.prototype.reset = function() {
+
 		// Board state
 		this._board = [
 			WR   , WN   , WB   , WQ   , WK   , WB   , WN   , WR   , INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID,
@@ -369,8 +369,8 @@ var Chess2 = {};
 	 *
 	 * @returns {string} Human-readable representation of the position.
 	 */
-	myself.Position.prototype.ascii = function()
-	{
+	myself.Position.prototype.ascii = function() {
+
 		// Board scanning
 		var res = '+---+---+---+---+---+---+---+---+\n';
 		for(var r=7; r>=0; --r) {
@@ -397,8 +397,7 @@ var Chess2 = {};
 	 *
 	 * `fen(string [, boolean])`: parse the given FEN string and set the position accordingly (setter behavior).
 	 */
-	myself.Position.prototype.fen = function()
-	{
+	myself.Position.prototype.fen = function() {
 		if(arguments.length === 0) {
 			return getFEN(this, 0, 1);
 		}
@@ -1673,6 +1672,57 @@ var Chess2 = {};
 			return false;
 		}
 	};
+
+
+
+	// ---------------------------------------------------------------------------
+	// Notation
+	// ---------------------------------------------------------------------------
+
+
+	/**
+	 * Convert the given move descriptor to standard algebraic notation.
+	 *
+	 * @param {Position} position
+	 * @param {MoveDescriptor} descriptor
+	 * @returns {string}
+	 */
+	function getNotation(position, descriptor) {
+		var result = '';
+		var fromContent = position._board[descriptor._from];
+
+		// Castling moves
+		if(descriptor._type === myself.MoveType.CASTLING) {
+			result = descriptor._from < descriptor._to ? 'O-O-O' : 'O-O';
+		}
+
+		// Pawn moves
+		else if(fromContent === PAWN*2 + position._turn) {
+			if(position._board[descriptor._to] >= 0 || descriptor._type === myself.MoveType.EN_PASSANT) {
+				result += COLUMN_SYMBOL[descriptor._from % 16] + 'x';
+			}
+			result += squareToString(descriptor._to);
+			if(descriptor._type === myself.MoveType.PROMOTION) {
+				result += '=' + PIECE_SYMBOL[descriptor._promotion].toUpperCase();
+			}
+		}
+
+		// Non-pawn move
+		else {
+			result += PIECE_SYMBOL[Math.floor(fromContent / 2)].toUpperCase();
+			// TODO: disambiguation
+			if(position._board[descriptor._to] >= 0) {
+				result += 'x';
+			}
+			result += squareToString(descriptor._to);
+		}
+
+		// Check/checkmate detection
+		// TODO
+
+		// Result
+		return result;
+	}
 
 
 
