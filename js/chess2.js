@@ -1085,7 +1085,7 @@ var Chess2 = {};
 			this._to                 = arguments[0]._to;
 			this._updateCastleRights = arguments[0]._updateCastleRights;
 			this._updateEnPassant    = arguments[0]._updateEnPassant;
-			this._updateKing         = arguments[0]._updateKing;
+			this._isKingMove         = arguments[0]._isKingMove;
 			this._promotion          = arguments[1];
 		}
 		else {
@@ -1094,7 +1094,7 @@ var Chess2 = {};
 			this._to                 = arguments[2];
 			this._updateCastleRights = arguments[3];
 			this._updateEnPassant    = arguments[4];
-			this._updateKing         = arguments[5];
+			this._isKingMove         = arguments[5];
 
 			switch(this._type) {
 
@@ -1184,6 +1184,14 @@ var Chess2 = {};
 	 */
 	myself.MoveDescriptor.prototype.promotion = function() {
 		return this._type===myself.MoveType.PROMOTION ? PIECE_SYMBOL[this._promotion] : '-';
+	};
+
+
+	/**
+	 * Whether the move is a king move or not. Return `true` for castling move too.
+	 */
+	myself.MoveDescriptor.prototype.isKingMove = function() {
+		return this._isKingMove;
 	};
 
 
@@ -1545,15 +1553,12 @@ var Chess2 = {};
 			if(from >= 112) { updateCastleRights[BLACK] /* jshint bitwise:false */ &= ~(1 << (from%16)); /* jshint bitwise:true */ }
 			if(to   >= 112) { updateCastleRights[BLACK] /* jshint bitwise:false */ &= ~(1 << (to  %16)); /* jshint bitwise:true */ }
 
-			// New king square
-			var updateKing = movingPiece===KING ? to : position._king[position._turn];
-
 			// Generate the move descriptor
 			if(enPassantSquare >= 0) {
-				return new myself.MoveDescriptor(myself.MoveType.EN_PASSANT, from, to, updateCastleRights, updateEnPassant, updateKing, enPassantSquare);
+				return new myself.MoveDescriptor(myself.MoveType.EN_PASSANT, from, to, updateCastleRights, updateEnPassant, movingPiece===KING, enPassantSquare);
 			}
 			else {
-				return new myself.MoveDescriptor(myself.MoveType.NORMAL, from, to, updateCastleRights, updateEnPassant, updateKing);
+				return new myself.MoveDescriptor(myself.MoveType.NORMAL, from, to, updateCastleRights, updateEnPassant, movingPiece===KING);
 			}
 		}
 	}
@@ -1596,7 +1601,7 @@ var Chess2 = {};
 		// The move is legal -> generate the move descriptor.
 		var updateCastleRights = [0xff, 0xff];
 		updateCastleRights[position._turn] = 0;
-		return new myself.MoveDescriptor(myself.MoveType.CASTLING, from, to, updateCastleRights, -1, to, rookFrom, rookTo);
+		return new myself.MoveDescriptor(myself.MoveType.CASTLING, from, to, updateCastleRights, -1, true, rookFrom, rookTo);
 	}
 
 
@@ -1626,7 +1631,9 @@ var Chess2 = {};
 			this._castleRights[WHITE] /* jshint bitwise:false */ &= descriptor._updateCastleRights[WHITE] /* jshint bitwise:true */;
 			this._castleRights[BLACK] /* jshint bitwise:false */ &= descriptor._updateCastleRights[BLACK] /* jshint bitwise:true */;
 			this._enPassant = descriptor._updateEnPassant;
-			this._king[this._turn] = descriptor._updateKing;
+			if(descriptor._isKingMove) {
+				this._king[this._turn] = descriptor._to;
+			}
 
 			// Toggle the turn flag
 			this._turn = 1-this._turn;
