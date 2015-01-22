@@ -1726,7 +1726,14 @@ var Chess2 = {};
 		}
 
 		// Check/checkmate detection
-		// TODO
+		var position2 = new myself.Position(position);
+		position2.play(descriptor);
+		if(position2.isCheck()) {
+			result += '+';
+		}
+		else if(position2.isCheckmate()) {
+			result += '#';
+		}
 
 		// Result
 		return result;
