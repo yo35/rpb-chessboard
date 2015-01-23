@@ -871,6 +871,7 @@ var Chess2 = {};
 	 *
 	 * This method can be used even if the position is not legal.
 	 *
+	 * @param {Position} position
 	 * @param {number} square Square index.
 	 * @param {number} attacker Colored piece constant.
 	 * @returns {boolean}
@@ -908,6 +909,7 @@ var Chess2 = {};
 	 *
 	 * This method can be used even if the position is not legal.
 	 *
+	 * @param {Position} position
 	 * @param {number} square Square index.
 	 * @param {number} attackerColor Color constant.
 	 * @returns {boolean}
@@ -1318,9 +1320,9 @@ var Chess2 = {};
 	 * Generate all the legal moves of the given position.
 	 *
 	 * @param {Position} position
-	 * @param {boolean} processDescriptor Function called when a legal move is found.
+	 * @param {boolean} fun Function called when a legal move is found.
 	 */
-	function generateMoves(position, processDescriptor) {
+	function generateMoves(position, fun) {
 
 		// Ensure that the position is legal.
 		if(!position.isLegal()) { return; }
@@ -1345,10 +1347,10 @@ var Chess2 = {};
 					if((to /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */)===0) {
 						var toContent = position._board[to];
 						if(toContent >= 0 && toContent%2 !== position._turn) { // regular capturing move
-							processDescriptor(isKingSafeAfterMove(position, from, to, -1, -1), to<8 || to>=112);
+							fun(isKingSafeAfterMove(position, from, to, -1, -1), to<8 || to>=112);
 						}
 						else if(toContent < 0 && to === (5-position._turn*3)*16 + position._enPassant) { // en-passant move
-							processDescriptor(isKingSafeAfterMove(position, from, to, (4-position._turn)*16 + position._enPassant, -1), false);
+							fun(isKingSafeAfterMove(position, from, to, (4-position._turn)*16 + position._enPassant, -1), false);
 						}
 					}
 				}
@@ -1357,14 +1359,14 @@ var Chess2 = {};
 				var moveDirection = 16 - position._turn*32;
 				var to = from + moveDirection;
 				if(position._board[to] < 0) {
-					processDescriptor(isKingSafeAfterMove(position, from, to, -1, -1), to<8 || to>=112);
+					fun(isKingSafeAfterMove(position, from, to, -1, -1), to<8 || to>=112);
 
 					// 2-square pawn move
 					var firstSquareOfRow = (1 + position._turn*5) * 16;
 					if(from>=firstSquareOfRow && from<firstSquareOfRow+8) {
 						to += moveDirection;
 						if(position._board[to] < 0) {
-							processDescriptor(isKingSafeAfterMove(position, from, to, -1, from % 8), false);
+							fun(isKingSafeAfterMove(position, from, to, -1, from % 8), false);
 						}
 					}
 				}
@@ -1377,7 +1379,7 @@ var Chess2 = {};
 					for(var to=from+directions[i]; (to /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */)===0; to+=directions[i]) {
 						var toContent = position._board[to];
 						if(toContent < 0 || toContent%2 !== position._turn) {
-							processDescriptor(isKingSafeAfterMove(position, from, to, -1, -1), false);
+							fun(isKingSafeAfterMove(position, from, to, -1, -1), false);
 						}
 						if(toContent >= 0) { break; }
 					}
@@ -1392,7 +1394,7 @@ var Chess2 = {};
 					if((to /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */)===0) {
 						var toContent = position._board[to];
 						if(toContent < 0 || toContent%2 !== position._turn) {
-							processDescriptor(isKingSafeAfterMove(position, from, to, -1, -1), false);
+							fun(isKingSafeAfterMove(position, from, to, -1, -1), false);
 						}
 					}
 				}
@@ -1402,7 +1404,7 @@ var Chess2 = {};
 			if(movingPiece === KING && position._castleRights[position._turn] !== 0) {
 				var to = [from-2, from+2];
 				for(var i=0; i<to.length; ++i) {
-					processDescriptor(isCastlingLegal(position, from, to[i]), false);
+					fun(isCastlingLegal(position, from, to[i]), false);
 				}
 			}
 		}
@@ -1696,48 +1698,49 @@ var Chess2 = {};
 	 * @returns {string}
 	 */
 	function getNotation(position, descriptor) {
-		var result = '';
+		var res = '';
 		var fromContent = position._board[descriptor._from];
 
 		// Castling moves
 		if(descriptor._type === myself.MoveType.CASTLING) {
-			result = descriptor._from < descriptor._to ? 'O-O-O' : 'O-O';
+			res = descriptor._from < descriptor._to ? 'O-O-O' : 'O-O';
 		}
 
 		// Pawn moves
 		else if(fromContent === PAWN*2 + position._turn) {
 			if(position._board[descriptor._to] >= 0 || descriptor._type === myself.MoveType.EN_PASSANT) {
-				result += COLUMN_SYMBOL[descriptor._from % 16] + 'x';
+				res += COLUMN_SYMBOL[descriptor._from % 16] + 'x';
 			}
-			result += squareToString(descriptor._to);
+			res += squareToString(descriptor._to);
 			if(descriptor._type === myself.MoveType.PROMOTION) {
-				result += '=' + PIECE_SYMBOL[descriptor._promotion].toUpperCase();
+				res += '=' + PIECE_SYMBOL[descriptor._promotion].toUpperCase();
 			}
 		}
 
 		// Non-pawn move
 		else {
-			result += PIECE_SYMBOL[Math.floor(fromContent / 2)].toUpperCase();
+			res += PIECE_SYMBOL[Math.floor(fromContent / 2)].toUpperCase();
 			// TODO: disambiguation
 			if(position._board[descriptor._to] >= 0) {
-				result += 'x';
+				res += 'x';
 			}
-			result += squareToString(descriptor._to);
+			res += squareToString(descriptor._to);
 		}
 
 		// Check/checkmate detection
 		var position2 = new myself.Position(position);
 		position2.play(descriptor);
 		if(position2.isCheck()) {
-			result += '+';
+			res += '+';
 		}
 		else if(position2.isCheckmate()) {
-			result += '#';
+			res += '#';
 		}
 
 		// Result
-		return result;
+		return res;
 	}
+
 
 
 
