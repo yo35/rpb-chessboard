@@ -1689,7 +1689,6 @@ var Chess2 = {};
 	// Notation
 	// ---------------------------------------------------------------------------
 
-
 	/**
 	 * Convert the given move descriptor to standard algebraic notation.
 	 *
@@ -1699,7 +1698,6 @@ var Chess2 = {};
 	 */
 	function getNotation(position, descriptor) {
 		var res = '';
-		var fromContent = position._board[descriptor._from];
 
 		// Castling moves
 		if(descriptor._type === myself.MoveType.CASTLING) {
@@ -1707,7 +1705,7 @@ var Chess2 = {};
 		}
 
 		// Pawn moves
-		else if(fromContent === PAWN*2 + position._turn) {
+		else if(position._board[descriptor._from] === PAWN*2 + position._turn) {
 			if(position._board[descriptor._to] >= 0 || descriptor._type === myself.MoveType.EN_PASSANT) {
 				res += COLUMN_SYMBOL[descriptor._from % 16] + 'x';
 			}
@@ -1719,8 +1717,8 @@ var Chess2 = {};
 
 		// Non-pawn move
 		else {
-			res += PIECE_SYMBOL[Math.floor(fromContent / 2)].toUpperCase();
-			// TODO: disambiguation
+			res += PIECE_SYMBOL[Math.floor(position._board[descriptor._from] / 2)].toUpperCase();
+			res += getDisambiguationSymbol(position, descriptor._from, descriptor._to);
 			if(position._board[descriptor._to] >= 0) {
 				res += 'x';
 			}
@@ -1738,6 +1736,85 @@ var Chess2 = {};
 		}
 
 		// Result
+		return res;
+	}
+
+
+	/**
+	 * Return the disambiguation symbol to use for a move from `from` to `to`.
+	 *
+	 * @param {Position} position
+	 * @param {number} from
+	 * @param {number} to
+	 * @returns {string}
+	 */
+	function getDisambiguationSymbol(position, from, to) {
+		var attackers = getAttackers(position, to, position._board[from]);
+
+		// Disambiguation is necessary if there is more than 1 attacker.
+		if(attackers.length >= 2) {
+			var foundOnSameRow    = false;
+			var foundOnSameColumn = false;
+			var rowFrom    = Math.floor(from / 16);
+			var columnFrom = from % 16;
+			for(var i=0; i<attackers.length; ++i) {
+				var sq = attackers[i];
+				if(sq === from) { continue; }
+				if(isKingSafeAfterMove(position, sq, to, -1, -1)) {
+					if(rowFrom === Math.floor(sq / 16)) { foundOnSameRow = true; }
+					if(columnFrom === sq % 16) { foundOnSameColumn = true; }
+				}
+			}
+			if(foundOnSameColumn) {
+				return foundOnSameRow ? squareToString(from) : ROW_SYMBOL[rowFrom];
+			}
+			else {
+				return COLUMN_SYMBOL[columnFrom];
+			}
+		}
+
+		// Disambiguation is not necessary!
+		else {
+			return '';
+		}
+	}
+
+
+	/**
+	 * Return the squares from which a given type of piece attacks a given square.
+	 *
+	 * This method can be used even if the position is not legal.
+	 *
+	 * @param {Position} position
+	 * @param {number} square Square index.
+	 * @param {number} attacker Colored piece constant.
+	 * @returns {number[]}
+	 */
+	function getAttackers(position, square, attacker) {
+		var res = [];
+		var directions = ATTACK_DIRECTIONS[attacker];
+		if(isSliding(attacker)) {
+			for(var i=0; i<directions.length; ++i) {
+				var sq = square;
+				while(true) {
+					sq -= directions[i];
+					if((sq /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */)===0) {
+						var cp = position._board[sq];
+						if(cp === attacker) { res.push(sq); }
+						else if(cp === EMPTY) { continue; }
+					}
+					break;
+				}
+			}
+		}
+		else {
+			for(var i=0; i<directions.length; ++i) {
+				var sq = square - directions[i];
+				if((sq /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */)===0 && position._board[sq]===attacker) {
+					res.push(sq);
+				}
+			}
+		}
 		return res;
 	}
 
