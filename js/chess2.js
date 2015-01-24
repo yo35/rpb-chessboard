@@ -1690,6 +1690,19 @@ var Chess2 = {};
 	// ---------------------------------------------------------------------------
 
 	/**
+	 * `notation(moveDescriptor)`: return the standard algebraic notation corresponding to the given move descriptor.
+	 */
+	myself.Position.prototype.notation = function() {
+		if(arguments.length===1 && arguments[0] instanceof myself.MoveDescriptor) {
+			return getNotation(this, arguments[0]);
+		}
+		else {
+			throw new myself.exceptions.IllegalArgument('Position#notation()');
+		}
+	};
+
+
+	/**
 	 * Convert the given move descriptor to standard algebraic notation.
 	 *
 	 * @param {Position} position
@@ -1701,7 +1714,7 @@ var Chess2 = {};
 
 		// Castling moves
 		if(descriptor._type === myself.MoveType.CASTLING) {
-			res = descriptor._from < descriptor._to ? 'O-O-O' : 'O-O';
+			res = descriptor._from < descriptor._to ? 'O-O' : 'O-O-O';
 		}
 
 		// Pawn moves
@@ -1729,10 +1742,7 @@ var Chess2 = {};
 		var position2 = new myself.Position(position);
 		position2.play(descriptor);
 		if(position2.isCheck()) {
-			res += '+';
-		}
-		else if(position2.isCheckmate()) {
-			res += '#';
+			res += position2.hasMove() ? '+' : '#';
 		}
 
 		// Result
@@ -1753,6 +1763,7 @@ var Chess2 = {};
 
 		// Disambiguation is necessary if there is more than 1 attacker.
 		if(attackers.length >= 2) {
+			var foundNotPined     = false;
 			var foundOnSameRow    = false;
 			var foundOnSameColumn = false;
 			var rowFrom    = Math.floor(from / 16);
@@ -1761,6 +1772,7 @@ var Chess2 = {};
 				var sq = attackers[i];
 				if(sq === from) { continue; }
 				if(isKingSafeAfterMove(position, sq, to, -1, -1)) {
+					foundNotPined = true;
 					if(rowFrom === Math.floor(sq / 16)) { foundOnSameRow = true; }
 					if(columnFrom === sq % 16) { foundOnSameColumn = true; }
 				}
@@ -1769,7 +1781,7 @@ var Chess2 = {};
 				return foundOnSameRow ? squareToString(from) : ROW_SYMBOL[rowFrom];
 			}
 			else {
-				return COLUMN_SYMBOL[columnFrom];
+				return foundNotPined ? COLUMN_SYMBOL[columnFrom] : '';
 			}
 		}
 
