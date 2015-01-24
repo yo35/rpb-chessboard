@@ -1094,10 +1094,11 @@ var Chess2 = {};
 	 * @const
 	 */
 	myself.MoveType = {
-		NORMAL    : 0,
-		CASTLING  : 1,
-		EN_PASSANT: 2,
-		PROMOTION : 3
+		NORMAL_MOVE         : 0,
+		CASTLING_MOVE       : 1,
+		EN_PASSANT_CAPTURE  : 2,
+		TWO_SQUARE_PAWN_MOVE: 3,
+		PROMOTION           : 4
 	};
 
 
@@ -1113,36 +1114,39 @@ var Chess2 = {};
 	 */
 	myself.MoveDescriptor = function() {
 		if(arguments[0] instanceof myself.MoveDescriptor) { // Promotion -> MoveDescriptor(descriptor, promotion)
-			this._type               = myself.MoveType.PROMOTION;
-			this._from               = arguments[0]._from;
-			this._to                 = arguments[0]._to;
-			this._updateCastleRights = arguments[0]._updateCastleRights;
-			this._updateEnPassant    = arguments[0]._updateEnPassant;
-			this._isKingMove         = arguments[0]._isKingMove;
-			this._promotion          = arguments[1];
+			this._type        = myself.MoveType.PROMOTION;
+			this._movingPiece = arguments[0]._movingPiece;
+			this._isCapture   = arguments[0]._isCapture  ;
+			this._from        = arguments[0]._from       ;
+			this._to          = arguments[0]._to         ;
+			this._promotion   = arguments[1];
 		}
 		else {
-			this._type               = arguments[0];
-			this._from               = arguments[1];
-			this._to                 = arguments[2];
-			this._updateCastleRights = arguments[3];
-			this._updateEnPassant    = arguments[4];
-			this._isKingMove         = arguments[5];
+			this._type        = arguments[0];
+			this._movingPiece = arguments[1];
+			this._isCapture   = arguments[2];
+			this._from        = arguments[3];
+			this._to          = arguments[4];
 
 			switch(this._type) {
 
-				// Castling move -> MoveDescriptor(CASTLING, from, to, updateCastleRights, updateEnPassant, updateKing, rookFrom, rookTo)
-				case myself.MoveType.CASTLING:
-					this._rookFrom = arguments[6];
-					this._rookTo   = arguments[7];
+				// Castling move -> MoveDescriptor(CASTLING_MOVE, movingPiece, isCapture, from, to, rookFrom, rookTo)
+				case myself.MoveType.CASTLING_MOVE:
+					this._rookFrom = arguments[5];
+					this._rookTo   = arguments[6];
 					break;
 
-				// En-passant move -> MoveDescriptor(EN_PASSANT, from, to, updateCastleRights, updateEnPassant, updateKing, enPassantSquare)
-				case myself.MoveType.EN_PASSANT:
-					this._enPassantSquare = arguments[6];
+				// En-passant capture -> MoveDescriptor(EN_PASSANT_CAPTURE, movingPiece, isCapture, from, to, enPassantSquare)
+				case myself.MoveType.EN_PASSANT_CAPTURE:
+					this._enPassantSquare = arguments[5];
 					break;
 
-				// Normal move -> MoveDescriptor(NORMAL, from, to, updateCastleRights, updateEnPassant, updateKing)
+				// Two-square pawn move -> MoveDescriptor(TWO_SQUARE_PAWN_MOVE, movingPiece, isCapture, from, to, twoSquarePawnMoveColumn)
+				case myself.MoveType.TWO_SQUARE_PAWN_MOVE:
+					this._twoSquarePawnMoveColumn = arguments[5];
+					break;
+
+				// Normal move -> MoveDescriptor(NORMAL_MOVE, movingPiece, isCapture, from, to)
 				default:
 					break;
 			}
@@ -1157,6 +1161,26 @@ var Chess2 = {};
 	 */
 	myself.MoveDescriptor.prototype.type = function() {
 		return this._type;
+	};
+
+
+	/**
+	 * Moving piece (king in case of a castling move).
+	 *
+	 * @returns {string}
+	 */
+	myself.MoveDescriptor.prototype.movingPiece = function() {
+		return PIECE_SYMBOL[this._movingPiece];
+	};
+
+
+	/**
+	 * Whether the move captures something or not. Returns `true` for en-passant move too.
+	 *
+	 * @returns {boolean}
+	 */
+	myself.MoveDescriptor.prototype.isCapture = function() {
+		return this._isCapture;
 	};
 
 
@@ -1186,7 +1210,7 @@ var Chess2 = {};
 	 * @returns {string} `'-'` if not a castling move.
 	 */
 	myself.MoveDescriptor.prototype.rookFrom = function() {
-		return this._type===myself.MoveType.CASTLING ? squareToString(this._rookFrom) : '-';
+		return this._type===myself.MoveType.CASTLING_MOVE ? squareToString(this._rookFrom) : '-';
 	};
 
 
@@ -1196,7 +1220,7 @@ var Chess2 = {};
 	 * @returns {string} `'-'` if not a castling move.
 	 */
 	myself.MoveDescriptor.prototype.rookTo = function() {
-		return this._type===myself.MoveType.CASTLING ? squareToString(this._rookTo) : '-';
+		return this._type===myself.MoveType.CASTLING_MOVE ? squareToString(this._rookTo) : '-';
 	};
 
 
@@ -1206,7 +1230,17 @@ var Chess2 = {};
 	 * @returns {string} `'-'` if not a "en-passant" move.
 	 */
 	myself.MoveDescriptor.prototype.enPassantSquare = function() {
-		return this._type===myself.MoveType.EN_PASSANT ? squareToString(this._enPassantSquare) : '-';
+		return this._type===myself.MoveType.EN_PASSANT_CAPTURE ? squareToString(this._enPassantSquare) : '-';
+	};
+
+
+	/**
+	 * Column on which the pawn moves in case of a two-square pawn move.
+	 *
+	 * @returns {string} `'-'` if not a two-square pawn move.
+	 */
+	myself.MoveDescriptor.prototype.twoSquarePawnMoveColumn = function() {
+		return this._type===myself.MoveType.TWO_SQUARE_PAWN_MOVE ? COLUMN_SYMBOL[this._twoSquarePawnMoveColumn] : '-';
 	};
 
 
@@ -1217,14 +1251,6 @@ var Chess2 = {};
 	 */
 	myself.MoveDescriptor.prototype.promotion = function() {
 		return this._type===myself.MoveType.PROMOTION ? PIECE_SYMBOL[this._promotion] : '-';
-	};
-
-
-	/**
-	 * Whether the move is a king move or not. Return `true` for castling move too.
-	 */
-	myself.MoveDescriptor.prototype.isKingMove = function() {
-		return this._isKingMove;
 	};
 
 
@@ -1485,15 +1511,15 @@ var Chess2 = {};
 
 		// Miscellaneous variables
 		var displacement = to - from + 119;
-		var enPassantSquare = -1; // square where a pawn is taken if the move is "en-passant"
-		var updateEnPassant = -1; // new value for the "en-passant" flag if the move is legal
+		var enPassantSquare         = -1; // square where a pawn is taken if the move is "en-passant"
+		var twoSquarePawnMoveColumn = -1; // column where the pawn moves in case of a two-square pawn move
 
 		// Step (4)
 		if((DISPLACEMENT_LOOKUP[displacement] /* jshint bitwise:false */ & 1<<fromContent /* jshint bitwise:true */) === 0) {
 			if(movingPiece === PAWN && displacement === 151-position._turn*64) {
 				var firstSquareOfRow = (1 + position._turn*5) * 16;
 				if(from < firstSquareOfRow || from >= firstSquareOfRow+8) { return false; }
-				updateEnPassant = from % 8;
+				twoSquarePawnMoveColumn = from % 8;
 			}
 			else if(movingPiece === KING && (displacement === 117 || displacement === 121)) {
 				return isCastlingLegal(position, from, to);
@@ -1505,7 +1531,7 @@ var Chess2 = {};
 
 		// Step (5) -> check the content of the destination square
 		if(movingPiece === PAWN) {
-			if(displacement === 135-position._turn*32 || updateEnPassant >= 0) { // non-capturing pawn move
+			if(displacement === 135-position._turn*32 || twoSquarePawnMoveColumn >= 0) { // non-capturing pawn move
 				if(toContent !== EMPTY) { return false; }
 			}
 			else if(toContent === EMPTY) { // en-passant pawn move
@@ -1527,12 +1553,12 @@ var Chess2 = {};
 				if(position._board[sq] !== EMPTY) { return false; }
 			}
 		}
-		else if(updateEnPassant >= 0) { // 2-square pawn moves also require this test.
+		else if(twoSquarePawnMoveColumn >= 0) { // two-square pawn moves also require this test.
 			if(position._board[(from + to) / 2] !== EMPTY) { return false; }
 		}
 
 		// Steps (7) to (9) are delegated to `isKingSafeAfterMove`.
-		var descriptor = isKingSafeAfterMove(position, from, to, enPassantSquare, updateEnPassant);
+		var descriptor = isKingSafeAfterMove(position, from, to, enPassantSquare, twoSquarePawnMoveColumn);
 		return descriptor && promotion>=0 ? new myself.MoveDescriptor(descriptor, promotion) : descriptor;
 	}
 
@@ -1546,10 +1572,10 @@ var Chess2 = {};
 	 * @param {number} from
 	 * @param {number} to
 	 * @param {number} enPassantSquare Index of the square where the "en-passant" taken pawn lies if any, `-1` otherwise.
-	 * @param {number} updateEnPassant Column where the displacement occurs in case of a two-square pawn move, `-1` otherwise.
+	 * @param {number} twoSquarePawnMoveColumn Column where the displacement occurs in case of a two-square pawn move, `-1` otherwise.
 	 * @returns {boolean|MoveDescriptor} The move descriptor if the move is legal, `false` otherwise.
 	 */
-	function isKingSafeAfterMove(position, from, to, enPassantSquare, updateEnPassant) {
+	function isKingSafeAfterMove(position, from, to, enPassantSquare, twoSquarePawnMoveColumn) {
 		var fromContent = position._board[from];
 		var toContent   = position._board[to  ];
 		var movingPiece = Math.floor(fromContent / 2);
@@ -1577,21 +1603,14 @@ var Chess2 = {};
 			return false;
 		}
 		else {
-
-			// Mask for the new castle rights
-			var updateCastleRights = [0xff, 0xff];
-			if(movingPiece === KING) { updateCastleRights[position._turn] = 0; }
-			if(from <    8) { updateCastleRights[WHITE] /* jshint bitwise:false */ &= ~(1 <<  from    ); /* jshint bitwise:true */ }
-			if(to   <    8) { updateCastleRights[WHITE] /* jshint bitwise:false */ &= ~(1 <<  to      ); /* jshint bitwise:true */ }
-			if(from >= 112) { updateCastleRights[BLACK] /* jshint bitwise:false */ &= ~(1 << (from%16)); /* jshint bitwise:true */ }
-			if(to   >= 112) { updateCastleRights[BLACK] /* jshint bitwise:false */ &= ~(1 << (to  %16)); /* jshint bitwise:true */ }
-
-			// Generate the move descriptor
 			if(enPassantSquare >= 0) {
-				return new myself.MoveDescriptor(myself.MoveType.EN_PASSANT, from, to, updateCastleRights, updateEnPassant, movingPiece===KING, enPassantSquare);
+				return new myself.MoveDescriptor(myself.MoveType.EN_PASSANT_CAPTURE, movingPiece, true, from, to, enPassantSquare);
+			}
+			else if(twoSquarePawnMoveColumn >= 0) {
+				return new myself.MoveDescriptor(myself.MoveType.TWO_SQUARE_PAWN_MOVE, movingPiece, false, from, to, twoSquarePawnMoveColumn);
 			}
 			else {
-				return new myself.MoveDescriptor(myself.MoveType.NORMAL, from, to, updateCastleRights, updateEnPassant, movingPiece===KING);
+				return new myself.MoveDescriptor(myself.MoveType.NORMAL_MOVE, movingPiece, toContent>=0, from, to);
 			}
 		}
 	}
@@ -1632,9 +1651,7 @@ var Chess2 = {};
 		}
 
 		// The move is legal -> generate the move descriptor.
-		var updateCastleRights = [0xff, 0xff];
-		updateCastleRights[position._turn] = 0;
-		return new myself.MoveDescriptor(myself.MoveType.CASTLING, from, to, updateCastleRights, -1, true, rookFrom, rookTo);
+		return new myself.MoveDescriptor(myself.MoveType.CASTLING_MOVE, KING, false, from, to, rookFrom, rookTo);
 	}
 
 
@@ -1651,20 +1668,27 @@ var Chess2 = {};
 			// Update the board
 			var cp = descriptor._type===myself.MoveType.PROMOTION ? (descriptor._promotion*2 + this._turn) : this._board[descriptor._from];
 			this._board[descriptor._from] = EMPTY;
-			if(descriptor._type===myself.MoveType.EN_PASSANT) {
+			if(descriptor._type===myself.MoveType.EN_PASSANT_CAPTURE) {
 				this._board[descriptor._enPassantSquare] = EMPTY;
 			}
-			else if(descriptor._type===myself.MoveType.CASTLING) {
+			else if(descriptor._type===myself.MoveType.CASTLING_MOVE) {
 				this._board[descriptor._rookFrom] = EMPTY;
 				this._board[descriptor._rookTo  ] = ROOK*2 + this._turn;
 			}
 			this._board[descriptor._to] = cp;
 
-			// Update the flags
-			this._castleRights[WHITE] /* jshint bitwise:false */ &= descriptor._updateCastleRights[WHITE] /* jshint bitwise:true */;
-			this._castleRights[BLACK] /* jshint bitwise:false */ &= descriptor._updateCastleRights[BLACK] /* jshint bitwise:true */;
-			this._enPassant = descriptor._updateEnPassant;
-			if(descriptor._isKingMove) {
+			// Update the castling flags
+			if(descriptor._movingPiece === KING) {
+				this._castleRights[this._turn] = 0;
+			}
+			if(descriptor._from <    8) { this._castleRights[WHITE] /* jshint bitwise:false */ &= ~(1 <<  descriptor._from    ); /* jshint bitwise:true */ }
+			if(descriptor._to   <    8) { this._castleRights[WHITE] /* jshint bitwise:false */ &= ~(1 <<  descriptor._to      ); /* jshint bitwise:true */ }
+			if(descriptor._from >= 112) { this._castleRights[BLACK] /* jshint bitwise:false */ &= ~(1 << (descriptor._from%16)); /* jshint bitwise:true */ }
+			if(descriptor._to   >= 112) { this._castleRights[BLACK] /* jshint bitwise:false */ &= ~(1 << (descriptor._to  %16)); /* jshint bitwise:true */ }
+
+			// Update the other flags
+			this._enPassant = descriptor._type===myself.MoveType.TWO_SQUARE_PAWN_MOVE ? descriptor._twoSquarePawnMoveColumn : -1;
+			if(descriptor._movingPiece === KING) {
 				this._king[this._turn] = descriptor._to;
 			}
 
@@ -1747,13 +1771,13 @@ var Chess2 = {};
 		var res = '';
 
 		// Castling moves
-		if(descriptor._type === myself.MoveType.CASTLING) {
+		if(descriptor._type === myself.MoveType.CASTLING_MOVE) {
 			res = descriptor._from < descriptor._to ? 'O-O' : 'O-O-O';
 		}
 
 		// Pawn moves
-		else if(position._board[descriptor._from] === PAWN*2 + position._turn) {
-			if(position._board[descriptor._to] >= 0 || descriptor._type === myself.MoveType.EN_PASSANT) {
+		else if(descriptor._movingPiece === PAWN) {
+			if(descriptor._isCapture) {
 				res += COLUMN_SYMBOL[descriptor._from % 16] + 'x';
 			}
 			res += squareToString(descriptor._to);
@@ -1764,9 +1788,9 @@ var Chess2 = {};
 
 		// Non-pawn move
 		else {
-			res += PIECE_SYMBOL[Math.floor(position._board[descriptor._from] / 2)].toUpperCase();
+			res += PIECE_SYMBOL[descriptor._movingPiece].toUpperCase();
 			res += getDisambiguationSymbol(position, descriptor._from, descriptor._to);
-			if(position._board[descriptor._to] >= 0) {
+			if(descriptor._isCapture) {
 				res += 'x';
 			}
 			res += squareToString(descriptor._to);
