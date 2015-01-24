@@ -98,6 +98,30 @@ var Chess2 = {};
 	};
 
 
+	/**
+	 * @constructor
+	 * @alias InvalidNotation
+	 * @memberof Chess2
+	 *
+	 * @classdesc
+	 * Exception thrown by the move notation parsing function.
+	 *
+	 * @param {Position} position Position used to try to parse the move notation.
+	 * @param {string} notation String whose parsing leads to an error.
+	 * @param {string} message Human-readable error message.
+	 * @param ...
+	 */
+	myself.exceptions.InvalidNotation = function(position, notation, message) {
+		this.position = position;
+		this.notation = notation;
+		this.message  = message ;
+		for(var i=3; i<arguments.length; ++i) {
+			var re = new RegExp('\\{' + (i-2) + '\\}');
+			this.message = this.message.replace(re, arguments[i]);
+		}
+	};
+
+
 
 	// ---------------------------------------------------------------------------
 	// Internal constants and helper methods
@@ -1691,10 +1715,20 @@ var Chess2 = {};
 
 	/**
 	 * `notation(moveDescriptor)`: return the standard algebraic notation corresponding to the given move descriptor.
+	 *
+	 * `notation(string [, boolean])`: parse the given string as standard algebraic notation and return the corresponding move descriptor.
+	 *
+	 * @throws {InvalidNotation} If the move parsing fails or if the parsed move would correspond to an illegal move.
 	 */
 	myself.Position.prototype.notation = function() {
-		if(arguments.length===1 && arguments[0] instanceof myself.MoveDescriptor) {
+		if(arguments.length === 1 && arguments[0] instanceof myself.MoveDescriptor) {
 			return getNotation(this, arguments[0]);
+		}
+		else if(arguments.length === 1 && typeof arguments[0] === 'string') {
+			return parseNotation(this, arguments[0], false);
+		}
+		else if(arguments.length >= 2 && typeof arguments[0] === 'string' && typeof arguments[1] === 'boolean') {
+			return parseNotation(this, arguments[0], arguments[1]);
 		}
 		else {
 			throw new myself.exceptions.IllegalArgument('Position#notation()');
@@ -1828,6 +1862,20 @@ var Chess2 = {};
 			}
 		}
 		return res;
+	}
+
+
+	/**
+	 * Parse a move notation for the given position.
+	 *
+	 * @param {Position} position
+	 * @param {string} notation
+	 * @param {boolean} strict
+	 * @returns {MoveDescriptor}
+	 * @throws InvalidNotation
+	 */
+	function parseNotation(position, notation, strict) {
+		// TODO
 	}
 
 
