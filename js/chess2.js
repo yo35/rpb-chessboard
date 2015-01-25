@@ -54,10 +54,25 @@ var Chess2 = {};
 	myself.i18n.INVALID_MOVE_COUNTING_FIELD               = 'The {1} field of a FEN string must be a number.';
 
 	// Notation parsing error message
-	myself.i18n.INVALID_MOVE_NOTATION_SYNTAX = 'The syntax of the move notation is invalid.';
-	myself.i18n.ILLEGAL_POSITION             = 'The position is not legal.';
-	myself.i18n.ILLEGAL_QUEEN_SIDE_CASTLING  = 'Queen-side castling is not legal in the considered position.';
-	myself.i18n.ILLEGAL_KING_SIDE_CASTLING   = 'King-side castling is not legal in the considered position.';
+	myself.i18n.INVALID_MOVE_NOTATION_SYNTAX        = 'The syntax of the move notation is invalid.';
+	myself.i18n.ILLEGAL_POSITION                    = 'The position is not legal.';
+	myself.i18n.ILLEGAL_QUEEN_SIDE_CASTLING         = 'Queen-side castling is not legal in the considered position.';
+	myself.i18n.ILLEGAL_KING_SIDE_CASTLING          = 'King-side castling is not legal in the considered position.';
+	myself.i18n.NO_PIECE_CAN_MOVE_TO                = 'No {1} can move to {2}.';
+	myself.i18n.NO_PIECE_CAN_MOVE_TO_DISAMBIGUATION = 'No {1} on the specified row/column can move to {2}.';
+	myself.i18n.REQUIRE_DISAMBIGUATION              = 'Cannot determine uniquely which {1} is supposed to move to {2}.';
+	myself.i18n.WRONG_DISAMBIGUATION_SYMBOL         = 'Wrong disambiguation symbol (expected: `{1}`, observed: `{2}`).';
+	myself.i18n.INVALID_CAPTURING_PAWN_MOVE         = 'Invalid capturing pawn move.';
+	myself.i18n.INVALID_NON_CAPTURING_PAWN_MOVE     = 'Invalid non-capturing pawn move.';
+	myself.i18n.NOT_SAFE_FOR_WHITE_KING             = 'This move would put let the white king in check.';
+	myself.i18n.NOT_SAFE_FOR_BLACK_KING             = 'This move would put let the black king in check.';
+	myself.i18n.MISSING_PROMOTION                   = 'A promoted piece must be specified for this move.';
+	myself.i18n.MISSING_PROMOTION_SYMBOL            = 'Character `=` is required to specify a promoted piece.';
+	myself.i18n.INVALID_PROMOTED_PIECE              = '{1} cannot be specified as a promoted piece.';
+	myself.i18n.ILLEGAL_PROMOTION                   = 'Specifying a promoted piece is illegal for this move.';
+	myself.i18n.MISSING_CAPTURE_SYMBOL              = 'Capture symbol `x` is missing.';
+	myself.i18n.INVALID_CAPTURE_SYMBOL              = 'This move is not a capture move.';
+	myself.i18n.WRONG_CHECK_CHECKMATE_SYMBOL        = 'Wrong check/checkmate symbol (expected: `{1}`, observed: `{2}`).';
 
 
 
@@ -1957,7 +1972,7 @@ var Chess2 = {};
 			var movingPiece = PIECE_SYMBOL.indexOf(m[3].toLowerCase());
 			var to = parseSquare(m[7]);
 
-			// Find the candidate "from"-squares
+			// Find the "from"-square candidates
 			var attackers = getAttackers(position, to, movingPiece*2 + position._turn);
 
 			// Apply disambiguation
@@ -1969,27 +1984,32 @@ var Chess2 = {};
 				var rowFrom = ROW_SYMBOL.indexOf(m[5]);
 				attackers = attackers.filter(function(sq) { return Math.floor(sq/16) === rowFrom; });
 			}
+			if(attackers.length===0) {
+				var message = (m[4] || m[5]) ? myself.i18n.NO_PIECE_CAN_MOVE_TO_DISAMBIGUATION : myself.i18n.NO_PIECE_CAN_MOVE_TO;
+				throw new myself.exceptions.InvalidNotation(position, notation, message, m[3], m[7]);
+			}
 
-			// Compute the move descriptor for each remaing candidate "from"-square
+			// Compute the move descriptor for each remaining "from"-square candidate
 			for(var i=0; i<attackers.length; ++i) {
 				var currentDescriptor = isKingSafeAfterMove(position, attackers[i], to, -1, -1);
 				if(currentDescriptor) {
 					if(descriptor !== null) {
-						// TODO: throw ambiguity!
+						throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.REQUIRE_DISAMBIGUATION, m[3], m[7]);
 					}
 					descriptor = currentDescriptor;
 				}
 			}
 			if(descriptor === null) {
-				// TODO: throw no piece can go to "to"
+				var message = position._turn===WHITE ? myself.i18n.NOT_SAFE_FOR_WHITE_KING : myself.i18n.NOT_SAFE_FOR_BLACK_KING;
+				throw new myself.exceptions.InvalidNotation(position, notation, message);
 			}
 
 			// STRICT-MODE -> check the disambiguation symbol.
 			if(strict) {
-				var currentDisambiguationSymbol = (m[4] ? m[4] : '') + (m[5] ? m[5] : '');
-				var theoreticalDisambiguationSymbol = getDisambiguationSymbol(position, descriptor._from, to);
-				if(currentDisambiguationSymbol !== theoreticalDisambiguationSymbol) {
-					// TODO: throw bad disambiguation symbol
+				var expectedDS = getDisambiguationSymbol(position, descriptor._from, to);
+				var observedDS = (m[4] ? m[4] : '') + (m[5] ? m[5] : '');
+				if(expectedDS !== observedDS) {
+					throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.WRONG_DISAMBIGUATION_SYMBOL, expectedDS, observedDS);
 				}
 			}
 		}
@@ -2006,39 +2026,43 @@ var Chess2 = {};
 
 			// Ensure that the pawn move do not let a king is check.
 			if(!descriptor) {
-				// TODO: throw king in check
+				var message = position._turn===WHITE ? myself.i18n.NOT_SAFE_FOR_WHITE_KING : myself.i18n.NOT_SAFE_FOR_BLACK_KING;
+				throw new myself.exceptions.InvalidNotation(position, notation, message);
 			}
 
 			// Detect promotions
 			if(to<8 || to>=112) {
 				if(!m[12]) {
-					// TODO: throw no promoted piece
+					throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.MISSING_PROMOTION);
 				}
 				var promotion = PIECE_SYMBOL.indexOf(m[12].toLowerCase());
 				if(!isPromotablePiece(promotion)) {
-					// TODO: throw bad promoted piece
+					throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.INVALID_PROMOTED_PIECE, m[12]);
 				}
 				descriptor = new myself.MoveDescriptor(descriptor, promotion);
 
 				// STRICT MODE -> do not forget the `=` character!
 				if(strict && !m[11]) {
-					// TODO: throw missing '=' character
+					throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.MISSING_PROMOTION_SYMBOL);
 				}
 			}
 
 			// Detect illegal promotion attempts!
 			else if(m[12]) {
-				// TODO: throw cannot promote piece!
+				throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.ILLEGAL_PROMOTION);
 			}
 		}
 
 		// STRICT MODE
 		if(strict) {
 			if(descriptor.isCapture() !== (m[6] || m[9])) {
-				// TODO: throw invalid capture symbol
+				var message = descriptor.isCapture() ? myself.i18n.MISSING_CAPTURE_SYMBOL : myself.i18n.INVALID_CAPTURE_SYMBOL;
+				throw new myself.exceptions.InvalidNotation(position, notation, message);
 			}
-			if(getCheckCheckmateSymbol(position, descriptor) !== (m[13] ? m[13] : '')) {
-				// TODO: throw invalid check/checkmate symbol
+			var expectedCCS = getCheckCheckmateSymbol(position, descriptor);
+			var observedCCS = m[13] ? m[13] : '';
+			if(expectedCCS !== observedCCS) {
+				throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.WRONG_CHECK_CHECKMATE_SYMBOL, expectedCCS, observedCCS);
 			}
 		}
 
@@ -2061,7 +2085,7 @@ var Chess2 = {};
 		// Ensure that `to` is not on the 1st row.
 		var from = to - 16 + position._turn*32;
 		if(from /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */ !==0) {
-			// TODO: throw invalid capture
+			throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.INVALID_CAPTURING_PAWN_MOVE);
 		}
 
 		// Compute the "from"-square.
@@ -2069,12 +2093,12 @@ var Chess2 = {};
 		if(columnTo - columnFrom === 1) { from -= 1; }
 		else if(columnTo - columnFrom === -1) { from += 1; }
 		else {
-			// TODO: throw inconsistent origin colum for move capture
+			throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.INVALID_CAPTURING_PAWN_MOVE);
 		}
 
 		// Check the content of the "from"-square
 		if(position._board[from] !== PAWN*2+position._turn) {
-			// TODO: throw no w/b pawn on `from`
+			throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.INVALID_CAPTURING_PAWN_MOVE);
 		}
 
 		// Check the content of the "to"-square
@@ -2088,7 +2112,7 @@ var Chess2 = {};
 			return isKingSafeAfterMove(position, from, to, -1, -1);
 		}
 
-		// TODO: throw illegal capture
+		throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.INVALID_CAPTURING_PAWN_MOVE);
 	}
 
 
@@ -2106,12 +2130,12 @@ var Chess2 = {};
 		var offset = 16 - position._turn*32;
 		var from = to - offset;
 		if(from /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */ !==0) {
-			// TODO: throw pawn advance
+			throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.INVALID_NON_CAPTURING_PAWN_MOVE);
 		}
 
 		// Check the content of the "to"-square
 		if(position._board[to] >= 0) {
-			// TODO: throw illegal pawn advance
+			throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.INVALID_NON_CAPTURING_PAWN_MOVE);
 		}
 
 		// Check the content of the "from"-square
@@ -2129,7 +2153,7 @@ var Chess2 = {};
 			}
 		}
 
-		// TODO: throw illegal pawn advance
+		throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.INVALID_NON_CAPTURING_PAWN_MOVE);
 	}
 
 
