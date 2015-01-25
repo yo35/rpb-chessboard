@@ -53,6 +53,12 @@ var Chess2 = {};
 	myself.i18n.WRONG_ROW_IN_EN_PASSANT_FIELD             = 'The row number indicated in the FEN string 4th field is inconsistent with respect to the 2nd field.';
 	myself.i18n.INVALID_MOVE_COUNTING_FIELD               = 'The {1} field of a FEN string must be a number.';
 
+	// Notation parsing error message
+	myself.i18n.INVALID_MOVE_NOTATION_SYNTAX = 'The syntax of the move notation is invalid.';
+	myself.i18n.ILLEGAL_POSITION             = 'The position is not legal.';
+	myself.i18n.ILLEGAL_QUEEN_SIDE_CASTLING  = 'Queen-side castling is not legal in the considered position.';
+	myself.i18n.ILLEGAL_KING_SIDE_CASTLING   = 'King-side castling is not legal in the considered position.';
+
 
 
 	// ---------------------------------------------------------------------------
@@ -1789,15 +1795,23 @@ var Chess2 = {};
 			res += squareToString(descriptor._to);
 		}
 
-		// Check/checkmate detection
+		// Check/checkmate detection and final result.
+		res += getCheckCheckmateSymbol(position, descriptor);
+		return res;
+	}
+
+
+	/**
+	 * Return the check/checkmate symbol to use for a move.
+	 *
+	 * @param {Position} position
+	 * @param {MoveDescriptor} descriptor
+	 * @returns {string}
+	 */
+	function getCheckCheckmateSymbol(position, descriptor) {
 		var position2 = new myself.Position(position);
 		position2.play(descriptor);
-		if(position2.isCheck()) {
-			res += position2.hasMove() ? '+' : '#';
-		}
-
-		// Result
-		return res;
+		return position2.isCheck() ? (position2.hasMove() ? '+' : '#') : '';
 	}
 
 
@@ -1892,10 +1906,231 @@ var Chess2 = {};
 	 * @throws InvalidNotation
 	 */
 	function parseNotation(position, notation, strict) {
-		// TODO
+
+		// General syntax
+		var m = /^(?:(O-O-O)|(O-O)|([KQRBN])([a-h])?([1-8])?(x)?([a-h][1-8])|(?:([a-h])(x)?)?([a-h][1-8])(?:(=)?([KQRBNP]))?)([\+#])?$/.exec(notation);
+		if(m === null) {
+			throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.INVALID_MOVE_NOTATION_SYNTAX);
+		}
+
+		// Ensure that the position is legal.
+		if(!position.isLegal()) {
+			throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.ILLEGAL_POSITION);
+		}
+
+		// CASTLING
+		// m[1] -> O-O-O
+		// m[2] -> O-O
+
+		// NON-PAWN MOVE
+		// m[3] -> moving piece
+		// m[4] -> column disambiguation
+		// m[5] -> row disambiguation
+		// m[6] -> x (capture symbol)
+		// m[7] -> to
+
+		// PAWN MOVE
+		// m[ 8] -> from column (only for captures)
+		// m[ 9] -> x (capture symbol)
+		// m[10] -> to
+		// m[11] -> = (promotion symbol)
+		// m[12] -> promoted piece
+
+		// OTHER
+		// m[13] -> +/# (check/checkmate symbols)
+
+		var descriptor = null;
+
+		// Parse castling moves
+		if(m[1] || m[2]) {
+			var from = position._king[position._turn];
+			var to   = from + (m[2] ? 2 : -2);
+			descriptor = isCastlingLegal(position, from, to);
+			if(!descriptor) {
+				var message = m[2] ? myself.i18n.ILLEGAL_KING_SIDE_CASTLING : myself.i18n.ILLEGAL_QUEEN_SIDE_CASTLING;
+				throw new myself.exceptions.InvalidNotation(position, notation, message);
+			}
+		}
+
+		// Non-pawn move
+		else if(m[3]) {
+			var movingPiece = PIECE_SYMBOL.indexOf(m[3].toLowerCase());
+			var to = parseSquare(m[7]);
+
+			// Find the candidate "from"-squares
+			var attackers = getAttackers(position, to, movingPiece*2 + position._turn);
+
+			// Apply disambiguation
+			if(m[4]) {
+				var columnFrom = COLUMN_SYMBOL.indexOf(m[4]);
+				attackers = attackers.filter(function(sq) { return sq%16 === columnFrom; });
+			}
+			if(m[5]) {
+				var rowFrom = ROW_SYMBOL.indexOf(m[5]);
+				attackers = attackers.filter(function(sq) { return Math.floor(sq/16) === rowFrom; });
+			}
+
+			// Compute the move descriptor for each remaing candidate "from"-square
+			for(var i=0; i<attackers.length; ++i) {
+				var currentDescriptor = isKingSafeAfterMove(position, attackers[i], to, -1, -1);
+				if(currentDescriptor) {
+					if(descriptor !== null) {
+						// TODO: throw ambiguity!
+					}
+					descriptor = currentDescriptor;
+				}
+			}
+			if(descriptor === null) {
+				// TODO: throw no piece can go to "to"
+			}
+
+			// STRICT-MODE -> check the disambiguation symbol.
+			if(strict) {
+				var currentDisambiguationSymbol = (m[4] ? m[4] : '') + (m[5] ? m[5] : '');
+				var theoreticalDisambiguationSymbol = getDisambiguationSymbol(position, descriptor._from, to);
+				if(currentDisambiguationSymbol !== theoreticalDisambiguationSymbol) {
+					// TODO: throw bad disambiguation symbol
+				}
+			}
+		}
+
+		// Pawn move
+		else if(m[10]) {
+			var to = parseSquare(m[10]);
+			if(m[8]) {
+				descriptor = getPawnCaptureDescriptor(position, notation, COLUMN_SYMBOL.indexOf(m[8]), to);
+			}
+			else {
+				descriptor = getPawnAdvanceDescriptor(position, notation, to);
+			}
+
+			// Ensure that the pawn move do not let a king is check.
+			if(!descriptor) {
+				// TODO: throw king in check
+			}
+
+			// Detect promotions
+			if(to<8 || to>=112) {
+				if(!m[12]) {
+					// TODO: throw no promoted piece
+				}
+				var promotion = PIECE_SYMBOL.indexOf(m[12].toLowerCase());
+				if(!isPromotablePiece(promotion)) {
+					// TODO: throw bad promoted piece
+				}
+				descriptor = new myself.MoveDescriptor(descriptor, promotion);
+
+				// STRICT MODE -> do not forget the `=` character!
+				if(strict && !m[11]) {
+					// TODO: throw missing '=' character
+				}
+			}
+
+			// Detect illegal promotion attempts!
+			else if(m[12]) {
+				// TODO: throw cannot promote piece!
+			}
+		}
+
+		// STRICT MODE
+		if(strict) {
+			if(descriptor.isCapture() !== (m[6] || m[9])) {
+				// TODO: throw invalid capture symbol
+			}
+			if(getCheckCheckmateSymbol(position, descriptor) !== (m[13] ? m[13] : '')) {
+				// TODO: throw invalid check/checkmate symbol
+			}
+		}
+
+		// Final result
+		return descriptor;
 	}
 
 
+	/**
+	 * Delegate function for capture pawn move parsing.
+	 *
+	 * @param {Position} position
+	 * @param {string} notation
+	 * @param {number} columnFrom
+	 * @param {number} to
+	 * @returns {boolean|MoveDescriptor}
+	 */
+	function getPawnCaptureDescriptor(position, notation, columnFrom, to) {
+
+		// Ensure that `to` is not on the 1st row.
+		var from = to - 16 + position._turn*32;
+		if(from /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */ !==0) {
+			// TODO: throw invalid capture
+		}
+
+		// Compute the "from"-square.
+		var columnTo = to % 16;
+		if(columnTo - columnFrom === 1) { from -= 1; }
+		else if(columnTo - columnFrom === -1) { from += 1; }
+		else {
+			// TODO: throw inconsistent origin colum for move capture
+		}
+
+		// Check the content of the "from"-square
+		if(position._board[from] !== PAWN*2+position._turn) {
+			// TODO: throw no w/b pawn on `from`
+		}
+
+		// Check the content of the "to"-square
+		var toContent = position._board[to];
+		if(toContent < 0) {
+			if(to === (5-position._turn*3)*16 + position._enPassant) { // detecting "en-passant" captures
+				return isKingSafeAfterMove(position, from, to, (4-position._turn)*16 + position._enPassant, -1);
+			}
+		}
+		else if(toContent % 2 !== position._turn) { // detecting regular captures
+			return isKingSafeAfterMove(position, from, to, -1, -1);
+		}
+
+		// TODO: throw illegal capture
+	}
+
+
+	/**
+	 * Delegate function for non-capturing pawn move parsing.
+	 *
+	 * @param {Position} position
+	 * @param {string} notation
+	 * @param {number} to
+	 * @returns {boolean|MoveDescriptor}
+	 */
+	function getPawnAdvanceDescriptor(position, notation, to) {
+
+		// Ensure that `to` is not on the 1st row.
+		var offset = 16 - position._turn*32;
+		var from = to - offset;
+		if(from /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */ !==0) {
+			// TODO: throw pawn advance
+		}
+
+		// Check the content of the "to"-square
+		if(position._board[to] >= 0) {
+			// TODO: throw illegal pawn advance
+		}
+
+		// Check the content of the "from"-square
+		var expectedFromContent = PAWN*2+position._turn;
+		if(position._board[from] === expectedFromContent) {
+			return isKingSafeAfterMove(position, from, to, -1, -1);
+		}
+
+		// Look for two-square pawn moves
+		else if(position._board[from] < 0) {
+			from -= offset;
+			var firstSquareOfRow = (1 + position._turn*5) * 16;
+			if(from >= firstSquareOfRow && from < firstSquareOfRow+8 && position._board[from] === expectedFromContent) {
+				return isKingSafeAfterMove(position, from, to, -1, to % 16);
+			}
+		}
+
+		// TODO: throw illegal pawn advance
+	}
 
 
 })(Chess2);
