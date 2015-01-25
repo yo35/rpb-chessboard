@@ -1254,20 +1254,6 @@ var Chess2 = {};
 	};
 
 
-	/**
-	 * Return the string representation of the move in coordinate notation (e.g. `'g1f3'` or `'a7a8Q'`).
-	 *
-	 * @returns {string}
-	 */
-	myself.MoveDescriptor.prototype.toString = function() {
-		var res = this.from() + this.to();
-		if(this._type===myself.MoveType.PROMOTION) {
-			res += PIECE_SYMBOL[this._promotion].toUpperCase();
-		}
-		return res;
-	};
-
-
 
 	// ---------------------------------------------------------------------------
 	// Move generation & check/checkmate/stalemate tests
@@ -1306,15 +1292,41 @@ var Chess2 = {};
 	/**
 	 * Whether a move is legal or not.
 	 *
-	 * @param {string} move
+	 * @param {string|{from:string, to:string}|{from:string, to:string, promotion:string}} move
 	 * @returns {boolean|MoveDescriptor} The move descriptor if the move is legal, `false` otherwise.
 	 */
 	myself.Position.prototype.isMoveLegal = function(move) {
 
-		// Parsing 'g1f3'-style
-		var cn = parseCoordinateNotation(move);
-		if(cn) {
-			return isMoveLegal(this, cn.from, cn.to, cn.promotion);
+		// Notation parsing
+		if(typeof move === 'string') {
+			try {
+				return parseNotation(this, move, false);
+			}
+			catch(err) {
+				if(err instanceof myself.exceptions.InvalidNotation) {
+					return false;
+				}
+				else {
+					throw err;
+				}
+			}
+		}
+
+		// Move object
+		else if(typeof move === 'object' && move !== null && typeof move.from === 'string' && typeof move.to === 'string') {
+			var from = parseSquare(move.from);
+			var to   = parseSquare(move.to  );
+			if(from>=0 && to>=0) {
+				if(typeof move.promotion === 'string') {
+					var promotion = PIECE_SYMBOL.indexOf(move.promotion);
+					if(promotion>=0) {
+						return isMoveLegal(this, from, to, promotion);
+					}
+				}
+				else {
+					return isMoveLegal(this, from, to, -1);
+				}
+			}
 		}
 
 		// Unknown move format
