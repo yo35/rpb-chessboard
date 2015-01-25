@@ -23,7 +23,8 @@ var Chess2 = {};
 
 
 /**
- * Basic chess tools. TODO
+ * Library for chess, including move generation, check/checkmate/stalemate detection,
+ * Standard Algebraic Notation parsing, etc...
  *
  * @namespace Chess2
  */
@@ -280,26 +281,6 @@ var Chess2 = {};
 		return COLUMN_SYMBOL[square % 16] + ROW_SYMBOL[Math.floor(square / 16)];
 	}
 
-
-	/**
-	 * Parse a move given in the "coordinate notation" style (e.g. `g1f3` or `c7b8Q`).
-	 *
-	 * @param {string} move
-	 * @returns {boolean|{from:number, to:number, promotion:number}} `false` if the input is not valid.
-	 */
-	function parseCoordinateNotation(move) {
-		if(typeof move === 'string' && /^[a-h][1-8][a-h][1-8][KQRBNP]?$/.test(move)) {
-			var columnFrom = COLUMN_SYMBOL.indexOf(move[0]);
-			var rowFrom    = ROW_SYMBOL   .indexOf(move[1]);
-			var columnTo   = COLUMN_SYMBOL.indexOf(move[2]);
-			var rowTo      = ROW_SYMBOL   .indexOf(move[3]);
-			var promotion  = move.length === 5 ? PIECE_SYMBOL.indexOf(move[4].toLowerCase()) : -1;
-			return { from: rowFrom*16+columnFrom, to: rowTo*16+columnTo, promotion: promotion };
-		}
-		else {
-			return false;
-		}
-	}
 
 
 	// ---------------------------------------------------------------------------
