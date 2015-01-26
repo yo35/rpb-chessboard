@@ -94,6 +94,10 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 == Changelog ==
 
+= 3.4.3 (January 26, 2015) =
+* Add: scroll the document to the selected move if it is not visible (see issue #28).  
+* Tested up to WordPress 4.1.
+
 = 3.4.2 (November 23, 2014) =
 * Sprite system refactoring to allow responsive web design (see issue #26).
 * Fix file-collapse issue (see #25).

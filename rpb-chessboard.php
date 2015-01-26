@@ -27,7 +27,7 @@ Text Domain: rpbchessboard
 Author: Yoann Le Montagner
 Author URI: http://yo35.org/
 License: GPLv3
-Version: 3.4.2
+Version: 3.4.3
 */
 
 
