@@ -19,16 +19,13 @@
  ******************************************************************************/
 
 
-var Chess2 = {};
-
-
 /**
  * Library for chess, including move generation, check/checkmate/stalemate detection,
  * Standard Algebraic Notation parsing, etc...
  *
- * @namespace Chess2
+ * @namespace RPBChess
  */
-(function(myself)
+var RPBChess = (function() /* exported RPBChess */
 {
 	'use strict';
 
@@ -37,43 +34,43 @@ var Chess2 = {};
 	// Internationalization
 	// ---------------------------------------------------------------------------
 
-	myself.i18n = {};
+	var i18n = {};
 
 	// Ordinal integers (from 1 to 8).
-	myself.i18n.ORDINALS = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th'];
+	i18n.ORDINALS = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th'];
 
 	// FEN parsing error messages
-	myself.i18n.WRONG_NUMBER_OF_FEN_FIELDS                = 'A FEN string must contain exactly 6 space-separated fields.';
-	myself.i18n.WRONG_NUMBER_OF_SUBFIELDS_IN_BOARD_FIELD  = 'The 1st field of a FEN string must contain exactly 8 `/`-separated subfields.';
-	myself.i18n.UNEXPECTED_CHARACTER_IN_BOARD_FIELD       = 'Unexpected character in the 1st field of the FEN string: `{1}`.';
-	myself.i18n.UNEXPECTED_END_OF_SUBFIELD_IN_BOARD_FIELD = 'The {1} subfield of the FEN string 1st field is unexpectedly short.';
-	myself.i18n.INVALID_TURN_FIELD                        = 'The 2nd field of a FEN string must be either `w` or `b`.';
-	myself.i18n.INVALID_CASTLE_RIGHTS_FIELD               = 'The 3rd field of a FEN string must be either `-` or a list of characters among `K`, `Q`, `k` and `q` (in this order).';
-	myself.i18n.INVALID_EN_PASSANT_FIELD                  = 'The 4th field of a FEN string must be either `-` or a square from the 3rd or 6th row where en-passant is allowed.';
-	myself.i18n.WRONG_ROW_IN_EN_PASSANT_FIELD             = 'The row number indicated in the FEN string 4th field is inconsistent with respect to the 2nd field.';
-	myself.i18n.INVALID_MOVE_COUNTING_FIELD               = 'The {1} field of a FEN string must be a number.';
+	i18n.WRONG_NUMBER_OF_FEN_FIELDS                = 'A FEN string must contain exactly 6 space-separated fields.';
+	i18n.WRONG_NUMBER_OF_SUBFIELDS_IN_BOARD_FIELD  = 'The 1st field of a FEN string must contain exactly 8 `/`-separated subfields.';
+	i18n.UNEXPECTED_CHARACTER_IN_BOARD_FIELD       = 'Unexpected character in the 1st field of the FEN string: `{1}`.';
+	i18n.UNEXPECTED_END_OF_SUBFIELD_IN_BOARD_FIELD = 'The {1} subfield of the FEN string 1st field is unexpectedly short.';
+	i18n.INVALID_TURN_FIELD                        = 'The 2nd field of a FEN string must be either `w` or `b`.';
+	i18n.INVALID_CASTLE_RIGHTS_FIELD               = 'The 3rd field of a FEN string must be either `-` or a list of characters among `K`, `Q`, `k` and `q` (in this order).';
+	i18n.INVALID_EN_PASSANT_FIELD                  = 'The 4th field of a FEN string must be either `-` or a square from the 3rd or 6th row where en-passant is allowed.';
+	i18n.WRONG_ROW_IN_EN_PASSANT_FIELD             = 'The row number indicated in the FEN string 4th field is inconsistent with respect to the 2nd field.';
+	i18n.INVALID_MOVE_COUNTING_FIELD               = 'The {1} field of a FEN string must be a number.';
 
 	// Notation parsing error message
-	myself.i18n.INVALID_MOVE_NOTATION_SYNTAX        = 'The syntax of the move notation is invalid.';
-	myself.i18n.ILLEGAL_POSITION                    = 'The position is not legal.';
-	myself.i18n.ILLEGAL_QUEEN_SIDE_CASTLING         = 'Queen-side castling is not legal in the considered position.';
-	myself.i18n.ILLEGAL_KING_SIDE_CASTLING          = 'King-side castling is not legal in the considered position.';
-	myself.i18n.NO_PIECE_CAN_MOVE_TO                = 'No {1} can move to {2}.';
-	myself.i18n.NO_PIECE_CAN_MOVE_TO_DISAMBIGUATION = 'No {1} on the specified row/column can move to {2}.';
-	myself.i18n.REQUIRE_DISAMBIGUATION              = 'Cannot determine uniquely which {1} is supposed to move to {2}.';
-	myself.i18n.WRONG_DISAMBIGUATION_SYMBOL         = 'Wrong disambiguation symbol (expected: `{1}`, observed: `{2}`).';
-	myself.i18n.TRYING_TO_CAPTURE_YOUR_OWN_PIECES   = 'Capturing its own pieces is not legal.';
-	myself.i18n.INVALID_CAPTURING_PAWN_MOVE         = 'Invalid capturing pawn move.';
-	myself.i18n.INVALID_NON_CAPTURING_PAWN_MOVE     = 'Invalid non-capturing pawn move.';
-	myself.i18n.NOT_SAFE_FOR_WHITE_KING             = 'This move would put let the white king in check.';
-	myself.i18n.NOT_SAFE_FOR_BLACK_KING             = 'This move would put let the black king in check.';
-	myself.i18n.MISSING_PROMOTION                   = 'A promoted piece must be specified for this move.';
-	myself.i18n.MISSING_PROMOTION_SYMBOL            = 'Character `=` is required to specify a promoted piece.';
-	myself.i18n.INVALID_PROMOTED_PIECE              = '{1} cannot be specified as a promoted piece.';
-	myself.i18n.ILLEGAL_PROMOTION                   = 'Specifying a promoted piece is illegal for this move.';
-	myself.i18n.MISSING_CAPTURE_SYMBOL              = 'Capture symbol `x` is missing.';
-	myself.i18n.INVALID_CAPTURE_SYMBOL              = 'This move is not a capture move.';
-	myself.i18n.WRONG_CHECK_CHECKMATE_SYMBOL        = 'Wrong check/checkmate symbol (expected: `{1}`, observed: `{2}`).';
+	i18n.INVALID_MOVE_NOTATION_SYNTAX        = 'The syntax of the move notation is invalid.';
+	i18n.ILLEGAL_POSITION                    = 'The position is not legal.';
+	i18n.ILLEGAL_QUEEN_SIDE_CASTLING         = 'Queen-side castling is not legal in the considered position.';
+	i18n.ILLEGAL_KING_SIDE_CASTLING          = 'King-side castling is not legal in the considered position.';
+	i18n.NO_PIECE_CAN_MOVE_TO                = 'No {1} can move to {2}.';
+	i18n.NO_PIECE_CAN_MOVE_TO_DISAMBIGUATION = 'No {1} on the specified row/column can move to {2}.';
+	i18n.REQUIRE_DISAMBIGUATION              = 'Cannot determine uniquely which {1} is supposed to move to {2}.';
+	i18n.WRONG_DISAMBIGUATION_SYMBOL         = 'Wrong disambiguation symbol (expected: `{1}`, observed: `{2}`).';
+	i18n.TRYING_TO_CAPTURE_YOUR_OWN_PIECES   = 'Capturing its own pieces is not legal.';
+	i18n.INVALID_CAPTURING_PAWN_MOVE         = 'Invalid capturing pawn move.';
+	i18n.INVALID_NON_CAPTURING_PAWN_MOVE     = 'Invalid non-capturing pawn move.';
+	i18n.NOT_SAFE_FOR_WHITE_KING             = 'This move would put let the white king in check.';
+	i18n.NOT_SAFE_FOR_BLACK_KING             = 'This move would put let the black king in check.';
+	i18n.MISSING_PROMOTION                   = 'A promoted piece must be specified for this move.';
+	i18n.MISSING_PROMOTION_SYMBOL            = 'Character `=` is required to specify a promoted piece.';
+	i18n.INVALID_PROMOTED_PIECE              = '{1} cannot be specified as a promoted piece.';
+	i18n.ILLEGAL_PROMOTION                   = 'Specifying a promoted piece is illegal for this move.';
+	i18n.MISSING_CAPTURE_SYMBOL              = 'Capture symbol `x` is missing.';
+	i18n.INVALID_CAPTURE_SYMBOL              = 'This move is not a capture move.';
+	i18n.WRONG_CHECK_CHECKMATE_SYMBOL        = 'Wrong check/checkmate symbol (expected: `{1}`, observed: `{2}`).';
 
 
 
@@ -81,20 +78,20 @@ var Chess2 = {};
 	// Exceptions
 	// ---------------------------------------------------------------------------
 
-	myself.exceptions = {};
+	var exceptions = {};
 
 
 	/**
 	 * @constructor
 	 * @alias IllegalArgument
-	 * @memberof Chess2
+	 * @memberof RPBChess
 	 *
 	 * @classdesc
 	 * Exception thrown when an invalid argument is passed to a function.
 	 *
 	 * @param {string} fun
 	 */
-	myself.exceptions.IllegalArgument = function(fun) {
+	exceptions.IllegalArgument = function(fun) {
 		this.fun = fun;
 	};
 
@@ -102,7 +99,7 @@ var Chess2 = {};
 	/**
 	 * @constructor
 	 * @alias InvalidFEN
-	 * @memberof Chess2
+	 * @memberof RPBChess
 	 *
 	 * @classdesc
 	 * Exception thrown by the FEN parsing function.
@@ -111,7 +108,7 @@ var Chess2 = {};
 	 * @param {string} message Human-readable error message.
 	 * @param ...
 	 */
-	myself.exceptions.InvalidFEN = function(fen, message) {
+	exceptions.InvalidFEN = function(fen, message) {
 		this.fen     = fen    ;
 		this.message = message;
 		for(var i=2; i<arguments.length; ++i) {
@@ -124,7 +121,7 @@ var Chess2 = {};
 	/**
 	 * @constructor
 	 * @alias InvalidNotation
-	 * @memberof Chess2
+	 * @memberof RPBChess
 	 *
 	 * @classdesc
 	 * Exception thrown by the move notation parsing function.
@@ -134,7 +131,7 @@ var Chess2 = {};
 	 * @param {string} message Human-readable error message.
 	 * @param ...
 	 */
-	myself.exceptions.InvalidNotation = function(position, notation, message) {
+	exceptions.InvalidNotation = function(position, notation, message) {
 		this.position = position;
 		this.notation = notation;
 		this.message  = message ;
@@ -245,13 +242,13 @@ var Chess2 = {};
 	 * @param {string} square
 	 * @returns {string} Either `'w'` or `'b'`.
 	 */
-	myself.squareColor = function(square) {
+	function squareColor(square) {
 		if(typeof square === 'string') {
 			if     (/^[aceg][1357]$/.test(square) || /^[bdfh][2468]$/.test(square)) { return 'b'; }
 			else if(/^[aceg][2468]$/.test(square) || /^[bdfh][1357]$/.test(square)) { return 'w'; }
 		}
-		throw new myself.exceptions.IllegalArgument('squareColor()');
-	};
+		throw new exceptions.IllegalArgument('squareColor()');
+	}
 
 
 
@@ -312,7 +309,7 @@ var Chess2 = {};
 	/**
 	 * @constructor
 	 * @alias Position
-	 * @memberof Chess2
+	 * @memberof RPBChess
 	 *
 	 * @classdesc
 	 * Represent a chess position, i.e. the state of a 64-square chessboard with a few additional
@@ -321,14 +318,14 @@ var Chess2 = {};
 	 * @param {string|Position} [fen = 'start'] Either `'start'`, `'empty'`, an existing position, or a FEN string representing chess position.
 	 * @throws InvalidFEN If the input parameter is neither a correctly formatted FEN string nor `'start'` or `'empty'`.
 	 */
-	myself.Position = function(fen) {
+	function Position(fen) {
 		if(typeof fen === 'undefined' || fen === null || fen === 'start') {
 			this.reset();
 		}
 		else if(fen === 'empty') {
 			this.clear();
 		}
-		else if(fen instanceof myself.Position) {
+		else if(fen instanceof Position) {
 			this._board        = fen._board.slice();
 			this._turn         = fen._turn;
 			this._castleRights = fen._castleRights.slice();
@@ -339,13 +336,13 @@ var Chess2 = {};
 		else {
 			setFEN(this, fen, false);
 		}
-	};
+	}
 
 
 	/**
 	 * Set the position to the empty state.
 	 */
-	myself.Position.prototype.clear = function() {
+	Position.prototype.clear = function() {
 
 		// Board state
 		this._board = [
@@ -373,7 +370,7 @@ var Chess2 = {};
 	/**
 	 * Set the position to the starting state.
 	 */
-	myself.Position.prototype.reset = function() {
+	Position.prototype.reset = function() {
 
 		// Board state
 		this._board = [
@@ -404,7 +401,7 @@ var Chess2 = {};
 	 *
 	 * @returns {string} Human-readable representation of the position.
 	 */
-	myself.Position.prototype.ascii = function() {
+	Position.prototype.ascii = function() {
 
 		// Board scanning
 		var res = '+---+---+---+---+---+---+---+---+\n';
@@ -432,7 +429,7 @@ var Chess2 = {};
 	 *
 	 * `fen(string [, boolean])`: parse the given FEN string and set the position accordingly (setter behavior).
 	 */
-	myself.Position.prototype.fen = function() {
+	Position.prototype.fen = function() {
 		if(arguments.length === 0) {
 			return getFEN(this, 0, 1);
 		}
@@ -448,7 +445,7 @@ var Chess2 = {};
 			return setFEN(this, arguments[0], arguments[1]);
 		}
 		else {
-			throw new myself.exceptions.IllegalArgument('Position#fen()');
+			throw new exceptions.IllegalArgument('Position#fen()');
 		}
 	};
 
@@ -516,13 +513,13 @@ var Chess2 = {};
 		fen = fen.replace(/^\s+|\s+$/g, '');
 		var fields = fen.split(/\s+/);
 		if(fields.length !== 6) {
-			throw new myself.exceptions.InvalidFEN(fen, myself.i18n.WRONG_NUMBER_OF_FEN_FIELDS);
+			throw new exceptions.InvalidFEN(fen, i18n.WRONG_NUMBER_OF_FEN_FIELDS);
 		}
 
 		// The first field (that represents the board) is split in 8 sub-fields.
 		var rowFields = fields[0].split('/');
 		if(rowFields.length !== 8) {
-			throw new myself.exceptions.InvalidFEN(fen, myself.i18n.WRONG_NUMBER_OF_SUBFIELDS_IN_BOARD_FIELD);
+			throw new exceptions.InvalidFEN(fen, i18n.WRONG_NUMBER_OF_SUBFIELDS_IN_BOARD_FIELD);
 		}
 
 		// Initialize the position
@@ -551,7 +548,7 @@ var Chess2 = {};
 
 				// Otherwise -> parsing error.
 				else {
-					throw new myself.exceptions.InvalidFEN(fen, myself.i18n.UNEXPECTED_CHARACTER_IN_BOARD_FIELD, s);
+					throw new exceptions.InvalidFEN(fen, i18n.UNEXPECTED_CHARACTER_IN_BOARD_FIELD, s);
 				}
 
 				// Increment the character counter.
@@ -560,30 +557,30 @@ var Chess2 = {};
 
 			// Ensure that the current sub-field deals with all the squares of the current row.
 			if(i !== rowField.length || c !== 8) {
-				throw new myself.exceptions.InvalidFEN(fen, myself.i18n.UNEXPECTED_END_OF_SUBFIELD_IN_BOARD_FIELD, myself.i18n.ORDINALS[7-r]);
+				throw new exceptions.InvalidFEN(fen, i18n.UNEXPECTED_END_OF_SUBFIELD_IN_BOARD_FIELD, i18n.ORDINALS[7-r]);
 			}
 		}
 
 		// Turn parsing
 		position._turn = COLOR_SYMBOL.indexOf(fields[1]);
 		if(position._turn < 0) {
-			throw new myself.exceptions.InvalidFEN(fen, myself.i18n.INVALID_TURN_FIELD);
+			throw new exceptions.InvalidFEN(fen, i18n.INVALID_TURN_FIELD);
 		}
 
 		// Castle-rights parsing
 		position._castleRights = castleRightsFromString(fields[2], strict);
 		if(position._castleRights === null) {
-			throw new myself.exceptions.InvalidFEN(fen, myself.i18n.INVALID_CASTLE_RIGHTS_FIELD);
+			throw new exceptions.InvalidFEN(fen, i18n.INVALID_CASTLE_RIGHTS_FIELD);
 		}
 
 		// En-passant parsing
 		var enPassantField = fields[3];
 		if(enPassantField !== '-') {
 			if(!/^[a-h][36]$/.test(enPassantField)) {
-				throw new myself.exceptions.InvalidFEN(fen, myself.i18n.INVALID_EN_PASSANT_FIELD);
+				throw new exceptions.InvalidFEN(fen, i18n.INVALID_EN_PASSANT_FIELD);
 			}
 			if(strict && ((enPassantField[1]==='3' && position._turn===WHITE) || (enPassantField[1]==='6' && position._turn===BLACK))) {
-				throw new myself.exceptions.InvalidFEN(fen, myself.i18n.WRONG_ROW_IN_EN_PASSANT_FIELD);
+				throw new exceptions.InvalidFEN(fen, i18n.WRONG_ROW_IN_EN_PASSANT_FIELD);
 			}
 			position._enPassant = COLUMN_SYMBOL.indexOf(enPassantField[0]);
 		}
@@ -591,10 +588,10 @@ var Chess2 = {};
 		// Move counting flags parsing
 		var moveCountingRegExp = strict ? /^(?:0|[1-9][0-9]*)$/ : /^[0-9]+$/;
 		if(!moveCountingRegExp.test(fields[4])) {
-			throw new myself.exceptions.InvalidFEN(fen, myself.i18n.INVALID_MOVE_COUNTING_FIELD, myself.i18n.ORDINALS[4]);
+			throw new exceptions.InvalidFEN(fen, i18n.INVALID_MOVE_COUNTING_FIELD, i18n.ORDINALS[4]);
 		}
 		if(!moveCountingRegExp.test(fields[5])) {
-			throw new myself.exceptions.InvalidFEN(fen, myself.i18n.INVALID_MOVE_COUNTING_FIELD, myself.i18n.ORDINALS[5]);
+			throw new exceptions.InvalidFEN(fen, i18n.INVALID_MOVE_COUNTING_FIELD, i18n.ORDINALS[5]);
 		}
 		return { fiftyMoveClock: parseInt(fields[4], 10), fullMoveNumber: parseInt(fields[5], 10) };
 	}
@@ -650,17 +647,17 @@ var Chess2 = {};
 	 * @param {string} square `'e4'` for instance
 	 * @param {string|{type:string, color:string}} [value]
 	 */
-	myself.Position.prototype.square = function(square, value) {
+	Position.prototype.square = function(square, value) {
 		square = parseSquare(square);
 		if(square < 0) {
-			throw new myself.exceptions.IllegalArgument('Position#square()');
+			throw new exceptions.IllegalArgument('Position#square()');
 		}
 		if(typeof value === 'undefined' || value === null) {
 			return getSquare(this, square);
 		}
 		else {
 			if(!setSquare(this, square, value)) {
-				throw new myself.exceptions.IllegalArgument('Position#square()');
+				throw new exceptions.IllegalArgument('Position#square()');
 			}
 		}
 	};
@@ -708,13 +705,13 @@ var Chess2 = {};
 	 *
 	 * @param {string} [value]
 	 */
-	myself.Position.prototype.turn = function(value) {
+	Position.prototype.turn = function(value) {
 		if(typeof value === 'undefined' || value === null) {
 			return getTurn(this);
 		}
 		else {
 			if(!setTurn(this, value)) {
-				throw new myself.exceptions.IllegalArgument('Position#turn()');
+				throw new exceptions.IllegalArgument('Position#turn()');
 			}
 		}
 	};
@@ -755,10 +752,10 @@ var Chess2 = {};
 	 * @param {string} side
 	 * @param {boolean} [value]
 	 */
-	myself.Position.prototype.castleRights = function(color, side, value) {
+	Position.prototype.castleRights = function(color, side, value) {
 		color = parseColor(color);
 		if(color < 0 || !(side==='k' || side==='q')) {
-			throw new myself.exceptions.IllegalArgument('Position#castleRights()');
+			throw new exceptions.IllegalArgument('Position#castleRights()');
 		}
 		var column = side==='k' ? 7 : 0;
 		if(typeof value === 'undefined' || value === null) {
@@ -766,7 +763,7 @@ var Chess2 = {};
 		}
 		else {
 			if(!setCastleRights(this, color, column, value)) {
-				throw new myself.exceptions.IllegalArgument('Position#castleRights()');
+				throw new exceptions.IllegalArgument('Position#castleRights()');
 			}
 		}
 	};
@@ -811,13 +808,13 @@ var Chess2 = {};
 	 *
 	 * @param {string} [value]
 	 */
-	myself.Position.prototype.enPassant = function(value) {
+	Position.prototype.enPassant = function(value) {
 		if(typeof value === 'undefined' || value === null) {
 			return getEnPassant(this);
 		}
 		else {
 			if(!setEnPassant(this, value)) {
-				throw new myself.exceptions.IllegalArgument('Position#enPassant()');
+				throw new exceptions.IllegalArgument('Position#enPassant()');
 			}
 		}
 	};
@@ -870,11 +867,11 @@ var Chess2 = {};
 	 *        If `null` or not defined, no filter is applied, and all types of pieces are considered.
 	 * @returns {boolean}
 	 */
-	myself.Position.prototype.isAttacked = function(square, byWho, byWhat) {
+	Position.prototype.isAttacked = function(square, byWho, byWhat) {
 		square = parseSquare(square);
 		byWho  = parseColor (byWho );
 		if(square < 0 || byWho < 0) {
-			throw new myself.exceptions.IllegalArgument('Position#isAttacked()');
+			throw new exceptions.IllegalArgument('Position#isAttacked()');
 		}
 		if(typeof byWhat === 'undefined' || byWhat === null) {
 			return isAttacked(this, square, byWho);
@@ -888,7 +885,7 @@ var Chess2 = {};
 			return false;
 		}
 		else {
-			throw new myself.exceptions.IllegalArgument('Position#isAttacked()');
+			throw new exceptions.IllegalArgument('Position#isAttacked()');
 		}
 	};
 
@@ -967,7 +964,7 @@ var Chess2 = {};
 	 *
 	 * @returns {boolean}
 	 */
-	myself.Position.prototype.isLegal = function() {
+	Position.prototype.isLegal = function() {
 		refreshLegalFlag(this);
 		return this._legal;
 	};
@@ -980,10 +977,10 @@ var Chess2 = {};
 	 * @returns {string} Square where is located the searched king. `'-'` is returned
 	 *          if there is no king of the given color or if the are 2 such kings or more.
 	 */
-	myself.Position.prototype.kingSquare = function(color) {
+	Position.prototype.kingSquare = function(color) {
 		color = parseColor(color);
 		if(color < 0) {
-			throw new myself.exceptions.IllegalArgument('Position#kingSquare()');
+			throw new exceptions.IllegalArgument('Position#kingSquare()');
 		}
 		refreshLegalFlag(this);
 		var square = this._king[color];
@@ -1096,7 +1093,7 @@ var Chess2 = {};
 	 *
 	 * @const
 	 */
-	myself.MoveType = {
+	var movetype = {
 		NORMAL_MOVE         : 0,
 		CASTLING_MOVE       : 1,
 		EN_PASSANT_CAPTURE  : 2,
@@ -1108,16 +1105,16 @@ var Chess2 = {};
 	/**
 	 * @constructor
 	 * @alias MoveDescriptor
-	 * @memberof Chess2
+	 * @memberof RPBChess
 	 *
 	 * @classdesc
 	 * Hold the raw information that is required to play a move in a given position.
 	 *
 	 * DO NOT INSTANTIATE AN OBJECT OF THIS CLASS DIRECTLY FROM CLIENT APPLICATIONS.
 	 */
-	myself.MoveDescriptor = function() {
-		if(arguments[0] instanceof myself.MoveDescriptor) { // Promotion -> MoveDescriptor(descriptor, promotion)
-			this._type        = myself.MoveType.PROMOTION;
+	function MoveDescriptor() {
+		if(arguments[0] instanceof MoveDescriptor) { // Promotion -> MoveDescriptor(descriptor, promotion)
+			this._type        = movetype.PROMOTION;
 			this._movingPiece = arguments[0]._movingPiece;
 			this._isCapture   = arguments[0]._isCapture  ;
 			this._from        = arguments[0]._from       ;
@@ -1134,18 +1131,18 @@ var Chess2 = {};
 			switch(this._type) {
 
 				// Castling move -> MoveDescriptor(CASTLING_MOVE, movingPiece, isCapture, from, to, rookFrom, rookTo)
-				case myself.MoveType.CASTLING_MOVE:
+				case movetype.CASTLING_MOVE:
 					this._rookFrom = arguments[5];
 					this._rookTo   = arguments[6];
 					break;
 
 				// En-passant capture -> MoveDescriptor(EN_PASSANT_CAPTURE, movingPiece, isCapture, from, to, enPassantSquare)
-				case myself.MoveType.EN_PASSANT_CAPTURE:
+				case movetype.EN_PASSANT_CAPTURE:
 					this._enPassantSquare = arguments[5];
 					break;
 
 				// Two-square pawn move -> MoveDescriptor(TWO_SQUARE_PAWN_MOVE, movingPiece, isCapture, from, to, twoSquarePawnMoveColumn)
-				case myself.MoveType.TWO_SQUARE_PAWN_MOVE:
+				case movetype.TWO_SQUARE_PAWN_MOVE:
 					this._twoSquarePawnMoveColumn = arguments[5];
 					break;
 
@@ -1154,15 +1151,15 @@ var Chess2 = {};
 					break;
 			}
 		}
-	};
+	}
 
 
 	/**
 	 * Type of move.
 	 *
-	 * @returns {number} One of the constant defined by {@link MoveType}.
+	 * @returns {number} One of the constant defined by {@link movetype}.
 	 */
-	myself.MoveDescriptor.prototype.type = function() {
+	MoveDescriptor.prototype.type = function() {
 		return this._type;
 	};
 
@@ -1172,7 +1169,7 @@ var Chess2 = {};
 	 *
 	 * @returns {string}
 	 */
-	myself.MoveDescriptor.prototype.movingPiece = function() {
+	MoveDescriptor.prototype.movingPiece = function() {
 		return PIECE_SYMBOL[this._movingPiece];
 	};
 
@@ -1182,7 +1179,7 @@ var Chess2 = {};
 	 *
 	 * @returns {boolean}
 	 */
-	myself.MoveDescriptor.prototype.isCapture = function() {
+	MoveDescriptor.prototype.isCapture = function() {
 		return this._isCapture;
 	};
 
@@ -1192,7 +1189,7 @@ var Chess2 = {};
 	 *
 	 * @returns {string}
 	 */
-	myself.MoveDescriptor.prototype.from = function() {
+	MoveDescriptor.prototype.from = function() {
 		return squareToString(this._from);
 	};
 
@@ -1202,7 +1199,7 @@ var Chess2 = {};
 	 *
 	 * @returns {string}
 	 */
-	myself.MoveDescriptor.prototype.to = function() {
+	MoveDescriptor.prototype.to = function() {
 		return squareToString(this._to);
 	};
 
@@ -1212,8 +1209,8 @@ var Chess2 = {};
 	 *
 	 * @returns {string} `'-'` if not a castling move.
 	 */
-	myself.MoveDescriptor.prototype.rookFrom = function() {
-		return this._type===myself.MoveType.CASTLING_MOVE ? squareToString(this._rookFrom) : '-';
+	MoveDescriptor.prototype.rookFrom = function() {
+		return this._type===movetype.CASTLING_MOVE ? squareToString(this._rookFrom) : '-';
 	};
 
 
@@ -1222,8 +1219,8 @@ var Chess2 = {};
 	 *
 	 * @returns {string} `'-'` if not a castling move.
 	 */
-	myself.MoveDescriptor.prototype.rookTo = function() {
-		return this._type===myself.MoveType.CASTLING_MOVE ? squareToString(this._rookTo) : '-';
+	MoveDescriptor.prototype.rookTo = function() {
+		return this._type===movetype.CASTLING_MOVE ? squareToString(this._rookTo) : '-';
 	};
 
 
@@ -1232,8 +1229,8 @@ var Chess2 = {};
 	 *
 	 * @returns {string} `'-'` if not a "en-passant" move.
 	 */
-	myself.MoveDescriptor.prototype.enPassantSquare = function() {
-		return this._type===myself.MoveType.EN_PASSANT_CAPTURE ? squareToString(this._enPassantSquare) : '-';
+	MoveDescriptor.prototype.enPassantSquare = function() {
+		return this._type===movetype.EN_PASSANT_CAPTURE ? squareToString(this._enPassantSquare) : '-';
 	};
 
 
@@ -1242,8 +1239,8 @@ var Chess2 = {};
 	 *
 	 * @returns {string} `'-'` if not a two-square pawn move.
 	 */
-	myself.MoveDescriptor.prototype.twoSquarePawnMoveColumn = function() {
-		return this._type===myself.MoveType.TWO_SQUARE_PAWN_MOVE ? COLUMN_SYMBOL[this._twoSquarePawnMoveColumn] : '-';
+	MoveDescriptor.prototype.twoSquarePawnMoveColumn = function() {
+		return this._type===movetype.TWO_SQUARE_PAWN_MOVE ? COLUMN_SYMBOL[this._twoSquarePawnMoveColumn] : '-';
 	};
 
 
@@ -1252,8 +1249,8 @@ var Chess2 = {};
 	 *
 	 * @returns {string} `'-'` if not a promotion move.
 	 */
-	myself.MoveDescriptor.prototype.promotion = function() {
-		return this._type===myself.MoveType.PROMOTION ? PIECE_SYMBOL[this._promotion] : '-';
+	MoveDescriptor.prototype.promotion = function() {
+		return this._type===movetype.PROMOTION ? PIECE_SYMBOL[this._promotion] : '-';
 	};
 
 
@@ -1267,7 +1264,7 @@ var Chess2 = {};
 	 *
 	 * @returns {boolean}
 	 */
-	myself.Position.prototype.isCheck = function() {
+	Position.prototype.isCheck = function() {
 		return this.isLegal() && isAttacked(this, this._king[this._turn], 1-this._turn);
 	};
 
@@ -1277,7 +1274,7 @@ var Chess2 = {};
 	 *
 	 * @returns {boolean}
 	 */
-	myself.Position.prototype.isCheckmate = function() {
+	Position.prototype.isCheckmate = function() {
 		return this.isLegal() && !this.hasMove() && isAttacked(this, this._king[this._turn], 1-this._turn);
 	};
 
@@ -1287,7 +1284,7 @@ var Chess2 = {};
 	 *
 	 * @returns {boolean}
 	 */
-	myself.Position.prototype.isStalemate = function() {
+	Position.prototype.isStalemate = function() {
 		return this.isLegal() && !this.hasMove() && !isAttacked(this, this._king[this._turn], 1-this._turn);
 	};
 
@@ -1298,7 +1295,7 @@ var Chess2 = {};
 	 * @param {string|{from:string, to:string}|{from:string, to:string, promotion:string}} move
 	 * @returns {boolean|MoveDescriptor} The move descriptor if the move is legal, `false` otherwise.
 	 */
-	myself.Position.prototype.isMoveLegal = function(move) {
+	Position.prototype.isMoveLegal = function(move) {
 
 		// Notation parsing
 		if(typeof move === 'string') {
@@ -1306,7 +1303,7 @@ var Chess2 = {};
 				return parseNotation(this, move, false);
 			}
 			catch(err) {
-				if(err instanceof myself.exceptions.InvalidNotation) {
+				if(err instanceof exceptions.InvalidNotation) {
 					return false;
 				}
 				else {
@@ -1333,7 +1330,7 @@ var Chess2 = {};
 		}
 
 		// Unknown move format
-		throw new myself.exceptions.IllegalArgument('Position#isMoveLegal()');
+		throw new exceptions.IllegalArgument('Position#isMoveLegal()');
 	};
 
 
@@ -1342,7 +1339,7 @@ var Chess2 = {};
 	 *
 	 * @returns {boolean}
 	 */
-	myself.Position.prototype.hasMove = function() {
+	Position.prototype.hasMove = function() {
 		function MoveFound() {}
 		try {
 			generateMoves(this, function(descriptor) {
@@ -1362,15 +1359,15 @@ var Chess2 = {};
 	 *
 	 * @returns {MoveDescriptor[]}
 	 */
-	myself.Position.prototype.moves = function() {
+	Position.prototype.moves = function() {
 		var res = [];
 		generateMoves(this, function(descriptor, generatePromotions) {
 			if(descriptor) {
 				if(generatePromotions) {
-					res.push(new myself.MoveDescriptor(descriptor, QUEEN ));
-					res.push(new myself.MoveDescriptor(descriptor, ROOK  ));
-					res.push(new myself.MoveDescriptor(descriptor, BISHOP));
-					res.push(new myself.MoveDescriptor(descriptor, KNIGHT));
+					res.push(new MoveDescriptor(descriptor, QUEEN ));
+					res.push(new MoveDescriptor(descriptor, ROOK  ));
+					res.push(new MoveDescriptor(descriptor, BISHOP));
+					res.push(new MoveDescriptor(descriptor, KNIGHT));
 				}
 				else {
 					res.push(descriptor);
@@ -1574,7 +1571,7 @@ var Chess2 = {};
 
 		// Steps (7) to (9) are delegated to `isKingSafeAfterMove`.
 		var descriptor = isKingSafeAfterMove(position, from, to, enPassantSquare, twoSquarePawnMoveColumn);
-		return descriptor && promotion>=0 ? new myself.MoveDescriptor(descriptor, promotion) : descriptor;
+		return descriptor && promotion>=0 ? new MoveDescriptor(descriptor, promotion) : descriptor;
 	}
 
 
@@ -1619,13 +1616,13 @@ var Chess2 = {};
 		}
 		else {
 			if(enPassantSquare >= 0) {
-				return new myself.MoveDescriptor(myself.MoveType.EN_PASSANT_CAPTURE, movingPiece, true, from, to, enPassantSquare);
+				return new MoveDescriptor(movetype.EN_PASSANT_CAPTURE, movingPiece, true, from, to, enPassantSquare);
 			}
 			else if(twoSquarePawnMoveColumn >= 0) {
-				return new myself.MoveDescriptor(myself.MoveType.TWO_SQUARE_PAWN_MOVE, movingPiece, false, from, to, twoSquarePawnMoveColumn);
+				return new MoveDescriptor(movetype.TWO_SQUARE_PAWN_MOVE, movingPiece, false, from, to, twoSquarePawnMoveColumn);
 			}
 			else {
-				return new myself.MoveDescriptor(myself.MoveType.NORMAL_MOVE, movingPiece, toContent>=0, from, to);
+				return new MoveDescriptor(movetype.NORMAL_MOVE, movingPiece, toContent>=0, from, to);
 			}
 		}
 	}
@@ -1666,7 +1663,7 @@ var Chess2 = {};
 		}
 
 		// The move is legal -> generate the move descriptor.
-		return new myself.MoveDescriptor(myself.MoveType.CASTLING_MOVE, KING, false, from, to, rookFrom, rookTo);
+		return new MoveDescriptor(movetype.CASTLING_MOVE, KING, false, from, to, rookFrom, rookTo);
 	}
 
 
@@ -1676,17 +1673,17 @@ var Chess2 = {};
 	 * @param {string} move
 	 * @returns {boolean} `true` if the move has been played and if it is legal, `false` otherwise.
 	 */
-	myself.Position.prototype.play = function(move) {
-		var descriptor = (move instanceof myself.MoveDescriptor) ? move : this.isMoveLegal(move);
+	Position.prototype.play = function(move) {
+		var descriptor = (move instanceof MoveDescriptor) ? move : this.isMoveLegal(move);
 		if(descriptor) {
 
 			// Update the board
-			var cp = descriptor._type===myself.MoveType.PROMOTION ? (descriptor._promotion*2 + this._turn) : this._board[descriptor._from];
+			var cp = descriptor._type===movetype.PROMOTION ? (descriptor._promotion*2 + this._turn) : this._board[descriptor._from];
 			this._board[descriptor._from] = EMPTY;
-			if(descriptor._type===myself.MoveType.EN_PASSANT_CAPTURE) {
+			if(descriptor._type===movetype.EN_PASSANT_CAPTURE) {
 				this._board[descriptor._enPassantSquare] = EMPTY;
 			}
-			else if(descriptor._type===myself.MoveType.CASTLING_MOVE) {
+			else if(descriptor._type===movetype.CASTLING_MOVE) {
 				this._board[descriptor._rookFrom] = EMPTY;
 				this._board[descriptor._rookTo  ] = ROOK*2 + this._turn;
 			}
@@ -1702,7 +1699,7 @@ var Chess2 = {};
 			if(descriptor._to   >= 112) { this._castleRights[BLACK] /* jshint bitwise:false */ &= ~(1 << (descriptor._to  %16)); /* jshint bitwise:true */ }
 
 			// Update the other flags
-			this._enPassant = descriptor._type===myself.MoveType.TWO_SQUARE_PAWN_MOVE ? descriptor._twoSquarePawnMoveColumn : -1;
+			this._enPassant = descriptor._type===movetype.TWO_SQUARE_PAWN_MOVE ? descriptor._twoSquarePawnMoveColumn : -1;
 			if(descriptor._movingPiece === KING) {
 				this._king[this._turn] = descriptor._to;
 			}
@@ -1725,7 +1722,7 @@ var Chess2 = {};
 	 *
 	 * @returns {boolean}
 	 */
-	myself.Position.prototype.isNullMoveLegal = function() {
+	Position.prototype.isNullMoveLegal = function() {
 		return this.isLegal() && !isAttacked(this, this._king[this._turn], 1-this._turn);
 	};
 
@@ -1735,7 +1732,7 @@ var Chess2 = {};
 	 *
 	 * @returns {boolean} `true` if the move has actually been played, `false` otherwise.
 	 */
-	myself.Position.prototype.playNullMove = function() {
+	Position.prototype.playNullMove = function() {
 		if(this.isNullMoveLegal()) {
 			this._turn      = 1 - this._turn;
 			this._enPassant = -1;
@@ -1759,8 +1756,8 @@ var Chess2 = {};
 	 *
 	 * @throws {InvalidNotation} If the move parsing fails or if the parsed move would correspond to an illegal move.
 	 */
-	myself.Position.prototype.notation = function() {
-		if(arguments.length === 1 && arguments[0] instanceof myself.MoveDescriptor) {
+	Position.prototype.notation = function() {
+		if(arguments.length === 1 && arguments[0] instanceof MoveDescriptor) {
 			return getNotation(this, arguments[0]);
 		}
 		else if(arguments.length === 1 && typeof arguments[0] === 'string') {
@@ -1770,7 +1767,7 @@ var Chess2 = {};
 			return parseNotation(this, arguments[0], arguments[1]);
 		}
 		else {
-			throw new myself.exceptions.IllegalArgument('Position#notation()');
+			throw new exceptions.IllegalArgument('Position#notation()');
 		}
 	};
 
@@ -1786,7 +1783,7 @@ var Chess2 = {};
 		var res = '';
 
 		// Castling moves
-		if(descriptor._type === myself.MoveType.CASTLING_MOVE) {
+		if(descriptor._type === movetype.CASTLING_MOVE) {
 			res = descriptor._from < descriptor._to ? 'O-O' : 'O-O-O';
 		}
 
@@ -1796,7 +1793,7 @@ var Chess2 = {};
 				res += COLUMN_SYMBOL[descriptor._from % 16] + 'x';
 			}
 			res += squareToString(descriptor._to);
-			if(descriptor._type === myself.MoveType.PROMOTION) {
+			if(descriptor._type === movetype.PROMOTION) {
 				res += '=' + PIECE_SYMBOL[descriptor._promotion].toUpperCase();
 			}
 		}
@@ -1825,7 +1822,7 @@ var Chess2 = {};
 	 * @returns {string}
 	 */
 	function getCheckCheckmateSymbol(position, descriptor) {
-		var position2 = new myself.Position(position);
+		var position2 = new Position(position);
 		position2.play(descriptor);
 		return position2.isCheck() ? (position2.hasMove() ? '+' : '#') : '';
 	}
@@ -1926,12 +1923,12 @@ var Chess2 = {};
 		// General syntax
 		var m = /^(?:(O-O-O)|(O-O)|([KQRBN])([a-h])?([1-8])?(x)?([a-h][1-8])|(?:([a-h])(x)?)?([a-h][1-8])(?:(=)?([KQRBNP]))?)([\+#])?$/.exec(notation);
 		if(m === null) {
-			throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.INVALID_MOVE_NOTATION_SYNTAX);
+			throw new exceptions.InvalidNotation(position, notation, i18n.INVALID_MOVE_NOTATION_SYNTAX);
 		}
 
 		// Ensure that the position is legal.
 		if(!position.isLegal()) {
-			throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.ILLEGAL_POSITION);
+			throw new exceptions.InvalidNotation(position, notation, i18n.ILLEGAL_POSITION);
 		}
 
 		// CASTLING
@@ -1963,8 +1960,8 @@ var Chess2 = {};
 			var to   = from + (m[2] ? 2 : -2);
 			descriptor = isCastlingLegal(position, from, to);
 			if(!descriptor) {
-				var message = m[2] ? myself.i18n.ILLEGAL_KING_SIDE_CASTLING : myself.i18n.ILLEGAL_QUEEN_SIDE_CASTLING;
-				throw new myself.exceptions.InvalidNotation(position, notation, message);
+				var message = m[2] ? i18n.ILLEGAL_KING_SIDE_CASTLING : i18n.ILLEGAL_QUEEN_SIDE_CASTLING;
+				throw new exceptions.InvalidNotation(position, notation, message);
 			}
 		}
 
@@ -1976,7 +1973,7 @@ var Chess2 = {};
 
 			// Cannot take your own pieces!
 			if(toContent >= 0 && toContent % 2 === position._turn) {
-				throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.TRYING_TO_CAPTURE_YOUR_OWN_PIECES);
+				throw new exceptions.InvalidNotation(position, notation, i18n.TRYING_TO_CAPTURE_YOUR_OWN_PIECES);
 			}
 
 			// Find the "from"-square candidates
@@ -1992,8 +1989,8 @@ var Chess2 = {};
 				attackers = attackers.filter(function(sq) { return Math.floor(sq/16) === rowFrom; });
 			}
 			if(attackers.length===0) {
-				var message = (m[4] || m[5]) ? myself.i18n.NO_PIECE_CAN_MOVE_TO_DISAMBIGUATION : myself.i18n.NO_PIECE_CAN_MOVE_TO;
-				throw new myself.exceptions.InvalidNotation(position, notation, message, m[3], m[7]);
+				var message = (m[4] || m[5]) ? i18n.NO_PIECE_CAN_MOVE_TO_DISAMBIGUATION : i18n.NO_PIECE_CAN_MOVE_TO;
+				throw new exceptions.InvalidNotation(position, notation, message, m[3], m[7]);
 			}
 
 			// Compute the move descriptor for each remaining "from"-square candidate
@@ -2001,14 +1998,14 @@ var Chess2 = {};
 				var currentDescriptor = isKingSafeAfterMove(position, attackers[i], to, -1, -1);
 				if(currentDescriptor) {
 					if(descriptor !== null) {
-						throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.REQUIRE_DISAMBIGUATION, m[3], m[7]);
+						throw new exceptions.InvalidNotation(position, notation, i18n.REQUIRE_DISAMBIGUATION, m[3], m[7]);
 					}
 					descriptor = currentDescriptor;
 				}
 			}
 			if(descriptor === null) {
-				var message = position._turn===WHITE ? myself.i18n.NOT_SAFE_FOR_WHITE_KING : myself.i18n.NOT_SAFE_FOR_BLACK_KING;
-				throw new myself.exceptions.InvalidNotation(position, notation, message);
+				var message = position._turn===WHITE ? i18n.NOT_SAFE_FOR_WHITE_KING : i18n.NOT_SAFE_FOR_BLACK_KING;
+				throw new exceptions.InvalidNotation(position, notation, message);
 			}
 
 			// STRICT-MODE -> check the disambiguation symbol.
@@ -2016,7 +2013,7 @@ var Chess2 = {};
 				var expectedDS = getDisambiguationSymbol(position, descriptor._from, to);
 				var observedDS = (m[4] ? m[4] : '') + (m[5] ? m[5] : '');
 				if(expectedDS !== observedDS) {
-					throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.WRONG_DISAMBIGUATION_SYMBOL, expectedDS, observedDS);
+					throw new exceptions.InvalidNotation(position, notation, i18n.WRONG_DISAMBIGUATION_SYMBOL, expectedDS, observedDS);
 				}
 			}
 		}
@@ -2033,43 +2030,43 @@ var Chess2 = {};
 
 			// Ensure that the pawn move do not let a king is check.
 			if(!descriptor) {
-				var message = position._turn===WHITE ? myself.i18n.NOT_SAFE_FOR_WHITE_KING : myself.i18n.NOT_SAFE_FOR_BLACK_KING;
-				throw new myself.exceptions.InvalidNotation(position, notation, message);
+				var message = position._turn===WHITE ? i18n.NOT_SAFE_FOR_WHITE_KING : i18n.NOT_SAFE_FOR_BLACK_KING;
+				throw new exceptions.InvalidNotation(position, notation, message);
 			}
 
 			// Detect promotions
 			if(to<8 || to>=112) {
 				if(!m[12]) {
-					throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.MISSING_PROMOTION);
+					throw new exceptions.InvalidNotation(position, notation, i18n.MISSING_PROMOTION);
 				}
 				var promotion = PIECE_SYMBOL.indexOf(m[12].toLowerCase());
 				if(!isPromotablePiece(promotion)) {
-					throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.INVALID_PROMOTED_PIECE, m[12]);
+					throw new exceptions.InvalidNotation(position, notation, i18n.INVALID_PROMOTED_PIECE, m[12]);
 				}
-				descriptor = new myself.MoveDescriptor(descriptor, promotion);
+				descriptor = new MoveDescriptor(descriptor, promotion);
 
 				// STRICT MODE -> do not forget the `=` character!
 				if(strict && !m[11]) {
-					throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.MISSING_PROMOTION_SYMBOL);
+					throw new exceptions.InvalidNotation(position, notation, i18n.MISSING_PROMOTION_SYMBOL);
 				}
 			}
 
 			// Detect illegal promotion attempts!
 			else if(m[12]) {
-				throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.ILLEGAL_PROMOTION);
+				throw new exceptions.InvalidNotation(position, notation, i18n.ILLEGAL_PROMOTION);
 			}
 		}
 
 		// STRICT MODE
 		if(strict) {
 			if(descriptor.isCapture() !== (m[6] || m[9])) {
-				var message = descriptor.isCapture() ? myself.i18n.MISSING_CAPTURE_SYMBOL : myself.i18n.INVALID_CAPTURE_SYMBOL;
-				throw new myself.exceptions.InvalidNotation(position, notation, message);
+				var message = descriptor.isCapture() ? i18n.MISSING_CAPTURE_SYMBOL : i18n.INVALID_CAPTURE_SYMBOL;
+				throw new exceptions.InvalidNotation(position, notation, message);
 			}
 			var expectedCCS = getCheckCheckmateSymbol(position, descriptor);
 			var observedCCS = m[13] ? m[13] : '';
 			if(expectedCCS !== observedCCS) {
-				throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.WRONG_CHECK_CHECKMATE_SYMBOL, expectedCCS, observedCCS);
+				throw new exceptions.InvalidNotation(position, notation, i18n.WRONG_CHECK_CHECKMATE_SYMBOL, expectedCCS, observedCCS);
 			}
 		}
 
@@ -2092,7 +2089,7 @@ var Chess2 = {};
 		// Ensure that `to` is not on the 1st row.
 		var from = to - 16 + position._turn*32;
 		if((from /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */)!==0) {
-			throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.INVALID_CAPTURING_PAWN_MOVE);
+			throw new exceptions.InvalidNotation(position, notation, i18n.INVALID_CAPTURING_PAWN_MOVE);
 		}
 
 		// Compute the "from"-square.
@@ -2100,12 +2097,12 @@ var Chess2 = {};
 		if(columnTo - columnFrom === 1) { from -= 1; }
 		else if(columnTo - columnFrom === -1) { from += 1; }
 		else {
-			throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.INVALID_CAPTURING_PAWN_MOVE);
+			throw new exceptions.InvalidNotation(position, notation, i18n.INVALID_CAPTURING_PAWN_MOVE);
 		}
 
 		// Check the content of the "from"-square
 		if(position._board[from] !== PAWN*2+position._turn) {
-			throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.INVALID_CAPTURING_PAWN_MOVE);
+			throw new exceptions.InvalidNotation(position, notation, i18n.INVALID_CAPTURING_PAWN_MOVE);
 		}
 
 		// Check the content of the "to"-square
@@ -2119,7 +2116,7 @@ var Chess2 = {};
 			return isKingSafeAfterMove(position, from, to, -1, -1);
 		}
 
-		throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.INVALID_CAPTURING_PAWN_MOVE);
+		throw new exceptions.InvalidNotation(position, notation, i18n.INVALID_CAPTURING_PAWN_MOVE);
 	}
 
 
@@ -2137,12 +2134,12 @@ var Chess2 = {};
 		var offset = 16 - position._turn*32;
 		var from = to - offset;
 		if((from /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */)!==0) {
-			throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.INVALID_NON_CAPTURING_PAWN_MOVE);
+			throw new exceptions.InvalidNotation(position, notation, i18n.INVALID_NON_CAPTURING_PAWN_MOVE);
 		}
 
 		// Check the content of the "to"-square
 		if(position._board[to] >= 0) {
-			throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.INVALID_NON_CAPTURING_PAWN_MOVE);
+			throw new exceptions.InvalidNotation(position, notation, i18n.INVALID_NON_CAPTURING_PAWN_MOVE);
 		}
 
 		// Check the content of the "from"-square
@@ -2160,8 +2157,22 @@ var Chess2 = {};
 			}
 		}
 
-		throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.INVALID_NON_CAPTURING_PAWN_MOVE);
+		throw new exceptions.InvalidNotation(position, notation, i18n.INVALID_NON_CAPTURING_PAWN_MOVE);
 	}
 
 
-})(Chess2);
+
+	// ---------------------------------------------------------------------------
+	// Public objects
+	// ---------------------------------------------------------------------------
+
+	return {
+		i18n: i18n,
+		exceptions: exceptions,
+		squareColor: squareColor,
+		Position: Position,
+		movetype: movetype,
+		MoveDescriptor: MoveDescriptor
+	};
+
+})();
