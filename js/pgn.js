@@ -380,7 +380,7 @@
 		this._fullMoveNumber  = 1;
 		this._result          = gameresult.LINE;
 
-		new Variation(this, true);
+		/* jshint nonew:false */ new Variation(this, true); /* jshint nonew:true */
 	}
 
 
