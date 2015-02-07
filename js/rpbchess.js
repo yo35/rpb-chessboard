@@ -78,9 +78,6 @@ var RPBChess = (function() /* exported RPBChess */
 	// Exceptions
 	// ---------------------------------------------------------------------------
 
-	var exceptions = {};
-
-
 	/**
 	 * @constructor
 	 * @alias IllegalArgument
@@ -91,9 +88,9 @@ var RPBChess = (function() /* exported RPBChess */
 	 *
 	 * @param {string} fun
 	 */
-	exceptions.IllegalArgument = function(fun) {
+	function IllegalArgument(fun) {
 		this.fun = fun;
-	};
+	}
 
 
 	/**
@@ -108,19 +105,19 @@ var RPBChess = (function() /* exported RPBChess */
 	 * @param {string} message Human-readable error message.
 	 * @param ...
 	 */
-	exceptions.InvalidFEN = function(fen, message) {
+	 function InvalidFEN(fen, message) {
 		this.fen     = fen    ;
 		this.message = message;
 		for(var i=2; i<arguments.length; ++i) {
 			var re = new RegExp('\\{' + (i-1) + '\\}');
 			this.message = this.message.replace(re, arguments[i]);
 		}
-	};
+	}
 
 
 	/**
 	 * @constructor
-	 * @alias InvalidNotation.exceptions
+	 * @alias InvalidNotation
 	 * @memberof RPBChess.exceptions
 	 *
 	 * @classdesc
@@ -131,7 +128,7 @@ var RPBChess = (function() /* exported RPBChess */
 	 * @param {string} message Human-readable error message.
 	 * @param ...
 	 */
-	exceptions.InvalidNotation = function(position, notation, message) {
+	function InvalidNotation(position, notation, message) {
 		this.position = position;
 		this.notation = notation;
 		this.message  = message ;
@@ -139,7 +136,7 @@ var RPBChess = (function() /* exported RPBChess */
 			var re = new RegExp('\\{' + (i-2) + '\\}');
 			this.message = this.message.replace(re, arguments[i]);
 		}
-	};
+	}
 
 
 
@@ -247,7 +244,7 @@ var RPBChess = (function() /* exported RPBChess */
 			if     (/^[aceg][1357]$/.test(square) || /^[bdfh][2468]$/.test(square)) { return 'b'; }
 			else if(/^[aceg][2468]$/.test(square) || /^[bdfh][1357]$/.test(square)) { return 'w'; }
 		}
-		throw new exceptions.IllegalArgument('squareColor()');
+		throw new IllegalArgument('squareColor()');
 	}
 
 
@@ -445,7 +442,7 @@ var RPBChess = (function() /* exported RPBChess */
 			return setFEN(this, arguments[0], arguments[1]);
 		}
 		else {
-			throw new exceptions.IllegalArgument('Position#fen()');
+			throw new IllegalArgument('Position#fen()');
 		}
 	};
 
@@ -513,13 +510,13 @@ var RPBChess = (function() /* exported RPBChess */
 		fen = fen.replace(/^\s+|\s+$/g, '');
 		var fields = fen.split(/\s+/);
 		if(fields.length !== 6) {
-			throw new exceptions.InvalidFEN(fen, i18n.WRONG_NUMBER_OF_FEN_FIELDS);
+			throw new InvalidFEN(fen, i18n.WRONG_NUMBER_OF_FEN_FIELDS);
 		}
 
 		// The first field (that represents the board) is split in 8 sub-fields.
 		var rowFields = fields[0].split('/');
 		if(rowFields.length !== 8) {
-			throw new exceptions.InvalidFEN(fen, i18n.WRONG_NUMBER_OF_SUBFIELDS_IN_BOARD_FIELD);
+			throw new InvalidFEN(fen, i18n.WRONG_NUMBER_OF_SUBFIELDS_IN_BOARD_FIELD);
 		}
 
 		// Initialize the position
@@ -548,7 +545,7 @@ var RPBChess = (function() /* exported RPBChess */
 
 				// Otherwise -> parsing error.
 				else {
-					throw new exceptions.InvalidFEN(fen, i18n.UNEXPECTED_CHARACTER_IN_BOARD_FIELD, s);
+					throw new InvalidFEN(fen, i18n.UNEXPECTED_CHARACTER_IN_BOARD_FIELD, s);
 				}
 
 				// Increment the character counter.
@@ -557,30 +554,30 @@ var RPBChess = (function() /* exported RPBChess */
 
 			// Ensure that the current sub-field deals with all the squares of the current row.
 			if(i !== rowField.length || c !== 8) {
-				throw new exceptions.InvalidFEN(fen, i18n.UNEXPECTED_END_OF_SUBFIELD_IN_BOARD_FIELD, i18n.ORDINALS[7-r]);
+				throw new InvalidFEN(fen, i18n.UNEXPECTED_END_OF_SUBFIELD_IN_BOARD_FIELD, i18n.ORDINALS[7-r]);
 			}
 		}
 
 		// Turn parsing
 		position._turn = COLOR_SYMBOL.indexOf(fields[1]);
 		if(position._turn < 0) {
-			throw new exceptions.InvalidFEN(fen, i18n.INVALID_TURN_FIELD);
+			throw new InvalidFEN(fen, i18n.INVALID_TURN_FIELD);
 		}
 
 		// Castle-rights parsing
 		position._castleRights = castleRightsFromString(fields[2], strict);
 		if(position._castleRights === null) {
-			throw new exceptions.InvalidFEN(fen, i18n.INVALID_CASTLE_RIGHTS_FIELD);
+			throw new InvalidFEN(fen, i18n.INVALID_CASTLE_RIGHTS_FIELD);
 		}
 
 		// En-passant parsing
 		var enPassantField = fields[3];
 		if(enPassantField !== '-') {
 			if(!/^[a-h][36]$/.test(enPassantField)) {
-				throw new exceptions.InvalidFEN(fen, i18n.INVALID_EN_PASSANT_FIELD);
+				throw new InvalidFEN(fen, i18n.INVALID_EN_PASSANT_FIELD);
 			}
 			if(strict && ((enPassantField[1]==='3' && position._turn===WHITE) || (enPassantField[1]==='6' && position._turn===BLACK))) {
-				throw new exceptions.InvalidFEN(fen, i18n.WRONG_ROW_IN_EN_PASSANT_FIELD);
+				throw new InvalidFEN(fen, i18n.WRONG_ROW_IN_EN_PASSANT_FIELD);
 			}
 			position._enPassant = COLUMN_SYMBOL.indexOf(enPassantField[0]);
 		}
@@ -588,10 +585,10 @@ var RPBChess = (function() /* exported RPBChess */
 		// Move counting flags parsing
 		var moveCountingRegExp = strict ? /^(?:0|[1-9][0-9]*)$/ : /^[0-9]+$/;
 		if(!moveCountingRegExp.test(fields[4])) {
-			throw new exceptions.InvalidFEN(fen, i18n.INVALID_MOVE_COUNTING_FIELD, i18n.ORDINALS[4]);
+			throw new InvalidFEN(fen, i18n.INVALID_MOVE_COUNTING_FIELD, i18n.ORDINALS[4]);
 		}
 		if(!moveCountingRegExp.test(fields[5])) {
-			throw new exceptions.InvalidFEN(fen, i18n.INVALID_MOVE_COUNTING_FIELD, i18n.ORDINALS[5]);
+			throw new InvalidFEN(fen, i18n.INVALID_MOVE_COUNTING_FIELD, i18n.ORDINALS[5]);
 		}
 		return { fiftyMoveClock: parseInt(fields[4], 10), fullMoveNumber: parseInt(fields[5], 10) };
 	}
@@ -650,14 +647,14 @@ var RPBChess = (function() /* exported RPBChess */
 	Position.prototype.square = function(square, value) {
 		square = parseSquare(square);
 		if(square < 0) {
-			throw new exceptions.IllegalArgument('Position#square()');
+			throw new IllegalArgument('Position#square()');
 		}
 		if(typeof value === 'undefined' || value === null) {
 			return getSquare(this, square);
 		}
 		else {
 			if(!setSquare(this, square, value)) {
-				throw new exceptions.IllegalArgument('Position#square()');
+				throw new IllegalArgument('Position#square()');
 			}
 		}
 	};
@@ -711,7 +708,7 @@ var RPBChess = (function() /* exported RPBChess */
 		}
 		else {
 			if(!setTurn(this, value)) {
-				throw new exceptions.IllegalArgument('Position#turn()');
+				throw new IllegalArgument('Position#turn()');
 			}
 		}
 	};
@@ -755,7 +752,7 @@ var RPBChess = (function() /* exported RPBChess */
 	Position.prototype.castleRights = function(color, side, value) {
 		color = parseColor(color);
 		if(color < 0 || !(side==='k' || side==='q')) {
-			throw new exceptions.IllegalArgument('Position#castleRights()');
+			throw new IllegalArgument('Position#castleRights()');
 		}
 		var column = side==='k' ? 7 : 0;
 		if(typeof value === 'undefined' || value === null) {
@@ -763,7 +760,7 @@ var RPBChess = (function() /* exported RPBChess */
 		}
 		else {
 			if(!setCastleRights(this, color, column, value)) {
-				throw new exceptions.IllegalArgument('Position#castleRights()');
+				throw new IllegalArgument('Position#castleRights()');
 			}
 		}
 	};
@@ -814,7 +811,7 @@ var RPBChess = (function() /* exported RPBChess */
 		}
 		else {
 			if(!setEnPassant(this, value)) {
-				throw new exceptions.IllegalArgument('Position#enPassant()');
+				throw new IllegalArgument('Position#enPassant()');
 			}
 		}
 	};
@@ -871,7 +868,7 @@ var RPBChess = (function() /* exported RPBChess */
 		square = parseSquare(square);
 		byWho  = parseColor (byWho );
 		if(square < 0 || byWho < 0) {
-			throw new exceptions.IllegalArgument('Position#isAttacked()');
+			throw new IllegalArgument('Position#isAttacked()');
 		}
 		if(typeof byWhat === 'undefined' || byWhat === null) {
 			return isAttacked(this, square, byWho);
@@ -885,7 +882,7 @@ var RPBChess = (function() /* exported RPBChess */
 			return false;
 		}
 		else {
-			throw new exceptions.IllegalArgument('Position#isAttacked()');
+			throw new IllegalArgument('Position#isAttacked()');
 		}
 	};
 
@@ -980,7 +977,7 @@ var RPBChess = (function() /* exported RPBChess */
 	Position.prototype.kingSquare = function(color) {
 		color = parseColor(color);
 		if(color < 0) {
-			throw new exceptions.IllegalArgument('Position#kingSquare()');
+			throw new IllegalArgument('Position#kingSquare()');
 		}
 		refreshLegalFlag(this);
 		var square = this._king[color];
@@ -1315,7 +1312,7 @@ var RPBChess = (function() /* exported RPBChess */
 				return parseNotation(this, move, false);
 			}
 			catch(err) {
-				if(err instanceof exceptions.InvalidNotation) {
+				if(err instanceof InvalidNotation) {
 					return false;
 				}
 				else {
@@ -1342,7 +1339,7 @@ var RPBChess = (function() /* exported RPBChess */
 		}
 
 		// Unknown move format
-		throw new exceptions.IllegalArgument('Position#isMoveLegal()');
+		throw new IllegalArgument('Position#isMoveLegal()');
 	};
 
 
@@ -1779,7 +1776,7 @@ var RPBChess = (function() /* exported RPBChess */
 			return parseNotation(this, arguments[0], arguments[1]);
 		}
 		else {
-			throw new exceptions.IllegalArgument('Position#notation()');
+			throw new IllegalArgument('Position#notation()');
 		}
 	};
 
@@ -1935,12 +1932,12 @@ var RPBChess = (function() /* exported RPBChess */
 		// General syntax
 		var m = /^(?:(O-O-O)|(O-O)|([KQRBN])([a-h])?([1-8])?(x)?([a-h][1-8])|(?:([a-h])(x)?)?([a-h][1-8])(?:(=)?([KQRBNP]))?)([\+#])?$/.exec(notation);
 		if(m === null) {
-			throw new exceptions.InvalidNotation(position, notation, i18n.INVALID_MOVE_NOTATION_SYNTAX);
+			throw new InvalidNotation(position, notation, i18n.INVALID_MOVE_NOTATION_SYNTAX);
 		}
 
 		// Ensure that the position is legal.
 		if(!position.isLegal()) {
-			throw new exceptions.InvalidNotation(position, notation, i18n.ILLEGAL_POSITION);
+			throw new InvalidNotation(position, notation, i18n.ILLEGAL_POSITION);
 		}
 
 		// CASTLING
@@ -1973,7 +1970,7 @@ var RPBChess = (function() /* exported RPBChess */
 			descriptor = isCastlingLegal(position, from, to);
 			if(!descriptor) {
 				var message = m[2] ? i18n.ILLEGAL_KING_SIDE_CASTLING : i18n.ILLEGAL_QUEEN_SIDE_CASTLING;
-				throw new exceptions.InvalidNotation(position, notation, message);
+				throw new InvalidNotation(position, notation, message);
 			}
 		}
 
@@ -1985,7 +1982,7 @@ var RPBChess = (function() /* exported RPBChess */
 
 			// Cannot take your own pieces!
 			if(toContent >= 0 && toContent % 2 === position._turn) {
-				throw new exceptions.InvalidNotation(position, notation, i18n.TRYING_TO_CAPTURE_YOUR_OWN_PIECES);
+				throw new InvalidNotation(position, notation, i18n.TRYING_TO_CAPTURE_YOUR_OWN_PIECES);
 			}
 
 			// Find the "from"-square candidates
@@ -2002,7 +1999,7 @@ var RPBChess = (function() /* exported RPBChess */
 			}
 			if(attackers.length===0) {
 				var message = (m[4] || m[5]) ? i18n.NO_PIECE_CAN_MOVE_TO_DISAMBIGUATION : i18n.NO_PIECE_CAN_MOVE_TO;
-				throw new exceptions.InvalidNotation(position, notation, message, m[3], m[7]);
+				throw new InvalidNotation(position, notation, message, m[3], m[7]);
 			}
 
 			// Compute the move descriptor for each remaining "from"-square candidate
@@ -2010,14 +2007,14 @@ var RPBChess = (function() /* exported RPBChess */
 				var currentDescriptor = isKingSafeAfterMove(position, attackers[i], to, -1, -1);
 				if(currentDescriptor) {
 					if(descriptor !== null) {
-						throw new exceptions.InvalidNotation(position, notation, i18n.REQUIRE_DISAMBIGUATION, m[3], m[7]);
+						throw new InvalidNotation(position, notation, i18n.REQUIRE_DISAMBIGUATION, m[3], m[7]);
 					}
 					descriptor = currentDescriptor;
 				}
 			}
 			if(descriptor === null) {
 				var message = position._turn===WHITE ? i18n.NOT_SAFE_FOR_WHITE_KING : i18n.NOT_SAFE_FOR_BLACK_KING;
-				throw new exceptions.InvalidNotation(position, notation, message);
+				throw new InvalidNotation(position, notation, message);
 			}
 
 			// STRICT-MODE -> check the disambiguation symbol.
@@ -2025,7 +2022,7 @@ var RPBChess = (function() /* exported RPBChess */
 				var expectedDS = getDisambiguationSymbol(position, descriptor._from, to);
 				var observedDS = (m[4] ? m[4] : '') + (m[5] ? m[5] : '');
 				if(expectedDS !== observedDS) {
-					throw new exceptions.InvalidNotation(position, notation, i18n.WRONG_DISAMBIGUATION_SYMBOL, expectedDS, observedDS);
+					throw new InvalidNotation(position, notation, i18n.WRONG_DISAMBIGUATION_SYMBOL, expectedDS, observedDS);
 				}
 			}
 		}
@@ -2043,29 +2040,29 @@ var RPBChess = (function() /* exported RPBChess */
 			// Ensure that the pawn move do not let a king is check.
 			if(!descriptor) {
 				var message = position._turn===WHITE ? i18n.NOT_SAFE_FOR_WHITE_KING : i18n.NOT_SAFE_FOR_BLACK_KING;
-				throw new exceptions.InvalidNotation(position, notation, message);
+				throw new InvalidNotation(position, notation, message);
 			}
 
 			// Detect promotions
 			if(to<8 || to>=112) {
 				if(!m[12]) {
-					throw new exceptions.InvalidNotation(position, notation, i18n.MISSING_PROMOTION);
+					throw new InvalidNotation(position, notation, i18n.MISSING_PROMOTION);
 				}
 				var promotion = PIECE_SYMBOL.indexOf(m[12].toLowerCase());
 				if(!isPromotablePiece(promotion)) {
-					throw new exceptions.InvalidNotation(position, notation, i18n.INVALID_PROMOTED_PIECE, m[12]);
+					throw new InvalidNotation(position, notation, i18n.INVALID_PROMOTED_PIECE, m[12]);
 				}
 				descriptor = new MoveDescriptor(descriptor, promotion);
 
 				// STRICT MODE -> do not forget the `=` character!
 				if(strict && !m[11]) {
-					throw new exceptions.InvalidNotation(position, notation, i18n.MISSING_PROMOTION_SYMBOL);
+					throw new InvalidNotation(position, notation, i18n.MISSING_PROMOTION_SYMBOL);
 				}
 			}
 
 			// Detect illegal promotion attempts!
 			else if(m[12]) {
-				throw new exceptions.InvalidNotation(position, notation, i18n.ILLEGAL_PROMOTION);
+				throw new InvalidNotation(position, notation, i18n.ILLEGAL_PROMOTION);
 			}
 		}
 
@@ -2073,12 +2070,12 @@ var RPBChess = (function() /* exported RPBChess */
 		if(strict) {
 			if(descriptor.isCapture() !== (m[6] || m[9])) {
 				var message = descriptor.isCapture() ? i18n.MISSING_CAPTURE_SYMBOL : i18n.INVALID_CAPTURE_SYMBOL;
-				throw new exceptions.InvalidNotation(position, notation, message);
+				throw new InvalidNotation(position, notation, message);
 			}
 			var expectedCCS = getCheckCheckmateSymbol(position, descriptor);
 			var observedCCS = m[13] ? m[13] : '';
 			if(expectedCCS !== observedCCS) {
-				throw new exceptions.InvalidNotation(position, notation, i18n.WRONG_CHECK_CHECKMATE_SYMBOL, expectedCCS, observedCCS);
+				throw new InvalidNotation(position, notation, i18n.WRONG_CHECK_CHECKMATE_SYMBOL, expectedCCS, observedCCS);
 			}
 		}
 
@@ -2101,7 +2098,7 @@ var RPBChess = (function() /* exported RPBChess */
 		// Ensure that `to` is not on the 1st row.
 		var from = to - 16 + position._turn*32;
 		if((from /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */)!==0) {
-			throw new exceptions.InvalidNotation(position, notation, i18n.INVALID_CAPTURING_PAWN_MOVE);
+			throw new InvalidNotation(position, notation, i18n.INVALID_CAPTURING_PAWN_MOVE);
 		}
 
 		// Compute the "from"-square.
@@ -2109,12 +2106,12 @@ var RPBChess = (function() /* exported RPBChess */
 		if(columnTo - columnFrom === 1) { from -= 1; }
 		else if(columnTo - columnFrom === -1) { from += 1; }
 		else {
-			throw new exceptions.InvalidNotation(position, notation, i18n.INVALID_CAPTURING_PAWN_MOVE);
+			throw new InvalidNotation(position, notation, i18n.INVALID_CAPTURING_PAWN_MOVE);
 		}
 
 		// Check the content of the "from"-square
 		if(position._board[from] !== PAWN*2+position._turn) {
-			throw new exceptions.InvalidNotation(position, notation, i18n.INVALID_CAPTURING_PAWN_MOVE);
+			throw new InvalidNotation(position, notation, i18n.INVALID_CAPTURING_PAWN_MOVE);
 		}
 
 		// Check the content of the "to"-square
@@ -2128,7 +2125,7 @@ var RPBChess = (function() /* exported RPBChess */
 			return isKingSafeAfterMove(position, from, to, -1, -1);
 		}
 
-		throw new exceptions.InvalidNotation(position, notation, i18n.INVALID_CAPTURING_PAWN_MOVE);
+		throw new InvalidNotation(position, notation, i18n.INVALID_CAPTURING_PAWN_MOVE);
 	}
 
 
@@ -2146,12 +2143,12 @@ var RPBChess = (function() /* exported RPBChess */
 		var offset = 16 - position._turn*32;
 		var from = to - offset;
 		if((from /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */)!==0) {
-			throw new exceptions.InvalidNotation(position, notation, i18n.INVALID_NON_CAPTURING_PAWN_MOVE);
+			throw new InvalidNotation(position, notation, i18n.INVALID_NON_CAPTURING_PAWN_MOVE);
 		}
 
 		// Check the content of the "to"-square
 		if(position._board[to] >= 0) {
-			throw new exceptions.InvalidNotation(position, notation, i18n.INVALID_NON_CAPTURING_PAWN_MOVE);
+			throw new InvalidNotation(position, notation, i18n.INVALID_NON_CAPTURING_PAWN_MOVE);
 		}
 
 		// Check the content of the "from"-square
@@ -2169,7 +2166,7 @@ var RPBChess = (function() /* exported RPBChess */
 			}
 		}
 
-		throw new exceptions.InvalidNotation(position, notation, i18n.INVALID_NON_CAPTURING_PAWN_MOVE);
+		throw new InvalidNotation(position, notation, i18n.INVALID_NON_CAPTURING_PAWN_MOVE);
 	}
 
 
@@ -2180,7 +2177,11 @@ var RPBChess = (function() /* exported RPBChess */
 
 	return {
 		i18n: i18n,
-		exceptions: exceptions,
+		exceptions: {
+			IllegalArgument: IllegalArgument,
+			InvalidFEN: InvalidFEN,
+			InvalidNotation: InvalidNotation
+		},
 		squareColor: squareColor,
 		Position: Position,
 		movetype: movetype,
