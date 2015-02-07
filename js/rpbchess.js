@@ -84,7 +84,7 @@ var RPBChess = (function() /* exported RPBChess */
 	/**
 	 * @constructor
 	 * @alias IllegalArgument
-	 * @memberof RPBChess
+	 * @memberof RPBChess.exceptions
 	 *
 	 * @classdesc
 	 * Exception thrown when an invalid argument is passed to a function.
@@ -99,7 +99,7 @@ var RPBChess = (function() /* exported RPBChess */
 	/**
 	 * @constructor
 	 * @alias InvalidFEN
-	 * @memberof RPBChess
+	 * @memberof RPBChess.exceptions
 	 *
 	 * @classdesc
 	 * Exception thrown by the FEN parsing function.
@@ -120,8 +120,8 @@ var RPBChess = (function() /* exported RPBChess */
 
 	/**
 	 * @constructor
-	 * @alias InvalidNotation
-	 * @memberof RPBChess
+	 * @alias InvalidNotation.exceptions
+	 * @memberof RPBChess.exceptions
 	 *
 	 * @classdesc
 	 * Exception thrown by the move notation parsing function.
