@@ -1116,6 +1116,7 @@ var RPBChess = (function() /* exported RPBChess */
 		if(arguments[0] instanceof MoveDescriptor) { // Promotion -> MoveDescriptor(descriptor, promotion)
 			this._type        = movetype.PROMOTION;
 			this._movingPiece = arguments[0]._movingPiece;
+			this._movingColor = arguments[0]._movingColor;
 			this._isCapture   = arguments[0]._isCapture  ;
 			this._from        = arguments[0]._from       ;
 			this._to          = arguments[0]._to         ;
@@ -1124,29 +1125,30 @@ var RPBChess = (function() /* exported RPBChess */
 		else {
 			this._type        = arguments[0];
 			this._movingPiece = arguments[1];
-			this._isCapture   = arguments[2];
-			this._from        = arguments[3];
-			this._to          = arguments[4];
+			this._movingColor = arguments[2];
+			this._isCapture   = arguments[3];
+			this._from        = arguments[4];
+			this._to          = arguments[5];
 
 			switch(this._type) {
 
-				// Castling move -> MoveDescriptor(CASTLING_MOVE, movingPiece, isCapture, from, to, rookFrom, rookTo)
+				// Castling move -> MoveDescriptor(CASTLING_MOVE, movingPiece, movingColor, isCapture, from, to, rookFrom, rookTo)
 				case movetype.CASTLING_MOVE:
-					this._rookFrom = arguments[5];
-					this._rookTo   = arguments[6];
+					this._rookFrom = arguments[6];
+					this._rookTo   = arguments[7];
 					break;
 
-				// En-passant capture -> MoveDescriptor(EN_PASSANT_CAPTURE, movingPiece, isCapture, from, to, enPassantSquare)
+				// En-passant capture -> MoveDescriptor(EN_PASSANT_CAPTURE, movingPiece, movingColor, isCapture, from, to, enPassantSquare)
 				case movetype.EN_PASSANT_CAPTURE:
-					this._enPassantSquare = arguments[5];
+					this._enPassantSquare = arguments[6];
 					break;
 
-				// Two-square pawn move -> MoveDescriptor(TWO_SQUARE_PAWN_MOVE, movingPiece, isCapture, from, to, twoSquarePawnMoveColumn)
+				// Two-square pawn move -> MoveDescriptor(TWO_SQUARE_PAWN_MOVE, movingPiece, movingColor, isCapture, from, to, twoSquarePawnMoveColumn)
 				case movetype.TWO_SQUARE_PAWN_MOVE:
-					this._twoSquarePawnMoveColumn = arguments[5];
+					this._twoSquarePawnMoveColumn = arguments[6];
 					break;
 
-				// Normal move -> MoveDescriptor(NORMAL_MOVE, movingPiece, isCapture, from, to)
+				// Normal move -> MoveDescriptor(NORMAL_MOVE, movingPiece, movingColor, isCapture, from, to)
 				default:
 					break;
 			}
@@ -1171,6 +1173,16 @@ var RPBChess = (function() /* exported RPBChess */
 	 */
 	MoveDescriptor.prototype.movingPiece = function() {
 		return PIECE_SYMBOL[this._movingPiece];
+	};
+
+
+	/**
+	 * Moving color.
+	 *
+	 * @returns {string} Either `'w'` or `'b'`
+	 */
+	MoveDescriptor.prototype.movingColor = function() {
+		return COLOR_SYMBOL[this._movingColor];
 	};
 
 
@@ -1616,13 +1628,13 @@ var RPBChess = (function() /* exported RPBChess */
 		}
 		else {
 			if(enPassantSquare >= 0) {
-				return new MoveDescriptor(movetype.EN_PASSANT_CAPTURE, movingPiece, true, from, to, enPassantSquare);
+				return new MoveDescriptor(movetype.EN_PASSANT_CAPTURE, movingPiece, position._turn, true, from, to, enPassantSquare);
 			}
 			else if(twoSquarePawnMoveColumn >= 0) {
-				return new MoveDescriptor(movetype.TWO_SQUARE_PAWN_MOVE, movingPiece, false, from, to, twoSquarePawnMoveColumn);
+				return new MoveDescriptor(movetype.TWO_SQUARE_PAWN_MOVE, movingPiece, position._turn, false, from, to, twoSquarePawnMoveColumn);
 			}
 			else {
-				return new MoveDescriptor(movetype.NORMAL_MOVE, movingPiece, toContent>=0, from, to);
+				return new MoveDescriptor(movetype.NORMAL_MOVE, movingPiece, position._turn, toContent>=0, from, to);
 			}
 		}
 	}
@@ -1663,7 +1675,7 @@ var RPBChess = (function() /* exported RPBChess */
 		}
 
 		// The move is legal -> generate the move descriptor.
-		return new MoveDescriptor(movetype.CASTLING_MOVE, KING, false, from, to, rookFrom, rookTo);
+		return new MoveDescriptor(movetype.CASTLING_MOVE, KING, position._turn, false, from, to, rookFrom, rookTo);
 	}
 
 
