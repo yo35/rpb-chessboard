@@ -30,6 +30,26 @@
 
 
 	// ---------------------------------------------------------------------------
+	// Internationalization
+	// ---------------------------------------------------------------------------
+
+	var i18n = RPBChess.i18n;
+
+	// PGN parsing error messages
+	i18n.INVALID_PGN_TOKEN               = 'Unrecognized character or group of characters.';
+	i18n.INVALID_MOVE_IN_PGN_TEXT        = 'Invalid move. {1}';
+	i18n.INVALID_FEN_IN_PGN_TEXT         = 'Invalid FEN string in the initial position header. {1}';
+	i18n.UNEXPECTED_PGN_HEADER           = 'Unexpected PGN item header.';
+	i18n.UNEXPECTED_BEGIN_OF_VARIATION   = 'Unexpected begin of variation.';
+	i18n.UNEXPECTED_END_OF_VARIATION     = 'Unexpected end of variation.';
+	i18n.UNEXPECTED_END_OF_GAME          = 'Unexpected end of game: there are pending variations.';
+	i18n.UNEXPECTED_END_OF_TEXT          = 'Unexpected end of text: there is a pending item.';
+	i18n.PGN_TEXT_IS_EMPTY               = 'No game found in the text.';
+	i18n.PGN_TEXT_CONTAINS_SEVERAL_GAMES = 'The PGN data contains 2 or more games.';
+
+
+
+	// ---------------------------------------------------------------------------
 	// Exceptions
 	// ---------------------------------------------------------------------------
 
@@ -124,6 +144,14 @@
 		// Text comment associated to the current move if any, or null otherwise.
 		this._comment = null;
 		this._isLongComment = false;
+
+		// Connect to parent.
+		if(parent instanceof Variation) {
+			parent._first = this;
+		}
+		else {
+			parent._next = this;
+		}
 	}
 
 
@@ -250,7 +278,7 @@
 		this._first  = null  ; // First node of the variation (always a `Node` object if defined).
 
 		// Whether the variation is or not to a "long-variation".
-		this._withinLongVariation = (parent instanceof Node) ? (parent._withinLongVariation && isLongVariation) : isLongVariation;
+		this._withinLongVariation = isLongVariation;
 
 		// List of NAGs associated to the current variation.
 		this._nags = [];
@@ -258,6 +286,14 @@
 		// Text comment associated to the current variation if any, or null otherwise.
 		this._comment = null;
 		this._isLongComment = false;
+
+		// Connect to parent.
+		if(parent instanceof Item) {
+			parent._mainVariation = this;
+		}
+		else {
+			parent._variations.push(this);
+		}
 	}
 
 
@@ -342,8 +378,9 @@
 		this._headers         = {};
 		this._initialPosition = new RPBChess.Position();
 		this._fullMoveNumber  = 1;
-		this._mainVariation   = new Variation(this, true);
 		this._result          = gameresult.LINE;
+
+		new Variation(this, true);
 	}
 
 
@@ -425,6 +462,14 @@
 		'=+' : 15, '=/+' : 15, // Black has a slight advantage
 		'-/+': 17,             // Black has a moderate advantage
 		'-+' : 19              // Black has a decisive advantage
+	};
+
+	// Conversion table result -> numeric code
+	var RESULT_LOOKUP = {
+		'1-0'    : gameresult.WHITE_WINS,
+		'1/2-1/2': gameresult.DRAW,
+		'0-1'    : gameresult.BLACK_WINS,
+		'*'      : gameresult.LINE
 	};
 
 	// PGN token types
@@ -534,12 +579,12 @@
 			else if(/^(1\-0|0\-1|1\/2\-1\/2|\*)/.test(s)) {
 				deltaPos   = RegExp.$1.length;
 				token      = TOKEN_END_OF_GAME;
-				tokenValue = RegExp.$1;
+				tokenValue = RESULT_LOOKUP[RegExp.$1];
 			}
 
 			// Otherwise, the string is badly formatted with respect to the PGN syntax
 			else {
-				throw new InvalidPGN(pgnString, pos, 'Unrecognized character or group of characters.'); // TODO: i18n
+				throw new InvalidPGN(pgnString, pos, i18n.INVALID_PGN_TOKEN);
 			}
 
 			// Increment the character pointer and return the result
@@ -574,50 +619,67 @@
 				// Header
 				case TOKEN_HEADER:
 					if(node !== null) {
-						throw new InvalidPGN(pgnString, tokenPos, 'Unexpected PGN item header.'); // TODO: i18n
+						throw new InvalidPGN(pgnString, tokenPos, i18n.UNEXPECTED_PGN_HEADER);
 					}
-					item.header(tokenValue.key, tokenValue.value);
+					item._headers[tokenValue.key] = tokenValue.value;
 
 					// The header 'FEN' has a special meaning, in that it is used to define a custom
 					// initial position, that may be different from the usual one.
 					if(tokenValue.key === 'FEN') {
-						if(!item.defineInitialPosition(tokenValue.value)) {
-							throw new InvalidPGN(pgnString, tokenPos, 'Invalid FEN string.'); // TODO: i18n
+						try {
+							var moveCounters = item._initialPosition.fen(tokenValue.value);
+							item._fullMoveNumber = moveCounters.fullMoveNumber;
+						}
+						catch(error) {
+							if(error instanceof RPBChess.exceptions.InvalidFEN) {
+								throw new InvalidPGN(pgnString, tokenPos, i18n.INVALID_FEN_IN_PGN_TEXT, error.message);
+							}
+							else {
+								throw error;
+							}
 						}
 					}
 					break;
 
 				// Move
 				case TOKEN_MOVE:
-					if(!node.play(tokenValue)) {
-						throw new Error(pgnString, tokenPos, 'Invalid move.'); // TODO: i18n
+					try {
+						node = new Node(node, tokenValue);
 					}
-					node = (node instanceof Variation) ? node.first() : node.next();
+					catch(error) {
+						if(error instanceof RPBChess.exceptions.InvalidNotation) {
+							throw new InvalidPGN(pgnString, tokenPos, i18n.INVALID_MOVE_IN_PGN_TEXT, error.message);
+						}
+						else {
+							throw error;
+						}
+					}
 					break;
 
 				// NAG
 				case TOKEN_NAG:
-					node.nags().push(tokenValue);
+					node._nags.push(tokenValue);
 					break;
 
 				// Comment
 				case TOKEN_COMMENT:
-					node.comment(tokenValue, emptyLineFound);
+					node._comment = tokenValue;
+					node._isLongComment = node._withinLongVariation && emptyLineFound;
 					break;
 
 				// Begin of variation
 				case TOKEN_BEGIN_VARIATION:
 					if(!(node instanceof Node)) {
-						throw new InvalidPGN(pgnString, tokenPos, 'Unexpected begin of variation.'); // TODO: i18n
+						throw new InvalidPGN(pgnString, tokenPos, i18n.UNEXPECTED_BEGIN_OF_VARIATION);
 					}
 					nodeStack.push(node);
-					node = node.addVariation(emptyLineFound);
+					node = new Variation(node, node._withinLongVariation && emptyLineFound);
 					break;
 
 				// End of variation
 				case TOKEN_END_VARIATION:
 					if(nodeStack.length === 0) {
-						throw new InvalidPGN(pgnString, tokenPos, 'Unexpected end of variation.'); // TODO: i18n
+						throw new InvalidPGN(pgnString, tokenPos, i18n.UNEXPECTED_END_OF_VARIATION);
 					}
 					node = nodeStack.pop();
 					break;
@@ -625,9 +687,9 @@
 					// End-of-game
 				case TOKEN_END_OF_GAME:
 					if(nodeStack.length>0) {
-						throw new InvalidPGN(pgnString, tokenPos, 'Unexpected end of game: there are pending variations.'); // TODO: i18n
+						throw new InvalidPGN(pgnString, tokenPos, i18n.UNEXPECTED_END_OF_GAME);
 					}
-					item.result(tokenValue);
+					item._result = tokenValue;
 					retVal.push(item);
 					item = null;
 					node = null;
@@ -639,7 +701,7 @@
 
 		// Return the result
 		if(item !== null) {
-			throw new InvalidPGN(pgnString, pgnString.length, 'Unexpected end of text: there is a pending item.'); // TODO: i18n
+			throw new InvalidPGN(pgnString, pgnString.length, i18n.UNEXPECTED_END_OF_TEXT);
 		}
 		return retVal;
 	}
@@ -659,7 +721,7 @@
 
 			// No item found -> throw an exception.
 			case 0:
-				throw new InvalidPGN(pgnString, -1, 'Unexpected empty PGN data.'); // TODO: i18n
+				throw new InvalidPGN(pgnString, -1, i18n.PGN_TEXT_IS_EMPTY);
 
 			// 1 item found -> return it.
 			case 1:
@@ -667,7 +729,7 @@
 
 			// More than 1 item found -> throw an exception.
 			default:
-				throw new InvalidPGN(pgnString, -1, 'The PGN data is expected to contain only one game.'); // TODO: i18n
+				throw new InvalidPGN(pgnString, -1, i18n.PGN_TEXT_CONTAINS_SEVERAL_GAMES);
 		}
 	}
 
