@@ -22,112 +22,95 @@
 /**
  * Tools to parse PGN text data.
  *
- * Compared to the built-in `Chess#load_png` method provided by the chess.js
- * library, the parsing functions defined below support comments
- * and variations in PGN games.
- *
- * @author Yoann Le Montagner
- * @namespace Pgn
- *
- * @requires chess.js {@link https://github.com/jhlywa/chess.js}
+ * @requires rpbchess.js
  */
-var Pgn = (function(Chess) /* exported Pgn */
+(function(RPBChess)
 {
 	'use strict';
 
 
-
-	// === BaseNode ==============================================================
+	// ---------------------------------------------------------------------------
+	// Exceptions
+	// ---------------------------------------------------------------------------
 
 	/**
 	 * @constructor
-	 * @alias BaseNode
-	 * @memberof Pgn
+	 * @alias InvalidPGN
+	 * @memberof RPBChess.exceptions
 	 *
 	 * @classdesc
-	 * Base class inherited by `Node` and `Variation`.
-	 */
-	function BaseNode() {}
-
-
-	/**
-	 * Getter/setter for the NAGs associated to the current move/variation.
+	 * Exception thrown by the PGN parsing functions.
 	 *
-	 * If `value` is undefined, the current list of NAGs is returned.
-	 * If a new list of NAGs is provided as `value`, it replaces the old one,
-	 * which is returned.
-	 *
-	 * @param {number[]} [value=undefined]
-	 * @returns {number[]}
+	 * @param {string} pgn String whose parsing leads to an error.
+	 * @param {number} index Character index in the string where the parsing fails (`-1` if no particular character is targeted).
+	 * @param {string} message Human-readable error message.
+	 * @param ...
 	 */
-	BaseNode.prototype.nags = function(value)
-	{
-		var retVal = this._nags;
-		if(value !== undefined) {
-			this._nags = value;
+	function InvalidPGN(pgn, index, message) {
+		this.pgn     = pgn    ;
+		this.index   = index  ;
+		this.message = message;
+		for(var i=3; i<arguments.length; ++i) {
+			var re = new RegExp('\\{' + (i-2) + '\\}');
+			this.message = this.message.replace(re, arguments[i]);
 		}
-		return retVal;
-	};
+	}
 
 
-	/**
-	 * Getter/setter for the text comment associated to the current move/variation.
-	 *
-	 * If no argument is provided, the current comment (or `null` if no comment is defined)
-	 * is returned (getter behavior).
-	 *
-	 * If `value` is provided, it replaces the previous comment, which is returned (setter behavior).
-	 * Optionnaly, `isLongComment` can be used to set whether the comment is long or short.
-	 * However, if the node does not belong itself to a long variation, this flag is ignored,
-	 * and the comment is taken as a short comment.
-	 *
-	 * @param {null|string} [value=undefined]
-	 * @param {boolean} [isLongComment]
-	 * @returns {null|string}
-	 */
-	BaseNode.prototype.comment = function(value, isLongComment)
-	{
-		var retVal = this._comment;
-		if(value !== undefined) {
-			this._comment = value;
-			if(isLongComment !== undefined) {
-				this._isLongComment = this._withinLongVariation && isLongComment;  // `this._withinLongVariation` must be defined in derived classes.
-			}
-		}
-		return retVal;
-	};
 
+	// ---------------------------------------------------------------------------
+	// Miscellaneous objects and methods
+	// ---------------------------------------------------------------------------
 
 	/**
-	 * Whether the text comment associated to the current move/variation is long or short.
+	 * Type of move.
 	 *
-	 * @returns {boolean}
+	 * @const
 	 */
-	BaseNode.prototype.isLongComment = function()
-	{
-		return this._isLongComment;
+	var gameresult = {
+		WHITE_WINS: 0,
+		DRAW      : 1,
+		BLACK_WINS: 2,
+		LINE      : 3 // undefined result
 	};
 
 
 
-	// === Node ==================================================================
+	// ---------------------------------------------------------------------------
+	// Node
+	// ---------------------------------------------------------------------------
 
 	/**
 	 * @constructor
 	 * @alias Node
-	 * @memberof Pgn
+	 * @memberof RPBChess.pgn
 	 *
 	 * @classdesc
 	 * Represent one move in the tree structure formed by a chess game with multiple variations.
 	 *
-	 * @param {(Pgn.Node|Pgn.Variation)} parent
-	 * @param {string} move
+	 * @param {Node|Variation} parent
+	 * @param {string} move Move notation.
+	 * @throws {InvalidNotation} If the move notation cannot be parsed.
 	 */
-	function Node(parent, move)
-	{
+	function Node(parent, move) {
+
 		this._parent = parent; // Either a `Node` or a `Variation` object.
-		this._move   = move  ; // SAN description of the move.
 		this._next   = null  ; // Next node (always a `Node` object if defined).
+
+		// Move descriptor.
+		this._move = parent.position().notation(move);
+
+		// Position obtained after the current move.
+		this._position = new RPBChess(parent.position());
+		this._position.play(this._move);
+
+		// Full-move number
+		if(parent instanceof Variation) {
+			this._fullMoveNumber = parent._parent._fullMoveNumber;
+		}
+		else {
+			this._fullMoveNumber = this._move.movingColor()==='w' ? parent._fullMoveNumber+1 : parent._fullMoveNumber;
+		}
 
 		// Whether the node belongs or not to a "long-variation".
 		this._withinLongVariation = parent._withinLongVariation;
@@ -135,33 +118,13 @@ var Pgn = (function(Chess) /* exported Pgn */
 		// Variations that could be played instead of the current move.
 		this._variations = [];
 
-		// Chess position obtained after the current move (encoded as a FEN string).
-		var position = new Chess(parent.position());
-		this._position = position.move(move) === null ? '' : position.fen();
-
-		// Move counter (not to be confused with the full-move number).
-		this._moveCounter = (parent instanceof Variation) ? parent.moveCounter() : parent.moveCounter()+1;
-
-		// List of NAGs associated to the current move/variation.
+		// List of NAGs associated to the current move.
 		this._nags = [];
 
-		// Text comment associated to the current move/variation if any, or null otherwise.
+		// Text comment associated to the current move if any, or null otherwise.
 		this._comment = null;
 		this._isLongComment = false;
 	}
-	Node.prototype = new BaseNode();
-	Node.prototype.constructor = Node;
-
-
-	/**
-	 * Whether the current node have been created from a valid move.
-	 *
-	 * @returns {boolean}
-	 */
-	Node.prototype.valid = function()
-	{
-		return this._position.length !== 0;
-	};
 
 
 	/**
@@ -169,166 +132,133 @@ var Pgn = (function(Chess) /* exported Pgn */
 	 *
 	 * @returns {string}
 	 */
-	Node.prototype.move = function()
-	{
-		return this._move;
+	Node.prototype.move = function() {
+		return this.positionBefore().notation(this._move);
 	};
 
 
 	/**
-	 * Chess position before the current move (encoded as a FEN string).
+	 * Chess position before the current move.
 	 *
-	 * @returns {string}
+	 * @returns {Position}
 	 */
-	Node.prototype.positionBefore = function()
-	{
+	Node.prototype.positionBefore = function() {
 		return this._parent.position();
 	};
 
 
 	/**
-	 * Chess position obtained after the current move (encoded as a FEN string).
+	 * Chess position obtained after the current move.
 	 *
-	 * @returns {string}
+	 * @returns {Position}
 	 */
-	Node.prototype.position = function()
-	{
+	Node.prototype.position = function() {
 		return this._position;
 	};
 
 
 	/**
-	 * Move counter. This counter is incremented each time a move is played, either
-	 * by white or by black. Even values of the move counter denote a move played by
-	 * white, odd values a move played by black.
-	 *
-	 * The move counter must not be confused with the full-move number, which is
-	 * incremented only after a black move.
+	 * Full-move number. It starts at 1, and is incremented after each black move.
 	 *
 	 * @returns {number}
 	 */
-	Node.prototype.moveCounter = function()
-	{
-		return this._moveCounter;
-	};
-
-
-	/**
-	 * Full-move number. It starts at 1, and is incremented after every black moves.
-	 *
-	 * @returns {number}
-	 */
-	Node.prototype.fullMoveNumber = function()
-	{
-		return Math.floor(this._moveCounter / 2) + 1;
+	Node.prototype.fullMoveNumber = function() {
+		return this._fullMoveNumber;
 	};
 
 
 	/**
 	 * Color the side corresponding to the current move.
 	 *
-	 * @returns {string} Either 'w' or 'b'.
+	 * @returns {string} Either `'w'` or `'b'`.
 	 */
-	Node.prototype.moveColor = function()
-	{
-		return (this._moveCounter%2 === 0) ? 'w' : 'b';
+	Node.prototype.moveColor = function() {
+		return this._move.movingColor();
 	};
 
 
 	/**
 	 * Next move within the same variation.
 	 *
-	 * @returns {null|Pgn.Node} Null if the current move is the last move of the variation.
+	 * @returns {Node?} `null` if the current move is the last move of the variation.
 	 */
-	Node.prototype.next = function()
-	{
+	Node.prototype.next = function() {
 		return this._next;
 	};
 
 
 	/**
-	 * Number of variations that can be followed instead of the current move.
+	 * Return the variations that can be followed instead of the current move.
 	 *
-	 * @returns {number}
+	 * @returns {Variation[]}
 	 */
-	Node.prototype.variations = function()
-	{
-		return this._variations.length;
+	Node.prototype.variations = function() {
+		return this._variations;
 	};
 
 
 	/**
-	 * Return the k^th variation that can be followed instead of the current move.
+	 * Return the NAGs associated to the current move.
 	 *
-	 * @param {number} k Variation index.
-	 * @returns {Pgn.Variation}
+	 * @returns {number[]}
 	 */
-	Node.prototype.variation = function(k)
-	{
-		return this._variations[k];
+	Node.prototype.nags = function() {
+		return this._nags;
 	};
 
 
 	/**
-	 * Define the move that immediatly follows the one represented by the current node.
+	 * Return the text comment associated to the current move.
 	 *
-	 * @param {string} move The new move to be played.
-	 * @returns {boolean} True if the move has actually been played, false if the move was badly formatted or illegal.
+	 * @returns {string?} `null` if no comment is defined for the move.
 	 */
-	Node.prototype.play = function(move)
-	{
-		this._next = new Node(this, move);
-		return this._next.valid();
+	Node.prototype.comment = function() {
+		return this._comment;
 	};
 
 
 	/**
-	 * Add a new variation to the current move.
+	 * Whether the text comment associated to the current move is long or short.
 	 *
-	 * @param {boolean} Whether the is long or short. This flag is ignored if the current move
-	 *        does not belong itself to a long variation.
-	 * @returns {Pgn.Variation} The newly created variation, with no node.
+	 * @returns {boolean}
 	 */
-	Node.prototype.addVariation = function(isLongVariation)
-	{
-		var newVariation = new Variation(this, this._withinLongVariation && isLongVariation);
-		this._variations.push(newVariation);
-		return newVariation;
+	Node.prototype.isLongComment = function() {
+		return this._isLongComment;
 	};
 
 
 
-	// === Variation =============================================================
+	// ---------------------------------------------------------------------------
+	// Variation
+	// ---------------------------------------------------------------------------
 
 	/**
 	 * @constructor
 	 * @alias Variation
-	 * @memberof Pgn
+	 * @memberof RPBChess.pgn
 	 *
 	 * @classdesc
 	 * Represent one variation in the tree structure formed by a chess game, meaning
 	 * a starting chess position and list of played consecutively from this position.
 	 *
-	 * @param {(Pgn.Node|Pgn.Item)} parent Parent node in the tree structure.
+	 * @param {Node|Item} parent Parent node in the tree structure.
 	 * @param {boolean} isLongVariation Whether the variation is long or short.
 	 */
 	function Variation(parent, isLongVariation)
 	{
 		this._parent = parent; // Either a `Node` or a `Item` object.
-		this._first  = null  ; // First node of the variation (always as `Node` object if defined).
+		this._first  = null  ; // First node of the variation (always a `Node` object if defined).
 
 		// Whether the variation is or not to a "long-variation".
-		this._withinLongVariation = isLongVariation;
+		this._withinLongVariation = (parent instanceof Node) ? (parent._withinLongVariation && isLongVariation) : isLongVariation;
 
-		// List of NAGs associated to the current move/variation.
+		// List of NAGs associated to the current variation.
 		this._nags = [];
 
-		// Text comment associated to the current move/variation if any, or null otherwise.
+		// Text comment associated to the current variation if any, or null otherwise.
 		this._comment = null;
 		this._isLongComment = false;
 	}
-	Variation.prototype = new BaseNode();
-	Variation.prototype.constructor = Variation;
 
 
 	/**
@@ -337,65 +267,70 @@ var Pgn = (function(Chess) /* exported Pgn */
 	 *
 	 * @returns {boolean}
 	 */
-	Variation.prototype.isLongVariation = function()
-	{
+	Variation.prototype.isLongVariation = function() {
 		return this._withinLongVariation;
 	};
 
 
 	/**
-	 * Chess position at the beginning of the variation (encoded as a FEN string).
+	 * Chess position at the beginning of the variation.
 	 *
-	 * @returns {string}
+	 * @returns {Position}
 	 */
-	Variation.prototype.position = function()
-	{
+	Variation.prototype.position = function() {
 		return (this._parent instanceof Node) ? this._parent.positionBefore() : this._parent.initialPosition();
-	};
-
-
-	/**
-	 * Move counter to use for the first move of the variation.
-	 *
-	 * @returns {number}
-	 */
-	Variation.prototype.moveCounter = function()
-	{
-		return (this._parent instanceof Node) ? this._parent.moveCounter() : this._parent.initialMoveCounter();
 	};
 
 
 	/**
 	 * First move of the current variation.
 	 *
-	 * @returns {Pgn.Node} May be null if the variation is empty.
+	 * @returns {Node?} May be null if the variation is empty.
 	 */
-	Variation.prototype.first = function()
-	{
+	Variation.prototype.first = function() {
 		return this._first;
 	};
 
 
 	/**
-	 * Define the first move of the variation.
+	 * Return the NAGs associated to the current variation.
 	 *
-	 * @param {string} move The new to be played.
-	 * @returns {boolean} True if the move has actually been played, false if the move was badly formatted or illegal.
+	 * @returns {number[]}
 	 */
-	Variation.prototype.play = function(move)
-	{
-		this._first = new Node(this, move);
-		return this._first.valid();
+	Variation.prototype.nags = function() {
+		return this._nags;
+	};
+
+
+	/**
+	 * Return the text comment associated to the current variation.
+	 *
+	 * @returns {string?} `null` if no comment is defined for the variation.
+	 */
+	Variation.prototype.comment = function() {
+		return this._comment;
+	};
+
+
+	/**
+	 * Whether the text comment associated to the current variation is long or short.
+	 *
+	 * @returns {boolean}
+	 */
+	Variation.prototype.isLongComment = function() {
+		return this._isLongComment;
 	};
 
 
 
-	// === Item ==================================================================
+	// ---------------------------------------------------------------------------
+	// Item
+	// ---------------------------------------------------------------------------
 
 	/**
 	 * @constructor
 	 * @alias Item
-	 * @memberof Pgn
+	 * @memberof RPBChess.pgn
 	 *
 	 * @classdesc
 	 * Represent a chess game in a PGN file, i.e. the headers (meta-information such
@@ -403,13 +338,12 @@ var Pgn = (function(Chess) /* exported Pgn */
 	 * representing the played moves together with the possible variations,
 	 * and finally the result of the game.
 	 */
-	function Item()
-	{
-		this._headers            = {};
-		this._initialPosition    = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
-		this._initialMoveCounter = 0;
-		this._mainVariation      = new Variation(this, true);
-		this._result             = '*'; // '1-0', '0-1', '1/2-1/2' or '*'
+	function Item() {
+		this._headers         = {};
+		this._initialPosition = new RPBChess.Position();
+		this._fullMoveNumber  = 1;
+		this._mainVariation   = new Variation(this, true);
+		this._result          = gameresult.LINE;
 	}
 
 
@@ -418,8 +352,7 @@ var Pgn = (function(Chess) /* exported Pgn */
 	 *
 	 * @returns {string[]}
 	 */
-	Item.prototype.headers = function()
-	{
+	Item.prototype.headers = function() {
 		var retVal = [];
 		for(var h in this._headers) {
 			if(this._headers.hasOwnProperty(h)) {
@@ -431,151 +364,52 @@ var Pgn = (function(Chess) /* exported Pgn */
 
 
 	/**
-	 * Getter/setter for the headers of the game.
-	 *
-	 * If `value` is undefined, the method reads the meta-information identified by `key`,
-	 * and return it (getter behavior). Otherwise, this meta-information is set,
-	 * and the old value is returned (setter behavior).
+	 * Return the value that is defined for the header corresponding to the given key.
 	 *
 	 * @param {string} key Header to access to.
-	 * @param {string} [value=undefined]
 	 * @returns {string}
 	 */
-	Item.prototype.header = function(key, value)
-	{
-		var retVal = (key in this._headers) ? this._headers[key] : null;
-		if(value !== undefined) {
-			this._headers[key] = value;
-		}
-		return retVal;
+	Item.prototype.header = function(key) {
+		return this._headers[key];
 	};
 
 
 	/**
 	 * Initial position of the game.
 	 *
-	 * @returns {string}
+	 * @returns {Position}
 	 */
-	Item.prototype.initialPosition = function()
-	{
+	Item.prototype.initialPosition = function() {
 		return this._initialPosition;
-	};
-
-
-	/**
-	 * Value of the move counter to use for the first move.
-	 *
-	 * @returns {number}
-	 */
-	Item.prototype.initialMoveCounter = function()
-	{
-		return this._initialMoveCounter;
-	};
-
-
-	/**
-	 * Define the initial position and move number.
-	 *
-	 * Calling this method erases all the moves and variations previously defined.
-	 *
-	 * @params {string} fen FEN-formatted string representing the new initial position.
-	 * @returns {boolean} True if the operation succeed (i.e. if `fen` is a valid FEN string).
-	 */
-	Item.prototype.defineInitialPosition = function(fen)
-	{
-		// Erase the moves.
-		this._mainVariation = new Variation(this, true);
-
-		// Validate the FEN string.
-		var p = new Chess(fen);
-		if(p.fen() !== fen) {
-			return false;
-		}
-
-		// Validate the full-move number in the FEN string.
-		if(!/^.* ([0-9]+)\s*$/.test(fen)) {
-			return false;
-		}
-		var fullMoveNumber = parseInt(RegExp.$1, 10);
-
-		// Save the data
-		this._initialPosition    = fen;
-		this._initialMoveCounter = 2*(fullMoveNumber - 1) + (p.turn() === 'w' ? 0 : 1);
-		return true;
 	};
 
 
 	/**
 	 * Main variation.
 	 *
-	 * @returns {Pgn.Variation}
+	 * @returns {Variation}
 	 */
-	Item.prototype.mainVariation = function()
-	{
+	Item.prototype.mainVariation = function() {
 		return this._mainVariation;
 	};
 
 
 	/**
-	 * Getter/setter for the result of the game.
+	 * Result of the game.
 	 *
-	 * If no argument is provided, the current result is returned (getter behavior).
-	 * Otherwise, `value` replaces the old game result, which is returned.
-	 *
-	 * @param {string} [value=undefined] Must be `'1-0'`, `'0-1'`, `'1/2-1/2'` or `'*'`.
-	 * @returns {string}
+	 * @returns {number} One of the constants defined in {@link gameresult}.
 	 */
-	Item.prototype.result = function(value)
-	{
-		var retVal = this._result;
-		if(value !== undefined) {
-			switch(value) {
-				case '1-0':
-				case '0-1':
-				case '1/2-1/2':
-				case '*':
-					this._result = value;
-					break;
-			}
-		}
-		return retVal;
+	Item.prototype.result = function() {
+		return this._result;
 	};
 
 
 
-	// === Error =================================================================
+	// ---------------------------------------------------------------------------
+	// Parsing functions
+	// ---------------------------------------------------------------------------
 
-	/**
-	 * @constructor
-	 * @alias Error
-	 * @memberof Pgn
-	 *
-	 * @classdesc
-	 * Exception thrown by the PGN parsing functions.
-	 *
-	 * @param {string} pgnString String whose parsing leads to an error.
-	 * @param {null|number} pos Position in the string where the parsing fails.
-	 * @param {string} message Human-readable error message.
-	 */
-	function Error(pgnString, pos, message)
-	{
-		this.pgnString = pgnString;
-		this.pos       = pos      ;
-		this.message   = message  ;
-	}
-
-
-
-	// === Parsing functions =====================================================
-
-	/**
-	 * The most common NAGs, and their correspond numeric code.
-	 *
-	 * @private
-	 * @constant
-	 *
-	 * @memberof Pgn
-	 */
+	// Conversion table NAG -> numeric code
 	var SPECIAL_NAGS_LOOKUP = {
 		'!!' :  3,             // very good move
 		'!'  :  1,             // good move
@@ -593,27 +427,24 @@ var Pgn = (function(Chess) /* exported Pgn */
 		'-+' : 19              // Black has a decisive advantage
 	};
 
+	// PGN token types
+	var /* const */ TOKEN_HEADER          = 1; // Ex: [White "Kasparov, G."]
+	var /* const */ TOKEN_MOVE            = 2; // [BKNQRa-h1-8xO\-=\+#]+ (with an optional move number)
+	var /* const */ TOKEN_NAG             = 3; // $[1-9][0-9]* or !! ! !? ?! ? ?? +- +/- +/= += = inf =+ =/+ -/+ -+
+	var /* const */ TOKEN_COMMENT         = 4; // {some text}
+	var /* const */ TOKEN_BEGIN_VARIATION = 5; // (
+	var /* const */ TOKEN_END_VARIATION   = 6; // )
+	var /* const */ TOKEN_END_OF_GAME     = 7; // 1-0, 0-1, 1/2-1/2 or *
 
 
 	/**
 	 * General PGN parsing function.
 	 *
 	 * @param {string} pgnString String to parse.
-	 * @returns {Pgn.Item[]}
-	 * @throws {Error}
-	 *
-	 * @memberof Pgn
+	 * @returns {Item[]}
+	 * @throws {InvalidPGN}
 	 */
-	function parse(pgnString)
-	{
-		// Token types
-		var /* const */ TOKEN_HEADER          = 1; // Ex: [White "Kasparov, G."]
-		var /* const */ TOKEN_MOVE            = 2; // [BKNQRa-h1-8xO\-=\+#]+ (with an optional move number)
-		var /* const */ TOKEN_NAG             = 3; // $[1-9][0-9]* or !! ! !? ?! ? ?? +- +/- +/= += = inf =+ =/+ -/+ -+
-		var /* const */ TOKEN_COMMENT         = 4; // {some text}
-		var /* const */ TOKEN_BEGIN_VARIATION = 5; // (
-		var /* const */ TOKEN_END_VARIATION   = 6; // )
-		var /* const */ TOKEN_END_OF_GAME     = 7; // 1-0, 0-1, 1/2-1/2 or *
+	function parse(pgnString) {
 
 		// State variables for lexical analysis (performed by the function consumeToken()).
 		var pos            = 0;     // current position in the string
@@ -622,9 +453,7 @@ var Pgn = (function(Chess) /* exported Pgn */
 		var tokenValue     = null;  // current token value (if any)
 		var tokenPos       = 0;     // position of the current token in the string
 
-		/**
-		 * Skip the blank and newline characters.
-		 */
+		// Skip the blank and newline characters.
 		function skipBlank()
 		{
 			var newLineCount = 0;
@@ -646,17 +475,13 @@ var Pgn = (function(Chess) /* exported Pgn */
 			emptyLineFound = newLineCount>=2;
 		}
 
-		/**
-		 * Read the next token in the input string.
-		 *
-		 * @returns {boolean} false if no token have been read (meaning that the end of the string have been reached).
-		 */
+		// Read the next token in the input string.
 		function consumeToken()
 		{
 			// Consume blank (i.e. meaning-less) characters
 			skipBlank();
 			if(pos>=pgnString.length) {
-				return false;
+				return false; // -> `false` means that the end of the string have been reached
 			}
 
 			// Remaining part of the string
@@ -671,7 +496,7 @@ var Pgn = (function(Chess) /* exported Pgn */
 			}
 
 			// Match a move
-			else if(/^((?:[1-9][0-9]*\s*\.(?:\.\.)?\s*)?((?:O-O-O|O-O|[KQRBNP]?[a-h]?[1-8]?x?[a-h][1-8](?:=?[KQRBNP])?)[\+#]?))/.test(s)) {
+			else if(/^((?:[1-9][0-9]*\s*\.(?:\.\.)?\s*)?((?:O-O-O|O-O|[KQRBN][a-h]?[1-8]?x?[a-h][1-8]|(?:[a-h]x?)?[a-h][1-8](?:=?[KQRBNP])?)[\+#]?))/.test(s)) {
 				deltaPos   = RegExp.$1.length;
 				token      = TOKEN_MOVE;
 				tokenValue = RegExp.$2;
@@ -714,7 +539,7 @@ var Pgn = (function(Chess) /* exported Pgn */
 
 			// Otherwise, the string is badly formatted with respect to the PGN syntax
 			else {
-				throw new Error(pgnString, pos, 'Unrecognized character or group of characters.');
+				throw new InvalidPGN(pgnString, pos, 'Unrecognized character or group of characters.'); // TODO: i18n
 			}
 
 			// Increment the character pointer and return the result
@@ -724,7 +549,7 @@ var Pgn = (function(Chess) /* exported Pgn */
 		}
 
 		// State variable for syntaxic analysis.
-		var retVal    = [];    // returned object (array of Pgn.Item)
+		var retVal    = [];    // returned object
 		var item      = null;  // item being parsed (if any)
 		var node      = null;  // current node (or variation) to which the next move should be appended
 		var nodeStack = [];    // when starting to parse a variation, its parent node is stacked here
@@ -749,7 +574,7 @@ var Pgn = (function(Chess) /* exported Pgn */
 				// Header
 				case TOKEN_HEADER:
 					if(node !== null) {
-						throw new Error(pgnString, tokenPos, 'Unexpected PGN item header.');
+						throw new InvalidPGN(pgnString, tokenPos, 'Unexpected PGN item header.'); // TODO: i18n
 					}
 					item.header(tokenValue.key, tokenValue.value);
 
@@ -757,7 +582,7 @@ var Pgn = (function(Chess) /* exported Pgn */
 					// initial position, that may be different from the usual one.
 					if(tokenValue.key === 'FEN') {
 						if(!item.defineInitialPosition(tokenValue.value)) {
-							throw new Error(pgnString, tokenPos, 'Invalid FEN string.');
+							throw new InvalidPGN(pgnString, tokenPos, 'Invalid FEN string.'); // TODO: i18n
 						}
 					}
 					break;
@@ -765,7 +590,7 @@ var Pgn = (function(Chess) /* exported Pgn */
 				// Move
 				case TOKEN_MOVE:
 					if(!node.play(tokenValue)) {
-						throw new Error(pgnString, tokenPos, 'Invalid move.');
+						throw new Error(pgnString, tokenPos, 'Invalid move.'); // TODO: i18n
 					}
 					node = (node instanceof Variation) ? node.first() : node.next();
 					break;
@@ -783,7 +608,7 @@ var Pgn = (function(Chess) /* exported Pgn */
 				// Begin of variation
 				case TOKEN_BEGIN_VARIATION:
 					if(!(node instanceof Node)) {
-						throw new Error(pgnString, tokenPos, 'Unexpected begin of variation.');
+						throw new InvalidPGN(pgnString, tokenPos, 'Unexpected begin of variation.'); // TODO: i18n
 					}
 					nodeStack.push(node);
 					node = node.addVariation(emptyLineFound);
@@ -792,7 +617,7 @@ var Pgn = (function(Chess) /* exported Pgn */
 				// End of variation
 				case TOKEN_END_VARIATION:
 					if(nodeStack.length === 0) {
-						throw new Error(pgnString, tokenPos, 'Unexpected end of variation.');
+						throw new InvalidPGN(pgnString, tokenPos, 'Unexpected end of variation.'); // TODO: i18n
 					}
 					node = nodeStack.pop();
 					break;
@@ -800,7 +625,7 @@ var Pgn = (function(Chess) /* exported Pgn */
 					// End-of-game
 				case TOKEN_END_OF_GAME:
 					if(nodeStack.length>0) {
-						throw new Error(pgnString, tokenPos, 'Unexpected end of game: there are pending variations.');
+						throw new InvalidPGN(pgnString, tokenPos, 'Unexpected end of game: there are pending variations.'); // TODO: i18n
 					}
 					item.result(tokenValue);
 					retVal.push(item);
@@ -814,7 +639,7 @@ var Pgn = (function(Chess) /* exported Pgn */
 
 		// Return the result
 		if(item !== null) {
-			throw new Error(pgnString, pgnString.length, 'Unexpected end of text: there is a pending item.');
+			throw new InvalidPGN(pgnString, pgnString.length, 'Unexpected end of text: there is a pending item.'); // TODO: i18n
 		}
 		return retVal;
 	}
@@ -824,19 +649,17 @@ var Pgn = (function(Chess) /* exported Pgn */
 	 * PGN parsing function for exactly one item.
 	 *
 	 * @param {string} pgnString String to parse.
-	 * @returns {Pgn.Item}
-	 * @throws {Error}
-	 *
-	 * @memberof Pgn
+	 * @returns {Item}
+	 * @throws {InvalidPGN}
 	 */
 	function parseOne(pgnString)
 	{
-		var items = Pgn.parse(pgnString);
+		var items = parse(pgnString);
 		switch(items.length) {
 
 			// No item found -> throw an exception.
 			case 0:
-				throw new Error(pgnString, null, 'Unexpected empty PGN data.');
+				throw new InvalidPGN(pgnString, -1, 'Unexpected empty PGN data.'); // TODO: i18n
 
 			// 1 item found -> return it.
 			case 1:
@@ -844,19 +667,23 @@ var Pgn = (function(Chess) /* exported Pgn */
 
 			// More than 1 item found -> throw an exception.
 			default:
-				throw new Error(pgnString, null, 'The PGN data is expected to contain only one game.');
+				throw new InvalidPGN(pgnString, -1, 'The PGN data is expected to contain only one game.'); // TODO: i18n
 		}
 	}
 
 
-	// Returned the module object
-	return {
+
+	// ---------------------------------------------------------------------------
+	// Public objects
+	// ---------------------------------------------------------------------------
+
+	RPBChess.exception.InvalidPGN = InvalidPGN;
+	RPBChess.pgn = {
 		Node     : Node     ,
 		Variation: Variation,
 		Item     : Item     ,
-		Error    : Error    ,
 		parse    : parse    ,
 		parseOne : parseOne
 	};
 
-})( /* global Chess */ Chess );
+})( /* global RPBChess */ RPBChess );
