@@ -62,6 +62,7 @@ var Chess2 = {};
 	myself.i18n.NO_PIECE_CAN_MOVE_TO_DISAMBIGUATION = 'No {1} on the specified row/column can move to {2}.';
 	myself.i18n.REQUIRE_DISAMBIGUATION              = 'Cannot determine uniquely which {1} is supposed to move to {2}.';
 	myself.i18n.WRONG_DISAMBIGUATION_SYMBOL         = 'Wrong disambiguation symbol (expected: `{1}`, observed: `{2}`).';
+	myself.i18n.TRYING_TO_CAPTURE_YOUR_OWN_PIECES   = 'Capturing its own pieces is not legal.';
 	myself.i18n.INVALID_CAPTURING_PAWN_MOVE         = 'Invalid capturing pawn move.';
 	myself.i18n.INVALID_NON_CAPTURING_PAWN_MOVE     = 'Invalid non-capturing pawn move.';
 	myself.i18n.NOT_SAFE_FOR_WHITE_KING             = 'This move would put let the white king in check.';
@@ -1971,6 +1972,12 @@ var Chess2 = {};
 		else if(m[3]) {
 			var movingPiece = PIECE_SYMBOL.indexOf(m[3].toLowerCase());
 			var to = parseSquare(m[7]);
+			var toContent = position._board[to];
+
+			// Cannot take your own pieces!
+			if(toContent >= 0 && toContent % 2 === position._turn) {
+				throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.TRYING_TO_CAPTURE_YOUR_OWN_PIECES);
+			}
 
 			// Find the "from"-square candidates
 			var attackers = getAttackers(position, to, movingPiece*2 + position._turn);
@@ -2084,7 +2091,7 @@ var Chess2 = {};
 
 		// Ensure that `to` is not on the 1st row.
 		var from = to - 16 + position._turn*32;
-		if(from /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */ !==0) {
+		if((from /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */)!==0) {
 			throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.INVALID_CAPTURING_PAWN_MOVE);
 		}
 
@@ -2129,7 +2136,7 @@ var Chess2 = {};
 		// Ensure that `to` is not on the 1st row.
 		var offset = 16 - position._turn*32;
 		var from = to - offset;
-		if(from /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */ !==0) {
+		if((from /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */)!==0) {
 			throw new myself.exceptions.InvalidNotation(position, notation, myself.i18n.INVALID_NON_CAPTURING_PAWN_MOVE);
 		}
 

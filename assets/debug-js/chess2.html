@@ -810,6 +810,105 @@
 			// Move descriptor -> notation
 			test('Generate notation A', function() { var p=new Chess2.Position(positionA); return generateNotation(p); }, notationA);
 			test('Generate notation B', function() { var p=new Chess2.Position(positionB); return generateNotation(p); }, notationB);
+
+			// Look for legal moves in a given position
+			function legalMovesByNotation(position) {
+				var res = '' + position.isLegal();
+				var moves = [];
+
+				function parseNotation(text) {
+					try {
+						var descriptor = position.notation(text, false);
+						moves.push(descriptorToString(descriptor));
+					}
+					catch(e) {
+						if(!(e instanceof Chess2.exceptions.InvalidNotation)) {
+							throw e;
+						}
+					}
+				}
+
+				var PIECES = 'KQRBNP';
+				var PROMO  = ' KQRBNP';
+				var ROW_FROM = ' 12345678';
+				var COLUMN_FROM = ' abcdefgh';
+				var ROW_TO = ' 12345678';
+				var COLUMN_TO = ' abcdefgh';
+
+				// Castling moves
+				parseNotation('O-O-O');
+				parseNotation('O-O');
+
+				// Non-pawn moves
+				for(var p=0; p<PIECES.length; ++p) {
+					for(var cf=0; cf<COLUMN_FROM.length; ++cf) {
+						for(var rf=0; rf<ROW_FROM.length; ++rf) {
+							for(var ct=0; ct<COLUMN_TO.length; ++ct) {
+								for(var rt=0; rt<ROW_TO.length; ++rt) {
+									var text = PIECES[p];
+									text += COLUMN_FROM[cf]===' ' ? '' : COLUMN_FROM[cf];
+									text += ROW_FROM[rf]===' ' ? '' : ROW_FROM[rf];
+									text += COLUMN_TO[ct] + ROW_TO[rt];
+									parseNotation(text);
+								}
+							}
+						}
+					}
+				}
+
+				// Pawn move
+				for(var cf=0; cf<COLUMN_FROM.length; ++cf) {
+					for(var ct=0; ct<COLUMN_TO.length; ++ct) {
+						for(var rt=0; rt<ROW_TO.length; ++rt) {
+							for(var p=0; p<PROMO.length; ++p) {
+								var text = COLUMN_TO[ct] + ROW_TO[rt];
+								if(COLUMN_FROM[cf] !== ' ') {
+									text = COLUMN_FROM[cf] + 'x' + text;
+								}
+								text += PROMO[p]===' ' ? '' : ('=' + PROMO[p]);
+								parseNotation(text);
+							}
+						}
+					}
+				}
+
+				moves.sort();
+				moves = moves.filter(function(elem, index, tab) { return index===0 || elem!==tab[index-1]; });
+
+				for(var i=0; i<moves.length; ++i) {
+					res += '/' + moves[i];
+				}
+				return res;
+			}
+
+			// Notation -> move descriptor
+			test('Parse notation 1' , function() { var p=new Chess2.Position(position1 ); return legalMovesByNotation(p); }, moves1 );
+			test('Parse notation 2a', function() { var p=new Chess2.Position(position2a); return legalMovesByNotation(p); }, moves2a);
+			test('Parse notation 2b', function() { var p=new Chess2.Position(position2b); return legalMovesByNotation(p); }, moves2b);
+			test('Parse notation 2c', function() { var p=new Chess2.Position(position2c); return legalMovesByNotation(p); }, moves2c);
+			test('Parse notation 2d', function() { var p=new Chess2.Position(position2d); return legalMovesByNotation(p); }, moves2d);
+			test('Parse notation 2e', function() { var p=new Chess2.Position(position2e); return legalMovesByNotation(p); }, moves2e);
+			test('Parse notation 2f', function() { var p=new Chess2.Position(position2f); return legalMovesByNotation(p); }, moves2f);
+			test('Parse notation 3a', function() { var p=new Chess2.Position(position3a); return legalMovesByNotation(p); }, moves3a);
+			test('Parse notation 3b', function() { var p=new Chess2.Position(position3b); return legalMovesByNotation(p); }, moves3b);
+			test('Parse notation 3c', function() { var p=new Chess2.Position(position3c); return legalMovesByNotation(p); }, moves3c);
+			test('Parse notation 4a', function() { var p=new Chess2.Position(position4a); return legalMovesByNotation(p); }, moves4a);
+			test('Parse notation 4b', function() { var p=new Chess2.Position(position4b); return legalMovesByNotation(p); }, moves4b);
+			test('Parse notation 4c', function() { var p=new Chess2.Position(position4c); return legalMovesByNotation(p); }, moves4c);
+			test('Parse notation 5a', function() { var p=new Chess2.Position(position5a); return legalMovesByNotation(p); }, moves5a);
+			test('Parse notation 5b', function() { var p=new Chess2.Position(position5b); return legalMovesByNotation(p); }, moves5b);
+			test('Parse notation 5c', function() { var p=new Chess2.Position(position5c); return legalMovesByNotation(p); }, moves5c);
+			test('Parse notation 5d', function() { var p=new Chess2.Position(position5d); return legalMovesByNotation(p); }, moves5d);
+			test('Parse notation 5e', function() { var p=new Chess2.Position(position5e); return legalMovesByNotation(p); }, moves5e);
+			test('Parse notation 5f', function() { var p=new Chess2.Position(position5f); return legalMovesByNotation(p); }, moves5f);
+			test('Parse notation 6a', function() { var p=new Chess2.Position(position6a); return legalMovesByNotation(p); }, moves6a);
+			test('Parse notation 6b', function() { var p=new Chess2.Position(position6b); return legalMovesByNotation(p); }, moves6b);
+			test('Parse notation 6c', function() { var p=new Chess2.Position(position6c); return legalMovesByNotation(p); }, moves6c);
+			test('Parse notation 6d', function() { var p=new Chess2.Position(position6d); return legalMovesByNotation(p); }, moves6d);
+			test('Parse notation 6e', function() { var p=new Chess2.Position(position6e); return legalMovesByNotation(p); }, moves6e);
+			test('Parse notation 6f', function() { var p=new Chess2.Position(position6f); return legalMovesByNotation(p); }, moves6f);
+			test('Parse notation 7a', function() { var p=new Chess2.Position(position7a); return legalMovesByNotation(p); }, moves7 );
+			test('Parse notation 7b', function() { var p=new Chess2.Position(position7b); return legalMovesByNotation(p); }, moves7 );
 		};
 	</script>
 
