@@ -44,6 +44,7 @@ I18N_TRANSLATOR_KEYWORD = i18n
 PHP_FILES         = $(SRC_MAIN_FILE) $(shell find $(SRC_FOLDERS) -name '*.php')
 JS_FILES          = $(shell find js -name '*.js' -not -name '*.min.js')
 JS_MINIFIED_FILES = $(patsubst %.js,%.min.js,$(JS_FILES))
+JS_DEBUG_FILES    = $(shell find assets/debug-js -name '*.js')
 I18N_POT_FILE     = languages/$(I18N_TEXT_DOMAIN).pot
 I18N_PO_FILES     = $(wildcard languages/*.po)
 I18N_MO_FILES     = $(patsubst %.po,%.mo,$(I18N_PO_FILES))
@@ -137,7 +138,7 @@ $(TEMPORARY_FOLDER)/%.merged: %.po $(I18N_POT_FILE)
 # JavaScript validation
 js-lint:
 	@$(ECHO) "$(COLOR_IN)Checking the JavaScript files...$(COLOR_OUT)"
-	@$(JSHINT) $(JS_FILES)
+	@$(JSHINT) $(JS_FILES) $(JS_DEBUG_FILES)
 
 
 # JavaScript minification
