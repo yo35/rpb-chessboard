@@ -265,217 +265,341 @@ positions.push({
 	label:'0a', constructor:'start', fen:'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
 	legal:true, whiteking:'e1', blackking:'e8',
 	check:false, checkmate:false, stalemate:false, hasmove:true,
-	moves:'a2a3/a2a4/b1a3/b1c3/b2b3/b2b4/c2c3/c2c4/d2d3/d2d4/e2e3/e2e4/f2f3/f2f4/g1f3/g1h3/g2g3/g2g4/h2h3/h2h4'
+	moves:'a2a3/a2a4/b1a3/b1c3/b2b3/b2b4/c2c3/c2c4/d2d3/d2d4/e2e3/e2e4/f2f3/f2f4/g1f3/g1h3/g2g3/g2g4/h2h3/h2h4',
+	notation:
+		'Na3/Nc3/Nf3/Nh3/' +
+		'a3/a4/b3/b4/c3/c4/d3/d4/e3/e4/f3/f4/g3/g4/h3/h4'
 });
 
 positions.push({
 	label:'0b', constructor:'empty', fen:'8/8/8/8/8/8/8/8 w - - 0 1',
 	legal:false, whiteking:'-', blackking:'-',
 	check:false, checkmate:false, stalemate:false, hasmove:false,
-	moves:''
+	moves:'', notation:''
 });
 
 positions.push({
 	label:'1', constructor:'fen', fen:'rnbqkbnr/pppp1ppp/8/1B2p3/4P3/8/PPPP1PPP/RNBQK1NR b KQkq - 0 1',
 	legal:true, whiteking:'e1', blackking:'e8',
 	check:false, checkmate:false, stalemate:false, hasmove:true,
-	moves:'a7a5/a7a6/b7b6/b8a6/b8c6/c7c5/c7c6/d8e7/d8f6/d8g5/d8h4/e8e7/f7f5/f7f6/f8a3/f8b4/f8c5/f8d6/f8e7/g7g5/g7g6/g8e7/g8f6/g8h6/h7h5/h7h6'
+	moves:'a7a5/a7a6/b7b6/b8a6/b8c6/c7c5/c7c6/d8e7/d8f6/d8g5/d8h4/e8e7/f7f5/f7f6/f8a3/f8b4/f8c5/f8d6/f8e7/g7g5/g7g6/g8e7/g8f6/g8h6/h7h5/h7h6',
+	notation:
+		'Ba3/Bb4/Bc5/Bd6/Be7/' +
+		'Ke7/' +
+		'Na6/Nc6/Ne7/Nf6/Nh6/' +
+		'Qe7/Qf6/Qg5/Qh4/' +
+		'a5/a6/b6/c5/c6/f5/f6/g5/g6/h5/h6'
 });
 
 positions.push({
 	label:'2a', constructor:'fen', fen:'r3k2r/8/8/5pP1/1pP5/8/8/R3K2R w KQ f6 0 1',
 	legal:true, whiteking:'e1', blackking:'e8',
 	check:false, checkmate:false, stalemate:false, hasmove:true,
-	moves:'a1a2/a1a3/a1a4/a1a5/a1a6/a1a7/a1a8/a1b1/a1c1/a1d1/c4c5/e1c1/e1d1/e1d2/e1e2/e1f1/e1f2/e1g1/g5f6/g5g6/h1f1/h1g1/h1h2/h1h3/h1h4/h1h5/h1h6/h1h7/h1h8'
+	moves:'a1a2/a1a3/a1a4/a1a5/a1a6/a1a7/a1a8/a1b1/a1c1/a1d1/c4c5/e1c1/e1d1/e1d2/e1e2/e1f1/e1f2/e1g1/g5f6/g5g6/h1f1/h1g1/h1h2/h1h3/h1h4/h1h5/h1h6/h1h7/h1h8',
+	notation:
+		'Kd1/Kd2/Ke2/Kf1/Kf2/' +
+		'O-O/O-O-O/' +
+		'Ra2/Ra3/Ra4/Ra5/Ra6/Ra7/Rb1/Rc1/Rd1/Rf1/Rg1/Rh2/Rh3/Rh4/Rh5/Rh6/Rh7/Rxa8+/Rxh8+/' +
+		'c5/g6/gxf6'
 });
 
 positions.push({
 	label:'2b', constructor:'fen', fen:'r3k2r/8/8/5pP1/1pP5/8/8/R3K2R w K - 0 1',
 	legal:true, whiteking:'e1', blackking:'e8',
 	check:false, checkmate:false, stalemate:false, hasmove:true,
-	moves:'a1a2/a1a3/a1a4/a1a5/a1a6/a1a7/a1a8/a1b1/a1c1/a1d1/c4c5/e1d1/e1d2/e1e2/e1f1/e1f2/e1g1/g5g6/h1f1/h1g1/h1h2/h1h3/h1h4/h1h5/h1h6/h1h7/h1h8'
+	moves:'a1a2/a1a3/a1a4/a1a5/a1a6/a1a7/a1a8/a1b1/a1c1/a1d1/c4c5/e1d1/e1d2/e1e2/e1f1/e1f2/e1g1/g5g6/h1f1/h1g1/h1h2/h1h3/h1h4/h1h5/h1h6/h1h7/h1h8',
+	notation:
+		'Kd1/Kd2/Ke2/Kf1/Kf2/' +
+		'O-O/' +
+		'Ra2/Ra3/Ra4/Ra5/Ra6/Ra7/Rb1/Rc1/Rd1/Rf1/Rg1/Rh2/Rh3/Rh4/Rh5/Rh6/Rh7/Rxa8+/Rxh8+/' +
+		'c5/g6'
 });
 
 positions.push({
 	label:'2c', constructor:'fen', fen:'r3k2r/8/8/5pP1/1pP5/8/8/R3K2R w Q - 0 1',
 	legal:true, whiteking:'e1', blackking:'e8',
 	check:false, checkmate:false, stalemate:false, hasmove:true,
-	moves:'a1a2/a1a3/a1a4/a1a5/a1a6/a1a7/a1a8/a1b1/a1c1/a1d1/c4c5/e1c1/e1d1/e1d2/e1e2/e1f1/e1f2/g5g6/h1f1/h1g1/h1h2/h1h3/h1h4/h1h5/h1h6/h1h7/h1h8'
+	moves:'a1a2/a1a3/a1a4/a1a5/a1a6/a1a7/a1a8/a1b1/a1c1/a1d1/c4c5/e1c1/e1d1/e1d2/e1e2/e1f1/e1f2/g5g6/h1f1/h1g1/h1h2/h1h3/h1h4/h1h5/h1h6/h1h7/h1h8',
+	notation:
+		'Kd1/Kd2/Ke2/Kf1/Kf2/' +
+		'O-O-O/' +
+		'Ra2/Ra3/Ra4/Ra5/Ra6/Ra7/Rb1/Rc1/Rd1/Rf1/Rg1/Rh2/Rh3/Rh4/Rh5/Rh6/Rh7/Rxa8+/Rxh8+/' +
+		'c5/g6'
 });
 
 positions.push({
 	label:'2d', constructor:'fen', fen:'r3k2r/8/8/5pP1/1pP5/8/8/R3K2R b kq c3 0 1',
 	legal:true, whiteking:'e1', blackking:'e8',
 	check:false, checkmate:false, stalemate:false, hasmove:true,
-	moves:'a8a1/a8a2/a8a3/a8a4/a8a5/a8a6/a8a7/a8b8/a8c8/a8d8/b4b3/b4c3/e8c8/e8d7/e8d8/e8e7/e8f7/e8f8/e8g8/f5f4/h8f8/h8g8/h8h1/h8h2/h8h3/h8h4/h8h5/h8h6/h8h7'
+	moves:'a8a1/a8a2/a8a3/a8a4/a8a5/a8a6/a8a7/a8b8/a8c8/a8d8/b4b3/b4c3/e8c8/e8d7/e8d8/e8e7/e8f7/e8f8/e8g8/f5f4/h8f8/h8g8/h8h1/h8h2/h8h3/h8h4/h8h5/h8h6/h8h7',
+	notation:
+		'Kd7/Kd8/Ke7/Kf7/Kf8/' +
+		'O-O/O-O-O/' +
+		'Ra2/Ra3/Ra4/Ra5/Ra6/Ra7/Rb8/Rc8/Rd8/Rf8/Rg8/Rh2/Rh3/Rh4/Rh5/Rh6/Rh7/Rxa1+/Rxh1+/' +
+		'b3/bxc3/f4'
 });
 
 positions.push({
 	label:'2e', constructor:'fen', fen:'r3k2r/8/8/5pP1/1pP5/8/8/R3K2R b k - 0 1',
 	legal:true, whiteking:'e1', blackking:'e8',
 	check:false, checkmate:false, stalemate:false, hasmove:true,
-	moves:'a8a1/a8a2/a8a3/a8a4/a8a5/a8a6/a8a7/a8b8/a8c8/a8d8/b4b3/e8d7/e8d8/e8e7/e8f7/e8f8/e8g8/f5f4/h8f8/h8g8/h8h1/h8h2/h8h3/h8h4/h8h5/h8h6/h8h7'
+	moves:'a8a1/a8a2/a8a3/a8a4/a8a5/a8a6/a8a7/a8b8/a8c8/a8d8/b4b3/e8d7/e8d8/e8e7/e8f7/e8f8/e8g8/f5f4/h8f8/h8g8/h8h1/h8h2/h8h3/h8h4/h8h5/h8h6/h8h7',
+	notation:
+		'Kd7/Kd8/Ke7/Kf7/Kf8/' +
+		'O-O/' +
+		'Ra2/Ra3/Ra4/Ra5/Ra6/Ra7/Rb8/Rc8/Rd8/Rf8/Rg8/Rh2/Rh3/Rh4/Rh5/Rh6/Rh7/Rxa1+/Rxh1+/' +
+		'b3/f4'
 });
 
 positions.push({
 	label:'2f', constructor:'fen', fen:'r3k2r/8/8/5pP1/1pP5/8/8/R3K2R b q - 0 1',
 	legal:true, whiteking:'e1', blackking:'e8',
 	check:false, checkmate:false, stalemate:false, hasmove:true,
-	moves:'a8a1/a8a2/a8a3/a8a4/a8a5/a8a6/a8a7/a8b8/a8c8/a8d8/b4b3/e8c8/e8d7/e8d8/e8e7/e8f7/e8f8/f5f4/h8f8/h8g8/h8h1/h8h2/h8h3/h8h4/h8h5/h8h6/h8h7'
+	moves:'a8a1/a8a2/a8a3/a8a4/a8a5/a8a6/a8a7/a8b8/a8c8/a8d8/b4b3/e8c8/e8d7/e8d8/e8e7/e8f7/e8f8/f5f4/h8f8/h8g8/h8h1/h8h2/h8h3/h8h4/h8h5/h8h6/h8h7',
+	notation:
+		'Kd7/Kd8/Ke7/Kf7/Kf8/' +
+		'O-O-O/' +
+		'Ra2/Ra3/Ra4/Ra5/Ra6/Ra7/Rb8/Rc8/Rd8/Rf8/Rg8/Rh2/Rh3/Rh4/Rh5/Rh6/Rh7/Rxa1+/Rxh1+/' +
+		'b3/f4'
 });
 
 positions.push({
 	label:'3a', constructor:'fen', fen:'r4rk1/1p3qb1/pB1p2pp/P3N3/R3R3/2P5/1P2Q1PP/7K b - - 0 29',
 	legal:true, whiteking:'h1', blackking:'g8',
 	check:false, checkmate:false, stalemate:false, hasmove:true,
-	moves:'a8a7/a8b8/a8c8/a8d8/a8e8/d6d5/d6e5/f7a2/f7b3/f7c4/f7c7/f7d5/f7d7/f7e6/f7e7/f7e8/f7f1/f7f2/f7f3/f7f4/f7f5/f7f6/f8b8/f8c8/f8d8/f8e8/g6g5/g7e5/g7f6/g7h8/g8h7/g8h8/h6h5'
+	moves:'a8a7/a8b8/a8c8/a8d8/a8e8/d6d5/d6e5/f7a2/f7b3/f7c4/f7c7/f7d5/f7d7/f7e6/f7e7/f7e8/f7f1/f7f2/f7f3/f7f4/f7f5/f7f6/f8b8/f8c8/f8d8/f8e8/g6g5/g7e5/g7f6/g7h8/g8h7/g8h8/h6h5',
+	notation:
+		'Bf6/Bh8/Bxe5/' +
+		'Kh7/Kh8/' +
+		'Qa2/Qb3/Qc4/Qc7/Qd5/Qd7/Qe6/Qe7/Qe8/Qf1+/Qf2/Qf3/Qf4/Qf5/Qf6/' +
+		'Ra7/Rab8/Rac8/Rad8/Rae8/Rfb8/Rfc8/Rfd8/Rfe8/' +
+		'd5/dxe5/g5/h5'
 });
 
 positions.push({
 	label:'3b', constructor:'fen', fen:'r4rk1/1p4b1/pB1p2pp/P3N3/R3R3/2P5/1P2Q1PP/5q1K w - - 1 29',
 	legal:true, whiteking:'h1', blackking:'g8',
 	check:true, checkmate:false, stalemate:false, hasmove:true,
-	moves:'b6g1/e2f1'
+	moves:'b6g1/e2f1', notation:'Bg1/Qxf1'
 });
 
 positions.push({
 	label:'3c', constructor:'fen', fen:'r4rk1/1p6/p2p2pp/P3b3/R3R3/2P5/1P2Q1PP/5qBK w - - 0 30',
 	legal:true, whiteking:'h1', blackking:'g8',
 	check:false, checkmate:false, stalemate:false, hasmove:true,
-	moves:'a4a1/a4a2/a4a3/a4b4/a4c4/a4d4/b2b3/b2b4/c3c4/e2a6/e2b5/e2c2/e2c4/e2d1/e2d2/e2d3/e2e1/e2e3/e2f1/e2f2/e2f3/e2g4/e2h5/e4b4/e4c4/e4d4/e4e3/e4e5/e4f4/e4g4/e4h4/g2g3/g2g4/h2h3/h2h4'
+	moves:'a4a1/a4a2/a4a3/a4b4/a4c4/a4d4/b2b3/b2b4/c3c4/e2a6/e2b5/e2c2/e2c4/e2d1/e2d2/e2d3/e2e1/e2e3/e2f1/e2f2/e2f3/e2g4/e2h5/e4b4/e4c4/e4d4/e4e3/e4e5/e4f4/e4g4/e4h4/g2g3/g2g4/h2h3/h2h4',
+	notation:
+		'Qb5/Qc2/Qc4+/Qd1/Qd2/Qd3/Qe1/Qe3/Qf2/Qf3/Qg4/Qh5/Qxa6/Qxf1/' +
+		'Ra1/Ra2/Ra3/Rab4/Rac4/Rad4/Re3/Reb4/Rec4/Red4/Rf4/Rg4/Rh4/Rxe5/' +
+		'b3/b4/c4/g3/g4/h3/h4'
 });
 
 positions.push({
 	label:'4a', constructor:'fen', fen:'r2q1rk1/6b1/p2p2b1/1p1Nn2p/4p2P/2P1N3/PP2BPQ1/R3K2R w KQ - 0 22',
 	legal:true, whiteking:'e1', blackking:'g8',
 	check:false, checkmate:false, stalemate:false, hasmove:true,
-	moves:'a1b1/a1c1/a1d1/a2a3/a2a4/b2b3/b2b4/c3c4/d5b4/d5b6/d5c7/d5e7/d5f4/d5f6/e1c1/e1d1/e1d2/e1f1/e1g1/e2b5/e2c4/e2d1/e2d3/e2f1/e2f3/e2g4/e2h5/e3c2/e3c4/e3d1/e3f1/e3f5/e3g4/f2f3/f2f4/g2e4/g2f1/g2f3/g2g1/g2g3/g2g4/g2g5/g2g6/g2h2/g2h3/h1f1/h1g1/h1h2/h1h3'
+	moves:'a1b1/a1c1/a1d1/a2a3/a2a4/b2b3/b2b4/c3c4/d5b4/d5b6/d5c7/d5e7/d5f4/d5f6/e1c1/e1d1/e1d2/e1f1/e1g1/e2b5/e2c4/e2d1/e2d3/e2f1/e2f3/e2g4/e2h5/e3c2/e3c4/e3d1/e3f1/e3f5/e3g4/f2f3/f2f4/g2e4/g2f1/g2f3/g2g1/g2g3/g2g4/g2g5/g2g6/g2h2/g2h3/h1f1/h1g1/h1h2/h1h3',
+	notation:
+		'Bc4/Bd1/Bd3/Bf1/Bf3/Bg4/Bxb5/Bxh5/' +
+		'Kd1/Kd2/Kf1/' +
+		'Nb4/Nb6/Nc2/Nc4/Nc7/Nd1/Ne7+/Nf1/Nf4/Nf5/Nf6+/Ng4/' +
+		'O-O/O-O-O/' +
+		'Qf1/Qf3/Qg1/Qg3/Qg4/Qg5/Qh2/Qh3/Qxe4/Qxg6/' +
+		'Rb1/Rc1/Rd1/Rf1/Rg1/Rh2/Rh3/' +
+		'a3/a4/b3/b4/c4/f3/f4'
 });
 
 positions.push({
 	label:'4b', constructor:'fen', fen:'4qr2/r6k/p2p3b/1p1Nn2b/4Q2P/2P1N1R1/PP3P2/2K3R1 b - - 0 27',
 	legal:true, whiteking:'c1', blackking:'h7',
 	check:true, checkmate:false, stalemate:false, hasmove:true,
-	moves:'e5g6/e8g6/f8f5/h5g6/h7h8'
+	moves:'e5g6/e8g6/f8f5/h5g6/h7h8', notation:'Bg6/Kh8/Ng6/Qg6/Rf5'
 });
 
 positions.push({
 	label:'4c', constructor:'fen', fen:'4qr1k/r7/p2p3b/1p1Nn2b/4QP1P/2P1N1R1/PP6/2K3R1 b - - 0 28',
 	legal:true, whiteking:'c1', blackking:'h8',
 	check:false, checkmate:false, stalemate:false, hasmove:true,
-	moves:'a6a5/a7a8/a7b7/a7c7/a7d7/a7e7/a7f7/a7g7/a7h7/b5b4/e5c4/e5c6/e5d3/e5d7/e5f3/e5f7/e5g4/e5g6/e8a8/e8b8/e8c6/e8c8/e8d7/e8d8/e8e6/e8e7/e8f7/e8g6/f8f4/f8f5/f8f6/f8f7/f8g8/h5d1/h5e2/h5f3/h5f7/h5g4/h5g6/h6f4/h6g5/h6g7'
+	moves:'a6a5/a7a8/a7b7/a7c7/a7d7/a7e7/a7f7/a7g7/a7h7/b5b4/e5c4/e5c6/e5d3/e5d7/e5f3/e5f7/e5g4/e5g6/e8a8/e8b8/e8c6/e8c8/e8d7/e8d8/e8e6/e8e7/e8f7/e8g6/f8f4/f8f5/f8f6/f8f7/f8g8/h5d1/h5e2/h5f3/h5f7/h5g4/h5g6/h6f4/h6g5/h6g7',
+	notation:
+		'Bd1/Be2/Bf3/Bf7/Bg4/Bg5/Bg6/Bg7/Bxf4/' +
+		'Nc4/Nc6/Nd3+/Nd7/Nf3/Nf7/Ng4/Ng6/' +
+		'Qa8/Qb8/Qc6/Qc8/Qd7/Qd8/Qe6/Qe7/Qf7/Qg6/' +
+		'Ra8/Raf7/Rb7/Rc7/Rd7/Re7/Rf5/Rf6/Rff7/Rg7/Rg8/Rh7/Rxf4/' +
+		'a5/b4'
 });
 
 positions.push({
 	label:'5a', constructor:'fen', fen:'k7/8/8/b7/8/p6p/P6P/R3K2R w KQ - 0 1',
 	legal:true, whiteking:'e1', blackking:'a8',
 	check:true, checkmate:false, stalemate:false, hasmove:true,
-	moves:'e1d1/e1e2/e1f1/e1f2'
+	moves:'e1d1/e1e2/e1f1/e1f2', notation:'Kd1/Ke2/Kf1/Kf2'
 });
 
 positions.push({
 	label:'5b', constructor:'fen', fen:'k7/8/8/8/8/p2b3p/P6P/R3K2R w KQ - 0 1',
 	legal:true, whiteking:'e1', blackking:'a8',
 	check:false, checkmate:false, stalemate:false, hasmove:true,
-	moves:'a1b1/a1c1/a1d1/e1c1/e1d1/e1d2/e1f2/h1f1/h1g1'
+	moves:'a1b1/a1c1/a1d1/e1c1/e1d1/e1d2/e1f2/h1f1/h1g1',
+	notation:
+		'Kd1/Kd2/Kf2/' +
+		'O-O-O/' +
+		'Rb1/Rc1/Rd1/Rf1/Rg1'
 });
 
 positions.push({
 	label:'5c', constructor:'fen', fen:'k7/8/8/8/8/p4b1p/P6P/R3K2R w KQ - 0 1',
 	legal:true, whiteking:'e1', blackking:'a8',
 	check:false, checkmate:false, stalemate:false, hasmove:true,
-	moves:'a1b1/a1c1/a1d1/e1d2/e1f1/e1f2/e1g1/h1f1/h1g1'
+	moves:'a1b1/a1c1/a1d1/e1d2/e1f1/e1f2/e1g1/h1f1/h1g1',
+	notation:
+		'Kd2/Kf1/Kf2/' +
+		'O-O/' +
+		'Rb1/Rc1/Rd1/Rf1/Rg1'
 });
 
 positions.push({
 	label:'5d', constructor:'fen', fen:'k7/8/7b/8/8/p6p/P6P/R3K2R w KQ - 0 1',
 	legal:true, whiteking:'e1', blackking:'a8',
 	check:false, checkmate:false, stalemate:false, hasmove:true,
-	moves:'a1b1/a1c1/a1d1/e1d1/e1e2/e1f1/e1f2/e1g1/h1f1/h1g1'
+	moves:'a1b1/a1c1/a1d1/e1d1/e1e2/e1f1/e1f2/e1g1/h1f1/h1g1',
+	notation:
+		'Kd1/Ke2/Kf1/Kf2/' +
+		'O-O/' +
+		'Rb1/Rc1/Rd1/Rf1/Rg1'
 });
 
 positions.push({
 	label:'5e', constructor:'fen', fen:'k7/b7/8/8/8/p6p/P6P/R3K2R w KQ - 0 1',
 	legal:true, whiteking:'e1', blackking:'a8',
 	check:false, checkmate:false, stalemate:false, hasmove:true,
-	moves:'a1b1/a1c1/a1d1/e1c1/e1d1/e1d2/e1e2/e1f1/h1f1/h1g1'
+	moves:'a1b1/a1c1/a1d1/e1c1/e1d1/e1d2/e1e2/e1f1/h1f1/h1g1',
+	notation:
+		'Kd1/Kd2/Ke2/Kf1/' +
+		'O-O-O/' +
+		'Rb1/Rc1/Rd1/Rf1/Rg1'
 });
 
 positions.push({
 	label:'5f', constructor:'fen', fen:'k7/8/8/8/8/p6p/P6P/R2K3R w KQ - 0 1',
 	legal:false, whiteking:'d1', blackking:'a8',
 	check:false, checkmate:false, stalemate:false, hasmove:false,
-	moves:''
+	moves:'', notation:''
 });
 
 positions.push({
 	label:'6a', constructor:'fen', fen:'r3k2r/p6p/P6P/8/B7/8/8/K7 b kq - 0 1',
 	legal:true, whiteking:'a1', blackking:'e8',
 	check:true, checkmate:false, stalemate:false, hasmove:true,
-	moves:'e8d8/e8e7/e8f7/e8f8'
+	moves:'e8d8/e8e7/e8f7/e8f8', notation:'Kd8/Ke7/Kf7/Kf8'
 });
 
 positions.push({
 	label:'6b', constructor:'fen', fen:'r3k2r/p6p/P2B3P/8/8/8/8/K7 b kq - 0 1',
 	legal:true, whiteking:'a1', blackking:'e8',
 	check:false, checkmate:false, stalemate:false, hasmove:true,
-	moves:'a8b8/a8c8/a8d8/e8c8/e8d7/e8d8/e8f7/h8f8/h8g8'
+	moves:'a8b8/a8c8/a8d8/e8c8/e8d7/e8d8/e8f7/h8f8/h8g8',
+	notation:
+		'Kd7/Kd8/Kf7/' +
+		'O-O-O/' +
+		'Rb8/Rc8/Rd8/Rf8/Rg8'
 });
 
 positions.push({
 	label:'6c', constructor:'fen', fen:'r3k2r/p6p/P4B1P/8/8/8/8/K7 b kq - 0 1',
 	legal:true, whiteking:'a1', blackking:'e8',
 	check:false, checkmate:false, stalemate:false, hasmove:true,
-	moves:'a8b8/a8c8/a8d8/e8d7/e8f7/e8f8/e8g8/h8f8/h8g8'
+	moves:'a8b8/a8c8/a8d8/e8d7/e8f7/e8f8/e8g8/h8f8/h8g8',
+	notation:
+		'Kd7/Kf7/Kf8/' +
+		'O-O/' +
+		'Rb8/Rc8/Rd8/Rf8/Rg8'
 });
 
 positions.push({
 	label:'6d', constructor:'fen', fen:'r3k2r/p6p/P6P/8/8/7B/8/K7 b kq - 0 1',
 	legal:true, whiteking:'a1', blackking:'e8',
 	check:false, checkmate:false, stalemate:false, hasmove:true,
-	moves:'a8b8/a8c8/a8d8/e8d8/e8e7/e8f7/e8f8/e8g8/h8f8/h8g8'
+	moves:'a8b8/a8c8/a8d8/e8d8/e8e7/e8f7/e8f8/e8g8/h8f8/h8g8',
+	notation:
+		'Kd8/Ke7/Kf7/Kf8/' +
+		'O-O/' +
+		'Rb8/Rc8/Rd8/Rf8/Rg8'
 });
 
 positions.push({
 	label:'6e', constructor:'fen', fen:'r3k2r/p6p/P6P/8/8/8/B7/K7 b kq - 0 1',
 	legal:true, whiteking:'a1', blackking:'e8',
 	check:false, checkmate:false, stalemate:false, hasmove:true,
-	moves:'a8b8/a8c8/a8d8/e8c8/e8d7/e8d8/e8e7/e8f8/h8f8/h8g8'
+	moves:'a8b8/a8c8/a8d8/e8c8/e8d7/e8d8/e8e7/e8f8/h8f8/h8g8',
+	notation:
+		'Kd7/Kd8/Ke7/Kf8/' +
+		'O-O-O/' +
+		'Rb8/Rc8/Rd8/Rf8/Rg8'
 });
 
 positions.push({
 	label:'6f', constructor:'fen', fen:'r2k3r/p6p/P6P/8/8/8/8/K7 b kq - 0 1',
 	legal:false, whiteking:'a1', blackking:'d8',
 	check:false, checkmate:false, stalemate:false, hasmove:false,
-	moves:''
+	moves:'', notation:''
 });
 
 positions.push({
 	label:'7a', constructor:'fen', fen:'4k3/4P3/4K3/8/8/8/8/8 b - - 0 1',
 	legal:true, whiteking:'e6', blackking:'e8',
 	check:false, checkmate:false, stalemate:true, hasmove:false,
-	moves:''
+	moves:'', notation:''
 });
 
 positions.push({
 	label:'7b', constructor:'fen', fen:'8/8/8/8/8/6k1/8/r5K1 w - - 0 1',
 	legal:true, whiteking:'g1', blackking:'g3',
 	check:true, checkmate:true, stalemate:false, hasmove:false,
-	moves:''
+	moves:'', notation:''
 });
 
 positions.push({
 	label:'8a', constructor:'fen', fen:'8/8/8/Kr5k/8/8/8/8 w - - 0 1',
 	legal:true, whiteking:'a5', blackking:'h5',
 	check:true, checkmate:false, stalemate:false, hasmove:true,
-	moves:'a5a4/a5a6/a5b5'
+	moves:'a5a4/a5a6/a5b5', notation:'Ka4/Ka6/Kxb5'
 });
 
 positions.push({
 	label:'8b', constructor:'fen', fen:'8/8/8/Kr5k/8/8/8/8 b - - 0 1',
 	legal:false, whiteking:'a5', blackking:'h5',
 	check:false, checkmate:false, stalemate:false, hasmove:false,
-	moves:''
+	moves:'', notation:''
+});
+
+positions.push({
+	label:'9a', constructor:'fen', fen:'2r1kq2/Np2ppPp/PN1n3B/2pP3R/1b4Q1/2R2R2/P3BP2/R3K2R w K c6 0 1',
+	legal:true, whiteking:'e1', blackking:'e8',
+	check:false, checkmate:false, stalemate:false, hasmove:true,
+	moves:'a1b1/a1c1/a1d1/a2a3/a2a4/a6b7/a7b5/a7c6/a7c8/b6a4/b6a8/b6c4/b6c8/b6d7/d5c6/e1d1/e1d2/e1f1/e1g1/e2b5/e2c4/e2d1/e2d3/e2f1/f3d3/f3e3/f3f4/f3f5/f3f6/f3f7/f3g3/f3h3/g4b4/g4c4/g4c8/g4d4/g4d7/g4e4/g4e6/g4f4/g4f5/g4g1/g4g2/g4g3/g4g5/g4g6/g4h3/g4h4/g7f8B/g7f8N/g7f8Q/g7f8R/g7g8B/g7g8N/g7g8Q/g7g8R/h1f1/h1g1/h1h2/h1h3/h1h4/h5e5/h5f5/h5g5/h5h2/h5h3/h5h4/h6c1/h6d2/h6e3/h6f4/h6g5',
+	notation:
+		'Bb5+/Bc1/Bc4/Bd1/Bd2/Bd3/Be3/Bf1/Bf4/Bg5/' +
+		'Kd1/Kd2/Kf1/' +
+		'Na4/Na8/Naxc8/Nb5/Nbxc8/Nc4/Nc6/Nd7/' +
+		'O-O/' +
+		'Qc4/Qd4/Qd7#/Qe4/Qe6/Qf4/Qf5/Qg1/Qg2/Qg3/Qg5/Qg6/Qh3/Qh4/Qxb4/Qxc8+/' +
+		'R1h2/R1h3/R1h4/R5h2/R5h3/R5h4/Rb1/Rc1/Rd1/Rd3/Re3/Re5/Rf1/Rf4/Rf6/Rff5/Rfh3/Rg1/Rg3/Rg5/Rhf5/Rxf7/' +
+		'a3/a4/axb7/dxc6/g8=B/g8=N/g8=Q/g8=R/gxf8=B/gxf8=N/gxf8=Q#/gxf8=R#'
+});
+
+positions.push({
+	label:'9b', constructor:'fen', fen:'r3k2r/p1p1pR1p/8/1p2P3/bPn3nB/P6Q/b1n1Pp2/2NK2R1 b kq - 0 1',
+	legal:true, whiteking:'d1', blackking:'e8',
+	check:false, checkmate:false, stalemate:false, hasmove:true,
+	moves:'a2b1/a2b3/a4b3/a7a5/a7a6/a8b8/a8c8/a8d8/c2a1/c2a3/c2b4/c2d4/c2e1/c2e3/c4a3/c4a5/c4b2/c4b6/c4d2/c4d6/c4e3/c4e5/c7c5/c7c6/e7e6/e8c8/e8d7/e8d8/e8f7/f2f1B/f2f1N/f2f1Q/f2f1R/f2g1B/f2g1N/f2g1Q/f2g1R/g4e3/g4e5/g4f6/g4h2/g4h6/h7h5/h7h6/h8f8/h8g8',
+	notation:
+		'B2b3/B4b3/Bb1/' +
+		'Kd7/Kd8/Kxf7/' +
+		'N2e3#/N2xa3+/N4xa3/Na1+/Na5/Nb2+/Nb6/Nc4e3+/Ncxe5/Nd2/Nd4+/Nd6/Ne1+/Nf6/Nge3+/Ngxe5/Nh2/Nh6/Nxb4+/' +
+		'O-O-O+/' +
+		'Rb8/Rc8/Rd8+/Rf8/Rg8/' +
+		'a5/a6/c5/c6/e6/f1=B/f1=N/f1=Q+/f1=R+/fxg1=B/fxg1=N/fxg1=Q+/fxg1=R+/h5/h6'
 });
 
 
@@ -709,11 +833,16 @@ registerTests('rpbchess.moves.generate', positions, function(scenario) {
 registerTests('rpbchess.moves.null-move', positions, function(scenario) {
 	var nullMoveAllowed = scenario.legal && !scenario.check;
 	test('Null move ' + scenario.label, function() {
-		var p=new RPBChess.Position(scenario.constructor === 'fen' ? scenario.fen : scenario.constructor);
+		var p = new RPBChess.Position(scenario.constructor === 'fen' ? scenario.fen : scenario.constructor);
 		return nullMoveInfo(p);
 	}, scenario.legal + ':' + nullMoveAllowed);
 });
 
+
+
+// -----------------------------------------------------------------------------
+// Play
+// -----------------------------------------------------------------------------
 
 // Play moves
 registerTests('rpbchess.moves.play', games, function(scenario) {
@@ -774,4 +903,34 @@ registerTests('rpbchess.moves.generate-and-play', games, function(scenario) {
 			/* jshint loopfunc:true */ function() { fun2(g, move.go); return fenInfo(g); } /* jshint loopfunc:false */,
 			fun(move));
 	}
+});
+
+
+
+// -----------------------------------------------------------------------------
+// Notation
+// -----------------------------------------------------------------------------
+
+// Conversion move descriptor -> notation
+registerTests('rpbchess.notation.to-string', positions, function(scenario) {
+
+	function fun(position) {
+		var moves = position.moves();
+		var notations = [];
+		for(var i=0; i<moves.length; ++i) {
+			notations.push(position.notation(moves[i]));
+		}
+		notations.sort();
+		var res = '';
+		for(var i=0; i<moves.length; ++i) {
+			if(res !== '') { res += '/'; }
+			res += notations[i];
+		}
+		return res;
+	}
+
+	test('Generate notation ' + scenario.label, function() {
+		var p = new RPBChess.Position(scenario.constructor === 'fen' ? scenario.fen : scenario.constructor);
+		return fun(p);
+	}, scenario.notation);
 });

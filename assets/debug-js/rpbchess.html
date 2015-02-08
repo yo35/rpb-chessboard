@@ -40,42 +40,6 @@
 			var COLUMN = 'abcdefgh';
 			var PROMO  = ' BKNPQR';
 
-			var positionA = '2r1kq2/Np2ppPp/PN1n3B/2pP3R/1b4Q1/2R2R2/P3BP2/R3K2R w K c6 0 1';
-			var notationA =
-				'/Bb5+/Bc1/Bc4/Bd1/Bd2/Bd3/Be3/Bf1/Bf4/Bg5' +
-				'/Kd1/Kd2/Kf1' +
-				'/Na4/Na8/Naxc8/Nb5/Nbxc8/Nc4/Nc6/Nd7' +
-				'/O-O' +
-				'/Qc4/Qd4/Qd7#/Qe4/Qe6/Qf4/Qf5/Qg1/Qg2/Qg3/Qg5/Qg6/Qh3/Qh4/Qxb4/Qxc8+' +
-				'/R1h2/R1h3/R1h4/R5h2/R5h3/R5h4/Rb1/Rc1/Rd1/Rd3/Re3/Re5/Rf1/Rf4/Rf6/Rff5/Rfh3/Rg1/Rg3/Rg5/Rhf5/Rxf7' +
-				'/a3/a4/axb7/dxc6/g8=B/g8=N/g8=Q/g8=R/gxf8=B/gxf8=N/gxf8=Q#/gxf8=R#';
-			var positionB = 'r3k2r/p1p1pR1p/8/1p2P3/bPn3nB/P6Q/b1n1Pp2/2NK2R1 b kq - 0 1';
-			var notationB =
-				'/B2b3/B4b3/Bb1' +
-				'/Kd7/Kd8/Kxf7' +
-				'/N2e3#/N2xa3+/N4xa3/Na1+/Na5/Nb2+/Nb6/Nc4e3+/Ncxe5/Nd2/Nd4+/Nd6/Ne1+/Nf6/Nge3+/Ngxe5/Nh2/Nh6/Nxb4+' +
-				'/O-O-O+' +
-				'/Rb8/Rc8/Rd8+/Rf8/Rg8' +
-				'/a5/a6/c5/c6/e6/f1=B/f1=N/f1=Q+/f1=R+/fxg1=B/fxg1=N/fxg1=Q+/fxg1=R+/h5/h6';
-
-			function generateNotation(p) {
-				var moves = p.moves();
-				var notations = [];
-				for(var i=0; i<moves.length; ++i) {
-					notations.push(p.notation(moves[i]));
-				}
-				notations.sort();
-				var res = '';
-				for(var i=0; i<moves.length; ++i) {
-					res += '/' + notations[i];
-				}
-				return res;
-			}
-
-			// Move descriptor -> notation
-			test('Generate notation A', function() { var p=new RPBChess.Position(positionA); return generateNotation(p); }, notationA);
-			test('Generate notation B', function() { var p=new RPBChess.Position(positionB); return generateNotation(p); }, notationB);
-
 			// Look for legal moves in a given position
 			function legalMovesByNotation(position) {
 				var res = '' + position.isLegal();
