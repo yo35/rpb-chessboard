@@ -934,3 +934,85 @@ registerTests('rpbchess.notation.to-string', positions, function(scenario) {
 		return fun(p);
 	}, scenario.notation);
 });
+
+
+// Conversion notation -> move descriptor
+registerTests('rpbchess.notation.from-string', positions, function(scenario) {
+	var /* const */ PIECES = 'KQRBN';
+	var /* const */ PROMO  = ' QRBN';
+	var /* const */ ROW_FROM = ' 12345678';
+	var /* const */ COLUMN_FROM = ' abcdefgh';
+	var /* const */ ROW_TO = '12345678';
+	var /* const */ COLUMN_TO = 'abcdefgh';
+
+	function fun(position) {
+		var moves = [];
+
+		// Catch the exceptions thrown by the parsing function
+		function parseNotation(text) {
+			try {
+				var res = wrapMove(position.notation(text, false));
+				moves.push(res);
+			}
+			catch(e) {
+				if(!(e instanceof RPBChess.exceptions.InvalidNotation)) {
+					throw e;
+				}
+			}
+		}
+
+		// Castling moves
+		parseNotation('O-O-O');
+		parseNotation('O-O');
+
+		// Pawn move
+		for(var ct=0; ct<COLUMN_TO.length; ++ct) {
+			for(var rt=0; rt<ROW_TO.length; ++rt) {
+				for(var cf=0; cf<COLUMN_FROM.length; ++cf) {
+					for(var p=0; p<PROMO.length; ++p) {
+						var text = COLUMN_TO[ct] + ROW_TO[rt];
+						if(COLUMN_FROM[cf] !== ' ') {
+							text = COLUMN_FROM[cf] + 'x' + text;
+						}
+						text += PROMO[p]===' ' ? '' : ('=' + PROMO[p]);
+						parseNotation(text);
+					}
+				}
+			}
+		}
+
+		// Non-pawn moves
+		for(var p=0; p<PIECES.length; ++p) {
+			for(var ct=0; ct<COLUMN_TO.length; ++ct) {
+				for(var rt=0; rt<ROW_TO.length; ++rt) {
+					for(var cf=0; cf<COLUMN_FROM.length; ++cf) {
+						for(var rf=0; rf<ROW_FROM.length; ++rf) {
+							var text = PIECES[p];
+							text += COLUMN_FROM[cf]===' ' ? '' : COLUMN_FROM[cf];
+							text += ROW_FROM[rf]===' ' ? '' : ROW_FROM[rf];
+							text += COLUMN_TO[ct] + ROW_TO[rt];
+							parseNotation(text);
+						}
+					}
+				}
+			}
+		}
+
+		// Sort the moves and remove the duplicates.
+		moves.sort();
+		moves = moves.filter(function(elem, index, tab) { return index===0 || elem!==tab[index-1]; });
+
+		// Flatten the result.
+		var res = '';
+		for(var i=0; i<moves.length; ++i) {
+			if(res !== '') { res += '/'; }
+			res += moves[i];
+		}
+		return res;
+	}
+
+	test('Parse notation ' + scenario.label, function() {
+		var p = new RPBChess.Position(scenario.constructor === 'fen' ? scenario.fen : scenario.constructor);
+		return fun(p);
+	}, scenario.moves);
+});
