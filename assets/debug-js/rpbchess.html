@@ -8,185 +8,10 @@
 	<!-- Tested component -->
 	<script type="text/javascript" src="../../js/rpbchess.js"></script>
 
-	<script type="text/javascript">
-
-		/* global RPBChess */
-
-
-		/**
-		 * Number of tests performed.
-		 */
-		var testCounter = 0;
-
-		/**
-		 * Number of tests that succeed.
-		 */
-		var successCounter = 0;
-
-
-		/**
-		 * Refresh the global counters.
-		 */
-		function refreshCounters() {
-			'use strict';
-			var div1 = document.getElementById('testCounter');
-			div1.innerHTML = '';
-			div1.appendChild(document.createTextNode(testCounter + ' tests performed.'));
-			var div2 = document.getElementById('successCounter');
-			div2.innerHTML = '';
-			if(testCounter===successCounter) {
-				div2.appendChild(document.createTextNode('All tests were successful.'));
-				div2.className = 'allSuccessful';
-			}
-			else {
-				div2.appendChild(document.createTextNode((testCounter-successCounter) + ' tests failed.'));
-				div2.className = 'someFailure';
-			}
-		}
-
-
-		/**
-		 * Base report method.
-		 */
-		function printMessage(success, message) {
-			'use strict';
-			var div = document.createElement('div');
-			div.className = 'message ' + (success ? 'success' : 'failure');
-			div.appendChild(document.createTextNode(message));
-			document.getElementById('report').appendChild(div);
-		}
-
-
-		/**
-		 * Report that a test succeeded.
-		 */
-		function printSuccess(label) {
-			'use strict';
-			printMessage(true, label);
-		}
-
-
-		/**
-		 * Print an error message to report that an tested function did not returned what was expected.
-		 */
-		function printBadValue(label, observedValue, expectedValue) {
-			'use strict';
-
-			var message = label + ' => observed >>' + observedValue + '<<';
-			if(typeof expectedValue === 'undefined') {
-				message += ' while error expected';
-			}
-			else {
-				message += ' while expected >>' + expectedValue + '<<';
-			}
-			printMessage(false, message);
-		}
-
-
-		/**
-		 * Print an error message to report that an exception was thrown during a test.
-		 */
-		function printException(label, exception) {
-			'use strict';
-
-			var message = label + ' => ';
-			if(exception instanceof RPBChess.exceptions.IllegalArgument) {
-				message += 'illegal argument in ' + exception.fun;
-			}
-			else if(exception instanceof RPBChess.exceptions.InvalidFEN) {
-				message += 'bad FEN >>' + exception.fen + '<< => ' + exception.message;
-			}
-			else {
-				message += 'unknown exception => ' + exception;
-			}
-			printMessage(false, message);
-		}
-
-
-		/**
-		 * Check the returned value of a function.
-		 */
-		function test(label, fun, expectedValue) {
-			'use strict';
-			try {
-				++testCounter;
-				var observedValue = fun();
-				if(observedValue === expectedValue) {
-					++successCounter;
-					printSuccess(label);
-				}
-				else {
-					printBadValue(label, observedValue, expectedValue);
-				}
-			}
-			catch(exception) {
-				printException(label, exception);
-			}
-			refreshCounters();
-		}
-
-
-		/**
-		 * Check the exception thrown by a function.
-		 */
-		function testError(label, fun, checkException) {
-			'use strict';
-			try {
-				++testCounter;
-				var observedValue = fun();
-				printBadValue(label, observedValue);
-			}
-			catch(exception) {
-				if(checkException(exception)) {
-					++successCounter;
-					printSuccess(label);
-				}
-				else {
-					printException(label, exception);
-				}
-			}
-			refreshCounters();
-		}
-
-	</script>
-
-	<style type="text/css">
-		#toolbar {
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-		}
-		#toolbar > * + * {
-			margin-left: 15px;
-		}
-		#successCounter {
-			font-weight: bold;
-		}
-		#successCounter.allSuccessful {
-			color: #060;
-		}
-		#successCounter.someFailure {
-			color: #b00;
-		}
-		#report {
-			display: flex;
-			flex-direction: column;
-		}
-		#report > * + * {
-			margin-top: 5px;
-		}
-		.success {
-			background-color: #cfc;
-		}
-		.failure {
-			background-color: #fcc;
-		}
-		.message {
-			font-family: monospace;
-			white-space: pre-wrap;
-			padding: 3px;
-		}
-	</style>
+	<!-- Unit test tools -->
+	<link rel="stylesheet" type="text/css" href="common.css" />
+	<script type="text/javascript" src="common.js"></script>
+	<script type="text/javascript" src="common-rpbchess.js"></script>
 
 </head>
 
@@ -206,35 +31,6 @@
 	<script type="text/javascript">
 		document.getElementById('run-unit-tests').onclick = function() {
 			'use strict';
-
-			// Generate a predicate to check that an exception is an illegal-argument exception issued by the right function.
-			function checkIllegalArgument(fun) {
-				return function(exception) {
-					return (exception instanceof RPBChess.exceptions.IllegalArgument) && (exception.fun === fun);
-				};
-			}
-
-			// Generate a predicate to check that an exception is an invalid-FEN exception with the right message.
-			function checkInvalidFEN(code) {
-
-				// Build the error message
-				var message = '<not an error message>';
-				if(typeof code === 'undefined') {
-					message = null;
-				}
-				else if(code in RPBChess.i18n) {
-					message = RPBChess.i18n[code];
-					for(var i=1; i<arguments.length; ++i) {
-						var re = new RegExp('\\{' + i + '\\}');
-						message = message.replace(re, arguments[i]);
-					}
-				}
-
-				// Generate the predicate
-				return function(exception) {
-					return (exception instanceof RPBChess.exceptions.InvalidFEN) && (message === null || message === exception.message);
-				};
-			}
 
 			var startFEN   = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 			var emptyFEN   = '8/8/8/8/8/8/8/8 w - - 0 1';
@@ -272,10 +68,6 @@
 			testError('Set FEN (strict) NOK A', function() { var p=new RPBChess.Position(); p.fen(customFEN3a, true); }, checkInvalidFEN('INVALID_CASTLE_RIGHTS_FIELD'));
 			testError('Set FEN (strict) NOK B', function() { var p=new RPBChess.Position(); p.fen(customFEN3b, true); }, checkInvalidFEN('WRONG_ROW_IN_EN_PASSANT_FIELD'));
 			testError('Set FEN (strict) NOK C', function() { var p=new RPBChess.Position(); p.fen(customFEN3c, true); }, checkInvalidFEN('INVALID_MOVE_COUNTING_FIELD', '5th'));
-
-			function wrapCP(cp) {
-				return (typeof cp === 'object') && ('piece' in cp) && ('color' in cp) ? (cp.color + ':' + cp.piece) : cp;
-			}
 
 			// Getters
 			test('Getter board 1', function() { var p=new RPBChess.Position(); return wrapCP(p.square('e1')); }, 'w:k');
@@ -343,10 +135,6 @@
 			test('White pawn attacks', function() { var p=new RPBChess.Position('8/8/8/4P3/8/8/8/8 w - - 0 1'); return attacked(p, 'w'); }, 'd6/f6');
 			test('Black pawn attacks', function() { var p=new RPBChess.Position('8/8/8/4p3/8/8/8/8 w - - 0 1'); return attacked(p, 'b'); }, 'd4/f4');
 
-			function legalInfo(position) {
-				return position.isLegal() + ':' + position.kingSquare('w') + ':' + position.kingSquare('b');
-			}
-
 			// Legality
 			test('Legality starting position', function() { var p=new RPBChess.Position(); return legalInfo(p); }, 'true:e1:e8');
 			test('Legality kings OK'   , function() { var p=new RPBChess.Position('k7/8/8/8/8/8/8/7K w - - 0 1'); return legalInfo(p); }, 'true:h1:a8');
@@ -398,11 +186,6 @@
 			}
 			test('Square color', function() { return squareColors(false); }, squareColors(true));
 
-			// Move descriptor to string
-			function descriptorToString(descriptor) {
-				return descriptor.from() + descriptor.to() + (descriptor.type()===RPBChess.movetype.PROMOTION ? descriptor.promotion().toUpperCase() : '');
-			}
-
 			// Look for legal moves in a given position
 			function legalMoves(position) {
 				var res = '' + position.isLegal();
@@ -417,7 +200,7 @@
 									}
 									var descriptor = position.isMoveLegal(move);
 									if(descriptor) {
-										res += '/' + descriptorToString(descriptor);
+										res += '/' + wrapMove(descriptor);
 									}
 								}
 							}
@@ -433,23 +216,13 @@
 				var descriptors = position.moves();
 				var moves = [];
 				for(var i=0; i<descriptors.length; ++i) {
-					moves.push(descriptorToString(descriptors[i]));
+					moves.push(wrapMove(descriptors[i]));
 				}
 				moves.sort();
 				for(var i=0; i<moves.length; ++i) {
 					res += '/' + moves[i];
 				}
 				return res;
-			}
-
-			// Look for check/checkmate/stalemate
-			function ccs(position) {
-				if(position.isLegal()) {
-					return position.isCheck() + ':' + position.isCheckmate() + ':' + position.isStalemate() + ':' + position.hasMove();
-				}
-				else {
-					return '';
-				}
 			}
 
 			var position1  = 'rnbqkbnr/pppp1ppp/8/1B2p3/4P3/8/PPPP1PPP/RNBQK1NR b KQkq - 0 1';
@@ -586,83 +359,79 @@
 			test('Move generation 7b', function() { var p=new RPBChess.Position(position7b); return generateMoves(p); }, moves7 );
 
 			// Check/Checkmate/Stalemate
-			test('Check/Checkmate/Stalemate 0a', function() { var p=new RPBChess.Position(          ); return ccs(p); }, ccsNormal   );
-			test('Check/Checkmate/Stalemate 0b', function() { var p=new RPBChess.Position(customFEN2); return ccs(p); }, ccsNormal   );
-			test('Check/Checkmate/Stalemate 0c', function() { var p=new RPBChess.Position('empty'   ); return ccs(p); }, ccsIllegal  );
-			test('Check/Checkmate/Stalemate 1' , function() { var p=new RPBChess.Position(position1 ); return ccs(p); }, ccsNormal   );
-			test('Check/Checkmate/Stalemate 2a', function() { var p=new RPBChess.Position(position2a); return ccs(p); }, ccsNormal   );
-			test('Check/Checkmate/Stalemate 2b', function() { var p=new RPBChess.Position(position2b); return ccs(p); }, ccsNormal   );
-			test('Check/Checkmate/Stalemate 2c', function() { var p=new RPBChess.Position(position2c); return ccs(p); }, ccsNormal   );
-			test('Check/Checkmate/Stalemate 2d', function() { var p=new RPBChess.Position(position2d); return ccs(p); }, ccsNormal   );
-			test('Check/Checkmate/Stalemate 2e', function() { var p=new RPBChess.Position(position2e); return ccs(p); }, ccsNormal   );
-			test('Check/Checkmate/Stalemate 2f', function() { var p=new RPBChess.Position(position2f); return ccs(p); }, ccsNormal   );
-			test('Check/Checkmate/Stalemate 3a', function() { var p=new RPBChess.Position(position3a); return ccs(p); }, ccsNormal   );
-			test('Check/Checkmate/Stalemate 3b', function() { var p=new RPBChess.Position(position3b); return ccs(p); }, ccsCheck    );
-			test('Check/Checkmate/Stalemate 3c', function() { var p=new RPBChess.Position(position3c); return ccs(p); }, ccsNormal   );
-			test('Check/Checkmate/Stalemate 4a', function() { var p=new RPBChess.Position(position4a); return ccs(p); }, ccsNormal   );
-			test('Check/Checkmate/Stalemate 4b', function() { var p=new RPBChess.Position(position4b); return ccs(p); }, ccsCheck    );
-			test('Check/Checkmate/Stalemate 4c', function() { var p=new RPBChess.Position(position4c); return ccs(p); }, ccsNormal   );
-			test('Check/Checkmate/Stalemate 5a', function() { var p=new RPBChess.Position(position5a); return ccs(p); }, ccsCheck    );
-			test('Check/Checkmate/Stalemate 5b', function() { var p=new RPBChess.Position(position5b); return ccs(p); }, ccsNormal   );
-			test('Check/Checkmate/Stalemate 5c', function() { var p=new RPBChess.Position(position5c); return ccs(p); }, ccsNormal   );
-			test('Check/Checkmate/Stalemate 5d', function() { var p=new RPBChess.Position(position5d); return ccs(p); }, ccsNormal   );
-			test('Check/Checkmate/Stalemate 5e', function() { var p=new RPBChess.Position(position5e); return ccs(p); }, ccsNormal   );
-			test('Check/Checkmate/Stalemate 5f', function() { var p=new RPBChess.Position(position5f); return ccs(p); }, ccsIllegal  );
-			test('Check/Checkmate/Stalemate 6a', function() { var p=new RPBChess.Position(position6a); return ccs(p); }, ccsCheck    );
-			test('Check/Checkmate/Stalemate 6b', function() { var p=new RPBChess.Position(position6b); return ccs(p); }, ccsNormal   );
-			test('Check/Checkmate/Stalemate 6c', function() { var p=new RPBChess.Position(position6c); return ccs(p); }, ccsNormal   );
-			test('Check/Checkmate/Stalemate 6d', function() { var p=new RPBChess.Position(position6d); return ccs(p); }, ccsNormal   );
-			test('Check/Checkmate/Stalemate 6e', function() { var p=new RPBChess.Position(position6e); return ccs(p); }, ccsNormal   );
-			test('Check/Checkmate/Stalemate 6f', function() { var p=new RPBChess.Position(position6f); return ccs(p); }, ccsIllegal  );
-			test('Check/Checkmate/Stalemate 7a', function() { var p=new RPBChess.Position(position7a); return ccs(p); }, ccsStalemate);
-			test('Check/Checkmate/Stalemate 7b', function() { var p=new RPBChess.Position(position7b); return ccs(p); }, ccsCheckmate);
-
-			function wrapFEN(p) {
-				return p.fen() + ' ' + p.isLegal() + ' ' + p.kingSquare('w') + ' ' + p.kingSquare('b');
-			}
+			test('Check/Checkmate/Stalemate 0a', function() { var p=new RPBChess.Position(          ); return ccsInfo(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 0b', function() { var p=new RPBChess.Position(customFEN2); return ccsInfo(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 0c', function() { var p=new RPBChess.Position('empty'   ); return ccsInfo(p); }, ccsIllegal  );
+			test('Check/Checkmate/Stalemate 1' , function() { var p=new RPBChess.Position(position1 ); return ccsInfo(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 2a', function() { var p=new RPBChess.Position(position2a); return ccsInfo(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 2b', function() { var p=new RPBChess.Position(position2b); return ccsInfo(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 2c', function() { var p=new RPBChess.Position(position2c); return ccsInfo(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 2d', function() { var p=new RPBChess.Position(position2d); return ccsInfo(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 2e', function() { var p=new RPBChess.Position(position2e); return ccsInfo(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 2f', function() { var p=new RPBChess.Position(position2f); return ccsInfo(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 3a', function() { var p=new RPBChess.Position(position3a); return ccsInfo(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 3b', function() { var p=new RPBChess.Position(position3b); return ccsInfo(p); }, ccsCheck    );
+			test('Check/Checkmate/Stalemate 3c', function() { var p=new RPBChess.Position(position3c); return ccsInfo(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 4a', function() { var p=new RPBChess.Position(position4a); return ccsInfo(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 4b', function() { var p=new RPBChess.Position(position4b); return ccsInfo(p); }, ccsCheck    );
+			test('Check/Checkmate/Stalemate 4c', function() { var p=new RPBChess.Position(position4c); return ccsInfo(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 5a', function() { var p=new RPBChess.Position(position5a); return ccsInfo(p); }, ccsCheck    );
+			test('Check/Checkmate/Stalemate 5b', function() { var p=new RPBChess.Position(position5b); return ccsInfo(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 5c', function() { var p=new RPBChess.Position(position5c); return ccsInfo(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 5d', function() { var p=new RPBChess.Position(position5d); return ccsInfo(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 5e', function() { var p=new RPBChess.Position(position5e); return ccsInfo(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 5f', function() { var p=new RPBChess.Position(position5f); return ccsInfo(p); }, ccsIllegal  );
+			test('Check/Checkmate/Stalemate 6a', function() { var p=new RPBChess.Position(position6a); return ccsInfo(p); }, ccsCheck    );
+			test('Check/Checkmate/Stalemate 6b', function() { var p=new RPBChess.Position(position6b); return ccsInfo(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 6c', function() { var p=new RPBChess.Position(position6c); return ccsInfo(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 6d', function() { var p=new RPBChess.Position(position6d); return ccsInfo(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 6e', function() { var p=new RPBChess.Position(position6e); return ccsInfo(p); }, ccsNormal   );
+			test('Check/Checkmate/Stalemate 6f', function() { var p=new RPBChess.Position(position6f); return ccsInfo(p); }, ccsIllegal  );
+			test('Check/Checkmate/Stalemate 7a', function() { var p=new RPBChess.Position(position7a); return ccsInfo(p); }, ccsStalemate);
+			test('Check/Checkmate/Stalemate 7b', function() { var p=new RPBChess.Position(position7b); return ccsInfo(p); }, ccsCheckmate);
 
 			// Play - game 1
 			var g1 = new RPBChess.Position();
-			test('Play 1.00'        , function() {                   return wrapFEN(g1); }, 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 true e1 e8');
-			test('Play 1.01'        , function() { g1.play({ from:'e2', to:'e4'               }); return wrapFEN(g1); }, 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1 true e1 e8');
-			test('Play 1.02'        , function() { g1.play({ from:'d7', to:'d5'               }); return wrapFEN(g1); }, 'rnbqkbnr/ppp1pppp/8/3p4/4P3/8/PPPP1PPP/RNBQKBNR w KQkq d6 0 1 true e1 e8');
-			test('Play 1.03'        , function() { g1.play({ from:'e4', to:'d5'               }); return wrapFEN(g1); }, 'rnbqkbnr/ppp1pppp/8/3P4/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1 true e1 e8');
-			test('Play 1.04'        , function() { g1.play({ from:'c7', to:'c6'               }); return wrapFEN(g1); }, 'rnbqkbnr/pp2pppp/2p5/3P4/8/8/PPPP1PPP/RNBQKBNR w KQkq - 0 1 true e1 e8');
-			test('Play 1.05'        , function() { g1.play({ from:'d5', to:'c6'               }); return wrapFEN(g1); }, 'rnbqkbnr/pp2pppp/2P5/8/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1 true e1 e8');
-			test('Play 1.06'        , function() { g1.play({ from:'d8', to:'d2'               }); return wrapFEN(g1); }, 'rnb1kbnr/pp2pppp/2P5/8/8/8/PPPq1PPP/RNBQKBNR w KQkq - 0 1 true e1 e8');
-			test('Play 1.07'        , function() { g1.play({ from:'b1', to:'d2'               }); return wrapFEN(g1); }, 'rnb1kbnr/pp2pppp/2P5/8/8/8/PPPN1PPP/R1BQKBNR b KQkq - 0 1 true e1 e8');
-			test('Play 1.08'        , function() { g1.play({ from:'g7', to:'g5'               }); return wrapFEN(g1); }, 'rnb1kbnr/pp2pp1p/2P5/6p1/8/8/PPPN1PPP/R1BQKBNR w KQkq g6 0 1 true e1 e8');
-			test('Play 1.09'        , function() { g1.play({ from:'d2', to:'b1'               }); return wrapFEN(g1); }, 'rnb1kbnr/pp2pp1p/2P5/6p1/8/8/PPP2PPP/RNBQKBNR b KQkq - 0 1 true e1 e8');
-			test('Play 1.10'        , function() { g1.play({ from:'g5', to:'g4'               }); return wrapFEN(g1); }, 'rnb1kbnr/pp2pp1p/2P5/8/6p1/8/PPP2PPP/RNBQKBNR w KQkq - 0 1 true e1 e8');
-			test('Play 1.11'        , function() { g1.play({ from:'h2', to:'h4'               }); return wrapFEN(g1); }, 'rnb1kbnr/pp2pp1p/2P5/8/6pP/8/PPP2PP1/RNBQKBNR b KQkq h3 0 1 true e1 e8');
-			test('Play 1.12 (ep)'   , function() { g1.play({ from:'g4', to:'h3'               }); return wrapFEN(g1); }, 'rnb1kbnr/pp2pp1p/2P5/8/8/7p/PPP2PP1/RNBQKBNR w KQkq - 0 1 true e1 e8');
-			test('Play 1.13'        , function() { g1.play({ from:'h1', to:'h3'               }); return wrapFEN(g1); }, 'rnb1kbnr/pp2pp1p/2P5/8/8/7R/PPP2PP1/RNBQKBN1 b Qkq - 0 1 true e1 e8');
-			test('Play 1.14'        , function() { g1.play({ from:'c8', to:'f5'               }); return wrapFEN(g1); }, 'rn2kbnr/pp2pp1p/2P5/5b2/8/7R/PPP2PP1/RNBQKBN1 w Qkq - 0 1 true e1 e8');
-			test('Play 1.15'        , function() { g1.play({ from:'c6', to:'b7'               }); return wrapFEN(g1); }, 'rn2kbnr/pP2pp1p/8/5b2/8/7R/PPP2PP1/RNBQKBN1 b Qkq - 0 1 true e1 e8');
-			test('Play 1.16'        , function() { g1.play({ from:'f5', to:'c2'               }); return wrapFEN(g1); }, 'rn2kbnr/pP2pp1p/8/8/8/7R/PPb2PP1/RNBQKBN1 w Qkq - 0 1 true e1 e8');
-			test('Play 1.17 (promo)', function() { g1.play({ from:'b7', to:'a8', promotion:'q'}); return wrapFEN(g1); }, 'Qn2kbnr/p3pp1p/8/8/8/7R/PPb2PP1/RNBQKBN1 b Qk - 0 1 true e1 e8');
-			test('Play 1.18'        , function() { g1.play({ from:'f8', to:'g7'               }); return wrapFEN(g1); }, 'Qn2k1nr/p3ppbp/8/8/8/7R/PPb2PP1/RNBQKBN1 w Qk - 0 1 true e1 e8');
-			test('Play 1.19'        , function() { g1.play({ from:'b2', to:'b4'               }); return wrapFEN(g1); }, 'Qn2k1nr/p3ppbp/8/8/1P6/7R/P1b2PP1/RNBQKBN1 b Qk b3 0 1 true e1 e8');
-			test('Play 1.20'        , function() { g1.play({ from:'g8', to:'f6'               }); return wrapFEN(g1); }, 'Qn2k2r/p3ppbp/5n2/8/1P6/7R/P1b2PP1/RNBQKBN1 w Qk - 0 1 true e1 e8');
-			test('Play 1.21'        , function() { g1.play({ from:'b4', to:'b5'               }); return wrapFEN(g1); }, 'Qn2k2r/p3ppbp/5n2/1P6/8/7R/P1b2PP1/RNBQKBN1 b Qk - 0 1 true e1 e8');
-			test('Play 1.22'        , function() { g1.play({ from:'a7', to:'a5'               }); return wrapFEN(g1); }, 'Qn2k2r/4ppbp/5n2/pP6/8/7R/P1b2PP1/RNBQKBN1 w Qk a6 0 1 true e1 e8');
-			test('Play 1.23 (ep)'   , function() { g1.play({ from:'b5', to:'a6'               }); return wrapFEN(g1); }, 'Qn2k2r/4ppbp/P4n2/8/8/7R/P1b2PP1/RNBQKBN1 b Qk - 0 1 true e1 e8');
-			test('Play 1.24 (O-O)'  , function() { g1.play({ from:'e8', to:'g8'               }); return wrapFEN(g1); }, 'Qn3rk1/4ppbp/P4n2/8/8/7R/P1b2PP1/RNBQKBN1 w Q - 0 1 true e1 g8');
-			test('Play 1.25'        , function() { g1.play({ from:'e1', to:'d2'               }); return wrapFEN(g1); }, 'Qn3rk1/4ppbp/P4n2/8/8/7R/P1bK1PP1/RNBQ1BN1 b - - 0 1 true d2 g8');
-			test('Play 1.26'        , function() { g1.play({ from:'e7', to:'e5'               }); return wrapFEN(g1); }, 'Qn3rk1/5pbp/P4n2/4p3/8/7R/P1bK1PP1/RNBQ1BN1 w - e6 0 1 true d2 g8');
-			test('Play 1.27'        , function() { g1.play({ from:'d2', to:'c2'               }); return wrapFEN(g1); }, 'Qn3rk1/5pbp/P4n2/4p3/8/7R/P1K2PP1/RNBQ1BN1 b - - 0 1 true c2 g8');
-			test('Play 1.28'        , function() { g1.play({ from:'e5', to:'e4'               }); return wrapFEN(g1); }, 'Qn3rk1/5pbp/P4n2/8/4p3/7R/P1K2PP1/RNBQ1BN1 w - - 0 1 true c2 g8');
-			test('Play 1.29'        , function() { g1.play({ from:'a8', to:'d5'               }); return wrapFEN(g1); }, '1n3rk1/5pbp/P4n2/3Q4/4p3/7R/P1K2PP1/RNBQ1BN1 b - - 0 1 true c2 g8');
-			test('Play 1.30'        , function() { g1.play({ from:'e4', to:'e3'               }); return wrapFEN(g1); }, '1n3rk1/5pbp/P4n2/3Q4/8/4p2R/P1K2PP1/RNBQ1BN1 w - - 0 1 true c2 g8');
-			test('Play 1.31'        , function() { g1.play({ from:'a6', to:'a7'               }); return wrapFEN(g1); }, '1n3rk1/P4pbp/5n2/3Q4/8/4p2R/P1K2PP1/RNBQ1BN1 b - - 0 1 true c2 g8');
-			test('Play 1.32'        , function() { g1.play({ from:'e3', to:'e2'               }); return wrapFEN(g1); }, '1n3rk1/P4pbp/5n2/3Q4/8/7R/P1K1pPP1/RNBQ1BN1 w - - 0 1 true c2 g8');
-			test('Play 1.33 (promo)', function() { g1.play({ from:'a7', to:'a8', promotion:'n'}); return wrapFEN(g1); }, 'Nn3rk1/5pbp/5n2/3Q4/8/7R/P1K1pPP1/RNBQ1BN1 b - - 0 1 true c2 g8');
-			test('Play 1.34 (promo)', function() { g1.play({ from:'e2', to:'e1', promotion:'b'}); return wrapFEN(g1); }, 'Nn3rk1/5pbp/5n2/3Q4/8/7R/P1K2PP1/RNBQbBN1 w - - 0 1 true c2 g8');
-			test('Play 1.35'        , function() { g1.play({ from:'d5', to:'f7'               }); return wrapFEN(g1); }, 'Nn3rk1/5Qbp/5n2/8/8/7R/P1K2PP1/RNBQbBN1 b - - 0 1 true c2 g8');
-			test('Play 1.36'        , function() { g1.play({ from:'g8', to:'h8'               }); return wrapFEN(g1); }, 'Nn3r1k/5Qbp/5n2/8/8/7R/P1K2PP1/RNBQbBN1 w - - 0 1 true c2 h8');
-			test('Play 1.37'        , function() { g1.play({ from:'h3', to:'g3'               }); return wrapFEN(g1); }, 'Nn3r1k/5Qbp/5n2/8/8/6R1/P1K2PP1/RNBQbBN1 b - - 0 1 true c2 h8');
-			test('Play 1.38'        , function() { g1.play({ from:'e1', to:'b4'               }); return wrapFEN(g1); }, 'Nn3r1k/5Qbp/5n2/8/1b6/6R1/P1K2PP1/RNBQ1BN1 w - - 0 1 true c2 h8');
-			test('Play 1.39'        , function() { g1.play({ from:'f7', to:'g7'               }); return wrapFEN(g1); }, 'Nn3r1k/6Qp/5n2/8/1b6/6R1/P1K2PP1/RNBQ1BN1 b - - 0 1 true c2 h8');
+			test('Play 1.00'        , function() {                   return fenInfo(g1); }, 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 true e1 e8');
+			test('Play 1.01'        , function() { g1.play({ from:'e2', to:'e4'               }); return fenInfo(g1); }, 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1 true e1 e8');
+			test('Play 1.02'        , function() { g1.play({ from:'d7', to:'d5'               }); return fenInfo(g1); }, 'rnbqkbnr/ppp1pppp/8/3p4/4P3/8/PPPP1PPP/RNBQKBNR w KQkq d6 0 1 true e1 e8');
+			test('Play 1.03'        , function() { g1.play({ from:'e4', to:'d5'               }); return fenInfo(g1); }, 'rnbqkbnr/ppp1pppp/8/3P4/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1 true e1 e8');
+			test('Play 1.04'        , function() { g1.play({ from:'c7', to:'c6'               }); return fenInfo(g1); }, 'rnbqkbnr/pp2pppp/2p5/3P4/8/8/PPPP1PPP/RNBQKBNR w KQkq - 0 1 true e1 e8');
+			test('Play 1.05'        , function() { g1.play({ from:'d5', to:'c6'               }); return fenInfo(g1); }, 'rnbqkbnr/pp2pppp/2P5/8/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1 true e1 e8');
+			test('Play 1.06'        , function() { g1.play({ from:'d8', to:'d2'               }); return fenInfo(g1); }, 'rnb1kbnr/pp2pppp/2P5/8/8/8/PPPq1PPP/RNBQKBNR w KQkq - 0 1 true e1 e8');
+			test('Play 1.07'        , function() { g1.play({ from:'b1', to:'d2'               }); return fenInfo(g1); }, 'rnb1kbnr/pp2pppp/2P5/8/8/8/PPPN1PPP/R1BQKBNR b KQkq - 0 1 true e1 e8');
+			test('Play 1.08'        , function() { g1.play({ from:'g7', to:'g5'               }); return fenInfo(g1); }, 'rnb1kbnr/pp2pp1p/2P5/6p1/8/8/PPPN1PPP/R1BQKBNR w KQkq g6 0 1 true e1 e8');
+			test('Play 1.09'        , function() { g1.play({ from:'d2', to:'b1'               }); return fenInfo(g1); }, 'rnb1kbnr/pp2pp1p/2P5/6p1/8/8/PPP2PPP/RNBQKBNR b KQkq - 0 1 true e1 e8');
+			test('Play 1.10'        , function() { g1.play({ from:'g5', to:'g4'               }); return fenInfo(g1); }, 'rnb1kbnr/pp2pp1p/2P5/8/6p1/8/PPP2PPP/RNBQKBNR w KQkq - 0 1 true e1 e8');
+			test('Play 1.11'        , function() { g1.play({ from:'h2', to:'h4'               }); return fenInfo(g1); }, 'rnb1kbnr/pp2pp1p/2P5/8/6pP/8/PPP2PP1/RNBQKBNR b KQkq h3 0 1 true e1 e8');
+			test('Play 1.12 (ep)'   , function() { g1.play({ from:'g4', to:'h3'               }); return fenInfo(g1); }, 'rnb1kbnr/pp2pp1p/2P5/8/8/7p/PPP2PP1/RNBQKBNR w KQkq - 0 1 true e1 e8');
+			test('Play 1.13'        , function() { g1.play({ from:'h1', to:'h3'               }); return fenInfo(g1); }, 'rnb1kbnr/pp2pp1p/2P5/8/8/7R/PPP2PP1/RNBQKBN1 b Qkq - 0 1 true e1 e8');
+			test('Play 1.14'        , function() { g1.play({ from:'c8', to:'f5'               }); return fenInfo(g1); }, 'rn2kbnr/pp2pp1p/2P5/5b2/8/7R/PPP2PP1/RNBQKBN1 w Qkq - 0 1 true e1 e8');
+			test('Play 1.15'        , function() { g1.play({ from:'c6', to:'b7'               }); return fenInfo(g1); }, 'rn2kbnr/pP2pp1p/8/5b2/8/7R/PPP2PP1/RNBQKBN1 b Qkq - 0 1 true e1 e8');
+			test('Play 1.16'        , function() { g1.play({ from:'f5', to:'c2'               }); return fenInfo(g1); }, 'rn2kbnr/pP2pp1p/8/8/8/7R/PPb2PP1/RNBQKBN1 w Qkq - 0 1 true e1 e8');
+			test('Play 1.17 (promo)', function() { g1.play({ from:'b7', to:'a8', promotion:'q'}); return fenInfo(g1); }, 'Qn2kbnr/p3pp1p/8/8/8/7R/PPb2PP1/RNBQKBN1 b Qk - 0 1 true e1 e8');
+			test('Play 1.18'        , function() { g1.play({ from:'f8', to:'g7'               }); return fenInfo(g1); }, 'Qn2k1nr/p3ppbp/8/8/8/7R/PPb2PP1/RNBQKBN1 w Qk - 0 1 true e1 e8');
+			test('Play 1.19'        , function() { g1.play({ from:'b2', to:'b4'               }); return fenInfo(g1); }, 'Qn2k1nr/p3ppbp/8/8/1P6/7R/P1b2PP1/RNBQKBN1 b Qk b3 0 1 true e1 e8');
+			test('Play 1.20'        , function() { g1.play({ from:'g8', to:'f6'               }); return fenInfo(g1); }, 'Qn2k2r/p3ppbp/5n2/8/1P6/7R/P1b2PP1/RNBQKBN1 w Qk - 0 1 true e1 e8');
+			test('Play 1.21'        , function() { g1.play({ from:'b4', to:'b5'               }); return fenInfo(g1); }, 'Qn2k2r/p3ppbp/5n2/1P6/8/7R/P1b2PP1/RNBQKBN1 b Qk - 0 1 true e1 e8');
+			test('Play 1.22'        , function() { g1.play({ from:'a7', to:'a5'               }); return fenInfo(g1); }, 'Qn2k2r/4ppbp/5n2/pP6/8/7R/P1b2PP1/RNBQKBN1 w Qk a6 0 1 true e1 e8');
+			test('Play 1.23 (ep)'   , function() { g1.play({ from:'b5', to:'a6'               }); return fenInfo(g1); }, 'Qn2k2r/4ppbp/P4n2/8/8/7R/P1b2PP1/RNBQKBN1 b Qk - 0 1 true e1 e8');
+			test('Play 1.24 (O-O)'  , function() { g1.play({ from:'e8', to:'g8'               }); return fenInfo(g1); }, 'Qn3rk1/4ppbp/P4n2/8/8/7R/P1b2PP1/RNBQKBN1 w Q - 0 1 true e1 g8');
+			test('Play 1.25'        , function() { g1.play({ from:'e1', to:'d2'               }); return fenInfo(g1); }, 'Qn3rk1/4ppbp/P4n2/8/8/7R/P1bK1PP1/RNBQ1BN1 b - - 0 1 true d2 g8');
+			test('Play 1.26'        , function() { g1.play({ from:'e7', to:'e5'               }); return fenInfo(g1); }, 'Qn3rk1/5pbp/P4n2/4p3/8/7R/P1bK1PP1/RNBQ1BN1 w - e6 0 1 true d2 g8');
+			test('Play 1.27'        , function() { g1.play({ from:'d2', to:'c2'               }); return fenInfo(g1); }, 'Qn3rk1/5pbp/P4n2/4p3/8/7R/P1K2PP1/RNBQ1BN1 b - - 0 1 true c2 g8');
+			test('Play 1.28'        , function() { g1.play({ from:'e5', to:'e4'               }); return fenInfo(g1); }, 'Qn3rk1/5pbp/P4n2/8/4p3/7R/P1K2PP1/RNBQ1BN1 w - - 0 1 true c2 g8');
+			test('Play 1.29'        , function() { g1.play({ from:'a8', to:'d5'               }); return fenInfo(g1); }, '1n3rk1/5pbp/P4n2/3Q4/4p3/7R/P1K2PP1/RNBQ1BN1 b - - 0 1 true c2 g8');
+			test('Play 1.30'        , function() { g1.play({ from:'e4', to:'e3'               }); return fenInfo(g1); }, '1n3rk1/5pbp/P4n2/3Q4/8/4p2R/P1K2PP1/RNBQ1BN1 w - - 0 1 true c2 g8');
+			test('Play 1.31'        , function() { g1.play({ from:'a6', to:'a7'               }); return fenInfo(g1); }, '1n3rk1/P4pbp/5n2/3Q4/8/4p2R/P1K2PP1/RNBQ1BN1 b - - 0 1 true c2 g8');
+			test('Play 1.32'        , function() { g1.play({ from:'e3', to:'e2'               }); return fenInfo(g1); }, '1n3rk1/P4pbp/5n2/3Q4/8/7R/P1K1pPP1/RNBQ1BN1 w - - 0 1 true c2 g8');
+			test('Play 1.33 (promo)', function() { g1.play({ from:'a7', to:'a8', promotion:'n'}); return fenInfo(g1); }, 'Nn3rk1/5pbp/5n2/3Q4/8/7R/P1K1pPP1/RNBQ1BN1 b - - 0 1 true c2 g8');
+			test('Play 1.34 (promo)', function() { g1.play({ from:'e2', to:'e1', promotion:'b'}); return fenInfo(g1); }, 'Nn3rk1/5pbp/5n2/3Q4/8/7R/P1K2PP1/RNBQbBN1 w - - 0 1 true c2 g8');
+			test('Play 1.35'        , function() { g1.play({ from:'d5', to:'f7'               }); return fenInfo(g1); }, 'Nn3rk1/5Qbp/5n2/8/8/7R/P1K2PP1/RNBQbBN1 b - - 0 1 true c2 g8');
+			test('Play 1.36'        , function() { g1.play({ from:'g8', to:'h8'               }); return fenInfo(g1); }, 'Nn3r1k/5Qbp/5n2/8/8/7R/P1K2PP1/RNBQbBN1 w - - 0 1 true c2 h8');
+			test('Play 1.37'        , function() { g1.play({ from:'h3', to:'g3'               }); return fenInfo(g1); }, 'Nn3r1k/5Qbp/5n2/8/8/6R1/P1K2PP1/RNBQbBN1 b - - 0 1 true c2 h8');
+			test('Play 1.38'        , function() { g1.play({ from:'e1', to:'b4'               }); return fenInfo(g1); }, 'Nn3r1k/5Qbp/5n2/8/1b6/6R1/P1K2PP1/RNBQ1BN1 w - - 0 1 true c2 h8');
+			test('Play 1.39'        , function() { g1.play({ from:'f7', to:'g7'               }); return fenInfo(g1); }, 'Nn3r1k/6Qp/5n2/8/1b6/6R1/P1K2PP1/RNBQ1BN1 b - - 0 1 true c2 h8');
 
 			// Play - game 2
 			var g2a = new RPBChess.Position('r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1');
@@ -671,27 +440,27 @@
 			var g2d = new RPBChess.Position('rn2k1nr/8/8/8/8/8/8/RN2K1NR w KQkq - 0 1');
 			var g2e = new RPBChess.Position('rn2k1nr/8/8/8/8/8/8/RN2K1NR b KQkq - 0 1');
 			var g2f = new RPBChess.Position('r3k2r/8/8/3BB3/3bb3/8/8/R3K2R w KQkq - 0 1');
-			test('Play 2a.1', function() { g2a.play({ from:'e1', to:'g1' }); return wrapFEN(g2a); }, 'r3k2r/8/8/8/8/8/8/R4RK1 b kq - 0 1 true g1 e8');
-			test('Play 2a.2', function() { g2a.play({ from:'e8', to:'c8' }); return wrapFEN(g2a); }, '2kr3r/8/8/8/8/8/8/R4RK1 w - - 0 1 true g1 c8');
-			test('Play 2b.1', function() { g2b.play({ from:'e8', to:'g8' }); return wrapFEN(g2b); }, 'r4rk1/8/8/8/8/8/8/R3K2R w KQ - 0 1 true e1 g8');
-			test('Play 2b.2', function() { g2b.play({ from:'e1', to:'c1' }); return wrapFEN(g2b); }, 'r4rk1/8/8/8/8/8/8/2KR3R b - - 0 1 true c1 g8');
-			test('Play 2c.1', function() { g2c.play({ from:'h1', to:'h8' }); return wrapFEN(g2c); }, 'rn2k1nR/8/8/8/8/8/8/RN2K1N1 b Qq - 0 1 true e1 e8');
-			test('Play 2c.2', function() { g2c.play({ from:'a8', to:'a1' }); return wrapFEN(g2c); }, '1n2k1nR/8/8/8/8/8/8/rN2K1N1 w - - 0 1 true e1 e8');
-			test('Play 2d.1', function() { g2d.play({ from:'a1', to:'a8' }); return wrapFEN(g2d); }, 'Rn2k1nr/8/8/8/8/8/8/1N2K1NR b Kk - 0 1 true e1 e8');
-			test('Play 2d.2', function() { g2d.play({ from:'h8', to:'h1' }); return wrapFEN(g2d); }, 'Rn2k1n1/8/8/8/8/8/8/1N2K1Nr w - - 0 1 true e1 e8');
-			test('Play 2e.1', function() { g2e.play({ from:'a8', to:'a5' }); return wrapFEN(g2e); }, '1n2k1nr/8/8/r7/8/8/8/RN2K1NR w KQk - 0 1 true e1 e8');
-			test('Play 2e.2', function() { g2e.play({ from:'a1', to:'a4' }); return wrapFEN(g2e); }, '1n2k1nr/8/8/r7/R7/8/8/1N2K1NR b Kk - 0 1 true e1 e8');
-			test('Play 2e.3', function() { g2e.play({ from:'h8', to:'h5' }); return wrapFEN(g2e); }, '1n2k1n1/8/8/r6r/R7/8/8/1N2K1NR w K - 0 1 true e1 e8');
-			test('Play 2e.4', function() { g2e.play({ from:'h1', to:'h4' }); return wrapFEN(g2e); }, '1n2k1n1/8/8/r6r/R6R/8/8/1N2K1N1 b - - 0 1 true e1 e8');
-			test('Play 2f.1', function() { g2f.play({ from:'e5', to:'h8' }); return wrapFEN(g2f); }, 'r3k2B/8/8/3B4/3bb3/8/8/R3K2R b KQq - 0 1 true e1 e8');
-			test('Play 2f.2', function() { g2f.play({ from:'d4', to:'a1' }); return wrapFEN(g2f); }, 'r3k2B/8/8/3B4/4b3/8/8/b3K2R w Kq - 0 1 true e1 e8');
-			test('Play 2f.3', function() { g2f.play({ from:'d5', to:'a8' }); return wrapFEN(g2f); }, 'B3k2B/8/8/8/4b3/8/8/b3K2R b K - 0 1 true e1 e8');
-			test('Play 2f.4', function() { g2f.play({ from:'e4', to:'h1' }); return wrapFEN(g2f); }, 'B3k2B/8/8/8/8/8/8/b3K2b w - - 0 1 true e1 e8');
+			test('Play 2a.1', function() { g2a.play({ from:'e1', to:'g1' }); return fenInfo(g2a); }, 'r3k2r/8/8/8/8/8/8/R4RK1 b kq - 0 1 true g1 e8');
+			test('Play 2a.2', function() { g2a.play({ from:'e8', to:'c8' }); return fenInfo(g2a); }, '2kr3r/8/8/8/8/8/8/R4RK1 w - - 0 1 true g1 c8');
+			test('Play 2b.1', function() { g2b.play({ from:'e8', to:'g8' }); return fenInfo(g2b); }, 'r4rk1/8/8/8/8/8/8/R3K2R w KQ - 0 1 true e1 g8');
+			test('Play 2b.2', function() { g2b.play({ from:'e1', to:'c1' }); return fenInfo(g2b); }, 'r4rk1/8/8/8/8/8/8/2KR3R b - - 0 1 true c1 g8');
+			test('Play 2c.1', function() { g2c.play({ from:'h1', to:'h8' }); return fenInfo(g2c); }, 'rn2k1nR/8/8/8/8/8/8/RN2K1N1 b Qq - 0 1 true e1 e8');
+			test('Play 2c.2', function() { g2c.play({ from:'a8', to:'a1' }); return fenInfo(g2c); }, '1n2k1nR/8/8/8/8/8/8/rN2K1N1 w - - 0 1 true e1 e8');
+			test('Play 2d.1', function() { g2d.play({ from:'a1', to:'a8' }); return fenInfo(g2d); }, 'Rn2k1nr/8/8/8/8/8/8/1N2K1NR b Kk - 0 1 true e1 e8');
+			test('Play 2d.2', function() { g2d.play({ from:'h8', to:'h1' }); return fenInfo(g2d); }, 'Rn2k1n1/8/8/8/8/8/8/1N2K1Nr w - - 0 1 true e1 e8');
+			test('Play 2e.1', function() { g2e.play({ from:'a8', to:'a5' }); return fenInfo(g2e); }, '1n2k1nr/8/8/r7/8/8/8/RN2K1NR w KQk - 0 1 true e1 e8');
+			test('Play 2e.2', function() { g2e.play({ from:'a1', to:'a4' }); return fenInfo(g2e); }, '1n2k1nr/8/8/r7/R7/8/8/1N2K1NR b Kk - 0 1 true e1 e8');
+			test('Play 2e.3', function() { g2e.play({ from:'h8', to:'h5' }); return fenInfo(g2e); }, '1n2k1n1/8/8/r6r/R7/8/8/1N2K1NR w K - 0 1 true e1 e8');
+			test('Play 2e.4', function() { g2e.play({ from:'h1', to:'h4' }); return fenInfo(g2e); }, '1n2k1n1/8/8/r6r/R6R/8/8/1N2K1N1 b - - 0 1 true e1 e8');
+			test('Play 2f.1', function() { g2f.play({ from:'e5', to:'h8' }); return fenInfo(g2f); }, 'r3k2B/8/8/3B4/3bb3/8/8/R3K2R b KQq - 0 1 true e1 e8');
+			test('Play 2f.2', function() { g2f.play({ from:'d4', to:'a1' }); return fenInfo(g2f); }, 'r3k2B/8/8/3B4/4b3/8/8/b3K2R w Kq - 0 1 true e1 e8');
+			test('Play 2f.3', function() { g2f.play({ from:'d5', to:'a8' }); return fenInfo(g2f); }, 'B3k2B/8/8/8/4b3/8/8/b3K2R b K - 0 1 true e1 e8');
+			test('Play 2f.4', function() { g2f.play({ from:'e4', to:'h1' }); return fenInfo(g2f); }, 'B3k2B/8/8/8/8/8/8/b3K2b w - - 0 1 true e1 e8');
 
 			function playDescriptor(p, move) {
 				var moves = p.moves();
 				for(var i=0; i<moves.length; ++i) {
-					if(descriptorToString(moves[i]) === move) {
+					if(wrapMove(moves[i]) === move) {
 						p.play(moves[i]);
 						return;
 					}
@@ -700,46 +469,46 @@
 
 			// Play with move descriptor - game 3
 			var g3 = new RPBChess.Position();
-			test('Play descriptor 3.00'        , function() {                              return wrapFEN(g3); }, 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 true e1 e8');
-			test('Play descriptor 3.01'        , function() { playDescriptor(g3, 'e2e4' ); return wrapFEN(g3); }, 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1 true e1 e8');
-			test('Play descriptor 3.02'        , function() { playDescriptor(g3, 'd7d5' ); return wrapFEN(g3); }, 'rnbqkbnr/ppp1pppp/8/3p4/4P3/8/PPPP1PPP/RNBQKBNR w KQkq d6 0 1 true e1 e8');
-			test('Play descriptor 3.03'        , function() { playDescriptor(g3, 'e4d5' ); return wrapFEN(g3); }, 'rnbqkbnr/ppp1pppp/8/3P4/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1 true e1 e8');
-			test('Play descriptor 3.04'        , function() { playDescriptor(g3, 'c7c6' ); return wrapFEN(g3); }, 'rnbqkbnr/pp2pppp/2p5/3P4/8/8/PPPP1PPP/RNBQKBNR w KQkq - 0 1 true e1 e8');
-			test('Play descriptor 3.05'        , function() { playDescriptor(g3, 'd5c6' ); return wrapFEN(g3); }, 'rnbqkbnr/pp2pppp/2P5/8/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1 true e1 e8');
-			test('Play descriptor 3.06'        , function() { playDescriptor(g3, 'd8d2' ); return wrapFEN(g3); }, 'rnb1kbnr/pp2pppp/2P5/8/8/8/PPPq1PPP/RNBQKBNR w KQkq - 0 1 true e1 e8');
-			test('Play descriptor 3.07'        , function() { playDescriptor(g3, 'b1d2' ); return wrapFEN(g3); }, 'rnb1kbnr/pp2pppp/2P5/8/8/8/PPPN1PPP/R1BQKBNR b KQkq - 0 1 true e1 e8');
-			test('Play descriptor 3.08'        , function() { playDescriptor(g3, 'g7g5' ); return wrapFEN(g3); }, 'rnb1kbnr/pp2pp1p/2P5/6p1/8/8/PPPN1PPP/R1BQKBNR w KQkq g6 0 1 true e1 e8');
-			test('Play descriptor 3.09'        , function() { playDescriptor(g3, 'd2b1' ); return wrapFEN(g3); }, 'rnb1kbnr/pp2pp1p/2P5/6p1/8/8/PPP2PPP/RNBQKBNR b KQkq - 0 1 true e1 e8');
-			test('Play descriptor 3.10'        , function() { playDescriptor(g3, 'g5g4' ); return wrapFEN(g3); }, 'rnb1kbnr/pp2pp1p/2P5/8/6p1/8/PPP2PPP/RNBQKBNR w KQkq - 0 1 true e1 e8');
-			test('Play descriptor 3.11'        , function() { playDescriptor(g3, 'h2h4' ); return wrapFEN(g3); }, 'rnb1kbnr/pp2pp1p/2P5/8/6pP/8/PPP2PP1/RNBQKBNR b KQkq h3 0 1 true e1 e8');
-			test('Play descriptor 3.12 (ep)'   , function() { playDescriptor(g3, 'g4h3' ); return wrapFEN(g3); }, 'rnb1kbnr/pp2pp1p/2P5/8/8/7p/PPP2PP1/RNBQKBNR w KQkq - 0 1 true e1 e8');
-			test('Play descriptor 3.13'        , function() { playDescriptor(g3, 'h1h3' ); return wrapFEN(g3); }, 'rnb1kbnr/pp2pp1p/2P5/8/8/7R/PPP2PP1/RNBQKBN1 b Qkq - 0 1 true e1 e8');
-			test('Play descriptor 3.14'        , function() { playDescriptor(g3, 'c8f5' ); return wrapFEN(g3); }, 'rn2kbnr/pp2pp1p/2P5/5b2/8/7R/PPP2PP1/RNBQKBN1 w Qkq - 0 1 true e1 e8');
-			test('Play descriptor 3.15'        , function() { playDescriptor(g3, 'c6b7' ); return wrapFEN(g3); }, 'rn2kbnr/pP2pp1p/8/5b2/8/7R/PPP2PP1/RNBQKBN1 b Qkq - 0 1 true e1 e8');
-			test('Play descriptor 3.16'        , function() { playDescriptor(g3, 'f5c2' ); return wrapFEN(g3); }, 'rn2kbnr/pP2pp1p/8/8/8/7R/PPb2PP1/RNBQKBN1 w Qkq - 0 1 true e1 e8');
-			test('Play descriptor 3.17 (promo)', function() { playDescriptor(g3, 'b7a8Q'); return wrapFEN(g3); }, 'Qn2kbnr/p3pp1p/8/8/8/7R/PPb2PP1/RNBQKBN1 b Qk - 0 1 true e1 e8');
-			test('Play descriptor 3.18'        , function() { playDescriptor(g3, 'f8g7' ); return wrapFEN(g3); }, 'Qn2k1nr/p3ppbp/8/8/8/7R/PPb2PP1/RNBQKBN1 w Qk - 0 1 true e1 e8');
-			test('Play descriptor 3.19'        , function() { playDescriptor(g3, 'b2b4' ); return wrapFEN(g3); }, 'Qn2k1nr/p3ppbp/8/8/1P6/7R/P1b2PP1/RNBQKBN1 b Qk b3 0 1 true e1 e8');
-			test('Play descriptor 3.20'        , function() { playDescriptor(g3, 'g8f6' ); return wrapFEN(g3); }, 'Qn2k2r/p3ppbp/5n2/8/1P6/7R/P1b2PP1/RNBQKBN1 w Qk - 0 1 true e1 e8');
-			test('Play descriptor 3.21'        , function() { playDescriptor(g3, 'b4b5' ); return wrapFEN(g3); }, 'Qn2k2r/p3ppbp/5n2/1P6/8/7R/P1b2PP1/RNBQKBN1 b Qk - 0 1 true e1 e8');
-			test('Play descriptor 3.22'        , function() { playDescriptor(g3, 'a7a5' ); return wrapFEN(g3); }, 'Qn2k2r/4ppbp/5n2/pP6/8/7R/P1b2PP1/RNBQKBN1 w Qk a6 0 1 true e1 e8');
-			test('Play descriptor 3.23 (ep)'   , function() { playDescriptor(g3, 'b5a6' ); return wrapFEN(g3); }, 'Qn2k2r/4ppbp/P4n2/8/8/7R/P1b2PP1/RNBQKBN1 b Qk - 0 1 true e1 e8');
-			test('Play descriptor 3.24 (O-O)'  , function() { playDescriptor(g3, 'e8g8' ); return wrapFEN(g3); }, 'Qn3rk1/4ppbp/P4n2/8/8/7R/P1b2PP1/RNBQKBN1 w Q - 0 1 true e1 g8');
-			test('Play descriptor 3.25'        , function() { playDescriptor(g3, 'e1d2' ); return wrapFEN(g3); }, 'Qn3rk1/4ppbp/P4n2/8/8/7R/P1bK1PP1/RNBQ1BN1 b - - 0 1 true d2 g8');
-			test('Play descriptor 3.26'        , function() { playDescriptor(g3, 'e7e5' ); return wrapFEN(g3); }, 'Qn3rk1/5pbp/P4n2/4p3/8/7R/P1bK1PP1/RNBQ1BN1 w - e6 0 1 true d2 g8');
-			test('Play descriptor 3.27'        , function() { playDescriptor(g3, 'd2c2' ); return wrapFEN(g3); }, 'Qn3rk1/5pbp/P4n2/4p3/8/7R/P1K2PP1/RNBQ1BN1 b - - 0 1 true c2 g8');
-			test('Play descriptor 3.28'        , function() { playDescriptor(g3, 'e5e4' ); return wrapFEN(g3); }, 'Qn3rk1/5pbp/P4n2/8/4p3/7R/P1K2PP1/RNBQ1BN1 w - - 0 1 true c2 g8');
-			test('Play descriptor 3.29'        , function() { playDescriptor(g3, 'a8d5' ); return wrapFEN(g3); }, '1n3rk1/5pbp/P4n2/3Q4/4p3/7R/P1K2PP1/RNBQ1BN1 b - - 0 1 true c2 g8');
-			test('Play descriptor 3.30'        , function() { playDescriptor(g3, 'e4e3' ); return wrapFEN(g3); }, '1n3rk1/5pbp/P4n2/3Q4/8/4p2R/P1K2PP1/RNBQ1BN1 w - - 0 1 true c2 g8');
-			test('Play descriptor 3.31'        , function() { playDescriptor(g3, 'a6a7' ); return wrapFEN(g3); }, '1n3rk1/P4pbp/5n2/3Q4/8/4p2R/P1K2PP1/RNBQ1BN1 b - - 0 1 true c2 g8');
-			test('Play descriptor 3.32'        , function() { playDescriptor(g3, 'e3e2' ); return wrapFEN(g3); }, '1n3rk1/P4pbp/5n2/3Q4/8/7R/P1K1pPP1/RNBQ1BN1 w - - 0 1 true c2 g8');
-			test('Play descriptor 3.33 (promo)', function() { playDescriptor(g3, 'a7a8N'); return wrapFEN(g3); }, 'Nn3rk1/5pbp/5n2/3Q4/8/7R/P1K1pPP1/RNBQ1BN1 b - - 0 1 true c2 g8');
-			test('Play descriptor 3.34 (promo)', function() { playDescriptor(g3, 'e2e1B'); return wrapFEN(g3); }, 'Nn3rk1/5pbp/5n2/3Q4/8/7R/P1K2PP1/RNBQbBN1 w - - 0 1 true c2 g8');
-			test('Play descriptor 3.35'        , function() { playDescriptor(g3, 'd5f7' ); return wrapFEN(g3); }, 'Nn3rk1/5Qbp/5n2/8/8/7R/P1K2PP1/RNBQbBN1 b - - 0 1 true c2 g8');
-			test('Play descriptor 3.36'        , function() { playDescriptor(g3, 'g8h8' ); return wrapFEN(g3); }, 'Nn3r1k/5Qbp/5n2/8/8/7R/P1K2PP1/RNBQbBN1 w - - 0 1 true c2 h8');
-			test('Play descriptor 3.37'        , function() { playDescriptor(g3, 'h3g3' ); return wrapFEN(g3); }, 'Nn3r1k/5Qbp/5n2/8/8/6R1/P1K2PP1/RNBQbBN1 b - - 0 1 true c2 h8');
-			test('Play descriptor 3.38'        , function() { playDescriptor(g3, 'e1b4' ); return wrapFEN(g3); }, 'Nn3r1k/5Qbp/5n2/8/1b6/6R1/P1K2PP1/RNBQ1BN1 w - - 0 1 true c2 h8');
-			test('Play descriptor 3.39'        , function() { playDescriptor(g3, 'f7g7' ); return wrapFEN(g3); }, 'Nn3r1k/6Qp/5n2/8/1b6/6R1/P1K2PP1/RNBQ1BN1 b - - 0 1 true c2 h8');
+			test('Play descriptor 3.00'        , function() {                              return fenInfo(g3); }, 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 true e1 e8');
+			test('Play descriptor 3.01'        , function() { playDescriptor(g3, 'e2e4' ); return fenInfo(g3); }, 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1 true e1 e8');
+			test('Play descriptor 3.02'        , function() { playDescriptor(g3, 'd7d5' ); return fenInfo(g3); }, 'rnbqkbnr/ppp1pppp/8/3p4/4P3/8/PPPP1PPP/RNBQKBNR w KQkq d6 0 1 true e1 e8');
+			test('Play descriptor 3.03'        , function() { playDescriptor(g3, 'e4d5' ); return fenInfo(g3); }, 'rnbqkbnr/ppp1pppp/8/3P4/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1 true e1 e8');
+			test('Play descriptor 3.04'        , function() { playDescriptor(g3, 'c7c6' ); return fenInfo(g3); }, 'rnbqkbnr/pp2pppp/2p5/3P4/8/8/PPPP1PPP/RNBQKBNR w KQkq - 0 1 true e1 e8');
+			test('Play descriptor 3.05'        , function() { playDescriptor(g3, 'd5c6' ); return fenInfo(g3); }, 'rnbqkbnr/pp2pppp/2P5/8/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1 true e1 e8');
+			test('Play descriptor 3.06'        , function() { playDescriptor(g3, 'd8d2' ); return fenInfo(g3); }, 'rnb1kbnr/pp2pppp/2P5/8/8/8/PPPq1PPP/RNBQKBNR w KQkq - 0 1 true e1 e8');
+			test('Play descriptor 3.07'        , function() { playDescriptor(g3, 'b1d2' ); return fenInfo(g3); }, 'rnb1kbnr/pp2pppp/2P5/8/8/8/PPPN1PPP/R1BQKBNR b KQkq - 0 1 true e1 e8');
+			test('Play descriptor 3.08'        , function() { playDescriptor(g3, 'g7g5' ); return fenInfo(g3); }, 'rnb1kbnr/pp2pp1p/2P5/6p1/8/8/PPPN1PPP/R1BQKBNR w KQkq g6 0 1 true e1 e8');
+			test('Play descriptor 3.09'        , function() { playDescriptor(g3, 'd2b1' ); return fenInfo(g3); }, 'rnb1kbnr/pp2pp1p/2P5/6p1/8/8/PPP2PPP/RNBQKBNR b KQkq - 0 1 true e1 e8');
+			test('Play descriptor 3.10'        , function() { playDescriptor(g3, 'g5g4' ); return fenInfo(g3); }, 'rnb1kbnr/pp2pp1p/2P5/8/6p1/8/PPP2PPP/RNBQKBNR w KQkq - 0 1 true e1 e8');
+			test('Play descriptor 3.11'        , function() { playDescriptor(g3, 'h2h4' ); return fenInfo(g3); }, 'rnb1kbnr/pp2pp1p/2P5/8/6pP/8/PPP2PP1/RNBQKBNR b KQkq h3 0 1 true e1 e8');
+			test('Play descriptor 3.12 (ep)'   , function() { playDescriptor(g3, 'g4h3' ); return fenInfo(g3); }, 'rnb1kbnr/pp2pp1p/2P5/8/8/7p/PPP2PP1/RNBQKBNR w KQkq - 0 1 true e1 e8');
+			test('Play descriptor 3.13'        , function() { playDescriptor(g3, 'h1h3' ); return fenInfo(g3); }, 'rnb1kbnr/pp2pp1p/2P5/8/8/7R/PPP2PP1/RNBQKBN1 b Qkq - 0 1 true e1 e8');
+			test('Play descriptor 3.14'        , function() { playDescriptor(g3, 'c8f5' ); return fenInfo(g3); }, 'rn2kbnr/pp2pp1p/2P5/5b2/8/7R/PPP2PP1/RNBQKBN1 w Qkq - 0 1 true e1 e8');
+			test('Play descriptor 3.15'        , function() { playDescriptor(g3, 'c6b7' ); return fenInfo(g3); }, 'rn2kbnr/pP2pp1p/8/5b2/8/7R/PPP2PP1/RNBQKBN1 b Qkq - 0 1 true e1 e8');
+			test('Play descriptor 3.16'        , function() { playDescriptor(g3, 'f5c2' ); return fenInfo(g3); }, 'rn2kbnr/pP2pp1p/8/8/8/7R/PPb2PP1/RNBQKBN1 w Qkq - 0 1 true e1 e8');
+			test('Play descriptor 3.17 (promo)', function() { playDescriptor(g3, 'b7a8Q'); return fenInfo(g3); }, 'Qn2kbnr/p3pp1p/8/8/8/7R/PPb2PP1/RNBQKBN1 b Qk - 0 1 true e1 e8');
+			test('Play descriptor 3.18'        , function() { playDescriptor(g3, 'f8g7' ); return fenInfo(g3); }, 'Qn2k1nr/p3ppbp/8/8/8/7R/PPb2PP1/RNBQKBN1 w Qk - 0 1 true e1 e8');
+			test('Play descriptor 3.19'        , function() { playDescriptor(g3, 'b2b4' ); return fenInfo(g3); }, 'Qn2k1nr/p3ppbp/8/8/1P6/7R/P1b2PP1/RNBQKBN1 b Qk b3 0 1 true e1 e8');
+			test('Play descriptor 3.20'        , function() { playDescriptor(g3, 'g8f6' ); return fenInfo(g3); }, 'Qn2k2r/p3ppbp/5n2/8/1P6/7R/P1b2PP1/RNBQKBN1 w Qk - 0 1 true e1 e8');
+			test('Play descriptor 3.21'        , function() { playDescriptor(g3, 'b4b5' ); return fenInfo(g3); }, 'Qn2k2r/p3ppbp/5n2/1P6/8/7R/P1b2PP1/RNBQKBN1 b Qk - 0 1 true e1 e8');
+			test('Play descriptor 3.22'        , function() { playDescriptor(g3, 'a7a5' ); return fenInfo(g3); }, 'Qn2k2r/4ppbp/5n2/pP6/8/7R/P1b2PP1/RNBQKBN1 w Qk a6 0 1 true e1 e8');
+			test('Play descriptor 3.23 (ep)'   , function() { playDescriptor(g3, 'b5a6' ); return fenInfo(g3); }, 'Qn2k2r/4ppbp/P4n2/8/8/7R/P1b2PP1/RNBQKBN1 b Qk - 0 1 true e1 e8');
+			test('Play descriptor 3.24 (O-O)'  , function() { playDescriptor(g3, 'e8g8' ); return fenInfo(g3); }, 'Qn3rk1/4ppbp/P4n2/8/8/7R/P1b2PP1/RNBQKBN1 w Q - 0 1 true e1 g8');
+			test('Play descriptor 3.25'        , function() { playDescriptor(g3, 'e1d2' ); return fenInfo(g3); }, 'Qn3rk1/4ppbp/P4n2/8/8/7R/P1bK1PP1/RNBQ1BN1 b - - 0 1 true d2 g8');
+			test('Play descriptor 3.26'        , function() { playDescriptor(g3, 'e7e5' ); return fenInfo(g3); }, 'Qn3rk1/5pbp/P4n2/4p3/8/7R/P1bK1PP1/RNBQ1BN1 w - e6 0 1 true d2 g8');
+			test('Play descriptor 3.27'        , function() { playDescriptor(g3, 'd2c2' ); return fenInfo(g3); }, 'Qn3rk1/5pbp/P4n2/4p3/8/7R/P1K2PP1/RNBQ1BN1 b - - 0 1 true c2 g8');
+			test('Play descriptor 3.28'        , function() { playDescriptor(g3, 'e5e4' ); return fenInfo(g3); }, 'Qn3rk1/5pbp/P4n2/8/4p3/7R/P1K2PP1/RNBQ1BN1 w - - 0 1 true c2 g8');
+			test('Play descriptor 3.29'        , function() { playDescriptor(g3, 'a8d5' ); return fenInfo(g3); }, '1n3rk1/5pbp/P4n2/3Q4/4p3/7R/P1K2PP1/RNBQ1BN1 b - - 0 1 true c2 g8');
+			test('Play descriptor 3.30'        , function() { playDescriptor(g3, 'e4e3' ); return fenInfo(g3); }, '1n3rk1/5pbp/P4n2/3Q4/8/4p2R/P1K2PP1/RNBQ1BN1 w - - 0 1 true c2 g8');
+			test('Play descriptor 3.31'        , function() { playDescriptor(g3, 'a6a7' ); return fenInfo(g3); }, '1n3rk1/P4pbp/5n2/3Q4/8/4p2R/P1K2PP1/RNBQ1BN1 b - - 0 1 true c2 g8');
+			test('Play descriptor 3.32'        , function() { playDescriptor(g3, 'e3e2' ); return fenInfo(g3); }, '1n3rk1/P4pbp/5n2/3Q4/8/7R/P1K1pPP1/RNBQ1BN1 w - - 0 1 true c2 g8');
+			test('Play descriptor 3.33 (promo)', function() { playDescriptor(g3, 'a7a8N'); return fenInfo(g3); }, 'Nn3rk1/5pbp/5n2/3Q4/8/7R/P1K1pPP1/RNBQ1BN1 b - - 0 1 true c2 g8');
+			test('Play descriptor 3.34 (promo)', function() { playDescriptor(g3, 'e2e1B'); return fenInfo(g3); }, 'Nn3rk1/5pbp/5n2/3Q4/8/7R/P1K2PP1/RNBQbBN1 w - - 0 1 true c2 g8');
+			test('Play descriptor 3.35'        , function() { playDescriptor(g3, 'd5f7' ); return fenInfo(g3); }, 'Nn3rk1/5Qbp/5n2/8/8/7R/P1K2PP1/RNBQbBN1 b - - 0 1 true c2 g8');
+			test('Play descriptor 3.36'        , function() { playDescriptor(g3, 'g8h8' ); return fenInfo(g3); }, 'Nn3r1k/5Qbp/5n2/8/8/7R/P1K2PP1/RNBQbBN1 w - - 0 1 true c2 h8');
+			test('Play descriptor 3.37'        , function() { playDescriptor(g3, 'h3g3' ); return fenInfo(g3); }, 'Nn3r1k/5Qbp/5n2/8/8/6R1/P1K2PP1/RNBQbBN1 b - - 0 1 true c2 h8');
+			test('Play descriptor 3.38'        , function() { playDescriptor(g3, 'e1b4' ); return fenInfo(g3); }, 'Nn3r1k/5Qbp/5n2/8/1b6/6R1/P1K2PP1/RNBQ1BN1 w - - 0 1 true c2 h8');
+			test('Play descriptor 3.39'        , function() { playDescriptor(g3, 'f7g7' ); return fenInfo(g3); }, 'Nn3r1k/6Qp/5n2/8/1b6/6R1/P1K2PP1/RNBQ1BN1 b - - 0 1 true c2 h8');
 
 			// Play with move descriptor - game 4
 			var g4a = new RPBChess.Position('r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1');
@@ -748,32 +517,28 @@
 			var g4d = new RPBChess.Position('rn2k1nr/8/8/8/8/8/8/RN2K1NR w KQkq - 0 1');
 			var g4e = new RPBChess.Position('rn2k1nr/8/8/8/8/8/8/RN2K1NR b KQkq - 0 1');
 			var g4f = new RPBChess.Position('r3k2r/8/8/3BB3/3bb3/8/8/R3K2R w KQkq - 0 1');
-			test('Play descriptor 4a.1', function() { playDescriptor(g4a, 'e1g1'); return wrapFEN(g4a); }, 'r3k2r/8/8/8/8/8/8/R4RK1 b kq - 0 1 true g1 e8');
-			test('Play descriptor 4a.2', function() { playDescriptor(g4a, 'e8c8'); return wrapFEN(g4a); }, '2kr3r/8/8/8/8/8/8/R4RK1 w - - 0 1 true g1 c8');
-			test('Play descriptor 4b.1', function() { playDescriptor(g4b, 'e8g8'); return wrapFEN(g4b); }, 'r4rk1/8/8/8/8/8/8/R3K2R w KQ - 0 1 true e1 g8');
-			test('Play descriptor 4b.2', function() { playDescriptor(g4b, 'e1c1'); return wrapFEN(g4b); }, 'r4rk1/8/8/8/8/8/8/2KR3R b - - 0 1 true c1 g8');
-			test('Play descriptor 4c.1', function() { playDescriptor(g4c, 'h1h8'); return wrapFEN(g4c); }, 'rn2k1nR/8/8/8/8/8/8/RN2K1N1 b Qq - 0 1 true e1 e8');
-			test('Play descriptor 4c.2', function() { playDescriptor(g4c, 'a8a1'); return wrapFEN(g4c); }, '1n2k1nR/8/8/8/8/8/8/rN2K1N1 w - - 0 1 true e1 e8');
-			test('Play descriptor 4d.1', function() { playDescriptor(g4d, 'a1a8'); return wrapFEN(g4d); }, 'Rn2k1nr/8/8/8/8/8/8/1N2K1NR b Kk - 0 1 true e1 e8');
-			test('Play descriptor 4d.2', function() { playDescriptor(g4d, 'h8h1'); return wrapFEN(g4d); }, 'Rn2k1n1/8/8/8/8/8/8/1N2K1Nr w - - 0 1 true e1 e8');
-			test('Play descriptor 4e.1', function() { playDescriptor(g4e, 'a8a5'); return wrapFEN(g4e); }, '1n2k1nr/8/8/r7/8/8/8/RN2K1NR w KQk - 0 1 true e1 e8');
-			test('Play descriptor 4e.2', function() { playDescriptor(g4e, 'a1a4'); return wrapFEN(g4e); }, '1n2k1nr/8/8/r7/R7/8/8/1N2K1NR b Kk - 0 1 true e1 e8');
-			test('Play descriptor 4e.3', function() { playDescriptor(g4e, 'h8h5'); return wrapFEN(g4e); }, '1n2k1n1/8/8/r6r/R7/8/8/1N2K1NR w K - 0 1 true e1 e8');
-			test('Play descriptor 4e.4', function() { playDescriptor(g4e, 'h1h4'); return wrapFEN(g4e); }, '1n2k1n1/8/8/r6r/R6R/8/8/1N2K1N1 b - - 0 1 true e1 e8');
-			test('Play descriptor 4f.1', function() { playDescriptor(g4f, 'e5h8'); return wrapFEN(g4f); }, 'r3k2B/8/8/3B4/3bb3/8/8/R3K2R b KQq - 0 1 true e1 e8');
-			test('Play descriptor 4f.2', function() { playDescriptor(g4f, 'd4a1'); return wrapFEN(g4f); }, 'r3k2B/8/8/3B4/4b3/8/8/b3K2R w Kq - 0 1 true e1 e8');
-			test('Play descriptor 4f.3', function() { playDescriptor(g4f, 'd5a8'); return wrapFEN(g4f); }, 'B3k2B/8/8/8/4b3/8/8/b3K2R b K - 0 1 true e1 e8');
-			test('Play descriptor 4f.4', function() { playDescriptor(g4f, 'e4h1'); return wrapFEN(g4f); }, 'B3k2B/8/8/8/8/8/8/b3K2b w - - 0 1 true e1 e8');
-
-			function nullMoveInfo(p) {
-				return p.isLegal() + ':' + p.isNullMoveLegal();
-			}
+			test('Play descriptor 4a.1', function() { playDescriptor(g4a, 'e1g1'); return fenInfo(g4a); }, 'r3k2r/8/8/8/8/8/8/R4RK1 b kq - 0 1 true g1 e8');
+			test('Play descriptor 4a.2', function() { playDescriptor(g4a, 'e8c8'); return fenInfo(g4a); }, '2kr3r/8/8/8/8/8/8/R4RK1 w - - 0 1 true g1 c8');
+			test('Play descriptor 4b.1', function() { playDescriptor(g4b, 'e8g8'); return fenInfo(g4b); }, 'r4rk1/8/8/8/8/8/8/R3K2R w KQ - 0 1 true e1 g8');
+			test('Play descriptor 4b.2', function() { playDescriptor(g4b, 'e1c1'); return fenInfo(g4b); }, 'r4rk1/8/8/8/8/8/8/2KR3R b - - 0 1 true c1 g8');
+			test('Play descriptor 4c.1', function() { playDescriptor(g4c, 'h1h8'); return fenInfo(g4c); }, 'rn2k1nR/8/8/8/8/8/8/RN2K1N1 b Qq - 0 1 true e1 e8');
+			test('Play descriptor 4c.2', function() { playDescriptor(g4c, 'a8a1'); return fenInfo(g4c); }, '1n2k1nR/8/8/8/8/8/8/rN2K1N1 w - - 0 1 true e1 e8');
+			test('Play descriptor 4d.1', function() { playDescriptor(g4d, 'a1a8'); return fenInfo(g4d); }, 'Rn2k1nr/8/8/8/8/8/8/1N2K1NR b Kk - 0 1 true e1 e8');
+			test('Play descriptor 4d.2', function() { playDescriptor(g4d, 'h8h1'); return fenInfo(g4d); }, 'Rn2k1n1/8/8/8/8/8/8/1N2K1Nr w - - 0 1 true e1 e8');
+			test('Play descriptor 4e.1', function() { playDescriptor(g4e, 'a8a5'); return fenInfo(g4e); }, '1n2k1nr/8/8/r7/8/8/8/RN2K1NR w KQk - 0 1 true e1 e8');
+			test('Play descriptor 4e.2', function() { playDescriptor(g4e, 'a1a4'); return fenInfo(g4e); }, '1n2k1nr/8/8/r7/R7/8/8/1N2K1NR b Kk - 0 1 true e1 e8');
+			test('Play descriptor 4e.3', function() { playDescriptor(g4e, 'h8h5'); return fenInfo(g4e); }, '1n2k1n1/8/8/r6r/R7/8/8/1N2K1NR w K - 0 1 true e1 e8');
+			test('Play descriptor 4e.4', function() { playDescriptor(g4e, 'h1h4'); return fenInfo(g4e); }, '1n2k1n1/8/8/r6r/R6R/8/8/1N2K1N1 b - - 0 1 true e1 e8');
+			test('Play descriptor 4f.1', function() { playDescriptor(g4f, 'e5h8'); return fenInfo(g4f); }, 'r3k2B/8/8/3B4/3bb3/8/8/R3K2R b KQq - 0 1 true e1 e8');
+			test('Play descriptor 4f.2', function() { playDescriptor(g4f, 'd4a1'); return fenInfo(g4f); }, 'r3k2B/8/8/3B4/4b3/8/8/b3K2R w Kq - 0 1 true e1 e8');
+			test('Play descriptor 4f.3', function() { playDescriptor(g4f, 'd5a8'); return fenInfo(g4f); }, 'B3k2B/8/8/8/4b3/8/8/b3K2R b K - 0 1 true e1 e8');
+			test('Play descriptor 4f.4', function() { playDescriptor(g4f, 'e4h1'); return fenInfo(g4f); }, 'B3k2B/8/8/8/8/8/8/b3K2b w - - 0 1 true e1 e8');
 
 			// Null-moves
 			test('Null move 1', function() { var p=new RPBChess.Position(); return nullMoveInfo(p); }, 'true:true');
 			test('Null move 2', function() { var p=new RPBChess.Position('8/8/8/Kr5k/8/8/8/8 w - - 0 1'); return nullMoveInfo(p); }, 'true:false');
 			test('Null move 3', function() { var p=new RPBChess.Position('8/8/8/Kr5k/8/8/8/8 b - - 0 1'); return nullMoveInfo(p); }, 'false:false');
-			test('Play null move', function() { var p=new RPBChess.Position('4k3/8/8/4p3/4P3/8/8/4K3 w - e6 0 1'); p.playNullMove(); return wrapFEN(p); }, '4k3/8/8/4p3/4P3/8/8/4K3 b - - 0 1 true e1 e8');
+			test('Play null move', function() { var p=new RPBChess.Position('4k3/8/8/4p3/4P3/8/8/4K3 w - e6 0 1'); p.playNullMove(); return fenInfo(p); }, '4k3/8/8/4p3/4P3/8/8/4K3 b - - 0 1 true e1 e8');
 
 			var positionA = '2r1kq2/Np2ppPp/PN1n3B/2pP3R/1b4Q1/2R2R2/P3BP2/R3K2R w K c6 0 1';
 			var notationA =
@@ -819,7 +584,7 @@
 				function parseNotation(text) {
 					try {
 						var descriptor = position.notation(text, false);
-						moves.push(descriptorToString(descriptor));
+						moves.push(wrapMove(descriptor));
 					}
 					catch(e) {
 						if(!(e instanceof RPBChess.exceptions.InvalidNotation)) {
