@@ -43,6 +43,12 @@ var registeredExceptions = [];
 
 
 /**
+ * Hold the registered tests.
+ */
+var registeredTests = [];
+
+
+/**
  * Register a new type of exception.
  *
  * @param {function} constructor
@@ -50,6 +56,17 @@ var registeredExceptions = [];
  */
 function registerException(constructor, formatter) {
 	registeredExceptions.push({ constructor:constructor, formatter:formatter });
+}
+
+
+/**
+ * Register a new unit test.
+ *
+ * @param {string} id
+ * @param {function} unitTest
+ */
+function registerTest(id, unitTest) {
+	registeredTests.push({ id:id, unitTest:unitTest });
 }
 
 
@@ -172,7 +189,6 @@ function test(label, fun, expectedValue) {
 	catch(exception) {
 		printException(label, exception);
 	}
-	refreshCounters();
 }
 
 
@@ -198,5 +214,48 @@ function testError(label, fun, checkException) {
 			printException(label, exception);
 		}
 	}
-	refreshCounters();
+
+}
+
+
+/**
+ * Play the unit tests.
+ *
+ * @param {string} [pattern='*']
+ */
+function playTests(pattern) {
+	if(typeof pattern === 'undefined') {
+		pattern = '*';
+	}
+
+	// Match the test ID against the test selection pattern.
+	pattern = pattern.split('.');
+	function match(id) {
+		id = id.split('.');
+		for(var i=0; i<pattern.length; ++i) {
+			if(pattern[i] === '*') {
+				return true;
+			}
+			else if(i>=id.length || pattern[i]!==id[i]) {
+				return false;
+			}
+		}
+		return pattern.length===id.length;
+	}
+
+	// Return the callback to use to play the given test.
+	function playTest(unitTest) {
+		return function() {
+			unitTest();
+			refreshCounters();
+		};
+	}
+
+	// Queue all the tests.
+	for(var i=0; i<registeredTests.length; ++i) {
+		if(match(registeredTests[i].id)) {
+			setTimeout(playTest(registeredTests[i].unitTest), 0);
+		}
+	}
+	setTimeout(refreshCounters, 0);
 }
