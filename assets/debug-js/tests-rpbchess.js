@@ -30,6 +30,8 @@
 /* global wrapMove */
 /* global legalInfo */
 /* global ccsInfo */
+/* global fenInfo */
+/* global nullMoveInfo */
 /* global test */
 /* global testError */
 /* global registerTest */
@@ -68,7 +70,7 @@ registerTest('rpbchess.basic.constructor', function() {
 
 
 // Strict FEN parsing
-registerTest('rpbchess.basic.strictfen', function() {
+registerTest('rpbchess.basic.strict-fen', function() {
 
 	var customFEN1 = 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b Kk e3 10 5';
 	var customFEN2 = 'k7/n1PB4/1K6/8/8/8/8/8 w - - 0 60';
@@ -142,7 +144,7 @@ registerTest('rpbchess.basic.setters', function() {
 // Square color
 // -----------------------------------------------------------------------------
 
-registerTest('rpbchess.squarecolor', function() {
+registerTest('rpbchess.square-color', function() {
 	var /* const */ ROW    = '12345678';
 	var /* const */ COLUMN = 'abcdefgh';
 
@@ -207,7 +209,7 @@ registerTest('rpbchess.attacks', function() {
 // Position legality
 // -----------------------------------------------------------------------------
 
-registerTest('rpbchess.islegal', function() {
+registerTest('rpbchess.is-legal', function() {
 
 	function fun(label, fen, expected) {
 		test(label, function() { var p=new RPBChess.Position(fen); return legalInfo(p); }, expected);
@@ -254,7 +256,7 @@ registerTest('rpbchess.islegal', function() {
 
 
 // -----------------------------------------------------------------------------
-// Move generation
+// Chess position samples
 // -----------------------------------------------------------------------------
 
 var positions = [];
@@ -401,7 +403,7 @@ positions.push({
 
 positions.push({
 	label:'5f', constructor:'fen', fen:'k7/8/8/8/8/p6p/P6P/R2K3R w KQ - 0 1',
-	legal:false, whiteking:'e1', blackking:'a8',
+	legal:false, whiteking:'d1', blackking:'a8',
 	check:false, checkmate:false, stalemate:false, hasmove:false,
 	moves:''
 });
@@ -443,7 +445,7 @@ positions.push({
 
 positions.push({
 	label:'6f', constructor:'fen', fen:'r2k3r/p6p/P6P/8/8/8/8/K7 b kq - 0 1',
-	legal:false, whiteking:'a1', blackking:'e8',
+	legal:false, whiteking:'a1', blackking:'d8',
 	check:false, checkmate:false, stalemate:false, hasmove:false,
 	moves:''
 });
@@ -462,18 +464,149 @@ positions.push({
 	moves:''
 });
 
+positions.push({
+	label:'8a', constructor:'fen', fen:'8/8/8/Kr5k/8/8/8/8 w - - 0 1',
+	legal:true, whiteking:'a5', blackking:'h5',
+	check:true, checkmate:false, stalemate:false, hasmove:true,
+	moves:'a5a4/a5a6/a5b5'
+});
+
+positions.push({
+	label:'8b', constructor:'fen', fen:'8/8/8/Kr5k/8/8/8/8 b - - 0 1',
+	legal:false, whiteking:'a5', blackking:'h5',
+	check:false, checkmate:false, stalemate:false, hasmove:false,
+	moves:''
+});
+
+
+
+// -----------------------------------------------------------------------------
+// Chess game samples
+// -----------------------------------------------------------------------------
+
+var games = [];
+
+games.push({
+	label:'1', constructor:'start', fen:'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', whiteking:'e1', blackking:'e8',
+	moves: [
+		{ go:{ from:'e2', to:'e4'                }, fen:'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1'  , whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'d7', to:'d5'                }, fen:'rnbqkbnr/ppp1pppp/8/3p4/4P3/8/PPPP1PPP/RNBQKBNR w KQkq d6 0 1', whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'e4', to:'d5'                }, fen:'rnbqkbnr/ppp1pppp/8/3P4/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1'   , whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'c7', to:'c6'                }, fen:'rnbqkbnr/pp2pppp/2p5/3P4/8/8/PPPP1PPP/RNBQKBNR w KQkq - 0 1'  , whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'d5', to:'c6'                }, fen:'rnbqkbnr/pp2pppp/2P5/8/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1'    , whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'d8', to:'d2'                }, fen:'rnb1kbnr/pp2pppp/2P5/8/8/8/PPPq1PPP/RNBQKBNR w KQkq - 0 1'    , whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'b1', to:'d2'                }, fen:'rnb1kbnr/pp2pppp/2P5/8/8/8/PPPN1PPP/R1BQKBNR b KQkq - 0 1'    , whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'g7', to:'g5'                }, fen:'rnb1kbnr/pp2pp1p/2P5/6p1/8/8/PPPN1PPP/R1BQKBNR w KQkq g6 0 1' , whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'d2', to:'b1'                }, fen:'rnb1kbnr/pp2pp1p/2P5/6p1/8/8/PPP2PPP/RNBQKBNR b KQkq - 0 1'   , whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'g5', to:'g4'                }, fen:'rnb1kbnr/pp2pp1p/2P5/8/6p1/8/PPP2PPP/RNBQKBNR w KQkq - 0 1'   , whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'h2', to:'h4'                }, fen:'rnb1kbnr/pp2pp1p/2P5/8/6pP/8/PPP2PP1/RNBQKBNR b KQkq h3 0 1'  , whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'g4', to:'h3'                }, fen:'rnb1kbnr/pp2pp1p/2P5/8/8/7p/PPP2PP1/RNBQKBNR w KQkq - 0 1'    , whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'h1', to:'h3'                }, fen:'rnb1kbnr/pp2pp1p/2P5/8/8/7R/PPP2PP1/RNBQKBN1 b Qkq - 0 1'     , whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'c8', to:'f5'                }, fen:'rn2kbnr/pp2pp1p/2P5/5b2/8/7R/PPP2PP1/RNBQKBN1 w Qkq - 0 1'    , whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'c6', to:'b7'                }, fen:'rn2kbnr/pP2pp1p/8/5b2/8/7R/PPP2PP1/RNBQKBN1 b Qkq - 0 1'      , whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'f5', to:'c2'                }, fen:'rn2kbnr/pP2pp1p/8/8/8/7R/PPb2PP1/RNBQKBN1 w Qkq - 0 1'        , whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'b7', to:'a8', promotion:'q' }, fen:'Qn2kbnr/p3pp1p/8/8/8/7R/PPb2PP1/RNBQKBN1 b Qk - 0 1'          , whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'f8', to:'g7'                }, fen:'Qn2k1nr/p3ppbp/8/8/8/7R/PPb2PP1/RNBQKBN1 w Qk - 0 1'          , whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'b2', to:'b4'                }, fen:'Qn2k1nr/p3ppbp/8/8/1P6/7R/P1b2PP1/RNBQKBN1 b Qk b3 0 1'       , whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'g8', to:'f6'                }, fen:'Qn2k2r/p3ppbp/5n2/8/1P6/7R/P1b2PP1/RNBQKBN1 w Qk - 0 1'       , whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'b4', to:'b5'                }, fen:'Qn2k2r/p3ppbp/5n2/1P6/8/7R/P1b2PP1/RNBQKBN1 b Qk - 0 1'       , whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'a7', to:'a5'                }, fen:'Qn2k2r/4ppbp/5n2/pP6/8/7R/P1b2PP1/RNBQKBN1 w Qk a6 0 1'       , whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'b5', to:'a6'                }, fen:'Qn2k2r/4ppbp/P4n2/8/8/7R/P1b2PP1/RNBQKBN1 b Qk - 0 1'         , whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'e8', to:'g8'                }, fen:'Qn3rk1/4ppbp/P4n2/8/8/7R/P1b2PP1/RNBQKBN1 w Q - 0 1'          , whiteking:'e1', blackking:'g8' },
+		{ go:{ from:'e1', to:'d2'                }, fen:'Qn3rk1/4ppbp/P4n2/8/8/7R/P1bK1PP1/RNBQ1BN1 b - - 0 1'         , whiteking:'d2', blackking:'g8' },
+		{ go:{ from:'e7', to:'e5'                }, fen:'Qn3rk1/5pbp/P4n2/4p3/8/7R/P1bK1PP1/RNBQ1BN1 w - e6 0 1'       , whiteking:'d2', blackking:'g8' },
+		{ go:{ from:'d2', to:'c2'                }, fen:'Qn3rk1/5pbp/P4n2/4p3/8/7R/P1K2PP1/RNBQ1BN1 b - - 0 1'         , whiteking:'c2', blackking:'g8' },
+		{ go:{ from:'e5', to:'e4'                }, fen:'Qn3rk1/5pbp/P4n2/8/4p3/7R/P1K2PP1/RNBQ1BN1 w - - 0 1'         , whiteking:'c2', blackking:'g8' },
+		{ go:{ from:'a8', to:'d5'                }, fen:'1n3rk1/5pbp/P4n2/3Q4/4p3/7R/P1K2PP1/RNBQ1BN1 b - - 0 1'       , whiteking:'c2', blackking:'g8' },
+		{ go:{ from:'e4', to:'e3'                }, fen:'1n3rk1/5pbp/P4n2/3Q4/8/4p2R/P1K2PP1/RNBQ1BN1 w - - 0 1'       , whiteking:'c2', blackking:'g8' },
+		{ go:{ from:'a6', to:'a7'                }, fen:'1n3rk1/P4pbp/5n2/3Q4/8/4p2R/P1K2PP1/RNBQ1BN1 b - - 0 1'       , whiteking:'c2', blackking:'g8' },
+		{ go:{ from:'e3', to:'e2'                }, fen:'1n3rk1/P4pbp/5n2/3Q4/8/7R/P1K1pPP1/RNBQ1BN1 w - - 0 1'        , whiteking:'c2', blackking:'g8' },
+		{ go:{ from:'a7', to:'a8', promotion:'n' }, fen:'Nn3rk1/5pbp/5n2/3Q4/8/7R/P1K1pPP1/RNBQ1BN1 b - - 0 1'         , whiteking:'c2', blackking:'g8' },
+		{ go:{ from:'e2', to:'e1', promotion:'b' }, fen:'Nn3rk1/5pbp/5n2/3Q4/8/7R/P1K2PP1/RNBQbBN1 w - - 0 1'          , whiteking:'c2', blackking:'g8' },
+		{ go:{ from:'d5', to:'f7'                }, fen:'Nn3rk1/5Qbp/5n2/8/8/7R/P1K2PP1/RNBQbBN1 b - - 0 1'            , whiteking:'c2', blackking:'g8' },
+		{ go:{ from:'g8', to:'h8'                }, fen:'Nn3r1k/5Qbp/5n2/8/8/7R/P1K2PP1/RNBQbBN1 w - - 0 1'            , whiteking:'c2', blackking:'h8' },
+		{ go:{ from:'h3', to:'g3'                }, fen:'Nn3r1k/5Qbp/5n2/8/8/6R1/P1K2PP1/RNBQbBN1 b - - 0 1'           , whiteking:'c2', blackking:'h8' },
+		{ go:{ from:'e1', to:'b4'                }, fen:'Nn3r1k/5Qbp/5n2/8/1b6/6R1/P1K2PP1/RNBQ1BN1 w - - 0 1'         , whiteking:'c2', blackking:'h8' },
+		{ go:{ from:'f7', to:'g7'                }, fen:'Nn3r1k/6Qp/5n2/8/1b6/6R1/P1K2PP1/RNBQ1BN1 b - - 0 1'          , whiteking:'c2', blackking:'h8' }
+	]
+});
+
+games.push({
+	label:'2a', constructor:'fen', fen:'r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1', whiteking:'e1', blackking:'e8',
+	moves: [
+		{ go:{ from:'e1', to:'g1' }, fen:'r3k2r/8/8/8/8/8/8/R4RK1 b kq - 0 1', whiteking:'g1', blackking:'e8' },
+		{ go:{ from:'e8', to:'c8' }, fen:'2kr3r/8/8/8/8/8/8/R4RK1 w - - 0 1' , whiteking:'g1', blackking:'c8' }
+	]
+});
+
+games.push({
+	label:'2b', constructor:'fen', fen:'r3k2r/8/8/8/8/8/8/R3K2R b KQkq - 0 1', whiteking:'e1', blackking:'e8',
+	moves: [
+		{ go:{ from:'e8', to:'g8' }, fen:'r4rk1/8/8/8/8/8/8/R3K2R w KQ - 0 1', whiteking:'e1', blackking:'g8' },
+		{ go:{ from:'e1', to:'c1' }, fen:'r4rk1/8/8/8/8/8/8/2KR3R b - - 0 1' , whiteking:'c1', blackking:'g8' }
+	]
+});
+
+games.push({
+	label:'2c', constructor:'fen', fen:'rn2k1nr/8/8/8/8/8/8/RN2K1NR w KQkq - 0 1', whiteking:'e1', blackking:'e8',
+	moves: [
+		{ go:{ from:'h1', to:'h8' }, fen:'rn2k1nR/8/8/8/8/8/8/RN2K1N1 b Qq - 0 1', whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'a8', to:'a1' }, fen:'1n2k1nR/8/8/8/8/8/8/rN2K1N1 w - - 0 1' , whiteking:'e1', blackking:'e8' }
+	]
+});
+
+games.push({
+	label:'2d', constructor:'fen', fen:'rn2k1nr/8/8/8/8/8/8/RN2K1NR w KQkq - 0 1', whiteking:'e1', blackking:'e8',
+	moves: [
+		{ go:{ from:'a1', to:'a8' }, fen:'Rn2k1nr/8/8/8/8/8/8/1N2K1NR b Kk - 0 1', whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'h8', to:'h1' }, fen:'Rn2k1n1/8/8/8/8/8/8/1N2K1Nr w - - 0 1' , whiteking:'e1', blackking:'e8' }
+	]
+});
+
+games.push({
+	label:'2e', constructor:'fen', fen:'rn2k1nr/8/8/8/8/8/8/RN2K1NR b KQkq - 0 1', whiteking:'e1', blackking:'e8',
+	moves: [
+		{ go:{ from:'a8', to:'a5' }, fen:'1n2k1nr/8/8/r7/8/8/8/RN2K1NR w KQk - 0 1' , whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'a1', to:'a4' }, fen:'1n2k1nr/8/8/r7/R7/8/8/1N2K1NR b Kk - 0 1' , whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'h8', to:'h5' }, fen:'1n2k1n1/8/8/r6r/R7/8/8/1N2K1NR w K - 0 1' , whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'h1', to:'h4' }, fen:'1n2k1n1/8/8/r6r/R6R/8/8/1N2K1N1 b - - 0 1', whiteking:'e1', blackking:'e8' }
+	]
+});
+
+games.push({
+	label:'2f', constructor:'fen', fen:'r3k2r/8/8/3BB3/3bb3/8/8/R3K2R w KQkq - 0 1', whiteking:'e1', blackking:'e8',
+	moves: [
+		{ go:{ from:'e5', to:'h8' }, fen:'r3k2B/8/8/3B4/3bb3/8/8/R3K2R b KQq - 0 1', whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'d4', to:'a1' }, fen:'r3k2B/8/8/3B4/4b3/8/8/b3K2R w Kq - 0 1'  , whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'d5', to:'a8' }, fen:'B3k2B/8/8/8/4b3/8/8/b3K2R b K - 0 1'     , whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'e4', to:'h1' }, fen:'B3k2B/8/8/8/8/8/8/b3K2b w - - 0 1'       , whiteking:'e1', blackking:'e8' }
+	]
+});
+
+
+
+// -----------------------------------------------------------------------------
+// Move generation
+// -----------------------------------------------------------------------------
 
 // Position status
 registerTests('rpbchess.moves.ccs', positions, function(scenario) {
+	var expected = scenario.legal + ':' + scenario.whiteking + ':' + scenario.blackking;
+	if(scenario.legal) {
+		expected += ':' + scenario.check + ':' + scenario.checkmate + ':' + scenario.stalemate + ':' + scenario.hasmove;
+	}
+
 	test('Check/Checkmate/Stalemate ' + scenario.label, function() {
-		var p=new RPBChess.Position(scenario.constructor === 'fen' ? scenario.fen : scenario.constructor);
-		return ccsInfo(p);
-	}, scenario.legal ? scenario.check + ':' + scenario.checkmate + ':' + scenario.stalemate + ':' + scenario.hasmove : '');
+		var p = new RPBChess.Position(scenario.constructor === 'fen' ? scenario.fen : scenario.constructor);
+		var legal = legalInfo(p);
+		var ccs   = ccsInfo(p);
+		return ccs==='' ? legal : legal + ':' + ccs;
+	}, expected);
 });
 
 
 // Move legality
-registerTests('rpbchess.moves.islegal', positions, function(scenario) {
+registerTests('rpbchess.moves.is-legal', positions, function(scenario) {
 	var /* const */ ROW    = '12345678';
 	var /* const */ COLUMN = 'abcdefgh';
 	var /* const */ PROMO  = ' bknpqr';
@@ -505,14 +638,14 @@ registerTests('rpbchess.moves.islegal', positions, function(scenario) {
 
 	// Run the test
 	test('Move legality ' + scenario.label, function() {
-		var p=new RPBChess.Position(scenario.constructor === 'fen' ? scenario.fen : scenario.constructor);
+		var p = new RPBChess.Position(scenario.constructor === 'fen' ? scenario.fen : scenario.constructor);
 		return fun(p);
 	}, scenario.moves);
 });
 
 
 // Move bad format
-registerTest('rpbchess.moves.islegal.errors', function() {
+registerTest('rpbchess.moves.is-legal.errors', function() {
 
 	function fun(label, arg) {
 		testError(label, function() { var p=new RPBChess.Position(); return p.isMoveLegal(arg); }, checkIllegalArgument('Position#isMoveLegal()'));
@@ -547,7 +680,65 @@ registerTests('rpbchess.moves.generate', positions, function(scenario) {
 
 	// Run the test
 	test('Move generation ' + scenario.label, function() {
-		var p=new RPBChess.Position(scenario.constructor === 'fen' ? scenario.fen : scenario.constructor);
+		var p = new RPBChess.Position(scenario.constructor === 'fen' ? scenario.fen : scenario.constructor);
 		return fun(p);
 	}, scenario.moves);
+});
+
+
+// Null move
+registerTests('rpbchess.moves.null-move', positions, function(scenario) {
+	var nullMoveAllowed = scenario.legal && !scenario.check;
+	test('Null move ' + scenario.label, function() {
+		var p=new RPBChess.Position(scenario.constructor === 'fen' ? scenario.fen : scenario.constructor);
+		return nullMoveInfo(p);
+	}, scenario.legal + ':' + nullMoveAllowed);
+});
+
+
+// Play moves
+registerTests('rpbchess.moves.play', games, function(scenario) {
+
+	function fun(obj) {
+		return obj.fen + ' true ' + obj.whiteking + ' ' + obj.blackking;
+	}
+
+	var g = new RPBChess.Position(scenario.constructor === 'fen' ? scenario.fen : scenario.constructor);
+	test('Play ' + scenario.label + ' (initial position)', function() { return fenInfo(g); }, fun(scenario));
+	for(var i=0; i<scenario.moves.length; ++i) {
+		var move = scenario.moves[i];
+		test('Play ' + scenario.label + ' (move ' + i + ')',
+			/* jshint loopfunc:true */ function() { g.play(move.go); return fenInfo(g); } /* jshint loopfunc:false */,
+			fun(move));
+	}
+});
+
+
+// Play moves from descriptor
+registerTests('rpbchess.moves.generate-and-play', games, function(scenario) {
+
+	function fun(obj) {
+		return obj.fen + ' true ' + obj.whiteking + ' ' + obj.blackking;
+	}
+
+	function fun2(position, move) {
+		var descriptors = position.moves();
+		var target = move.from + move.to + ('promotion' in move ? move.promotion.toUpperCase() : '');
+		for(var i=0; i<descriptors.length; ++i) {
+			var descriptor = descriptors[i];
+			if(wrapMove(descriptor) === target) {
+				position.play(descriptor);
+				return;
+			}
+		}
+	}
+
+	var g = new RPBChess.Position(scenario.constructor === 'fen' ? scenario.fen : scenario.constructor);
+	test('Generate and play ' + scenario.label + ' (initial position)', function() { return fenInfo(g); }, fun(scenario));
+	for(var i=0; i<scenario.moves.length; ++i) {
+		var move = scenario.moves[i];
+		test('Generate and play ' + scenario.label + ' (move ' + i + ')',
+			/* jshint loopfunc:true */ function() { fun2(g, move.go); return fenInfo(g); } /* jshint loopfunc:false */,
+			fun(move));
+	}
 });
