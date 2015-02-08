@@ -583,6 +583,25 @@ games.push({
 	]
 });
 
+games.push({
+	label:'3', constructor:'fen', fen:'r2qk2r/pppppppp/8/8/8/8/PPPPPPPP/R2QK2R w KQkq - 0 1', whiteking:'e1', blackking:'e8',
+	moves: [
+		{ go:{ from:'d2', to:'d4' }, fen:'r2qk2r/pppppppp/8/8/3P4/8/PPP1PPPP/R2QK2R b KQkq d3 0 1' , whiteking:'e1', blackking:'e8' },
+		{ go:'null-move'           , fen:'r2qk2r/pppppppp/8/8/3P4/8/PPP1PPPP/R2QK2R w KQkq - 0 1'  , whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'d1', to:'d3' }, fen:'r2qk2r/pppppppp/8/8/3P4/3Q4/PPP1PPPP/R3K2R b KQkq - 0 1' , whiteking:'e1', blackking:'e8' },
+		{ go:'null-move'           , fen:'r2qk2r/pppppppp/8/8/3P4/3Q4/PPP1PPPP/R3K2R w KQkq - 0 1' , whiteking:'e1', blackking:'e8' },
+		{ go:{ from:'e1', to:'g1' }, fen:'r2qk2r/pppppppp/8/8/3P4/3Q4/PPP1PPPP/R4RK1 b kq - 0 1'   , whiteking:'g1', blackking:'e8' },
+		{ go:'null-move'           , fen:'r2qk2r/pppppppp/8/8/3P4/3Q4/PPP1PPPP/R4RK1 w kq - 0 1'   , whiteking:'g1', blackking:'e8' },
+		{ go:'null-move'           , fen:'r2qk2r/pppppppp/8/8/3P4/3Q4/PPP1PPPP/R4RK1 b kq - 0 1'   , whiteking:'g1', blackking:'e8' },
+		{ go:{ from:'d7', to:'d5' }, fen:'r2qk2r/ppp1pppp/8/3p4/3P4/3Q4/PPP1PPPP/R4RK1 w kq d6 0 1', whiteking:'g1', blackking:'e8' },
+		{ go:'null-move'           , fen:'r2qk2r/ppp1pppp/8/3p4/3P4/3Q4/PPP1PPPP/R4RK1 b kq - 0 1' , whiteking:'g1', blackking:'e8' },
+		{ go:{ from:'d8', to:'d6' }, fen:'r3k2r/ppp1pppp/3q4/3p4/3P4/3Q4/PPP1PPPP/R4RK1 w kq - 0 1', whiteking:'g1', blackking:'e8' },
+		{ go:'null-move'           , fen:'r3k2r/ppp1pppp/3q4/3p4/3P4/3Q4/PPP1PPPP/R4RK1 b kq - 0 1', whiteking:'g1', blackking:'e8' },
+		{ go:{ from:'e8', to:'c8' }, fen:'2kr3r/ppp1pppp/3q4/3p4/3P4/3Q4/PPP1PPPP/R4RK1 w - - 0 1' , whiteking:'g1', blackking:'c8' },
+		{ go:'null-move'           , fen:'2kr3r/ppp1pppp/3q4/3p4/3P4/3Q4/PPP1PPPP/R4RK1 b - - 0 1' , whiteking:'g1', blackking:'c8' }
+	]
+});
+
 
 
 // -----------------------------------------------------------------------------
@@ -703,12 +722,21 @@ registerTests('rpbchess.moves.play', games, function(scenario) {
 		return obj.fen + ' true ' + obj.whiteking + ' ' + obj.blackking;
 	}
 
+	function fun2(position, move) {
+		if(move === 'null-move') {
+			position.playNullMove();
+		}
+		else {
+			position.play(move);
+		}
+	}
+
 	var g = new RPBChess.Position(scenario.constructor === 'fen' ? scenario.fen : scenario.constructor);
 	test('Play ' + scenario.label + ' (initial position)', function() { return fenInfo(g); }, fun(scenario));
 	for(var i=0; i<scenario.moves.length; ++i) {
 		var move = scenario.moves[i];
 		test('Play ' + scenario.label + ' (move ' + i + ')',
-			/* jshint loopfunc:true */ function() { g.play(move.go); return fenInfo(g); } /* jshint loopfunc:false */,
+			/* jshint loopfunc:true */ function() { fun2(g, move.go); return fenInfo(g); } /* jshint loopfunc:false */,
 			fun(move));
 	}
 });
@@ -722,13 +750,18 @@ registerTests('rpbchess.moves.generate-and-play', games, function(scenario) {
 	}
 
 	function fun2(position, move) {
-		var descriptors = position.moves();
-		var target = move.from + move.to + ('promotion' in move ? move.promotion.toUpperCase() : '');
-		for(var i=0; i<descriptors.length; ++i) {
-			var descriptor = descriptors[i];
-			if(wrapMove(descriptor) === target) {
-				position.play(descriptor);
-				return;
+		if(move === 'null-move') {
+			position.playNullMove();
+		}
+		else {
+			var descriptors = position.moves();
+			var target = move.from + move.to + ('promotion' in move ? move.promotion.toUpperCase() : '');
+			for(var i=0; i<descriptors.length; ++i) {
+				var descriptor = descriptors[i];
+				if(wrapMove(descriptor) === target) {
+					position.play(descriptor);
+					return;
+				}
 			}
 		}
 	}
