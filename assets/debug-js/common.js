@@ -94,7 +94,12 @@ function registerTests(id, scenarios, genericUnitTest) {
 /**
  * Refresh the global counters.
  */
-function refreshCounters() {
+function refreshCounters(isFinished) {
+
+	// State
+	var div0 = document.getElementById('testState');
+	div0.innerHTML = '';
+	div0.appendChild(document.createTextNode(isFinished ? 'Done.' : 'Working...'));
 
 	// Total number of tests
 	var div1 = document.getElementById('testCounter');
@@ -235,7 +240,6 @@ function testError(label, fun, checkException) {
 			printException(label, exception);
 		}
 	}
-
 }
 
 
@@ -265,18 +269,26 @@ function playTests(pattern) {
 	}
 
 	// Return the callback to use to play the given test.
-	function playTest(unitTest) {
+	function doPlayTest(index, unitTest) {
 		return function() {
+			refreshCounters(false);
 			unitTest();
-			refreshCounters();
+			playNextTest(index+1);
 		};
 	}
 
-	// Queue all the tests.
-	for(var i=0; i<registeredTests.length; ++i) {
-		if(match(registeredTests[i].id)) {
-			setTimeout(playTest(registeredTests[i].unitTest), 0);
+	// Schedule the next test.
+	function playNextTest(index) {
+		while(index < registeredTests.length) {
+			if(match(registeredTests[index].id)) {
+				setTimeout(doPlayTest(index, registeredTests[index].unitTest), 0);
+				return;
+			}
+			++index;
 		}
+		refreshCounters(true);
 	}
-	setTimeout(refreshCounters, 0);
+
+	// Queue all the tests.
+	playNextTest(0);
 }
