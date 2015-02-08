@@ -27,6 +27,7 @@
 /* global checkIllegalArgument */
 /* global checkInvalidFEN */
 /* global wrapCP */
+/* global legalInfo */
 /* global test */
 /* global testError */
 /* global registerTest */
@@ -130,4 +131,119 @@ registerTest('rpbchess.basic.setters', function() {
 	test('Setter en-passant 1b', function() { pos1.enPassant('-'); return pos1.fen(); }, '1nbqkbnr/pppppppp/5B2/8/8/8/PPPPPPPP/RNBQKBNR w Qkq - 0 1');
 	test('Setter en-passant 2a', function() { pos2.enPassant('a'); return pos2.fen(); }, '8/8/8/6K1/8/8/8/8 b q a3 0 1');
 	test('Setter en-passant 2b', function() { pos2.enPassant('h'); return pos2.fen(); }, '8/8/8/6K1/8/8/8/8 b q h3 0 1');
+});
+
+
+
+// -----------------------------------------------------------------------------
+// Square color
+// -----------------------------------------------------------------------------
+
+registerTest('rpbchess.squarecolor', function() {
+	var /* const */ ROW    = '12345678';
+	var /* const */ COLUMN = 'abcdefgh';
+
+	function fun(asExpected) {
+		var res = '';
+		for(var r=0; r<8; ++r) {
+			for(var c=0; c<8; ++c) {
+				if(res !== '') { res += '/'; }
+				res += asExpected ? (c%2 === r%2 ? 'b' : 'w') : RPBChess.squareColor(COLUMN[c] + ROW[r]);
+			}
+		}
+		return res;
+	}
+
+	test('Square color', function() { return fun(false); }, fun(true));
+	testError('Square color NOK 1', function() { return RPBChess.squareColor('e9'); }, checkIllegalArgument('squareColor()'));
+	testError('Square color NOK 2', function() { return RPBChess.squareColor('i5'); }, checkIllegalArgument('squareColor()'));
+});
+
+
+
+// -----------------------------------------------------------------------------
+// Attacks
+// -----------------------------------------------------------------------------
+
+registerTest('rpbchess.attacks', function() {
+	var /* const */ ROW    = '12345678';
+	var /* const */ COLUMN = 'abcdefgh';
+
+	// Return the list of attacked squares in the given position
+	function attacked(position, byWho, byWhat) {
+		var res = '';
+		for(var r=0; r<8; ++r) {
+			for(var c=0; c<8; ++c) {
+				var square = COLUMN[c] + ROW[r];
+				if(position.isAttacked(square, byWho, byWhat)) {
+					if(res !== '') { res += '/'; }
+					res += square;
+				}
+			}
+		}
+		return res;
+	}
+
+	test('King attacks 1', function() { var p=new RPBChess.Position('8/8/8/4K3/8/8/8/8 w - - 0 1'); return attacked(p, 'w'); }, 'd4/e4/f4/d5/f5/d6/e6/f6');
+	test('King attacks 2', function() { var p=new RPBChess.Position('8/8/8/8/8/8/PPP5/K1P5 w - - 0 1'); return attacked(p, 'w', 'k'); }, 'b1/a2/b2');
+	test('Queen attacks 1', function() { var p=new RPBChess.Position('8/8/8/4q3/8/8/8/8 w - - 0 1'); return attacked(p, 'b'); }, 'a1/e1/b2/e2/h2/c3/e3/g3/d4/e4/f4/a5/b5/c5/d5/f5/g5/h5/d6/e6/f6/c7/e7/g7/b8/e8/h8');
+	test('Queen attacks 2', function() { var p=new RPBChess.Position('8/8/8/8/8/pppp4/3p4/q2p4 w - - 0 1'); return attacked(p, 'b', 'q'); }, 'b1/c1/d1/a2/b2/a3/c3');
+	test('Rook attacks 1', function() { var p=new RPBChess.Position('8/8/8/4R3/8/8/8/8 w - - 0 1'); return attacked(p, 'w'); }, 'e1/e2/e3/e4/a5/b5/c5/d5/f5/g5/h5/e6/e7/e8');
+	test('Rook attacks 2', function() { var p=new RPBChess.Position('8/8/8/8/8/PPPP4/3P4/R2P4 w - - 0 1'); return attacked(p, 'w', 'r'); }, 'b1/c1/d1/a2/a3');
+	test('Bishop attacks 1', function() { var p=new RPBChess.Position('8/8/8/4b3/8/8/8/8 w - - 0 1'); return attacked(p, 'b'); }, 'a1/b2/h2/c3/g3/d4/f4/d6/f6/c7/g7/b8/h8');
+	test('Bishop attacks 2', function() { var p=new RPBChess.Position('8/8/8/8/8/pppp4/3p4/b2p4 w - - 0 1'); return attacked(p, 'b', 'b'); }, 'b2/c3');
+	test('Knight attacks 1', function() { var p=new RPBChess.Position('8/8/8/4N3/8/8/8/8 w - - 0 1'); return attacked(p, 'w'); }, 'd3/f3/c4/g4/c6/g6/d7/f7');
+	test('Knight attacks 2', function() { var p=new RPBChess.Position('8/8/8/8/8/8/PPP5/NP6 w - - 0 1'); return attacked(p, 'w', 'n'); }, 'c2/b3');
+	test('White pawn attacks', function() { var p=new RPBChess.Position('8/8/8/4P3/8/8/8/8 w - - 0 1'); return attacked(p, 'w'); }, 'd6/f6');
+	test('Black pawn attacks', function() { var p=new RPBChess.Position('8/8/8/4p3/8/8/8/8 w - - 0 1'); return attacked(p, 'b'); }, 'd4/f4');
+});
+
+
+
+// -----------------------------------------------------------------------------
+// Position legality
+// -----------------------------------------------------------------------------
+
+registerTest('rpbchess.islegal', function() {
+
+	function fun(label, fen, expected) {
+		test(label, function() { var p=new RPBChess.Position(fen); return legalInfo(p); }, expected);
+	}
+
+	fun('Legality starting position'       , 'start'                                         , 'true:e1:e8' );
+	fun('Legality kings OK'                , 'k7/8/8/8/8/8/8/7K w - - 0 1'                   , 'true:h1:a8' );
+	fun('Legality missing WK'              , '7k/8/8/8/8/8/8/8 w - - 0 1'                    , 'false:-:h8' );
+	fun('Legality missing BK'              , '8/8/8/8/8/8/8/K7 w - - 0 1'                    , 'false:a1:-' );
+	fun('Legality too many WK'             , '4k3/8/8/8/8/8/8/K6K w - - 0 1'                 , 'false:-:e8' );
+	fun('Legality too many BK'             , 'k6k/8/8/8/8/8/8/4K3 w - - 0 1'                 , 'false:e1:-' );
+	fun('Legality white is check 1'        , '4k3/8/8/8/8/2b5/8/4K3 w - - 0 1'               , 'true:e1:e8' );
+	fun('Legality white is check 2'        , '4k3/8/8/8/8/2b5/8/4K3 b - - 0 1'               , 'false:e1:e8');
+	fun('Legality black is check 1'        , '4k3/8/5N2/8/8/8/8/4K3 w - - 0 1'               , 'false:e1:e8');
+	fun('Legality black is check 2'        , '4k3/8/5N2/8/8/8/8/4K3 b - - 0 1'               , 'true:e1:e8' );
+	fun('Legality pawn on first/last row 1', '6p1/8/2k5/8/8/5K2/8/8 w - - 0 1'               , 'false:f3:c6');
+	fun('Legality pawn on first/last row 2', '3P4/8/5k2/8/8/2K5/8/8 w - - 0 1'               , 'false:c3:f6');
+	fun('Legality pawn on first/last row 3', '8/8/8/2k5/5K2/8/8/4p3 w - - 0 1'               , 'false:f4:c5');
+	fun('Legality pawn on first/last row 4', '8/8/8/5k2/2K5/8/8/1P6 w - - 0 1'               , 'false:c4:f5');
+	fun('Legality castling white 1'        , '8/4k3/8/8/8/8/8/R3K2R w KQ - 0 1'              , 'true:e1:e7' );
+	fun('Legality castling white 2'        , '8/4k3/8/8/8/8/8/R3K3 w Q - 0 1'                , 'true:e1:e7' );
+	fun('Legality castling white 3'        , '8/4k3/8/8/8/8/8/4K2R w K - 0 1'                , 'true:e1:e7' );
+	fun('Legality castling white 4'        , '8/4k3/8/8/8/8/8/R3K3 w K - 0 1'                , 'false:e1:e7');
+	fun('Legality castling white 5'        , '8/4k3/8/8/8/8/8/4K2R w Q - 0 1'                , 'false:e1:e7');
+	fun('Legality castling white 6'        , '8/4k3/8/8/8/8/4K3/R7 w Q - 0 1'                , 'false:e2:e7');
+	fun('Legality castling white 7'        , '8/4k3/8/8/8/8/4K3/7R w K - 0 1'                , 'false:e2:e7');
+	fun('Legality castling black 1'        , 'r3k2r/8/8/8/8/8/4K3/8 w kq - 0 1'              , 'true:e2:e8' );
+	fun('Legality castling black 2'        , 'r3k3/8/8/8/8/8/4K3/8 w q - 0 1'                , 'true:e2:e8' );
+	fun('Legality castling black 3'        , '4k2r/8/8/8/8/8/4K3/8 w k - 0 1'                , 'true:e2:e8' );
+	fun('Legality castling black 4'        , 'r3k3/8/8/8/8/8/4K3/8 w k - 0 1'                , 'false:e2:e8');
+	fun('Legality castling black 5'        , '4k2r/8/8/8/8/8/4K3/8 w q - 0 1'                , 'false:e2:e8');
+	fun('Legality castling black 6'        , 'r7/4k3/8/8/8/8/4K3/8 w q - 0 1'                , 'false:e2:e7');
+	fun('Legality castling black 7'        , '7r/4k3/8/8/8/8/4K3/8 w k - 0 1'                , 'false:e2:e7');
+	fun('Legality en-passant white 1'      , '4k3/pppppp1p/8/6p1/8/8/PPPPPPPP/4K3 w - g6 0 1', 'true:e1:e8' );
+	fun('Legality en-passant white 2'      , '4k3/pppppp1p/8/6r1/8/8/PPPPPPPP/4K3 w - g6 0 1', 'false:e1:e8');
+	fun('Legality en-passant white 3'      , '4k3/pppppp1p/6P1/6p1/8/8/8/4K3 w - g6 0 1'     , 'false:e1:e8');
+	fun('Legality en-passant white 4'      , '4k3/ppppppPp/8/6p1/8/8/8/4K3 w - g6 0 1'       , 'false:e1:e8');
+	fun('Legality en-passant black 1'      , '4k3/pppppppp/8/8/2P5/8/PP1PPPPP/4K3 b - c3 0 1', 'true:e1:e8' );
+	fun('Legality en-passant black 2'      , '4k3/pppppppp/8/8/2B5/8/PP1PPPPP/4K3 b - c3 0 1', 'false:e1:e8');
+	fun('Legality en-passant black 3'      , '4k3/8/8/8/2P5/2p5/8/4K3 b - c3 0 1'            , 'false:e1:e8');
+	fun('Legality en-passant black 4'      , '4k3/8/8/8/2P5/8/2p5/4K3 b - c3 0 1'            , 'false:e1:e8');
 });
