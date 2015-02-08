@@ -71,6 +71,27 @@ function registerTest(id, unitTest) {
 
 
 /**
+ * Register a new family of unit tests.
+ *
+ * @param {string} id
+ * @param {object[]} scenarios
+ * @param {function} genericUnitTest
+ */
+function registerTests(id, scenarios, genericUnitTest) {
+
+	function makeUnitTest(scenario) {
+		return function() {
+			genericUnitTest(scenario);
+		};
+	}
+
+	for(var i=0; i<scenarios.length; ++i) {
+		registerTest(id + '.<scenario-' + i + '>', makeUnitTest(scenarios[i]));
+	}
+}
+
+
+/**
  * Refresh the global counters.
  */
 function refreshCounters() {
