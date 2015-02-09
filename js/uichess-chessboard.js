@@ -394,11 +394,11 @@
 				for(var c=0; c<8; ++c) {
 					content += '<div class="uichess-chessboard-cell">';
 					if(SPARE_PIECES[c].match(/^[0-9]$/)) {
-						content += '<div class="uichess-chessboard-trash uichess-chessboard-sprite' + SQUARE_SIZE + '"></div>';
+						content += '<div class="uichess-chessboard-trash uichess-chessboard-size' + SQUARE_SIZE + '"></div>';
 					}
 					else if(SPARE_PIECES[c].match(/^[bknpqr]$/)) {
 						content += '<div class="uichess-chessboard-sparePiece uichess-chessboard-piece-' + SPARE_PIECES[c] +
-							' uichess-chessboard-color-' + color + ' uichess-chessboard-sprite' + SQUARE_SIZE + '"></div>';
+							' uichess-chessboard-color-' + color + ' uichess-chessboard-size' + SQUARE_SIZE + '"></div>';
 					}
 					content += '</div>';
 				}
@@ -423,11 +423,11 @@
 				for(var c=0; c<8; ++c) {
 					var sq = COLUMNS[c] + ROWS[r];
 					var cp = this._position.get(sq);
-					content += '<div class="uichess-chessboard-cell uichess-chessboard-square uichess-chessboard-square' + SQUARE_SIZE +
+					content += '<div class="uichess-chessboard-cell uichess-chessboard-square uichess-chessboard-size' + SQUARE_SIZE +
 						' uichess-chessboard-' + this._position.square_color(sq) + 'Square">'; /* jshint ignore:line */
 					if(cp !== null) {
 						content += '<div class="uichess-chessboard-piece uichess-chessboard-piece-' + cp.type +
-							' uichess-chessboard-color-' + cp.color + ' uichess-chessboard-sprite' + SQUARE_SIZE + '"></div>';
+							' uichess-chessboard-color-' + cp.color + ' uichess-chessboard-size' + SQUARE_SIZE + '"></div>';
 					}
 					content += '</div>';
 				}
@@ -438,7 +438,7 @@
 					var color = ROWS[r] === '8' ? 'b' : 'w';
 					var turn  = this._position.turn();
 					content += '<div class="uichess-chessboard-turnFlag uichess-chessboard-color-' + color +
-						' uichess-chessboard-sprite' + SQUARE_SIZE + (color===turn ? '' : ' uichess-chessboard-inactiveFlag') + '"></div>';
+						' uichess-chessboard-size' + SQUARE_SIZE + (color===turn ? '' : ' uichess-chessboard-inactiveFlag') + '"></div>';
 				}
 
 				// End of the additional cell and end of the row.
@@ -481,11 +481,11 @@
 				for(var c=0; c<8; ++c) {
 					content += '<div class="uichess-chessboard-cell">';
 					if(SPARE_PIECES[c].match(/^[0-9]$/)) {
-						content += '<div class="uichess-chessboard-trash uichess-chessboard-sprite' + SQUARE_SIZE + '"></div>';
+						content += '<div class="uichess-chessboard-trash uichess-chessboard-size' + SQUARE_SIZE + '"></div>';
 					}
 					else if(SPARE_PIECES[c].match(/^[bknpqr]$/)) {
 						content += '<div class="uichess-chessboard-sparePiece uichess-chessboard-piece-' + SPARE_PIECES[c] +
-							' uichess-chessboard-color-' + color + ' uichess-chessboard-sprite' + SQUARE_SIZE + '"></div>';
+							' uichess-chessboard-color-' + color + ' uichess-chessboard-size' + SQUARE_SIZE + '"></div>';
 					}
 					content += '</div>';
 				}
@@ -755,7 +755,7 @@
 
 			// Update the DOM tree.
 			$('<div class="uichess-chessboard-piece uichess-chessboard-piece-' + piece.type + ' uichess-chessboard-color-' + piece.color +
-				' uichess-chessboard-sprite' + this.options.squareSize + '"></div>').appendTo(target.empty());
+				' uichess-chessboard-size' + this.options.squareSize + '"></div>').appendTo(target.empty());
 
 			// Make the new piece draggable if necessary.
 			if(this.options.allowMoves === 'all' || this.options.allowMoves === 'legal') {

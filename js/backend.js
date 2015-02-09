@@ -172,13 +172,13 @@ var RPBChessboard = {};
 								'<div class="rpbchessboard-editFENDialog-sectionContent">' +
 									'<span class="rpbchessboard-editFENDialog-turnField">' +
 										'<label for="rpbchessboard-editFENDialog-turn-w">' +
-											'<span class="rpbchessboard-editFENDialog-turnFlag uichess-chessboard-turnFlag uichess-chessboard-color-w uichess-chessboard-sprite36"></span>' +
+											'<span class="rpbchessboard-editFENDialog-turnFlag uichess-chessboard-turnFlag uichess-chessboard-color-w uichess-chessboard-size36"></span>' +
 										'</label>' +
 										'<input id="rpbchessboard-editFENDialog-turn-w" type="radio" name="turn" value="w" />' +
 									'</span>' +
 									'<span class="rpbchessboard-editFENDialog-turnField">' +
 										'<label for="rpbchessboard-editFENDialog-turn-b">' +
-											'<span class="rpbchessboard-editFENDialog-turnFlag uichess-chessboard-turnFlag uichess-chessboard-color-b uichess-chessboard-sprite36"></span>' +
+											'<span class="rpbchessboard-editFENDialog-turnFlag uichess-chessboard-turnFlag uichess-chessboard-color-b uichess-chessboard-size36"></span>' +
 										'</label>' +
 										'<input id="rpbchessboard-editFENDialog-turn-b" type="radio" name="turn" value="b" />' +
 									'</span>' +
@@ -211,12 +211,12 @@ var RPBChessboard = {};
 											'<td>O-O</td>' +
 										'</tr>' +
 										'<tr>' +
-											'<td><span class="rpbchessboard-editFENDialog-turnFlag uichess-chessboard-turnFlag uichess-chessboard-color-b uichess-chessboard-sprite28"></span></td>' +
+											'<td><span class="rpbchessboard-editFENDialog-turnFlag uichess-chessboard-turnFlag uichess-chessboard-color-b uichess-chessboard-size28"></span></td>' +
 											'<td><input id="rpbchessboard-editFENDialog-castle-bq" type="checkbox" /></td>' +
 											'<td><input id="rpbchessboard-editFENDialog-castle-bk" type="checkbox" /></td>' +
 										'</tr>' +
 										'<tr>' +
-											'<td><span class="rpbchessboard-editFENDialog-turnFlag uichess-chessboard-turnFlag uichess-chessboard-color-w uichess-chessboard-sprite28"></span></td>' +
+											'<td><span class="rpbchessboard-editFENDialog-turnFlag uichess-chessboard-turnFlag uichess-chessboard-color-w uichess-chessboard-size28"></span></td>' +
 											'<td><input id="rpbchessboard-editFENDialog-castle-wq" type="checkbox" /></td>' +
 											'<td><input id="rpbchessboard-editFENDialog-castle-wk" type="checkbox" /></td>' +
 										'</tr>' +
