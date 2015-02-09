@@ -87,6 +87,14 @@
 	background-color: #b5876b;
 }
 
+.uichess-chessboard-size12 { min-width: 12px; width: 12px; height: 12px; background-position:  -850px -53px; }
+.uichess-chessboard-size13 { min-width: 13px; width: 13px; height: 13px; background-position:  -798px -52px; }
+.uichess-chessboard-size14 { min-width: 14px; width: 14px; height: 14px; background-position:  -747px -51px; }
+.uichess-chessboard-size15 { min-width: 15px; width: 15px; height: 15px; background-position:  -697px -50px; }
+.uichess-chessboard-size16 { min-width: 16px; width: 16px; height: 16px; background-position:  -648px -49px; }
+.uichess-chessboard-size17 { min-width: 17px; width: 17px; height: 17px; background-position:  -600px -48px; }
+.uichess-chessboard-size18 { min-width: 18px; width: 18px; height: 18px; background-position:  -553px -47px; }
+.uichess-chessboard-size19 { min-width: 19px; width: 19px; height: 19px; background-position:  -507px -46px; }
 .uichess-chessboard-size20 { min-width: 20px; width: 20px; height: 20px; background-position:  -462px -45px; }
 .uichess-chessboard-size21 { min-width: 21px; width: 21px; height: 21px; background-position:  -418px -44px; }
 .uichess-chessboard-size22 { min-width: 22px; width: 22px; height: 22px; background-position:  -375px -43px; }

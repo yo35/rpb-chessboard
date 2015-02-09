@@ -4,7 +4,7 @@
 files="bb.svg bk.svg bn.svg bp.svg bq.svg br.svg bx.svg wb.svg wk.svg wn.svg wp.svg wq.svg wr.svg wx.svg trash.png"
 
 # Sizes
-size_min=20
+size_min=12
 size_max=64
 
 # Loop over the files

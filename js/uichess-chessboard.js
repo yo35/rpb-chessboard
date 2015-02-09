@@ -42,7 +42,7 @@
 	 * @constant
 	 * @public
 	 */
-	var MINIMUM_SQUARE_SIZE = 20;
+	var MINIMUM_SQUARE_SIZE = 12;
 
 
 	/**
