@@ -43,6 +43,7 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 		// Create the sub-pages.
 		$this->addSubPage('optionsgeneral'      , __('Default aspect & behavior settings'    , 'rpbchessboard'), true);
 		$this->addSubPage('optionscompatibility', __('Compatibility with other chess plugins', 'rpbchessboard'));
+		$this->addSubPage('optionssmallscreens' , __('Small screen devices'                  , 'rpbchessboard'));
 	}
 
 
