@@ -78,7 +78,17 @@
 								'value="'     . htmlspecialchars($mode->squareSize) . '"/>'
 						);
 					?>
-				<span id="rpbchessboard-smallScreenMode<?php echo htmlspecialchars($index); ?>-squareSizeSlider" class="rpbchessboard-squareSizeSlider"></span>
+					<span id="rpbchessboard-smallScreenMode<?php echo htmlspecialchars($index); ?>-squareSizeSlider" class="rpbchessboard-squareSizeSlider"></span>
+				</p>
+				<p>
+					<input type="hidden" name="smallScreenMode<?php echo htmlspecialchars($index); ?>-hideCoordinates" value="0" />
+					<input type="checkbox" name="smallScreenMode<?php echo htmlspecialchars($index); ?>-hideCoordinates" class="rpbchessboard-hideCoordinatesField"
+						id="rpbchessboard-smallScreenMode<?php echo htmlspecialchars($index); ?>-hideCoordinatesField" value="1"
+						<?php if($mode->hideCoordinates): ?>checked="yes"<?php endif; ?>
+					/>
+					<label for="rpbchessboard-smallScreenMode<?php echo htmlspecialchars($index); ?>-hideCoordinatesField">
+						<?php _e('Hide coordinates', 'rpbchessboard'); ?>
+					</label>
 				</p>
 			</div>
 
@@ -108,6 +118,7 @@
 				function updateWidgetActivationState() {
 					var enabled = $('#rpbchessboard-smallScreenCompatibilityField').prop('checked');
 					$('.rpbchessboard-squareSizeSlider').slider(enabled ? 'enable' : 'disable');
+					$('.rpbchessboard-hideCoordinatesField').attr('disabled', !enabled);
 				}
 				$('#rpbchessboard-smallScreenCompatibilityField').change(updateWidgetActivationState);
 				updateWidgetActivationState();
