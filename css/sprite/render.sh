@@ -34,7 +34,7 @@ for file in $files; do
 	small_size=`expr $size_max / 2`
 	medium_size=`expr $small_size + 1`
 	while [ $small_size -ge $size_min ]; do
-		convert -append tmp-$medium_size.png tmp-$small_size.png tmp-$medium_size-stack.png
+		convert -background '#ffffff00' -append tmp-$medium_size.png tmp-$small_size.png tmp-$medium_size-stack.png
 		small_size=`expr $small_size - 1`
 		medium_size=`expr $medium_size + 1`
 	done
@@ -47,7 +47,7 @@ for file in $files; do
 	done
 
 	# Merge all the stacked sprites
-	convert +append tmp-*-stack.png $output
+	convert -background '#ffffff00' +append tmp-*-stack.png $output
 
 	# Cleanup
 	rm tmp-*.png
