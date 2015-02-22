@@ -79,6 +79,18 @@
 
 		</div>
 
+		<p class="description">
+			<?php
+				echo sprintf(
+					__(
+						'Notice that specific chessboard aspect settings can be defined for %1$ssmall-screen devices%2$s (such as smartphones).',
+					'rpbchessboard'),
+					'<a href="' . htmlspecialchars($model->getOptionsSmallScreensURL()) . '">',
+					'</a>'
+				);
+			?>
+		</p>
+
 		<script type="text/javascript">
 
 			jQuery(document).ready(function($)

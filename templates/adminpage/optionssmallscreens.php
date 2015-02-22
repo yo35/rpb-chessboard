@@ -71,7 +71,7 @@
 			<div>
 				<p>
 					<?php
-						echo sprintf(__('Clamp square size to: %1$s pixels', 'rpbchessboard'),
+						echo sprintf(__('Restrict square size to: %1$s pixels', 'rpbchessboard'),
 							'<input type="text" id="rpbchessboard-smallScreenMode' . htmlspecialchars($index) . '-squareSizeField" class="rpbchessboard-squareSizeField" ' .
 								'name="smallScreenMode' . htmlspecialchars($index) . '-squareSize" ' .
 								'size="'      . htmlspecialchars($model->getDigitNumberForSquareSize()) . '" ' .
@@ -81,6 +81,24 @@
 					?>
 					<span id="rpbchessboard-smallScreenMode<?php echo htmlspecialchars($index); ?>-squareSizeSlider" class="rpbchessboard-squareSizeSlider"></span>
 				</p>
+
+				<?php if($index===0): ?>
+					<p class="description">
+						<?php
+							echo sprintf(
+								__(
+									'Chess diagrams will be displayed with a square size not larger than this value if the screen width is less than %1$s pixels, '.
+									'whatever the %2$sdefault aspect and behavior settings%3$s or the tag attributes that may be specified in the posts/pages. '.
+									'Diagrams for which the square size is less than this value will be displayed as they normally do on large screen devices.',
+								'rpbchessboard'),
+								htmlspecialchars($mode->maxScreenWidth),
+								'<a href="' . htmlspecialchars($model->getOptionsGeneralURL()) . '">',
+								'</a>'
+							);
+						?>
+					</p>
+				<?php endif; ?>
+
 				<p>
 					<input type="hidden" name="smallScreenMode<?php echo htmlspecialchars($index); ?>-hideCoordinates" value="0" />
 					<input type="checkbox" name="smallScreenMode<?php echo htmlspecialchars($index); ?>-hideCoordinates" class="rpbchessboard-hideCoordinatesField"
@@ -88,9 +106,33 @@
 						<?php if($mode->hideCoordinates): ?>checked="yes"<?php endif; ?>
 					/>
 					<label for="rpbchessboard-smallScreenMode<?php echo htmlspecialchars($index); ?>-hideCoordinatesField">
-						<?php _e('Hide coordinates', 'rpbchessboard'); ?>
+						<?php _e('Always hide coordinates', 'rpbchessboard'); ?>
 					</label>
 				</p>
+
+				<?php if($index===0): ?>
+					<p class="description">
+						<?php
+							echo sprintf(
+								__(
+									'If enabled, row and column coordinates will be hidden if the screen width is less than %1$s pixels, '.
+									'whatever the %2$sdefault aspect and behavior settings%3$s or the tag attributes that may be specified in the posts/pages. '.
+									'If disabled, they will be displayed as they normally do on large screen devices.',
+								'rpbchessboard'),
+								htmlspecialchars($mode->maxScreenWidth),
+								'<a href="' . htmlspecialchars($model->getOptionsGeneralURL()) . '">',
+								'</a>'
+							);
+						?>
+					</p>
+				<?php else: ?>
+					<p class="description">
+						<?php
+							_e('See explanations about theses settings above.', 'rpbchessboard');
+						?>
+					</p>
+				<?php endif; ?>
+
 			</div>
 
 		<?php endforeach; ?>
