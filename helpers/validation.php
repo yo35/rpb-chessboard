@@ -45,13 +45,7 @@ abstract class RPBChessboardHelperValidation
 	 */
 	public static function validateSquareSize($value)
 	{
-		$value = filter_var($value, FILTER_VALIDATE_INT);
-		if($value===false) {
-			return null;
-		}
-		else {
-			return min(max($value, self::MINIMUM_SQUARE_SIZE), self::MAXIMUM_SQUARE_SIZE);
-		}
+		return self::validateInteger($value, self::MINIMUM_SQUARE_SIZE, self::MAXIMUM_SQUARE_SIZE);
 	}
 
 
@@ -96,6 +90,51 @@ abstract class RPBChessboardHelperValidation
 	public static function validateNavigationBoard($value)
 	{
 		return ($value==='none' || $value==='frame' || $value==='floatLeft' || $value==='floatRight') ? $value : null;
+	}
+
+
+	/**
+	 * Validate a set of small-screen mode specifications.
+	 */
+	public static function validateSmallScreenModes($value) {
+		if(!is_string($value)) {
+			return null;
+		}
+
+		// Split the input into a list of comma-separated tokens, with even length.
+		$token = explode(',', $value);
+		$tokenCount = count($token);
+		if($tokenCount % 2 !== 0) {
+			return null;
+		}
+
+		// Parse the list of tokens.
+		$res = array();
+		for($k=0; $k<$tokenCount; $k+=2) {
+			$screenWidth = self::validateInteger($token[$k], 1);
+			$squareSize = self::validateSquareSize($token[$k+1]);
+			if(isset($screenWidth) && isset($squareSize)) {
+				$res[$screenWidth] = $squareSize;
+			}
+		}
+
+		// Sort by screen-width and return the result.
+		ksort($res);
+		return $res;
+	}
+
+
+	/**
+	 * Validate an integer.
+	 *
+	 * @param mixed $value
+	 * @param int $min Minimum value (optional).
+	 * @param int $max Maximum value (optional).
+	 * @return int May be null is the value is not valid.
+	 */
+	public static function validateInteger($value, $min=null, $max=null) {
+		$value = filter_var($value, FILTER_VALIDATE_INT);
+		return $value===false ? null : max($max===null ? $value : min($value, $max), $min);
 	}
 
 
