@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-22 19:21+0100\n"
+"POT-Creation-Date: 2015-02-22 20:41+0100\n"
 "PO-Revision-Date: 2014-07-15 13:03+0100\n"
 "Last-Translator: Dawid Ziółkowski <kontakt@dawidziolkowski.pl>\n"
 "Language-Team: Dawid Ziółkowski <mr@dawidziolkowski.com>\n"
@@ -28,7 +28,7 @@ msgid "Compatibility with other chess plugins"
 msgstr "Kompatybilność z innymi wtyczkami szachowymi"
 
 #: models/adminpageoptions.php
-msgid "Small screen devices"
+msgid "Small-screen devices"
 msgstr ""
 
 #. King symbol
