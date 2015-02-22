@@ -42,6 +42,8 @@
 			?>
 		</p>
 
+		<input type="hidden" name="smallScreenModes" value="<?php echo htmlspecialchars(count($model->getSmallScreenModes())); ?>" />
+
 
 
 		<?php foreach($model->getSmallScreenModes() as $index => $mode): ?>
@@ -64,8 +66,7 @@
 				<?php echo sprintf(__('Screen width &le; %1$s pixels', 'rpbchessboard'), htmlspecialchars($mode->maxScreenWidth)); ?>
 			</h3>
 
-			<input type="hidden" name="smallScreenMode<?php echo htmlspecialchars($index); ?>-minScreenWidth" value="<?php echo htmlspecialchars($mode->minScreenWidth); ?>" />
-			<input type="hidden" name="smallScreenMode<?php echo htmlspecialchars($index); ?>-maxScreenWidth" value="<?php echo htmlspecialchars($mode->maxScreenWidth); ?>" />
+			<input type="hidden" name="smallScreenMode<?php echo htmlspecialchars($index); ?>-screenWidth" value="<?php echo htmlspecialchars($mode->maxScreenWidth); ?>" />
 
 			<div>
 				<p>

@@ -29,12 +29,19 @@ require_once(RPBCHESSBOARD_ABSPATH . 'helpers/validation.php');
  */
 class RPBChessboardTraitPostOptions extends RPBChessboardAbstractTrait
 {
+	// General options
 	private $squareSize;
 	private $showCoordinates;
 	private $pieceSymbols;
 	private $navigationBoard;
+
+	// Compatibility options
 	private $fenCompatibilityMode;
 	private $pgnCompatibilityMode;
+
+	// Small-screen options
+	private $smallScreenCompatibility;
+	private $smallScreenModes;
 
 
 	/**
@@ -58,9 +65,15 @@ class RPBChessboardTraitPostOptions extends RPBChessboardAbstractTrait
 		}
 
 		// Load the boolean parameters.
-		$this->showCoordinates      = self::loadBooleanParameter('showCoordinates'     );
-		$this->fenCompatibilityMode = self::loadBooleanParameter('fenCompatibilityMode');
-		$this->pgnCompatibilityMode = self::loadBooleanParameter('pgnCompatibilityMode');
+		$this->showCoordinates          = self::loadBooleanParameter('showCoordinates'         );
+		$this->fenCompatibilityMode     = self::loadBooleanParameter('fenCompatibilityMode'    );
+		$this->pgnCompatibilityMode     = self::loadBooleanParameter('pgnCompatibilityMode'    );
+		$this->smallScreenCompatibility = self::loadBooleanParameter('smallScreenCompatibility');
+
+		// Load the small-screen options
+		if(isset($_POST['smallScreenModes'])) {
+			$this->smallScreenModes = self::loadSmallScreenModes();
+		}
 	}
 
 
@@ -106,6 +119,46 @@ class RPBChessboardTraitPostOptions extends RPBChessboardAbstractTrait
 
 
 	/**
+	 * Load and validate the small-screen mode parameters.
+	 *
+	 * @return string
+	 */
+	private static function loadSmallScreenModes() {
+		$smallScreenModeCount = RPBChessboardHelperValidation::validateInteger($_POST['smallScreenModes'], 0);
+		$smallScreenModes = array();
+		for($index=0; $index<$smallScreenModeCount; ++$index) {
+			$smallScreenMode = self::loadSmallScreenMode($index);
+			if(isset($smallScreenMode)) {
+				array_push($smallScreenModes, $smallScreenMode);
+			}
+		}
+		return implode(',', $smallScreenModes);
+	}
+
+
+	/**
+	 * Load and validate the small-screen mode corresponding to the given index.
+	 *
+	 * @param int $index
+	 * @return string
+	 */
+	private static function loadSmallScreenMode($index) {
+		$screenWidthKey     = 'smallScreenMode' . $index . '-screenWidth'    ;
+		$squareSizeKey      = 'smallScreenMode' . $index . '-squareSize'     ;
+		$hideCoordinatesKey = 'smallScreenMode' . $index . '-hideCoordinates';
+		if(isset($_POST[$screenWidthKey]) && isset($squareSizeKey) && isset($hideCoordinatesKey)) {
+			$screenWidth     = RPBChessboardHelperValidation::validateInteger       ($_POST[$screenWidthKey    ], 1);
+			$squareSize      = RPBChessboardHelperValidation::validateSquareSize    ($_POST[$squareSizeKey     ]);
+			$hideCoordinates = RPBChessboardHelperValidation::validateBooleanFromInt($_POST[$hideCoordinatesKey]);
+			if(isset($screenWidth) && isset($squareSize) && isset($hideCoordinates)) {
+				return $screenWidth . ':' . $squareSize . ':' . ($hideCoordinates ? 'true' : 'false');
+			}
+		}
+		return null;
+	}
+
+
+	/**
 	 * Load and validate a boolean post parameter with the given name.
 	 *
 	 * @param string $fieldName
@@ -140,9 +193,15 @@ class RPBChessboardTraitPostOptions extends RPBChessboardAbstractTrait
 		}
 
 		// Set the boolean parameters.
-		self::updateBooleanParameter('showCoordinates'     , $this->showCoordinates     );
-		self::updateBooleanParameter('fenCompatibilityMode', $this->fenCompatibilityMode);
-		self::updateBooleanParameter('pgnCompatibilityMode', $this->pgnCompatibilityMode);
+		self::updateBooleanParameter('showCoordinates'         , $this->showCoordinates         );
+		self::updateBooleanParameter('fenCompatibilityMode'    , $this->fenCompatibilityMode    );
+		self::updateBooleanParameter('pgnCompatibilityMode'    , $this->pgnCompatibilityMode    );
+		self::updateBooleanParameter('smallScreenCompatibility', $this->smallScreenCompatibility);
+
+		// Set the small-screen mode parameters.
+		if(isset($this->smallScreenModes)) {
+			update_option('rpbchessboard_smallScreenModes', $this->smallScreenModes);
+		}
 
 		// Notify the user.
 		return __('Settings saved.', 'rpbchessboard');
