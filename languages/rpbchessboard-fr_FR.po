@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-26 20:40+0100\n"
+"POT-Creation-Date: 2015-02-22 19:21+0100\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35@melix.net>\n"
 "Language-Team: French\n"
@@ -23,6 +23,10 @@ msgstr "Apparence et comportement par défaut"
 #: models/adminpageoptions.php
 msgid "Compatibility with other chess plugins"
 msgstr "Compatibilité avec les autres plugins d'échecs"
+
+#: models/adminpageoptions.php
+msgid "Small screen devices"
+msgstr "Écrans de petite taille"
 
 #. King symbol
 #: models/adminpageoptions.php templates/adminpage/optionsgeneral.php
@@ -357,6 +361,88 @@ msgstr ""
 "L'attribut %1$s détermine si les noms des rangées et des colonnes sont ou "
 "non affichés."
 
+#: templates/adminpage/optionssmallscreens.php
+msgid "Enable support for small-screen devices"
+msgstr "Activer la prise en charge des écrans de petite taille"
+
+#: templates/adminpage/optionssmallscreens.php
+msgid ""
+"Activating this option allows to customize how RPB Chessboard renders chess "
+"diagrams on small-screen devices (such as smartphones)."
+msgstr ""
+"Activer cette option permet de modifier la façon dont RPB Chessboard affiche "
+"les diagrammes d'échecs sur les écrans de petite taille (en particulier ceux "
+"des smartphones)."
+
+#: templates/adminpage/optionssmallscreens.php
+#, php-format
+msgid ""
+"These options apply to devices whose resolution is less than %1$s pixel "
+"width."
+msgstr ""
+"Ces paramètres s'appliquent aux appareils dont la résolution d'écran est "
+"inférieur à %1$s pixels en largeur."
+
+#: templates/adminpage/optionssmallscreens.php
+#, php-format
+msgid ""
+"These options apply to devices whose resolution lies between %1$s and %2$s "
+"pixel width."
+msgstr ""
+"Ces paramètres s'appliquent aux appareils dont la résolution d'écran est "
+"comprise entre %1$s and %2$s pixels en largeur."
+
+#: templates/adminpage/optionssmallscreens.php
+#, php-format
+msgid "Screen width &le; %1$s pixels"
+msgstr "Largeur d'écran &le; %1$s pixels"
+
+#: templates/adminpage/optionssmallscreens.php
+#, php-format
+msgid "Restrict square size to: %1$s pixels"
+msgstr "Restreindre la taille des cases à&nbsp;: %1$s pixels"
+
+#: templates/adminpage/optionssmallscreens.php
+#, php-format
+msgid ""
+"Chess diagrams will be displayed with a square size not larger than this "
+"value if the screen width is less than %1$s pixels, whatever the %2$sdefault "
+"aspect and behavior settings%3$s or the tag attributes that may be specified "
+"in the posts/pages. Diagrams for which the square size is less than this "
+"value will be displayed as they normally do on large screen devices."
+msgstr ""
+"Les diagrammes d'échecs seront affichés avec une taille de case jamais plus "
+"grande que cette valeur si la résolution d'écran est inférieure à %1$s "
+"pixels en largeur, quels que soient les %2$sparamètres d'affichage "
+"généraux%3$s ou les attributs de balises susceptibles d'être définis dans les "
+"articles/pages. Les diagrammes pour lesquels la taille de case est inférieure "
+"à cette valeur seront affichés tels qu'ils le sont normallement sur les "
+"grands écrans."
+
+#: templates/adminpage/optionssmallscreens.php
+msgid "Always hide coordinates"
+msgstr "Toujours masquer les coordonnées"
+
+#: templates/adminpage/optionssmallscreens.php
+#, php-format
+msgid ""
+"If enabled, row and column coordinates will be hidden if the screen width is "
+"less than %1$s pixels, whatever the %2$sdefault aspect and behavior settings"
+"%3$s or the tag attributes that may be specified in the posts/pages. If "
+"disabled, row and column coordinates will be displayed as they normally do "
+"on large screen devices."
+msgstr ""
+"Si cette option est activée, les coordonnées de lignes et de colonnes seront "
+"masquées si la résolution d'écran est inférieure à %1$s pixels en largeur, "
+"quels que soient les %2$sparamètres d'affichage généraux%3$s ou les "
+"attributs de balises susceptibles d'être définis dans les articles/pages. Si "
+"elle est désactivée, les coordonnées de lignes et de colonnes seront "
+"affichées telles qu'elles le sont normallement sur les grands écrans."
+
+#: templates/adminpage/optionssmallscreens.php
+msgid "See explanations about theses settings above."
+msgstr "Voir les explications à propos de ces paramètres ci-dessus."
+
 #: templates/adminpage/optionsfooter.php
 msgid "Save changes"
 msgstr "Enregistrer les modifications"
@@ -488,6 +574,15 @@ msgstr "Taille des cases&nbsp;: %1$s pixels"
 #: templates/adminpage/optionsgeneral.php
 msgid "Show coordinates"
 msgstr "Afficher les coordonnées"
+
+#: templates/adminpage/optionsgeneral.php
+#, php-format
+msgid ""
+"Notice that specific chessboard aspect settings can be defined for %1$ssmall-"
+"screen devices%2$s (such as smartphones)."
+msgstr ""
+"À noter que l'apparance des échiquier peut être modifiée pour les %1$sécrans "
+"de petite taille%2$s (en particulier ceux des smartphones)."
 
 #: templates/adminpage/optionsgeneral.php templates/adminpage/helppgn.php
 msgid "Piece symbols"
