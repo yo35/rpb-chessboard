@@ -117,7 +117,7 @@
 								__(
 									'If enabled, row and column coordinates will be hidden if the screen width is less than %1$s pixels, '.
 									'whatever the %2$sdefault aspect and behavior settings%3$s or the tag attributes that may be specified in the posts/pages. '.
-									'If disabled, they will be displayed as they normally do on large screen devices.',
+									'If disabled, row and column coordinates will be displayed as they normally do on large screen devices.',
 								'rpbchessboard'),
 								htmlspecialchars($mode->maxScreenWidth),
 								'<a href="' . htmlspecialchars($model->getOptionsGeneralURL()) . '">',
