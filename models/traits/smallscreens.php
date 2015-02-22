@@ -70,8 +70,8 @@ class RPBChessboardTraitSmallScreens extends RPBChessboardAbstractTrait
 		$data = isset($data) ? $data : array(
 			240 => (object) array('squareSize' => 18, 'hideCoordinates' => true ),
 			320 => (object) array('squareSize' => 24, 'hideCoordinates' => true ),
-			480 => (object) array('squareSize' => 32, 'hideCoordinates' => true ),
-			768 => (object) array('squareSize' => 64, 'hideCoordinates' => false)
+			480 => (object) array('squareSize' => 32, 'hideCoordinates' => false),
+			768 => (object) array('squareSize' => 56, 'hideCoordinates' => false)
 		);
 
 		// Format the mode entries
