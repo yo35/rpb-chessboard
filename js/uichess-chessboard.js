@@ -450,7 +450,7 @@
 			// If visible, the column coordinates are shown at the bottom of the table.
 			//////////////////////////////////////////////////////////////////////////
 			if(this.options.showCoordinates) {
-				content += '<div class="uichess-chessboard-row">';
+				content += '<div class="uichess-chessboard-row uichess-chessboard-columnCoordinateRow">';
 
 				// Empty cell (below the column of coordinates 1,2,...,8).
 				content += '<div class="uichess-chessboard-cell"></div>';

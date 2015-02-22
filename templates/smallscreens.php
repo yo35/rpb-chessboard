@@ -35,6 +35,13 @@
 				}
 			<?php endif; ?>
 
+			<?php if($mode->hideCoordinates): ?>
+				.uichess-chessboard-cell.uichess-chessboard-rowCoordinate,
+				.uichess-chessboard-row.uichess-chessboard-columnCoordinateRow {
+					display: none;
+				}
+			<?php endif; ?>
+
 		}
 	<?php endforeach; ?>
 </style>

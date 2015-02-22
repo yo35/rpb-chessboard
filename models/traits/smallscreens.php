@@ -67,17 +67,20 @@ class RPBChessboardTraitSmallScreens extends RPBChessboardAbstractTrait
 
 		// Load the raw data
 		$data = RPBChessboardHelperValidation::validateSmallScreenModes(get_option('rpbchessboard_smallScreenModes'));
-		$data = isset($value) ? $value : array(240 => 18, 320 => 24, 480 => 32, 768 => 64);
+		$data = isset($value) ? $value : array(
+			240 => (object) array(squareSize => 18, hideCoordinates => true ),
+			320 => (object) array(squareSize => 24, hideCoordinates => true ),
+			480 => (object) array(squareSize => 32, hideCoordinates => true ),
+			768 => (object) array(squareSize => 64, hideCoordinates => false)
+		);
 
 		// Format the mode entries
 		self::$smallScreenModes = array();
 		$previousScreenWidthBound = 0;
-		foreach($data as $screenWidthBound => $squareSize) {
-			array_push(self::$smallScreenModes, (object) array(
-				'minScreenWidth' => $previousScreenWidthBound,
-				'maxScreenWidth' => $screenWidthBound,
-				'squareSize'     => $squareSize
-			));
+		foreach($data as $screenWidthBound => $mode) {
+			$mode->minScreenWidth = $previousScreenWidthBound;
+			$mode->maxScreenWidth = $screenWidthBound;
+			array_push(self::$smallScreenModes, $mode);
 			$previousScreenWidthBound = $screenWidthBound;
 		}
 	}

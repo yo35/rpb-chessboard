@@ -100,21 +100,24 @@ abstract class RPBChessboardHelperValidation
 		if(!is_string($value)) {
 			return null;
 		}
-
-		// Split the input into a list of comma-separated tokens, with even length.
-		$token = explode(',', $value);
-		$tokenCount = count($token);
-		if($tokenCount % 2 !== 0) {
-			return null;
-		}
-
-		// Parse the list of tokens.
 		$res = array();
-		for($k=0; $k<$tokenCount; $k+=2) {
-			$screenWidth = self::validateInteger($token[$k], 1);
-			$squareSize = self::validateSquareSize($token[$k+1]);
-			if(isset($screenWidth) && isset($squareSize)) {
-				$res[$screenWidth] = $squareSize;
+
+		// Split the input into a list of comma-separated tokens
+		$modes = explode(',', $value);
+		foreach($modes as $mode) {
+
+			// Split each mode-encoding token into 3 colon-separated sub-tokens
+			$tokens = explode(':', $mode);
+			if(count($tokens) !== 3) {
+				continue;
+			}
+
+			// Validate each sub-token
+			$screenWidth = self::validateInteger($tokens[0], 1);
+			$squareSize = self::validateSquareSize($tokens[1]);
+			$hideCoordinates = self::validateBoolean($tokens[2]);
+			if(isset($screenWidth) && isset($squareSize) && isset($hideCoordinates)) {
+				$res[$screenWidth] = (object) array('squareSize' => $squareSize, 'hideCoordinates' => $hideCoordinates);
 			}
 		}
 
