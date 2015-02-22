@@ -38,6 +38,7 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 		parent::__construct();
 		$this->loadTrait('DefaultOptions');
 		$this->loadTrait('Compatibility' );
+		$this->loadTrait('SmallScreens'  );
 		$this->loadTrait('URLs'          );
 
 		// Create the sub-pages.

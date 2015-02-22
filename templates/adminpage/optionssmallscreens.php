@@ -25,8 +25,97 @@
 	<form action="<?php echo htmlspecialchars($model->getFormActionURL()); ?>" method="post">
 
 		<p>
-			TODO
+			<input type="hidden" name="smallScreenCompatibility" value="0" />
+			<input type="checkbox" id="rpbchessboard-smallScreenCompatibilityField" name="smallScreenCompatibility" value="1"
+				<?php if($model->getSmallScreenCompatibility()): ?>checked="yes"<?php endif; ?>
+			/>
+			<label for="rpbchessboard-smallScreenCompatibilityField">
+				<?php _e('Enable support for small-screen devices', 'rpbchessboard'); ?>
+			</label>
 		</p>
+
+		<p class="description">
+			<?php
+				_e(
+					'Activating this option allows to customize how RPB Chessboard renders chess diagrams on small-screen devices (such as smartphones).',
+				'rpbchessboard');
+			?>
+		</p>
+
+
+
+		<?php foreach($model->getSmallScreenModes() as $index => $mode): ?>
+
+			<h3 title="<?php
+				if($mode->minScreenWidth === 0) {
+					echo sprintf(
+						__('These options apply to devices whose resolution is less than %1$s pixel width.', 'rpbchessboard'),
+						htmlspecialchars($mode->maxScreenWidth)
+					);
+				}
+				else {
+					echo sprintf(
+						__('These options apply to devices whose resolution lies between %1$s and %2$s pixel width.', 'rpbchessboard'),
+						htmlspecialchars($mode->minScreenWidth + 1),
+						htmlspecialchars($mode->maxScreenWidth)
+					);
+				}
+			?>">
+				<?php echo sprintf(__('Screen width &le; %1$s pixels', 'rpbchessboard'), htmlspecialchars($mode->maxScreenWidth)); ?>
+			</h3>
+
+			<input type="hidden" name="smallScreenMode<?php echo htmlspecialchars($index); ?>-minScreenWidth" value="<?php echo htmlspecialchars($mode->minScreenWidth); ?>" />
+			<input type="hidden" name="smallScreenMode<?php echo htmlspecialchars($index); ?>-maxScreenWidth" value="<?php echo htmlspecialchars($mode->maxScreenWidth); ?>" />
+
+			<div>
+				<p>
+					<?php
+						echo sprintf(__('Clamp square size to: %1$s pixels', 'rpbchessboard'),
+							'<input type="text" id="rpbchessboard-smallScreenMode' . htmlspecialchars($index) . '-squareSizeField" class="rpbchessboard-squareSizeField" ' .
+								'name="smallScreenMode' . htmlspecialchars($index) . '-squareSize" ' .
+								'size="'      . htmlspecialchars($model->getDigitNumberForSquareSize()) . '" ' .
+								'maxLength="' . htmlspecialchars($model->getDigitNumberForSquareSize()) . '" ' .
+								'value="'     . htmlspecialchars($mode->squareSize) . '"/>'
+						);
+					?>
+				<span id="rpbchessboard-smallScreenMode<?php echo htmlspecialchars($index); ?>-squareSizeSlider" class="rpbchessboard-squareSizeSlider"></span>
+				</p>
+			</div>
+
+		<?php endforeach; ?>
+
+
+		<script type="text/javascript">
+
+			jQuery(document).ready(function($) {
+
+				// Slider initialization
+				function initializeSmallScreenSection(index) {
+					var field = $('#rpbchessboard-smallScreenMode' + index + '-squareSizeField');
+					field.prop('readonly', true);
+					$('#rpbchessboard-smallScreenMode' + index + '-squareSizeSlider').slider({
+						value: field.val(),
+						min: <?php echo json_encode($model->getMinimumSquareSize()); ?>,
+						max: <?php echo json_encode($model->getMaximumSquareSize()); ?>,
+						slide: function(event, ui) { field.val(ui.value); }
+					});
+				}
+				for(var k=0; k<<?php echo json_encode(count($model->getSmallScreenModes())); ?>; ++k) {
+					initializeSmallScreenSection(k);
+				}
+
+				// Enable/disable the widget in each small-screen-mode sections
+				function updateWidgetActivationState() {
+					var enabled = $('#rpbchessboard-smallScreenCompatibilityField').prop('checked');
+					$('.rpbchessboard-squareSizeSlider').slider(enabled ? 'enable' : 'disable');
+				}
+				$('#rpbchessboard-smallScreenCompatibilityField').change(updateWidgetActivationState);
+				updateWidgetActivationState();
+			});
+
+		</script>
+
+
 
 		<?php include(RPBCHESSBOARD_ABSPATH . 'templates/adminpage/optionsfooter.php'); ?>
 

@@ -56,14 +56,14 @@
 				<p>
 					<?php
 						echo sprintf(__('Square size: %1$s pixels', 'rpbchessboard'),
-							'<input type="text" id="rpbchessboard-squareSizeField" name="squareSize" '.
-								'size="'      . htmlspecialchars($model->getDigitNumberForSquareSize()) . '" '.
-								'maxLength="' . htmlspecialchars($model->getDigitNumberForSquareSize()) . '" '.
+							'<input type="text" id="rpbchessboard-squareSizeField" class="rpbchessboard-squareSizeField" name="squareSize" ' .
+								'size="'      . htmlspecialchars($model->getDigitNumberForSquareSize()) . '" ' .
+								'maxLength="' . htmlspecialchars($model->getDigitNumberForSquareSize()) . '" ' .
 								'value="'     . htmlspecialchars($model->getDefaultSquareSize       ()) . '"/>'
 						);
 					?>
 				</p>
-				<div id="rpbchessboard-squareSizeField-slider"></div>
+				<div id="rpbchessboard-squareSizeSlider" class="rpbchessboard-squareSizeSlider"></div>
 				<p>
 					<input type="hidden" name="showCoordinates" value="0" />
 					<input type="checkbox" id="rpbchessboard-showCoordinatesField" name="showCoordinates" value="1"
@@ -112,7 +112,7 @@
 
 				// Disable the square-size text field, create a slider instead.
 				$('#rpbchessboard-squareSizeField').prop('readonly', true);
-				$('#rpbchessboard-squareSizeField-slider').slider({
+				$('#rpbchessboard-squareSizeSlider').slider({
 					value: squareSize,
 					min: <?php echo json_encode($model->getMinimumSquareSize()); ?>,
 					max: <?php echo json_encode($model->getMaximumSquareSize()); ?>,

@@ -271,12 +271,22 @@ div.rpbchessboard-sourceCode {
 /* Options page */
 /* -------------------------------------------------------------------------- */
 
+#rpbchessboard-optionPage * + h3 {
+	margin: 2em 0px 1em;
+}
+
 #rpbchessboard-optionPage .rpbchessboard-columns > div:first-child {
 	width: 250px;
 }
 
-#rpbchessboard-squareSizeField {
+#rpbchessboard-optionPage .rpbchessboard-squareSizeField {
 	text-align: right;
+}
+
+#rpbchessboard-optionPage span.rpbchessboard-squareSizeSlider {
+	display: inline-block;
+	width: 240px;
+	margin-left: 3em;
 }
 
 #rpbchessboard-optionPage input[name="pieceSymbols"] {
