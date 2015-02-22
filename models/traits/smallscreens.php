@@ -34,18 +34,6 @@ class RPBChessboardTraitSmallScreens extends RPBChessboardAbstractTrait
 
 
 	/**
-	 * Whether the small-screen compatibility mode enabled by default or not.
-	 */
-	const DEFAULT_SMALL_SCREEN_COMPATIBILITY = true;
-
-
-	/**
-	 * Initial small-screen mode specifications.
-	 */
-	const DEFAULT_SMALL_SCREEN_MODES = array(240 => 18, 320 => 24, 480 => 32, 768 => 64);
-
-
-	/**
 	 * Whether the small-screen compatibility mode is enabled or not.
 	 *
 	 * @return boolean
@@ -53,7 +41,7 @@ class RPBChessboardTraitSmallScreens extends RPBChessboardAbstractTrait
 	public function getSmallScreenCompatibility() {
 		if(!isset(self::$smallScreenCompatibility)) {
 			$value = RPBChessboardHelperValidation::validateBooleanFromInt(get_option('rpbchessboard_smallScreenCompatibility'));
-			self::$smallScreenCompatibility = isset($value) ? $value : DEFAULT_SMALL_SCREEN_COMPATIBILITY;
+			self::$smallScreenCompatibility = isset($value) ? $value : true;
 		}
 		return self::$smallScreenCompatibility;
 	}
@@ -79,18 +67,84 @@ class RPBChessboardTraitSmallScreens extends RPBChessboardAbstractTrait
 
 		// Load the raw data
 		$data = RPBChessboardHelperValidation::validateSmallScreenModes(get_option('rpbchessboard_smallScreenModes'));
-		$data = isset($value) ? $value : DEFAULT_SMALL_SCREEN_MODES;
+		$data = isset($value) ? $value : array(240 => 18, 320 => 24, 480 => 32, 768 => 64);
 
 		// Format the mode entries
 		self::$smallScreenModes = array();
 		$previousScreenWidthBound = 0;
 		foreach($data as $screenWidthBound => $squareSize) {
 			array_push(self::$smallScreenModes, (object) array(
-				'screenWidthMin' => $previousScreenWidthBound,
-				'screenWidthMax' => $screenWidthBound,
+				'minScreenWidth' => $previousScreenWidthBound,
+				'maxScreenWidth' => $screenWidthBound,
 				'squareSize'     => $squareSize
 			));
 			$previousScreenWidthBound = $screenWidthBound;
 		}
+	}
+
+
+	/**
+	 * Return the background-position x-offset to use for sprites havinge size `$squareSize`.
+	 *
+	 * @param int $squareSize
+	 * @return int
+	 */
+	public function getBackgroundPositionXForSquareSize($squareSize) {
+		if($squareSize <= 32) {
+			$squareSize = 65 - $squareSize;
+		}
+
+		// delta_x = - sum (k = 33 to $squareSize - 1) { k }
+		return 528 - $squareSize*($squareSize - 1)/2;
+	}
+
+
+	/**
+	 * Return the background-position y-offset to use for sprites havinge size `$squareSize`.
+	 *
+	 * @param int $squareSize
+	 * @return int
+	 */
+	public function getBackgroundPositionYForSquareSize($squareSize) {
+		return $squareSize <= 32 ? $squareSize - 65 : 0;
+	}
+
+
+	/**
+	 * Selector to use to introduce the specific CSS instructions for the given small-screen mode.
+	 *
+	 * @return string
+	 */
+	public function getSmallScreenModeMainSelector($mode) {
+		$res = '@media all';
+		if($mode->minScreenWidth > 0) {
+			$res .= ' and (min-width:' . ($mode->minScreenWidth + 1) . 'px)';
+		}
+		$res .= ' and (max-width:' . $mode->maxScreenWidth . 'px)';
+		return $res;
+	}
+
+
+	/**
+	 * Whether the square size must be customized in the given small-screen mode or not.
+	 *
+	 * @return boolean
+	 */
+	public function hasSmallScreenSizeSquareSizeSection($mode) {
+		return $mode->squareSize < RPBChessboardHelperValidation::MAXIMUM_SQUARE_SIZE;
+	}
+
+
+	/**
+	 * Selector to use to introduce the specific CSS instructions to customize the square size in the given small-screen mode.
+	 *
+	 * @return string
+	 */
+	public function getSmallScreenModeSquareSizeSelector($mode) {
+		$selectors = array();
+		for($size = $mode->squareSize+1; $size <= RPBChessboardHelperValidation::MAXIMUM_SQUARE_SIZE; ++$size) {
+			array_push($selectors, '.uichess-chessboard-size' . $size);
+		}
+		return implode(',', $selectors);
 	}
 }
