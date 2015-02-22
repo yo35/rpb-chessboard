@@ -67,7 +67,7 @@ class RPBChessboardTraitSmallScreens extends RPBChessboardAbstractTrait
 
 		// Load the raw data
 		$data = RPBChessboardHelperValidation::validateSmallScreenModes(get_option('rpbchessboard_smallScreenModes'));
-		$data = isset($value) ? $value : array(
+		$data = isset($data) ? $data : array(
 			240 => (object) array('squareSize' => 18, 'hideCoordinates' => true ),
 			320 => (object) array('squareSize' => 24, 'hideCoordinates' => true ),
 			480 => (object) array('squareSize' => 32, 'hideCoordinates' => true ),
