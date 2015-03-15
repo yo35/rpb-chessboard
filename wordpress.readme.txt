@@ -92,6 +92,9 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 == Changelog ==
 
+= 3.5.1 (March 15, 2015) =
+* Fix: make `flip` attribute work on tag `[pgndiagram]` (see issue #32).
+
 = 3.5 (February 22, 2015) =
 * Add options to customize chessboard appearance on small-screen devices (see issue #26).
 * Tested up to WordPress 4.1.1.
