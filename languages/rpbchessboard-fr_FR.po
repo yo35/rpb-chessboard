@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-22 20:41+0100\n"
+"POT-Creation-Date: 2015-03-15 21:34+0100\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35@melix.net>\n"
 "Language-Team: French\n"
@@ -127,10 +127,6 @@ msgstr "Version du plugin"
 #: templates/adminpage/about.php
 msgid "Links"
 msgstr "Liens"
-
-#: templates/adminpage/about.php
-msgid "plugin page on WordPress.org"
-msgstr "page du plugin sur WordPress.org"
 
 #: templates/adminpage/about.php
 msgid "source code on GitHub"
