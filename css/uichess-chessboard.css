@@ -157,4 +157,4 @@
 .uichess-chessboard-color-b.uichess-chessboard-turnFlag { background-image: url(sprite/bx.png); }
 .uichess-chessboard-color-w.uichess-chessboard-turnFlag { background-image: url(sprite/wx.png); }
 
-.uichess-chessboard-trash { background-image: url(sprite/trash-all.png); }
+.uichess-chessboard-trash { background-image: url(sprite/trash.png); }

@@ -2,6 +2,7 @@
 
 # Files to process
 files="bb.svg bk.svg bn.svg bp.svg bq.svg br.svg bx.svg wb.svg wk.svg wn.svg wp.svg wq.svg wr.svg wx.svg trash.png"
+output_dir=../../css/sprite
 
 # Sizes
 size_min=12
@@ -14,10 +15,7 @@ for file in $files; do
 	# Build the output file name
 	extension=${file##*.}
 	base=${file%.*}
-	output=$base.png
-	if [ "$extension" == "png" ]; then
-		output=$base-all.png
-	fi
+	output=$output_dir/$base.png
 
 	# Size conversion
 	current_size=$size_min
