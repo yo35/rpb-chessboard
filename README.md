@@ -7,9 +7,7 @@ It allows to typeset and display chess games and diagrams on posts and pages of 
 using the standard [FEN](http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation)
 and [PGN](http://en.wikipedia.org/wiki/Portable_Game_Notation) notations.
 
-**http://yo35.org/rpb-chessboard/**  
-https://wordpress.org/plugins/rpb-chessboard/ (plugin page on WordPress.org)  
-https://github.com/yo35/rpb-chessboard (source code on GitHub)
+https://wordpress.org/plugins/rpb-chessboard/
 
 
 

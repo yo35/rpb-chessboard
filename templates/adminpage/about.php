@@ -61,10 +61,8 @@
 
 	<h3><?php _e('Links', 'rpbchessboard'); ?></h3>
 	<ul>
-		<li><strong><a href="http://yo35.org/rpb-chessboard/" target="_blank">http://yo35.org/rpb-chessboard/</a></strong></li>
 		<li>
-			<a href="https://wordpress.org/plugins/rpb-chessboard/" target="_blank">https://wordpress.org/plugins/rpb-chessboard/</a>
-			<?php echo sprintf('(%1$s)', __('plugin page on WordPress.org', 'rpbchessboard')); ?>
+			<strong><a href="https://wordpress.org/plugins/rpb-chessboard/" target="_blank">https://wordpress.org/plugins/rpb-chessboard/</a></strong>
 		</li>
 		<li>
 			<a href="https://github.com/yo35/rpb-chessboard" target="_blank">https://github.com/yo35/rpb-chessboard</a>
