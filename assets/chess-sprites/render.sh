@@ -9,6 +9,7 @@ size_min=12
 size_max=64
 
 # Loop over the files
+cd `dirname $0`
 for file in $files; do
 	echo "Processing file $file..."
 
