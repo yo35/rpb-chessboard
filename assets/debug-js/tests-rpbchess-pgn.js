@@ -39,7 +39,12 @@
 var pgns = [];
 
 pgns.push({
-	label: '1',
+	label: 'empty', gameCount: 0,
+	pgn: '', dump: ''
+});
+
+pgns.push({
+	label: '1', gameCount: 1,
 	pgn:
 		'[White "Player 1"]\n' +
 		'[Black "Player 2"]\n' +
@@ -49,11 +54,12 @@ pgns.push({
 		'Black = {Player 2}\n' +
 		'Result = {*}\n' +
 		'White = {Player 1}\n' +
+		'-+<LONG\n' +
 		'{Line}\n'
 });
 
 pgns.push({
-	label: '2',
+	label: '2', gameCount: 1,
 	pgn:
 		'[White "Bill Gates"]\n' +
 		'[Black "Magnus Carlsen"]\n' +
@@ -64,6 +70,68 @@ pgns.push({
 		'Black = {Magnus Carlsen}\n' +
 		'Result = {0-1}\n' +
 		'White = {Bill Gates}\n' +
+		'-+<LONG\n' +
+		'(1w) e4\n' +
+		'(1b) Nc6\n' +
+		'(2w) Nf3\n' +
+		'(2b) d5\n' +
+		'(3w) Bd3\n' +
+		'(3b) Nf6\n' +
+		'(4w) exd5\n' +
+		'(4b) Qxd5\n' +
+		'(5w) Nc3\n' +
+		'(5b) Qh5\n' +
+		'(6w) O-O\n' +
+		'(6b) Bg4\n' +
+		'(7w) h3\n' +
+		'(7b) Ne5\n' +
+		'(8w) hxg4\n' +
+		'(8b) Nfxg4\n' +
+		'(9w) Nxe5\n' +
+		'(9b) Qh2#\n' +
+		'{Black wins}\n'
+});
+
+pgns.push({
+	label: '3', gameCount: 2,
+	pgn:
+		'[Event "Scholar\'s mate"]\n' +
+		'[Site "*"]\n' +
+		'[Date "2013.??.??"]\n' +
+		'[Round "?"]\n' +
+		'[White "Player 1"]\n' +
+		'[Black "Player 2"]\n' +
+		'[Result "1-0"]\n' +
+		'\n' +
+		'1. e4 e5 2. Bc4 Nc6 3. Qh5 Nf6 4. Qxf7# 1-0\n' +
+		'\n' +
+		'[Event "Quickest checkmate"]\n' +
+		'\n' +
+		'1. f4 e6 2. g4 Qh4# 0-1\n',
+	dump: '\n' +
+		'Black = {Player 2}\n' +
+		'Date = {2013.??.??}\n' +
+		'Event = {Scholar\'s mate}\n' +
+		'Result = {1-0}\n' +
+		'Round = {?}\n' +
+		'Site = {*}\n' +
+		'White = {Player 1}\n' +
+		'-+<LONG\n' +
+		'(1w) e4\n' +
+		'(1b) e5\n' +
+		'(2w) Bc4\n' +
+		'(2b) Nc6\n' +
+		'(3w) Qh5\n' +
+		'(3b) Nf6\n' +
+		'(4w) Qxf7#\n' +
+		'{White wins}\n' +
+		'\n' +
+		'Event = {Quickest checkmate}\n' +
+		'-+<LONG\n' +
+		'(1w) f4\n' +
+		'(1b) e6\n' +
+		'(2w) g4\n' +
+		'(2b) Qh4#\n' +
 		'{Black wins}\n'
 });
 
@@ -75,7 +143,22 @@ pgns.push({
 
 registerTests('rpbchess.pgn.parse', pgns, function(scenario) {
 	test('Parse PGN ' + scenario.label, function() {
-		var pgnItem = RPBChess.pgn.parseOne(scenario.pgn);
-		return dumpPGNItem(pgnItem);
-	}, scenario.dump);
+		var pgnItems = RPBChess.pgn.parse(scenario.pgn);
+		return '\n#' + pgnItems.length + '\n' + dumpPGNItems(pgnItems);
+	}, '\n#' + scenario.gameCount + '\n' + scenario.dump);
+});
+
+registerTests('rpbchess.pgn.parseOne', pgns, function(scenario) {
+	if(scenario.gameCount === 1) {
+		test('Parse-one PGN ' + scenario.label, function() {
+			var pgnItem = RPBChess.pgn.parseOne(scenario.pgn);
+			return dumpPGNItem(pgnItem);
+		}, scenario.dump);
+	}
+	else {
+		testError('Parse-one PGN ' + scenario.label + ' (error)', function() {
+			var pgnItem = RPBChess.pgn.parseOne(scenario.pgn);
+			return dumpPGNItem(pgnItem);
+		}, checkInvalidPGN(scenario.gameCount===0 ? 'PGN_TEXT_IS_EMPTY' : 'PGN_TEXT_CONTAINS_SEVERAL_GAMES'));
+	}
 });

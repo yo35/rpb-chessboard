@@ -34,6 +34,35 @@ registerException(RPBChess.exceptions.InvalidPGN, function(e) {
 
 
 /**
+ * Generate a predicate to check that an exception is an invalid-PGN exception with the right message.
+ *
+ * @param {string} code
+ * @param ...
+ * @returns {function}
+ */
+function checkInvalidPGN(code) {
+
+	// Build the error message
+	var message = '<not an error message>';
+	if(typeof code === 'undefined') {
+		message = null;
+	}
+	else if(code in RPBChess.i18n) {
+		message = RPBChess.i18n[code];
+		for(var i=1; i<arguments.length; ++i) {
+			var re = new RegExp('\\{' + i + '\\}');
+			message = message.replace(re, arguments[i]);
+		}
+	}
+
+	// Generate the predicate
+	return function(e) {
+		return (e instanceof RPBChess.exceptions.InvalidPGN) && (message === null || message === e.message);
+	};
+}
+
+
+/**
  * Convert a game result code into a human-readable string.
  *
  * @param {number} gameResult
@@ -125,5 +154,20 @@ function dumpPGNItem(pgnItem) {
 	dumpVariation(pgnItem.mainVariation(), '', '');
 	res += '{' + wrapGameResult(pgnItem.result()) + '}\n';
 
+	return res;
+}
+
+
+/**
+ * Dump the content of a `.pgn` file.
+ *
+ * @param {RPBChess.pgn.Item[]} pgnItems
+ * @returns {string}
+ */
+function dumpPGNItems(pgnItems) {
+	var res = '';
+	for(var k=0; k<pgnItems.length; ++k) {
+		res += dumpPGNItem(pgnItems[k]);
+	}
 	return res;
 }
