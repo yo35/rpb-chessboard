@@ -28,7 +28,9 @@
 
 
 // Exception registration
-registerException(RPBChess.exceptions.InvalidPGN, function(e) { return 'bad PGN >>' + e.pgn + '<< => ' + e.message; });
+registerException(RPBChess.exceptions.InvalidPGN, function(e) {
+	return 'bad PGN\n\n>> ----- <<\n\n' + e.pgn.trim() + '\n\n>> ----- <<\n\n=> ' + e.message;
+});
 
 
 /**
@@ -65,6 +67,14 @@ function dumpPGNItem(pgnItem) {
 		res += key + ' = {' + pgnItem.header(key) + '}\n';
 	}
 
+	// Helper function to dump the nags in a order that does not depend on the parsing order.
+	function dumpNags(nags) {
+		nags.sort();
+		for(var k=0; k<nags.length; ++k) {
+			res += ' $' + nags[k];
+		}
+	}
+
 	// Recursive function to dump a variation.
 	function dumpVariation(variation, indent, indentFirst) {
 
@@ -73,9 +83,7 @@ function dumpPGNItem(pgnItem) {
 		if(variation.isLongVariation()) {
 			res += '<LONG';
 		}
-		for(var k=0; k<variation.nags().length; ++k) {
-			res += ' $' + variation.nags()[k];
-		}
+		dumpNags(variation.nags());
 		if(variation.comment() !== null) {
 			res += ' {' + variation.comment() + '}';
 			if(variation.isLongComment()) {
@@ -89,10 +97,8 @@ function dumpPGNItem(pgnItem) {
 		while(node !== null) {
 
 			// Describe the move
-			res += indent + node.fullMoveNumber() + (node.moveColor()==='w' ? '.' : '...') + node.move();
-			for(var k=0; k<node.nags().length; ++k) {
-				res += ' $' + node.nags()[k];
-			}
+			res += indent + '(' + node.fullMoveNumber() + node.moveColor() + ') ' + node.move();
+			dumpNags(node.nags());
 			if(node.comment() !== null) {
 				res += ' {' + node.comment() + '}';
 				if(node.isLongComment()) {
