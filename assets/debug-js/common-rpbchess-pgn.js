@@ -24,43 +24,51 @@
 'use strict';
 
 /* global RPBChess */
-/* global dumpPGNItem */
-/* global test */
-/* global testError */
-/* global registerTest */
-/* global registerTests */
+/* global registerException */
 
 
-
-// -----------------------------------------------------------------------------
-// PGN samples
-// -----------------------------------------------------------------------------
-
-var pgns = [];
-
-pgns.push({
-	label: '1',
-	pgn:
-		'[White "Player 1"]\n' +
-		'[Black "Player 2"]\n' +
-		'[Result "*"]\n' +
-		'*',
-	dump: '\n' +
-		'Black = {Player 2}\n' +
-		'Result = {*}\n' +
-		'White = {Player 1}\n' +
-		'{*}\n'
-});
+// Exception registration
+registerException(RPBChess.exceptions.InvalidPGN, function(e) { return 'bad PGN >>' + e.pgn + '<< => ' + e.message; });
 
 
+/**
+ * Convert a game result code into a human-readable string.
+ *
+ * @param {number} gameResult
+ * @returns {string}
+ */
+function wrapGameResult(gameResult) {
+	switch(gameResult) {
+		case RPBChess.pgn.gameresult.WHITE_WINS: return '1-0';
+		case RPBChess.pgn.gameresult.DRAW      : return '1/2-1/2';
+		case RPBChess.pgn.gameresult.BLACK_WINS: return '0-1';
+		case RPBChess.pgn.gameresult.LINE      : return '*';
+		default: return '&lt;unknown-result&gt;';
+	}
+}
 
-// -----------------------------------------------------------------------------
-// Parsing
-// -----------------------------------------------------------------------------
 
-registerTests('rpbchess.pgn.parse', pgns, function(scenario) {
-	test('Parse PGN ' + scenario.label, function() {
-		var pgnItem = RPBChess.pgn.parseOne(scenario.pgn);
-		return dumpPGNItem(pgnItem);
-	}, scenario.dump);
-});
+/**
+ * Dump the content of an item read from a `.pgn` file.
+ *
+ * @param {RPBChess.pgn.Item} pgnItem
+ * @returns {string}
+ */
+function dumpPGNItem(pgnItem) {
+	var res = '\n';
+
+	// Dump the headers.
+	var headers = pgnItem.headers();
+	headers.sort();
+	for(var k=0; k<headers.length; ++k) {
+		var key  = headers[k];
+		res += key + ' = {' + pgnItem.header(key) + '}\n';
+	}
+
+	// TODO: dump the moves
+
+	// Dump the result.
+	res += '{' + wrapGameResult(pgnItem.result()) + '}\n';
+
+	return res;
+}
