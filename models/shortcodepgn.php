@@ -64,7 +64,7 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode
 			// Orientation
 			$value = isset($atts['flip']) ? RPBChessboardHelperValidation::validateBoolean($atts['flip']) : null;
 			if(isset($value)) {
-				$this->widgetArgs['flip'] = $value;
+				$chessboardOptions['flip'] = $value;
 			}
 
 			// Square size

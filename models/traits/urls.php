@@ -28,6 +28,27 @@ require_once(RPBCHESSBOARD_ABSPATH . 'models/traits/abstracttrait.php');
  */
 class RPBChessboardTraitURLs extends RPBChessboardAbstractTrait
 {
+
+	/**
+	 * URL to the main settings page.
+	 *
+	 * @return string
+	 */
+	public function getOptionsGeneralURL() {
+		return admin_url('admin.php') . '?page=rpbchessboard-options&rpbchessboard_subpage=optionsgeneral';
+	}
+
+
+	/**
+	 * URL to the small-screen settings page.
+	 *
+	 * @return string
+	 */
+	public function getOptionsSmallScreensURL() {
+		return admin_url('admin.php') . '?page=rpbchessboard-options&rpbchessboard_subpage=optionssmallscreens';
+	}
+
+
 	/**
 	 * URL to the attribute section of the FEN help page.
 	 *

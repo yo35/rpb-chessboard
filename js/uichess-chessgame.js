@@ -347,6 +347,7 @@
 	function filterChessboardOptions(value)
 	{
 		return {
+			flip           : value.flip           ,
 			squareSize     : value.squareSize     ,
 			showCoordinates: value.showCoordinates
 		};
@@ -388,11 +389,6 @@
 			 * Options for the chessboard diagrams in the comments.
 			 */
 			diagramOptions: {},
-
-			/**
-			 * Whether the navigation board and the diagrams are flipped or not.
-			 */
-			flip: false,
 
 			/**
 			 * Type of piece symbols to use to render the move notation.
@@ -697,7 +693,7 @@
 				var position = anchor.closest('.uichess-chessgame-comment').data('position');
 
 				// Build the option set to pass to the chessboard widget constructor.
-				var options = { position: position, flip: obj.options.flip };
+				var options = { position: position };
 				$.extend(options, obj.options.diagramOptions);
 				try {
 					$.extend(options, filterChessboardOptions($.parseJSON(anchor.text())));
@@ -1161,8 +1157,8 @@
 			widget.chessboard('option', 'position', move.data('position'));
 
 			// Flip the board if necessary.
-			if(this.options.flip !== widget.chessboard('option', 'flip')) {
-				widget.chessboard('option', 'flip', this.options.flip);
+			if(this.options.navigationBoardOptions.flip !== widget.chessboard('option', 'flip')) {
+				widget.chessboard('option', 'flip', this.options.navigationBoardOptions.flip);
 			}
 		},
 

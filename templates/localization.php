@@ -56,7 +56,7 @@
 			rpb.i18n.EN_PASSANT_DISABLED_BUTTON_LABEL = <?php echo json_encode(__('Not possible'               , 'rpbchessboard')); ?>;
 			rpb.i18n.EN_PASSANT_ENABLED_BUTTON_LABEL  = <?php echo json_encode(__('Possible on column %1$s'    , 'rpbchessboard')); ?>;
 
-			rpb.config.FEN_SHORTCODE = <?php echo json_encode($compatibility->getFENShortcode()); ?>;
+			rpb.config.FEN_SHORTCODE = <?php echo json_encode($model->getFENShortcode()); ?>;
 
 		<?php endif; ?>
 

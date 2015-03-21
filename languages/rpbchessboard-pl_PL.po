@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-26 20:40+0100\n"
+"POT-Creation-Date: 2015-03-15 21:34+0100\n"
 "PO-Revision-Date: 2014-07-15 13:03+0100\n"
 "Last-Translator: Dawid Ziółkowski <kontakt@dawidziolkowski.pl>\n"
 "Language-Team: Dawid Ziółkowski <mr@dawidziolkowski.com>\n"
@@ -26,6 +26,10 @@ msgstr "Domyślne ustawienia"
 #: models/adminpageoptions.php
 msgid "Compatibility with other chess plugins"
 msgstr "Kompatybilność z innymi wtyczkami szachowymi"
+
+#: models/adminpageoptions.php
+msgid "Small-screen devices"
+msgstr ""
 
 #. King symbol
 #: models/adminpageoptions.php templates/adminpage/optionsgeneral.php
@@ -124,10 +128,6 @@ msgstr "Wersja wtyczki"
 #: templates/adminpage/about.php
 msgid "Links"
 msgstr "Linki"
-
-#: templates/adminpage/about.php
-msgid "plugin page on WordPress.org"
-msgstr "Strona wtyczki na WordPress.org"
 
 #: templates/adminpage/about.php
 msgid "source code on GitHub"
@@ -361,6 +361,68 @@ msgstr ""
 "Opcja %1$s wpływa na to, czy obok szachownicy pojawiają się oznaczenia "
 "literowo-cyfrowo"
 
+#: templates/adminpage/optionssmallscreens.php
+msgid "Enable support for small-screen devices"
+msgstr ""
+
+#: templates/adminpage/optionssmallscreens.php
+msgid ""
+"Activating this option allows to customize how RPB Chessboard renders chess "
+"diagrams on small-screen devices (such as smartphones)."
+msgstr ""
+
+#: templates/adminpage/optionssmallscreens.php
+#, php-format
+msgid ""
+"These options apply to devices whose resolution is less than %1$s pixel "
+"width."
+msgstr ""
+
+#: templates/adminpage/optionssmallscreens.php
+#, php-format
+msgid ""
+"These options apply to devices whose resolution lies between %1$s and %2$s "
+"pixel width."
+msgstr ""
+
+#: templates/adminpage/optionssmallscreens.php
+#, php-format
+msgid "Screen width &le; %1$s pixels"
+msgstr ""
+
+#: templates/adminpage/optionssmallscreens.php
+#, php-format
+msgid "Restrict square size to: %1$s pixels"
+msgstr ""
+
+#: templates/adminpage/optionssmallscreens.php
+#, php-format
+msgid ""
+"Chess diagrams will be displayed with a square size not larger than this "
+"value if the screen width is less than %1$s pixels, whatever the %2$sdefault "
+"aspect and behavior settings%3$s or the tag attributes that may be specified "
+"in the posts/pages. Diagrams for which the square size is less than this "
+"value will be displayed as they normally do on large screen devices."
+msgstr ""
+
+#: templates/adminpage/optionssmallscreens.php
+msgid "Always hide coordinates"
+msgstr ""
+
+#: templates/adminpage/optionssmallscreens.php
+#, php-format
+msgid ""
+"If enabled, row and column coordinates will be hidden if the screen width is "
+"less than %1$s pixels, whatever the %2$sdefault aspect and behavior settings"
+"%3$s or the tag attributes that may be specified in the posts/pages. If "
+"disabled, row and column coordinates will be displayed as they normally do "
+"on large screen devices."
+msgstr ""
+
+#: templates/adminpage/optionssmallscreens.php
+msgid "See explanations about theses settings above."
+msgstr ""
+
 #: templates/adminpage/optionsfooter.php
 msgid "Save changes"
 msgstr "Zapisz zmiany"
@@ -486,6 +548,13 @@ msgstr "Wielkość pola: %1$s pikseli"
 #: templates/adminpage/optionsgeneral.php
 msgid "Show coordinates"
 msgstr "Pokaż oznakowanie szachownicy literami i cyframi"
+
+#: templates/adminpage/optionsgeneral.php
+#, php-format
+msgid ""
+"Notice that specific chessboard aspect settings can be defined for %1$ssmall-"
+"screen devices%2$s (such as smartphones)."
+msgstr ""
 
 #: templates/adminpage/optionsgeneral.php templates/adminpage/helppgn.php
 msgid "Piece symbols"

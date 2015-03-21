@@ -2,22 +2,21 @@
 
 # Files to process
 files="bb.svg bk.svg bn.svg bp.svg bq.svg br.svg bx.svg wb.svg wk.svg wn.svg wp.svg wq.svg wr.svg wx.svg trash.png"
+output_dir=../../css/sprite
 
 # Sizes
-size_min=20
+size_min=12
 size_max=64
 
 # Loop over the files
+cd `dirname $0`
 for file in $files; do
 	echo "Processing file $file..."
 
 	# Build the output file name
 	extension=${file##*.}
 	base=${file%.*}
-	output=$base.png
-	if [ "$extension" == "png" ]; then
-		output=$base-all.png
-	fi
+	output=$output_dir/$base.png
 
 	# Size conversion
 	current_size=$size_min
@@ -34,7 +33,7 @@ for file in $files; do
 	small_size=`expr $size_max / 2`
 	medium_size=`expr $small_size + 1`
 	while [ $small_size -ge $size_min ]; do
-		convert -append tmp-$medium_size.png tmp-$small_size.png tmp-$medium_size-stack.png
+		convert -background '#ffffff00' -append tmp-$medium_size.png tmp-$small_size.png tmp-$medium_size-stack.png
 		small_size=`expr $small_size - 1`
 		medium_size=`expr $medium_size + 1`
 	done
@@ -47,7 +46,7 @@ for file in $files; do
 	done
 
 	# Merge all the stacked sprites
-	convert +append tmp-*-stack.png $output
+	convert -background '#ffffff00' +append tmp-*-stack.png $output
 
 	# Cleanup
 	rm tmp-*.png

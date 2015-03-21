@@ -49,6 +49,7 @@ class RPBChessboardControllerAdminPage extends RPBChessboardAbstractController
 			case 'update-options'            : $this->executeAction('PostOptions' , 'updateOptions'     ); break;
 			case 'reset-optionsgeneral'      : $this->executeAction('ResetOptions', 'resetGeneral'      ); break;
 			case 'reset-optionscompatibility': $this->executeAction('ResetOptions', 'resetCompatibility'); break;
+			case 'reset-optionssmallscreens' : $this->executeAction('ResetOptions', 'resetSmallScreens' ); break;
 			default: break;
 		}
 

@@ -44,6 +44,12 @@ class RPBChessboardModelShortcodePGNDiagram extends RPBChessboardAbstractModelSh
 			$this->diagramOptions = array();
 			$atts = $this->getAttributes();
 
+			// Orientation
+			$value = isset($atts['flip']) ? RPBChessboardHelperValidation::validateBoolean($atts['flip']) : null;
+			if(isset($value)) {
+				$this->diagramOptions['flip'] = $value;
+			}
+
 			// Square size
 			$value = isset($atts['square_size']) ? RPBChessboardHelperValidation::validateSquareSize($atts['square_size']) : null;
 			if(isset($value)) {

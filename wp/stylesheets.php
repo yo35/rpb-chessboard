@@ -51,5 +51,17 @@ abstract class RPBChessboardStyleSheets
 		else {
 			wp_enqueue_style('rpbchessboard-frontend', RPBCHESSBOARD_URL . 'css/frontend.css');
 		}
+
+
+		// Inlined CSS
+		add_action(is_admin() ? 'admin_print_footer_scripts' : 'wp_print_footer_scripts', array(__CLASS__, 'callbackInlinedStyleSheets'));
+	}
+
+
+	public static function callbackInlinedStyleSheets() {
+		$model = RPBChessboardHelperLoader::loadTrait('SmallScreens');
+		if($model->getSmallScreenCompatibility()) {
+			include(RPBCHESSBOARD_ABSPATH . 'templates/smallscreens.php');
+		}
 	}
 }

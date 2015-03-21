@@ -57,6 +57,18 @@ class RPBChessboardTraitResetOptions extends RPBChessboardAbstractTrait
 
 
 	/**
+	 * Reset the compatibility settings.
+	 *
+	 * @return string
+	 */
+	public function resetSmallScreens() {
+		delete_option('rpbchessboard_smallScreenCompatibility');
+		delete_option('rpbchessboard_smallScreenModes'        );
+		return self::resetMessage();
+	}
+
+
+	/**
 	 * Message returned by the reset methods.
 	 *
 	 * @return string
