@@ -39,10 +39,10 @@ registerException(RPBChess.exceptions.InvalidPGN, function(e) { return 'bad PGN 
  */
 function wrapGameResult(gameResult) {
 	switch(gameResult) {
-		case RPBChess.pgn.gameresult.WHITE_WINS: return '1-0';
-		case RPBChess.pgn.gameresult.DRAW      : return '1/2-1/2';
-		case RPBChess.pgn.gameresult.BLACK_WINS: return '0-1';
-		case RPBChess.pgn.gameresult.LINE      : return '*';
+		case RPBChess.pgn.gameresult.WHITE_WINS: return 'White wins';
+		case RPBChess.pgn.gameresult.DRAW      : return 'Draw';
+		case RPBChess.pgn.gameresult.BLACK_WINS: return 'Black wins';
+		case RPBChess.pgn.gameresult.LINE      : return 'Line';
 		default: return '&lt;unknown-result&gt;';
 	}
 }
@@ -65,9 +65,58 @@ function dumpPGNItem(pgnItem) {
 		res += key + ' = {' + pgnItem.header(key) + '}\n';
 	}
 
-	// TODO: dump the moves
+	// Recursive function to dump a variation.
+	function dumpVariation(variation, indent, indentFirst) {
 
-	// Dump the result.
+		// Variation header
+		res += indentFirst + '-+';
+		if(variation.isLongVariation()) {
+			res += '<LONG';
+		}
+		for(var k=0; k<variation.nags().length; ++k) {
+			res += ' $' + variation.nags()[k];
+		}
+		if(variation.comment() !== null) {
+			res += ' {' + variation.comment() + '}';
+			if(variation.isLongComment()) {
+				res += '<LONG';
+			}
+		}
+		res += '\n';
+
+		// List of moves
+		var node = variation.first();
+		while(node !== null) {
+
+			// Describe the move
+			res += indent + node.fullMoveNumber() + (node.moveColor()==='w' ? '.' : '...') + node.move();
+			for(var k=0; k<node.nags().length; ++k) {
+				res += ' $' + node.nags()[k];
+			}
+			if(node.comment() !== null) {
+				res += ' {' + node.comment() + '}';
+				if(node.isLongComment()) {
+					res += '<LONG';
+				}
+			}
+			res += '\n';
+
+			// Print the sub-variations
+			for(var k=0; k<node.variations(); ++k) {
+				res += indent + ' |\n';
+				dumpVariation(node.variation(k), indent + ' |  ', indent + ' +--');
+			}
+			if(node.variations()>0) {
+				res += indent + ' |\n';
+			}
+
+			// Go to the next move
+			node = node.next();
+		}
+	}
+
+	// Dump the moves and the result.
+	dumpVariation(pgnItem.mainVariation(), '', '');
 	res += '{' + wrapGameResult(pgnItem.result()) + '}\n';
 
 	return res;

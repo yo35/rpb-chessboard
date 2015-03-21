@@ -121,7 +121,7 @@
 		this._move = parent.position().notation(move);
 
 		// Position obtained after the current move.
-		this._position = new RPBChess(parent.position());
+		this._position = new RPBChess.Position(parent.position());
 		this._position.play(this._move);
 
 		// Full-move number

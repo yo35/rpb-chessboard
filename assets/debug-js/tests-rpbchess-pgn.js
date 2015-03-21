@@ -49,7 +49,22 @@ pgns.push({
 		'Black = {Player 2}\n' +
 		'Result = {*}\n' +
 		'White = {Player 1}\n' +
-		'{*}\n'
+		'{Line}\n'
+});
+
+pgns.push({
+	label: '2',
+	pgn:
+		'[White "Bill Gates"]\n' +
+		'[Black "Magnus Carlsen"]\n' +
+		'[Result "0-1"]\n' +
+		'1. e4 Nc6 2. Nf3 d5 3. Bd3 Nf6 4. exd5 Qxd5 5. Nc3 Qh5 6. O-O Bg4 ' +
+		'7. h3 Ne5 8. hxg4 Nfxg4 9. Nxe5 Qh2# 0-1\n',
+	dump: '\n' +
+		'Black = {Magnus Carlsen}\n' +
+		'Result = {0-1}\n' +
+		'White = {Bill Gates}\n' +
+		'{Black wins}\n'
 });
 
 
