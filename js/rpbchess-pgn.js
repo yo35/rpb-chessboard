@@ -739,7 +739,7 @@
 	// Public objects
 	// ---------------------------------------------------------------------------
 
-	RPBChess.exception.InvalidPGN = InvalidPGN;
+	RPBChess.exceptions.InvalidPGN = InvalidPGN;
 	RPBChess.pgn = {
 		Node     : Node     ,
 		Variation: Variation,
