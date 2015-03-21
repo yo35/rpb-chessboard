@@ -741,11 +741,12 @@
 
 	RPBChess.exceptions.InvalidPGN = InvalidPGN;
 	RPBChess.pgn = {
-		Node     : Node     ,
-		Variation: Variation,
-		Item     : Item     ,
-		parse    : parse    ,
-		parseOne : parseOne
+		Node      : Node      ,
+		Variation : Variation ,
+		Item      : Item      ,
+		gameresult: gameresult,
+		parse     : parse     ,
+		parseOne  : parseOne
 	};
 
 })( /* global RPBChess */ RPBChess );
