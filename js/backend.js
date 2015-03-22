@@ -117,15 +117,14 @@ var RPBChessboard = {};
 		if(typeof fen === 'string') {
 			cb.chessboard('option', 'position', fen);
 			$('#rpbchessboard-editFENDialog-turn-' + cb.chessboard('turn')).prop('checked', true);
-			var castleRights = cb.chessboard('castleRights');
-			$('#rpbchessboard-editFENDialog-castle-wk').prop('checked', castleRights.indexOf('K')>=0);
-			$('#rpbchessboard-editFENDialog-castle-wq').prop('checked', castleRights.indexOf('Q')>=0);
-			$('#rpbchessboard-editFENDialog-castle-bk').prop('checked', castleRights.indexOf('k')>=0);
-			$('#rpbchessboard-editFENDialog-castle-bq').prop('checked', castleRights.indexOf('q')>=0);
+			$('#rpbchessboard-editFENDialog-castle-wk').prop('checked', cb.chessboard('castleRights', 'w', 'k'));
+			$('#rpbchessboard-editFENDialog-castle-wq').prop('checked', cb.chessboard('castleRights', 'w', 'q'));
+			$('#rpbchessboard-editFENDialog-castle-bk').prop('checked', cb.chessboard('castleRights', 'b', 'k'));
+			$('#rpbchessboard-editFENDialog-castle-bq').prop('checked', cb.chessboard('castleRights', 'b', 'q'));
 			var enPassant = cb.chessboard('enPassant');
-			$('#rpbchessboard-editFENDialog-enPassant-' + (enPassant === '' ? 'disabled' : 'enabled')).prop('checked', true);
-			$('#rpbchessboard-editFENDialog-enPassant-column').prop('disabled', enPassant === '');
-			if(enPassant !== '') {
+			$('#rpbchessboard-editFENDialog-enPassant-' + (enPassant === '-' ? 'disabled' : 'enabled')).prop('checked', true);
+			$('#rpbchessboard-editFENDialog-enPassant-column').prop('disabled', enPassant === '-');
+			if(enPassant !== '-') {
 				$('#rpbchessboard-editFENDialog-enPassant-column').val(enPassant);
 			}
 		}
@@ -212,13 +211,13 @@ var RPBChessboard = {};
 										'</tr>' +
 										'<tr>' +
 											'<td><span class="rpbchessboard-editFENDialog-turnFlag uichess-chessboard-turnFlag uichess-chessboard-color-b uichess-chessboard-size28"></span></td>' +
-											'<td><input id="rpbchessboard-editFENDialog-castle-bq" type="checkbox" /></td>' +
-											'<td><input id="rpbchessboard-editFENDialog-castle-bk" type="checkbox" /></td>' +
+											'<td><input id="rpbchessboard-editFENDialog-castle-bq" type="checkbox" data-color="b" data-side="q" /></td>' +
+											'<td><input id="rpbchessboard-editFENDialog-castle-bk" type="checkbox" data-color="b" data-side="k" /></td>' +
 										'</tr>' +
 										'<tr>' +
 											'<td><span class="rpbchessboard-editFENDialog-turnFlag uichess-chessboard-turnFlag uichess-chessboard-color-w uichess-chessboard-size28"></span></td>' +
-											'<td><input id="rpbchessboard-editFENDialog-castle-wq" type="checkbox" /></td>' +
-											'<td><input id="rpbchessboard-editFENDialog-castle-wk" type="checkbox" /></td>' +
+											'<td><input id="rpbchessboard-editFENDialog-castle-wq" type="checkbox" data-color="w" data-side="q" /></td>' +
+											'<td><input id="rpbchessboard-editFENDialog-castle-wk" type="checkbox" data-color="w" data-side="k" /></td>' +
 										'</tr>' +
 									'</tbody></table>' +
 								'</div>' +
@@ -284,12 +283,7 @@ var RPBChessboard = {};
 		// Castle rights widgets
 		$('#rpbchessboard-editFENDialog-castleRights input').each(function(index, elem) {
 			$(elem).click(function() {
-				var castleRights = '';
-				if($('#rpbchessboard-editFENDialog-castle-wk').prop('checked')) { castleRights += 'K'; }
-				if($('#rpbchessboard-editFENDialog-castle-wq').prop('checked')) { castleRights += 'Q'; }
-				if($('#rpbchessboard-editFENDialog-castle-bk').prop('checked')) { castleRights += 'k'; }
-				if($('#rpbchessboard-editFENDialog-castle-bq').prop('checked')) { castleRights += 'q'; }
-				cb.chessboard('castleRights', castleRights);
+				cb.chessboard('castleRights', $(elem).data('color'), $(elem).data('side'), $(elem).prop('checked'));
 			});
 		});
 
@@ -297,7 +291,7 @@ var RPBChessboard = {};
 		var enPassantColumnChooser = $('#rpbchessboard-editFENDialog-enPassant-column');
 		$('#rpbchessboard-editFENDialog-enPassant-disabled').click(function() {
 			enPassantColumnChooser.prop('disabled', true);
-			cb.chessboard('enPassant', '');
+			cb.chessboard('enPassant', '-');
 		});
 		$('#rpbchessboard-editFENDialog-enPassant-enabled').click(function() {
 			enPassantColumnChooser.prop('disabled', false);
