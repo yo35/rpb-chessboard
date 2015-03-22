@@ -407,7 +407,8 @@
 	 * @returns {string}
 	 */
 	Item.prototype.header = function(key) {
-		return this._headers[key];
+		var retVal = this._headers[key];
+		return typeof retVal === 'string' ? retVal : null;
 	};
 
 

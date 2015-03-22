@@ -6,14 +6,14 @@
 	<title>Sandbox for uichess-chessgame.js (diagrams in comments)</title>
 
 	<!-- Third-party required components -->
-	<script type="text/javascript" src="../../third-party-libs/chess-js/chess.js"></script>
 	<script type="text/javascript" src="../../third-party-libs/moment-js/moment.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 	<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
 
 	<!-- Other required components -->
-	<script type="text/javascript" src="../../js/pgn.js"></script>
+	<script type="text/javascript" src="../../js/rpbchess.js"></script>
+	<script type="text/javascript" src="../../js/rpbchess-pgn.js"></script>
 	<script type="text/javascript" src="../../js/uichess-chessboard.js"></script>
 	<link rel="stylesheet" type="text/css" href="../../css/uichess-chessboard.css" />
 
@@ -64,7 +64,7 @@
 		$('.color-button').click(function() { $('#container').toggleClass('colored'); });
 
 		// Create a widget on #a.
-		$('#a').chessgame({ navigationBoard: 'frame', diagramOptions: { squareSize: 40 }, flip: true, pgn:
+		$('#a').chessgame({ navigationBoard: 'frame', diagramOptions: {squareSize:40, flip:true}, pgn:
 			'[White "Bill Gates"]\n' +
 			'[Black "Magnus Carlsen"]\n' +
 			'[Result "0-1"]\n' +

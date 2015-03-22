@@ -22,9 +22,8 @@
 /**
  * jQuery widget to display a chess game.
  *
- * @author Yoann Le Montagner
- *
- * @requires pgn.js
+ * @requires rpbchess.js
+ * @requires rpbchess-pgn.js
  * @requires uichess-chessboard.js
  * @requires Moment.js {@link http://momentjs.com/}
  * @requires jQuery
@@ -33,7 +32,7 @@
  * @requires jQuery UI Dialog (optional, only if the framed navigation board feature is enabled)
  * @requires jQuery UI Resizable (optional, only if the framed navigation board feature is enabled)
  */
-(function(Pgn, $, moment)
+(function(RPBChess, $, moment)
 {
 	'use strict';
 
@@ -150,17 +149,17 @@
 	 * Convert a PGN result field value into a human-readable string.
 	 * Return null if the special code "*" is detected.
 	 *
-	 * @param {string} result Value of a PGN result field.
+	 * @param {number} result Game result code (see `RPBChess.pgn.gameresult`).
 	 * @returns {string}
 	 */
 	function formatResult(result)
 	{
 		switch(result) {
-			case null: case '*': return null;
-			case '1/2-1/2':      return '&#189;&#8211;&#189;';
-			case '1-0':          return '1&#8211;0';
-			case '0-1':          return '0&#8211;1';
-			default:             return result;
+			case RPBChess.pgn.gameresult.LINE      : return null;
+			case RPBChess.pgn.gameresult.DRAW      : return '&#189;&#8211;&#189;';
+			case RPBChess.pgn.gameresult.WHITE_WINS: return '1&#8211;0';
+			case RPBChess.pgn.gameresult.BLACK_WINS: return '0&#8211;1';
+			default: return result;
 		}
 	}
 
@@ -406,7 +405,7 @@
 
 		/**
 		 * Hold the parsed information about the displayed chess game.
-		 * @type {Pgn.Item}
+		 * @type {RPBChess.pgn.Item}
 		 */
 		_game: null,
 
@@ -512,7 +511,7 @@
 
 
 		/**
-		 * Initialize the internal Pgn.Item object that contains the parsed PGN data.
+		 * Initialize the internal `RPBChess.pgn.Item` object that contains the parsed PGN data.
 		 *
 		 * @param {string} pgn
 		 * @returns {string}
@@ -529,10 +528,10 @@
 
 			// Parse the input assuming a PGN format.
 			try {
-				this._game = Pgn.parseOne(pgn);
+				this._game = RPBChess.pgn.parseOne(pgn);
 			}
 			catch(error) {
-				if(error instanceof Pgn.Error) { // Parsing errors are reported to the user.
+				if(error instanceof RPBChess.exceptions.InvalidPGN) { // Parsing errors are reported to the user.
 					this._game = error;
 				}
 				else { // Unknown exceptions are re-thrown.
@@ -630,7 +629,7 @@
 			}
 
 			// Handle parsing error problems.
-			if(this._game instanceof Pgn.Error) {
+			if(this._game instanceof RPBChess.exceptions.InvalidPGN) {
 				$(this._buildErrorMessage()).appendTo(this.element);
 				return;
 			}
@@ -791,14 +790,14 @@
 			}
 
 			// Display where the error has occurred.
-			if(this._game.pos !== null && this._game.pos >= 0) {
+			if(this._game.index !== null && this._game.index >= 0) {
 				retVal += '<div class="uichess-chessgame-errorAt">';
-				if(this._game.pos >= this._game.pgnString.length) {
+				if(this._game.index >= this._game.pgn.length) {
 					retVal += 'Occurred at the end of the string.';
 				}
 				else {
-					retVal += 'Occurred at position ' + this._game.pos + ':' + '<div class="uichess-chessgame-errorAtCode">' +
-						ellipsisAt(this._game.pgnString, this._game.pos, 10, 40) + '</div>';
+					retVal += 'Occurred at position ' + this._game.index + ':' + '<div class="uichess-chessgame-errorAtCode">' +
+						ellipsisAt(this._game.pgn, this._game.index, 10, 40) + '</div>';
 				}
 				retVal += '</div>';
 			}
@@ -939,7 +938,7 @@
 		/**
 		 * Build the move tree corresponding to the given variation.
 		 *
-		 * @param {Pgn.Variation} variation
+		 * @param {RPBChess.pgn.Variation} variation
 		 * @param {boolean} isMainVariation
 		 * @param {null|string} result Must be set to null for sub-variations.
 		 * @returns {string|{content:string, divCount:number}} The second form is only used for the main variation.
@@ -1012,16 +1011,17 @@
 
 				// Write the sub-variations.
 				var nonEmptySubVariations = 0;
-				for(var k=0; k<node.variations(); ++k) {
-					var subVariation = this._buildVariation(node.variation(k), false, null);
-					if(subVariation !== '') {
-						if(node.variation(k).isLongVariation()) {
+				var subVariations = node.variations();
+				for(var k=0; k<subVariations.length; ++k) {
+					var subVariationText = this._buildVariation(subVariations[k], false, null);
+					if(subVariationText !== '') {
+						if(subVariations[k].isLongVariation()) {
 							closeMoveGroup();
 							++divCount;
 						} else {
 							openMoveGroup();
 						}
-						retVal += subVariation;
+						retVal += subVariationText;
 						++nonEmptySubVariations;
 					}
 				}
@@ -1047,13 +1047,13 @@
 		/**
 		 * Build the DOM node corresponding to the given text comment.
 		 *
-		 * @param {Pgn.Node|Pgn.Variation} node
+		 * @param {RPBChess.pgn.Node|RPBChess.pgn.Variation} node
 		 * @returns {string}
 		 */
 		_buildComment: function(node)
 		{
 			var tag = node.isLongComment() ? 'div' : 'span';
-			return '<' + tag + ' class="uichess-chessgame-comment" data-position="' + node.position() + '">' +
+			return '<' + tag + ' class="uichess-chessgame-comment" data-position="' + node.position().fen() + '">' +
 				node.comment() + '</' + tag + '>';
 		},
 
@@ -1061,14 +1061,14 @@
 		/**
 		 * Build the DOM node corresponding to the given move (move number, SAN notation, NAGs).
 		 *
-		 * @param {Pgn.Node} node
+		 * @param {RPBChess.pgn.Node} node
 		 * @param {boolean} forcePrintMoveNumber
 		 * @returns {string}
 		 */
 		_buildMove: function(node, forcePrintMoveNumber)
 		{
 			// Create the DOM node.
-			var retVal = '<span class="uichess-chessgame-move" data-position="' + node.position() + '">';
+			var retVal = '<span class="uichess-chessgame-move" data-position="' + node.position().fen() + '">';
 
 			// Move number
 			var printMoveNumber = forcePrintMoveNumber || node.moveColor() === 'w';
@@ -1104,7 +1104,7 @@
 		_buildInitialMove: function()
 		{
 			return '<div class="uichess-chessgame-move uichess-chessgame-initialMove" ' +
-				'data-position="' + this._game.initialPosition() + '">' + $.chessgame.i18n.INITIAL_POSITION + '</div>';
+				'data-position="' + this._game.initialPosition().fen() + '">' + $.chessgame.i18n.INITIAL_POSITION + '</div>';
 		},
 
 
@@ -1279,4 +1279,4 @@
 		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonLast').click(function(event) { event.preventDefault(); callback('goLastMove'    ); });
 	}
 
-})(/* global Pgn */ Pgn, /* global jQuery */ jQuery, /* global moment */ moment);
+})(/* global RPBChess */ RPBChess, /* global jQuery */ jQuery, /* global moment */ moment);
