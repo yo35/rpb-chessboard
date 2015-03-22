@@ -22,16 +22,14 @@
 /**
  * jQuery widget to create chess diagrams.
  *
- * @author Yoann Le Montagner
- *
- * @requires chess.js {@link https://github.com/jhlywa/chess.js}
+ * @requires rpbchess.js
  * @requires jQuery
  * @requires jQuery UI Widget
  * @requires jQuery UI Selectable
  * @requires jQuery UI Draggable (optional, only if the moveable piece feature is enabled)
  * @requires jQuery UI Droppable (optional, only if the moveable piece feature is enabled)
  */
-(function(Chess, $)
+(function(RPBChess, $)
 {
 	'use strict';
 
@@ -101,7 +99,7 @@
 			/**
 			 * String describing the chess position (FEN format).
 			 */
-			position: '8/8/8/8/8/8/8/8 w - - 0 1',
+			position: 'empty',
 
 			/**
 			 * Whether the chessboard is flipped or not.
@@ -137,7 +135,7 @@
 
 		/**
 		 * The chess position.
-		 * @type {Chess}
+		 * @type {RPBChess.Position}
 		 */
 		_position: null,
 
@@ -185,7 +183,7 @@
 
 
 		/**
-		 * Initialize the internal `Chess` object with the given FEN string.
+		 * Initialize the internal `RPBChess.Position` object with the given FEN string.
 		 *
 		 * @returns {string}
 		 */
@@ -194,14 +192,8 @@
 			// Trim the input.
 			fen = fen.replace(/^\s+|\s+$/g, '');
 
-			// Convert the special input values into FEN.
-			switch(fen) {
-				case 'start': fen='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'; break;
-				case 'empty': fen='8/8/8/8/8/8/8/8 w - - 0 1'; break;
-			}
-
 			// Parse the FEN string.
-			this._position = new Chess(fen);
+			this._position = new RPBChess.Position(fen);
 			fen = this._position.fen();
 
 			// Return the validated FEN string.
@@ -212,37 +204,21 @@
 		/**
 		 * Get or set the turn flag.
 		 *
-		 * @param {string} turn 'w' or 'b' (or nothing to get the current value).
+		 * @param {string} value 'w' or 'b' (or nothing to get the current value).
 		 * @returns {undefined|string}
 		 */
-		turn: function(turn)
-		{
-			// No value passed, act as a getter.
-			if(turn===undefined) {
+		turn: function(value) {
+			if(typeof value === 'undefined' || value === null) {
 				return this._position.turn();
 			}
-
-			// Otherwise, act as a setter.
-			else {
-				if(turn !== 'w' && turn !== 'b') {
-					return;
-				}
-
-				// Compose the new FEN string.
-				var fields = this.options.position.split(/\s+/);
-				if(fields[1] === turn) {
-					return;
-				}
-				fields[1] = turn;
-				if(fields[3].length === 2) { // update the "en-passant" field if necessary
-					fields[3] = fields[3].charAt(0) + (turn === 'w' ? '6' : '3');
-				}
-				var newFEN = fields.join(' ');
+			else if(value !== this._position.turn()) {
+				this._position.turn(value);
+				this.options.position = this._position.fen();
 
 				// Update the widget.
 				$('.uichess-chessboard-turnFlag', this.element).toggleClass('uichess-chessboard-inactiveFlag');
-				this._position = new Chess(newFEN);
-				this.options.position = this._position.fen();
+
+				// Notify the listeners.
 				this._trigger('change', null, this.options.position);
 			}
 		},
@@ -251,32 +227,20 @@
 		/**
 		 * Get or set the castle right flags.
 		 *
-		 * @param {string} castleRights 'K', 'Q', 'k', 'q', or a combination of these flags (or nothing to get the current value).
-		 * @returns {undefined|string}
+		 * @param {string} color Either 'w' or 'b'.
+		 * @param {string} side Either 'k' or 'q'.
+		 * @param {boolean?} value Nothing to get the current value.
+		 * @returns {undefined|boolean}
 		 */
-		castleRights: function(castleRights)
-		{
-			var fields = this.options.position.split(/\s+/);
-			var currentCastleRights = fields[2] === '-' ? '' : fields[2];
-
-			// No value passed, act as a getter.
-			if(castleRights===undefined) {
-				return currentCastleRights;
+		castleRights: function(color, side, value) {
+			if(typeof value === 'undefined' || value === null) {
+				return this._position.castleRights(color, side);
 			}
-
-			// Otherwise, act as a setter.
-			else {
-				if(castleRights === currentCastleRights || !castleRights.match(/^K?Q?k?q?$/)) {
-					return;
-				}
-
-				// Compose the new FEN string.
-				fields[2] = castleRights === '' ? '-' : castleRights;
-				var newFEN = fields.join(' ');
-
-				// Update the widget.
-				this._position = new Chess(newFEN);
+			else if(value !== this._position.castleRights(color, side)) {
+				this._position.castleRights(color, side, value);
 				this.options.position = this._position.fen();
+
+				// Notify the listeners.
 				this._trigger('change', null, this.options.position);
 			}
 		},
@@ -285,32 +249,18 @@
 		/**
 		 * Get or set the "en-passant" flag.
 		 *
-		 * @param {string} enPassant 'a', 'b', ... , 'h', or '' (or nothing to get the current value).
+		 * @param {string} value 'a', 'b', ... , 'h', or '-' (or nothing to get the current value).
 		 * @returns {undefined|string}
 		 */
-		enPassant: function(enPassant)
-		{
-			var fields = this.options.position.split(/\s+/);
-			var currentEnPassant = fields[3].length === 2 ? fields[3].charAt(0) : '';
-
-			// No value passed, act as a getter.
-			if(enPassant===undefined) {
-				return currentEnPassant;
+		enPassant: function(value) {
+			if(typeof value === 'undefined' || value === null) {
+				return this._position.enPassant();
 			}
-
-			// Otherwise, act as a setter.
-			else {
-				if(enPassant === currentEnPassant || !currentEnPassant.match(/^[a-h]?$/)) {
-					return;
-				}
-
-				// Compose the new FEN string.
-				fields[3] = enPassant === '' ? '-' : (enPassant + (fields[1] === 'w' ? '6' : '3'));
-				var newFEN = fields.join(' ');
-
-				// Update the widget.
-				this._position = new Chess(newFEN);
+			else if(value !== this._position.enPassant()) {
+				this._position.enPassant(value);
 				this.options.position = this._position.fen();
+
+				// Notify the listeners.
 				this._trigger('change', null, this.options.position);
 			}
 		},
@@ -422,11 +372,12 @@
 				// Print the squares belonging to the current column.
 				for(var c=0; c<8; ++c) {
 					var sq = COLUMNS[c] + ROWS[r];
-					var cp = this._position.get(sq);
+					var cp = this._position.square(sq);
+					var squareColor = RPBChess.squareColor(sq) === 'w' ? 'light' : 'dark';
 					content += '<div class="uichess-chessboard-cell uichess-chessboard-square uichess-chessboard-size' + SQUARE_SIZE +
-						' uichess-chessboard-' + this._position.square_color(sq) + 'Square">'; /* jshint ignore:line */
-					if(cp !== null) {
-						content += '<div class="uichess-chessboard-piece uichess-chessboard-piece-' + cp.type +
+						' uichess-chessboard-' + squareColor + 'Square">';
+					if(cp !== '-') {
+						content += '<div class="uichess-chessboard-piece uichess-chessboard-piece-' + cp.piece +
 							' uichess-chessboard-color-' + cp.color + ' uichess-chessboard-size' + SQUARE_SIZE + '"></div>';
 					}
 					content += '</div>';
@@ -550,24 +501,23 @@
 
 
 		/**
-		 * Tag each spare piece of the chessboard with its name (for instance: `{type: 'k', color: 'b'}`).
+		 * Tag each spare piece of the chessboard with its name (for instance: `{piece: 'k', color: 'b'}`).
 		 * The name of the piece is then available through:
 		 *
 		 *   $(e).data('piece');
 		 *
 		 * Where `e` is a DOM object with the class `uichess-chessboard-sparePiece`.
 		 */
-		_tagSparePieces: function()
-		{
-			var TYPES  = 'pnbrqk';
+		_tagSparePieces: function() {
+			var PIECES = 'pnbrqk';
 			var COLORS = this.options.flip ? 'wb' : 'bw';
-			var t = 0;
+			var p = 0;
 			var c = 0;
 			$('.uichess-chessboard-sparePiece', this.element).each(function() {
-				$(this).data('piece', { type: TYPES[t], color: COLORS[c] });
-				++t;
-				if(t === 6) {
-					t = 0;
+				$(this).data('piece', { piece: PIECES[p], color: COLORS[c] });
+				++p;
+				if(p === 6) {
+					p = 0;
 					++c;
 				}
 			});
@@ -608,8 +558,8 @@
 
 					// The draggable is a spare piece.
 					if(movingPiece.hasClass('uichess-chessboard-sparePiece')) {
-						var piece = ui.draggable.data('piece');
-						obj._doAddSparePiece(target.data('square'), {type: piece.type, color: piece.color}, target);
+						var value = ui.draggable.data('piece');
+						obj._doAddSparePiece(target.data('square'), {piece: value.piece, color: value.color}, target);
 					}
 
 					// The draggable is a piece from the board.
@@ -687,47 +637,47 @@
 		 * @param {jQuery} movingPiece DOM node representing the moving piece.
 		 * @param {jQuery} target DOM node representing the destination square.
 		 */
-		_doMove: function(move, movingPiece, target)
-		{
+		_doMove: function(move, movingPiece, target) {
+
 			// "All moves" mode -> move the moving piece to its destination square,
 			// clearing the latter beforehand if necessary.
 			if(this.options.allowMoves === 'all') {
-				this._position.put(this._position.remove(move.from), move.to);
+				this._position.square(move.to, this._position.square(move.from));
+				this._position.square(move.from, '-');
 				target.empty().append(movingPiece);
 			}
 
 			// "Legal moves" mode -> check if the proposed move is legal, and handle
 			// the special situations (promotion, castle, en-passant...) that may be encountered.
 			else if(this.options.allowMoves === 'legal') {
-				var newMove = this._position.move(move);
-				if(newMove === null) {
+				var moveDescriptor = this._position.isMoveLegal(move);
+				if(moveDescriptor === false) {
 					move.promotion = 'q'; // TODO: allow other types of promoted pieces.
-					newMove = this._position.move(move);
-					if(newMove === null) {
+					moveDescriptor = this._position.isMoveLegal(move);
+					if(moveDescriptor === false) {
 						return;
 					}
 				}
-				move = newMove;
+				this._position.play(moveDescriptor);
 
 				// Move the moving piece to its destination square.
 				target.empty().append(movingPiece);
 
 				// Castling move -> move the rook.
-				if(move.flags.indexOf('k') >= 0 || move.flags.indexOf('q') >= 0) {
-					var row   = move.color === 'w' ? '1' : '8';
-					var rookFrom = this._fetchSquare((move.flags.indexOf('k') >= 0 ? 'h' : 'a') + row);
-					var rookTo   = this._fetchSquare((move.flags.indexOf('k') >= 0 ? 'f' : 'd') + row);
+				if(moveDescriptor.type() === RPBChess.movetype.CASTLING_MOVE) {
+					var rookFrom = this._fetchSquare(moveDescriptor.rookFrom());
+					var rookTo   = this._fetchSquare(moveDescriptor.rookTo());
 					rookTo.empty().append($('.uichess-chessboard-piece', rookFrom));
 				}
 
 				// En-passant move -> remove the taken pawn.
-				if(move.flags.indexOf('e') >= 0) {
-					this._fetchSquare(move.to[0] + move.from[1]).empty();
+				if(moveDescriptor.type() === RPBChess.movetype.EN_PASSANT_CAPTURE) {
+					this._fetchSquare(moveDescriptor.enPassantSquare()).empty();
 				}
 
 				// Promotion move -> change the type of the promoted piece.
-				if(move.flags.indexOf('p') >= 0) {
-					movingPiece.removeClass('uichess-chessboard-piece-p').addClass('uichess-chessboard-piece-' + move.promotion);
+				if(moveDescriptor.type() === RPBChess.movetype.PROMOTION) {
+					movingPiece.removeClass('uichess-chessboard-piece-p').addClass('uichess-chessboard-piece-' + moveDescriptor.promotion());
 				}
 
 				// Switch the turn flag.
@@ -745,16 +695,16 @@
 		 * Called when a spare piece is dropped on a square.
 		 *
 		 * @param {string} square The name of the square on which the piece is dropped.
-		 * @param {{type: string, color: string}} piece The dropped piece.
+		 * @param {{piece: string, color: string}} value The dropped piece.
 		 * @param {jQuery} target DOM node representing the targeted square.
 		 */
-		_doAddSparePiece: function(square, piece, target)
-		{
+		_doAddSparePiece: function(square, value, target) {
+
 			// Update the internal chess object.
-			this._position.put(piece, square);
+			this._position.square(square, value);
 
 			// Update the DOM tree.
-			$('<div class="uichess-chessboard-piece uichess-chessboard-piece-' + piece.type + ' uichess-chessboard-color-' + piece.color +
+			$('<div class="uichess-chessboard-piece uichess-chessboard-piece-' + value.piece + ' uichess-chessboard-color-' + value.color +
 				' uichess-chessboard-size' + this.options.squareSize + '"></div>').appendTo(target.empty());
 
 			// Make the new piece draggable if necessary.
@@ -764,7 +714,7 @@
 
 			// Refresh the FEN string coding the position, and trigger the 'add' event.
 			this.options.position = this._position.fen();
-			this._trigger('add', null, {square: square, piece: piece});
+			this._trigger('add', null, {square: square, piece: value});
 			this._trigger('change', null, this.options.position);
 		},
 
@@ -776,10 +726,10 @@
 		 * @param {jQuery} movingPiece DOM node representing the moving piece.
 		 * @param {jQuery} target DOM node representing the trash.
 		 */
-		_doRemovePiece: function(square, movingPiece, target)
-		{
+		_doRemovePiece: function(square, movingPiece, target) {
+
 			// Update the internal chess object.
-			this._position.remove(square);
+			this._position.square(square, '-');
 
 			// Update the DOM tree. The moving piece must not be directly deleted in order
 			// to complete the drag process.
@@ -793,4 +743,4 @@
 
 	}); /* $.widget('uichess.chessboard', { ... }) */
 
-})( /* global Chess */ Chess, /* global jQuery */ jQuery );
+})( /* global RPBChess */ RPBChess, /* global jQuery */ jQuery );
