@@ -137,11 +137,12 @@ function dumpPGNItem(pgnItem) {
 			res += '\n';
 
 			// Print the sub-variations
-			for(var k=0; k<node.variations(); ++k) {
+			var subVariations = node.variations();
+			for(var k=0; k<subVariations.length; ++k) {
 				res += indent + ' |\n';
-				dumpVariation(node.variation(k), indent + ' |  ', indent + ' +--');
+				dumpVariation(subVariations[k], indent + ' |  ', indent + ' +--');
 			}
-			if(node.variations()>0) {
+			if(subVariations.length > 0) {
 				res += indent + ' |\n';
 			}
 
