@@ -54,6 +54,10 @@
 	<div id="e4"></div>
 	<div id="e5"></div>
 
+	<hr/>
+
+	<div id="f"></div>
+
 	<script type="text/javascript">
 
 		/* global $ */
@@ -133,6 +137,12 @@
 		$('#e3').chessgame({ navigationBoard: 'frame', pgn: pgn, pieceSymbols: ':merida'  });
 		$('#e4').chessgame({ navigationBoard: 'frame', pgn: pgn, pieceSymbols: ':pirat'   });
 		$('#e5').chessgame({ navigationBoard: 'frame', pgn: pgn, pieceSymbols: '(abcdef)' });
+
+		// Parsing error message
+		$('#f').chessgame({ pgn:
+			'[Event "Game with badly formatted move"]\n' +
+			'1.e4 e5 2.Nf4 *'
+		});
 
 	</script>
 
