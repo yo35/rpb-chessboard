@@ -66,6 +66,7 @@ MSGFMT        = msgfmt -v
 JSHINT        = jshint
 UGLIFYJS      = uglifyjs
 UGLIFYJS_ARGS = -c -nc
+STATISTICS    = ./assets/dev-tools/statistics.sh
 COLOR_IN      = \033[34;1m
 COLOR_OUT     = \033[0m
 COLOR_ARG_IN  = \033[31m
@@ -170,10 +171,21 @@ pack: i18n-compile js-minify
 	@$(ECHO) "$(COLOR_IN)$(DEPLOYMENT_FILE) updated$(COLOR_OUT)"
 
 
+# Statistics on source code
+stats:
+	@$(ECHO)
+	@$(ECHO) "$(COLOR_IN)JavaScript source code$(COLOR_OUT)"
+	@$(STATISTICS) $(JS_FILES)
+	@$(ECHO)
+	@$(ECHO) "$(COLOR_IN)PHP source code$(COLOR_OUT)"
+	@$(STATISTICS) $(PHP_FILES)
+	@$(ECHO)
+
+
 # Clean the automatically generated files
 clean:
 	@rm -rf $(TEMPORARY_FOLDER) $(DEPLOYMENT_FILE) $(I18N_MO_FILES) $(JS_MINIFIED_FILES)
 
 
 # Make's stuff
-.PHONY: help i18n-extract i18n-merge i18n-compile js-lint js-minify pack clean
+.PHONY: help i18n-extract i18n-merge i18n-compile js-lint js-minify pack stats clean
