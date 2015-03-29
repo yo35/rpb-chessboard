@@ -71,20 +71,25 @@ COLOR_IN      = \033[34;1m
 COLOR_OUT     = \033[0m
 COLOR_ARG_IN  = \033[31m
 COLOR_ARG_OUT = \033[34m
+COLOR_ITEM_IN = \033[35;1m
+COLOR_ITEM_OUT= \033[0m
 
 
 # Help notice
 all: help
 help:
-	@$(ECHO) "Available commands:"
-	@$(ECHO) " * make i18n-extract: extract the strings to translate."
-	@$(ECHO) " * make i18n-merge: merge the translation files (*.po) with the template (.pot)."
-	@$(ECHO) " * make i18n-compile: compile the translation files (*.po) into binaries (*.mo)."
-	@$(ECHO) " * make js-lint: run the static analysis of JavaScript files."
-	@$(ECHO) " * make js-minify: run the JavaScript minifier tool on JavaScript files."
-	@$(ECHO) " * make pack: pack the source files into a zip file, ready for WordPress deployment."
-	@$(ECHO) " * make clean: remove the automatically generated files."
-	@$(ECHO) " * make help: show this help."
+	@$(ECHO)
+	@$(ECHO) "$(COLOR_IN)Available commands:$(COLOR_OUT)"
+	@$(ECHO) " * make $(COLOR_ITEM_IN)i18n-extract$(COLOR_ITEM_OUT): extract the strings to translate."
+	@$(ECHO) " * make $(COLOR_ITEM_IN)i18n-merge$(COLOR_ITEM_OUT): merge the translation files (*.po) with the template (.pot)."
+	@$(ECHO) " * make $(COLOR_ITEM_IN)i18n-compile$(COLOR_ITEM_OUT): compile the translation files (*.po) into binaries (*.mo)."
+	@$(ECHO) " * make $(COLOR_ITEM_IN)js-lint$(COLOR_ITEM_OUT): run the static analysis of JavaScript files."
+	@$(ECHO) " * make $(COLOR_ITEM_IN)js-minify$(COLOR_ITEM_OUT): run the JavaScript minifier tool on JavaScript files."
+	@$(ECHO) " * make $(COLOR_ITEM_IN)pack$(COLOR_ITEM_OUT): pack the source files into a zip file, ready for WordPress deployment."
+	@$(ECHO) " * make $(COLOR_ITEM_IN)stats$(COLOR_ITEM_OUT): display some source code metrics."
+	@$(ECHO) " * make $(COLOR_ITEM_IN)clean$(COLOR_ITEM_OUT): remove the automatically generated files."
+	@$(ECHO) " * make $(COLOR_ITEM_IN)help$(COLOR_ITEM_OUT): show this help."
+	@$(ECHO)
 
 
 
