@@ -92,6 +92,10 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 == Changelog ==
 
+= 3.6 (March 29, 2015) =
+* Significant code refactoring of the JavaScript chess library: do not use chess.js anymore.
+* Improve FEN/PGN parsing error messages (see issue #11).
+
 = 3.5.1 (March 15, 2015) =
 * Fix: make `flip` attribute work on tag `[pgndiagram]` (see issue #32).
 
