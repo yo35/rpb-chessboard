@@ -28,9 +28,10 @@
 		<div style="width: 30%;">
 			<form>
 				<p>
-					<input id="make-empty"  type="button" value="Empty position"  /><br/>
-					<input id="make-start"  type="button" value="Start position"  /><br/>
-					<input id="make-custom" type="button" value="Custom position" />
+					<input id="make-empty"   type="button" value="Empty position"  /><br/>
+					<input id="make-start"   type="button" value="Start position"  /><br/>
+					<input id="make-custom"  type="button" value="Custom position" /><br/>
+					<input id="make-bad-fen" type="button" value="Bad FEN"         />
 				</p>
 				<p>
 					<input id="flip" type="checkbox" />
@@ -57,9 +58,10 @@
 
 		$('#a').chessboard({ position: 'start' });
 
-		$('#make-empty' ).button().click(function() { $('#a').chessboard('option', 'position', 'empty'); });
-		$('#make-start' ).button().click(function() { $('#a').chessboard('option', 'position', 'start'); });
-		$('#make-custom').button().click(function() { $('#a').chessboard('option', 'position', '8/8/8/8/8/4k3/q7/4K3 b - - 0 1'); });
+		$('#make-empty'  ).button().click(function() { $('#a').chessboard('option', 'position', 'empty'); });
+		$('#make-start'  ).button().click(function() { $('#a').chessboard('option', 'position', 'start'); });
+		$('#make-custom' ).button().click(function() { $('#a').chessboard('option', 'position', '8/8/8/8/8/4k3/q7/4K3 b - - 0 1'); });
+		$('#make-bad-fen').button().click(function() { $('#a').chessboard('option', 'position', '8/k1b/8/8/8/4k3/q7/4K3 b - - 0 1'); });
 
 		$('#flip').prop('checked', $('#a').chessboard('option', 'flip')).button().click(function() {
 			$('#a').chessboard('option', 'flip', $('#flip').prop('checked'));

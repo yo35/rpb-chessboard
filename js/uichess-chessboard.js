@@ -193,8 +193,19 @@
 			fen = fen.replace(/^\s+|\s+$/g, '');
 
 			// Parse the FEN string.
-			this._position = new RPBChess.Position(fen);
-			fen = this._position.fen();
+			try {
+				this._position = new RPBChess.Position(fen);
+				fen = this._position.fen();
+			}
+			catch(e) {
+				if(e instanceof RPBChess.exceptions.InvalidFEN) {
+					this._position = e;
+				}
+				else {
+					this._position = null;
+					throw e;
+				}
+			}
 
 			// Return the validated FEN string.
 			return fen;
@@ -314,10 +325,51 @@
 
 
 		/**
+		 * Destroy the widget content, prior to a refresh or a widget destruction.
+		 */
+		_destroyContent: function() {
+			this.element.empty();
+		},
+
+
+		/**
+		 * Build the error message resulting from a FEN parsing error.
+		 *
+		 * @returns {string}
+		 */
+		_buildErrorMessage: function() {
+
+			// Build the error report box.
+			var retVal = '<div class="uichess-chessboard-error">' +
+				'<div class="uichess-chessboard-errorTitle">Error while analysing a FEN string.</div>';
+
+			// Optional message.
+			if(this._position.message !== null) {
+				retVal += '<div class="uichess-chessboard-errorMessage">' + this._position.message + '</div>';
+			}
+
+			// Close the error report box, and return the result.
+			retVal += '</div>';
+			return retVal;
+		},
+
+
+		/**
 		 * Refresh the widget.
 		 */
 		_refresh: function()
 		{
+			this._destroyContent();
+			if(this._position === null) {
+				return;
+			}
+
+			// Handle parsing error problems.
+			if(this._position instanceof RPBChess.exceptions.InvalidFEN) {
+				$(this._buildErrorMessage()).appendTo(this.element);
+				return;
+			}
+
 			// Aliases
 			var ROWS         = this.options.flip ? '12345678' : '87654321';
 			var COLUMNS      = this.options.flip ? 'hgfedcba' : 'abcdefgh';
@@ -453,8 +505,7 @@
 			// Close the "table" node.
 			content += '</div>';
 
-			// Clear the target node and render its content.
-			this.element.empty();
+			// Render the content.
 			$(content).appendTo(this.element);
 
 			// Enable the drag & drops feature if necessary.

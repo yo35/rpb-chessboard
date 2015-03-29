@@ -19,6 +19,36 @@
  ******************************************************************************/
 
 
+/* -------------------------------------------------------------------------- */
+/* Parsing error box */
+/* -------------------------------------------------------------------------- */
+
+.uichess-chessboard-error {
+	text-align: left;
+	font-family: sans-serif;
+	font-size: 12px;
+	line-height: 1.3em;
+	color: #800;
+	background-color: #fdd;
+	border: solid 1px #c00;
+	padding: 0.75em;
+}
+
+.uichess-chessboard-errorTitle {
+	font-weight: bold;
+	font-style: italic;
+}
+
+.uichess-chessboard-errorMessage {
+	margin-top: 0.4em;
+}
+
+
+
+/* -------------------------------------------------------------------------- */
+/* Chessboard widget */
+/* -------------------------------------------------------------------------- */
+
 .uichess-chessboard {
 	display: block;
 	text-align: center;
