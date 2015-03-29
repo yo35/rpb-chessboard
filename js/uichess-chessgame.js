@@ -149,16 +149,16 @@
 	 * Convert a PGN result field value into a human-readable string.
 	 * Return null if the special code "*" is detected.
 	 *
-	 * @param {number} result Game result code (see `RPBChess.pgn.gameresult`).
+	 * @param {string} result PGN-like game result code.
 	 * @returns {string}
 	 */
 	function formatResult(result)
 	{
 		switch(result) {
-			case RPBChess.pgn.gameresult.LINE      : return null;
-			case RPBChess.pgn.gameresult.DRAW      : return '&#189;&#8211;&#189;';
-			case RPBChess.pgn.gameresult.WHITE_WINS: return '1&#8211;0';
-			case RPBChess.pgn.gameresult.BLACK_WINS: return '0&#8211;1';
+			case '*'      : return null;
+			case '1/2-1/2': return '&#189;&#8211;&#189;';
+			case '1-0'    : return '1&#8211;0';
+			case '0-1'    : return '0&#8211;1';
 			default: return result;
 		}
 	}

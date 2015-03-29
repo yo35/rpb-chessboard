@@ -70,10 +70,10 @@ function checkInvalidPGN(code) {
  */
 function wrapGameResult(gameResult) {
 	switch(gameResult) {
-		case RPBChess.pgn.gameresult.WHITE_WINS: return 'White wins';
-		case RPBChess.pgn.gameresult.DRAW      : return 'Draw';
-		case RPBChess.pgn.gameresult.BLACK_WINS: return 'Black wins';
-		case RPBChess.pgn.gameresult.LINE      : return 'Line';
+		case '1-0'    : return 'White wins';
+		case '1/2-1/2': return 'Draw';
+		case '0-1'    : return 'Black wins';
+		case '*'      : return 'Line';
 		default: return '&lt;unknown-result&gt;';
 	}
 }

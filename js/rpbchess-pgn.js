@@ -79,24 +79,6 @@
 
 
 	// ---------------------------------------------------------------------------
-	// Miscellaneous objects and methods
-	// ---------------------------------------------------------------------------
-
-	/**
-	 * Type of move.
-	 *
-	 * @const
-	 */
-	var gameresult = {
-		WHITE_WINS: 0,
-		DRAW      : 1,
-		BLACK_WINS: 2,
-		LINE      : 3 // undefined result
-	};
-
-
-
-	// ---------------------------------------------------------------------------
 	// Node
 	// ---------------------------------------------------------------------------
 
@@ -378,7 +360,7 @@
 		this._headers         = {};
 		this._initialPosition = new RPBChess.Position();
 		this._fullMoveNumber  = 1;
-		this._result          = gameresult.LINE;
+		this._result          = '*';
 
 		/* jshint nonew:false */ new Variation(this, true); /* jshint nonew:true */
 	}
@@ -435,7 +417,7 @@
 	/**
 	 * Result of the game.
 	 *
-	 * @returns {number} One of the constants defined in {@link gameresult}.
+	 * @returns {string} `'1-0'`, `'0-1'`, `'1/2-1/2'`, or `'*'`.
 	 */
 	Item.prototype.result = function() {
 		return this._result;
@@ -463,14 +445,6 @@
 		'=+' : 15, '=/+' : 15, // Black has a slight advantage
 		'-/+': 17,             // Black has a moderate advantage
 		'-+' : 19              // Black has a decisive advantage
-	};
-
-	// Conversion table result -> numeric code
-	var RESULT_LOOKUP = {
-		'1-0'    : gameresult.WHITE_WINS,
-		'1/2-1/2': gameresult.DRAW,
-		'0-1'    : gameresult.BLACK_WINS,
-		'*'      : gameresult.LINE
 	};
 
 	// PGN token types
@@ -580,7 +554,7 @@
 			else if(/^(1\-0|0\-1|1\/2\-1\/2|\*)/.test(s)) {
 				deltaPos   = RegExp.$1.length;
 				token      = TOKEN_END_OF_GAME;
-				tokenValue = RESULT_LOOKUP[RegExp.$1];
+				tokenValue = RegExp.$1;
 			}
 
 			// Otherwise, the string is badly formatted with respect to the PGN syntax
@@ -745,7 +719,6 @@
 		Node      : Node      ,
 		Variation : Variation ,
 		Item      : Item      ,
-		gameresult: gameresult,
 		parse     : parse     ,
 		parseOne  : parseOne
 	};
