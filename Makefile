@@ -30,14 +30,11 @@ ASSET_FOLDER          = assets
 WORDPRESS_README_FILE = wordpress.readme.txt
 INFO_FILES            = LICENSE README.md
 
-
 # Zip file used for deployment
 DEPLOYMENT_FILE = $(PLUGIN_NAME).zip
 
-
 # Localization
-I18N_TEXT_DOMAIN        = rpbchessboard
-I18N_TRANSLATOR_KEYWORD = i18n
+I18N_TEXT_DOMAIN = rpbchessboard
 
 
 # Files by type
@@ -58,9 +55,8 @@ I18N_MERGED_FILES = $(patsubst %.po,$(TEMPORARY_FOLDER)/%.merged,$(I18N_PO_FILES
 
 # Various commands
 ECHO          = echo
-SED           = sed
 TOUCH         = touch
-XGETTEXT      = xgettext --from-code=UTF-8 --language=PHP -c$(I18N_TRANSLATOR_KEYWORD) -k__ -k_e
+GETTEXT_PHP   = ./assets/dev-tools/gettext-php.sh
 MSGMERGE      = msgmerge -v --backup=none
 MSGFMT        = msgfmt -v
 JSHINT        = jshint
@@ -114,10 +110,7 @@ i18n-compile: $(I18N_MO_FILES)
 # POT file generation
 $(I18N_POT_FILE): $(PHP_FILES)
 	@$(ECHO) "$(COLOR_IN)Updating the translation template file...$(COLOR_OUT)"
-	@$(XGETTEXT) -o $@ $^
-	@$(SED) -n -e "s/^Description: *\(.*\)/\n#: $<\nmsgid \"\1\"\nmsgstr \"\"/p" $< >> $@
-	@$(SED) -i -e "s/^#\. *$(I18N_TRANSLATOR_KEYWORD) *\(.*\)/#. \1/" $@
-	@$(SED) -i -e "/^#:/ { s/:[1-9][0-9]*//g }" $@
+	@$(GETTEXT_PHP) $@ $^
 
 
 # PO and POT file merging
