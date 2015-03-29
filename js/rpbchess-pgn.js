@@ -37,8 +37,8 @@
 
 	// PGN parsing error messages
 	i18n.INVALID_PGN_TOKEN               = 'Unrecognized character or group of characters.';
-	i18n.INVALID_MOVE_IN_PGN_TEXT        = 'Invalid move. {1}';
-	i18n.INVALID_FEN_IN_PGN_TEXT         = 'Invalid FEN string in the initial position header. {1}';
+	i18n.INVALID_MOVE_IN_PGN_TEXT        = 'Invalid move. %1$s';
+	i18n.INVALID_FEN_IN_PGN_TEXT         = 'Invalid FEN string in the initial position header. %1$s';
 	i18n.UNEXPECTED_PGN_HEADER           = 'Unexpected PGN item header.';
 	i18n.UNEXPECTED_BEGIN_OF_VARIATION   = 'Unexpected begin of variation.';
 	i18n.UNEXPECTED_END_OF_VARIATION     = 'Unexpected end of variation.';
@@ -71,7 +71,7 @@
 		this.index   = index  ;
 		this.message = message;
 		for(var i=3; i<arguments.length; ++i) {
-			var re = new RegExp('\\{' + (i-2) + '\\}');
+			var re = new RegExp('%' + (i-2) + '\\$s');
 			this.message = this.message.replace(re, arguments[i]);
 		}
 	}

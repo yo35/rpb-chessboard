@@ -50,7 +50,7 @@ function checkInvalidPGN(code) {
 	else if(code in RPBChess.i18n) {
 		message = RPBChess.i18n[code];
 		for(var i=1; i<arguments.length; ++i) {
-			var re = new RegExp('\\{' + i + '\\}');
+			var re = new RegExp('%' + i + '\\$s');
 			message = message.replace(re, arguments[i]);
 		}
 	}

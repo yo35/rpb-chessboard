@@ -42,23 +42,23 @@ var RPBChess = (function() /* exported RPBChess */
 	// FEN parsing error messages
 	i18n.WRONG_NUMBER_OF_FEN_FIELDS                = 'A FEN string must contain exactly 6 space-separated fields.';
 	i18n.WRONG_NUMBER_OF_SUBFIELDS_IN_BOARD_FIELD  = 'The 1st field of a FEN string must contain exactly 8 `/`-separated subfields.';
-	i18n.UNEXPECTED_CHARACTER_IN_BOARD_FIELD       = 'Unexpected character in the 1st field of the FEN string: `{1}`.';
-	i18n.UNEXPECTED_END_OF_SUBFIELD_IN_BOARD_FIELD = 'The {1} subfield of the FEN string 1st field is unexpectedly short.';
+	i18n.UNEXPECTED_CHARACTER_IN_BOARD_FIELD       = 'Unexpected character in the 1st field of the FEN string: `%1$s`.';
+	i18n.UNEXPECTED_END_OF_SUBFIELD_IN_BOARD_FIELD = 'The %1$s subfield of the FEN string 1st field is unexpectedly short.';
 	i18n.INVALID_TURN_FIELD                        = 'The 2nd field of a FEN string must be either `w` or `b`.';
 	i18n.INVALID_CASTLE_RIGHTS_FIELD               = 'The 3rd field of a FEN string must be either `-` or a list of characters among `K`, `Q`, `k` and `q` (in this order).';
 	i18n.INVALID_EN_PASSANT_FIELD                  = 'The 4th field of a FEN string must be either `-` or a square from the 3rd or 6th row where en-passant is allowed.';
 	i18n.WRONG_ROW_IN_EN_PASSANT_FIELD             = 'The row number indicated in the FEN string 4th field is inconsistent with respect to the 2nd field.';
-	i18n.INVALID_MOVE_COUNTING_FIELD               = 'The {1} field of a FEN string must be a number.';
+	i18n.INVALID_MOVE_COUNTING_FIELD               = 'The %1$s field of a FEN string must be a number.';
 
 	// Notation parsing error message
 	i18n.INVALID_MOVE_NOTATION_SYNTAX        = 'The syntax of the move notation is invalid.';
 	i18n.ILLEGAL_POSITION                    = 'The position is not legal.';
 	i18n.ILLEGAL_QUEEN_SIDE_CASTLING         = 'Queen-side castling is not legal in the considered position.';
 	i18n.ILLEGAL_KING_SIDE_CASTLING          = 'King-side castling is not legal in the considered position.';
-	i18n.NO_PIECE_CAN_MOVE_TO                = 'No {1} can move to {2}.';
-	i18n.NO_PIECE_CAN_MOVE_TO_DISAMBIGUATION = 'No {1} on the specified row/column can move to {2}.';
-	i18n.REQUIRE_DISAMBIGUATION              = 'Cannot determine uniquely which {1} is supposed to move to {2}.';
-	i18n.WRONG_DISAMBIGUATION_SYMBOL         = 'Wrong disambiguation symbol (expected: `{1}`, observed: `{2}`).';
+	i18n.NO_PIECE_CAN_MOVE_TO                = 'No %1$s can move to %2$s.';
+	i18n.NO_PIECE_CAN_MOVE_TO_DISAMBIGUATION = 'No %1$s on the specified row/column can move to %2$s.';
+	i18n.REQUIRE_DISAMBIGUATION              = 'Cannot determine uniquely which %1$s is supposed to move to %2$s.';
+	i18n.WRONG_DISAMBIGUATION_SYMBOL         = 'Wrong disambiguation symbol (expected: `%1$s`, observed: `%2$s`).';
 	i18n.TRYING_TO_CAPTURE_YOUR_OWN_PIECES   = 'Capturing its own pieces is not legal.';
 	i18n.INVALID_CAPTURING_PAWN_MOVE         = 'Invalid capturing pawn move.';
 	i18n.INVALID_NON_CAPTURING_PAWN_MOVE     = 'Invalid non-capturing pawn move.';
@@ -66,11 +66,11 @@ var RPBChess = (function() /* exported RPBChess */
 	i18n.NOT_SAFE_FOR_BLACK_KING             = 'This move would put let the black king in check.';
 	i18n.MISSING_PROMOTION                   = 'A promoted piece must be specified for this move.';
 	i18n.MISSING_PROMOTION_SYMBOL            = 'Character `=` is required to specify a promoted piece.';
-	i18n.INVALID_PROMOTED_PIECE              = '{1} cannot be specified as a promoted piece.';
+	i18n.INVALID_PROMOTED_PIECE              = '%1$s cannot be specified as a promoted piece.';
 	i18n.ILLEGAL_PROMOTION                   = 'Specifying a promoted piece is illegal for this move.';
 	i18n.MISSING_CAPTURE_SYMBOL              = 'Capture symbol `x` is missing.';
 	i18n.INVALID_CAPTURE_SYMBOL              = 'This move is not a capture move.';
-	i18n.WRONG_CHECK_CHECKMATE_SYMBOL        = 'Wrong check/checkmate symbol (expected: `{1}`, observed: `{2}`).';
+	i18n.WRONG_CHECK_CHECKMATE_SYMBOL        = 'Wrong check/checkmate symbol (expected: `%1$s`, observed: `%2$s`).';
 
 
 
@@ -109,7 +109,7 @@ var RPBChess = (function() /* exported RPBChess */
 		this.fen     = fen    ;
 		this.message = message;
 		for(var i=2; i<arguments.length; ++i) {
-			var re = new RegExp('\\{' + (i-1) + '\\}');
+			var re = new RegExp('%' + (i-1) + '\\$s');
 			this.message = this.message.replace(re, arguments[i]);
 		}
 	}
@@ -133,7 +133,7 @@ var RPBChess = (function() /* exported RPBChess */
 		this.notation = notation;
 		this.message  = message ;
 		for(var i=3; i<arguments.length; ++i) {
-			var re = new RegExp('\\{' + (i-2) + '\\}');
+			var re = new RegExp('%' + (i-2) + '\\$s');
 			this.message = this.message.replace(re, arguments[i]);
 		}
 	}
