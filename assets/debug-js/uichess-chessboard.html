@@ -58,6 +58,14 @@
 
 		$('#a').chessboard({ position: 'start' });
 
+		// Square markers
+		$('#a').chessboard('addSquareMarker', 'Gc4');
+		$('#a').chessboard('addSquareMarker', 'Gc5');
+		$('#a').chessboard('addSquareMarker', 'Re4');
+		$('#a').chessboard('addSquareMarker', 'Re5');
+		$('#a').chessboard('addSquareMarker', 'Yg4');
+		$('#a').chessboard('addSquareMarker', 'Yg5');
+
 		$('#make-empty'  ).button().click(function() { $('#a').chessboard('option', 'position', 'empty'); });
 		$('#make-start'  ).button().click(function() { $('#a').chessboard('option', 'position', 'start'); });
 		$('#make-custom' ).button().click(function() { $('#a').chessboard('option', 'position', '8/8/8/8/8/4k3/q7/4K3 b - - 0 1'); });

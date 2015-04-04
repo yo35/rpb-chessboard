@@ -141,6 +141,12 @@
 
 
 		/**
+		 * Square markers.
+		 */
+		_squareMarker: null,
+
+
+		/**
 		 * Constructor.
 		 */
 		_create: function()
@@ -149,6 +155,7 @@
 			this.options.position   = this._initializePosition(this.options.position);
 			this.options.squareSize = filterOptionSquareSize(this.options.squareSize);
 			this.options.allowMoves = filterOptionAllowMoves(this.options.allowMoves);
+			this._squareMarker = {};
 			this._refresh();
 		},
 
@@ -273,6 +280,45 @@
 
 				// Notify the listeners.
 				this._trigger('change', null, this.options.position);
+			}
+		},
+
+
+		/**
+		 * Return the square markers currently set.
+		 *
+		 * @returns {string[]}
+		 */
+		squareMarkers: function() {
+			var res = [];
+			for(var sq in this._squareMarker) {
+				res.push(this._squareMarker[sq] + sq);
+			}
+		},
+
+
+		/**
+		 * Add a square marker.
+		 *
+		 * @param {string} squareMarker
+		 */
+		addSquareMarker: function(squareMarker) {
+			if(/^([GRY])([a-h][1-8])$/.test(squareMarker)) {
+				this._squareMarker[RegExp.$2] = RegExp.$1;
+				this._refresh(); // TODO: avoid rebuilding the whole widget
+			}
+		},
+
+
+		/**
+		 * Remove a square marker.
+		 *
+		 * @param {string} squareMarker
+		 */
+		removeSquareMarker: function(squareMarker) {
+			if(/^[GRY]?([a-h][1-8])$/.test(squareMarker)) {
+				delete this._squareMarker[RegExp.$1];
+				this._refresh(); // TODO: avoid rebuilding the whole widget
 			}
 		},
 
@@ -426,8 +472,12 @@
 					var sq = COLUMNS[c] + ROWS[r];
 					var cp = this._position.square(sq);
 					var squareColor = RPBChess.squareColor(sq) === 'w' ? 'light' : 'dark';
-					content += '<div class="uichess-chessboard-cell uichess-chessboard-square uichess-chessboard-size' + SQUARE_SIZE +
-						' uichess-chessboard-' + squareColor + 'Square">';
+					var clazz = 'uichess-chessboard-cell uichess-chessboard-square uichess-chessboard-size' + SQUARE_SIZE +
+						' uichess-chessboard-' + squareColor + 'Square';
+					if(sq in this._squareMarker) {
+						clazz += ' uichess-chessboard-squareMarker uichess-chessboard-markerColor-' + this._squareMarker[sq];
+					}
+					content += '<div class="' + clazz + '">';
 					if(cp !== '-') {
 						content += '<div class="uichess-chessboard-piece uichess-chessboard-piece-' + cp.piece +
 							' uichess-chessboard-color-' + cp.color + ' uichess-chessboard-size' + SQUARE_SIZE + '"></div>';
