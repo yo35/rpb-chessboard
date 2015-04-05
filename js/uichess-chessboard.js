@@ -607,12 +607,7 @@
 
 			// Arrow markers
 			var arrowMarkerFound = false;
-			var annotations = '<svg class="uichess-chessboard-annotations" viewBox="0 0 8 8">' +
-				'<defs>' +
-					'<marker id="uichess-chessboard-arrowMarker" markerWidth="4" markerHeight="4" refx="3" refy="2" orient="auto">' +
-						'<path d="M 4,2 L 0,4 L 1,2 L 0,0 Z" fill="#ed0"/>' +
-					'</marker>' +
-				'</defs>';
+			var annotations = '<svg class="uichess-chessboard-annotations" viewBox="0 0 8 8">';
 			for(var arrow in this._arrowMarker) {
 				if(this._arrowMarker.hasOwnProperty(arrow) && /^([a-h])([1-8])([a-h])([1-8])$/.test(arrow)) {
 					arrowMarkerFound = true;
@@ -621,8 +616,7 @@
 					var x2 = COLUMNS.indexOf(RegExp.$3) + 0.5;
 					var y2 = ROWS.indexOf   (RegExp.$4) + 0.5;
 					var clazz = 'uichess-chessboard-arrowMarker uichess-chessboard-markerColor-' + this._arrowMarker[arrow];
-					annotations += '<line class="' + clazz + '" x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 +
-						'" marker-end="url(#uichess-chessboard-arrowMarker)" />';
+					annotations += '<line class="' + clazz + '" x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" />';
 				}
 			}
 			annotations += '</svg>';

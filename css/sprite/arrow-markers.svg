@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+	<defs>
+		<marker id="uichess-chessboard-arrowMarkerEnd-G" markerWidth="4" markerHeight="4" refX="2.5" refY="2" orient="auto">
+			<path d="M 4,2 L 0,4 L 1,2 L 0,0 Z" fill="#0e0"/>
+		</marker>
+		<marker id="uichess-chessboard-arrowMarkerEnd-R" markerWidth="4" markerHeight="4" refX="2.5" refY="2" orient="auto">
+			<path d="M 4,2 L 0,4 L 1,2 L 0,0 Z" fill="#f20"/>
+		</marker>
+		<marker id="uichess-chessboard-arrowMarkerEnd-Y" markerWidth="4" markerHeight="4" refX="2.5" refY="2" orient="auto">
+			<path d="M 4,2 L 0,4 L 1,2 L 0,0 Z" fill="#ed0"/>
+		</marker>
+	</defs>
+</svg>
+

@@ -84,19 +84,23 @@
 }
 
 .uichess-chessboard-arrowMarker {
-	stroke-width: 0.15;
+	stroke-width: 0.12;
+	stroke-linecap: round;
 }
 
 .uichess-chessboard-arrowMarker.uichess-chessboard-markerColor-G {
-	stroke: #0e0;
+	stroke: #0e0; /* WARNING: this color must be reported in arrow-markers.svg. */
+	marker-end: url(sprite/arrow-markers.svg#uichess-chessboard-arrowMarkerEnd-G);
 }
 
 .uichess-chessboard-arrowMarker.uichess-chessboard-markerColor-R {
-	stroke: #f20;
+	stroke: #f20; /* WARNING: this color must be reported in arrow-markers.svg. */
+	marker-end: url(sprite/arrow-markers.svg#uichess-chessboard-arrowMarkerEnd-R);
 }
 
 .uichess-chessboard-arrowMarker.uichess-chessboard-markerColor-Y {
-	stroke: #ed0;
+	stroke: #ed0; /* WARNING: this color must be reported in arrow-markers.svg. */
+	marker-end: url(sprite/arrow-markers.svg#uichess-chessboard-arrowMarkerEnd-Y);
 }
 
 .uichess-chessboard-cell.uichess-chessboard-rowCoordinate {
