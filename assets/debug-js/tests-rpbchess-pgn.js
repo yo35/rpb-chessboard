@@ -384,6 +384,29 @@ pgns.push({
 });
 
 
+pgns.push({
+	label: '9', gameCount: 1,
+	pgn:
+		'[Event "Game with tags"]\n' +
+		'1.e4 {[%cal Ge2e4]} 1...h5 {[%cal Gh7h5] Odd move:    the pawn in h5 [%csl Rh5] is weak.}\n' +
+		'({[%key value] More usual is} 1...c5 { })\n' +
+		'2.d4 {[%key value1] Cannot have several tags with the same key here! [%key value2]}\n' +
+		'2...a5 {No tag here.} *',
+	dump: '\n' +
+		'Event = {Game with tags}\n' +
+		'-+<LONG\n' +
+		'(1w) e4 [cal = {Ge2e4}]\n' +
+		'(1b) h5 [cal = {Gh7h5}] [csl = {Rh5}] {Odd move: the pawn in h5 is weak.}\n' +
+		' |\n' +
+		' +---+ [key = {value}] {More usual is}\n' +
+		' |  (1b) c5\n' +
+		' |\n' +
+		'(2w) d4 [key = {value2}] {Cannot have several tags with the same key here!}\n' +
+		'(2b) a5 {No tag here.}\n' +
+		'{Line}\n'
+});
+
+
 
 // -----------------------------------------------------------------------------
 // Parsing

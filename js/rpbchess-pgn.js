@@ -124,6 +124,7 @@
 		this._nags = [];
 
 		// Text comment associated to the current move if any, or null otherwise.
+		this._tags = {};
 		this._comment = null;
 		this._isLongComment = false;
 
@@ -218,6 +219,34 @@
 
 
 	/**
+	 * Return the keys of the tags associated to the current move.
+	 *
+	 * @returns {string[]}
+	 */
+	Node.prototype.tags = function() {
+		var res = [];
+		for(var key in this._tags) {
+			if(this._tags.hasOwnProperty(key)) {
+				res.push(key);
+			}
+		}
+		return res;
+	};
+
+
+	/**
+	 * Return the value that is defined for the tag corresponding to the given key on the current move.
+	 *
+	 * @param {string} key
+	 * @returns {string?} `null` if no value is defined for this tag on the current move.
+	 */
+	Node.prototype.tag = function(key) {
+		var res = this._tags[key];
+		return typeof res === 'string' ? res : null;
+	};
+
+
+	/**
 	 * Return the text comment associated to the current move.
 	 *
 	 * @returns {string?} `null` if no comment is defined for the move.
@@ -266,6 +295,7 @@
 		this._nags = [];
 
 		// Text comment associated to the current variation if any, or null otherwise.
+		this._tags = {};
 		this._comment = null;
 		this._isLongComment = false;
 
@@ -310,34 +340,12 @@
 	};
 
 
-	/**
-	 * Return the NAGs associated to the current variation.
-	 *
-	 * @returns {number[]}
-	 */
-	Variation.prototype.nags = function() {
-		return this._nags;
-	};
-
-
-	/**
-	 * Return the text comment associated to the current variation.
-	 *
-	 * @returns {string?} `null` if no comment is defined for the variation.
-	 */
-	Variation.prototype.comment = function() {
-		return this._comment;
-	};
-
-
-	/**
-	 * Whether the text comment associated to the current variation is long or short.
-	 *
-	 * @returns {boolean}
-	 */
-	Variation.prototype.isLongComment = function() {
-		return this._isLongComment;
-	};
+	// Methods inherited from `Node`.
+	Variation.prototype.nags          = Node.prototype.nags         ;
+	Variation.prototype.tags          = Node.prototype.tags         ;
+	Variation.prototype.tag           = Node.prototype.tag          ;
+	Variation.prototype.comment       = Node.prototype.comment      ;
+	Variation.prototype.isLongComment = Node.prototype.isLongComment;
 
 
 
@@ -458,6 +466,32 @@
 
 
 	/**
+	 * Parse a comment, looking for the `[%key value]` tags.
+	 *
+	 * @param {string} rawComment String to parse.
+	 * @returns {{comment:string, tags:object}}
+	 */
+	function parseComment(rawComment) {
+		var tags = {};
+
+		// Find and remove the tags from the raw comment.
+		var comment = rawComment.replace(/\[%([a-zA-Z]+) ([^\[\]]+)\]/g, function(match, p1, p2) {
+			tags[p1] = p2;
+			return ' ';
+		});
+
+		// Trim the comment and collapse sequences of space characters into 1 character only.
+		comment = comment.replace(/^\s+|\s+$/g, '').replace(/\s+/g, ' ');
+		if(comment==='') {
+			comment = null;
+		}
+
+		// Return the result
+		return { comment:comment, tags:tags };
+	}
+
+
+	/**
 	 * General PGN parsing function.
 	 *
 	 * @param {string} pgnString String to parse.
@@ -533,7 +567,7 @@
 			else if(/^(\{((?:\\\\|\\\{|\\\}|[^\{\}])*)\})/.test(s)) {
 				deltaPos   = RegExp.$1.length;
 				token      = TOKEN_COMMENT;
-				tokenValue = RegExp.$2.replace(/\\(\\|\{|\})/g, '$1').replace(/^\s+|\s+$/g, '');
+				tokenValue = parseComment(RegExp.$2.replace(/\\(\\|\{|\})/g, '$1'));
 			}
 
 			// Match the beginning of a variation
@@ -638,7 +672,8 @@
 
 				// Comment
 				case TOKEN_COMMENT:
-					node._comment = tokenValue;
+					node._tags = tokenValue.tags;
+					node._comment = tokenValue.comment;
 					node._isLongComment = node._withinLongVariation && emptyLineFound;
 					break;
 

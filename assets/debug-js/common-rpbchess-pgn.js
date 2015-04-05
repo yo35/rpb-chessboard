@@ -92,17 +92,28 @@ function dumpPGNItem(pgnItem) {
 	var headers = pgnItem.headers();
 	headers.sort();
 	for(var k=0; k<headers.length; ++k) {
-		var key  = headers[k];
+		var key = headers[k];
 		res += key + ' = {' + pgnItem.header(key) + '}\n';
 	}
 
-	// Helper function to dump the nags in a order that does not depend on the parsing order.
+	// Helper function to dump the nags in an order that does not depend on the parsing order.
 	function dumpNags(nags) {
 		nags.sort();
 		for(var k=0; k<nags.length; ++k) {
 			res += ' $' + nags[k];
 		}
 	}
+
+	// Helper function to dump the tags in an order that does not depend on the parsing order.
+	function dumpTags(node) {
+		var tags = node.tags();
+		tags.sort();
+		for(var k=0; k<tags.length; ++k) {
+			var key = tags[k];
+			res += ' [' + key + ' = {' + node.tag(key) + '}]';
+		}
+	}
+
 
 	// Recursive function to dump a variation.
 	function dumpVariation(variation, indent, indentFirst) {
@@ -113,6 +124,7 @@ function dumpPGNItem(pgnItem) {
 			res += '<LONG';
 		}
 		dumpNags(variation.nags());
+		dumpTags(variation);
 		if(variation.comment() !== null) {
 			res += ' {' + variation.comment() + '}';
 			if(variation.isLongComment()) {
@@ -128,6 +140,7 @@ function dumpPGNItem(pgnItem) {
 			// Describe the move
 			res += indent + '(' + node.fullMoveNumber() + node.moveColor() + ') ' + node.move();
 			dumpNags(node.nags());
+			dumpTags(node);
 			if(node.comment() !== null) {
 				res += ' {' + node.comment() + '}';
 				if(node.isLongComment()) {
