@@ -8,7 +8,7 @@
 			<path d="M 4,2 L 0,4 L 1,2 L 0,0 Z" fill="#f20"/>
 		</marker>
 		<marker id="uichess-chessboard-arrowMarkerEnd-Y" markerWidth="4" markerHeight="4" refX="2.5" refY="2" orient="auto">
-			<path d="M 4,2 L 0,4 L 1,2 L 0,0 Z" fill="#ed0"/>
+			<path d="M 4,2 L 0,4 L 1,2 L 0,0 Z" fill="#db0"/>
 		</marker>
 	</defs>
 </svg>

@@ -84,7 +84,7 @@
 }
 
 .uichess-chessboard-arrowMarker {
-	stroke-width: 0.12;
+	stroke-width: 0.15;
 	stroke-linecap: round;
 }
 
@@ -99,7 +99,7 @@
 }
 
 .uichess-chessboard-arrowMarker.uichess-chessboard-markerColor-Y {
-	stroke: #ed0; /* WARNING: this color must be reported in arrow-markers.svg. */
+	stroke: #db0; /* WARNING: this color must be reported in arrow-markers.svg. */
 	marker-end: url(sprite/arrow-markers.svg#uichess-chessboard-arrowMarkerEnd-Y);
 }
 

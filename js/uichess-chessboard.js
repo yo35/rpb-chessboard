@@ -697,6 +697,8 @@
 					var y1 = ROWS.indexOf   (RegExp.$2) + 0.5;
 					var x2 = COLUMNS.indexOf(RegExp.$3) + 0.5;
 					var y2 = ROWS.indexOf   (RegExp.$4) + 0.5;
+					x2 += x1 < x2 ? -0.3 : x1 > x2 ? 0.3 : 0;
+					y2 += y1 < y2 ? -0.3 : y1 > y2 ? 0.3 : 0;
 					var clazz = 'uichess-chessboard-arrowMarker uichess-chessboard-markerColor-' + this._arrowMarkers[arrow];
 					annotations += '<line class="' + clazz + '" x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" />';
 				}
