@@ -36,6 +36,8 @@
 				<p>
 					<input id="flip" type="checkbox" />
 					<label for="flip">Flip</label>
+					<input id="annotations" type="checkbox" />
+					<label for="annotations">Annotations</label>
 					<input id="clear" type="button" value="Clear the widget" />
 				</p>
 				<p>
@@ -58,25 +60,6 @@
 
 		$('#a').chessboard({ position: 'start' });
 
-		// Square markers
-		$('#a').chessboard('addSquareMarker', 'Gc4');
-		$('#a').chessboard('addSquareMarker', 'Gc5');
-		$('#a').chessboard('addSquareMarker', 'Re4');
-		$('#a').chessboard('addSquareMarker', 'Re5');
-		$('#a').chessboard('addSquareMarker', 'Yg4');
-		$('#a').chessboard('addSquareMarker', 'Yg5');
-
-		// Arrow markers
-		$('#a').chessboard('addArrowMarker', 'Ga1a3');
-		$('#a').chessboard('addArrowMarker', 'Rc1c3');
-		$('#a').chessboard('addArrowMarker', 'Ye1e3');
-		$('#a').chessboard('addArrowMarker', 'Ga6b8');
-		$('#a').chessboard('addArrowMarker', 'Rc6d8');
-		$('#a').chessboard('addArrowMarker', 'Ye6f8');
-		$('#a').chessboard('addArrowMarker', 'Gd3b6');
-		$('#a').chessboard('addArrowMarker', 'Rf3d6');
-		$('#a').chessboard('addArrowMarker', 'Yh3f6');
-
 		$('#make-empty'  ).button().click(function() { $('#a').chessboard('option', 'position', 'empty'); });
 		$('#make-start'  ).button().click(function() { $('#a').chessboard('option', 'position', 'start'); });
 		$('#make-custom' ).button().click(function() { $('#a').chessboard('option', 'position', '8/8/8/8/8/4k3/q7/4K3 b - - 0 1'); });
@@ -84,6 +67,34 @@
 
 		$('#flip').prop('checked', $('#a').chessboard('option', 'flip')).button().click(function() {
 			$('#a').chessboard('option', 'flip', $('#flip').prop('checked'));
+		});
+
+		$('#annotations').button().click(function() {
+			if($('#annotations').prop('checked')) {
+
+				// Square markers
+				$('#a').chessboard('addSquareMarker', 'Gc4');
+				$('#a').chessboard('addSquareMarker', 'Gc5');
+				$('#a').chessboard('addSquareMarker', 'Re4');
+				$('#a').chessboard('addSquareMarker', 'Re5');
+				$('#a').chessboard('addSquareMarker', 'Yg4');
+				$('#a').chessboard('addSquareMarker', 'Yg5');
+
+				// Arrow markers
+				$('#a').chessboard('addArrowMarker', 'Ga1a3');
+				$('#a').chessboard('addArrowMarker', 'Rc1c3');
+				$('#a').chessboard('addArrowMarker', 'Ye1e3');
+				$('#a').chessboard('addArrowMarker', 'Ga6b8');
+				$('#a').chessboard('addArrowMarker', 'Rc6d8');
+				$('#a').chessboard('addArrowMarker', 'Ye6f8');
+				$('#a').chessboard('addArrowMarker', 'Gd3b6');
+				$('#a').chessboard('addArrowMarker', 'Rf3d6');
+				$('#a').chessboard('addArrowMarker', 'Yh3f6');
+			}
+			else {
+				$('#a').chessboard('removeSquareMarkers');
+				$('#a').chessboard('removeArrowMarkers');
+			}
 		});
 
 		$('#clear').button().click(function() { $('#a').chessboard('destroy'); });

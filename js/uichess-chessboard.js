@@ -335,6 +335,15 @@
 
 
 		/**
+		 * Remove all the square markers.
+		 */
+		removeSquareMarkers: function() {
+			this._squareMarker = {};
+			this._refresh(); // TODO: avoid rebuilding the whole widget
+		},
+
+
+		/**
 		 * Return the arrow markers currently set.
 		 *
 		 * @returns {string[]}
@@ -372,6 +381,15 @@
 				delete this._arrowMarker[RegExp.$1];
 				this._refresh(); // TODO: avoid rebuilding the whole widget
 			}
+		},
+
+
+		/**
+		 * Remove all the arrow markers.
+		 */
+		removeArrowMarkers: function() {
+			this._arrowMarker = {};
+			this._refresh(); // TODO: avoid rebuilding the whole widget
 		},
 
 
