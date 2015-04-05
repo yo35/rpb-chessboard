@@ -142,8 +142,16 @@
 
 		/**
 		 * Square markers.
+		 * @type {object}
 		 */
 		_squareMarker: null,
+
+
+		/**
+		 * Arrow markers.
+		 * @type {object}
+		 */
+		_arrowMarker: null,
 
 
 		/**
@@ -156,6 +164,7 @@
 			this.options.squareSize = filterOptionSquareSize(this.options.squareSize);
 			this.options.allowMoves = filterOptionAllowMoves(this.options.allowMoves);
 			this._squareMarker = {};
+			this._arrowMarker = {};
 			this._refresh();
 		},
 
@@ -292,7 +301,9 @@
 		squareMarkers: function() {
 			var res = [];
 			for(var sq in this._squareMarker) {
-				res.push(this._squareMarker[sq] + sq);
+				if(this._squareMarker.hasOwnProperty(sq)) {
+					res.push(this._squareMarker[sq] + sq);
+				}
 			}
 		},
 
@@ -318,6 +329,47 @@
 		removeSquareMarker: function(squareMarker) {
 			if(/^[GRY]?([a-h][1-8])$/.test(squareMarker)) {
 				delete this._squareMarker[RegExp.$1];
+				this._refresh(); // TODO: avoid rebuilding the whole widget
+			}
+		},
+
+
+		/**
+		 * Return the arrow markers currently set.
+		 *
+		 * @returns {string[]}
+		 */
+		arrowMarkers: function() {
+			var res = [];
+			for(var sq in this._arrowMarker) {
+				if(this._arrowMarker.hasOwnProperty(sq)) {
+					res.push(this._arrowMarker[sq] + sq);
+				}
+			}
+		},
+
+
+		/**
+		 * Add an arrow marker.
+		 *
+		 * @param {string} arrowMarker
+		 */
+		addArrowMarker: function(arrowMarker) {
+			if(/^([GRY])([a-h][1-8][a-h][1-8])$/.test(arrowMarker)) {
+				this._arrowMarker[RegExp.$2] = RegExp.$1;
+				this._refresh(); // TODO: avoid rebuilding the whole widget
+			}
+		},
+
+
+		/**
+		 * Remove an arrow marker.
+		 *
+		 * @param {string} arrowMarker
+		 */
+		removeArrowMarker: function(arrowMarker) {
+			if(/^[GRY]?([a-h][1-8][a-h][1-8])$/.test(arrowMarker)) {
+				delete this._arrowMarker[RegExp.$1];
 				this._refresh(); // TODO: avoid rebuilding the whole widget
 			}
 		},
