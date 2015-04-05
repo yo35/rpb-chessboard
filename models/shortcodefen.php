@@ -59,6 +59,16 @@ class RPBChessboardModelShortcodeFEN extends RPBChessboardAbstractModelShortcode
 			$this->widgetArgs = array('position' => $this->getFENString());
 			$atts = $this->getAttributes();
 
+			// Square markers
+			if(isset($atts['csl']) && is_string($atts['csl'])) {
+				$this->widgetArgs['squareMarkers'] = $atts['csl'];
+			}
+
+			// Arrow markers
+			if(isset($atts['cal']) && is_string($atts['cal'])) {
+				$this->widgetArgs['arrowMarkers'] = $atts['cal'];
+			}
+
 			// Orientation
 			$value = isset($atts['flip']) ? RPBChessboardHelperValidation::validateBoolean($atts['flip']) : null;
 			if(isset($value)) {
