@@ -63,6 +63,74 @@
 
 
 	/**
+	 * Regular expression matching a square marker.
+	 *
+	 * @constant
+	 */
+	var SQUARE_MARKER_TOKEN = /^\s*([GRY])([a-h][1-8])\s*$/;
+
+
+	/**
+	 * Regular expression matching an arrow marker.
+	 *
+	 * @constant
+	 */
+	var ARROW_MARKER_TOKEN = /^\s*([GRY])([a-h][1-8][a-h][1-8])\s*$/;
+
+
+	/**
+	 * Regular expression matching a square marker, regardless of its color.
+	 *
+	 * @constant
+	 */
+	var SQUARE_MARKER_TOKEN_NO_COLOR = /^\s*[GRY]?([a-h][1-8])\s*$/;
+
+
+	/**
+	 * Regular expression matching an arrow marker, regardless of its color.
+	 *
+	 * @constant
+	 */
+	var ARROW_MARKER_TOKEN_NO_COLOR = /^\s*[GRY]?([a-h][1-8][a-h][1-8])\s*$/;
+
+
+	/**
+	 * Parse a string specifying a list of annotation markers.
+	 *
+	 * @param {string} value
+	 * @param {RegExp} re Regular expression to validate an annotation token in the list.
+	 * @return {object}
+	 */
+	function parseMarkerList(value, re) {
+		var res = {};
+		var tokens = value.split(',');
+		for(var k=0; k<tokens.length; ++k) {
+			if(re.test(tokens[k])) {
+				res[RegExp.$2] = RegExp.$1;
+			}
+		}
+		return res;
+	}
+
+
+	/**
+	 * Flatten a list of annotation markers into a single string.
+	 *
+	 * @param {object} markers
+	 * @return {string}
+	 */
+	function flattenMarkerList(markers) {
+		var res = [];
+		for(var item in markers) {
+			if(markers.hasOwnProperty(item)) {
+				res.push(markers[item] + item);
+			}
+		}
+		return res.join(',');
+	}
+
+
+	/**
 	 * Ensure that the given number is a valid square size.
 	 *
 	 * @param {number} squareSize
@@ -100,6 +168,20 @@
 			 * String describing the chess position (FEN format).
 			 */
 			position: 'empty',
+
+			/**
+			 * Square markers (used to highlight some particular squares of interest).
+			 * Specified as a list of comma-separated tokens such as:
+			 * `'Gc4,Rd5,Ye6'` (highlight square c4 in green, d5 in red, and e6 in yellow).
+			 */
+			squareMarkers: '',
+
+			/**
+			 * Arrow markers (used to highlight displacements, threats, etc...).
+			 * Specified as a list of comma-separated tokens such as:
+			 * `'Ga1a5,Re8g8,Ye2e4'` (put a red arrow from a1 to a5, a red from e8 to g8, and a yellow on from e2 to e4).
+			 */
+			arrowMarkers: '',
 
 			/**
 			 * Whether the chessboard is flipped or not.
@@ -144,14 +226,14 @@
 		 * Square markers.
 		 * @type {object}
 		 */
-		_squareMarker: null,
+		_squareMarkers: null,
 
 
 		/**
 		 * Arrow markers.
 		 * @type {object}
 		 */
-		_arrowMarker: null,
+		_arrowMarkers: null,
 
 
 		/**
@@ -160,11 +242,11 @@
 		_create: function()
 		{
 			this.element.addClass('uichess-chessboard').disableSelection();
-			this.options.position   = this._initializePosition(this.options.position);
+			this.options.position      = this._initializePosition     (this.options.position     );
+			this.options.squareMarkers = this._initializeSquareMarkers(this.options.squareMarkers);
+			this.options.arrowMarkers  = this._initializeArrowMarkers (this.options.arrowMarkers );
 			this.options.squareSize = filterOptionSquareSize(this.options.squareSize);
 			this.options.allowMoves = filterOptionAllowMoves(this.options.allowMoves);
-			this._squareMarker = {};
-			this._arrowMarker = {};
 			this._refresh();
 		},
 
@@ -184,7 +266,9 @@
 		_setOption: function(key, value)
 		{
 			switch(key) {
-				case 'position'  : value = this._initializePosition(value); break;
+				case 'position'     : value = this._initializePosition     (value); break;
+				case 'squareMarkers': value = this._initializeSquareMarkers(value); break;
+				case 'arrowMarkers' : value = this._initializeArrowMarkers (value); break;
 				case 'squareSize': value = filterOptionSquareSize(value); break;
 				case 'allowMoves': value = filterOptionAllowMoves(value); break;
 			}
@@ -225,6 +309,30 @@
 
 			// Return the validated FEN string.
 			return fen;
+		},
+
+
+		/**
+		 * Initialize the internal square marker buffer with the given string.
+		 *
+		 * @param {string} value
+		 * @returns {string}
+		 */
+		_initializeSquareMarkers: function(value) {
+			this._squareMarkers = parseMarkerList(value, SQUARE_MARKER_TOKEN);
+			return flattenMarkerList(this._squareMarkers);
+		},
+
+
+		/**
+		 * Initialize the internal arrow marker buffer with the given string.
+		 *
+		 * @param {string} value
+		 * @returns {string}
+		 */
+		_initializeArrowMarkers: function(value) {
+			this._arrowMarkers = parseMarkerList(value, ARROW_MARKER_TOKEN);
+			return flattenMarkerList(this._arrowMarkers);
 		},
 
 
@@ -294,28 +402,14 @@
 
 
 		/**
-		 * Return the square markers currently set.
-		 *
-		 * @returns {string[]}
-		 */
-		squareMarkers: function() {
-			var res = [];
-			for(var sq in this._squareMarker) {
-				if(this._squareMarker.hasOwnProperty(sq)) {
-					res.push(this._squareMarker[sq] + sq);
-				}
-			}
-		},
-
-
-		/**
 		 * Add a square marker.
 		 *
 		 * @param {string} squareMarker
 		 */
 		addSquareMarker: function(squareMarker) {
-			if(/^([GRY])([a-h][1-8])$/.test(squareMarker)) {
-				this._squareMarker[RegExp.$2] = RegExp.$1;
+			if(SQUARE_MARKER_TOKEN.test(squareMarker)) {
+				this._squareMarkers[RegExp.$2] = RegExp.$1;
+				this.options.squareMarkers = flattenMarkerList(this._squareMarkers);
 				this._refresh(); // TODO: avoid rebuilding the whole widget
 			}
 		},
@@ -327,33 +421,10 @@
 		 * @param {string} squareMarker
 		 */
 		removeSquareMarker: function(squareMarker) {
-			if(/^[GRY]?([a-h][1-8])$/.test(squareMarker)) {
-				delete this._squareMarker[RegExp.$1];
+			if(SQUARE_MARKER_TOKEN_NO_COLOR.test(squareMarker)) {
+				delete this._squareMarkers[RegExp.$1];
+				this.options.squareMarkers = flattenMarkerList(this._squareMarkers);
 				this._refresh(); // TODO: avoid rebuilding the whole widget
-			}
-		},
-
-
-		/**
-		 * Remove all the square markers.
-		 */
-		removeSquareMarkers: function() {
-			this._squareMarker = {};
-			this._refresh(); // TODO: avoid rebuilding the whole widget
-		},
-
-
-		/**
-		 * Return the arrow markers currently set.
-		 *
-		 * @returns {string[]}
-		 */
-		arrowMarkers: function() {
-			var res = [];
-			for(var sq in this._arrowMarker) {
-				if(this._arrowMarker.hasOwnProperty(sq)) {
-					res.push(this._arrowMarker[sq] + sq);
-				}
 			}
 		},
 
@@ -364,8 +435,9 @@
 		 * @param {string} arrowMarker
 		 */
 		addArrowMarker: function(arrowMarker) {
-			if(/^([GRY])([a-h][1-8][a-h][1-8])$/.test(arrowMarker)) {
-				this._arrowMarker[RegExp.$2] = RegExp.$1;
+			if(ARROW_MARKER_TOKEN.test(arrowMarker)) {
+				this._arrowMarkers[RegExp.$2] = RegExp.$1;
+				this.options.arrowMarkers = flattenMarkerList(this._arrowMarkers);
 				this._refresh(); // TODO: avoid rebuilding the whole widget
 			}
 		},
@@ -377,19 +449,11 @@
 		 * @param {string} arrowMarker
 		 */
 		removeArrowMarker: function(arrowMarker) {
-			if(/^[GRY]?([a-h][1-8][a-h][1-8])$/.test(arrowMarker)) {
-				delete this._arrowMarker[RegExp.$1];
+			if(ARROW_MARKER_TOKEN_NO_COLOR.test(arrowMarker)) {
+				delete this._arrowMarkers[RegExp.$1];
+				this.options.arrowMarkers = flattenMarkerList(this._arrowMarkers);
 				this._refresh(); // TODO: avoid rebuilding the whole widget
 			}
-		},
-
-
-		/**
-		 * Remove all the arrow markers.
-		 */
-		removeArrowMarkers: function() {
-			this._arrowMarker = {};
-			this._refresh(); // TODO: avoid rebuilding the whole widget
 		},
 
 
@@ -544,8 +608,8 @@
 					var squareColor = RPBChess.squareColor(sq) === 'w' ? 'light' : 'dark';
 					var clazz = 'uichess-chessboard-cell uichess-chessboard-square uichess-chessboard-size' + SQUARE_SIZE +
 						' uichess-chessboard-' + squareColor + 'Square';
-					if(sq in this._squareMarker) {
-						clazz += ' uichess-chessboard-squareMarker uichess-chessboard-markerColor-' + this._squareMarker[sq];
+					if(sq in this._squareMarkers) {
+						clazz += ' uichess-chessboard-squareMarker uichess-chessboard-markerColor-' + this._squareMarkers[sq];
 					}
 					content += '<div class="' + clazz + '">';
 					if(cp !== '-') {
@@ -626,14 +690,14 @@
 			// Arrow markers
 			var arrowMarkerFound = false;
 			var annotations = '<svg class="uichess-chessboard-annotations" viewBox="0 0 8 8">';
-			for(var arrow in this._arrowMarker) {
-				if(this._arrowMarker.hasOwnProperty(arrow) && /^([a-h])([1-8])([a-h])([1-8])$/.test(arrow)) {
+			for(var arrow in this._arrowMarkers) {
+				if(this._arrowMarkers.hasOwnProperty(arrow) && /^([a-h])([1-8])([a-h])([1-8])$/.test(arrow)) {
 					arrowMarkerFound = true;
 					var x1 = COLUMNS.indexOf(RegExp.$1) + 0.5;
 					var y1 = ROWS.indexOf   (RegExp.$2) + 0.5;
 					var x2 = COLUMNS.indexOf(RegExp.$3) + 0.5;
 					var y2 = ROWS.indexOf   (RegExp.$4) + 0.5;
-					var clazz = 'uichess-chessboard-arrowMarker uichess-chessboard-markerColor-' + this._arrowMarker[arrow];
+					var clazz = 'uichess-chessboard-arrowMarker uichess-chessboard-markerColor-' + this._arrowMarkers[arrow];
 					annotations += '<line class="' + clazz + '" x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" />';
 				}
 			}
