@@ -689,10 +689,15 @@
 				var anchor = $(element);
 
 				// Retrieve the position
-				var position = anchor.closest('.uichess-chessgame-comment').data('position');
+				var commentNode = anchor.closest('.uichess-chessgame-comment');
+				var position = commentNode.data('position');
+				var csl = commentNode.data('csl');
+				var cal = commentNode.data('cal');
 
 				// Build the option set to pass to the chessboard widget constructor.
 				var options = { position: position };
+				if(typeof csl !== 'undefined') { options.squareMarkers = csl; }
+				if(typeof cal !== 'undefined') { options.arrowMarkers = cal; }
 				$.extend(options, obj.options.diagramOptions);
 				try {
 					$.extend(options, filterChessboardOptions($.parseJSON(anchor.text())));
@@ -1045,15 +1050,39 @@
 
 
 		/**
+		 * Build the DOM attributes to add to a DOM node to be able to reload the position associated to the current node.
+		 *
+		 * @param {RPBChess.pgn.Node|RPBChess.pgn.Variation} node
+		 * @returns {string}
+		 */
+		_buildPositionInformation: function(node) {
+			var res = 'data-position="' + node.position().fen() + '"';
+
+			// Square markers
+			var csl = node.tag('csl');
+			if(csl !== null) {
+				res += ' data-csl="' + csl + '"';
+			}
+
+			// Arrow markers
+			var cal = node.tag('cal');
+			if(cal !== null) {
+				res += ' data-cal="' + cal + '"';
+			}
+
+			return res;
+		},
+
+
+		/**
 		 * Build the DOM node corresponding to the given text comment.
 		 *
 		 * @param {RPBChess.pgn.Node|RPBChess.pgn.Variation} node
 		 * @returns {string}
 		 */
-		_buildComment: function(node)
-		{
+		_buildComment: function(node) {
 			var tag = node.isLongComment() ? 'div' : 'span';
-			return '<' + tag + ' class="uichess-chessgame-comment" data-position="' + node.position().fen() + '">' +
+			return '<' + tag + ' class="uichess-chessgame-comment" ' + this._buildPositionInformation(node) + '>' +
 				node.comment() + '</' + tag + '>';
 		},
 
@@ -1065,10 +1094,10 @@
 		 * @param {boolean} forcePrintMoveNumber
 		 * @returns {string}
 		 */
-		_buildMove: function(node, forcePrintMoveNumber)
-		{
+		_buildMove: function(node, forcePrintMoveNumber) {
+
 			// Create the DOM node.
-			var retVal = '<span class="uichess-chessgame-move" data-position="' + node.position().fen() + '">';
+			var retVal = '<span class="uichess-chessgame-move" ' + this._buildPositionInformation(node) + '>';
 
 			// Move number
 			var printMoveNumber = forcePrintMoveNumber || node.moveColor() === 'w';
@@ -1101,10 +1130,9 @@
 		 *
 		 * @returns {string}
 		 */
-		_buildInitialMove: function()
-		{
-			return '<div class="uichess-chessgame-move uichess-chessgame-initialMove" ' +
-				'data-position="' + this._game.initialPosition().fen() + '">' + $.chessgame.i18n.INITIAL_POSITION + '</div>';
+		_buildInitialMove: function() {
+			return '<div class="uichess-chessgame-move uichess-chessgame-initialMove" ' + this._buildPositionInformation(this._game.mainVariation()) +
+				'>' + $.chessgame.i18n.INITIAL_POSITION + '</div>';
 		},
 
 
@@ -1155,6 +1183,12 @@
 
 			// Update the position.
 			widget.chessboard('option', 'position', move.data('position'));
+
+			// Update the square/arrow markers
+			var csl = move.data('csl');
+			var cal = move.data('cal');
+			widget.chessboard('option', 'squareMarkers', typeof csl === 'undefined' ? '' : csl);
+			widget.chessboard('option', 'arrowMarkers', typeof cal === 'undefined' ? '' : cal);
 
 			// Flip the board if necessary.
 			if(this.options.navigationBoardOptions.flip !== widget.chessboard('option', 'flip')) {
