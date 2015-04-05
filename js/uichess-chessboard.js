@@ -532,7 +532,8 @@
 					content += '<div class="' + clazz + '">';
 					if(cp !== '-') {
 						content += '<div class="uichess-chessboard-piece uichess-chessboard-piece-' + cp.piece +
-							' uichess-chessboard-color-' + cp.color + ' uichess-chessboard-size' + SQUARE_SIZE + '"></div>';
+							' uichess-chessboard-color-' + cp.color + ' uichess-chessboard-size' + SQUARE_SIZE + '">' +
+							'<div class="uichess-chessboard-pieceHandle"></div></div>';
 					}
 					content += '</div>';
 				}
@@ -604,11 +605,45 @@
 			// End of the table
 			//////////////////////////////////////////////////////////////////////////
 
+			// Arrow markers
+			var arrowMarkerFound = false;
+			var annotations = '<svg class="uichess-chessboard-annotations" viewBox="0 0 8 8">' +
+				'<defs>' +
+					'<marker id="uichess-chessboard-arrowMarker" markerWidth="4" markerHeight="4" refx="3" refy="2" orient="auto">' +
+						'<path d="M 4,2 L 0,4 L 1,2 L 0,0 Z" fill="#ed0"/>' +
+					'</marker>' +
+				'</defs>';
+			for(var arrow in this._arrowMarker) {
+				if(this._arrowMarker.hasOwnProperty(arrow) && /^([a-h])([1-8])([a-h])([1-8])$/.test(arrow)) {
+					arrowMarkerFound = true;
+					var x1 = COLUMNS.indexOf(RegExp.$1) + 0.5;
+					var y1 = ROWS.indexOf   (RegExp.$2) + 0.5;
+					var x2 = COLUMNS.indexOf(RegExp.$3) + 0.5;
+					var y2 = ROWS.indexOf   (RegExp.$4) + 0.5;
+					var clazz = 'uichess-chessboard-arrowMarker uichess-chessboard-markerColor-' + this._arrowMarker[arrow];
+					annotations += '<line class="' + clazz + '" x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 +
+						'" marker-end="url(#uichess-chessboard-arrowMarker)" />';
+				}
+			}
+			annotations += '</svg>';
+			if(arrowMarkerFound) {
+				content += annotations;
+			}
+
 			// Close the "table" node.
 			content += '</div>';
 
 			// Render the content.
 			$(content).appendTo(this.element);
+
+			// Adjust the position of the annotation layer.
+			if(arrowMarkerFound) {
+				var annotationLayer = $('.uichess-chessboard-annotations', this.element);
+				var firstSquare = $('.uichess-chessboard-square', this.element).first();
+				annotationLayer.offset(firstSquare.offset());
+				annotationLayer.width(firstSquare.width() * 8);
+				annotationLayer.height(firstSquare.height() * 8);
+			}
 
 			// Enable the drag & drops feature if necessary.
 			var draggablePieces = this.options.allowMoves === 'all' || this.options.allowMoves === 'legal';
@@ -760,7 +795,7 @@
 				cursorAt      : { top: this.options.squareSize/2, left: this.options.squareSize/2 },
 				revert        : true,
 				revertDuration: 0,
-				zIndex        : 100
+				zIndex        : 300
 			});
 		},
 
@@ -778,7 +813,7 @@
 				helper        : 'clone',
 				revert        : true,
 				revertDuration: 0,
-				zIndex        : 100
+				zIndex        : 300
 			});
 		},
 

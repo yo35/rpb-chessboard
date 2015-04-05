@@ -56,6 +56,7 @@
 
 .uichess-chessboard-table {
 	display: inline-table;
+	position: relative;
 	border-collapse: collapse;
 	font-size: 80%;
 }
@@ -67,6 +68,35 @@
 .uichess-chessboard-cell {
 	display: table-cell;
 	line-height: 0px;
+}
+
+.uichess-chessboard-piece .uichess-chessboard-pieceHandle {
+	position: relative;
+	z-index: 200;
+	width: 100%;
+	height: 100%;
+}
+
+.uichess-chessboard-annotations {
+	position: absolute;
+	z-index: 100;
+	opacity: 0.8;
+}
+
+.uichess-chessboard-arrowMarker {
+	stroke-width: 0.15;
+}
+
+.uichess-chessboard-arrowMarker.uichess-chessboard-markerColor-G {
+	stroke: #0e0;
+}
+
+.uichess-chessboard-arrowMarker.uichess-chessboard-markerColor-R {
+	stroke: #f20;
+}
+
+.uichess-chessboard-arrowMarker.uichess-chessboard-markerColor-Y {
+	stroke: #ed0;
 }
 
 .uichess-chessboard-cell.uichess-chessboard-rowCoordinate {
