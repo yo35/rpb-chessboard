@@ -53,16 +53,6 @@
 
 
 	/**
-	 * Public static properties.
-	 */
-	$.chessboard =
-	{
-		MINIMUM_SQUARE_SIZE: MINIMUM_SQUARE_SIZE,
-		MAXIMUM_SQUARE_SIZE: MAXIMUM_SQUARE_SIZE
-	};
-
-
-	/**
 	 * Regular expression matching a square marker.
 	 *
 	 * @constant
@@ -143,19 +133,248 @@
 
 
 	/**
-	 * Ensure that the given string is a valid value for the `allowMoves` option.
+	 * Ensure that the given string is a valid value for the `interactionMode` option.
 	 *
-	 * @param {string} allowMoves
+	 * @param {string} interactionMode
 	 * @returns {string}
 	 */
-	function filterOptionAllowMoves(allowMoves)
-	{
-		return (allowMoves === 'all' || allowMoves === 'legal') ? allowMoves : 'none';
+	function filterOptionInteractionMode(interactionMode) {
+		return (interactionMode==='play' || interactionMode==='movePieces' || /^addPieces-[wb][kqrbnp]$/.test(interactionMode) ||
+			/^add(?:Square|Arrow)Markers-[GRY]$/.test(interactionMode)) ? interactionMode : 'none';
 	}
 
 
 	/**
-	 * Register a 'chessboard' widget in the jQuery widget framework.
+	 * Initialize the internal `RPBChess.Position` object with the given FEN string.
+	 *
+	 * @params {uichess.chessboard} widget
+	 * @params {string} fen
+	 * @returns {string}
+	 */
+	function initializePosition(widget, fen) {
+
+		// Trim the input.
+		fen = fen.replace(/^\s+|\s+$/g, '');
+
+		// Parse the FEN string.
+		try {
+			widget._position = new RPBChess.Position(fen);
+			fen = widget._position.fen();
+		}
+		catch(e) {
+			if(e instanceof RPBChess.exceptions.InvalidFEN) {
+				widget._position = e;
+			}
+			else {
+				widget._position = null;
+				throw e;
+			}
+		}
+
+		// Return the validated FEN string.
+		return fen;
+	}
+
+
+	/**
+	 * Initialize the internal square marker buffer with the given string.
+	 *
+	 * @params {uichess.chessboard} widget
+	 * @param {string} value
+	 * @returns {string}
+	 */
+	function initializeSquareMarkers(widget, value) {
+		widget._squareMarkers = parseMarkerList(value, SQUARE_MARKER_TOKEN);
+		return flattenMarkerList(widget._squareMarkers);
+	}
+
+
+	/**
+	 * Initialize the internal arrow marker buffer with the given string.
+	 *
+	 * @params {uichess.chessboard} widget
+	 * @param {string} value
+	 * @returns {string}
+	 */
+	function initializeArrowMarkers(widget, value) {
+		widget._arrowMarkers = parseMarkerList(value, ARROW_MARKER_TOKEN);
+		return flattenMarkerList(widget._arrowMarkers);
+	}
+
+
+
+	// ---------------------------------------------------------------------------
+	// Widget rendering
+	// ---------------------------------------------------------------------------
+
+	/**
+	 * Destroy the widget content, prior to a refresh or a widget destruction.
+	 *
+	 * @params {uichess.chessboard} widget
+	 */
+	function destroyContent(widget) {
+		widget.element.empty();
+	}
+
+
+	/**
+	 * Build the error message resulting from a FEN parsing error.
+	 *
+	 * @params {uichess.chessboard} widget
+	 * @returns {string}
+	 */
+	function buildErrorMessage(widget) {
+
+		// Build the error report box.
+		var res = '<div class="uichess-chessboard-error">' +
+			'<div class="uichess-chessboard-errorTitle">Error while analysing a FEN string.</div>';
+
+		// Optional message.
+		if(widget._position.message !== null) {
+			res += '<div class="uichess-chessboard-errorMessage">' + widget._position.message + '</div>';
+		}
+
+		// Close the error report box, and return the result.
+		res += '</div>';
+		return res;
+	}
+
+
+	/**
+	 * Build the widget content.
+	 *
+	 * @params {uichess.chessboard} widget
+	 * @returns {string}
+	 */
+	function buildContent(widget) {
+		var ROWS    = widget.options.flip ? '12345678' : '87654321';
+		var COLUMNS = widget.options.flip ? 'hgfedcba' : 'abcdefgh';
+
+		// Open the "table" node.
+		var globalClazz = 'uichess-chessboard-table uichess-chessboard-size' + widget.options.squareSize;
+		if(!widget.options.showCoordinates) {
+			globalClazz += ' uichess-chessboard-hideCoordinates';
+		}
+		var res = '<div class="' + globalClazz + '">';
+
+		// For each row...
+		for(var r=0; r<8; ++r) {
+
+			// Begin row + row coordinate cell.
+			res += '<div class="uichess-chessboard-row"><div class="uichess-chessboard-cell uichess-chessboard-rowCoordinate">' + ROWS[r] + '</div>';
+
+			// Chessboard squares
+			for(var c=0; c<8; ++c) {
+
+				// Square
+				var square = COLUMNS[c] + ROWS[r];
+				var squareColor = RPBChess.squareColor(square) === 'w' ? 'light' : 'dark';
+				var clazz = 'uichess-chessboard-sized uichess-chessboard-cell uichess-chessboard-square uichess-chessboard-' + squareColor + 'Square';
+				if(square in widget._squareMarkers) {
+					clazz += ' uichess-chessboard-squareMarker uichess-chessboard-markerColor-' + widget._squareMarkers[square];
+				}
+				res += '<div class="' + clazz + '">';
+
+				// Colored piece within the square (if any).
+				var coloredPiece = widget._position.square(square);
+				if(coloredPiece === '-') {
+					res += '<div class="uichess-chessboard-handle"></div>';
+				}
+				else {
+					res += '<div class="uichess-chessboard-sized uichess-chessboard-piece uichess-chessboard-piece-' + coloredPiece.piece +
+						' uichess-chessboard-color-' + coloredPiece.color + '"><div class="uichess-chessboard-handle"></div></div>';
+				}
+				res += '</div>';
+			}
+
+			// Additional cell for the turn flag.
+			res += '<div class="uichess-chessboard-cell">';
+			if(ROWS[r] === '8' || ROWS[r] === '1') {
+				var flagColor = ROWS[r] === '8' ? 'b' : 'w';
+				var clazz = 'uichess-chessboard-sized uichess-chessboard-turnFlag uichess-chessboard-color-' + flagColor;
+				if(flagColor !== widget._position.turn()) {
+					clazz += ' uichess-chessboard-inactiveFlag';
+				}
+				res += '<div class="' + clazz + '"></div>';
+			}
+
+			// End additional cell + end row.
+			res += '</div></div>';
+		}
+
+		// Column coordinates
+		res += '<div class="uichess-chessboard-row uichess-chessboard-columnCoordinateRow">' +
+			'<div class="uichess-chessboard-cell uichess-chessboard-rowCoordinate"></div>';
+		for(var c=0; c<8; ++c) {
+			res += '<div class="uichess-chessboard-cell uichess-chessboard-columnCoordinate">' + COLUMNS[c] + '</div>';
+		}
+		res += '<div class="uichess-chessboard-cell"></div></div>';
+
+		// Arrow markers
+		res += '<svg class="uichess-chessboard-annotations" viewBox="0 0 8 8">';
+		for(var arrow in widget._arrowMarkers) {
+			if(widget._arrowMarkers.hasOwnProperty(arrow) && /^([a-h])([1-8])([a-h])([1-8])$/.test(arrow)) {
+				var x1 = COLUMNS.indexOf(RegExp.$1) + 0.5;
+				var y1 = ROWS.indexOf   (RegExp.$2) + 0.5;
+				var x2 = COLUMNS.indexOf(RegExp.$3) + 0.5;
+				var y2 = ROWS.indexOf   (RegExp.$4) + 0.5;
+				if(x1 !== x2 || y1 !== y2) {
+					x2 += x1 < x2 ? -0.3 : x1 > x2 ? 0.3 : 0;
+					y2 += y1 < y2 ? -0.3 : y1 > y2 ? 0.3 : 0;
+					var clazz = 'uichess-chessboard-arrowMarker uichess-chessboard-markerColor-' + widget._arrowMarkers[arrow];
+					res += '<line class="' + clazz + '" x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" />';
+				}
+			}
+		}
+		res += '</svg>';
+
+		// Close the "table" node and return the result.
+		res += '</div>';
+		return res;
+	}
+
+
+	/**
+	 * Refresh the widget.
+	 *
+	 * @params {uichess.chessboard} widget
+	 */
+	function refresh(widget) {
+		destroyContent(widget);
+		if(widget._position === null) {
+			return;
+		}
+
+		// Handle parsing error problems.
+		if(widget._position instanceof RPBChess.exceptions.InvalidFEN) {
+			$(buildErrorMessage(widget)).appendTo(widget.element);
+		}
+
+		// Regular rendering
+		else {
+			$(buildContent(widget)).appendTo(widget.element);
+
+			// TODO: enable interactions
+		}
+	}
+
+
+
+	// ---------------------------------------------------------------------------
+	// Widget registration in the jQuery widget framework.
+	// ---------------------------------------------------------------------------
+
+	/**
+	 * Public static properties.
+	 */
+	$.chessboard = {
+		MINIMUM_SQUARE_SIZE: MINIMUM_SQUARE_SIZE,
+		MAXIMUM_SQUARE_SIZE: MAXIMUM_SQUARE_SIZE
+	};
+
+
+	/**
+	 * Widget registration.
 	 */
 	$.widget('uichess.chessboard',
 	{
@@ -199,19 +418,15 @@
 			showCoordinates: true,
 
 			/**
-			 * Whether the user can moves the pieces or not, and which type of move is allowed.
-			 *
-			 * Available values are:
+			 * Whether the user can moves the pieces or not, edit the annotations or not, etc... Available values are:
 			 * * 'none': no move is allowed, drag & drop is disabled.
-			 * * 'all': all moves are allowed, legal or not.
-			 * * 'legal': only legal moves are allowed.
+			 * * 'play': only legal chess moves are allowed.
+			 * * 'movePieces': move the pieces on the board, regardless of the chess rules.
+			 * * 'addPieces-[color][piece]': add the corresponding colored piece on the board.
+			 * * 'addSquareMarkers-[color]': add square marker annotations on the board.
+			 * * 'addArrowMarkers-[color]': add arrow marker annotations on the board.
 			 */
-			allowMoves: 'none',
-
-			/**
-			 * Spare pieces.
-			 */
-			sparePieces: false
+			interactionMode: 'none'
 		},
 
 
@@ -242,12 +457,12 @@
 		_create: function()
 		{
 			this.element.addClass('uichess-chessboard').disableSelection();
-			this.options.position      = this._initializePosition     (this.options.position     );
-			this.options.squareMarkers = this._initializeSquareMarkers(this.options.squareMarkers);
-			this.options.arrowMarkers  = this._initializeArrowMarkers (this.options.arrowMarkers );
-			this.options.squareSize = filterOptionSquareSize(this.options.squareSize);
-			this.options.allowMoves = filterOptionAllowMoves(this.options.allowMoves);
-			this._refresh();
+			this.options.position      = initializePosition     (this, this.options.position     );
+			this.options.squareMarkers = initializeSquareMarkers(this, this.options.squareMarkers);
+			this.options.arrowMarkers  = initializeArrowMarkers (this, this.options.arrowMarkers );
+			this.options.squareSize      = filterOptionSquareSize     (this.options.squareSize     );
+			this.options.interactionMode = filterOptionInteractionMode(this.options.interactionMode);
+			refresh(this);
 		},
 
 
@@ -266,73 +481,19 @@
 		_setOption: function(key, value)
 		{
 			switch(key) {
-				case 'position'     : value = this._initializePosition     (value); break;
-				case 'squareMarkers': value = this._initializeSquareMarkers(value); break;
-				case 'arrowMarkers' : value = this._initializeArrowMarkers (value); break;
-				case 'squareSize': value = filterOptionSquareSize(value); break;
-				case 'allowMoves': value = filterOptionAllowMoves(value); break;
+				case 'position'     : value = initializePosition     (this, value); break;
+				case 'squareMarkers': value = initializeSquareMarkers(this, value); break;
+				case 'arrowMarkers' : value = initializeArrowMarkers (this, value); break;
+				case 'squareSize'     : value = filterOptionSquareSize     (value); break;
+				case 'interactionMode': value = filterOptionInteractionMode(value); break;
 			}
 
 			this.options[key] = value;
-			this._refresh();
+			refresh(this);
 
 			if(key === 'position') {
 				this._trigger('change', null, this.options.position);
 			}
-		},
-
-
-		/**
-		 * Initialize the internal `RPBChess.Position` object with the given FEN string.
-		 *
-		 * @returns {string}
-		 */
-		_initializePosition: function(fen)
-		{
-			// Trim the input.
-			fen = fen.replace(/^\s+|\s+$/g, '');
-
-			// Parse the FEN string.
-			try {
-				this._position = new RPBChess.Position(fen);
-				fen = this._position.fen();
-			}
-			catch(e) {
-				if(e instanceof RPBChess.exceptions.InvalidFEN) {
-					this._position = e;
-				}
-				else {
-					this._position = null;
-					throw e;
-				}
-			}
-
-			// Return the validated FEN string.
-			return fen;
-		},
-
-
-		/**
-		 * Initialize the internal square marker buffer with the given string.
-		 *
-		 * @param {string} value
-		 * @returns {string}
-		 */
-		_initializeSquareMarkers: function(value) {
-			this._squareMarkers = parseMarkerList(value, SQUARE_MARKER_TOKEN);
-			return flattenMarkerList(this._squareMarkers);
-		},
-
-
-		/**
-		 * Initialize the internal arrow marker buffer with the given string.
-		 *
-		 * @param {string} value
-		 * @returns {string}
-		 */
-		_initializeArrowMarkers: function(value) {
-			this._arrowMarkers = parseMarkerList(value, ARROW_MARKER_TOKEN);
-			return flattenMarkerList(this._arrowMarkers);
 		},
 
 
@@ -498,246 +659,9 @@
 				// Update the widget if necessary.
 				if(newSquareSize !== obj.options.squareSize) {
 					obj.options.squareSize = newSquareSize;
-					obj._refresh();
+					refresh(obj);
 				}
 			});
-		},
-
-
-		/**
-		 * Destroy the widget content, prior to a refresh or a widget destruction.
-		 */
-		_destroyContent: function() {
-			this.element.empty();
-		},
-
-
-		/**
-		 * Build the error message resulting from a FEN parsing error.
-		 *
-		 * @returns {string}
-		 */
-		_buildErrorMessage: function() {
-
-			// Build the error report box.
-			var retVal = '<div class="uichess-chessboard-error">' +
-				'<div class="uichess-chessboard-errorTitle">Error while analysing a FEN string.</div>';
-
-			// Optional message.
-			if(this._position.message !== null) {
-				retVal += '<div class="uichess-chessboard-errorMessage">' + this._position.message + '</div>';
-			}
-
-			// Close the error report box, and return the result.
-			retVal += '</div>';
-			return retVal;
-		},
-
-
-		/**
-		 * Refresh the widget.
-		 */
-		_refresh: function()
-		{
-			this._destroyContent();
-			if(this._position === null) {
-				return;
-			}
-
-			// Handle parsing error problems.
-			if(this._position instanceof RPBChess.exceptions.InvalidFEN) {
-				$(this._buildErrorMessage()).appendTo(this.element);
-				return;
-			}
-
-			// Aliases
-			var ROWS         = this.options.flip ? '12345678' : '87654321';
-			var COLUMNS      = this.options.flip ? 'hgfedcba' : 'abcdefgh';
-			var SQUARE_SIZE  = this.options.squareSize;
-			var SPARE_PIECES = 'pnbrqk 0';
-
-			// Open the "table" node.
-			var content = '<div class="uichess-chessboard-table">';
-
-
-			//////////////////////////////////////////////////////////////////////////
-			// Spare pieces top row.
-			//////////////////////////////////////////////////////////////////////////
-			if(this.options.sparePieces) {
-				content += '<div class="uichess-chessboard-row uichess-chessboard-sparePiecesTopRow">';
-
-				// Empty cell (above the column of coordinates 1,2,...,8).
-				if(this.options.showCoordinates) {
-					content += '<div class="uichess-chessboard-cell"></div>';
-				}
-
-				// Spare pieces.
-				var color = this.options.flip ? 'w' : 'b';
-				for(var c=0; c<8; ++c) {
-					content += '<div class="uichess-chessboard-cell">';
-					if(SPARE_PIECES[c].match(/^[0-9]$/)) {
-						content += '<div class="uichess-chessboard-trash uichess-chessboard-size' + SQUARE_SIZE + '"></div>';
-					}
-					else if(SPARE_PIECES[c].match(/^[bknpqr]$/)) {
-						content += '<div class="uichess-chessboard-sparePiece uichess-chessboard-piece-' + SPARE_PIECES[c] +
-							' uichess-chessboard-color-' + color + ' uichess-chessboard-size' + SQUARE_SIZE + '"></div>';
-					}
-					content += '</div>';
-				}
-
-				// Empty cell (above the turn flag) + end of the row.
-				content += '<div class="uichess-chessboard-cell"></div></div>';
-			}
-
-
-			//////////////////////////////////////////////////////////////////////////
-			// For each row...
-			//////////////////////////////////////////////////////////////////////////
-			for(var r=0; r<8; ++r) {
-				content += '<div class="uichess-chessboard-row">';
-
-				// If visible, the row coordinates are shown in the left-most column.
-				if(this.options.showCoordinates) {
-					content += '<div class="uichess-chessboard-cell uichess-chessboard-rowCoordinate">' + ROWS[r] + '</div>';
-				}
-
-				// Print the squares belonging to the current column.
-				for(var c=0; c<8; ++c) {
-					var sq = COLUMNS[c] + ROWS[r];
-					var cp = this._position.square(sq);
-					var squareColor = RPBChess.squareColor(sq) === 'w' ? 'light' : 'dark';
-					var clazz = 'uichess-chessboard-cell uichess-chessboard-square uichess-chessboard-size' + SQUARE_SIZE +
-						' uichess-chessboard-' + squareColor + 'Square';
-					if(sq in this._squareMarkers) {
-						clazz += ' uichess-chessboard-squareMarker uichess-chessboard-markerColor-' + this._squareMarkers[sq];
-					}
-					content += '<div class="' + clazz + '">';
-					if(cp !== '-') {
-						content += '<div class="uichess-chessboard-piece uichess-chessboard-piece-' + cp.piece +
-							' uichess-chessboard-color-' + cp.color + ' uichess-chessboard-size' + SQUARE_SIZE + '">' +
-							'<div class="uichess-chessboard-pieceHandle"></div></div>';
-					}
-					content += '</div>';
-				}
-
-				// Add an additional cell at the end of the row: this last column will contain the turn flag, if necessary.
-				content += '<div class="uichess-chessboard-cell">';
-				if(ROWS[r] === '8' || ROWS[r] === '1') {
-					var color = ROWS[r] === '8' ? 'b' : 'w';
-					var turn  = this._position.turn();
-					content += '<div class="uichess-chessboard-turnFlag uichess-chessboard-color-' + color +
-						' uichess-chessboard-size' + SQUARE_SIZE + (color===turn ? '' : ' uichess-chessboard-inactiveFlag') + '"></div>';
-				}
-
-				// End of the additional cell and end of the row.
-				content += '</div></div>';
-			}
-
-
-			//////////////////////////////////////////////////////////////////////////
-			// If visible, the column coordinates are shown at the bottom of the table.
-			//////////////////////////////////////////////////////////////////////////
-			if(this.options.showCoordinates) {
-				content += '<div class="uichess-chessboard-row uichess-chessboard-columnCoordinateRow">';
-
-				// Empty cell (below the column of coordinates 1,2,...,8).
-				content += '<div class="uichess-chessboard-cell"></div>';
-
-				// Column headers
-				for(var c=0; c<8; ++c) {
-					content += '<div class="uichess-chessboard-cell uichess-chessboard-columnCoordinate">' + COLUMNS[c] + '</div>';
-				}
-
-				// Empty cell (below the turn flag) + end of the row.
-				content += '<div class="uichess-chessboard-cell"></div></div>';
-			}
-
-
-			//////////////////////////////////////////////////////////////////////////
-			// Spare pieces bottom row.
-			//////////////////////////////////////////////////////////////////////////
-			if(this.options.sparePieces) {
-				content += '<div class="uichess-chessboard-row uichess-chessboard-sparePiecesBottomRow">';
-
-				// Empty cell (below the column of coordinates 1,2,...,8).
-				if(this.options.showCoordinates) {
-					content += '<div class="uichess-chessboard-cell"></div>';
-				}
-
-				// Spare pieces.
-				var color = this.options.flip ? 'b' : 'w';
-				for(var c=0; c<8; ++c) {
-					content += '<div class="uichess-chessboard-cell">';
-					if(SPARE_PIECES[c].match(/^[0-9]$/)) {
-						content += '<div class="uichess-chessboard-trash uichess-chessboard-size' + SQUARE_SIZE + '"></div>';
-					}
-					else if(SPARE_PIECES[c].match(/^[bknpqr]$/)) {
-						content += '<div class="uichess-chessboard-sparePiece uichess-chessboard-piece-' + SPARE_PIECES[c] +
-							' uichess-chessboard-color-' + color + ' uichess-chessboard-size' + SQUARE_SIZE + '"></div>';
-					}
-					content += '</div>';
-				}
-
-				// Empty cell (below the turn flag) + end of the row.
-				content += '<div class="uichess-chessboard-cell"></div></div>';
-			}
-
-
-			//////////////////////////////////////////////////////////////////////////
-			// End of the table
-			//////////////////////////////////////////////////////////////////////////
-
-			// Arrow markers
-			var arrowMarkerFound = false;
-			var annotations = '<svg class="uichess-chessboard-annotations" viewBox="0 0 8 8">';
-			for(var arrow in this._arrowMarkers) {
-				if(this._arrowMarkers.hasOwnProperty(arrow) && /^([a-h])([1-8])([a-h])([1-8])$/.test(arrow)) {
-					arrowMarkerFound = true;
-					var x1 = COLUMNS.indexOf(RegExp.$1) + 0.5;
-					var y1 = ROWS.indexOf   (RegExp.$2) + 0.5;
-					var x2 = COLUMNS.indexOf(RegExp.$3) + 0.5;
-					var y2 = ROWS.indexOf   (RegExp.$4) + 0.5;
-					x2 += x1 < x2 ? -0.3 : x1 > x2 ? 0.3 : 0;
-					y2 += y1 < y2 ? -0.3 : y1 > y2 ? 0.3 : 0;
-					var clazz = 'uichess-chessboard-arrowMarker uichess-chessboard-markerColor-' + this._arrowMarkers[arrow];
-					annotations += '<line class="' + clazz + '" x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" />';
-				}
-			}
-			annotations += '</svg>';
-			if(arrowMarkerFound) {
-				content += annotations;
-			}
-
-			// Close the "table" node.
-			content += '</div>';
-
-			// Render the content.
-			$(content).appendTo(this.element);
-
-			// Adjust the position of the annotation layer.
-			if(arrowMarkerFound) {
-				var annotationLayer = $('.uichess-chessboard-annotations', this.element);
-				var firstSquare = $('.uichess-chessboard-square', this.element).first();
-				annotationLayer.offset(firstSquare.offset());
-				annotationLayer.width(firstSquare.width() * 8);
-				annotationLayer.height(firstSquare.height() * 8);
-			}
-
-			// Enable the drag & drops feature if necessary.
-			var draggablePieces = this.options.allowMoves === 'all' || this.options.allowMoves === 'legal';
-			var sparePieces     = this.options.sparePieces;
-			if(draggablePieces || sparePieces) {
-				this._tagSquares();
-				this._makeSquareDroppable();
-			}
-			if(draggablePieces) {
-				this._makePiecesDraggable();
-			}
-			if(sparePieces) {
-				this._tagSparePieces();
-				this._makeSparePiecesDraggable();
-				this._makeTrashDroppable();
-			}
 		},
 
 

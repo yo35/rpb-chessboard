@@ -70,7 +70,7 @@
 	line-height: 0px;
 }
 
-.uichess-chessboard-piece .uichess-chessboard-pieceHandle {
+.uichess-chessboard-handle {
 	position: relative;
 	z-index: 200;
 	width: 100%;
@@ -81,6 +81,64 @@
 	position: absolute;
 	z-index: 100;
 	opacity: 0.8;
+}
+
+.uichess-chessboard-cell.uichess-chessboard-rowCoordinate {
+	vertical-align: middle;
+	padding-left : 5px;
+	padding-right: 5px;
+}
+
+.uichess-chessboard-cell.uichess-chessboard-columnCoordinate {
+	vertical-align: baseline;
+	line-height: 1ex;
+	padding-top: 6px;
+}
+
+.uichess-chessboard-cell .uichess-chessboard-turnFlag {
+	margin-left: 8px;
+}
+
+.uichess-chessboard-hideCoordinates .uichess-chessboard-cell.uichess-chessboard-rowCoordinate,
+.uichess-chessboard-hideCoordinates .uichess-chessboard-row.uichess-chessboard-columnCoordinateRow,
+.uichess-chessboard-turnFlag.uichess-chessboard-inactiveFlag {
+	display: none;
+}
+
+.uichess-chessboard-squareHover {
+	box-shadow: 0 0 7px 3px #ffb000 inset;
+}
+
+.uichess-chessboard-lightSquare {
+	background-color: #f0dec7;
+}
+
+.uichess-chessboard-darkSquare {
+	background-color: #b5876b;
+}
+
+.uichess-chessboard-lightSquare.uichess-chessboard-squareMarker.uichess-chessboard-markerColor-G {
+	background-color: #60f250;
+}
+
+.uichess-chessboard-darkSquare.uichess-chessboard-squareMarker.uichess-chessboard-markerColor-G {
+	background-color: #48cf2b;
+}
+
+.uichess-chessboard-lightSquare.uichess-chessboard-squareMarker.uichess-chessboard-markerColor-R {
+	background-color: #f95950;
+}
+
+.uichess-chessboard-darkSquare.uichess-chessboard-squareMarker.uichess-chessboard-markerColor-R {
+	background-color: #e1362b;
+}
+
+.uichess-chessboard-lightSquare.uichess-chessboard-squareMarker.uichess-chessboard-markerColor-Y {
+	background-color: #f9f250;
+}
+
+.uichess-chessboard-darkSquare.uichess-chessboard-squareMarker.uichess-chessboard-markerColor-Y {
+	background-color: #e1cf2b;
 }
 
 .uichess-chessboard-arrowMarker {
@@ -103,126 +161,59 @@
 	marker-end: url(sprite/arrow-markers.svg#uichess-chessboard-arrowMarkerEnd-Y);
 }
 
-.uichess-chessboard-cell.uichess-chessboard-rowCoordinate {
-	vertical-align: middle;
-	padding-left : 5px;
-	padding-right: 5px;
-}
-
-.uichess-chessboard-cell.uichess-chessboard-columnCoordinate {
-	vertical-align: baseline;
-	line-height: 1ex;
-	padding-top: 6px;
-}
-
-.uichess-chessboard-cell .uichess-chessboard-turnFlag {
-	margin-left: 8px;
-}
-
-.uichess-chessboard-inactiveFlag,
-.uichess-chessboard-trash .uichess-chessboard-piece {
-	display: none;
-}
-
-.uichess-chessboard-squareHover {
-	box-shadow: 0 0 7px 3px #ffb000 inset;
-}
-
-.uichess-chessboard-trashHover {
-	background-color: #ffb000;
-	border-radius: 7px;
-}
-
-.uichess-chessboard-sparePiecesBottomRow .uichess-chessboard-trash,
-.uichess-chessboard-sparePiecesBottomRow .uichess-chessboard-sparePiece {
-	margin-top: 8px;
-}
-
-.uichess-chessboard-sparePiecesTopRow .uichess-chessboard-trash,
-.uichess-chessboard-sparePiecesTopRow .uichess-chessboard-sparePiece {
-	margin-bottom: 8px;
-}
-
-.uichess-chessboard-lightSquare {
-	background-color: #f0dec7;
-}
-
-.uichess-chessboard-darkSquare {
-	background-color: #b5876b;
-}
-
-.uichess-chessboard-lightSquare.uichess-chessboard-squareMarker.uichess-chessboard-markerColor-G {
-	background-color: #60f250;
-}
-.uichess-chessboard-darkSquare.uichess-chessboard-squareMarker.uichess-chessboard-markerColor-G {
-	background-color: #48cf2b;
-}
-.uichess-chessboard-lightSquare.uichess-chessboard-squareMarker.uichess-chessboard-markerColor-R {
-	background-color: #f95950;
-}
-.uichess-chessboard-darkSquare.uichess-chessboard-squareMarker.uichess-chessboard-markerColor-R {
-	background-color: #e1362b;
-}
-.uichess-chessboard-lightSquare.uichess-chessboard-squareMarker.uichess-chessboard-markerColor-Y {
-	background-color: #f9f250;
-}
-.uichess-chessboard-darkSquare.uichess-chessboard-squareMarker.uichess-chessboard-markerColor-Y {
-	background-color: #e1cf2b;
-}
-
-.uichess-chessboard-size12 { min-width: 12px; width: 12px; height: 12px; background-position:  -850px -53px; }
-.uichess-chessboard-size13 { min-width: 13px; width: 13px; height: 13px; background-position:  -798px -52px; }
-.uichess-chessboard-size14 { min-width: 14px; width: 14px; height: 14px; background-position:  -747px -51px; }
-.uichess-chessboard-size15 { min-width: 15px; width: 15px; height: 15px; background-position:  -697px -50px; }
-.uichess-chessboard-size16 { min-width: 16px; width: 16px; height: 16px; background-position:  -648px -49px; }
-.uichess-chessboard-size17 { min-width: 17px; width: 17px; height: 17px; background-position:  -600px -48px; }
-.uichess-chessboard-size18 { min-width: 18px; width: 18px; height: 18px; background-position:  -553px -47px; }
-.uichess-chessboard-size19 { min-width: 19px; width: 19px; height: 19px; background-position:  -507px -46px; }
-.uichess-chessboard-size20 { min-width: 20px; width: 20px; height: 20px; background-position:  -462px -45px; }
-.uichess-chessboard-size21 { min-width: 21px; width: 21px; height: 21px; background-position:  -418px -44px; }
-.uichess-chessboard-size22 { min-width: 22px; width: 22px; height: 22px; background-position:  -375px -43px; }
-.uichess-chessboard-size23 { min-width: 23px; width: 23px; height: 23px; background-position:  -333px -42px; }
-.uichess-chessboard-size24 { min-width: 24px; width: 24px; height: 24px; background-position:  -292px -41px; }
-.uichess-chessboard-size25 { min-width: 25px; width: 25px; height: 25px; background-position:  -252px -40px; }
-.uichess-chessboard-size26 { min-width: 26px; width: 26px; height: 26px; background-position:  -213px -39px; }
-.uichess-chessboard-size27 { min-width: 27px; width: 27px; height: 27px; background-position:  -175px -38px; }
-.uichess-chessboard-size28 { min-width: 28px; width: 28px; height: 28px; background-position:  -138px -37px; }
-.uichess-chessboard-size29 { min-width: 29px; width: 29px; height: 29px; background-position:  -102px -36px; }
-.uichess-chessboard-size30 { min-width: 30px; width: 30px; height: 30px; background-position:   -67px -35px; }
-.uichess-chessboard-size31 { min-width: 31px; width: 31px; height: 31px; background-position:   -33px -34px; }
-.uichess-chessboard-size32 { min-width: 32px; width: 32px; height: 32px; background-position:     0px -33px; }
-.uichess-chessboard-size33 { min-width: 33px; width: 33px; height: 33px; background-position:     0px   0px; }
-.uichess-chessboard-size34 { min-width: 34px; width: 34px; height: 34px; background-position:   -33px   0px; }
-.uichess-chessboard-size35 { min-width: 35px; width: 35px; height: 35px; background-position:   -67px   0px; }
-.uichess-chessboard-size36 { min-width: 36px; width: 36px; height: 36px; background-position:  -102px   0px; }
-.uichess-chessboard-size37 { min-width: 37px; width: 37px; height: 37px; background-position:  -138px   0px; }
-.uichess-chessboard-size38 { min-width: 38px; width: 38px; height: 38px; background-position:  -175px   0px; }
-.uichess-chessboard-size39 { min-width: 39px; width: 39px; height: 39px; background-position:  -213px   0px; }
-.uichess-chessboard-size40 { min-width: 40px; width: 40px; height: 40px; background-position:  -252px   0px; }
-.uichess-chessboard-size41 { min-width: 41px; width: 41px; height: 41px; background-position:  -292px   0px; }
-.uichess-chessboard-size42 { min-width: 42px; width: 42px; height: 42px; background-position:  -333px   0px; }
-.uichess-chessboard-size43 { min-width: 43px; width: 43px; height: 43px; background-position:  -375px   0px; }
-.uichess-chessboard-size44 { min-width: 44px; width: 44px; height: 44px; background-position:  -418px   0px; }
-.uichess-chessboard-size45 { min-width: 45px; width: 45px; height: 45px; background-position:  -462px   0px; }
-.uichess-chessboard-size46 { min-width: 46px; width: 46px; height: 46px; background-position:  -507px   0px; }
-.uichess-chessboard-size47 { min-width: 47px; width: 47px; height: 47px; background-position:  -553px   0px; }
-.uichess-chessboard-size48 { min-width: 48px; width: 48px; height: 48px; background-position:  -600px   0px; }
-.uichess-chessboard-size49 { min-width: 49px; width: 49px; height: 49px; background-position:  -648px   0px; }
-.uichess-chessboard-size50 { min-width: 50px; width: 50px; height: 50px; background-position:  -697px   0px; }
-.uichess-chessboard-size51 { min-width: 51px; width: 51px; height: 51px; background-position:  -747px   0px; }
-.uichess-chessboard-size52 { min-width: 52px; width: 52px; height: 52px; background-position:  -798px   0px; }
-.uichess-chessboard-size53 { min-width: 53px; width: 53px; height: 53px; background-position:  -850px   0px; }
-.uichess-chessboard-size54 { min-width: 54px; width: 54px; height: 54px; background-position:  -903px   0px; }
-.uichess-chessboard-size55 { min-width: 55px; width: 55px; height: 55px; background-position:  -957px   0px; }
-.uichess-chessboard-size56 { min-width: 56px; width: 56px; height: 56px; background-position: -1012px   0px; }
-.uichess-chessboard-size57 { min-width: 57px; width: 57px; height: 57px; background-position: -1068px   0px; }
-.uichess-chessboard-size58 { min-width: 58px; width: 58px; height: 58px; background-position: -1125px   0px; }
-.uichess-chessboard-size59 { min-width: 59px; width: 59px; height: 59px; background-position: -1183px   0px; }
-.uichess-chessboard-size60 { min-width: 60px; width: 60px; height: 60px; background-position: -1242px   0px; }
-.uichess-chessboard-size61 { min-width: 61px; width: 61px; height: 61px; background-position: -1302px   0px; }
-.uichess-chessboard-size62 { min-width: 62px; width: 62px; height: 62px; background-position: -1363px   0px; }
-.uichess-chessboard-size63 { min-width: 63px; width: 63px; height: 63px; background-position: -1425px   0px; }
-.uichess-chessboard-size64 { min-width: 64px; width: 64px; height: 64px; background-position: -1488px   0px; }
+.uichess-chessboard-size12 .uichess-chessboard-sized { min-width: 12px; width: 12px; height: 12px; background-position:  -850px -53px; }
+.uichess-chessboard-size13 .uichess-chessboard-sized { min-width: 13px; width: 13px; height: 13px; background-position:  -798px -52px; }
+.uichess-chessboard-size14 .uichess-chessboard-sized { min-width: 14px; width: 14px; height: 14px; background-position:  -747px -51px; }
+.uichess-chessboard-size15 .uichess-chessboard-sized { min-width: 15px; width: 15px; height: 15px; background-position:  -697px -50px; }
+.uichess-chessboard-size16 .uichess-chessboard-sized { min-width: 16px; width: 16px; height: 16px; background-position:  -648px -49px; }
+.uichess-chessboard-size17 .uichess-chessboard-sized { min-width: 17px; width: 17px; height: 17px; background-position:  -600px -48px; }
+.uichess-chessboard-size18 .uichess-chessboard-sized { min-width: 18px; width: 18px; height: 18px; background-position:  -553px -47px; }
+.uichess-chessboard-size19 .uichess-chessboard-sized { min-width: 19px; width: 19px; height: 19px; background-position:  -507px -46px; }
+.uichess-chessboard-size20 .uichess-chessboard-sized { min-width: 20px; width: 20px; height: 20px; background-position:  -462px -45px; }
+.uichess-chessboard-size21 .uichess-chessboard-sized { min-width: 21px; width: 21px; height: 21px; background-position:  -418px -44px; }
+.uichess-chessboard-size22 .uichess-chessboard-sized { min-width: 22px; width: 22px; height: 22px; background-position:  -375px -43px; }
+.uichess-chessboard-size23 .uichess-chessboard-sized { min-width: 23px; width: 23px; height: 23px; background-position:  -333px -42px; }
+.uichess-chessboard-size24 .uichess-chessboard-sized { min-width: 24px; width: 24px; height: 24px; background-position:  -292px -41px; }
+.uichess-chessboard-size25 .uichess-chessboard-sized { min-width: 25px; width: 25px; height: 25px; background-position:  -252px -40px; }
+.uichess-chessboard-size26 .uichess-chessboard-sized { min-width: 26px; width: 26px; height: 26px; background-position:  -213px -39px; }
+.uichess-chessboard-size27 .uichess-chessboard-sized { min-width: 27px; width: 27px; height: 27px; background-position:  -175px -38px; }
+.uichess-chessboard-size28 .uichess-chessboard-sized { min-width: 28px; width: 28px; height: 28px; background-position:  -138px -37px; }
+.uichess-chessboard-size29 .uichess-chessboard-sized { min-width: 29px; width: 29px; height: 29px; background-position:  -102px -36px; }
+.uichess-chessboard-size30 .uichess-chessboard-sized { min-width: 30px; width: 30px; height: 30px; background-position:   -67px -35px; }
+.uichess-chessboard-size31 .uichess-chessboard-sized { min-width: 31px; width: 31px; height: 31px; background-position:   -33px -34px; }
+.uichess-chessboard-size32 .uichess-chessboard-sized { min-width: 32px; width: 32px; height: 32px; background-position:     0px -33px; }
+.uichess-chessboard-size33 .uichess-chessboard-sized { min-width: 33px; width: 33px; height: 33px; background-position:     0px   0px; }
+.uichess-chessboard-size34 .uichess-chessboard-sized { min-width: 34px; width: 34px; height: 34px; background-position:   -33px   0px; }
+.uichess-chessboard-size35 .uichess-chessboard-sized { min-width: 35px; width: 35px; height: 35px; background-position:   -67px   0px; }
+.uichess-chessboard-size36 .uichess-chessboard-sized { min-width: 36px; width: 36px; height: 36px; background-position:  -102px   0px; }
+.uichess-chessboard-size37 .uichess-chessboard-sized { min-width: 37px; width: 37px; height: 37px; background-position:  -138px   0px; }
+.uichess-chessboard-size38 .uichess-chessboard-sized { min-width: 38px; width: 38px; height: 38px; background-position:  -175px   0px; }
+.uichess-chessboard-size39 .uichess-chessboard-sized { min-width: 39px; width: 39px; height: 39px; background-position:  -213px   0px; }
+.uichess-chessboard-size40 .uichess-chessboard-sized { min-width: 40px; width: 40px; height: 40px; background-position:  -252px   0px; }
+.uichess-chessboard-size41 .uichess-chessboard-sized { min-width: 41px; width: 41px; height: 41px; background-position:  -292px   0px; }
+.uichess-chessboard-size42 .uichess-chessboard-sized { min-width: 42px; width: 42px; height: 42px; background-position:  -333px   0px; }
+.uichess-chessboard-size43 .uichess-chessboard-sized { min-width: 43px; width: 43px; height: 43px; background-position:  -375px   0px; }
+.uichess-chessboard-size44 .uichess-chessboard-sized { min-width: 44px; width: 44px; height: 44px; background-position:  -418px   0px; }
+.uichess-chessboard-size45 .uichess-chessboard-sized { min-width: 45px; width: 45px; height: 45px; background-position:  -462px   0px; }
+.uichess-chessboard-size46 .uichess-chessboard-sized { min-width: 46px; width: 46px; height: 46px; background-position:  -507px   0px; }
+.uichess-chessboard-size47 .uichess-chessboard-sized { min-width: 47px; width: 47px; height: 47px; background-position:  -553px   0px; }
+.uichess-chessboard-size48 .uichess-chessboard-sized { min-width: 48px; width: 48px; height: 48px; background-position:  -600px   0px; }
+.uichess-chessboard-size49 .uichess-chessboard-sized { min-width: 49px; width: 49px; height: 49px; background-position:  -648px   0px; }
+.uichess-chessboard-size50 .uichess-chessboard-sized { min-width: 50px; width: 50px; height: 50px; background-position:  -697px   0px; }
+.uichess-chessboard-size51 .uichess-chessboard-sized { min-width: 51px; width: 51px; height: 51px; background-position:  -747px   0px; }
+.uichess-chessboard-size52 .uichess-chessboard-sized { min-width: 52px; width: 52px; height: 52px; background-position:  -798px   0px; }
+.uichess-chessboard-size53 .uichess-chessboard-sized { min-width: 53px; width: 53px; height: 53px; background-position:  -850px   0px; }
+.uichess-chessboard-size54 .uichess-chessboard-sized { min-width: 54px; width: 54px; height: 54px; background-position:  -903px   0px; }
+.uichess-chessboard-size55 .uichess-chessboard-sized { min-width: 55px; width: 55px; height: 55px; background-position:  -957px   0px; }
+.uichess-chessboard-size56 .uichess-chessboard-sized { min-width: 56px; width: 56px; height: 56px; background-position: -1012px   0px; }
+.uichess-chessboard-size57 .uichess-chessboard-sized { min-width: 57px; width: 57px; height: 57px; background-position: -1068px   0px; }
+.uichess-chessboard-size58 .uichess-chessboard-sized { min-width: 58px; width: 58px; height: 58px; background-position: -1125px   0px; }
+.uichess-chessboard-size59 .uichess-chessboard-sized { min-width: 59px; width: 59px; height: 59px; background-position: -1183px   0px; }
+.uichess-chessboard-size60 .uichess-chessboard-sized { min-width: 60px; width: 60px; height: 60px; background-position: -1242px   0px; }
+.uichess-chessboard-size61 .uichess-chessboard-sized { min-width: 61px; width: 61px; height: 61px; background-position: -1302px   0px; }
+.uichess-chessboard-size62 .uichess-chessboard-sized { min-width: 62px; width: 62px; height: 62px; background-position: -1363px   0px; }
+.uichess-chessboard-size63 .uichess-chessboard-sized { min-width: 63px; width: 63px; height: 63px; background-position: -1425px   0px; }
+.uichess-chessboard-size64 .uichess-chessboard-sized { min-width: 64px; width: 64px; height: 64px; background-position: -1488px   0px; }
 
 .uichess-chessboard-color-b.uichess-chessboard-piece-b { background-image: url(sprite/bb.png); }
 .uichess-chessboard-color-b.uichess-chessboard-piece-k { background-image: url(sprite/bk.png); }
@@ -239,5 +230,3 @@
 
 .uichess-chessboard-color-b.uichess-chessboard-turnFlag { background-image: url(sprite/bx.png); }
 .uichess-chessboard-color-w.uichess-chessboard-turnFlag { background-image: url(sprite/wx.png); }
-
-.uichess-chessboard-trash { background-image: url(sprite/trash.png); }
