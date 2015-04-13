@@ -667,11 +667,10 @@
 		 * @param {jQuery} container
 		 * @param {string} eventName Name of the event triggered when the container is resized.
 		 */
-		sizeControlledByContainer: function(container, eventName)
-		{
+		sizeControlledByContainer: function(container, eventName) {
 			var obj = this;
-			container.on(eventName, function(event, ui)
-			{
+			container.on(eventName, function(event, ui) {
+
 				// Save the initial information about the geometry of the widget and its container.
 				if(obj._initialGeometryInfo === undefined) {
 					obj._initialGeometryInfo = {
@@ -687,13 +686,9 @@
 				var deltaWPerSq = Math.floor(deltaW / 9);
 				var deltaHPerSq = Math.floor(deltaH / 8);
 				var newSquareSize = obj._initialGeometryInfo.squareSize + Math.min(deltaWPerSq, deltaHPerSq);
-				newSquareSize = Math.min(Math.max(newSquareSize, MINIMUM_SQUARE_SIZE), MAXIMUM_SQUARE_SIZE);
 
 				// Update the widget if necessary.
-				if(newSquareSize !== obj.options.squareSize) {
-					obj.options.squareSize = newSquareSize;
-					refresh(obj);
-				}
+				obj._setOption('squareSize', newSquareSize);
 			});
 		},
 
