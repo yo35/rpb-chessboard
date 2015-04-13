@@ -360,6 +360,14 @@
 
 
 	/**
+	 * Update the widget when the turn gets modified.
+	 */
+	function onTurnChanged(widget) {
+		$('.uichess-chessboard-turnFlag', widget.element).toggleClass('uichess-chessboard-inactiveFlag');
+	}
+
+
+	/**
 	 * Update the widget when the square-size parameter gets modified.
 	 *
 	 * @param {uichess.chessboard} widget
@@ -474,8 +482,7 @@
 		/**
 		 * Constructor.
 		 */
-		_create: function()
-		{
+		_create: function() {
 			this.element.addClass('uichess-chessboard').disableSelection();
 			this.options.position      = initializePosition     (this, this.options.position     );
 			this.options.squareMarkers = initializeSquareMarkers(this, this.options.squareMarkers);
@@ -489,8 +496,7 @@
 		/**
 		 * Destructor.
 		 */
-		_destroy: function()
-		{
+		_destroy: function() {
 			this.element.empty().removeClass('uichess-chessboard').enableSelection();
 		},
 
@@ -539,9 +545,7 @@
 			else if(value !== this._position.turn()) {
 				this._position.turn(value);
 				this.options.position = this._position.fen();
-
-				// Update the widget.
-				$('.uichess-chessboard-turnFlag', this.element).toggleClass('uichess-chessboard-inactiveFlag');
+				onTurnChanged(this);
 
 				// Notify the listeners.
 				this._trigger('change', null, this.options.position);
