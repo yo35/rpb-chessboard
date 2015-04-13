@@ -147,8 +147,8 @@
 	/**
 	 * Initialize the internal `RPBChess.Position` object with the given FEN string.
 	 *
-	 * @params {uichess.chessboard} widget
-	 * @params {string} fen
+	 * @param {uichess.chessboard} widget
+	 * @param {string} fen
 	 * @returns {string}
 	 */
 	function initializePosition(widget, fen) {
@@ -179,7 +179,7 @@
 	/**
 	 * Initialize the internal square marker buffer with the given string.
 	 *
-	 * @params {uichess.chessboard} widget
+	 * @param {uichess.chessboard} widget
 	 * @param {string} value
 	 * @returns {string}
 	 */
@@ -192,7 +192,7 @@
 	/**
 	 * Initialize the internal arrow marker buffer with the given string.
 	 *
-	 * @params {uichess.chessboard} widget
+	 * @param {uichess.chessboard} widget
 	 * @param {string} value
 	 * @returns {string}
 	 */
@@ -210,7 +210,7 @@
 	/**
 	 * Destroy the widget content, prior to a refresh or a widget destruction.
 	 *
-	 * @params {uichess.chessboard} widget
+	 * @param {uichess.chessboard} widget
 	 */
 	function destroyContent(widget) {
 		widget.element.empty();
@@ -220,7 +220,7 @@
 	/**
 	 * Build the error message resulting from a FEN parsing error.
 	 *
-	 * @params {uichess.chessboard} widget
+	 * @param {uichess.chessboard} widget
 	 * @returns {string}
 	 */
 	function buildErrorMessage(widget) {
@@ -243,7 +243,7 @@
 	/**
 	 * Build the widget content.
 	 *
-	 * @params {uichess.chessboard} widget
+	 * @param {uichess.chessboard} widget
 	 * @returns {string}
 	 */
 	function buildContent(widget) {
@@ -337,7 +337,7 @@
 	/**
 	 * Refresh the widget.
 	 *
-	 * @params {uichess.chessboard} widget
+	 * @param {uichess.chessboard} widget
 	 */
 	function refresh(widget) {
 		destroyContent(widget);
@@ -356,6 +356,26 @@
 
 			// TODO: enable interactions
 		}
+	}
+
+
+	/**
+	 * Update the widget when the square-size parameter gets modified.
+	 *
+	 * @param {uichess.chessboard} widget
+	 * @param {number} oldValue
+	 * @param {number} newValue
+	 */
+	function onSquareSizeChanged(widget, oldValue, newValue) {
+		$('.uichess-chessboard-table', widget.element).removeClass('uichess-chessboard-size' + oldValue).addClass('uichess-chessboard-size' + newValue);
+	}
+
+
+	/**
+	 * Update the widget when the show-coordinates parameter gets modified.
+	 */
+	function onShowCoordinatesChanged(widget) {
+		$('.uichess-chessboard-table', widget.element).toogleClass('uichess-chessboard-hideCoordinates');
 	}
 
 
@@ -478,8 +498,9 @@
 		/**
 		 * Option setter.
 		 */
-		_setOption: function(key, value)
-		{
+		_setOption: function(key, value) {
+
+			// Validate the new value.
 			switch(key) {
 				case 'position'     : value = initializePosition     (this, value); break;
 				case 'squareMarkers': value = initializeSquareMarkers(this, value); break;
@@ -488,11 +509,19 @@
 				case 'interactionMode': value = filterOptionInteractionMode(value); break;
 			}
 
+			// Set the new value.
+			var oldValue = this.options[key];
+			if(oldValue === value) {
+				return;
+			}
 			this.options[key] = value;
-			refresh(this);
 
-			if(key === 'position') {
-				this._trigger('change', null, this.options.position);
+			// Update the widget.
+			switch(key) {
+				case 'position': refresh(this); this._trigger('change', null, this.options.position); break;
+				case 'squareSize': onSquareSizeChanged(this, oldValue, value); break;
+				case 'showCoordinates': onShowCoordinatesChanged(this); break;
+				default: refresh(this); break;
 			}
 		},
 
