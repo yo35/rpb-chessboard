@@ -355,12 +355,19 @@
 			$(buildContent(widget)).appendTo(widget.element);
 
 			// TODO: enable interactions
+			if(widget.options.interactionMode==='play' || widget.options.interactionMode==='movePieces') {
+				tagSquares(widget);
+				makePiecesDraggable(widget);
+				makeSquaresDroppable(widget);
+			}
 		}
 	}
 
 
 	/**
 	 * Update the widget when the turn gets modified.
+	 *
+	 * @param {uichess.chessboard} widget
 	 */
 	function onTurnChanged(widget) {
 		$('.uichess-chessboard-turnFlag', widget.element).toggleClass('uichess-chessboard-inactiveFlag');
@@ -381,9 +388,88 @@
 
 	/**
 	 * Update the widget when the show-coordinates parameter gets modified.
+	 *
+	 * @param {uichess.chessboard} widget
 	 */
 	function onShowCoordinatesChanged(widget) {
 		$('.uichess-chessboard-table', widget.element).toogleClass('uichess-chessboard-hideCoordinates');
+	}
+
+
+
+
+	// ---------------------------------------------------------------------------
+	// Drag & drop interactions
+	// ---------------------------------------------------------------------------
+
+	/**
+	 * Tag each square of the chessboard with its name (for instance: 'e4').
+	 * The name of the square is then available through:
+	 *
+	 *   $(e).data('square');
+	 *
+	 * Where `e` is a DOM object with the class `uichess-chessboard-square`.
+	 */
+	function tagSquares(widget) {
+		var ROWS    = widget.options.flip ? '12345678' : '87654321';
+		var COLUMNS = widget.options.flip ? 'hgfedcba' : 'abcdefgh';
+		var r = 0;
+		var c = 0;
+		$('.uichess-chessboard-square', widget.element).each(function(index, element) {
+			$(element).data('square', COLUMNS[c] + ROWS[r]);
+			++c;
+			if(c === 8) {
+				c = 0;
+				++r;
+			}
+		});
+	}
+
+
+	/**
+	 * Make the pieces on the board draggable.
+	 *
+	 * @param {uichess.chessboard} widget
+	 * @param {jQuery} [target=widget.element] Only the children of `target` are affected.
+	 */
+	function makePiecesDraggable(widget, target) {
+		$('.uichess-chessboard-piece', target===undefined ? widget.element : target).draggable({
+			cursor        : 'move',
+			cursorAt      : { top: widget.options.squareSize/2, left: widget.options.squareSize/2 },
+			revert        : true,
+			revertDuration: 0,
+			zIndex        : 300
+		});
+	}
+
+
+	/**
+	 * Make the squares of the board acceptable drop targets for pieces.
+	 *
+	 * @param {uichess.chessboard} widget
+	 */
+	function makeSquaresDroppable(widget) {
+		var tableNode = $('.uichess-chessboard-table', widget.element).get(0);
+		$('.uichess-chessboard-square', widget.element).droppable({
+			hoverClass: 'uichess-chessboard-squareHover',
+
+			accept: function(e){
+				return $(e).closest('.uichess-chessboard-table').get(0) === tableNode;
+			},
+
+			drop: function(event, ui) {
+				var target      = $(event.target);
+				var movingPiece = ui.draggable;
+				if(movingPiece.hasClass('uichess-chessboard-piece')) {
+					var move = { from: movingPiece.parent().data('square'), to: target.data('square') };
+					if(move.from !== move.to) {
+						// TODO obj._doMove(move, movingPiece, target);
+						console.log('Move from ' + move.from + ' to ' + move.to);
+					}
+				}
+			}
+
+		});
 	}
 
 
@@ -694,31 +780,6 @@
 
 
 		/**
-		 * Tag each square of the chessboard with its name (for instance: 'e4').
-		 * The name of the square is then available through:
-		 *
-		 *   $(e).data('square');
-		 *
-		 * Where `e` is a DOM object with the class `uichess-chessboard-square`.
-		 */
-		_tagSquares: function()
-		{
-			var ROWS    = this.options.flip ? '12345678' : '87654321';
-			var COLUMNS = this.options.flip ? 'hgfedcba' : 'abcdefgh';
-			var r = 0;
-			var c = 0;
-			$('.uichess-chessboard-square', this.element).each(function() {
-				$(this).data('square', COLUMNS[c] + ROWS[r]);
-				++c;
-				if(c === 8) {
-					c = 0;
-					++r;
-				}
-			});
-		},
-
-
-		/**
 		 * Tag each spare piece of the chessboard with its name (for instance: `{piece: 'k', color: 'b'}`).
 		 * The name of the piece is then available through:
 		 *
@@ -755,97 +816,6 @@
 			});
 		},
 
-
-		/**
-		 * Make the squares of the board acceptable targets for pieces and spare pieces.
-		 */
-		_makeSquareDroppable: function()
-		{
-			var obj = this;
-			var tableNode = $('.uichess-chessboard-table', this.element).get(0);
-			$('.uichess-chessboard-square', this.element).droppable({
-				hoverClass: 'uichess-chessboard-squareHover',
-				accept: function(e)
-				{
-					return $(e).closest('.uichess-chessboard-table').get(0) === tableNode;
-				},
-				drop: function(event, ui)
-				{
-					var target      = $(event.target);
-					var movingPiece = ui.draggable;
-
-					// The draggable is a spare piece.
-					if(movingPiece.hasClass('uichess-chessboard-sparePiece')) {
-						var value = ui.draggable.data('piece');
-						obj._doAddSparePiece(target.data('square'), {piece: value.piece, color: value.color}, target);
-					}
-
-					// The draggable is a piece from the board.
-					if(movingPiece.hasClass('uichess-chessboard-piece')) {
-						var move = { from: movingPiece.parent().data('square'), to: target.data('square') };
-						if(move.from !== move.to) {
-							obj._doMove(move, movingPiece, target);
-						}
-					}
-				}
-			});
-		},
-
-
-		/**
-		 * Make the trash icons acceptable targets for pieces.
-		 */
-		_makeTrashDroppable: function()
-		{
-			var obj = this;
-			var tableNode = $('.uichess-chessboard-table', this.element).get(0);
-			$('.uichess-chessboard-trash', this.element).droppable({
-				hoverClass: 'uichess-chessboard-trashHover',
-				accept: function(e)
-				{
-					return $(e).hasClass('uichess-chessboard-piece') && $(e).closest('.uichess-chessboard-table').get(0) === tableNode;
-				},
-				drop: function(event, ui)
-				{
-					obj._doRemovePiece(ui.draggable.parent().data('square'), ui.draggable, $(event.target));
-				}
-			});
-		},
-
-
-		/**
-		 * Make the pieces on the board draggable.
-		 *
-		 * @param {jQuery} [target=this.element] Only the children of `target` are affected.
-		 */
-		_makePiecesDraggable: function(target)
-		{
-			$('.uichess-chessboard-piece', target===undefined ? this.element : target).draggable({
-				cursor        : 'move',
-				cursorAt      : { top: this.options.squareSize/2, left: this.options.squareSize/2 },
-				revert        : true,
-				revertDuration: 0,
-				zIndex        : 300
-			});
-		},
-
-
-		/**
-		 * Make the spare pieces draggable.
-		 *
-		 * @param {jQuery} [target=this.element] Only the children of `target` are affected.
-		 */
-		_makeSparePiecesDraggable: function(target)
-		{
-			$('.uichess-chessboard-sparePiece', target===undefined ? this.element : target).draggable({
-				cursor        : 'move',
-				cursorAt      : { top: this.options.squareSize/2, left: this.options.squareSize/2 },
-				helper        : 'clone',
-				revert        : true,
-				revertDuration: 0,
-				zIndex        : 300
-			});
-		},
 
 
 		/**
