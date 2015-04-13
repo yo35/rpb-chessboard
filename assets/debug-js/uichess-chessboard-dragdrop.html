@@ -36,16 +36,12 @@
 					<input id="print-fen" type="button" value="Print FEN" />
 				</p>
 				<p>
-					Allow moves:
-					<span id="allowMoves">
-						<input id="allowMoves-none"  type="radio" name="allowMoves" value="none" /><label for="allowMoves-none" >None</label>
-						<input id="allowMoves-all"   type="radio" name="allowMoves" value="all"  /><label for="allowMoves-all"  >All</label>
-						<input id="allowMoves-legal" type="radio" name="allowMoves" value="legal"/><label for="allowMoves-legal">Legal</label>
+					Interaction mode:
+					<span id="mode">
+						<input id="mode-none"       type="radio" name="mode" value="none"       /><label for="mode-none"      >None</label>
+						<input id="mode-movePieces" type="radio" name="mode" value="movePieces" /><label for="mode-movePieces">Move pieces</label>
+						<input id="mode-play"       type="radio" name="mode" value="play"       /><label for="mode-play"      >Play</label>
 					</span>
-				</p>
-				<p>
-					<input id="sparePieces" type="checkbox" />
-					<label for="sparePieces">Spare pieces</label>
 				</p>
 				<p>
 					<input id="change-turn" type="button" value="Change turn" />
@@ -75,41 +71,41 @@
 	<script type="text/javascript">
 
 		$('#a').chessboard({
-			position  : 'start',
+			position: 'start',
 			squareSize: 48,
-			allowMoves: 'all',
-			sparePieces: true,
-			move: function(event, ui)
-			{
+			interactionMode: 'movePieces',
+
+			move: function(event, ui) {
 				$('#info').append('<div>Move from ' + ui.from + ' to ' + ui.to + '</div>')
 			},
-			add: function(event, ui)
-			{
+
+			add: function(event, ui) {
 				$('#info').append('<div>Add ' + ui.piece.type + ui.piece.color + ' in ' + ui.square + '</div>')
 			},
-			change: function(event, ui)
-			{
+
+			change: function(event, ui) {
 				$('#info').append('<div>' + $('#a').chessboard('option', 'position') + '</div>');
 			}
+
 		});
 		$('#a').chessboard('addArrowMarker', 'Ga1h8');
 
 		$('#b1').chessboard({
-			position  : 'empty',
+			position: 'empty',
 			squareSize: 28,
-			allowMoves: 'all'
+			interactionMode: 'movePieces'
 		});
 
 		$('#b2').chessboard({
-			position  : 'start',
+			position: 'start',
 			squareSize: 28,
-			allowMoves: 'all'
+			interactionMode: 'movePieces'
 		});
 
 		$('#b3').chessboard({
-			position  : 'r3k3/1bn3nP/1P6/2n3n1/R4pP1/8/Q2P3R/8 w kq - 0 1',
+			position: 'r3k3/1bn3nP/1P6/2n3n1/R4pP1/8/Q2P3R/8 w kq - 0 1',
 			squareSize: 20,
-			allowMoves: 'all'
+			interactionMode: 'movePieces'
 		});
 
 		$('#make-empty' ).button().click(function() { $('#a').chessboard('option', 'position', 'empty'); });
@@ -126,19 +122,14 @@
 			$('#info').append('<div>' + $('#a').chessboard('option', 'position') + '</div>');
 		});
 
-		$('#allowMoves-' + $('#a').chessboard('option', 'allowMoves')).prop('checked', true);
-		$('#allowMoves input').each(function(index, e) {
+		$('#mode-' + $('#a').chessboard('option', 'interactionMode')).prop('checked', true);
+		$('#mode input').each(function(index, e) {
 			$(e).click(function() {
-				$('#a').chessboard('option', 'allowMoves', $(e).val());
+				$('#a').chessboard('option', 'interactionMode', $(e).val());
 			});
 		});
 
-		$('#sparePieces').prop('checked', $('#a').chessboard('option', 'sparePieces')).change(function() {
-			$('#a').chessboard('option', 'sparePieces', $('#sparePieces').prop('checked'));
-		});
-
-		$('#change-turn' ).button().click(function()
-		{
+		$('#change-turn').button().click(function() {
 			switch($('#a').chessboard('turn')) {
 				case 'w': $('#a').chessboard('turn', 'b'); return;
 				case 'b': $('#a').chessboard('turn', 'w'); return;
