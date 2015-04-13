@@ -215,6 +215,66 @@
 .uichess-chessboard-size63 .uichess-chessboard-sized { min-width: 63px; width: 63px; height: 63px; background-position: -1425px   0px; }
 .uichess-chessboard-size64 .uichess-chessboard-sized { min-width: 64px; width: 64px; height: 64px; background-position: -1488px   0px; }
 
+.uichess-chessboard-annotations {
+	position: absolute;
+	z-index: 100;
+	top: 0px;
+}
+
+.uichess-chessboard-size12 .uichess-chessboard-annotations { width:  96px; height:  96px; right: 20px; }
+.uichess-chessboard-size13 .uichess-chessboard-annotations { width: 104px; height: 104px; right: 21px; }
+.uichess-chessboard-size14 .uichess-chessboard-annotations { width: 112px; height: 112px; right: 22px; }
+.uichess-chessboard-size15 .uichess-chessboard-annotations { width: 120px; height: 120px; right: 23px; }
+.uichess-chessboard-size16 .uichess-chessboard-annotations { width: 128px; height: 128px; right: 24px; }
+.uichess-chessboard-size17 .uichess-chessboard-annotations { width: 136px; height: 136px; right: 25px; }
+.uichess-chessboard-size18 .uichess-chessboard-annotations { width: 144px; height: 144px; right: 26px; }
+.uichess-chessboard-size19 .uichess-chessboard-annotations { width: 152px; height: 152px; right: 27px; }
+.uichess-chessboard-size20 .uichess-chessboard-annotations { width: 160px; height: 160px; right: 28px; }
+.uichess-chessboard-size21 .uichess-chessboard-annotations { width: 168px; height: 168px; right: 29px; }
+.uichess-chessboard-size22 .uichess-chessboard-annotations { width: 176px; height: 176px; right: 30px; }
+.uichess-chessboard-size23 .uichess-chessboard-annotations { width: 184px; height: 184px; right: 31px; }
+.uichess-chessboard-size24 .uichess-chessboard-annotations { width: 192px; height: 192px; right: 32px; }
+.uichess-chessboard-size25 .uichess-chessboard-annotations { width: 200px; height: 200px; right: 33px; }
+.uichess-chessboard-size26 .uichess-chessboard-annotations { width: 208px; height: 208px; right: 34px; }
+.uichess-chessboard-size27 .uichess-chessboard-annotations { width: 216px; height: 216px; right: 35px; }
+.uichess-chessboard-size28 .uichess-chessboard-annotations { width: 224px; height: 224px; right: 36px; }
+.uichess-chessboard-size29 .uichess-chessboard-annotations { width: 232px; height: 232px; right: 37px; }
+.uichess-chessboard-size30 .uichess-chessboard-annotations { width: 240px; height: 240px; right: 38px; }
+.uichess-chessboard-size31 .uichess-chessboard-annotations { width: 248px; height: 248px; right: 39px; }
+.uichess-chessboard-size32 .uichess-chessboard-annotations { width: 256px; height: 256px; right: 40px; }
+.uichess-chessboard-size33 .uichess-chessboard-annotations { width: 264px; height: 264px; right: 41px; }
+.uichess-chessboard-size34 .uichess-chessboard-annotations { width: 272px; height: 272px; right: 42px; }
+.uichess-chessboard-size35 .uichess-chessboard-annotations { width: 280px; height: 280px; right: 43px; }
+.uichess-chessboard-size36 .uichess-chessboard-annotations { width: 288px; height: 288px; right: 44px; }
+.uichess-chessboard-size37 .uichess-chessboard-annotations { width: 296px; height: 296px; right: 45px; }
+.uichess-chessboard-size38 .uichess-chessboard-annotations { width: 304px; height: 304px; right: 46px; }
+.uichess-chessboard-size39 .uichess-chessboard-annotations { width: 312px; height: 312px; right: 47px; }
+.uichess-chessboard-size40 .uichess-chessboard-annotations { width: 320px; height: 320px; right: 48px; }
+.uichess-chessboard-size41 .uichess-chessboard-annotations { width: 328px; height: 328px; right: 49px; }
+.uichess-chessboard-size42 .uichess-chessboard-annotations { width: 336px; height: 336px; right: 50px; }
+.uichess-chessboard-size43 .uichess-chessboard-annotations { width: 344px; height: 344px; right: 51px; }
+.uichess-chessboard-size44 .uichess-chessboard-annotations { width: 352px; height: 352px; right: 52px; }
+.uichess-chessboard-size45 .uichess-chessboard-annotations { width: 360px; height: 360px; right: 53px; }
+.uichess-chessboard-size46 .uichess-chessboard-annotations { width: 368px; height: 368px; right: 54px; }
+.uichess-chessboard-size47 .uichess-chessboard-annotations { width: 376px; height: 376px; right: 55px; }
+.uichess-chessboard-size48 .uichess-chessboard-annotations { width: 384px; height: 384px; right: 56px; }
+.uichess-chessboard-size49 .uichess-chessboard-annotations { width: 392px; height: 392px; right: 57px; }
+.uichess-chessboard-size50 .uichess-chessboard-annotations { width: 400px; height: 400px; right: 58px; }
+.uichess-chessboard-size51 .uichess-chessboard-annotations { width: 408px; height: 408px; right: 59px; }
+.uichess-chessboard-size52 .uichess-chessboard-annotations { width: 416px; height: 416px; right: 60px; }
+.uichess-chessboard-size53 .uichess-chessboard-annotations { width: 424px; height: 424px; right: 61px; }
+.uichess-chessboard-size54 .uichess-chessboard-annotations { width: 432px; height: 432px; right: 62px; }
+.uichess-chessboard-size55 .uichess-chessboard-annotations { width: 440px; height: 440px; right: 63px; }
+.uichess-chessboard-size56 .uichess-chessboard-annotations { width: 448px; height: 448px; right: 64px; }
+.uichess-chessboard-size57 .uichess-chessboard-annotations { width: 456px; height: 456px; right: 65px; }
+.uichess-chessboard-size58 .uichess-chessboard-annotations { width: 464px; height: 464px; right: 66px; }
+.uichess-chessboard-size59 .uichess-chessboard-annotations { width: 472px; height: 472px; right: 67px; }
+.uichess-chessboard-size60 .uichess-chessboard-annotations { width: 480px; height: 480px; right: 68px; }
+.uichess-chessboard-size61 .uichess-chessboard-annotations { width: 488px; height: 488px; right: 69px; }
+.uichess-chessboard-size62 .uichess-chessboard-annotations { width: 496px; height: 496px; right: 70px; }
+.uichess-chessboard-size63 .uichess-chessboard-annotations { width: 504px; height: 504px; right: 71px; }
+.uichess-chessboard-size64 .uichess-chessboard-annotations { width: 512px; height: 512px; right: 72px; }
+
 .uichess-chessboard-color-b.uichess-chessboard-piece-b { background-image: url(sprite/bb.png); }
 .uichess-chessboard-color-b.uichess-chessboard-piece-k { background-image: url(sprite/bk.png); }
 .uichess-chessboard-color-b.uichess-chessboard-piece-n { background-image: url(sprite/bn.png); }

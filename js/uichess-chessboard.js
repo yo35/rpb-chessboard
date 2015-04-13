@@ -571,7 +571,7 @@
 			if(SQUARE_MARKER_TOKEN.test(squareMarker)) {
 				this._squareMarkers[RegExp.$2] = RegExp.$1;
 				this.options.squareMarkers = flattenMarkerList(this._squareMarkers);
-				this._refresh(); // TODO: avoid rebuilding the whole widget
+				refresh(this); // TODO: avoid rebuilding the whole widget
 			}
 		},
 
@@ -585,7 +585,7 @@
 			if(SQUARE_MARKER_TOKEN_NO_COLOR.test(squareMarker)) {
 				delete this._squareMarkers[RegExp.$1];
 				this.options.squareMarkers = flattenMarkerList(this._squareMarkers);
-				this._refresh(); // TODO: avoid rebuilding the whole widget
+				refresh(this); // TODO: avoid rebuilding the whole widget
 			}
 		},
 
@@ -599,7 +599,7 @@
 			if(ARROW_MARKER_TOKEN.test(arrowMarker)) {
 				this._arrowMarkers[RegExp.$2] = RegExp.$1;
 				this.options.arrowMarkers = flattenMarkerList(this._arrowMarkers);
-				this._refresh(); // TODO: avoid rebuilding the whole widget
+				refresh(this); // TODO: avoid rebuilding the whole widget
 			}
 		},
 
@@ -613,7 +613,7 @@
 			if(ARROW_MARKER_TOKEN_NO_COLOR.test(arrowMarker)) {
 				delete this._arrowMarkers[RegExp.$1];
 				this.options.arrowMarkers = flattenMarkerList(this._arrowMarkers);
-				this._refresh(); // TODO: avoid rebuilding the whole widget
+				refresh(this); // TODO: avoid rebuilding the whole widget
 			}
 		},
 
