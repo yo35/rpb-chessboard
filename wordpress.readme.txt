@@ -112,6 +112,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 3.6.1 (April 18, 2015) =
+* Null-move support (see issue #35).
+
 = 3.6 (March 29, 2015) =
 * Significant code refactoring of the JavaScript chess library: do not use chess.js anymore.
 * Improve FEN/PGN parsing error messages (see issue #11).
