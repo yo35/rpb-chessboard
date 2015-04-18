@@ -383,6 +383,25 @@ pgns.push({
 		'{Draw}\n'
 });
 
+pgns.push({
+	label: '9', gameCount: 1,
+	pgn:
+		'[Event "Game with null-moves"]\n' +
+		'[Result "*"]\n' +
+		'1.e4 -- 2.d4 d5 3.-- e5 *',
+	dump: '\n' +
+		'Event = {Game with null-moves}\n' +
+		'Result = {*}\n' +
+		'-+<LONG\n' +
+		'(1w) e4\n' +
+		'(1b) --\n' +
+		'(2w) d4\n' +
+		'(2b) d5\n' +
+		'(3w) --\n' +
+		'(3b) e5\n' +
+		'{Line}\n'
+});
+
 
 
 // -----------------------------------------------------------------------------
