@@ -38,6 +38,7 @@
 	// PGN parsing error messages
 	i18n.INVALID_PGN_TOKEN               = 'Unrecognized character or group of characters.';
 	i18n.INVALID_MOVE_IN_PGN_TEXT        = 'Invalid move. %1$s';
+	i18n.INVALID_NULL_MOVE_IN_PGN_TEXT   = 'Invalid null-move.';
 	i18n.INVALID_FEN_IN_PGN_TEXT         = 'Invalid FEN string in the initial position header. %1$s';
 	i18n.UNEXPECTED_PGN_HEADER           = 'Unexpected PGN item header.';
 	i18n.UNEXPECTED_BEGIN_OF_VARIATION   = 'Unexpected begin of variation.';
@@ -98,20 +99,32 @@
 
 		this._parent = parent; // Either a `Node` or a `Variation` object.
 		this._next   = null  ; // Next node (always a `Node` object if defined).
-
-		// Move descriptor.
-		this._move = parent.position().notation(move);
-
-		// Position obtained after the current move.
 		this._position = new RPBChess.Position(parent.position());
-		this._position.play(this._move);
+
+		// Null move.
+		if(move === '--') {
+			this._notation = '--';
+			if(!this._position.playNullMove()) {
+				throw new RPBChess.exceptions.InvalidNotation(this._position, '--', i18n.INVALID_NULL_MOVE_IN_PGN_TEXT);
+			}
+		}
+
+		// Regular move.
+		else {
+			var moveDescriptor = parent.position().notation(move);
+			this._notation = this._position.notation(moveDescriptor);
+			this._position.play(moveDescriptor);
+		}
+
+		// Moving color
+		this._movingColor = parent.position().turn();
 
 		// Full-move number
 		if(parent instanceof Variation) {
 			this._fullMoveNumber = parent._parent._fullMoveNumber;
 		}
 		else {
-			this._fullMoveNumber = this._move.movingColor()==='w' ? parent._fullMoveNumber+1 : parent._fullMoveNumber;
+			this._fullMoveNumber = this._movingColor==='w' ? parent._fullMoveNumber+1 : parent._fullMoveNumber;
 		}
 
 		// Whether the node belongs or not to a "long-variation".
@@ -144,7 +157,7 @@
 	 * @returns {string}
 	 */
 	Node.prototype.move = function() {
-		return this.positionBefore().notation(this._move);
+		return this._notation;
 	};
 
 
@@ -184,7 +197,7 @@
 	 * @returns {string} Either `'w'` or `'b'`.
 	 */
 	Node.prototype.moveColor = function() {
-		return this._move.movingColor();
+		return this._movingColor;
 	};
 
 
@@ -457,7 +470,7 @@
 
 	// PGN token types
 	var /* const */ TOKEN_HEADER          = 1; // Ex: [White "Kasparov, G."]
-	var /* const */ TOKEN_MOVE            = 2; // [BKNQRa-h1-8xO\-=\+#]+ (with an optional move number)
+	var /* const */ TOKEN_MOVE            = 2; // SAN notation or -- (with an optional move number)
 	var /* const */ TOKEN_NAG             = 3; // $[1-9][0-9]* or !! ! !? ?! ? ?? +- +/- +/= += = inf =+ =/+ -/+ -+
 	var /* const */ TOKEN_COMMENT         = 4; // {some text}
 	var /* const */ TOKEN_BEGIN_VARIATION = 5; // (
@@ -549,8 +562,8 @@
 				tokenValue = {key: RegExp.$2, value: RegExp.$3};
 			}
 
-			// Match a move
-			else if(/^((?:[1-9][0-9]*\s*\.(?:\.\.)?\s*)?((?:O-O-O|O-O|[KQRBN][a-h]?[1-8]?x?[a-h][1-8]|(?:[a-h]x?)?[a-h][1-8](?:=?[KQRBNP])?)[\+#]?))/.test(s)) {
+			// Match a move or a null-move
+			else if(/^((?:[1-9][0-9]*\s*\.(?:\.\.)?\s*)?((?:O-O-O|O-O|[KQRBN][a-h]?[1-8]?x?[a-h][1-8]|(?:[a-h]x?)?[a-h][1-8](?:=?[KQRBNP])?)[\+#]?|--))/.test(s)) {
 				deltaPos   = RegExp.$1.length;
 				token      = TOKEN_MOVE;
 				tokenValue = RegExp.$2;
@@ -650,7 +663,7 @@
 					}
 					break;
 
-				// Move
+				// Move or null-move
 				case TOKEN_MOVE:
 					try {
 						node = new Node(node, tokenValue);

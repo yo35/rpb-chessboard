@@ -77,6 +77,26 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 
 
+== Frequently Asked Questions ==
+
+= How to find help? =
+
+First, **look at the plugin help page**. This help page is available in the administration section
+of your WordPress website: in the main navigation menu > "Chess" > "Help". If no answer can be found there,
+ask your question on [this forum](https://github.com/yo35/rpb-chessboard/issues).
+
+= I encounter a bug, or I think the plugin misses a key feature... =
+
+Please expose your case on [the forum](https://github.com/yo35/rpb-chessboard/issues)!
+Usually, bugs get fixed very quickly after being reported. Feature requests are discussed,
+and then implemented if relevant.
+
+= The plugin is not available in my language, I want to translate it. =
+
+Please [contact the author](mailto:yo35@melix.net) for this.
+
+
+
 == Screenshots ==
 
 1. Typesetting and rendering a chess diagram.
@@ -91,6 +111,9 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 
 == Changelog ==
+
+= 3.6.1 (April 18, 2015) =
+* Null-move support (see issue #35).
 
 = 3.6 (March 29, 2015) =
 * Significant code refactoring of the JavaScript chess library: do not use chess.js anymore.
