@@ -81,7 +81,7 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 = How to find help? =
 
-First, **look at the plugin help pages**. This help pages are available in the administration section
+First, **look at the plugin help page**. This help page is available in the administration section
 of your WordPress website: in the main navigation menu > "Chess" > "Help". If no answer can be found there,
 ask your question on [this forum](https://github.com/yo35/rpb-chessboard/issues).
 
