@@ -933,57 +933,6 @@
 				// Update the widget if necessary.
 				obj._setOption('squareSize', newSquareSize);
 			});
-		},
-
-
-		/**
-		 * Called when a spare piece is dropped on a square.
-		 *
-		 * @param {string} square The name of the square on which the piece is dropped.
-		 * @param {{piece: string, color: string}} value The dropped piece.
-		 * @param {jQuery} target DOM node representing the targeted square.
-		 */
-		_doAddSparePiece: function(square, value, target) {
-
-			// Update the internal chess object.
-			this._position.square(square, value);
-
-			// Update the DOM tree.
-			$('<div class="uichess-chessboard-piece uichess-chessboard-piece-' + value.piece + ' uichess-chessboard-color-' + value.color +
-				' uichess-chessboard-size' + this.options.squareSize + '"></div>').appendTo(target.empty());
-
-			// Make the new piece draggable if necessary.
-			if(this.options.allowMoves === 'all' || this.options.allowMoves === 'legal') {
-				this._makePiecesDraggable(target);
-			}
-
-			// Refresh the FEN string coding the position, and trigger the 'add' event.
-			this.options.position = this._position.fen();
-			this._trigger('add', null, {square: square, piece: value});
-			this._trigger('change', null, this.options.position);
-		},
-
-
-		/**
-		 * Called when a piece is sent to the trash.
-		 *
-		 * @param {string} square The name of the square that contains the piece to trash.
-		 * @param {jQuery} movingPiece DOM node representing the moving piece.
-		 * @param {jQuery} target DOM node representing the trash.
-		 */
-		_doRemovePiece: function(square, movingPiece, target) {
-
-			// Update the internal chess object.
-			this._position.square(square, '-');
-
-			// Update the DOM tree. The moving piece must not be directly deleted in order
-			// to complete the drag process.
-			target.empty().append(movingPiece);
-
-			// Refresh the FEN string coding the position, and trigger the 'remove' event.
-			this.options.position = this._position.fen();
-			this._trigger('remove', null, square);
-			this._trigger('change', null, this.options.position);
 		}
 
 	}); /* $.widget('uichess.chessboard', { ... }) */
