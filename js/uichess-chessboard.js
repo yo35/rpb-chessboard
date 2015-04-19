@@ -53,6 +53,14 @@
 
 
 	/**
+	 * HTML template for handle nodes.
+	 *
+	 * @constant
+	 */
+	var HANDLE_TEMPLATE = '<div class="uichess-chessboard-handle"></div>';
+
+
+	/**
 	 * Regular expression matching a square marker.
 	 *
 	 * @constant
@@ -278,11 +286,11 @@
 				// Colored piece within the square (if any).
 				var coloredPiece = widget._position.square(square);
 				if(coloredPiece === '-') {
-					res += '<div class="uichess-chessboard-handle"></div>';
+					res += HANDLE_TEMPLATE;
 				}
 				else {
 					res += '<div class="uichess-chessboard-sized uichess-chessboard-piece uichess-chessboard-piece-' + coloredPiece.piece +
-						' uichess-chessboard-color-' + coloredPiece.color + '"><div class="uichess-chessboard-handle"></div></div>';
+						' uichess-chessboard-color-' + coloredPiece.color + '">' + HANDLE_TEMPLATE + '</div>';
 				}
 				res += '</div>';
 			}
@@ -409,6 +417,8 @@
 	 *   $(e).data('square');
 	 *
 	 * Where `e` is a DOM object with the class `uichess-chessboard-square`.
+	 *
+	 * @param {uichess.chessboard} widget
 	 */
 	function tagSquares(widget) {
 		var ROWS    = widget.options.flip ? '12345678' : '87654321';
@@ -423,6 +433,22 @@
 				++r;
 			}
 		});
+	}
+
+
+	/**
+	 * Fetch the DOM node corresponding to a given square.
+	 *
+	 * @param {uichess.chessboard} widget
+	 * @param {string} square
+	 * @returns {jQuery}
+	 */
+	function fetchSquare(widget, square) {
+		var ROWS    = widget.options.flip ? '12345678' : '87654321';
+		var COLUMNS = widget.options.flip ? 'hgfedcba' : 'abcdefgh';
+		var r = ROWS   .indexOf(square[1]);
+		var c = COLUMNS.indexOf(square[0]);
+		return $($('.uichess-chessboard-square', widget.element).get(r*8 + c));
 	}
 
 
@@ -463,13 +489,91 @@
 				if(movingPiece.hasClass('uichess-chessboard-piece')) {
 					var move = { from: movingPiece.parent().data('square'), to: target.data('square') };
 					if(move.from !== move.to) {
-						// TODO obj._doMove(move, movingPiece, target);
-						console.log('Move from ' + move.from + ' to ' + move.to);
+						if(widget.options.interactionMode === 'movePieces') {
+							doMovePiece(widget, move, movingPiece, target);
+						}
+						else if(widget.options.interactionMode==='play' || widget.options.interactionMode==='movePieces') {
+							doPlay(widget, move, movingPiece, target);
+						}
 					}
 				}
 			}
 
 		});
+	}
+
+
+	/**
+	 * Callback for the "move pieces" mode -> move the moving piece to its destination square,
+	 * clearing the latter beforehand if necessary.
+	 *
+	 * @param {uichess.chessboard} widget
+	 * @param {{from: string, to: string}} move The origin and destination squares.
+	 * @param {jQuery} movingPiece DOM node representing the moving piece.
+	 * @param {jQuery} target DOM node representing the destination square.
+	 */
+	function doMovePiece(widget, move, movingPiece, target) {
+		widget._position.square(move.to, widget._position.square(move.from));
+		widget._position.square(move.from, '-');
+		movingPiece.parent().append(HANDLE_TEMPLATE);
+		target.empty().append(movingPiece);
+
+		// Refresh the FEN string coding the position, and trigger the 'move' event.
+		widget.options.position = widget._position.fen();
+		widget._trigger('move', null, move);
+		widget._trigger('change', null, widget.options.position);
+	}
+
+
+	/**
+	 * Callback for the "play" mode -> check if the proposed move is legal, and handle
+	 * the special situations (promotion, castle, en-passant...) that may be encountered.
+	 *
+	 * @param {uichess.chessboard} widget
+	 * @param {{from: string, to: string}} move The origin and destination squares.
+	 * @param {jQuery} movingPiece DOM node representing the moving piece.
+	 * @param {jQuery} target DOM node representing the destination square.
+	 */
+	function doPlay(widget, move, movingPiece, target) {
+		var moveDescriptor = widget._position.isMoveLegal(move);
+		if(moveDescriptor === false) {
+			move.promotion = 'q'; // TODO: allow other types of promoted pieces.
+			moveDescriptor = widget._position.isMoveLegal(move);
+			if(moveDescriptor === false) {
+				return;
+			}
+		}
+		widget._position.play(moveDescriptor);
+
+		// Move the moving piece to its destination square.
+		movingPiece.parent().append(HANDLE_TEMPLATE);
+		target.empty().append(movingPiece);
+
+		// Castling move -> move the rook.
+		if(moveDescriptor.type() === RPBChess.movetype.CASTLING_MOVE) {
+			var rookFrom = fetchSquare(widget, moveDescriptor.rookFrom());
+			var rookTo   = fetchSquare(widget, moveDescriptor.rookTo());
+			rookFrom.append(HANDLE_TEMPLATE);
+			rookTo.empty().append($('.uichess-chessboard-piece', rookFrom));
+		}
+
+		// En-passant move -> remove the taken pawn.
+		if(moveDescriptor.type() === RPBChess.movetype.EN_PASSANT_CAPTURE) {
+			fetchSquare(widget, moveDescriptor.enPassantSquare()).empty().append(HANDLE_TEMPLATE);
+		}
+
+		// Promotion move -> change the type of the promoted piece.
+		if(moveDescriptor.type() === RPBChess.movetype.PROMOTION) {
+			movingPiece.removeClass('uichess-chessboard-piece-p').addClass('uichess-chessboard-piece-' + moveDescriptor.promotion());
+		}
+
+		// Switch the turn flag.
+		$('.uichess-chessboard-turnFlag', widget.element).toggleClass('uichess-chessboard-inactiveFlag');
+
+		// Refresh the FEN string coding the position, and trigger the 'move' event.
+		widget.options.position = widget._position.fen();
+		widget._trigger('move', null, move);
+		widget._trigger('change', null, widget.options.position);
 	}
 
 
@@ -776,106 +880,6 @@
 				// Update the widget if necessary.
 				obj._setOption('squareSize', newSquareSize);
 			});
-		},
-
-
-		/**
-		 * Tag each spare piece of the chessboard with its name (for instance: `{piece: 'k', color: 'b'}`).
-		 * The name of the piece is then available through:
-		 *
-		 *   $(e).data('piece');
-		 *
-		 * Where `e` is a DOM object with the class `uichess-chessboard-sparePiece`.
-		 */
-		_tagSparePieces: function() {
-			var PIECES = 'pnbrqk';
-			var COLORS = this.options.flip ? 'wb' : 'bw';
-			var p = 0;
-			var c = 0;
-			$('.uichess-chessboard-sparePiece', this.element).each(function() {
-				$(this).data('piece', { piece: PIECES[p], color: COLORS[c] });
-				++p;
-				if(p === 6) {
-					p = 0;
-					++c;
-				}
-			});
-		},
-
-
-		/**
-		 * Fetch the DOM node corresponding to a given square.
-		 *
-		 * @param {string} square
-		 * @returns {jQuery}
-		 */
-		_fetchSquare: function(square)
-		{
-			return $('.uichess-chessboard-square', this.element).filter(function() {
-				return $(this).data('square') === square;
-			});
-		},
-
-
-
-		/**
-		 * Called when a piece is dropped on a square.
-		 *
-		 * @param {{from: string, to: string}} move The origin and destination squares.
-		 * @param {jQuery} movingPiece DOM node representing the moving piece.
-		 * @param {jQuery} target DOM node representing the destination square.
-		 */
-		_doMove: function(move, movingPiece, target) {
-
-			// "All moves" mode -> move the moving piece to its destination square,
-			// clearing the latter beforehand if necessary.
-			if(this.options.allowMoves === 'all') {
-				this._position.square(move.to, this._position.square(move.from));
-				this._position.square(move.from, '-');
-				target.empty().append(movingPiece);
-			}
-
-			// "Legal moves" mode -> check if the proposed move is legal, and handle
-			// the special situations (promotion, castle, en-passant...) that may be encountered.
-			else if(this.options.allowMoves === 'legal') {
-				var moveDescriptor = this._position.isMoveLegal(move);
-				if(moveDescriptor === false) {
-					move.promotion = 'q'; // TODO: allow other types of promoted pieces.
-					moveDescriptor = this._position.isMoveLegal(move);
-					if(moveDescriptor === false) {
-						return;
-					}
-				}
-				this._position.play(moveDescriptor);
-
-				// Move the moving piece to its destination square.
-				target.empty().append(movingPiece);
-
-				// Castling move -> move the rook.
-				if(moveDescriptor.type() === RPBChess.movetype.CASTLING_MOVE) {
-					var rookFrom = this._fetchSquare(moveDescriptor.rookFrom());
-					var rookTo   = this._fetchSquare(moveDescriptor.rookTo());
-					rookTo.empty().append($('.uichess-chessboard-piece', rookFrom));
-				}
-
-				// En-passant move -> remove the taken pawn.
-				if(moveDescriptor.type() === RPBChess.movetype.EN_PASSANT_CAPTURE) {
-					this._fetchSquare(moveDescriptor.enPassantSquare()).empty();
-				}
-
-				// Promotion move -> change the type of the promoted piece.
-				if(moveDescriptor.type() === RPBChess.movetype.PROMOTION) {
-					movingPiece.removeClass('uichess-chessboard-piece-p').addClass('uichess-chessboard-piece-' + moveDescriptor.promotion());
-				}
-
-				// Switch the turn flag.
-				$('.uichess-chessboard-turnFlag', this.element).toggleClass('uichess-chessboard-inactiveFlag');
-			}
-
-			// Refresh the FEN string coding the position, and trigger the 'move' event.
-			this.options.position = this._position.fen();
-			this._trigger('move', null, move);
-			this._trigger('change', null, this.options.position);
 		},
 
 
