@@ -134,8 +134,7 @@
 	 * @param {number} squareSize
 	 * @returns {number}
 	 */
-	function filterOptionSquareSize(squareSize)
-	{
+	function filterOptionSquareSize(squareSize) {
 		return Math.min(Math.max(squareSize, MINIMUM_SQUARE_SIZE), MAXIMUM_SQUARE_SIZE);
 	}
 
@@ -479,7 +478,7 @@
 		$('.uichess-chessboard-square', widget.element).droppable({
 			hoverClass: 'uichess-chessboard-squareHover',
 
-			accept: function(e){
+			accept: function(e) {
 				return $(e).closest('.uichess-chessboard-table').get(0) === tableNode;
 			},
 
