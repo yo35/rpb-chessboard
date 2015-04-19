@@ -360,19 +360,18 @@
 			$(buildContent(widget)).appendTo(widget.element);
 			if(widget.options.interactionMode==='play' || widget.options.interactionMode==='movePieces') {
 				tagSquares(widget);
-				makePiecesDraggable(widget);
-				makeSquaresDroppable(widget);
+				enableMovePieceOrPlayBehavior(widget, widget.options.interactionMode==='play');
 			}
 			else if(/^addPieces-([wb])([kqrbnp])$/.test(widget.options.interactionMode)) {
 				var color = RegExp.$1;
 				var piece = RegExp.$2;
 				tagSquares(widget);
-				makeSquaresClickable(widget, doAddPiece, { color:color, piece:piece });
+				enableAddPieceBehavior(widget, { color:color, piece:piece });
 			}
 			else if(/^addSquareMarkers-([GRY])$/.test(widget.options.interactionMode)) {
 				var markerColor = RegExp.$1;
 				tagSquares(widget);
-				makeSquaresClickable(widget, doAddSquareMarker, markerColor);
+				enableAddSquareMarkerBehavior(widget, markerColor);
 			}
 			else if(/^addArrowMarkers-([GRY])$/.test(widget.options.interactionMode)) {
 				var markerColor = RegExp.$1;
@@ -544,11 +543,14 @@
 
 
 	/**
-	 * Make the pieces on the board draggable.
+	 * Enable the "move-pieces" or "play" interaction modes.
 	 *
 	 * @param {uichess.chessboard} widget
+	 * @param {boolean} playMode
 	 */
-	function makePiecesDraggable(widget) {
+	function enableMovePieceOrPlayBehavior(widget, playMode) {
+
+		// Enable dragging.
 		$('.uichess-chessboard-piece', widget.element).draggable({
 			cursor        : 'move',
 			cursorAt      : { top: widget.options.squareSize/2, left: widget.options.squareSize/2 },
@@ -556,17 +558,10 @@
 			revertDuration: 0,
 			zIndex        : 300
 		});
-	}
 
-
-	/**
-	 * Make the squares of the board acceptable drop targets for pieces.
-	 *
-	 * @param {uichess.chessboard} widget
-	 */
-	function makeSquaresDroppable(widget) {
+		// Enable dropping.
 		var tableNode = $('.uichess-chessboard-table', widget.element).get(0);
-		var callback = widget.options.interactionMode==='movePieces' ? doMovePiece : doPlay;
+		var dropCallback = playMode ? doPlay : doMovePiece;
 		$('.uichess-chessboard-square', widget.element).droppable({
 			hoverClass: 'uichess-chessboard-squareHover',
 
@@ -580,7 +575,7 @@
 				if(movingPiece.hasClass('uichess-chessboard-piece')) {
 					var move = { from: movingPiece.parent().data('square'), to: target.data('square') };
 					if(move.from !== move.to) {
-						callback(widget, move, movingPiece, target);
+						dropCallback(widget, move, movingPiece, target);
 					}
 				}
 			}
@@ -589,15 +584,27 @@
 
 
 	/**
-	 * Make the squares clickable.
+	 * Enable the "add-piece" interaction mode.
 	 *
 	 * @param {uichess.chessboard} widget
-	 * @param {function} callback
-	 * @param {object} arg
+	 * @param {{color:string, piece:string}} coloredPiece
 	 */
-	function makeSquaresClickable(widget, callback, arg) {
+	function enableAddPieceBehavior(widget, coloredPiece) {
 		$('.uichess-chessboard-square', widget.element).mousedown(function() {
-			callback(widget, arg, $(this).data('square'), $(this));
+			doAddPiece(widget, coloredPiece, $(this).data('square'), $(this));
+		});
+	}
+
+
+	/**
+	 * Enable the "add-square-marker" interaction mode.
+	 *
+	 * @param {uichess.chessboard} widget
+	 * @param {string} markerColor
+	 */
+	function enableAddSquareMarkerBehavior(widget, markerColor) {
+		$('.uichess-chessboard-square', widget.element).mousedown(function() {
+			doAddSquareMarker(widget, markerColor, $(this).data('square'), $(this));
 		});
 	}
 
