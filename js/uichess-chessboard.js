@@ -553,7 +553,6 @@
 					}
 				}
 			}
-
 		});
 	}
 
@@ -592,9 +591,10 @@
 		function yInCanvas(y) { return (y - canvasOffset.top) * 8 / canvasHeight; }
 
 		// Enable dragging.
-		$('.uichess-chessboard-square', widget.element).draggable({
-			cursor: 'crosshair',
-			helper: function() { return $('<div></div>'); },
+		$('.uichess-chessboard-square .uichess-chessboard-handle', widget.element).draggable({
+			cursor  : 'crosshair',
+			cursorAt: { top: widget.options.squareSize/2, left: widget.options.squareSize/2 },
+			helper  : function() { return $('<div class="uichess-chessboard-sized"></div>'); },
 
 			start: function(event) {
 
@@ -619,6 +619,20 @@
 			}
 		});
 
+		// Enable dropping.
+		var tableNode = $('.uichess-chessboard-table', widget.element).get(0);
+		$('.uichess-chessboard-square', widget.element).droppable({
+			hoverClass: 'uichess-chessboard-squareHover',
+
+			accept: function(e) {
+				return $(e).closest('.uichess-chessboard-table').get(0) === tableNode;
+			},
+
+			drop: function(event) {
+				var destinationSquare = $(event.target).data('square');
+				console.log('Arrow from=' + originSquare + ' to=' + destinationSquare); // TODO
+			}
+		});
 	}
 
 
