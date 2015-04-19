@@ -321,11 +321,12 @@
 		res += '<svg class="uichess-chessboard-annotations" viewBox="0 0 8 8">';
 		for(var arrow in widget._arrowMarkers) {
 			if(widget._arrowMarkers.hasOwnProperty(arrow) && /^([a-h][1-8])([a-h][1-8])$/.test(arrow)) {
-				var sq1 = RegExp.$1;
-				var sq2 = RegExp.$2;
-				if(sq1 !== sq2) {
-					var vc = getArrowCoordinatesInSVG(widget, sq1, sq2);
-					var clazz = 'uichess-chessboard-arrowMarker uichess-chessboard-markerColor-' + widget._arrowMarkers[arrow];
+				var fromSquare = RegExp.$1;
+				var toSquare = RegExp.$2;
+				if(fromSquare !== toSquare) {
+					var vc = getArrowCoordinatesInSVG(widget, fromSquare, toSquare);
+					var clazz = 'uichess-chessboard-arrowMarker uichess-chessboard-arrowMarker-' + fromSquare + toSquare +
+						' uichess-chessboard-markerColor-' + widget._arrowMarkers[arrow];
 					res += '<line class="' + clazz + '" x1="' + vc.x1 + '" y1="' + vc.y1 + '" x2="' + vc.x2 + '" y2="' + vc.y2 + '" />';
 				}
 			}
@@ -435,6 +436,36 @@
 
 
 	/**
+	 * Update the widget when an arrow marker gets added/changed/removed.
+	 *
+	 * @param {uichess.chessboard} widget
+	 * @param {string} key
+	 * @param {string} oldValue `undefined` if the square marker is added.
+	 * @param {string} newValue `undefined` if the square marker is removed.
+	 */
+	function onArrowMarkerChanged(widget, key, oldValue, newValue) {
+		if(typeof oldValue === 'undefined') {
+			var fromSquare = key.substr(0, 2);
+			var toSquare = key.substr(2, 2);
+			if(fromSquare !== toSquare) {
+				var vc = getArrowCoordinatesInSVG(widget, fromSquare, toSquare);
+				var clazz = 'uichess-chessboard-arrowMarker uichess-chessboard-arrowMarker-' + key + ' uichess-chessboard-markerColor-' + newValue;
+				var line = $(document.createElementNS('http://www.w3.org/2000/svg', 'line'));
+				line.attr({ 'x1':vc.x1, 'y1':vc.y1, 'x2':vc.x2, 'y2':vc.y2, 'class':clazz });
+				$('.uichess-chessboard-annotations', widget.element).append(line);
+			}
+		}
+		else if(typeof newValue === 'undefined') {
+			$('.uichess-chessboard-arrowMarker-' + key, widget.element).remove();
+		}
+		else {
+			var clazz = 'uichess-chessboard-arrowMarker uichess-chessboard-arrowMarker-' + key + ' uichess-chessboard-markerColor-' + newValue;
+			$('.uichess-chessboard-arrowMarker-' + key, widget.element).attr('class', clazz);
+		}
+	}
+
+
+	/**
 	 * Fetch the DOM node corresponding to a given square.
 	 *
 	 * @param {uichess.chessboard} widget
@@ -468,13 +499,13 @@
 	 * Return the coordinates of the given arrow in the annotation canvas.
 	 *
 	 * @param {uichess.chessboard} widget
-	 * @param {string} sq1 Origin square.
-	 * @param {string} sq2 Destination square.
+	 * @param {string} fromSquare
+	 * @param {string} toSquare
 	 * @returns {{x1:number, y1:number, x2:number, y2:number}}
 	 */
-	function getArrowCoordinatesInSVG(widget, sq1, sq2) {
-		var p1 = getSquareCoordinatesInSVG(widget, sq1);
-		var p2 = getSquareCoordinatesInSVG(widget, sq2);
+	function getArrowCoordinatesInSVG(widget, fromSquare, toSquare) {
+		var p1 = getSquareCoordinatesInSVG(widget, fromSquare);
+		var p2 = getSquareCoordinatesInSVG(widget, toSquare);
 		p2.x += p1.x < p2.x ? -0.3 : p1.x > p2.x ? 0.3 : 0;
 		p2.y += p1.y < p2.y ? -0.3 : p1.y > p2.y ? 0.3 : 0;
 		return { x1:p1.x, y1:p1.y, x2:p2.x, y2:p2.y };
@@ -580,7 +611,7 @@
 	function enableAddArrowMarkerBehavior(widget, markerColor) {
 
 		// Must be initialized each time a drag starts.
-		var originSquare = null;
+		var fromSquare = null;
 		var canvasOffset = null;
 
 		// Conversion page coordinate -> SVG canvas coordinates.
@@ -599,12 +630,12 @@
 			start: function(event) {
 
 				// Initialized the drag control variables.
-				originSquare = $(event.target).closest('.uichess-chessboard-square').data('square');
+				fromSquare = $(event.target).closest('.uichess-chessboard-square').data('square');
 				canvasOffset = canvas.offset();
 
 				// Create the temporary arrow marker.
 				var clazz = 'uichess-chessboard-arrowMarker uichess-chessboard-markerColor-' + markerColor;
-				var p = getSquareCoordinatesInSVG(widget, originSquare);
+				var p = getSquareCoordinatesInSVG(widget, fromSquare);
 				var line = $(document.createElementNS('http://www.w3.org/2000/svg', 'line'));
 				line.attr({ 'x1':p.x, 'y1':p.y, 'x2':p.x, 'y2':p.y, 'class':clazz, 'id':'uichess-chessboard-draggedArrowMarker' });
 				line.appendTo(canvas);
@@ -629,8 +660,8 @@
 			},
 
 			drop: function(event) {
-				var destinationSquare = $(event.target).data('square');
-				console.log('Arrow from=' + originSquare + ' to=' + destinationSquare); // TODO
+				var toSquare = $(event.target).data('square');
+				doAddArrowMarker(widget, markerColor, fromSquare, toSquare);
 			}
 		});
 	}
@@ -720,13 +751,13 @@
 	function doAddPiece(widget, coloredPiece, square, target) {
 		var oldColoredPiece = widget._position.square(square);
 
-		// Remove-case.
+		// Remove-case
 		if(typeof oldColoredPiece === 'object' && oldColoredPiece.color === coloredPiece.color && oldColoredPiece.piece === coloredPiece.piece) {
 			widget._position.square(square, '-');
 			target.empty().append(HANDLE_TEMPLATE);
 		}
 
-		// Add-case.
+		// Add-case
 		else {
 			widget._position.square(square, coloredPiece);
 			target.empty().append('<div class="uichess-chessboard-sized uichess-chessboard-piece uichess-chessboard-piece-' +
@@ -748,13 +779,13 @@
 	 */
 	function doAddSquareMarker(widget, color, square, target) {
 
-		// Remove-case.
+		// Remove-case
 		if(widget._squareMarkers[square] === color) {
 			onSquareMarkerChanged(target, color);
 			delete widget._squareMarkers[square];
 		}
 
-		// Add-case.
+		// Add-case
 		else {
 			onSquareMarkerChanged(target, widget._squareMarkers[square], color);
 			widget._squareMarkers[square] = color;
@@ -762,6 +793,34 @@
 
 		// Update the square marker list.
 		widget.options.squareMarkers = flattenMarkerList(widget._squareMarkers);
+	}
+
+
+	/**
+	 * Callback for the "add-arrow-markers" mode -> toggle the requested arrow marker between the given squares.
+	 *
+	 * @param {uichess.chessboard} widget
+	 * @param {string} color Arrow marker color.
+	 * @param {string} fromSquare
+	 * @param {string} toSquare
+	 */
+	function doAddArrowMarker(widget, color, fromSquare, toSquare) {
+		var key = fromSquare + toSquare;
+
+		// Remove-case
+		if(widget._arrowMarkers[key] === color) {
+			onArrowMarkerChanged(widget, key, widget._arrowMarkers[key]);
+			delete widget._arrowMarkers[key];
+		}
+
+		// Add-case
+		else {
+			onArrowMarkerChanged(widget, key, widget._arrowMarkers[key], color);
+			widget._arrowMarkers[key] = color;
+		}
+
+		// Update the arrow marker list.
+		widget.options.arrowMarkers = flattenMarkerList(widget._arrowMarkers);
 	}
 
 
@@ -1026,9 +1085,13 @@
 		 */
 		addArrowMarker: function(arrowMarker) {
 			if(ARROW_MARKER_TOKEN.test(arrowMarker)) {
-				this._arrowMarkers[RegExp.$2] = RegExp.$1;
-				this.options.arrowMarkers = flattenMarkerList(this._arrowMarkers);
-				refresh(this); // TODO: avoid rebuilding the whole widget
+				var color = RegExp.$1;
+				var key = RegExp.$2;
+				if(this._arrowMarkers[key] !== color) {
+					onArrowMarkerChanged(this, key, this._arrowMarkers[key], color);
+					this._arrowMarkers[key] = color;
+					this.options.arrowMarkers = flattenMarkerList(this._arrowMarkers);
+				}
 			}
 		},
 
@@ -1040,9 +1103,12 @@
 		 */
 		removeArrowMarker: function(arrowMarker) {
 			if(ARROW_MARKER_TOKEN_NO_COLOR.test(arrowMarker)) {
-				delete this._arrowMarkers[RegExp.$1];
-				this.options.arrowMarkers = flattenMarkerList(this._arrowMarkers);
-				refresh(this); // TODO: avoid rebuilding the whole widget
+				var key = RegExp.$1;
+				if(typeof this._arrowMarkers[key] !== 'undefined') {
+					onArrowMarkerChanged(this, key, this._arrowMarkers[key]);
+					delete this._arrowMarkers[key];
+					this.options.arrowMarkers = flattenMarkerList(this._arrowMarkers);
+				}
 			}
 		},
 
