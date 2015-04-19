@@ -320,16 +320,13 @@
 		// Arrow markers
 		res += '<svg class="uichess-chessboard-annotations" viewBox="0 0 8 8">';
 		for(var arrow in widget._arrowMarkers) {
-			if(widget._arrowMarkers.hasOwnProperty(arrow) && /^([a-h])([1-8])([a-h])([1-8])$/.test(arrow)) {
-				var x1 = COLUMNS.indexOf(RegExp.$1) + 0.5;
-				var y1 = ROWS.indexOf   (RegExp.$2) + 0.5;
-				var x2 = COLUMNS.indexOf(RegExp.$3) + 0.5;
-				var y2 = ROWS.indexOf   (RegExp.$4) + 0.5;
-				if(x1 !== x2 || y1 !== y2) {
-					x2 += x1 < x2 ? -0.3 : x1 > x2 ? 0.3 : 0;
-					y2 += y1 < y2 ? -0.3 : y1 > y2 ? 0.3 : 0;
+			if(widget._arrowMarkers.hasOwnProperty(arrow) && /^([a-h][1-8])([a-h][1-8])$/.test(arrow)) {
+				var sq1 = RegExp.$1;
+				var sq2 = RegExp.$2;
+				if(sq1 !== sq2) {
+					var vc = getArrowCoordinatesInSVG(widget, sq1, sq2);
 					var clazz = 'uichess-chessboard-arrowMarker uichess-chessboard-markerColor-' + widget._arrowMarkers[arrow];
-					res += '<line class="' + clazz + '" x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" />';
+					res += '<line class="' + clazz + '" x1="' + vc.x1 + '" y1="' + vc.y1 + '" x2="' + vc.x2 + '" y2="' + vc.y2 + '" />';
 				}
 			}
 		}
@@ -372,9 +369,14 @@
 				makeSquaresClickable(widget, doAddPiece, { color:color, piece:piece });
 			}
 			else if(/^addSquareMarkers-([GRY])$/.test(widget.options.interactionMode)) {
-				var color = RegExp.$1;
+				var markerColor = RegExp.$1;
 				tagSquares(widget);
-				makeSquaresClickable(widget, doAddSquareMarker, color);
+				makeSquaresClickable(widget, doAddSquareMarker, markerColor);
+			}
+			else if(/^addArrowMarkers-([GRY])$/.test(widget.options.interactionMode)) {
+				var markerColor = RegExp.$1;
+				tagSquares(widget);
+				enableAddArrowMarkerBehavior(widget, markerColor);
 			}
 		}
 	}
@@ -432,6 +434,53 @@
 	}
 
 
+	/**
+	 * Fetch the DOM node corresponding to a given square.
+	 *
+	 * @param {uichess.chessboard} widget
+	 * @param {string} square
+	 * @returns {jQuery}
+	 */
+	function fetchSquare(widget, square) {
+		var ROWS    = widget.options.flip ? '12345678' : '87654321';
+		var COLUMNS = widget.options.flip ? 'hgfedcba' : 'abcdefgh';
+		var r = ROWS   .indexOf(square[1]);
+		var c = COLUMNS.indexOf(square[0]);
+		return $($('.uichess-chessboard-square', widget.element).get(r*8 + c));
+	}
+
+
+	/**
+	 * Return the coordinates of the given square in the annotation canvas.
+	 *
+	 * @param {uichess.chessboard} widget
+	 * @param {string} square
+	 * @returns {{x:number, y:number}}
+	 */
+	function getSquareCoordinatesInSVG(widget, square) {
+		var ROWS    = widget.options.flip ? '12345678' : '87654321';
+		var COLUMNS = widget.options.flip ? 'hgfedcba' : 'abcdefgh';
+		return { x: COLUMNS.indexOf(square[0])+0.5, y: ROWS.indexOf(square[1])+0.5 };
+	}
+
+
+	/**
+	 * Return the coordinates of the given arrow in the annotation canvas.
+	 *
+	 * @param {uichess.chessboard} widget
+	 * @param {string} sq1 Origin square.
+	 * @param {string} sq2 Destination square.
+	 * @returns {{x1:number, y1:number, x2:number, y2:number}}
+	 */
+	function getArrowCoordinatesInSVG(widget, sq1, sq2) {
+		var p1 = getSquareCoordinatesInSVG(widget, sq1);
+		var p2 = getSquareCoordinatesInSVG(widget, sq2);
+		p2.x += p1.x < p2.x ? -0.3 : p1.x > p2.x ? 0.3 : 0;
+		p2.y += p1.y < p2.y ? -0.3 : p1.y > p2.y ? 0.3 : 0;
+		return { x1:p1.x, y1:p1.y, x2:p2.x, y2:p2.y };
+	}
+
+
 
 	// ---------------------------------------------------------------------------
 	// Drag & drop interactions
@@ -460,22 +509,6 @@
 				++r;
 			}
 		});
-	}
-
-
-	/**
-	 * Fetch the DOM node corresponding to a given square.
-	 *
-	 * @param {uichess.chessboard} widget
-	 * @param {string} square
-	 * @returns {jQuery}
-	 */
-	function fetchSquare(widget, square) {
-		var ROWS    = widget.options.flip ? '12345678' : '87654321';
-		var COLUMNS = widget.options.flip ? 'hgfedcba' : 'abcdefgh';
-		var r = ROWS   .indexOf(square[1]);
-		var c = COLUMNS.indexOf(square[0]);
-		return $($('.uichess-chessboard-square', widget.element).get(r*8 + c));
 	}
 
 
@@ -536,6 +569,56 @@
 		$('.uichess-chessboard-square', widget.element).mousedown(function() {
 			callback(widget, arg, $(this).data('square'), $(this));
 		});
+	}
+
+
+	/**
+	 * Enable the "add-arrow-marker" interaction mode.
+	 *
+	 * @param {uichess.chessboard} widget
+	 * @param {string} markerColor
+	 */
+	function enableAddArrowMarkerBehavior(widget, markerColor) {
+
+		// Must be initialized each time a drag starts.
+		var originSquare = null;
+		var canvasOffset = null;
+
+		// Conversion page coordinate -> SVG canvas coordinates.
+		var canvas = $('.uichess-chessboard-annotations', widget.element);
+		var canvasWidth  = canvas.width();
+		var canvasHeight = canvas.height();
+		function xInCanvas(x) { return (x - canvasOffset.left) * 8 / canvasWidth; }
+		function yInCanvas(y) { return (y - canvasOffset.top) * 8 / canvasHeight; }
+
+		// Enable dragging.
+		$('.uichess-chessboard-square', widget.element).draggable({
+			cursor: 'crosshair',
+			helper: function() { return $('<div></div>'); },
+
+			start: function(event) {
+
+				// Initialized the drag control variables.
+				originSquare = $(event.target).closest('.uichess-chessboard-square').data('square');
+				canvasOffset = canvas.offset();
+
+				// Create the temporary arrow marker.
+				var clazz = 'uichess-chessboard-arrowMarker uichess-chessboard-markerColor-' + markerColor;
+				var p = getSquareCoordinatesInSVG(widget, originSquare);
+				var line = $(document.createElementNS('http://www.w3.org/2000/svg', 'line'));
+				line.attr({ 'x1':p.x, 'y1':p.y, 'x2':p.x, 'y2':p.y, 'class':clazz, 'id':'uichess-chessboard-draggedArrowMarker' });
+				line.appendTo(canvas);
+			},
+
+			drag: function(event) {
+				$('#uichess-chessboard-draggedArrowMarker').attr({ 'x2':xInCanvas(event.pageX), 'y2':yInCanvas(event.pageY) });
+			},
+
+			stop: function() {
+				$('#uichess-chessboard-draggedArrowMarker').remove();
+			}
+		});
+
 	}
 
 
