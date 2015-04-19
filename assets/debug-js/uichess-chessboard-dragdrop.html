@@ -33,6 +33,8 @@
 				<p>
 					<input id="flip" type="checkbox" />
 					<label for="flip">Flip</label>
+					<input id="annotations" type="checkbox" />
+					<label for="annotations">Annotations</label>
 					<input id="print-fen" type="button" value="Print FEN" />
 				</p>
 				<p>
@@ -88,7 +90,17 @@
 			}
 
 		});
-		$('#a').chessboard('addArrowMarker', 'Ga1h8');
+
+		$('#annotations').prop('checked', false);
+		$('#annotations').button().click(function() {
+			if($('#annotations').prop('checked')) {
+				$('#a').chessboard('addArrowMarker', 'Ga1h8');
+			}
+			else {
+				$('#a').chessboard('option', 'squareMarkers', '');
+				$('#a').chessboard('option', 'arrowMarkers', '');
+			}
+		});
 
 		$('#b1').chessboard({
 			position: 'empty',
