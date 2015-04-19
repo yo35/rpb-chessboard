@@ -33,8 +33,6 @@
 				<p>
 					<input id="flip" type="checkbox" />
 					<label for="flip">Flip</label>
-					<input id="annotations" type="checkbox" />
-					<label for="annotations">Annotations</label>
 					<input id="print-fen" type="button" value="Print FEN" />
 				</p>
 				<p>
@@ -65,7 +63,16 @@
 					</tr>
 				</table>
 				<p>
+					Square markers:
+					<span>
+						<input id="mode-addSquareMarkers-G" type="radio" name="mode" value="addSquareMarkers-G" /><label for="mode-addSquareMarkers-G">Green</label>
+						<input id="mode-addSquareMarkers-R" type="radio" name="mode" value="addSquareMarkers-R" /><label for="mode-addSquareMarkers-R">Red</label>
+						<input id="mode-addSquareMarkers-Y" type="radio" name="mode" value="addSquareMarkers-Y" /><label for="mode-addSquareMarkers-Y">Yellow</label>
+					</span>
+				</p>
+				<p>
 					<input id="change-turn" type="button" value="Change turn" />
+					<input id="clear-annotations" type="button" value="Clear annotations" />
 				</p>
 			</form>
 			<pre id="info"></pre>
@@ -100,17 +107,6 @@
 				$('#info').append('<div>' + $('#a').chessboard('option', 'position') + '</div>');
 			}
 
-		});
-
-		$('#annotations').prop('checked', false);
-		$('#annotations').button().click(function() {
-			if($('#annotations').prop('checked')) {
-				$('#a').chessboard('addArrowMarker', 'Ga1h8');
-			}
-			else {
-				$('#a').chessboard('option', 'squareMarkers', '');
-				$('#a').chessboard('option', 'arrowMarkers', '');
-			}
 		});
 
 		$('#b1').chessboard({
@@ -160,6 +156,10 @@
 					alert('Unknown turn: ' + $('#a').chessboard('turn'));
 					break;
 			}
+		});
+		$('#clear-annotations').button().click(function() {
+			$('#a').chessboard('option', 'squareMarkers', '');
+			$('#a').chessboard('option', 'arrowMarkers', '');
 		});
 
 	</script>

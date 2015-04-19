@@ -360,8 +360,6 @@
 		// Regular rendering
 		else {
 			$(buildContent(widget)).appendTo(widget.element);
-
-			// TODO: enable interactions
 			if(widget.options.interactionMode==='play' || widget.options.interactionMode==='movePieces') {
 				tagSquares(widget);
 				makePiecesDraggable(widget);
@@ -371,7 +369,12 @@
 				var color = RegExp.$1;
 				var piece = RegExp.$2;
 				tagSquares(widget);
-				makeSquaresClickable(widget, color, piece);
+				makeSquaresClickable(widget, doAddPiece, { color:color, piece:piece });
+			}
+			else if(/^addSquareMarkers-([GRY])$/.test(widget.options.interactionMode)) {
+				var color = RegExp.$1;
+				tagSquares(widget);
+				makeSquaresClickable(widget, doAddSquareMarker, color);
 			}
 		}
 	}
@@ -408,6 +411,25 @@
 		$('.uichess-chessboard-table', widget.element).toogleClass('uichess-chessboard-hideCoordinates');
 	}
 
+
+	/**
+	 * Update the widget when a square marker gets added/changed/removed.
+	 *
+	 * @param {jQuery} target DOM node corresponding to the targeted square.
+	 * @param {string} oldValue `undefined` if the square marker is added.
+	 * @param {string} newValue `undefined` if the square marker is removed.
+	 */
+	function onSquareMarkerChanged(target, oldValue, newValue) {
+		if(typeof oldValue === 'undefined') {
+			target.addClass('uichess-chessboard-squareMarker').addClass('uichess-chessboard-markerColor-' + newValue);
+		}
+		else if(typeof newValue === 'undefined') {
+			target.removeClass('uichess-chessboard-squareMarker').removeClass('uichess-chessboard-markerColor-' + oldValue);
+		}
+		else {
+			target.removeClass('uichess-chessboard-markerColor-' + oldValue).addClass('uichess-chessboard-markerColor-' + newValue);
+		}
+	}
 
 
 
@@ -507,12 +529,12 @@
 	 * Make the squares clickable.
 	 *
 	 * @param {uichess.chessboard} widget
-	 * @param {string} color
-	 * @param {string} piece
+	 * @param {function} callback
+	 * @param {object} arg
 	 */
-	function makeSquaresClickable(widget, color, piece) {
+	function makeSquaresClickable(widget, callback, arg) {
 		$('.uichess-chessboard-square', widget.element).mousedown(function() {
-			doAddPiece(widget, { color:color, piece:piece }, $(this).data('square'), $(this));
+			callback(widget, arg, $(this).data('square'), $(this));
 		});
 	}
 
@@ -616,6 +638,33 @@
 
 		// FEN update + notifications.
 		notifyFENChanged(widget);
+	}
+
+
+	/**
+	 * Callback for the "add-square-markers" mode -> toggle the requested square marker on the targeted square.
+	 *
+	 * @param {uichess.chessboard} widget
+	 * @param {string} color Square marker color.
+	 * @param {string} square Targeted square.
+	 * @param {jQuery} target DOM node corresponding to the targeted square.
+	 */
+	function doAddSquareMarker(widget, color, square, target) {
+
+		// Remove-case.
+		if(widget._squareMarkers[square] === color) {
+			onSquareMarkerChanged(target, color);
+			delete widget._squareMarkers[square];
+		}
+
+		// Add-case.
+		else {
+			onSquareMarkerChanged(target, widget._squareMarkers[square], color);
+			widget._squareMarkers[square] = color;
+		}
+
+		// Update the square marker list.
+		widget.options.squareMarkers = flattenMarkerList(widget._squareMarkers);
 	}
 
 
@@ -845,9 +894,13 @@
 		 */
 		addSquareMarker: function(squareMarker) {
 			if(SQUARE_MARKER_TOKEN.test(squareMarker)) {
-				this._squareMarkers[RegExp.$2] = RegExp.$1;
-				this.options.squareMarkers = flattenMarkerList(this._squareMarkers);
-				refresh(this); // TODO: avoid rebuilding the whole widget
+				var color = RegExp.$1;
+				var square = RegExp.$2;
+				if(this._squareMarkers[square] !== color) {
+					onSquareMarkerChanged(fetchSquare(this, square), this._squareMarkers[square], color);
+					this._squareMarkers[square] = color;
+					this.options.squareMarkers = flattenMarkerList(this._squareMarkers);
+				}
 			}
 		},
 
@@ -859,9 +912,12 @@
 		 */
 		removeSquareMarker: function(squareMarker) {
 			if(SQUARE_MARKER_TOKEN_NO_COLOR.test(squareMarker)) {
-				delete this._squareMarkers[RegExp.$1];
-				this.options.squareMarkers = flattenMarkerList(this._squareMarkers);
-				refresh(this); // TODO: avoid rebuilding the whole widget
+				var square = RegExp.$1;
+				if(typeof this._squareMarkers[square] !== 'undefined') {
+					onSquareMarkerChanged(fetchSquare(this, square), this._squareMarkers[square]);
+					delete this._squareMarkers[square];
+					this.options.squareMarkers = flattenMarkerList(this._squareMarkers);
+				}
 			}
 		},
 
