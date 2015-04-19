@@ -367,6 +367,12 @@
 				makePiecesDraggable(widget);
 				makeSquaresDroppable(widget);
 			}
+			else if(/^addPieces-([wb])([kqrbnp])$/.test(widget.options.interactionMode)) {
+				var color = RegExp.$1;
+				var piece = RegExp.$2;
+				tagSquares(widget);
+				makeSquaresClickable(widget, color, piece);
+			}
 		}
 	}
 
@@ -455,10 +461,9 @@
 	 * Make the pieces on the board draggable.
 	 *
 	 * @param {uichess.chessboard} widget
-	 * @param {jQuery} [target=widget.element] Only the children of `target` are affected.
 	 */
-	function makePiecesDraggable(widget, target) {
-		$('.uichess-chessboard-piece', target===undefined ? widget.element : target).draggable({
+	function makePiecesDraggable(widget) {
+		$('.uichess-chessboard-piece', widget.element).draggable({
 			cursor        : 'move',
 			cursorAt      : { top: widget.options.squareSize/2, left: widget.options.squareSize/2 },
 			revert        : true,
@@ -475,6 +480,7 @@
 	 */
 	function makeSquaresDroppable(widget) {
 		var tableNode = $('.uichess-chessboard-table', widget.element).get(0);
+		var callback = widget.options.interactionMode==='movePieces' ? doMovePiece : doPlay;
 		$('.uichess-chessboard-square', widget.element).droppable({
 			hoverClass: 'uichess-chessboard-squareHover',
 
@@ -488,16 +494,25 @@
 				if(movingPiece.hasClass('uichess-chessboard-piece')) {
 					var move = { from: movingPiece.parent().data('square'), to: target.data('square') };
 					if(move.from !== move.to) {
-						if(widget.options.interactionMode === 'movePieces') {
-							doMovePiece(widget, move, movingPiece, target);
-						}
-						else if(widget.options.interactionMode==='play' || widget.options.interactionMode==='movePieces') {
-							doPlay(widget, move, movingPiece, target);
-						}
+						callback(widget, move, movingPiece, target);
 					}
 				}
 			}
 
+		});
+	}
+
+
+	/**
+	 * Make the squares clickable.
+	 *
+	 * @param {uichess.chessboard} widget
+	 * @param {string} color
+	 * @param {string} piece
+	 */
+	function makeSquaresClickable(widget, color, piece) {
+		$('.uichess-chessboard-square', widget.element).mousedown(function() {
+			doAddPiece(widget, { color:color, piece:piece }, $(this).data('square'), $(this));
 		});
 	}
 
@@ -514,13 +529,13 @@
 	function doMovePiece(widget, move, movingPiece, target) {
 		widget._position.square(move.to, widget._position.square(move.from));
 		widget._position.square(move.from, '-');
+
+		// Update the DOM elements.
 		movingPiece.parent().append(HANDLE_TEMPLATE);
 		target.empty().append(movingPiece);
 
-		// Refresh the FEN string coding the position, and trigger the 'move' event.
-		widget.options.position = widget._position.fen();
-		widget._trigger('move', null, move);
-		widget._trigger('change', null, widget.options.position);
+		// FEN update + notifications.
+		notifyFENChanged(widget);
 	}
 
 
@@ -569,9 +584,48 @@
 		// Switch the turn flag.
 		$('.uichess-chessboard-turnFlag', widget.element).toggleClass('uichess-chessboard-inactiveFlag');
 
-		// Refresh the FEN string coding the position, and trigger the 'move' event.
+		// FEN update + notifications.
+		notifyFENChanged(widget);
+	}
+
+
+	/**
+	 * Callback for the "add-piece" mode -> add the requested colored piece in the targeted square, or clear
+	 * the targeted square if it already contains the requested colored piece.
+	 *
+	 * @param {uichess.chessboard} widget
+	 * @param {{color:string, piece:string}} coloredPiece
+	 * @param {string} square Targeted square.
+	 * @param {jQuery} target DOM node corresponding to the targeted square.
+	 */
+	function doAddPiece(widget, coloredPiece, square, target) {
+		var oldColoredPiece = widget._position.square(square);
+
+		// Remove-case.
+		if(typeof oldColoredPiece === 'object' && oldColoredPiece.color === coloredPiece.color && oldColoredPiece.piece === coloredPiece.piece) {
+			widget._position.square(square, '-');
+			target.empty().append(HANDLE_TEMPLATE);
+		}
+
+		// Add-case.
+		else {
+			widget._position.square(square, coloredPiece);
+			target.empty().append('<div class="uichess-chessboard-sized uichess-chessboard-piece uichess-chessboard-piece-' +
+				coloredPiece.piece + ' uichess-chessboard-color-' + coloredPiece.color + '">' + HANDLE_TEMPLATE + '</div>');
+		}
+
+		// FEN update + notifications.
+		notifyFENChanged(widget);
+	}
+
+
+	/**
+	 * Update the property holding the current position in FEN format, and trigger the corresponding event.
+	 *
+	 * @param {uichess.chessboard} widget
+	 */
+	function notifyFENChanged(widget) {
 		widget.options.position = widget._position.fen();
-		widget._trigger('move', null, move);
 		widget._trigger('change', null, widget.options.position);
 	}
 

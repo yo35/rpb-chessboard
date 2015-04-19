@@ -39,12 +39,31 @@
 				</p>
 				<p>
 					Interaction mode:
-					<span id="mode">
+					<span>
 						<input id="mode-none"       type="radio" name="mode" value="none"       /><label for="mode-none"      >None</label>
 						<input id="mode-movePieces" type="radio" name="mode" value="movePieces" /><label for="mode-movePieces">Move pieces</label>
 						<input id="mode-play"       type="radio" name="mode" value="play"       /><label for="mode-play"      >Play</label>
 					</span>
 				</p>
+				<table>
+					<tr><th></th><th>P</th><th>N</th><th>B</th><th>R</th><th>Q</th><th>K</th></tr>
+					<tr><th>White</th>
+						<td><input id="mode-addPieces-wp" type="radio" name="mode" value="addPieces-wp" /></td>
+						<td><input id="mode-addPieces-wn" type="radio" name="mode" value="addPieces-wn" /></td>
+						<td><input id="mode-addPieces-wb" type="radio" name="mode" value="addPieces-wb" /></td>
+						<td><input id="mode-addPieces-wr" type="radio" name="mode" value="addPieces-wr" /></td>
+						<td><input id="mode-addPieces-wq" type="radio" name="mode" value="addPieces-wq" /></td>
+						<td><input id="mode-addPieces-wk" type="radio" name="mode" value="addPieces-wk" /></td>
+					</tr>
+					<tr><th>Black</th>
+						<td><input id="mode-addPieces-bp" type="radio" name="mode" value="addPieces-bp" /></td>
+						<td><input id="mode-addPieces-bn" type="radio" name="mode" value="addPieces-bn" /></td>
+						<td><input id="mode-addPieces-bb" type="radio" name="mode" value="addPieces-bb" /></td>
+						<td><input id="mode-addPieces-br" type="radio" name="mode" value="addPieces-br" /></td>
+						<td><input id="mode-addPieces-bq" type="radio" name="mode" value="addPieces-bq" /></td>
+						<td><input id="mode-addPieces-bk" type="radio" name="mode" value="addPieces-bk" /></td>
+					</tr>
+				</table>
 				<p>
 					<input id="change-turn" type="button" value="Change turn" />
 				</p>
@@ -76,14 +95,6 @@
 			position: 'start',
 			squareSize: 48,
 			interactionMode: 'movePieces',
-
-			move: function(event, ui) {
-				$('#info').append('<div>Move from ' + ui.from + ' to ' + ui.to + '</div>')
-			},
-
-			add: function(event, ui) {
-				$('#info').append('<div>Add ' + ui.piece.type + ui.piece.color + ' in ' + ui.square + '</div>')
-			},
 
 			change: function(event, ui) {
 				$('#info').append('<div>' + $('#a').chessboard('option', 'position') + '</div>');
@@ -135,7 +146,7 @@
 		});
 
 		$('#mode-' + $('#a').chessboard('option', 'interactionMode')).prop('checked', true);
-		$('#mode input').each(function(index, e) {
+		$('input[name="mode"]').each(function(index, e) {
 			$(e).click(function() {
 				$('#a').chessboard('option', 'interactionMode', $(e).val());
 			});
