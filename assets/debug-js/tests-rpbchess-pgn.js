@@ -402,9 +402,8 @@ pgns.push({
 		'{Line}\n'
 });
 
-
 pgns.push({
-	label: '9', gameCount: 1,
+	label: '10', gameCount: 1,
 	pgn:
 		'[Event "Game with tags"]\n' +
 		'1.e4 {[%cal Ge2e4]} 1...h5 {[%cal Gh7h5] Odd move:    the pawn in h5 [%csl Rh5] is weak.}\n' +
