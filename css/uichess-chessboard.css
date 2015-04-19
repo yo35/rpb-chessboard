@@ -80,6 +80,7 @@
 .uichess-chessboard-annotations {
 	position: absolute;
 	z-index: 100;
+	top: 0px;
 	opacity: 0.8;
 }
 
@@ -214,12 +215,6 @@
 .uichess-chessboard-size62 .uichess-chessboard-sized { min-width: 62px; width: 62px; height: 62px; background-position: -1363px   0px; }
 .uichess-chessboard-size63 .uichess-chessboard-sized { min-width: 63px; width: 63px; height: 63px; background-position: -1425px   0px; }
 .uichess-chessboard-size64 .uichess-chessboard-sized { min-width: 64px; width: 64px; height: 64px; background-position: -1488px   0px; }
-
-.uichess-chessboard-annotations {
-	position: absolute;
-	z-index: 100;
-	top: 0px;
-}
 
 .uichess-chessboard-size12 .uichess-chessboard-annotations { width:  96px; height:  96px; right: 20px; }
 .uichess-chessboard-size13 .uichess-chessboard-annotations { width: 104px; height: 104px; right: 21px; }
