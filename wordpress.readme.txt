@@ -112,6 +112,10 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 3.6.2 (April 26, 2015) =
+* Add help on null moves.
+* Tested up to WordPress 4.2.
+
 = 3.6.1 (April 18, 2015) =
 * Null-move support (see issue #35).
 
