@@ -449,6 +449,47 @@
 
 
 
+	<h4><?php _e('Null moves', 'rpbchessboard'); ?></h4>
+
+	<div class="rpbchessboard-columns">
+		<div>
+			<div class="rpbchessboard-sourceCode">
+				[<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]<br/>
+				{<?php _e('A standard development scheme for white:', 'rpbchessboard'); ?>}
+				1. e4 -- 2. Nf3 -- 3. Bc4 -- 4. Nc3 -- 5. d4 -- 6. O-O {[pgndiagram]}<br/>
+				[/<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]
+			</div>
+			<p>
+				<?php echo sprintf(
+					__('A %1$s--%2$s token in the move list allows to skip the underlying move.', 'rpbchessboard'),
+					'<span class="rpbchessboard-sourceCode">',
+					'</span>'
+				); ?>
+			</p>
+		</div>
+		<div>
+			<div class="rpbchessboard-visuBlock">
+				<div>
+					<div id="rpbchessboard-pgnNullMove-anchor"></div>
+					<script type="text/javascript">
+						jQuery(document).ready(function($) {
+							$('#rpbchessboard-pgnNullMove-anchor').chessgame({
+								diagramOptions: { squareSize: 28 },
+								pgn:
+									'{' + <?php echo json_encode(__('A standard development scheme for white:', 'rpbchessboard')); ?> +
+									'} 1. e4 -- 2. Nf3 -- 3. Bc4 -- 4. Nc3 -- 5. d4 -- 6. O-O {<div class="uichess-chessgame-diagramAnchor"></div>} *'
+							});
+						});
+					</script>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
 	<h4 id="rpbchessboard-helpOnPGNAttributes"><?php _e('Attributes', 'rpbchessboard'); ?></h4>
 
 

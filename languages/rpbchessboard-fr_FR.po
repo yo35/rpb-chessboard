@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-15 21:34+0100\n"
+"POT-Creation-Date: 2015-04-26 13:35+0200\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35@melix.net>\n"
 "Language-Team: French\n"
@@ -821,6 +821,21 @@ msgid ""
 msgstr ""
 "À noter que la balise %1$s[pgndiagram]%2$s ne peut être insérée que dans un "
 "commentaire PGN."
+
+#: templates/adminpage/helppgn.php
+msgid "Null moves"
+msgstr "Passer son tour"
+
+#: templates/adminpage/helppgn.php
+msgid "A standard development scheme for white:"
+msgstr "Un schéma de développement classique pour les blancs&nbsp;:"
+
+#: templates/adminpage/helppgn.php
+#, php-format
+msgid "A %1$s--%2$s token in the move list allows to skip the underlying move."
+msgstr ""
+"Un symbole %1$s--%2$s dans la liste des coups permet de sauter le coup sous-"
+"jacent."
 
 #: templates/adminpage/helppgn.php
 msgid "Navigation board"

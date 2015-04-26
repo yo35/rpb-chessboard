@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-15 21:34+0100\n"
+"POT-Creation-Date: 2015-04-26 13:35+0200\n"
 "PO-Revision-Date: 2014-09-02 16:48:49+0200\n"
 "Last-Translator: schaaktrainer <jdelemarre@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -706,6 +706,19 @@ msgid ""
 msgstr ""
 "Let op dat %1$s[pgndiagram]%2$s tags niet toegevoegd mogen worden buiten een "
 "PGN opmerking."
+
+#: templates/adminpage/helppgn.php
+msgid "Null moves"
+msgstr ""
+
+#: templates/adminpage/helppgn.php
+msgid "A standard development scheme for white:"
+msgstr ""
+
+#: templates/adminpage/helppgn.php
+#, php-format
+msgid "A %1$s--%2$s token in the move list allows to skip the underlying move."
+msgstr ""
 
 #: templates/adminpage/helppgn.php
 msgid "Navigation board"

@@ -2,7 +2,7 @@
 Contributors: yo35
 Tags: chess, chessboard, fen, pgn, games
 Requires at least: 3.9
-Tested up to: 4.1.1
+Tested up to: 4.2
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -111,6 +111,10 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 
 == Changelog ==
+
+= 3.6.2 (April 26, 2015) =
+* Add help on null moves.
+* Tested up to WordPress 4.2.
 
 = 3.6.1 (April 18, 2015) =
 * Null-move support (see issue #35).

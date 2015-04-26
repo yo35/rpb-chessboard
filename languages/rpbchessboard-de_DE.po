@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 2.3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-15 21:34+0100\n"
+"POT-Creation-Date: 2015-04-26 13:35+0200\n"
 "PO-Revision-Date: 2014-04-26 16:53+0100\n"
 "Last-Translator: Markus Liebelt <markusliebelt@gmail.com>\n"
 "Language-Team: German\n"
@@ -770,6 +770,19 @@ msgid ""
 msgstr ""
 "Beachten Sie bitte, dass %1$s[pgndiagram]%2$s Tags nur in PGN Kommentaren "
 "erlaubt sind."
+
+#: templates/adminpage/helppgn.php
+msgid "Null moves"
+msgstr ""
+
+#: templates/adminpage/helppgn.php
+msgid "A standard development scheme for white:"
+msgstr ""
+
+#: templates/adminpage/helppgn.php
+#, php-format
+msgid "A %1$s--%2$s token in the move list allows to skip the underlying move."
+msgstr ""
 
 #: templates/adminpage/helppgn.php
 msgid "Navigation board"

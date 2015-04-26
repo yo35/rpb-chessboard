@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-15 21:34+0100\n"
+"POT-Creation-Date: 2015-04-26 13:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -680,6 +680,19 @@ msgstr ""
 msgid ""
 "Notice that %1$s[pgndiagram]%2$s tags must not be inserted outside a PGN "
 "comment."
+msgstr ""
+
+#: templates/adminpage/helppgn.php
+msgid "Null moves"
+msgstr ""
+
+#: templates/adminpage/helppgn.php templates/adminpage/helppgn.php
+msgid "A standard development scheme for white:"
+msgstr ""
+
+#: templates/adminpage/helppgn.php
+#, php-format
+msgid "A %1$s--%2$s token in the move list allows to skip the underlying move."
 msgstr ""
 
 #: templates/adminpage/helppgn.php
