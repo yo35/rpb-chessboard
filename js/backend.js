@@ -158,7 +158,7 @@ var RPBChessboard = {};
 
 		$('body').append('<div id="rpbchessboard-editFENDialog">' +
 			'<div class="rpbchessboard-columns">' +
-				'<div style="width: 450px;">' +
+				'<div style="min-width:425px;">' +
 					'<div class="rpbchessboard-jQuery-enableSmoothness">' +
 						'<div class="rpbchessboard-toolbar uichess-chessboard-size30">' +
 
