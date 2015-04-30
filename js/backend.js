@@ -162,7 +162,7 @@ var RPBChessboard = {};
 				'</div>' +
 				'<div class="rpbchessboard-stretchable">' +
 					'<div class="rpbchessboard-jQuery-enableSmoothness">' +
-						'<div id="rpbchessboard-editFENDialog-accordion" class="rpbchessboard-accordion">' +
+						'<div id="rpbchessboard-editFENDialog-accordion">' +
 
 							// Basic tab
 							'<h3>' + RPBChessboard.i18n.BASIC_TAB_LABEL + '</h3>' +
@@ -203,19 +203,19 @@ var RPBChessboard = {};
 							'<div>' +
 								'<div class="rpbchessboard-editFENDialog-sectionTitle">' + RPBChessboard.i18n.CASTLING_SECTION_TITLE + '</div>' +
 								'<div class="rpbchessboard-editFENDialog-sectionContent">' +
-									'<table id="rpbchessboard-editFENDialog-castleRights"><tbody>' +
+									'<table id="rpbchessboard-editFENDialog-castleRights" class="uichess-chessboard-size28"><tbody>' +
 										'<tr>' +
 											'<td></td>' +
 											'<td>O-O-O</td>' +
 											'<td>O-O</td>' +
 										'</tr>' +
 										'<tr>' +
-											'<td><span class="rpbchessboard-editFENDialog-turnFlag uichess-chessboard-turnFlag uichess-chessboard-color-b uichess-chessboard-size28"></span></td>' +
+											'<td><span class="rpbchessboard-editFENDialog-turnFlag uichess-chessboard-turnFlag uichess-chessboard-color-b uichess-chessboard-sized"></span></td>' +
 											'<td><input id="rpbchessboard-editFENDialog-castle-bq" type="checkbox" data-color="b" data-side="q" /></td>' +
 											'<td><input id="rpbchessboard-editFENDialog-castle-bk" type="checkbox" data-color="b" data-side="k" /></td>' +
 										'</tr>' +
 										'<tr>' +
-											'<td><span class="rpbchessboard-editFENDialog-turnFlag uichess-chessboard-turnFlag uichess-chessboard-color-w uichess-chessboard-size28"></span></td>' +
+											'<td><span class="rpbchessboard-editFENDialog-turnFlag uichess-chessboard-turnFlag uichess-chessboard-color-w uichess-chessboard-sized"></span></td>' +
 											'<td><input id="rpbchessboard-editFENDialog-castle-wq" type="checkbox" data-color="w" data-side="q" /></td>' +
 											'<td><input id="rpbchessboard-editFENDialog-castle-wk" type="checkbox" data-color="w" data-side="k" /></td>' +
 										'</tr>' +

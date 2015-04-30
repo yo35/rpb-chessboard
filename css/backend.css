@@ -193,29 +193,6 @@ div.rpbchessboard-sourceCode {
 
 
 /* -------------------------------------------------------------------------- */
-/* jQuery tabs (with no theme) */
-/* -------------------------------------------------------------------------- */
-
-.rpbchessboard-tabs.ui-tabs .ui-tabs-panel {
-	border: solid 1px #ddd;
-	background: #fcfcfc;
-}
-
-.rpbchessboard-tabs.ui-tabs .ui-tabs-nav li {
-	border-top : solid 1px #ddd;
-	border-left: solid 1px #ddd;
-	border-right: solid 1px #ddd;
-	background: #eee;
-	cursor: pointer;
-}
-
-.rpbchessboard-tabs.ui-tabs .ui-tabs-nav li.ui-tabs-active {
-	background: #fcfcfc;
-}
-
-
-
-/* -------------------------------------------------------------------------- */
 /* Icons */
 /* -------------------------------------------------------------------------- */
 
@@ -246,9 +223,25 @@ div.rpbchessboard-sourceCode {
 	z-index: 100000;
 }
 
-.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-accordion.ui-accordion .ui-accordion-content {
+.rpbchessboard-jQuery-enableSmoothness .ui-accordion .ui-accordion-content {
 	padding-left: 1.25em;
 	padding-right: 1.25em;
+}
+
+.rpbchessboard-jQuery-enableNoTheme .ui-tabs .ui-tabs-nav li {
+	border-top : solid 1px #ddd;
+	border-left: solid 1px #ddd;
+	border-right: solid 1px #ddd;
+	background: #eee;
+}
+
+.rpbchessboard-jQuery-enableNoTheme .ui-tabs .ui-tabs-nav li.ui-tabs-active {
+	background: #fcfcfc;
+}
+
+.rpbchessboard-jQuery-enableNoTheme .ui-tabs .ui-tabs-panel {
+	border: solid 1px #ddd;
+	background: #fcfcfc;
 }
 
 
