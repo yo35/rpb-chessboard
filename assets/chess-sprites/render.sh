@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Files to process
-files="bb.svg bk.svg bn.svg bp.svg bq.svg br.svg bx.svg wb.svg wk.svg wn.svg wp.svg wq.svg wr.svg wx.svg trash.png"
+files="bb.svg bk.svg bn.svg bp.svg bq.svg br.svg bx.svg wb.svg wk.svg wn.svg wp.svg wq.svg wr.svg wx.svg"
 output_dir=../../css/sprite
 
 # Sizes
