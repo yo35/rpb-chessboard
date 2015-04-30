@@ -213,6 +213,50 @@ div.rpbchessboard-sourceCode {
 	background-image: url(../images/board-empty.png);
 }
 
+.rpbchessboard-undoIcon {
+	width : 32px;
+	height: 32px;
+	background-image: url(../images/undo.png);
+	/**
+	 * Source: http://findicons.com/icon/263268/undo
+	 * Author: MomentIcons <http://momentumdesignlab.com/>
+	 * License: Creative Commons Attribution [CC-BY]
+	 */
+}
+
+.rpbchessboard-redoIcon {
+	width : 32px;
+	height: 32px;
+	background-image: url(../images/redo.png);
+	/**
+	 * Source: http://findicons.com/icon/263449/redo
+	 * Author: MomentIcons <http://momentumdesignlab.com/>
+	 * License: Creative Commons Attribution [CC-BY]
+	 */
+}
+
+
+
+/* -------------------------------------------------------------------------- */
+/* Tool-bar */
+/* -------------------------------------------------------------------------- */
+
+.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-toolbar {
+	display: flex;
+	display: -webkit-flex;
+	flex-direction: row;
+	-webkit-flex-direction: row;
+}
+
+.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-toolbarGroup {
+	display: flex;
+	display: -webkit-flex;
+	flex-direction: column;
+	-webkit-flex-direction: column;
+	justify-content: space-between;
+	-webkit-justify-content: space-between;
+}
+
 
 
 /* -------------------------------------------------------------------------- */
@@ -226,6 +270,46 @@ div.rpbchessboard-sourceCode {
 .rpbchessboard-jQuery-enableSmoothness .ui-accordion .ui-accordion-content {
 	padding-left: 1.25em;
 	padding-right: 1.25em;
+}
+
+
+.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-toolbar > div + div,
+.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-toolbar .rpbchessboard-toolbarGroup .ui-button + .ui-button {
+   margin-left: 8px;
+}
+
+.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-toolbar .ui-button {
+	height: auto;
+	margin-right: 0px;
+	border-radius: 8px;
+}
+
+.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-toolbar .ui-button-text-only .ui-button-text {
+	padding: 0.15em 0.2em;
+}
+
+.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-toolbar .rpbchessboard-largeButton.ui-button-text-only .ui-button-text {
+	padding: 0.3em 0.5em;
+}
+
+.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-toolbar .rpbchessboard-buttonSet .ui-button {
+	border-radius: 0px;
+}
+
+.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-toolbar .rpbchessboard-buttonRow:first-child .ui-button:first-of-type {
+	border-top-left-radius: 8px;
+}
+
+.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-toolbar .rpbchessboard-buttonRow:last-child .ui-button:first-of-type {
+	border-bottom-left-radius: 8px;
+}
+
+.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-toolbar .rpbchessboard-buttonRow:first-child .ui-button:last-of-type {
+	border-top-right-radius: 8px;
+}
+
+.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-toolbar .rpbchessboard-buttonRow:last-child .ui-button:last-of-type {
+	border-bottom-right-radius: 8px;
 }
 
 .rpbchessboard-jQuery-enableNoTheme .ui-tabs .ui-tabs-nav li {
@@ -402,6 +486,19 @@ div.rpbchessboard-sourceCode {
 /* Edit FEN dialog */
 /* -------------------------------------------------------------------------- */
 
+#rpbchessboard-editFENDialog-flipSelector {
+	padding-bottom: 0.2em;
+}
+
+#rpbchessboard-editFENDialog-flip {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+#rpbchessboard-editFENDialog-chessboard {
+	margin-top: 20px;
+}
+
 .rpbchessboard-editFENDialog-sectionTitle,
 .rpbchessboard-editFENDialog-sectionContent {
 	font-size: 13px;
@@ -432,11 +529,6 @@ div.rpbchessboard-sourceCode {
 .rpbchessboard-editFENDialog-turnFlag {
 	display: inline-block;
 	vertical-align: middle;
-}
-
-#rpbchessboard-editFENDialog-flip {
-	margin-top: 0px;
-	margin-bottom: 0px;
 }
 
 #rpbchessboard-editFENDialog-castleRights td {
