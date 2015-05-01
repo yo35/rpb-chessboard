@@ -104,34 +104,53 @@ var RPBChessboard = {};
 
 
 	/**
+	 * Change the active chessboard interaction mode in the edit-FEN dialog.
+	 *
+	 * @param {string} [newMode]
+	 */
+	function switchInteractionMode(newMode) {
+		var cb = $('#rpbchessboard-editFENDialog-chessboard');
+		var oldMode = cb.chessboard('option', 'interactionMode');
+		$('#rpbchessboard-editFENDialog-' + oldMode).prop('checked', false).button('refresh');
+		if(typeof newMode === 'undefined' || newMode === oldMode) {
+			cb.chessboard('option', 'interactionMode', 'movePieces');
+		}
+		else {
+			cb.chessboard('option', 'interactionMode', newMode);
+			$('#rpbchessboard-editFENDialog-' + newMode).prop('checked', true).button('refresh');
+		}
+	}
+
+
+	/**
 	 * Reset the edit-FEN dialog and initialize it with the given parameters.
 	 *
-	 * @param {string} [fen]
-	 * @param {boolean} [isAddMode]
+	 * @param {string} fen
+	 * @param {boolean} [dialogMode='intern'] `'add'`, `'edit'` or `'intern'`.
 	 * @param {object} [options]
 	 */
-	function resetEditFENDialog(fen, isAddMode, options)
-	{
+	function resetEditFENDialog(fen, dialogMode, options) {
 		var cb = $('#rpbchessboard-editFENDialog-chessboard');
 
-		if(typeof fen === 'string') {
-			cb.chessboard('option', 'position', fen);
-			$('#rpbchessboard-editFENDialog-turn-' + cb.chessboard('turn')).prop('checked', true);
-			$('#rpbchessboard-editFENDialog-turnSelector input').button('refresh');
-			$('#rpbchessboard-editFENDialog-castle-wk').prop('checked', cb.chessboard('castleRights', 'w', 'k'));
-			$('#rpbchessboard-editFENDialog-castle-wq').prop('checked', cb.chessboard('castleRights', 'w', 'q'));
-			$('#rpbchessboard-editFENDialog-castle-bk').prop('checked', cb.chessboard('castleRights', 'b', 'k'));
-			$('#rpbchessboard-editFENDialog-castle-bq').prop('checked', cb.chessboard('castleRights', 'b', 'q'));
-			var enPassant = cb.chessboard('enPassant');
-			$('#rpbchessboard-editFENDialog-enPassant-' + (enPassant === '-' ? 'disabled' : 'enabled')).prop('checked', true);
-			$('#rpbchessboard-editFENDialog-enPassant-column').prop('disabled', enPassant === '-');
-			if(enPassant !== '-') {
-				$('#rpbchessboard-editFENDialog-enPassant-column').val(enPassant);
-			}
+		// Reset the position
+		cb.chessboard('option', 'position', fen);
+		$('#rpbchessboard-editFENDialog-turn-' + cb.chessboard('turn')).prop('checked', true);
+		$('#rpbchessboard-editFENDialog-turnSelector input').button('refresh');
+		$('#rpbchessboard-editFENDialog-castle-wk').prop('checked', cb.chessboard('castleRights', 'w', 'k'));
+		$('#rpbchessboard-editFENDialog-castle-wq').prop('checked', cb.chessboard('castleRights', 'w', 'q'));
+		$('#rpbchessboard-editFENDialog-castle-bk').prop('checked', cb.chessboard('castleRights', 'b', 'k'));
+		$('#rpbchessboard-editFENDialog-castle-bq').prop('checked', cb.chessboard('castleRights', 'b', 'q'));
+		var enPassant = cb.chessboard('enPassant');
+		$('#rpbchessboard-editFENDialog-enPassant-' + (enPassant === '-' ? 'disabled' : 'enabled')).prop('checked', true);
+		$('#rpbchessboard-editFENDialog-enPassant-column').prop('disabled', enPassant === '-');
+		if(enPassant !== '-') {
+			$('#rpbchessboard-editFENDialog-enPassant-column').val(enPassant);
 		}
 
-		if(typeof isAddMode === 'boolean') {
-			$('#rpbchessboard-editFENDialog-submitButton').button('option', 'label', isAddMode ?
+		// Reset the dialog
+		if(dialogMode==='add' || dialogMode==='edit') {
+			switchInteractionMode();
+			$('#rpbchessboard-editFENDialog-submitButton').button('option', 'label', dialogMode==='add' ?
 				RPBChessboard.i18n.SUBMIT_BUTTON_ADD_LABEL : RPBChessboard.i18n.SUBMIT_BUTTON_EDIT_LABEL
 			);
 		}
@@ -150,8 +169,7 @@ var RPBChessboard = {};
 	/**
 	 * Build the edit-FEN dialog (if not done yet).
 	 */
-	function buildEditFENDialog()
-	{
+	function buildEditFENDialog() {
 		if($('#rpbchessboard-editFENDialog').length !== 0) {
 			return;
 		}
@@ -163,34 +181,34 @@ var RPBChessboard = {};
 						'<div class="rpbchessboard-toolbar uichess-chessboard-size30">' +
 
 							// Piece selection for the "add-piece" mode.
-							'<div class="rpbchessboard-buttonSet">' +
+							'<div id="rpbchessboard-editFENDialog-addPiecesSelector" class="rpbchessboard-buttonSet">' +
 								'<div class="rpbchessboard-buttonRow">' +
-									'<input type="checkbox" id="rpbchessboard-editFENDialog-addPiece-wp" />' +
-									'<input type="checkbox" id="rpbchessboard-editFENDialog-addPiece-wn" />' +
-									'<input type="checkbox" id="rpbchessboard-editFENDialog-addPiece-wb" />' +
-									'<input type="checkbox" id="rpbchessboard-editFENDialog-addPiece-wr" />' +
-									'<input type="checkbox" id="rpbchessboard-editFENDialog-addPiece-wq" />' +
-									'<input type="checkbox" id="rpbchessboard-editFENDialog-addPiece-wk" />' +
-									'<label for="rpbchessboard-editFENDialog-addPiece-wp"><div class="uichess-chessboard-sized uichess-chessboard-color-w uichess-chessboard-piece-p"></div></label>' +
-									'<label for="rpbchessboard-editFENDialog-addPiece-wn"><div class="uichess-chessboard-sized uichess-chessboard-color-w uichess-chessboard-piece-n"></div></label>' +
-									'<label for="rpbchessboard-editFENDialog-addPiece-wb"><div class="uichess-chessboard-sized uichess-chessboard-color-w uichess-chessboard-piece-b"></div></label>' +
-									'<label for="rpbchessboard-editFENDialog-addPiece-wr"><div class="uichess-chessboard-sized uichess-chessboard-color-w uichess-chessboard-piece-r"></div></label>' +
-									'<label for="rpbchessboard-editFENDialog-addPiece-wq"><div class="uichess-chessboard-sized uichess-chessboard-color-w uichess-chessboard-piece-q"></div></label>' +
-									'<label for="rpbchessboard-editFENDialog-addPiece-wk"><div class="uichess-chessboard-sized uichess-chessboard-color-w uichess-chessboard-piece-k"></div></label>' +
+									'<input type="checkbox" id="rpbchessboard-editFENDialog-addPieces-wp" name="interactionMode" value="addPieces-wp" />' +
+									'<input type="checkbox" id="rpbchessboard-editFENDialog-addPieces-wn" name="interactionMode" value="addPieces-wn" />' +
+									'<input type="checkbox" id="rpbchessboard-editFENDialog-addPieces-wb" name="interactionMode" value="addPieces-wb" />' +
+									'<input type="checkbox" id="rpbchessboard-editFENDialog-addPieces-wr" name="interactionMode" value="addPieces-wr" />' +
+									'<input type="checkbox" id="rpbchessboard-editFENDialog-addPieces-wq" name="interactionMode" value="addPieces-wq" />' +
+									'<input type="checkbox" id="rpbchessboard-editFENDialog-addPieces-wk" name="interactionMode" value="addPieces-wk" />' +
+									'<label for="rpbchessboard-editFENDialog-addPieces-wp"><div class="uichess-chessboard-sized uichess-chessboard-color-w uichess-chessboard-piece-p"></div></label>' +
+									'<label for="rpbchessboard-editFENDialog-addPieces-wn"><div class="uichess-chessboard-sized uichess-chessboard-color-w uichess-chessboard-piece-n"></div></label>' +
+									'<label for="rpbchessboard-editFENDialog-addPieces-wb"><div class="uichess-chessboard-sized uichess-chessboard-color-w uichess-chessboard-piece-b"></div></label>' +
+									'<label for="rpbchessboard-editFENDialog-addPieces-wr"><div class="uichess-chessboard-sized uichess-chessboard-color-w uichess-chessboard-piece-r"></div></label>' +
+									'<label for="rpbchessboard-editFENDialog-addPieces-wq"><div class="uichess-chessboard-sized uichess-chessboard-color-w uichess-chessboard-piece-q"></div></label>' +
+									'<label for="rpbchessboard-editFENDialog-addPieces-wk"><div class="uichess-chessboard-sized uichess-chessboard-color-w uichess-chessboard-piece-k"></div></label>' +
 								'</div>' +
 								'<div class="rpbchessboard-buttonRow">' +
-									'<input type="checkbox" id="rpbchessboard-editFENDialog-addPiece-bp" />' +
-									'<input type="checkbox" id="rpbchessboard-editFENDialog-addPiece-bn" />' +
-									'<input type="checkbox" id="rpbchessboard-editFENDialog-addPiece-bb" />' +
-									'<input type="checkbox" id="rpbchessboard-editFENDialog-addPiece-br" />' +
-									'<input type="checkbox" id="rpbchessboard-editFENDialog-addPiece-bq" />' +
-									'<input type="checkbox" id="rpbchessboard-editFENDialog-addPiece-bk" />' +
-									'<label for="rpbchessboard-editFENDialog-addPiece-bp"><div class="uichess-chessboard-sized uichess-chessboard-color-b uichess-chessboard-piece-p"></div></label>' +
-									'<label for="rpbchessboard-editFENDialog-addPiece-bn"><div class="uichess-chessboard-sized uichess-chessboard-color-b uichess-chessboard-piece-n"></div></label>' +
-									'<label for="rpbchessboard-editFENDialog-addPiece-bb"><div class="uichess-chessboard-sized uichess-chessboard-color-b uichess-chessboard-piece-b"></div></label>' +
-									'<label for="rpbchessboard-editFENDialog-addPiece-br"><div class="uichess-chessboard-sized uichess-chessboard-color-b uichess-chessboard-piece-r"></div></label>' +
-									'<label for="rpbchessboard-editFENDialog-addPiece-bq"><div class="uichess-chessboard-sized uichess-chessboard-color-b uichess-chessboard-piece-q"></div></label>' +
-									'<label for="rpbchessboard-editFENDialog-addPiece-bk"><div class="uichess-chessboard-sized uichess-chessboard-color-b uichess-chessboard-piece-k"></div></label>' +
+									'<input type="checkbox" id="rpbchessboard-editFENDialog-addPieces-bp" name="interactionMode" value="addPieces-bp" />' +
+									'<input type="checkbox" id="rpbchessboard-editFENDialog-addPieces-bn" name="interactionMode" value="addPieces-bn" />' +
+									'<input type="checkbox" id="rpbchessboard-editFENDialog-addPieces-bb" name="interactionMode" value="addPieces-bb" />' +
+									'<input type="checkbox" id="rpbchessboard-editFENDialog-addPieces-br" name="interactionMode" value="addPieces-br" />' +
+									'<input type="checkbox" id="rpbchessboard-editFENDialog-addPieces-bq" name="interactionMode" value="addPieces-bq" />' +
+									'<input type="checkbox" id="rpbchessboard-editFENDialog-addPieces-bk" name="interactionMode" value="addPieces-bk" />' +
+									'<label for="rpbchessboard-editFENDialog-addPieces-bp"><div class="uichess-chessboard-sized uichess-chessboard-color-b uichess-chessboard-piece-p"></div></label>' +
+									'<label for="rpbchessboard-editFENDialog-addPieces-bn"><div class="uichess-chessboard-sized uichess-chessboard-color-b uichess-chessboard-piece-n"></div></label>' +
+									'<label for="rpbchessboard-editFENDialog-addPieces-bb"><div class="uichess-chessboard-sized uichess-chessboard-color-b uichess-chessboard-piece-b"></div></label>' +
+									'<label for="rpbchessboard-editFENDialog-addPieces-br"><div class="uichess-chessboard-sized uichess-chessboard-color-b uichess-chessboard-piece-r"></div></label>' +
+									'<label for="rpbchessboard-editFENDialog-addPieces-bq"><div class="uichess-chessboard-sized uichess-chessboard-color-b uichess-chessboard-piece-q"></div></label>' +
+									'<label for="rpbchessboard-editFENDialog-addPieces-bk"><div class="uichess-chessboard-sized uichess-chessboard-color-b uichess-chessboard-piece-k"></div></label>' +
 								'</div>' +
 							'</div>' +
 
@@ -302,29 +320,20 @@ var RPBChessboard = {};
 		// Chessboard widget
 		var cb = $('#rpbchessboard-editFENDialog-chessboard');
 		cb.chessboard({
-			squareSize : 40,
-			allowMoves : 'all',
-			sparePieces: true
+			squareSize: 40,
+			interactionMode: 'movePieces'
 		});
 
 		// Toolbar
-		$('#rpbchessboard-editFENDialog-addPiece-wp').button();
-		$('#rpbchessboard-editFENDialog-addPiece-wn').button();
-		$('#rpbchessboard-editFENDialog-addPiece-wb').button();
-		$('#rpbchessboard-editFENDialog-addPiece-wr').button();
-		$('#rpbchessboard-editFENDialog-addPiece-wq').button();
-		$('#rpbchessboard-editFENDialog-addPiece-wk').button();
-		$('#rpbchessboard-editFENDialog-addPiece-bp').button();
-		$('#rpbchessboard-editFENDialog-addPiece-bn').button();
-		$('#rpbchessboard-editFENDialog-addPiece-bb').button();
-		$('#rpbchessboard-editFENDialog-addPiece-br').button();
-		$('#rpbchessboard-editFENDialog-addPiece-bq').button();
-		$('#rpbchessboard-editFENDialog-addPiece-bk').button();
 		$('#rpbchessboard-editFENDialog-undo').button();
 		$('#rpbchessboard-editFENDialog-redo').button();
 
+		// Add-piece buttons
+		$('#rpbchessboard-editFENDialog-addPiecesSelector input').button().each(function(index, elem) {
+			$(elem).click(function() { switchInteractionMode($(elem).val()); });
+		});
+
 		// Turn buttons
-		$('#rpbchessboard-editFENDialog-turn-' + cb.chessboard('turn')).prop('checked', true);
 		$('#rpbchessboard-editFENDialog-turnSelector input').button().each(function(index, elem) {
 			$(elem).click(function() { cb.chessboard('turn', $(elem).val()); });
 		});
@@ -414,7 +423,7 @@ var RPBChessboard = {};
 		if(typeof args === 'function') {
 			dialog.data('callback', args);
 			dialog.data('options' , {});
-			resetEditFENDialog('start', true);
+			resetEditFENDialog('start', 'add');
 		}
 
 		// 'args' is a struct
@@ -431,10 +440,10 @@ var RPBChessboard = {};
 
 			// Initialize the dialog
 			if('fen' in args && typeof args.fen === 'string') {
-				resetEditFENDialog(args.fen, false, options);
+				resetEditFENDialog(args.fen, 'edit', options);
 			}
 			else {
-				resetEditFENDialog('start', true, options);
+				resetEditFENDialog('start', 'add', options);
 			}
 		}
 
