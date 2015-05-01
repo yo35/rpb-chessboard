@@ -36,6 +36,11 @@ var RPBChessboard = {};
 	'use strict';
 
 
+
+	// ---------------------------------------------------------------------------
+	// Global settings.
+	// ---------------------------------------------------------------------------
+
 	/**
 	 * Localization constants.
 	 */
@@ -74,6 +79,11 @@ var RPBChessboard = {};
 	};
 
 
+
+	// ---------------------------------------------------------------------------
+	// Miscellaneous methods.
+	// ---------------------------------------------------------------------------
+
 	/**
 	 * Validate a string as a boolean.
 	 *
@@ -102,6 +112,11 @@ var RPBChessboard = {};
 		}
 	}
 
+
+
+	// ---------------------------------------------------------------------------
+	// Edit-FEN dialog.
+	// ---------------------------------------------------------------------------
 
 	/**
 	 * Change the active chessboard interaction mode in the edit-FEN dialog.
@@ -465,6 +480,11 @@ var RPBChessboard = {};
 		$('#rpbchessboard-editFENDialog').dialog('open');
 	};
 
+
+
+	// ---------------------------------------------------------------------------
+	// Text processing methods.
+	// ---------------------------------------------------------------------------
 
 	/**
 	 * Parse the attributes attached to an opening shortcode as defined in the WordPress API.
