@@ -123,46 +123,60 @@ var RPBChessboard = {};
 
 
 	/**
-	 * Reset the edit-FEN dialog and initialize it with the given parameters.
+	 * Reset the chessboard position.
 	 *
 	 * @param {string} fen
-	 * @param {boolean} [dialogMode='intern'] `'add'`, `'edit'` or `'intern'`.
-	 * @param {object} [options]
 	 */
-	function resetEditFENDialog(fen, dialogMode, options) {
+	function resetPosition(fen) {
 		var cb = $('#rpbchessboard-editFENDialog-chessboard');
-
-		// Reset the position
 		cb.chessboard('option', 'position', fen);
+
+		// Turn selector
 		$('#rpbchessboard-editFENDialog-turn-' + cb.chessboard('turn')).prop('checked', true);
 		$('#rpbchessboard-editFENDialog-turnSelector input').button('refresh');
+
+		// Castle-right widgets
 		$('#rpbchessboard-editFENDialog-castle-wk').prop('checked', cb.chessboard('castleRights', 'w', 'k'));
 		$('#rpbchessboard-editFENDialog-castle-wq').prop('checked', cb.chessboard('castleRights', 'w', 'q'));
 		$('#rpbchessboard-editFENDialog-castle-bk').prop('checked', cb.chessboard('castleRights', 'b', 'k'));
 		$('#rpbchessboard-editFENDialog-castle-bq').prop('checked', cb.chessboard('castleRights', 'b', 'q'));
+
+		// En-passant widgets
 		var enPassant = cb.chessboard('enPassant');
 		$('#rpbchessboard-editFENDialog-enPassant-' + (enPassant === '-' ? 'disabled' : 'enabled')).prop('checked', true);
 		$('#rpbchessboard-editFENDialog-enPassant-column').prop('disabled', enPassant === '-');
 		if(enPassant !== '-') {
 			$('#rpbchessboard-editFENDialog-enPassant-column').val(enPassant);
 		}
+	}
 
-		// Reset the dialog
-		if(dialogMode==='add' || dialogMode==='edit') {
-			switchInteractionMode();
-			$('#rpbchessboard-editFENDialog-submitButton').button('option', 'label', dialogMode==='add' ?
-				RPBChessboard.i18n.SUBMIT_BUTTON_ADD_LABEL : RPBChessboard.i18n.SUBMIT_BUTTON_EDIT_LABEL
-			);
-		}
+
+	/**
+	 * Reset the edit-FEN dialog and initialize it with the given parameters.
+	 *
+	 * @param {string} fen
+	 * @param {boolean} isAddMode
+	 * @param {object} [options]
+	 */
+	function resetEditFENDialog(fen, isAddMode, options) {
+
+		// Chessboard position
+		resetPosition(fen);
 
 		if(typeof options === 'object' && options !== null) {
 
 			// Flip parameter
 			var flip = ('flip' in options) ? validateBoolean(options.flip) : null;
 			if(flip === null) { flip = false; }
-			cb.chessboard('option', 'flip', flip);
+			$('#rpbchessboard-editFENDialog-chessboard').chessboard('option', 'flip', flip);
 			$('#rpbchessboard-editFENDialog-flip').prop('checked', flip);
 		}
+
+		// Reset the dialog
+		switchInteractionMode();
+		$('#rpbchessboard-editFENDialog-submitButton').button('option', 'label', isAddMode ?
+			RPBChessboard.i18n.SUBMIT_BUTTON_ADD_LABEL : RPBChessboard.i18n.SUBMIT_BUTTON_EDIT_LABEL
+		);
 	}
 
 
@@ -344,8 +358,8 @@ var RPBChessboard = {};
 		});
 
 		// Buttons 'reset' and 'clear'
-		$('#rpbchessboard-editFENDialog-startPosition').click(function(e) { e.preventDefault(); resetEditFENDialog('start'); });
-		$('#rpbchessboard-editFENDialog-emptyPosition').click(function(e) { e.preventDefault(); resetEditFENDialog('empty'); });
+		$('#rpbchessboard-editFENDialog-startPosition').click(function(e) { e.preventDefault(); resetPosition('start'); });
+		$('#rpbchessboard-editFENDialog-emptyPosition').click(function(e) { e.preventDefault(); resetPosition('empty'); });
 
 		// Castle rights widgets
 		$('#rpbchessboard-editFENDialog-castleRights input').each(function(index, elem) {
@@ -423,7 +437,7 @@ var RPBChessboard = {};
 		if(typeof args === 'function') {
 			dialog.data('callback', args);
 			dialog.data('options' , {});
-			resetEditFENDialog('start', 'add');
+			resetEditFENDialog('start', true);
 		}
 
 		// 'args' is a struct
@@ -440,10 +454,10 @@ var RPBChessboard = {};
 
 			// Initialize the dialog
 			if('fen' in args && typeof args.fen === 'string') {
-				resetEditFENDialog(args.fen, 'edit', options);
+				resetEditFENDialog(args.fen, false, options);
 			}
 			else {
-				resetEditFENDialog('start', 'add', options);
+				resetEditFENDialog('start', true, options);
 			}
 		}
 
