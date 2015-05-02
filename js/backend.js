@@ -141,6 +141,18 @@ var RPBChessboard = {};
 
 
 	/**
+	 * Callback to execute when the user validates the dialog.
+	 */
+	var dialogCallback = null;
+
+
+	/**
+	 * Options passed to the dialog.
+	 */
+	var dialogOptions = {};
+
+
+	/**
 	 * Add a new action on the top of the undo-history stack.
 	 *
 	 * @param {callback} callback
@@ -631,14 +643,11 @@ var RPBChessboard = {};
 					'text' : '',
 					'click': function() {
 						$(this).dialog('close');
-						var callback = $(this).data('callback');
-						if(typeof callback === 'function') {
-							var fen = cb.chessboard('option', 'position');
-							var options = $(this).data('options');
-							options.flip = cb.chessboard('option', 'flip');
-							options.csl = cb.chessboard('option', 'squareMarkers');
-							options.cal = cb.chessboard('option', 'arrowMarkers');
-							callback(fen, options);
+						if(dialogCallback !== null) {
+							dialogOptions.flip = cb.chessboard('option', 'flip');
+							dialogOptions.csl = cb.chessboard('option', 'squareMarkers');
+							dialogOptions.cal = cb.chessboard('option', 'arrowMarkers');
+							dialogCallback(cb.chessboard('option', 'position'), dialogOptions);
 						}
 					}
 				}
@@ -655,40 +664,29 @@ var RPBChessboard = {};
 	 * The callback function is expected to take two arguments: the first is the FEN string
 	 * defined by the user in the dialog, the second an associative array of options.
 	 */
-	RPBChessboard.showEditFENDialog = function(args)
-	{
+	RPBChessboard.showEditFENDialog = function(args) {
+
 		// Build the dialog
 		buildEditFENDialog();
-		var dialog = $('#rpbchessboard-editFENDialog');
-		dialog.data('callback', null);
-		dialog.data('options' , null);
 
 		// 'args' is a callback -> initialize the dialog in "add" mode
 		if(typeof args === 'function') {
-			dialog.data('callback', args);
-			dialog.data('options' , {});
+			dialogCallback = args;
+			dialogOptions = {};
 			resetEditFENDialog('start', true);
 		}
 
 		// 'args' is a struct
 		else if(typeof args === 'object' && args !== null) {
+			dialogCallback = ('callback' in args && typeof args.callback === 'function') ? args.callback : null;
+			dialogOptions = ('options' in args && typeof args.options === 'object') ? args.options : {};
+			resetEditFENDialog(args.fen, false, dialogOptions);
+		}
 
-			// Initialize the callback
-			if('callback' in args && typeof args.callback === 'function') {
-				dialog.data('callback', args.callback);
-			}
-
-			// Retrieve the options
-			var options = ('options' in args) ? args.options : {};
-			dialog.data('options', options);
-
-			// Initialize the dialog
-			if('fen' in args && typeof args.fen === 'string') {
-				resetEditFENDialog(args.fen, false, options);
-			}
-			else {
-				resetEditFENDialog('start', true, options);
-			}
+		// Other cases
+		else {
+			dialogCallback = null;
+			dialogOptions = {};
 		}
 
 		// Show the dialog
