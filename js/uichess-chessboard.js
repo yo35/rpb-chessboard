@@ -798,8 +798,8 @@
 			widget._squareMarkers[square] = color;
 		}
 
-		// Update the square marker list.
-		widget.options.squareMarkers = flattenMarkerList(widget._squareMarkers);
+		// Square marker list update + notifications.
+		notifySquareMarkersChanged(widget);
 	}
 
 
@@ -826,8 +826,8 @@
 			widget._arrowMarkers[key] = color;
 		}
 
-		// Update the arrow marker list.
-		widget.options.arrowMarkers = flattenMarkerList(widget._arrowMarkers);
+		// Arrow marker list update + notifications.
+		notifyArrowMarkersChanged(widget);
 	}
 
 
@@ -840,6 +840,30 @@
 		var oldValue = widget.options.position;
 		widget.options.position = widget._position.fen();
 		widget._trigger('positionChange', null, { oldValue:oldValue, newValue:widget.options.position });
+	}
+
+
+	/**
+	 * Update the property holding the list of square markers, and trigger the corresponding event.
+	 *
+	 * @param {uichess.chessboard} widget
+	 */
+	function notifySquareMarkersChanged(widget) {
+		var oldValue = widget.options.squareMarkers;
+		widget.options.squareMarkers = flattenMarkerList(widget._squareMarkers);
+		widget._trigger('squareMarkersChange', null, { oldValue:oldValue, newValue:widget.options.squareMarkers });
+	}
+
+
+	/**
+	 * Update the property holding the list of arrow markers, and trigger the corresponding event.
+	 *
+	 * @param {uichess.chessboard} widget
+	 */
+	function notifyArrowMarkersChanged(widget) {
+		var oldValue = widget.options.arrowMarkers;
+		widget.options.arrowMarkers = flattenMarkerList(widget._arrowMarkers);
+		widget._trigger('arrowMarkersChange', null, { oldValue:oldValue, newValue:widget.options.arrowMarkers });
 	}
 
 
@@ -980,8 +1004,10 @@
 
 			// Update the widget.
 			switch(key) {
-				case 'position': refresh(this); this._trigger('positionChange', null, { oldValue:oldValue, newValue:this.options.position }); break;
-				case 'flip': refresh(this); this._trigger('flipChange', null, { oldValue:oldValue, newValue:this.options.flip }); break;
+				case 'position'     : refresh(this); this._trigger('positionChange'     , null, { oldValue:oldValue, newValue:this.options.position      }); break;
+				case 'squareMarkers': refresh(this); this._trigger('squareMarkersChange', null, { oldValue:oldValue, newValue:this.options.squareMarkers }); break;
+				case 'arrowMarkers' : refresh(this); this._trigger('arrowMarkersChange' , null, { oldValue:oldValue, newValue:this.options.arrowMarkers  }); break;
+				case 'flip'         : refresh(this); this._trigger('flipChange'         , null, { oldValue:oldValue, newValue:this.options.flip          }); break;
 				case 'squareSize': onSquareSizeChanged(this, oldValue, value); break;
 				case 'showCoordinates': onShowCoordinatesChanged(this); break;
 				default: refresh(this); break;
@@ -1055,7 +1081,7 @@
 				if(this._squareMarkers[square] !== color) {
 					onSquareMarkerChanged(fetchSquare(this, square), this._squareMarkers[square], color);
 					this._squareMarkers[square] = color;
-					this.options.squareMarkers = flattenMarkerList(this._squareMarkers);
+					notifySquareMarkersChanged(this);
 				}
 			}
 		},
@@ -1072,7 +1098,7 @@
 				if(typeof this._squareMarkers[square] !== 'undefined') {
 					onSquareMarkerChanged(fetchSquare(this, square), this._squareMarkers[square]);
 					delete this._squareMarkers[square];
-					this.options.squareMarkers = flattenMarkerList(this._squareMarkers);
+					notifySquareMarkersChanged(this);
 				}
 			}
 		},
@@ -1090,7 +1116,7 @@
 				if(this._arrowMarkers[key] !== color) {
 					onArrowMarkerChanged(this, key, this._arrowMarkers[key], color);
 					this._arrowMarkers[key] = color;
-					this.options.arrowMarkers = flattenMarkerList(this._arrowMarkers);
+					notifyArrowMarkersChanged(this);
 				}
 			}
 		},
@@ -1107,7 +1133,7 @@
 				if(typeof this._arrowMarkers[key] !== 'undefined') {
 					onArrowMarkerChanged(this, key, this._arrowMarkers[key]);
 					delete this._arrowMarkers[key];
-					this.options.arrowMarkers = flattenMarkerList(this._arrowMarkers);
+					notifyArrowMarkersChanged(this);
 				}
 			}
 		},

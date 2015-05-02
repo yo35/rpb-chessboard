@@ -143,7 +143,7 @@ var RPBChessboard = {};
 	/**
 	 * Add a new action on the top of the undo-history stack.
 	 */
-	function pushActionOnUndoHistory(callbackUndo, callbackRedo) {
+	function pushActionOnUndoHistory(callback, oldValue, newValue) {
 
 		// Remove the actions that have been canceled from the stack.
 		if(nextActionIndex < undoHistory.length) {
@@ -151,7 +151,7 @@ var RPBChessboard = {};
 		}
 
 		// Push the new action and increment the "next-action-index".
-		undoHistory.push({ undo:callbackUndo, redo:callbackRedo});
+		undoHistory.push({ callback:callback, undoValue:oldValue, redoValue:newValue });
 		++nextActionIndex;
 
 		// Update the state of the undo/redo buttons.
@@ -181,7 +181,7 @@ var RPBChessboard = {};
 
 		// Undo the last action.
 		--nextActionIndex;
-		executeUndoRedoCallback(undoHistory[nextActionIndex].undo);
+		executeUndoRedoCallback(undoHistory[nextActionIndex].callback, undoHistory[nextActionIndex].undoValue);
 
 		// Update the state of the undo/redo buttons.
 		$('#rpbchessboard-editFENDialog-undo').button(nextActionIndex===0 ? 'disable' : 'enable');
@@ -198,7 +198,7 @@ var RPBChessboard = {};
 		}
 
 		// Re-do the last action.
-		executeUndoRedoCallback(undoHistory[nextActionIndex].redo);
+		executeUndoRedoCallback(undoHistory[nextActionIndex].callback, undoHistory[nextActionIndex].redoValue);
 		++nextActionIndex;
 
 		// Update the state of the undo/redo buttons.
@@ -211,10 +211,11 @@ var RPBChessboard = {};
 	 * Execute an undo or a redo-callback.
 	 *
 	 * @param {callback} callback
+	 * @param {mixed} value
 	 */
-	function executeUndoRedoCallback(callback) {
+	function executeUndoRedoCallback(callback, value) {
 		shuntUndoHistoryListeners = true;
-		callback();
+		callback(value);
 		shuntUndoHistoryListeners = false;
 	}
 
@@ -509,19 +510,28 @@ var RPBChessboard = {};
 
 			positionChange: function(event, ui) {
 				if(!shuntUndoHistoryListeners) {
-					pushActionOnUndoHistory(
-						function() { resetPosition(ui.oldValue); },
-						function() { resetPosition(ui.newValue); }
-					);
+					pushActionOnUndoHistory(function(value) { resetPosition(value); }, ui.oldValue, ui.newValue);
 				}
 			},
 
 			flipChange: function(event, ui) {
 				if(!shuntUndoHistoryListeners) {
-					pushActionOnUndoHistory(
-						function() { cb.chessboard('option', 'flip', ui.oldValue); $('#rpbchessboard-editFENDialog-flip').prop('checked', ui.oldValue); },
-						function() { cb.chessboard('option', 'flip', ui.newValue); $('#rpbchessboard-editFENDialog-flip').prop('checked', ui.newValue); }
-					);
+					pushActionOnUndoHistory(function(value) {
+						cb.chessboard('option', 'flip', value);
+						$('#rpbchessboard-editFENDialog-flip').prop('checked', value);
+					}, ui.oldValue, ui.newValue);
+				}
+			},
+
+			squareMarkersChange: function(event, ui) {
+				if(!shuntUndoHistoryListeners) {
+					pushActionOnUndoHistory(function(value) { cb.chessboard('option', 'squareMarkers', value); }, ui.oldValue, ui.newValue);
+				}
+			},
+
+			arrowMarkersChange: function(event, ui) {
+				if(!shuntUndoHistoryListeners) {
+					pushActionOnUndoHistory(function(value) { cb.chessboard('option', 'arrowMarkers', value); }, ui.oldValue, ui.newValue);
 				}
 			}
 		});
@@ -541,8 +551,12 @@ var RPBChessboard = {};
 		});
 
 		// Delete-markers buttons
-		$('#rpbchessboard-editFENDialog-deleteSquareMarkers').button();
-		$('#rpbchessboard-editFENDialog-deleteArrowMarkers').button();
+		$('#rpbchessboard-editFENDialog-deleteSquareMarkers').button().click(function() {
+			cb.chessboard('option', 'squareMarkers', '');
+		});
+		$('#rpbchessboard-editFENDialog-deleteArrowMarkers').button().click(function() {
+			cb.chessboard('option', 'arrowMarkers', '');
+		});
 
 		// Turn buttons
 		$('#rpbchessboard-editFENDialog-turnSelector input').button().each(function(index, elem) {
