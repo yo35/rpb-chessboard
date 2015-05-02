@@ -142,6 +142,10 @@ var RPBChessboard = {};
 
 	/**
 	 * Add a new action on the top of the undo-history stack.
+	 *
+	 * @param {callback} callback
+	 * @param {mixed} oldValue
+	 * @param {mixed} newValue
 	 */
 	function pushActionOnUndoHistory(callback, oldValue, newValue) {
 
