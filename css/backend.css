@@ -230,6 +230,17 @@ div.rpbchessboard-sourceCode {
 	 */
 }
 
+.rpbchessboard-deleteIcon {
+	width : 30px;
+	height: 30px;
+	background-image: url(../images/delete.png);
+	/**
+	 * Source: http://findicons.com/icon/263490/delete
+	 * Author: MomentIcons <http://momentumdesignlab.com/>
+	 * License: Creative Commons Attribution [CC-BY]
+	 */
+}
+
 .rpbchessboard-squareMarkerGreenIcon,
 .rpbchessboard-squareMarkerRedIcon,
 .rpbchessboard-squareMarkerYellowIcon,
@@ -318,7 +329,7 @@ div.rpbchessboard-sourceCode {
 	margin-right: 0px;
 }
 
-.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-toolbar > div + div,
+.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-toolbar > * + *,
 .rpbchessboard-jQuery-enableSmoothness .rpbchessboard-toolbar .rpbchessboard-toolbarGroup .ui-button + .ui-button {
    margin-left: 8px;
 }

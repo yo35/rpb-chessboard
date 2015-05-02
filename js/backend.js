@@ -59,7 +59,9 @@ var RPBChessboard = {};
 		EMPTY_POSITION_TOOLTIP: 'Clear the chessboard',
 		ANNOTATIONS_TAB_LABEL: 'Annotations',
 		SQUARE_MARKERS_SECTION_TITLE: 'Square markers',
+		DELETE_SQUARE_MARKERS_TOOLTIP: 'Remove all the square markers',
 		ARROW_MARKERS_SECTION_TITLE: 'Arrow markers',
+		DELETE_ARROW_MARKERS_TOOLTIP: 'Remove all the arrow markers',
 		ADVANCED_TAB_LABEL: 'Advanced settings',
 		CASTLING_SECTION_TITLE: 'Castling rights',
 		EN_PASSANT_SECTION_TITLE: 'En passant',
@@ -405,27 +407,37 @@ var RPBChessboard = {};
 								'<div class="rpbchessboard-editFENDialog-sectionTitle">' + RPBChessboard.i18n.SQUARE_MARKERS_SECTION_TITLE + '</div>' +
 								'<div class="rpbchessboard-editFENDialog-sectionContent">' +
 									'<div class="rpbchessboard-toolbar">' +
-										'<div id="rpbchessboard-editFENDialog-addSquareMarkersSelector" class="rpbchessboard-buttonSet rpbchessboard-buttonRow">' +
-											'<input type="checkbox" id="rpbchessboard-editFENDialog-addSquareMarkers-G" name="interactionMode" value="addSquareMarkers-G" />' +
-											'<input type="checkbox" id="rpbchessboard-editFENDialog-addSquareMarkers-R" name="interactionMode" value="addSquareMarkers-R" />' +
-											'<input type="checkbox" id="rpbchessboard-editFENDialog-addSquareMarkers-Y" name="interactionMode" value="addSquareMarkers-Y" />' +
-											'<label for="rpbchessboard-editFENDialog-addSquareMarkers-G" class="rpbchessboard-graphicButton"><div class="rpbchessboard-squareMarkerGreenIcon"></div></label>' +
-											'<label for="rpbchessboard-editFENDialog-addSquareMarkers-R" class="rpbchessboard-graphicButton"><div class="rpbchessboard-squareMarkerRedIcon"></div></label>' +
-											'<label for="rpbchessboard-editFENDialog-addSquareMarkers-Y" class="rpbchessboard-graphicButton"><div class="rpbchessboard-squareMarkerYellowIcon"></div></label>' +
+										'<div id="rpbchessboard-editFENDialog-addSquareMarkersSelector" class="rpbchessboard-buttonSet">' +
+											'<div class="rpbchessboard-buttonRow">' +
+												'<input type="checkbox" id="rpbchessboard-editFENDialog-addSquareMarkers-G" name="interactionMode" value="addSquareMarkers-G" />' +
+												'<input type="checkbox" id="rpbchessboard-editFENDialog-addSquareMarkers-R" name="interactionMode" value="addSquareMarkers-R" />' +
+												'<input type="checkbox" id="rpbchessboard-editFENDialog-addSquareMarkers-Y" name="interactionMode" value="addSquareMarkers-Y" />' +
+												'<label for="rpbchessboard-editFENDialog-addSquareMarkers-G" class="rpbchessboard-graphicButton"><div class="rpbchessboard-squareMarkerGreenIcon"></div></label>' +
+												'<label for="rpbchessboard-editFENDialog-addSquareMarkers-R" class="rpbchessboard-graphicButton"><div class="rpbchessboard-squareMarkerRedIcon"></div></label>' +
+												'<label for="rpbchessboard-editFENDialog-addSquareMarkers-Y" class="rpbchessboard-graphicButton"><div class="rpbchessboard-squareMarkerYellowIcon"></div></label>' +
+											'</div>' +
 										'</div>' +
+										'<button id="rpbchessboard-editFENDialog-deleteSquareMarkers" class="rpbchessboard-graphicButton" title="' + RPBChessboard.i18n.DELETE_SQUARE_MARKERS_TOOLTIP + '">' +
+											'<div class="rpbchessboard-deleteIcon"></div>' +
+										'</button>' +
 									'</div>' +
 								'</div>' +
 								'<div class="rpbchessboard-editFENDialog-sectionTitle">' + RPBChessboard.i18n.ARROW_MARKERS_SECTION_TITLE + '</div>' +
 								'<div class="rpbchessboard-editFENDialog-sectionContent">' +
 									'<div class="rpbchessboard-toolbar">' +
-										'<div id="rpbchessboard-editFENDialog-addArrowMarkersSelector" class="rpbchessboard-buttonSet rpbchessboard-buttonRow">' +
-											'<input type="checkbox" id="rpbchessboard-editFENDialog-addArrowMarkers-G" name="interactionMode" value="addArrowMarkers-G" />' +
-											'<input type="checkbox" id="rpbchessboard-editFENDialog-addArrowMarkers-R" name="interactionMode" value="addArrowMarkers-R" />' +
-											'<input type="checkbox" id="rpbchessboard-editFENDialog-addArrowMarkers-Y" name="interactionMode" value="addArrowMarkers-Y" />' +
-											'<label for="rpbchessboard-editFENDialog-addArrowMarkers-G" class="rpbchessboard-graphicButton"><div class="rpbchessboard-arrowMarkerGreenIcon"></div></label>' +
-											'<label for="rpbchessboard-editFENDialog-addArrowMarkers-R" class="rpbchessboard-graphicButton"><div class="rpbchessboard-arrowMarkerRedIcon"></div></label>' +
-											'<label for="rpbchessboard-editFENDialog-addArrowMarkers-Y" class="rpbchessboard-graphicButton"><div class="rpbchessboard-arrowMarkerYellowIcon"></div></label>' +
+										'<div id="rpbchessboard-editFENDialog-addArrowMarkersSelector" class="rpbchessboard-buttonSet">' +
+											'<div class="rpbchessboard-buttonRow">' +
+												'<input type="checkbox" id="rpbchessboard-editFENDialog-addArrowMarkers-G" name="interactionMode" value="addArrowMarkers-G" />' +
+												'<input type="checkbox" id="rpbchessboard-editFENDialog-addArrowMarkers-R" name="interactionMode" value="addArrowMarkers-R" />' +
+												'<input type="checkbox" id="rpbchessboard-editFENDialog-addArrowMarkers-Y" name="interactionMode" value="addArrowMarkers-Y" />' +
+												'<label for="rpbchessboard-editFENDialog-addArrowMarkers-G" class="rpbchessboard-graphicButton"><div class="rpbchessboard-arrowMarkerGreenIcon"></div></label>' +
+												'<label for="rpbchessboard-editFENDialog-addArrowMarkers-R" class="rpbchessboard-graphicButton"><div class="rpbchessboard-arrowMarkerRedIcon"></div></label>' +
+												'<label for="rpbchessboard-editFENDialog-addArrowMarkers-Y" class="rpbchessboard-graphicButton"><div class="rpbchessboard-arrowMarkerYellowIcon"></div></label>' +
+											'</div>' +
 										'</div>' +
+										'<button id="rpbchessboard-editFENDialog-deleteArrowMarkers" class="rpbchessboard-graphicButton" title="' + RPBChessboard.i18n.DELETE_ARROW_MARKERS_TOOLTIP + '">' +
+											'<div class="rpbchessboard-deleteIcon"></div>' +
+										'</button>' +
 									'</div>' +
 								'</div>' +
 							'</div>' +
@@ -527,6 +539,10 @@ var RPBChessboard = {};
 		$('#rpbchessboard-editFENDialog-addArrowMarkersSelector input').button().each(function(index, elem) {
 			$(elem).click(function() { switchInteractionMode($(elem).val()); });
 		});
+
+		// Delete-markers buttons
+		$('#rpbchessboard-editFENDialog-deleteSquareMarkers').button();
+		$('#rpbchessboard-editFENDialog-deleteArrowMarkers').button();
 
 		// Turn buttons
 		$('#rpbchessboard-editFENDialog-turnSelector input').button().each(function(index, elem) {
