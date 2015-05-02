@@ -281,6 +281,7 @@ var RPBChessboard = {};
 	 */
 	function resetEditFENDialog(fen, isAddMode, options) {
 		shuntUndoHistoryListeners = true;
+		var cb = $('#rpbchessboard-editFENDialog-chessboard');
 
 		// Chessboard position
 		resetPosition(fen);
@@ -290,8 +291,16 @@ var RPBChessboard = {};
 			// Flip parameter
 			var flip = ('flip' in options) ? validateBoolean(options.flip) : null;
 			if(flip === null) { flip = false; }
-			$('#rpbchessboard-editFENDialog-chessboard').chessboard('option', 'flip', flip);
+			cb.chessboard('option', 'flip', flip);
 			$('#rpbchessboard-editFENDialog-flip').prop('checked', flip);
+
+			// Square & arrow markers
+			cb.chessboard('option', 'squareMarkers', ('csl' in options) ? options.csl : '');
+			cb.chessboard('option', 'arrowMarkers' , ('cal' in options) ? options.cal : '');
+		}
+		else {
+			cb.chessboard('option', 'squareMarkers', '');
+			cb.chessboard('option', 'arrowMarkers' , '');
 		}
 
 		// Reset the dialog
@@ -626,7 +635,9 @@ var RPBChessboard = {};
 						if(typeof callback === 'function') {
 							var fen = cb.chessboard('option', 'position');
 							var options = $(this).data('options');
-							options.flip = $('#rpbchessboard-editFENDialog-flip').prop('checked');
+							options.flip = cb.chessboard('option', 'flip');
+							options.csl = cb.chessboard('option', 'squareMarkers');
+							options.cal = cb.chessboard('option', 'arrowMarkers');
 							callback(fen, options);
 						}
 					}
@@ -724,6 +735,12 @@ var RPBChessboard = {};
 
 		if('flip' in options && options.flip) {
 			res += ' flip=true';
+		}
+		if('csl' in options && options.csl !== '') {
+			res += ' csl=' + options.csl;
+		}
+		if('cal' in options && options.cal !== '') {
+			res += ' cal=' + options.cal;
 		}
 		if('squareSize'      in options) { res += ' square_size='      + options.squareSize     ; }
 		if('showCoordinates' in options) { res += ' show_coordinates=' + options.showCoordinates; }
