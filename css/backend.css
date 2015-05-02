@@ -196,20 +196,15 @@ div.rpbchessboard-sourceCode {
 /* Icons */
 /* -------------------------------------------------------------------------- */
 
-.button.rpbchessboard-graphicButton {
-	height: auto;
-	padding: 4px;
-}
-
 .rpbchessboard-startPositionIcon {
-	width : 48px;
-	height: 48px;
+	width : 96px;
+	height: 96px;
 	background-image: url(../images/board-start.png);
 }
 
 .rpbchessboard-emptyPositionIcon {
-	width : 48px;
-	height: 48px;
+	width : 96px;
+	height: 96px;
 	background-image: url(../images/board-empty.png);
 }
 
@@ -272,44 +267,43 @@ div.rpbchessboard-sourceCode {
 	padding-right: 1.25em;
 }
 
+.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-graphicButton.ui-button {
+	height: auto;
+	border-radius: 8px;
+	padding: 2px 3px;
+}
+
+.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-graphicButton.ui-button.ui-button-text-only .ui-button-text {
+	padding: 0px;
+}
+
+.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-buttonSet .rpbchessboard-graphicButton.ui-button {
+	border-radius: 0px;
+}
+
+.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-buttonRow:first-child .rpbchessboard-graphicButton.ui-button:first-of-type {
+	border-top-left-radius: 8px;
+}
+
+.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-buttonRow:last-child .rpbchessboard-graphicButton.ui-button:first-of-type {
+	border-bottom-left-radius: 8px;
+}
+
+.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-buttonRow:first-child .rpbchessboard-graphicButton.ui-button:last-of-type {
+	border-top-right-radius: 8px;
+}
+
+.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-buttonRow:last-child .rpbchessboard-graphicButton.ui-button:last-of-type {
+	border-bottom-right-radius: 8px;
+}
+
+.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-toolbar .ui-button {
+	margin-right: 0px;
+}
 
 .rpbchessboard-jQuery-enableSmoothness .rpbchessboard-toolbar > div + div,
 .rpbchessboard-jQuery-enableSmoothness .rpbchessboard-toolbar .rpbchessboard-toolbarGroup .ui-button + .ui-button {
    margin-left: 8px;
-}
-
-.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-toolbar .ui-button {
-	height: auto;
-	margin-right: 0px;
-	border-radius: 8px;
-}
-
-.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-toolbar .ui-button-text-only .ui-button-text {
-	padding: 0.15em 0.2em;
-}
-
-.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-toolbar .rpbchessboard-largeButton.ui-button-text-only .ui-button-text {
-	padding: 0.3em 0.5em;
-}
-
-.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-toolbar .rpbchessboard-buttonSet .ui-button {
-	border-radius: 0px;
-}
-
-.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-toolbar .rpbchessboard-buttonRow:first-child .ui-button:first-of-type {
-	border-top-left-radius: 8px;
-}
-
-.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-toolbar .rpbchessboard-buttonRow:last-child .ui-button:first-of-type {
-	border-bottom-left-radius: 8px;
-}
-
-.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-toolbar .rpbchessboard-buttonRow:first-child .ui-button:last-of-type {
-	border-top-right-radius: 8px;
-}
-
-.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-toolbar .rpbchessboard-buttonRow:last-child .ui-button:last-of-type {
-	border-bottom-right-radius: 8px;
 }
 
 .rpbchessboard-jQuery-enableNoTheme .ui-tabs .ui-tabs-nav li {
@@ -491,6 +485,11 @@ div.rpbchessboard-sourceCode {
 	box-shadow: 0px 0px 2px 3px #5b9dd9 inset;
 }
 
+#rpbchessboard-editFENDialog-undo,
+#rpbchessboard-editFENDialog-redo {
+	padding: 4px 7px;
+}
+
 #rpbchessboard-editFENDialog-flipSelector {
 	padding-bottom: 0.2em;
 }
@@ -502,6 +501,19 @@ div.rpbchessboard-sourceCode {
 
 #rpbchessboard-editFENDialog-chessboard {
 	margin-top: 20px;
+}
+
+.rpbchessboard-editFENDialog-buttonColumn {
+	text-align: center;
+}
+
+.rpbchessboard-editFENDialog-buttonColumn div + div {
+	margin-top: 12px;
+}
+
+#rpbchessboard-editFENDialog-startPosition,
+#rpbchessboard-editFENDialog-emptyPosition {
+	padding: 8px 20px;
 }
 
 .rpbchessboard-editFENDialog-sectionTitle,
