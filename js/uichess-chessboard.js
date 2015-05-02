@@ -837,8 +837,9 @@
 	 * @param {uichess.chessboard} widget
 	 */
 	function notifyFENChanged(widget) {
+		var oldValue = widget.options.position;
 		widget.options.position = widget._position.fen();
-		widget._trigger('change', null, widget.options.position);
+		widget._trigger('positionChange', null, { oldValue:oldValue, newValue:widget.options.position });
 	}
 
 
@@ -979,7 +980,8 @@
 
 			// Update the widget.
 			switch(key) {
-				case 'position': refresh(this); this._trigger('change', null, this.options.position); break;
+				case 'position': refresh(this); this._trigger('positionChange', null, { oldValue:oldValue, newValue:this.options.position }); break;
+				case 'flip': refresh(this); this._trigger('flipChange', null, { oldValue:oldValue, newValue:this.options.flip }); break;
 				case 'squareSize': onSquareSizeChanged(this, oldValue, value); break;
 				case 'showCoordinates': onShowCoordinatesChanged(this); break;
 				default: refresh(this); break;
@@ -999,11 +1001,8 @@
 			}
 			else if(value !== this._position.turn()) {
 				this._position.turn(value);
-				this.options.position = this._position.fen();
 				onTurnChanged(this);
-
-				// Notify the listeners.
-				this._trigger('change', null, this.options.position);
+				notifyFENChanged(this);
 			}
 		},
 
@@ -1022,10 +1021,7 @@
 			}
 			else if(value !== this._position.castleRights(color, side)) {
 				this._position.castleRights(color, side, value);
-				this.options.position = this._position.fen();
-
-				// Notify the listeners.
-				this._trigger('change', null, this.options.position);
+				notifyFENChanged(this);
 			}
 		},
 
@@ -1042,10 +1038,7 @@
 			}
 			else if(value !== this._position.enPassant()) {
 				this._position.enPassant(value);
-				this.options.position = this._position.fen();
-
-				// Notify the listeners.
-				this._trigger('change', null, this.options.position);
+				notifyFENChanged(this);
 			}
 		},
 
