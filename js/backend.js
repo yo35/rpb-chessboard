@@ -119,6 +119,103 @@ var RPBChessboard = {};
 	// ---------------------------------------------------------------------------
 
 	/**
+	 * History of actions done in the edit-FEN dialog.
+	 */
+	var undoHistory = [];
+
+
+	/**
+	 * Index of the next action in the undo-history stack.
+	 */
+	var nextActionIndex = 0;
+
+
+	/**
+	 * Set to `true` to stop propagation of undo-recording events.
+	 */
+	var shuntUndoHistoryListeners = false;
+
+
+	/**
+	 * Add a new action on the top of the undo-history stack.
+	 */
+	function pushActionOnUndoHistory(callbackUndo, callbackRedo) {
+
+		// Remove the actions that have been canceled from the stack.
+		if(nextActionIndex < undoHistory.length) {
+			undoHistory = undoHistory.slice(0, nextActionIndex);
+		}
+
+		// Push the new action and increment the "next-action-index".
+		undoHistory.push({ undo:callbackUndo, redo:callbackRedo});
+		++nextActionIndex;
+
+		// Update the state of the undo/redo buttons.
+		$('#rpbchessboard-editFENDialog-undo').button('enable');
+		$('#rpbchessboard-editFENDialog-redo').button('disable');
+	}
+
+
+	/**
+	 * Clear the undo-history stack.
+	 */
+	function clearUndoHistory() {
+		undoHistory = [];
+		nextActionIndex = 0;
+		$('#rpbchessboard-editFENDialog-undo').button('disable');
+		$('#rpbchessboard-editFENDialog-redo').button('disable');
+	}
+
+
+	/**
+	 * Undo the last action.
+	 */
+	function undo() {
+		if(nextActionIndex===0) {
+			return;
+		}
+
+		// Undo the last action.
+		--nextActionIndex;
+		executeUndoRedoCallback(undoHistory[nextActionIndex].undo);
+
+		// Update the state of the undo/redo buttons.
+		$('#rpbchessboard-editFENDialog-undo').button(nextActionIndex===0 ? 'disable' : 'enable');
+		$('#rpbchessboard-editFENDialog-redo').button('enable');
+	}
+
+
+	/**
+	 * Re-do the last action.
+	 */
+	function redo() {
+		if(nextActionIndex===undoHistory.length) {
+			return;
+		}
+
+		// Re-do the last action.
+		executeUndoRedoCallback(undoHistory[nextActionIndex].redo);
+		++nextActionIndex;
+
+		// Update the state of the undo/redo buttons.
+		$('#rpbchessboard-editFENDialog-undo').button('enable');
+		$('#rpbchessboard-editFENDialog-redo').button(nextActionIndex===undoHistory.length ? 'disable' : 'enable');
+	}
+
+
+	/**
+	 * Execute an undo or a redo-callback.
+	 *
+	 * @param {callback} callback
+	 */
+	function executeUndoRedoCallback(callback) {
+		shuntUndoHistoryListeners = true;
+		callback();
+		shuntUndoHistoryListeners = false;
+	}
+
+
+	/**
 	 * Change the active chessboard interaction mode in the edit-FEN dialog.
 	 *
 	 * @param {string} [newMode]
@@ -174,6 +271,7 @@ var RPBChessboard = {};
 	 * @param {object} [options]
 	 */
 	function resetEditFENDialog(fen, isAddMode, options) {
+		shuntUndoHistoryListeners = true;
 
 		// Chessboard position
 		resetPosition(fen);
@@ -189,9 +287,11 @@ var RPBChessboard = {};
 
 		// Reset the dialog
 		switchInteractionMode();
+		clearUndoHistory();
 		$('#rpbchessboard-editFENDialog-submitButton').button('option', 'label', isAddMode ?
 			RPBChessboard.i18n.SUBMIT_BUTTON_ADD_LABEL : RPBChessboard.i18n.SUBMIT_BUTTON_EDIT_LABEL
 		);
+		shuntUndoHistoryListeners = false;
 	}
 
 
@@ -350,12 +450,30 @@ var RPBChessboard = {};
 		var cb = $('#rpbchessboard-editFENDialog-chessboard');
 		cb.chessboard({
 			squareSize: 40,
-			interactionMode: 'movePieces'
+			interactionMode: 'movePieces',
+
+			positionChange: function(event, ui) {
+				if(!shuntUndoHistoryListeners) {
+					pushActionOnUndoHistory(
+						function() { resetPosition(ui.oldValue); },
+						function() { resetPosition(ui.newValue); }
+					);
+				}
+			},
+
+			flipChange: function(event, ui) {
+				if(!shuntUndoHistoryListeners) {
+					pushActionOnUndoHistory(
+						function() { cb.chessboard('option', 'flip', ui.oldValue); $('#rpbchessboard-editFENDialog-flip').prop('checked', ui.oldValue); },
+						function() { cb.chessboard('option', 'flip', ui.newValue); $('#rpbchessboard-editFENDialog-flip').prop('checked', ui.newValue); }
+					);
+				}
+			}
 		});
 
-		// Toolbar
-		$('#rpbchessboard-editFENDialog-undo').button();
-		$('#rpbchessboard-editFENDialog-redo').button();
+		// Undo/redo
+		$('#rpbchessboard-editFENDialog-undo').button().click(function() { undo(); });
+		$('#rpbchessboard-editFENDialog-redo').button().click(function() { redo(); });
 
 		// Add-piece buttons
 		$('#rpbchessboard-editFENDialog-addPiecesSelector input').button().each(function(index, elem) {
