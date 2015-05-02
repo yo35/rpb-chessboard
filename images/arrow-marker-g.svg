@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 30 30">
+	<defs>
+		<marker id="marker" markerWidth="4" markerHeight="4" refX="2.5" refY="2" orient="auto">
+			<path d="M 4,2 L 0,4 L 1,2 L 0,0 Z" fill="#0e0"/>
+		</marker>
+	</defs>
+	<line x1="2" y1="15" x2="24" y2="15" stroke="#0e0" stroke-width="4" stroke-linecap="round" marker-end="url(#marker)" />
+</svg>
+

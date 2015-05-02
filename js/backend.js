@@ -57,6 +57,9 @@ var RPBChessboard = {};
 		STANDARD_POSITIONS_TAB_LABEL: 'Standard positions',
 		START_POSITION_TOOLTIP: 'Set the initial position',
 		EMPTY_POSITION_TOOLTIP: 'Clear the chessboard',
+		ANNOTATIONS_TAB_LABEL: 'Annotations',
+		SQUARE_MARKERS_SECTION_TITLE: 'Square markers',
+		ARROW_MARKERS_SECTION_TITLE: 'Arrow markers',
 		ADVANCED_TAB_LABEL: 'Advanced settings',
 		CASTLING_SECTION_TITLE: 'Castling rights',
 		EN_PASSANT_SECTION_TITLE: 'En passant',
@@ -396,6 +399,37 @@ var RPBChessboard = {};
 								'</div>' +
 							'</div>' +
 
+							// Annotations tab
+							'<h3>' + RPBChessboard.i18n.ANNOTATIONS_TAB_LABEL + '</h3>' +
+							'<div>' +
+								'<div class="rpbchessboard-editFENDialog-sectionTitle">' + RPBChessboard.i18n.SQUARE_MARKERS_SECTION_TITLE + '</div>' +
+								'<div class="rpbchessboard-editFENDialog-sectionContent">' +
+									'<div class="rpbchessboard-toolbar">' +
+										'<div id="rpbchessboard-editFENDialog-addSquareMarkersSelector" class="rpbchessboard-buttonSet rpbchessboard-buttonRow">' +
+											'<input type="checkbox" id="rpbchessboard-editFENDialog-addSquareMarkers-G" name="interactionMode" value="addSquareMarkers-G" />' +
+											'<input type="checkbox" id="rpbchessboard-editFENDialog-addSquareMarkers-R" name="interactionMode" value="addSquareMarkers-R" />' +
+											'<input type="checkbox" id="rpbchessboard-editFENDialog-addSquareMarkers-Y" name="interactionMode" value="addSquareMarkers-Y" />' +
+											'<label for="rpbchessboard-editFENDialog-addSquareMarkers-G" class="rpbchessboard-graphicButton"><div class="rpbchessboard-squareMarkerGreenIcon"></div></label>' +
+											'<label for="rpbchessboard-editFENDialog-addSquareMarkers-R" class="rpbchessboard-graphicButton"><div class="rpbchessboard-squareMarkerRedIcon"></div></label>' +
+											'<label for="rpbchessboard-editFENDialog-addSquareMarkers-Y" class="rpbchessboard-graphicButton"><div class="rpbchessboard-squareMarkerYellowIcon"></div></label>' +
+										'</div>' +
+									'</div>' +
+								'</div>' +
+								'<div class="rpbchessboard-editFENDialog-sectionTitle">' + RPBChessboard.i18n.ARROW_MARKERS_SECTION_TITLE + '</div>' +
+								'<div class="rpbchessboard-editFENDialog-sectionContent">' +
+									'<div class="rpbchessboard-toolbar">' +
+										'<div id="rpbchessboard-editFENDialog-addArrowMarkersSelector" class="rpbchessboard-buttonSet rpbchessboard-buttonRow">' +
+											'<input type="checkbox" id="rpbchessboard-editFENDialog-addArrowMarkers-G" name="interactionMode" value="addArrowMarkers-G" />' +
+											'<input type="checkbox" id="rpbchessboard-editFENDialog-addArrowMarkers-R" name="interactionMode" value="addArrowMarkers-R" />' +
+											'<input type="checkbox" id="rpbchessboard-editFENDialog-addArrowMarkers-Y" name="interactionMode" value="addArrowMarkers-Y" />' +
+											'<label for="rpbchessboard-editFENDialog-addArrowMarkers-G" class="rpbchessboard-graphicButton"><div class="rpbchessboard-arrowMarkerGreenIcon"></div></label>' +
+											'<label for="rpbchessboard-editFENDialog-addArrowMarkers-R" class="rpbchessboard-graphicButton"><div class="rpbchessboard-arrowMarkerRedIcon"></div></label>' +
+											'<label for="rpbchessboard-editFENDialog-addArrowMarkers-Y" class="rpbchessboard-graphicButton"><div class="rpbchessboard-arrowMarkerYellowIcon"></div></label>' +
+										'</div>' +
+									'</div>' +
+								'</div>' +
+							'</div>' +
+
 							// Advanced tab
 							'<h3>' + RPBChessboard.i18n.ADVANCED_TAB_LABEL + '</h3>' +
 							'<div>' +
@@ -480,12 +514,17 @@ var RPBChessboard = {};
 			}
 		});
 
-		// Undo/redo
-		$('#rpbchessboard-editFENDialog-undo').button().click(function() { undo(); });
-		$('#rpbchessboard-editFENDialog-redo').button().click(function() { redo(); });
 
-		// Add-piece buttons
+		// Add-pieces buttons
 		$('#rpbchessboard-editFENDialog-addPiecesSelector input').button().each(function(index, elem) {
+			$(elem).click(function() { switchInteractionMode($(elem).val()); });
+		});
+
+		// Add-markers buttons
+		$('#rpbchessboard-editFENDialog-addSquareMarkersSelector input').button().each(function(index, elem) {
+			$(elem).click(function() { switchInteractionMode($(elem).val()); });
+		});
+		$('#rpbchessboard-editFENDialog-addArrowMarkersSelector input').button().each(function(index, elem) {
 			$(elem).click(function() { switchInteractionMode($(elem).val()); });
 		});
 
@@ -498,6 +537,10 @@ var RPBChessboard = {};
 		$('#rpbchessboard-editFENDialog-flip').click(function() {
 			cb.chessboard('option', 'flip', $(this).prop('checked'));
 		});
+
+		// Undo/redo
+		$('#rpbchessboard-editFENDialog-undo').button().click(function() { undo(); });
+		$('#rpbchessboard-editFENDialog-redo').button().click(function() { redo(); });
 
 		// Buttons 'reset' and 'clear'
 		$('#rpbchessboard-editFENDialog-startPosition').button().click(function() { resetPosition('start'); });

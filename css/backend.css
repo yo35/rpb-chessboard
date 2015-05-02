@@ -230,6 +230,23 @@ div.rpbchessboard-sourceCode {
 	 */
 }
 
+.rpbchessboard-squareMarkerGreenIcon,
+.rpbchessboard-squareMarkerRedIcon,
+.rpbchessboard-squareMarkerYellowIcon,
+.rpbchessboard-arrowMarkerGreenIcon,
+.rpbchessboard-arrowMarkerRedIcon,
+.rpbchessboard-arrowMarkerYellowIcon {
+	width : 30px;
+	height: 30px;
+}
+
+.rpbchessboard-squareMarkerGreenIcon  { background-image: url(../images/square-marker-g.png); }
+.rpbchessboard-squareMarkerRedIcon    { background-image: url(../images/square-marker-r.png); }
+.rpbchessboard-squareMarkerYellowIcon { background-image: url(../images/square-marker-y.png); }
+.rpbchessboard-arrowMarkerGreenIcon   { background-image: url(../images/arrow-marker-g.png); }
+.rpbchessboard-arrowMarkerRedIcon     { background-image: url(../images/arrow-marker-r.png); }
+.rpbchessboard-arrowMarkerYellowIcon  { background-image: url(../images/arrow-marker-y.png); }
+
 
 
 /* -------------------------------------------------------------------------- */
@@ -481,7 +498,9 @@ div.rpbchessboard-sourceCode {
 /* -------------------------------------------------------------------------- */
 
 #rpbchessboard-editFENDialog-addPiecesSelector .ui-button.ui-state-active,
-#rpbchessboard-editFENDialog-turnSelector .ui-button.ui-state-active {
+#rpbchessboard-editFENDialog-turnSelector .ui-button.ui-state-active,
+#rpbchessboard-editFENDialog-addSquareMarkersSelector .ui-button.ui-state-active,
+#rpbchessboard-editFENDialog-addArrowMarkersSelector .ui-button.ui-state-active {
 	box-shadow: 0px 0px 2px 3px #5b9dd9 inset;
 }
 
