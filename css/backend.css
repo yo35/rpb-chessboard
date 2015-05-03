@@ -450,8 +450,12 @@ div.rpbchessboard-sourceCode {
 /* Help pages */
 /* -------------------------------------------------------------------------- */
 
+.rpbchessboard-helpPage * + h3 {
+	margin: 2em 0px 1em;
+}
+
 #rpbchessboard-helpFENPage .rpbchessboard-columns > div,
-#rpbchessboard-helpPGNPage .rpbchessboard-columns > div {
+.rpbchessboard-helpPage .rpbchessboard-columns > div {
 	width: 50%;
 }
 

@@ -35,7 +35,8 @@ class RPBChessboardModelAdminPageHelp extends RPBChessboardAbstractModelAdminPag
 		$this->loadTrait('URLs'         );
 
 		// Create the sub-pages.
-		$this->addSubPage('helpfen', __('FEN diagram', 'rpbchessboard'), true);
+		$this->addSubPage('helppgnsyntax', __('PGN game syntax', 'rpbchessboard'), true);
+		$this->addSubPage('helpfen', __('FEN diagram', 'rpbchessboard'));
 		$this->addSubPage('helppgn', __('PGN game'   , 'rpbchessboard'));
 	}
 }
