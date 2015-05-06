@@ -454,6 +454,19 @@ div.rpbchessboard-sourceCode {
 	margin: 2em 0px 1em;
 }
 
+ol.rpbchessboard-outline {
+	display: inline-block;
+	border: 1px solid #ddd;
+	background-color: white;
+	padding: 1em 2em 1em 1.5em;
+	list-style-position: inside;
+	margin-left: 0px;
+}
+
+ol.rpbchessboard-outline li:last-child {
+	margin-bottom: 3px;
+}
+
 #rpbchessboard-helpFENPage .rpbchessboard-columns > div,
 .rpbchessboard-helpPage .rpbchessboard-columns > div {
 	width: 50%;

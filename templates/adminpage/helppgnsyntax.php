@@ -41,9 +41,19 @@
 		); ?>
 	</p>
 
+	<ol class="rpbchessboard-outline">
+		<li><a href="#rpbchessboard-pgnExample"><?php _e('Standard PGN game', 'rpbchessboard'); ?></a></li>
+		<li><a href="#rpbchessboard-pgnNAG"><?php _e('NAGs (aka. <em>Numeric Annotation Glyphs</em>)', 'rpbchessboard'); ?></a></li>
+		<li><a href="#rpbchessboard-pgnComment"><?php _e('Comments', 'rpbchessboard'); ?></a></li>
+		<li><a href="#rpbchessboard-pgnVariation"><?php _e('Variations', 'rpbchessboard'); ?></a></li>
+		<li><a href="#rpbchessboard-pgnDiagram"><?php _e('Diagrams', 'rpbchessboard'); ?></a></li>
+		<li><a href="#rpbchessboard-pgnCustomStartingPosition"><?php _e('Custom starting position', 'rpbchessboard'); ?></a></li>
+		<li><a href="#rpbchessboard-pgnNullMove"><?php _e('Null moves', 'rpbchessboard'); ?></a></li>
+	</ol>
 
 
-	<h3><?php echo _e('Standard PGN game', 'rpbchessboard'); ?></h3>
+
+	<h3 id="rpbchessboard-pgnExample"><?php _e('Standard PGN game', 'rpbchessboard'); ?></h3>
 
 	<div class="rpbchessboard-columns">
 		<div>
@@ -103,7 +113,7 @@
 
 
 
-	<h3><?php _e('NAGs (aka. <em>Numeric Annotation Glyphs</em>)', 'rpbchessboard'); ?></h3>
+	<h3 id="rpbchessboard-pgnNAG"><?php _e('NAGs (aka. <em>Numeric Annotation Glyphs</em>)', 'rpbchessboard'); ?></h3>
 
 	<div class="rpbchessboard-columns">
 		<div>
@@ -147,7 +157,7 @@
 
 
 
-	<h3><?php _e('Comments', 'rpbchessboard'); ?></h3>
+	<h3 id="rpbchessboard-pgnComment"><?php _e('Comments', 'rpbchessboard'); ?></h3>
 
 	<div class="rpbchessboard-columns">
 		<div>
@@ -205,7 +215,7 @@
 
 
 
-	<h3><?php _e('Variations', 'rpbchessboard'); ?></h3>
+	<h3 id="rpbchessboard-pgnVariation"><?php _e('Variations', 'rpbchessboard'); ?></h3>
 
 	<div class="rpbchessboard-columns">
 		<div>
@@ -257,10 +267,7 @@
 
 
 
-	<h3><?php
-		echo sprintf(__('Diagrams with the %1$s[pgndiagram]%2$s tag', 'rpbchessboard'),
-			'<span class="rpbchessboard-sourceCode">', '</span>');
-	?></h3>
+	<h3 id="rpbchessboard-pgnDiagram"><?php _e('Diagrams', 'rpbchessboard'); ?></h3>
 
 	<div class="rpbchessboard-columns">
 		<div>
@@ -276,10 +283,12 @@
 			<p>
 				<?php echo sprintf(
 					__(
-						'Notice that %1$s[pgndiagram]%2$s tags must not be inserted outside a PGN comment.',
+						'Notice that %1$s[pgndiagram]%2$s tags must not be used outside a PGN game. '.
+						'To insert a diagram outside a PGN game, use the %1$s[%3$s][/%3$s]%2$s tag instead.',
 					'rpbchessboard'),
 					'<span class="rpbchessboard-sourceCode">',
-					'</span>'
+					'</span>',
+					htmlspecialchars($model->getFENShortcode())
 				); ?>
 			</p>
 		</div>
@@ -310,7 +319,7 @@
 
 
 
-	<h3><?php _e('Custom starting position', 'rpbchessboard'); ?></h3>
+	<h3 id="rpbchessboard-pgnCustomStartingPosition"><?php _e('Custom starting position', 'rpbchessboard'); ?></h3>
 
 	<div class="rpbchessboard-columns">
 		<div>
@@ -365,7 +374,7 @@
 
 
 
-	<h3><?php _e('Null moves', 'rpbchessboard'); ?></h3>
+	<h3 id="rpbchessboard-pgnNullMove"><?php _e('Null moves', 'rpbchessboard'); ?></h3>
 
 	<div class="rpbchessboard-columns">
 		<div>
