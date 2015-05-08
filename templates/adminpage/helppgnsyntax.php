@@ -47,6 +47,7 @@
 		<li><a href="#rpbchessboard-pgnComment"><?php _e('Comments', 'rpbchessboard'); ?></a></li>
 		<li><a href="#rpbchessboard-pgnVariation"><?php _e('Variations', 'rpbchessboard'); ?></a></li>
 		<li><a href="#rpbchessboard-pgnDiagram"><?php _e('Diagrams', 'rpbchessboard'); ?></a></li>
+		<li><a href="#rpbchessboard-pgnMarkers"><?php _e('Square and arrow markers', 'rpbchessboard'); ?></a></li>
 		<li><a href="#rpbchessboard-pgnCustomStartingPosition"><?php _e('Custom starting position', 'rpbchessboard'); ?></a></li>
 		<li><a href="#rpbchessboard-pgnNullMove"><?php _e('Null moves', 'rpbchessboard'); ?></a></li>
 	</ol>
@@ -319,6 +320,95 @@
 									?> + '}\n' +
 									'\n' +
 									'2. Nf3 d6 *'
+							});
+						});
+					</script>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<h3 id="rpbchessboard-pgnMarkers"><?php _e('Square and arrow markers', 'rpbchessboard'); ?></h3>
+
+	<div class="rpbchessboard-columns">
+		<div>
+			<div class="rpbchessboard-sourceCode">
+				[<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]<br/>
+				1. e4 e5 2. Nf3<br/>
+				<br/>
+				{[pgndiagram][%csl Re5][%cal Rf3e5]}<br/>
+				<br/>
+				2... Nc6 3. Bb5<br/>
+				<br/>
+				{[pgndiagram][%csl Re5,Gc6][%cal Rf3e5,Rb5c6,Gc6e5]
+				<?php
+					_e('The Ruy Lopez: White\'s third move attacks the knight which defends the e5-pawn from the attack by the f3-knight.',
+						'rpbchessboard');
+				?>}<br/>
+				<br/>
+				*<br/>
+				[/<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]
+			</div>
+			<p>
+				<?php echo sprintf(
+					__(
+						'Squares can be highlighted by inserting the tag %1$s[%%csl ...]%2$s in a comment. '.
+						'For instance, %1$s[%%csl Re5,Gc6,Yf3,Yb5]%2$s highlights square e5 in red, square c6 in green, '.
+						'and squares f3 and b5 in yellow.',
+					'rpbchessboard'),
+					'<span class="rpbchessboard-sourceCode">',
+					'</span>'
+				); ?>
+			</p>
+			<p>
+				<?php echo sprintf(
+					__(
+						'Likewise, arrows can be added by inserting the tag %1$s[%%cal ...]%2$s in a comment. '.
+						'The syntax used for arrows is similar to the one used for square highlights: '.
+						'for instance, %1$s[%%cal Rf3e5,Gd8d4]%2$s creates a red arrow f3 to e5, and a green arrow from d8 to d4.',
+					'rpbchessboard'),
+					'<span class="rpbchessboard-sourceCode">',
+					'</span>'
+				); ?>
+			</p>
+			<p>
+				<?php echo sprintf(
+					__(
+						'Square and arrow markers created in %3$sChessbase%4$s are exported in PGN format using these %1$s[%%csl ...]%2$s '.
+						'and %1$s[%%cal ...]%2$s notations.',
+					'rpbchessboard'),
+					'<span class="rpbchessboard-sourceCode">',
+					'</span>',
+					'<a href="http://www.chessbase.com/" target="_blank">',
+					'</a>'
+				); ?>
+			</p>
+		</div>
+		<div>
+			<div class="rpbchessboard-visuBlock">
+				<div>
+					<div id="rpbchessboard-pgnMarkers-anchor"></div>
+					<script type="text/javascript">
+						jQuery(document).ready(function($) {
+							$('#rpbchessboard-pgnMarkers-anchor').chessgame({
+								diagramOptions: { squareSize: 28 },
+								pgn:
+									'1. e4 e5 2. Nf3\n' +
+									'\n' +
+									'{<div class="uichess-chessgame-diagramAnchor"></div>[%csl Re5][%cal Rf3e5]}\n' +
+									'\n' +
+									'2... Nc6 3. Bb5\n' +
+									'\n' +
+									'{<div class="uichess-chessgame-diagramAnchor"></div>[%csl Re5,Gc6][%cal Rf3e5,Rb5c6,Gc6e5] ' +
+									<?php
+										echo json_encode(__(
+											'The Ruy Lopez: White\'s third move attacks the knight which defends the e5-pawn from the attack by the f3-knight.',
+											'rpbchessboard'));
+									?> + '}\n' +
+									'\n' +
+									'*'
 							});
 						});
 					</script>
