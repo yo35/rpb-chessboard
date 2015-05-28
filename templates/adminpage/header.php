@@ -42,10 +42,9 @@
 		<?php foreach($model->getSubPages() as $subPage): ?>
 
 			<li>
-				<a
-					href="<?php echo htmlspecialchars($subPage->link); ?>"
-					class="<?php if($subPage->selected) { echo 'current'; } ?>"
-				><?php echo htmlspecialchars($subPage->label); ?></a>
+				<a href="<?php echo $subPage->link; ?>" class="<?php if($subPage->selected) { echo 'current'; } ?>">
+					<?php echo $subPage->label; ?>
+				</a>
 			</li>
 
 		<?php endforeach; ?>

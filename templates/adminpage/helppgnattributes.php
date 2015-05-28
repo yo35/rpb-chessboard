@@ -18,27 +18,51 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.   *
  *                                                                            *
  ******************************************************************************/
+?>
+
+<div id="rpbchessboard-helpPGNAttributesPage" class="rpbchessboard-helpPage">
+
+	<p>
+		<?php echo sprintf(
+			__(
+				'Several attributes may be passed to the %1$s[%3$s][/%3$s]%2$s tags '.
+				'in order to affect how the PGN game is displayed. '.
+				'These attributes are presented in this page.',
+			'rpbchessboard'),
+			'<span class="rpbchessboard-sourceCode">',
+			'</span>',
+			htmlspecialchars($model->getPGNShortcode())
+		); ?>
+	</p>
 
 
-require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/adminpage.php');
+
+	<h3 id="rpbchessboard-pgnAttributeNavigationBoard"><?php _e('Navigation board', 'rpbchessboard'); ?></h3>
+
+	<p>TODO</p>
 
 
-/**
- * Model associated to the 'Help' page in the backend.
- */
-class RPBChessboardModelAdminPageHelp extends RPBChessboardAbstractModelAdminPage
-{
-	public function __construct()
-	{
-		parent::__construct();
-		$this->loadTrait('Compatibility');
-		$this->loadTrait('URLs'         );
 
-		// Create the sub-pages.
-		$this->addSubPage('helppgnsyntax', __('PGN game syntax', 'rpbchessboard'), true);
-		$this->addSubPage('helppgnattributes', sprintf(__('%1$s[%3$s][/%3$s]%2$s tag parameters', 'rpbchessboard'),
-			'<span class="rpbchessboard-sourceCode">', '</span>', htmlspecialchars($this->getPGNShortcode())));
-		$this->addSubPage('helpfen', __('FEN diagram', 'rpbchessboard'));
-		$this->addSubPage('helppgn', __('PGN game'   , 'rpbchessboard'));
-	}
-}
+	<h3 id="rpbchessboard-pgnAttributeFlip"><?php _e('Board flipping', 'rpbchessboard'); ?></h3>
+
+	<p>TODO</p>
+
+
+
+	<h3 id="rpbchessboard-pgnAttributeSquareSize"><?php _e('Square size', 'rpbchessboard'); ?></h3>
+
+	<p>TODO</p>
+
+
+
+	<h3 id="rpbchessboard-pgnAttributeShowCoordinates"><?php _e('Show coordinates', 'rpbchessboard'); ?></h3>
+
+	<p>TODO</p>
+
+
+
+	<h3 id="rpbchessboard-pgnAttributePieceSymbols"><?php _e('Piece symbols', 'rpbchessboard'); ?></h3>
+
+	<p>TODO</p>
+
+</div>
