@@ -32,6 +32,7 @@ class RPBChessboardTraitCompatibility extends RPBChessboardAbstractTrait
 {
 	private static $fenCompatibilityMode;
 	private static $pgnCompatibilityMode;
+	private static $pieceSymbolLocalizationAvailable;
 
 
 	/**
@@ -85,5 +86,27 @@ class RPBChessboardTraitCompatibility extends RPBChessboardAbstractTrait
 	public function getPGNShortcode()
 	{
 		return $this->getPGNCompatibilityMode() ? 'pgn_compat' : 'pgn';
+	}
+
+
+	/**
+	 * Whether the localization is available for piece symbols or not.
+	 *
+	 * @return boolean
+	 */
+	public function isPieceSymbolLocalizationAvailable()
+	{
+		if(!isset(self::$pieceSymbolLocalizationAvailable)) {
+			$englishPieceSymbols = 'KQRBNP';
+			$localizedPieceSymbols =
+				/*i18n King symbol   */ __('K', 'rpbchessboard') .
+				/*i18n Queen symbol  */ __('Q', 'rpbchessboard') .
+				/*i18n Rook symbol   */ __('R', 'rpbchessboard') .
+				/*i18n Bishop symbol */ __('B', 'rpbchessboard') .
+				/*i18n Knight symbol */ __('N', 'rpbchessboard') .
+				/*i18n Pawn symbol   */ __('P', 'rpbchessboard');
+			self::$pieceSymbolLocalizationAvailable = ($englishPieceSymbols !== $localizedPieceSymbols);
+		}
+		return self::$pieceSymbolLocalizationAvailable;
 	}
 }

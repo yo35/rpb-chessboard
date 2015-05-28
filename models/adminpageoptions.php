@@ -28,7 +28,6 @@ require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/adminpage.php');
  */
 class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdminPage
 {
-	private $localizedPieceSymbolButtonAvailable;
 	private $selectedPieceSymbolButton;
 	private $pieceSymbolCustomValues;
 
@@ -116,28 +115,6 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 
 
 	/**
-	 * Whether the "localized piece symbol" radio button is available or not.
-	 *
-	 * @return boolean
-	 */
-	public function isLocalizedPieceSymbolButtonAvailable()
-	{
-		if(!isset($this->localizedPieceSymbolButtonAvailable)) {
-			$englishPieceSymbols = 'KQRBNP';
-			$localizedPieceSymbols =
-				/*i18n King symbol   */ __('K', 'rpbchessboard') .
-				/*i18n Queen symbol  */ __('Q', 'rpbchessboard') .
-				/*i18n Rook symbol   */ __('R', 'rpbchessboard') .
-				/*i18n Bishop symbol */ __('B', 'rpbchessboard') .
-				/*i18n Knight symbol */ __('N', 'rpbchessboard') .
-				/*i18n Pawn symbol   */ __('P', 'rpbchessboard');
-			$this->localizedPieceSymbolButtonAvailable = ($englishPieceSymbols !== $localizedPieceSymbols);
-		}
-		return $this->localizedPieceSymbolButtonAvailable;
-	}
-
-
-	/**
 	 * Piece symbol radio button that is initially selected when the form is displayed.
 	 *
 	 * @return boolean
@@ -149,7 +126,7 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 				case 'native'   : $this->selectedPieceSymbolButton = 'english'  ; break;
 				case 'figurines': $this->selectedPieceSymbolButton = 'figurines'; break;
 				case 'localized':
-					$this->selectedPieceSymbolButton = $this->isLocalizedPieceSymbolButtonAvailable() ? 'localized' : 'english';
+					$this->selectedPieceSymbolButton = $this->isPieceSymbolLocalizationAvailable() ? 'localized' : 'english';
 					break;
 				default:
 					$this->selectedPieceSymbolButton = 'custom';

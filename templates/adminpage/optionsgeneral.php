@@ -155,7 +155,7 @@
 			/>
 			<label for="rpbchessboard-pieceSymbolButton-english"><?php _e('English initials', 'rpbchessboard'); ?></label>
 
-			<?php if($model->isLocalizedPieceSymbolButtonAvailable()): ?>
+			<?php if($model->isPieceSymbolLocalizationAvailable()): ?>
 				<input type="radio" id="rpbchessboard-pieceSymbolButton-localized" name="pieceSymbols" value="localized"
 					<?php if($model->getSelectedPieceSymbolButton()==='localized'): ?>checked="yes"<?php endif; ?>
 				/>
