@@ -72,6 +72,32 @@ div.rpbchessboard-sourceCode:last-child,
 
 
 /* -------------------------------------------------------------------------- */
+/* Tables */
+/* -------------------------------------------------------------------------- */
+
+.rpbchessboard-adminPage table {
+	border-collapse: collapse;
+}
+
+.rpbchessboard-adminPage table th,
+.rpbchessboard-adminPage table td {
+	border: solid 1px #555;
+	padding: 0.25em 0.5em 0.25em;
+}
+
+.rpbchessboard-adminPage table th {
+	background-color: #555;
+	color: white;
+	font-weight: bold;
+}
+
+.rpbchessboard-adminPage table td {
+	background-color: white;
+}
+
+
+
+/* -------------------------------------------------------------------------- */
 /* Column layout */
 /* -------------------------------------------------------------------------- */
 
@@ -120,10 +146,10 @@ div.rpbchessboard-sourceCode:last-child,
 }
 
 .rpbchessboard-clearfix:after {
-		display: block;
-		visibility: hidden;
-		content: " ";
-		clear: both;
+	display: block;
+	visibility: hidden;
+	content: " ";
+	clear: both;
 }
 
 
@@ -471,6 +497,9 @@ ol.rpbchessboard-outline li:last-child {
 .rpbchessboard-helpPage .rpbchessboard-columns > div {
 	width: 50%;
 }
+
+#rpbchessboard-pgnAttributeNavigationBoard-content.rpbchessboard-columns > div:nth-child(1) { width: 40%; }
+#rpbchessboard-pgnAttributeNavigationBoard-content.rpbchessboard-columns > div:nth-child(2) { width: 60%; }
 
 #rpbchessboard-helpFENPage #rpbchessboard-fenAttribute2 .rpbchessboard-columns > div:nth-child(1) {
 	width: 33%;
