@@ -50,3 +50,13 @@
 		<?php endforeach; ?>
 	</ul>
 <?php endif; ?>
+
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$('.rpbchessboard-outline a').click(function(e) {
+			e.preventDefault();
+			var target = $(this).attr('href');
+			$('html').animate({ scrollTop: $(target).offset().top - 50 }, 500);
+		});
+	});
+</script>

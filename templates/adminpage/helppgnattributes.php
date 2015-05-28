@@ -35,6 +35,14 @@
 		); ?>
 	</p>
 
+	<ol class="rpbchessboard-outline">
+		<li><a href="#rpbchessboard-pgnAttributeNavigationBoard"><?php _e('Navigation board', 'rpbchessboard'); ?></a></li>
+		<li><a href="#rpbchessboard-pgnAttributeFlip"><?php _e('Board flipping', 'rpbchessboard'); ?></a></li>
+		<li><a href="#rpbchessboard-pgnAttributeSquareSize"><?php _e('Square size', 'rpbchessboard'); ?></a></li>
+		<li><a href="#rpbchessboard-pgnAttributeShowCoordinates"><?php _e('Show coordinates', 'rpbchessboard'); ?></a></li>
+		<li><a href="#rpbchessboard-pgnAttributePieceSymbols"><?php _e('Piece symbols', 'rpbchessboard'); ?></a></li>
+	</ol>
+
 
 
 	<h3 id="rpbchessboard-pgnAttributeNavigationBoard"><?php _e('Navigation board', 'rpbchessboard'); ?></h3>
