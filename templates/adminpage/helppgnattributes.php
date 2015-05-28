@@ -50,7 +50,7 @@
 	<div class="rpbchessboard-columns">
 		<div>
 			<p>
-				<?php echo sprintf(__('The %1$s attribute controls how chess pieces are denoted in the move list.', 'rpbchessboard'),
+				<?php echo sprintf(__('The %1$s parameter controls how chess pieces are denoted in the move list.', 'rpbchessboard'),
 					'<span class="rpbchessboard-sourceCode">piece_symbols</span>'); ?>
 			</p>
 			<table>
