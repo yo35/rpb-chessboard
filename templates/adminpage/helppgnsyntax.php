@@ -376,7 +376,7 @@
 			<p>
 				<?php echo sprintf(
 					__(
-						'Square and arrow markers created in %3$sChessbase%4$s are exported in PGN format using these %1$s[%%csl ...]%2$s '.
+						'Square and arrow markers that created in %3$sChessbase%4$s are exported in PGN format using these %1$s[%%csl ...]%2$s '.
 						'and %1$s[%%cal ...]%2$s notations.',
 					'rpbchessboard'),
 					'<span class="rpbchessboard-sourceCode">',
