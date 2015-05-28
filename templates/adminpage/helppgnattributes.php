@@ -53,7 +53,7 @@
 				<?php echo sprintf(
 					__(
 						'The %1$s parameter controls the position of the navigation board. '.
-						'The following table presents the available values for this parameter:',
+						'The following table presents the available values for this parameter.',
 					'rpbchessboard'),
 					'<span class="rpbchessboard-sourceCode">navigation_board</span>'
 				);?>
@@ -97,7 +97,7 @@
 					<script type="text/javascript">
 						jQuery(document).ready(function($) {
 							$('#rpbchessboard-pgnAttributeNavigationBoard-anchor').chessgame({
-								navigationBoardOptions: { squareSize: 28, showCoordinates: false },
+								navigationBoardOptions: { squareSize: 28 },
 								pgn:
 									'[Event "Linares 16<sup>th</sup>"]\n' +
 									'[Site "Linares, ESP"]\n' +
