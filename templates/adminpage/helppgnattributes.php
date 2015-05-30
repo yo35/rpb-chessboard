@@ -27,6 +27,8 @@
 			__(
 				'Several parameters may be passed to the %1$s[%3$s][/%3$s]%2$s tags '.
 				'in order to customize how the PGN games are displayed. '.
+				'All these parameters are optional: if not specified, the default setting '.
+				'(defined by the website administrator) applies. '.
 				'These parameters are presented in this page.',
 			'rpbchessboard'),
 			'<span class="rpbchessboard-sourceCode">',
