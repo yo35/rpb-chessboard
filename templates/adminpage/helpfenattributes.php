@@ -47,7 +47,54 @@
 
 	<h3 id="rpbchessboard-fenAttributeFlip"><?php _e('Board flipping', 'rpbchessboard'); ?></h3>
 
-	<p>TODO</p>
+	<div class="rpbchessboard-columns">
+		<div>
+			<p>
+				<?php echo sprintf(__('The %1$s parameter controls whether the chessboard is rotated or not.', 'rpbchessboard'),
+					'<span class="rpbchessboard-sourceCode">flip</span>'); ?>
+			</p>
+			<table>
+				<tbody>
+					<tr>
+						<th><?php _e('Value', 'rpbchessboard'); ?></th>
+						<th><?php _e('Description', 'rpbchessboard'); ?></th>
+					</tr>
+					<tr>
+						<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-fenAttributeFlip-value">false</a></td>
+						<td><?php _e('The board is seen from White\'s point of view.', 'rpbchessboard'); ?></td>
+					</tr>
+					<tr>
+						<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-fenAttributeFlip-value">true</a></td>
+						<td><?php _e('The board is seen from Black\'s point of view.', 'rpbchessboard'); ?></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div>
+			<div class="rpbchessboard-sourceCode">
+				<?php echo sprintf(
+					'[%1$s <strong>flip=<span id="rpbchessboard-fenAttributeFlip-sourceCodeExample">false</span></strong>] ... [/%1$s]',
+					htmlspecialchars($model->getFENShortcode())
+				); ?>
+			</div>
+			<div class="rpbchessboard-visuBlock">
+				<div>
+					<div id="rpbchessboard-fenAttributeFlip-anchor"></div>
+					<script type="text/javascript">
+						jQuery(document).ready(function($) {
+							$('#rpbchessboard-fenAttributeFlip-anchor').chessboard({ position: 'start', squareSize: 28 });
+							$('.rpbchessboard-fenAttributeFlip-value').click(function(e) {
+								e.preventDefault();
+								var value = $(this).text();
+								$('#rpbchessboard-fenAttributeFlip-anchor').chessboard('option', 'flip', value);
+								$('#rpbchessboard-fenAttributeFlip-sourceCodeExample').text(value);
+							});
+						});
+					</script>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 
@@ -59,6 +106,53 @@
 
 	<h3 id="rpbchessboard-fenAttributeShowCoordinates"><?php _e('Show coordinates', 'rpbchessboard'); ?></h3>
 
-	<p>TODO</p>
+	<div class="rpbchessboard-columns">
+		<div>
+			<p>
+				<?php echo sprintf(__('The %1$s parameter controls whether the row and column coordinates are visible or not.', 'rpbchessboard'),
+					'<span class="rpbchessboard-sourceCode">show_coordinates</span>'); ?>
+			</p>
+			<table>
+				<tbody>
+					<tr>
+						<th><?php _e('Value', 'rpbchessboard'); ?></th>
+						<th><?php _e('Description', 'rpbchessboard'); ?></th>
+					</tr>
+					<tr>
+						<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-fenAttributeShowCoordinates-value">false</a></td>
+						<td><?php _e('The row and column coordinates are hidden.', 'rpbchessboard'); ?></td>
+					</tr>
+					<tr>
+						<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-fenAttributeShowCoordinates-value">true</a></td>
+						<td><?php _e('The row and column coordinates are visible.', 'rpbchessboard'); ?></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div>
+			<div class="rpbchessboard-sourceCode">
+				<?php echo sprintf(
+					'[%1$s <strong>show_coordinates=<span id="rpbchessboard-fenAttributeShowCoordinates-sourceCodeExample">true</span></strong>] ... [/%1$s]',
+					htmlspecialchars($model->getFENShortcode())
+				); ?>
+			</div>
+			<div class="rpbchessboard-visuBlock">
+				<div>
+					<div id="rpbchessboard-fenAttributeShowCoordinates-anchor"></div>
+					<script type="text/javascript">
+						jQuery(document).ready(function($) {
+							$('#rpbchessboard-fenAttributeShowCoordinates-anchor').chessboard({ position: 'start', squareSize: 28, showCoordinates: true });
+							$('.rpbchessboard-fenAttributeShowCoordinates-value').click(function(e) {
+								e.preventDefault();
+								var value = $(this).text();
+								$('#rpbchessboard-fenAttributeShowCoordinates-anchor').chessboard('option', 'showCoordinates', value);
+								$('#rpbchessboard-fenAttributeShowCoordinates-sourceCodeExample').text(value);
+							});
+						});
+					</script>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </div>
