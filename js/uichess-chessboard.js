@@ -129,6 +129,38 @@
 
 
 	/**
+	 * Ensure that the given value is a valid boolean.
+	 *
+	 * @param {mixed} value
+	 * @param {boolean} defaultValue
+	 * @returns {boolean}
+	 */
+	function filterBoolean(value, defaultValue) {
+		if(typeof value === 'boolean') {
+			return value;
+		}
+		else if(typeof value === 'number') {
+			return Boolean(value);
+		}
+		else if(typeof value === 'string') {
+			value = value.toLowerCase();
+			if(value === 'true' || value === '1' || value === 'on') {
+				return true;
+			}
+			else if(value === 'false' || value === '0' || value === 'off') {
+				return false;
+			}
+			else {
+				return defaultValue;
+			}
+		}
+		else {
+			return defaultValue;
+		}
+	}
+
+
+	/**
 	 * Ensure that the given number is a valid square size.
 	 *
 	 * @param {number} squareSize
@@ -969,6 +1001,8 @@
 			this.options.arrowMarkers  = initializeArrowMarkers (this, this.options.arrowMarkers );
 			this.options.squareSize      = filterOptionSquareSize     (this.options.squareSize     );
 			this.options.interactionMode = filterOptionInteractionMode(this.options.interactionMode);
+			this.options.flip            = filterBoolean(this.options.flip           , false);
+			this.options.showCoordinates = filterBoolean(this.options.showCoordinates, true );
 			refresh(this);
 		},
 
@@ -993,6 +1027,8 @@
 				case 'arrowMarkers' : value = initializeArrowMarkers (this, value); break;
 				case 'squareSize'     : value = filterOptionSquareSize     (value); break;
 				case 'interactionMode': value = filterOptionInteractionMode(value); break;
+				case 'flip'           : value = filterBoolean(value, false); break;
+				case 'showCoordinates': value = filterBoolean(value, true ); break;
 			}
 
 			// Set the new value.
