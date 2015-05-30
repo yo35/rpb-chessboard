@@ -442,7 +442,7 @@
 	 * @param {uichess.chessboard} widget
 	 */
 	function onShowCoordinatesChanged(widget) {
-		$('.uichess-chessboard-table', widget.element).toogleClass('uichess-chessboard-hideCoordinates');
+		$('.uichess-chessboard-table', widget.element).toggleClass('uichess-chessboard-hideCoordinates');
 	}
 
 
