@@ -64,34 +64,40 @@
 					</tr>
 					<tr>
 						<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributePieceSymbols-value">native</a></td>
-						<td><?php if($model->getDefaultPieceSymbols()==='native'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
+						<td><?php if($model->getDefaultSimplifiedPieceSymbols()==='english'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
 						<td><?php _e('First character of the piece name in English.', 'rpbchessboard'); ?></td>
 					</tr>
 					<?php if($model->isPieceSymbolLocalizationAvailable()): ?>
 						<tr>
 							<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributePieceSymbols-value">localized</a></td>
-							<td><?php if($model->getDefaultPieceSymbols()==='localized'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
+							<td><?php if($model->getDefaultSimplifiedPieceSymbols()==='localized'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
 							<td><?php _e('First character of the piece name in the blog language.', 'rpbchessboard'); ?></td>
 						</tr>
 					<?php endif; ?>
 					<tr>
 						<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributePieceSymbols-value">figurines</a></td>
-						<td><?php if($model->getDefaultPieceSymbols()==='figurines'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
+						<td><?php if($model->getDefaultSimplifiedPieceSymbols()==='figurines'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
 						<td><span class="uichess-chessgame-alphaFont">K Q R B N P</span></td>
 					</tr>
 					<tr>
-						<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributePieceSymbols-value">(KDTLSB)</a></td>
-						<td></td>
+						<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributePieceSymbols-value">(<?php
+							echo htmlspecialchars($model->getPieceSymbolCustomValue()); ?>)</a></td>
+						<td><?php if($model->getDefaultSimplifiedPieceSymbols()==='custom'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
 						<td>
 							<?php echo sprintf(
 								__(
 									'Any sequence of 6 capital letters surrounded with parenthesis is allowed to set custom symbols. '.
-									'For instance, with %1$s(KDTLSB)%2$s, K will be used to denote a king, D for a queen, T for a rook, '.
-									'L for a bishop, S for a knight and B for a pawn.',
+									'For instance, with %1$s(%3$s%4$s%5$s%6$s%7$s%8$s)%2$s, %3$s will be used to denote a king, ' .
+									'%4$s for a queen, %5$s for a rook, %6$s for a bishop, %7$s for a knight and %8$s for a pawn.',
 								'rpbchessboard'),
 								'<span class="rpbchessboard-sourceCode">',
 								'</span>',
-								'rto', 'gg'
+								htmlspecialchars($model->getPieceSymbolCustomValue('K')),
+								htmlspecialchars($model->getPieceSymbolCustomValue('Q')),
+								htmlspecialchars($model->getPieceSymbolCustomValue('R')),
+								htmlspecialchars($model->getPieceSymbolCustomValue('B')),
+								htmlspecialchars($model->getPieceSymbolCustomValue('N')),
+								htmlspecialchars($model->getPieceSymbolCustomValue('P'))
 							); ?>
 						</td>
 					</tr>

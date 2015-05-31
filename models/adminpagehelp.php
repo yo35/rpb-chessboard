@@ -28,6 +28,9 @@ require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/adminpage.php');
  */
 class RPBChessboardModelAdminPageHelp extends RPBChessboardAbstractModelAdminPage
 {
+	private $pieceSymbolCustomValues;
+
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -43,5 +46,24 @@ class RPBChessboardModelAdminPageHelp extends RPBChessboardAbstractModelAdminPag
 			'<span class="rpbchessboard-sourceCode">', '</span>', htmlspecialchars($this->getFENShortcode())));
 		$this->addSubPage('helpfen', __('FEN diagram', 'rpbchessboard'));
 		$this->addSubPage('helppgn', __('PGN game'   , 'rpbchessboard'));
+	}
+
+
+	/**
+	 * Default value for the piece symbol custom fields.
+	 *
+	 * @param string $piece `'K'`, `'Q'`, `'R'`, `'B'`, `'N'`, `'P'`, or `null` to concatenate all the values.
+	 * @return string
+	 */
+	public function getPieceSymbolCustomValue($piece = null)
+	{
+		if(!isset($this->pieceSymbolCustomValues)) {
+			$this->pieceSymbolCustomValues = $this->getDefaultPieceSymbolCustomValues();
+			if(empty($this->pieceSymbolCustomValues)) {
+				$this->pieceSymbolCustomValues = array('K'=>'K', 'Q'=>'D', 'R'=>'T', 'B'=>'L', 'N'=>'S', 'P'=>'B');
+			}
+		}
+		$t = $this->pieceSymbolCustomValues;
+		return $piece===null ? $t['K'] . $t['Q'] . $t['R'] . $t['B'] . $t['N'] . $t['P'] : $t[$piece];
 	}
 }
