@@ -34,9 +34,6 @@ class RPBChessboardTraitDefaultOptions extends RPBChessboardAbstractTrait
 	private static $pieceSymbols   ;
 	private static $navigationBoard;
 
-	private static $pieceSymbolLocalizationAvailable;
-	private static $simplifiedPieceSymbols;
-
 
 	/**
 	 * Initial square size of the chessboard widgets.
@@ -78,28 +75,6 @@ class RPBChessboardTraitDefaultOptions extends RPBChessboardAbstractTrait
 
 
 	/**
-	 * Minimum square size of the chessboard widgets.
-	 *
-	 * @return int
-	 */
-	public function getMinimumSquareSize()
-	{
-		return RPBChessboardHelperValidation::MINIMUM_SQUARE_SIZE;
-	}
-
-
-	/**
-	 * Maximum square size of the chessboard widgets.
-	 *
-	 * @return int
-	 */
-	public function getMaximumSquareSize()
-	{
-		return RPBChessboardHelperValidation::MAXIMUM_SQUARE_SIZE;
-	}
-
-
-	/**
 	 * Default show-coordinates parameter for the chessboard widgets.
 	 *
 	 * @return boolean
@@ -126,75 +101,6 @@ class RPBChessboardTraitDefaultOptions extends RPBChessboardAbstractTrait
 			self::$pieceSymbols = isset($value) ? $value : self::DEFAULT_PIECE_SYMBOLS;
 		}
 		return self::$pieceSymbols;
-	}
-
-
-	/**
-	 * Whether the localization is available for piece symbols or not.
-	 *
-	 * @return boolean
-	 */
-	public function isPieceSymbolLocalizationAvailable()
-	{
-		if(!isset(self::$pieceSymbolLocalizationAvailable)) {
-			$englishPieceSymbols = 'KQRBNP';
-			$localizedPieceSymbols =
-				/*i18n King symbol   */ __('K', 'rpbchessboard') .
-				/*i18n Queen symbol  */ __('Q', 'rpbchessboard') .
-				/*i18n Rook symbol   */ __('R', 'rpbchessboard') .
-				/*i18n Bishop symbol */ __('B', 'rpbchessboard') .
-				/*i18n Knight symbol */ __('N', 'rpbchessboard') .
-				/*i18n Pawn symbol   */ __('P', 'rpbchessboard');
-			self::$pieceSymbolLocalizationAvailable = ($englishPieceSymbols !== $localizedPieceSymbols);
-		}
-		return self::$pieceSymbolLocalizationAvailable;
-	}
-
-
-	/**
-	 * Simplified version of the default piece symbol mode.
-	 *
-	 * @return boolean
-	 */
-	public function getDefaultSimplifiedPieceSymbols()
-	{
-		if(!isset(self::$simplifiedPieceSymbols)) {
-			switch($this->getDefaultPieceSymbols()) {
-				case 'native'   : self::$simplifiedPieceSymbols = 'english'  ; break;
-				case 'figurines': self::$simplifiedPieceSymbols = 'figurines'; break;
-				case 'localized':
-					self::$simplifiedPieceSymbols = $this->isPieceSymbolLocalizationAvailable() ? 'localized' : 'english';
-					break;
-				default:
-					self::$simplifiedPieceSymbols = 'custom';
-					break;
-			}
-		}
-		return self::$simplifiedPieceSymbols;
-	}
-
-
-	/**
-	 * Default values for the piece symbol custom fields.
-	 *
-	 * @return array
-	 */
-	public function getDefaultPieceSymbolCustomValues()
-	{
-		if($this->getDefaultSimplifiedPieceSymbols() === 'custom') {
-			$pieceSymbols = $this->getDefaultPieceSymbols();
-			return array(
-				'K' => substr($pieceSymbols, 1, 1),
-				'Q' => substr($pieceSymbols, 2, 1),
-				'R' => substr($pieceSymbols, 3, 1),
-				'B' => substr($pieceSymbols, 4, 1),
-				'N' => substr($pieceSymbols, 5, 1),
-				'P' => substr($pieceSymbols, 6, 1)
-			);
-		}
-		else {
-			return array();
-		}
 	}
 
 

@@ -34,10 +34,10 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 	public function __construct()
 	{
 		parent::__construct();
-		$this->loadTrait('DefaultOptions');
-		$this->loadTrait('Compatibility' );
-		$this->loadTrait('SmallScreens'  );
-		$this->loadTrait('URLs'          );
+		$this->loadTrait('DefaultOptionsEx');
+		$this->loadTrait('Compatibility'   );
+		$this->loadTrait('SmallScreens'    );
+		$this->loadTrait('URLs'            );
 
 		// Create the sub-pages.
 		$this->addSubPage('optionsgeneral'      , __('Default aspect & behavior settings'    , 'rpbchessboard'), true);
