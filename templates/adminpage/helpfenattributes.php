@@ -53,18 +53,21 @@
 				<?php echo sprintf(__('The %1$s parameter controls whether the chessboard is rotated or not.', 'rpbchessboard'),
 					'<span class="rpbchessboard-sourceCode">flip</span>'); ?>
 			</p>
-			<table>
+			<table class="rpbchessboard-attributeTable">
 				<tbody>
 					<tr>
 						<th><?php _e('Value', 'rpbchessboard'); ?></th>
+						<th><?php _e('Default', 'rpbchessboard'); ?></th>
 						<th><?php _e('Description', 'rpbchessboard'); ?></th>
 					</tr>
 					<tr>
 						<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-fenAttributeFlip-value">false</a></td>
+						<td><div class="rpbchessboard-tickIcon"></div></td>
 						<td><?php _e('The board is seen from White\'s point of view.', 'rpbchessboard'); ?></td>
 					</tr>
 					<tr>
 						<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-fenAttributeFlip-value">true</a></td>
+						<td></td>
 						<td><?php _e('The board is seen from Black\'s point of view.', 'rpbchessboard'); ?></td>
 					</tr>
 				</tbody>
@@ -112,18 +115,21 @@
 				<?php echo sprintf(__('The %1$s parameter controls whether the row and column coordinates are visible or not.', 'rpbchessboard'),
 					'<span class="rpbchessboard-sourceCode">show_coordinates</span>'); ?>
 			</p>
-			<table>
+			<table class="rpbchessboard-attributeTable">
 				<tbody>
 					<tr>
 						<th><?php _e('Value', 'rpbchessboard'); ?></th>
+						<th><?php _e('Default', 'rpbchessboard'); ?></th>
 						<th><?php _e('Description', 'rpbchessboard'); ?></th>
 					</tr>
 					<tr>
 						<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-fenAttributeShowCoordinates-value">false</a></td>
+						<td><?php if(!$model->getDefaultShowCoordinates()): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
 						<td><?php _e('The row and column coordinates are hidden.', 'rpbchessboard'); ?></td>
 					</tr>
 					<tr>
 						<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-fenAttributeShowCoordinates-value">true</a></td>
+						<td><?php if($model->getDefaultShowCoordinates()): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
 						<td><?php _e('The row and column coordinates are visible.', 'rpbchessboard'); ?></td>
 					</tr>
 				</tbody>

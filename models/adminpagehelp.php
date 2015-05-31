@@ -31,8 +31,9 @@ class RPBChessboardModelAdminPageHelp extends RPBChessboardAbstractModelAdminPag
 	public function __construct()
 	{
 		parent::__construct();
-		$this->loadTrait('Compatibility');
-		$this->loadTrait('URLs'         );
+		$this->loadTrait('Compatibility' );
+		$this->loadTrait('DefaultOptions');
+		$this->loadTrait('URLs'          );
 
 		// Create the sub-pages.
 		$this->addSubPage('helppgnsyntax', __('PGN game syntax', 'rpbchessboard'), true);

@@ -55,28 +55,33 @@
 				<?php echo sprintf(__('The %1$s parameter controls how chess pieces are denoted in the move list.', 'rpbchessboard'),
 					'<span class="rpbchessboard-sourceCode">piece_symbols</span>'); ?>
 			</p>
-			<table>
+			<table class="rpbchessboard-attributeTable">
 				<tbody>
 					<tr>
 						<th><?php _e('Value', 'rpbchessboard'); ?></th>
+						<th><?php _e('Default', 'rpbchessboard'); ?></th>
 						<th><?php _e('Description', 'rpbchessboard'); ?></th>
 					</tr>
 					<tr>
 						<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributePieceSymbols-value">native</a></td>
+						<td><?php if($model->getDefaultPieceSymbols()==='native'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
 						<td><?php _e('First character of the piece name in English.', 'rpbchessboard'); ?></td>
 					</tr>
 					<?php if($model->isPieceSymbolLocalizationAvailable()): ?>
 						<tr>
 							<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributePieceSymbols-value">localized</a></td>
+							<td><?php if($model->getDefaultPieceSymbols()==='localized'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
 							<td><?php _e('First character of the piece name in the blog language.', 'rpbchessboard'); ?></td>
 						</tr>
 					<?php endif; ?>
 					<tr>
 						<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributePieceSymbols-value">figurines</a></td>
+						<td><?php if($model->getDefaultPieceSymbols()==='figurines'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
 						<td><span class="uichess-chessgame-alphaFont">K Q R B N P</span></td>
 					</tr>
 					<tr>
 						<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributePieceSymbols-value">(KDTLSB)</a></td>
+						<td></td>
 						<td>
 							<?php echo sprintf(
 								__(
@@ -134,27 +139,32 @@
 				<?php echo sprintf(__('The %1$s parameter controls the position of the navigation board.', 'rpbchessboard'),
 					'<span class="rpbchessboard-sourceCode">navigation_board</span>'); ?>
 			</p>
-			<table>
+			<table class="rpbchessboard-attributeTable">
 				<tbody>
 					<tr>
 						<th><?php _e('Value', 'rpbchessboard'); ?></th>
+						<th><?php _e('Default', 'rpbchessboard'); ?></th>
 						<th><?php _e('Description', 'rpbchessboard'); ?></th>
 					</tr>
 					<tr>
 						<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributeNavigationBoard-value">none</a></td>
+						<td><?php if($model->getDefaultNavigationBoard()==='none'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
 						<td><?php _e('No navigation board.', 'rpbchessboard'); ?></td>
 					</tr>
 					<tr>
 						<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributeNavigationBoard-value">frame</a></td>
+						<td><?php if($model->getDefaultNavigationBoard()==='frame'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
 						<td><?php _e('The navigation board is displayed in a popup frame, which becomes visible '.
 							'when the user clicks on a move within the move list.', 'rpbchessboard'); ?></td>
 					</tr>
 					<tr>
 						<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributeNavigationBoard-value">floatLeft</a></td>
+						<td><?php if($model->getDefaultNavigationBoard()==='floatLeft'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
 						<td><?php _e('The navigation board is displayed on the left of the move list.', 'rpbchessboard'); ?></td>
 					</tr>
 					<tr>
 						<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributeNavigationBoard-value">floatRight</a></td>
+						<td><?php if($model->getDefaultNavigationBoard()==='floatRight'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
 						<td><?php _e('The navigation board is displayed on the right of the move list.', 'rpbchessboard'); ?></td>
 					</tr>
 				</tbody>

@@ -267,6 +267,18 @@ div.rpbchessboard-sourceCode {
 	 */
 }
 
+.rpbchessboard-tickIcon {
+	display: inline-block;
+	width : 16px;
+	height: 16px;
+	background-image: url(../images/tick.png);
+	/**
+	 * Source: http://findicons.com/icon/263450/accept1
+	 * Author: MomentIcons <http://momentumdesignlab.com/>
+	 * License: Creative Commons Attribution [CC-BY]
+	 */
+}
+
 .rpbchessboard-squareMarkerGreenIcon,
 .rpbchessboard-squareMarkerRedIcon,
 .rpbchessboard-squareMarkerYellowIcon,
@@ -491,6 +503,15 @@ ol.rpbchessboard-outline {
 
 ol.rpbchessboard-outline li:last-child {
 	margin-bottom: 0px;
+}
+
+table.rpbchessboard-attributeTable {
+	width: 100%;
+}
+
+table.rpbchessboard-attributeTable td:nth-child(2) {
+	text-align: center;
+	padding: 3px 0px 0px;
 }
 
 #rpbchessboard-helpFENPage .rpbchessboard-columns > div,
