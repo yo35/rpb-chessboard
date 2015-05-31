@@ -39,17 +39,6 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode
 
 
 	/**
-	 * Return the PGN string describing the game.
-	 *
-	 * @return string
-	 */
-	public function getPGNString()
-	{
-		return $this->getContent();
-	}
-
-
-	/**
 	 * Return the arguments to pass to the uichess-chessboard widget.
 	 *
 	 * @return array
@@ -57,7 +46,7 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode
 	public function getWidgetArgs()
 	{
 		if(!isset($this->widgetArgs)) {
-			$this->widgetArgs = array('pgn' => $this->getPGNString());
+			$this->widgetArgs = array('pgn' => $this->getContent());
 			$atts = $this->getAttributes();
 			$chessboardOptions = array();
 

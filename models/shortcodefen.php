@@ -38,17 +38,6 @@ class RPBChessboardModelShortcodeFEN extends RPBChessboardAbstractModelShortcode
 
 
 	/**
-	 * Return the FEN string describing the position.
-	 *
-	 * @return string
-	 */
-	public function getFENString()
-	{
-		return $this->getContent();
-	}
-
-
-	/**
 	 * Return the arguments to pass to the uichess-chessboard widget.
 	 *
 	 * @return array
@@ -56,7 +45,7 @@ class RPBChessboardModelShortcodeFEN extends RPBChessboardAbstractModelShortcode
 	public function getWidgetArgs()
 	{
 		if(!isset($this->widgetArgs)) {
-			$this->widgetArgs = array('position' => $this->getFENString());
+			$this->widgetArgs = array('position' => $this->getContent());
 			$atts = $this->getAttributes();
 
 			// Square markers

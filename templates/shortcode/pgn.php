@@ -25,7 +25,7 @@
 <div id="<?php echo htmlspecialchars($model->getUniqueID()); ?>" class="rpbchessboard-chessgame">
 
 	<noscript>
-		<div class="rpbchessboard-noJavascriptBlock"><?php echo htmlspecialchars($model->getPGNString()); ?></div>
+		<div class="rpbchessboard-noJavascriptBlock"><?php echo htmlspecialchars($model->getContent()); ?></div>
 		<div class="rpbchessboard-javascriptWarning">
 			<?php _e('You must activate JavaScript to enhance chess game visualization.', 'rpbchessboard'); ?>
 		</div>
