@@ -28,7 +28,6 @@ require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/adminpage.php');
  */
 class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdminPage
 {
-	private $selectedPieceSymbolButton;
 	private $pieceSymbolCustomValues;
 
 
@@ -115,29 +114,6 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 
 
 	/**
-	 * Piece symbol radio button that is initially selected when the form is displayed.
-	 *
-	 * @return boolean
-	 */
-	public function getSelectedPieceSymbolButton()
-	{
-		if(!isset($this->selectedPieceSymbolButton)) {
-			switch($this->getDefaultPieceSymbols()) {
-				case 'native'   : $this->selectedPieceSymbolButton = 'english'  ; break;
-				case 'figurines': $this->selectedPieceSymbolButton = 'figurines'; break;
-				case 'localized':
-					$this->selectedPieceSymbolButton = $this->isPieceSymbolLocalizationAvailable() ? 'localized' : 'english';
-					break;
-				default:
-					$this->selectedPieceSymbolButton = 'custom';
-					break;
-			}
-		}
-		return $this->selectedPieceSymbolButton;
-	}
-
-
-	/**
 	 * Default value for the piece symbol custom fields.
 	 *
 	 * @param string $piece `'K'`, `'Q'`, `'R'`, `'B'`, `'N'`, or `'P'`.
@@ -146,21 +122,9 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 	public function getPieceSymbolCustomValue($piece)
 	{
 		if(!isset($this->pieceSymbolCustomValues)) {
-			if($this->getSelectedPieceSymbolButton() === 'custom') {
-				$pieceSymbols = $this->getDefaultPieceSymbols();
-				$this->pieceSymbolCustomValues = array(
-					'K' => substr($pieceSymbols, 1, 1),
-					'Q' => substr($pieceSymbols, 2, 1),
-					'R' => substr($pieceSymbols, 3, 1),
-					'B' => substr($pieceSymbols, 4, 1),
-					'N' => substr($pieceSymbols, 5, 1),
-					'P' => substr($pieceSymbols, 6, 1)
-				);
-			}
-			else {
-				$this->pieceSymbolCustomValues = array(
-					'K' => '', 'Q' => '', 'R' => '', 'B' => '', 'N' => '', 'P' => ''
-				);
+			$this->pieceSymbolCustomValues = $this->getDefaultPieceSymbolCustomValues();
+			if(empty($this->pieceSymbolCustomValues)) {
+				$this->pieceSymbolCustomValues = array('K'=>'', 'Q'=>'', 'R'=>'', 'B'=>'', 'N'=>'', 'P'=>'');
 			}
 		}
 		return $this->pieceSymbolCustomValues[$piece];
