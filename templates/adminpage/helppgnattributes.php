@@ -40,9 +40,7 @@
 	<ol class="rpbchessboard-outline">
 		<li><a href="#rpbchessboard-pgnAttributePieceSymbols"><?php _e('Piece symbols', 'rpbchessboard'); ?></a></li>
 		<li><a href="#rpbchessboard-pgnAttributeNavigationBoard"><?php _e('Navigation board', 'rpbchessboard'); ?></a></li>
-		<li><a href="#rpbchessboard-pgnAttributeFlip"><?php _e('Board flipping', 'rpbchessboard'); ?></a></li>
-		<li><a href="#rpbchessboard-pgnAttributeSquareSize"><?php _e('Square size', 'rpbchessboard'); ?></a></li>
-		<li><a href="#rpbchessboard-pgnAttributeShowCoordinates"><?php _e('Show coordinates', 'rpbchessboard'); ?></a></li>
+		<li><a href="#rpbchessboard-pgnAttributeBoardAspect"><?php _e('Chessboard aspect', 'rpbchessboard'); ?></a></li>
 	</ol>
 
 
@@ -222,20 +220,30 @@
 
 
 
-	<h3 id="rpbchessboard-pgnAttributeFlip"><?php _e('Board flipping', 'rpbchessboard'); ?></h3>
+	<h3 id="rpbchessboard-pgnAttributeBoardAspect"><?php _e('Chessboard aspect', 'rpbchessboard'); ?></h3>
 
-	<p>TODO</p>
+	<div class="rpbchessboard-sourceCode">
+		<?php echo sprintf(
+			'[%1$s <strong>flip</strong>=... <strong>square_size</strong>=... <strong>show_coordinates</strong>=...] ... [/%1$s]',
+			htmlspecialchars($model->getPGNShortcode())
+		); ?>
+	</div>
 
-
-
-	<h3 id="rpbchessboard-pgnAttributeSquareSize"><?php _e('Square size', 'rpbchessboard'); ?></h3>
-
-	<p>TODO</p>
-
-
-
-	<h3 id="rpbchessboard-pgnAttributeShowCoordinates"><?php _e('Show coordinates', 'rpbchessboard'); ?></h3>
-
-	<p>TODO</p>
+	<p>
+		<?php echo sprintf(
+			__(
+				'The %1$s, %2$s and %3$s parameters control the aspect of both the navigation board and the chessboard diagrams '.
+				'inserted using tag %4$s. These parameters are identical to those used to customize the aspect of standalone diagrams '.
+				'inserted using tag %5$s: see %6$shelp on FEN diagram parameters%7$s for more details about them.',
+			'chessboard'),
+			'<span class="rpbchessboard-sourceCode">flip</span>',
+			'<span class="rpbchessboard-sourceCode">square_size</span>',
+			'<span class="rpbchessboard-sourceCode">show_coordinates</span>',
+			'<span class="rpbchessboard-sourceCode">[pgn_diagram]</span>',
+			sprintf('<span class="rpbchessboard-sourceCode">[%1$s][/%1$s]</span>', htmlspecialchars($model->getFENShortcode())),
+			'<a href="' . htmlspecialchars($model->getHelpOnFENAttributesURL()) . '">',
+			'</a>'
+		); ?>
+	</p>
 
 </div>
