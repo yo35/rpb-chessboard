@@ -78,6 +78,28 @@ class RPBChessboardTraitDefaultOptions extends RPBChessboardAbstractTrait
 
 
 	/**
+	 * Minimum square size of the chessboard widgets.
+	 *
+	 * @return int
+	 */
+	public function getMinimumSquareSize()
+	{
+		return RPBChessboardHelperValidation::MINIMUM_SQUARE_SIZE;
+	}
+
+
+	/**
+	 * Maximum square size of the chessboard widgets.
+	 *
+	 * @return int
+	 */
+	public function getMaximumSquareSize()
+	{
+		return RPBChessboardHelperValidation::MAXIMUM_SQUARE_SIZE;
+	}
+
+
+	/**
 	 * Default show-coordinates parameter for the chessboard widgets.
 	 *
 	 * @return boolean

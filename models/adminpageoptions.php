@@ -80,28 +80,6 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 
 
 	/**
-	 * Minimum square size of the chessboard widgets.
-	 *
-	 * @return int
-	 */
-	public function getMinimumSquareSize()
-	{
-		return RPBChessboardHelperValidation::MINIMUM_SQUARE_SIZE;
-	}
-
-
-	/**
-	 * Maximum square size of the chessboard widgets.
-	 *
-	 * @return int
-	 */
-	public function getMaximumSquareSize()
-	{
-		return RPBChessboardHelperValidation::MAXIMUM_SQUARE_SIZE;
-	}
-
-
-	/**
 	 * Number of digits of the maximum square size parameter.
 	 *
 	 * @return int

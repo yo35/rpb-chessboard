@@ -28,6 +28,7 @@ require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/adminpage.php');
  */
 class RPBChessboardModelAdminPageHelp extends RPBChessboardAbstractModelAdminPage
 {
+	private $squareSizeList;
 	private $pieceSymbolCustomValues;
 
 
@@ -46,6 +47,38 @@ class RPBChessboardModelAdminPageHelp extends RPBChessboardAbstractModelAdminPag
 			'<span class="rpbchessboard-sourceCode">', '</span>', htmlspecialchars($this->getFENShortcode())));
 		$this->addSubPage('helpfen', __('FEN diagram', 'rpbchessboard'));
 		$this->addSubPage('helppgn', __('PGN game'   , 'rpbchessboard'));
+	}
+
+
+	/**
+	 * Return the list of square size values to present as example.
+	 *
+	 * @return int[]
+	 */
+	public function getSquareSizeList()
+	{
+		if(!isset($this->squareSizeList)) {
+			$defaultSquareSize = $this->getDefaultSquareSize();
+			if($defaultSquareSize <= 24) {
+				$this->squareSizeList = array($defaultSquareSize, 35, 56);
+			}
+			else if($defaultSquareSize <= 48) {
+				$this->squareSizeList = array(16, $defaultSquareSize, 56);
+			}
+			else {
+				$this->squareSizeList = array(16, 35, $defaultSquareSize);
+			}
+		}
+		return $this->squareSizeList;
+	}
+
+
+	/**
+	 * Return the initial square size value to use for the square size attribute presentation section.
+	 */
+	public function getSquareSizeInitialExample()
+	{
+		return $this->getSquareSizeList()[1];
 	}
 
 
