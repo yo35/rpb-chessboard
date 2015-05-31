@@ -46,8 +46,6 @@ class RPBChessboardModelAdminPageHelp extends RPBChessboardAbstractModelAdminPag
 			'<span class="rpbchessboard-sourceCode">', '</span>', htmlspecialchars($this->getPGNShortcode())));
 		$this->addSubPage('helpfenattributes', sprintf(__('%1$s[%3$s][/%3$s]%2$s tag parameters', 'rpbchessboard'),
 			'<span class="rpbchessboard-sourceCode">', '</span>', htmlspecialchars($this->getFENShortcode())));
-		$this->addSubPage('helpfen', __('FEN diagram', 'rpbchessboard'));
-		$this->addSubPage('helppgn', __('PGN game'   , 'rpbchessboard'));
 	}
 
 
