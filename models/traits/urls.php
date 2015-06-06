@@ -69,4 +69,14 @@ class RPBChessboardTraitURLs extends RPBChessboardAbstractTrait
 	{
 		return admin_url('admin.php') . '?page=rpbchessboard-help&rpbchessboard_subpage=helppgnattributes';
 	}
+
+
+	/**
+	 * URL to the PGN attribute help page.
+	 *
+	 * @return string
+	 */
+	public function getHelpOnPGNSyntaxURL() {
+		return admin_url('admin.php') . '?page=rpbchessboard-help&rpbchessboard_subpage=helppgnsyntax';
+	}
 }

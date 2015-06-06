@@ -41,6 +41,7 @@
 		<li><a href="#rpbchessboard-fenAttributeFlip"><?php _e('Board flipping', 'rpbchessboard'); ?></a></li>
 		<li><a href="#rpbchessboard-fenAttributeSquareSize"><?php _e('Square size', 'rpbchessboard'); ?></a></li>
 		<li><a href="#rpbchessboard-fenAttributeShowCoordinates"><?php _e('Show coordinates', 'rpbchessboard'); ?></a></li>
+		<li><a href="#rpbchessboard-fenAttributeMarkers"><?php _e('Square and arrow markers', 'rpbchessboard'); ?></a></li>
 	</ol>
 
 
@@ -208,6 +209,57 @@
 								var value = $(this).text();
 								$('#rpbchessboard-fenAttributeShowCoordinates-anchor').chessboard('option', 'showCoordinates', value);
 								$('#rpbchessboard-fenAttributeShowCoordinates-sourceCodeExample').text(value);
+							});
+						});
+					</script>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<h3 id="rpbchessboard-fenAttributeMarkers"><?php _e('Square and arrow markers', 'rpbchessboard'); ?></h3>
+
+	<div class="rpbchessboard-columns">
+		<div>
+			<p>
+				<?php echo sprintf(
+					__(
+						'The %1$s and %2$s parameters are used to add respectively square and arrow markers. '.
+						'There is no need to manually edit the value of these parameters as '.
+						'square and arrow marker edition is handled by the chess diagram editor.',
+					'rpbchessboard'),
+					'<span class="rpbchessboard-sourceCode">csl</span>',
+					'<span class="rpbchessboard-sourceCode">cal</span>'
+				); ?>
+			</p>
+			<p>
+				<?php echo sprintf(
+					__(
+						'For information, the syntax used to define square and arrow markers '.
+						'is described in the %1$sPGN game syntax help page%2$s.',
+					'rpbchessboard'),
+					sprintf('<a href="%s">', htmlspecialchars($model->getHelpOnPGNSyntaxURL())),
+					'</a>'
+				); ?>
+			</p>
+		</div>
+		<div>
+			<div class="rpbchessboard-sourceCode">
+				<?php echo sprintf(
+					'[%1$s <strong>csl=Ye5</strong> <strong>cal=Gc6e5,Rf3e5</strong>] ... [/%1$s]',
+					htmlspecialchars($model->getFENShortcode())
+				); ?>
+			</div>
+			<div class="rpbchessboard-visuBlock">
+				<div>
+					<div id="rpbchessboard-fenAttributeMarkers-anchor"></div>
+					<script type="text/javascript">
+						jQuery(document).ready(function($) {
+							$('#rpbchessboard-fenAttributeMarkers-anchor').chessboard({
+								position: 'r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 1',
+								squareSize: 28, squareMarkers: 'Ye5', arrowMarkers: 'Gc6e5,Rf3e5'
 							});
 						});
 					</script>
