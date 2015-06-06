@@ -68,9 +68,9 @@ Examples & Screenshots
 9.Be2 Nxe4 10.Nxe4 Rxe4 11.Bf3 Re6 12.c3 Qd3 13.b4 Bb6 14.a4 bxa4 15.Qxa4 Bd7
 16.Ra2 Rae8 17.Qa6
 
-{[pgndiagram] Morphy took twelve minutes over his next move, probably to assure
-himself that the combination was sound and that he had a forced win in every
-variation.}
+{[pgndiagram][%csl Yf3][%cal Rd3f3,Re6g6,Gg6g1] Morphy took twelve minutes
+over his next move, probably to assure himself that the combination was sound
+and that he had a forced win in every variation.}
 
 17...Qxf3 !! 18.gxf3 Rg6+ 19.Kh1 Bh3 20.Rd1 ({Not} 20.Rg1 Rxg1+ 21.Kxg1 Re1+ -+)
 20...Bg2+ 21.Kg1 Bxf3+ 22.Kf1 Bg2+
