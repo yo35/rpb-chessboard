@@ -24,6 +24,7 @@ Features
 * Customizable aspect for the chessboards (orientation, size, etc...).
 * Support comments and sub-variations in PGN-encoded games.
 * Support HTML formatting in PGN comments.
+* Colored square and arrow markers.
 * Compatibility mode to avoid conflicts with the other plugins that use
   the `[fen][/fen]` and `[pgn][/pgn]` shortcodes too.
 * Graphical assistant to create and modify chess diagrams in the post/page editor.
