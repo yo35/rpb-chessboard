@@ -88,7 +88,7 @@
 							echo sprintf(
 								__(
 									'Chess diagrams will be displayed with a square size not larger than this value if the screen width is less than %1$s pixels, '.
-									'whatever the %2$sdefault aspect and behavior settings%3$s or the tag parameters that may be specified in the posts/pages. '.
+									'whatever the %2$sdefault aspect and behavior settings%3$s or the tag attributes that may be specified in the posts/pages. '.
 									'Diagrams for which the square size is less than this value will be displayed as they normally do on large screen devices.',
 								'rpbchessboard'),
 								htmlspecialchars($mode->maxScreenWidth),
@@ -116,7 +116,7 @@
 							echo sprintf(
 								__(
 									'If enabled, row and column coordinates will be hidden if the screen width is less than %1$s pixels, '.
-									'whatever the %2$sdefault aspect and behavior settings%3$s or the tag parameters that may be specified in the posts/pages. '.
+									'whatever the %2$sdefault aspect and behavior settings%3$s or the tag attributes that may be specified in the posts/pages. '.
 									'If disabled, row and column coordinates will be displayed as they normally do on large screen devices.',
 								'rpbchessboard'),
 								htmlspecialchars($mode->maxScreenWidth),

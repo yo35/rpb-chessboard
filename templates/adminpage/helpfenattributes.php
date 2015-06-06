@@ -25,11 +25,11 @@
 	<p>
 		<?php echo sprintf(
 			__(
-				'Several parameters may be passed to the %1$s[%3$s][/%3$s]%2$s tags '.
+				'Several attributes may be passed to the %1$s[%3$s][/%3$s]%2$s tags '.
 				'in order to customize how the FEN diagrams are displayed. '.
-				'All these parameters are optional: if not specified, the default setting '.
-				'(defined by the website administrator) applies. '.
-				'These parameters are presented in this page.',
+				'All these attributes are optional: if not specified, the default setting '.
+				'(defined by the blog administrator) applies. '.
+				'These attributes are presented in this page.',
 			'rpbchessboard'),
 			'<span class="rpbchessboard-sourceCode">',
 			'</span>',
@@ -51,7 +51,7 @@
 	<div class="rpbchessboard-columns">
 		<div>
 			<p>
-				<?php echo sprintf(__('The %1$s parameter controls whether the chessboard is rotated or not.', 'rpbchessboard'),
+				<?php echo sprintf(__('The %1$s attribute controls whether the chessboard is rotated or not.', 'rpbchessboard'),
 					'<span class="rpbchessboard-sourceCode">flip</span>'); ?>
 			</p>
 			<table class="rpbchessboard-attributeTable">
@@ -108,7 +108,7 @@
 		<div>
 			<p>
 
-				<?php echo sprintf(__('The %1$s parameter controls the size of the chessboard squares.', 'rpbchessboard'),
+				<?php echo sprintf(__('The %1$s attribute controls the size of the chessboard squares.', 'rpbchessboard'),
 					'<span class="rpbchessboard-sourceCode">square_size</span>'); ?>
 			</p>
 			<table class="rpbchessboard-attributeTable">
@@ -168,7 +168,7 @@
 	<div class="rpbchessboard-columns">
 		<div>
 			<p>
-				<?php echo sprintf(__('The %1$s parameter controls whether the row and column coordinates are visible or not.', 'rpbchessboard'),
+				<?php echo sprintf(__('The %1$s attribute controls whether the row and column coordinates are visible or not.', 'rpbchessboard'),
 					'<span class="rpbchessboard-sourceCode">show_coordinates</span>'); ?>
 			</p>
 			<table class="rpbchessboard-attributeTable">
@@ -226,12 +226,14 @@
 			<p>
 				<?php echo sprintf(
 					__(
-						'The %1$s and %2$s parameters are used to add respectively square and arrow markers. '.
-						'There is no need to manually edit the value of these parameters as '.
-						'square and arrow marker edition is handled by the chess diagram editor.',
+						'The %1$s and %2$s attributes are used to add respectively square and arrow markers. '.
+						'There is no need to manually edit the value of these attributes as '.
+						'square and arrow marker edition is handled by the %3$schess diagram editor%4$s.',
 					'rpbchessboard'),
 					'<span class="rpbchessboard-sourceCode">csl</span>',
-					'<span class="rpbchessboard-sourceCode">cal</span>'
+					'<span class="rpbchessboard-sourceCode">cal</span>',
+					sprintf('<a href="%s">', htmlspecialchars($model->getHelpOnFENSyntaxURL())),
+					'</a>'
 				); ?>
 			</p>
 			<p>

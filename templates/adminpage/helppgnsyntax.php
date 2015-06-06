@@ -347,7 +347,7 @@
 						'Squares can be highlighted by inserting the tag %1$s[%%csl ...]%2$s in a comment. '.
 						'The squares to highlight are represented by a group of 3 characters: '.
 						'the first one represents the color to use (%1$sG%2$s for green, %1$sR%2$s for red, %1$sY%2$s for yellow), '.
-						'the second and third ones represents the targeted square. '.
+						'the second and third ones represent the targeted square. '.
 						'For instance, %1$s[%%csl Re5,Gc6,Yf3,Yb5]%2$s highlights square e5 in red, square c6 in green, '.
 						'and squares f3 and b5 in yellow.',
 					'rpbchessboard'),
@@ -359,8 +359,8 @@
 				<?php echo sprintf(
 					__(
 						'Likewise, arrows can be added by inserting the tag %1$s[%%cal ...]%2$s in a comment. '.
-						'An arrow is encoded by a group of 5 charachers: the first one is the color to use (%1$sG%2$s, %1$sR%2$s, or %1$sY%2$s), '.
-						'the second and third ones represents the origin square, the fourth and fifth ones the destination square. '.
+						'An arrow is encoded by a group of 5 characters: the first one is the color to use (%1$sG%2$s, %1$sR%2$s, or %1$sY%2$s), '.
+						'the second and third ones represent the origin square, the fourth and fifth ones the destination square. '.
 						'For instance, %1$s[%%cal Rf3e5,Gd8d4]%2$s creates a red arrow from f3 to e5, and a green arrow from d8 to d4.',
 					'rpbchessboard'),
 					'<span class="rpbchessboard-sourceCode">',

@@ -41,7 +41,8 @@
 		<?php echo sprintf(
 			__(
 				'A chess diagram editor is appended to the WordPress post/page editor by RPB Chessboard (see the screenshots below). '.
-				'As a consequence, there is no need to manually edit the content of the %1$s[%3$s][/%3$s]%2$s to create a chessboard diagram.',
+				'As a consequence, there is no need to manually edit the content of the %1$s[%3$s][/%3$s]%2$s tags '.
+				'to create a chessboard diagram.',
 			'rpbchessboard'),
 			'<span class="rpbchessboard-sourceCode">',
 			'</span>',

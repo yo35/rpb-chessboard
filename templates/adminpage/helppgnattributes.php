@@ -25,11 +25,11 @@
 	<p>
 		<?php echo sprintf(
 			__(
-				'Several parameters may be passed to the %1$s[%3$s][/%3$s]%2$s tags '.
+				'Several attributes may be passed to the %1$s[%3$s][/%3$s]%2$s tags '.
 				'in order to customize how the PGN games are displayed. '.
-				'All these parameters are optional: if not specified, the default setting '.
-				'(defined by the website administrator) applies. '.
-				'These parameters are presented in this page.',
+				'All these attributes are optional: if not specified, the default setting '.
+				'(defined by the blog administrator) applies. '.
+				'These attributes are presented in this page.',
 			'rpbchessboard'),
 			'<span class="rpbchessboard-sourceCode">',
 			'</span>',
@@ -50,7 +50,7 @@
 	<div class="rpbchessboard-columns">
 		<div>
 			<p>
-				<?php echo sprintf(__('The %1$s parameter controls how chess pieces are denoted in the move list.', 'rpbchessboard'),
+				<?php echo sprintf(__('The %1$s attribute controls how chess pieces are denoted in the move list.', 'rpbchessboard'),
 					'<span class="rpbchessboard-sourceCode">piece_symbols</span>'); ?>
 			</p>
 			<table class="rpbchessboard-attributeTable">
@@ -140,7 +140,7 @@
 	<div id="rpbchessboard-pgnAttributeNavigationBoard-content" class="rpbchessboard-columns">
 		<div>
 			<p>
-				<?php echo sprintf(__('The %1$s parameter controls the position of the navigation board.', 'rpbchessboard'),
+				<?php echo sprintf(__('The %1$s attribute controls the position of the navigation board.', 'rpbchessboard'),
 					'<span class="rpbchessboard-sourceCode">navigation_board</span>'); ?>
 			</p>
 			<table class="rpbchessboard-attributeTable">
@@ -232,10 +232,10 @@
 	<p>
 		<?php echo sprintf(
 			__(
-				'The %1$s, %2$s and %3$s parameters control the aspect of both the navigation board and the chessboard diagrams '.
-				'inserted using tag %4$s. These parameters are identical to those used to customize the aspect of standalone FEN diagrams '.
-				'inserted using tag %5$s: see %6$shelp on FEN diagram parameters%7$s for more details about them.',
-			'chessboard'),
+				'The %1$s, %2$s and %3$s attributes control the aspect of both the navigation board and the chessboard diagrams '.
+				'inserted using tag %4$s. These attributes are identical to those used to customize the aspect of standalone FEN diagrams '.
+				'(those inserted using tag %5$s): see %6$shelp on FEN diagram attributes%7$s for more details about them.',
+			'rpbchessboard'),
 			'<span class="rpbchessboard-sourceCode">flip</span>',
 			'<span class="rpbchessboard-sourceCode">square_size</span>',
 			'<span class="rpbchessboard-sourceCode">show_coordinates</span>',
