@@ -239,7 +239,7 @@
 			'<span class="rpbchessboard-sourceCode">flip</span>',
 			'<span class="rpbchessboard-sourceCode">square_size</span>',
 			'<span class="rpbchessboard-sourceCode">show_coordinates</span>',
-			'<span class="rpbchessboard-sourceCode">[pgn_diagram]</span>',
+			'<span class="rpbchessboard-sourceCode">[pgndiagram]</span>',
 			sprintf('<span class="rpbchessboard-sourceCode">[%1$s][/%1$s]</span>', htmlspecialchars($model->getFENShortcode())),
 			'<a href="' . htmlspecialchars($model->getHelpOnFENAttributesURL()) . '">',
 			'</a>'
