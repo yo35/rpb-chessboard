@@ -113,6 +113,11 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 4.0 (June 6, 2015) =
+* Add support for square highlights and arrow (see issue #27).
+* Refactor the help pages.
+* Tested up to WordPress 4.2.2.
+
 = 3.6.2 (April 26, 2015) =
 * Add help on null moves.
 * Tested up to WordPress 4.2.
