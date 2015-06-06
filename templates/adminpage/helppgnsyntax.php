@@ -345,6 +345,9 @@
 				<?php echo sprintf(
 					__(
 						'Squares can be highlighted by inserting the tag %1$s[%%csl ...]%2$s in a comment. '.
+						'The squares to highlight are represented by a group of 3 characters: '.
+						'the first one represents the color to use (%1$sG%2$s for green, %1$sR%2$s for red, %1$sY%2$s for yellow), '.
+						'the second and third ones represents the targeted square. '.
 						'For instance, %1$s[%%csl Re5,Gc6,Yf3,Yb5]%2$s highlights square e5 in red, square c6 in green, '.
 						'and squares f3 and b5 in yellow.',
 					'rpbchessboard'),
@@ -356,8 +359,9 @@
 				<?php echo sprintf(
 					__(
 						'Likewise, arrows can be added by inserting the tag %1$s[%%cal ...]%2$s in a comment. '.
-						'The syntax used for arrows is similar to the one used for square highlights: '.
-						'for instance, %1$s[%%cal Rf3e5,Gd8d4]%2$s creates a red arrow f3 to e5, and a green arrow from d8 to d4.',
+						'An arrow is encoded by a group of 5 charachers: the first one is the color to use (%1$sG%2$s, %1$sR%2$s, or %1$sY%2$s), '.
+						'the second and third ones represents the origin square, the fourth and fifth ones the destination square. '.
+						'For instance, %1$s[%%cal Rf3e5,Gd8d4]%2$s creates a red arrow from f3 to e5, and a green arrow from d8 to d4.',
 					'rpbchessboard'),
 					'<span class="rpbchessboard-sourceCode">',
 					'</span>'
@@ -366,8 +370,8 @@
 			<p>
 				<?php echo sprintf(
 					__(
-						'Square and arrow markers that created in %3$sChessbase%4$s are exported in PGN format using these %1$s[%%csl ...]%2$s '.
-						'and %1$s[%%cal ...]%2$s notations.',
+						'Square and arrow markers that are created in %3$sChessbase softwares%4$s are exported in PGN format '.
+						'using these %1$s[%%csl ...]%2$s and %1$s[%%cal ...]%2$s notations.',
 					'rpbchessboard'),
 					'<span class="rpbchessboard-sourceCode">',
 					'</span>',
