@@ -72,7 +72,17 @@ class RPBChessboardTraitURLs extends RPBChessboardAbstractTrait
 
 
 	/**
-	 * URL to the PGN attribute help page.
+	 * URL to the FEN syntax help page.
+	 *
+	 * @return string
+	 */
+	public function getHelpOnFENSyntaxURL() {
+		return admin_url('admin.php') . '?page=rpbchessboard-help&rpbchessboard_subpage=helpfensyntax';
+	}
+
+
+	/**
+	 * URL to the PGN syntax help page.
 	 *
 	 * @return string
 	 */
