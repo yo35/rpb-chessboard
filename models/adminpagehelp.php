@@ -75,9 +75,9 @@ class RPBChessboardModelAdminPageHelp extends RPBChessboardAbstractModelAdminPag
 	/**
 	 * Return the initial square size value to use for the square size attribute presentation section.
 	 */
-	public function getSquareSizeInitialExample()
-	{
-		return $this->getSquareSizeList()[1];
+	public function getSquareSizeInitialExample() {
+		$squareSizeList = $this->getSquareSizeList();
+		return $squareSizeList[1];
 	}
 
 
