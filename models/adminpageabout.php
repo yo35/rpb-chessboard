@@ -28,8 +28,12 @@ require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/adminpage.php');
  */
 class RPBChessboardModelAdminPageAbout extends RPBChessboardAbstractModelAdminPage
 {
-	public function __construct() {
-		parent::__construct();
-		$this->loadTrait('PluginInfo');
+	/**
+	 * Current version of the plugin
+	 *
+	 * @return string
+	 */
+	public function getPluginVersion() {
+		return RPBCHESSBOARD_VERSION;
 	}
 }

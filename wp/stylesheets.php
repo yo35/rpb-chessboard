@@ -30,29 +30,26 @@ abstract class RPBChessboardStyleSheets
 {
 	public static function register()
 	{
-		$pluginInfo = RPBChessboardHelperLoader::loadTrait('PluginInfo');
-		$version = $pluginInfo->getPluginVersion();
-
 		// jQuery
 		wp_enqueue_style('wp-jquery-ui-dialog');
 
 		// Chess fonts
-		wp_enqueue_style('rpbchessboard-chessfonts', RPBCHESSBOARD_URL . 'fonts/chess-fonts.css', false, $version);
+		wp_enqueue_style('rpbchessboard-chessfonts', RPBCHESSBOARD_URL . 'fonts/chess-fonts.css', false, RPBCHESSBOARD_VERSION);
 
 		// Custom widgets
-		wp_enqueue_style('rpbchessboard-chessboard', RPBCHESSBOARD_URL . 'css/uichess-chessboard.css', false, $version);
-		wp_enqueue_style('rpbchessboard-chessgame' , RPBCHESSBOARD_URL . 'css/uichess-chessgame.css' , false, $version);
+		wp_enqueue_style('rpbchessboard-chessboard', RPBCHESSBOARD_URL . 'css/uichess-chessboard.css', false, RPBCHESSBOARD_VERSION);
+		wp_enqueue_style('rpbchessboard-chessgame' , RPBCHESSBOARD_URL . 'css/uichess-chessgame.css' , false, RPBCHESSBOARD_VERSION);
 
 		// Additional CSS for the backend.
 		if(is_admin()) {
 			wp_enqueue_style('rpbchessboard-jquery-ui-notheme'   , RPBCHESSBOARD_URL . 'third-party-libs/jquery/jquery-ui.notheme.min.css');
 			wp_enqueue_style('rpbchessboard-jquery-ui-smoothness', RPBCHESSBOARD_URL . 'third-party-libs/jquery/jquery-ui.smoothness.min.css');
-			wp_enqueue_style('rpbchessboard-backend'             , RPBCHESSBOARD_URL . 'css/backend.css', false, $version);
+			wp_enqueue_style('rpbchessboard-backend'             , RPBCHESSBOARD_URL . 'css/backend.css', false, RPBCHESSBOARD_VERSION);
 		}
 
 		// Additional CSS for the frontend.
 		else {
-			wp_enqueue_style('rpbchessboard-frontend', RPBCHESSBOARD_URL . 'css/frontend.css', false, $version);
+			wp_enqueue_style('rpbchessboard-frontend', RPBCHESSBOARD_URL . 'css/frontend.css', false, RPBCHESSBOARD_VERSION);
 		}
 
 		// Inlined CSS
