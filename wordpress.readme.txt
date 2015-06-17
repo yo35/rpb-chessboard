@@ -113,6 +113,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 4.0.2 (June 17, 2015) =
+* Fix syntax issue.
+
 = 4.0.1 (June 17, 2015) =
 * Fix compatibility issue with PHP <= 5.3 (see issue #37).
 * Force JS/CSS file reloading each time the version of the plugin changes.
