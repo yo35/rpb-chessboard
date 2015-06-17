@@ -20,16 +20,34 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/adminpage.php');
+require_once(RPBCHESSBOARD_ABSPATH . 'models/traits/abstracttrait.php');
 
 
 /**
- * Model associated to the 'About' page in the backend.
+ * Information about the plugin.
  */
-class RPBChessboardModelAdminPageAbout extends RPBChessboardAbstractModelAdminPage
+class RPBChessboardTraitPluginInfo extends RPBChessboardAbstractTrait
 {
-	public function __construct() {
-		parent::__construct();
-		$this->loadTrait('PluginInfo');
+	private static $pluginInfo;
+
+
+	/**
+	 * Current version of the plugin
+	 *
+	 * @return string
+	 */
+	public function getPluginVersion() {
+		self::loadPluginInfo();
+		return self::$pluginInfo['Version'];
+	}
+
+
+	/**
+	 * Load the information concerning the plugin.
+	 */
+	private static function loadPluginInfo() {
+		if(!isset(self::$pluginInfo)) {
+			self::$pluginInfo = get_plugin_data(RPBCHESSBOARD_ABSPATH . 'rpb-chessboard.php');
+		}
 	}
 }
