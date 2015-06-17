@@ -30,6 +30,8 @@ abstract class RPBChessboardScripts
 {
 	public static function register()
 	{
+		$pluginInfo = RPBChessboardHelperLoader::loadTrait('PluginInfo');
+		$version = $pluginInfo->getPluginVersion();
 		$ext = self::getJSFileExtension();
 
 		// Moment.js (http://momentjs.com/)
@@ -37,17 +39,17 @@ abstract class RPBChessboardScripts
 		$momentjs = self::localizeJavaScriptLib('rpbchessboard-momentjs', 'third-party-libs/moment-js/locales/%1$s.js');
 
 		// RPBChess
-		wp_register_script('rpbchessboard-core', RPBCHESSBOARD_URL . 'js/rpbchess' . $ext);
+		wp_register_script('rpbchessboard-core', RPBCHESSBOARD_URL . 'js/rpbchess' . $ext, false, $version);
 		wp_register_script('rpbchessboard-pgn' , RPBCHESSBOARD_URL . 'js/rpbchess-pgn' . $ext, array(
 			'rpbchessboard-core'
-		));
+		), $version);
 
 		// Chessboard widget
 		wp_register_script('rpbchessboard-chessboard', RPBCHESSBOARD_URL . 'js/uichess-chessboard' . $ext, array(
 			'rpbchessboard-core',
 			'jquery-ui-widget',
 			'jquery-ui-selectable'
-		));
+		), $version);
 
 		// Chessgame widget
 		wp_register_script('rpbchessboard-chessgame', RPBCHESSBOARD_URL . 'js/uichess-chessgame' . $ext, array(
@@ -59,7 +61,7 @@ abstract class RPBChessboardScripts
 			'jquery-color',
 			'jquery-ui-dialog',
 			'jquery-ui-resizable'
-		));
+		), $version);
 
 		// Plugin specific
 		wp_register_script('rpbchessboard-backend', RPBCHESSBOARD_URL . 'js/backend' . $ext, array(
@@ -68,7 +70,7 @@ abstract class RPBChessboardScripts
 			'jquery-ui-accordion',
 			'jquery-ui-draggable',
 			'jquery-ui-droppable'
-		));
+		), $version);
 
 		// Enqueue the scripts.
 		wp_enqueue_script('rpbchessboard-chessboard');
