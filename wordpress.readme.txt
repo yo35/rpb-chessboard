@@ -113,6 +113,10 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 4.0.1 (June 17, 2015) =
+* Fix compatibility issue with PHP <= 5.3 (see issue #37).
+* Force JS/CSS file reloading each time the version of the plugin changes.
+
 = 4.0 (June 6, 2015) =
 * Add support for square highlights and arrow (see issue #27).
 * Refactor the help pages.
