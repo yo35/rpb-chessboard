@@ -162,6 +162,16 @@
 							'when the user clicks on a move within the move list.', 'rpbchessboard'); ?></td>
 					</tr>
 					<tr>
+						<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributeNavigationBoard-value">above</a></td>
+						<td><?php if($model->getDefaultNavigationBoard()==='above'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
+						<td><?php _e('The navigation board is displayed above the game headers and the move list.', 'rpbchessboard'); ?></td>
+					</tr>
+					<tr>
+						<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributeNavigationBoard-value">below</a></td>
+						<td><?php if($model->getDefaultNavigationBoard()==='below'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
+						<td><?php _e('The navigation board is displayed below the move list.', 'rpbchessboard'); ?></td>
+					</tr>
+					<tr>
 						<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributeNavigationBoard-value">floatLeft</a></td>
 						<td><?php if($model->getDefaultNavigationBoard()==='floatLeft'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
 						<td><?php _e('The navigation board is displayed on the left of the move list.', 'rpbchessboard'); ?></td>
