@@ -303,6 +303,30 @@
 			</div>
 
 			<div>
+				<input type="radio" id="rpbchessboard-navigationBoardButton-above" name="navigationBoard" value="above"
+					<?php if($model->getDefaultNavigationBoard()==='above'): ?>checked="yes"<?php endif; ?>
+				/>
+				<label for="rpbchessboard-navigationBoardButton-above">
+					<img src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-board-above.png'; ?>"
+						title="<?php _e('Above the game headers and the move list', 'rpbchessboard'); ?>"
+						alt="<?php _e('Above', 'rpbchessboard'); ?>"
+					/>
+				</label>
+			</div>
+
+			<div>
+				<input type="radio" id="rpbchessboard-navigationBoardButton-below" name="navigationBoard" value="below"
+					<?php if($model->getDefaultNavigationBoard()==='below'): ?>checked="yes"<?php endif; ?>
+				/>
+				<label for="rpbchessboard-navigationBoardButton-below">
+					<img src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-board-below.png'; ?>"
+						title="<?php _e('Below the move list', 'rpbchessboard'); ?>"
+						alt="<?php _e('Below', 'rpbchessboard'); ?>"
+					/>
+				</label>
+			</div>
+
+			<div>
 				<input type="radio" id="rpbchessboard-navigationBoardButton-floatLeft" name="navigationBoard" value="floatLeft"
 					<?php if($model->getDefaultNavigationBoard()==='floatLeft'): ?>checked="yes"<?php endif; ?>
 				/>
