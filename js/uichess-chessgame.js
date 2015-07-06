@@ -295,6 +295,8 @@
 			case 'frame':
 			case 'floatLeft':
 			case 'floatRight':
+			case 'above':
+			case 'below':
 				return value;
 			default:
 				return 'none';
@@ -658,6 +660,12 @@
 					suffix = '<div class="uichess-chessgame-' + this.options.navigationBoard.replace('float', 'clear') + '"></div>';
 					prefix = '<div class="uichess-chessgame-navigationBox uichess-chessgame-' + this.options.navigationBoard + '">' +
 						buildNavigationSkeleton() + '</div>';
+					break;
+				case 'above':
+					prefix = '<div class="uichess-chessgame-navigationBox uichess-chessgame-above">' + buildNavigationSkeleton() + '</div>';
+					break;
+				case 'below':
+					suffix = '<div class="uichess-chessgame-navigationBox uichess-chessgame-below">' + buildNavigationSkeleton() + '</div>';
 					break;
 			}
 

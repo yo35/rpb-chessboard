@@ -194,9 +194,14 @@ div.uichess-chessgame-variation > div:last-child {
 /******************************************************************************/
 /*** Navigation board ***/
 
+.uichess-chessgame-navigationBox.uichess-chessgame-above,
 .uichess-chessgame-navigationBox.uichess-chessgame-floatLeft,
 .uichess-chessgame-navigationBox.uichess-chessgame-floatRight {
 	margin-bottom: 0.5em;
+}
+
+.uichess-chessgame-navigationBox.uichess-chessgame-below {
+	margin-top: 0.5em;
 }
 
 .uichess-chessgame-navigationBox.uichess-chessgame-floatLeft {
