@@ -42,8 +42,7 @@ abstract class RPBChessboardStyleSheets
 
 		// Additional CSS for the backend.
 		if(is_admin()) {
-			wp_enqueue_style('rpbchessboard-jquery-ui-notheme'   , RPBCHESSBOARD_URL . 'third-party-libs/jquery/jquery-ui.notheme.min.css');
-			wp_enqueue_style('rpbchessboard-jquery-ui-smoothness', RPBCHESSBOARD_URL . 'third-party-libs/jquery/jquery-ui.smoothness.min.css');
+			wp_enqueue_style('rpbchessboard-jquery-ui-smoothness', RPBCHESSBOARD_URL . 'third-party-libs/jquery/jquery-ui.smoothness.min.css', false, '1.11.4');
 			wp_enqueue_style('rpbchessboard-backend'             , RPBCHESSBOARD_URL . 'css/backend.css', false, RPBCHESSBOARD_VERSION);
 		}
 

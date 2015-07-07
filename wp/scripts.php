@@ -33,8 +33,8 @@ abstract class RPBChessboardScripts
 		$ext = self::getJSFileExtension();
 
 		// Moment.js (http://momentjs.com/)
-		wp_register_script('rpbchessboard-momentjs', RPBCHESSBOARD_URL . 'third-party-libs/moment-js/moment' . $ext);
-		$momentjs = self::localizeJavaScriptLib('rpbchessboard-momentjs', 'third-party-libs/moment-js/locales/%1$s.js');
+		wp_register_script('rpbchessboard-momentjs', RPBCHESSBOARD_URL . 'third-party-libs/moment-js/moment' . $ext, false, '2.8.1');
+		$momentjs = self::localizeJavaScriptLib('rpbchessboard-momentjs', 'third-party-libs/moment-js/locales/%1$s.js', '2.8.1');
 
 		// RPBChess
 		wp_register_script('rpbchessboard-core', RPBCHESSBOARD_URL . 'js/rpbchess' . $ext, false, RPBCHESSBOARD_VERSION);
@@ -136,9 +136,10 @@ abstract class RPBChessboardScripts
 	 *
 	 * @param string $handle Handle of the file to localize.
 	 * @param string $relativeFilePathTemplate Where the localized files should be searched.
+	 * @param string $version Version the library.
 	 * @return string Handle of the localized file a suitable translation has been found, original handle otherwise.
 	 */
-	private static function localizeJavaScriptLib($handle, $relativeFilePathTemplate)
+	private static function localizeJavaScriptLib($handle, $relativeFilePathTemplate, $version)
 	{
 		foreach(self::getBlogLangCodes() as $langCode)
 		{
@@ -150,7 +151,7 @@ abstract class RPBChessboardScripts
 
 			// If it exists, register it, and return a handle pointing to the localization file.
 			$localizedHandle = $handle . '-localized';
-			wp_register_script($localizedHandle, RPBCHESSBOARD_URL . $relativeFilePath, array($handle));
+			wp_register_script($localizedHandle, RPBCHESSBOARD_URL . $relativeFilePath, array($handle), $version);
 			return $localizedHandle;
 		}
 
