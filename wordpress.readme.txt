@@ -113,6 +113,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 4.1 (July 7, 2015) =
+* Add: option to get navigation board above/below the move list.
+
 = 4.0.2 (June 17, 2015) =
 * Fix syntax issue.
 
