@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-06 15:42+0200\n"
+"POT-Creation-Date: 2015-07-07 21:12+0200\n"
 "PO-Revision-Date: 2014-07-15 13:03+0100\n"
 "Last-Translator: Dawid Ziółkowski <kontakt@dawidziolkowski.pl>\n"
 "Language-Team: Dawid Ziółkowski <mr@dawidziolkowski.com>\n"
@@ -525,6 +525,15 @@ msgid ""
 msgstr ""
 
 #: templates/adminpage/helppgnattributes.php
+msgid ""
+"The navigation board is displayed above the game headers and the move list."
+msgstr ""
+
+#: templates/adminpage/helppgnattributes.php
+msgid "The navigation board is displayed below the move list."
+msgstr ""
+
+#: templates/adminpage/helppgnattributes.php
 msgid "The navigation board is displayed on the left of the move list."
 msgstr ""
 
@@ -783,6 +792,22 @@ msgid "In a popup frame"
 msgstr "W postaci okienka pop-up"
 
 #: templates/adminpage/optionsgeneral.php
+msgid "Above the game headers and the move list"
+msgstr ""
+
+#: templates/adminpage/optionsgeneral.php
+msgid "Above"
+msgstr ""
+
+#: templates/adminpage/optionsgeneral.php
+msgid "Below the move list"
+msgstr ""
+
+#: templates/adminpage/optionsgeneral.php
+msgid "Below"
+msgstr ""
+
+#: templates/adminpage/optionsgeneral.php
 msgid "On the left of the move list"
 msgstr "Z lewej strony listy posunięć."
 
@@ -937,7 +962,6 @@ msgid "Flip board"
 msgstr ""
 
 #: templates/localization.php
-#, fuzzy
 msgid "Standard positions"
 msgstr ""
 

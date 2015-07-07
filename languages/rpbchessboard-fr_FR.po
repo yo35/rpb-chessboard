@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-06 15:42+0200\n"
+"POT-Creation-Date: 2015-07-07 21:12+0200\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35@melix.net>\n"
 "Language-Team: French\n"
@@ -563,6 +563,17 @@ msgstr ""
 "visible lorsque l'utilisateur clique sur un coup."
 
 #: templates/adminpage/helppgnattributes.php
+msgid ""
+"The navigation board is displayed above the game headers and the move list."
+msgstr ""
+"L'échiquier de navigation est affiché au-dessus des en-têtes et de la liste "
+"de coups."
+
+#: templates/adminpage/helppgnattributes.php
+msgid "The navigation board is displayed below the move list."
+msgstr "L'échiquier de navigation est affiché en dessous de la liste de coups."
+
+#: templates/adminpage/helppgnattributes.php
 msgid "The navigation board is displayed on the left of the move list."
 msgstr "L'échiquier de navigation est affiché à gauche de la liste de coups."
 
@@ -851,6 +862,22 @@ msgstr "Pas d'échiquier de navigation"
 #: templates/adminpage/optionsgeneral.php
 msgid "In a popup frame"
 msgstr "Dans un <em>popup</em>"
+
+#: templates/adminpage/optionsgeneral.php
+msgid "Above the game headers and the move list"
+msgstr "Au-dessus des en-têtes et de la liste de coups"
+
+#: templates/adminpage/optionsgeneral.php
+msgid "Above"
+msgstr "Au-dessus"
+
+#: templates/adminpage/optionsgeneral.php
+msgid "Below the move list"
+msgstr "À gauche de la liste de coups"
+
+#: templates/adminpage/optionsgeneral.php
+msgid "Below"
+msgstr "En dessous"
 
 #: templates/adminpage/optionsgeneral.php
 msgid "On the left of the move list"
