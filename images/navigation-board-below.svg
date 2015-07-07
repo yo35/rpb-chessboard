@@ -10,7 +10,7 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="140"
-   height="100"
+   height="112"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
@@ -53,7 +53,7 @@
      inkscape:label="Calque 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-952.36218)">
+     transform="translate(0,-940.36218)">
     <g
        id="g4080"
        transform="translate(37.999998,35.999997)">
@@ -191,5 +191,12 @@
        height="4"
        x="0"
        y="976.36218" />
+    <rect
+       style="fill:#404040;fill-opacity:1;stroke:none"
+       id="rect3859-3-7-4-2-6-83"
+       width="140"
+       height="4"
+       x="0"
+       y="940.36218" />
   </g>
 </svg>

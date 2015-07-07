@@ -10,7 +10,7 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="140"
-   height="100"
+   height="112"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
@@ -32,10 +32,10 @@
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1680"
-     inkscape:window-height="975"
-     inkscape:window-x="0"
-     inkscape:window-y="25"
+     inkscape:window-width="1280"
+     inkscape:window-height="999"
+     inkscape:window-x="1680"
+     inkscape:window-y="0"
      inkscape:window-maximized="1" />
   <metadata
      id="metadata7">
@@ -45,7 +45,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -53,7 +53,7 @@
      inkscape:label="Calque 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-952.36218)">
+     transform="translate(0,-940.36218)">
     <rect
        style="fill:#404040;fill-opacity:1;stroke:none"
        id="rect3859"
@@ -117,5 +117,12 @@
        height="4"
        x="0"
        y="1048.3622" />
+    <rect
+       style="fill:#404040;fill-opacity:1;stroke:none"
+       id="rect3859-6"
+       width="140"
+       height="4"
+       x="0"
+       y="940.36218" />
   </g>
 </svg>
