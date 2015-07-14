@@ -227,6 +227,12 @@ div.uichess-chessgame-variation > div:last-child {
 	margin-top: 0.75em;
 }
 
+#uichess-chessgame-navigationFrame {
+	box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	-webkit-box-sizing: content-box;
+}
+
 
 
 /******************************************************************************/
