@@ -61,7 +61,7 @@
 			<div class="rpbchessboard-sourceCode">
 				[<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]<br/>
 				<br/>
-				[Event &quot;Linares 16&lt;sup&gt;th&lt;sup&gt;&quot;]<br/>
+				[Event &quot;Linares 16&lt;sup&gt;th&lt;/sup&gt;&quot;]<br/>
 				[Site &quot;Linares, ESP&quot;]<br/>
 				[Date &quot;1999.02.25&quot;]<br/>
 				[Round &quot;4&quot;]<br/>
