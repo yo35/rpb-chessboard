@@ -113,6 +113,10 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 4.1.1 (July 27, 2015) =
+* Fix small-screen related issue (see #41).
+* Fix navigation frame sizing issue occurring with some themes.
+
 = 4.1 (July 7, 2015) =
 * Add: option to get navigation board above/below the move list.
 
