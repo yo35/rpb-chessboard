@@ -25,6 +25,7 @@
 		<?php echo $model->getSmallScreenModeMainSelector($mode); ?> {
 
 			<?php if($model->hasSmallScreenSizeSquareSizeSection($mode)): ?>
+
 				<?php echo $model->getSmallScreenModeSquareSizeSelector($mode); ?> {
 					min-width: <?php echo htmlspecialchars($mode->squareSize); ?>px;
 					width    : <?php echo htmlspecialchars($mode->squareSize); ?>px;
@@ -33,6 +34,13 @@
 						<?php echo htmlspecialchars($model->getBackgroundPositionXForSquareSize($mode->squareSize)); ?>px
 						<?php echo htmlspecialchars($model->getBackgroundPositionYForSquareSize($mode->squareSize)); ?>px;
 				}
+
+				<?php echo $model->getSmallScreenModeAnnotationLayerSelector($mode); ?> {
+					width : <?php echo htmlspecialchars($model->getHeightWidthForAnnotationLayer($mode->squareSize)); ?>px;
+					height: <?php echo htmlspecialchars($model->getHeightWidthForAnnotationLayer($mode->squareSize)); ?>px;
+					right : <?php echo htmlspecialchars($model->getRightForAnnotationLayer($mode->squareSize)); ?>px;
+				}
+
 			<?php endif; ?>
 
 			<?php if($mode->hideCoordinates): ?>

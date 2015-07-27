@@ -114,6 +114,28 @@ class RPBChessboardTraitSmallScreens extends RPBChessboardAbstractTrait
 
 
 	/**
+	 * Return the height and width to use for the annotation layer when using the given square size.
+	 *
+	 * @param int $squareSize
+	 * @return int
+	 */
+	public function getHeightWidthForAnnotationLayer($squareSize) {
+		return $squareSize * 8;
+	}
+
+
+	/**
+	 * Return the x-offset (from right) to use for the annotation layer when using the given square size.
+	 *
+	 * @param int $squareSize
+	 * @return int
+	 */
+	public function getRightForAnnotationLayer($squareSize) {
+		return $squareSize + 8;
+	}
+
+
+	/**
 	 * Selector to use to introduce the specific CSS instructions for the given small-screen mode.
 	 *
 	 * @return string
@@ -146,7 +168,21 @@ class RPBChessboardTraitSmallScreens extends RPBChessboardAbstractTrait
 	public function getSmallScreenModeSquareSizeSelector($mode) {
 		$selectors = array();
 		for($size = $mode->squareSize+1; $size <= RPBChessboardHelperValidation::MAXIMUM_SQUARE_SIZE; ++$size) {
-			array_push($selectors, '.uichess-chessboard-size' . $size);
+			array_push($selectors, '.uichess-chessboard-size' . $size . ' .uichess-chessboard-sized');
+		}
+		return implode(',', $selectors);
+	}
+
+
+	/**
+	 * Selector to use to introduce the specific CSS instructions to customize the annotation layer in the given small-screen mode.
+	 *
+	 * @return string
+	 */
+	public function getSmallScreenModeAnnotationLayerSelector($mode) {
+		$selectors = array();
+		for($size = $mode->squareSize+1; $size <= RPBChessboardHelperValidation::MAXIMUM_SQUARE_SIZE; ++$size) {
+			array_push($selectors, '.uichess-chessboard-size' . $size . ' .uichess-chessboard-annotations');
 		}
 		return implode(',', $selectors);
 	}
