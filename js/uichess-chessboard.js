@@ -350,7 +350,12 @@
 		res += '<div class="uichess-chessboard-cell"></div></div>';
 
 		// Arrow markers
-		res += '<svg class="uichess-chessboard-annotations" viewBox="0 0 8 8">';
+		res += '<svg class="uichess-chessboard-annotations" viewBox="0 0 8 8">' +
+			'<defs>' +
+				'<marker id="uichess-chessboard-arrowMarkerEnd-G" markerWidth="4" markerHeight="4" refX="2.5" refY="2" orient="auto"><path d="M 4,2 L 0,4 L 1,2 L 0,0 Z" /></marker>' +
+				'<marker id="uichess-chessboard-arrowMarkerEnd-R" markerWidth="4" markerHeight="4" refX="2.5" refY="2" orient="auto"><path d="M 4,2 L 0,4 L 1,2 L 0,0 Z" /></marker>' +
+				'<marker id="uichess-chessboard-arrowMarkerEnd-Y" markerWidth="4" markerHeight="4" refX="2.5" refY="2" orient="auto"><path d="M 4,2 L 0,4 L 1,2 L 0,0 Z" /></marker>' +
+			'</defs>';
 		for(var arrow in widget._arrowMarkers) {
 			if(widget._arrowMarkers.hasOwnProperty(arrow) && /^([a-h][1-8])([a-h][1-8])$/.test(arrow)) {
 				var fromSquare = RegExp.$1;
@@ -359,7 +364,8 @@
 					var vc = getArrowCoordinatesInSVG(widget, fromSquare, toSquare);
 					var clazz = 'uichess-chessboard-arrowMarker uichess-chessboard-arrowMarker-' + fromSquare + toSquare +
 						' uichess-chessboard-markerColor-' + widget._arrowMarkers[arrow];
-					res += '<line class="' + clazz + '" x1="' + vc.x1 + '" y1="' + vc.y1 + '" x2="' + vc.x2 + '" y2="' + vc.y2 + '" />';
+					var marker = 'url(#uichess-chessboard-arrowMarkerEnd-' + widget._arrowMarkers[arrow] + ')';
+					res += '<line class="' + clazz + '" x1="' + vc.x1 + '" y1="' + vc.y1 + '" x2="' + vc.x2 + '" y2="' + vc.y2 + '" marker-end="' + marker + '" />';
 				}
 			}
 		}
@@ -481,8 +487,9 @@
 			if(fromSquare !== toSquare) {
 				var vc = getArrowCoordinatesInSVG(widget, fromSquare, toSquare);
 				var clazz = 'uichess-chessboard-arrowMarker uichess-chessboard-arrowMarker-' + key + ' uichess-chessboard-markerColor-' + newValue;
+				var marker = 'url(#uichess-chessboard-arrowMarkerEnd-' + newValue + ')';
 				var line = $(document.createElementNS('http://www.w3.org/2000/svg', 'line'));
-				line.attr({ 'x1':vc.x1, 'y1':vc.y1, 'x2':vc.x2, 'y2':vc.y2, 'class':clazz });
+				line.attr({ 'x1':vc.x1, 'y1':vc.y1, 'x2':vc.x2, 'y2':vc.y2, 'class':clazz, 'marker-end':marker });
 				$('.uichess-chessboard-annotations', widget.element).append(line);
 			}
 		}
@@ -674,9 +681,10 @@
 
 				// Create the temporary arrow marker.
 				var clazz = 'uichess-chessboard-arrowMarker uichess-chessboard-markerColor-' + markerColor;
+				var marker = 'url(#uichess-chessboard-arrowMarkerEnd-' + markerColor + ')';
 				var p = getSquareCoordinatesInSVG(widget, fromSquare);
 				var line = $(document.createElementNS('http://www.w3.org/2000/svg', 'line'));
-				line.attr({ 'x1':p.x, 'y1':p.y, 'x2':p.x, 'y2':p.y, 'class':clazz, 'id':'uichess-chessboard-draggedArrowMarker' });
+				line.attr({ 'x1':p.x, 'y1':p.y, 'x2':p.x, 'y2':p.y, 'class':clazz, 'marker-end':marker, 'id':'uichess-chessboard-draggedArrowMarker' });
 				line.appendTo(canvas);
 			},
 

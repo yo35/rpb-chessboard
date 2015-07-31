@@ -147,20 +147,13 @@
 	stroke-linecap: round;
 }
 
-.uichess-chessboard-arrowMarker.uichess-chessboard-markerColor-G {
-	stroke: #0e0; /* WARNING: this color must be reported in arrow-markers.svg. */
-	marker-end: url(sprite/arrow-markers.svg#uichess-chessboard-arrowMarkerEnd-G);
-}
+.uichess-chessboard-arrowMarker.uichess-chessboard-markerColor-G { stroke: #0e0; }
+.uichess-chessboard-arrowMarker.uichess-chessboard-markerColor-R { stroke: #f20; }
+.uichess-chessboard-arrowMarker.uichess-chessboard-markerColor-Y { stroke: #db0; }
 
-.uichess-chessboard-arrowMarker.uichess-chessboard-markerColor-R {
-	stroke: #f20; /* WARNING: this color must be reported in arrow-markers.svg. */
-	marker-end: url(sprite/arrow-markers.svg#uichess-chessboard-arrowMarkerEnd-R);
-}
-
-.uichess-chessboard-arrowMarker.uichess-chessboard-markerColor-Y {
-	stroke: #db0; /* WARNING: this color must be reported in arrow-markers.svg. */
-	marker-end: url(sprite/arrow-markers.svg#uichess-chessboard-arrowMarkerEnd-Y);
-}
+#uichess-chessboard-arrowMarkerEnd-G { fill: #0e0; }
+#uichess-chessboard-arrowMarkerEnd-R { fill: #f20; }
+#uichess-chessboard-arrowMarkerEnd-Y { fill: #db0; }
 
 .uichess-chessboard-size12 .uichess-chessboard-sized { min-width: 12px; width: 12px; height: 12px; background-position:  -850px -53px; }
 .uichess-chessboard-size13 .uichess-chessboard-sized { min-width: 13px; width: 13px; height: 13px; background-position:  -798px -52px; }
