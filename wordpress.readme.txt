@@ -21,7 +21,7 @@ and [PGN](http://en.wikipedia.org/wiki/Portable_Game_Notation) notations.
 = Links =
 
 * [Ask for help or report a problem](https://github.com/yo35/rpb-chessboard/issues)
-* [Live demo](http://yo35.org/rpb-chessboard/live-demo/)
+* [Live demo](http://rpb-chessboard.yo35.org/)
 * [Source code (GitHub repository)](https://github.com/yo35/rpb-chessboard)
 
 = Examples =

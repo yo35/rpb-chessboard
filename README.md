@@ -14,7 +14,7 @@ https://wordpress.org/plugins/rpb-chessboard/
 Live demo
 ---------
 
-http://yo35.org/rpb-chessboard/live-demo/
+http://rpb-chessboard.yo35.org/
 
 
 
