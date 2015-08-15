@@ -472,6 +472,13 @@ div.rpbchessboard-sourceCode {
 	padding: 10px;
 }
 
+#rpbchessboard-navigationBoardFields label img {
+	pointer-events: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+
 
 
 /* -------------------------------------------------------------------------- */
