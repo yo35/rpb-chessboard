@@ -113,12 +113,17 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 4.1.3 (August 15, 2015) =
+* Fix click-on-image-not-working issue in IE (see #43).
+* Tested up to WordPress 4.2.4.
+
 = 4.1.2 (August 1, 2015) =
 * Fix arrow-head issue in Chrome (see #40).
 
 = 4.1.1 (July 27, 2015) =
 * Fix small-screen related issue (see #41).
 * Fix navigation frame sizing issue occurring with some themes.
+* Tested up to WordPress 4.2.3.
 
 = 4.1 (July 7, 2015) =
 * Add: option to get navigation board above/below the move list.
