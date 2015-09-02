@@ -93,7 +93,7 @@
 		</div>
 		<div>
 			<div>
-				<dt><img src="<?php echo RPBCHESSBOARD_URL . 'images/flags/nl.png'; ?>" alt="Dutch flag" />Nederlands</dt>
+				<dt><img src="<?php echo RPBCHESSBOARD_URL . 'images/flags/nl.png'; ?>" alt="Dutch flag" />Dutch</dt>
 				<dd>Ivan Deceuninck</dd>
 			</div>
 			<div>
