@@ -100,6 +100,10 @@
 				<dt><img src="<?php echo RPBCHESSBOARD_URL . 'images/flags/pl.png'; ?>" alt="Polish flag" />Polski</dt>
 				<dd><a href="http://dawidziolkowski.com/" target="_blank">Dawid Ziółkowski</a></dd>
 			</div>
+			<div>
+				<dt><img src="<?php echo RPBCHESSBOARD_URL . 'images/flags/tr.png'; ?>" alt="Turkish flag" />Turkish</dt>
+				<dd>Ali Nihat Yazıcı</dd>
+			</div>
 		</div>
 	</dl>
 	<p class="description">
