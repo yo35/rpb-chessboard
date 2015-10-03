@@ -248,6 +248,22 @@ var RPBChess = (function() /* exported RPBChess */
 	}
 
 
+	/**
+	 * Return the coordinates of a square.
+	 *
+	 * @param {string} square
+	 * @returns {{r:number, c:number}}
+	 */
+	function squareToCoordinates(square) {
+		if(typeof square !== 'string' || !/^[a-h][1-8]$/.test(square)) {
+			return null;
+		}
+		var column = COLUMN_SYMBOL.indexOf(square[0]);
+		var row    = ROW_SYMBOL   .indexOf(square[1]);
+		return { r:row, c:column };
+	}
+
+
 
 	// ---------------------------------------------------------------------------
 	// String conversion
@@ -2183,6 +2199,7 @@ var RPBChess = (function() /* exported RPBChess */
 			InvalidNotation: InvalidNotation
 		},
 		squareColor: squareColor,
+		squareToCoordinates: squareToCoordinates,
 		Position: Position,
 		movetype: movetype,
 		MoveDescriptor: MoveDescriptor
