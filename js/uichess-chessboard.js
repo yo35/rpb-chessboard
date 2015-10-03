@@ -800,7 +800,15 @@
 
 		// Promotion move -> change the type of the promoted piece.
 		if(moveDescriptor.type() === RPBChess.movetype.PROMOTION) {
-			movingPiece.removeClass('uichess-chessboard-piece-p').addClass('uichess-chessboard-piece-' + moveDescriptor.promotion());
+			var callback = function() {
+				movingPiece.removeClass('uichess-chessboard-piece-p').addClass('uichess-chessboard-piece-' + moveDescriptor.promotion());
+			};
+			if(animate) {
+				setTimeout(callback, 400);
+			}
+			else {
+				callback();
+			}
 		}
 
 		// Switch the turn flag.
