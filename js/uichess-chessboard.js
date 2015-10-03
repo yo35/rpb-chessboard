@@ -1001,7 +1001,7 @@
 			/**
 			 * Duration of the animations when playing moves (in milliseconds).
 			 */
-			moveAnimation: 400,
+			moveAnimation: 200,
 
 			/**
 			 * Whether the user can moves the pieces or not, edit the annotations or not, etc... Available values are:

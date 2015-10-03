@@ -474,7 +474,7 @@
 			while(target.data('prevMove') !== undefined) {
 				target = target.data('prevMove');
 			}
-			this._updateNavigationBoard(target);
+			this._updateNavigationBoard(target, false);
 		},
 
 
@@ -483,7 +483,7 @@
 		 */
 		goPreviousMove: function()
 		{
-			this._updateNavigationBoard($('.uichess-chessgame-selectedMove', this.element).data('prevMove'));
+			this._updateNavigationBoard($('.uichess-chessgame-selectedMove', this.element).data('prevMove'), false);
 		},
 
 
@@ -492,7 +492,7 @@
 		 */
 		goNextMove: function()
 		{
-			this._updateNavigationBoard($('.uichess-chessgame-selectedMove', this.element).data('nextMove'));
+			this._updateNavigationBoard($('.uichess-chessgame-selectedMove', this.element).data('nextMove'), true); // TODO enable/disable animation
 		},
 
 
@@ -508,7 +508,7 @@
 			while(target.data('nextMove') !== undefined) {
 				target = target.data('nextMove');
 			}
-			this._updateNavigationBoard(target);
+			this._updateNavigationBoard(target, false);
 		},
 
 
@@ -725,7 +725,7 @@
 		_makeMovesClickable: function()
 		{
 			var obj = this;
-			$('.uichess-chessgame-move', this.element).click(function() { obj._updateNavigationBoard($(this)); });
+			$('.uichess-chessgame-move', this.element).click(function() { obj._updateNavigationBoard($(this), false); });
 		},
 
 
@@ -782,7 +782,7 @@
 			$('.uichess-chessgame-navigationButtonLast', this.element).click(function(event) { event.preventDefault(); obj.goLastMove    (); });
 
 			// Show the initial position on the navigation board.
-			this._updateNavigationBoard($('.uichess-chessgame-initialMove', this.element));
+			this._updateNavigationBoard($('.uichess-chessgame-initialMove', this.element), false);
 		},
 
 
@@ -1061,10 +1061,16 @@
 		 * Build the DOM attributes to add to a DOM node to be able to reload the position associated to the current node.
 		 *
 		 * @param {RPBChess.pgn.Node|RPBChess.pgn.Variation} node
+		 * @param {boolean} addAnimationSupport `true` to add the information required for move highlighting.
 		 * @returns {string}
 		 */
-		_buildPositionInformation: function(node) {
+		_buildPositionInformation: function(node, moveHighlightSupport) {
 			var res = 'data-position="' + node.position().fen() + '"';
+
+			// Move highlighting
+			if(moveHighlightSupport) {
+				res += ' data-position-before="' + node.positionBefore().fen() + '" data-move-notation="' + node.move() + '"';
+			}
 
 			// Square markers
 			var csl = node.tag('csl');
@@ -1090,7 +1096,7 @@
 		 */
 		_buildComment: function(node) {
 			var tag = node.isLongComment() ? 'div' : 'span';
-			return '<' + tag + ' class="uichess-chessgame-comment" ' + this._buildPositionInformation(node) + '>' +
+			return '<' + tag + ' class="uichess-chessgame-comment" ' + this._buildPositionInformation(node, false) + '>' +
 				node.comment() + '</' + tag + '>';
 		},
 
@@ -1105,7 +1111,7 @@
 		_buildMove: function(node, forcePrintMoveNumber) {
 
 			// Create the DOM node.
-			var retVal = '<span class="uichess-chessgame-move" ' + this._buildPositionInformation(node) + '>';
+			var retVal = '<span class="uichess-chessgame-move" ' + this._buildPositionInformation(node, true) + '>'; // TODO enable/disable animation
 
 			// Move number
 			var printMoveNumber = forcePrintMoveNumber || node.moveColor() === 'w';
@@ -1139,7 +1145,7 @@
 		 * @returns {string}
 		 */
 		_buildInitialMove: function() {
-			return '<div class="uichess-chessgame-move uichess-chessgame-initialMove" ' + this._buildPositionInformation(this._game.mainVariation()) +
+			return '<div class="uichess-chessgame-move uichess-chessgame-initialMove" ' + this._buildPositionInformation(this._game.mainVariation(), false) +
 				'>' + $.chessgame.i18n.INITIAL_POSITION + '</div>';
 		},
 
@@ -1148,8 +1154,9 @@
 		 * Select the given move and update the navigation board accordingly.
 		 *
 		 * @param {jQuery} [move] Nothing is done if null or undefined.
+		 * @param {boolean} animate
 		 */
-		_updateNavigationBoard: function(move)
+		_updateNavigationBoard: function(move, animate)
 		{
 			if(move === undefined || move === null || move.hasClass('uichess-chessgame-selectedMove')) {
 				return;
@@ -1162,7 +1169,7 @@
 			}
 
 			// Update the selected move and the mini-board.
-			this._updateNavigationBoardWidget(move);
+			this._updateNavigationBoardWidget(move, animate);
 			this._updateSelectedMove(move);
 
 			// If the navigation board is in the dedicated frame, update its title,
@@ -1182,15 +1189,22 @@
 		 * Refresh the navigation chessboard widget.
 		 *
 		 * @param {jQuery} move
+		 * @param {boolean} animate
 		 */
-		_updateNavigationBoardWidget: function(move)
+		_updateNavigationBoardWidget: function(move, animate)
 		{
 			var widget = this.options.navigationBoard === 'frame' ?
 				$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationBoard') :
 				$('.uichess-chessgame-navigationBoard', this.element);
 
 			// Update the position.
-			widget.chessboard('option', 'position', move.data('position'));
+			if(animate) {
+				widget.chessboard('option', 'position', move.data('positionBefore'));
+				widget.chessboard('play', move.data('moveNotation'));
+			}
+			else {
+				widget.chessboard('option', 'position', move.data('position'));
+			}
 
 			// Update the square/arrow markers
 			var csl = move.data('csl');
