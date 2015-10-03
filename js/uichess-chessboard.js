@@ -728,7 +728,7 @@
 		var deltaLeft = (to.c - from.c) * widget.options.squareSize * (widget.options.flip ? 1 : -1);
 		movingPiece.css('top', deltaTop + 'px');
 		movingPiece.css('left', deltaLeft + 'px');
-		movingPiece.animate({ top: '0px', left: '0px' }, 500); // TODO: delay
+		movingPiece.animate({ top: '0px', left: '0px' }, widget.options.moveAnimation);
 	}
 
 
@@ -804,7 +804,7 @@
 				movingPiece.removeClass('uichess-chessboard-piece-p').addClass('uichess-chessboard-piece-' + moveDescriptor.promotion());
 			};
 			if(animate) {
-				setTimeout(callback, 400);
+				setTimeout(callback, widget.options.moveAnimation * 0.8); // Switch to the promoted piece when the animation is 80%-complete.
 			}
 			else {
 				callback();
@@ -999,6 +999,11 @@
 			showCoordinates: true,
 
 			/**
+			 * Duration of the animations when playing moves (in milliseconds).
+			 */
+			moveAnimation: 400,
+
+			/**
 			 * Whether the user can moves the pieces or not, edit the annotations or not, etc... Available values are:
 			 * * 'none': no move is allowed, drag & drop is disabled.
 			 * * 'play': only legal chess moves are allowed.
@@ -1087,6 +1092,7 @@
 				case 'flip'         : refresh(this); this._trigger('flipChange'         , null, { oldValue:oldValue, newValue:this.options.flip          }); break;
 				case 'squareSize': onSquareSizeChanged(this, oldValue, value); break;
 				case 'showCoordinates': onShowCoordinatesChanged(this); break;
+				case 'moveAnimation': break;
 				default: refresh(this); break;
 			}
 		},
@@ -1152,7 +1158,7 @@
 		 * @param {{from: string, to: string}} move
 		 */
 		movePiece: function(move) {
-			doMovePiece(this, move, true); // TODO: switch animation on/off
+			doMovePiece(this, move, this.options.moveAnimation > 0);
 		},
 
 
@@ -1162,7 +1168,7 @@
 		 * @param {string|RPBChess.MoveDescriptor} move
 		 */
 		play: function(move) {
-			doPlay(this, move, true); // TODO: switch animation on/off
+			doPlay(this, move, this.options.moveAnimation > 0);
 		},
 
 
