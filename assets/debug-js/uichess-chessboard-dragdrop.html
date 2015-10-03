@@ -82,6 +82,15 @@
 					<input id="change-turn" type="button" value="Change turn" />
 					<input id="clear-annotations" type="button" value="Clear annotations" />
 				</p>
+				<p>
+					<input id="move-from" type="text" />
+					<input id="move-to" type="text" />
+					<input id="move-go" type="button" value="Move" />
+				</p>
+				<p>
+					<input id="play-text" type="text" />
+					<input id="play-go" type="button" value="Play" />
+				</p>
 			</form>
 			<pre id="info"></pre>
 		</div>
@@ -168,6 +177,19 @@
 		$('#clear-annotations').button().click(function() {
 			$('#a').chessboard('option', 'squareMarkers', '');
 			$('#a').chessboard('option', 'arrowMarkers', '');
+		});
+		$('#move-go').button().click(function() {
+			var from = $('#move-from').val();
+			var to = $('#move-to').val();
+			if(from !== '' && to !== '') {
+				$('#a').chessboard('movePiece', { from:from, to:to });
+			}
+		});
+		$('#play-go').button().click(function() {
+			var move = $('#play-text').val();
+			if(move !== '') {
+				$('#a').chessboard('play', move);
+			}
 		});
 
 	</script>

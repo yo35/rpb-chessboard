@@ -613,9 +613,8 @@
 				var movingPiece = ui.draggable;
 				if(movingPiece.hasClass('uichess-chessboard-piece')) {
 					var move = { from: movingPiece.parent().data('square'), to: target.data('square') };
-					if(move.from !== move.to) {
-						dropCallback(widget, move, movingPiece, target);
-					}
+					dropCallback(widget, move, false);
+					// TODO Handle promotions in drag & drop.
 				}
 			}
 		});
@@ -715,21 +714,46 @@
 
 
 	/**
+	 * Animate a displacement.
+	 *
+	 * @param {uichess.chessboard} widget
+	 * @param {string} from
+	 * @param {string} to
+	 * @param {jQuery} movingPiece
+	 */
+	function animateMove(widget, from, to, movingPiece) {
+		from = RPBChess.squareToCoordinates(from);
+		to   = RPBChess.squareToCoordinates(to  );
+		var deltaTop  = (from.r - to.r) * widget.options.squareSize * (widget.options.flip ? 1 : -1);
+		var deltaLeft = (to.c - from.c) * widget.options.squareSize * (widget.options.flip ? 1 : -1);
+		movingPiece.css('top', deltaTop + 'px');
+		movingPiece.css('left', deltaLeft + 'px');
+		movingPiece.animate({ top: '0px', left: '0px' }, 500); // TODO: delay
+	}
+
+
+	/**
 	 * Callback for the "move pieces" mode -> move the moving piece to its destination square,
 	 * clearing the latter beforehand if necessary.
 	 *
 	 * @param {uichess.chessboard} widget
 	 * @param {{from: string, to: string}} move The origin and destination squares.
-	 * @param {jQuery} movingPiece DOM node representing the moving piece.
-	 * @param {jQuery} target DOM node representing the destination square.
+	 * @param {boolean} animate
 	 */
-	function doMovePiece(widget, move, movingPiece, target) {
+	function doMovePiece(widget, move, animate) {
+		if(move.from === move.to || widget._position.square(move.from) === '-') {
+			return;
+		}
 		widget._position.square(move.to, widget._position.square(move.from));
 		widget._position.square(move.from, '-');
 
 		// Update the DOM elements.
+		var movingPiece = $('.uichess-chessboard-piece', fetchSquare(widget, move.from));
 		movingPiece.parent().append(HANDLE_TEMPLATE);
-		target.empty().append(movingPiece);
+		fetchSquare(widget, move.to).empty().append(movingPiece);
+		if(animate) {
+			animateMove(widget, move.from, move.to, movingPiece);
+		}
 
 		// FEN update + notifications.
 		notifyFENChanged(widget);
@@ -741,31 +765,32 @@
 	 * the special situations (promotion, castle, en-passant...) that may be encountered.
 	 *
 	 * @param {uichess.chessboard} widget
-	 * @param {{from: string, to: string}} move The origin and destination squares.
-	 * @param {jQuery} movingPiece DOM node representing the moving piece.
-	 * @param {jQuery} target DOM node representing the destination square.
+	 * @param {string|RPBChess.MoveDescriptor} move
+	 * @param {boolean} animate
 	 */
-	function doPlay(widget, move, movingPiece, target) {
+	function doPlay(widget, move, animate) {
 		var moveDescriptor = widget._position.isMoveLegal(move);
-		if(moveDescriptor === false) {
-			move.promotion = 'q'; // TODO: allow other types of promoted pieces.
-			moveDescriptor = widget._position.isMoveLegal(move);
-			if(moveDescriptor === false) {
-				return;
-			}
+		if(!moveDescriptor) {
+			return;
 		}
 		widget._position.play(moveDescriptor);
 
 		// Move the moving piece to its destination square.
+		var movingPiece = $('.uichess-chessboard-piece', fetchSquare(widget, moveDescriptor.from()));
 		movingPiece.parent().append(HANDLE_TEMPLATE);
-		target.empty().append(movingPiece);
+		fetchSquare(widget, moveDescriptor.to()).empty().append(movingPiece);
+		if(animate) {
+			animateMove(widget, moveDescriptor.from(), moveDescriptor.to(), movingPiece);
+		}
 
 		// Castling move -> move the rook.
 		if(moveDescriptor.type() === RPBChess.movetype.CASTLING_MOVE) {
-			var rookFrom = fetchSquare(widget, moveDescriptor.rookFrom());
-			var rookTo   = fetchSquare(widget, moveDescriptor.rookTo());
-			rookFrom.append(HANDLE_TEMPLATE);
-			rookTo.empty().append($('.uichess-chessboard-piece', rookFrom));
+			var movingRook = $('.uichess-chessboard-piece', fetchSquare(widget, moveDescriptor.rookFrom()));
+			movingRook.parent().append(HANDLE_TEMPLATE);
+			fetchSquare(widget, moveDescriptor.rookTo()).empty().append(movingRook);
+			if(animate) {
+				animateMove(widget, moveDescriptor.rookFrom(), moveDescriptor.rookTo(), movingRook);
+			}
 		}
 
 		// En-passant move -> remove the taken pawn.
@@ -1110,6 +1135,26 @@
 				this._position.enPassant(value);
 				notifyFENChanged(this);
 			}
+		},
+
+
+		/**
+		 * Move a piece from square `from` to square `to`.
+		 *
+		 * @param {{from: string, to: string}} move
+		 */
+		movePiece: function(move) {
+			doMovePiece(this, move, true); // TODO: switch animation on/off
+		},
+
+
+		/**
+		 * Play a legal move.
+		 *
+		 * @param {string|RPBChess.MoveDescriptor} move
+		 */
+		play: function(move) {
+			doPlay(this, move, true); // TODO: switch animation on/off
 		},
 
 

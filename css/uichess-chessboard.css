@@ -70,6 +70,10 @@
 	line-height: 0px;
 }
 
+.uichess-chessboard-piece {
+	position: relative;
+}
+
 .uichess-chessboard-handle {
 	position: relative;
 	z-index: 200;
