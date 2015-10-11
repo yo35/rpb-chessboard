@@ -64,6 +64,14 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode
 			$value = isset($atts['show_coordinates']) ? RPBChessboardHelperValidation::validateBoolean($atts['show_coordinates']) : null;
 			$chessboardOptions['showCoordinates'] = isset($value) ? $value : $this->getDefaultShowCoordinates();
 
+			// Animation speed
+			$value = isset($atts['animation_speed']) ? RPBChessboardHelperValidation::validateAnimationSpeed($atts['animation_speed']) : null;
+			$chessboardOptions['moveAnimation'] = isset($value) ? $value : $this->getDefaultAnimationSpeed();
+
+			// Move arrow
+			$value = isset($atts['show_move_arrow']) ? RPBChessboardHelperValidation::validateBoolean($atts['show_move_arrow']) : null;
+			$chessboardOptions['moveArrow'] = isset($value) ? $value : $this->getDefaultShowMoveArrow();
+
 			// Piece symbols
 			$value = isset($atts['piece_symbols']) ? RPBChessboardHelperValidation::validatePieceSymbols($atts['piece_symbols']) : null;
 			$this->widgetArgs['pieceSymbols'] = isset($value) ? $value : $this->getDefaultPieceSymbols();
@@ -90,7 +98,9 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode
 		if(!isset($this->navigationFrameArgs)) {
 			$this->navigationFrameArgs = array(
 				'squareSize'      => $this->getDefaultSquareSize     (),
-				'showCoordinates' => $this->getDefaultShowCoordinates()
+				'showCoordinates' => $this->getDefaultShowCoordinates(),
+				'moveAnimation'   => $this->getDefaultAnimationSpeed (),
+				'moveArrow'       => $this->getDefaultShowMoveArrow  ()
 			);
 		}
 		return $this->navigationFrameArgs;
