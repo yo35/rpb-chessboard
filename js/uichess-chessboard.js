@@ -1004,6 +1004,11 @@
 			moveAnimation: 200,
 
 			/**
+			 * Whether moves should be highlighted with an arrow or not.
+			 */
+			moveArrow: true,
+
+			/**
 			 * Whether the user can moves the pieces or not, edit the annotations or not, etc... Available values are:
 			 * * 'none': no move is allowed, drag & drop is disabled.
 			 * * 'play': only legal chess moves are allowed.
@@ -1093,6 +1098,7 @@
 				case 'squareSize': onSquareSizeChanged(this, oldValue, value); break;
 				case 'showCoordinates': onShowCoordinatesChanged(this); break;
 				case 'moveAnimation': break;
+				case 'moveArrow'    : break;
 				default: refresh(this); break;
 			}
 		},
