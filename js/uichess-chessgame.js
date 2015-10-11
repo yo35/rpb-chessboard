@@ -352,6 +352,7 @@
 		if(typeof value.squareSize      !== 'undefined') { result.squareSize      = value.squareSize     ; }
 		if(typeof value.showCoordinates !== 'undefined') { result.showCoordinates = value.showCoordinates; }
 		if(typeof value.moveAnimation   !== 'undefined') { result.moveAnimation   = value.moveAnimation  ; }
+		if(typeof value.moveArrow       !== 'undefined') { result.moveAnimation   = value.moveArrow      ; }
 		return result;
 	}
 
@@ -493,7 +494,7 @@
 		 */
 		goNextMove: function()
 		{
-			this._updateNavigationBoard($('.uichess-chessgame-selectedMove', this.element).data('nextMove'), true); // TODO enable/disable animation
+			this._updateNavigationBoard($('.uichess-chessgame-selectedMove', this.element).data('nextMove'), true);
 		},
 
 
@@ -1112,7 +1113,7 @@
 		_buildMove: function(node, forcePrintMoveNumber) {
 
 			// Create the DOM node.
-			var retVal = '<span class="uichess-chessgame-move" ' + this._buildPositionInformation(node, true) + '>'; // TODO enable/disable animation
+			var retVal = '<span class="uichess-chessgame-move" ' + this._buildPositionInformation(node, true) + '>';
 
 			// Move number
 			var printMoveNumber = forcePrintMoveNumber || node.moveColor() === 'w';
@@ -1155,9 +1156,9 @@
 		 * Select the given move and update the navigation board accordingly.
 		 *
 		 * @param {jQuery} [move] Nothing is done if null or undefined.
-		 * @param {boolean} animate
+		 * @param {boolean} playTheMove
 		 */
-		_updateNavigationBoard: function(move, animate)
+		_updateNavigationBoard: function(move, playTheMove)
 		{
 			if(move === undefined || move === null || move.hasClass('uichess-chessgame-selectedMove')) {
 				return;
@@ -1170,7 +1171,7 @@
 			}
 
 			// Update the selected move and the mini-board.
-			this._updateNavigationBoardWidget(move, animate);
+			this._updateNavigationBoardWidget(move, playTheMove);
 			this._updateSelectedMove(move);
 
 			// If the navigation board is in the dedicated frame, update its title,
@@ -1190,16 +1191,16 @@
 		 * Refresh the navigation chessboard widget.
 		 *
 		 * @param {jQuery} move
-		 * @param {boolean} animate
+		 * @param {boolean} playTheMove
 		 */
-		_updateNavigationBoardWidget: function(move, animate)
+		_updateNavigationBoardWidget: function(move, playTheMove)
 		{
 			var widget = this.options.navigationBoard === 'frame' ?
 				$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationBoard') :
 				$('.uichess-chessgame-navigationBoard', this.element);
 
 			// Update the position.
-			if(animate) {
+			if(playTheMove) {
 				widget.chessboard('option', 'position', move.data('positionBefore'));
 				widget.chessboard('play', move.data('moveNotation'));
 			}
