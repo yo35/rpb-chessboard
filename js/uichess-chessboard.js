@@ -714,25 +714,6 @@
 
 
 	/**
-	 * Animate a displacement.
-	 *
-	 * @param {uichess.chessboard} widget
-	 * @param {string} from
-	 * @param {string} to
-	 * @param {jQuery} movingPiece
-	 */
-	function animateMove(widget, from, to, movingPiece) {
-		from = RPBChess.squareToCoordinates(from);
-		to   = RPBChess.squareToCoordinates(to  );
-		var deltaTop  = (from.r - to.r) * widget.options.squareSize * (widget.options.flip ? 1 : -1);
-		var deltaLeft = (to.c - from.c) * widget.options.squareSize * (widget.options.flip ? 1 : -1);
-		movingPiece.css('top', deltaTop + 'px');
-		movingPiece.css('left', deltaLeft + 'px');
-		movingPiece.animate({ top: '0px', left: '0px' }, widget.options.moveAnimation);
-	}
-
-
-	/**
 	 * Callback for the "move pieces" mode -> move the moving piece to its destination square,
 	 * clearing the latter beforehand if necessary.
 	 *
@@ -748,12 +729,7 @@
 		widget._position.square(move.from, '-');
 
 		// Update the DOM elements.
-		var movingPiece = $('.uichess-chessboard-piece', fetchSquare(widget, move.from));
-		movingPiece.parent().append(HANDLE_TEMPLATE);
-		fetchSquare(widget, move.to).empty().append(movingPiece);
-		if(animate) {
-			animateMove(widget, move.from, move.to, movingPiece);
-		}
+		doDisplacement(widget, move.from, move.to, animate);
 
 		// FEN update + notifications.
 		notifyFENChanged(widget);
@@ -776,21 +752,11 @@
 		widget._position.play(moveDescriptor);
 
 		// Move the moving piece to its destination square.
-		var movingPiece = $('.uichess-chessboard-piece', fetchSquare(widget, moveDescriptor.from()));
-		movingPiece.parent().append(HANDLE_TEMPLATE);
-		fetchSquare(widget, moveDescriptor.to()).empty().append(movingPiece);
-		if(animate) {
-			animateMove(widget, moveDescriptor.from(), moveDescriptor.to(), movingPiece);
-		}
+		var movingPiece = doDisplacement(widget, moveDescriptor.from(), moveDescriptor.to(), animate);
 
 		// Castling move -> move the rook.
 		if(moveDescriptor.type() === RPBChess.movetype.CASTLING_MOVE) {
-			var movingRook = $('.uichess-chessboard-piece', fetchSquare(widget, moveDescriptor.rookFrom()));
-			movingRook.parent().append(HANDLE_TEMPLATE);
-			fetchSquare(widget, moveDescriptor.rookTo()).empty().append(movingRook);
-			if(animate) {
-				animateMove(widget, moveDescriptor.rookFrom(), moveDescriptor.rookTo(), movingRook);
-			}
+			doDisplacement(widget, moveDescriptor.rookFrom(), moveDescriptor.rookTo(), animate);
 		}
 
 		// En-passant move -> remove the taken pawn.
@@ -816,6 +782,35 @@
 
 		// FEN update + notifications.
 		notifyFENChanged(widget);
+	}
+
+
+	/**
+	 * Execute a move.
+	 *
+	 * @param {uichess.chessboard} widget
+	 * @param {string} from
+	 * @param {string} to
+	 * @param {boolean} animate
+	 * @returns {jQuery} DOM object corresponding to the moving piece.
+	 */
+	function doDisplacement(widget, from, to, animate) {
+		var movingPiece = $('.uichess-chessboard-piece', fetchSquare(widget, from));
+		movingPiece.parent().append(HANDLE_TEMPLATE);
+		fetchSquare(widget, to).empty().append(movingPiece);
+
+		// Animation
+		if(animate) {
+			var p1 = RPBChess.squareToCoordinates(from);
+			var p2 = RPBChess.squareToCoordinates(to  );
+			var deltaTop  = (p1.r - p2.r) * widget.options.squareSize * (widget.options.flip ? 1 : -1);
+			var deltaLeft = (p2.c - p1.c) * widget.options.squareSize * (widget.options.flip ? 1 : -1);
+			movingPiece.css('top', deltaTop + 'px');
+			movingPiece.css('left', deltaLeft + 'px');
+			movingPiece.animate({ top: '0px', left: '0px' }, widget.options.moveAnimation);
+		}
+
+		return movingPiece;
 	}
 
 
