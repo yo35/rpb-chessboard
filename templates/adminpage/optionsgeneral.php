@@ -61,7 +61,7 @@
 						);
 					?>
 				</p>
-				<div id="rpbchessboard-squareSizeSlider" class="rpbchessboard-squareSizeSlider"></div>
+				<div id="rpbchessboard-squareSizeSlider"></div>
 				<p>
 					<input type="hidden" name="showCoordinates" value="0" />
 					<input type="checkbox" id="rpbchessboard-showCoordinatesField" name="showCoordinates" value="1"
@@ -361,6 +361,67 @@
 				'rpbchessboard');
 			?>
 		</p>
+
+
+
+
+
+		<h3><?php _e('Move animation', 'rpbchessboard'); ?></h3>
+
+		<div class="rpbchessboard-columns">
+
+			<div>
+				<p>
+					<?php
+						echo sprintf(__('Animation speed: %1$s milliseconds', 'rpbchessboard'),
+							'<input type="text" id="rpbchessboard-animationSpeedField" class="rpbchessboard-animationSpeedField" name="animationSpeed" ' .
+								'size="'      . htmlspecialchars($model->getDigitNumberForSquareSize()) . '" ' . // TODO
+								'maxLength="' . htmlspecialchars($model->getDigitNumberForSquareSize()) . '" ' . // TODO
+								'value="'     . htmlspecialchars($model->getDefaultSquareSize       ()) . '"/>' // TODO
+						);
+					?>
+				</p>
+				<div id="rpbchessboard-animationSpeedSlider"></div>
+				<p>
+					<input type="hidden" name="showMoveArrow" value="0" />
+					<input type="checkbox" id="rpbchessboard-showMoveArrowField" name="showMoveArrow" value="1"
+						<?php if($model->getDefaultShowCoordinates()): /* TODO */ ?>checked="yes"<?php endif; ?>
+					/>
+					<label for="rpbchessboard-showMoveArrowField">
+						<?php _e('Show move arrow', 'rpbchessboard'); ?>
+					</label>
+				</p>
+			</div>
+
+			<div>
+				<div id="rpbchessboard-tuningMoveAnimationWidget"></div>
+			</div>
+
+		</div>
+
+		<script type="text/javascript">
+
+			jQuery(document).ready(function($) {
+
+				// Disable the animationSpeed text field, create a slider instead.
+				var animationSpeed = $('#rpbchessboard-animationSpeedField').val();
+				$('#rpbchessboard-animationSpeedField').prop('readonly', true);
+				$('#rpbchessboard-animationSpeedSlider').slider({
+					value: animationSpeed,
+					min: <?php echo json_encode($model->getMinimumSquareSize()); ?>, // TODO
+					max: <?php echo json_encode($model->getMaximumSquareSize()); ?>, // TODO
+					slide: function(event, ui) { $('#rpbchessboard-animationSpeedField').val(ui.value); }
+				});
+
+				// Create the chessboard widget.
+				$('#rpbchessboard-tuningMoveAnimationWidget').chessboard({
+					position       : 'start',
+					squareSize     : 32     ,
+					showCoordinates: false
+				});
+			});
+
+		</script>
 
 
 

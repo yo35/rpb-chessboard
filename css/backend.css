@@ -410,12 +410,6 @@ div.rpbchessboard-sourceCode {
 	text-align: right;
 }
 
-#rpbchessboard-optionPage span.rpbchessboard-squareSizeSlider {
-	display: inline-block;
-	width: 240px;
-	margin-left: 3em;
-}
-
 #rpbchessboard-optionPage input[name="pieceSymbols"] {
 	margin-left: 3em;
 }
