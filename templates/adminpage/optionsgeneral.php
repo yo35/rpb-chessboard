@@ -50,7 +50,7 @@
 
 		<div class="rpbchessboard-columns">
 
-			<div>
+			<div id="rpbchessboard-tuningChessboardParameterColumn">
 				<p>
 					<?php
 						echo sprintf(__('Square size: %1$s pixels', 'rpbchessboard'),
@@ -61,7 +61,7 @@
 						);
 					?>
 				</p>
-				<div id="rpbchessboard-squareSizeSlider"></div>
+				<div id="rpbchessboard-squareSizeSlider" class="rpbchessboard-slider"></div>
 				<p>
 					<input type="hidden" name="showCoordinates" value="0" />
 					<input type="checkbox" id="rpbchessboard-showCoordinatesField" name="showCoordinates" value="1"
@@ -370,7 +370,7 @@
 
 		<div class="rpbchessboard-columns">
 
-			<div>
+			<div id="#rpbchessboard-tuningMoveAnimationParameterColumn">
 				<p>
 					<?php
 						echo sprintf(__('Animation speed: %1$s milliseconds', 'rpbchessboard'),
@@ -381,10 +381,10 @@
 						);
 					?>
 				</p>
+				<div id="rpbchessboard-animationSpeedSlider" class="rpbchessboard-slider"></div>
 				<p class="description">
 					<?php _e('Set the animation speed to 0 to disable animations.', 'rpbchessboard'); ?>
 				</p>
-				<div id="rpbchessboard-animationSpeedSlider"></div>
 				<p>
 					<input type="hidden" name="showMoveArrow" value="0" />
 					<input type="checkbox" id="rpbchessboard-showMoveArrowField" name="showMoveArrow" value="1"
@@ -419,9 +419,8 @@
 
 				// Create the chessboard widget.
 				$('#rpbchessboard-tuningMoveAnimationWidget').chessboard({
-					position       : 'start',
-					squareSize     : 32     ,
-					showCoordinates: false
+					position: 'start',
+					squareSize: 32, showCoordinates: false
 				});
 			});
 

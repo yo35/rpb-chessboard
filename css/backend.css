@@ -25,13 +25,15 @@
 
 .rpbchessboard-columns,
 div.rpbchessboard-sourceCode,
-.rpbchessboard-tabs {
+.rpbchessboard-tabs,
+.rpbchessboard-slider {
 	margin: 1em 0px;
 }
 
 .rpbchessboard-columns:first-child,
 div.rpbchessboard-sourceCode:first-child,
 .rpbchessboard-tabs:first-child,
+.rpbchessboard-slider:first-child,
 .rpbchessboard-adminPage p:first-child {
 	margin-top: 0px;
 }
@@ -402,11 +404,16 @@ div.rpbchessboard-sourceCode {
 	margin: 2em 0px 1em;
 }
 
-#rpbchessboard-optionPage .rpbchessboard-columns > div:first-child {
+#rpbchessboard-optionPage #rpbchessboard-tuningChessboardParameterColumn {
 	width: 250px;
 }
 
-#rpbchessboard-optionPage .rpbchessboard-squareSizeField {
+#rpbchessboard-optionPage #rpbchessboard-tuningMoveAnimationParameterColumn {
+	width: 500px;
+}
+
+#rpbchessboard-optionPage .rpbchessboard-squareSizeField,
+#rpbchessboard-optionPage .rpbchessboard-animationSpeedField {
 	text-align: right;
 }
 
