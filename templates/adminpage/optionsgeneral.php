@@ -394,6 +394,14 @@
 						<?php _e('Show move arrow', 'rpbchessboard'); ?>
 					</label>
 				</p>
+				<p>
+					<a href="#" class="button rpbchessboard-testMoveAnimation" id="rpbchessboard-testMoveAnimation1">
+						<?php _e('Test move', 'rpbchessboard'); ?>
+					</a>
+					<a href="#" class="button rpbchessboard-testMoveAnimation" id="rpbchessboard-testMoveAnimation2">
+						<?php _e('Test capture', 'rpbchessboard'); ?>
+					</a>
+				</p>
 			</div>
 
 			<div>
@@ -418,10 +426,36 @@
 				});
 
 				// Create the chessboard widget.
-				$('#rpbchessboard-tuningMoveAnimationWidget').chessboard({
-					position: 'start',
+				var widget = $('#rpbchessboard-tuningMoveAnimationWidget');
+				var initialPosition = 'r1bqkbnr/pppp1ppp/2n5/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4';
+				widget.chessboard({
+					position: initialPosition,
 					squareSize: 32, showCoordinates: false
 				});
+
+				// Test buttons
+				function doTest(move) {
+					if($('.rpbchessboard-testMoveAnimation').hasClass('rpbchessboard-disabled')) { return; }
+
+					// Disable the test buttons
+					$('.rpbchessboard-testMoveAnimation').addClass('rpbchessboard-disabled');
+
+					// Set the animation parameter to the test widget
+					var currentAnimationSpeed = Number($('#rpbchessboard-animationSpeedField').val());
+					widget.chessboard('option', 'moveAnimation', currentAnimationSpeed);
+					widget.chessboard('option', 'moveArrow', $('#rpbchessboard-showMoveArrowField').prop('checked'));
+
+					// Play the test move
+					widget.chessboard('play', move);
+
+					// Restore the initial state.
+					setTimeout(function() {
+						widget.chessboard('option', 'position', initialPosition);
+						$('.rpbchessboard-testMoveAnimation').removeClass('rpbchessboard-disabled');
+					}, currentAnimationSpeed + 1000);
+				}
+				$('#rpbchessboard-testMoveAnimation1').click(function(e) { e.preventDefault(); doTest('Bc4'); });
+				$('#rpbchessboard-testMoveAnimation2').click(function(e) { e.preventDefault(); doTest('Nxd4'); });
 			});
 
 		</script>
