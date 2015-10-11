@@ -34,6 +34,8 @@ class RPBChessboardTraitPostOptions extends RPBChessboardAbstractTrait
 	private $showCoordinates;
 	private $pieceSymbols;
 	private $navigationBoard;
+	private $animationSpeed;
+	private $showMoveArrow;
 
 	// Compatibility options
 	private $fenCompatibilityMode;
@@ -64,8 +66,14 @@ class RPBChessboardTraitPostOptions extends RPBChessboardAbstractTrait
 			$this->navigationBoard = RPBChessboardHelperValidation::validateNavigationBoard($_POST['navigationBoard']);
 		}
 
+		// Load the animation speed parameter.
+		if(isset($_POST['animationSpeed'])) {
+			$this->animationSpeed = RPBChessboardHelperValidation::validateAnimationSpeed($_POST['animationSpeed']);
+		}
+
 		// Load the boolean parameters.
 		$this->showCoordinates          = self::loadBooleanParameter('showCoordinates'         );
+		$this->showMoveArrow            = self::loadBooleanParameter('showMoveArrow'           );
 		$this->fenCompatibilityMode     = self::loadBooleanParameter('fenCompatibilityMode'    );
 		$this->pgnCompatibilityMode     = self::loadBooleanParameter('pgnCompatibilityMode'    );
 		$this->smallScreenCompatibility = self::loadBooleanParameter('smallScreenCompatibility');
@@ -192,8 +200,14 @@ class RPBChessboardTraitPostOptions extends RPBChessboardAbstractTrait
 			update_option('rpbchessboard_navigationBoard', $this->navigationBoard);
 		}
 
+		// Set the animation speed parameter.
+		if(isset($this->animationSpeed)) {
+			update_option('rpbchessboard_animationSpeed', $this->animationSpeed);
+		}
+
 		// Set the boolean parameters.
 		self::updateBooleanParameter('showCoordinates'         , $this->showCoordinates         );
+		self::updateBooleanParameter('showMoveArrow'           , $this->showMoveArrow           );
 		self::updateBooleanParameter('fenCompatibilityMode'    , $this->fenCompatibilityMode    );
 		self::updateBooleanParameter('pgnCompatibilityMode'    , $this->pgnCompatibilityMode    );
 		self::updateBooleanParameter('smallScreenCompatibility', $this->smallScreenCompatibility);

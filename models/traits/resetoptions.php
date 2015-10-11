@@ -39,6 +39,8 @@ class RPBChessboardTraitResetOptions extends RPBChessboardAbstractTrait
 		delete_option('rpbchessboard_showCoordinates');
 		delete_option('rpbchessboard_pieceSymbols'   );
 		delete_option('rpbchessboard_navigationBoard');
+		delete_option('rpbchessboard_animationSpeed' );
+		delete_option('rpbchessboard_showMoveArrow'  );
 		return self::resetMessage();
 	}
 
