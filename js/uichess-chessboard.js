@@ -699,15 +699,15 @@
 
 				// Create the temporary arrow marker.
 				var p = getSquareCoordinatesInSVG(widget, fromSquare);
-				doCreateArrow(widget, 'uichess-chessboard-tempArrow', markerColor, p.x, p.y, p.x, p.y);
+				doCreateArrow(widget, 'uichess-chessboard-draggedArrow', markerColor, p.x, p.y, p.x, p.y);
 			},
 
 			drag: function(event) {
-				$('.uichess-chessboard-tempArrow', widget.element).attr({ 'x2':xInCanvas(event.pageX), 'y2':yInCanvas(event.pageY) });
+				$('.uichess-chessboard-draggedArrow', widget.element).attr({ 'x2':xInCanvas(event.pageX), 'y2':yInCanvas(event.pageY) });
 			},
 
 			stop: function() {
-				$('.uichess-chessboard-tempArrow', widget.element).remove();
+				$('.uichess-chessboard-draggedArrow', widget.element).remove();
 			}
 		});
 
@@ -745,6 +745,7 @@
 		widget._position.square(move.from, '-');
 
 		// Update the DOM elements.
+		$('.uichess-chessboard-moveArrow', widget.element).remove();
 		doDisplacement(widget, move.from, move.to, animate, withArrow);
 
 		// FEN update + notifications.
@@ -769,6 +770,7 @@
 		widget._position.play(moveDescriptor);
 
 		// Move the moving piece to its destination square.
+		$('.uichess-chessboard-moveArrow', widget.element).remove();
 		var movingPiece = doDisplacement(widget, moveDescriptor.from(), moveDescriptor.to(), animate, withArrow);
 
 		// Castling move -> move the rook.
@@ -783,15 +785,11 @@
 
 		// Promotion move -> change the type of the promoted piece.
 		if(moveDescriptor.type() === RPBChess.movetype.PROMOTION) {
-			var callback = function() {
+
+			// Switch to the promoted piece when the animation is 80%-complete.
+			scheduleMoveAnimation(widget, animate, 0.8, function() {
 				movingPiece.removeClass('uichess-chessboard-piece-p').addClass('uichess-chessboard-piece-' + moveDescriptor.promotion());
-			};
-			if(animate) {
-				setTimeout(callback, widget.options.moveAnimation * 0.8); // Switch to the promoted piece when the animation is 80%-complete.
-			}
-			else {
-				callback();
-			}
+			});
 		}
 
 		// Switch the turn flag.
@@ -820,7 +818,9 @@
 		// Create the move arrow
 		if(withArrow) {
 			var vc = getArrowCoordinatesInSVG(widget, from, to);
-			doCreateArrow(widget, '.uichess-chessboard-tempArrow', 'G', vc.x1, vc.y1, vc.x2, vc.y2);
+			scheduleMoveAnimation(widget, animate, 0.5, function() {
+				doCreateArrow(widget, 'uichess-chessboard-moveArrow', 'G', vc.x1, vc.y1, vc.x2, vc.y2);
+			});
 		}
 
 		// Animation
@@ -835,6 +835,19 @@
 		}
 
 		return movingPiece;
+	}
+
+
+	/**
+	 * Schedule an animation related to a move animation.
+	 */
+	function scheduleMoveAnimation(widget, animate, delayFactor, callback) {
+		if(animate) {
+			setTimeout(callback, widget.options.moveAnimation * delayFactor);
+		}
+		else {
+			callback();
+		}
 	}
 
 
