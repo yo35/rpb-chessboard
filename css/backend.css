@@ -412,6 +412,14 @@ div.rpbchessboard-sourceCode {
 	width: 500px;
 }
 
+#rpbchessboard-optionPage span.rpbchessboard-slider {
+	display: inline-block;
+	width: 240px;
+	margin-left: 3em;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
 #rpbchessboard-optionPage .rpbchessboard-squareSizeField,
 #rpbchessboard-optionPage .rpbchessboard-animationSpeedField {
 	text-align: right;

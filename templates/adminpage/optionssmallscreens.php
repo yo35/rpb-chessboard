@@ -79,7 +79,7 @@
 								'value="'     . htmlspecialchars($mode->squareSize) . '"/>'
 						);
 					?>
-					<span id="rpbchessboard-smallScreenMode<?php echo htmlspecialchars($index); ?>-squareSizeSlider" class="rpbchessboard-squareSizeSlider"></span>
+					<span id="rpbchessboard-smallScreenMode<?php echo htmlspecialchars($index); ?>-squareSizeSlider" class="rpbchessboard-slider"></span>
 				</p>
 
 				<?php if($index===0): ?>
