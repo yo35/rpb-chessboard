@@ -37,8 +37,7 @@ class RPBChessboardTraitDefaultOptionsEx extends RPBChessboardTraitDefaultOption
 	 *
 	 * @return int
 	 */
-	public function getMinimumSquareSize()
-	{
+	public function getMinimumSquareSize() {
 		return RPBChessboardHelperValidation::MINIMUM_SQUARE_SIZE;
 	}
 
@@ -48,9 +47,26 @@ class RPBChessboardTraitDefaultOptionsEx extends RPBChessboardTraitDefaultOption
 	 *
 	 * @return int
 	 */
-	public function getMaximumSquareSize()
-	{
+	public function getMaximumSquareSize() {
 		return RPBChessboardHelperValidation::MAXIMUM_SQUARE_SIZE;
+	}
+
+
+	/**
+	 * Maximum value for the animation speed parameter.
+	 *
+	 * @return int
+	 */
+	public function getMaximumAnimationSpeed() {
+		return RPBChessboardHelperValidation::MAXIMUM_ANIMATION_SPEED;
+	}
+
+
+	/**
+	 * The animation speed parameter must be a multiple of this value.
+	 */
+	public function getStepAnimationSpeed() {
+		return RPBChessboardHelperValidation::STEP_ANIMATION_SPEED;
 	}
 
 

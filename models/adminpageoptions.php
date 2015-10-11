@@ -80,13 +80,25 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 
 
 	/**
-	 * Number of digits of the maximum square size parameter.
+	 * Number of digits of the square size parameter.
 	 *
 	 * @return int
 	 */
 	public function getDigitNumberForSquareSize()
 	{
 		$maxVal = $this->getMaximumSquareSize();
+		return 1 + floor(log10($maxVal));
+	}
+
+
+	/**
+	 * Number of digits of the animation speed parameter.
+	 *
+	 * @return int
+	 */
+	public function getDigitNumberForAnimationSpeed()
+	{
+		$maxVal = $this->getMaximumAnimationSpeed();
 		return 1 + floor(log10($maxVal));
 	}
 

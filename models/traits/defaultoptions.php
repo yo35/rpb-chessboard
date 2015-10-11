@@ -33,6 +33,8 @@ class RPBChessboardTraitDefaultOptions extends RPBChessboardAbstractTrait
 	private static $showCoordinates;
 	private static $pieceSymbols   ;
 	private static $navigationBoard;
+	private static $animationSpeed ;
+	private static $showMoveArrow  ;
 
 
 	/**
@@ -60,12 +62,23 @@ class RPBChessboardTraitDefaultOptions extends RPBChessboardAbstractTrait
 
 
 	/**
+	 * Initial animation speed.
+	 */
+	const DEFAULT_ANIMATION_SPEED = 200;
+
+
+	/**
+	 * Initial value for the show-move-arrow parameter.
+	 */
+	const DEFAULT_SHOW_MOVE_ARROW = true;
+
+
+	/**
 	 * Default square size for the chessboard widgets.
 	 *
 	 * @return int
 	 */
-	public function getDefaultSquareSize()
-	{
+	public function getDefaultSquareSize() {
 		if(!isset(self::$squareSize)) {
 			$value = RPBChessboardHelperValidation::validateSquareSize(get_option('rpbchessboard_squareSize'));
 			self::$squareSize = isset($value) ? $value : self::DEFAULT_SQUARE_SIZE;
@@ -79,8 +92,7 @@ class RPBChessboardTraitDefaultOptions extends RPBChessboardAbstractTrait
 	 *
 	 * @return boolean
 	 */
-	public function getDefaultShowCoordinates()
-	{
+	public function getDefaultShowCoordinates() {
 		if(!isset(self::$showCoordinates)) {
 			$value = RPBChessboardHelperValidation::validateBooleanFromInt(get_option('rpbchessboard_showCoordinates'));
 			self::$showCoordinates = isset($value) ? $value : self::DEFAULT_SHOW_COORDINATES;
@@ -94,8 +106,7 @@ class RPBChessboardTraitDefaultOptions extends RPBChessboardAbstractTrait
 	 *
 	 * @return string
 	 */
-	public function getDefaultPieceSymbols()
-	{
+	public function getDefaultPieceSymbols() {
 		if(!isset(self::$pieceSymbols)) {
 			$value = RPBChessboardHelperValidation::validatePieceSymbols(get_option('rpbchessboard_pieceSymbols'));
 			self::$pieceSymbols = isset($value) ? $value : self::DEFAULT_PIECE_SYMBOLS;
@@ -109,12 +120,39 @@ class RPBChessboardTraitDefaultOptions extends RPBChessboardAbstractTrait
 	 *
 	 * @return string
 	 */
-	public function getDefaultNavigationBoard()
-	{
+	public function getDefaultNavigationBoard() {
 		if(!isset(self::$navigationBoard)) {
 			$value = RPBChessboardHelperValidation::validateNavigationBoard(get_option('rpbchessboard_navigationBoard'));
 			self::$navigationBoard = isset($value) ? $value : self::DEFAULT_NAVIGATION_BOARD;
 		}
 		return self::$navigationBoard;
+	}
+
+
+	/**
+	 * Default animation speed.
+	 *
+	 * @return int
+	 */
+	public function getDefaultAnimationSpeed() {
+		if(!isset(self::$animationSpeed)) {
+			$value = RPBChessboardHelperValidation::validateAnimationSpeed(get_option('rpbchessboard_animationSpeed'));
+			self::$animationSpeed = isset($value) ? $value : self::DEFAULT_ANIMATION_SPEED;
+		}
+		return self::$animationSpeed;
+	}
+
+
+	/**
+	 * Default show-move-arrow parameter.
+	 *
+	 * @return boolean
+	 */
+	public function getDefaultShowMoveArrow() {
+		if(!isset(self::$showMoveArrow)) {
+			$value = RPBChessboardHelperValidation::validateBooleanFromInt(get_option('rpbchessboard_showMoveArrow'));
+			self::$showMoveArrow = isset($value) ? $value : self::DEFAULT_SHOW_MOVE_ARROW;
+		}
+		return self::$showMoveArrow;
 	}
 }

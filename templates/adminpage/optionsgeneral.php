@@ -375,17 +375,20 @@
 					<?php
 						echo sprintf(__('Animation speed: %1$s milliseconds', 'rpbchessboard'),
 							'<input type="text" id="rpbchessboard-animationSpeedField" class="rpbchessboard-animationSpeedField" name="animationSpeed" ' .
-								'size="'      . htmlspecialchars($model->getDigitNumberForSquareSize()) . '" ' . // TODO
-								'maxLength="' . htmlspecialchars($model->getDigitNumberForSquareSize()) . '" ' . // TODO
-								'value="'     . htmlspecialchars($model->getDefaultSquareSize       ()) . '"/>' // TODO
+								'size="'      . htmlspecialchars($model->getDigitNumberForAnimationSpeed()) . '" ' .
+								'maxLength="' . htmlspecialchars($model->getDigitNumberForAnimationSpeed()) . '" ' .
+								'value="'     . htmlspecialchars($model->getDefaultAnimationSpeed       ()) . '" />'
 						);
 					?>
+				</p>
+				<p class="description">
+					<?php _e('Set the animation speed to 0 to disable animations.', 'rpbchessboard'); ?>
 				</p>
 				<div id="rpbchessboard-animationSpeedSlider"></div>
 				<p>
 					<input type="hidden" name="showMoveArrow" value="0" />
 					<input type="checkbox" id="rpbchessboard-showMoveArrowField" name="showMoveArrow" value="1"
-						<?php if($model->getDefaultShowCoordinates()): /* TODO */ ?>checked="yes"<?php endif; ?>
+						<?php if($model->getDefaultShowMoveArrow()): ?>checked="yes"<?php endif; ?>
 					/>
 					<label for="rpbchessboard-showMoveArrowField">
 						<?php _e('Show move arrow', 'rpbchessboard'); ?>
@@ -408,8 +411,9 @@
 				$('#rpbchessboard-animationSpeedField').prop('readonly', true);
 				$('#rpbchessboard-animationSpeedSlider').slider({
 					value: animationSpeed,
-					min: <?php echo json_encode($model->getMinimumSquareSize()); ?>, // TODO
-					max: <?php echo json_encode($model->getMaximumSquareSize()); ?>, // TODO
+					min: 0,
+					max: <?php echo json_encode($model->getMaximumAnimationSpeed()); ?>,
+					step: <?php echo json_encode($model->getStepAnimationSpeed()); ?>,
 					slide: function(event, ui) { $('#rpbchessboard-animationSpeedField').val(ui.value); }
 				});
 
