@@ -355,6 +355,7 @@
 				'<marker id="uichess-chessboard-arrowMarkerEnd-G" markerWidth="4" markerHeight="4" refX="2.5" refY="2" orient="auto"><path d="M 4,2 L 0,4 L 1,2 L 0,0 Z" /></marker>' +
 				'<marker id="uichess-chessboard-arrowMarkerEnd-R" markerWidth="4" markerHeight="4" refX="2.5" refY="2" orient="auto"><path d="M 4,2 L 0,4 L 1,2 L 0,0 Z" /></marker>' +
 				'<marker id="uichess-chessboard-arrowMarkerEnd-Y" markerWidth="4" markerHeight="4" refX="2.5" refY="2" orient="auto"><path d="M 4,2 L 0,4 L 1,2 L 0,0 Z" /></marker>' +
+				'<marker id="uichess-chessboard-arrowMarkerEnd-B" markerWidth="4" markerHeight="4" refX="2.5" refY="2" orient="auto"><path d="M 4,2 L 0,4 L 1,2 L 0,0 Z" /></marker>' +
 			'</defs>';
 		for(var arrow in widget._arrowMarkers) {
 			if(widget._arrowMarkers.hasOwnProperty(arrow) && /^([a-h][1-8])([a-h][1-8])$/.test(arrow)) {
@@ -819,7 +820,7 @@
 		if(withArrow) {
 			var vc = getArrowCoordinatesInSVG(widget, from, to);
 			scheduleMoveAnimation(widget, animate, 0.5, function() {
-				doCreateArrow(widget, 'uichess-chessboard-moveArrow', 'G', vc.x1, vc.y1, vc.x2, vc.y2);
+				doCreateArrow(widget, 'uichess-chessboard-moveArrow', 'B', vc.x1, vc.y1, vc.x2, vc.y2);
 			});
 		}
 
