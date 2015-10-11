@@ -352,7 +352,7 @@
 		if(typeof value.squareSize      !== 'undefined') { result.squareSize      = value.squareSize     ; }
 		if(typeof value.showCoordinates !== 'undefined') { result.showCoordinates = value.showCoordinates; }
 		if(typeof value.moveAnimation   !== 'undefined') { result.moveAnimation   = value.moveAnimation  ; }
-		if(typeof value.moveArrow       !== 'undefined') { result.moveAnimation   = value.moveArrow      ; }
+		if(typeof value.moveArrow       !== 'undefined') { result.moveArrow       = value.moveArrow      ; }
 		return result;
 	}
 
