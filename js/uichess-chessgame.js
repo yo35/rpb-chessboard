@@ -347,11 +347,12 @@
 	 */
 	function filterChessboardOptions(value)
 	{
-		return {
-			flip           : value.flip           ,
-			squareSize     : value.squareSize     ,
-			showCoordinates: value.showCoordinates
-		};
+		var result = {};
+		if(typeof value.flip            !== 'undefined') { result.flip            = value.flip           ; }
+		if(typeof value.squareSize      !== 'undefined') { result.squareSize      = value.squareSize     ; }
+		if(typeof value.showCoordinates !== 'undefined') { result.showCoordinates = value.showCoordinates; }
+		if(typeof value.moveAnimation   !== 'undefined') { result.moveAnimation   = value.moveAnimation  ; }
+		return result;
 	}
 
 
