@@ -632,7 +632,7 @@
 				var movingPiece = ui.draggable;
 				if(movingPiece.hasClass('uichess-chessboard-piece')) {
 					var move = { from: movingPiece.parent().data('square'), to: target.data('square') };
-					dropCallback(widget, move, false);
+					dropCallback(widget, move, false, widget.options.moveArrow);
 					// TODO Handle promotions in drag & drop.
 				}
 			}
@@ -699,15 +699,15 @@
 
 				// Create the temporary arrow marker.
 				var p = getSquareCoordinatesInSVG(widget, fromSquare);
-				doCreateArrow(widget, 'uichess-chessboard-draggedArrow', markerColor, p.x, p.y, p.x, p.y);
+				doCreateArrow(widget, 'uichess-chessboard-tempArrow', markerColor, p.x, p.y, p.x, p.y);
 			},
 
 			drag: function(event) {
-				$('.uichess-chessboard-draggedArrow', widget.element).attr({ 'x2':xInCanvas(event.pageX), 'y2':yInCanvas(event.pageY) });
+				$('.uichess-chessboard-tempArrow', widget.element).attr({ 'x2':xInCanvas(event.pageX), 'y2':yInCanvas(event.pageY) });
 			},
 
 			stop: function() {
-				$('.uichess-chessboard-draggedArrow', widget.element).remove();
+				$('.uichess-chessboard-tempArrow', widget.element).remove();
 			}
 		});
 
@@ -735,8 +735,9 @@
 	 * @param {uichess.chessboard} widget
 	 * @param {{from: string, to: string}} move The origin and destination squares.
 	 * @param {boolean} animate
+	 * @param {boolean} withArrow
 	 */
-	function doMovePiece(widget, move, animate) {
+	function doMovePiece(widget, move, animate, withArrow) {
 		if(move.from === move.to || widget._position.square(move.from) === '-') {
 			return;
 		}
@@ -744,7 +745,7 @@
 		widget._position.square(move.from, '-');
 
 		// Update the DOM elements.
-		doDisplacement(widget, move.from, move.to, animate);
+		doDisplacement(widget, move.from, move.to, animate, withArrow);
 
 		// FEN update + notifications.
 		notifyFENChanged(widget);
@@ -758,8 +759,9 @@
 	 * @param {uichess.chessboard} widget
 	 * @param {string|RPBChess.MoveDescriptor} move
 	 * @param {boolean} animate
+	 * @param {boolean} withArrow
 	 */
-	function doPlay(widget, move, animate) {
+	function doPlay(widget, move, animate, withArrow) {
 		var moveDescriptor = widget._position.isMoveLegal(move);
 		if(!moveDescriptor) {
 			return;
@@ -767,11 +769,11 @@
 		widget._position.play(moveDescriptor);
 
 		// Move the moving piece to its destination square.
-		var movingPiece = doDisplacement(widget, moveDescriptor.from(), moveDescriptor.to(), animate);
+		var movingPiece = doDisplacement(widget, moveDescriptor.from(), moveDescriptor.to(), animate, withArrow);
 
 		// Castling move -> move the rook.
 		if(moveDescriptor.type() === RPBChess.movetype.CASTLING_MOVE) {
-			doDisplacement(widget, moveDescriptor.rookFrom(), moveDescriptor.rookTo(), animate);
+			doDisplacement(widget, moveDescriptor.rookFrom(), moveDescriptor.rookTo(), animate, false);
 		}
 
 		// En-passant move -> remove the taken pawn.
@@ -807,12 +809,19 @@
 	 * @param {string} from
 	 * @param {string} to
 	 * @param {boolean} animate
+	 * @param {boolean} withArrow
 	 * @returns {jQuery} DOM object corresponding to the moving piece.
 	 */
-	function doDisplacement(widget, from, to, animate) {
+	function doDisplacement(widget, from, to, animate, withArrow) {
 		var movingPiece = $('.uichess-chessboard-piece', fetchSquare(widget, from));
 		movingPiece.parent().append(HANDLE_TEMPLATE);
 		fetchSquare(widget, to).empty().append(movingPiece);
+
+		// Create the move arrow
+		if(withArrow) {
+			var vc = getArrowCoordinatesInSVG(widget, from, to);
+			doCreateArrow(widget, '.uichess-chessboard-tempArrow', 'G', vc.x1, vc.y1, vc.x2, vc.y2);
+		}
 
 		// Animation
 		if(animate) {
@@ -1174,7 +1183,7 @@
 		 * @param {{from: string, to: string}} move
 		 */
 		movePiece: function(move) {
-			doMovePiece(this, move, this.options.moveAnimation > 0);
+			doMovePiece(this, move, this.options.moveAnimation > 0, this.options.moveArrow);
 		},
 
 
@@ -1184,7 +1193,7 @@
 		 * @param {string|RPBChess.MoveDescriptor} move
 		 */
 		play: function(move) {
-			doPlay(this, move, this.options.moveAnimation > 0);
+			doPlay(this, move, this.options.moveAnimation > 0, this.options.moveArrow);
 		},
 
 
