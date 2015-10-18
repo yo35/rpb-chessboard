@@ -79,10 +79,9 @@ abstract class RPBChessboardShortcodes
 			$content = self::$lowLevelShortcodeContent[$content];
 		}
 
-		// Load and execute the shortcode controller.
-		require_once(RPBCHESSBOARD_ABSPATH . 'controllers/shortcode.php');
-		$controller = new RPBChessboardControllerShortcode($shortcodeName, $atts, $content);
-		return $controller->run();
+		// Print the shortcode.
+		$model = RPBChessboardHelperLoader::loadModel('Shortcode' . $shortcodeName, $atts, $content);
+		return RPBChessboardHelperLoader::printTemplateOffScreen('Shortcode/' . $shortcodeName, $model);
 	}
 
 

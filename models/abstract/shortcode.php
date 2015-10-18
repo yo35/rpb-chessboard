@@ -28,7 +28,6 @@ require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php');
  */
 abstract class RPBChessboardAbstractModelShortcode extends RPBChessboardAbstractModel
 {
-	private $shortcodeName;
 	private $atts;
 	private $content;
 	private $contentFiltered = false;
@@ -46,40 +45,6 @@ abstract class RPBChessboardAbstractModelShortcode extends RPBChessboardAbstract
 		parent::__construct();
 		$this->atts    = (isset($atts   ) && is_array ($atts   )) ? $atts    : array();
 		$this->content = (isset($content) && is_string($content)) ? $content : '';
-	}
-
-
-	/**
-	 * Use the "Shortcode" view by default.
-	 *
-	 * @return string
-	 */
-	public function getViewName()
-	{
-		return 'Shortcode';
-	}
-
-
-	/**
-	 * The name of the template to use is the name of the shortcode.
-	 */
-	public function getTemplateName()
-	{
-		return $this->getShortcodeName();
-	}
-
-
-	/**
-	 * Name of the shortcode.
-	 *
-	 * @return string
-	 */
-	public function getShortcodeName()
-	{
-		if(!isset($this->shortcodeName)) {
-			$this->shortcodeName = preg_match('/^Shortcode(.*)$/', $this->getName(), $m) ? $m[1] : '';
-		}
-		return $this->shortcodeName;
 	}
 
 
