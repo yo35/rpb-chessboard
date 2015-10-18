@@ -36,6 +36,7 @@ abstract class RPBChessboardAbstractModel {
 
 	private $modelName;
 	private $methodIndex = array();
+	private $selfDelegatableMethods = array();
 
 
 	/**
@@ -46,37 +47,60 @@ abstract class RPBChessboardAbstractModel {
 
 	/**
 	 * Magic method called when trying to invoke inaccessible (or inexisting) methods.
-	 * In this case, the call is deferred to the imported trait that exposes a method
+	 * In this case, the call is deferred to the delegate model that exposes a method
 	 * with the corresponding name.
 	 */
-	public function __call($method, $args)
-	{
+	public function __call($method, $args) {
+
+		// Ensure that the requested method exists in one of the delegate models.
 		if(!isset($this->methodIndex[$method])) {
 			$modelName = $this->getModelName();
 			throw new Exception("Invalid call to method `$method` in the model `$modelName`.");
 		}
-		$trait = $this->methodIndex[$method];
-		return call_user_func_array(array($trait, $method), $args);
+
+		// Call the method on the delegate model.
+		$delegateModel = $this->methodIndex[$method];
+		return call_user_func_array(array($delegateModel, $method), $args);
 	}
 
 
 	/**
-	 * Import a trait to the current class.
+	 * Load a delegate model.
 	 *
-	 * @param string $traitName Name of the trait.
-	 * @param mixed ... Arguments to pass to the trait (optional).
+	 * @param string $modelName Name of the model.
+	 * @param mixed ... Arguments to pass to the model (optional).
 	 */
-	public function loadTrait($traitName)
-	{
-		// Load the definition of the trait, and instantiate it.
-		$args  = func_get_args();
-		$trait = call_user_func_array(array('RPBChessboardHelperLoader', 'loadTrait'), $args);
+	protected function loadDelegateModel($modelName) {
 
-		// List all the public methods of the trait, and register them
-		// to the method index of the current model.
-		foreach(get_class_methods($trait) as $method) {
-			$this->methodIndex[$method] = $trait;
+		// Load the model.
+		$args = func_get_args();
+		$delegateModel = call_user_func_array(array('RPBChessboardHelperLoader', 'loadModel'), $args);
+
+		// Register the new delegatable methods.
+		$this->methodIndex += $delegateModel->getDelegatableMethods();
+	}
+
+
+	/**
+	 * Register a delegatable method of the current model.
+	 */
+	protected function registerDelegatableMethod() {
+		$methods = func_get_args();
+		$this->selfDelegatableMethods += $methods;
+	}
+
+
+	/**
+	 * Return the list of methods that can be called on the current model through the delegate mechanism.
+	 *
+	 * @return array
+	 */
+	private function getDelegatableMethods() {
+		$result = $this->methodIndex;
+		foreach($this->selfDelegatableMethods as $method) {
+			$result[$method] = $this;
 		}
+		return $result;
 	}
 
 

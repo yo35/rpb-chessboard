@@ -23,8 +23,8 @@
 /**
  * Helper functions for dynamic class loading.
  */
-abstract class RPBChessboardHelperLoader
-{
+abstract class RPBChessboardHelperLoader {
+
 	/**
 	 * Load the model corresponding to the given model name.
 	 *
@@ -35,7 +35,7 @@ abstract class RPBChessboardHelperLoader
 	public static function loadModel($modelName)
 	{
 		$fileName  = strtolower($modelName);
-		$className = 'RPBChessboardModel' . $modelName;
+		$className = 'RPBChessboardModel' . str_replace('/' , '', $modelName);
 		require_once(RPBCHESSBOARD_ABSPATH . 'models/' . $fileName . '.php');
 		if(func_num_args() === 1) {
 			return new $className;
