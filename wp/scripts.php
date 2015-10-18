@@ -96,7 +96,7 @@ abstract class RPBChessboardScripts
 	public static function callbackInlinedScripts()
 	{
 		$model = RPBChessboardHelperLoader::loadTrait('Compatibility');
-		include(RPBCHESSBOARD_ABSPATH . 'templates/localization.php');
+		RPBChessboardHelperLoader::printTemplate('Localization', $model);
 	}
 
 
