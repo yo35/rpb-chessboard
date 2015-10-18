@@ -42,7 +42,7 @@ abstract class RPBChessboardAbstractModelShortcode extends RPBChessboardAbstract
 	 */
 	public function __construct($attributes, $content) {
 		parent::__construct();
-		$this->attributes = isset($attributes) && is_array ($attributes) ? $attributes : array();
+		$this->attributes = isset($attributes) && is_array($attributes) ? $attributes : array();
 		$this->content = isset($content) && is_string($content) ? $content : '';
 	}
 
