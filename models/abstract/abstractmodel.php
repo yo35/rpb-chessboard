@@ -32,9 +32,9 @@
  * are implemented natively), the trait mechanism is emulated based on a "magic"
  * method `__call()` in this base model class.
  */
-abstract class RPBChessboardAbstractModel
-{
-	private $name;
+abstract class RPBChessboardAbstractModel {
+
+	private $modelName;
 	private $methodIndex = array();
 
 
@@ -52,7 +52,7 @@ abstract class RPBChessboardAbstractModel
 	public function __call($method, $args)
 	{
 		if(!isset($this->methodIndex[$method])) {
-			$modelName = $this->getName();
+			$modelName = $this->getModelName();
 			throw new Exception("Invalid call to method `$method` in the model `$modelName`.");
 		}
 		$trait = $this->methodIndex[$method];
@@ -85,11 +85,10 @@ abstract class RPBChessboardAbstractModel
 	 *
 	 * @return string
 	 */
-	public function getName()
-	{
-		if(!isset($this->name)) {
-			$this->name = preg_match('/^RPBChessboardModel(.*)$/', get_class($this), $m) ? $m[1] : '';
+	public function getModelName() {
+		if(!isset($this->modelName)) {
+			$this->modelName = preg_match('/^RPBChessboardModel(.*)$/', get_class($this), $m) ? $m[1] : '';
 		}
-		return $this->name;
+		return $this->modelName;
 	}
 }
