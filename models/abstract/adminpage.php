@@ -148,8 +148,8 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 		// Regular case => use the GET parameter `rpbchessboard_subpage` or the default subpage name
 		// to determine the currently selected sub-page.
 		if(isset($this->subPages)) {
-			$this->selectedSubPageName = isset($_GET['subpage']) && $this->isValidSubPageName($_GET['subpage']) ?
-				$_GET['subpage'] : $this->defaultSubPageName;
+			$selectedSubPageFromGET = isset($_GET['subpage']) ? $this->validateSubPageName($_GET['subpage']) : null;
+			$this->selectedSubPageName = isset($selectedSubPageFromGET) ? $selectedSubPageFromGET : $this->defaultSubPageName;
 
 			// Update the `selected` flags in the sub-page list.
 			foreach($this->subPages as $subPage) {
@@ -165,20 +165,21 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 
 
 	/**
-	 * Check whether the given input is or not a valid sub-page name.
+	 * Ensure that the given input is a valid sub-page name.
 	 *
 	 * @param string $name
-	 * @return boolean
+	 * @return string `null` if the input is not a valid sub-page name.
 	 */
-	private function isValidSubPageName($name) {
+	private function validateSubPageName($name) {
 		if(isset($this->subPages)) {
+			$name = strtolower($name);
 			foreach($this->subPages as $subPage) {
-				if($name === $subPage->name) {
-					return true;
+				if($name === strtolower($subPage->name)) {
+					return $subPage->name;
 				}
 			}
 		}
-		return false;
+		return null;
 	}
 
 
@@ -222,7 +223,7 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 	 */
 	private static function makeSubPageLink($subPageName) {
 		global $pagenow;
-		return admin_url($pagenow) . '?page=' . urlencode($_GET['page']) . '&subpage=' . urlencode($subPageName);
+		return admin_url($pagenow) . '?page=' . urlencode($_GET['page']) . '&subpage=' . urlencode(strtolower($subPageName));
 	}
 
 
