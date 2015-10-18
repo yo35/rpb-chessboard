@@ -86,7 +86,7 @@ abstract class RPBChessboardAdminPages
 
 		// Process the post-action, if any.
 		switch($model->getPostAction()) {
-			case 'update-options'            : self::executeAction($model, 'PostOptions' , 'updateOptions'     ); break;
+			case 'update-options'            : self::executeAction($model, 'SaveOptions' , 'updateOptions'     ); break;
 			case 'reset-optionsgeneral'      : self::executeAction($model, 'ResetOptions', 'resetGeneral'      ); break;
 			case 'reset-optionscompatibility': self::executeAction($model, 'ResetOptions', 'resetCompatibility'); break;
 			case 'reset-optionssmallscreens' : self::executeAction($model, 'ResetOptions', 'resetSmallScreens' ); break;
@@ -99,18 +99,19 @@ abstract class RPBChessboardAdminPages
 
 
 	/**
-	 * Load the trait `$traitName`, and execute the method `$methodName` supposingly defined by the trait.
+	 * Load the model `$processModelName`, and execute the method `$methodName` supposingly defined by this model.
 	 *
 	 * @param object $model
-	 * @param string $traitName
+	 * @param string $processModelName
 	 * @param string $methodName
 	 * @param string $capability Required capability to execute the action. Default is `'manage_options'`.
 	 */
-	private static function executeAction($model, $traitName, $methodName, $capability='manage_options') {
+	private static function executeAction($model, $processModelName, $methodName, $capability='manage_options') {
 		if(!current_user_can($capability)) {
 			return;
 		}
-		$model->loadTrait($traitName);
-		$model->setPostMessage($model->$methodName());
+
+		$processModel = RPBChessboardHelperLoader::loadModel($processModelName);
+		$model->setPostMessage($processModel->$methodName());
 	}
 }

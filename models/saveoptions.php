@@ -20,67 +20,95 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH . 'models/traits/abstracttrait.php');
+require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php');
 require_once(RPBCHESSBOARD_ABSPATH . 'helpers/validation.php');
 
 
 /**
  * Process the request resulting from a click in the "Options" form in the backend.
  */
-class RPBChessboardTraitPostOptions extends RPBChessboardAbstractTrait
-{
-	// General options
-	private $squareSize;
-	private $showCoordinates;
-	private $pieceSymbols;
-	private $navigationBoard;
-	private $animationSpeed;
-	private $showMoveArrow;
-
-	// Compatibility options
-	private $fenCompatibilityMode;
-	private $pgnCompatibilityMode;
-
-	// Small-screen options
-	private $smallScreenCompatibility;
-	private $smallScreenModes;
-
+class RPBChessboardModelSaveOptions extends RPBChessboardAbstractModel {
 
 	/**
-	 * Constructor.
+	 * Update the plugin general options.
+	 *
+	 * @return string
 	 */
-	public function __construct()
-	{
-		// Load the square-size parameter.
+	public function updateOptions() {
+
+		// General parameters
+		self::processSquareSize();
+		self::processBooleanParameter('showCoordinates');
+		self::processPieceSymbols();
+		self::processNavigationBoard();
+		self::processAnimationSpeed();
+		self::processBooleanParameter('showMoveArrow');
+
+		// Compatibility parameters.
+		self::processBooleanParameter('fenCompatibilityMode');
+		self::processBooleanParameter('pgnCompatibilityMode');
+
+		// Small-screen parameters
+		self::processBooleanParameter('smallScreenCompatibility');
+		self::processSmallScreenModes();
+
+		// Notify the user.
+		return __('Settings saved.', 'rpbchessboard');
+	}
+
+
+	private static function processSquareSize() {
 		if(isset($_POST['squareSize'])) {
-			$this->squareSize = RPBChessboardHelperValidation::validateSquareSize($_POST['squareSize']);
+			$value = RPBChessboardHelperValidation::validateSquareSize($_POST['squareSize']);
+			if(isset($value)) {
+				update_option('rpbchessboard_squareSize', $value);
+			}
 		}
+	}
 
-		// Load the piece symbol parameter.
-		if(isset($_POST['pieceSymbols'])) {
-			$this->pieceSymbols = self::loadPieceSymbols();
+
+	private static function processPieceSymbols() {
+		$value = self::loadPieceSymbols();
+		if(isset($value)) {
+			update_option('rpbchessboard_pieceSymbols', $value);
 		}
+	}
 
-		// Load the navigation board parameter.
+
+	private static function processNavigationBoard() {
 		if(isset($_POST['navigationBoard'])) {
-			$this->navigationBoard = RPBChessboardHelperValidation::validateNavigationBoard($_POST['navigationBoard']);
+			$value = RPBChessboardHelperValidation::validateNavigationBoard($_POST['navigationBoard']);
+			if(isset($value)) {
+				update_option('rpbchessboard_navigationBoard', $value);
+			}
 		}
+	}
 
-		// Load the animation speed parameter.
+
+	private static function processAnimationSpeed() {
 		if(isset($_POST['animationSpeed'])) {
-			$this->animationSpeed = RPBChessboardHelperValidation::validateAnimationSpeed($_POST['animationSpeed']);
+			$value = RPBChessboardHelperValidation::validateAnimationSpeed($_POST['animationSpeed']);
+			if(isset($value)) {
+				update_option('rpbchessboard_animationSpeed', $value);
+			}
 		}
+	}
 
-		// Load the boolean parameters.
-		$this->showCoordinates          = self::loadBooleanParameter('showCoordinates'         );
-		$this->showMoveArrow            = self::loadBooleanParameter('showMoveArrow'           );
-		$this->fenCompatibilityMode     = self::loadBooleanParameter('fenCompatibilityMode'    );
-		$this->pgnCompatibilityMode     = self::loadBooleanParameter('pgnCompatibilityMode'    );
-		$this->smallScreenCompatibility = self::loadBooleanParameter('smallScreenCompatibility');
 
-		// Load the small-screen options
-		if(isset($_POST['smallScreenModes'])) {
-			$this->smallScreenModes = self::loadSmallScreenModes();
+	private static function processSmallScreenModes() {
+		$value = self::loadSmallScreenModes();
+		if(isset($value)) {
+			update_option('rpbchessboard_smallScreenModes', $value);
+		}
+	}
+
+
+	private static function processBooleanParameter($key) {
+		if(isset($_POST[$key])) {
+			$value = RPBChessboardHelperValidation::validateBooleanFromInt($_POST[$key]);
+			if(isset($value)) {
+				update_option('rpbchessboard_' . $key, $value ? 1 : 0);
+			}
 		}
 	}
 
@@ -90,8 +118,11 @@ class RPBChessboardTraitPostOptions extends RPBChessboardAbstractTrait
 	 *
 	 * @return string
 	 */
-	private static function loadPieceSymbols()
-	{
+	private static function loadPieceSymbols() {
+		if(!isset($_POST['pieceSymbols'])) {
+			return null;
+		}
+
 		switch($_POST['pieceSymbols']) {
 			case 'english'  : return 'native'   ;
 			case 'localized': return 'localized';
@@ -120,8 +151,7 @@ class RPBChessboardTraitPostOptions extends RPBChessboardAbstractTrait
 	 * @param string $fieldName
 	 * @return string
 	 */
-	private static function loadPieceSymbol($fieldName)
-	{
+	private static function loadPieceSymbol($fieldName) {
 		return isset($_POST[$fieldName]) ? RPBChessboardHelperValidation::validatePieceSymbol($_POST[$fieldName]) : null;
 	}
 
@@ -132,6 +162,10 @@ class RPBChessboardTraitPostOptions extends RPBChessboardAbstractTrait
 	 * @return string
 	 */
 	private static function loadSmallScreenModes() {
+		if(!isset($_POST['smallScreenModes'])) {
+			return null;
+		}
+
 		$smallScreenModeCount = RPBChessboardHelperValidation::validateInteger($_POST['smallScreenModes'], 0);
 		$smallScreenModes = array();
 		for($index=0; $index<$smallScreenModeCount; ++$index) {
@@ -163,75 +197,5 @@ class RPBChessboardTraitPostOptions extends RPBChessboardAbstractTrait
 			}
 		}
 		return null;
-	}
-
-
-	/**
-	 * Load and validate a boolean post parameter with the given name.
-	 *
-	 * @param string $fieldName
-	 * @return boolean
-	 */
-	private static function loadBooleanParameter($fieldName)
-	{
-		return isset($_POST[$fieldName]) ? RPBChessboardHelperValidation::validateBooleanFromInt($_POST[$fieldName]) : null;
-	}
-
-
-	/**
-	 * Update the plugin general options.
-	 *
-	 * @return string
-	 */
-	public function updateOptions()
-	{
-		// Set the square size parameter.
-		if(isset($this->squareSize)) {
-			update_option('rpbchessboard_squareSize', $this->squareSize);
-		}
-
-		// Set the piece symbol parameter.
-		if(isset($this->pieceSymbols)) {
-			update_option('rpbchessboard_pieceSymbols', $this->pieceSymbols);
-		}
-
-		// Set the navigation board parameter.
-		if(isset($this->navigationBoard)) {
-			update_option('rpbchessboard_navigationBoard', $this->navigationBoard);
-		}
-
-		// Set the animation speed parameter.
-		if(isset($this->animationSpeed)) {
-			update_option('rpbchessboard_animationSpeed', $this->animationSpeed);
-		}
-
-		// Set the boolean parameters.
-		self::updateBooleanParameter('showCoordinates'         , $this->showCoordinates         );
-		self::updateBooleanParameter('showMoveArrow'           , $this->showMoveArrow           );
-		self::updateBooleanParameter('fenCompatibilityMode'    , $this->fenCompatibilityMode    );
-		self::updateBooleanParameter('pgnCompatibilityMode'    , $this->pgnCompatibilityMode    );
-		self::updateBooleanParameter('smallScreenCompatibility', $this->smallScreenCompatibility);
-
-		// Set the small-screen mode parameters.
-		if(isset($this->smallScreenModes)) {
-			update_option('rpbchessboard_smallScreenModes', $this->smallScreenModes);
-		}
-
-		// Notify the user.
-		return __('Settings saved.', 'rpbchessboard');
-	}
-
-
-	/**
-	 * Update a global boolean parameter.
-	 *
-	 * @param string $key Name of the parameter in the dedicated WP table.
-	 * @param boolean $value New value (if null, nothing happens).
-	 */
-	private static function updateBooleanParameter($key, $value)
-	{
-		if(isset($value)) {
-			update_option('rpbchessboard_' . $key, $value ? 1 : 0);
-		}
 	}
 }

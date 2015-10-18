@@ -20,21 +20,20 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH . 'models/traits/abstracttrait.php');
+require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php');
 
 
 /**
  * Process a "reset settings" request.
  */
-class RPBChessboardTraitResetOptions extends RPBChessboardAbstractTrait
-{
+class RPBChessboardModelResetOptions extends RPBChessboardAbstractModel {
+
 	/**
 	 * Reset the general settings.
 	 *
 	 * @return string
 	 */
-	public function resetGeneral()
-	{
+	public function resetGeneral() {
 		delete_option('rpbchessboard_squareSize'     );
 		delete_option('rpbchessboard_showCoordinates');
 		delete_option('rpbchessboard_pieceSymbols'   );
@@ -50,8 +49,7 @@ class RPBChessboardTraitResetOptions extends RPBChessboardAbstractTrait
 	 *
 	 * @return string
 	 */
-	public function resetCompatibility()
-	{
+	public function resetCompatibility() {
 		delete_option('rpbchessboard_fenCompatibilityMode');
 		delete_option('rpbchessboard_pgnCompatibilityMode');
 		return self::resetMessage();
@@ -75,8 +73,7 @@ class RPBChessboardTraitResetOptions extends RPBChessboardAbstractTrait
 	 *
 	 * @return string
 	 */
-	private static function resetMessage()
-	{
+	private static function resetMessage() {
 		return __('Settings reseted.', 'rpbchessboard');
 	}
 }
