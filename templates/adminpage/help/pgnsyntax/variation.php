@@ -20,35 +20,56 @@
  ******************************************************************************/
 ?>
 
-<div id="rpbchessboard-helpPGNAttributesPage" class="rpbchessboard-helpPage">
+<h3 id="rpbchessboard-pgnVariation"><?php _e('Variations', 'rpbchessboard'); ?></h3>
 
-	<p>
-		<?php echo sprintf(
-			__(
-				'Several attributes may be passed to the %1$s[%3$s][/%3$s]%2$s tags '.
-				'in order to customize how the PGN games are displayed. '.
-				'All these attributes are optional: if not specified, the default setting '.
-				'(defined by the blog administrator) applies. '.
-				'These attributes are presented in this page.',
-			'rpbchessboard'),
-			'<span class="rpbchessboard-sourceCode">',
-			'</span>',
-			htmlspecialchars($model->getPGNShortcode())
-		); ?>
-	</p>
+<div class="rpbchessboard-columns">
+	<div>
 
-	<ol class="rpbchessboard-outline">
-		<li><a href="#rpbchessboard-pgnAttributePieceSymbols"><?php _e('Piece symbols', 'rpbchessboard'); ?></a></li>
-		<li><a href="#rpbchessboard-pgnAttributeNavigationBoard"><?php _e('Navigation board', 'rpbchessboard'); ?></a></li>
-		<li><a href="#rpbchessboard-pgnAttributeMoveAnimation"><?php _e('Animation speed & show move arrow', 'rpbchessboard'); ?></a></li>
-		<li><a href="#rpbchessboard-pgnAttributeBoardAspect"><?php _e('Chessboard aspect', 'rpbchessboard'); ?></a></li>
-	</ol>
+		<div class="rpbchessboard-sourceCode">
+			[<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]<br/>
+			1. e4 e5 (1... c5) (1... e6) 2. Nf3 Nc6 3. Bb5<br/>
+			<br/>
+			(3. Bc4 Bc5 (3... Be7) 4.d4)<br/>
+			<br/>
+			(3. d4 exd4 4. Nxd4 Bc5 5. Be3 Qf6)<br/>
+			<br/>
+			3... a6 4. Ba4 *<br/>
+			[/<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]
+		</div>
 
-	<?php
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/PGNAttributes/PieceSymbols'   , $model);
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/PGNAttributes/NavigationBoard', $model);
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/PGNAttributes/MoveAnimation'  , $model);
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/PGNAttributes/BoardAspect'    , $model);
-	?>
+	</div>
+	<div>
 
+		<div class="rpbchessboard-visuBlock">
+			<div>
+				<div id="rpbchessboard-pgnVariation-anchor"></div>
+				<script type="text/javascript">
+					jQuery(document).ready(function($) {
+						$('#rpbchessboard-pgnVariation-anchor').chessgame({
+							pgn:
+								'1. e4 e5 (1... c5) (1... e6) 2. Nf3 Nc6 3. Bb5\n' +
+								'\n' +
+								'(3. Bc4 Bc5 (3... Be7) 4.d4)\n' +
+								'\n' +
+								'(3. d4 exd4 4. Nxd4 Bc5 5. Be3 Qf6)\n' +
+								'\n' +
+								'3... a6 4. Ba4 *'
+						});
+					});
+				</script>
+			</div>
+		</div>
+
+	</div>
 </div>
+
+<p>
+	<?php
+		_e(
+			'As for comments, variations can be rendered either inlined within the move sequence, '.
+			'or as separated paragraphs if they are preceded by a blank line in the PGN string. '.
+			'Variations can be nested. However, inlined variations cannot contain &quot;paragraph-style&quot; variations '.
+			'(or &quot;paragraph-style&quot; comments).',
+		'rpbchessboard');
+	?>
+</p>

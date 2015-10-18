@@ -20,35 +20,48 @@
  ******************************************************************************/
 ?>
 
-<div id="rpbchessboard-helpPGNAttributesPage" class="rpbchessboard-helpPage">
+<h3 id="rpbchessboard-pgnNAG"><?php _e('NAGs (aka. <em>Numeric Annotation Glyphs</em>)', 'rpbchessboard'); ?></h3>
 
-	<p>
-		<?php echo sprintf(
-			__(
-				'Several attributes may be passed to the %1$s[%3$s][/%3$s]%2$s tags '.
-				'in order to customize how the PGN games are displayed. '.
-				'All these attributes are optional: if not specified, the default setting '.
-				'(defined by the blog administrator) applies. '.
-				'These attributes are presented in this page.',
-			'rpbchessboard'),
-			'<span class="rpbchessboard-sourceCode">',
-			'</span>',
-			htmlspecialchars($model->getPGNShortcode())
-		); ?>
-	</p>
+<div class="rpbchessboard-columns">
+	<div>
 
-	<ol class="rpbchessboard-outline">
-		<li><a href="#rpbchessboard-pgnAttributePieceSymbols"><?php _e('Piece symbols', 'rpbchessboard'); ?></a></li>
-		<li><a href="#rpbchessboard-pgnAttributeNavigationBoard"><?php _e('Navigation board', 'rpbchessboard'); ?></a></li>
-		<li><a href="#rpbchessboard-pgnAttributeMoveAnimation"><?php _e('Animation speed & show move arrow', 'rpbchessboard'); ?></a></li>
-		<li><a href="#rpbchessboard-pgnAttributeBoardAspect"><?php _e('Chessboard aspect', 'rpbchessboard'); ?></a></li>
-	</ol>
+		<div class="rpbchessboard-sourceCode">
+			[<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]
+			1.e4 !! ! !? ?! ? ?? +- +/- +/= = inf =/+ -/+ -+ *
+			[/<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]
+		</div>
 
-	<?php
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/PGNAttributes/PieceSymbols'   , $model);
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/PGNAttributes/NavigationBoard', $model);
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/PGNAttributes/MoveAnimation'  , $model);
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/PGNAttributes/BoardAspect'    , $model);
-	?>
+	</div>
+	<div>
 
+		<div class="rpbchessboard-visuBlock">
+			<div>
+				<div id="rpbchessboard-pgnNAG-anchor"></div>
+				<script type="text/javascript">
+					jQuery(document).ready(function($) {
+						$('#rpbchessboard-pgnNAG-anchor').chessgame({
+							pgn: '1.e4 !! ! !? ?! ? ?? +- +/- +/= = inf =/+ -/+ -+ *'
+						});
+					});
+				</script>
+			</div>
+		</div>
+
+	</div>
 </div>
+
+<p>
+	<?php echo sprintf(
+		__(
+			'Notice that the chess database softwares may introduce annotations such as %1$s&quot;$x&quot;%2$s '.
+			'where %1$s&quot;x&quot;%2$s is replaced with one or more digits (for instance, %1$s&quot;1.e4 $1&quot;%2$s). '.
+			'This is what is advocated by the PGN norm, which defines equivalences between this syntax and the human-readable one '.
+			'(for instance, %1$s&quot;$1&quot;%2$s is equivalent to %1$s&quot;!&quot;%2$s). Both syntaxes are understood '.
+			'by the RPB Chessboard plugin. See the %3$slist of NAGs%4$s.',
+		'rpbchessboard'),
+		'<span class="rpbchessboard-sourceCode">',
+		'</span>',
+		sprintf('<a href="%1$s" target="_blank">', __('http://en.wikipedia.org/wiki/Numeric_Annotation_Glyphs', 'rpbchessboard')),
+		'</a>'
+	); ?>
+</p>

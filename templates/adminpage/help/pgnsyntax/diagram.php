@@ -20,35 +20,57 @@
  ******************************************************************************/
 ?>
 
-<div id="rpbchessboard-helpPGNAttributesPage" class="rpbchessboard-helpPage">
+<h3 id="rpbchessboard-pgnDiagram"><?php _e('Diagrams', 'rpbchessboard'); ?></h3>
 
-	<p>
-		<?php echo sprintf(
-			__(
-				'Several attributes may be passed to the %1$s[%3$s][/%3$s]%2$s tags '.
-				'in order to customize how the PGN games are displayed. '.
-				'All these attributes are optional: if not specified, the default setting '.
-				'(defined by the blog administrator) applies. '.
-				'These attributes are presented in this page.',
-			'rpbchessboard'),
-			'<span class="rpbchessboard-sourceCode">',
-			'</span>',
-			htmlspecialchars($model->getPGNShortcode())
-		); ?>
-	</p>
+<div class="rpbchessboard-columns">
+	<div>
 
-	<ol class="rpbchessboard-outline">
-		<li><a href="#rpbchessboard-pgnAttributePieceSymbols"><?php _e('Piece symbols', 'rpbchessboard'); ?></a></li>
-		<li><a href="#rpbchessboard-pgnAttributeNavigationBoard"><?php _e('Navigation board', 'rpbchessboard'); ?></a></li>
-		<li><a href="#rpbchessboard-pgnAttributeMoveAnimation"><?php _e('Animation speed & show move arrow', 'rpbchessboard'); ?></a></li>
-		<li><a href="#rpbchessboard-pgnAttributeBoardAspect"><?php _e('Chessboard aspect', 'rpbchessboard'); ?></a></li>
-	</ol>
+		<div class="rpbchessboard-sourceCode">
+			[<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]<br/>
+			1. e4 c5<br/>
+			<br/>
+			{[pgndiagram] <?php _e('This opening is called the Sicilian defence. A possible continuation is:', 'rpbchessboard'); ?>}<br/>
+			<br/>
+			2. Nf3 d6 *<br/>
+			[/<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]
+		</div>
 
-	<?php
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/PGNAttributes/PieceSymbols'   , $model);
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/PGNAttributes/NavigationBoard', $model);
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/PGNAttributes/MoveAnimation'  , $model);
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/PGNAttributes/BoardAspect'    , $model);
-	?>
+		<p>
+			<?php echo sprintf(
+				__(
+					'Notice that %1$s[pgndiagram]%2$s tags must not be used outside a PGN game. '.
+					'To insert a diagram outside a PGN game, use the %1$s[%3$s][/%3$s]%2$s tag instead.',
+				'rpbchessboard'),
+				'<span class="rpbchessboard-sourceCode">',
+				'</span>',
+				htmlspecialchars($model->getFENShortcode())
+			); ?>
+		</p>
 
+	</div>
+	<div>
+
+		<div class="rpbchessboard-visuBlock">
+			<div>
+				<div id="rpbchessboard-pgnDiagram-anchor"></div>
+				<script type="text/javascript">
+					jQuery(document).ready(function($) {
+						$('#rpbchessboard-pgnDiagram-anchor').chessgame({
+							diagramOptions: { squareSize: 28 },
+							pgn:
+								'1. e4 c5\n' +
+								'\n' +
+								'{<div class="uichess-chessgame-diagramAnchor"></div> ' +
+								<?php
+									echo json_encode(__('This opening is called the Sicilian defence. A possible continuation is:', 'rpbchessboard'));
+								?> + '}\n' +
+								'\n' +
+								'2. Nf3 d6 *'
+						});
+					});
+				</script>
+			</div>
+		</div>
+
+	</div>
 </div>

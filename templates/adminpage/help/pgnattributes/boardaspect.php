@@ -20,35 +20,28 @@
  ******************************************************************************/
 ?>
 
-<div id="rpbchessboard-helpPGNAttributesPage" class="rpbchessboard-helpPage">
+<h3 id="rpbchessboard-pgnAttributeBoardAspect"><?php _e('Chessboard aspect', 'rpbchessboard'); ?></h3>
 
-	<p>
-		<?php echo sprintf(
-			__(
-				'Several attributes may be passed to the %1$s[%3$s][/%3$s]%2$s tags '.
-				'in order to customize how the PGN games are displayed. '.
-				'All these attributes are optional: if not specified, the default setting '.
-				'(defined by the blog administrator) applies. '.
-				'These attributes are presented in this page.',
-			'rpbchessboard'),
-			'<span class="rpbchessboard-sourceCode">',
-			'</span>',
-			htmlspecialchars($model->getPGNShortcode())
-		); ?>
-	</p>
-
-	<ol class="rpbchessboard-outline">
-		<li><a href="#rpbchessboard-pgnAttributePieceSymbols"><?php _e('Piece symbols', 'rpbchessboard'); ?></a></li>
-		<li><a href="#rpbchessboard-pgnAttributeNavigationBoard"><?php _e('Navigation board', 'rpbchessboard'); ?></a></li>
-		<li><a href="#rpbchessboard-pgnAttributeMoveAnimation"><?php _e('Animation speed & show move arrow', 'rpbchessboard'); ?></a></li>
-		<li><a href="#rpbchessboard-pgnAttributeBoardAspect"><?php _e('Chessboard aspect', 'rpbchessboard'); ?></a></li>
-	</ol>
-
-	<?php
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/PGNAttributes/PieceSymbols'   , $model);
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/PGNAttributes/NavigationBoard', $model);
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/PGNAttributes/MoveAnimation'  , $model);
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/PGNAttributes/BoardAspect'    , $model);
-	?>
-
+<div class="rpbchessboard-sourceCode">
+	<?php echo sprintf(
+		'[%1$s <strong>flip</strong>=... <strong>square_size</strong>=... <strong>show_coordinates</strong>=...] ... [/%1$s]',
+		htmlspecialchars($model->getPGNShortcode())
+	); ?>
 </div>
+
+<p>
+	<?php echo sprintf(
+		__(
+			'The %1$s, %2$s and %3$s attributes control the aspect of both the navigation board and the chessboard diagrams '.
+			'inserted using tag %4$s. These attributes are identical to those used to customize the aspect of standalone FEN diagrams '.
+			'(those inserted using tag %5$s): see %6$shelp on FEN diagram attributes%7$s for more details about them.',
+		'rpbchessboard'),
+		'<span class="rpbchessboard-sourceCode">flip</span>',
+		'<span class="rpbchessboard-sourceCode">square_size</span>',
+		'<span class="rpbchessboard-sourceCode">show_coordinates</span>',
+		'<span class="rpbchessboard-sourceCode">[pgndiagram]</span>',
+		sprintf('<span class="rpbchessboard-sourceCode">[%1$s][/%1$s]</span>', htmlspecialchars($model->getFENShortcode())),
+		'<a href="' . htmlspecialchars($model->getHelpOnFENAttributesURL()) . '">',
+		'</a>'
+	); ?>
+</p>

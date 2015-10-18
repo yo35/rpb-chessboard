@@ -20,35 +20,44 @@
  ******************************************************************************/
 ?>
 
-<div id="rpbchessboard-helpPGNAttributesPage" class="rpbchessboard-helpPage">
+<h3 id="rpbchessboard-pgnNullMove"><?php _e('Null moves', 'rpbchessboard'); ?></h3>
 
-	<p>
-		<?php echo sprintf(
-			__(
-				'Several attributes may be passed to the %1$s[%3$s][/%3$s]%2$s tags '.
-				'in order to customize how the PGN games are displayed. '.
-				'All these attributes are optional: if not specified, the default setting '.
-				'(defined by the blog administrator) applies. '.
-				'These attributes are presented in this page.',
-			'rpbchessboard'),
-			'<span class="rpbchessboard-sourceCode">',
-			'</span>',
-			htmlspecialchars($model->getPGNShortcode())
-		); ?>
-	</p>
+<div class="rpbchessboard-columns">
+	<div>
 
-	<ol class="rpbchessboard-outline">
-		<li><a href="#rpbchessboard-pgnAttributePieceSymbols"><?php _e('Piece symbols', 'rpbchessboard'); ?></a></li>
-		<li><a href="#rpbchessboard-pgnAttributeNavigationBoard"><?php _e('Navigation board', 'rpbchessboard'); ?></a></li>
-		<li><a href="#rpbchessboard-pgnAttributeMoveAnimation"><?php _e('Animation speed & show move arrow', 'rpbchessboard'); ?></a></li>
-		<li><a href="#rpbchessboard-pgnAttributeBoardAspect"><?php _e('Chessboard aspect', 'rpbchessboard'); ?></a></li>
-	</ol>
+		<div class="rpbchessboard-sourceCode">
+			[<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]<br/>
+			{<?php _e('A standard development scheme for white:', 'rpbchessboard'); ?>}
+			1. e4 -- 2. Nf3 -- 3. Bc4 -- 4. Nc3 -- 5. d4 -- 6. O-O {[pgndiagram]}<br/>
+			[/<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]
+		</div>
 
-	<?php
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/PGNAttributes/PieceSymbols'   , $model);
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/PGNAttributes/NavigationBoard', $model);
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/PGNAttributes/MoveAnimation'  , $model);
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/PGNAttributes/BoardAspect'    , $model);
-	?>
+		<p>
+			<?php echo sprintf(
+				__('A %1$s--%2$s token in the move list allows to skip the underlying move.', 'rpbchessboard'),
+				'<span class="rpbchessboard-sourceCode">',
+				'</span>'
+			); ?>
+		</p>
 
+	</div>
+	<div>
+
+		<div class="rpbchessboard-visuBlock">
+			<div>
+				<div id="rpbchessboard-pgnNullMove-anchor"></div>
+				<script type="text/javascript">
+					jQuery(document).ready(function($) {
+						$('#rpbchessboard-pgnNullMove-anchor').chessgame({
+							diagramOptions: { squareSize: 28 },
+							pgn:
+								'{' + <?php echo json_encode(__('A standard development scheme for white:', 'rpbchessboard')); ?> +
+								'} 1. e4 -- 2. Nf3 -- 3. Bc4 -- 4. Nc3 -- 5. d4 -- 6. O-O {<div class="uichess-chessgame-diagramAnchor"></div>} *'
+						});
+					});
+				</script>
+			</div>
+		</div>
+
+	</div>
 </div>
