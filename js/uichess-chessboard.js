@@ -184,6 +184,17 @@
 
 
 	/**
+	 * Ensure that the given number is a valid animation spedd.
+	 *
+	 * @param {number} animationSpeed
+	 * @returns {number}
+	 */
+	function filterOptionAnimationSpeed(animationSpeed) {
+		return Math.max(0, animationSpeed);
+	}
+
+
+	/**
 	 * Initialize the internal `RPBChess.Position` object with the given FEN string.
 	 *
 	 * @param {uichess.chessboard} widget
@@ -1039,7 +1050,7 @@
 			/**
 			 * Whether moves should be highlighted with an arrow or not.
 			 */
-			showMoveArrow: true,
+			showMoveArrow: false,
 
 			/**
 			 * Whether the user can moves the pieces or not, edit the annotations or not, etc... Available values are:
@@ -1085,8 +1096,10 @@
 			this.options.arrowMarkers  = initializeArrowMarkers (this, this.options.arrowMarkers );
 			this.options.squareSize      = filterOptionSquareSize     (this.options.squareSize     );
 			this.options.interactionMode = filterOptionInteractionMode(this.options.interactionMode);
+			this.options.animationSpeed  = filterOptionAnimationSpeed (this.options.animationSpeed );
 			this.options.flip            = filterBoolean(this.options.flip           , false);
 			this.options.showCoordinates = filterBoolean(this.options.showCoordinates, true );
+			this.options.showMoveArrow   = filterBoolean(this.options.showMoveArrow  , false);
 			refresh(this);
 		},
 
@@ -1111,8 +1124,10 @@
 				case 'arrowMarkers' : value = initializeArrowMarkers (this, value); break;
 				case 'squareSize'     : value = filterOptionSquareSize     (value); break;
 				case 'interactionMode': value = filterOptionInteractionMode(value); break;
+				case 'animationSpeed' : value = filterOptionAnimationSpeed (value); break;
 				case 'flip'           : value = filterBoolean(value, false); break;
 				case 'showCoordinates': value = filterBoolean(value, true ); break;
+				case 'showMoveArrow'  : value = filterBoolean(value, false); break;
 			}
 
 			// Set the new value.
