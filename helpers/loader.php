@@ -72,22 +72,6 @@ abstract class RPBChessboardHelperLoader
 
 
 	/**
-	 * Load the view whose name is returned by `$model->getViewName()`.
-	 *
-	 * @param object $model
-	 * @return object New instance of the view.
-	 */
-	public static function loadView($model)
-	{
-		$viewName  = $model->getViewName();
-		$fileName  = strtolower($viewName);
-		$className = 'RPBChessboardView' . $viewName;
-		require_once(RPBCHESSBOARD_ABSPATH . 'views/' . $fileName . '.php');
-		return new $className($model);
-	}
-
-
-	/**
 	 * Print the given template to the current output.
 	 *
 	 * @param string $templateName
