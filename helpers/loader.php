@@ -32,8 +32,7 @@ abstract class RPBChessboardHelperLoader {
 	 * @param mixed ... Arguments to pass to the model (optional).
 	 * @return object New instance of the model.
 	 */
-	public static function loadModel($modelName)
-	{
+	public static function loadModel($modelName) {
 		$fileName  = strtolower($modelName);
 		$className = 'RPBChessboardModel' . str_replace('/' , '', $modelName);
 		require_once(RPBCHESSBOARD_ABSPATH . 'models/' . $fileName . '.php');
