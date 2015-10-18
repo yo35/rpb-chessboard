@@ -26,19 +26,18 @@ require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/adminpage.php');
 /**
  * Model associated to the 'Help' page in the backend.
  */
-class RPBChessboardModelAdminPageHelp extends RPBChessboardAbstractModelAdminPage
-{
+class RPBChessboardModelAdminPageHelp extends RPBChessboardAbstractModelAdminPage {
+
 	private $squareSizeList;
 	private $animationSpeedList;
 	private $pieceSymbolCustomValues;
 
 
-	public function __construct()
-	{
+	public function __construct() {
 		parent::__construct();
-		$this->loadTrait('Compatibility'   );
-		$this->loadTrait('DefaultOptionsEx');
-		$this->loadTrait('URLs'            );
+		$this->loadDelegateModel('Common/Compatibility'   );
+		$this->loadDelegateModel('Common/DefaultOptionsEx');
+		$this->loadDelegateModel('Common/URLs'            );
 
 		// Create the sub-pages.
 		$this->addSubPage('helppgnsyntax', __('PGN game syntax', 'rpbchessboard'), true);
@@ -55,8 +54,7 @@ class RPBChessboardModelAdminPageHelp extends RPBChessboardAbstractModelAdminPag
 	 *
 	 * @return int[]
 	 */
-	public function getSquareSizeList()
-	{
+	public function getSquareSizeList() {
 		if(!isset($this->squareSizeList)) {
 			$defaultSquareSize = $this->getDefaultSquareSize();
 			if($defaultSquareSize <= 24) {
@@ -110,8 +108,7 @@ class RPBChessboardModelAdminPageHelp extends RPBChessboardAbstractModelAdminPag
 	 * @param string $piece `'K'`, `'Q'`, `'R'`, `'B'`, `'N'`, `'P'`, or `null` to concatenate all the values.
 	 * @return string
 	 */
-	public function getPieceSymbolCustomValue($piece = null)
-	{
+	public function getPieceSymbolCustomValue($piece = null) {
 		if(!isset($this->pieceSymbolCustomValues)) {
 			$this->pieceSymbolCustomValues = $this->getDefaultPieceSymbolCustomValues();
 			if(empty($this->pieceSymbolCustomValues)) {

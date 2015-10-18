@@ -20,14 +20,20 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH . 'models/traits/abstracttrait.php');
+require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php');
 
 
 /**
  * Various URLs to the plugin administration pages.
  */
-class RPBChessboardTraitURLs extends RPBChessboardAbstractTrait
-{
+class RPBChessboardModelCommonURLs extends RPBChessboardAbstractModel {
+
+	public function __construct() {
+		parent::__construct();
+		$this->registerDelegatableMethods('getOptionsGeneralURL', 'getOptionsSmallScreensURL',
+			'getHelpOnFENAttributesURL', 'getHelpOnPGNAttributesURL', 'getHelpOnFENSyntaxURL', 'getHelpOnPGNSyntaxURL');
+	}
+
 
 	/**
 	 * URL to the main settings page.
@@ -54,8 +60,7 @@ class RPBChessboardTraitURLs extends RPBChessboardAbstractTrait
 	 *
 	 * @return string
 	 */
-	public function getHelpOnFENAttributesURL()
-	{
+	public function getHelpOnFENAttributesURL() {
 		return admin_url('admin.php') . '?page=rpbchessboard-help&rpbchessboard_subpage=helpfenattributes';
 	}
 
@@ -65,8 +70,7 @@ class RPBChessboardTraitURLs extends RPBChessboardAbstractTrait
 	 *
 	 * @return string
 	 */
-	public function getHelpOnPGNAttributesURL()
-	{
+	public function getHelpOnPGNAttributesURL() {
 		return admin_url('admin.php') . '?page=rpbchessboard-help&rpbchessboard_subpage=helppgnattributes';
 	}
 

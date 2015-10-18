@@ -26,18 +26,17 @@ require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/adminpage.php');
 /**
  * Model associated to the 'Options' page in the backend.
  */
-class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdminPage
-{
+class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdminPage {
+
 	private $pieceSymbolCustomValues;
 
 
-	public function __construct()
-	{
+	public function __construct() {
 		parent::__construct();
-		$this->loadTrait('DefaultOptionsEx');
-		$this->loadTrait('Compatibility'   );
-		$this->loadTrait('SmallScreens'    );
-		$this->loadTrait('URLs'            );
+		$this->loadDelegateModel('Common/DefaultOptionsEx');
+		$this->loadDelegateModel('Common/Compatibility'   );
+		$this->loadDelegateModel('Common/SmallScreens'    );
+		$this->loadDelegateModel('Common/URLs'            );
 
 		// Create the sub-pages.
 		$this->addSubPage('optionsgeneral'      , __('Default aspect & behavior settings'    , 'rpbchessboard'), true);
@@ -51,8 +50,7 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 	 *
 	 * @return string
 	 */
-	public function getFormActionURL()
-	{
+	public function getFormActionURL() {
 		return $this->getSubPage($this->getSelectedSubPageName())->link;
 	}
 
@@ -62,8 +60,7 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 	 *
 	 * @return string
 	 */
-	public function getFormAction()
-	{
+	public function getFormAction() {
 		return 'update-options';
 	}
 
@@ -73,8 +70,7 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 	 *
 	 * @return string
 	 */
-	public function getFormResetAction()
-	{
+	public function getFormResetAction() {
 		return 'reset-' . $this->getSelectedSubPageName();
 	}
 
@@ -84,8 +80,7 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 	 *
 	 * @return int
 	 */
-	public function getDigitNumberForSquareSize()
-	{
+	public function getDigitNumberForSquareSize() {
 		$maxVal = $this->getMaximumSquareSize();
 		return 1 + floor(log10($maxVal));
 	}
@@ -96,8 +91,7 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 	 *
 	 * @return int
 	 */
-	public function getDigitNumberForAnimationSpeed()
-	{
+	public function getDigitNumberForAnimationSpeed() {
 		$maxVal = $this->getMaximumAnimationSpeed();
 		return 1 + floor(log10($maxVal));
 	}
@@ -109,8 +103,7 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 	 * @param string $piece `'K'`, `'Q'`, `'R'`, `'B'`, `'N'`, or `'P'`.
 	 * @return string
 	 */
-	public function getPieceSymbolCustomValue($piece)
-	{
+	public function getPieceSymbolCustomValue($piece) {
 		if(!isset($this->pieceSymbolCustomValues)) {
 			$this->pieceSymbolCustomValues = $this->getDefaultPieceSymbolCustomValues();
 			if(empty($this->pieceSymbolCustomValues)) {
