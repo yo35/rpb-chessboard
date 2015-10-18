@@ -41,7 +41,7 @@ class RPBChessboardModelCommonURLs extends RPBChessboardAbstractModel {
 	 * @return string
 	 */
 	public function getOptionsGeneralURL() {
-		return admin_url('admin.php') . '?page=rpbchessboard-options&rpbchessboard_subpage=optionsgeneral';
+		return admin_url('admin.php') . '?page=rpbchessboard-options&subpage=general';
 	}
 
 
@@ -51,7 +51,7 @@ class RPBChessboardModelCommonURLs extends RPBChessboardAbstractModel {
 	 * @return string
 	 */
 	public function getOptionsSmallScreensURL() {
-		return admin_url('admin.php') . '?page=rpbchessboard-options&rpbchessboard_subpage=optionssmallscreens';
+		return admin_url('admin.php') . '?page=rpbchessboard-options&subpage=smallscreens';
 	}
 
 
@@ -61,7 +61,7 @@ class RPBChessboardModelCommonURLs extends RPBChessboardAbstractModel {
 	 * @return string
 	 */
 	public function getHelpOnFENAttributesURL() {
-		return admin_url('admin.php') . '?page=rpbchessboard-help&rpbchessboard_subpage=helpfenattributes';
+		return admin_url('admin.php') . '?page=rpbchessboard-help&subpage=fenattributes';
 	}
 
 
@@ -71,7 +71,7 @@ class RPBChessboardModelCommonURLs extends RPBChessboardAbstractModel {
 	 * @return string
 	 */
 	public function getHelpOnPGNAttributesURL() {
-		return admin_url('admin.php') . '?page=rpbchessboard-help&rpbchessboard_subpage=helppgnattributes';
+		return admin_url('admin.php') . '?page=rpbchessboard-help&subpage=pgnattributes';
 	}
 
 
@@ -81,7 +81,7 @@ class RPBChessboardModelCommonURLs extends RPBChessboardAbstractModel {
 	 * @return string
 	 */
 	public function getHelpOnFENSyntaxURL() {
-		return admin_url('admin.php') . '?page=rpbchessboard-help&rpbchessboard_subpage=helpfensyntax';
+		return admin_url('admin.php') . '?page=rpbchessboard-help&subpage=fensyntax';
 	}
 
 
@@ -91,6 +91,6 @@ class RPBChessboardModelCommonURLs extends RPBChessboardAbstractModel {
 	 * @return string
 	 */
 	public function getHelpOnPGNSyntaxURL() {
-		return admin_url('admin.php') . '?page=rpbchessboard-help&rpbchessboard_subpage=helppgnsyntax';
+		return admin_url('admin.php') . '?page=rpbchessboard-help&subpage=pgnsyntax';
 	}
 }
