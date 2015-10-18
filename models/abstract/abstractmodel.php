@@ -83,8 +83,10 @@ abstract class RPBChessboardAbstractModel {
 
 	/**
 	 * Register a delegatable method of the current model.
+	 *
+	 * @param string ... Methods to register.
 	 */
-	protected function registerDelegatableMethod() {
+	protected function registerDelegatableMethods() {
 		$methods = func_get_args();
 		$this->selfDelegatableMethods += $methods;
 	}
