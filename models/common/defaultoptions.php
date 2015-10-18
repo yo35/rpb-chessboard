@@ -20,14 +20,14 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH . 'models/traits/abstracttrait.php');
+require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php');
 require_once(RPBCHESSBOARD_ABSPATH . 'helpers/validation.php');
 
 
 /**
  * Default general options associated to chessboard and chessgame widgets.
  */
-class RPBChessboardTraitDefaultOptions extends RPBChessboardAbstractTrait
+class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 {
 	private static $squareSize     ;
 	private static $showCoordinates;
@@ -37,40 +37,19 @@ class RPBChessboardTraitDefaultOptions extends RPBChessboardAbstractTrait
 	private static $showMoveArrow  ;
 
 
-	/**
-	 * Initial square size of the chessboard widgets.
-	 */
-	const DEFAULT_SQUARE_SIZE = 32;
-
-
-	/**
-	 * Initial value for the show-coordinates parameter of the chessboard widgets.
-	 */
+	const DEFAULT_SQUARE_SIZE      = 32;
 	const DEFAULT_SHOW_COORDINATES = true;
-
-
-	/**
-	 * Initial move notation mode.
-	 */
-	const DEFAULT_PIECE_SYMBOLS = 'localized';
-
-
-	/**
-	 * Initial navigation board position.
-	 */
+	const DEFAULT_PIECE_SYMBOLS    = 'localized';
 	const DEFAULT_NAVIGATION_BOARD = 'frame';
+	const DEFAULT_ANIMATION_SPEED  = 200;
+	const DEFAULT_SHOW_MOVE_ARROW  = true;
 
 
-	/**
-	 * Initial animation speed.
-	 */
-	const DEFAULT_ANIMATION_SPEED = 200;
-
-
-	/**
-	 * Initial value for the show-move-arrow parameter.
-	 */
-	const DEFAULT_SHOW_MOVE_ARROW = true;
+	public function __construct() {
+		parent::__construct();
+		$this->registerDelegatableMethods('getDefaultSquareSize', 'getDefaultShowCoordinates', 'getDefaultPieceSymbols',
+			'getDefaultNavigationBoard', 'getDefaultAnimationSpeed', 'getDefaultShowMoveArrow');
+	}
 
 
 	/**

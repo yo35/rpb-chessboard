@@ -26,15 +26,15 @@ require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/shortcode.php');
 /**
  * Model associated to the [pgn][/pgn] shortcode.
  */
-class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode
-{
+class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode {
+
 	private $widgetArgs;
 	private $navigationFrameArgs;
 
-	public function __construct($atts, $content)
-	{
+
+	public function __construct($atts, $content) {
 		parent::__construct($atts, $content);
-		$this->loadTrait('DefaultOptions');
+		$this->loadDelegateModel('Common/DefaultOptions');
 	}
 
 
@@ -43,8 +43,7 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode
 	 *
 	 * @return array
 	 */
-	public function getWidgetArgs()
-	{
+	public function getWidgetArgs() {
 		if(!isset($this->widgetArgs)) {
 			$this->widgetArgs = array('pgn' => $this->getContent());
 			$atts = $this->getAttributes();
@@ -93,8 +92,7 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode
 	 *
 	 * @return array
 	 */
-	public function getNavigationFrameArgs()
-	{
+	public function getNavigationFrameArgs() {
 		if(!isset($this->navigationFrameArgs)) {
 			$this->navigationFrameArgs = array(
 				'squareSize'      => $this->getDefaultSquareSize     (),
@@ -116,8 +114,7 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode
 	 * therefore its content is preserved from these traitments, that must be applied
 	 * to each text comment individually.
 	 */
-	protected function filterShortcodeContent($content)
-	{
+	protected function filterShortcodeContent($content) {
 		return preg_replace_callback('/{((?:\\\\\\\\|\\\\{|\\\\}|[^{}])*)}/', array(__CLASS__, 'processTextComment'), trim($content));
 	}
 
@@ -125,8 +122,7 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode
 	/**
 	 * Callback called to process the matched comments between the [pgn][/pgn] tags.
 	 */
-	private static function processTextComment($m)
-	{
+	private static function processTextComment($m) {
 		$comment = convert_chars(convert_smilies(wptexturize($m[1])));
 		return '{' . do_shortcode($comment) . '}';
 	}

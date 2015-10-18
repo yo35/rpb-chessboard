@@ -26,14 +26,14 @@ require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/shortcode.php');
 /**
  * Model associated to the [fen][/fen] shortcode.
  */
-class RPBChessboardModelShortcodeFEN extends RPBChessboardAbstractModelShortcode
-{
+class RPBChessboardModelShortcodeFEN extends RPBChessboardAbstractModelShortcode {
+
 	private $widgetArgs;
 
-	public function __construct($atts, $content)
-	{
+
+	public function __construct($atts, $content) {
 		parent::__construct($atts, $content);
-		$this->loadTrait('DefaultOptions');
+		$this->loadDelegateModel('Common/DefaultOptions');
 	}
 
 
@@ -42,8 +42,7 @@ class RPBChessboardModelShortcodeFEN extends RPBChessboardAbstractModelShortcode
 	 *
 	 * @return array
 	 */
-	public function getWidgetArgs()
-	{
+	public function getWidgetArgs() {
 		if(!isset($this->widgetArgs)) {
 			$this->widgetArgs = array('position' => $this->getContent());
 			$atts = $this->getAttributes();
@@ -79,8 +78,7 @@ class RPBChessboardModelShortcodeFEN extends RPBChessboardAbstractModelShortcode
 	/**
 	 * Ensure that the FEN string is trimmed.
 	 */
-	protected function filterShortcodeContent($content)
-	{
+	protected function filterShortcodeContent($content) {
 		$regex = '\s|<br *\/>';
 		$regex = "(?:$regex)*";
 		return preg_replace("/^$regex|$regex\$/i", '', $content);
