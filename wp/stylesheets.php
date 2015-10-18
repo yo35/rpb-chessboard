@@ -57,7 +57,7 @@ abstract class RPBChessboardStyleSheets
 
 
 	public static function callbackInlinedStyleSheets() {
-		$model = RPBChessboardHelperLoader::loadTrait('SmallScreens');
+		$model = RPBChessboardHelperLoader::loadModel('SmallScreensEx');
 		if($model->getSmallScreenCompatibility()) {
 			RPBChessboardHelperLoader::printTemplate('SmallScreens', $model);
 		}
