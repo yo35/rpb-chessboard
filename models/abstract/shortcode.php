@@ -26,9 +26,9 @@ require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php');
 /**
  * Base class for the models used to render the plugin shortcodes.
  */
-abstract class RPBChessboardAbstractModelShortcode extends RPBChessboardAbstractModel
-{
-	private $atts;
+abstract class RPBChessboardAbstractModelShortcode extends RPBChessboardAbstractModel {
+
+	private $attributes;
 	private $content;
 	private $contentFiltered = false;
 	private $uniqueID;
@@ -40,11 +40,10 @@ abstract class RPBChessboardAbstractModelShortcode extends RPBChessboardAbstract
 	 * @param array $atts Attributes passed with the shortcode.
 	 * @param string $content Shortcode enclosed content.
 	 */
-	public function __construct($atts, $content)
-	{
+	public function __construct($attributes, $content) {
 		parent::__construct();
-		$this->atts    = (isset($atts   ) && is_array ($atts   )) ? $atts    : array();
-		$this->content = (isset($content) && is_string($content)) ? $content : '';
+		$this->attributes = isset($attributes) && is_array ($attributes) ? $attributes : array();
+		$this->content = isset($content) && is_string($content) ? $content : '';
 	}
 
 
@@ -53,9 +52,8 @@ abstract class RPBChessboardAbstractModelShortcode extends RPBChessboardAbstract
 	 *
 	 * @return array
 	 */
-	public function getAttributes()
-	{
-		return $this->atts;
+	public function getAttributes() {
+		return $this->attributes;
 	}
 
 
@@ -64,8 +62,7 @@ abstract class RPBChessboardAbstractModelShortcode extends RPBChessboardAbstract
 	 *
 	 * @return string
 	 */
-	public function getContent()
-	{
+	public function getContent() {
 		if(!$this->contentFiltered) {
 			$this->content = $this->filterShortcodeContent($this->content);
 			$this->contentFiltered = true;
@@ -83,8 +80,7 @@ abstract class RPBChessboardAbstractModelShortcode extends RPBChessboardAbstract
 	 * @param string $content Raw content.
 	 * @return string Filtered content.
 	 */
-	protected function filterShortcodeContent($content)
-	{
+	protected function filterShortcodeContent($content) {
 		return $content;
 	}
 
@@ -94,8 +90,7 @@ abstract class RPBChessboardAbstractModelShortcode extends RPBChessboardAbstract
 	 *
 	 * @return string
 	 */
-	public function getUniqueID()
-	{
+	public function getUniqueID() {
 		if(!isset($this->uniqueID)) {
 			$this->uniqueID = self::makeUniqueID();
 		}
@@ -108,8 +103,7 @@ abstract class RPBChessboardAbstractModelShortcode extends RPBChessboardAbstract
 	 *
 	 * @return string
 	 */
-	private static function makeUniqueID()
-	{
+	private static function makeUniqueID() {
 		if(!isset(self::$idPrefix)) {
 			self::$idPrefix = 'rpbchessboard-' . uniqid() . '-';
 		}
