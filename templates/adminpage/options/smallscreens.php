@@ -134,8 +134,8 @@
 <?php endforeach; ?>
 
 
-<script type="text/javascript">
 
+<script type="text/javascript">
 	jQuery(document).ready(function($) {
 
 		// Slider initialization
@@ -161,6 +161,6 @@
 		}
 		$('#rpbchessboard-smallScreenCompatibilityField').change(updateWidgetActivationState);
 		updateWidgetActivationState();
-	});
 
+	});
 </script>
