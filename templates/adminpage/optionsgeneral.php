@@ -442,8 +442,8 @@
 
 					// Set the animation parameter to the test widget
 					var currentAnimationSpeed = Number($('#rpbchessboard-animationSpeedField').val());
-					widget.chessboard('option', 'moveAnimation', currentAnimationSpeed);
-					widget.chessboard('option', 'moveArrow', $('#rpbchessboard-showMoveArrowField').prop('checked'));
+					widget.chessboard('option', 'animationSpeed', currentAnimationSpeed);
+					widget.chessboard('option', 'showMoveArrow', $('#rpbchessboard-showMoveArrowField').prop('checked'));
 
 					// Play the test move
 					widget.chessboard('play', move);

@@ -633,7 +633,7 @@
 				var movingPiece = ui.draggable;
 				if(movingPiece.hasClass('uichess-chessboard-piece')) {
 					var move = { from: movingPiece.parent().data('square'), to: target.data('square') };
-					dropCallback(widget, move, false, widget.options.moveArrow);
+					dropCallback(widget, move, false, widget.options.showMoveArrow);
 					// TODO Handle promotions in drag & drop.
 				}
 			}
@@ -832,7 +832,7 @@
 			var deltaLeft = (p2.c - p1.c) * widget.options.squareSize * (widget.options.flip ? 1 : -1);
 			movingPiece.css('top', deltaTop + 'px');
 			movingPiece.css('left', deltaLeft + 'px');
-			movingPiece.animate({ top: '0px', left: '0px' }, widget.options.moveAnimation);
+			movingPiece.animate({ top: '0px', left: '0px' }, widget.options.animationSpeed);
 		}
 
 		return movingPiece;
@@ -844,7 +844,7 @@
 	 */
 	function scheduleMoveAnimation(widget, animate, delayFactor, callback) {
 		if(animate) {
-			setTimeout(callback, widget.options.moveAnimation * delayFactor);
+			setTimeout(callback, widget.options.animationSpeed * delayFactor);
 		}
 		else {
 			callback();
@@ -1034,12 +1034,12 @@
 			/**
 			 * Duration of the animations when playing moves (in milliseconds).
 			 */
-			moveAnimation: 200,
+			animationSpeed: 200,
 
 			/**
 			 * Whether moves should be highlighted with an arrow or not.
 			 */
-			moveArrow: true,
+			showMoveArrow: true,
 
 			/**
 			 * Whether the user can moves the pieces or not, edit the annotations or not, etc... Available values are:
@@ -1130,8 +1130,8 @@
 				case 'flip'         : refresh(this); this._trigger('flipChange'         , null, { oldValue:oldValue, newValue:this.options.flip          }); break;
 				case 'squareSize': onSquareSizeChanged(this, oldValue, value); break;
 				case 'showCoordinates': onShowCoordinatesChanged(this); break;
-				case 'moveAnimation': break;
-				case 'moveArrow'    : break;
+				case 'animationSpeed': break;
+				case 'showMoveArrow' : break;
 				default: refresh(this); break;
 			}
 		},
@@ -1197,7 +1197,7 @@
 		 * @param {{from: string, to: string}} move
 		 */
 		movePiece: function(move) {
-			doMovePiece(this, move, this.options.moveAnimation > 0, this.options.moveArrow);
+			doMovePiece(this, move, this.options.animationSpeed > 0, this.options.showMoveArrow);
 		},
 
 
@@ -1207,7 +1207,7 @@
 		 * @param {string|RPBChess.MoveDescriptor} move
 		 */
 		play: function(move) {
-			doPlay(this, move, this.options.moveAnimation > 0, this.options.moveArrow);
+			doPlay(this, move, this.options.animationSpeed > 0, this.options.showMoveArrow);
 		},
 
 

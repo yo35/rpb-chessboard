@@ -351,8 +351,8 @@
 		if(typeof value.flip            !== 'undefined') { result.flip            = value.flip           ; }
 		if(typeof value.squareSize      !== 'undefined') { result.squareSize      = value.squareSize     ; }
 		if(typeof value.showCoordinates !== 'undefined') { result.showCoordinates = value.showCoordinates; }
-		if(typeof value.moveAnimation   !== 'undefined') { result.moveAnimation   = value.moveAnimation  ; }
-		if(typeof value.moveArrow       !== 'undefined') { result.moveArrow       = value.moveArrow      ; }
+		if(typeof value.animationSpeed  !== 'undefined') { result.animationSpeed  = value.animationSpeed ; }
+		if(typeof value.showMoveArrow   !== 'undefined') { result.showMoveArrow   = value.showMoveArrow  ; }
 		return result;
 	}
 

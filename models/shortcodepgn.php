@@ -66,11 +66,11 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode
 
 			// Animation speed
 			$value = isset($atts['animation_speed']) ? RPBChessboardHelperValidation::validateAnimationSpeed($atts['animation_speed']) : null;
-			$chessboardOptions['moveAnimation'] = isset($value) ? $value : $this->getDefaultAnimationSpeed();
+			$chessboardOptions['animationSpeed'] = isset($value) ? $value : $this->getDefaultAnimationSpeed();
 
 			// Move arrow
 			$value = isset($atts['show_move_arrow']) ? RPBChessboardHelperValidation::validateBoolean($atts['show_move_arrow']) : null;
-			$chessboardOptions['moveArrow'] = isset($value) ? $value : $this->getDefaultShowMoveArrow();
+			$chessboardOptions['showMoveArrow'] = isset($value) ? $value : $this->getDefaultShowMoveArrow();
 
 			// Piece symbols
 			$value = isset($atts['piece_symbols']) ? RPBChessboardHelperValidation::validatePieceSymbols($atts['piece_symbols']) : null;
@@ -99,8 +99,8 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode
 			$this->navigationFrameArgs = array(
 				'squareSize'      => $this->getDefaultSquareSize     (),
 				'showCoordinates' => $this->getDefaultShowCoordinates(),
-				'moveAnimation'   => $this->getDefaultAnimationSpeed (),
-				'moveArrow'       => $this->getDefaultShowMoveArrow  ()
+				'animationSpeed'  => $this->getDefaultAnimationSpeed (),
+				'showMoveArrow'   => $this->getDefaultShowMoveArrow  ()
 			);
 		}
 		return $this->navigationFrameArgs;
