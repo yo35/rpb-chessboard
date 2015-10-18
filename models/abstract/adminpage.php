@@ -38,23 +38,11 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 
 
 	/**
-	 * Use the "AdminPage" view by default.
-	 *
-	 * @return string
-	 */
-	public function getViewName()
-	{
-		return 'AdminPage';
-	}
-
-
-	/**
 	 * The name of the template to use is the name of the selected sub-page if any,
 	 * or the name of the administration page if no sub-page is defined.
 	 */
-	public function getTemplateName()
-	{
-		return isset($this->subPages) ? $this->getSelectedSubPageName() : $this->getAdminPageName();
+	public function getPageTemplateName() {
+		return 'AdminPage/' . (isset($this->subPages) ? $this->getSelectedSubPageName() : $this->getAdminPageName());
 	}
 
 
@@ -255,13 +243,22 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 
 
 	/**
+	 * Whether a POST message has been defined or not.
+	 *
+	 * @return boolean
+	 */
+	public function hasPostMessage() {
+		return isset($this->postMessage);
+	}
+
+
+	/**
 	 * Human-readable message informing the user about the result of the POST action.
 	 * or an empty string if no action were performed.
 	 *
 	 * @return string
 	 */
-	public function getPostMessage()
-	{
+	public function getPostMessage() {
 		return isset($this->postMessage) ? $this->postMessage : '';
 	}
 
@@ -271,8 +268,7 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 	 *
 	 * @param string $message
 	 */
-	public function setPostMessage($message)
-	{
+	public function setPostMessage($message) {
 		$this->postMessage = $message;
 	}
 }

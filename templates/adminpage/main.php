@@ -18,22 +18,51 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.   *
  *                                                                            *
  ******************************************************************************/
+?>
 
+<div class="wrap rpbchessboard-adminPage">
 
-require_once(RPBCHESSBOARD_ABSPATH . 'views/abstractview.php');
+	<h2><?php echo htmlspecialchars($model->getTitle()); ?></h2>
 
+	<noscript>
+		<div class="error">
+			<p><?php
+				_e('To work properly, the RPB Chessboard plugin needs JavaScript to be activated in your browser.', 'rpbchessboard');
+			?></p>
+		</div>
+	</noscript>
 
-/**
- * Generic view for the plugin administration pages.
- */
-class RPBChessboardViewAdminPage extends RPBChessboardAbstractView
-{
-	public function display()
-	{
-		$model = $this->getModel();
-		echo '<div class="wrap rpbchessboard-adminPage">';
-		include(RPBCHESSBOARD_ABSPATH . 'templates/adminpage/header.php');
-		include(RPBCHESSBOARD_ABSPATH . 'templates/adminpage/' . strtolower($model->getTemplateName()) . '.php');
-		echo '</div>';
-	}
-}
+	<?php if($model->hasPostMessage()): ?>
+		<div class="updated">
+			<p><?php echo htmlspecialchars($model->getPostMessage()); ?></p>
+		</div>
+	<?php endif; ?>
+
+	<?php if($model->hasSubPages()): ?>
+		<ul id="rpbchessboard-subPageSelector" class="subsubsub">
+			<?php foreach($model->getSubPages() as $subPage): ?>
+
+				<li>
+					<a href="<?php echo $subPage->link; ?>" class="<?php if($subPage->selected) { echo 'current'; } ?>">
+						<?php echo $subPage->label; ?>
+					</a>
+				</li>
+
+			<?php endforeach; ?>
+		</ul>
+	<?php endif; ?>
+
+	<?php RPBChessboardHelperLoader::printTemplate($model->getPageTemplateName(), $model); ?>
+
+	<script type="text/javascript">
+		// TODO: move somewhere else
+		jQuery(document).ready(function($) {
+			$('.rpbchessboard-outline a').click(function(e) {
+				e.preventDefault();
+				var target = $(this).attr('href');
+				$('html').animate({ scrollTop: $(target).offset().top - 50 }, 500);
+			});
+		});
+	</script>
+
+</div>

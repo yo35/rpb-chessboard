@@ -79,10 +79,38 @@ abstract class RPBChessboardAdminPages
 	 *
 	 * @param string $adminPageName
 	 */
-	private static function printAdminPage($adminPageName)
-	{
-		require_once(RPBCHESSBOARD_ABSPATH . 'controllers/adminpage.php');
-		$controller = new RPBChessboardControllerAdminPage($adminPageName);
-		$controller->run();
+	private static function printAdminPage($adminPageName) {
+
+		// Load the model.
+		$model = RPBChessboardHelperLoader::loadModel('AdminPage' . $adminPageName);
+
+		// Process the post-action, if any.
+		switch($model->getPostAction()) {
+			case 'update-options'            : self::executeAction($model, 'PostOptions' , 'updateOptions'     ); break;
+			case 'reset-optionsgeneral'      : self::executeAction($model, 'ResetOptions', 'resetGeneral'      ); break;
+			case 'reset-optionscompatibility': self::executeAction($model, 'ResetOptions', 'resetCompatibility'); break;
+			case 'reset-optionssmallscreens' : self::executeAction($model, 'ResetOptions', 'resetSmallScreens' ); break;
+			default: break;
+		}
+
+		// Print the template.
+		RPBChessboardHelperLoader::printTemplate('AdminPage/Main', $model);
+	}
+
+
+	/**
+	 * Load the trait `$traitName`, and execute the method `$methodName` supposingly defined by the trait.
+	 *
+	 * @param object $model
+	 * @param string $traitName
+	 * @param string $methodName
+	 * @param string $capability Required capability to execute the action. Default is `'manage_options'`.
+	 */
+	private static function executeAction($model, $traitName, $methodName, $capability='manage_options') {
+		if(!current_user_can($capability)) {
+			return;
+		}
+		$model->loadTrait($traitName);
+		$model->setPostMessage($model->$methodName());
 	}
 }
