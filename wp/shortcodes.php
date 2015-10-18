@@ -32,7 +32,7 @@ abstract class RPBChessboardShortcodes
 	{
 		// Compatibility information -> describe which shortcode should be used to insert FEN diagrams,
 		// which one to insert PGN games, etc...
-		$compatibility = RPBChessboardHelperLoader::loadTrait('Compatibility');
+		$compatibility = RPBChessboardHelperLoader::loadModel('Common/Compatibility');
 		$fenShortcode = $compatibility->getFENShortcode();
 		$pgnShortcode = $compatibility->getPGNShortcode();
 		self::$noTexturizeShortcodes = array($fenShortcode, $pgnShortcode);

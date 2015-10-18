@@ -82,7 +82,7 @@ abstract class RPBChessboardAdminPages
 	private static function printAdminPage($adminPageName) {
 
 		// Load the model.
-		$model = RPBChessboardHelperLoader::loadModel('AdminPage' . $adminPageName);
+		$model = RPBChessboardHelperLoader::loadModel('AdminPage/' . $adminPageName);
 
 		// Process the post-action, if any.
 		switch($model->getPostAction()) {

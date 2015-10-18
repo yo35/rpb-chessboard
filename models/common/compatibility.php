@@ -20,7 +20,7 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH . 'models/traits/abstracttrait.php');
+require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php');
 require_once(RPBCHESSBOARD_ABSPATH . 'helpers/validation.php');
 
 
@@ -28,10 +28,16 @@ require_once(RPBCHESSBOARD_ABSPATH . 'helpers/validation.php');
  * Compatibility settings with respect to other chess plugins (that may use the
  * [fen][/fen] and [pgn][/pgn] shortcodes as well).
  */
-class RPBChessboardTraitCompatibility extends RPBChessboardAbstractTrait
-{
+class RPBChessboardModelCommonCompatibility extends RPBChessboardAbstractModel {
+
 	private static $fenCompatibilityMode;
 	private static $pgnCompatibilityMode;
+
+
+	public function __construct() {
+		parent::__construct();
+		$this->registerDelegatableMethod('getFENCompatibilityMode', 'getPGNCompatibilityMode', 'getFENShortcode', 'getPGNShortcode');
+	}
 
 
 	/**
@@ -40,8 +46,7 @@ class RPBChessboardTraitCompatibility extends RPBChessboardAbstractTrait
 	 *
 	 * @return boolean
 	 */
-	public function getFENCompatibilityMode()
-	{
+	public function getFENCompatibilityMode() {
 		if(!isset(self::$fenCompatibilityMode)) {
 			$value = RPBChessboardHelperValidation::validateBooleanFromInt(get_option('rpbchessboard_fenCompatibilityMode'));
 			self::$fenCompatibilityMode = isset($value) ? $value : false;
@@ -56,8 +61,7 @@ class RPBChessboardTraitCompatibility extends RPBChessboardAbstractTrait
 	 *
 	 * @return boolean
 	 */
-	public function getPGNCompatibilityMode()
-	{
+	public function getPGNCompatibilityMode() {
 		if(!isset(self::$pgnCompatibilityMode)) {
 			$value = RPBChessboardHelperValidation::validateBooleanFromInt(get_option('rpbchessboard_pgnCompatibilityMode'));
 			self::$pgnCompatibilityMode = isset($value) ? $value : false;
@@ -71,8 +75,7 @@ class RPBChessboardTraitCompatibility extends RPBChessboardAbstractTrait
 	 *
 	 * @return string
 	 */
-	public function getFENShortcode()
-	{
+	public function getFENShortcode() {
 		return $this->getFENCompatibilityMode() ? 'fen_compat' : 'fen';
 	}
 
@@ -82,8 +85,7 @@ class RPBChessboardTraitCompatibility extends RPBChessboardAbstractTrait
 	 *
 	 * @return string
 	 */
-	public function getPGNShortcode()
-	{
+	public function getPGNShortcode() {
 		return $this->getPGNCompatibilityMode() ? 'pgn_compat' : 'pgn';
 	}
 }

@@ -95,7 +95,7 @@ abstract class RPBChessboardScripts
 
 	public static function callbackInlinedScripts()
 	{
-		$model = RPBChessboardHelperLoader::loadTrait('Compatibility');
+		$model = RPBChessboardHelperLoader::loadModel('Common/Compatibility');
 		RPBChessboardHelperLoader::printTemplate('Localization', $model);
 	}
 

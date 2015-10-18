@@ -24,16 +24,12 @@ require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/adminpage.php');
 
 
 /**
- * Model associated to the 'About' page in the backend.
+ * Model associated to the 'Memo' page in the backend.
  */
-class RPBChessboardModelAdminPageAbout extends RPBChessboardAbstractModelAdminPage
-{
-	/**
-	 * Current version of the plugin
-	 *
-	 * @return string
-	 */
-	public function getPluginVersion() {
-		return RPBCHESSBOARD_VERSION;
+class RPBChessboardModelAdminPageMemo extends RPBChessboardAbstractModelAdminPage {
+
+	public function __construct() {
+		parent::__construct();
+		$this->loadDelegateModel('Common/Compatibility');
 	}
 }
