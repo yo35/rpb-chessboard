@@ -22,15 +22,6 @@
 
 /**
  * Base class for the models used by the RPBChessboard plugin.
- *
- * In the RPBChessboard plugin, the models are 'trait'-oriented, meaning that
- * most of their methods defined in separated trait classes, that may be shared
- * between models, and that are dynamically loaded when the model instances are
- * created.
- *
- * To ensure compatibility with PHP versions older than 5.4 (in which traits
- * are implemented natively), the trait mechanism is emulated based on a "magic"
- * method `__call()` in this base model class.
  */
 abstract class RPBChessboardAbstractModel {
 

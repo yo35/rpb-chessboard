@@ -49,29 +49,6 @@ abstract class RPBChessboardHelperLoader {
 
 
 	/**
-	 * Load the trait corresponding to the given trait name.
-	 *
-	 * @param string $traitName Name of the trait.
-	 * @param mixed ... Arguments to pass to the trait (optional).
-	 * @return object New instance of the trait.
-	 */
-	public static function loadTrait($traitName)
-	{
-		$fileName  = strtolower($traitName);
-		$className = 'RPBChessboardTrait' . $traitName;
-		require_once(RPBCHESSBOARD_ABSPATH . 'models/traits/' . $fileName . '.php');
-		if(func_num_args() === 1) {
-			return new $className;
-		}
-		else {
-			$args  = func_get_args();
-			$clazz = new ReflectionClass($className);
-			return $clazz->newInstanceArgs(array_slice($args, 1));
-		}
-	}
-
-
-	/**
 	 * Print the given template to the current output.
 	 *
 	 * @param string $templateName
