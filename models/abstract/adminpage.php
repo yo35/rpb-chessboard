@@ -38,11 +38,18 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 
 
 	/**
-	 * The name of the template to use is the name of the selected sub-page if any,
-	 * or the name of the administration page if no sub-page is defined.
+	 * Return the name of the template associated to the page.
 	 */
 	public function getPageTemplateName() {
-		return 'AdminPage/' . (isset($this->subPages) ? $this->getSelectedSubPageName() : $this->getAdminPageName());
+		return 'AdminPage/' . $this->getAdminPageName();
+	}
+
+
+	/**
+	 * Return the name of the template associated to the current sub-page.
+	 */
+	public function getSubPageTemplateName() {
+		return isset($this->subPages) ? 'AdminPage/' . $this->getAdminPageName() . '/' . $this->getSelectedSubPageName() : '';
 	}
 
 

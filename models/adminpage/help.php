@@ -39,13 +39,23 @@ class RPBChessboardModelAdminPageHelp extends RPBChessboardAbstractModelAdminPag
 		$this->loadDelegateModel('Common/DefaultOptionsEx');
 		$this->loadDelegateModel('Common/URLs'            );
 
+		$fenAttrLabel = sprintf(__('%1$s[%3$s][/%3$s]%2$s tag attributes', 'rpbchessboard'),
+			'<span class="rpbchessboard-sourceCode">',
+			'</span>',
+			htmlspecialchars($this->getFENShortcode())
+		);
+
+		$pgnAttrLabel = sprintf(__('%1$s[%3$s][/%3$s]%2$s tag attributes', 'rpbchessboard'),
+			'<span class="rpbchessboard-sourceCode">',
+			'</span>',
+			htmlspecialchars($this->getPGNShortcode())
+		);
+
 		// Create the sub-pages.
-		$this->addSubPage('helppgnsyntax', __('PGN game syntax', 'rpbchessboard'), true);
-		$this->addSubPage('helpfensyntax', __('FEN diagram syntax', 'rpbchessboard'));
-		$this->addSubPage('helppgnattributes', sprintf(__('%1$s[%3$s][/%3$s]%2$s tag attributes', 'rpbchessboard'),
-			'<span class="rpbchessboard-sourceCode">', '</span>', htmlspecialchars($this->getPGNShortcode())));
-		$this->addSubPage('helpfenattributes', sprintf(__('%1$s[%3$s][/%3$s]%2$s tag attributes', 'rpbchessboard'),
-			'<span class="rpbchessboard-sourceCode">', '</span>', htmlspecialchars($this->getFENShortcode())));
+		$this->addSubPage('PGNSyntax', __('PGN game syntax', 'rpbchessboard'), true);
+		$this->addSubPage('FENSyntax', __('FEN diagram syntax', 'rpbchessboard'));
+		$this->addSubPage('PGNAttributes', $pgnAttrLabel);
+		$this->addSubPage('FENAttributes', $fenAttrLabel);
 	}
 
 
