@@ -51,8 +51,7 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 	 *
 	 * @return string
 	 */
-	public function getAdminPageName()
-	{
+	public function getAdminPageName() {
 		if(!isset($this->adminPageName)) {
 			$this->adminPageName = preg_match('/^AdminPage(.*)$/', $this->getModelName(), $m) ? $m[1] : '';
 		}
@@ -65,8 +64,7 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 	 *
 	 * @return string
 	 */
-	public function getTitle()
-	{
+	public function getTitle() {
 		if(!isset($this->title)) {
 			$this->title = html_entity_decode(get_admin_page_title(), ENT_QUOTES);
 		}
@@ -79,8 +77,7 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 	 *
 	 * @return boolean
 	 */
-	public function hasSubPages()
-	{
+	public function hasSubPages() {
 		return isset($this->subPages);
 	}
 
@@ -90,8 +87,7 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 	 *
 	 * @return string An empty string is returned if no sub-page is defined.
 	 */
-	public function getSelectedSubPageName()
-	{
+	public function getSelectedSubPageName() {
 		$this->initializeSelectedSubPageInfo();
 		return $this->selectedSubPageName;
 	}
@@ -108,8 +104,7 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 	 *
 	 * @return array
 	 */
-	public function getSubPages()
-	{
+	public function getSubPages() {
 		$this->initializeSelectedSubPageInfo();
 		return isset($this->subPages) ? $this->subPages : array();
 	}
@@ -121,8 +116,7 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 	 * @param string $name
 	 * @return array Null is returned if the corresponding sub-page does not exist.
 	 */
-	public function getSubPage($name)
-	{
+	public function getSubPage($name) {
 		$this->initializeSelectedSubPageInfo();
 		if(isset($this->subPages)) {
 			foreach($this->subPages as $subPage) {
@@ -139,32 +133,16 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 	 * Initialize the name of the selected sub-page and the `selected` flags in
 	 * the sub-page list.
 	 */
-	private function initializeSelectedSubPageInfo()
-	{
+	private function initializeSelectedSubPageInfo() {
 		if(isset($this->selectedSubPageName)) {
 			return;
 		}
 
 		// Regular case => use the GET parameter `rpbchessboard_subpage` or the default subpage name
 		// to determine the currently selected sub-page.
-		if(isset($this->subPages))
-		{
-			// Filter the GET parameter 'rpbchessboard_subpage' to ensure that it actually corresponds
-			// to a sub-page name.
-			if(isset($_GET['rpbchessboard_subpage'])) {
-				$target = $_GET['rpbchessboard_subpage'];
-				$valid  = false;
-				foreach($this->subPages as $subPage) {
-					if($target === $subPage->name) {
-						$valid = true;
-						break;
-					}
-				}
-			}
-
-			// Use the default sub-page if the GET parameter 'rpbchessboard_subpage'
-			// is either undefined or invalid.
-			$this->selectedSubPageName = (isset($target) && $valid) ? $target : $this->defaultSubPageName;
+		if(isset($this->subPages)) {
+			$this->selectedSubPageName = isset($_GET['subpage']) && $this->isValidSubPageName($_GET['subpage']) ?
+				$_GET['subpage'] : $this->defaultSubPageName;
 
 			// Update the `selected` flags in the sub-page list.
 			foreach($this->subPages as $subPage) {
@@ -180,14 +158,32 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 
 
 	/**
+	 * Check whether the given input is or not a valid sub-page name.
+	 *
+	 * @param string $name
+	 * @return boolean
+	 */
+	private function isValidSubPageName($name) {
+		if(isset($this->subPages)) {
+			foreach($this->subPages as $subPage) {
+				if($name === $subPage->name) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+
+	/**
 	 * Register a new sub-page.
 	 *
 	 * @param string $name
 	 * @param string $label
 	 * @param boolean $default=false
 	 */
-	protected function addSubPage($name, $label, $default=false)
-	{
+	protected function addSubPage($name, $label, $default=false) {
+
 		// Initialize the sub-page array.
 		if(!isset($this->subPages)) {
 			$this->subPages = array();
@@ -217,10 +213,9 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 	 * @param string $subPageName
 	 * @return string
 	 */
-	private static function makeSubPageLink($subPageName)
-	{
+	private static function makeSubPageLink($subPageName) {
 		global $pagenow;
-		return admin_url($pagenow) . '?page=' . urlencode($_GET['page']) . '&rpbchessboard_subpage=' . urlencode($subPageName);
+		return admin_url($pagenow) . '?page=' . urlencode($_GET['page']) . '&subpage=' . urlencode($subPageName);
 	}
 
 
@@ -233,8 +228,7 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 	 *
 	 * @return string
 	 */
-	public function getPostAction()
-	{
+	public function getPostAction() {
 		if(!isset($this->postAction)) {
 			$this->postAction = isset($_POST['rpbchessboard_action']) ? $_POST['rpbchessboard_action'] : '';
 		}
