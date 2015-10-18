@@ -20,39 +20,39 @@
  ******************************************************************************/
 ?>
 
-<input type="hidden" name="rpbchessboard_action" value="<?php echo htmlspecialchars($model->getFormAction()); ?>" />
+<div id="rpbchessboard-optionPage" class="rpbchessboard-jQuery-enableSmoothness">
+	<form action="<?php echo htmlspecialchars($model->getFormActionURL()); ?>" method="post">
 
-<p class="submit">
+		<input type="hidden" name="rpbchessboard_action" value="<?php echo htmlspecialchars($model->getFormAction()); ?>" />
 
-	<input type="submit" class="button-primary" value="<?php _e('Save changes', 'rpbchessboard'); ?>" />
+		<?php RPBChessboardHelperLoader::printTemplate($model->getSubPageTemplateName(), $model); ?>
 
-	<a class="button" href="<?php echo htmlspecialchars($model->getFormActionURL()); ?>"><?php _e('Cancel', 'rpbchessboard'); ?></a>
+		<p class="submit">
 
-	<a class="button" id="rpbchessboard-resetButton" href="#"><?php _e('Reset settings', 'rpbchessboard'); ?></a>
+			<input type="submit" class="button-primary" value="<?php _e('Save changes', 'rpbchessboard'); ?>" />
+			<a class="button" href="<?php echo htmlspecialchars($model->getFormActionURL()); ?>"><?php _e('Cancel', 'rpbchessboard'); ?></a>
+			<a class="button" id="rpbchessboard-resetButton" href="#"><?php _e('Reset settings', 'rpbchessboard'); ?></a>
 
-	<script type="text/javascript">
+			<script type="text/javascript">
+				jQuery(document).ready(function($) {
+					$('#rpbchessboard-resetButton').click(function(e) {
+						e.preventDefault();
 
-		jQuery(document).ready(function($) {
+						// Ask for confirmation from the user.
+						var message = <?php
+							echo json_encode(__('This will reset all the settings in this page to their default values. Press OK to confirm...', 'rpbchessboard'));
+						?>;
+						if(!confirm(message)) { return; }
 
-			$('#rpbchessboard-resetButton').click(function(e) {
+						// Change the action and validate the form.
+						var form = $(this).closest('form');
+						$('input[name="rpbchessboard_action"]', form).val(<?php echo json_encode($model->getFormResetAction()); ?>);
+						form.submit();
+					});
+				});
+			</script>
 
-				e.preventDefault();
+		</p>
 
-				// Ask for confirmation from the user.
-				var message = <?php
-					echo json_encode(__('This will reset all the settings in this page to their default values. Press OK to confirm...', 'rpbchessboard'));
-				?>;
-				if(!confirm(message)) { return; }
-
-				// Change the action and validate the form.
-				var form = $(this).closest('form');
-				$('input[name="rpbchessboard_action"]', form).val(<?php echo json_encode($model->getFormResetAction()); ?>);
-				form.submit();
-
-			});
-
-		});
-
-	</script>
-
-</p>
+	</form>
+</div>

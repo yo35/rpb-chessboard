@@ -86,10 +86,10 @@ abstract class RPBChessboardAdminPages
 
 		// Process the post-action, if any.
 		switch($model->getPostAction()) {
-			case 'update-options'            : self::executeAction($model, 'SaveOptions' , 'updateOptions'     ); break;
-			case 'reset-optionsgeneral'      : self::executeAction($model, 'ResetOptions', 'resetGeneral'      ); break;
-			case 'reset-optionscompatibility': self::executeAction($model, 'ResetOptions', 'resetCompatibility'); break;
-			case 'reset-optionssmallscreens' : self::executeAction($model, 'ResetOptions', 'resetSmallScreens' ); break;
+			case 'update-options'     : self::executeAction($model, 'SaveOptions' , 'updateOptions'     ); break;
+			case 'reset-general'      : self::executeAction($model, 'ResetOptions', 'resetGeneral'      ); break;
+			case 'reset-compatibility': self::executeAction($model, 'ResetOptions', 'resetCompatibility'); break;
+			case 'reset-smallscreens' : self::executeAction($model, 'ResetOptions', 'resetSmallScreens' ); break;
 			default: break;
 		}
 

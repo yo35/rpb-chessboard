@@ -39,9 +39,9 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 		$this->loadDelegateModel('Common/URLs'            );
 
 		// Create the sub-pages.
-		$this->addSubPage('optionsgeneral'      , __('Default aspect & behavior settings'    , 'rpbchessboard'), true);
-		$this->addSubPage('optionscompatibility', __('Compatibility with other chess plugins', 'rpbchessboard'));
-		$this->addSubPage('optionssmallscreens' , __('Small-screen devices'                  , 'rpbchessboard'));
+		$this->addSubPage('General'      , __('Default aspect & behavior settings'    , 'rpbchessboard'), true);
+		$this->addSubPage('Compatibility', __('Compatibility with other chess plugins', 'rpbchessboard'));
+		$this->addSubPage('SmallScreens' , __('Small-screen devices'                  , 'rpbchessboard'));
 	}
 
 
@@ -71,7 +71,7 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 	 * @return string
 	 */
 	public function getFormResetAction() {
-		return 'reset-' . $this->getSelectedSubPageName();
+		return 'reset-' . strtolower($this->getSelectedSubPageName());
 	}
 
 
