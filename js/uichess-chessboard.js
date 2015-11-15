@@ -485,6 +485,27 @@
 
 
 	/**
+	 * Update the widget when all the square markers get changed.
+	 *
+	 * @param {uichess.chessboard} widget
+	 */
+	function onSquareMarkersChanged(widget) {
+		var oldSquareMarkers = $('.uichess-chessboard-squareMarker', widget.element);
+		oldSquareMarkers.removeClass('uichess-chessboard-markerColor-G');
+		oldSquareMarkers.removeClass('uichess-chessboard-markerColor-R');
+		oldSquareMarkers.removeClass('uichess-chessboard-markerColor-Y');
+		oldSquareMarkers.removeClass('uichess-chessboard-squareMarker');
+
+		for(var square in widget._squareMarkers) {
+			if(widget._squareMarkers.hasOwnProperty(square)) {
+				var color = widget._squareMarkers[square];
+				fetchSquare(widget, square).addClass('uichess-chessboard-squareMarker').addClass('uichess-chessboard-markerColor-' + color);
+			}
+		}
+	}
+
+
+	/**
 	 * Update the widget when an arrow marker gets added/changed/removed.
 	 *
 	 * @param {uichess.chessboard} widget
@@ -508,6 +529,28 @@
 		else {
 			var clazz = 'uichess-chessboard-arrowMarker ' + identifierClazz + ' uichess-chessboard-markerColor-' + newValue;
 			$(identifierClazz, widget.element).attr('class', clazz);
+		}
+	}
+
+
+	/**
+	 * Update the widget when all the arrow markers get changed.
+	 *
+	 * @param {uichess.chessboard} widget
+	 */
+	function onArrowMarkersChanged(widget) {
+		$('.uichess-chessboard-arrowMarker', widget.element).remove();
+
+		for(var key in widget._arrowMarkers) {
+			if(widget._arrowMarkers.hasOwnProperty(key)) {
+				var fromSquare = key.substr(0, 2);
+				var toSquare = key.substr(2, 2);
+				if(fromSquare !== toSquare) {
+					var vc = getArrowCoordinatesInSVG(widget, fromSquare, toSquare);
+					var identifierClazz = 'uichess-chessboard-arrowMarker-' + key;
+					doCreateArrow(widget, identifierClazz, widget._arrowMarkers[key], vc.x1, vc.y1, vc.x2, vc.y2);
+				}
+			}
 		}
 	}
 
@@ -1139,10 +1182,10 @@
 
 			// Update the widget.
 			switch(key) {
-				case 'position'     : refresh(this); this._trigger('positionChange'     , null, { oldValue:oldValue, newValue:this.options.position      }); break;
-				case 'squareMarkers': refresh(this); this._trigger('squareMarkersChange', null, { oldValue:oldValue, newValue:this.options.squareMarkers }); break;
-				case 'arrowMarkers' : refresh(this); this._trigger('arrowMarkersChange' , null, { oldValue:oldValue, newValue:this.options.arrowMarkers  }); break;
-				case 'flip'         : refresh(this); this._trigger('flipChange'         , null, { oldValue:oldValue, newValue:this.options.flip          }); break;
+				case 'position': refresh(this); this._trigger('positionChange', null, { oldValue:oldValue, newValue:this.options.position }); break;
+				case 'flip'    : refresh(this); this._trigger('flipChange'    , null, { oldValue:oldValue, newValue:this.options.flip     }); break;
+				case 'squareMarkers': onSquareMarkersChanged(this); this._trigger('squareMarkersChange', null, { oldValue:oldValue, newValue:this.options.squareMarkers }); break;
+				case 'arrowMarkers' : onArrowMarkersChanged (this); this._trigger('arrowMarkersChange' , null, { oldValue:oldValue, newValue:this.options.arrowMarkers  }); break;
 				case 'squareSize': onSquareSizeChanged(this, oldValue, value); break;
 				case 'showCoordinates': onShowCoordinatesChanged(this); break;
 				case 'animationSpeed': break;
