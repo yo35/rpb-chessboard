@@ -113,6 +113,10 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 4.2 (November 15, 2015) =
+* Add move animation and highlighting (see #39).
+* Refactor organization of PHP classes.
+
 = 4.1.4 (September 2, 2015) =
 * Turkish translation (thanks to Ali Nihat Yazıcı).
 * Tested up to WordPress 4.3.
