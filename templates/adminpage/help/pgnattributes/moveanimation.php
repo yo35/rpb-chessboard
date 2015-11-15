@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-pgnAttributeMoveAnimation"><?php _e('Animation speed & show move arrow', 'rpbchessboard'); ?></h3>
+<h3 id="rpbchessboard-pgnAttributeMoveAnimation"><?php _e('Move animation', 'rpbchessboard'); ?></h3>
 
 <div class="rpbchessboard-columns">
 	<div>
