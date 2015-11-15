@@ -27,7 +27,7 @@ require_once(RPBCHESSBOARD_ABSPATH . 'helpers/validation.php');
 /**
  * Process the request resulting from a click in the "Options" form in the backend.
  */
-class RPBChessboardModelSaveOptions extends RPBChessboardAbstractModel {
+class RPBChessboardModelPostSaveOptions extends RPBChessboardAbstractModel {
 
 	/**
 	 * Update the plugin general options.

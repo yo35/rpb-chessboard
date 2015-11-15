@@ -26,7 +26,7 @@ require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php');
 /**
  * Process a "reset settings" request.
  */
-class RPBChessboardModelResetOptions extends RPBChessboardAbstractModel {
+class RPBChessboardModelPostResetOptions extends RPBChessboardAbstractModel {
 
 	/**
 	 * Reset the general settings.

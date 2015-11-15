@@ -99,19 +99,19 @@ abstract class RPBChessboardAdminPages
 
 
 	/**
-	 * Load the model `$processModelName`, and execute the method `$methodName` supposingly defined by this model.
+	 * Load the model `$postModelName`, and execute the method `$methodName` supposingly defined by this model.
 	 *
 	 * @param object $model
-	 * @param string $processModelName
+	 * @param string $postModelName
 	 * @param string $methodName
 	 * @param string $capability Required capability to execute the action. Default is `'manage_options'`.
 	 */
-	private static function executeAction($model, $processModelName, $methodName, $capability='manage_options') {
+	private static function executeAction($model, $postModelName, $methodName, $capability='manage_options') {
 		if(!current_user_can($capability)) {
 			return;
 		}
 
-		$processModel = RPBChessboardHelperLoader::loadModel($processModelName);
-		$model->setPostMessage($processModel->$methodName());
+		$postModel = RPBChessboardHelperLoader::loadModel('Post/' . $postModelName);
+		$model->setPostMessage($postModel->$methodName());
 	}
 }
