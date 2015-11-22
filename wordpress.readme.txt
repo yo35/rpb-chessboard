@@ -113,6 +113,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 4.2.1 (November 22, 2015) =
+* Fix rendering of NAG $11 (see #51).
+
 = 4.2 (November 15, 2015) =
 * Add move animation and highlighting (see #39).
 * Refactor organization of PHP classes.
