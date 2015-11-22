@@ -460,10 +460,10 @@
 		'??' :  4,             // very bad move
 		'+-' : 18,             // White has a decisive advantage
 		'+/-': 16,             // White has a moderate advantage
-		'+=' : 14, '+/=' : 14, // White has a slight advantage
+		'+/=': 14, '+=' : 14,  // White has a slight advantage
 		'='  : 10,             // equal position
 		'inf': 13,             // unclear position
-		'=+' : 15, '=/+' : 15, // Black has a slight advantage
+		'=/+': 15, '=+' : 15,  // Black has a slight advantage
 		'-/+': 17,             // Black has a moderate advantage
 		'-+' : 19              // Black has a decisive advantage
 	};
