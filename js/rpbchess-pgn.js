@@ -462,7 +462,7 @@
 		'+/-': 16,             // White has a moderate advantage
 		'+/=': 14, '+=' : 14,  // White has a slight advantage
 		'='  : 10,             // equal position
-		'inf': 13,             // unclear position
+		'~'  : 13, 'inf': 13,  // unclear position
 		'=/+': 15, '=+' : 15,  // Black has a slight advantage
 		'-/+': 17,             // Black has a moderate advantage
 		'-+' : 19              // Black has a decisive advantage
@@ -570,7 +570,7 @@
 			}
 
 			// Match a NAG
-			else if(/^(([!\?][!\?]?|\+\/?[\-=]|[\-=]\/?\+|=|inf)|\$([1-9][0-9]*))/.test(s)) {
+			else if(/^(([!\?][!\?]?|\+\/?[\-=]|[\-=]\/?\+|=|inf|~)|\$([1-9][0-9]*))/.test(s)) {
 				deltaPos   = RegExp.$1.length;
 				token      = TOKEN_NAG;
 				tokenValue = RegExp.$3.length === 0 ? SPECIAL_NAGS_LOOKUP[RegExp.$2] : parseInt(RegExp.$3, 10);

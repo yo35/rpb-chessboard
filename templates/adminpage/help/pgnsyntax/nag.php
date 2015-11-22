@@ -27,7 +27,7 @@
 
 		<div class="rpbchessboard-sourceCode">
 			[<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]
-			1.e4 !! ! !? ?! ? ?? +- +/- +/= = inf =/+ -/+ -+ *
+			1.e4 !! ! !? ?! ? ?? +- +/- +/= = ~ =/+ -/+ -+ *
 			[/<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]
 		</div>
 
@@ -40,7 +40,7 @@
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
 						$('#rpbchessboard-pgnNAG-anchor').chessgame({
-							pgn: '1.e4 !! ! !? ?! ? ?? +- +/- +/= = inf =/+ -/+ -+ *'
+							pgn: '1.e4 !! ! !? ?! ? ?? +- +/- +/= = ~ =/+ -/+ -+ *'
 						});
 					});
 				</script>
