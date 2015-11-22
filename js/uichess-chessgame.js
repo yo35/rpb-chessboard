@@ -193,6 +193,7 @@
 		16: '\u00b1',  // White has a moderate advantage
 		14: '\u2a72',  // White has a slight advantage
 		10: '=',       // equal position
+		11: '=',       // equal chances, quiet position
 		13: '\u221e',  // unclear position
 		15: '\u2a71',  // Black has a slight advantage
 		17: '\u2213',  // Black has a moderate advantage
