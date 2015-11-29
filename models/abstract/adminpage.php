@@ -145,7 +145,7 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 			return;
 		}
 
-		// Regular case => use the GET parameter `rpbchessboard_subpage` or the default subpage name
+		// Regular case => use the GET parameter `subpage` or the default subpage name
 		// to determine the currently selected sub-page.
 		if(isset($this->subPages)) {
 			$selectedSubPageFromGET = isset($_GET['subpage']) ? $this->validateSubPageName($_GET['subpage']) : null;
