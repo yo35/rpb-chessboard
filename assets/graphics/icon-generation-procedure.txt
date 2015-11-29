@@ -1,0 +1,7 @@
+
+Icon 128x128
+------------
+1) Size of inner icon: 120x120px (4px space on top/bottom/left/right sides).
+2) Rounded corners: radius 10px.
+3) Drop shadow: x/y-offset 0px, color black, opacity 60%, blur radius 5px.
+
