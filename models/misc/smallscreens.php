@@ -33,6 +33,12 @@ class RPBChessboardModelMiscSmallScreens extends RPBChessboardAbstractModel
 	private static $smallScreenModes;
 
 
+	public function __construct() {
+		parent::__construct();
+		$this->registerDelegatableMethods('getSmallScreenCompatibility', 'getSmallScreenModes');
+	}
+
+
 	/**
 	 * Whether the small-screen compatibility mode is enabled or not.
 	 *
