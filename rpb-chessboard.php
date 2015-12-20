@@ -40,8 +40,9 @@ define('RPBCHESSBOARD_VERSION', '4.2.1');
 load_plugin_textdomain('rpbchessboard', false, basename(dirname(__FILE__)) . '/languages');
 
 
-// MVC loading tools
+// Various tools
 require_once(RPBCHESSBOARD_ABSPATH . 'helpers/loader.php');
+require_once(RPBCHESSBOARD_ABSPATH . 'helpers/cache.php');
 
 
 // JavaScript & CSS

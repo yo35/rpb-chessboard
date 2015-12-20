@@ -27,6 +27,7 @@ SRC_MAIN_FILE         = $(PLUGIN_NAME).php
 SRC_FOLDERS           = css fonts helpers images js languages models templates wp
 THIRD_PARTY_FOLDER    = third-party-libs
 ASSET_FOLDER          = assets
+CACHE_FOLDER          = cache
 WORDPRESS_README_FILE = wordpress.readme.txt
 INFO_FILES            = LICENSE README.md
 
@@ -182,7 +183,7 @@ stats:
 
 # Clean the automatically generated files
 clean:
-	@rm -rf $(TEMPORARY_FOLDER) $(DEPLOYMENT_FILE) $(I18N_MO_FILES) $(JS_MINIFIED_FILES)
+	@rm -rf $(TEMPORARY_FOLDER) $(CACHE_FOLDER) $(DEPLOYMENT_FILE) $(I18N_MO_FILES) $(JS_MINIFIED_FILES)
 
 
 # Make's stuff
