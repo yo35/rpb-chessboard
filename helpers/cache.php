@@ -28,7 +28,7 @@ abstract class RPBChessboardHelperCache {
 	/**
 	 * Return the URL of the given cached file.
 	 *
-	 * @param string $fileName File-name, relative to the cache root.
+	 * @param string $fileName File name, relative to the cache root.
 	 * @return string
 	 */
 	public static function getURL($fileName) {
@@ -39,40 +39,28 @@ abstract class RPBChessboardHelperCache {
 	/**
 	 * Check whether the given file exists in the cache or not.
 	 *
-	 * @param string $fileName File-name, relative to the cache root.
+	 * @param string $fileName File name, relative to the cache root.
 	 * @return boolean
 	 */
 	public static function exists($fileName) {
-		return file_exists(self::getRoot() . $fileName);
+		return file_exists(self::getFullFileName($fileName));
 	}
 
 
 	/**
 	 * Write a file into the cache. Nothing happens if the file already exists.
 	 *
-	 * @param string $fileName File-name, relative to the cache root.
+	 * @param string $fileName File name, relative to the cache root.
 	 * @param string $templateName Template to use to generate the file, if necessary.
 	 * @param string $modelName Model to use to generate the file, if necessary.
 	 */
 	public static function ensureExists($fileName, $templateName, $modelName) {
-		if(!self::exists($fileName)) {
-			self::refresh($fileName, $templateName, $modelName);
-		}
-	}
+		$fullFileName = self::getFullFileName($fileName);
+		if(file_exists($fullFileName)) { return; }
 
-
-	/**
-	 * Write a file into the cache. If the file already exists, it is overwritten.
-	 *
-	 * @param string $fileName File-name, relative to the cache root.
-	 * @param string $templateName Template to use to generate the file, if necessary.
-	 * @param string $modelName Model to use to generate the file, if necessary.
-	 */
-	private static function refresh($fileName, $templateName, $modelName) {
 		$model = RPBChessboardHelperLoader::loadModel($modelName);
 		$text = RPBChessboardHelperLoader::printTemplateOffScreen($templateName, $model);
 
-		$fullFileName = self::getRoot() . $fileName;
 		$dirName = dirname($fullFileName);
 		if(!file_exists($dirName)) {
 			mkdir($dirName, 0777, true);
@@ -84,10 +72,10 @@ abstract class RPBChessboardHelperCache {
 	/**
 	 * Remove the given file from the cache.
 	 *
-	 * @param string $fileName File-name, relative to the cache root.
+	 * @param string $fileName File name, relative to the cache root.
 	 */
 	public static function remove($fileName) {
-		$fullFileName = self::getRoot() . $fileName;
+		$fullFileName = self::getFullFileName($fileName);
 		if(file_exists($fullFileName)) {
 			unlink($fullFileName);
 		}
@@ -95,9 +83,11 @@ abstract class RPBChessboardHelperCache {
 
 
 	/**
-	 * Return the root of the cache directory.
+	 * Return the full-path to a file in the cache directory.
+	 *
+	 * @param string $fileName File name, relative to the cache root.
 	 */
-	private static function getRoot() {
-		return RPBCHESSBOARD_ABSPATH . 'cache/';
+	private static function getFullFileName($fileName) {
+		return RPBCHESSBOARD_ABSPATH . 'cache/' . $fileName;
 	}
 }
