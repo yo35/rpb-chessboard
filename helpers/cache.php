@@ -37,6 +37,17 @@ abstract class RPBChessboardHelperCache {
 
 
 	/**
+	 * Return the version of the given cached file.
+	 *
+	 * @param string $fileName File name, relative to the cache root.
+	 * @return string
+	 */
+	public static function getVersion($fileName) {
+		return get_option('rpbchessboard_cache_' . $fileName, '0');
+	}
+
+
+	/**
 	 * Check whether the given file exists in the cache or not.
 	 *
 	 * @param string $fileName File name, relative to the cache root.
@@ -66,6 +77,7 @@ abstract class RPBChessboardHelperCache {
 			mkdir($dirName, 0777, true);
 		}
 		file_put_contents($fullFileName, $text);
+		update_option('rpbchessboard_cache_' . $fileName, uniqid());
 	}
 
 

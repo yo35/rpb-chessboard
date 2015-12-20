@@ -42,7 +42,7 @@ abstract class RPBChessboardStyleSheets
 
 		// Small-screens
 		RPBChessboardHelperCache::ensureExists('small-screens.css', 'Misc/SmallScreens', 'Misc/SmallScreens');
-		wp_enqueue_style('rpbchessboard-smallscreens' , RPBChessboardHelperCache::getURL('small-screens.css'), false, RPBCHESSBOARD_VERSION);
+		wp_enqueue_style('rpbchessboard-smallscreens' , RPBChessboardHelperCache::getURL('small-screens.css'), false, RPBChessboardHelperCache::getVersion('small-screens.css'));
 
 		// Additional CSS for the backend.
 		if(is_admin()) {
