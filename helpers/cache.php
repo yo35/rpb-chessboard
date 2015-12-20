@@ -73,7 +73,10 @@ abstract class RPBChessboardHelperCache {
 		$text = RPBChessboardHelperLoader::printTemplateOffScreen($templateName, $model);
 
 		$fullFileName = self::getRoot() . $fileName;
-		mkdir(dirname($fullFileName), 0777, true);
+		$dirName = dirname($fullFileName);
+		if(!file_exists($dirName)) {
+			mkdir($dirName, 0777, true);
+		}
 		file_put_contents($fullFileName, $text);
 	}
 
