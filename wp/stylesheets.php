@@ -40,6 +40,10 @@ abstract class RPBChessboardStyleSheets
 		wp_enqueue_style('rpbchessboard-chessboard', RPBCHESSBOARD_URL . 'css/uichess-chessboard.css', false, RPBCHESSBOARD_VERSION);
 		wp_enqueue_style('rpbchessboard-chessgame' , RPBCHESSBOARD_URL . 'css/uichess-chessgame.css' , false, RPBCHESSBOARD_VERSION);
 
+		// Small-screens
+		RPBChessboardHelperCache::ensureExists('small-screens.css', 'Misc/SmallScreens', 'Misc/SmallScreens');
+		wp_enqueue_style('rpbchessboard-smallscreens' , RPBChessboardHelperCache::getURL('small-screens.css'), false, RPBCHESSBOARD_VERSION);
+
 		// Additional CSS for the backend.
 		if(is_admin()) {
 			wp_enqueue_style('rpbchessboard-jquery-ui-smoothness', RPBCHESSBOARD_URL . 'third-party-libs/jquery/jquery-ui.smoothness.min.css', false, '1.11.4');
@@ -49,17 +53,6 @@ abstract class RPBChessboardStyleSheets
 		// Additional CSS for the frontend.
 		else {
 			wp_enqueue_style('rpbchessboard-frontend', RPBCHESSBOARD_URL . 'css/frontend.css', false, RPBCHESSBOARD_VERSION);
-		}
-
-		// Inlined CSS
-		add_action(is_admin() ? 'admin_print_footer_scripts' : 'wp_print_footer_scripts', array(__CLASS__, 'callbackInlinedStyleSheets'));
-	}
-
-
-	public static function callbackInlinedStyleSheets() {
-		$model = RPBChessboardHelperLoader::loadModel('Common/SmallScreensEx');
-		if($model->getSmallScreenCompatibility()) {
-			RPBChessboardHelperLoader::printTemplate('SmallScreens', $model);
 		}
 	}
 }
