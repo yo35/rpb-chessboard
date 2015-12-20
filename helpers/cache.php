@@ -68,7 +68,7 @@ abstract class RPBChessboardHelperCache {
 	 * @param string $templateName Template to use to generate the file, if necessary.
 	 * @param string $modelName Model to use to generate the file, if necessary.
 	 */
-	public static function refresh($fileName, $templateName, $modelName) {
+	private static function refresh($fileName, $templateName, $modelName) {
 		$model = RPBChessboardHelperLoader::loadModel($modelName);
 		$text = RPBChessboardHelperLoader::printTemplateOffScreen($templateName, $model);
 
@@ -78,6 +78,19 @@ abstract class RPBChessboardHelperCache {
 			mkdir($dirName, 0777, true);
 		}
 		file_put_contents($fullFileName, $text);
+	}
+
+
+	/**
+	 * Remove the given file from the cache.
+	 *
+	 * @param string $fileName File-name, relative to the cache root.
+	 */
+	public static function remove($fileName) {
+		$fullFileName = self::getRoot() . $fileName;
+		if(file_exists($fullFileName)) {
+			unlink($fullFileName);
+		}
 	}
 
 
