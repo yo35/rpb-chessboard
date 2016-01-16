@@ -114,38 +114,6 @@
 	box-shadow: 0 0 7px 3px #ffb000 inset;
 }
 
-.uichess-chessboard-lightSquare {
-	background-color: #f0dec7;
-}
-
-.uichess-chessboard-darkSquare {
-	background-color: #b5876b;
-}
-
-.uichess-chessboard-lightSquare.uichess-chessboard-squareMarker.uichess-chessboard-markerColor-G {
-	background-color: #60f250;
-}
-
-.uichess-chessboard-darkSquare.uichess-chessboard-squareMarker.uichess-chessboard-markerColor-G {
-	background-color: #48cf2b;
-}
-
-.uichess-chessboard-lightSquare.uichess-chessboard-squareMarker.uichess-chessboard-markerColor-R {
-	background-color: #f95950;
-}
-
-.uichess-chessboard-darkSquare.uichess-chessboard-squareMarker.uichess-chessboard-markerColor-R {
-	background-color: #e1362b;
-}
-
-.uichess-chessboard-lightSquare.uichess-chessboard-squareMarker.uichess-chessboard-markerColor-Y {
-	background-color: #f9f250;
-}
-
-.uichess-chessboard-darkSquare.uichess-chessboard-squareMarker.uichess-chessboard-markerColor-Y {
-	background-color: #e1cf2b;
-}
-
 .uichess-chessboard-arrowMarker {
 	stroke-width: 0.15;
 	stroke-linecap: round;
@@ -160,6 +128,13 @@
 #uichess-chessboard-arrowMarkerEnd-R { fill: #f20; }
 #uichess-chessboard-arrowMarkerEnd-Y { fill: #db0; }
 #uichess-chessboard-arrowMarkerEnd-B { fill: #04f; }
+
+.uichess-chessboard-squareMarker.uichess-chessboard-markerColor-G.uichess-chessboard-lightSquare { background-color: #60f250; }
+.uichess-chessboard-squareMarker.uichess-chessboard-markerColor-G.uichess-chessboard-darkSquare  { background-color: #48cf2b; }
+.uichess-chessboard-squareMarker.uichess-chessboard-markerColor-R.uichess-chessboard-lightSquare { background-color: #f95950; }
+.uichess-chessboard-squareMarker.uichess-chessboard-markerColor-R.uichess-chessboard-darkSquare  { background-color: #e1362b; }
+.uichess-chessboard-squareMarker.uichess-chessboard-markerColor-Y.uichess-chessboard-lightSquare { background-color: #f9f250; }
+.uichess-chessboard-squareMarker.uichess-chessboard-markerColor-Y.uichess-chessboard-darkSquare  { background-color: #e1cf2b; }
 
 .uichess-chessboard-size12 .uichess-chessboard-sized { min-width: 12px; width: 12px; height: 12px; background-position:  -850px -53px; }
 .uichess-chessboard-size13 .uichess-chessboard-sized { min-width: 13px; width: 13px; height: 13px; background-position:  -798px -52px; }
@@ -268,6 +243,15 @@
 .uichess-chessboard-size62 .uichess-chessboard-annotations { width: 496px; height: 496px; right: 70px; }
 .uichess-chessboard-size63 .uichess-chessboard-annotations { width: 504px; height: 504px; right: 71px; }
 .uichess-chessboard-size64 .uichess-chessboard-annotations { width: 512px; height: 512px; right: 72px; }
+
+
+
+/* -------------------------------------------------------------------------- */
+/* Themes */
+/* -------------------------------------------------------------------------- */
+
+.uichess-chessboard-lightSquare { background-color: #f0dec7; }
+.uichess-chessboard-darkSquare  { background-color: #b5876b; }
 
 .uichess-chessboard-color-b.uichess-chessboard-piece-b { background-image: url(sprite/bb.png); }
 .uichess-chessboard-color-b.uichess-chessboard-piece-k { background-image: url(sprite/bk.png); }
