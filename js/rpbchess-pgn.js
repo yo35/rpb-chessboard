@@ -111,7 +111,7 @@
 
 		// Regular move.
 		else {
-			var moveDescriptor = parent.position().notation(move);
+			var moveDescriptor = this._position.notation(move);
 			this._notation = this._position.notation(moveDescriptor);
 			this._position.play(moveDescriptor);
 		}
