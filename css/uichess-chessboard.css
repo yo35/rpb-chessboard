@@ -253,6 +253,12 @@
 .uichess-chessboard-lightSquare { background-color: #f0dec7; }
 .uichess-chessboard-darkSquare  { background-color: #b5876b; }
 
+.uichess-chessboard-colorset-wikipedia .uichess-chessboard-lightSquare { background-color: #ffce9e; }
+.uichess-chessboard-colorset-wikipedia .uichess-chessboard-darkSquare  { background-color: #d18b47; }
+
+.uichess-chessboard-colorset-gray .uichess-chessboard-lightSquare { background-color: #f8f8f8; }
+.uichess-chessboard-colorset-gray .uichess-chessboard-darkSquare  { background-color: #bbbbbb; }
+
 .uichess-chessboard-color-b.uichess-chessboard-piece-b { background-image: url(sprite/bb.png); }
 .uichess-chessboard-color-b.uichess-chessboard-piece-k { background-image: url(sprite/bk.png); }
 .uichess-chessboard-color-b.uichess-chessboard-piece-n { background-image: url(sprite/bn.png); }
