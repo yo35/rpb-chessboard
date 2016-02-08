@@ -172,6 +172,20 @@
 
 
 	/**
+	 * Ensure that the given argument is a valid piece-set or color-set code.
+	 */
+	function filterSetCode(code) {
+		if(typeof code === 'string') {
+			code = code.toLowerCase();
+			if(/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(code)) {
+				return code;
+			}
+		}
+		return '';
+	}
+
+
+	/**
 	 * Ensure that the given string is a valid value for the `interactionMode` option.
 	 *
 	 * @param {string} interactionMode
@@ -304,6 +318,9 @@
 		var globalClazz = 'uichess-chessboard-table uichess-chessboard-size' + widget.options.squareSize;
 		if(!widget.options.showCoordinates) {
 			globalClazz += ' uichess-chessboard-hideCoordinates';
+		}
+		if(widget.options.colorset !== '') {
+			globalClazz += ' uichess-chessboard-colorset-' + widget.options.colorset;
 		}
 		var res = '<div class="' + globalClazz + '">';
 
@@ -1104,7 +1121,12 @@
 			 * * 'addSquareMarkers-[color]': add square marker annotations on the board.
 			 * * 'addArrowMarkers-[color]': add arrow marker annotations on the board.
 			 */
-			interactionMode: 'none'
+			interactionMode: 'none',
+
+			/**
+			 * Colorset to use for the squares.
+			 */
+			colorset: ''
 		},
 
 
@@ -1143,6 +1165,7 @@
 			this.options.flip            = filterBoolean(this.options.flip           , false);
 			this.options.showCoordinates = filterBoolean(this.options.showCoordinates, true );
 			this.options.showMoveArrow   = filterBoolean(this.options.showMoveArrow  , false);
+			this.options.colorset = filterSetCode(this.options.colorset);
 			refresh(this);
 		},
 
@@ -1171,6 +1194,7 @@
 				case 'flip'           : value = filterBoolean(value, false); break;
 				case 'showCoordinates': value = filterBoolean(value, true ); break;
 				case 'showMoveArrow'  : value = filterBoolean(value, false); break;
+				case 'colorset': value = filterSetCode(value); break;
 			}
 
 			// Set the new value.
@@ -1190,6 +1214,7 @@
 				case 'showCoordinates': onShowCoordinatesChanged(this); break;
 				case 'animationSpeed': break;
 				case 'showMoveArrow' : break;
+				case 'colorset': // TODO
 				default: refresh(this); break;
 			}
 		},
