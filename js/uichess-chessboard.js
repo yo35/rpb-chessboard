@@ -322,6 +322,9 @@
 		if(widget.options.colorset !== '') {
 			globalClazz += ' uichess-chessboard-colorset-' + widget.options.colorset;
 		}
+		if(widget.options.pieceset !== '') {
+			globalClazz += ' uichess-chessboard-pieceset-' + widget.options.pieceset;
+		}
 		var res = '<div class="' + globalClazz + '">';
 
 		// For each row...
@@ -1126,7 +1129,12 @@
 			/**
 			 * Colorset to use for the squares.
 			 */
-			colorset: ''
+			colorset: '',
+
+			/**
+			 * Pieceset to use to represent chess pieces.
+			 */
+			pieceset: ''
 		},
 
 
@@ -1166,6 +1174,7 @@
 			this.options.showCoordinates = filterBoolean(this.options.showCoordinates, true );
 			this.options.showMoveArrow   = filterBoolean(this.options.showMoveArrow  , false);
 			this.options.colorset = filterSetCode(this.options.colorset);
+			this.options.pieceset = filterSetCode(this.options.pieceset);
 			refresh(this);
 		},
 
@@ -1195,6 +1204,7 @@
 				case 'showCoordinates': value = filterBoolean(value, true ); break;
 				case 'showMoveArrow'  : value = filterBoolean(value, false); break;
 				case 'colorset': value = filterSetCode(value); break;
+				case 'pieceset': value = filterSetCode(value); break;
 			}
 
 			// Set the new value.
@@ -1214,7 +1224,6 @@
 				case 'showCoordinates': onShowCoordinatesChanged(this); break;
 				case 'animationSpeed': break;
 				case 'showMoveArrow' : break;
-				case 'colorset': // TODO
 				default: refresh(this); break;
 			}
 		},
