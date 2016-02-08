@@ -49,6 +49,14 @@
 					<input id="showCoordinates" type="checkbox" />
 					<label for="showCoordinates">Show coordinates</label>
 				</p>
+				<p>
+					<label for="colorset">Colorset</label>
+					<select id="colorset">
+						<option value="">Default</option>
+						<option value="wikipedia">Wikipedia</option>
+						<option value="gray">Gray</option>
+					</select>
+				</p>
 			</form>
 		</div>
 		<div style="width: 70%; background: #e0ffe0;">
@@ -113,6 +121,11 @@
 
 		$('#showCoordinates').prop('checked', $('#a').chessboard('option', 'showCoordinates')).change(function() {
 			$('#a').chessboard('option', 'showCoordinates', $('#showCoordinates').prop('checked'));
+		});
+
+		$('#colorset option[value="' + $('#a').chessboard('option', 'colorset') + '"]').prop('selected', 'selected');
+		$('#colorset').change(function() {
+			$('#a').chessboard('option', 'colorset', $('#colorset').val());
 		});
 
 	</script>
