@@ -259,6 +259,11 @@
 .uichess-chessboard-colorset-gray .uichess-chessboard-lightSquare { background-color: #f8f8f8; }
 .uichess-chessboard-colorset-gray .uichess-chessboard-darkSquare  { background-color: #bbbbbb; }
 
+/**
+ * Source: https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces
+ * Authors: Cburnett <https://commons.wikimedia.org/wiki/User:Cburnett>, Antonsusi <https://commons.wikimedia.org/wiki/User:Antonsusi>
+ * License: Creative Commons Attribution ShareAlike [CC-BY-SA]
+ */
 .uichess-chessboard-color-b.uichess-chessboard-piece-b { background-image: url(sprite/bb.png); }
 .uichess-chessboard-color-b.uichess-chessboard-piece-k { background-image: url(sprite/bk.png); }
 .uichess-chessboard-color-b.uichess-chessboard-piece-n { background-image: url(sprite/bn.png); }
