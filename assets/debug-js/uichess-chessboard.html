@@ -57,6 +57,18 @@
 						<option value="gray">Gray</option>
 					</select>
 				</p>
+				<p>
+					<label for="pieceset">Colorset</label>
+					<select id="pieceset">
+						<option value="">CBurnett</option>
+						<option value="celtic">Celtic</option>
+						<option value="eyes">Eyes</option>
+						<option value="fantasy">Fantasy</option>
+						<option value="freak">Freak</option>
+						<option value="skulls">Skulls</option>
+						<option value="spatial">Spatial</option>
+					</select>
+				</p>
 			</form>
 		</div>
 		<div style="width: 70%; background: #e0ffe0;">
@@ -126,6 +138,11 @@
 		$('#colorset option[value="' + $('#a').chessboard('option', 'colorset') + '"]').prop('selected', 'selected');
 		$('#colorset').change(function() {
 			$('#a').chessboard('option', 'colorset', $('#colorset').val());
+		});
+
+		$('#pieceset option[value="' + $('#a').chessboard('option', 'pieceset') + '"]').prop('selected', 'selected');
+		$('#pieceset').change(function() {
+			$('#a').chessboard('option', 'pieceset', $('#pieceset').val());
 		});
 
 	</script>

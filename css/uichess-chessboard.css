@@ -264,18 +264,96 @@
  * Authors: Cburnett <https://commons.wikimedia.org/wiki/User:Cburnett>, Antonsusi <https://commons.wikimedia.org/wiki/User:Antonsusi>
  * License: Creative Commons Attribution ShareAlike [CC-BY-SA]
  */
-.uichess-chessboard-color-b.uichess-chessboard-piece-b { background-image: url(sprite/bb.png); }
-.uichess-chessboard-color-b.uichess-chessboard-piece-k { background-image: url(sprite/bk.png); }
-.uichess-chessboard-color-b.uichess-chessboard-piece-n { background-image: url(sprite/bn.png); }
-.uichess-chessboard-color-b.uichess-chessboard-piece-p { background-image: url(sprite/bp.png); }
-.uichess-chessboard-color-b.uichess-chessboard-piece-q { background-image: url(sprite/bq.png); }
-.uichess-chessboard-color-b.uichess-chessboard-piece-r { background-image: url(sprite/br.png); }
-.uichess-chessboard-color-w.uichess-chessboard-piece-b { background-image: url(sprite/wb.png); }
-.uichess-chessboard-color-w.uichess-chessboard-piece-k { background-image: url(sprite/wk.png); }
-.uichess-chessboard-color-w.uichess-chessboard-piece-n { background-image: url(sprite/wn.png); }
-.uichess-chessboard-color-w.uichess-chessboard-piece-p { background-image: url(sprite/wp.png); }
-.uichess-chessboard-color-w.uichess-chessboard-piece-q { background-image: url(sprite/wq.png); }
-.uichess-chessboard-color-w.uichess-chessboard-piece-r { background-image: url(sprite/wr.png); }
+.uichess-chessboard-color-b.uichess-chessboard-piece-b { background-image: url(sprite/cburnett-bb.png); }
+.uichess-chessboard-color-b.uichess-chessboard-piece-k { background-image: url(sprite/cburnett-bk.png); }
+.uichess-chessboard-color-b.uichess-chessboard-piece-n { background-image: url(sprite/cburnett-bn.png); }
+.uichess-chessboard-color-b.uichess-chessboard-piece-p { background-image: url(sprite/cburnett-bp.png); }
+.uichess-chessboard-color-b.uichess-chessboard-piece-q { background-image: url(sprite/cburnett-bq.png); }
+.uichess-chessboard-color-b.uichess-chessboard-piece-r { background-image: url(sprite/cburnett-br.png); }
+.uichess-chessboard-color-w.uichess-chessboard-piece-b { background-image: url(sprite/cburnett-wb.png); }
+.uichess-chessboard-color-w.uichess-chessboard-piece-k { background-image: url(sprite/cburnett-wk.png); }
+.uichess-chessboard-color-w.uichess-chessboard-piece-n { background-image: url(sprite/cburnett-wn.png); }
+.uichess-chessboard-color-w.uichess-chessboard-piece-p { background-image: url(sprite/cburnett-wp.png); }
+.uichess-chessboard-color-w.uichess-chessboard-piece-q { background-image: url(sprite/cburnett-wq.png); }
+.uichess-chessboard-color-w.uichess-chessboard-piece-r { background-image: url(sprite/cburnett-wr.png); }
 
-.uichess-chessboard-color-b.uichess-chessboard-turnFlag { background-image: url(sprite/bx.png); }
-.uichess-chessboard-color-w.uichess-chessboard-turnFlag { background-image: url(sprite/wx.png); }
+/**
+ * Source: http://poisson.phc.unipi.it/~monge/chess_art.php
+ * Author: Maurizio Monge <http://poisson.phc.unipi.it/~monge/>
+ * License: ?? (give credit to the author and notify him by mail when using his work in a chess program)
+ */
+.uichess-chessboard-pieceset-celtic .uichess-chessboard-color-b.uichess-chessboard-piece-b { background-image: url(sprite/celtic-bb.png); }
+.uichess-chessboard-pieceset-celtic .uichess-chessboard-color-b.uichess-chessboard-piece-k { background-image: url(sprite/celtic-bk.png); }
+.uichess-chessboard-pieceset-celtic .uichess-chessboard-color-b.uichess-chessboard-piece-n { background-image: url(sprite/celtic-bn.png); }
+.uichess-chessboard-pieceset-celtic .uichess-chessboard-color-b.uichess-chessboard-piece-p { background-image: url(sprite/celtic-bp.png); }
+.uichess-chessboard-pieceset-celtic .uichess-chessboard-color-b.uichess-chessboard-piece-q { background-image: url(sprite/celtic-bq.png); }
+.uichess-chessboard-pieceset-celtic .uichess-chessboard-color-b.uichess-chessboard-piece-r { background-image: url(sprite/celtic-br.png); }
+.uichess-chessboard-pieceset-celtic .uichess-chessboard-color-w.uichess-chessboard-piece-b { background-image: url(sprite/celtic-wb.png); }
+.uichess-chessboard-pieceset-celtic .uichess-chessboard-color-w.uichess-chessboard-piece-k { background-image: url(sprite/celtic-wk.png); }
+.uichess-chessboard-pieceset-celtic .uichess-chessboard-color-w.uichess-chessboard-piece-n { background-image: url(sprite/celtic-wn.png); }
+.uichess-chessboard-pieceset-celtic .uichess-chessboard-color-w.uichess-chessboard-piece-p { background-image: url(sprite/celtic-wp.png); }
+.uichess-chessboard-pieceset-celtic .uichess-chessboard-color-w.uichess-chessboard-piece-q { background-image: url(sprite/celtic-wq.png); }
+.uichess-chessboard-pieceset-celtic .uichess-chessboard-color-w.uichess-chessboard-piece-r { background-image: url(sprite/celtic-wr.png); }
+.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-b.uichess-chessboard-piece-b { background-image: url(sprite/eyes-bb.png); }
+.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-b.uichess-chessboard-piece-k { background-image: url(sprite/eyes-bk.png); }
+.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-b.uichess-chessboard-piece-n { background-image: url(sprite/eyes-bn.png); }
+.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-b.uichess-chessboard-piece-p { background-image: url(sprite/eyes-bp.png); }
+.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-b.uichess-chessboard-piece-q { background-image: url(sprite/eyes-bq.png); }
+.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-b.uichess-chessboard-piece-r { background-image: url(sprite/eyes-br.png); }
+.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-w.uichess-chessboard-piece-b { background-image: url(sprite/eyes-wb.png); }
+.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-w.uichess-chessboard-piece-k { background-image: url(sprite/eyes-wk.png); }
+.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-w.uichess-chessboard-piece-n { background-image: url(sprite/eyes-wn.png); }
+.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-w.uichess-chessboard-piece-p { background-image: url(sprite/eyes-wp.png); }
+.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-w.uichess-chessboard-piece-q { background-image: url(sprite/eyes-wq.png); }
+.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-w.uichess-chessboard-piece-r { background-image: url(sprite/eyes-wr.png); }
+.uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-b.uichess-chessboard-piece-b { background-image: url(sprite/fantasy-bb.png); }
+.uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-b.uichess-chessboard-piece-k { background-image: url(sprite/fantasy-bk.png); }
+.uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-b.uichess-chessboard-piece-n { background-image: url(sprite/fantasy-bn.png); }
+.uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-b.uichess-chessboard-piece-p { background-image: url(sprite/fantasy-bp.png); }
+.uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-b.uichess-chessboard-piece-q { background-image: url(sprite/fantasy-bq.png); }
+.uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-b.uichess-chessboard-piece-r { background-image: url(sprite/fantasy-br.png); }
+.uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-w.uichess-chessboard-piece-b { background-image: url(sprite/fantasy-wb.png); }
+.uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-w.uichess-chessboard-piece-k { background-image: url(sprite/fantasy-wk.png); }
+.uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-w.uichess-chessboard-piece-n { background-image: url(sprite/fantasy-wn.png); }
+.uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-w.uichess-chessboard-piece-p { background-image: url(sprite/fantasy-wp.png); }
+.uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-w.uichess-chessboard-piece-q { background-image: url(sprite/fantasy-wq.png); }
+.uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-w.uichess-chessboard-piece-r { background-image: url(sprite/fantasy-wr.png); }
+.uichess-chessboard-pieceset-freak .uichess-chessboard-color-b.uichess-chessboard-piece-b { background-image: url(sprite/freak-bb.png); }
+.uichess-chessboard-pieceset-freak .uichess-chessboard-color-b.uichess-chessboard-piece-k { background-image: url(sprite/freak-bk.png); }
+.uichess-chessboard-pieceset-freak .uichess-chessboard-color-b.uichess-chessboard-piece-n { background-image: url(sprite/freak-bn.png); }
+.uichess-chessboard-pieceset-freak .uichess-chessboard-color-b.uichess-chessboard-piece-p { background-image: url(sprite/freak-bp.png); }
+.uichess-chessboard-pieceset-freak .uichess-chessboard-color-b.uichess-chessboard-piece-q { background-image: url(sprite/freak-bq.png); }
+.uichess-chessboard-pieceset-freak .uichess-chessboard-color-b.uichess-chessboard-piece-r { background-image: url(sprite/freak-br.png); }
+.uichess-chessboard-pieceset-freak .uichess-chessboard-color-w.uichess-chessboard-piece-b { background-image: url(sprite/freak-wb.png); }
+.uichess-chessboard-pieceset-freak .uichess-chessboard-color-w.uichess-chessboard-piece-k { background-image: url(sprite/freak-wk.png); }
+.uichess-chessboard-pieceset-freak .uichess-chessboard-color-w.uichess-chessboard-piece-n { background-image: url(sprite/freak-wn.png); }
+.uichess-chessboard-pieceset-freak .uichess-chessboard-color-w.uichess-chessboard-piece-p { background-image: url(sprite/freak-wp.png); }
+.uichess-chessboard-pieceset-freak .uichess-chessboard-color-w.uichess-chessboard-piece-q { background-image: url(sprite/freak-wq.png); }
+.uichess-chessboard-pieceset-freak .uichess-chessboard-color-w.uichess-chessboard-piece-r { background-image: url(sprite/freak-wr.png); }
+.uichess-chessboard-pieceset-skulls .uichess-chessboard-color-b.uichess-chessboard-piece-b { background-image: url(sprite/skulls-bb.png); }
+.uichess-chessboard-pieceset-skulls .uichess-chessboard-color-b.uichess-chessboard-piece-k { background-image: url(sprite/skulls-bk.png); }
+.uichess-chessboard-pieceset-skulls .uichess-chessboard-color-b.uichess-chessboard-piece-n { background-image: url(sprite/skulls-bn.png); }
+.uichess-chessboard-pieceset-skulls .uichess-chessboard-color-b.uichess-chessboard-piece-p { background-image: url(sprite/skulls-bp.png); }
+.uichess-chessboard-pieceset-skulls .uichess-chessboard-color-b.uichess-chessboard-piece-q { background-image: url(sprite/skulls-bq.png); }
+.uichess-chessboard-pieceset-skulls .uichess-chessboard-color-b.uichess-chessboard-piece-r { background-image: url(sprite/skulls-br.png); }
+.uichess-chessboard-pieceset-skulls .uichess-chessboard-color-w.uichess-chessboard-piece-b { background-image: url(sprite/skulls-wb.png); }
+.uichess-chessboard-pieceset-skulls .uichess-chessboard-color-w.uichess-chessboard-piece-k { background-image: url(sprite/skulls-wk.png); }
+.uichess-chessboard-pieceset-skulls .uichess-chessboard-color-w.uichess-chessboard-piece-n { background-image: url(sprite/skulls-wn.png); }
+.uichess-chessboard-pieceset-skulls .uichess-chessboard-color-w.uichess-chessboard-piece-p { background-image: url(sprite/skulls-wp.png); }
+.uichess-chessboard-pieceset-skulls .uichess-chessboard-color-w.uichess-chessboard-piece-q { background-image: url(sprite/skulls-wq.png); }
+.uichess-chessboard-pieceset-skulls .uichess-chessboard-color-w.uichess-chessboard-piece-r { background-image: url(sprite/skulls-wr.png); }
+.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-b.uichess-chessboard-piece-b { background-image: url(sprite/spatial-bb.png); }
+.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-b.uichess-chessboard-piece-k { background-image: url(sprite/spatial-bk.png); }
+.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-b.uichess-chessboard-piece-n { background-image: url(sprite/spatial-bn.png); }
+.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-b.uichess-chessboard-piece-p { background-image: url(sprite/spatial-bp.png); }
+.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-b.uichess-chessboard-piece-q { background-image: url(sprite/spatial-bq.png); }
+.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-b.uichess-chessboard-piece-r { background-image: url(sprite/spatial-br.png); }
+.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-w.uichess-chessboard-piece-b { background-image: url(sprite/spatial-wb.png); }
+.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-w.uichess-chessboard-piece-k { background-image: url(sprite/spatial-wk.png); }
+.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-w.uichess-chessboard-piece-n { background-image: url(sprite/spatial-wn.png); }
+.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-w.uichess-chessboard-piece-p { background-image: url(sprite/spatial-wp.png); }
+.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-w.uichess-chessboard-piece-q { background-image: url(sprite/spatial-wq.png); }
+.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-w.uichess-chessboard-piece-r { background-image: url(sprite/spatial-wr.png); }
+
+.uichess-chessboard-color-b.uichess-chessboard-turnFlag { background-image: url(sprite/cburnett-bx.png); }
+.uichess-chessboard-color-w.uichess-chessboard-turnFlag { background-image: url(sprite/cburnett-wx.png); }
