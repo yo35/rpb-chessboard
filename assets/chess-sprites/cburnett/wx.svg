@@ -11,8 +11,8 @@
    width="45"
    height="45"
    id="svg3128"
-   inkscape:version="0.48.3.1 r9886"
-   sodipodi:docname="white.svg">
+   inkscape:version="0.91 r"
+   sodipodi:docname="wx.svg">
   <metadata
      id="metadata14">
     <rdf:RDF>
@@ -35,26 +35,22 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="1680"
-     inkscape:window-height="977"
+     inkscape:window-height="973"
      id="namedview12"
      showgrid="false"
      inkscape:zoom="10.488889"
-     inkscape:cx="-3.0851311"
-     inkscape:cy="26.428038"
+     inkscape:cx="5.7480884"
+     inkscape:cy="26.23736"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg3128" />
   <defs
      id="defs3130" />
-  <path
-     sodipodi:type="arc"
-     style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.49448287;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+  <circle
+     style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
      id="path2991"
-     sodipodi:cx="39.565678"
-     sodipodi:cy="4.2425847"
-     sodipodi:rx="15.826271"
-     sodipodi:ry="11.011653"
-     d="m 55.391949,4.2425847 a 15.826271,11.011653 0 1 1 -31.652542,0 15.826271,11.011653 0 1 1 31.652542,0 z"
-     transform="matrix(0.83721553,0,0,1.2032708,-10.625,17.395022)" />
+     cx="22.5"
+     cy="22.5"
+     r="13.25" />
 </svg>
