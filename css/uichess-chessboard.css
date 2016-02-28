@@ -253,11 +253,14 @@
 .uichess-chessboard-lightSquare { background-color: #f0dec7; }
 .uichess-chessboard-darkSquare  { background-color: #b5876b; }
 
-.uichess-chessboard-colorset-wikipedia .uichess-chessboard-lightSquare { background-color: #ffce9e; }
-.uichess-chessboard-colorset-wikipedia .uichess-chessboard-darkSquare  { background-color: #d18b47; }
-
 .uichess-chessboard-colorset-gray .uichess-chessboard-lightSquare { background-color: #f8f8f8; }
 .uichess-chessboard-colorset-gray .uichess-chessboard-darkSquare  { background-color: #bbbbbb; }
+.uichess-chessboard-colorset-scid .uichess-chessboard-lightSquare { background-color: #f3f3f3; }
+.uichess-chessboard-colorset-scid .uichess-chessboard-darkSquare  { background-color: #7389b6; }
+.uichess-chessboard-colorset-wikipedia .uichess-chessboard-lightSquare { background-color: #ffce9e; }
+.uichess-chessboard-colorset-wikipedia .uichess-chessboard-darkSquare  { background-color: #d18b47; }
+.uichess-chessboard-colorset-xboard .uichess-chessboard-lightSquare { background-color: #c8c365; }
+.uichess-chessboard-colorset-xboard .uichess-chessboard-darkSquare  { background-color: #77a26d; }
 
 /**
  * Source: https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces
