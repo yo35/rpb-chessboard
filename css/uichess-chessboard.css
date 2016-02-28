@@ -263,6 +263,23 @@
 .uichess-chessboard-colorset-xboard .uichess-chessboard-darkSquare  { background-color: #77a26d; }
 
 /**
+ * Source: http://omgchess.blogspot.fr/2015/09/chess-board-color-schemes.html
+ * Author: Gorgonian <http://omgchess.blogspot.fr/>
+ */
+.uichess-chessboard-colorset-coral .uichess-chessboard-lightSquare { background-color: rgb(177,228,185); }
+.uichess-chessboard-colorset-coral .uichess-chessboard-darkSquare  { background-color: rgb(112,162,163); }
+.uichess-chessboard-colorset-dusk .uichess-chessboard-lightSquare { background-color: rgb(204,183,174); }
+.uichess-chessboard-colorset-dusk .uichess-chessboard-darkSquare  { background-color: rgb(112,102,119); }
+.uichess-chessboard-colorset-emerald .uichess-chessboard-lightSquare { background-color: rgb(173,189,143); }
+.uichess-chessboard-colorset-emerald .uichess-chessboard-darkSquare  { background-color: rgb(111,143,114); }
+.uichess-chessboard-colorset-marine .uichess-chessboard-lightSquare { background-color: rgb(157,172,255); }
+.uichess-chessboard-colorset-marine .uichess-chessboard-darkSquare  { background-color: rgb(111,115,210); }
+.uichess-chessboard-colorset-sandcastle .uichess-chessboard-lightSquare { background-color: rgb(227,193,111); }
+.uichess-chessboard-colorset-sandcastle .uichess-chessboard-darkSquare  { background-color: rgb(184,139,74); }
+.uichess-chessboard-colorset-wheat .uichess-chessboard-lightSquare { background-color: rgb(187,190,100); }
+.uichess-chessboard-colorset-wheat .uichess-chessboard-darkSquare  { background-color: rgb(234,240,206); }
+
+/**
  * Source: https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces
  * Authors: Cburnett <https://commons.wikimedia.org/wiki/User:Cburnett>, Antonsusi <https://commons.wikimedia.org/wiki/User:Antonsusi>
  * License: Creative Commons Attribution ShareAlike [CC-BY-SA]
