@@ -95,7 +95,7 @@ function export_cburnett {
 
 	echo_pieceset "cburnett"
 
-	codes="bb bk bn bp bq br bx wb wk wn wp wq wr wx"
+	codes=$1
 	for code in $codes; do
 
 		echo_sprite $code
@@ -125,8 +125,8 @@ function export_cburnett {
 
 function export_mmonge {
 
-	codes="bb bk bn bp bq br bx wb wk wn wp wq wr wx"
-	piecesets="celtic eyes fantasy skulls spatial"
+	codes=$1
+	piecesets=$2
 
 	for pieceset in $piecesets; do
 
@@ -186,5 +186,5 @@ function export_mmonge {
 # RUN THE EXPORTS
 ################################################################################
 
-export_cburnett
-export_mmonge
+export_cburnett "bb bk bn bp bq br bx wb wk wn wp wq wr wx"
+export_mmonge "bb bk bn bp bq br bx wb wk wn wp wq wr wx" "celtic eyes fantasy skulls spatial"
