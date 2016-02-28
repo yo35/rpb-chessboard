@@ -187,4 +187,5 @@ function export_mmonge {
 ################################################################################
 
 export_cburnett "bb bk bn bp bq br bx wb wk wn wp wq wr wx"
-export_mmonge "bb bk bn bp bq br bx wb wk wn wp wq wr wx" "celtic eyes fantasy skulls spatial"
+export_mmonge "bb bk bn bp bq br wb wk wn wp wq wr" "celtic eyes fantasy skulls spatial"
+export_mmonge "bx wx" "celtic eyes-spatial fantasy skulls"

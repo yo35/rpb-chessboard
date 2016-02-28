@@ -367,11 +367,11 @@
 .uichess-chessboard-color-w.uichess-chessboard-turnFlag { background-image: url(sprite/cburnett-wx.png); }
 .uichess-chessboard-pieceset-celtic .uichess-chessboard-color-b.uichess-chessboard-turnFlag { background-image: url(sprite/celtic-bx.png); }
 .uichess-chessboard-pieceset-celtic .uichess-chessboard-color-w.uichess-chessboard-turnFlag { background-image: url(sprite/celtic-wx.png); }
-.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-b.uichess-chessboard-turnFlag { background-image: url(sprite/eyes-bx.png); }
-.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-w.uichess-chessboard-turnFlag { background-image: url(sprite/eyes-wx.png); }
 .uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-b.uichess-chessboard-turnFlag { background-image: url(sprite/fantasy-bx.png); }
 .uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-w.uichess-chessboard-turnFlag { background-image: url(sprite/fantasy-wx.png); }
 .uichess-chessboard-pieceset-skulls .uichess-chessboard-color-b.uichess-chessboard-turnFlag { background-image: url(sprite/skulls-bx.png); }
 .uichess-chessboard-pieceset-skulls .uichess-chessboard-color-w.uichess-chessboard-turnFlag { background-image: url(sprite/skulls-wx.png); }
-.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-b.uichess-chessboard-turnFlag { background-image: url(sprite/spatial-bx.png); }
-.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-w.uichess-chessboard-turnFlag { background-image: url(sprite/spatial-wx.png); }
+.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-b.uichess-chessboard-turnFlag,
+.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-b.uichess-chessboard-turnFlag { background-image: url(sprite/eyes-spatial-bx.png); }
+.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-w.uichess-chessboard-turnFlag,
+.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-w.uichess-chessboard-turnFlag { background-image: url(sprite/eyes-spatial-wx.png); }

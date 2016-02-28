@@ -35,15 +35,15 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1680"
-     inkscape:window-height="973"
+     inkscape:window-width="1280"
+     inkscape:window-height="997"
      id="namedview12"
      showgrid="false"
      inkscape:zoom="1.8541912"
-     inkscape:cx="-14.134176"
-     inkscape:cy="167.38283"
-     inkscape:window-x="0"
-     inkscape:window-y="25"
+     inkscape:cx="29.606388"
+     inkscape:cy="12.455128"
+     inkscape:window-x="1680"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg3128" />
   <defs
@@ -71,6 +71,16 @@
          id="stop7937" />
     </linearGradient>
     <linearGradient
+       gradientTransform="matrix(0.35702699,0,0,0.39669667,-171.34052,-48.100103)"
+       inkscape:collect="always"
+       xlink:href="#linearGradientWhitePieces-1"
+       id="linearGradient5543"
+       gradientUnits="userSpaceOnUse"
+       x1="559.771"
+       y1="313.20999"
+       x2="911.98419"
+       y2="460.03769" />
+    <linearGradient
        id="linearGradientWhitePieces-1">
       <stop
          id="stop7929-3"
@@ -82,31 +92,20 @@
          style="stop-color:#8a6737;stop-opacity:1;" />
     </linearGradient>
     <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradientWhitePieces-1"
-       id="linearGradient4168"
-       x1="-47.81358"
-       y1="20.86828"
-       x2="14.192543"
-       y2="53.368729"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(2.0530792,0,0,1.8143492,125.83748,38.112235)" />
-    <linearGradient
+       gradientTransform="matrix(0.35702699,0,0,0.39669667,-171.34052,-48.100103)"
        inkscape:collect="always"
        xlink:href="#linearGradientWhitePiecesBorder"
-       id="linearGradient4176"
-       x1="-47.81358"
-       y1="20.86828"
-       x2="14.192543"
-       y2="53.368729"
+       id="linearGradient5545"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(2.0530792,0,0,1.8143492,125.83748,38.112235)" />
+       x1="582.45239"
+       y1="373.33334"
+       x2="937.54761"
+       y2="373.33334" />
   </defs>
-  <ellipse
-     style="opacity:1;fill:url(#linearGradient4168);fill-opacity:1;stroke:url(#linearGradient4176);stroke-width:4.9909997;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-     id="path4160"
-     cx="100"
+  <circle
      cy="100"
-     rx="59.504498"
-     ry="59.504501" />
+     cx="100"
+     style="fill:url(#linearGradient5543);fill-opacity:1;fill-rule:evenodd;stroke:url(#linearGradient5545);stroke-width:4.99100018;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     id="path7691"
+     r="59.504501" />
 </svg>
