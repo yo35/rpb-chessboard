@@ -125,8 +125,8 @@ function export_cburnett {
 
 function export_mmonge {
 
-	codes="bb bk bn bp bq br wb wk wn wp wq wr"
-	piecesets="celtic eyes fantasy freak skulls spatial"
+	codes="bb bk bn bp bq br bx wb wk wn wp wq wr wx"
+	piecesets="celtic eyes fantasy skulls spatial"
 
 	for pieceset in $piecesets; do
 
@@ -136,25 +136,42 @@ function export_mmonge {
 
 			echo_sprite $code
 
-			# Input/output files
-			input=mmonge/$pieceset.svg
-			output=$output_dir/$pieceset-$code.png
-
-			# Area to extract from the source file
 			colorcode=${code:0:1}
 			piececode=${code:1:1}
-			x1=`expr "(" index "kqrbnp" $piececode ")" "*" 200`
-			y1=`expr "(" index "wb" $colorcode ")" "*" 200`
-			x0=`expr $x1 - 200`
-			y0=`expr $y1 - 200`
-			area="$x0:$y0:$x1:$y1"
 
-			# Create the sprites
-			current_size=12
-			while [ $current_size -le 64 ]; do
-				inkscape -e tmp-$current_size.png -a $area -w $current_size -h $current_size $input > /dev/null
-				current_size=`expr $current_size + 1`
-			done
+			if [ "$piececode" == "x" ]; then
+
+				# Input/output files
+				input=mmonge/$pieceset-$code.svg
+				output=$output_dir/$pieceset-$code.png
+
+				# Create the sprites
+				current_size=12
+				while [ $current_size -le 64 ]; do
+					inkscape -e tmp-$current_size.png -w $current_size -h $current_size $input > /dev/null
+					current_size=`expr $current_size + 1`
+				done
+
+			else
+
+				# Input/output files
+				input=mmonge/$pieceset.svg
+				output=$output_dir/$pieceset-$code.png
+
+				# Area to extract from the source file
+				x1=`expr "(" index "kqrbnp" $piececode ")" "*" 200`
+				y1=`expr "(" index "wb" $colorcode ")" "*" 200`
+				x0=`expr $x1 - 200`
+				y0=`expr $y1 - 200`
+				area="$x0:$y0:$x1:$y1"
+
+				# Create the sprites
+				current_size=12
+				while [ $current_size -le 64 ]; do
+					inkscape -e tmp-$current_size.png -a $area -w $current_size -h $current_size $input > /dev/null
+					current_size=`expr $current_size + 1`
+				done
+			fi
 
 			# Merge the sprites
 			montage $output

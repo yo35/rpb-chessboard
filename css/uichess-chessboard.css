@@ -318,18 +318,6 @@
 .uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-w.uichess-chessboard-piece-p { background-image: url(sprite/fantasy-wp.png); }
 .uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-w.uichess-chessboard-piece-q { background-image: url(sprite/fantasy-wq.png); }
 .uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-w.uichess-chessboard-piece-r { background-image: url(sprite/fantasy-wr.png); }
-.uichess-chessboard-pieceset-freak .uichess-chessboard-color-b.uichess-chessboard-piece-b { background-image: url(sprite/freak-bb.png); }
-.uichess-chessboard-pieceset-freak .uichess-chessboard-color-b.uichess-chessboard-piece-k { background-image: url(sprite/freak-bk.png); }
-.uichess-chessboard-pieceset-freak .uichess-chessboard-color-b.uichess-chessboard-piece-n { background-image: url(sprite/freak-bn.png); }
-.uichess-chessboard-pieceset-freak .uichess-chessboard-color-b.uichess-chessboard-piece-p { background-image: url(sprite/freak-bp.png); }
-.uichess-chessboard-pieceset-freak .uichess-chessboard-color-b.uichess-chessboard-piece-q { background-image: url(sprite/freak-bq.png); }
-.uichess-chessboard-pieceset-freak .uichess-chessboard-color-b.uichess-chessboard-piece-r { background-image: url(sprite/freak-br.png); }
-.uichess-chessboard-pieceset-freak .uichess-chessboard-color-w.uichess-chessboard-piece-b { background-image: url(sprite/freak-wb.png); }
-.uichess-chessboard-pieceset-freak .uichess-chessboard-color-w.uichess-chessboard-piece-k { background-image: url(sprite/freak-wk.png); }
-.uichess-chessboard-pieceset-freak .uichess-chessboard-color-w.uichess-chessboard-piece-n { background-image: url(sprite/freak-wn.png); }
-.uichess-chessboard-pieceset-freak .uichess-chessboard-color-w.uichess-chessboard-piece-p { background-image: url(sprite/freak-wp.png); }
-.uichess-chessboard-pieceset-freak .uichess-chessboard-color-w.uichess-chessboard-piece-q { background-image: url(sprite/freak-wq.png); }
-.uichess-chessboard-pieceset-freak .uichess-chessboard-color-w.uichess-chessboard-piece-r { background-image: url(sprite/freak-wr.png); }
 .uichess-chessboard-pieceset-skulls .uichess-chessboard-color-b.uichess-chessboard-piece-b { background-image: url(sprite/skulls-bb.png); }
 .uichess-chessboard-pieceset-skulls .uichess-chessboard-color-b.uichess-chessboard-piece-k { background-image: url(sprite/skulls-bk.png); }
 .uichess-chessboard-pieceset-skulls .uichess-chessboard-color-b.uichess-chessboard-piece-n { background-image: url(sprite/skulls-bn.png); }
@@ -357,3 +345,13 @@
 
 .uichess-chessboard-color-b.uichess-chessboard-turnFlag { background-image: url(sprite/cburnett-bx.png); }
 .uichess-chessboard-color-w.uichess-chessboard-turnFlag { background-image: url(sprite/cburnett-wx.png); }
+.uichess-chessboard-pieceset-celtic .uichess-chessboard-color-b.uichess-chessboard-turnFlag { background-image: url(sprite/celtic-bx.png); }
+.uichess-chessboard-pieceset-celtic .uichess-chessboard-color-w.uichess-chessboard-turnFlag { background-image: url(sprite/celtic-wx.png); }
+.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-b.uichess-chessboard-turnFlag { background-image: url(sprite/eyes-bx.png); }
+.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-w.uichess-chessboard-turnFlag { background-image: url(sprite/eyes-wx.png); }
+.uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-b.uichess-chessboard-turnFlag { background-image: url(sprite/fantasy-bx.png); }
+.uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-w.uichess-chessboard-turnFlag { background-image: url(sprite/fantasy-wx.png); }
+.uichess-chessboard-pieceset-skulls .uichess-chessboard-color-b.uichess-chessboard-turnFlag { background-image: url(sprite/skulls-bx.png); }
+.uichess-chessboard-pieceset-skulls .uichess-chessboard-color-w.uichess-chessboard-turnFlag { background-image: url(sprite/skulls-wx.png); }
+.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-b.uichess-chessboard-turnFlag { background-image: url(sprite/spatial-bx.png); }
+.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-w.uichess-chessboard-turnFlag { background-image: url(sprite/spatial-wx.png); }
