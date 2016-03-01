@@ -555,6 +555,10 @@ table.rpbchessboard-attributeTable td:nth-child(2) {
 /* About page */
 /* -------------------------------------------------------------------------- */
 
+#rpbchessboard-aboutPage h4 {
+	font-size: 1.1em;
+}
+
 .rpbchessboard-translatorList {
 	display: flex;
 	display: -webkit-flex;

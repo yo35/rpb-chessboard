@@ -39,9 +39,9 @@
 		?>
 	</p>
 	<p>
-		<a class="button" href="https://github.com/yo35/rpb-chessboard/issues" target="_blank">
-			<?php echo sprintf('%1$s / %2$s', __('Ask for help', 'rpbchessboard'), __('Report a problem', 'rpbchessboard')); ?>
-		</a>
+		<strong><a href="https://wordpress.org/plugins/rpb-chessboard/" target="_blank">https://wordpress.org/plugins/rpb-chessboard/</a></strong><br/>
+		<a href="https://github.com/yo35/rpb-chessboard" target="_blank">https://github.com/yo35/rpb-chessboard</a>
+		<?php echo sprintf('(%1$s)', __('source code on GitHub', 'rpbchessboard')); ?>
 	</p>
 	<p class="description rpbchessboard-clearfix">
 		<?php echo sprintf(
@@ -59,23 +59,12 @@
 	<p><?php echo htmlspecialchars($model->getPluginVersion()); ?></p>
 
 
-	<h3><?php _e('Links', 'rpbchessboard'); ?></h3>
-	<ul>
-		<li>
-			<strong><a href="https://wordpress.org/plugins/rpb-chessboard/" target="_blank">https://wordpress.org/plugins/rpb-chessboard/</a></strong>
-		</li>
-		<li>
-			<a href="https://github.com/yo35/rpb-chessboard" target="_blank">https://github.com/yo35/rpb-chessboard</a>
-			<?php echo sprintf('(%1$s)', __('source code on GitHub', 'rpbchessboard')); ?>
-		</li>
-	</ul>
+	<h3><?php _e('Credits', 'rpbchessboard'); ?></h3>
 
-
-	<h3><?php _e('Author', 'rpbchessboard'); ?></h3>
+	<h4><?php _e('Author', 'rpbchessboard'); ?></h4>
 	<p><a href="mailto:yo35@melix.net">Yoann Le Montagner</a></p>
 
-
-	<h3><?php _e('Translation', 'rpbchessboard'); ?></h3>
+	<h4><?php _e('Translators', 'rpbchessboard'); ?></h4>
 	<dl class="rpbchessboard-translatorList">
 		<div>
 			<div>
@@ -116,8 +105,7 @@
 		?>
 	</p>
 
-
-	<h3><?php _e('Credits for graphic resources', 'rpbchessboard'); ?></h3>
+	<h4><?php _e('Graphic resources', 'rpbchessboard'); ?></h4>
 	<p>
 		<?php
 			echo sprintf(__(
