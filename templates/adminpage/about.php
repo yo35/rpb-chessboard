@@ -123,7 +123,7 @@
 		<?php
 			echo sprintf(__(
 				'Piecesets %1$sCeltic%2$s, %1$sEyes%2$s, %1$sFantasy%2$s, %1$sSkulls%2$s and %1$sSpatial%2$s '.
-				'have been created by %3$sMaurizio Monge%4$s, who make them freely available for chess programs.',
+				'have been created by %3$sMaurizio Monge%4$s, who makes them freely available for chess programs.',
 			'rpbchessboard'),
 			'<em>',
 			'</em>',
