@@ -117,6 +117,59 @@
 	</p>
 
 
+	<h3><?php _e('Credits for graphic resources', 'rpbchessboard'); ?></h3>
+	<p>
+		<?php
+			echo sprintf(__(
+				'Pieceset %1$sCBurnett%2$s has been created by %3$sColin M.L. Burnett%6$s, '.
+				'who shares it under the [CC-BY-SA] license on %4$sWikimedia Commons%6$s;'.
+				'user %5$sAntonsusi%6$s has also contributed to this work.',
+			'rpbchessboard'),
+			'<em>',
+			'</em>',
+			'<a href="https://en.wikipedia.org/wiki/User:Cburnett" target="_blank">',
+			'<a href="https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces" target="_blank">',
+			'<a href="https://commons.wikimedia.org/wiki/User:Antonsusi" target="_blank">',
+			'</a>');
+		?>
+		<?php
+			echo sprintf(__(
+				'Piecesets %1$sCeltic%2$s, %1$sEyes%2$s, %1$sFantasy%2$s, %1$sSkulls%2$s and %1$sSpatial%2$s '.
+				'have been created by %3$sMaurizio Monge%4$s, who make them freely available for chess programs.',
+			'rpbchessboard'),
+			'<em>',
+			'</em>',
+			'<a href="http://poisson.phc.unipi.it/~monge/" target="_blank">',
+			'</a>');
+		?>
+		<?php
+			echo sprintf(__(
+				'Colorsets %1$sCoral%2$s, %1$sDusk%2$s, %1$sEmerald%2$s, %1$sMarine%2$s, %1$sSandcastle%2$s and %1$sWheat%2$s '.
+				'have been proposed in this %3$sblog post%5$s by %4$sGorgonian%5$s.',
+			'rpbchessboard'),
+			'<em>',
+			'</em>',
+			'<a href="http://omgchess.blogspot.fr/2015/09/chess-board-color-schemes.html" target="_blank">',
+			'<a href="http://omgchess.blogspot.fr/" target="_blank">',
+			'</a>');
+		?>
+		<?php
+			echo sprintf(__(
+				'Icons %1$sUndo%2$s, %1$sRedo%2$s, and %1$sDelete%2$s have been created by %3$sMomentum Design Lab%5$s, '.
+				'who shares them under the [CC-BY] license on %4$sFind Icons%5$s.',
+			'rpbchessboard'),
+			'<em>',
+			'</em>',
+			'<a href="http://momentumdesignlab.com/" target="_blank">',
+			'<a href="http://findicons.com/pack/2226/matte_basic" target="_blank">',
+			'</a>');
+		?>
+	</p>
+	<p>
+		<?php _e('The author would like to thank all these people for their highly valuable work.', 'rpbchessboard'); ?>
+	</p>
+
+
 	<h3><?php _e('License', 'rpbchessboard'); ?></h3>
 	<p>
 		<?php echo sprintf(
