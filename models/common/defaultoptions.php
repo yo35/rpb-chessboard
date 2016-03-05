@@ -31,6 +31,8 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 {
 	private static $squareSize     ;
 	private static $showCoordinates;
+	private static $colorset       ;
+	private static $pieceset       ;
 	private static $pieceSymbols   ;
 	private static $navigationBoard;
 	private static $animationSpeed ;
@@ -39,6 +41,8 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 
 	const DEFAULT_SQUARE_SIZE      = 32;
 	const DEFAULT_SHOW_COORDINATES = true;
+	const DEFAULT_COLORSET         = 'default';
+	const DEFAULT_PIECESET         = 'cburnett';
 	const DEFAULT_PIECE_SYMBOLS    = 'localized';
 	const DEFAULT_NAVIGATION_BOARD = 'frame';
 	const DEFAULT_ANIMATION_SPEED  = 200;
@@ -47,7 +51,8 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 
 	public function __construct() {
 		parent::__construct();
-		$this->registerDelegatableMethods('getDefaultSquareSize', 'getDefaultShowCoordinates', 'getDefaultPieceSymbols',
+		$this->registerDelegatableMethods('getDefaultSquareSize', 'getDefaultShowCoordinates',
+			'getDefaultColorset', 'getDefaultPieceset', 'getDefaultPieceSymbols',
 			'getDefaultNavigationBoard', 'getDefaultAnimationSpeed', 'getDefaultShowMoveArrow');
 	}
 
@@ -77,6 +82,34 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 			self::$showCoordinates = isset($value) ? $value : self::DEFAULT_SHOW_COORDINATES;
 		}
 		return self::$showCoordinates;
+	}
+
+
+	/**
+	 * Default colorset parameter for the chessboard widgets.
+	 *
+	 * @return string
+	 */
+	public function getDefaultColorset() {
+		if(!isset(self::$colorset)) {
+			$value = RPBChessboardHelperValidation::validateSetCode(get_option('rpbchessboard_colorset'));
+			self::$colorset = isset($value) ? $value : self::DEFAULT_COLORSET;
+		}
+		return self::$colorset;
+	}
+
+
+	/**
+	 * Default pieceset parameter for the chessboard widgets.
+	 *
+	 * @return string
+	 */
+	public function getDefaultPieceset() {
+		if(!isset(self::$pieceset)) {
+			$value = RPBChessboardHelperValidation::validateSetCode(get_option('rpbchessboard_pieceset'));
+			self::$pieceset = isset($value) ? $value : self::DEFAULT_PIECESET;
+		}
+		return self::$pieceset;
 	}
 
 
