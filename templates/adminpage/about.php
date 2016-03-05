@@ -110,7 +110,7 @@
 		<?php
 			echo sprintf(__(
 				'Pieceset %1$sCBurnett%2$s has been created by %3$sColin M.L. Burnett%6$s, '.
-				'who shares it under the [CC-BY-SA] license on %4$sWikimedia Commons%6$s;'.
+				'who shares it under the [CC-BY-SA] license on %4$sWikimedia Commons%6$s; '.
 				'user %5$sAntonsusi%6$s has also contributed to this work.',
 			'rpbchessboard'),
 			'<em>',
