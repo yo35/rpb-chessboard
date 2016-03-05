@@ -63,6 +63,14 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode
 			$value = isset($atts['show_coordinates']) ? RPBChessboardHelperValidation::validateBoolean($atts['show_coordinates']) : null;
 			$chessboardOptions['showCoordinates'] = isset($value) ? $value : $this->getDefaultShowCoordinates();
 
+			// Colorset
+			$value = isset($atts['colorset']) ? RPBChessboardHelperValidation::validateSetCode($atts['colorset']) : null;
+			$chessboardOptions['colorset'] = isset($value) ? $value : $this->getDefaultColorset();
+
+			// Pieceset
+			$value = isset($atts['pieceset']) ? RPBChessboardHelperValidation::validateSetCode($atts['pieceset']) : null;
+			$chessboardOptions['pieceset'] = isset($value) ? $value : $this->getDefaultPieceset();
+
 			// Animation speed
 			$value = isset($atts['animation_speed']) ? RPBChessboardHelperValidation::validateAnimationSpeed($atts['animation_speed']) : null;
 			$chessboardOptions['animationSpeed'] = isset($value) ? $value : $this->getDefaultAnimationSpeed();

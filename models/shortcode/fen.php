@@ -70,6 +70,14 @@ class RPBChessboardModelShortcodeFEN extends RPBChessboardAbstractModelShortcode
 			// Show coordinates
 			$value = isset($atts['show_coordinates']) ? RPBChessboardHelperValidation::validateBoolean($atts['show_coordinates']) : null;
 			$this->widgetArgs['showCoordinates'] = isset($value) ? $value : $this->getDefaultShowCoordinates();
+
+			// Colorset
+			$value = isset($atts['colorset']) ? RPBChessboardHelperValidation::validateSetCode($atts['colorset']) : null;
+			$this->widgetArgs['colorset'] = isset($value) ? $value : $this->getDefaultColorset();
+
+			// Pieceset
+			$value = isset($atts['pieceset']) ? RPBChessboardHelperValidation::validateSetCode($atts['pieceset']) : null;
+			$this->widgetArgs['pieceset'] = isset($value) ? $value : $this->getDefaultPieceset();
 		}
 		return $this->widgetArgs;
 	}

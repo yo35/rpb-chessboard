@@ -60,6 +60,18 @@ class RPBChessboardModelShortcodePGNDiagram extends RPBChessboardAbstractModelSh
 			if(isset($value)) {
 				$this->diagramOptions['showCoordinates'] = $value;
 			}
+
+			// Colorset
+			$value = isset($atts['colorset']) ? RPBChessboardHelperValidation::validateSetCode($atts['colorset']) : null;
+			if(isset($value)) {
+				$this->diagramOptions['colorset'] = $value;
+			}
+
+			// Pieceset
+			$value = isset($atts['pieceset']) ? RPBChessboardHelperValidation::validateSetCode($atts['pieceset']) : null;
+			if(isset($value)) {
+				$this->diagramOptions['pieceset'] = $value;
+			}
 		}
 		return $this->diagramOptions;
 	}

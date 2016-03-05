@@ -352,6 +352,8 @@
 		if(typeof value.flip            !== 'undefined') { result.flip            = value.flip           ; }
 		if(typeof value.squareSize      !== 'undefined') { result.squareSize      = value.squareSize     ; }
 		if(typeof value.showCoordinates !== 'undefined') { result.showCoordinates = value.showCoordinates; }
+		if(typeof value.colorset        !== 'undefined') { result.colorset        = value.colorset       ; }
+		if(typeof value.pieceset        !== 'undefined') { result.pieceset        = value.pieceset       ; }
 		if(typeof value.animationSpeed  !== 'undefined') { result.animationSpeed  = value.animationSpeed ; }
 		if(typeof value.showMoveArrow   !== 'undefined') { result.showMoveArrow   = value.showMoveArrow  ; }
 		return result;
