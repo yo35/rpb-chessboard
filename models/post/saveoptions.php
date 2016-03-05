@@ -39,6 +39,8 @@ class RPBChessboardModelPostSaveOptions extends RPBChessboardAbstractModel {
 		// General parameters
 		self::processSquareSize();
 		self::processBooleanParameter('showCoordinates');
+		self::processSetCodeParameter('colorset');
+		self::processSetCodeParameter('pieceset');
 		self::processPieceSymbols();
 		self::processNavigationBoard();
 		self::processAnimationSpeed();
@@ -100,6 +102,16 @@ class RPBChessboardModelPostSaveOptions extends RPBChessboardAbstractModel {
 		$value = self::loadSmallScreenModes();
 		if(isset($value)) {
 			update_option('rpbchessboard_smallScreenModes', $value);
+		}
+	}
+
+
+	private static function processSetCodeParameter($key) {
+		if(isset($_POST[$key])) {
+			$value = RPBChessboardHelperValidation::validateSetCode($_POST[$key]);
+			if(isset($value)) {
+				update_option('rpbchessboard_' . $key, $value);
+			}
 		}
 	}
 
