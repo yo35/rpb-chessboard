@@ -36,7 +36,8 @@ class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractMode
 
 	public function __construct() {
 		parent::__construct();
-		$this->registerDelegatableMethods('getMinimumSquareSize', 'getMaximumSquareSize', 'getMaximumAnimationSpeed', 'getStepAnimationSpeed',
+		$this->registerDelegatableMethods('getMinimumSquareSize', 'getMaximumSquareSize',
+			'getAvailableColorsets', 'getAvailablePiecesets', 'getMaximumAnimationSpeed', 'getStepAnimationSpeed',
 			'isPieceSymbolLocalizationAvailable', 'getDefaultSimplifiedPieceSymbols', 'getDefaultPieceSymbolCustomValues');
 
 		$this->loadDelegateModel('Common/DefaultOptions');
@@ -60,6 +61,45 @@ class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractMode
 	 */
 	public function getMaximumSquareSize() {
 		return RPBChessboardHelperValidation::MAXIMUM_SQUARE_SIZE;
+	}
+
+
+	/**
+	 * Return all the available colorsets.
+	 *
+	 * @return array
+	 */
+	public function getAvailableColorsets() {
+		return array(
+			'coral'      => 'Coral'     ,
+			'default'    => 'Default'   ,
+			'dusk'       => 'Dusk'      ,
+			'emerald'    => 'Emerald'   ,
+			'gray'       => 'Gray'      ,
+			'marine'     => 'Marine'    ,
+			'sandcastle' => 'Sandcastle',
+			'scid'       => 'Scid'      ,
+			'wikipedia'  => 'Wikipedia' ,
+			'wheat'      => 'Wheat'     ,
+			'xboard'     => 'XBoard'
+		);
+	}
+
+
+	/**
+	 * Return all the available piecesets.
+	 *
+	 * @return array
+	 */
+	public function getAvailablePiecesets() {
+		return array(
+			'cburnett' => 'CBurnett',
+			'celtic'   => 'Celtic'  ,
+			'eyes'     => 'Eyes'    ,
+			'fantasy'  => 'Fantasy' ,
+			'skulls'   => 'Skulls'  ,
+			'spatial'  => 'Spatial'
+		);
 	}
 
 

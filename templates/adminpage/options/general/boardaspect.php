@@ -47,6 +47,28 @@
 			<label for="rpbchessboard-showCoordinatesField"><?php _e('Show coordinates', 'rpbchessboard'); ?></label>
 		</p>
 
+		<p>
+			<label for="rpbchessboard-colorsetField"><?php _e('Colorset:', 'rpbchessboard'); ?></label>
+			<select id="rpbchessboard-colorsetField">
+				<?php foreach($model->getAvailableColorsets() as $colorset => $label): ?>
+					<option value="<?php echo htmlspecialchars($colorset); ?>" <?php if($model->getDefaultColorset()===$colorset): ?>selected="yes"<?php endif; ?>>
+						<?php echo htmlspecialchars($label); ?>
+					</option>
+				<?php endforeach; ?>
+			</select>
+		</p>
+
+		<p>
+			<label for="rpbchessboard-piecesetField"><?php _e('Pieceset:', 'rpbchessboard'); ?></label>
+			<select id="rpbchessboard-piecesetField">
+				<?php foreach($model->getAvailablePiecesets() as $pieceset => $label): ?>
+					<option value="<?php echo htmlspecialchars($pieceset); ?>" <?php if($model->getDefaultPieceset()===$pieceset): ?>selected="yes"<?php endif; ?>>
+						<?php echo htmlspecialchars($label); ?>
+					</option>
+				<?php endforeach; ?>
+			</select>
+		</p>
+
 	</div>
 	<div>
 
@@ -73,6 +95,8 @@
 		// State variables
 		var squareSize      = $('#rpbchessboard-squareSizeField'     ).val();
 		var showCoordinates = $('#rpbchessboard-showCoordinatesField').prop('checked');
+		var colorset        = $('#rpbchessboard-colorsetField').val();
+		var pieceset        = $('#rpbchessboard-piecesetField').val();
 
 		// Callback for the squareSize slider
 		function onSquareSizeChange(newSquareSize) {
@@ -93,6 +117,24 @@
 			$('#rpbchessboard-tuningChessboardWidget').chessboard('option', 'showCoordinates', showCoordinates);
 		}
 
+		// Callback for the colorset combo
+		function onColorsetChange(newColorset) {
+			if(newColorset === colorset) {
+				return;
+			}
+			colorset = newColorset;
+			$('#rpbchessboard-tuningChessboardWidget').chessboard('option', 'colorset', colorset);
+		}
+
+		// Callback for the pieceset combo
+		function onPiecesetChange(newPieceset) {
+			if(newPieceset === pieceset) {
+				return;
+			}
+			pieceset = newPieceset;
+			$('#rpbchessboard-tuningChessboardWidget').chessboard('option', 'pieceset', pieceset);
+		}
+
 		// Disable the square-size text field, create a slider instead.
 		$('#rpbchessboard-squareSizeField').prop('readonly', true);
 		$('#rpbchessboard-squareSizeSlider').slider({
@@ -102,16 +144,24 @@
 			slide: function(event, ui) { onSquareSizeChange(ui.value); }
 		});
 
-		// Initialize the show-coordinates checkbox.
+		// Initialize the callbacks
 		$('#rpbchessboard-showCoordinatesField').change(function() {
 			onShowCoordinatesChange($('#rpbchessboard-showCoordinatesField').prop('checked'));
+		});
+		$('#rpbchessboard-colorsetField').change(function() {
+			onColorsetChange($('#rpbchessboard-colorsetField').val());
+		});
+		$('#rpbchessboard-piecesetField').change(function() {
+			onPiecesetChange($('#rpbchessboard-piecesetField').val());
 		});
 
 		// Create the chessboard widget.
 		$('#rpbchessboard-tuningChessboardWidget').chessboard({
 			position       : 'start'        ,
 			squareSize     : squareSize     ,
-			showCoordinates: showCoordinates
+			showCoordinates: showCoordinates,
+			colorset       : colorset       ,
+			pieceset       : pieceset
 		});
 
 	});
