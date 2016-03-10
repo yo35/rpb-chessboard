@@ -276,8 +276,8 @@
 .uichess-chessboard-colorset-marine .uichess-chessboard-darkSquare  { background-color: rgb(111,115,210); }
 .uichess-chessboard-colorset-sandcastle .uichess-chessboard-lightSquare { background-color: rgb(227,193,111); }
 .uichess-chessboard-colorset-sandcastle .uichess-chessboard-darkSquare  { background-color: rgb(184,139,74); }
-.uichess-chessboard-colorset-wheat .uichess-chessboard-lightSquare { background-color: rgb(187,190,100); }
-.uichess-chessboard-colorset-wheat .uichess-chessboard-darkSquare  { background-color: rgb(234,240,206); }
+.uichess-chessboard-colorset-wheat .uichess-chessboard-lightSquare { background-color: rgb(234,240,206); }
+.uichess-chessboard-colorset-wheat .uichess-chessboard-darkSquare  { background-color: rgb(187,190,100); }
 
 /**
  * Source: https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces
