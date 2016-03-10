@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-15 19:28+0100\n"
+"POT-Creation-Date: 2016-03-10 14:58+0100\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35 -at- melix.net>\n"
 "Language-Team: French\n"
@@ -151,6 +151,16 @@ msgstr "Taille des cases&nbsp;: %1$s pixels"
 #: templates/adminpage/help/fenattributes.php
 msgid "Show coordinates"
 msgstr "Afficher les coordonnées"
+
+#: templates/adminpage/options/general/boardaspect.php
+#: templates/adminpage/help/fenattributes/colorsetpieceset.php
+msgid "Colorset:"
+msgstr "Couleurs&nbsp;:"
+
+#: templates/adminpage/options/general/boardaspect.php
+#: templates/adminpage/help/fenattributes/colorsetpieceset.php
+msgid "Pieceset:"
+msgstr "Pièces&nbsp;:"
 
 #: templates/adminpage/options/general/boardaspect.php
 #, php-format
@@ -396,12 +406,8 @@ msgid "http://en.wikipedia.org/wiki/Portable_Game_Notation"
 msgstr "http://fr.wikipedia.org/wiki/Portable_Game_Notation"
 
 #: templates/adminpage/about.php
-msgid "Ask for help"
-msgstr "Demander de l'aide"
-
-#: templates/adminpage/about.php
-msgid "Report a problem"
-msgstr "Signaler un problème"
+msgid "source code on GitHub"
+msgstr "code source sur GitHub"
 
 #: templates/adminpage/about.php
 #, php-format
@@ -419,20 +425,16 @@ msgid "Plugin version"
 msgstr "Version du plugin"
 
 #: templates/adminpage/about.php
-msgid "Links"
-msgstr "Liens"
-
-#: templates/adminpage/about.php
-msgid "source code on GitHub"
-msgstr "code source sur GitHub"
+msgid "Credits"
+msgstr "Crédits"
 
 #: templates/adminpage/about.php
 msgid "Author"
 msgstr "Auteur"
 
 #: templates/adminpage/about.php
-msgid "Translation"
-msgstr "Traduction"
+msgid "Translators"
+msgstr "Traducteurs"
 
 #: templates/adminpage/about.php
 #, php-format
@@ -442,6 +444,61 @@ msgid ""
 msgstr ""
 "Si vous souhaitez traduire ce plugin dans votre langue, merci de "
 "%1$scontacter l'auteur%2$s."
+
+#: templates/adminpage/about.php
+msgid "Graphic resources"
+msgstr "Graphismes"
+
+#: templates/adminpage/about.php
+#, php-format
+msgid ""
+"Pieceset %1$sCBurnett%2$s has been created by %3$sColin M.L. Burnett%6$s, "
+"who shares it under the [CC-BY-SA] license on %4$sWikimedia Commons%6$s; "
+"user %5$sAntonsusi%6$s has also contributed to this work."
+msgstr ""
+"Le thème de pièces %1$sCBurnett%2$s a été créé par %3$sColin M.L. Burnett%6$s, "
+"qui le partage sous licence [CC-BY-SA] sur %4$sWikimedia Commons%6$s&nbsp;; "
+"l'utilisateur %5$sAntonsusi%6$s a également travaillé sur ce thème."
+
+#: templates/adminpage/about.php
+#, php-format
+msgid ""
+"Piecesets %1$sCeltic%2$s, %1$sEyes%2$s, %1$sFantasy%2$s, %1$sSkulls%2$s and "
+"%1$sSpatial%2$s have been created by %3$sMaurizio Monge%4$s, who makes them "
+"freely available for chess programs."
+msgstr ""
+"Les thèmes %1$sCeltic%2$s, %1$sEyes%2$s, %1$sFantasy%2$s, %1$sSkulls%2$s et "
+"%1$sSpatial%2$s ont été créés par %3$sMaurizio Monge%4$s, qui les met à "
+"disposition gratuitement pour les programmes d'échecs."
+
+#: templates/adminpage/about.php
+#, php-format
+msgid ""
+"Colorsets %1$sCoral%2$s, %1$sDusk%2$s, %1$sEmerald%2$s, %1$sMarine%2$s, "
+"%1$sSandcastle%2$s and %1$sWheat%2$s have been proposed in this %3$sblog post"
+"%5$s by %4$sGorgonian%5$s."
+msgstr ""
+"Les thèmes de couleurs %1$sCoral%2$s, %1$sDusk%2$s, %1$sEmerald%2$s, "
+"%1$sMarine%2$s, %1$sSandcastle%2$s et %1$sWheat%2$s ont été proposés dans cet "
+"%3$sarticle de blog%5$s par %4$sGorgonian%5$s."
+
+#: templates/adminpage/about.php
+#, php-format
+msgid ""
+"Icons %1$sUndo%2$s, %1$sRedo%2$s, and %1$sDelete%2$s have been created by "
+"%3$sMomentum Design Lab%5$s, who shares them under the [CC-BY] license on "
+"%4$sFind Icons%5$s."
+msgstr ""
+"Les icônes %1$sUndo%2$s, %1$sRedo%2$s, et %1$sDelete%2$s ont été créées par "
+"%3$sMomentum Design Lab%5$s, qui les partage sous licence [CC-BY] sur "
+"%4$sFind Icons%5$s."
+
+#: templates/adminpage/about.php
+msgid ""
+"The author would like to thank all these people for their highly valuable "
+"work."
+msgstr ""
+"L'auteur remercie toutes ces personnes pour la grande qualité de leur travail."
 
 #: templates/adminpage/about.php
 msgid "License"
@@ -670,6 +727,20 @@ msgstr "L'échiquier est représenté du point de vue des blancs."
 #: templates/adminpage/help/fenattributes/flip.php
 msgid "The board is seen from Black's point of view."
 msgstr "L'échiquier est représenté du point de vue des noirs."
+
+#: templates/adminpage/help/fenattributes/colorsetpieceset.php
+#: templates/adminpage/help/fenattributes.php
+msgid "Colorset and pieceset"
+msgstr "Thèmes de couleurs et de pièces"
+
+#: templates/adminpage/help/fenattributes/colorsetpieceset.php
+#, php-format
+msgid ""
+"The %1$s and %2$s attributes controls respectively the colors of the "
+"chessboard and the piece theme."
+msgstr ""
+"Les attributs %1$s et %2$s déterminent respectivement les couleurs des cases "
+"de l'échiquier et le thème de pièces utilisé."
 
 #: templates/adminpage/help/fenattributes/showcoordinates.php
 #, php-format
@@ -1000,18 +1071,18 @@ msgstr "Les coups sont mis en évidence avec une flèche."
 #: templates/adminpage/help/pgnattributes/boardaspect.php
 #, php-format
 msgid ""
-"The %1$s, %2$s and %3$s attributes control the aspect of both the navigation "
-"board and the chessboard diagrams inserted using tag %4$s. These attributes "
-"are identical to those used to customize the aspect of standalone FEN "
-"diagrams (those inserted using tag %5$s): see %6$shelp on FEN diagram "
-"attributes%7$s for more details about them."
+"The %1$s, %2$s, %3$s, %4$s and %5$s attributes control the aspect of both "
+"the navigation board and the chessboard diagrams inserted using tag %6$s. "
+"These attributes are identical to those used to customize the aspect of "
+"standalone FEN diagrams (those inserted using tag %7$s): see %8$shelp on FEN "
+"diagram attributes%9$s for more details about them."
 msgstr ""
-"Les attributs %1$s, %2$s et %3$s déterminent l'apparence de l'échiquier de "
-"navigation et des diagrammes insérés dans les commentaires via la balise "
-"%4$s. Ces attributs sont identiques à ceux utiliser pour personnalisés "
-"l'apparence des diagrammes FEN autonomes (ceux insérés via la balise "
-"%5$s)&nbsp;: voir %6$sl'aide sur les attributs des diagrammes FEN%7$s pour "
-"plus d'information."
+"Les attributs %1$s, %2$s, %3$s, %4$s et %5$s déterminent l'apparence de "
+"l'échiquier de navigation et des diagrammes insérés dans les commentaires via "
+"la balise %6$s. Ces attributs sont identiques à ceux utiliser pour "
+"personnaliser l'apparence des diagrammes FEN autonomes (ceux insérés via la "
+"balise %7$s)&nbsp;: voir %8$sl'aide sur les attributs des diagrammes FEN%9$s "
+"pour plus d'information."
 
 #: templates/adminpage/help/pgnattributes/navigationboard.php
 #, php-format

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-15 19:28+0100\n"
+"POT-Creation-Date: 2016-03-10 14:58+0100\n"
 "PO-Revision-Date: 2015-08-27 23:19+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -152,6 +152,16 @@ msgstr "Kare boyutu: %1$s pixels"
 #: templates/adminpage/help/fenattributes.php
 msgid "Show coordinates"
 msgstr "Koordinatları göster"
+
+#: templates/adminpage/options/general/boardaspect.php
+#: templates/adminpage/help/fenattributes/colorsetpieceset.php
+msgid "Colorset:"
+msgstr ""
+
+#: templates/adminpage/options/general/boardaspect.php
+#: templates/adminpage/help/fenattributes/colorsetpieceset.php
+msgid "Pieceset:"
+msgstr ""
 
 #: templates/adminpage/options/general/boardaspect.php
 #, php-format
@@ -395,12 +405,8 @@ msgid "http://en.wikipedia.org/wiki/Portable_Game_Notation"
 msgstr "http://en.wikipedia.org/wiki/Portable_Game_Notation"
 
 #: templates/adminpage/about.php
-msgid "Ask for help"
-msgstr "Yardım isteyiniz"
-
-#: templates/adminpage/about.php
-msgid "Report a problem"
-msgstr "Sorun bildiriniz"
+msgid "source code on GitHub"
+msgstr "GitHub'ta kaynak kodu"
 
 #: templates/adminpage/about.php
 #, php-format
@@ -418,20 +424,16 @@ msgid "Plugin version"
 msgstr "Eklenti sürümü"
 
 #: templates/adminpage/about.php
-msgid "Links"
-msgstr "Linkler"
-
-#: templates/adminpage/about.php
-msgid "source code on GitHub"
-msgstr "GitHub'ta kaynak kodu"
+msgid "Credits"
+msgstr ""
 
 #: templates/adminpage/about.php
 msgid "Author"
 msgstr "Yazar"
 
 #: templates/adminpage/about.php
-msgid "Translation"
-msgstr "Çeviri"
+msgid "Translators"
+msgstr ""
 
 #: templates/adminpage/about.php
 #, php-format
@@ -441,6 +443,48 @@ msgid ""
 msgstr ""
 "Eğer bu eklentiyi dilinize çevirmek isterseniz lütfen  %1$scontact author"
 "%2$s."
+
+#: templates/adminpage/about.php
+msgid "Graphic resources"
+msgstr ""
+
+#: templates/adminpage/about.php
+#, php-format
+msgid ""
+"Pieceset %1$sCBurnett%2$s has been created by %3$sColin M.L. Burnett%6$s, "
+"who shares it under the [CC-BY-SA] license on %4$sWikimedia Commons%6$s; "
+"user %5$sAntonsusi%6$s has also contributed to this work."
+msgstr ""
+
+#: templates/adminpage/about.php
+#, php-format
+msgid ""
+"Piecesets %1$sCeltic%2$s, %1$sEyes%2$s, %1$sFantasy%2$s, %1$sSkulls%2$s and "
+"%1$sSpatial%2$s have been created by %3$sMaurizio Monge%4$s, who makes them "
+"freely available for chess programs."
+msgstr ""
+
+#: templates/adminpage/about.php
+#, php-format
+msgid ""
+"Colorsets %1$sCoral%2$s, %1$sDusk%2$s, %1$sEmerald%2$s, %1$sMarine%2$s, "
+"%1$sSandcastle%2$s and %1$sWheat%2$s have been proposed in this %3$sblog post"
+"%5$s by %4$sGorgonian%5$s."
+msgstr ""
+
+#: templates/adminpage/about.php
+#, php-format
+msgid ""
+"Icons %1$sUndo%2$s, %1$sRedo%2$s, and %1$sDelete%2$s have been created by "
+"%3$sMomentum Design Lab%5$s, who shares them under the [CC-BY] license on "
+"%4$sFind Icons%5$s."
+msgstr ""
+
+#: templates/adminpage/about.php
+msgid ""
+"The author would like to thank all these people for their highly valuable "
+"work."
+msgstr ""
 
 #: templates/adminpage/about.php
 msgid "License"
@@ -665,6 +709,18 @@ msgstr "Tahta beyazın bakışıyla görülür"
 #: templates/adminpage/help/fenattributes/flip.php
 msgid "The board is seen from Black's point of view."
 msgstr "Tahta siyahın bakışıyla görülür"
+
+#: templates/adminpage/help/fenattributes/colorsetpieceset.php
+#: templates/adminpage/help/fenattributes.php
+msgid "Colorset and pieceset"
+msgstr ""
+
+#: templates/adminpage/help/fenattributes/colorsetpieceset.php
+#, php-format
+msgid ""
+"The %1$s and %2$s attributes controls respectively the colors of the "
+"chessboard and the piece theme."
+msgstr ""
 
 #: templates/adminpage/help/fenattributes/showcoordinates.php
 #, php-format
@@ -983,18 +1039,18 @@ msgstr ""
 #: templates/adminpage/help/pgnattributes/boardaspect.php
 #, php-format
 msgid ""
-"The %1$s, %2$s and %3$s attributes control the aspect of both the navigation "
-"board and the chessboard diagrams inserted using tag %4$s. These attributes "
-"are identical to those used to customize the aspect of standalone FEN "
-"diagrams (those inserted using tag %5$s): see %6$shelp on FEN diagram "
-"attributes%7$s for more details about them."
+"The %1$s, %2$s, %3$s, %4$s and %5$s attributes control the aspect of both "
+"the navigation board and the chessboard diagrams inserted using tag %6$s. "
+"These attributes are identical to those used to customize the aspect of "
+"standalone FEN diagrams (those inserted using tag %7$s): see %8$shelp on FEN "
+"diagram attributes%9$s for more details about them."
 msgstr ""
-"%1$s, %2$s ve %3$s özellikleri satranç tahtasının boyutlarını ve %4$s "
-"kullanılması suretiyle chessboard diyagramlarının boyutlarını belirlemek "
-"için kullanılır. Bu özellikler, tek başına konan FEN diyagramlarının (%5$s "
+"%1$s, %2$s, %3$s, %4$s ve %5$s özellikleri satranç tahtasının boyutlarını ve "
+"%6$s kullanılması suretiyle chessboard diyagramlarının boyutlarını belirlemek "
+"için kullanılır. Bu özellikler, tek başına konan FEN diyagramlarının (%7$s "
 "etiketi kullanılarak elde edilen) boyutlarını tanımlamak için "
-"kullanılanlarla tıpatıp aynıdır: %6$shelp  etiketi FEN diyagram ve attributes"
-"%7$s ile ilgili daha çok ayrıntı için yardıma bakınız."
+"kullanılanlarla tıpatıp aynıdır: %8$shelp  etiketi FEN diyagram ve attributes"
+"%9$s ile ilgili daha çok ayrıntı için yardıma bakınız."
 
 #: templates/adminpage/help/pgnattributes/navigationboard.php
 #, php-format
