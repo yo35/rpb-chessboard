@@ -42,13 +42,15 @@
 		<li><a href="#rpbchessboard-fenAttributeSquareSize"><?php _e('Square size', 'rpbchessboard'); ?></a></li>
 		<li><a href="#rpbchessboard-fenAttributeShowCoordinates"><?php _e('Show coordinates', 'rpbchessboard'); ?></a></li>
 		<li><a href="#rpbchessboard-fenAttributeMarkers"><?php _e('Square and arrow markers', 'rpbchessboard'); ?></a></li>
+		<li><a href="#rpbchessboard-fenAttributeColorsetPieceset"><?php _e('Colorset and pieceset', 'rpbchessboard'); ?></a></li>
 	</ol>
 
 	<?php
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/FENAttributes/Flip'           , $model);
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/FENAttributes/SquareSize'     , $model);
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/FENAttributes/ShowCoordinates', $model);
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/FENAttributes/Markers'        , $model);
+		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/FENAttributes/Flip'            , $model);
+		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/FENAttributes/SquareSize'      , $model);
+		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/FENAttributes/ShowCoordinates' , $model);
+		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/FENAttributes/Markers'         , $model);
+		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/FENAttributes/ColorsetPieceset', $model);
 	?>
 
 </div>

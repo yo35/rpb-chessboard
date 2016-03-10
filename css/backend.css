@@ -548,6 +548,8 @@ table.rpbchessboard-attributeTable td:nth-child(2) {
 
 #rpbchessboard-fenAttributeSquareSize-content.rpbchessboard-columns > div:nth-child(1) { width: 35%; }
 #rpbchessboard-fenAttributeSquareSize-content.rpbchessboard-columns > div:nth-child(2) { width: 65%; }
+#rpbchessboard-fenAttributeColorsetPieceset-content.rpbchessboard-columns > div:nth-child(1) { width: 35%; }
+#rpbchessboard-fenAttributeColorsetPieceset-content.rpbchessboard-columns > div:nth-child(2) { width: 65%; }
 
 
 
