@@ -113,6 +113,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 4.3 (March 10, 2016) =
+* Add colorset and pieceset customization parameters (see #13 and #29).
+
 = 4.2.3 (January 21, 2016) =
 * Fix PGN parsing issue (see #53).
 
