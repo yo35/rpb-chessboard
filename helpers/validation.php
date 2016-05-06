@@ -79,6 +79,26 @@ abstract class RPBChessboardHelperValidation
 
 
 	/**
+	 * Validate colorset/pieceset parameter list.
+	 *
+	 * @param mixed $value
+	 * @return string May be null is the value is not valid.
+	 */
+	public static function validateSetCodeList($value) {
+		if(is_string($value)) {
+			$value = strtolower($value);
+			if($value === '') {
+				return array();
+			}
+			elseif(preg_match('/^[a-z0-9]+(?:-[a-z0-9]+)*(?:\|[a-z0-9]+(?:-[a-z0-9]+)*)*$/', $value)) {
+				return explode('|', $value);
+			}
+		}
+		return null;
+	}
+
+
+	/**
 	 * Validate a piece symbol mode parameter.
 	 *
 	 * @param mixed $value

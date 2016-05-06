@@ -29,6 +29,7 @@ require_once(RPBCHESSBOARD_ABSPATH . 'helpers/validation.php');
  */
 class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractModel {
 
+	private static $availableColorsets;
 	private static $pieceSymbolLocalizationAvailable;
 	private static $simplifiedPieceSymbols;
 	private static $pieceSymbolCustomValues;
@@ -71,19 +72,29 @@ class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractMode
 	 * @return array
 	 */
 	public function getAvailableColorsets() {
-		return array(
-			'coral'      => (object) array('label' => 'Coral'     , 'builtin' => true),
-			'default'    => (object) array('label' => 'Default'   , 'builtin' => true),
-			'dusk'       => (object) array('label' => 'Dusk'      , 'builtin' => true),
-			'emerald'    => (object) array('label' => 'Emerald'   , 'builtin' => true),
-			'gray'       => (object) array('label' => 'Gray'      , 'builtin' => true),
-			'marine'     => (object) array('label' => 'Marine'    , 'builtin' => true),
-			'sandcastle' => (object) array('label' => 'Sandcastle', 'builtin' => true),
-			'scid'       => (object) array('label' => 'Scid'      , 'builtin' => true),
-			'wikipedia'  => (object) array('label' => 'Wikipedia' , 'builtin' => true),
-			'wheat'      => (object) array('label' => 'Wheat'     , 'builtin' => true),
-			'xboard'     => (object) array('label' => 'XBoard'    , 'builtin' => true)
-		);
+		if(!isset(self::$availableColorsets)) {
+			self::$availableColorsets = array(
+				'coral'      => (object) array('label' => 'Coral'     , 'builtin' => true),
+				'default'    => (object) array('label' => 'Default'   , 'builtin' => true),
+				'dusk'       => (object) array('label' => 'Dusk'      , 'builtin' => true),
+				'emerald'    => (object) array('label' => 'Emerald'   , 'builtin' => true),
+				'gray'       => (object) array('label' => 'Gray'      , 'builtin' => true),
+				'marine'     => (object) array('label' => 'Marine'    , 'builtin' => true),
+				'sandcastle' => (object) array('label' => 'Sandcastle', 'builtin' => true),
+				'scid'       => (object) array('label' => 'Scid'      , 'builtin' => true),
+				'wikipedia'  => (object) array('label' => 'Wikipedia' , 'builtin' => true),
+				'wheat'      => (object) array('label' => 'Wheat'     , 'builtin' => true),
+				'xboard'     => (object) array('label' => 'XBoard'    , 'builtin' => true)
+			);
+
+			$colorsets = RPBChessboardHelperValidation::validateSetCodeList(get_option('rpbchessboard_custom_colorsets'));
+			if(isset($colorsets)) {
+				foreach($colorsets as $colorset) {
+					self::$availableColorsets[$colorset] = (object) array('label' => 'TODO', 'builtin' => false);
+				}
+			}
+		}
+		return self::$availableColorsets;
 	}
 
 
