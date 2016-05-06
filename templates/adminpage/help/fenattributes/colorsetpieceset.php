@@ -33,9 +33,9 @@
 		<p>
 			<label for="rpbchessboard-fenAttributeColorset-field"><?php _e('Colorset:', 'rpbchessboard'); ?></label>
 			<select id="rpbchessboard-fenAttributeColorset-field">
-				<?php foreach($model->getAvailableColorsets() as $colorset => $label): ?>
+				<?php foreach($model->getAvailableColorsets() as $colorset => $info): ?>
 					<option value="<?php echo htmlspecialchars($colorset); ?>">
-						<?php echo htmlspecialchars($label); ?>
+						<?php echo htmlspecialchars($info->label); ?>
 					</option>
 				<?php endforeach; ?>
 			</select>
@@ -44,9 +44,9 @@
 		<p>
 			<label for="rpbchessboard-fenAttributePieceset-field"><?php _e('Pieceset:', 'rpbchessboard'); ?></label>
 			<select id="rpbchessboard-fenAttributePieceset-field">
-				<?php foreach($model->getAvailablePiecesets() as $pieceset => $label): ?>
+				<?php foreach($model->getAvailablePiecesets() as $pieceset => $info): ?>
 					<option value="<?php echo htmlspecialchars($pieceset); ?>">
-						<?php echo htmlspecialchars($label); ?>
+						<?php echo htmlspecialchars($info->label); ?>
 					</option>
 				<?php endforeach; ?>
 			</select>

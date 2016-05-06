@@ -50,9 +50,9 @@
 		<p>
 			<label for="rpbchessboard-colorsetField"><?php _e('Colorset:', 'rpbchessboard'); ?></label>
 			<select id="rpbchessboard-colorsetField" name="colorset">
-				<?php foreach($model->getAvailableColorsets() as $colorset => $label): ?>
-					<option value="<?php echo htmlspecialchars($colorset); ?>" <?php if($model->getDefaultColorset()===$colorset): ?>selected="yes"<?php endif; ?>>
-						<?php echo htmlspecialchars($label); ?>
+				<?php foreach($model->getAvailableColorsets() as $colorset => $info): ?>
+					<option value="<?php echo htmlspecialchars($colorset); ?>" <?php if($model->isDefaultColorset($colorset)): ?>selected="yes"<?php endif; ?>>
+						<?php echo htmlspecialchars($info->label); ?>
 					</option>
 				<?php endforeach; ?>
 			</select>
@@ -61,9 +61,9 @@
 		<p>
 			<label for="rpbchessboard-piecesetField"><?php _e('Pieceset:', 'rpbchessboard'); ?></label>
 			<select id="rpbchessboard-piecesetField" name="pieceset">
-				<?php foreach($model->getAvailablePiecesets() as $pieceset => $label): ?>
-					<option value="<?php echo htmlspecialchars($pieceset); ?>" <?php if($model->getDefaultPieceset()===$pieceset): ?>selected="yes"<?php endif; ?>>
-						<?php echo htmlspecialchars($label); ?>
+				<?php foreach($model->getAvailablePiecesets() as $pieceset => $info): ?>
+					<option value="<?php echo htmlspecialchars($pieceset); ?>" <?php if($model->isDefaultPieceset($pieceset)): ?>selected="yes"<?php endif; ?>>
+						<?php echo htmlspecialchars($info->label); ?>
 					</option>
 				<?php endforeach; ?>
 			</select>

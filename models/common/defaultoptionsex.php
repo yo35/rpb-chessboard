@@ -37,7 +37,8 @@ class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractMode
 	public function __construct() {
 		parent::__construct();
 		$this->registerDelegatableMethods('getMinimumSquareSize', 'getMaximumSquareSize',
-			'getAvailableColorsets', 'getAvailablePiecesets', 'getMaximumAnimationSpeed', 'getStepAnimationSpeed',
+			'getAvailableColorsets', 'isDefaultColorset', 'getAvailablePiecesets', 'isDefaultPieceset',
+			'getMaximumAnimationSpeed', 'getStepAnimationSpeed',
 			'isPieceSymbolLocalizationAvailable', 'getDefaultSimplifiedPieceSymbols', 'getDefaultPieceSymbolCustomValues');
 
 		$this->loadDelegateModel('Common/DefaultOptions');
@@ -71,18 +72,29 @@ class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractMode
 	 */
 	public function getAvailableColorsets() {
 		return array(
-			'coral'      => 'Coral'     ,
-			'default'    => 'Default'   ,
-			'dusk'       => 'Dusk'      ,
-			'emerald'    => 'Emerald'   ,
-			'gray'       => 'Gray'      ,
-			'marine'     => 'Marine'    ,
-			'sandcastle' => 'Sandcastle',
-			'scid'       => 'Scid'      ,
-			'wikipedia'  => 'Wikipedia' ,
-			'wheat'      => 'Wheat'     ,
-			'xboard'     => 'XBoard'
+			'coral'      => (object) array('label' => 'Coral'     , 'builtin' => true),
+			'default'    => (object) array('label' => 'Default'   , 'builtin' => true),
+			'dusk'       => (object) array('label' => 'Dusk'      , 'builtin' => true),
+			'emerald'    => (object) array('label' => 'Emerald'   , 'builtin' => true),
+			'gray'       => (object) array('label' => 'Gray'      , 'builtin' => true),
+			'marine'     => (object) array('label' => 'Marine'    , 'builtin' => true),
+			'sandcastle' => (object) array('label' => 'Sandcastle', 'builtin' => true),
+			'scid'       => (object) array('label' => 'Scid'      , 'builtin' => true),
+			'wikipedia'  => (object) array('label' => 'Wikipedia' , 'builtin' => true),
+			'wheat'      => (object) array('label' => 'Wheat'     , 'builtin' => true),
+			'xboard'     => (object) array('label' => 'XBoard'    , 'builtin' => true)
 		);
+	}
+
+
+	/**
+	 * Check whether the given colorset is the default one or not.
+	 *
+	 * @param string $colorset
+	 * @return boolean
+	 */
+	public function isDefaultColorset($colorset) {
+		return $this->getDefaultColorset() === $colorset;
 	}
 
 
@@ -93,13 +105,24 @@ class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractMode
 	 */
 	public function getAvailablePiecesets() {
 		return array(
-			'cburnett' => 'CBurnett',
-			'celtic'   => 'Celtic'  ,
-			'eyes'     => 'Eyes'    ,
-			'fantasy'  => 'Fantasy' ,
-			'skulls'   => 'Skulls'  ,
-			'spatial'  => 'Spatial'
+			'cburnett' => (object) array('label' => 'CBurnett', 'builtin' => true),
+			'celtic'   => (object) array('label' => 'Celtic'  , 'builtin' => true),
+			'eyes'     => (object) array('label' => 'Eyes'    , 'builtin' => true),
+			'fantasy'  => (object) array('label' => 'Fantasy' , 'builtin' => true),
+			'skulls'   => (object) array('label' => 'Skulls'  , 'builtin' => true),
+			'spatial'  => (object) array('label' => 'Spatial' , 'builtin' => true)
 		);
+	}
+
+
+	/**
+	 * Check whether the given pieceset is the default one or not.
+	 *
+	 * @param string $pieceset
+	 * @return boolean
+	 */
+	public function isDefaultPieceset($pieceset) {
+		return $this->getDefaultPieceset() === $pieceset;
 	}
 
 
