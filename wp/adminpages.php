@@ -102,7 +102,7 @@ abstract class RPBChessboardAdminPages
 		}
 
 		// Print the template.
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Main', $model);
+		RPBChessboardHelperLoader::printTemplate('AdminPage', $model);
 	}
 
 

@@ -54,8 +54,8 @@ abstract class RPBChessboardHelperLoader {
 	 * @param object $model
 	 */
 	public static function printTemplate($templateName, $model) {
-		$filename = strtolower($templateName);
-		include(RPBCHESSBOARD_ABSPATH . 'templates/' . $filename . '.php');
+		$filename = RPBCHESSBOARD_ABSPATH . 'templates/' . strtolower($templateName);
+		include($filename . (is_dir($filename) ? '/main.php' : '.php'));
 	}
 
 
