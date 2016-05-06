@@ -99,7 +99,7 @@ abstract class RPBChessboardAdminPages
 
 
 	/**
-	 * Load the model `$postModelName`, and execute the method `$methodName` supposingly defined by this model.
+	 * Load the model `$postModelName`, and execute the method `$methodName` supposedly defined by this model.
 	 *
 	 * @param object $model
 	 * @param string $postModelName
