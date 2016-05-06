@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<table class="wp-list-table widefat striped">
+<table id="rpbchessboard-colorsetList" class="wp-list-table widefat striped">
 
 	<thead>
 		<tr>
@@ -32,7 +32,7 @@
 
 	<tbody>
 		<?php foreach($model->getAvailableColorsets() as $colorset => $info): ?>
-			<tr>
+			<tr data-colorset="<?php echo htmlspecialchars($colorset); ?>">
 				<td class="has-row-actions">
 					<strong class="row-title"><?php echo htmlspecialchars($info->label); ?></strong>
 					<span class="row-actions rpbchessboard-inlinedRowActions">
@@ -60,3 +60,21 @@
 	</tfoot>
 
 </table>
+
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+
+		function previewColorset($colorset) {
+			$('#rpbchessboard-themingPreviewWidget').chessboard('option', 'colorset', $colorset);
+		}
+
+		function previewDefaultColorset() {
+			$('#rpbchessboard-themingPreviewWidget').chessboard('option', 'colorset', <?php echo json_encode($model->getDefaultColorset()); ?>);
+		}
+
+		$('#rpbchessboard-colorsetList tbody tr').mouseleave(previewDefaultColorset).mouseenter(function(e) {
+			previewColorset($(e.currentTarget).data('colorset'));
+		});
+
+	});
+</script>
