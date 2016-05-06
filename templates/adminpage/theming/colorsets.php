@@ -20,4 +20,43 @@
  ******************************************************************************/
 ?>
 
-<p>TODO (colorsets)</p>
+<table class="wp-list-table widefat striped">
+
+	<thead>
+		<tr>
+			<th scope="col"><?php _e('Name', 'rpbchessboard'); ?></th>
+			<th scope="col"><?php _e('Slug', 'rpbchessboard'); ?></th>
+			<th scope="col"><?php _e('Default', 'rpbchessboard'); ?></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<?php foreach($model->getAvailableColorsets() as $colorset => $info): ?>
+			<tr>
+				<td class="has-row-actions">
+					<strong class="row-title"><?php echo htmlspecialchars($info->label); ?></strong>
+					<span class="row-actions rpbchessboard-inlinedRowActions">
+						<span><a href="#">Edit</a> |</span>
+						<span><a href="#">Copy</a> |</span>
+						<span><a href="#">Delete</a></span>
+					</span>
+				</td>
+				<td><?php echo htmlspecialchars($colorset); ?></td>
+				<td>
+					<?php if($model->isDefaultColorset($colorset)): ?>
+						<div class="rpbchessboard-tickIcon"></div>
+					<?php endif; ?>
+				</td>
+			</tr>
+		<?php endforeach; ?>
+	</tbody>
+
+	<tfoot>
+		<tr>
+			<th scope="col"><?php _e('Name', 'rpbchessboard'); ?></th>
+			<th scope="col"><?php _e('Slug', 'rpbchessboard'); ?></th>
+			<th scope="col"><?php _e('Default', 'rpbchessboard'); ?></th>
+		</tr>
+	</tfoot>
+
+</table>

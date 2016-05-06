@@ -30,6 +30,7 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 
 	public function __construct() {
 		parent::__construct();
+		$this->loadDelegateModel('Common/DefaultOptionsEx');
 
 		// Create the sub-pages.
 		$this->addSubPage('Colorsets', __('Colorsets', 'rpbchessboard'), true);

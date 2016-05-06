@@ -20,4 +20,26 @@
  ******************************************************************************/
 ?>
 
-<?php RPBChessboardHelperLoader::printTemplate($model->getSubPageTemplateName(), $model); ?>
+<div id="rpbchessboard-themingPage" class="rpbchessboard-columns">
+
+	<div class="rpbchessboard-stretchable">
+		<?php RPBChessboardHelperLoader::printTemplate($model->getSubPageTemplateName(), $model); ?>
+	</div>
+
+	<div>
+		<div id="rpbchessboard-themingPreviewWidget"></div>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$('#rpbchessboard-themingPreviewWidget').chessboard({
+			position       : 'start',
+			squareSize     : 48     ,
+			showCoordinates: false  ,
+			colorset       : <?php echo json_encode($model->getDefaultColorset()); ?>,
+			pieceset       : <?php echo json_encode($model->getDefaultPieceset()); ?>
+		});
+	});
+</script>

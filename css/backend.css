@@ -77,23 +77,23 @@ div.rpbchessboard-sourceCode:last-child,
 /* Tables */
 /* -------------------------------------------------------------------------- */
 
-.rpbchessboard-adminPage table {
+.rpbchessboard-adminPage table:not(.wp-list-table) {
 	border-collapse: collapse;
 }
 
-.rpbchessboard-adminPage table th,
-.rpbchessboard-adminPage table td {
+.rpbchessboard-adminPage table:not(.wp-list-table) th,
+.rpbchessboard-adminPage table:not(.wp-list-table) td {
 	border: solid 1px #555;
 	padding: 0.25em 0.5em 0.25em;
 }
 
-.rpbchessboard-adminPage table th {
+.rpbchessboard-adminPage table:not(.wp-list-table) th {
 	background-color: #555;
 	color: white;
 	font-weight: bold;
 }
 
-.rpbchessboard-adminPage table td {
+.rpbchessboard-adminPage table:not(.wp-list-table) td {
 	background-color: white;
 }
 
@@ -505,6 +505,16 @@ div.rpbchessboard-sourceCode {
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
+}
+
+
+
+/* -------------------------------------------------------------------------- */
+/* Theming pages */
+/* -------------------------------------------------------------------------- */
+
+.rpbchessboard-inlinedRowActions {
+	margin-left: 2em;
 }
 
 
