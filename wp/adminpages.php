@@ -52,6 +52,13 @@ abstract class RPBChessboardAdminPages
 			'manage_options', 'rpbchessboard-options', array(__CLASS__, 'callbackPageOptions')
 		);
 
+		// Page "theming"
+		add_submenu_page('rpbchessboard',
+			__('Manage colorsets & piecesets', 'RPB Chessboard'),
+			__('Theming', 'rpbchessboard'),
+			'manage_options', 'rpbchessboard-theming', array(__CLASS__, 'callbackPageTheming')
+		);
+
 		// Page "help"
 		add_submenu_page('rpbchessboard',
 			__('Chess games and diagrams', 'rpbchessboard') . ' - ' . __('Help', 'rpbchessboard'),
@@ -70,6 +77,7 @@ abstract class RPBChessboardAdminPages
 
 	public static function callbackPageMemo   () { self::printAdminPage('Memo'   ); }
 	public static function callbackPageOptions() { self::printAdminPage('Options'); }
+	public static function callbackPageTheming() { self::printAdminPage('Theming'); }
 	public static function callbackPageHelp   () { self::printAdminPage('Help'   ); }
 	public static function callbackPageAbout  () { self::printAdminPage('About'  ); }
 
