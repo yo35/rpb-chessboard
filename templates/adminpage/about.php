@@ -143,7 +143,7 @@
 		?>
 		<?php
 			echo sprintf(__(
-				'Icons %1$sUndo%2$s, %1$sRedo%2$s, and %1$sDelete%2$s have been created by %3$sMomentum Design Lab%5$s, '.
+				'Icons %1$sUndo%2$s, %1$sRedo%2$s, %1$sDelete%2$s and %1$sTick%2$s have been created by %3$sMomentum Design Lab%5$s, '.
 				'who shares them under the [CC-BY] license on %4$sFind Icons%5$s.',
 			'rpbchessboard'),
 			'<em>',
