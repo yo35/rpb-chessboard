@@ -33,8 +33,8 @@ abstract class RPBChessboardScripts
 		$ext = self::getJSFileExtension();
 
 		// Moment.js (http://momentjs.com/)
-		wp_register_script('rpbchessboard-momentjs', RPBCHESSBOARD_URL . 'third-party-libs/moment-js/moment' . $ext, false, '2.10.6');
-		$momentjs = self::localizeJavaScriptLib('rpbchessboard-momentjs', 'third-party-libs/moment-js/locales/%1$s.js', '2.10.6');
+		wp_register_script('rpbchessboard-momentjs', RPBCHESSBOARD_URL . 'third-party-libs/moment-js/moment' . $ext, false, '2.13.0');
+		$momentjs = self::localizeJavaScriptLib('rpbchessboard-momentjs', 'third-party-libs/moment-js/locales/%1$s.js', '2.13.0');
 
 		// RPBChess
 		wp_register_script('rpbchessboard-core', RPBCHESSBOARD_URL . 'js/rpbchess' . $ext, false, RPBCHESSBOARD_VERSION);
