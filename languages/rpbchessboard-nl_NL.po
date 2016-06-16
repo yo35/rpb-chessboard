@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-10 14:58+0100\n"
+"POT-Creation-Date: 2016-06-16 21:44+0200\n"
 "PO-Revision-Date: 2014-09-02 16:48:49+0200\n"
 "Last-Translator: schaaktrainer <jdelemarre -at- hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -436,9 +436,9 @@ msgstr ""
 #: templates/adminpage/about.php
 #, php-format
 msgid ""
-"Icons %1$sUndo%2$s, %1$sRedo%2$s, and %1$sDelete%2$s have been created by "
-"%3$sMomentum Design Lab%5$s, who shares them under the [CC-BY] license on "
-"%4$sFind Icons%5$s."
+"Icons %1$sUndo%2$s, %1$sRedo%2$s, %1$sDelete%2$s and %1$sTick%2$s have been "
+"created by %3$sMomentum Design Lab%5$s, who shares them under the [CC-BY] "
+"license on %4$sFind Icons%5$s."
 msgstr ""
 
 #: templates/adminpage/about.php

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-10 14:58+0100\n"
+"POT-Creation-Date: 2016-06-16 21:44+0200\n"
 "PO-Revision-Date: 2015-08-27 23:19+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -475,9 +475,9 @@ msgstr ""
 #: templates/adminpage/about.php
 #, php-format
 msgid ""
-"Icons %1$sUndo%2$s, %1$sRedo%2$s, and %1$sDelete%2$s have been created by "
-"%3$sMomentum Design Lab%5$s, who shares them under the [CC-BY] license on "
-"%4$sFind Icons%5$s."
+"Icons %1$sUndo%2$s, %1$sRedo%2$s, %1$sDelete%2$s and %1$sTick%2$s have been "
+"created by %3$sMomentum Design Lab%5$s, who shares them under the [CC-BY] "
+"license on %4$sFind Icons%5$s."
 msgstr ""
 
 #: templates/adminpage/about.php
@@ -1046,11 +1046,11 @@ msgid ""
 "diagram attributes%9$s for more details about them."
 msgstr ""
 "%1$s, %2$s, %3$s, %4$s ve %5$s özellikleri satranç tahtasının boyutlarını ve "
-"%6$s kullanılması suretiyle chessboard diyagramlarının boyutlarını belirlemek "
-"için kullanılır. Bu özellikler, tek başına konan FEN diyagramlarının (%7$s "
-"etiketi kullanılarak elde edilen) boyutlarını tanımlamak için "
-"kullanılanlarla tıpatıp aynıdır: %8$shelp  etiketi FEN diyagram ve attributes"
-"%9$s ile ilgili daha çok ayrıntı için yardıma bakınız."
+"%6$s kullanılması suretiyle chessboard diyagramlarının boyutlarını "
+"belirlemek için kullanılır. Bu özellikler, tek başına konan FEN "
+"diyagramlarının (%7$s etiketi kullanılarak elde edilen) boyutlarını "
+"tanımlamak için kullanılanlarla tıpatıp aynıdır: %8$shelp  etiketi FEN "
+"diyagram ve attributes%9$s ile ilgili daha çok ayrıntı için yardıma bakınız."
 
 #: templates/adminpage/help/pgnattributes/navigationboard.php
 #, php-format
