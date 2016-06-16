@@ -113,6 +113,10 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 4.3.1 (June 16, 2016) =
+* Minor fixes.
+* Tested up to WordPress 4.5.
+
 = 4.3 (March 10, 2016) =
 * Add colorset and pieceset customization parameters (see #13 and #29).
 

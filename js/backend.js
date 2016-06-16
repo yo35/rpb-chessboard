@@ -832,3 +832,5 @@ var RPBChessboard = {};
 	};
 
 })( /* global RPBChessboard */ RPBChessboard, /* global jQuery */ jQuery );
+
+/* exported RPBChessboard */

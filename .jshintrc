@@ -30,7 +30,7 @@
 	"forin"    : true ,    // Prohibit `for in` loops without `hasOwnPrototype`.
 	"freeze"   : true ,    // Prohibit overwriting prototypes of native objects such as `Array`, `Date`, etc...
 	"immed"    : true ,    // Require immediate invocations to be wrapped in (), e.g. `(function (foo) { ... })(bar)`.
-	"latedef"  : true ,    // Prohibit variable use before definition.
+	"latedef"  : false,    // Prohibit variable use before definition.
 	"newcap"   : true ,    // Require capitalization of all constructor functions, e.g. `new F()`.
 	"noarg"    : true ,    // Prohibit use of `arguments.caller` and `arguments.callee`.
 	"noempty"  : true ,    // Prohibit empty blocks.
