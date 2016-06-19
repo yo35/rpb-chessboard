@@ -31,6 +31,7 @@ class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractMode
 
 	private static $availableColorsets;
 	private static $customColorsetLabels = array();
+	private static $customColorsetAttributes = array();
 	private static $pieceSymbolLocalizationAvailable;
 	private static $simplifiedPieceSymbols;
 	private static $pieceSymbolCustomValues;
@@ -52,7 +53,7 @@ class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractMode
 	public function __construct() {
 		parent::__construct();
 		$this->registerDelegatableMethods('getMinimumSquareSize', 'getMaximumSquareSize',
-			'getAvailableColorsets', 'isBuiltinColorset', 'isDefaultColorset', 'getColorsetLabel',
+			'getAvailableColorsets', 'isBuiltinColorset', 'isDefaultColorset', 'getColorsetLabel', 'getDarkSquareColor', 'getLightSquareColor',
 			'getAvailablePiecesets', 'isDefaultPieceset',
 			'getMaximumAnimationSpeed', 'getStepAnimationSpeed',
 			'isPieceSymbolLocalizationAvailable', 'getDefaultSimplifiedPieceSymbols', 'getDefaultPieceSymbolCustomValues');
@@ -136,6 +137,53 @@ class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractMode
 			}
 			return self::$customColorsetLabels[$colorset];
 		}
+	}
+
+
+	/**
+	 * Return the dark-square color defined for the given colorset.
+	 *
+	 * @return string
+	 */
+	public function getDarkSquareColor($colorset) {
+		self::initializeCustomColorsetAttributes($colorset);
+		return self::$customColorsetAttributes[$colorset]->darkSquareColor;
+	}
+
+
+	/**
+	 * Return the light-square color defined for the given colorset.
+	 *
+	 * @return string
+	 */
+	public function getLightSquareColor($colorset) {
+		self::initializeCustomColorsetAttributes($colorset);
+		return self::$customColorsetAttributes[$colorset]->lightSquareColor;
+	}
+
+
+	private static function initializeCustomColorsetAttributes($colorset) {
+		if(isset(self::$customColorsetAttributes[$colorset])) {
+			return;
+		}
+
+		// Default attributes
+		self::$customColorsetAttributes[$colorset] = (object) array(
+			'darkSquareColor' => '#b5876b',
+			'lightSquareColor' => '#f0dec7'
+		);
+
+		// Retrieve the attributes from the database
+		$values = explode('|', get_option('rpbchessboard_custom_colorset_attributes_' . $colorset, ''));
+		if(count($values) !== 2) {
+			return;
+		}
+
+		// Validate the values retrieved from the database
+		$darkSquareColor = RPBChessboardHelperValidation::validateColor($values[0]);
+		$lightSquareColor = RPBChessboardHelperValidation::validateColor($values[1]);
+		if(isset($darkSquareColor)) { self::$customColorsetAttributes[$colorset]->darkSquareColor = $darkSquareColor; }
+		if(isset($lightSquareColor)) { self::$customColorsetAttributes[$colorset]->lightSquareColor = $lightSquareColor; }
 	}
 
 

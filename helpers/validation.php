@@ -62,6 +62,23 @@ abstract class RPBChessboardHelperValidation
 
 
 	/**
+	 * Validate a color (defined as a hexadecimal string).
+	 *
+	 * @param mixed $value
+	 * @return string May be null is the value is not valid.
+	 */
+	public static function validateColor($value) {
+		if(is_string($value)) {
+			$value = strtolower($value);
+			if(preg_match('/^#[0-9a-f]{6}$/', $value)) {
+				return $value;
+			}
+		}
+		return null;
+	}
+
+
+	/**
 	 * Validate colorset/pieceset parameter.
 	 *
 	 * @param mixed $value

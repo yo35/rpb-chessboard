@@ -69,19 +69,21 @@
 								<div class="rpbchessboard-stretchable rpbchessboard-colorFieldAndSelector">
 									<label>
 										<span><?php _e('Dark squares', 'rpbchessboard'); ?></span>
-										<input type="text" class="rpbchessboard-darkColorField" name="darkSquareColor" value="" />
+										<input type="text" size="7" maxlength="7" class="rpbchessboard-darkSquareColorField" name="darkSquareColor"
+											value="<?php echo htmlspecialchars($model->getDarkSquareColor($colorset)); ?>" />
 									</label>
 									<div>
-										<div class="rpbchessboard-darkColorSelector"></div>
+										<div class="rpbchessboard-darkSquareColorSelector"></div>
 									</div>
 								</div>
 								<div class="rpbchessboard-stretchable rpbchessboard-colorFieldAndSelector">
 									<label>
 										<span><?php _e('Light squares', 'rpbchessboard'); ?></span>
-										<input type="text" class="rpbchessboard-lightColorField" name="lightSquareColor" value=""/>
+										<input type="text" size="7" maxlength="7" class="rpbchessboard-lightSquareColorField" name="lightSquareColor"
+											value="<?php echo htmlspecialchars($model->getLightSquareColor($colorset)); ?>" />
 									</label>
 									<div>
-										<div class="rpbchessboard-lightColorSelector"></div>
+										<div class="rpbchessboard-lightSquareColorSelector"></div>
 									</div>
 								</div>
 							</div>
@@ -131,15 +133,13 @@
 			$('td.rpbchessboard-colorsetEdition', row).show();
 
 			// Initialize the color picker widgets
-			$('.rpbchessboard-darkColorField', row).iris({
-				color: '#ff0000',
+			$('.rpbchessboard-darkSquareColorField', row).iris({
 				hide: false,
-				target: $('.rpbchessboard-darkColorSelector', row)
+				target: $('.rpbchessboard-darkSquareColorSelector', row)
 			});
-			$('.rpbchessboard-lightColorField', row).iris({
-				color: '#ffff00',
+			$('.rpbchessboard-lightSquareColorField', row).iris({
 				hide: false,
-				target: $('.rpbchessboard-lightColorSelector', row)
+				target: $('.rpbchessboard-lightSquareColorSelector', row)
 			});
 		});
 
