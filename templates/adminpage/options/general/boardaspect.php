@@ -50,9 +50,9 @@
 		<p>
 			<label for="rpbchessboard-colorsetField"><?php _e('Colorset:', 'rpbchessboard'); ?></label>
 			<select id="rpbchessboard-colorsetField" name="colorset">
-				<?php foreach($model->getAvailableColorsets() as $colorset => $info): ?>
+				<?php foreach($model->getAvailableColorsets() as $colorset): ?>
 					<option value="<?php echo htmlspecialchars($colorset); ?>" <?php if($model->isDefaultColorset($colorset)): ?>selected="yes"<?php endif; ?>>
-						<?php echo htmlspecialchars($info->label); ?>
+						<?php echo htmlspecialchars($model->getColorsetLabel($colorset)); ?>
 					</option>
 				<?php endforeach; ?>
 			</select>

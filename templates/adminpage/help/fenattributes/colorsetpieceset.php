@@ -33,9 +33,9 @@
 		<p>
 			<label for="rpbchessboard-fenAttributeColorset-field"><?php _e('Colorset:', 'rpbchessboard'); ?></label>
 			<select id="rpbchessboard-fenAttributeColorset-field">
-				<?php foreach($model->getAvailableColorsets() as $colorset => $info): ?>
+				<?php foreach($model->getAvailableColorsets() as $colorset): ?>
 					<option value="<?php echo htmlspecialchars($colorset); ?>">
-						<?php echo htmlspecialchars($info->label); ?>
+						<?php echo htmlspecialchars($model->getColorsetLabel($colorset)); ?>
 					</option>
 				<?php endforeach; ?>
 			</select>

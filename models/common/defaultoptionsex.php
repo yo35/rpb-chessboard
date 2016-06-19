@@ -30,15 +30,30 @@ require_once(RPBCHESSBOARD_ABSPATH . 'helpers/validation.php');
 class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractModel {
 
 	private static $availableColorsets;
+	private static $customColorsetLabels = array();
 	private static $pieceSymbolLocalizationAvailable;
 	private static $simplifiedPieceSymbols;
 	private static $pieceSymbolCustomValues;
 
+	private static $BUILTIN_COLORSETS = array(
+		'coral'      => 'Coral'     ,
+		'default'    => 'Default'   ,
+		'dusk'       => 'Dusk'      ,
+		'emerald'    => 'Emerald'   ,
+		'gray'       => 'Gray'      ,
+		'marine'     => 'Marine'    ,
+		'sandcastle' => 'Sandcastle',
+		'scid'       => 'Scid'      ,
+		'wikipedia'  => 'Wikipedia' ,
+		'wheat'      => 'Wheat'     ,
+		'xboard'     => 'XBoard'
+	);
 
 	public function __construct() {
 		parent::__construct();
 		$this->registerDelegatableMethods('getMinimumSquareSize', 'getMaximumSquareSize',
-			'getAvailableColorsets', 'isDefaultColorset', 'getAvailablePiecesets', 'isDefaultPieceset',
+			'getAvailableColorsets', 'isBuiltinColorset', 'isDefaultColorset', 'getColorsetLabel',
+			'getAvailablePiecesets', 'isDefaultPieceset',
 			'getMaximumAnimationSpeed', 'getStepAnimationSpeed',
 			'isPieceSymbolLocalizationAvailable', 'getDefaultSimplifiedPieceSymbols', 'getDefaultPieceSymbolCustomValues');
 
@@ -73,28 +88,25 @@ class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractMode
 	 */
 	public function getAvailableColorsets() {
 		if(!isset(self::$availableColorsets)) {
-			self::$availableColorsets = array(
-				'coral'      => (object) array('label' => 'Coral'     , 'builtin' => true),
-				'default'    => (object) array('label' => 'Default'   , 'builtin' => true),
-				'dusk'       => (object) array('label' => 'Dusk'      , 'builtin' => true),
-				'emerald'    => (object) array('label' => 'Emerald'   , 'builtin' => true),
-				'gray'       => (object) array('label' => 'Gray'      , 'builtin' => true),
-				'marine'     => (object) array('label' => 'Marine'    , 'builtin' => true),
-				'sandcastle' => (object) array('label' => 'Sandcastle', 'builtin' => true),
-				'scid'       => (object) array('label' => 'Scid'      , 'builtin' => true),
-				'wikipedia'  => (object) array('label' => 'Wikipedia' , 'builtin' => true),
-				'wheat'      => (object) array('label' => 'Wheat'     , 'builtin' => true),
-				'xboard'     => (object) array('label' => 'XBoard'    , 'builtin' => true)
-			);
+			self::$availableColorsets = array_keys(self::$BUILTIN_COLORSETS);
 
-			$colorsets = RPBChessboardHelperValidation::validateSetCodeList(get_option('rpbchessboard_custom_colorsets'));
-			if(isset($colorsets)) {
-				foreach($colorsets as $colorset) {
-					self::$availableColorsets[$colorset] = (object) array('label' => 'TODO', 'builtin' => false);
-				}
+			$customColorsets = RPBChessboardHelperValidation::validateSetCodeList(get_option('rpbchessboard_custom_colorsets'));
+			if(isset($customColorsets)) {
+				self::$availableColorsets = array_merge(self::$availableColorsets, $customColorsets);
+				asort(self::$availableColorsets);
 			}
 		}
 		return self::$availableColorsets;
+	}
+
+
+	/**
+	 * Check whether the given colorset is built-in or not.
+	 *
+	 * @return boolean
+	 */
+	public function isBuiltinColorset($colorset) {
+		return isset(self::$BUILTIN_COLORSETS[$colorset]);
 	}
 
 
@@ -106,6 +118,24 @@ class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractMode
 	 */
 	public function isDefaultColorset($colorset) {
 		return $this->getDefaultColorset() === $colorset;
+	}
+
+
+	/**
+	 * Return the label of the given colorset.
+	 *
+	 * @return string
+	 */
+	public function getColorsetLabel($colorset) {
+		if(isset(self::$BUILTIN_COLORSETS[$colorset])) {
+			return self::$BUILTIN_COLORSETS[$colorset];
+		}
+		else {
+			if(!isset(self::$customColorsetLabels[$colorset])) {
+				self::$customColorsetLabels[$colorset] = get_option('rpbchessboard_custom_colorset_label_' . $colorset, $colorset);
+			}
+			return self::$customColorsetLabels[$colorset];
+		}
 	}
 
 

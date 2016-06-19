@@ -31,14 +31,18 @@
 	</thead>
 
 	<tbody>
-		<?php foreach($model->getAvailableColorsets() as $colorset => $info): ?>
+		<?php foreach($model->getAvailableColorsets() as $colorset): ?>
 			<tr data-colorset="<?php echo htmlspecialchars($colorset); ?>">
 				<td class="has-row-actions">
-					<strong class="row-title"><?php echo htmlspecialchars($info->label); ?></strong>
+					<strong class="row-title"><?php echo htmlspecialchars($model->getColorsetLabel($colorset)); ?></strong>
 					<span class="row-actions rpbchessboard-inlinedRowActions">
-						<span><a href="#">Edit</a> |</span>
-						<span><a href="#">Copy</a> |</span>
-						<span><a href="#">Delete</a></span>
+						<?php if($model->isBuiltinColorset($colorset)): ?>
+							<span><a href="#">Copy</a></span>
+						<?php else: ?>
+							<span><a href="#">Edit</a> |</span>
+							<span><a href="#">Copy</a> |</span>
+							<span><a href="#">Delete</a></span>
+						<?php endif; ?>
 					</span>
 				</td>
 				<td><?php echo htmlspecialchars($colorset); ?></td>
