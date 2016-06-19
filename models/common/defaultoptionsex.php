@@ -37,11 +37,11 @@ class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractMode
 
 	private static $BUILTIN_COLORSETS = array(
 		'coral'      => 'Coral'     ,
-		'default'    => 'Default'   ,
 		'dusk'       => 'Dusk'      ,
 		'emerald'    => 'Emerald'   ,
 		'gray'       => 'Gray'      ,
 		'marine'     => 'Marine'    ,
+		'original'   => 'Original'  ,
 		'sandcastle' => 'Sandcastle',
 		'scid'       => 'Scid'      ,
 		'wikipedia'  => 'Wikipedia' ,

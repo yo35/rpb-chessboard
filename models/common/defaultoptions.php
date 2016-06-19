@@ -41,7 +41,7 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 
 	const DEFAULT_SQUARE_SIZE      = 32;
 	const DEFAULT_SHOW_COORDINATES = true;
-	const DEFAULT_COLORSET         = 'default';
+	const DEFAULT_COLORSET         = 'original';
 	const DEFAULT_PIECESET         = 'cburnett';
 	const DEFAULT_PIECE_SYMBOLS    = 'localized';
 	const DEFAULT_NAVIGATION_BOARD = 'frame';
@@ -94,6 +94,12 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 		if(!isset(self::$colorset)) {
 			$value = RPBChessboardHelperValidation::validateSetCode(get_option('rpbchessboard_colorset'));
 			self::$colorset = isset($value) ? $value : self::DEFAULT_COLORSET;
+
+			// FIXME Colorset 'original' was named as 'default' in version 4.3.
+			if(self::$colorset === 'default') {
+				self::$colorset = 'original';
+			}
+
 		}
 		return self::$colorset;
 	}
