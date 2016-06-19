@@ -42,7 +42,11 @@ abstract class RPBChessboardStyleSheets
 
 		// Small-screens
 		RPBChessboardHelperCache::ensureExists('small-screens.css', 'Misc/SmallScreens', 'Misc/SmallScreens');
-		wp_enqueue_style('rpbchessboard-smallscreens' , RPBChessboardHelperCache::getURL('small-screens.css'), false, RPBChessboardHelperCache::getVersion('small-screens.css'));
+		self::enqueueCachedStyle('rpbchessboard-smallscreens', 'small-screens.css');
+
+		// Custom colorsets
+		RPBChessboardHelperCache::ensureExists('custom-colorsets.css', 'Misc/CustomColorsets', 'Common/CustomColorsets');
+		self::enqueueCachedStyle('rpbchessboard-customcolorsets', 'custom-colorsets.css');
 
 		// Additional CSS for the backend.
 		if(is_admin()) {
@@ -54,5 +58,10 @@ abstract class RPBChessboardStyleSheets
 		else {
 			wp_enqueue_style('rpbchessboard-frontend', RPBCHESSBOARD_URL . 'css/frontend.css', false, RPBCHESSBOARD_VERSION);
 		}
+	}
+
+
+	private static function enqueueCachedStyle($handle, $fileName) {
+		wp_enqueue_style($handle, RPBChessboardHelperCache::getURL($fileName), false, RPBChessboardHelperCache::getVersion($fileName));
 	}
 }
