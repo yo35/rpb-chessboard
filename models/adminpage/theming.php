@@ -37,5 +37,13 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 		$this->addSubPage('Piecesets', __('Piecesets', 'rpbchessboard'));
 	}
 
-	// TODO
+
+	/**
+	 * URL to which the the request for modifying the colorsets/piecesets will be dispatched.
+	 *
+	 * @return string
+	 */
+	public function getFormActionURL() {
+		return $this->getSubPage($this->getSelectedSubPageName())->link;
+	}
 }

@@ -513,6 +513,64 @@ div.rpbchessboard-sourceCode {
 /* Theming pages */
 /* -------------------------------------------------------------------------- */
 
+.rpbchessboard-colorsetEdition {
+	display: none;
+}
+
+form.rpbchessboard-inlineForm {
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+}
+
+form.rpbchessboard-inlineForm > * {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+form.rpbchessboard-inlineForm div.rpbchessboard-inlineFormTitle {
+	margin-bottom: 0.5em;
+	font-weight: 600;
+	text-transform: uppercase;
+}
+
+form.rpbchessboard-inlineForm label {
+	display: flex;
+	display: -webkit-flex;
+	flex-direction: row;
+	-webkit-flex-direction: row;
+	align-items: baseline;
+	-webkit-align-items: baseline;
+}
+
+form.rpbchessboard-inlineForm label > span {
+	margin-right: 0.5em;
+	font-style: italic;
+}
+
+form.rpbchessboard-inlineForm label > input {
+	flex-grow: 1;
+	-webkit-flex-grow: 1;
+}
+
+form.rpbchessboard-inlineForm .rpbchessboard-colorFieldAndSelector {
+	display: flex;
+	display: -webkit-flex;
+	flex-direction: column;
+	-webkit-flex-direction: column;
+}
+
+form.rpbchessboard-inlineForm .rpbchessboard-colorFieldAndSelector > *:nth-child(2) {
+	align-self: flex-end;
+	-webkit-align-self: flex-end;
+	padding-right: 1px;
+}
+
+form.rpbchessboard-inlineForm p.submit.rpbchessboard-inlineFormButtons {
+	margin-top: 1em;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
 .rpbchessboard-inlinedRowActions {
 	margin-left: 2em;
 }

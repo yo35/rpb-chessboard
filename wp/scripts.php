@@ -78,6 +78,7 @@ abstract class RPBChessboardScripts
 		if(is_admin()) {
 			wp_enqueue_script('jquery-ui-slider');
 			wp_enqueue_script('jquery-ui-tabs'  );
+			wp_enqueue_script('iris');
 			wp_enqueue_script('rpbchessboard-backend');
 		}
 
