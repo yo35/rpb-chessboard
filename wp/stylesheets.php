@@ -41,7 +41,7 @@ abstract class RPBChessboardStyleSheets
 		wp_enqueue_style('rpbchessboard-chessgame' , RPBCHESSBOARD_URL . 'css/uichess-chessgame.css' , false, RPBCHESSBOARD_VERSION);
 
 		// Small-screens
-		RPBChessboardHelperCache::ensureExists('small-screens.css', 'Misc/SmallScreens', 'Misc/SmallScreens');
+		RPBChessboardHelperCache::ensureExists('small-screens.css', 'Misc/SmallScreens', 'Common/SmallScreens');
 		self::enqueueCachedStyle('rpbchessboard-smallscreens', 'small-screens.css');
 
 		// Custom colorsets

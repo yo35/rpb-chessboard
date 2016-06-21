@@ -36,7 +36,7 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 		$this->loadDelegateModel('Common/DefaultOptionsEx');
 		$this->loadDelegateModel('Common/Compatibility'   );
 		$this->loadDelegateModel('Common/URLs'            );
-		$this->loadDelegateModel('Misc/SmallScreens'      );
+		$this->loadDelegateModel('Common/SmallScreens'    );
 
 		// Create the sub-pages.
 		$this->addSubPage('General'      , __('Default aspect & behavior settings'    , 'rpbchessboard'), true);

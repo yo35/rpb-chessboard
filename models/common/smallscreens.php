@@ -27,7 +27,7 @@ require_once(RPBCHESSBOARD_ABSPATH . 'helpers/validation.php');
 /**
  * Specific settings to deal with small-screen devices (such as smartphones).
  */
-class RPBChessboardModelMiscSmallScreens extends RPBChessboardAbstractModel
+class RPBChessboardModelCommonSmallScreens extends RPBChessboardAbstractModel
 {
 	private static $smallScreenCompatibility;
 	private static $smallScreenModes;
