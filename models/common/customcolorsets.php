@@ -65,7 +65,8 @@ class RPBChessboardModelCommonCustomColorsets extends RPBChessboardAbstractModel
 	 */
 	public function getCustomColorsetLabel($colorset) {
 		if(!isset(self::$customColorsetLabels[$colorset])) {
-			self::$customColorsetLabels[$colorset] = get_option('rpbchessboard_custom_colorset_label_' . $colorset, $colorset);
+			$value = get_option('rpbchessboard_custom_colorset_label_' . $colorset, null);
+			self::$customColorsetLabels[$colorset] = isset($value) ? $value : ucfirst(str_replace('-', ' ', $colorset));
 		}
 		return self::$customColorsetLabels[$colorset];
 	}
