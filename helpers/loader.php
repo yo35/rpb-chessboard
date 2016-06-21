@@ -52,10 +52,21 @@ abstract class RPBChessboardHelperLoader {
 	 *
 	 * @param string $templateName
 	 * @param object $model
+	 * @param array $args
 	 */
-	public static function printTemplate($templateName, $model) {
-		$filename = RPBCHESSBOARD_ABSPATH . 'templates/' . strtolower($templateName);
-		include($filename . (is_dir($filename) ? '/main.php' : '.php'));
+	public static function printTemplate($templateName, $model, $args=null) {
+
+		if(isset($args)) {
+			foreach($args as $key => $value) {
+				if($key === 'model' || $key === 'templateName' || $key === 'fileName') {
+					continue;
+				}
+				$$key = $value;
+			}
+		}
+
+		$fileName = RPBCHESSBOARD_ABSPATH . 'templates/' . strtolower($templateName);
+		include($fileName . (is_dir($fileName) ? '/main.php' : '.php'));
 	}
 
 
@@ -64,11 +75,12 @@ abstract class RPBChessboardHelperLoader {
 	 *
 	 * @param string $templateName
 	 * @param object $model
+	 * @param array $args
 	 * @return string
 	 */
-	public static function printTemplateOffScreen($templateName, $model) {
+	public static function printTemplateOffScreen($templateName, $model, $args=null) {
 		ob_start();
-		self::printTemplate($templateName, $model);
+		self::printTemplate($templateName, $model, $args);
 		return ob_get_clean();
 	}
 }
