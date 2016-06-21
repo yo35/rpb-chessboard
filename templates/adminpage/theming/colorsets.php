@@ -56,43 +56,7 @@
 				</td>
 
 				<?php if(!$model->isBuiltinColorset($colorset)): ?>
-					<td colspan="3" class="rpbchessboard-colorsetEdition">
-						<form class="rpbchessboard-inlineForm" action="<?php echo htmlspecialchars($model->getFormActionURL()); ?>" method="post">
-							<div class="rpbchessboard-inlineFormTitle"><?php _e('Edit colorset', 'rpbchessboard'); ?></div>
-							<div>
-								<label>
-									<span><?php _e('Name', 'rpbchessboard'); ?></span>
-									<input type="text" name="label" value="<?php echo htmlspecialchars($model->getColorsetLabel($colorset)); ?>" />
-								</label>
-							</div>
-							<div class="rpbchessboard-columns">
-								<div class="rpbchessboard-stretchable rpbchessboard-colorFieldAndSelector">
-									<label>
-										<span><?php _e('Dark squares', 'rpbchessboard'); ?></span>
-										<input type="text" size="7" maxlength="7" class="rpbchessboard-darkSquareColorField" name="darkSquareColor"
-											value="<?php echo htmlspecialchars($model->getDarkSquareColor($colorset)); ?>" />
-									</label>
-									<div>
-										<div class="rpbchessboard-darkSquareColorSelector"></div>
-									</div>
-								</div>
-								<div class="rpbchessboard-stretchable rpbchessboard-colorFieldAndSelector">
-									<label>
-										<span><?php _e('Light squares', 'rpbchessboard'); ?></span>
-										<input type="text" size="7" maxlength="7" class="rpbchessboard-lightSquareColorField" name="lightSquareColor"
-											value="<?php echo htmlspecialchars($model->getLightSquareColor($colorset)); ?>" />
-									</label>
-									<div>
-										<div class="rpbchessboard-lightSquareColorSelector"></div>
-									</div>
-								</div>
-							</div>
-							<p class="submit rpbchessboard-inlineFormButtons">
-								<input type="submit" class="button-primary" value="<?php _e('Save changes', 'rpbchessboard'); ?>" />
-								<a class="button" href="<?php echo htmlspecialchars($model->getFormActionURL()); ?>"><?php _e('Cancel', 'rpbchessboard'); ?></a>
-							</p>
-						</form>
-					</td>
+					<?php RPBChessboardHelperLoader::printTemplate('AdminPage/Theming/ColorsetEdition', $model, array('colorset' => $colorset)); ?>
 				<?php endif; ?>
 
 			</tr>

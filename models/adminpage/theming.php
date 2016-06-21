@@ -46,4 +46,14 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 	public function getFormActionURL() {
 		return $this->getSubPage($this->getSelectedSubPageName())->link;
 	}
+
+
+	/**
+	 * Action code corresponding to the request to edit an existing colorset.
+	 *
+	 * @return string
+	 */
+	public function getEditAction() {
+		return 'edit-colorset';
+	}
 }
