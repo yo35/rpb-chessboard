@@ -33,8 +33,7 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 	private $subPages;
 	private $defaultSubPageName;
 	private $selectedSubPageName;
-	private $postAction;
-	private $postMessage;
+	private static $postMessage;
 
 
 	/**
@@ -228,29 +227,12 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 
 
 	/**
-	 * Return the name of the action that should be performed by the server.
-	 * The action is initiated by the user when clicking on a "submit" button in
-	 * an HTML form with its method attribute set to POST.
-	 *
-	 * This function may return an empty string if no action is required.
-	 *
-	 * @return string
-	 */
-	public function getPostAction() {
-		if(!isset($this->postAction)) {
-			$this->postAction = isset($_POST['rpbchessboard_action']) ? $_POST['rpbchessboard_action'] : '';
-		}
-		return $this->postAction;
-	}
-
-
-	/**
 	 * Whether a POST message has been defined or not.
 	 *
 	 * @return boolean
 	 */
 	public function hasPostMessage() {
-		return isset($this->postMessage);
+		return isset(self::$postMessage);
 	}
 
 
@@ -261,16 +243,16 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 	 * @return string
 	 */
 	public function getPostMessage() {
-		return isset($this->postMessage) ? $this->postMessage : '';
+		return isset(self::$postMessage) ? self::$postMessage : '';
 	}
 
 
 	/**
-	 * Set the POST action message.
+	 * Define the POST action message.
 	 *
 	 * @param string $message
 	 */
-	public function setPostMessage($message) {
-		$this->postMessage = $message;
+	public static function initializePostMessage($message) {
+		self::$postMessage = $message;
 	}
 }

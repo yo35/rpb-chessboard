@@ -88,38 +88,7 @@ abstract class RPBChessboardAdminPages
 	 * @param string $adminPageName
 	 */
 	private static function printAdminPage($adminPageName) {
-
-		// Load the model.
 		$model = RPBChessboardHelperLoader::loadModel('AdminPage/' . $adminPageName);
-
-		// Process the post-action, if any.
-		switch($model->getPostAction()) {
-			case 'update-options'     : self::executeAction($model, 'SaveOptions' , 'updateOptions'     ); break;
-			case 'reset-general'      : self::executeAction($model, 'ResetOptions', 'resetGeneral'      ); break;
-			case 'reset-compatibility': self::executeAction($model, 'ResetOptions', 'resetCompatibility'); break;
-			case 'reset-smallscreens' : self::executeAction($model, 'ResetOptions', 'resetSmallScreens' ); break;
-			default: break;
-		}
-
-		// Print the template.
 		RPBChessboardHelperLoader::printTemplate('AdminPage', $model);
-	}
-
-
-	/**
-	 * Load the model `$postModelName`, and execute the method `$methodName` supposedly defined by this model.
-	 *
-	 * @param object $model
-	 * @param string $postModelName
-	 * @param string $methodName
-	 * @param string $capability Required capability to execute the action. Default is `'manage_options'`.
-	 */
-	private static function executeAction($model, $postModelName, $methodName, $capability='manage_options') {
-		if(!current_user_can($capability)) {
-			return;
-		}
-
-		$postModel = RPBChessboardHelperLoader::loadModel('Post/' . $postModelName);
-		$model->setPostMessage($postModel->$methodName());
 	}
 }

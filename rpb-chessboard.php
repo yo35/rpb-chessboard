@@ -45,6 +45,18 @@ require_once(RPBCHESSBOARD_ABSPATH . 'helpers/loader.php');
 require_once(RPBCHESSBOARD_ABSPATH . 'helpers/cache.php');
 
 
+// POST actions & shortcodes
+add_action('init', 'rpbchessboard_init');
+function rpbchessboard_init() {
+
+	require_once(RPBCHESSBOARD_ABSPATH . 'wp/postactions.php');
+	RPBChessboardPostActions::run();
+
+	require_once(RPBCHESSBOARD_ABSPATH . 'wp/shortcodes.php');
+	RPBChessboardShortcodes::register();
+}
+
+
 // JavaScript & CSS
 add_action(is_admin() ? 'admin_enqueue_scripts' : 'wp_enqueue_scripts', 'rpbchessboard_init_js_css');
 function rpbchessboard_init_js_css()
@@ -64,16 +76,5 @@ if(is_admin()) {
 	{
 		require_once(RPBCHESSBOARD_ABSPATH . 'wp/adminpages.php');
 		RPBChessboardAdminPages::register();
-	}
-}
-
-
-// Shortcodes
-if(!is_admin()) {
-	add_action('init', 'rpbchessboard_init_shortcodes');
-	function rpbchessboard_init_shortcodes()
-	{
-		require_once(RPBCHESSBOARD_ABSPATH . 'wp/shortcodes.php');
-		RPBChessboardShortcodes::register();
 	}
 }
