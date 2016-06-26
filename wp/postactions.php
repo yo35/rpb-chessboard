@@ -28,9 +28,6 @@
  */
 abstract class RPBChessboardPostActions {
 
-	private static $postAction;
-
-
 	/**
 	 * Look at the POST variable `$_POST['rpbchessboard_action']` and execute the corresponding action, if any.
 	 */
@@ -40,6 +37,7 @@ abstract class RPBChessboardPostActions {
 			case 'reset-general'      : self::executeAction('ResetOptions', 'resetGeneral'      ); break;
 			case 'reset-compatibility': self::executeAction('ResetOptions', 'resetCompatibility'); break;
 			case 'reset-smallscreens' : self::executeAction('ResetOptions', 'resetSmallScreens' ); break;
+			case 'edit-colorset'      : self::executeAction('EditColorset', 'edit'              ); break;
 			default: break;
 		}
 	}
@@ -75,9 +73,6 @@ abstract class RPBChessboardPostActions {
 	 * @return string
 	 */
 	private static function getPostAction() {
-		if(!isset(self::$postAction)) {
-			self::$postAction = isset($_POST['rpbchessboard_action']) ? $_POST['rpbchessboard_action'] : '';
-		}
-		return self::$postAction;
+		return isset($_POST['rpbchessboard_action']) ? $_POST['rpbchessboard_action'] : '';
 	}
 }
