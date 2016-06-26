@@ -124,7 +124,13 @@ class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractMode
 	 * @return string
 	 */
 	public function getColorsetLabel($colorset) {
-		return $this->isBuiltinColorset($colorset) ? self::$BUILTIN_COLORSETS[$colorset] : $this->getCustomColorsetLabel($colorset);
+		if($this->isBuiltinColorset($colorset)) {
+			return self::$BUILTIN_COLORSETS[$colorset];
+		}
+		else {
+			$result = $this->getCustomColorsetLabel($colorset);
+			return $result === '' ? __('(no name)', 'rpbchessboard') : $result;
+		}
 	}
 
 

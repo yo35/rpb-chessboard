@@ -31,7 +31,7 @@
 		<div>
 			<label>
 				<span><?php _e('Name', 'rpbchessboard'); ?></span>
-				<input type="text" name="label" value="<?php echo htmlspecialchars($model->getColorsetLabel($colorset)); ?>" />
+				<input type="text" name="label" value="<?php echo htmlspecialchars($model->getCustomColorsetLabel($colorset)); ?>" />
 			</label>
 		</div>
 
