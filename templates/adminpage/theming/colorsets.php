@@ -42,7 +42,7 @@
 						<?php else: ?>
 							<span><a href="#" class="rpbchessboard-action-editColorset">Edit</a> |</span>
 							<span><a href="#">Copy</a> |</span>
-							<span><a href="#">Delete</a></span>
+							<span><a href="#" class="rpbchessboard-action-deleteColorset">Delete</a></span>
 						<?php endif; ?>
 					</span>
 				</td>
@@ -72,6 +72,11 @@
 	</tfoot>
 
 </table>
+
+<form id="rpbchessboard-deleteColorsetForm" action="<?php echo htmlspecialchars($model->getFormActionURL()); ?>" method="post">
+	<input type="hidden" name="rpbchessboard_action" value="<?php echo htmlspecialchars($model->getDeleteAction()); ?>" />
+	<input type="hidden" name="colorset" value="" />
+</form>
 
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
@@ -124,6 +129,24 @@
 			var lightSquareColor = $('.rpbchessboard-lightSquareColorField', row).iris('color');
 			$('#rpbchessboard-themingPreviewWidget .uichess-chessboard-darkSquare').css('background-color', darkSquareColor);
 			$('#rpbchessboard-themingPreviewWidget .uichess-chessboard-lightSquare').css('background-color', lightSquareColor);
+		});
+
+		$('#rpbchessboard-colorsetList tr .rpbchessboard-action-deleteColorset').click(function(e) {
+			e.preventDefault();
+
+			var row = $(this).closest('tr');
+
+			// Ask for confirmation from the user.
+			var message = <?php
+				echo json_encode(sprintf(__('Delete colorset "%1$s"?. Press OK to confirm...', 'rpbchessboard'), '{1}'));
+			?>;
+			message = message.replace('{1}', $('.row-title', row).text());
+			if(!confirm(message)) { return; }
+
+			// Process the request.
+			var form = $('#rpbchessboard-deleteColorsetForm');
+			$('input[name="colorset"]', form).val(row.data('colorset'));
+			form.submit();
 		});
 
 	});

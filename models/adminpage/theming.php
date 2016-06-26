@@ -56,4 +56,14 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 	public function getEditAction() {
 		return 'edit-colorset';
 	}
+
+
+	/**
+	 * Action code corresponding to the request to delete an existing colorset.
+	 *
+	 * @return string
+	 */
+	public function getDeleteAction() {
+		return 'delete-colorset';
+	}
 }
