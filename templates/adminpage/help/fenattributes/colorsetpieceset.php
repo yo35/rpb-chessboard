@@ -57,7 +57,7 @@
 
 		<div class="rpbchessboard-sourceCode">
 			<?php echo sprintf(
-				'[%1$s <strong>colorset=<span id="rpbchessboard-fenAttributeColorset-sourceCodeExample">default</span></strong> ' .
+				'[%1$s <strong>colorset=<span id="rpbchessboard-fenAttributeColorset-sourceCodeExample">original</span></strong> ' .
 				'<strong>pieceset=<span id="rpbchessboard-fenAttributePieceset-sourceCodeExample">cburnett</span></strong>] ... [/%1$s]',
 				htmlspecialchars($model->getFENShortcode())
 			); ?>

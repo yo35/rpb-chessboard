@@ -72,11 +72,11 @@ class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractMode
 	public function getAvailableColorsets() {
 		return array(
 			'coral'      => 'Coral'     ,
-			'default'    => 'Default'   ,
 			'dusk'       => 'Dusk'      ,
 			'emerald'    => 'Emerald'   ,
 			'gray'       => 'Gray'      ,
 			'marine'     => 'Marine'    ,
+			'original'   => 'Original'  ,
 			'sandcastle' => 'Sandcastle',
 			'scid'       => 'Scid'      ,
 			'wikipedia'  => 'Wikipedia' ,
