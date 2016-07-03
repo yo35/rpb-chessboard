@@ -105,6 +105,8 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode
 			$this->navigationFrameArgs = array(
 				'squareSize'      => $this->getDefaultSquareSize     (),
 				'showCoordinates' => $this->getDefaultShowCoordinates(),
+				'colorset'        => $this->getDefaultColorset       (),
+				'pieceset'        => $this->getDefaultPieceset       (),
 				'animationSpeed'  => $this->getDefaultAnimationSpeed (),
 				'showMoveArrow'   => $this->getDefaultShowMoveArrow  ()
 			);

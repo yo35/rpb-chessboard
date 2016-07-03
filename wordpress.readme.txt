@@ -113,6 +113,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 4.3.2 (July 3, 2016) =
+* Fix wrong colorset/pieceset parameters in navigation frame (see #66).
+
 = 4.3.1 (June 16, 2016) =
 * Minor fixes.
 * Tested up to WordPress 4.5.

@@ -95,11 +95,10 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 			$value = RPBChessboardHelperValidation::validateSetCode(get_option('rpbchessboard_colorset'));
 			self::$colorset = isset($value) ? $value : self::DEFAULT_COLORSET;
 
-			// FIXME Colorset 'original' was named as 'default' in version 4.3.
+			// FIXME Colorset 'original' was named as 'default' in version 4.3 and 4.3.1.
 			if(self::$colorset === 'default') {
 				self::$colorset = 'original';
 			}
-
 		}
 		return self::$colorset;
 	}
