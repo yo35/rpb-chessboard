@@ -113,6 +113,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 4.3.3 (August 7, 2016) =
+* Fix animation not working when clicking on text moves (see #68).
+
 = 4.3.2 (July 3, 2016) =
 * Fix wrong colorset/pieceset parameters in navigation frame (see #66).
 
