@@ -727,10 +727,9 @@
 		 * Make the moves clickable: when clicked, the navigation board is updated to show
 		 * the position after the corresponding move.
 		 */
-		_makeMovesClickable: function()
-		{
+		_makeMovesClickable: function() {
 			var obj = this;
-			$('.uichess-chessgame-move', this.element).click(function() { obj._updateNavigationBoard($(this), false); });
+			$('.uichess-chessgame-move', this.element).click(function() { obj._updateNavigationBoard($(this), true); });
 		},
 
 
@@ -1202,6 +1201,11 @@
 				$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationBoard') :
 				$('.uichess-chessgame-navigationBoard', this.element);
 
+			// Flip the board if necessary.
+			if(this.options.navigationBoardOptions.flip !== widget.chessboard('option', 'flip')) {
+				widget.chessboard('option', 'flip', this.options.navigationBoardOptions.flip);
+			}
+
 			// Update the position.
 			if(playTheMove) {
 				widget.chessboard('option', 'position', move.data('positionBefore'));
@@ -1216,11 +1220,6 @@
 			var cal = move.data('cal');
 			widget.chessboard('option', 'squareMarkers', typeof csl === 'undefined' ? '' : csl);
 			widget.chessboard('option', 'arrowMarkers', typeof cal === 'undefined' ? '' : cal);
-
-			// Flip the board if necessary.
-			if(this.options.navigationBoardOptions.flip !== widget.chessboard('option', 'flip')) {
-				widget.chessboard('option', 'flip', this.options.navigationBoardOptions.flip);
-			}
 		},
 
 
