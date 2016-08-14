@@ -513,8 +513,8 @@ div.rpbchessboard-sourceCode {
 /* Theming pages */
 /* -------------------------------------------------------------------------- */
 
-.rpbchessboard-colorsetEdition,
-#rpbchessboard-colorsetCreation {
+.rpbchessboard-setCodeEditor,
+#rpbchessboard-setCodeCreator {
 	display: none;
 }
 
@@ -587,7 +587,7 @@ form.rpbchessboard-inlineForm p.submit.rpbchessboard-inlineFormButtons {
 	display: none;
 }
 
-#rpbchessboard-colorsetList td:nth-child(3) {
+#rpbchessboard-setCodeList td:nth-child(3) {
 	padding-left: 2em;
 }
 

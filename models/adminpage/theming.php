@@ -39,6 +39,33 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 
 
 	/**
+	 * Either `'pieceset'` or `'colorset'` depending on the active page.
+	 */
+	public function getManagedSetCode() {
+		return $this->getSelectedSubPageName() === 'Colorsets' ? 'colorset' : 'pieceset';
+	}
+
+
+	/**
+	 * Either the default pieceset or the default colorset depending on the active page.
+	 */
+	public function getDefaultSetCodeValue() {
+		return $this->getSelectedSubPageName() === 'Colorsets' ? $this->getDefaultColorset() : $this->getDefaultPieceset();
+	}
+
+
+	/**
+	 * Return the message to show to the user to confirm the removal of either a pieceset or a colorset.
+	 */
+	public function getDeleteConfirmMessage() {
+		$text = $this->getSelectedSubPageName() === 'Colorsets' ?
+			__('Delete colorset "%1$s"?. Press OK to confirm...', 'rpbchessboard') :
+			__('Delete pieceset "%1$s"?. Press OK to confirm...', 'rpbchessboard');
+		return sprintf($text, '{1}');
+	}
+
+
+	/**
 	 * URL to which the the request for modifying the colorsets/piecesets will be dispatched.
 	 *
 	 * @return string
@@ -54,7 +81,7 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 	 * @return string
 	 */
 	public function getFormAction($isNew) {
-		return $isNew ? 'add-colorset' : 'edit-colorset';
+		return ($isNew ? 'add-' : 'edit-') . $this->getManagedSetCode();
 	}
 
 
@@ -64,7 +91,7 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 	 * @return string
 	 */
 	public function getDeleteAction() {
-		return 'delete-colorset';
+		return 'delete-' . $this->getManagedSetCode();
 	}
 
 
@@ -74,7 +101,7 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 	 * @return string
 	 */
 	public function getSetDefaultAction() {
-		return 'set-default-colorset';
+		return 'set-default-' . $this->getManagedSetCode();
 	}
 
 

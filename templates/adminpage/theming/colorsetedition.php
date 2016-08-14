@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<td colspan="3" <?php if($isNew): ?>id="rpbchessboard-colorsetCreation"<?php else: ?>class="rpbchessboard-colorsetEdition"<?php endif; ?>>
+<td colspan="3" <?php if($isNew): ?>id="rpbchessboard-setCodeCreator"<?php else: ?>class="rpbchessboard-setCodeEditor"<?php endif; ?>>
 	<form class="rpbchessboard-inlineForm" action="<?php echo htmlspecialchars($model->getFormActionURL()); ?>" method="post">
 
 		<input type="hidden" name="rpbchessboard_action" value="<?php echo htmlspecialchars($model->getFormAction($isNew)); ?>" />

@@ -21,12 +21,12 @@
 ?>
 
 <p>
-	<button id="rpbchessboard-addColorsetButton" class="button">
+	<button id="rpbchessboard-addSetCodeButton" class="button">
 		<?php _e('Add a new colorset', 'rpbchessboard'); ?>
 	</button>
 </p>
 
-<table id="rpbchessboard-colorsetList" class="wp-list-table widefat striped">
+<table id="rpbchessboard-setCodeList" class="wp-list-table widefat striped">
 
 	<thead>
 		<tr>
@@ -43,17 +43,17 @@
 		</tr>
 
 		<?php foreach($model->getAvailableColorsets() as $colorset): ?>
-			<tr data-colorset="<?php echo htmlspecialchars($colorset); ?>">
+			<tr data-slug="<?php echo htmlspecialchars($colorset); ?>">
 
 				<td class="has-row-actions">
 					<strong class="row-title"><?php echo htmlspecialchars($model->getColorsetLabel($colorset)); ?></strong>
 					<span class="row-actions rpbchessboard-inlinedRowActions">
 						<?php if($model->isBuiltinColorset($colorset)): ?>
-							<span><a href="#" class="rpbchessboard-action-setDefaultColorset"><?php _e('Set default', 'rpbchessboard'); ?></a></span>
+							<span><a href="#" class="rpbchessboard-action-setDefault"><?php _e('Set default', 'rpbchessboard'); ?></a></span>
 						<?php else: ?>
-							<span><a href="#" class="rpbchessboard-action-setDefaultColorset"><?php _e('Set default', 'rpbchessboard'); ?></a> |</span>
-							<span><a href="#" class="rpbchessboard-action-editColorset"><?php _e('Edit', 'rpbchessboard'); ?></a> |</span>
-							<span><a href="#" class="rpbchessboard-action-deleteColorset"><?php _e('Delete', 'rpbchessboard'); ?></a></span>
+							<span><a href="#" class="rpbchessboard-action-setDefault"><?php _e('Set default', 'rpbchessboard'); ?></a> |</span>
+							<span><a href="#" class="rpbchessboard-action-edit"><?php _e('Edit', 'rpbchessboard'); ?></a> |</span>
+							<span><a href="#" class="rpbchessboard-action-delete"><?php _e('Delete', 'rpbchessboard'); ?></a></span>
 						<?php endif; ?>
 					</span>
 				</td>
@@ -84,118 +84,33 @@
 
 </table>
 
-<form id="rpbchessboard-deleteColorsetForm" action="<?php echo htmlspecialchars($model->getFormActionURL()); ?>" method="post">
-	<input type="hidden" name="rpbchessboard_action" value="<?php echo htmlspecialchars($model->getDeleteAction()); ?>" />
-	<input type="hidden" name="colorset" value="" />
-</form>
-
-<form id="rpbchessboard-setDefaultColorsetForm" action="<?php echo htmlspecialchars($model->getFormActionURL()); ?>" method="post">
-	<input type="hidden" name="rpbchessboard_action" value="<?php echo htmlspecialchars($model->getSetDefaultAction()); ?>" />
-	<input type="hidden" name="colorset" value="" />
-</form>
-
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
 
-		var disableAutoPreview = false;
-
-		function previewColorset(colorset) {
-			if(disableAutoPreview) { return; }
-			$('#rpbchessboard-themingPreviewWidget').chessboard('option', 'colorset', colorset);
-		}
-
-		function previewDefaultColorset() {
-			previewColorset(<?php echo json_encode($model->getDefaultColorset()); ?>);
-		}
-
-		$('#rpbchessboard-colorsetList tbody tr').mouseleave(previewDefaultColorset).mouseenter(function(e) {
-			previewColorset($(e.currentTarget).data('colorset'));
-		});
-
-		function disableAllActions() {
-			disableAutoPreview = true;
-			$('#rpbchessboard-addColorsetButton').addClass('disabled');
-			$('#rpbchessboard-colorsetList').addClass('rpbchessboard-rowActionsDisabled');
-		}
-
-		function initializeColorPickers(container) {
+		RPBChessboard.initializeSetCodeEditor = function(target) {
 
 			// Initialize the color picker widgets
-			$('.rpbchessboard-darkSquareColorField', container).iris({
+			$('.rpbchessboard-darkSquareColorField', target).iris({
 				hide: false,
-				target: $('.rpbchessboard-darkSquareColorSelector', container),
+				target: $('.rpbchessboard-darkSquareColorSelector', target),
 				change: function(event, ui) {
 					$('#rpbchessboard-themingPreviewWidget .uichess-chessboard-darkSquare').css('background-color', ui.color.toString());
 				}
 			});
-			$('.rpbchessboard-lightSquareColorField', container).iris({
+			$('.rpbchessboard-lightSquareColorField', target).iris({
 				hide: false,
-				target: $('.rpbchessboard-lightSquareColorSelector', container),
+				target: $('.rpbchessboard-lightSquareColorSelector', target),
 				change: function(event, ui) {
 					$('#rpbchessboard-themingPreviewWidget .uichess-chessboard-lightSquare').css('background-color', ui.color.toString());
 				}
 			});
 
 			// Initialize the colors of the preview chessboard
-			var darkSquareColor = $('.rpbchessboard-darkSquareColorField', container).iris('color');
-			var lightSquareColor = $('.rpbchessboard-lightSquareColorField', container).iris('color');
+			var darkSquareColor = $('.rpbchessboard-darkSquareColorField', target).iris('color');
+			var lightSquareColor = $('.rpbchessboard-lightSquareColorField', target).iris('color');
 			$('#rpbchessboard-themingPreviewWidget .uichess-chessboard-darkSquare').css('background-color', darkSquareColor);
 			$('#rpbchessboard-themingPreviewWidget .uichess-chessboard-lightSquare').css('background-color', lightSquareColor);
 		}
-
-		$('#rpbchessboard-addColorsetButton').click(function(e) {
-			e.preventDefault();
-
-			// Prevent other actions when the edition form is displayed.
-			if($(this).hasClass('disabled')) { return; }
-			disableAllActions();
-
-			// Initialize and display the form.
-			$('#rpbchessboard-colorsetCreation').show();
-			initializeColorPickers($('#rpbchessboard-colorsetCreation'));
-		});
-
-		$('#rpbchessboard-colorsetList tr .rpbchessboard-action-editColorset').click(function(e) {
-			e.preventDefault();
-
-			// Prevent other actions when the edition form is displayed.
-			disableAllActions();
-
-			// Initialize and display the form.
-			var row = $(e.currentTarget).closest('tr');
-			$('td', row).not('.rpbchessboard-colorsetEdition').hide();
-			$('td.rpbchessboard-colorsetEdition', row).show();
-			initializeColorPickers(row);
-		});
-
-		$('#rpbchessboard-colorsetList tr .rpbchessboard-action-deleteColorset').click(function(e) {
-			e.preventDefault();
-
-			var row = $(this).closest('tr');
-
-			// Ask for confirmation from the user.
-			var message = <?php
-				echo json_encode(sprintf(__('Delete colorset "%1$s"?. Press OK to confirm...', 'rpbchessboard'), '{1}'));
-			?>;
-			message = message.replace('{1}', $('.row-title', row).text());
-			if(!confirm(message)) { return; }
-
-			// Process the request.
-			var form = $('#rpbchessboard-deleteColorsetForm');
-			$('input[name="colorset"]', form).val(row.data('colorset'));
-			form.submit();
-		});
-
-		$('#rpbchessboard-colorsetList tr .rpbchessboard-action-setDefaultColorset').click(function(e) {
-			e.preventDefault();
-
-			var row = $(this).closest('tr');
-
-			// Process the request.
-			var form = $('#rpbchessboard-setDefaultColorsetForm');
-			$('input[name="colorset"]', form).val(row.data('colorset'));
-			form.submit();
-		});
 
 	});
 </script>
