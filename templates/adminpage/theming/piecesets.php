@@ -20,4 +20,74 @@
  ******************************************************************************/
 ?>
 
-<p>TODO (piecesets)</p>
+<p>
+	<button id="rpbchessboard-addSetCodeButton" class="button">
+		<?php _e('Add a new pieceset', 'rpbchessboard'); ?>
+	</button>
+</p>
+
+<table id="rpbchessboard-setCodeList" class="wp-list-table widefat striped">
+
+	<thead>
+		<tr>
+			<th scope="col"><?php _e('Name', 'rpbchessboard'); ?></th>
+			<th scope="col"><?php _e('Slug', 'rpbchessboard'); ?></th>
+			<th scope="col"><?php _e('Default', 'rpbchessboard'); ?></th>
+		</tr>
+	</thead>
+
+	<tbody>
+
+		<tr>
+			<?php RPBChessboardHelperLoader::printTemplate('AdminPage/Theming/PiecesetEdition', $model, array('isNew' => true)); ?>
+		</tr>
+
+		<?php foreach($model->getAvailablePiecesets() as $pieceset): ?>
+			<tr data-slug="<?php echo htmlspecialchars($pieceset); ?>">
+
+				<td class="has-row-actions">
+					<strong class="row-title"><?php echo htmlspecialchars($model->getPiecesetLabel($pieceset)); ?></strong>
+					<span class="row-actions rpbchessboard-inlinedRowActions">
+						<?php if($model->isBuiltinPieceset($pieceset)): ?>
+							<span><a href="#" class="rpbchessboard-action-setDefault"><?php _e('Set default', 'rpbchessboard'); ?></a></span>
+						<?php else: ?>
+							<span><a href="#" class="rpbchessboard-action-setDefault"><?php _e('Set default', 'rpbchessboard'); ?></a> |</span>
+							<span><a href="#" class="rpbchessboard-action-edit"><?php _e('Edit', 'rpbchessboard'); ?></a> |</span>
+							<span><a href="#" class="rpbchessboard-action-delete"><?php _e('Delete', 'rpbchessboard'); ?></a></span>
+						<?php endif; ?>
+					</span>
+				</td>
+
+				<td><?php echo htmlspecialchars($pieceset); ?></td>
+
+				<td>
+					<?php if($model->isDefaultPieceset($pieceset)): ?>
+						<div class="rpbchessboard-tickIcon"></div>
+					<?php endif; ?>
+				</td>
+
+				<?php if(!$model->isBuiltinPieceset($pieceset)): ?>
+					<?php RPBChessboardHelperLoader::printTemplate('AdminPage/Theming/PiecesetEdition', $model, array('isNew' => false, 'pieceset' => $pieceset)); ?>
+				<?php endif; ?>
+
+			</tr>
+		<?php endforeach; ?>
+	</tbody>
+
+	<tfoot>
+		<tr>
+			<th scope="col"><?php _e('Name', 'rpbchessboard'); ?></th>
+			<th scope="col"><?php _e('Slug', 'rpbchessboard'); ?></th>
+			<th scope="col"><?php _e('Default', 'rpbchessboard'); ?></th>
+		</tr>
+	</tfoot>
+
+</table>
+
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+
+		// RPBChessboard.initializeSetCodeEditor = TODO
+
+	});
+</script>

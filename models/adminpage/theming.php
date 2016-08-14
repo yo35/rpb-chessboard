@@ -66,6 +66,22 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 
 
 	/**
+	 * Return a label suggestion when creating a new colorset.
+	 */
+	public function getLabelProposalForNewSetCode() {
+		$counter = 1;
+		$base = $this->getSelectedSubPageName() === 'Colorsets' ? __('My colorset', 'rpbchessboard') : __('My pieceset', 'rpbchessboard');
+		$result = $base;
+		$method = $this->getSelectedSubPageName() === 'Colorsets' ? 'isColorsetLabelAlreadyUsed' : 'isPiecesetLabelAlreadyUsed';
+		while($this->$method($result)) {
+			++$counter;
+			$result = $base . ' ' . $counter;
+		}
+		return $result;
+	}
+
+
+	/**
 	 * URL to which the the request for modifying the colorsets/piecesets will be dispatched.
 	 *
 	 * @return string
@@ -106,26 +122,24 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 
 
 	/**
-	 * Return a label suggestion when creating a new colorset.
+	 * Check whether the given label is already used or not by an existing colorset.
 	 */
-	public function getLabelProposalForNewColorset() {
-		$counter = 1;
-		$base = __('My colorset', 'rpbchessboard');
-		$result = $base;
-		while($this->isColorsetLabelAlreadyUsed($result)) {
-			++$counter;
-			$result = $base . ' ' . $counter;
+	private function isColorsetLabelAlreadyUsed($label) {
+		foreach($this->getAvailableColorsets() as $colorset) {
+			if($label === $this->getColorsetLabel($colorset)) {
+				return true;
+			}
 		}
-		return $result;
+		return false;
 	}
 
 
 	/**
-	 * Check whether the given label is already used or not by an existing colorset.
+	 * Check whether the given label is already used or not by an existing pieceset.
 	 */
-	public function isColorsetLabelAlreadyUsed($label) {
-		foreach($this->getAvailableColorsets() as $colorset) {
-			if($label === $this->getColorsetLabel($colorset)) {
+	private function isPiecesetLabelAlreadyUsed($label) {
+		foreach($this->getAvailablePiecesets() as $pieceset) {
+			if($label === $this->getPiecesetLabel($pieceset)) {
 				return true;
 			}
 		}
