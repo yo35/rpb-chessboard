@@ -513,7 +513,8 @@ div.rpbchessboard-sourceCode {
 /* Theming pages */
 /* -------------------------------------------------------------------------- */
 
-.rpbchessboard-colorsetEdition {
+.rpbchessboard-colorsetEdition,
+#rpbchessboard-colorsetCreation {
 	display: none;
 }
 

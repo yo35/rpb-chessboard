@@ -20,6 +20,12 @@
  ******************************************************************************/
 ?>
 
+<p>
+	<button id="rpbchessboard-addColorsetButton" class="button">
+		<?php _e('Add a new colorset', 'rpbchessboard'); ?>
+	</button>
+</p>
+
 <table id="rpbchessboard-colorsetList" class="wp-list-table widefat striped">
 
 	<thead>
@@ -31,6 +37,11 @@
 	</thead>
 
 	<tbody>
+
+		<tr>
+			<?php RPBChessboardHelperLoader::printTemplate('AdminPage/Theming/ColorsetEdition', $model, array('colorset' => 'TODO', 'isNew' => true)); ?>
+		</tr>
+
 		<?php foreach($model->getAvailableColorsets() as $colorset): ?>
 			<tr data-colorset="<?php echo htmlspecialchars($colorset); ?>">
 
@@ -56,7 +67,7 @@
 				</td>
 
 				<?php if(!$model->isBuiltinColorset($colorset)): ?>
-					<?php RPBChessboardHelperLoader::printTemplate('AdminPage/Theming/ColorsetEdition', $model, array('colorset' => $colorset)); ?>
+					<?php RPBChessboardHelperLoader::printTemplate('AdminPage/Theming/ColorsetEdition', $model, array('colorset' => $colorset, 'isNew' => false)); ?>
 				<?php endif; ?>
 
 			</tr>
@@ -83,9 +94,9 @@
 
 		var disableActions = false;
 
-		function previewColorset($colorset) {
+		function previewColorset(colorset) {
 			if(disableActions) { return; }
-			$('#rpbchessboard-themingPreviewWidget').chessboard('option', 'colorset', $colorset);
+			$('#rpbchessboard-themingPreviewWidget').chessboard('option', 'colorset', colorset);
 		}
 
 		function previewDefaultColorset() {
@@ -96,6 +107,43 @@
 			previewColorset($(e.currentTarget).data('colorset'));
 		});
 
+		function initializeColorPickers(container) {
+
+			// Initialize the color picker widgets
+			$('.rpbchessboard-darkSquareColorField', container).iris({
+				hide: false,
+				target: $('.rpbchessboard-darkSquareColorSelector', container),
+				change: function(event, ui) {
+					$('#rpbchessboard-themingPreviewWidget .uichess-chessboard-darkSquare').css('background-color', ui.color.toString());
+				}
+			});
+			$('.rpbchessboard-lightSquareColorField', container).iris({
+				hide: false,
+				target: $('.rpbchessboard-lightSquareColorSelector', container),
+				change: function(event, ui) {
+					$('#rpbchessboard-themingPreviewWidget .uichess-chessboard-lightSquare').css('background-color', ui.color.toString());
+				}
+			});
+
+			// Initialize the colors of the preview chessboard
+			var darkSquareColor = $('.rpbchessboard-darkSquareColorField', container).iris('color');
+			var lightSquareColor = $('.rpbchessboard-lightSquareColorField', container).iris('color');
+			$('#rpbchessboard-themingPreviewWidget .uichess-chessboard-darkSquare').css('background-color', darkSquareColor);
+			$('#rpbchessboard-themingPreviewWidget .uichess-chessboard-lightSquare').css('background-color', lightSquareColor);
+		}
+
+		$('#rpbchessboard-addColorsetButton').click(function(e) {
+			e.preventDefault();
+
+			// Prevent other actions when the edition form is displayed.
+			if(disableActions) { return; }
+			disableActions = true;
+
+			// Initialize and display the form.
+			$('#rpbchessboard-colorsetCreation').show();
+			initializeColorPickers($('#rpbchessboard-colorsetCreation'));
+		});
+
 		$('#rpbchessboard-colorsetList tr .rpbchessboard-action-editColorset').click(function(e) {
 			e.preventDefault();
 
@@ -103,32 +151,11 @@
 			if(disableActions) { return; }
 			disableActions = true;
 
-			// Display the edition form
+			// Initialize and display the form.
 			var row = $(e.currentTarget).closest('tr');
 			$('td', row).not('.rpbchessboard-colorsetEdition').hide();
 			$('td.rpbchessboard-colorsetEdition', row).show();
-
-			// Initialize the color picker widgets
-			$('.rpbchessboard-darkSquareColorField', row).iris({
-				hide: false,
-				target: $('.rpbchessboard-darkSquareColorSelector', row),
-				change: function(event, ui) {
-					$('#rpbchessboard-themingPreviewWidget .uichess-chessboard-darkSquare').css('background-color', ui.color.toString());
-				}
-			});
-			$('.rpbchessboard-lightSquareColorField', row).iris({
-				hide: false,
-				target: $('.rpbchessboard-lightSquareColorSelector', row),
-				change: function(event, ui) {
-					$('#rpbchessboard-themingPreviewWidget .uichess-chessboard-lightSquare').css('background-color', ui.color.toString());
-				}
-			});
-
-			// Initialize the colors of the preview chessboard
-			var darkSquareColor = $('.rpbchessboard-darkSquareColorField', row).iris('color');
-			var lightSquareColor = $('.rpbchessboard-lightSquareColorField', row).iris('color');
-			$('#rpbchessboard-themingPreviewWidget .uichess-chessboard-darkSquare').css('background-color', darkSquareColor);
-			$('#rpbchessboard-themingPreviewWidget .uichess-chessboard-lightSquare').css('background-color', lightSquareColor);
+			initializeColorPickers(row);
 		});
 
 		$('#rpbchessboard-colorsetList tr .rpbchessboard-action-deleteColorset').click(function(e) {

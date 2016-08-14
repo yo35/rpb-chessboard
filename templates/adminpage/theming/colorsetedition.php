@@ -20,13 +20,15 @@
  ******************************************************************************/
 ?>
 
-<td colspan="3" class="rpbchessboard-colorsetEdition">
+<td colspan="3" <?php if($isNew): ?>id="rpbchessboard-colorsetCreation"<?php else: ?>class="rpbchessboard-colorsetEdition"<?php endif; ?>>
 	<form class="rpbchessboard-inlineForm" action="<?php echo htmlspecialchars($model->getFormActionURL()); ?>" method="post">
 
 		<input type="hidden" name="rpbchessboard_action" value="<?php echo htmlspecialchars($model->getEditAction()); ?>" />
 		<input type="hidden" name="colorset" value="<?php echo htmlspecialchars($colorset); ?>" />
 
-		<div class="rpbchessboard-inlineFormTitle"><?php _e('Edit colorset', 'rpbchessboard'); ?></div>
+		<div class="rpbchessboard-inlineFormTitle">
+			<?php $isNew ? _e('New colorset', 'rpbchessboard') : _e('Edit colorset', 'rpbchessboard'); ?>
+		</div>
 
 		<div>
 			<label>
@@ -62,7 +64,7 @@
 		</div>
 
 		<p class="submit rpbchessboard-inlineFormButtons">
-			<input type="submit" class="button-primary" value="<?php _e('Save changes', 'rpbchessboard'); ?>" />
+			<input type="submit" class="button-primary" value="<?php $isNew ? _e('Create colorset', 'rpbchessboard') : _e('Save changes', 'rpbchessboard'); ?>" />
 			<a class="button" href="<?php echo htmlspecialchars($model->getFormActionURL()); ?>"><?php _e('Cancel', 'rpbchessboard'); ?></a>
 		</p>
 
