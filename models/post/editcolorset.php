@@ -39,10 +39,7 @@ class RPBChessboardModelPostEditColorset extends RPBChessboardAbstractModel {
 
 
 	public function add() {
-		$colorset = self::getColorset();
-		if(!isset($colorset) || self::isCustomColorset($colorset) || $this->isBuiltinColorset($colorset)) {
-			return null;
-		}
+		$colorset = $this->getNewColorset();
 
 		// Update attributes and list of custom colorsets.
 		if(!(self::processLabel($colorset) && self::processAttributes($colorset))) {
@@ -59,7 +56,7 @@ class RPBChessboardModelPostEditColorset extends RPBChessboardAbstractModel {
 
 	public function edit() {
 		$colorset = self::getColorset();
-		if(!isset($colorset) || !self::isCustomColorset($colorset)) {
+		if(!isset($colorset)) {
 			return null;
 		}
 
@@ -73,7 +70,7 @@ class RPBChessboardModelPostEditColorset extends RPBChessboardAbstractModel {
 
 	public function delete() {
 		$colorset = self::getColorset();
-		if(!isset($colorset) || !self::isCustomColorset($colorset)) {
+		if(!isset($colorset)) {
 			return null;
 		}
 
@@ -153,10 +150,43 @@ class RPBChessboardModelPostEditColorset extends RPBChessboardAbstractModel {
 
 
 	/**
-	 * Retrieve the colorset concerned by this operation.
+	 * Retrieve the colorset concerned by this operation and make sure that it is a custom colorset.
 	 */
 	private static function getColorset() {
-		return isset($_POST['colorset']) ? RPBChessboardHelperValidation::validateSetCode($_POST['colorset']) : null;
+		$colorset = isset($_POST['colorset']) ? RPBChessboardHelperValidation::validateSetCode($_POST['colorset']) : null;
+		if(isset($colorset) && !self::isCustomColorset($colorset)) {
+			return null;
+		}
+		return $colorset;
+	}
+
+
+	/**
+	 * Retrieve (and sanitize) the colorset code to use to create the new colorset.
+	 */
+	private function getNewColorset() {
+		$colorset = isset($_POST['colorset']) ? $_POST['colorset'] : '';
+		if(trim($colorset) === '' && isset($_POST['label'])) {
+			$colorset =  $_POST['label'];
+		}
+
+		// Convert all upper case to lower case, spaces to '-', and remove the rest.
+		$colorset = strtolower($colorset);
+		$colorset = preg_replace('/\s/', '-', $colorset);
+		$colorset = preg_replace('/[^a-z0-9\-]/', '', $colorset);
+
+		// Concat consecutive '-', and trim the result.
+		$colorset = preg_replace('/-+/', '-', $colorset);
+		$colorset = trim($colorset, '-');
+
+		// Ensure that the result is valid and not already used for another colorset.
+		$counter = 1;
+		$base = $colorset === '' ? 'colorset' : $colorset;
+		$colorset = $colorset === '' ? 'colorset-1' : $colorset;
+		while(self::isCustomColorset($colorset) || $this->isBuiltinColorset($colorset)) {
+			$colorset = $base . '-' . ($counter++);
+		}
+		return $colorset;
 	}
 
 
