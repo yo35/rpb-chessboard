@@ -29,9 +29,37 @@ require_once(RPBCHESSBOARD_ABSPATH . 'helpers/validation.php');
  */
 class RPBChessboardModelPostEditColorset extends RPBChessboardAbstractModel {
 
+	private static $customColorsets;
+
+
+	public function __construct() {
+		parent::__construct();
+		$this->loadDelegateModel('Common/DefaultOptionsEx');
+	}
+
+
+	public function add() {
+		$colorset = self::getColorset();
+		if(!isset($colorset) || self::isCustomColorset($colorset) || $this->isBuiltinColorset($colorset)) {
+			return null;
+		}
+
+		// Update attributes and list of custom colorsets.
+		if(!(self::processLabel($colorset) && self::processAttributes($colorset))) {
+			return null;
+		}
+		self::updateCustomColorsets(array_merge(self::getCustomColorsets(), array($colorset)));
+
+		// Force cache refresh.
+		self::invalidateCache();
+
+		return __('Colorset created.', 'rpbchessboard');
+	}
+
+
 	public function edit() {
 		$colorset = self::getColorset();
-		if(!isset($colorset)) {
+		if(!isset($colorset) || !self::isCustomColorset($colorset)) {
 			return null;
 		}
 
@@ -45,13 +73,12 @@ class RPBChessboardModelPostEditColorset extends RPBChessboardAbstractModel {
 
 	public function delete() {
 		$colorset = self::getColorset();
-		if(!isset($colorset)) {
+		if(!isset($colorset) || !self::isCustomColorset($colorset)) {
 			return null;
 		}
 
 		// Remove the colorset from the database.
-		$remainingCustomColorsets = array_diff(self::getCustomColorsets(), array($colorset));
-		update_option('rpbchessboard_custom_colorsets', implode('|', $remainingCustomColorsets));
+		self::updateCustomColorsets(array_diff(self::getCustomColorsets(), array($colorset)));
 
 		// Reset default colorset if it corresponds to the colorset being deleted.
 		if($colorset === self::getDefaultColorset()) {
@@ -70,7 +97,9 @@ class RPBChessboardModelPostEditColorset extends RPBChessboardAbstractModel {
 	private static function processLabel($colorset) {
 		if(isset($_POST['label'])) {
 			update_option('rpbchessboard_custom_colorset_label_' . $colorset, $_POST['label']);
+			return true;
 		}
+		return false;
 	}
 
 
@@ -79,7 +108,14 @@ class RPBChessboardModelPostEditColorset extends RPBChessboardAbstractModel {
 		$lightSquareColor = self::getSquareColor('light');
 		if(isset($darkSquareColor) && isset($lightSquareColor)) {
 			update_option('rpbchessboard_custom_colorset_attributes_' . $colorset, $darkSquareColor . '|' . $lightSquareColor);
+			return true;
 		}
+		return false;
+	}
+
+
+	private static function updateCustomColorsets($colorsets) {
+		update_option('rpbchessboard_custom_colorsets', implode('|', $colorsets));
 	}
 
 
@@ -89,11 +125,22 @@ class RPBChessboardModelPostEditColorset extends RPBChessboardAbstractModel {
 
 
 	/**
+	 * Check whether the given colorset code represents an existing custom colorset or not.
+	 */
+	private static function isCustomColorset($colorset) {
+		return in_array($colorset, self::getCustomColorsets());
+	}
+
+
+	/**
 	 * Retrieve the list of existing custom colorsets.
 	 */
 	private static function getCustomColorsets() {
-		$result = RPBChessboardHelperValidation::validateSetCodeList(get_option('rpbchessboard_custom_colorsets'));
-		return isset($result) ? $result : array();
+		if(!isset(self::$customColorsets)) {
+			$result = RPBChessboardHelperValidation::validateSetCodeList(get_option('rpbchessboard_custom_colorsets'));
+			self::$customColorsets = isset($result) ? $result : array();
+		}
+		return self::$customColorsets;
 	}
 
 
