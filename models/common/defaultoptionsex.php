@@ -30,6 +30,7 @@ require_once(RPBCHESSBOARD_ABSPATH . 'helpers/validation.php');
 class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractModel {
 
 	private static $availableColorsets;
+	private static $availablePiecesets;
 	private static $pieceSymbolLocalizationAvailable;
 	private static $simplifiedPieceSymbols;
 	private static $pieceSymbolCustomValues;
@@ -48,16 +49,26 @@ class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractMode
 		'xboard'     => 'XBoard'
 	);
 
+	private static $BUILTIN_PIECESETS = array(
+		'cburnett' => 'CBurnett',
+		'celtic'   => 'Celtic'  ,
+		'eyes'     => 'Eyes'    ,
+		'fantasy'  => 'Fantasy' ,
+		'skulls'   => 'Skulls'  ,
+		'spatial'  => 'Spatial'
+	);
+
 	public function __construct() {
 		parent::__construct();
 		$this->registerDelegatableMethods('getMinimumSquareSize', 'getMaximumSquareSize',
 			'getAvailableColorsets', 'isBuiltinColorset', 'isDefaultColorset', 'getColorsetLabel',
-			'getAvailablePiecesets', 'isDefaultPieceset',
+			'getAvailablePiecesets', 'isBuiltinPieceset', 'isDefaultPieceset', 'getPiecesetLabel',
 			'getMaximumAnimationSpeed', 'getStepAnimationSpeed',
 			'isPieceSymbolLocalizationAvailable', 'getDefaultSimplifiedPieceSymbols', 'getDefaultPieceSymbolCustomValues');
 
 		$this->loadDelegateModel('Common/DefaultOptions');
 		$this->loadDelegateModel('Common/CustomColorsets');
+		$this->loadDelegateModel('Common/CustomPiecesets');
 	}
 
 
@@ -140,14 +151,23 @@ class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractMode
 	 * @return array
 	 */
 	public function getAvailablePiecesets() {
-		return array(
-			'cburnett' => (object) array('label' => 'CBurnett', 'builtin' => true),
-			'celtic'   => (object) array('label' => 'Celtic'  , 'builtin' => true),
-			'eyes'     => (object) array('label' => 'Eyes'    , 'builtin' => true),
-			'fantasy'  => (object) array('label' => 'Fantasy' , 'builtin' => true),
-			'skulls'   => (object) array('label' => 'Skulls'  , 'builtin' => true),
-			'spatial'  => (object) array('label' => 'Spatial' , 'builtin' => true)
-		);
+		if(!isset(self::$availablePiecesets)) {
+			$builtinPiecesets = array_keys(self::$BUILTIN_PIECESETS);
+			$customPiecesets = $this->getCustomPiecesets();
+			self::$availablePiecesets = array_merge($builtinPiecesets, $customPiecesets);
+			asort(self::$availablePiecesets);
+		}
+		return self::$availablePiecesets;
+	}
+
+
+	/**
+	 * Check whether the given pieceset is built-in or not.
+	 *
+	 * @return boolean
+	 */
+	public function isBuiltinPieceset($pieceset) {
+		return isset(self::$BUILTIN_PIECESETS[$pieceset]);
 	}
 
 
@@ -159,6 +179,22 @@ class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractMode
 	 */
 	public function isDefaultPieceset($pieceset) {
 		return $this->getDefaultPieceset() === $pieceset;
+	}
+
+
+	/**
+	 * Return the label of the given pieceset.
+	 *
+	 * @return string
+	 */
+	public function getPiecesetLabel($pieceset) {
+		if($this->isBuiltinPieceset($pieceset)) {
+			return self::$BUILTIN_PIECESETS[$pieceset];
+		}
+		else {
+			$result = $this->getCustomPiecesetLabel($pieceset);
+			return $result === '' ? __('(no name)', 'rpbchessboard') : $result;
+		}
 	}
 
 

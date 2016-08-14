@@ -44,9 +44,9 @@
 		<p>
 			<label for="rpbchessboard-fenAttributePieceset-field"><?php _e('Pieceset:', 'rpbchessboard'); ?></label>
 			<select id="rpbchessboard-fenAttributePieceset-field">
-				<?php foreach($model->getAvailablePiecesets() as $pieceset => $info): ?>
+				<?php foreach($model->getAvailablePiecesets() as $pieceset): ?>
 					<option value="<?php echo htmlspecialchars($pieceset); ?>">
-						<?php echo htmlspecialchars($info->label); ?>
+						<?php echo htmlspecialchars($model->getPiecesetLabel($pieceset)); ?>
 					</option>
 				<?php endforeach; ?>
 			</select>

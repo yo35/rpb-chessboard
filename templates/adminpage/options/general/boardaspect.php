@@ -61,9 +61,9 @@
 		<p>
 			<label for="rpbchessboard-piecesetField"><?php _e('Pieceset:', 'rpbchessboard'); ?></label>
 			<select id="rpbchessboard-piecesetField" name="pieceset">
-				<?php foreach($model->getAvailablePiecesets() as $pieceset => $info): ?>
+				<?php foreach($model->getAvailablePiecesets() as $pieceset): ?>
 					<option value="<?php echo htmlspecialchars($pieceset); ?>" <?php if($model->isDefaultPieceset($pieceset)): ?>selected="yes"<?php endif; ?>>
-						<?php echo htmlspecialchars($info->label); ?>
+						<?php echo htmlspecialchars($model->getPiecesetLabel($pieceset)); ?>
 					</option>
 				<?php endforeach; ?>
 			</select>
