@@ -23,8 +23,7 @@
 <td colspan="3" <?php if($isNew): ?>id="rpbchessboard-colorsetCreation"<?php else: ?>class="rpbchessboard-colorsetEdition"<?php endif; ?>>
 	<form class="rpbchessboard-inlineForm" action="<?php echo htmlspecialchars($model->getFormActionURL()); ?>" method="post">
 
-		<input type="hidden" name="rpbchessboard_action" value="<?php echo htmlspecialchars($model->getEditAction()); ?>" />
-		<input type="hidden" name="colorset" value="<?php echo htmlspecialchars($colorset); ?>" />
+		<input type="hidden" name="rpbchessboard_action" value="<?php echo htmlspecialchars($model->getFormAction($isNew)); ?>" />
 
 		<div class="rpbchessboard-inlineFormTitle">
 			<?php $isNew ? _e('New colorset', 'rpbchessboard') : _e('Edit colorset', 'rpbchessboard'); ?>
@@ -33,9 +32,21 @@
 		<div>
 			<label>
 				<span><?php _e('Name', 'rpbchessboard'); ?></span>
-				<input type="text" name="label" value="<?php echo htmlspecialchars($model->getCustomColorsetLabel($colorset)); ?>" />
+				<input type="text" name="label"
+					value="<?php echo htmlspecialchars($isNew ? $model->getLabelProposalForNewColorset() : $model->getCustomColorsetLabel($colorset)); ?>" />
 			</label>
 		</div>
+
+		<?php if($isNew): ?>
+			<div>
+				<label>
+					<span><?php _e('Slug', 'rpbchessboard'); ?></span>
+					<input type="text" name="colorset" value="" />
+				</label>
+			</div>
+		<?php else: ?>
+			<input type="hidden" name="colorset" value="<?php echo htmlspecialchars($colorset); ?>" />
+		<?php endif; ?>
 
 		<div class="rpbchessboard-columns">
 
@@ -43,7 +54,7 @@
 				<label>
 					<span><?php _e('Dark squares', 'rpbchessboard'); ?></span>
 					<input type="text" size="7" maxlength="7" class="rpbchessboard-darkSquareColorField" name="darkSquareColor"
-						value="<?php echo htmlspecialchars($model->getDarkSquareColor($colorset)); ?>" />
+						value="<?php echo htmlspecialchars($isNew ? $model->getRandomDarkSquareColor() : $model->getDarkSquareColor($colorset)); ?>" />
 				</label>
 				<div>
 					<div class="rpbchessboard-darkSquareColorSelector"></div>
@@ -54,7 +65,7 @@
 				<label>
 					<span><?php _e('Light squares', 'rpbchessboard'); ?></span>
 					<input type="text" size="7" maxlength="7" class="rpbchessboard-lightSquareColorField" name="lightSquareColor"
-						value="<?php echo htmlspecialchars($model->getLightSquareColor($colorset)); ?>" />
+						value="<?php echo htmlspecialchars($isNew ? $model->getRandomLightSquareColor() : $model->getLightSquareColor($colorset)); ?>" />
 				</label>
 				<div>
 					<div class="rpbchessboard-lightSquareColorSelector"></div>

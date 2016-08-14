@@ -33,8 +33,8 @@ class RPBChessboardModelCommonCustomColorsets extends RPBChessboardAbstractModel
 	private static $customColorsetLabels = array();
 	private static $customColorsetAttributes = array();
 
-	const DEFAULT_DARK_SQUARE_COLOR = '#b5876b';
-	const DEFAULT_LIGHT_SQUARE_COLOR = '#f0dec7';
+	const DEFAULT_DARK_SQUARE_COLOR = '#bbbbbb';
+	const DEFAULT_LIGHT_SQUARE_COLOR = '#f8f8f8';
 
 
 	public function __construct() {

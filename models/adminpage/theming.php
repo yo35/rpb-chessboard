@@ -49,12 +49,12 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 
 
 	/**
-	 * Action code corresponding to the request to edit an existing colorset.
+	 * Action code corresponding to the request to create or edit an existing colorset.
 	 *
 	 * @return string
 	 */
-	public function getEditAction() {
-		return 'edit-colorset';
+	public function getFormAction($isNew) {
+		return $isNew ? 'add-colorset' : 'edit-colorset';
 	}
 
 
@@ -65,5 +65,61 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 	 */
 	public function getDeleteAction() {
 		return 'delete-colorset';
+	}
+
+
+	/**
+	 * Return a label suggestion when creating a new colorset.
+	 */
+	public function getLabelProposalForNewColorset() {
+		$counter = 1;
+		$base = __('My colorset', 'rpbchessboard');
+		$result = $base;
+		while($this->isColorsetLabelAlreadyUsed($result)) {
+			++$counter;
+			$result = $base . ' ' . $counter;
+		}
+		return $result;
+	}
+
+
+	/**
+	 * Check whether the given label is already used or not by an existing colorset.
+	 */
+	public function isColorsetLabelAlreadyUsed($label) {
+		foreach($this->getAvailableColorsets() as $colorset) {
+			if($label === $this->getColorsetLabel($colorset)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+
+	/**
+	 * Return a random color to be used for dark squares.
+	 *
+	 * @return string
+	 */
+	public function getRandomDarkSquareColor() {
+		return self::getRandomColor(0x88, 0xbf);
+	}
+
+
+	/**
+	 * Return a random color to be used for light squares.
+	 *
+	 * @return string
+	 */
+	public function getRandomLightSquareColor() {
+		return self::getRandomColor(0xc0, 0xf7);
+	}
+
+
+	private static function getRandomColor($grayRangeMin, $grayRangeMax) {
+		$red = rand($grayRangeMin, $grayRangeMax);
+		$green = rand($grayRangeMin, $grayRangeMax);
+		$blue = rand($grayRangeMin, $grayRangeMax);
+		return sprintf('#%02x%02x%02x', $red, $green, $blue);
 	}
 }

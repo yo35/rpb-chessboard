@@ -92,10 +92,10 @@
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
 
-		var disableActions = false;
+		var disableAutoPreview = false;
 
 		function previewColorset(colorset) {
-			if(disableActions) { return; }
+			if(disableAutoPreview) { return; }
 			$('#rpbchessboard-themingPreviewWidget').chessboard('option', 'colorset', colorset);
 		}
 
@@ -106,6 +106,12 @@
 		$('#rpbchessboard-colorsetList tbody tr').mouseleave(previewDefaultColorset).mouseenter(function(e) {
 			previewColorset($(e.currentTarget).data('colorset'));
 		});
+
+		function disableAllActions() {
+			disableAutoPreview = true;
+			$('#rpbchessboard-addColorsetButton').addClass('disabled');
+			$('#rpbchessboard-colorsetList').addClass('rpbchessboard-rowActionsDisabled');
+		}
 
 		function initializeColorPickers(container) {
 
@@ -136,8 +142,8 @@
 			e.preventDefault();
 
 			// Prevent other actions when the edition form is displayed.
-			if(disableActions) { return; }
-			disableActions = true;
+			if($(this).hasClass('disabled')) { return; }
+			disableAllActions();
 
 			// Initialize and display the form.
 			$('#rpbchessboard-colorsetCreation').show();
@@ -148,8 +154,7 @@
 			e.preventDefault();
 
 			// Prevent other actions when the edition form is displayed.
-			if(disableActions) { return; }
-			disableActions = true;
+			disableAllActions();
 
 			// Initialize and display the form.
 			var row = $(e.currentTarget).closest('tr');
