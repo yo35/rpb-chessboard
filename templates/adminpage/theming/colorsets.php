@@ -49,11 +49,11 @@
 					<strong class="row-title"><?php echo htmlspecialchars($model->getColorsetLabel($colorset)); ?></strong>
 					<span class="row-actions rpbchessboard-inlinedRowActions">
 						<?php if($model->isBuiltinColorset($colorset)): ?>
-							<span><a href="#">Copy</a></span>
+							<span><a href="#" class="rpbchessboard-action-selectDefaultColorset"><?php _e('Make default', 'rpbchessboard'); ?></a></span>
 						<?php else: ?>
-							<span><a href="#" class="rpbchessboard-action-editColorset">Edit</a> |</span>
-							<span><a href="#">Copy</a> |</span>
-							<span><a href="#" class="rpbchessboard-action-deleteColorset">Delete</a></span>
+							<span><a href="#" class="rpbchessboard-action-selectDefaultColorset"><?php _e('Make default', 'rpbchessboard'); ?></a> |</span>
+							<span><a href="#" class="rpbchessboard-action-editColorset"><?php _e('Edit', 'rpbchessboard'); ?></a> |</span>
+							<span><a href="#" class="rpbchessboard-action-deleteColorset"><?php _e('Delete', 'rpbchessboard'); ?></a></span>
 						<?php endif; ?>
 					</span>
 				</td>
