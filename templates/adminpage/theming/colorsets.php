@@ -49,9 +49,9 @@
 					<strong class="row-title"><?php echo htmlspecialchars($model->getColorsetLabel($colorset)); ?></strong>
 					<span class="row-actions rpbchessboard-inlinedRowActions">
 						<?php if($model->isBuiltinColorset($colorset)): ?>
-							<span><a href="#" class="rpbchessboard-action-selectDefaultColorset"><?php _e('Make default', 'rpbchessboard'); ?></a></span>
+							<span><a href="#" class="rpbchessboard-action-setDefaultColorset"><?php _e('Set default', 'rpbchessboard'); ?></a></span>
 						<?php else: ?>
-							<span><a href="#" class="rpbchessboard-action-selectDefaultColorset"><?php _e('Make default', 'rpbchessboard'); ?></a> |</span>
+							<span><a href="#" class="rpbchessboard-action-setDefaultColorset"><?php _e('Set default', 'rpbchessboard'); ?></a> |</span>
 							<span><a href="#" class="rpbchessboard-action-editColorset"><?php _e('Edit', 'rpbchessboard'); ?></a> |</span>
 							<span><a href="#" class="rpbchessboard-action-deleteColorset"><?php _e('Delete', 'rpbchessboard'); ?></a></span>
 						<?php endif; ?>
@@ -86,6 +86,11 @@
 
 <form id="rpbchessboard-deleteColorsetForm" action="<?php echo htmlspecialchars($model->getFormActionURL()); ?>" method="post">
 	<input type="hidden" name="rpbchessboard_action" value="<?php echo htmlspecialchars($model->getDeleteAction()); ?>" />
+	<input type="hidden" name="colorset" value="" />
+</form>
+
+<form id="rpbchessboard-setDefaultColorsetForm" action="<?php echo htmlspecialchars($model->getFormActionURL()); ?>" method="post">
+	<input type="hidden" name="rpbchessboard_action" value="<?php echo htmlspecialchars($model->getSetDefaultAction()); ?>" />
 	<input type="hidden" name="colorset" value="" />
 </form>
 
@@ -177,6 +182,17 @@
 
 			// Process the request.
 			var form = $('#rpbchessboard-deleteColorsetForm');
+			$('input[name="colorset"]', form).val(row.data('colorset'));
+			form.submit();
+		});
+
+		$('#rpbchessboard-colorsetList tr .rpbchessboard-action-setDefaultColorset').click(function(e) {
+			e.preventDefault();
+
+			var row = $(this).closest('tr');
+
+			// Process the request.
+			var form = $('#rpbchessboard-setDefaultColorsetForm');
 			$('input[name="colorset"]', form).val(row.data('colorset'));
 			form.submit();
 		});

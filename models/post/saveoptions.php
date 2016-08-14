@@ -60,6 +60,14 @@ class RPBChessboardModelPostSaveOptions extends RPBChessboardAbstractModel {
 	}
 
 
+	/**
+	 * Change the default colorset.
+	 */
+	public function updateDefaultColorset() {
+		return self::processSetCodeParameter('colorset') ? __('Default colorset changed.', 'rpbchessboard') : null;
+	}
+
+
 	private static function processSquareSize() {
 		if(isset($_POST['squareSize'])) {
 			$value = RPBChessboardHelperValidation::validateSquareSize($_POST['squareSize']);
@@ -111,8 +119,10 @@ class RPBChessboardModelPostSaveOptions extends RPBChessboardAbstractModel {
 			$value = RPBChessboardHelperValidation::validateSetCode($_POST[$key]);
 			if(isset($value)) {
 				update_option('rpbchessboard_' . $key, $value);
+				return true;
 			}
 		}
+		return false;
 	}
 
 

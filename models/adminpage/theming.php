@@ -69,6 +69,16 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 
 
 	/**
+	 * Action code corresponding to the request to change the default colorset.
+	 *
+	 * @return string
+	 */
+	public function getSetDefaultAction() {
+		return 'set-default-colorset';
+	}
+
+
+	/**
 	 * Return a label suggestion when creating a new colorset.
 	 */
 	public function getLabelProposalForNewColorset() {
