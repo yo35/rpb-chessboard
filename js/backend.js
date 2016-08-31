@@ -653,6 +653,29 @@ var RPBChessboard = {};
 				}
 			]
 		});
+
+		// Handler for keyboard shortcuts
+		$(document).keypress(function(event) {
+
+			if(!$('#rpbchessboard-editFENDialog').dialog('isOpen')) {
+				return;
+			}
+
+			// Undo (resp. redo) on CTRL+Z (resp. CTRL+Y).
+			if(!event.altKey && event.ctrlKey && !event.metaKey && !event.shiftKey) {
+				if(event.key === 'z') { undo(); }
+				else if(event.key === 'y') { redo(); }
+			}
+
+			// Switch between "addPieces" modes when clicking on "p/n/b/r/q/k" without modifiers.
+			else if(!event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey && 'pnbrqk'.indexOf(event.key) >= 0) {
+				var mode = $('#rpbchessboard-editFENDialog-chessboard').chessboard('option', 'interactionMode');
+				var targetedModeW = 'addPieces-w' + event.key;
+				var targetedModeB = 'addPieces-b' + event.key;
+				switchInteractionMode(mode === targetedModeW ? targetedModeB : mode === targetedModeB ? 'movePieces' : targetedModeW);
+			}
+
+		});
 	}
 
 
