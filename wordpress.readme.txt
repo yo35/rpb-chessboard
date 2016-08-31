@@ -113,6 +113,10 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 4.4 (August 31, 2016) =
+* Add keyboard shortcuts to the FEN editor (see #67).
+* Tested up to WordPress 4.6.
+
 = 4.3.3 (August 7, 2016) =
 * Fix animation not working when clicking on text moves (see #68).
 
