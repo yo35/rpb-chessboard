@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-16 21:44+0200\n"
+"POT-Creation-Date: 2016-08-31 22:00+0200\n"
 "PO-Revision-Date: 2015-08-27 23:19+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1236,6 +1236,42 @@ msgstr "mümkün değil"
 #, php-format
 msgid "Possible on column %1$s"
 msgstr "%1$s sütununda mümkün"
+
+#: templates/localization.php
+msgid "Keyboard shortcuts"
+msgstr ""
+
+#: templates/localization.php
+msgid "undo"
+msgstr ""
+
+#: templates/localization.php
+msgid "redo"
+msgstr ""
+
+#: templates/localization.php
+msgid "add pawns"
+msgstr ""
+
+#: templates/localization.php
+msgid "add knights"
+msgstr ""
+
+#: templates/localization.php
+msgid "add bishops"
+msgstr ""
+
+#: templates/localization.php
+msgid "add rooks"
+msgstr ""
+
+#: templates/localization.php
+msgid "add queens"
+msgstr ""
+
+#: templates/localization.php
+msgid "add kings"
+msgstr ""
 
 #: wp/adminpages.php
 msgid "Chess games and diagrams"

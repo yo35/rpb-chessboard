@@ -59,6 +59,15 @@
 			rpb.i18n.EN_PASSANT_SECTION_TITLE         = <?php echo json_encode(__('En passant'                 , 'rpbchessboard')); ?>;
 			rpb.i18n.EN_PASSANT_DISABLED_BUTTON_LABEL = <?php echo json_encode(__('Not possible'               , 'rpbchessboard')); ?>;
 			rpb.i18n.EN_PASSANT_ENABLED_BUTTON_LABEL  = <?php echo json_encode(__('Possible on column %1$s'    , 'rpbchessboard')); ?>;
+			rpb.i18n.KEYBOARD_SHORTCUTS_TAB_LABEL     = <?php echo json_encode(__('Keyboard shortcuts'         , 'rpbchessboard')); ?>;
+			rpb.i18n.UNDO_SHORTCUT_LABEL              = <?php echo json_encode(__('undo'                       , 'rpbchessboard')); ?>;
+			rpb.i18n.REDO_SHORTCUT_LABEL              = <?php echo json_encode(__('redo'                       , 'rpbchessboard')); ?>;
+			rpb.i18n.ADD_PAWNS_SHORTCUT_LABEL         = <?php echo json_encode(__('add pawns'                  , 'rpbchessboard')); ?>;
+			rpb.i18n.ADD_KNIGHTS_SHORTCUT_LABEL       = <?php echo json_encode(__('add knights'                , 'rpbchessboard')); ?>;
+			rpb.i18n.ADD_BISHOPS_SHORTCUT_LABEL       = <?php echo json_encode(__('add bishops'                , 'rpbchessboard')); ?>;
+			rpb.i18n.ADD_ROOKS_SHORTCUT_LABEL         = <?php echo json_encode(__('add rooks'                  , 'rpbchessboard')); ?>;
+			rpb.i18n.ADD_QUEENS_SHORTCUT_LABEL        = <?php echo json_encode(__('add queens'                 , 'rpbchessboard')); ?>;
+			rpb.i18n.ADD_KINGS_SHORTCUT_LABEL         = <?php echo json_encode(__('add kings'                  , 'rpbchessboard')); ?>;
 
 			rpb.config.FEN_SHORTCODE = <?php echo json_encode($model->getFENShortcode()); ?>;
 
