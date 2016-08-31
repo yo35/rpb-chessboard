@@ -690,3 +690,15 @@ table.rpbchessboard-attributeTable td:nth-child(2) {
 	margin-top: 0px;
 	margin-bottom: 0px;
 }
+
+.rpbchessboard-keyboardShortcut {
+	font-weight: bold;
+	font-family: Consolas, Monaco, monospace;
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.rpbchessboard-editFENDialog-sectionContent ul {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
