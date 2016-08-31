@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-16 21:44+0200\n"
+"POT-Creation-Date: 2016-08-31 22:00+0200\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35 -at- melix.net>\n"
 "Language-Team: French\n"
@@ -490,9 +490,9 @@ msgid ""
 "created by %3$sMomentum Design Lab%5$s, who shares them under the [CC-BY] "
 "license on %4$sFind Icons%5$s."
 msgstr ""
-"Les icônes %1$sUndo%2$s, %1$sRedo%2$s, %1$sDelete%2$s et %1$sTick%2$s ont été "
-"créées par %3$sMomentum Design Lab%5$s, qui les partage sous licence [CC-BY] "
-"sur %4$sFind Icons%5$s."
+"Les icônes %1$sUndo%2$s, %1$sRedo%2$s, %1$sDelete%2$s et %1$sTick%2$s ont "
+"été créées par %3$sMomentum Design Lab%5$s, qui les partage sous licence [CC-"
+"BY] sur %4$sFind Icons%5$s."
 
 #: templates/adminpage/about.php
 msgid ""
@@ -1274,6 +1274,42 @@ msgstr "Impossible"
 #, php-format
 msgid "Possible on column %1$s"
 msgstr "Possible sur la colonne %1$s"
+
+#: templates/localization.php
+msgid "Keyboard shortcuts"
+msgstr "Raccourcis clavier"
+
+#: templates/localization.php
+msgid "undo"
+msgstr "annuler"
+
+#: templates/localization.php
+msgid "redo"
+msgstr "répéter"
+
+#: templates/localization.php
+msgid "add pawns"
+msgstr "ajouter des pions"
+
+#: templates/localization.php
+msgid "add knights"
+msgstr "ajouter des cavaliers"
+
+#: templates/localization.php
+msgid "add bishops"
+msgstr "ajouter des fous"
+
+#: templates/localization.php
+msgid "add rooks"
+msgstr "ajouter des tours"
+
+#: templates/localization.php
+msgid "add queens"
+msgstr "ajouter des dames"
+
+#: templates/localization.php
+msgid "add kings"
+msgstr "ajouter des rois"
 
 #: wp/adminpages.php
 msgid "Chess games and diagrams"

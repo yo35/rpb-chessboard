@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 2.3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-16 21:44+0200\n"
+"POT-Creation-Date: 2016-08-31 22:00+0200\n"
 "PO-Revision-Date: 2014-04-26 16:53+0100\n"
 "Last-Translator: Markus Liebelt <markusliebelt -at- gmail.com>\n"
 "Language-Team: German\n"
@@ -1140,6 +1140,42 @@ msgstr ""
 #: templates/localization.php
 #, php-format
 msgid "Possible on column %1$s"
+msgstr ""
+
+#: templates/localization.php
+msgid "Keyboard shortcuts"
+msgstr ""
+
+#: templates/localization.php
+msgid "undo"
+msgstr ""
+
+#: templates/localization.php
+msgid "redo"
+msgstr ""
+
+#: templates/localization.php
+msgid "add pawns"
+msgstr ""
+
+#: templates/localization.php
+msgid "add knights"
+msgstr ""
+
+#: templates/localization.php
+msgid "add bishops"
+msgstr ""
+
+#: templates/localization.php
+msgid "add rooks"
+msgstr ""
+
+#: templates/localization.php
+msgid "add queens"
+msgstr ""
+
+#: templates/localization.php
+msgid "add kings"
 msgstr ""
 
 #: wp/adminpages.php

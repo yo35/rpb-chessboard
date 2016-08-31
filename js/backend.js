@@ -66,7 +66,16 @@ var RPBChessboard = {};
 		CASTLING_SECTION_TITLE: 'Castling rights',
 		EN_PASSANT_SECTION_TITLE: 'En passant',
 		EN_PASSANT_DISABLED_BUTTON_LABEL: 'Not possible',
-		EN_PASSANT_ENABLED_BUTTON_LABEL: 'Possible on column %1$s'
+		EN_PASSANT_ENABLED_BUTTON_LABEL: 'Possible on column %1$s',
+		KEYBOARD_SHORTCUTS_TAB_LABEL: 'Keyboard shortcuts',
+		UNDO_SHORTCUT_LABEL: 'undo',
+		REDO_SHORTCUT_LABEL: 'redo',
+		ADD_PAWNS_SHORTCUT_LABEL: 'add pawns',
+		ADD_KNIGHTS_SHORTCUT_LABEL: 'add knights',
+		ADD_BISHOPS_SHORTCUT_LABEL: 'add bishops',
+		ADD_ROOKS_SHORTCUT_LABEL: 'add rooks',
+		ADD_QUEENS_SHORTCUT_LABEL: 'add queens',
+		ADD_KINGS_SHORTCUT_LABEL: 'add kings'
 	};
 
 
@@ -520,6 +529,23 @@ var RPBChessboard = {};
 									'</ul>' +
 								'</div>' +
 							'</div>' +
+
+							// Keyboard shortcuts tab
+							'<h3>' + RPBChessboard.i18n.KEYBOARD_SHORTCUTS_TAB_LABEL + '</h3>' +
+							'<div>' +
+								'<div class="rpbchessboard-editFENDialog-sectionContent">' +
+									'<ul>' +
+										'<li><span class="rpbchessboard-keyboardShortcut">Ctrl+Z</span>' + RPBChessboard.i18n.UNDO_SHORTCUT_LABEL + '</li>' +
+										'<li><span class="rpbchessboard-keyboardShortcut">Ctrl+Y</span>' + RPBChessboard.i18n.REDO_SHORTCUT_LABEL + '</li>' +
+										'<li><span class="rpbchessboard-keyboardShortcut">P</span>' + RPBChessboard.i18n.ADD_PAWNS_SHORTCUT_LABEL + '</li>' +
+										'<li><span class="rpbchessboard-keyboardShortcut">N</span>' + RPBChessboard.i18n.ADD_KNIGHTS_SHORTCUT_LABEL + '</li>' +
+										'<li><span class="rpbchessboard-keyboardShortcut">B</span>' + RPBChessboard.i18n.ADD_BISHOPS_SHORTCUT_LABEL + '</li>' +
+										'<li><span class="rpbchessboard-keyboardShortcut">R</span>' + RPBChessboard.i18n.ADD_ROOKS_SHORTCUT_LABEL + '</li>' +
+										'<li><span class="rpbchessboard-keyboardShortcut">Q</span>' + RPBChessboard.i18n.ADD_QUEENS_SHORTCUT_LABEL + '</li>' +
+										'<li><span class="rpbchessboard-keyboardShortcut">K</span>' + RPBChessboard.i18n.ADD_KINGS_SHORTCUT_LABEL + '</li>' +
+									'</ul>' +
+								'</div>' +
+							'</div>'+
 
 						'</div>' +
 					'</div>' +

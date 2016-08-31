@@ -641,10 +641,6 @@ table.rpbchessboard-attributeTable td:nth-child(2) {
 /* About page */
 /* -------------------------------------------------------------------------- */
 
-#rpbchessboard-aboutPage h4 {
-	font-size: 1.1em;
-}
-
 .rpbchessboard-translatorList {
 	display: flex;
 	display: -webkit-flex;
@@ -771,6 +767,18 @@ table.rpbchessboard-attributeTable td:nth-child(2) {
 #rpbchessboard-editFENDialog-enPassantRights,
 #rpbchessboard-editFENDialog-enPassantRights li,
 #rpbchessboard-editFENDialog-enPassantRights input[type="radio"] {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.rpbchessboard-keyboardShortcut {
+	font-weight: bold;
+	font-family: Consolas, Monaco, monospace;
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.rpbchessboard-editFENDialog-sectionContent ul {
 	margin-top: 0px;
 	margin-bottom: 0px;
 }
