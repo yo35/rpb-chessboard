@@ -87,7 +87,43 @@
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
 
-		// RPBChessboard.initializeSetCodeEditor = TODO
+		var mediaFrame = {};
+
+		// Display the media frame (the frame is initialized if necessary).
+		function displayMediaFrame(button, form) {
+
+			var coloredPiece = button.data('coloredPiece');
+
+			if(typeof mediaFrame[coloredPiece] === 'undefined') {
+
+				mediaFrame[coloredPiece] = wp.media({
+					title: $(button).attr('title'),
+					button: {	text: <?php echo json_encode(__('Select', 'rpbchessboard')); ?>	},
+					multiple: false
+				});
+
+				mediaFrame[coloredPiece].on('select', function() {
+					var attachment = mediaFrame[coloredPiece].state().get('selection').first().toJSON();
+
+					console.log(attachment);
+
+					button.empty().append('<img src="' + attachment.url + '" width="64px" height="64px" />');
+					$('input[name="imageId-' + coloredPiece + '"]', form).val(attachment.id);
+				});
+			}
+
+			mediaFrame[coloredPiece].open();
+		}
+
+		RPBChessboard.initializeSetCodeEditor = function(target) {
+
+			// Initialize the color picker widgets
+			$('.rpbchessboard-coloredPieceButton', target).click(function(e) {
+				e.preventDefault();
+
+				displayMediaFrame($(this), target);
+			});
+		}
 
 	});
 </script>

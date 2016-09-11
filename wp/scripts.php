@@ -80,6 +80,7 @@ abstract class RPBChessboardScripts
 			wp_enqueue_script('jquery-ui-tabs'  );
 			wp_enqueue_script('iris');
 			wp_enqueue_script('rpbchessboard-backend');
+			wp_enqueue_media();
 		}
 
 		// Inlined scripts
