@@ -32,11 +32,13 @@ class RPBChessboardModelCommonCustomPiecesets extends RPBChessboardAbstractModel
 	private static $customPiecesets;
 	private static $customPiecesetLabels = array();
 	private static $customPiecesetAttributes = array();
+	private static $COLORED_PIECE_CODES = array('bp', 'bn', 'bb', 'br', 'bq', 'bk', 'bx', 'wp', 'wn', 'wb', 'wr', 'wq', 'wk', 'wx');
 
 
 	public function __construct() {
 		parent::__construct();
-		$this->registerDelegatableMethods('getCustomPiecesets', 'getCustomPiecesetLabel');
+		$this->registerDelegatableMethods('getCustomPiecesets', 'getCustomPiecesetLabel', 'getCustomPiecesetImageId', 'getCustomPiecesetImageId',
+			'getCustomPiecesetRawDataURL');
 	}
 
 
@@ -66,5 +68,76 @@ class RPBChessboardModelCommonCustomPiecesets extends RPBChessboardAbstractModel
 			self::$customPiecesetLabels[$pieceset] = isset($value) ? $value : ucfirst(str_replace('-', ' ', $pieceset));
 		}
 		return self::$customPiecesetLabels[$pieceset];
+	}
+
+
+	/**
+	 * Return the image ID corresponding to the image to use for the given colored piece in the given pieceset.
+	 *
+	 * @param string $pieceset
+	 * @param string $coloredPiece
+	 * @return integer
+	 */
+	public function getCustomPiecesetImageId($pieceset, $coloredPiece) {
+		self::initializeCustomPiecesetAttributes($pieceset);
+		return self::$customPiecesetAttributes[$pieceset]->imageId[$coloredPiece];
+	}
+
+
+	/**
+	 * Return whether the image to use for the given colored piece in the given pieceset is defined or not.
+	 *
+	 * @param string $pieceset
+	 * @param string $coloredPiece
+	 * @return boolean
+	 */
+	public function isCustomPiecesetImageDefined($pieceset, $coloredPiece) {
+		self::initializeCustomPiecesetAttributes($pieceset);
+		return self::$customPiecesetAttributes[$pieceset]->imageId[$coloredPiece] >= 0;
+	}
+
+
+	/**
+	 * Return the URL to the image uploaded by the user for the given colored piece in the given pieceset.
+	 *
+	 * @param string $pieceset
+	 * @param string $coloredPiece
+	 * @return string
+	 */
+	public function getCustomPiecesetRawDataURL($pieceset, $coloredPiece) {
+		self::initializeCustomPiecesetAttributes($pieceset);
+		if(!isset(self::$customPiecesetAttributes[$pieceset]->rawDataURL[$coloredPiece])) {
+			$imageId = self::$customPiecesetAttributes[$pieceset]->imageId[$coloredPiece];
+			$url = $imageId >= 0 ? wp_get_attachment_image_url($imageId) : false;
+			self::$customPiecesetAttributes[$pieceset]->rawDataURL[$coloredPiece] = $url ? $url : '#';
+		}
+		return self::$customPiecesetAttributes[$pieceset]->rawDataURL[$coloredPiece];
+	}
+
+
+	private static function initializeCustomPiecesetAttributes($pieceset) {
+		if(isset(self::$customPiecesetAttributes[$pieceset])) {
+			return;
+		}
+
+		self::$customPiecesetAttributes[$pieceset] = (object) array(
+			'imageId' => array(), 'rawDataURL' => array(), 'formatedDataURL' => array()
+		);
+
+		// Retrieve the attributes from the database
+		$values = explode('|', get_option('rpbchessboard_custom_pieceset_attributes_' . $pieceset, ''));
+		if(count($values) !== count($COLORED_PIECE_CODES)) {
+			foreach(self::$COLORED_PIECE_CODES as $coloredPiece) {
+				self::$customPiecesetAttributes[$pieceset]->imageId[$coloredPiece] = -1;
+			}
+			return;
+		}
+
+		// Validate the values retrieved from the database
+		$counter = 0;
+		foreach(self::$COLORED_PIECE_CODES as $coloredPiece) {
+			$currentId = RPBChessboardHelperValidation::validateInteger($values[$counter++]);
+			self::$customPiecesetAttributes[$pieceset]->imageId[$coloredPiece] = isset($currentId) ? $currentId : -1;
+		}
 	}
 }
