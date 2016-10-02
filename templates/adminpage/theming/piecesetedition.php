@@ -25,20 +25,15 @@
 
 		<input type="hidden" name="rpbchessboard_action" value="<?php echo htmlspecialchars($model->getFormAction($isNew)); ?>" />
 
-		<input type="hidden" class="rpbchessboard-imageIdField" name="imageId-bp" value="<?php echo $isNew ? -1 : htmlspecialchars($model->getCustomPiecesetImageId($pieceset, 'bp')); ?>" />
-		<input type="hidden" class="rpbchessboard-imageIdField" name="imageId-bn" value="<?php echo $isNew ? -1 : htmlspecialchars($model->getCustomPiecesetImageId($pieceset, 'bn')); ?>" />
-		<input type="hidden" class="rpbchessboard-imageIdField" name="imageId-bb" value="<?php echo $isNew ? -1 : htmlspecialchars($model->getCustomPiecesetImageId($pieceset, 'bb')); ?>" />
-		<input type="hidden" class="rpbchessboard-imageIdField" name="imageId-br" value="<?php echo $isNew ? -1 : htmlspecialchars($model->getCustomPiecesetImageId($pieceset, 'br')); ?>" />
-		<input type="hidden" class="rpbchessboard-imageIdField" name="imageId-bq" value="<?php echo $isNew ? -1 : htmlspecialchars($model->getCustomPiecesetImageId($pieceset, 'bq')); ?>" />
-		<input type="hidden" class="rpbchessboard-imageIdField" name="imageId-bk" value="<?php echo $isNew ? -1 : htmlspecialchars($model->getCustomPiecesetImageId($pieceset, 'bk')); ?>" />
-		<input type="hidden" class="rpbchessboard-imageIdField" name="imageId-bx" value="<?php echo $isNew ? -1 : htmlspecialchars($model->getCustomPiecesetImageId($pieceset, 'bx')); ?>" />
-		<input type="hidden" class="rpbchessboard-imageIdField" name="imageId-wp" value="<?php echo $isNew ? -1 : htmlspecialchars($model->getCustomPiecesetImageId($pieceset, 'wp')); ?>" />
-		<input type="hidden" class="rpbchessboard-imageIdField" name="imageId-wn" value="<?php echo $isNew ? -1 : htmlspecialchars($model->getCustomPiecesetImageId($pieceset, 'wn')); ?>" />
-		<input type="hidden" class="rpbchessboard-imageIdField" name="imageId-wb" value="<?php echo $isNew ? -1 : htmlspecialchars($model->getCustomPiecesetImageId($pieceset, 'wb')); ?>" />
-		<input type="hidden" class="rpbchessboard-imageIdField" name="imageId-wr" value="<?php echo $isNew ? -1 : htmlspecialchars($model->getCustomPiecesetImageId($pieceset, 'wr')); ?>" />
-		<input type="hidden" class="rpbchessboard-imageIdField" name="imageId-wq" value="<?php echo $isNew ? -1 : htmlspecialchars($model->getCustomPiecesetImageId($pieceset, 'wq')); ?>" />
-		<input type="hidden" class="rpbchessboard-imageIdField" name="imageId-wk" value="<?php echo $isNew ? -1 : htmlspecialchars($model->getCustomPiecesetImageId($pieceset, 'wk')); ?>" />
-		<input type="hidden" class="rpbchessboard-imageIdField" name="imageId-wx" value="<?php echo $isNew ? -1 : htmlspecialchars($model->getCustomPiecesetImageId($pieceset, 'wx')); ?>" />
+		<?php foreach(array('bp', 'bn', 'bb', 'br', 'bq', 'bk', 'bx', 'wp', 'wn', 'wb', 'wr', 'wq', 'wk', 'wx') as $coloredPiece): ?>
+			<?php if($isNew): ?>
+				<input type="hidden" class="rpbchessboard-imageIdField" name="imageId-<?php echo $coloredPiece; ?>" value="-1" data-sprite-url="#"  />
+			<?php else: ?>
+				<input type="hidden" class="rpbchessboard-imageIdField" name="imageId-<?php echo $coloredPiece; ?>"
+					value="<?php echo htmlspecialchars($model->getCustomPiecesetImageId($pieceset, $coloredPiece)); ?>"
+					data-sprite-url="<?php echo htmlspecialchars($model->getCustomPiecesetSpriteURL($pieceset, $coloredPiece)); ?>" />
+			<?php endif; ?>
+		<?php endforeach; ?>
 
 		<div class="rpbchessboard-inlineFormTitle">
 			<?php $isNew ? _e('New pieceset', 'rpbchessboard') : _e('Edit pieceset', 'rpbchessboard'); ?>

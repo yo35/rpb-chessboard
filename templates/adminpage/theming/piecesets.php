@@ -180,6 +180,11 @@
 				displayMediaFrame(target, $(this));
 			});
 
+			// Initialize the preview widget
+			['bp', 'bn', 'bb', 'br', 'bq', 'bk', 'bx', 'wp', 'wn', 'wb', 'wr', 'wq', 'wk', 'wx'].forEach(function(coloredPiece) {
+				$(coloredPieceSelector(coloredPiece)).css('background-image', 'url(' + $('input[name="imageId-' + coloredPiece + '"]', target).data('spriteUrl') + ')');
+			});
+
 			// Validate submit.
 			$('input[type="submit"]', target).click(function(e) {
 				if(!isAllImageFieldsDefined(target)) {
