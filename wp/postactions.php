@@ -35,6 +35,7 @@ abstract class RPBChessboardPostActions {
 		switch(self::getPostAction()) {
 			case 'update-options'      : self::executeAction('SaveOptions'    , 'updateOptions'        ); break;
 			case 'set-default-colorset': self::executeAction('SaveOptions'    , 'updateDefaultColorset'); break;
+			case 'set-default-pieceset': self::executeAction('SaveOptions'    , 'updateDefaultPieceset'); break;
 			case 'reset-general'       : self::executeAction('ResetOptions'   , 'resetGeneral'         ); break;
 			case 'reset-compatibility' : self::executeAction('ResetOptions'   , 'resetCompatibility'   ); break;
 			case 'reset-smallscreens'  : self::executeAction('ResetOptions'   , 'resetSmallScreens'    ); break;

@@ -68,6 +68,14 @@ class RPBChessboardModelPostSaveOptions extends RPBChessboardAbstractModel {
 	}
 
 
+	/**
+	 * Change the default pieceset.
+	 */
+	public function updateDefaultPieceset() {
+		return self::processSetCodeParameter('pieceset') ? __('Default pieceset changed.', 'rpbchessboard') : null;
+	}
+
+
 	private static function processSquareSize() {
 		if(isset($_POST['squareSize'])) {
 			$value = RPBChessboardHelperValidation::validateSquareSize($_POST['squareSize']);
