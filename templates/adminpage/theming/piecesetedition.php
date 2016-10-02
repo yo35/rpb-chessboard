@@ -107,6 +107,8 @@
 			<?php endforeach; ?>
 		</div>
 
+		<p class="rpbchessboard-piecesetEditionErrorMessage"></p>
+
 		<p class="submit rpbchessboard-inlineFormButtons">
 			<input type="submit" class="button-primary" value="<?php $isNew ? _e('Create pieceset', 'rpbchessboard') : _e('Save changes', 'rpbchessboard'); ?>" />
 			<a class="button" href="<?php echo htmlspecialchars($model->getFormActionURL()); ?>"><?php _e('Cancel', 'rpbchessboard'); ?></a>

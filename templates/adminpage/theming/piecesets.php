@@ -122,6 +122,8 @@
 		// Initiate the AJAX that is in charge of formating the uploaded image into a sprite.
 		function launchFormatPiecesetSprite(form, coloredPiece, attachment) {
 
+			$('.rpbchessboard-piecesetEditionErrorMessage', form).hide();
+
 			var ajaxUrl = <?php echo json_encode(admin_url('admin-ajax.php')); ?>;
 			var nonce = <?php echo json_encode(wp_create_nonce('rpbchessboard_format_pieceset_sprite')); ?>;
 
@@ -149,9 +151,7 @@
 
 		// Process the AJAX response in case of success.
 		function onFormatPiecesetSpriteFailure(form, coloredPiece, message) {
-			// TODO
-			console.log('failure');
-			console.log(message);
+			$('.rpbchessboard-piecesetEditionErrorMessage', form).text(message).slideDown();
 		}
 
 		function coloredPieceSelector(coloredPiece) {
@@ -161,6 +161,9 @@
 		}
 
 		RPBChessboard.initializeSetCodeEditor = function(target) {
+
+			// Hide the error message box.
+			$('.rpbchessboard-piecesetEditionErrorMessage', target).hide();
 
 			// Initialize the color picker widgets
 			$('.rpbchessboard-coloredPieceButton', target).click(function(e) {
