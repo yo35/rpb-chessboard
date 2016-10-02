@@ -33,14 +33,14 @@ abstract class RPBChessboardPostActions {
 	 */
 	public static function run() {
 		switch(self::getPostAction()) {
-			case 'update-options'      : self::executeAction('SaveOptions' , 'updateOptions'        ); break;
-			case 'set-default-colorset': self::executeAction('SaveOptions' , 'updateDefaultColorset'); break;
-			case 'reset-general'       : self::executeAction('ResetOptions', 'resetGeneral'         ); break;
-			case 'reset-compatibility' : self::executeAction('ResetOptions', 'resetCompatibility'   ); break;
-			case 'reset-smallscreens'  : self::executeAction('ResetOptions', 'resetSmallScreens'    ); break;
-			case 'add-colorset'        : self::executeAction('EditColorset', 'add'                  ); break;
-			case 'edit-colorset'       : self::executeAction('EditColorset', 'edit'                 ); break;
-			case 'delete-colorset'     : self::executeAction('EditColorset', 'delete'               ); break;
+			case 'update-options'      : self::executeAction('SaveOptions'    , 'updateOptions'        ); break;
+			case 'set-default-colorset': self::executeAction('SaveOptions'    , 'updateDefaultColorset'); break;
+			case 'reset-general'       : self::executeAction('ResetOptions'   , 'resetGeneral'         ); break;
+			case 'reset-compatibility' : self::executeAction('ResetOptions'   , 'resetCompatibility'   ); break;
+			case 'reset-smallscreens'  : self::executeAction('ResetOptions'   , 'resetSmallScreens'    ); break;
+			case 'add-colorset'        : self::executeAction('ThemingColorset', 'add'                  ); break;
+			case 'edit-colorset'       : self::executeAction('ThemingColorset', 'edit'                 ); break;
+			case 'delete-colorset'     : self::executeAction('ThemingColorset', 'delete'               ); break;
 			default: break;
 		}
 	}
