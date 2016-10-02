@@ -32,6 +32,7 @@ class RPBChessboardModelAjaxFormatPiecesetSprite extends RPBChessboardAbstractMo
 	public function __construct() {
 		parent::__construct();
 		$this->loadDelegateModel('Common/DefaultOptionsEx');
+		$this->loadDelegateModel('Common/CustomPiecesets');
 	}
 
 
@@ -42,17 +43,18 @@ class RPBChessboardModelAjaxFormatPiecesetSprite extends RPBChessboardAbstractMo
 			wp_die();
 		}
 
-		if($attachement->width !== $attachement->height) {
+		if($attachment->width !== $attachment->height) {
 			wp_send_json_error(array('message' => __('Images used to create piecesets must be square images (identical height and width).', 'rpbchessboard')));
 		}
-		if($attachement->type !== IMAGETYPE_PNG) {
+		if($attachment->type !== IMAGETYPE_PNG) {
 			wp_send_json_error(array('message' => __('Only PNG images can be used to create piecesets.', 'rpbchessboard')));
 		}
 
-		$outputPath = self::generateOutputPath($attachement->path);
-
-		if(!$this->generateSprite($outputPath, $attachement->path, $attachement->width, $attachement->height)) {
-			wp_send_json_error(array('message' => __('Error while processing the selected image.', 'rpbchessboard')));
+		$outputPath = $this->computeCustomPiecesetFormattedDataPath($attachment->path);
+		if(!file_exists($outputPath)) {
+			if(!$this->generateSprite($outputPath, $attachment->path, $attachment->width, $attachment->height)) {
+				wp_send_json_error(array('message' => __('Error while processing the selected image.', 'rpbchessboard')));
+			}
 		}
 
 		wp_send_json_success(array('result' => $outputPath));
@@ -100,11 +102,6 @@ class RPBChessboardModelAjaxFormatPiecesetSprite extends RPBChessboardAbstractMo
 		imagedestroy($destImage);
 		imagedestroy($srcImage);
 		return true;
-	}
-
-
-	private static function generateOutputPath($inputPath) {
-		return preg_replace('/\.[^.]*$/', '', $inputPath) . '-sprite.png';
 	}
 
 
