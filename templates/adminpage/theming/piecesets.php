@@ -160,6 +160,15 @@
 			return '#rpbchessboard-themingPreviewWidget .uichess-chessboard-color-' + color + '.uichess-chessboard-piece-' + piece;
 		}
 
+		// Whether all the image fields are set or not.
+		function isAllImageFieldsDefined(form) {
+			var allDefined = true;
+			$('.rpbchessboard-imageIdField', form).each(function() {
+				allDefined &= $(this).val() >= 0;
+			});
+			return allDefined;
+		}
+
 		RPBChessboard.initializeSetCodeEditor = function(target) {
 
 			// Hide the error message box.
@@ -168,8 +177,16 @@
 			// Initialize the color picker widgets
 			$('.rpbchessboard-coloredPieceButton', target).click(function(e) {
 				e.preventDefault();
-
 				displayMediaFrame(target, $(this));
+			});
+
+			// Validate submit.
+			$('input[type="submit"]', target).click(function(e) {
+				if(!isAllImageFieldsDefined(target)) {
+					e.preventDefault();
+					var message = <?php echo json_encode(__('All the images must be defined to create a pieceset.', 'rpbchessboard')); ?>;
+					$('.rpbchessboard-piecesetEditionErrorMessage', target).text(message).slideDown();
+				}
 			});
 		}
 
