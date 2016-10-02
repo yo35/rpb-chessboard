@@ -45,12 +45,18 @@ require_once(RPBCHESSBOARD_ABSPATH . 'helpers/loader.php');
 require_once(RPBCHESSBOARD_ABSPATH . 'helpers/cache.php');
 
 
-// POST actions & shortcodes
+// POST actions, AJAX & shortcodes
 add_action('init', 'rpbchessboard_init');
 function rpbchessboard_init() {
 
-	require_once(RPBCHESSBOARD_ABSPATH . 'wp/postactions.php');
-	RPBChessboardPostActions::run();
+	if(is_admin()) {
+
+		require_once(RPBCHESSBOARD_ABSPATH . 'wp/postactions.php');
+		RPBChessboardPostActions::run();
+
+		require_once(RPBCHESSBOARD_ABSPATH . 'wp/ajax.php');
+		RPBChessboardAjax::register();
+	}
 
 	require_once(RPBCHESSBOARD_ABSPATH . 'wp/shortcodes.php');
 	RPBChessboardShortcodes::register();
