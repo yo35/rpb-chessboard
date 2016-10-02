@@ -157,7 +157,7 @@
 		function coloredPieceSelector(coloredPiece) {
 			var color = coloredPiece.substr(0, 1);
 			var piece = coloredPiece.substr(1, 1);
-			return '#rpbchessboard-themingPreviewWidget .uichess-chessboard-color-' + color + '.uichess-chessboard-piece-' + piece;
+			return '#rpbchessboard-themingPreviewWidget .uichess-chessboard-color-' + color + '.uichess-chessboard-' + (piece === 'x' ? 'turnFlag' : 'piece-' + piece);
 		}
 
 		// Whether all the image fields are set or not.
