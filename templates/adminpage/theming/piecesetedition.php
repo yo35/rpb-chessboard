@@ -26,13 +26,9 @@
 		<input type="hidden" name="rpbchessboard_action" value="<?php echo htmlspecialchars($model->getFormAction($isNew)); ?>" />
 
 		<?php foreach(array('bp', 'bn', 'bb', 'br', 'bq', 'bk', 'bx', 'wp', 'wn', 'wb', 'wr', 'wq', 'wk', 'wx') as $coloredPiece): ?>
-			<?php if($isNew): ?>
-				<input type="hidden" class="rpbchessboard-imageIdField" name="imageId-<?php echo $coloredPiece; ?>" value="-1" data-sprite-url="#"  />
-			<?php else: ?>
-				<input type="hidden" class="rpbchessboard-imageIdField" name="imageId-<?php echo $coloredPiece; ?>"
-					value="<?php echo htmlspecialchars($model->getCustomPiecesetImageId($pieceset, $coloredPiece)); ?>"
-					data-sprite-url="<?php echo htmlspecialchars($model->getCustomPiecesetSpriteURL($pieceset, $coloredPiece)); ?>" />
-			<?php endif; ?>
+			<input type="hidden" class="rpbchessboard-imageIdField" name="imageId-<?php echo $coloredPiece; ?>"
+				value="<?php echo htmlspecialchars($model->getCustomPiecesetImageId($pieceset, $coloredPiece)); ?>"
+				data-sprite-url="<?php echo htmlspecialchars($model->getCustomPiecesetSpriteURL($pieceset, $coloredPiece)); ?>" />
 		<?php endforeach; ?>
 
 		<div class="rpbchessboard-inlineFormTitle">
@@ -62,11 +58,7 @@
 			<?php foreach(array('bp', 'bn', 'bb', 'br', 'bq', 'bk', 'bx') as $coloredPiece): ?>
 				<a class="rpbchessboard-coloredPieceButton rpbchessboard-coloredPieceButton-<?php echo $coloredPiece; ?>" href="#"
 					data-colored-piece="<?php echo $coloredPiece; ?>" title="<?php echo htmlspecialchars($model->getPiecesetEditionButtonTitle($coloredPiece)); ?>">
-					<?php if($isNew): ?>
-						<img src="<?php echo RPBCHESSBOARD_URL . 'images/undefined-' . $coloredPiece . '.png'; ?>" />
-					<?php else: ?>
-						<img src="<?php echo htmlspecialchars($model->getCustomPiecesetThumbnailURL($pieceset, $coloredPiece)); ?>" width="64px" height="64px" />
-					<?php endif; ?>
+					<img src="<?php echo htmlspecialchars($model->getCustomPiecesetThumbnailURL($pieceset, $coloredPiece)); ?>" width="64px" height="64px" />
 				</a>
 			<?php endforeach; ?>
 		</div>
@@ -74,11 +66,7 @@
 			<?php foreach(array('wp', 'wn', 'wb', 'wr', 'wq', 'wk', 'wx') as $coloredPiece): ?>
 				<a class="rpbchessboard-coloredPieceButton rpbchessboard-coloredPieceButton-<?php echo $coloredPiece; ?>" href="#"
 					data-colored-piece="<?php echo $coloredPiece; ?>" title="<?php echo htmlspecialchars($model->getPiecesetEditionButtonTitle($coloredPiece)); ?>">
-					<?php if($isNew): ?>
-						<img src="<?php echo RPBCHESSBOARD_URL . 'images/undefined-' . $coloredPiece . '.png'; ?>" />
-					<?php else: ?>
-						<img src="<?php echo htmlspecialchars($model->getCustomPiecesetThumbnailURL($pieceset, $coloredPiece)); ?>" width="64px" height="64px" />
-					<?php endif; ?>
+					<img src="<?php echo htmlspecialchars($model->getCustomPiecesetThumbnailURL($pieceset, $coloredPiece)); ?>" width="64px" height="64px" />
 				</a>
 			<?php endforeach; ?>
 		</div>

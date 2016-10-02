@@ -79,6 +79,11 @@ class RPBChessboardModelCommonCustomPiecesets extends RPBChessboardAbstractModel
 	 * @return integer
 	 */
 	public function getCustomPiecesetImageId($pieceset, $coloredPiece) {
+
+		if($pieceset === '') {
+			return -1;
+		}
+
 		self::initializeCustomPiecesetAttributes($pieceset);
 		return self::$customPiecesetAttributes[$pieceset]->imageId[$coloredPiece];
 	}
@@ -92,6 +97,11 @@ class RPBChessboardModelCommonCustomPiecesets extends RPBChessboardAbstractModel
 	 * @return string
 	 */
 	public function getCustomPiecesetThumbnailURL($pieceset, $coloredPiece) {
+
+		if($pieceset === '') {
+			return RPBCHESSBOARD_URL . 'images/undefined-' . $coloredPiece . '.png';
+		}
+
 		self::initializeCustomPiecesetAttributes($pieceset);
 
 		$attributes = self::$customPiecesetAttributes[$pieceset];
@@ -113,6 +123,11 @@ class RPBChessboardModelCommonCustomPiecesets extends RPBChessboardAbstractModel
 	 * @return string
 	 */
 	public function getCustomPiecesetSpriteURL($pieceset, $coloredPiece) {
+
+		if($pieceset === '') {
+			return '#';
+		}
+
 		self::initializeCustomPiecesetAttributes($pieceset);
 
 		$attributes = self::$customPiecesetAttributes[$pieceset];

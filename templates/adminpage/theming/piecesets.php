@@ -47,7 +47,7 @@
 	<tbody>
 
 		<tr>
-			<?php RPBChessboardHelperLoader::printTemplate('AdminPage/Theming/PiecesetEdition', $model, array('isNew' => true)); ?>
+			<?php RPBChessboardHelperLoader::printTemplate('AdminPage/Theming/PiecesetEdition', $model, array('isNew' => true, 'pieceset' => '')); ?>
 		</tr>
 
 		<?php foreach($model->getAvailablePiecesets() as $pieceset): ?>
