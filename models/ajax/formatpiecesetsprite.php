@@ -32,7 +32,6 @@ class RPBChessboardModelAjaxFormatPiecesetSprite extends RPBChessboardAbstractMo
 	public function __construct() {
 		parent::__construct();
 		$this->loadDelegateModel('Common/DefaultOptionsEx');
-		$this->loadDelegateModel('Common/CustomPiecesets');
 	}
 
 
