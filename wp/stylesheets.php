@@ -44,9 +44,9 @@ abstract class RPBChessboardStyleSheets
 		RPBChessboardHelperCache::ensureExists('small-screens.css', 'Misc/SmallScreens', 'Common/SmallScreens');
 		self::enqueueCachedStyle('rpbchessboard-smallscreens', 'small-screens.css');
 
-		// Custom colorsets
-		RPBChessboardHelperCache::ensureExists('custom-colorsets.css', 'Misc/CustomColorsets', 'Common/CustomColorsets');
-		self::enqueueCachedStyle('rpbchessboard-customcolorsets', 'custom-colorsets.css');
+		// Theming
+		RPBChessboardHelperCache::ensureExists('theming.css', 'Misc/Theming', 'Misc/Theming');
+		self::enqueueCachedStyle('rpbchessboard-theming', 'theming.css');
 
 		// Additional CSS for the backend.
 		if(is_admin()) {

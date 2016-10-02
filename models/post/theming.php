@@ -114,7 +114,7 @@ abstract class RPBChessboardModelPostTheming extends RPBChessboardAbstractModel 
 
 
 	private static function invalidateCache() {
-		RPBChessboardHelperCache::remove('custom-colorsets.css'); // TODO
+		RPBChessboardHelperCache::remove('theming.css');
 	}
 
 
