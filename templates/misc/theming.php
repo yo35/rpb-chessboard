@@ -31,3 +31,21 @@
 	}
 
 <?php endforeach; ?>
+
+
+<?php foreach($model->getCustomPiecesets() as $pieceset): ?>
+
+	<?php foreach(array('b', 'w') as $color): ?>
+
+		<?php foreach(array('p', 'n', 'b', 'r', 'q', 'k') as $piece): ?>
+			.uichess-chessboard-pieceset-<?php echo htmlspecialchars($pieceset); ?>
+				.uichess-chessboard-color-<?php echo $color; ?>.uichess-chessboard-piece-<?php echo $piece; ?>
+				{ background-image: url(<?php echo htmlspecialchars($model->getCustomPiecesetSpriteURL($pieceset, $color . $piece)); ?>); }
+		<?php endforeach; ?>
+
+		.uichess-chessboard-pieceset-<?php echo htmlspecialchars($pieceset); ?>
+			.uichess-chessboard-color-<?php echo $color; ?>.uichess-chessboard-turnFlag
+			{ background-image: url(<?php echo htmlspecialchars($model->getCustomPiecesetSpriteURL($pieceset, $color . 'x')); ?>); }
+
+	<?php endforeach; ?>
+<?php endforeach; ?>
