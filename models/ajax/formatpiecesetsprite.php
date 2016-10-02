@@ -21,6 +21,7 @@
 
 
 require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php');
+require_once(RPBCHESSBOARD_ABSPATH . 'helpers/validation.php');
 
 
 /**
@@ -28,8 +29,98 @@ require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php');
  */
 class RPBChessboardModelAjaxFormatPiecesetSprite extends RPBChessboardAbstractModel {
 
+	public function __construct() {
+		parent::__construct();
+		$this->loadDelegateModel('Common/DefaultOptionsEx');
+	}
+
+
 	public function run() {
-		// TODO
-		wp_send_json_success(array('message' => 'this is a test message!', 'args' => $_POST['coloredPiece']));
+
+		$attachment = self::getAttachment();
+		if(!isset($attachment)) {
+			wp_die();
+		}
+
+		if($attachement->width !== $attachement->height) {
+			wp_send_json_error(array('message' => __('Images used to create piecesets must be square images (identical height and width).', 'rpbchessboard')));
+		}
+		if($attachement->type !== IMAGETYPE_PNG) {
+			wp_send_json_error(array('message' => __('Only PNG images can be used to create piecesets.', 'rpbchessboard')));
+		}
+
+		$outputPath = self::generateOutputPath($attachement->path);
+
+		if(!$this->generateSprite($outputPath, $attachement->path, $attachement->width, $attachement->height)) {
+			wp_send_json_error(array('message' => __('Error while processing the selected image.', 'rpbchessboard')));
+		}
+
+		wp_send_json_success(array('result' => $outputPath));
+	}
+
+
+	private function generateSprite($destPath, $srcPath, $srcWidth, $srcHeight) {
+
+		// Load the input image.
+		$srcImage = imagecreatefrompng($srcPath);
+		if(!$srcImage) {
+			return false;
+		}
+
+		// Compute sizes.
+		$sizeMin = $this->getMinimumSquareSize();
+		$sizeMax = $this->getMaximumSquareSize();
+		$sizeMid = round($sizeMax / 2);
+		$destWidth = ($sizeMax + $sizeMid + 1) * ($sizeMax - $sizeMid) / 2;
+		$destHeight = $sizeMid * 2 + 1;
+
+		// Allocate the output image.
+		$destImage = imagecreatetruecolor($destWidth, $destHeight);
+		imagesavealpha($destImage, true);
+		imagefill($destImage, 0, 0, imagecolorallocatealpha($destImage, 0, 0, 0, 127));
+
+		// Top line (i.e. large size sprites).
+		$offset = 0;
+		for($size = $sizeMid + 1; $size <= $sizeMax; ++$size) {
+			imagecopyresampled($destImage, $srcImage, $offset, 0, 0, 0, $size, $size, $srcWidth, $srcHeight);
+			$offset += $size;
+		}
+
+		// Bottom line (i.e. small size sprites).
+		$offset = 0;
+		for($size = $sizeMid; $size >= $sizeMin; --$size) {
+			imagecopyresampled($destImage, $srcImage, $offset, $destHeight - $size, 0, 0, $size, $size, $srcWidth, $srcHeight);
+			$offset += $size;
+		}
+
+		// Save the output image.
+		imagepng($destImage, $destPath);
+
+		// Free resources.
+		imagedestroy($destImage);
+		imagedestroy($srcImage);
+		return true;
+	}
+
+
+	private static function generateOutputPath($inputPath) {
+		return preg_replace('/\.[^.]*$/', '', $inputPath) . '-sprite.png';
+	}
+
+
+	private static function getAttachment() {
+		$attachmentId = isset($_POST['attachmentId']) ? RPBChessboardHelperValidation::validateInteger($_POST['attachmentId'], 0) : null;
+		if(!isset($attachmentId)) {
+			return null;
+		}
+
+		$path = get_attached_file($attachmentId);
+		if(!$path) {
+			return null;
+		}
+
+		list($width, $height, $type) = getimagesize($path);
+
+		return (object) array('id' => $attachmentId, 'path' => $path, 'width' => $width, 'height' => $height, 'type' => $type);
 	}
 }
