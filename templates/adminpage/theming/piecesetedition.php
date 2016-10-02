@@ -67,7 +67,7 @@
 			<?php foreach(array('bp', 'bn', 'bb', 'br', 'bq', 'bk', 'bx') as $coloredPiece): ?>
 				<a class="rpbchessboard-coloredPieceButton rpbchessboard-coloredPieceButton-<?php echo $coloredPiece; ?>" href="#"
 					data-colored-piece="<?php echo $coloredPiece; ?>" title="<?php echo htmlspecialchars($model->getPiecesetEditionButtonTitle($coloredPiece)); ?>">
-					<?php if($isNew || !$model->isCustomPiecesetImageDefined($pieceset, $coloredPiece)): ?>
+					<?php if($isNew): ?>
 						<img src="<?php echo RPBCHESSBOARD_URL . 'images/undefined-' . $coloredPiece . '.png'; ?>" />
 					<?php else: ?>
 						<img src="<?php echo htmlspecialchars($model->getCustomPiecesetThumbnailURL($pieceset, $coloredPiece)); ?>" width="64px" height="64px" />
@@ -79,7 +79,7 @@
 			<?php foreach(array('wp', 'wn', 'wb', 'wr', 'wq', 'wk', 'wx') as $coloredPiece): ?>
 				<a class="rpbchessboard-coloredPieceButton rpbchessboard-coloredPieceButton-<?php echo $coloredPiece; ?>" href="#"
 					data-colored-piece="<?php echo $coloredPiece; ?>" title="<?php echo htmlspecialchars($model->getPiecesetEditionButtonTitle($coloredPiece)); ?>">
-					<?php if($isNew || !$model->isCustomPiecesetImageDefined($pieceset, $coloredPiece)): ?>
+					<?php if($isNew): ?>
 						<img src="<?php echo RPBCHESSBOARD_URL . 'images/undefined-' . $coloredPiece . '.png'; ?>" />
 					<?php else: ?>
 						<img src="<?php echo htmlspecialchars($model->getCustomPiecesetThumbnailURL($pieceset, $coloredPiece)); ?>" width="64px" height="64px" />

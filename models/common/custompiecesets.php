@@ -37,7 +37,7 @@ class RPBChessboardModelCommonCustomPiecesets extends RPBChessboardAbstractModel
 
 	public function __construct() {
 		parent::__construct();
-		$this->registerDelegatableMethods('getCustomPiecesets', 'getCustomPiecesetLabel', 'getCustomPiecesetImageId', 'isCustomPiecesetImageDefined',
+		$this->registerDelegatableMethods('getCustomPiecesets', 'getCustomPiecesetLabel', 'getCustomPiecesetImageId',
 			'getCustomPiecesetThumbnailURL', 'getCustomPiecesetSpriteURL', 'computeCustomPiecesetSpritePathOrURL');
 	}
 
@@ -81,19 +81,6 @@ class RPBChessboardModelCommonCustomPiecesets extends RPBChessboardAbstractModel
 	public function getCustomPiecesetImageId($pieceset, $coloredPiece) {
 		self::initializeCustomPiecesetAttributes($pieceset);
 		return self::$customPiecesetAttributes[$pieceset]->imageId[$coloredPiece];
-	}
-
-
-	/**
-	 * Return whether the image to use for the given colored piece in the given pieceset is defined or not.
-	 *
-	 * @param string $pieceset
-	 * @param string $coloredPiece
-	 * @return boolean
-	 */
-	public function isCustomPiecesetImageDefined($pieceset, $coloredPiece) {
-		self::initializeCustomPiecesetAttributes($pieceset);
-		return self::$customPiecesetAttributes[$pieceset]->imageId[$coloredPiece] >= 0;
 	}
 
 
