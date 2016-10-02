@@ -173,4 +173,12 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 		$blue = rand($grayRangeMin, $grayRangeMax);
 		return sprintf('#%02x%02x%02x', $red, $green, $blue);
 	}
+
+
+	/**
+	 * Whether the PHP image processing library is available or not (must be available for custom pieceset management).
+	 */
+	public function isGDLibraryAvailable() {
+		return extension_loaded('gd') && function_exists('gd_info');
+	}
 }
