@@ -84,7 +84,8 @@
 
 		<div>
 			<?php foreach(array('bp', 'bn', 'bb', 'br', 'bq', 'bk', 'bx') as $coloredPiece): ?>
-				<a class="rpbchessboard-coloredPieceButton" href="#" data-colored-piece="<?php echo $coloredPiece; ?>" title="<?php echo $TITLES[$coloredPiece]; ?>">
+				<a class="rpbchessboard-coloredPieceButton rpbchessboard-coloredPieceButton-<?php echo $coloredPiece; ?>" href="#"
+					data-colored-piece="<?php echo $coloredPiece; ?>" title="<?php echo $TITLES[$coloredPiece]; ?>">
 					<?php if($isNew || !$model->isCustomPiecesetImageDefined($pieceset, $coloredPiece)): ?>
 						<img src="<?php echo RPBCHESSBOARD_URL . 'images/undefined-' . $coloredPiece . '.png'; ?>" />
 					<?php else: ?>
@@ -95,7 +96,8 @@
 		</div>
 		<div>
 			<?php foreach(array('wp', 'wn', 'wb', 'wr', 'wq', 'wk', 'wx') as $coloredPiece): ?>
-				<a class="rpbchessboard-coloredPieceButton" href="#" data-colored-piece="<?php echo $coloredPiece; ?>" title="<?php echo $TITLES[$coloredPiece]; ?>">
+				<a class="rpbchessboard-coloredPieceButton rpbchessboard-coloredPieceButton-<?php echo $coloredPiece; ?>" href="#"
+					data-colored-piece="<?php echo $coloredPiece; ?>" title="<?php echo $TITLES[$coloredPiece]; ?>">
 					<?php if($isNew || !$model->isCustomPiecesetImageDefined($pieceset, $coloredPiece)): ?>
 						<img src="<?php echo RPBCHESSBOARD_URL . 'images/undefined-' . $coloredPiece . '.png'; ?>" />
 					<?php else: ?>

@@ -98,7 +98,7 @@
 		var mediaFrame = {};
 
 		// Display the media frame (the frame is initialized if necessary).
-		function displayMediaFrame(button, form) {
+		function displayMediaFrame(form, button) {
 
 			var coloredPiece = button.data('coloredPiece');
 
@@ -112,11 +112,7 @@
 
 				mediaFrame[coloredPiece].on('select', function() {
 					var attachment = mediaFrame[coloredPiece].state().get('selection').first().toJSON();
-
-					launchFormatPiecesetSprite(coloredPiece, attachment);
-
-					button.empty().append('<img src="' + attachment.url + '" width="64px" height="64px" />');
-					$('input[name="imageId-' + coloredPiece + '"]', form).val(attachment.id);
+					launchFormatPiecesetSprite(form, coloredPiece, attachment);
 				});
 			}
 
@@ -124,7 +120,7 @@
 		}
 
 		// Initiate the AJAX that is in charge of formating the uploaded image into a sprite.
-		function launchFormatPiecesetSprite(coloredPiece, attachment) {
+		function launchFormatPiecesetSprite(form, coloredPiece, attachment) {
 
 			var ajaxUrl = <?php echo json_encode(admin_url('admin-ajax.php')); ?>;
 			var nonce = <?php echo json_encode(wp_create_nonce('rpbchessboard_format_pieceset_sprite')); ?>;
@@ -135,11 +131,33 @@
 				coloredPiece: coloredPiece,
 				attachmentId: attachment.id
 			}, function(data) {
-
-				// TODO: process AJAX response
-				console.log('success!!');
-				console.log(data);
+				if(data.success) {
+					onFormatPiecesetSpriteSuccess(form, coloredPiece, data.data.attachmentId, data.data.rawDataURL, data.data.formattedDataURL);
+				}
+				else {
+					onFormatPiecesetSpriteFailure(form, coloredPiece, data.data.message);
+				}
 			});
+		}
+
+		// Process the AJAX response in case of success.
+		function onFormatPiecesetSpriteSuccess(form, coloredPiece, attachmentId, rawDataURL, formattedDataURL) {
+			$('.rpbchessboard-coloredPieceButton-' + coloredPiece, form).empty().append('<img src="' + rawDataURL + '" width="64px" height="64px" />');
+			$('input[name="imageId-' + coloredPiece + '"]', form).val(attachmentId);
+			$(coloredPieceSelector(coloredPiece)).css('background-image', 'url(' + formattedDataURL + ')');
+		}
+
+		// Process the AJAX response in case of success.
+		function onFormatPiecesetSpriteFailure(form, coloredPiece, message) {
+			// TODO
+			console.log('failure');
+			console.log(message);
+		}
+
+		function coloredPieceSelector(coloredPiece) {
+			var color = coloredPiece.substr(0, 1);
+			var piece = coloredPiece.substr(1, 1);
+			return '#rpbchessboard-themingPreviewWidget .uichess-chessboard-color-' + color + '.uichess-chessboard-piece-' + piece;
 		}
 
 		RPBChessboard.initializeSetCodeEditor = function(target) {
@@ -148,7 +166,7 @@
 			$('.rpbchessboard-coloredPieceButton', target).click(function(e) {
 				e.preventDefault();
 
-				displayMediaFrame($(this), target);
+				displayMediaFrame(target, $(this));
 			});
 		}
 

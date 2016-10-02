@@ -57,7 +57,8 @@ class RPBChessboardModelAjaxFormatPiecesetSprite extends RPBChessboardAbstractMo
 			}
 		}
 
-		wp_send_json_success(array('result' => $outputPath));
+		$formattedDataURL = $this->computeCustomPiecesetFormattedDataPath($attachment->url);
+		wp_send_json_success(array('attachmentId' => $attachment->id, 'rawDataURL' => $attachment->url, 'formattedDataURL' => $formattedDataURL));
 	}
 
 
@@ -116,8 +117,10 @@ class RPBChessboardModelAjaxFormatPiecesetSprite extends RPBChessboardAbstractMo
 			return null;
 		}
 
+		$url = wp_get_attachment_image_url($attachmentId, array());
+
 		list($width, $height, $type) = getimagesize($path);
 
-		return (object) array('id' => $attachmentId, 'path' => $path, 'width' => $width, 'height' => $height, 'type' => $type);
+		return (object) array('id' => $attachmentId, 'path' => $path, 'url' => $url, 'width' => $width, 'height' => $height, 'type' => $type);
 	}
 }
