@@ -105,7 +105,7 @@
 				mediaFrame[coloredPiece].on('select', function() {
 					var attachment = mediaFrame[coloredPiece].state().get('selection').first().toJSON();
 
-					console.log(attachment);
+					launchFormatPiecesetSprite(coloredPiece, attachment);
 
 					button.empty().append('<img src="' + attachment.url + '" width="64px" height="64px" />');
 					$('input[name="imageId-' + coloredPiece + '"]', form).val(attachment.id);
@@ -113,6 +113,25 @@
 			}
 
 			mediaFrame[coloredPiece].open();
+		}
+
+		// Initiate the AJAX that is in charge of formating the uploaded image into a sprite.
+		function launchFormatPiecesetSprite(coloredPiece, attachment) {
+
+			var ajaxUrl = <?php echo json_encode(admin_url('admin-ajax.php')); ?>;
+			var nonce = <?php echo json_encode(wp_create_nonce('rpbchessboard_format_pieceset_sprite')); ?>;
+
+			$.post(ajaxUrl, {
+				action: 'rpbchessboard_format_pieceset_sprite',
+				_ajax_nonce: nonce,
+				coloredPiece: coloredPiece,
+				attachmentId: attachment.id
+			}, function(data) {
+
+				// TODO: process AJAX response
+				console.log('success!!');
+				console.log(data);
+			});
 		}
 
 		RPBChessboard.initializeSetCodeEditor = function(target) {

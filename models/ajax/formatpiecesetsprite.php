@@ -20,23 +20,16 @@
  ******************************************************************************/
 
 
+require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php');
+
+
 /**
- * Register the AJAX request processing callbacks.
+ * Process a pieceset formatting request.
  */
-abstract class RPBChessboardAjax {
+class RPBChessboardModelAjaxFormatPiecesetSprite extends RPBChessboardAbstractModel {
 
-	public static function register() {
-		add_action('wp_ajax_rpbchessboard_format_pieceset_sprite', array(__CLASS__, 'callbackFormatPiecesetSprite'));
-	}
-
-
-	public static function callbackFormatPiecesetSprite() {
-		check_ajax_referer('rpbchessboard_format_pieceset_sprite');
-		if(!current_user_can('manage_options')) {
-			wp_die();
-		}
-
-		$ajaxModel = RPBChessboardHelperLoader::loadModel('Ajax/FormatPiecesetSprite');
-		$ajaxModel->run();
+	public function run() {
+		// TODO
+		wp_send_json_success(array('message' => 'this is a test message!', 'args' => $_POST['coloredPiece']));
 	}
 }
