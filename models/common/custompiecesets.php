@@ -38,7 +38,7 @@ class RPBChessboardModelCommonCustomPiecesets extends RPBChessboardAbstractModel
 	public function __construct() {
 		parent::__construct();
 		$this->registerDelegatableMethods('getCustomPiecesets', 'getCustomPiecesetLabel', 'getCustomPiecesetImageId', 'isCustomPiecesetImageDefined',
-			'getCustomPiecesetRawDataURL', 'getCustomPiecesetFormattedDataURL', 'computeCustomPiecesetFormattedDataPath');
+			'getCustomPiecesetThumbnailURL', 'getCustomPiecesetSpriteURL', 'computeCustomPiecesetSpritePathOrURL');
 	}
 
 
@@ -98,44 +98,52 @@ class RPBChessboardModelCommonCustomPiecesets extends RPBChessboardAbstractModel
 
 
 	/**
-	 * Return the URL to the image uploaded by the user for the given colored piece in the given pieceset.
+	 * Return the URL to the thumbnail image for the given colored piece in the given pieceset.
 	 *
 	 * @param string $pieceset
 	 * @param string $coloredPiece
 	 * @return string
 	 */
-	public function getCustomPiecesetRawDataURL($pieceset, $coloredPiece) {
+	public function getCustomPiecesetThumbnailURL($pieceset, $coloredPiece) {
 		self::initializeCustomPiecesetAttributes($pieceset);
 
 		$attributes = self::$customPiecesetAttributes[$pieceset];
-		if(!isset($attributes->rawDataURL[$coloredPiece])) {
+		if(!isset($attributes->thumbnailURL[$coloredPiece])) {
 			$imageId = $attributes->imageId[$coloredPiece];
-			$url = $imageId >= 0 ? wp_get_attachment_image_url($imageId, array()) : false;
-			$attributes->rawDataURL[$coloredPiece] = $url ? $url : '#';
+			$url = $imageId >= 0 ? wp_get_attachment_image_url($imageId) : false;
+			$attributes->thumbnailURL[$coloredPiece] = $url ? $url : '#';
 		}
 
-		return $attributes->rawDataURL[$coloredPiece];
+		return $attributes->thumbnailURL[$coloredPiece];
 	}
 
 
 	/**
-	 * Return the URL to the formatted image for the given colored piece in the given pieceset.
+	 * Return the URL to the sprite image for the given colored piece in the given pieceset.
 	 *
 	 * @param string $pieceset
 	 * @param string $coloredPiece
 	 * @return string
 	 */
-	public function getCustomPiecesetFormattedDataURL($pieceset, $coloredPiece) {
-		return $this->isCustomPiecesetImageDefined($pieceset, $coloredPiece) ?
-			$this->computeCustomPiecesetFormattedDataPath($this->getCustomPiecesetRawDataURL($pieceset, $coloredPiece)) : '#';
+	public function getCustomPiecesetSpriteURL($pieceset, $coloredPiece) {
+		self::initializeCustomPiecesetAttributes($pieceset);
+
+		$attributes = self::$customPiecesetAttributes[$pieceset];
+		if(!isset($attributes->spriteURL[$coloredPiece])) {
+			$imageId = $attributes->imageId[$coloredPiece];
+			$url = $imageId >= 0 ? $this->computeCustomPiecesetSpritePathOrURL(wp_get_attachment_url($imageId)) : false;
+			$attributes->spriteURL[$coloredPiece] = $url ? $url : '#';
+		}
+
+		return $attributes->spriteURL[$coloredPiece];
 	}
 
 
 	/**
-	 * Generate the path to the formatted image from the path to the raw image.
+	 * Generate the path/URL to the sprite image from the path/URL to the raw image.
 	 */
-	public function computeCustomPiecesetFormattedDataPath($rawDataPath) {
-		return preg_replace('/\.[^.]*$/', '', $rawDataPath) . '-sprite.png';
+	public function computeCustomPiecesetSpritePathOrURL($rawImagePathOrURL) {
+		return preg_replace('/\.[^.]*$/', '', $rawImagePathOrURL) . '-sprite.png';
 	}
 
 
@@ -145,12 +153,12 @@ class RPBChessboardModelCommonCustomPiecesets extends RPBChessboardAbstractModel
 		}
 
 		self::$customPiecesetAttributes[$pieceset] = (object) array(
-			'imageId' => array(), 'rawDataURL' => array()
+			'imageId' => array(), 'thumbnailURL' => array(), 'spriteURL' => array()
 		);
 
 		// Retrieve the attributes from the database
 		$values = explode('|', get_option('rpbchessboard_custom_pieceset_attributes_' . $pieceset, ''));
-		if(count($values) !== count($COLORED_PIECE_CODES)) {
+		if(count($values) !== count(self::$COLORED_PIECE_CODES)) {
 			foreach(self::$COLORED_PIECE_CODES as $coloredPiece) {
 				self::$customPiecesetAttributes[$pieceset]->imageId[$coloredPiece] = -1;
 			}

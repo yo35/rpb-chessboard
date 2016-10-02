@@ -70,7 +70,7 @@
 					<?php if($isNew || !$model->isCustomPiecesetImageDefined($pieceset, $coloredPiece)): ?>
 						<img src="<?php echo RPBCHESSBOARD_URL . 'images/undefined-' . $coloredPiece . '.png'; ?>" />
 					<?php else: ?>
-						<img src="<?php echo htmlspecialchars($model->getCustomPiecesetRawDataURL($pieceset, $coloredPiece)); ?>" />
+						<img src="<?php echo htmlspecialchars($model->getCustomPiecesetThumbnailURL($pieceset, $coloredPiece)); ?>" width="64px" height="64px" />
 					<?php endif; ?>
 				</a>
 			<?php endforeach; ?>
@@ -82,7 +82,7 @@
 					<?php if($isNew || !$model->isCustomPiecesetImageDefined($pieceset, $coloredPiece)): ?>
 						<img src="<?php echo RPBCHESSBOARD_URL . 'images/undefined-' . $coloredPiece . '.png'; ?>" />
 					<?php else: ?>
-						<img src="<?php echo htmlspecialchars($model->getCustomPiecesetRawDataURL($pieceset, $coloredPiece)); ?>" />
+						<img src="<?php echo htmlspecialchars($model->getCustomPiecesetThumbnailURL($pieceset, $coloredPiece)); ?>" width="64px" height="64px" />
 					<?php endif; ?>
 				</a>
 			<?php endforeach; ?>

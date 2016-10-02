@@ -134,7 +134,7 @@
 				attachmentId: attachment.id
 			}, function(data) {
 				if(data.success) {
-					onFormatPiecesetSpriteSuccess(form, coloredPiece, data.data.attachmentId, data.data.rawDataURL, data.data.formattedDataURL);
+					onFormatPiecesetSpriteSuccess(form, coloredPiece, data.data.attachmentId, data.data.thumbnailURL, data.data.spriteURL);
 				}
 				else {
 					onFormatPiecesetSpriteFailure(form, coloredPiece, data.data.message);
@@ -143,10 +143,10 @@
 		}
 
 		// Process the AJAX response in case of success.
-		function onFormatPiecesetSpriteSuccess(form, coloredPiece, attachmentId, rawDataURL, formattedDataURL) {
-			$('.rpbchessboard-coloredPieceButton-' + coloredPiece, form).empty().append('<img src="' + rawDataURL + '" width="64px" height="64px" />');
+		function onFormatPiecesetSpriteSuccess(form, coloredPiece, attachmentId, thumbnailURL, spriteURL) {
+			$('.rpbchessboard-coloredPieceButton-' + coloredPiece, form).empty().append('<img src="' + thumbnailURL + '" width="64px" height="64px" />');
 			$('input[name="imageId-' + coloredPiece + '"]', form).val(attachmentId);
-			$(coloredPieceSelector(coloredPiece)).css('background-image', 'url(' + formattedDataURL + ')');
+			$(coloredPieceSelector(coloredPiece)).css('background-image', 'url(' + spriteURL + ')');
 		}
 
 		// Process the AJAX response in case of success.
