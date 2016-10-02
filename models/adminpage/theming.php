@@ -28,6 +28,8 @@ require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/adminpage.php');
  */
 class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdminPage {
 
+	private static $piecesetEditionButtonTitle;
+
 	public function __construct() {
 		parent::__construct();
 		$this->loadDelegateModel('Common/DefaultOptionsEx');
@@ -180,5 +182,31 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 	 */
 	public function isGDLibraryAvailable() {
 		return extension_loaded('gd') && function_exists('gd_info');
+	}
+
+
+	/**
+	 * Text to use for the tooltip of the pieceset edition buttons.
+	 */
+	public function getPiecesetEditionButtonTitle($coloredPiece) {
+		if(!isset(self::$piecesetEditionButtonTitle)) {
+			self::$piecesetEditionButtonTitle = array(
+				'bp' =>  __('Select the image to use for black pawns'     , 'rpbchessboard'),
+				'bn' =>  __('Select the image to use for black knights'   , 'rpbchessboard'),
+				'bb' =>  __('Select the image to use for black bishops'   , 'rpbchessboard'),
+				'br' =>  __('Select the image to use for black rooks'     , 'rpbchessboard'),
+				'bq' =>  __('Select the image to use for black queens'    , 'rpbchessboard'),
+				'bk' =>  __('Select the image to use for black kings'     , 'rpbchessboard'),
+				'bx' =>  __('Select the image to use for black turn flags', 'rpbchessboard'),
+				'wp' =>  __('Select the image to use for white pawns'     , 'rpbchessboard'),
+				'wn' =>  __('Select the image to use for white knights'   , 'rpbchessboard'),
+				'wb' =>  __('Select the image to use for white bishops'   , 'rpbchessboard'),
+				'wr' =>  __('Select the image to use for white rooks'     , 'rpbchessboard'),
+				'wq' =>  __('Select the image to use for white queens'    , 'rpbchessboard'),
+				'wk' =>  __('Select the image to use for white kings'     , 'rpbchessboard'),
+				'wx' =>  __('Select the image to use for white turn flags', 'rpbchessboard')
+			);
+		}
+		return self::$piecesetEditionButtonTitle[$coloredPiece];
 	}
 }

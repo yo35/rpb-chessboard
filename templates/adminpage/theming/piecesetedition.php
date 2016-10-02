@@ -63,29 +63,10 @@
 			<input type="hidden" name="pieceset" value="<?php echo htmlspecialchars($pieceset); ?>" />
 		<?php endif; ?>
 
-		<?php
-			$TITLES = array(
-				'bp' =>  __('Select the image to use for black pawns'     , 'rpbchessboard'),
-				'bn' =>  __('Select the image to use for black knights'   , 'rpbchessboard'),
-				'bb' =>  __('Select the image to use for black bishops'   , 'rpbchessboard'),
-				'br' =>  __('Select the image to use for black rooks'     , 'rpbchessboard'),
-				'bq' =>  __('Select the image to use for black queens'    , 'rpbchessboard'),
-				'bk' =>  __('Select the image to use for black kings'     , 'rpbchessboard'),
-				'bx' =>  __('Select the image to use for black turn flags', 'rpbchessboard'),
-				'wp' =>  __('Select the image to use for white pawns'     , 'rpbchessboard'),
-				'wn' =>  __('Select the image to use for white knights'   , 'rpbchessboard'),
-				'wb' =>  __('Select the image to use for white bishops'   , 'rpbchessboard'),
-				'wr' =>  __('Select the image to use for white rooks'     , 'rpbchessboard'),
-				'wq' =>  __('Select the image to use for white queens'    , 'rpbchessboard'),
-				'wk' =>  __('Select the image to use for white kings'     , 'rpbchessboard'),
-				'wx' =>  __('Select the image to use for white turn flags', 'rpbchessboard')
-			);
-		?>
-
 		<div>
 			<?php foreach(array('bp', 'bn', 'bb', 'br', 'bq', 'bk', 'bx') as $coloredPiece): ?>
 				<a class="rpbchessboard-coloredPieceButton rpbchessboard-coloredPieceButton-<?php echo $coloredPiece; ?>" href="#"
-					data-colored-piece="<?php echo $coloredPiece; ?>" title="<?php echo $TITLES[$coloredPiece]; ?>">
+					data-colored-piece="<?php echo $coloredPiece; ?>" title="<?php echo htmlspecialchars($model->getPiecesetEditionButtonTitle($coloredPiece)); ?>">
 					<?php if($isNew || !$model->isCustomPiecesetImageDefined($pieceset, $coloredPiece)): ?>
 						<img src="<?php echo RPBCHESSBOARD_URL . 'images/undefined-' . $coloredPiece . '.png'; ?>" />
 					<?php else: ?>
@@ -97,7 +78,7 @@
 		<div>
 			<?php foreach(array('wp', 'wn', 'wb', 'wr', 'wq', 'wk', 'wx') as $coloredPiece): ?>
 				<a class="rpbchessboard-coloredPieceButton rpbchessboard-coloredPieceButton-<?php echo $coloredPiece; ?>" href="#"
-					data-colored-piece="<?php echo $coloredPiece; ?>" title="<?php echo $TITLES[$coloredPiece]; ?>">
+					data-colored-piece="<?php echo $coloredPiece; ?>" title="<?php echo htmlspecialchars($model->getPiecesetEditionButtonTitle($coloredPiece)); ?>">
 					<?php if($isNew || !$model->isCustomPiecesetImageDefined($pieceset, $coloredPiece)): ?>
 						<img src="<?php echo RPBCHESSBOARD_URL . 'images/undefined-' . $coloredPiece . '.png'; ?>" />
 					<?php else: ?>
