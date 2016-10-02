@@ -42,6 +42,9 @@ abstract class RPBChessboardPostActions {
 			case 'add-colorset'        : self::executeAction('ThemingColorset', 'add'                  ); break;
 			case 'edit-colorset'       : self::executeAction('ThemingColorset', 'edit'                 ); break;
 			case 'delete-colorset'     : self::executeAction('ThemingColorset', 'delete'               ); break;
+			case 'add-pieceset'        : self::executeAction('ThemingPieceset', 'add'                  ); break;
+			case 'edit-pieceset'       : self::executeAction('ThemingPieceset', 'edit'                 ); break;
+			case 'delete-pieceset'     : self::executeAction('ThemingPieceset', 'delete'               ); break;
 			default: break;
 		}
 	}
