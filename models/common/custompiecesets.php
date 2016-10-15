@@ -167,7 +167,7 @@ class RPBChessboardModelCommonCustomPiecesets extends RPBChessboardAbstractModel
 			else {
 				self::$customPiecesetAttributes[$pieceset]->imageId[$coloredPiece] = -1;
 				self::$customPiecesetAttributes[$pieceset]->thumbnailURL[$coloredPiece] = self::getEmptyPiecesetThumbnailURL($coloredPiece);
-				self::$customPiecesetAttributes[$pieceset]->spriteURL[$coloredPiece] = '#';
+				self::$customPiecesetAttributes[$pieceset]->spriteURL[$coloredPiece] = RPBCHESSBOARD_URL . 'images/not-found-sprite.png';
 			}
 		}
 	}

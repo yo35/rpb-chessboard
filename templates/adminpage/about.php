@@ -152,6 +152,17 @@
 			'<a href="http://findicons.com/pack/2226/matte_basic" target="_blank">',
 			'</a>');
 		?>
+		<?php
+			echo sprintf(__(
+				'Icon %1$sNot-Found%2$s has been created by %3$sgakuseiSean%5$s, ' .
+				'who makes it freely available for non-commercial use on %4$sFind Icons%5$s.',
+			'rpbchessboard'),
+			'<em>',
+			'</em>',
+			'<a href="http://gakuseisean.deviantart.com/" target="_blank">',
+			'<a href="http://findicons.com/icon/89623/error" target="_blank">',
+			'</a>');
+		?>
 	</p>
 	<p>
 		<?php _e('The author would like to thank all these people for their highly valuable work.', 'rpbchessboard'); ?>
