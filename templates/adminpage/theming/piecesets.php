@@ -20,14 +20,6 @@
  ******************************************************************************/
 ?>
 
-<?php
-	if(!$model->isGDLibraryAvailable()) {
-		echo '<p>' . __('Custom pieceset edition is not available, because the GD library is not available on this server. ' .
-			'Please contact your web host to fix this.', 'rpbchessboard') . '</p>';
-		return;
-	}
-?>
-
 <p>
 	<button id="rpbchessboard-addSetCodeButton" class="button">
 		<?php _e('Add a new pieceset', 'rpbchessboard'); ?>

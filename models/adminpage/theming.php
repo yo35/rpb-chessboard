@@ -178,14 +178,6 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 
 
 	/**
-	 * Whether the PHP image processing library is available or not (must be available for custom pieceset management).
-	 */
-	public function isGDLibraryAvailable() {
-		return extension_loaded('gd') && function_exists('gd_info');
-	}
-
-
-	/**
 	 * Text to use for the tooltip of the pieceset edition buttons.
 	 */
 	public function getPiecesetEditionButtonTitle($coloredPiece) {
