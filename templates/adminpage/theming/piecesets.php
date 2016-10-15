@@ -179,7 +179,7 @@
 
 			// Validate submit.
 			$('input[type="submit"]', target).click(function(e) {
-				if(!isAllImageFieldsDefined(target)) {
+				if($('input[name="pieceset"]', target).val() === '' && !isAllImageFieldsDefined(target)) {
 					e.preventDefault();
 					var message = <?php echo json_encode(__('All the images must be defined to create a pieceset.', 'rpbchessboard')); ?>;
 					$('.rpbchessboard-piecesetEditionErrorMessage', target).text(message).slideDown();
