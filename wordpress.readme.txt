@@ -113,6 +113,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 4.5 (October 15, 2016) =
+* Add theming feature.
+
 = 4.4 (August 31, 2016) =
 * Add keyboard shortcuts to the FEN editor (see #67).
 * Tested up to WordPress 4.6.
