@@ -81,9 +81,11 @@
 <p class="description">
 	<?php echo sprintf(
 		__(
-			'Notice that specific chessboard aspect settings can be defined for %1$ssmall-screen devices%2$s (such as smartphones).',
+			'Note that specific chessboard aspect settings can be defined for %1$ssmall-screen devices%3$s (such as smartphones). '.
+			'Additional colorsets and piecesets can be created in the %2$stheming page%3$s.',
 		'rpbchessboard'),
 		'<a href="' . htmlspecialchars($model->getOptionsSmallScreensURL()) . '">',
+		'<a href="' . htmlspecialchars($model->getThemingURL()) . '">',
 		'</a>'
 	); ?>
 </p>

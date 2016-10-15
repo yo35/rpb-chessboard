@@ -30,7 +30,7 @@ class RPBChessboardModelCommonURLs extends RPBChessboardAbstractModel {
 
 	public function __construct() {
 		parent::__construct();
-		$this->registerDelegatableMethods('getOptionsGeneralURL', 'getOptionsSmallScreensURL',
+		$this->registerDelegatableMethods('getOptionsGeneralURL', 'getOptionsSmallScreensURL', 'getThemingURL',
 			'getHelpOnFENAttributesURL', 'getHelpOnPGNAttributesURL', 'getHelpOnFENSyntaxURL', 'getHelpOnPGNSyntaxURL');
 	}
 
@@ -52,6 +52,16 @@ class RPBChessboardModelCommonURLs extends RPBChessboardAbstractModel {
 	 */
 	public function getOptionsSmallScreensURL() {
 		return admin_url('admin.php') . '?page=rpbchessboard-options&subpage=smallscreens';
+	}
+
+
+	/**
+	 * URL to the theming page.
+	 *
+	 * @return string
+	 */
+	public function getThemingURL() {
+		return admin_url('admin.php') . '?page=rpbchessboard-theming';
 	}
 
 
