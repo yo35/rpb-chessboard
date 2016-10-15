@@ -20,30 +20,28 @@
  ******************************************************************************/
 
 
+require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php');
+
+
 /**
- * Register the AJAX request processing callbacks.
+ * Process a pieceset removal request.
  */
-abstract class RPBChessboardAjax {
+class RPBChessboardModelAjaxRemovePiecesetSprite extends RPBChessboardAbstractModel {
 
-	public static function register() {
-		add_action('wp_ajax_rpbchessboard_format_pieceset_sprite', array(__CLASS__, 'callbackFormatPiecesetSprite'));
-		add_action('delete_attachment', array(__CLASS__, 'callbackDeleteAttachment'));
+	public function __construct() {
+		parent::__construct();
+		$this->loadDelegateModel('Common/DefaultOptionsEx');
 	}
 
 
-	public static function callbackFormatPiecesetSprite() {
-		check_ajax_referer('rpbchessboard_format_pieceset_sprite');
-		if(!current_user_can('manage_options')) {
-			wp_die();
+	public function run($attachmentId) {
+
+		$path = get_attached_file($attachmentId);
+		$spritePath = $this->computeCustomPiecesetSpritePathOrURL($path);
+
+		if(file_exists($spritePath)) {
+			unlink($spritePath);
+			RPBChessboardHelperCache::remove('theming.css');
 		}
-
-		$ajaxModel = RPBChessboardHelperLoader::loadModel('Ajax/FormatPiecesetSprite');
-		$ajaxModel->run();
-	}
-
-
-	public static function callbackDeleteAttachment($attachmentId) {
-		$model = RPBChessboardHelperLoader::loadModel('Ajax/RemovePiecesetSprite');
-		$model->run($attachmentId);
 	}
 }
