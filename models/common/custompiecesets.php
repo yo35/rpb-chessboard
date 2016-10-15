@@ -84,7 +84,7 @@ class RPBChessboardModelCommonCustomPiecesets extends RPBChessboardAbstractModel
 			return -1;
 		}
 
-		self::initializeCustomPiecesetAttributes($pieceset);
+		$this->initializeCustomPiecesetAttributes($pieceset);
 		return self::$customPiecesetAttributes[$pieceset]->imageId[$coloredPiece];
 	}
 
@@ -99,19 +99,11 @@ class RPBChessboardModelCommonCustomPiecesets extends RPBChessboardAbstractModel
 	public function getCustomPiecesetThumbnailURL($pieceset, $coloredPiece) {
 
 		if($pieceset === '') {
-			return RPBCHESSBOARD_URL . 'images/undefined-' . $coloredPiece . '.png';
+			return self::getEmptyPiecesetThumbnailURL($coloredPiece);
 		}
 
-		self::initializeCustomPiecesetAttributes($pieceset);
-
-		$attributes = self::$customPiecesetAttributes[$pieceset];
-		if(!isset($attributes->thumbnailURL[$coloredPiece])) {
-			$imageId = $attributes->imageId[$coloredPiece];
-			$url = $imageId >= 0 ? wp_get_attachment_image_url($imageId) : false;
-			$attributes->thumbnailURL[$coloredPiece] = $url ? $url : '#';
-		}
-
-		return $attributes->thumbnailURL[$coloredPiece];
+		$this->initializeCustomPiecesetAttributes($pieceset);
+		return self::$customPiecesetAttributes[$pieceset]->thumbnailURL[$coloredPiece];
 	}
 
 
@@ -128,16 +120,8 @@ class RPBChessboardModelCommonCustomPiecesets extends RPBChessboardAbstractModel
 			return '#';
 		}
 
-		self::initializeCustomPiecesetAttributes($pieceset);
-
-		$attributes = self::$customPiecesetAttributes[$pieceset];
-		if(!isset($attributes->spriteURL[$coloredPiece])) {
-			$imageId = $attributes->imageId[$coloredPiece];
-			$url = $imageId >= 0 ? $this->computeCustomPiecesetSpritePathOrURL(wp_get_attachment_url($imageId)) : false;
-			$attributes->spriteURL[$coloredPiece] = $url ? $url : '#';
-		}
-
-		return $attributes->spriteURL[$coloredPiece];
+		$this->initializeCustomPiecesetAttributes($pieceset);
+		return self::$customPiecesetAttributes[$pieceset]->spriteURL[$coloredPiece];
 	}
 
 
@@ -149,7 +133,7 @@ class RPBChessboardModelCommonCustomPiecesets extends RPBChessboardAbstractModel
 	}
 
 
-	private static function initializeCustomPiecesetAttributes($pieceset) {
+	private function initializeCustomPiecesetAttributes($pieceset) {
 		if(isset(self::$customPiecesetAttributes[$pieceset])) {
 			return;
 		}
@@ -170,8 +154,26 @@ class RPBChessboardModelCommonCustomPiecesets extends RPBChessboardAbstractModel
 		// Validate the values retrieved from the database
 		$counter = 0;
 		foreach(self::$COLORED_PIECE_CODES as $coloredPiece) {
+
 			$currentId = RPBChessboardHelperValidation::validateInteger($values[$counter++]);
-			self::$customPiecesetAttributes[$pieceset]->imageId[$coloredPiece] = isset($currentId) ? $currentId : -1;
+			$thumbnailURL = isset($currentId) ? wp_get_attachment_image_url($currentId) : false;
+			$attachmentURL = isset($currentId) ? wp_get_attachment_url($currentId) : false;
+
+			if($thumbnailURL && $attachmentURL) {
+				self::$customPiecesetAttributes[$pieceset]->imageId[$coloredPiece] = $currentId;
+				self::$customPiecesetAttributes[$pieceset]->thumbnailURL[$coloredPiece] = $thumbnailURL;
+				self::$customPiecesetAttributes[$pieceset]->spriteURL[$coloredPiece] = $this->computeCustomPiecesetSpritePathOrURL($attachmentURL);
+			}
+			else {
+				self::$customPiecesetAttributes[$pieceset]->imageId[$coloredPiece] = -1;
+				self::$customPiecesetAttributes[$pieceset]->thumbnailURL[$coloredPiece] = self::getEmptyPiecesetThumbnailURL($coloredPiece);
+				self::$customPiecesetAttributes[$pieceset]->spriteURL[$coloredPiece] = '#';
+			}
 		}
+	}
+
+
+	private static function getEmptyPiecesetThumbnailURL($coloredPiece) {
+		return RPBCHESSBOARD_URL . 'images/undefined-' . $coloredPiece . '.png';
 	}
 }
