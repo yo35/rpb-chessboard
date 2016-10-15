@@ -43,6 +43,7 @@ class RPBChessboardModelPostSaveOptions extends RPBChessboardAbstractModel {
 		self::processSetCodeParameter('pieceset');
 		self::processPieceSymbols();
 		self::processNavigationBoard();
+		self::processBooleanParameter('scrollableBody');
 		self::processAnimationSpeed();
 		self::processBooleanParameter('showMoveArrow');
 
