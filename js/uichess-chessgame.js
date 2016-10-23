@@ -359,6 +359,37 @@
 		return result;
 	}
 
+	/**
+	 * Ensure that the given value is a valid boolean.
+	 *
+	 * @param {mixed} value
+	 * @param {boolean} defaultValue
+	 * @returns {boolean}
+	 */
+	function filterBoolean(value, defaultValue) {
+		if(typeof value === 'boolean') {
+			return value;
+		}
+		else if(typeof value === 'number') {
+			return Boolean(value);
+		}
+		else if(typeof value === 'string') {
+			value = value.toLowerCase();
+			if(value === 'true' || value === '1' || value === 'on') {
+				return true;
+			}
+			else if(value === 'false' || value === '0' || value === 'off') {
+				return false;
+			}
+			else {
+				return defaultValue;
+			}
+		}
+		else {
+			return defaultValue;
+		}
+	}
+
 
 	/**
 	 * Register a 'chessgame' widget in the jQuery widget framework.
@@ -386,6 +417,10 @@
 			 */
 			navigationBoard: 'none',
 
+			/**
+			 * Option indicating if moves should be scrollable that chessboard is always visible.
+			 */
+			scrollableBody: false,
 			/**
 			 * Options for the navigation chessboard widget.
 			 */
@@ -433,6 +468,7 @@
 			this.options.pgn          = this._initializePGN         (this.options.pgn         );
 			this.options.pieceSymbols = this._initializePieceSymbols(this.options.pieceSymbols);
 			this.options.navigationBoard        = filterNavigationBoard  (this.options.navigationBoard       );
+			this.options.scrollableBody   = filterBoolean(this.options.scrollableBody  , false);
 			this.options.navigationBoardOptions = filterChessboardOptions(this.options.navigationBoardOptions);
 			this.options.diagramOptions         = filterChessboardOptions(this.options.diagramOptions        );
 			this._refresh();
@@ -458,6 +494,7 @@
 				case 'pgn'         : value = this._initializePGN         (value); break;
 				case 'pieceSymbols': value = this._initializePieceSymbols(value); break;
 				case 'navigationBoard'       : value = filterNavigationBoard  (value); break;
+				case 'scrollableBody': value = filterBoolean(value); break;
 				case 'navigationBoardOptions': value = filterChessboardOptions(value); break;
 				case 'diagramOptions'        : value = filterChessboardOptions(value); break;
 			}
@@ -676,6 +713,12 @@
 
 			// Render the content.
 			$(prefix + move0 + headers + body + suffix).appendTo(this.element);
+			if(this.options.scrollableBody) {
+				$('.uichess-chessgame-scrollable').css('max-height',
+				($('.uichess-chessgame-navigationBox').height() - $('uichess-chessgame-headers').height())
+				);
+			}
+
 
 			// Render the diagrams in comments.
 			this._makeDiagrams();
@@ -688,6 +731,7 @@
 					this._makeNavigationBoxWidgets();
 				}
 			}
+			//TODO
 		},
 
 
@@ -948,6 +992,7 @@
 			var bodyClass = 'uichess-chessgame-body';
 			if(mainVariation.divCount > 1) { bodyClass += ' uichess-chessgame-moreSpace'; }
 			if(this.options.navigationBoard !== 'none') { bodyClass += ' uichess-chessgame-clickableMoves'; }
+			if(this.options.scrollableBody) { bodyClass += ' uichess-chessgame-scrollable'; }
 			return '<div class="' + bodyClass + '">' + mainVariation.content + '</div>';
 		},
 

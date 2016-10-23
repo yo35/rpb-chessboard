@@ -87,6 +87,10 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode
 			$value = isset($atts['navigation_board']) ? RPBChessboardHelperValidation::validateNavigationBoard($atts['navigation_board']) : null;
 			$this->widgetArgs['navigationBoard'] = isset($value) ? $value : $this->getDefaultNavigationBoard();
 
+			// Scrollabe body
+			$value = isset($atts['scrollable_body']) ? RPBChessboardHelperValidation::validateBoolean($atts['scrollable_body']) : null;
+			$this->widgetArgs['scrollableBody'] = isset($value) ? $value : $this->getDefaultScrollableBody();
+
 			// Use the same aspect parameters for the navigation board and the text comment diagrams.
 			$this->widgetArgs['navigationBoardOptions'] = $chessboardOptions;
 			$this->widgetArgs['diagramOptions'        ] = $chessboardOptions;

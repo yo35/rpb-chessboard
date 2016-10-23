@@ -99,6 +99,13 @@
 
 </div>
 
+<p>
+	<input type="hidden" name="scrollableBody" value="0" />
+	<input type="checkbox" id="rpbchessboard-scrollableBodyField" name="scrollableBody" value="1"
+		<?php if($model->getDefaultScrollableBody()): ?>checked="yes"<?php endif; ?>
+	/>
+	<label for="rpbchessboard-scrollableBodyField"><?php _e('Panel with moves should be scrollable', 'rpbchessboard'); ?></label>
+</p>
 
 <p class="description">
 	<?php

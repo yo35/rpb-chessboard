@@ -35,6 +35,7 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 	private static $pieceset       ;
 	private static $pieceSymbols   ;
 	private static $navigationBoard;
+	private static $scrollableBody;
 	private static $animationSpeed ;
 	private static $showMoveArrow  ;
 
@@ -45,6 +46,7 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 	const DEFAULT_PIECESET         = 'cburnett';
 	const DEFAULT_PIECE_SYMBOLS    = 'localized';
 	const DEFAULT_NAVIGATION_BOARD = 'frame';
+	const DEFAULT_SCROLLABLE_BODY = false;
 	const DEFAULT_ANIMATION_SPEED  = 200;
 	const DEFAULT_SHOW_MOVE_ARROW  = true;
 
@@ -53,7 +55,7 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 		parent::__construct();
 		$this->registerDelegatableMethods('getDefaultSquareSize', 'getDefaultShowCoordinates',
 			'getDefaultColorset', 'getDefaultPieceset', 'getDefaultPieceSymbols',
-			'getDefaultNavigationBoard', 'getDefaultAnimationSpeed', 'getDefaultShowMoveArrow');
+			'getDefaultNavigationBoard','getDefaultScrollableBody', 'getDefaultAnimationSpeed', 'getDefaultShowMoveArrow');
 	}
 
 
@@ -144,7 +146,16 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 		}
 		return self::$navigationBoard;
 	}
-
+	/**
+	* Default setting for scrollable body
+	*/
+	public function getDefaultScrollableBody() {
+		if(!isset(self::$scrollableBody)) {
+			$value = RPBChessboardHelperValidation::validateBooleanFromInt(get_option('rpbchessboard_scrollableBody'));
+			self::$scrollableBody = isset($value) ? $value : self::DEFAULT_SCROLLABLE_BODY;
+		}
+		return self::$scrollableBody;
+	}
 
 	/**
 	 * Default animation speed.

@@ -41,7 +41,7 @@
 
 .uichess-chessgame-errorMessage,
 .uichess-chessgame-errorAt,
-.uichess-chessgame-errorAtCode { 
+.uichess-chessgame-errorAtCode {
 	margin-top: 0.4em;
 }
 
@@ -123,6 +123,10 @@
 .uichess-chessgame-clickableMoves .uichess-chessgame-move:hover {
 	text-decoration: underline;
 	cursor: pointer;
+}
+
+.uichess-chessgame-scrollable {
+	overflow: auto;
 }
 
 .uichess-chessgame-subVariation .uichess-chessgame-move {

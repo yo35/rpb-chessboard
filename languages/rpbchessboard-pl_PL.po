@@ -302,19 +302,19 @@ msgstr "W postaci okienka pop-up"
 
 #: templates/adminpage/options/general/navigationboard.php
 msgid "Above the game headers and the move list"
-msgstr ""
+msgstr "Ponad nagłówkiem i lista ruchów"
 
 #: templates/adminpage/options/general/navigationboard.php
 msgid "Above"
-msgstr ""
+msgstr "Nad"
 
 #: templates/adminpage/options/general/navigationboard.php
 msgid "Below the move list"
-msgstr ""
+msgstr "Pod lista ruchów"
 
 #: templates/adminpage/options/general/navigationboard.php
 msgid "Below"
-msgstr ""
+msgstr "Podspodem"
 
 #: templates/adminpage/options/general/navigationboard.php
 msgid "On the left of the move list"
@@ -331,6 +331,10 @@ msgstr "Z prawej strony listy posunięć."
 #: templates/adminpage/options/general/navigationboard.php
 msgid "On the right"
 msgstr "Z prawej"
+
+#: templates/adminpage/options/general/navigationboard.php
+msgid "Panel with moves should be scrollable"
+msgstr "Przewijany panel z ruchami"
 
 #: templates/adminpage/options/general/navigationboard.php
 msgid ""
