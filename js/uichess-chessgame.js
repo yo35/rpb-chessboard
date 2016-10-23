@@ -713,12 +713,6 @@
 
 			// Render the content.
 			$(prefix + move0 + headers + body + suffix).appendTo(this.element);
-			if(this.options.scrollableBody) {
-				$('.uichess-chessgame-scrollable').css('max-height',
-				($('.uichess-chessgame-navigationBox').height() - $('uichess-chessgame-headers').height())
-				);
-			}
-
 
 			// Render the diagrams in comments.
 			this._makeDiagrams();
@@ -730,8 +724,11 @@
 				if(this.options.navigationBoard !== 'frame') {
 					this._makeNavigationBoxWidgets();
 				}
+				if(this.options.scrollableBody) {
+					var maxHeight = $('.uichess-chessgame-navigationBox', this.element).height() - $('.uichess-chessgame-headers', this.element).height();
+					$('.uichess-chessgame-scrollable', this.element).css('max-height', maxHeight);
+				}
 			}
-			//TODO
 		},
 
 
@@ -1362,6 +1359,7 @@
 			gameWidget.chessgame(methodName);
 
 			// Scroll to the selected move.
+			// TODO: adapt scrolling to scrollableBody
 			var target = $('.uichess-chessgame-selectedMove', gameWidget);
 			var allowScrollDown = true;
 			if(target.hasClass('uichess-chessgame-initialMove')) {
