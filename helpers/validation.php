@@ -156,7 +156,7 @@ abstract class RPBChessboardHelperValidation
 	public static function validateNavigationBoard($value)
 	{
 		return ($value==='none' || $value==='frame' || $value==='above' || $value==='below'
-			|| $value==='floatLeft' || $value==='floatRight') ? $value : null;
+			|| $value==='floatLeft' || $value==='floatRight' || $value==='scrollLeft' || $value==='scrollRight') ? $value : null;
 	}
 
 

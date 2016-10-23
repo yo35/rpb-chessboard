@@ -296,6 +296,8 @@
 			case 'frame':
 			case 'floatLeft':
 			case 'floatRight':
+			case 'scrollLeft':
+			case 'scrollRight':
 			case 'above':
 			case 'below':
 				return value;
@@ -359,37 +361,6 @@
 		return result;
 	}
 
-	/**
-	 * Ensure that the given value is a valid boolean.
-	 *
-	 * @param {mixed} value
-	 * @param {boolean} defaultValue
-	 * @returns {boolean}
-	 */
-	function filterBoolean(value, defaultValue) {
-		if(typeof value === 'boolean') {
-			return value;
-		}
-		else if(typeof value === 'number') {
-			return Boolean(value);
-		}
-		else if(typeof value === 'string') {
-			value = value.toLowerCase();
-			if(value === 'true' || value === '1' || value === 'on') {
-				return true;
-			}
-			else if(value === 'false' || value === '0' || value === 'off') {
-				return false;
-			}
-			else {
-				return defaultValue;
-			}
-		}
-		else {
-			return defaultValue;
-		}
-	}
-
 
 	/**
 	 * Register a 'chessgame' widget in the jQuery widget framework.
@@ -412,15 +383,12 @@
 			 * Available values are:
 			 * - 'none': no navigation board.
 			 * - 'frame': navigation board in a jQuery frame independent of the page content.
-			 * - 'left': navigation board in floating node on the left of the headers and moves.
-			 * - 'right': navigation board in floating node on the right of the headers and moves.
+			 * - 'floatLeft' (or 'floatRight') : navigation board in floating node on the left (or right) of the headers and moves.
+			 * - 'scrollLeft' (or 'scrollRight'): navigation board on the left (or right) of the headers and moves.
+			 *   A vertical scrollbar is added to the move area if its height is larger than the one of the navigation board.
 			 */
 			navigationBoard: 'none',
 
-			/**
-			 * Option indicating if moves should be scrollable that chessboard is always visible.
-			 */
-			scrollableBody: false,
 			/**
 			 * Options for the navigation chessboard widget.
 			 */
@@ -468,7 +436,6 @@
 			this.options.pgn          = this._initializePGN         (this.options.pgn         );
 			this.options.pieceSymbols = this._initializePieceSymbols(this.options.pieceSymbols);
 			this.options.navigationBoard        = filterNavigationBoard  (this.options.navigationBoard       );
-			this.options.scrollableBody   = filterBoolean(this.options.scrollableBody  , false);
 			this.options.navigationBoardOptions = filterChessboardOptions(this.options.navigationBoardOptions);
 			this.options.diagramOptions         = filterChessboardOptions(this.options.diagramOptions        );
 			this._refresh();
@@ -494,7 +461,6 @@
 				case 'pgn'         : value = this._initializePGN         (value); break;
 				case 'pieceSymbols': value = this._initializePieceSymbols(value); break;
 				case 'navigationBoard'       : value = filterNavigationBoard  (value); break;
-				case 'scrollableBody': value = filterBoolean(value); break;
 				case 'navigationBoardOptions': value = filterChessboardOptions(value); break;
 				case 'diagramOptions'        : value = filterChessboardOptions(value); break;
 			}
@@ -699,8 +665,10 @@
 			switch(this.options.navigationBoard) {
 				case 'floatLeft':
 				case 'floatRight':
-					suffix = '<div class="uichess-chessgame-' + this.options.navigationBoard.replace('float', 'clear') + '"></div>';
-					prefix = '<div class="uichess-chessgame-navigationBox uichess-chessgame-' + this.options.navigationBoard + '">' +
+				case 'scrollLeft':
+				case 'scrollRight':
+					suffix = '<div class="uichess-chessgame-' + this.options.navigationBoard.replace(/float|scroll/, 'clear') + '"></div>';
+					prefix = '<div class="uichess-chessgame-navigationBox uichess-chessgame-' + this.options.navigationBoard.replace(/scroll/, 'float') + '">' +
 						buildNavigationSkeleton() + '</div>';
 					break;
 				case 'above':
@@ -724,7 +692,7 @@
 				if(this.options.navigationBoard !== 'frame') {
 					this._makeNavigationBoxWidgets();
 				}
-				if(this.options.scrollableBody) {
+				if(this.options.navigationBoard === 'scrollLeft' || this.options.navigationBoard === 'scrollRight') {
 					var maxHeight = $('.uichess-chessgame-navigationBox', this.element).height() - $('.uichess-chessgame-headers', this.element).height();
 					$('.uichess-chessgame-scrollable', this.element).css('max-height', maxHeight);
 				}
@@ -989,7 +957,7 @@
 			var bodyClass = 'uichess-chessgame-body';
 			if(mainVariation.divCount > 1) { bodyClass += ' uichess-chessgame-moreSpace'; }
 			if(this.options.navigationBoard !== 'none') { bodyClass += ' uichess-chessgame-clickableMoves'; }
-			if(this.options.scrollableBody) { bodyClass += ' uichess-chessgame-scrollable'; }
+			if(this.options.navigationBoard === 'scrollLeft' || this.options.navigationBoard === 'scrollRight') { bodyClass += ' uichess-chessgame-scrollable'; }
 			return '<div class="' + bodyClass + '">' + mainVariation.content + '</div>';
 		},
 

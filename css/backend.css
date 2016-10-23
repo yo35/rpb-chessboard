@@ -468,21 +468,12 @@ div.rpbchessboard-sourceCode {
 }
 
 #rpbchessboard-navigationBoardFields {
-	display: -webkit-box;
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: -webkit-flex;
-	display: flex;
-	flex-direction: row;
 	margin-bottom: 0.5em;
 }
 
 #rpbchessboard-navigationBoardFields > div {
-	margin-left: 30px;
-}
-
-#rpbchessboard-navigationBoardFields > div:first-child {
-	margin-left: 0px;
+	display: inline-block;
+	margin-right: 30px;
 }
 
 #rpbchessboard-navigationBoardFields input[name="navigationBoard"] {

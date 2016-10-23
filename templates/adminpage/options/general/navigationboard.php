@@ -29,9 +29,8 @@
 		<input type="radio" id="rpbchessboard-navigationBoardButton-none" name="navigationBoard" value="none"
 			<?php if($model->getDefaultNavigationBoard()==='none'): ?>checked="yes"<?php endif; ?>
 		/>
-		<label for="rpbchessboard-navigationBoardButton-none">
+		<label for="rpbchessboard-navigationBoardButton-none" title="<?php _e('No navigation board', 'rpbchessboard'); ?>">
 			<img src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-board-none.png'; ?>"
-				title="<?php _e('No navigation board', 'rpbchessboard'); ?>"
 				alt="<?php _e('No navigation board', 'rpbchessboard'); ?>"
 			/>
 		</label>
@@ -41,9 +40,8 @@
 		<input type="radio" id="rpbchessboard-navigationBoardButton-frame" name="navigationBoard" value="frame"
 			<?php if($model->getDefaultNavigationBoard()==='frame'): ?>checked="yes"<?php endif; ?>
 		/>
-		<label for="rpbchessboard-navigationBoardButton-frame">
+		<label for="rpbchessboard-navigationBoardButton-frame" title="<?php _e('In a popup frame', 'rpbchessboard'); ?>">
 			<img src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-board-frame.png'; ?>"
-				title="<?php _e('In a popup frame', 'rpbchessboard'); ?>"
 				alt="<?php _e('In a popup frame', 'rpbchessboard'); ?>"
 			/>
 		</label>
@@ -53,10 +51,9 @@
 		<input type="radio" id="rpbchessboard-navigationBoardButton-above" name="navigationBoard" value="above"
 			<?php if($model->getDefaultNavigationBoard()==='above'): ?>checked="yes"<?php endif; ?>
 		/>
-		<label for="rpbchessboard-navigationBoardButton-above">
+		<label for="rpbchessboard-navigationBoardButton-above" title="<?php _e('Above the game headers and the move list', 'rpbchessboard'); ?>">
 			<img src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-board-above.png'; ?>"
-				title="<?php _e('Above the game headers and the move list', 'rpbchessboard'); ?>"
-				alt="<?php _e('Above', 'rpbchessboard'); ?>"
+				alt="<?php _e('Above the game headers and the move list', 'rpbchessboard'); ?>"
 			/>
 		</label>
 	</div>
@@ -65,10 +62,9 @@
 		<input type="radio" id="rpbchessboard-navigationBoardButton-below" name="navigationBoard" value="below"
 			<?php if($model->getDefaultNavigationBoard()==='below'): ?>checked="yes"<?php endif; ?>
 		/>
-		<label for="rpbchessboard-navigationBoardButton-below">
+		<label for="rpbchessboard-navigationBoardButton-below" title="<?php _e('Below the move list', 'rpbchessboard'); ?>">
 			<img src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-board-below.png'; ?>"
-				title="<?php _e('Below the move list', 'rpbchessboard'); ?>"
-				alt="<?php _e('Below', 'rpbchessboard'); ?>"
+				alt="<?php _e('Below the move list', 'rpbchessboard'); ?>"
 			/>
 		</label>
 	</div>
@@ -77,10 +73,9 @@
 		<input type="radio" id="rpbchessboard-navigationBoardButton-floatLeft" name="navigationBoard" value="floatLeft"
 			<?php if($model->getDefaultNavigationBoard()==='floatLeft'): ?>checked="yes"<?php endif; ?>
 		/>
-		<label for="rpbchessboard-navigationBoardButton-floatLeft">
-			<img src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-board-floatleft.png'; ?>"
-				title="<?php _e('On the left of the move list', 'rpbchessboard'); ?>"
-				alt="<?php _e('On the left', 'rpbchessboard'); ?>"
+		<label for="rpbchessboard-navigationBoardButton-floatLeft" title="<?php _e('On the left of the move list', 'rpbchessboard'); ?>">
+			<img src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-board-float-left.png'; ?>"
+				alt="<?php _e('On the left of the move list', 'rpbchessboard'); ?>"
 			/>
 		</label>
 	</div>
@@ -89,23 +84,37 @@
 		<input type="radio" id="rpbchessboard-navigationBoardButton-floatRight" name="navigationBoard" value="floatRight"
 			<?php if($model->getDefaultNavigationBoard()==='floatRight'): ?>checked="yes"<?php endif; ?>
 		/>
-		<label for="rpbchessboard-navigationBoardButton-floatRight">
-			<img src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-board-floatright.png'; ?>"
-				title="<?php _e('On the right of the move list', 'rpbchessboard'); ?>"
-				alt="<?php _e('On the right', 'rpbchessboard'); ?>"
+		<label for="rpbchessboard-navigationBoardButton-floatRight" title="<?php _e('On the right of the move list', 'rpbchessboard'); ?>">
+			<img src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-board-float-right.png'; ?>"
+				alt="<?php _e('On the right of the move list', 'rpbchessboard'); ?>"
+			/>
+		</label>
+	</div>
+
+	<div>
+		<input type="radio" id="rpbchessboard-navigationBoardButton-scrollLeft" name="navigationBoard" value="scrollLeft"
+			<?php if($model->getDefaultNavigationBoard()==='scrollLeft'): ?>checked="yes"<?php endif; ?>
+		/>
+		<label for="rpbchessboard-navigationBoardButton-scrollLeft" title="<?php _e('On the left, with scrollable move list', 'rpbchessboard'); ?>">
+			<img src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-board-scroll-left.png'; ?>"
+				alt="<?php _e('On the left, with scrollable move list', 'rpbchessboard'); ?>"
+			/>
+		</label>
+	</div>
+
+	<div>
+		<input type="radio" id="rpbchessboard-navigationBoardButton-scrollRight" name="navigationBoard" value="scrollRight"
+			<?php if($model->getDefaultNavigationBoard()==='scrollRight'): ?>checked="yes"<?php endif; ?>
+		/>
+		<label for="rpbchessboard-navigationBoardButton-scrollRight" title="<?php _e('On the right, with scrollable move list', 'rpbchessboard'); ?>">
+			<img src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-board-scroll-right.png'; ?>"
+				alt="<?php _e('On the right, with scrollable move list', 'rpbchessboard'); ?>"
 			/>
 		</label>
 	</div>
 
 </div>
 
-<p>
-	<input type="hidden" name="scrollableBody" value="0" />
-	<input type="checkbox" id="rpbchessboard-scrollableBodyField" name="scrollableBody" value="1"
-		<?php if($model->getDefaultScrollableBody()): ?>checked="yes"<?php endif; ?>
-	/>
-	<label for="rpbchessboard-scrollableBodyField"><?php _e('Panel with moves should be scrollable', 'rpbchessboard'); ?></label>
-</p>
 
 <p class="description">
 	<?php
