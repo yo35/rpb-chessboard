@@ -665,11 +665,18 @@
 			switch(this.options.navigationBoard) {
 				case 'floatLeft':
 				case 'floatRight':
-				case 'scrollLeft':
-				case 'scrollRight':
-					suffix = '<div class="uichess-chessgame-' + this.options.navigationBoard.replace(/float|scroll/, 'clear') + '"></div>';
-					prefix = '<div class="uichess-chessgame-navigationBox uichess-chessgame-' + this.options.navigationBoard.replace(/scroll/, 'float') + '">' +
+					suffix = '<div class="uichess-chessgame-' + this.options.navigationBoard.replace('float', 'clear') + '"></div>';
+					prefix = '<div class="uichess-chessgame-navigationBox uichess-chessgame-' + this.options.navigationBoard + '">' +
 						buildNavigationSkeleton() + '</div>';
+					break;
+				case 'scrollLeft':
+					prefix = '<div class="uichess-chessgame-scrollBox"><div class="uichess-chessgame-navigationBox uichess-chessgame-scrollLeft">' +
+						buildNavigationSkeleton() + '</div><div class="uichess-chessgame-scrollArea">';
+					suffix = '</div></div>';
+					break;
+				case 'scrollRight':
+					prefix = '<div class="uichess-chessgame-scrollBox"><div class="uichess-chessgame-scrollArea">';
+					suffix = '</div><div class="uichess-chessgame-navigationBox uichess-chessgame-scrollRight">' + buildNavigationSkeleton() + '</div></div>';
 					break;
 				case 'above':
 					prefix = '<div class="uichess-chessgame-navigationBox uichess-chessgame-above">' + buildNavigationSkeleton() + '</div>';
@@ -693,8 +700,7 @@
 					this._makeNavigationBoxWidgets();
 				}
 				if(this.options.navigationBoard === 'scrollLeft' || this.options.navigationBoard === 'scrollRight') {
-					var maxHeight = $('.uichess-chessgame-navigationBox', this.element).height() - $('.uichess-chessgame-headers', this.element).height();
-					$('.uichess-chessgame-scrollable', this.element).css('max-height', maxHeight);
+					$('.uichess-chessgame-scrollArea', this.element).css('height', $('.uichess-chessgame-navigationBox', this.element).height());
 				}
 			}
 		},
@@ -957,7 +963,6 @@
 			var bodyClass = 'uichess-chessgame-body';
 			if(mainVariation.divCount > 1) { bodyClass += ' uichess-chessgame-moreSpace'; }
 			if(this.options.navigationBoard !== 'none') { bodyClass += ' uichess-chessgame-clickableMoves'; }
-			if(this.options.navigationBoard === 'scrollLeft' || this.options.navigationBoard === 'scrollRight') { bodyClass += ' uichess-chessgame-scrollable'; }
 			return '<div class="' + bodyClass + '">' + mainVariation.content + '</div>';
 		},
 

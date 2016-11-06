@@ -125,10 +125,6 @@
 	cursor: pointer;
 }
 
-.uichess-chessgame-scrollable {
-	overflow: auto;
-}
-
 .uichess-chessgame-subVariation .uichess-chessgame-move {
 	font-weight: inherit;
 }
@@ -224,6 +220,27 @@ div.uichess-chessgame-variation > div:last-child {
 
 .uichess-chessgame-clearRight {
 	clear: right;
+}
+
+.uichess-chessgame-scrollBox {
+	display: flex;
+	display: -webkit-flex;
+	flex-direction: row;
+	-webkit-flex-direction: row;
+	align-items: flex-start;
+	align-items: -webkit-flex-start;
+}
+
+.uichess-chessgame-navigationBox.uichess-chessgame-scrollLeft {
+	margin-right: 0.5em;
+}
+
+.uichess-chessgame-navigationBox.uichess-chessgame-scrollRight {
+	margin-left: 0.5em;
+}
+
+.uichess-chessgame-scrollArea {
+	overflow-y: auto;
 }
 
 .uichess-chessgame-navigationButtons {
