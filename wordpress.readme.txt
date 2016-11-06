@@ -330,6 +330,10 @@ to make it more independent of the theme: you should check the new margins to en
 
 Yoann Le Montagner
 
+= Contributor =
+
+Marek Śmigielski
+
 = Translators =
 
 Markus Liebelt (German), Yoann Le Montagner (English and French), Ivan Deceuninck (Dutch),

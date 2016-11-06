@@ -9,6 +9,13 @@ Yoann Le Montagner
 
 
 
+Contributor
+-----------
+
+Marek Śmigielski
+
+
+
 Translators
 -----------
 
