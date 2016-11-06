@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-15 18:58+0200\n"
+"POT-Creation-Date: 2016-11-06 20:04+0100\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35 -at- melix.net>\n"
 "Language-Team: French\n"
@@ -96,7 +96,8 @@ msgstr "Sélectionner l'image à utiliser pour les rois noirs"
 
 #: models/adminpage/theming.php
 msgid "Select the image to use for black turn flags"
-msgstr "Sélectionner l'image à utiliser pour les indicateurs de trait aux noirs"
+msgstr ""
+"Sélectionner l'image à utiliser pour les indicateurs de trait aux noirs"
 
 #: models/adminpage/theming.php
 msgid "Select the image to use for white pawns"
@@ -124,7 +125,8 @@ msgstr "Sélectionner l'image à utiliser pour les rois blancs"
 
 #: models/adminpage/theming.php
 msgid "Select the image to use for white turn flags"
-msgstr "Sélectionner l'image à utiliser pour les indicateurs de trait aux blancs"
+msgstr ""
+"Sélectionner l'image à utiliser pour les indicateurs de trait aux blancs"
 
 #: models/common/defaultoptionsex.php
 msgid "(no name)"
@@ -180,7 +182,8 @@ msgstr "Les images utilisées pour les thèmes de pièces doivent être carrées
 
 #: models/ajax/formatpiecesetsprite.php
 msgid "Only PNG images can be used to create piecesets."
-msgstr "Seules les images PNG peuvent être utilisées pour les thèmes de pièces."
+msgstr ""
+"Seules les images PNG peuvent être utilisées pour les thèmes de pièces."
 
 #: models/ajax/formatpiecesetsprite.php
 msgid "Error while processing the selected image."
@@ -309,32 +312,24 @@ msgid "Above the game headers and the move list"
 msgstr "Au-dessus des en-têtes et de la liste de coups"
 
 #: templates/adminpage/options/general/navigationboard.php
-msgid "Above"
-msgstr "Au-dessus"
-
-#: templates/adminpage/options/general/navigationboard.php
 msgid "Below the move list"
 msgstr "À gauche de la liste de coups"
-
-#: templates/adminpage/options/general/navigationboard.php
-msgid "Below"
-msgstr "En dessous"
 
 #: templates/adminpage/options/general/navigationboard.php
 msgid "On the left of the move list"
 msgstr "À gauche de la liste de coups"
 
 #: templates/adminpage/options/general/navigationboard.php
-msgid "On the left"
-msgstr "À gauche"
-
-#: templates/adminpage/options/general/navigationboard.php
 msgid "On the right of the move list"
 msgstr "À droite de la liste de coups"
 
 #: templates/adminpage/options/general/navigationboard.php
-msgid "On the right"
-msgstr "À droite"
+msgid "On the left, with scrollable move list"
+msgstr "À gauche, avec une barre de défilement pour la liste de coups"
+
+#: templates/adminpage/options/general/navigationboard.php
+msgid "On the right, with scrollable move list"
+msgstr "À droite, avec une barre de défilement pour la liste de coups"
 
 #: templates/adminpage/options/general/navigationboard.php
 msgid ""
@@ -683,6 +678,10 @@ msgid "Author"
 msgstr "Auteur"
 
 #: templates/adminpage/about.php
+msgid "Contributor"
+msgstr "Contributeur"
+
+#: templates/adminpage/about.php
 msgid "Translators"
 msgstr "Traducteurs"
 
@@ -751,7 +750,8 @@ msgid ""
 "freely available for non-commercial use on %4$sFind Icons%5$s."
 msgstr ""
 "L'icône %1$sNot-Found%2$s a été crée par %3$sgakuseiSean%5$s, qui la met à "
-"disposition gratuitement pour des usages non-commerciaux sur %4$sFind Icons%5$s." 
+"disposition gratuitement pour des usages non-commerciaux sur %4$sFind Icons"
+"%5$s."
 
 #: templates/adminpage/about.php
 msgid ""
@@ -1350,6 +1350,24 @@ msgstr "L'échiquier de navigation est affiché à gauche de la liste de coups."
 #: templates/adminpage/help/pgnattributes/navigationboard.php
 msgid "The navigation board is displayed on the right of the move list."
 msgstr "L'échiquier de navigation est affiché à droite de la liste de coups."
+
+#: templates/adminpage/help/pgnattributes/navigationboard.php
+msgid ""
+"The navigation board is displayed on the left of the move list. The move "
+"list becomes scrollable if it is higher than the navigation board."
+msgstr ""
+"L'échiquier de navigation est affiché à gauche de la liste de coups. Une barre "
+"de défilement est ajoutée à la liste des coups si celle-ci est plus haute que "
+"l'échiquier de navigation."
+
+#: templates/adminpage/help/pgnattributes/navigationboard.php
+msgid ""
+"The navigation board is displayed on the right of the move list. The move "
+"list becomes scrollable if it is higher than the navigation board."
+msgstr ""
+"L'échiquier de navigation est affiché à droite de la liste de coups. Une barre "
+"de défilement est ajoutée à la liste des coups si celle-ci est plus haute que "
+"l'échiquier de navigation."
 
 #: templates/adminpage/help/pgnattributes/main.php
 #, php-format

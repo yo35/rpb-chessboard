@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-15 18:58+0200\n"
+"POT-Creation-Date: 2016-11-06 20:04+0100\n"
 "PO-Revision-Date: 2014-09-02 16:48:49+0200\n"
 "Last-Translator: schaaktrainer <jdelemarre -at- hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -302,15 +302,7 @@ msgid "Above the game headers and the move list"
 msgstr ""
 
 #: templates/adminpage/options/general/navigationboard.php
-msgid "Above"
-msgstr ""
-
-#: templates/adminpage/options/general/navigationboard.php
 msgid "Below the move list"
-msgstr ""
-
-#: templates/adminpage/options/general/navigationboard.php
-msgid "Below"
 msgstr ""
 
 #: templates/adminpage/options/general/navigationboard.php
@@ -318,16 +310,16 @@ msgid "On the left of the move list"
 msgstr "Links van de zettenlijst"
 
 #: templates/adminpage/options/general/navigationboard.php
-msgid "On the left"
-msgstr "Aan de linkerkant"
-
-#: templates/adminpage/options/general/navigationboard.php
 msgid "On the right of the move list"
 msgstr "Rechts van de zettenlijst"
 
 #: templates/adminpage/options/general/navigationboard.php
-msgid "On the right"
-msgstr "Aan de rechterkant"
+msgid "On the left, with scrollable move list"
+msgstr ""
+
+#: templates/adminpage/options/general/navigationboard.php
+msgid "On the right, with scrollable move list"
+msgstr ""
 
 #: templates/adminpage/options/general/navigationboard.php
 msgid ""
@@ -636,6 +628,10 @@ msgstr ""
 #: templates/adminpage/about.php
 msgid "Author"
 msgstr "Auteur"
+
+#: templates/adminpage/about.php
+msgid "Contributor"
+msgstr ""
 
 #: templates/adminpage/about.php
 msgid "Translators"
@@ -1179,6 +1175,18 @@ msgstr ""
 
 #: templates/adminpage/help/pgnattributes/navigationboard.php
 msgid "The navigation board is displayed on the right of the move list."
+msgstr ""
+
+#: templates/adminpage/help/pgnattributes/navigationboard.php
+msgid ""
+"The navigation board is displayed on the left of the move list. The move "
+"list becomes scrollable if it is higher than the navigation board."
+msgstr ""
+
+#: templates/adminpage/help/pgnattributes/navigationboard.php
+msgid ""
+"The navigation board is displayed on the right of the move list. The move "
+"list becomes scrollable if it is higher than the navigation board."
 msgstr ""
 
 #: templates/adminpage/help/pgnattributes/main.php
