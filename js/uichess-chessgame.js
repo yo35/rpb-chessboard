@@ -1201,6 +1201,24 @@
 				}
 				$('.ui-dialog-title', frame.closest('.ui-dialog')).empty().append(move.html());
 			}
+
+			// Scroll to the selected move if possible.
+			if(this.options.navigationBoard === 'scrollLeft' || this.options.navigationBoard === 'scrollRight') {
+				var target = $('.uichess-chessgame-selectedMove', this.element);
+				var scrollArea = $('.uichess-chessgame-scrollArea', this.element);
+				var allowScrollDown = true;
+				if(target.hasClass('uichess-chessgame-initialMove')) {
+					target = $('.uichess-chessgame-headers', this.element);
+					allowScrollDown = false;
+				}
+				var targetOffsetTop = target.offset().top - scrollArea.offset().top;
+				if(targetOffsetTop < 0) {
+					scrollArea.animate({ scrollTop: scrollArea.scrollTop() + targetOffsetTop }, 200);
+				}
+				else if(allowScrollDown && targetOffsetTop + target.height() > scrollArea.height()) {
+					scrollArea.animate({ scrollTop: scrollArea.scrollTop() + targetOffsetTop + target.height() - scrollArea.height() }, 200);
+				}
+			}
 		},
 
 
@@ -1332,7 +1350,6 @@
 			gameWidget.chessgame(methodName);
 
 			// Scroll to the selected move.
-			// TODO: adapt scrolling to scrollableBody
 			var target = $('.uichess-chessgame-selectedMove', gameWidget);
 			var allowScrollDown = true;
 			if(target.hasClass('uichess-chessgame-initialMove')) {
