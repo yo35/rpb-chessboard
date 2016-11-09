@@ -1,0 +1,1563 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-11-08 11:50+0300\n"
+"PO-Revision-Date: 2016-11-08 11:52+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.11\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: models/adminpage/help.php
+#, php-format
+msgid "%1$s[%3$s][/%3$s]%2$s tag attributes"
+msgstr "Атрибуты тега %1$s[%3$s][/%3$s]%2$s"
+
+#: models/adminpage/help.php
+msgid "PGN game syntax"
+msgstr "Синтаксис PGN"
+
+#: models/adminpage/help.php
+msgid "FEN diagram syntax"
+msgstr "Синтаксис FEN"
+
+#: models/adminpage/options.php
+msgid "Default aspect & behavior settings"
+msgstr "Настройки пропорций и поведения по умолчанию"
+
+#: models/adminpage/options.php
+msgid "Compatibility with other chess plugins"
+msgstr "Совместимость с другими шахматными плагинами"
+
+#: models/adminpage/options.php
+msgid "Small-screen devices"
+msgstr "Устройства с маленькими экранами"
+
+#: models/adminpage/theming.php
+msgid "Colorsets"
+msgstr "Наборы цветов"
+
+#: models/adminpage/theming.php
+msgid "Piecesets"
+msgstr "Наборы фигур"
+
+#: models/adminpage/theming.php
+#, php-format
+msgid "Delete colorset \"%1$s\"?. Press OK to confirm..."
+msgstr "Удалить набор цветов \"%1$s\"? Нажмите OK для подтверждения..."
+
+#: models/adminpage/theming.php
+#, php-format
+msgid "Delete pieceset \"%1$s\"?. Press OK to confirm..."
+msgstr "Удалить набор фигур \"%1$s\"? Нажмите OK для подтверждения..."
+
+#: models/adminpage/theming.php
+msgid "My colorset"
+msgstr "Мой набор цветов"
+
+#: models/adminpage/theming.php
+msgid "My pieceset"
+msgstr "Мой набор фигур"
+
+#: models/adminpage/theming.php
+msgid "Select the image to use for black pawns"
+msgstr "Выберите изображение для чёрных пешек"
+
+#: models/adminpage/theming.php
+msgid "Select the image to use for black knights"
+msgstr "Выберите изображение для чёрных коней"
+
+#: models/adminpage/theming.php
+msgid "Select the image to use for black bishops"
+msgstr "Выберите изображение для чёрных слонов"
+
+#: models/adminpage/theming.php
+msgid "Select the image to use for black rooks"
+msgstr "Выберите изображение для чёрных ладей"
+
+#: models/adminpage/theming.php
+msgid "Select the image to use for black queens"
+msgstr "Выберите изображение для чёрных ферзей"
+
+#: models/adminpage/theming.php
+msgid "Select the image to use for black kings"
+msgstr "Выберите изображение для чёрных королей"
+
+#: models/adminpage/theming.php
+msgid "Select the image to use for black turn flags"
+msgstr "Выберите изображение для указания на ход чёрных"
+
+#: models/adminpage/theming.php
+msgid "Select the image to use for white pawns"
+msgstr "Выберите изображение для белых пешек"
+
+#: models/adminpage/theming.php
+msgid "Select the image to use for white knights"
+msgstr "Выберите изображение для белых коней"
+
+#: models/adminpage/theming.php
+msgid "Select the image to use for white bishops"
+msgstr "Выберите изображение для белых слонов"
+
+#: models/adminpage/theming.php
+msgid "Select the image to use for white rooks"
+msgstr "Выберите изображение для белых ладей"
+
+#: models/adminpage/theming.php
+msgid "Select the image to use for white queens"
+msgstr "Выберите изображение для белых ферзей"
+
+#: models/adminpage/theming.php
+msgid "Select the image to use for white kings"
+msgstr "Выберите изображение для белых королей"
+
+#: models/adminpage/theming.php
+msgid "Select the image to use for white turn flags"
+msgstr "Выберите изображение для указания на ход белых"
+
+#: models/common/defaultoptionsex.php
+msgid "(no name)"
+msgstr "(без имени)"
+
+#. King symbol
+#: models/common/defaultoptionsex.php
+#: templates/adminpage/options/general/piecesymbols.php
+#: templates/localization.php
+msgid "K"
+msgstr "Кр"
+
+#. Queen symbol
+#: models/common/defaultoptionsex.php
+#: templates/adminpage/options/general/piecesymbols.php
+#: templates/localization.php
+msgid "Q"
+msgstr "Ф"
+
+#. Rook symbol
+#: models/common/defaultoptionsex.php
+#: templates/adminpage/options/general/piecesymbols.php
+#: templates/localization.php
+msgid "R"
+msgstr "Л"
+
+#. Bishop symbol
+#: models/common/defaultoptionsex.php
+#: templates/adminpage/options/general/piecesymbols.php
+#: templates/localization.php
+msgid "B"
+msgstr "С"
+
+#. Knight symbol
+#: models/common/defaultoptionsex.php
+#: templates/adminpage/options/general/piecesymbols.php
+#: templates/localization.php
+msgid "N"
+msgstr "К"
+
+#. Pawn symbol
+#: models/common/defaultoptionsex.php
+#: templates/adminpage/options/general/piecesymbols.php
+#: templates/localization.php
+msgid "P"
+msgstr "п"
+
+#: models/ajax/formatpiecesetsprite.php
+msgid ""
+"Images used to create piecesets must be square images (identical height and "
+"width)."
+msgstr ""
+"Изображения для создания набора фигур должны быть квадратными (равной высоты "
+"и ширины)."
+
+#: models/ajax/formatpiecesetsprite.php
+msgid "Only PNG images can be used to create piecesets."
+msgstr ""
+"Только PNG изображения могут быть использованы для создания набора фигур."
+
+#: models/ajax/formatpiecesetsprite.php
+msgid "Error while processing the selected image."
+msgstr "Ошибка обработки выбранного файла."
+
+#: models/post/saveoptions.php
+msgid "Settings saved."
+msgstr "Настройки сохранены."
+
+#: models/post/saveoptions.php
+msgid "Default colorset changed."
+msgstr "Набор цветов по умолчанию изменён."
+
+#: models/post/saveoptions.php
+msgid "Default pieceset changed."
+msgstr "Набор фигур по умолчанию изменён."
+
+#: models/post/themingcolorset.php
+msgid "Colorset created."
+msgstr "Набор цветов создан."
+
+#: models/post/themingcolorset.php
+msgid "Colorset updated."
+msgstr "Набор цветов обновлён."
+
+#: models/post/themingcolorset.php
+msgid "Colorset deleted."
+msgstr "Набор цветов удалён."
+
+#: models/post/themingpieceset.php
+msgid "Pieceset created."
+msgstr "Набор фигур создан."
+
+#: models/post/themingpieceset.php
+msgid "Pieceset updated."
+msgstr "Набор фигур обновлён."
+
+#: models/post/themingpieceset.php
+msgid "Pieceset deleted."
+msgstr "Набор фигур удалён."
+
+#: models/post/resetoptions.php
+msgid "Settings reseted."
+msgstr "Настройки сброшены."
+
+#: templates/adminpage/options/general/moveanimation.php
+#: templates/adminpage/help/pgnattributes/moveanimation.php
+#: templates/adminpage/help/pgnattributes/main.php
+msgid "Move animation"
+msgstr "Анимация хода"
+
+#: templates/adminpage/options/general/moveanimation.php
+#, php-format
+msgid "Animation speed: %1$s milliseconds"
+msgstr "Скорость анимации: %1$s миллисекунд"
+
+#: templates/adminpage/options/general/moveanimation.php
+msgid "Set the animation speed to 0 to disable animations."
+msgstr "Установите скорость анимации 0, чтобы отключить анимацию."
+
+#: templates/adminpage/options/general/moveanimation.php
+msgid "Show move arrow"
+msgstr "Показывать стрелки хода"
+
+#: templates/adminpage/options/general/moveanimation.php
+msgid "Test move"
+msgstr "Тест хода"
+
+#: templates/adminpage/options/general/moveanimation.php
+msgid "Test capture"
+msgstr "Тест взятия"
+
+#: templates/adminpage/options/general/boardaspect.php
+#: templates/adminpage/help/pgnattributes/boardaspect.php
+#: templates/adminpage/help/pgnattributes/main.php
+msgid "Chessboard aspect"
+msgstr "Пропорции шахматной доски"
+
+#: templates/adminpage/options/general/boardaspect.php
+#, php-format
+msgid "Square size: %1$s pixels"
+msgstr "Размер клетки %1$s пикс"
+
+#: templates/adminpage/options/general/boardaspect.php
+#: templates/adminpage/help/fenattributes/main.php
+#: templates/adminpage/help/fenattributes/showcoordinates.php
+msgid "Show coordinates"
+msgstr "Показывать координаты"
+
+#: templates/adminpage/options/general/boardaspect.php
+#: templates/adminpage/help/fenattributes/colorsetpieceset.php
+msgid "Colorset:"
+msgstr "Набор цветов:"
+
+#: templates/adminpage/options/general/boardaspect.php
+#: templates/adminpage/help/fenattributes/colorsetpieceset.php
+msgid "Pieceset:"
+msgstr "Набор фигур:"
+
+#: templates/adminpage/options/general/boardaspect.php
+#, php-format
+msgid ""
+"Note that specific chessboard aspect settings can be defined for %1$ssmall-"
+"screen devices%3$s (such as smartphones). Additional colorsets and piecesets "
+"can be created in the %2$stheming page%3$s."
+msgstr ""
+"Обратите внимание, что конкретные параметры пропорции шахматной доски могут "
+"быть определены для %1$sустройств с маленькими экранами%3$s (таких как "
+"смартфоны). Дополнительные наборы цветов и наборы фигур могут быть созданы "
+"на %2$sстранице тем%3$s."
+
+#: templates/adminpage/options/general/navigationboard.php
+msgid "Position of the navigation board"
+msgstr "Позиция навигационной доски"
+
+#: templates/adminpage/options/general/navigationboard.php
+msgid "No navigation board"
+msgstr "Без навигационной доски"
+
+#: templates/adminpage/options/general/navigationboard.php
+msgid "In a popup frame"
+msgstr "Во всплывающем окне"
+
+#: templates/adminpage/options/general/navigationboard.php
+msgid "Above the game headers and the move list"
+msgstr "Над заголовком и ходами"
+
+#: templates/adminpage/options/general/navigationboard.php
+msgid "Below the move list"
+msgstr "Под ходами"
+
+#: templates/adminpage/options/general/navigationboard.php
+msgid "On the left of the move list"
+msgstr "Слева от ходов"
+
+#: templates/adminpage/options/general/navigationboard.php
+msgid "On the right of the move list"
+msgstr "Справа от ходов"
+
+#: templates/adminpage/options/general/navigationboard.php
+msgid "On the left, with scrollable move list"
+msgstr "Слева, с прокручиваемой областью ходов"
+
+#: templates/adminpage/options/general/navigationboard.php
+msgid "On the right, with scrollable move list"
+msgstr "Справа, с прокручиваемой областью ходов"
+
+#: templates/adminpage/options/general/navigationboard.php
+msgid ""
+"A navigation board may be added to each PGN game to help post/page readers "
+"to follow the progress of the game. This navigation board is displayed "
+"either in a popup frame (in this case, it becomes visible only when the "
+"reader clicks on a move) or next to the move list (then it is visible as "
+"soon as the page is loaded)."
+msgstr ""
+"Навигационная доска может быть добавлена к каждой партии в формате PGN чтобы "
+"помочь читателям статьи/страницы следить за развитием партии. Навигационная "
+"доска отображается либо во всплывающем окне (в этом случае она станет "
+"видимой только тогда, когда читатель кликнет по ходу), или рядом с ходами (в "
+"этом случае она появляется сразу при загрузке страницы)."
+
+#: templates/adminpage/options/general/main.php
+#, php-format
+msgid ""
+"These settings control the default aspect and behavior of the chess diagrams "
+"and games inserted in posts and pages with the %1$s[%3$s][/%3$s]%2$s and "
+"%1$s[%4$s][/%4$s]%2$s tags. They can be overridden at each tag by passing "
+"appropriate tag attributes: see %5$shelp on FEN diagram attributes%7$s and "
+"%6$shelp on PGN game attributes%7$s for more details."
+msgstr ""
+"Это настройки управления пропорцией и поведением шахматных диаграмм и "
+"партий, вставленных в статьи или страницы с помощью тегов %1$s[%3$s][/"
+"%3$s]%2$s и %1$s[%4$s][/%4$s]%2$s по умолчанию. Они могут быть "
+"переопределены в каждом теге путём передачи в тег соответствующих атрибутов: "
+"см. %5$sпомощь по FEN%7$s и %6$sпомощь по PGN%7$s для получения деталей."
+
+#: templates/adminpage/options/general/piecesymbols.php
+#: templates/adminpage/help/pgnattributes/main.php
+#: templates/adminpage/help/pgnattributes/piecesymbols.php
+msgid "Piece symbols"
+msgstr "Символы фигур"
+
+#: templates/adminpage/options/general/piecesymbols.php
+msgid "English initials"
+msgstr "Английские сокращения"
+
+#: templates/adminpage/options/general/piecesymbols.php
+msgid "Localized initials"
+msgstr "Локализованные сокращения"
+
+#: templates/adminpage/options/general/piecesymbols.php
+msgid "Figurines"
+msgstr "Фигуры"
+
+#: templates/adminpage/options/general/piecesymbols.php
+msgid "Custom"
+msgstr "Пользовательские"
+
+#: templates/adminpage/options/general/piecesymbols.php
+msgid ""
+"This setting only affects how chess moves are rendered to post/page readers. "
+"Authors must always use English initials when writting PGN content into "
+"posts and pages."
+msgstr ""
+"Эти настройки влияют только на то, как шахматные ходы отображаются на "
+"странице или в статье. Авторы всегда должны использовать английские "
+"сокращения для написания PGN в статье или странице."
+
+#: templates/adminpage/options/smallscreens.php
+msgid "Enable support for small-screen devices"
+msgstr "Включить поддержку устройств с маленькими экранами"
+
+#: templates/adminpage/options/smallscreens.php
+msgid ""
+"Activating this option allows to customize how RPB Chessboard renders chess "
+"diagrams on small-screen devices (such as smartphones)."
+msgstr ""
+"Активация данной опции позволяет настроить, как будет отображаться шахматная "
+"диаграмма на устройствах с маленькими экранами (таких как смартфоны)."
+
+#: templates/adminpage/options/smallscreens.php
+#, php-format
+msgid ""
+"These options apply to devices whose resolution is less than %1$s pixel "
+"width."
+msgstr ""
+"Данные параметры применяются к устройством с шириной экрана меньше %1$s пикс."
+
+#: templates/adminpage/options/smallscreens.php
+#, php-format
+msgid ""
+"These options apply to devices whose resolution lies between %1$s and %2$s "
+"pixel width."
+msgstr ""
+"Данные параметры применяются к устройством с шириной экрана от %1$s до %2$s "
+"пикс."
+
+#: templates/adminpage/options/smallscreens.php
+#, php-format
+msgid "Screen width &le; %1$s pixels"
+msgstr "Ширина экрана меньше %1$s пикс"
+
+#: templates/adminpage/options/smallscreens.php
+#, php-format
+msgid "Restrict square size to: %1$s pixels"
+msgstr "Ограничить размер клетки до %1$s пикс"
+
+#: templates/adminpage/options/smallscreens.php
+#, php-format
+msgid ""
+"Chess diagrams will be displayed with a square size not larger than this "
+"value if the screen width is less than %1$s pixels, whatever the %2$sdefault "
+"aspect and behavior settings%3$s or the tag attributes that may be specified "
+"in the posts/pages. Diagrams for which the square size is less than this "
+"value will be displayed as they normally do on large screen devices."
+msgstr ""
+"Шахматная диаграмма будет отображаться с размером клетки не больше, чем это "
+"значение вне зависимости от %2$sнастроек пропорции и поведения по умолчанию"
+"%3$s или атрибутов тега, которые могут быть определены в статье или на "
+"странице, если ширина экрана меньше чем %1$s пикс. Диаграммы, у которых "
+"размер клетки меньше этого значения, будут отображаться также, как и на "
+"устройствах с обычными экранами."
+
+#: templates/adminpage/options/smallscreens.php
+msgid "Always hide coordinates"
+msgstr "Всегда скрывать координаты"
+
+#: templates/adminpage/options/smallscreens.php
+#, php-format
+msgid ""
+"If enabled, row and column coordinates will be hidden if the screen width is "
+"less than %1$s pixels, whatever the %2$sdefault aspect and behavior settings"
+"%3$s or the tag attributes that may be specified in the posts/pages. If "
+"disabled, row and column coordinates will be displayed as they normally do "
+"on large screen devices."
+msgstr ""
+"Если эта опция включена, то координаты будут скрыты  вне зависимости от "
+"%2$sнастроек пропорции и поведения по умолчанию%3$s или атрибутов тега, "
+"которые могут быть определены в статье или на странице, если ширина экрана "
+"меньше %1$s пикс. Если эта опция выключена, то координаты будут отображаться "
+"как на обычных экранах."
+
+#: templates/adminpage/options/smallscreens.php
+msgid "See explanations about theses settings above."
+msgstr "См. объяснения этих настроек выше."
+
+#: templates/adminpage/options/main.php
+#: templates/adminpage/theming/piecesetedition.php
+#: templates/adminpage/theming/colorsetedition.php
+msgid "Save changes"
+msgstr "Сохранить изменения"
+
+#: templates/adminpage/options/main.php
+#: templates/adminpage/theming/piecesetedition.php
+#: templates/adminpage/theming/colorsetedition.php templates/localization.php
+msgid "Cancel"
+msgstr "Отмена"
+
+#: templates/adminpage/options/main.php
+msgid "Reset settings"
+msgstr "Сбросить настройки"
+
+#: templates/adminpage/options/main.php
+msgid ""
+"This will reset all the settings in this page to their default values. Press "
+"OK to confirm..."
+msgstr ""
+"Это сбросит все настройки и установит значения по умолчанию. Нажмите ОК для "
+"подтверждения..."
+
+#: templates/adminpage/options/compatibility.php
+#, php-format
+msgid ""
+"By default, the RPB Chessboard plugin use the %1$s[fen][/fen]%2$s and "
+"%1$s[pgn][/pgn]%2$s tags for FEN diagrams and PGN games. However, this "
+"behavior causes conflicts with other WordPress plugins (typically chess "
+"plugins) that use the same tags. The compatibility modes are provided to "
+"avoid those conflicts."
+msgstr ""
+"По умолчанию плагин RPB Chessboard использует теги %1$s[fen][/fen]%2$s и "
+"%1$s[pgn][/pgn]%2$s для диаграмм FEN и PGN записи партий. Однако, это "
+"поведение может вызвать конфликты с другими плагинами WordPress (обычно "
+"шахматными), которые используют те же теги. Режим совместимости призван "
+"избежать этих конфликтов."
+
+#: templates/adminpage/options/compatibility.php
+msgid "Compatibility mode for the FEN diagram tag"
+msgstr "Режим совместимости с диаграммами FEN"
+
+#: templates/adminpage/options/compatibility.php
+#, php-format
+msgid ""
+"Activating this option makes RPB Chessboard use %1$s[fen_compat][/"
+"fen_compat]%2$s instead of %1$s[fen][/fen]%2$s for FEN diagrams."
+msgstr ""
+"Активация этой опции заставит RPB Chessboard использовать тег "
+"%1$s[fen_compat][/fen_compat]%2$s вместо %1$s[fen][/fen]%2$s для диаграмм "
+"FEN."
+
+#: templates/adminpage/options/compatibility.php
+msgid "Compatibility mode for the PGN game tag"
+msgstr "Режим совместимости с PGN"
+
+#: templates/adminpage/options/compatibility.php
+#, php-format
+msgid ""
+"Activating this option makes RPB Chessboard use %1$s[pgn_compat][/"
+"pgn_compat]%2$s instead of %1$s[pgn][/pgn]%2$s for PGN games."
+msgstr ""
+"Активация этой опции заставит RPB Chessboard использовать тег "
+"%1$s[pgn_compat][/pgn_compat]%2$s вместо %1$s[pgn][/pgn]%2$s для записи PGN."
+
+#: templates/adminpage/theming/piecesetedition.php
+msgid "New pieceset"
+msgstr "Новый набор фигур"
+
+#: templates/adminpage/theming/piecesetedition.php
+msgid "Edit pieceset"
+msgstr "Редактировать набор фигур"
+
+#: templates/adminpage/theming/piecesetedition.php
+#: templates/adminpage/theming/colorsetedition.php
+#: templates/adminpage/theming/piecesets.php
+#: templates/adminpage/theming/colorsets.php
+msgid "Name"
+msgstr "Название"
+
+#: templates/adminpage/theming/piecesetedition.php
+#: templates/adminpage/theming/colorsetedition.php
+#: templates/adminpage/theming/piecesets.php
+#: templates/adminpage/theming/colorsets.php
+msgid "Slug"
+msgstr "Короткий заголовок (slug)"
+
+#: templates/adminpage/theming/piecesetedition.php
+msgid "Create pieceset"
+msgstr "Создать набор фигур"
+
+#: templates/adminpage/theming/colorsetedition.php
+msgid "New colorset"
+msgstr "Новый набор цветов"
+
+#: templates/adminpage/theming/colorsetedition.php
+msgid "Edit colorset"
+msgstr "Редактировать набор цветов"
+
+#: templates/adminpage/theming/colorsetedition.php
+msgid "Dark squares"
+msgstr "Чёрные поля"
+
+#: templates/adminpage/theming/colorsetedition.php
+msgid "Light squares"
+msgstr "Белые поля"
+
+#: templates/adminpage/theming/colorsetedition.php
+msgid "Create colorset"
+msgstr "Создать набор цветов"
+
+#: templates/adminpage/theming/piecesets.php
+msgid "Add a new pieceset"
+msgstr "Добавить новый набор фигур"
+
+#: templates/adminpage/theming/piecesets.php
+#: templates/adminpage/theming/colorsets.php
+#: templates/adminpage/help/fenattributes/squaresize.php
+#: templates/adminpage/help/fenattributes/flip.php
+#: templates/adminpage/help/fenattributes/showcoordinates.php
+#: templates/adminpage/help/pgnattributes/moveanimation.php
+#: templates/adminpage/help/pgnattributes/navigationboard.php
+#: templates/adminpage/help/pgnattributes/piecesymbols.php
+msgid "Default"
+msgstr "По умолчанию"
+
+#: templates/adminpage/theming/piecesets.php
+#: templates/adminpage/theming/colorsets.php
+msgid "Set default"
+msgstr "Установить по умолчанию"
+
+#: templates/adminpage/theming/piecesets.php
+#: templates/adminpage/theming/colorsets.php
+msgid "Edit"
+msgstr "Редактировать"
+
+#: templates/adminpage/theming/piecesets.php
+#: templates/adminpage/theming/colorsets.php
+msgid "Delete"
+msgstr "Удалить"
+
+#: templates/adminpage/theming/piecesets.php
+msgid "Select"
+msgstr "Выбрать"
+
+#: templates/adminpage/theming/piecesets.php
+msgid "All the images must be defined to create a pieceset."
+msgstr "Вы должны определить изображения всех фигур чтобы создать набор."
+
+#: templates/adminpage/theming/colorsets.php
+msgid "Add a new colorset"
+msgstr "Добавить новый набор цветов"
+
+#: templates/adminpage/about.php
+#, php-format
+msgid ""
+"RPB Chessboard allows you to typeset and display chess games and diagrams in "
+"the posts and pages of your WordPress blog, using the standard %1$sFEN%3$s "
+"and %2$sPGN%3$s notations."
+msgstr ""
+"RPB Chessboard позволяет вам создавать и отображать шахматные партии и "
+"диаграммы в статьях или на страницах вашего блога WordPress, используя "
+"стандартную %1$sFEN%3$s и %2$sPGN%3$s нотацию."
+
+#: templates/adminpage/about.php templates/adminpage/memo/fen.php
+#: templates/adminpage/help/fensyntax.php
+msgid "http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation"
+msgstr "https://ru.wikipedia.org/wiki/Нотация_Форсайта_—_Эдвардса"
+
+#: templates/adminpage/about.php templates/adminpage/memo/pgn.php
+#: templates/adminpage/help/pgnsyntax/main.php
+msgid "http://en.wikipedia.org/wiki/Portable_Game_Notation"
+msgstr "https://ru.wikipedia.org/wiki/Portable_Game_Notation"
+
+#: templates/adminpage/about.php
+msgid "source code on GitHub"
+msgstr "исходный код на GitHub"
+
+#: templates/adminpage/about.php
+#, php-format
+msgid ""
+"If you encounter some bugs with this plugin, or if you wish to get new "
+"features in the future versions, you can report/propose them in the "
+"%1$sGitHub bug tracker%2$s."
+msgstr ""
+"Если у вас возникнут некоторые проблемы с этим плагином, или если вы хотите "
+"получить новые функции в будущих версиях, вы можете сообщить/предложить их в "
+"%1$sGitHub багтрекер%2$s."
+
+#: templates/adminpage/about.php
+msgid "Plugin version"
+msgstr "Версия плагина"
+
+#: templates/adminpage/about.php
+msgid "Credits"
+msgstr "Участники проекта"
+
+#: templates/adminpage/about.php
+msgid "Author"
+msgstr "Автор"
+
+#: templates/adminpage/about.php
+msgid "Contributor"
+msgstr ""
+
+#: templates/adminpage/about.php
+msgid "Translators"
+msgstr "Переводчики"
+
+#: templates/adminpage/about.php
+#, php-format
+msgid ""
+"If you are interested in translating this plugin into your language, please "
+"%1$scontact the author%2$s."
+msgstr ""
+"Если вы хотите помочь в переводе этого плагина на другие языки, пожалуйста "
+"%1$sсвяжитесь с автором%2$s."
+
+#: templates/adminpage/about.php
+msgid "Graphic resources"
+msgstr "Графические ресурсы"
+
+#: templates/adminpage/about.php
+#, php-format
+msgid ""
+"Pieceset %1$sCBurnett%2$s has been created by %3$sColin M.L. Burnett%6$s, "
+"who shares it under the [CC-BY-SA] license on %4$sWikimedia Commons%6$s; "
+"user %5$sAntonsusi%6$s has also contributed to this work."
+msgstr ""
+"Набор фигур %1$sCBurnett%2$s был создан %3$sColin M.L. Burnett%6$s, "
+"распространяется по лицензии [CC-BY-SA] %4$sWikimedia Commons%6$s; "
+"пользователь %5$sAntonsusi%6$s также внёс вклад в эту работу."
+
+#: templates/adminpage/about.php
+#, php-format
+msgid ""
+"Piecesets %1$sCeltic%2$s, %1$sEyes%2$s, %1$sFantasy%2$s, %1$sSkulls%2$s and "
+"%1$sSpatial%2$s have been created by %3$sMaurizio Monge%4$s, who makes them "
+"freely available for chess programs."
+msgstr ""
+"Наборы фигур %1$sCeltic%2$s, %1$sEyes%2$s, %1$sFantasy%2$s, %1$sSkulls%2$s и "
+"%1$sSpatial%2$s были созданы %3$sMaurizio Monge%4$s, который сделал их "
+"свободно доступными для шахматных программ."
+
+#: templates/adminpage/about.php
+#, php-format
+msgid ""
+"Colorsets %1$sCoral%2$s, %1$sDusk%2$s, %1$sEmerald%2$s, %1$sMarine%2$s, "
+"%1$sSandcastle%2$s and %1$sWheat%2$s have been proposed in this %3$sblog post"
+"%5$s by %4$sGorgonian%5$s."
+msgstr ""
+"Наборы цветов %1$sCoral%2$s, %1$sDusk%2$s, %1$sEmerald%2$s, %1$sMarine%2$s, "
+"%1$sSandcastle%2$s и %1$sWheat%2$s были предложены %4$sGorgonian%5$s в "
+"%3$sэтом посте%5$s."
+
+#: templates/adminpage/about.php
+#, php-format
+msgid ""
+"Icons %1$sUndo%2$s, %1$sRedo%2$s, %1$sDelete%2$s and %1$sTick%2$s have been "
+"created by %3$sMomentum Design Lab%5$s, who shares them under the [CC-BY] "
+"license on %4$sFind Icons%5$s."
+msgstr ""
+"Иконки %1$sUndo%2$s, %1$sRedo%2$s, %1$sDelete%2$s и %1$sTick%2$s были "
+"созданы %3$sMomentum Design Lab%5$s, распространяются по лицензии  [CC-BY]  "
+"на %4$sFind Icons%5$s."
+
+#: templates/adminpage/about.php
+#, php-format
+msgid ""
+"Icon %1$sNot-Found%2$s has been created by %3$sgakuseiSean%5$s, who makes it "
+"freely available for non-commercial use on %4$sFind Icons%5$s."
+msgstr ""
+"Иконка %1$sNot-Found%2$s была создана %3$sgakuseiSean%5$s, свободно "
+"распространяется для некоммерческого использования на %4$sFind Icons%5$s."
+
+#: templates/adminpage/about.php
+msgid ""
+"The author would like to thank all these people for their highly valuable "
+"work."
+msgstr ""
+"Автор хотел бы поблагодарить всех этих людей за их очень важную работу."
+
+#: templates/adminpage/about.php
+msgid "License"
+msgstr "Лицензия"
+
+#: templates/adminpage/about.php
+#, php-format
+msgid ""
+"This plugin is distributed under the terms of the %1$sGNU General Public "
+"License version 3%3$s (GPLv3), as published by the %2$sFree Software "
+"Foundation%3$s. The full text of this license is available at %4$s. A copy "
+"of this document is also provided with the plugin source code."
+msgstr ""
+"Этот плагин распространяется в соответствии с условиями %1$sУниверсальной "
+"Общественной Лицензии GNU, версии 3%3$s (GPLv3), опубликованной %2$sFree "
+"Software Foundation%3$s. Полный текст лицензии доступен %4$s. Копия этого "
+"документа также предоставляется с исходным кодом плагина."
+
+#: templates/adminpage/about.php
+msgid ""
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for "
+"more details."
+msgstr ""
+"Эта программа распространяется в надежде, что она будет полезной, но БЕЗ "
+"КАКИХ-ЛИБО ГАРАНТИЙ; даже без подразумеваемых гарантий КОММЕРЧЕСКОЙ ЦЕННОСТИ "
+"или ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ. Смотрите Стандартную Общественную "
+"Лицензию GNU для получения дополнительной информации."
+
+#: templates/adminpage/memo/main.php
+msgid ""
+"This short reminder presents through examples the features provided by the "
+"RPB Chessboard plugin, namely the insertion of chess diagrams and games in "
+"WordPress websites. On the left is the code written in posts and pages, "
+"while the right column shows the corresponding rendering."
+msgstr ""
+"Это короткое напоминание представляет собой примеры возможностей, "
+"предусмотренных плагином RPB Chessboard, а именно, вставки шахматных "
+"диаграмм и партий на сайты WordPress. Слева - код, написанный в статьях или "
+"страницах, справа - соответствующие ему визуализации."
+
+#: templates/adminpage/memo/fen.php
+msgid "FEN diagram"
+msgstr "Диаграмма FEN"
+
+#: templates/adminpage/memo/fen.php
+msgid "White to move and mate in two:"
+msgstr "Ход белых, мат в два хода:"
+
+#: templates/adminpage/memo/fen.php
+msgid ""
+"This position is known as the Légal Trap. It is named after the French "
+"player François Antoine de Legall de Kermeur (1702&ndash;1792)."
+msgstr ""
+"Эта позиция известна как \"мат Легаля\".  Она названа по имени французского "
+"шахматиста Легаля де Кермюр (1702&ndash;1792)."
+
+#: templates/adminpage/memo/fen.php
+#, php-format
+msgid ""
+"The string between the %1$s[%3$s][/%3$s]%2$s tags describe the position. The "
+"used notation follows the %4$sFEN format%5$s (Forsyth-Edwards Notation). A "
+"comprehensive description of this FEN notation is available on %4$sWikipedia"
+"%5$s."
+msgstr ""
+"Строка между тегами %1$s[%3$s][/%3$s]%2$s описывает позицию. Используется "
+"%4$sFEN-нотация%5$s (Нотация Форсайта—Эдвардса). Подробное описание FEN-"
+"нотации доступно в %4$sWikipedia%5$s."
+
+#: templates/adminpage/memo/pgn.php
+msgid "PGN game"
+msgstr "Партия PGN"
+
+#: templates/adminpage/memo/pgn.php
+msgid ""
+"Morphy took twelve minutes over his next move, probably to assure himself "
+"that the combination was sound and that he had a forced win in every "
+"variation."
+msgstr ""
+"Морфи продумал двенадцать минут над  своим следующим ходом. Возможно, он "
+"хотел убедиться, что его комбинация корректна и у него есть форсированный "
+"выигрыш во всех вариантах."
+
+#: templates/adminpage/memo/pgn.php
+msgid "Not"
+msgstr "Но не"
+
+#: templates/adminpage/memo/pgn.php
+msgid "would have won more quickly. For instance:"
+msgstr "выигрывало быстрее. Например:"
+
+#: templates/adminpage/memo/pgn.php
+msgid "Absolutely forced."
+msgstr "Абсолютно форсированно."
+
+#: templates/adminpage/memo/pgn.php
+#, php-format
+msgid ""
+"The code between the %1$s[%3$s][/%3$s]%2$s tags describe the game. The used "
+"notation follows the standard %4$sPGN format%7$s. It can be copy-pasted from "
+"a .pgn file generated by any chess database software, including %5$sChessbase"
+"%7$s, %6$sScid%7$s, etc..."
+msgstr ""
+"Код между тегами %1$s[%3$s][/%3$s]%2$s описывает партию.  Используется "
+"стандартная %4$sPGN-нотация%7$s. Она может быть скопирована из .pgn файла, "
+"созданного любой шахматной программой, включая %5$sChessbase%7$s, %6$sScid"
+"%7$s, и т. д."
+
+#: templates/adminpage/memo/pgn.php
+#, php-format
+msgid ""
+"Please note the %1$s[pgndiagram]%2$s tag placed inside a comment to insert a "
+"diagram showing the current position."
+msgstr ""
+"Пожалуйста, обратите внимание, что тег %1$s[pgndiagram]%2$s вставляется "
+"внутрь комментария чтобы показать текущую позицию."
+
+#: templates/adminpage/help/fenattributes/squaresize.php
+#: templates/adminpage/help/fenattributes/main.php
+msgid "Square size"
+msgstr "Размер клетки"
+
+#: templates/adminpage/help/fenattributes/squaresize.php
+#, php-format
+msgid "The %1$s attribute controls the size of the chessboard squares."
+msgstr "Атрибут %1$s контролирует размер клетки шахматной доски."
+
+#: templates/adminpage/help/fenattributes/squaresize.php
+#: templates/adminpage/help/fenattributes/flip.php
+#: templates/adminpage/help/fenattributes/showcoordinates.php
+#: templates/adminpage/help/pgnattributes/moveanimation.php
+#: templates/adminpage/help/pgnattributes/navigationboard.php
+#: templates/adminpage/help/pgnattributes/piecesymbols.php
+msgid "Value"
+msgstr "Значение"
+
+#: templates/adminpage/help/fenattributes/squaresize.php
+#: templates/adminpage/help/fenattributes/flip.php
+#: templates/adminpage/help/fenattributes/showcoordinates.php
+#: templates/adminpage/help/pgnattributes/moveanimation.php
+#: templates/adminpage/help/pgnattributes/navigationboard.php
+#: templates/adminpage/help/pgnattributes/piecesymbols.php
+msgid "Description"
+msgstr "Описание"
+
+#: templates/adminpage/help/fenattributes/squaresize.php
+#, php-format
+msgid "The square width is %1$s pixels."
+msgstr "Ширина клетки - %1$s пикс."
+
+#: templates/adminpage/help/fenattributes/squaresize.php
+#: templates/adminpage/help/pgnattributes/moveanimation.php
+msgid "etc..."
+msgstr "и так далее."
+
+#: templates/adminpage/help/fenattributes/squaresize.php
+#: templates/adminpage/help/pgnattributes/moveanimation.php
+#, php-format
+msgid "Any value between %1$s and %2$s can be used."
+msgstr "Можно использовать любое значение между %1$s и %2$s."
+
+#: templates/adminpage/help/fenattributes/markers.php
+#: templates/adminpage/help/fenattributes/main.php
+#: templates/adminpage/help/pgnsyntax/marker.php
+#: templates/adminpage/help/pgnsyntax/main.php
+msgid "Square and arrow markers"
+msgstr "Маркеры полей и стрелок"
+
+#: templates/adminpage/help/fenattributes/markers.php
+#, php-format
+msgid ""
+"The %1$s and %2$s attributes are used to add respectively square and arrow "
+"markers. There is no need to manually edit the value of these attributes as "
+"square and arrow marker edition is handled by the %3$schess diagram editor"
+"%4$s."
+msgstr ""
+"Атрибуты %1$s и %2$s используются для добавления маркеров для поля и стрелки "
+"соответственно. Нет необходимости вручную редактировать эти атрибуты, так "
+"как они обрабатываются %3$sредактором диаграмм%4$s."
+
+#: templates/adminpage/help/fenattributes/markers.php
+#, php-format
+msgid ""
+"For information, the syntax used to define square and arrow markers is "
+"described in the %1$sPGN game syntax help page%2$s."
+msgstr ""
+"Для информации, синтаксис, используемый для описания маркеров полей и "
+"стрелок описан на %1$s странице помощи по синтаксису PGN%2$s."
+
+#: templates/adminpage/help/fenattributes/flip.php
+#: templates/adminpage/help/fenattributes/main.php
+msgid "Board flipping"
+msgstr "Переворачивание доски"
+
+#: templates/adminpage/help/fenattributes/flip.php
+#, php-format
+msgid "The %1$s attribute controls whether the chessboard is rotated or not."
+msgstr "Атрибут %1$s контролирует перевёрнута доска или нет."
+
+#: templates/adminpage/help/fenattributes/flip.php
+msgid "The board is seen from White's point of view."
+msgstr "Доска показывается со стороны белых."
+
+#: templates/adminpage/help/fenattributes/flip.php
+msgid "The board is seen from Black's point of view."
+msgstr "Доска показывается со стороны чёрных."
+
+#: templates/adminpage/help/fenattributes/colorsetpieceset.php
+#: templates/adminpage/help/fenattributes/main.php
+msgid "Colorset and pieceset"
+msgstr "Набор цветов и набор фигур"
+
+#: templates/adminpage/help/fenattributes/colorsetpieceset.php
+#, php-format
+msgid ""
+"The %1$s and %2$s attributes controls respectively the colors of the "
+"chessboard and the piece theme."
+msgstr ""
+"Атрибуты %1$s и %2$s управляют цветами шахматной доски и темой фигур "
+"соответственно."
+
+#: templates/adminpage/help/fenattributes/main.php
+#, php-format
+msgid ""
+"Several attributes may be passed to the %1$s[%3$s][/%3$s]%2$s tags in order "
+"to customize how the FEN diagrams are displayed. All these attributes are "
+"optional: if not specified, the default setting (defined by the blog "
+"administrator) applies. These attributes are presented in this page."
+msgstr ""
+"Некоторые атрибуты могут быть переданы тегам %1$s[%3$s][/%3$s]%2$s чтобы "
+"настроить отображение диаграмм FEN. Все эти атрибуты являются опциональными: "
+"если они не определены, то применяются настройки по умолчанию (определённые "
+"администратором блога). Эти атрибуты представлены на этой странице."
+
+#: templates/adminpage/help/fenattributes/showcoordinates.php
+#, php-format
+msgid ""
+"The %1$s attribute controls whether the row and column coordinates are "
+"visible or not."
+msgstr "Атрибут %1$s отвечает за то, видимы ли координаты или нет."
+
+#: templates/adminpage/help/fenattributes/showcoordinates.php
+msgid "The row and column coordinates are hidden."
+msgstr "Координаты скрыты."
+
+#: templates/adminpage/help/fenattributes/showcoordinates.php
+msgid "The row and column coordinates are visible."
+msgstr "Координаты видимы."
+
+#: templates/adminpage/help/pgnsyntax/customstartingposition.php
+#: templates/adminpage/help/pgnsyntax/main.php
+msgid "Custom starting position"
+msgstr "Настраиваемая стартовая позиция"
+
+#: templates/adminpage/help/pgnsyntax/customstartingposition.php
+msgid "Endgame example"
+msgstr "Пример эндшпиля"
+
+#: templates/adminpage/help/pgnsyntax/customstartingposition.php
+#, php-format
+msgid ""
+"The %1$s[FEN &quot;...&quot;]%2$s header might be used to specify that the "
+"game starts with a custom position. Additionally, the strict PGN syntax "
+"requires that %1$s[SetUp &quot;1&quot;]%2$s is added when using the %1$s[FEN "
+"&quot;...&quot;]%2$s header."
+msgstr ""
+"Заголовок %1$s[FEN &quot;...&quot;]%2$s может быть использован для того, "
+"чтобы указать, что партия начинается не со стандартной позиции. Более того, "
+"строгий синтаксис PGN требует, чтобы %1$s[Ход &quot;1&quot;]%2$s был указан "
+"в заголовке FEN."
+
+#: templates/adminpage/help/pgnsyntax/variation.php
+#: templates/adminpage/help/pgnsyntax/main.php
+msgid "Variations"
+msgstr "Варианты"
+
+#: templates/adminpage/help/pgnsyntax/variation.php
+msgid ""
+"As for comments, variations can be rendered either inlined within the move "
+"sequence, or as separated paragraphs if they are preceded by a blank line in "
+"the PGN string. Variations can be nested. However, inlined variations cannot "
+"contain &quot;paragraph-style&quot; variations (or &quot;paragraph-"
+"style&quot; comments)."
+msgstr ""
+"Как и комментарии, варианты могут отображаться встроенными в "
+"последовательность ходов или отдельными параграфами."
+
+#: templates/adminpage/help/pgnsyntax/nullmove.php
+#: templates/adminpage/help/pgnsyntax/main.php
+msgid "Null moves"
+msgstr "Отсутствие ходов"
+
+#: templates/adminpage/help/pgnsyntax/nullmove.php
+msgid "A standard development scheme for white:"
+msgstr "Стандартное развитие белых:"
+
+#: templates/adminpage/help/pgnsyntax/nullmove.php
+#, php-format
+msgid "A %1$s--%2$s token in the move list allows to skip the underlying move."
+msgstr "Токен %1$s--%2$s позволяет пропустить ход."
+
+#: templates/adminpage/help/pgnsyntax/marker.php
+msgid ""
+"The Ruy Lopez: White's third move attacks the knight which defends the e5-"
+"pawn from the attack by the f3-knight."
+msgstr ""
+"Испанская партия. Третьим ходом белые атакуют коня чёрных, который защищает "
+"пешку е5 от атаки коня f3."
+
+#: templates/adminpage/help/pgnsyntax/marker.php
+#, php-format
+msgid ""
+"Squares can be highlighted by inserting the tag %1$s[%%csl ...]%2$s in a "
+"comment. The squares to highlight are represented by a group of 3 "
+"characters: the first one represents the color to use (%1$sG%2$s for green, "
+"%1$sR%2$s for red, %1$sY%2$s for yellow), the second and third ones "
+"represent the targeted square. For instance, %1$s[%%csl Re5,Gc6,Yf3,Yb5]%2$s "
+"highlights square e5 in red, square c6 in green, and squares f3 and b5 in "
+"yellow."
+msgstr ""
+"Поля могут быть подсвечены с помощью вставки тега %1$s[%%csl ...]%2$s в "
+"комментарий. Подсвеченные поля представляют собой группу из трёх символов: "
+"первый отвечает за цвет (%1$sG%2$s для зелёного, %1$sR%2$s для красного, "
+"%1$sY%2$s для жёлтого), второй и третий - это поле в стандартной шахматной "
+"нотации. Например, %1$s[%%csl Re5,Gc6,Yf3,Yb5]%2$s подсветит поле e5 "
+"красным, поле c6 зелёным, а поля f3 и b5 жёлтым."
+
+#: templates/adminpage/help/pgnsyntax/marker.php
+#, php-format
+msgid ""
+"Likewise, arrows can be added by inserting the tag %1$s[%%cal ...]%2$s in a "
+"comment. An arrow is encoded by a group of 5 characters: the first one is "
+"the color to use (%1$sG%2$s, %1$sR%2$s, or %1$sY%2$s), the second and third "
+"ones represent the origin square, the fourth and fifth ones the destination "
+"square. For instance, %1$s[%%cal Rf3e5,Gd8d4]%2$s creates a red arrow from "
+"f3 to e5, and a green arrow from d8 to d4."
+msgstr ""
+"Стрелки также могут быть добавлены вставкой тега %1$s[%%cal ...]%2$s в "
+"комментарий. Стрелка представляет собой группу из пяти символов: первый - "
+"цвет (%1$sG%2$s, %1$sR%2$s, или %1$sY%2$s), второй и третий - координаты "
+"поля, где стрелка начинается, четвёртый и пятый - поле, на которое стрелка "
+"указывает.Например, %1$s[%%cal Rf3e5,Gd8d4]%2$s создаст красную стрелку с "
+"f3 на e5, и зелёную с d8 на d4."
+
+#: templates/adminpage/help/pgnsyntax/marker.php
+#, php-format
+msgid ""
+"Square and arrow markers that are created in %3$sChessbase softwares%4$s are "
+"exported in PGN format using these %1$s[%%csl ...]%2$s and "
+"%1$s[%%cal ...]%2$s notations."
+msgstr ""
+"Маркеры полей и стрелок,созданные в %3$sChessbase%4$s экспортируются в PGN-"
+"формат с помощью %1$s[%%csl ...]%2$s и %1$s[%%cal ...]%2$s нотации."
+
+#: templates/adminpage/help/pgnsyntax/example.php
+#: templates/adminpage/help/pgnsyntax/main.php
+msgid "Standard PGN game"
+msgstr "Стандартная запись PGN"
+
+#: templates/adminpage/help/pgnsyntax/main.php
+#, php-format
+msgid ""
+"The string between the %1$s[%3$s][/%3$s]%2$s tags describe the game. The "
+"used notation follows the standard %4$sPGN format%7$s, and can be "
+"automatically generated by the common chess database softwares, including "
+"%5$sChessbase%7$s, %6$sScid%7$s, etc... The PGN syntax is summarized here "
+"through a few representative examples."
+msgstr ""
+"Строка между тегами %1$s[%3$s][/%3$s]%2$s описывает партию. Используемая "
+"нотация следует стандартному %4$sPGN формату%7$s и может быть автоматически "
+"создана различными шахматными программами, включая %5$sChessbase%7$s, "
+"%6$sScid%7$s, и др. Здесь изложено несколько кратких примеров синтаксиса PGN."
+
+#: templates/adminpage/help/pgnsyntax/main.php
+#: templates/adminpage/help/pgnsyntax/nag.php
+msgid "NAGs (aka. <em>Numeric Annotation Glyphs</em>)"
+msgstr "Стандартная Алгебраическая Нотация"
+
+#: templates/adminpage/help/pgnsyntax/main.php
+#: templates/adminpage/help/pgnsyntax/comment.php
+msgid "Comments"
+msgstr "Комментарии"
+
+#: templates/adminpage/help/pgnsyntax/main.php
+#: templates/adminpage/help/pgnsyntax/diagram.php
+msgid "Diagrams"
+msgstr "Диаграммы"
+
+#: templates/adminpage/help/pgnsyntax/diagram.php
+msgid ""
+"This opening is called the Sicilian defence. A possible continuation is:"
+msgstr "Дебют называется Сицилианская защита. Возможные продолжения:"
+
+#: templates/adminpage/help/pgnsyntax/diagram.php
+#, php-format
+msgid ""
+"Notice that %1$s[pgndiagram]%2$s tags must not be used outside a PGN game. "
+"To insert a diagram outside a PGN game, use the %1$s[%3$s][/%3$s]%2$s tag "
+"instead."
+msgstr ""
+"Обратите внимание, что теги %1$s[pgndiagram]%2$s не могут использоваться вне "
+"PGN записи. Чтобы вставить диаграмму вне PGN используйте тег %1$s[%3$s][/"
+"%3$s]%2$s. "
+
+#: templates/adminpage/help/pgnsyntax/comment.php
+#, php-format
+msgid "I'm a %1$sshort%2$s comment."
+msgstr "Я %1$sкороткий%2$s комментарий."
+
+#: templates/adminpage/help/pgnsyntax/comment.php
+#, php-format
+msgid "I'm a %1$slong%2$s comment."
+msgstr "Я %1$sдлинный%2$s комментарий."
+
+#: templates/adminpage/help/pgnsyntax/comment.php
+msgid ""
+"Text comments can be inserted, surrounded with braces. They can be rendered "
+"either inlined within the move sequence (&quot;short comment&quot; style), "
+"or as separated paragraphs (&quot;long comment&quot; style). To insert a "
+"comment as a separated paragraph, let a blank line before it in the PGN "
+"string. Also, notice that HTML tags are allowed within comments."
+msgstr ""
+"Текстовые комментарии должны быть заключены в фигурные скобки так. Они могут "
+"отображаться встроенными в последовательность ходов (&quot;короткий "
+"комментарий&quot;) или отдельными параграфами (&quot;длинный "
+"комментарий&quot;). Для того, чтобы комментарий был отображён в отделённом "
+"параграфе, в PGN-записи ему должна предшествовать пустая строка. Также "
+"обратите внимание, что вы можете использовать HTML-теги внутри комментариев."
+
+#: templates/adminpage/help/pgnsyntax/nag.php
+#, php-format
+msgid ""
+"Notice that the chess database softwares may introduce annotations such as "
+"%1$s&quot;$x&quot;%2$s where %1$s&quot;x&quot;%2$s is replaced with one or "
+"more digits (for instance, %1$s&quot;1.e4 $1&quot;%2$s). This is what is "
+"advocated by the PGN norm, which defines equivalences between this syntax "
+"and the human-readable one (for instance, %1$s&quot;$1&quot;%2$s is "
+"equivalent to %1$s&quot;!&quot;%2$s). Both syntaxes are understood by the "
+"RPB Chessboard plugin. See the %3$slist of NAGs%4$s."
+msgstr ""
+"Обратите внимание, что некоторые шахматные программы могут использовать "
+"такие примечания как %1$s&quot;$x&quot;%2$s где %1$s&quot;x&quot;%2$s "
+"заменяется на одну или несколько цифр. Это считается нормальным для PGN и "
+"этот синтаксис воспринимается эквивалентно \"человеческому\" (например "
+"%1$s&quot;$1&quot;%2$s эквивалентно %1$s&quot;!&quot;%2$s). RPB Chessboard "
+"plugin работает с обоими синтаксисами. См. %3$sсписок Стандартной "
+"Алгебраической Нотации%4$s."
+
+#: templates/adminpage/help/pgnsyntax/nag.php
+msgid "http://en.wikipedia.org/wiki/Numeric_Annotation_Glyphs"
+msgstr "https://ru.wikipedia.org/wiki/Шахматная_нотация"
+
+#: templates/adminpage/help/fensyntax.php
+#, php-format
+msgid ""
+"The string between the %1$s[%3$s][/%3$s]%2$s tags describe the position. The "
+"used notation follows the standard %4$sFEN format%5$s (Forsyth-Edwards "
+"Notation), which is comprehensively described on %4$sWikipedia%5$s."
+msgstr ""
+"Строка между тегами %1$s[%3$s][/%3$s]%2$s описывает позицию. Используется "
+"%4$sFEN-нотация%5$s (Нотация Форсайта—Эдвардса). Подробное описание FEN-"
+"нотации доступно в %4$sWikipedia%5$s."
+
+#: templates/adminpage/help/fensyntax.php
+#, php-format
+msgid ""
+"A chess diagram editor is appended to the WordPress post/page editor by RPB "
+"Chessboard (see the screenshots below). As a consequence, there is no need "
+"to manually edit the content of the %1$s[%3$s][/%3$s]%2$s tags to create a "
+"chessboard diagram."
+msgstr ""
+"Редактор шахматных диаграмм добавляется в редактор статей/страниц WordPress "
+"(см. скриншот ниже). Следовательно, нет необходимости вручную редактировать "
+"содержимое тегов %1$s[%3$s][/%3$s]%2$s для создания шахматной диаграммы."
+
+#: templates/adminpage/help/pgnattributes/moveanimation.php
+#, php-format
+msgid ""
+"The %1$s attribute controls the duration of the move animation on the "
+"navigation board."
+msgstr "Атрибут %1$s контролирует скорость анимации навигационной доски."
+
+#: templates/adminpage/help/pgnattributes/moveanimation.php
+msgid "No animation"
+msgstr "Без анимации"
+
+#: templates/adminpage/help/pgnattributes/moveanimation.php
+#, php-format
+msgid "The animation lasts %1$s milliseconds."
+msgstr "Анимация длится %1$s  миллисекунд."
+
+#: templates/adminpage/help/pgnattributes/moveanimation.php
+#, php-format
+msgid ""
+"The %1$s attribute controls whether an arrow should be used or not to "
+"highlight the moves on the navigation board."
+msgstr ""
+"Атрибут %1$s  контролирует будет ли использоваться стрелка для подсвечивания "
+"последнего хода."
+
+#: templates/adminpage/help/pgnattributes/moveanimation.php
+msgid "No arrow is shown."
+msgstr "Не показывать стрелку."
+
+#: templates/adminpage/help/pgnattributes/moveanimation.php
+msgid "The moves are highlighted by an arrow."
+msgstr "Показывать стрелку."
+
+#: templates/adminpage/help/pgnattributes/boardaspect.php
+#, php-format
+msgid ""
+"The %1$s, %2$s, %3$s, %4$s and %5$s attributes control the aspect of both "
+"the navigation board and the chessboard diagrams inserted using tag %6$s. "
+"These attributes are identical to those used to customize the aspect of "
+"standalone FEN diagrams (those inserted using tag %7$s): see %8$shelp on FEN "
+"diagram attributes%9$s for more details about them."
+msgstr ""
+"Атрибуты %1$s, %2$s, %3$s, %4$s и %5$s контролируют пропорции как "
+"навигационной доски, так и шахматной диаграммы, вставляемой с помощью тега "
+"%6$s. Эти атрибуты идентичны тем, что используются для настройки FEN-"
+"диаграмм (которые вставляются с помощью тега %7$s): см. %8$sпомощь по "
+"атрибутам FEN диаграмм%9$s для получения деталей."
+
+#: templates/adminpage/help/pgnattributes/navigationboard.php
+#: templates/adminpage/help/pgnattributes/main.php
+msgid "Navigation board"
+msgstr "Навигационная доска"
+
+#: templates/adminpage/help/pgnattributes/navigationboard.php
+#, php-format
+msgid "The %1$s attribute controls the position of the navigation board."
+msgstr "Атрибут %1$s  контролирует позицию навигационной доски."
+
+#: templates/adminpage/help/pgnattributes/navigationboard.php
+msgid "No navigation board."
+msgstr "Без навигационной доски."
+
+#: templates/adminpage/help/pgnattributes/navigationboard.php
+msgid ""
+"The navigation board is displayed in a popup frame, which becomes visible "
+"when the user clicks on a move within the move list."
+msgstr ""
+"Навигационная доска отображается во всплывающем окне и становится видимой "
+"только тогда, когда пользователь кликнет по ходу."
+
+#: templates/adminpage/help/pgnattributes/navigationboard.php
+msgid ""
+"The navigation board is displayed above the game headers and the move list."
+msgstr ""
+"Навигационная доска отображается над заголовками партии и списком ходов."
+
+#: templates/adminpage/help/pgnattributes/navigationboard.php
+msgid "The navigation board is displayed below the move list."
+msgstr "Навигационная доска отображается под списком ходов."
+
+#: templates/adminpage/help/pgnattributes/navigationboard.php
+msgid "The navigation board is displayed on the left of the move list."
+msgstr "Навигационная доска отображается слева от списка ходов."
+
+#: templates/adminpage/help/pgnattributes/navigationboard.php
+msgid "The navigation board is displayed on the right of the move list."
+msgstr "Навигационная доска отображается справа от списка ходов."
+
+#: templates/adminpage/help/pgnattributes/navigationboard.php
+msgid ""
+"The navigation board is displayed on the left of the move list. The move "
+"list becomes scrollable if it is higher than the navigation board."
+msgstr ""
+"Навигационная доска отображается слева от списка ходов. Список ходов "
+"становится прокручиваемым если его высота больше высоты навигационной доски."
+
+#: templates/adminpage/help/pgnattributes/navigationboard.php
+msgid ""
+"The navigation board is displayed on the right of the move list. The move "
+"list becomes scrollable if it is higher than the navigation board."
+msgstr ""
+"Навигационная доска отображается справа от списка ходов. Список ходов "
+"становится прокручиваемым если его высота больше высоты навигационной доски."
+
+#: templates/adminpage/help/pgnattributes/main.php
+#, php-format
+msgid ""
+"Several attributes may be passed to the %1$s[%3$s][/%3$s]%2$s tags in order "
+"to customize how the PGN games are displayed. All these attributes are "
+"optional: if not specified, the default setting (defined by the blog "
+"administrator) applies. These attributes are presented in this page."
+msgstr ""
+"Некоторые атрибуты могут быть переданы тегам %1$s[%3$s][/%3$s]%2$s чтобы "
+"настроить отображение партий PGN. Все эти атрибуты являются опциональными: "
+"если они не определены, то применяются настройки по умолчанию (определённые "
+"администратором блога). Эти атрибуты представлены на этой странице."
+
+#: templates/adminpage/help/pgnattributes/piecesymbols.php
+#, php-format
+msgid ""
+"The %1$s attribute controls how chess pieces are denoted in the move list."
+msgstr "Атрибут %1$s контролирует отображение шахматных фигур в списке ходов."
+
+#: templates/adminpage/help/pgnattributes/piecesymbols.php
+msgid "First character of the piece name in English."
+msgstr "Первая буква названия фигуры на английском языке."
+
+#: templates/adminpage/help/pgnattributes/piecesymbols.php
+msgid "First character of the piece name in the blog language."
+msgstr "Первая буква названия фигуры на языке блога."
+
+#: templates/adminpage/help/pgnattributes/piecesymbols.php
+#, php-format
+msgid ""
+"Any sequence of 6 capital letters surrounded with parenthesis is allowed to "
+"set custom symbols. For instance, with %1$s(%3$s%4$s%5$s%6$s%7$s%8$s)%2$s, "
+"%3$s will be used to denote a king, %4$s for a queen, %5$s for a rook, %6$s "
+"for a bishop, %7$s for a knight and %8$s for a pawn."
+msgstr ""
+"Любая последовательность из 6 заглавных букв, заключённая в скобки. Например "
+"%1$s(%3$s%4$s%5$s%6$s%7$s%8$s)%2$s, %3$s будет отображать короля, %4$s - "
+"ферзя, %5$s - ладью, %6$s - слона, %7$s - коня и %8$s - пешку."
+
+#: templates/adminpage/main.php
+msgid ""
+"To work properly, the RPB Chessboard plugin needs JavaScript to be activated "
+"in your browser."
+msgstr ""
+"Для работы плагина RPB Chessboard необходим браузер с включённым JavaScript."
+
+#: templates/shortcode/fen.php
+msgid "You must activate JavaScript to enhance chess diagram visualization."
+msgstr "Вы должны активировать JavaScript для отображения диаграмм."
+
+#: templates/shortcode/pgn.php
+msgid "You must activate JavaScript to enhance chess game visualization."
+msgstr "Вы должны активировать JavaScript для отображения шахматной партии."
+
+#: templates/localization.php
+#, php-format
+msgid "Annotated by %1$s"
+msgstr "Комментарии %1$s"
+
+#: templates/localization.php
+msgid "Initial position"
+msgstr "Начальная позиция"
+
+#: templates/localization.php
+msgid "chessboard"
+msgstr "шахматная доска"
+
+#: templates/localization.php
+msgid "Insert/edit a chess diagram"
+msgstr "Вставить/редактировать шахматную диаграмму"
+
+#: templates/localization.php
+msgid "Add a new chess diagram"
+msgstr "Добавить новую шахматную диаграмму"
+
+#: templates/localization.php
+msgid "Update the chess diagram"
+msgstr "Обновить шахматную диаграмму"
+
+#: templates/localization.php
+msgid "Undo the last modification"
+msgstr "Отменить последние изменения"
+
+#: templates/localization.php
+msgid "Re-do the last modification"
+msgstr "Восстановить последние изменения"
+
+#: templates/localization.php
+msgid "Flip board"
+msgstr "Перевернуть доску"
+
+#: templates/localization.php
+msgid "Standard positions"
+msgstr "Стандартные позиции"
+
+#: templates/localization.php
+msgid "Set the initial position"
+msgstr "Установить начальную позицию"
+
+#: templates/localization.php
+msgid "Clear the chessboard"
+msgstr "Очистить доску"
+
+#: templates/localization.php
+msgid "Annotations"
+msgstr "Комментарии"
+
+#: templates/localization.php
+msgid "Square markers"
+msgstr "Маркеры полей"
+
+#: templates/localization.php
+msgid "Remove the square markers"
+msgstr "Удалить маркеры полей"
+
+#: templates/localization.php
+msgid "Arrow markers"
+msgstr "Маркеры стрелок"
+
+#: templates/localization.php
+msgid "Remove the arrow markers"
+msgstr "Удалить маркеры стрелок"
+
+#: templates/localization.php
+msgid "Advanced settings"
+msgstr "Расширенные настройки"
+
+#: templates/localization.php
+msgid "Castling rights"
+msgstr "Права на рокировку"
+
+#: templates/localization.php
+msgid "En passant"
+msgstr "На проходе"
+
+#: templates/localization.php
+msgid "Not possible"
+msgstr "Невозможно"
+
+#: templates/localization.php
+#, php-format
+msgid "Possible on column %1$s"
+msgstr "Возможно на вертикали %1$s"
+
+#: templates/localization.php
+msgid "Keyboard shortcuts"
+msgstr "Сочетания клавиш"
+
+#: templates/localization.php
+msgid "undo"
+msgstr "отменить"
+
+#: templates/localization.php
+msgid "redo"
+msgstr "повторить"
+
+#: templates/localization.php
+msgid "add pawns"
+msgstr "добавить пешки"
+
+#: templates/localization.php
+msgid "add knights"
+msgstr "добавить коней"
+
+#: templates/localization.php
+msgid "add bishops"
+msgstr "добавить слонов"
+
+#: templates/localization.php
+msgid "add rooks"
+msgstr "добавить ладьи"
+
+#: templates/localization.php
+msgid "add queens"
+msgstr "добавить ферзей"
+
+#: templates/localization.php
+msgid "add kings"
+msgstr "добавить королей"
+
+#: wp/adminpages.php
+msgid "Chess games and diagrams"
+msgstr "Шахматные партии и диаграммы"
+
+#: wp/adminpages.php
+msgid "Chess"
+msgstr "Шахматы"
+
+#: wp/adminpages.php
+msgid "Memo"
+msgstr "Памятка"
+
+#: wp/adminpages.php
+#, php-format
+msgid "Settings of the %1$s plugin"
+msgstr "Настройки плагина %1$s"
+
+#: wp/adminpages.php
+msgid "Settings"
+msgstr "Настройки"
+
+#: wp/adminpages.php
+msgid "Manage colorsets & piecesets"
+msgstr "Управление наборами цветов и фигур"
+
+#: wp/adminpages.php
+msgid "Theming"
+msgstr "Темы"
+
+#: wp/adminpages.php
+msgid "Help"
+msgstr "Помощь"
+
+#: wp/adminpages.php
+#, php-format
+msgid "About %1$s"
+msgstr "О %1$s"
+
+#: wp/adminpages.php
+msgid "About"
+msgstr "О плагине"
+
+#: rpb-chessboard.php
+msgid ""
+"This plugin allows you to typeset and display chess diagrams and PGN-encoded "
+"chess games."
+msgstr ""
+"Этот плагин позволит вам создавать и отображать шахматные диаграммы и PGN "
+"партии."
