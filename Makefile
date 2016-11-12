@@ -29,7 +29,7 @@ THIRD_PARTY_FOLDER    = third-party-libs
 ASSET_FOLDER          = assets
 CACHE_FOLDER          = cache
 WORDPRESS_README_FILE = wordpress.readme.txt
-INFO_FILES            = LICENSE README.md CREDITS.md
+INFO_FILES            = LICENSE
 
 # Zip file used for deployment
 DEPLOYMENT_FILE = $(PLUGIN_NAME).zip
