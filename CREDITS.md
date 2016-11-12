@@ -20,7 +20,8 @@ Translators
 -----------
 
 Markus Liebelt (German), Yoann Le Montagner (English and French), Ivan Deceuninck (Dutch),
-[Dawid Ziółkowski](http://dawidziolkowski.com/) (Polish), Ali Nihat Yazıcı (Turkish).
+[Dawid Ziółkowski](http://dawidziolkowski.com/) (Polish), [Sergey Baravicov](http://safoyeth.com/) (Russian),
+Ali Nihat Yazıcı (Turkish).
 
 
 
