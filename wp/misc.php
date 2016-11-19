@@ -21,13 +21,15 @@
 
 
 /**
- * Register the AJAX request processing callbacks.
+ * Register the AJAX request processing callbacks, the custom MIME types, etc...
  */
-abstract class RPBChessboardAjax {
+abstract class RPBChessboardMisc {
 
 	public static function register() {
 		add_action('wp_ajax_rpbchessboard_format_pieceset_sprite', array(__CLASS__, 'callbackFormatPiecesetSprite'));
 		add_action('delete_attachment', array(__CLASS__, 'callbackDeleteAttachment'));
+
+		add_filter('upload_mimes', array(__CLASS__, 'callbackFilterMimeTypes'));
 	}
 
 
@@ -45,5 +47,11 @@ abstract class RPBChessboardAjax {
 	public static function callbackDeleteAttachment($attachmentId) {
 		$model = RPBChessboardHelperLoader::loadModel('Ajax/RemovePiecesetSprite');
 		$model->run($attachmentId);
+	}
+
+
+	public static function callbackFilterMimeTypes($mimeTypes) {
+		$mimeTypes['pgn'] = 'application/x-chess-pgn';
+		return $mimeTypes;
 	}
 }

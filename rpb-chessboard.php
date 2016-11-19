@@ -54,8 +54,8 @@ function rpbchessboard_init() {
 		require_once(RPBCHESSBOARD_ABSPATH . 'wp/postactions.php');
 		RPBChessboardPostActions::run();
 
-		require_once(RPBCHESSBOARD_ABSPATH . 'wp/ajax.php');
-		RPBChessboardAjax::register();
+		require_once(RPBCHESSBOARD_ABSPATH . 'wp/misc.php');
+		RPBChessboardMisc::register();
 	}
 
 	require_once(RPBCHESSBOARD_ABSPATH . 'wp/shortcodes.php');
