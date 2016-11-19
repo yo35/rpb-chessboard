@@ -61,6 +61,7 @@ GETTEXT_PHP   = ./assets/dev-tools/gettext-php.sh
 MSGMERGE      = msgmerge -v --backup=none
 MSGFMT        = msgfmt -v
 JSHINT        = jshint
+JSHINT_FLAGS  = -c assets/dev-tools/jshintrc
 UGLIFYJS      = uglifyjs
 UGLIFYJS_ARGS = -c -nc
 STATISTICS    = ./assets/dev-tools/statistics.sh
@@ -138,7 +139,7 @@ $(TEMPORARY_FOLDER)/%.merged: %.po $(I18N_POT_FILE)
 # JavaScript validation
 js-lint:
 	@$(ECHO) "$(COLOR_IN)Checking the JavaScript files...$(COLOR_OUT)"
-	@$(JSHINT) $(JS_FILES) $(JS_DEBUG_FILES)
+	@$(JSHINT) $(JSHINT_FLAGS) $(JS_FILES) $(JS_DEBUG_FILES)
 
 
 # JavaScript minification
@@ -148,7 +149,7 @@ js-minify: $(JS_MINIFIED_FILES)
 # Single JS file minification
 %.min.js: %.js
 	@$(ECHO) "$(COLOR_IN)Minifying JS file [ $(COLOR_ARG_IN)$<$(COLOR_ARG_OUT) ]...$(COLOR_OUT)"
-	@$(JSHINT) $^
+	@$(JSHINT) $(JSHINT_FLAGS) $^
 	@$(UGLIFYJS) $(UGLIFYJS_ARGS) -o $@ $^
 
 
