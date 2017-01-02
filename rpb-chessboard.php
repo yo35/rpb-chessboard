@@ -26,14 +26,14 @@ Description: This plugin allows you to typeset and display chess diagrams and PG
 Text Domain: rpbchessboard
 Author: Yoann Le Montagner
 License: GPLv3
-Version: 4.6.1
+Version: 4.6.2
 */
 
 
 // Directories
 define('RPBCHESSBOARD_ABSPATH', plugin_dir_path(__FILE__));
 define('RPBCHESSBOARD_URL'    , plugin_dir_url (__FILE__));
-define('RPBCHESSBOARD_VERSION', '4.6.1');
+define('RPBCHESSBOARD_VERSION', '4.6.2');
 
 
 // Enable localization

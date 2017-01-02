@@ -113,6 +113,10 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 4.6.2 (January 2, 2017) =
+* Fix arrow refresh issue (see #76).
+* Tested up to WordPress 4.7.
+
 = 4.6.1 (November 12, 2016) =
 * Russian translation (thanks to Sergey Baravicov).
 
