@@ -544,11 +544,12 @@
 			}
 		}
 		else if(typeof newValue === 'undefined') {
-			$(identifierClazz, widget.element).remove();
+			$('.' + identifierClazz, widget.element).remove();
 		}
 		else {
 			var clazz = 'uichess-chessboard-arrowMarker ' + identifierClazz + ' uichess-chessboard-markerColor-' + newValue;
-			$(identifierClazz, widget.element).attr('class', clazz);
+			var marker = 'url(#uichess-chessboard-arrowMarkerEnd-' + newValue + ')';
+			$('.' + identifierClazz, widget.element).attr('class', clazz).attr('marker-end', marker);
 		}
 	}
 
