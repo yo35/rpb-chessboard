@@ -28,6 +28,8 @@ require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/shortcode.php');
  */
 class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode {
 
+	private $loadedFromExternalPGNFile;
+	private $externalPGNFileValid;
 	private $externalPGNFile;
 	private $widgetArgs;
 	private $navigationFrameArgs;
@@ -46,7 +48,18 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode
 	 */
 	public function isLoadedFromExternalPGNFile() {
 		$this->initializeExternalPGNFile();
-		return $this->externalPGNFile !== "";
+		return $this->loadedFromExternalPGNFile;
+	}
+
+
+	/**
+	 * Return whether the URL to the external PGN file to load is valid or not.
+	 *
+	 * @return boolean
+	 */
+	public function isExternalPGNFileValid() {
+		$this->initializeExternalPGNFile();
+		return $this->externalPGNFileValid;
 	}
 
 
@@ -62,13 +75,22 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode
 
 
 	private function initializeExternalPGNFile() {
-		if(isset($this->externalPGNFile)) {
+		if(isset($this->loadedFromExternalPGNFile)) {
 			return;
 		}
 
 		$atts = $this->getAttributes();
-		$value = isset($atts['url']) ? RPBChessboardHelperValidation::validateURL($atts['url']) : null;
-		$this->externalPGNFile = isset($value) ? $value : "";
+
+		if(isset($atts['url'])) {
+			$this->externalPGNFile = $atts['url'];
+			$this->externalPGNFileValid = RPBChessboardHelperValidation::validateURL($atts['url']) !== null;
+			$this->loadedFromExternalPGNFile = true;
+		}
+		else {
+			$this->externalPGNFile = "";
+			$this->externalPGNFileValid = false;
+			$this->loadedFromExternalPGNFile = false;
+		}
 	}
 
 
