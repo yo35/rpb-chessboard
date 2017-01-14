@@ -28,6 +28,7 @@ require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/shortcode.php');
  */
 class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode {
 
+	private $externalPGNFile;
 	private $widgetArgs;
 	private $navigationFrameArgs;
 
@@ -44,7 +45,8 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode
 	 * @return boolean
 	 */
 	public function isLoadedFromExternalPGNFile() {
-		return false; // TODO
+		$this->initializeExternalPGNFile();
+		return $this->externalPGNFile !== "";
 	}
 
 
@@ -54,7 +56,19 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode
 	 * @return string
 	 */
 	public function getExternalPGNFile() {
-		return "";
+		$this->initializeExternalPGNFile();
+		return $this->externalPGNFile;
+	}
+
+
+	private function initializeExternalPGNFile() {
+		if(isset($this->externalPGNFile)) {
+			return;
+		}
+
+		$atts = $this->getAttributes();
+		$value = isset($atts['url']) ? RPBChessboardHelperValidation::validateURL($atts['url']) : null;
+		$this->externalPGNFile = isset($value) ? $value : "";
 	}
 
 
