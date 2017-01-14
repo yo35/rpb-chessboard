@@ -39,13 +39,38 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode
 
 
 	/**
+	 * Return whether the PGN data is loaded from an external file or not.
+	 *
+	 * @return boolean
+	 */
+	public function isLoadedFromExternalPGNFile() {
+		return false; // TODO
+	}
+
+
+	/**
+	 * Return the URL of the external PGN file to load.
+	 *
+	 * @return string
+	 */
+	public function getExternalPGNFile() {
+		return "";
+	}
+
+
+	/**
 	 * Return the arguments to pass to the uichess-chessboard widget.
 	 *
 	 * @return array
 	 */
 	public function getWidgetArgs() {
 		if(!isset($this->widgetArgs)) {
-			$this->widgetArgs = array('pgn' => $this->getContent());
+
+			$this->widgetArgs = array();
+			if(!$this->isLoadedFromExternalPGNFile()) {
+				$this->widgetArgs['pgn'] = $this->getContent();
+			}
+
 			$atts = $this->getAttributes();
 			$chessboardOptions = array();
 

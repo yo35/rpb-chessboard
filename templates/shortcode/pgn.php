@@ -25,7 +25,9 @@
 <div id="<?php echo htmlspecialchars($model->getUniqueID()); ?>" class="rpbchessboard-chessgame">
 
 	<noscript>
-		<div class="rpbchessboard-noJavascriptBlock"><?php echo htmlspecialchars($model->getContent()); ?></div>
+		<?php if(!$model->isLoadedFromExternalPGNFile()): ?>
+			<div class="rpbchessboard-noJavascriptBlock"><?php echo htmlspecialchars($model->getContent()); ?></div>
+		<?php endif; ?>
 		<div class="rpbchessboard-javascriptWarning">
 			<?php _e('You must activate JavaScript to enhance chess game visualization.', 'rpbchessboard'); ?>
 		</div>
@@ -35,13 +37,31 @@
 
 	<script type="text/javascript">
 
-		jQuery(document).ready(function($)
-		{
+		jQuery(document).ready(function($) {
 			$.chessgame.navigationFrameClass   = 'wp-dialog';
 			$.chessgame.navigationFrameOptions = <?php echo json_encode($model->getNavigationFrameArgs()); ?>;
 
 			var selector = '#' + <?php echo json_encode($model->getUniqueID()); ?> + ' .rpbchessboard-chessgameAnchor';
-			$(selector).removeClass('rpbchessboard-chessgameAnchor').chessgame(<?php echo json_encode($model->getWidgetArgs()); ?>);
+
+			<?php if($model->isLoadedFromExternalPGNFile()): ?>
+
+				$.get(<?php echo json_encode($model->getExternalPGNFile()); ?>).done(function(data) {
+					var widgetArgs = <?php echo json_encode($model->getWidgetArgs()); ?>;
+					widgetArgs['pgn'] = data;
+					$(selector).removeClass('rpbchessboard-chessgameAnchor').chessgame(widgetArgs);
+				}).fail(function() {
+					$(selector).removeClass('rpbchessboard-chessgameAnchor').append(
+						'<div class="uichess-chessgame-error"><div class="uichess-chessgame-errorTitle">' +
+							<?php echo json_encode(__('Cannot download the PGN file', 'rpbchessboard')); ?> +
+						'</div><div class="uichess-chessgame-errorMessage">' +
+							<?php echo json_encode($model->getExternalPGNFile()); ?> +
+						'</div></div>'
+					);
+				});
+
+			<?php else: ?>
+				$(selector).removeClass('rpbchessboard-chessgameAnchor').chessgame(<?php echo json_encode($model->getWidgetArgs()); ?>);
+			<?php endif; ?>
 		});
 
 	</script>
