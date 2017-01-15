@@ -51,7 +51,7 @@ abstract class RPBChessboardMisc {
 
 
 	public static function callbackFilterMimeTypes($mimeTypes) {
-		$mimeTypes['pgn'] = 'application/x-chess-pgn';
+		$mimeTypes['pgn'] = 'text/plain';
 		return $mimeTypes;
 	}
 }
