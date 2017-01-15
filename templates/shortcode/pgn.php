@@ -42,6 +42,7 @@
 			$.chessgame.navigationFrameOptions = <?php echo json_encode($model->getNavigationFrameArgs()); ?>;
 
 			var selector = '#' + <?php echo json_encode($model->getUniqueID()); ?> + ' .rpbchessboard-chessgameAnchor';
+			var target = $(selector).removeClass('rpbchessboard-chessgameAnchor');
 
 			<?php if($model->isLoadedFromExternalPGNFile()): ?>
 
@@ -50,11 +51,11 @@
 					$.get(<?php echo json_encode($model->getExternalPGNFile()); ?>).done(function(data) {
 						var widgetArgs = <?php echo json_encode($model->getWidgetArgs()); ?>;
 						widgetArgs['pgn'] = data;
-						$(selector).removeClass('rpbchessboard-chessgameAnchor').chessgame(widgetArgs);
+						target.chessgame(widgetArgs);
 					}).fail(function() {
-						$(selector).removeClass('rpbchessboard-chessgameAnchor').append(
+						target.append(
 							'<div class="uichess-chessgame-error"><div class="uichess-chessgame-errorTitle">' +
-								<?php echo json_encode(__('Cannot download the PGN file', 'rpbchessboard')); ?> +
+								<?php echo json_encode(__('Cannot download the PGN file.', 'rpbchessboard')); ?> +
 							'</div><div class="uichess-chessgame-errorMessage">' +
 								<?php echo json_encode($model->getExternalPGNFile()); ?> +
 							'</div></div>'
@@ -62,9 +63,9 @@
 					});
 
 				<?php else: ?>
-					$(selector).removeClass('rpbchessboard-chessgameAnchor').append(
+					target.append(
 						'<div class="uichess-chessgame-error"><div class="uichess-chessgame-errorTitle">' +
-							<?php echo json_encode(__('Invalid URL to the PGN file', 'rpbchessboard')); ?> +
+							<?php echo json_encode(__('Invalid URL to the PGN file.', 'rpbchessboard')); ?> +
 						'</div><div class="uichess-chessgame-errorMessage">' +
 							<?php echo json_encode($model->getExternalPGNFile()); ?> +
 						'</div></div>'
@@ -72,7 +73,7 @@
 				<?php endif; ?>
 
 			<?php else: ?>
-				$(selector).removeClass('rpbchessboard-chessgameAnchor').chessgame(<?php echo json_encode($model->getWidgetArgs()); ?>);
+				target.chessgame(<?php echo json_encode($model->getWidgetArgs()); ?>);
 			<?php endif; ?>
 		});
 
