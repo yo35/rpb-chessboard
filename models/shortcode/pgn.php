@@ -110,6 +110,12 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode
 			$atts = $this->getAttributes();
 			$chessboardOptions = array();
 
+			// Game index
+			$value = isset($atts['game']) ? RPBChessboardHelperValidation::validateInteger($atts['game'], 0) : null;
+			if(isset($value)) {
+				$this->widgetArgs['gameIndex'] = $value;
+			}
+
 			// Orientation
 			$value = isset($atts['flip']) ? RPBChessboardHelperValidation::validateBoolean($atts['flip']) : null;
 			if(isset($value)) {

@@ -47,6 +47,7 @@
 	i18n.UNEXPECTED_END_OF_TEXT          = 'Unexpected end of text: there is a pending item.';
 	i18n.PGN_TEXT_IS_EMPTY               = 'No game found in the text.';
 	i18n.PGN_TEXT_CONTAINS_SEVERAL_GAMES = 'The PGN data contains 2 or more games.';
+	i18n.INVALID_GAME_INDEX              = 'Game index %1$s is invalid (%2$s game(s) found in the PGN data).';
 
 
 
@@ -734,25 +735,33 @@
 	 * PGN parsing function for exactly one item.
 	 *
 	 * @param {string} pgnString String to parse.
+	 * @param {number} [gameIndex] Index of the game to parse (first game is at index 0).
 	 * @returns {Item}
 	 * @throws {InvalidPGN}
 	 */
-	function parseOne(pgnString)
+	function parseOne(pgnString, gameIndex)
 	{
 		var items = parse(pgnString);
-		switch(items.length) {
 
-			// No item found -> throw an exception.
-			case 0:
-				throw new InvalidPGN(pgnString, -1, i18n.PGN_TEXT_IS_EMPTY);
+		// No item found -> throw an exception.
+		if(items.length === 0) {
+			throw new InvalidPGN(pgnString, -1, i18n.PGN_TEXT_IS_EMPTY);
+		}
 
-			// 1 item found -> return it.
-			case 1:
+		// No explicit game index -> throw an exception if there is more than 1 item found.
+		if(typeof gameIndex === 'undefined' || gameIndex < 0) {
+			if(items.length === 1) {
 				return items[0];
+			}
+			throw new InvalidPGN(pgnString, -1, i18n.PGN_TEXT_CONTAINS_SEVERAL_GAMES);
+		}
 
-			// More than 1 item found -> throw an exception.
-			default:
-				throw new InvalidPGN(pgnString, -1, i18n.PGN_TEXT_CONTAINS_SEVERAL_GAMES);
+		// Explicit game index -> throw an exception if the game index is not valid.
+		else {
+			if(gameIndex < items.length) {
+				return items[gameIndex];
+			}
+			throw new InvalidPGN(pgnString, -1, i18n.INVALID_GAME_INDEX, gameIndex, items.length);
 		}
 	}
 

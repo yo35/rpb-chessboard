@@ -378,6 +378,11 @@
 			pgn: '*',
 
 			/**
+			 * Index of the game to consider in the PGN data.
+			 */
+			gameIndex: -1,
+
+			/**
 			 * Position of the navigation board.
 			 *
 			 * Available values are:
@@ -538,7 +543,7 @@
 
 			// Parse the input assuming a PGN format.
 			try {
-				this._game = RPBChess.pgn.parseOne(pgn);
+				this._game = RPBChess.pgn.parseOne(pgn, this.options.gameIndex);
 			}
 			catch(error) {
 				if(error instanceof RPBChess.exceptions.InvalidPGN) { // Parsing errors are reported to the user.
