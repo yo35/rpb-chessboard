@@ -32,4 +32,9 @@ class RPBChessboardModelAdminPageMemo extends RPBChessboardAbstractModelAdminPag
 		parent::__construct();
 		$this->loadDelegateModel('Common/Compatibility');
 	}
+
+
+	public function getPGNExampleURL() {
+		return RPBCHESSBOARD_URL . 'examples.pgn';
+	}
 }
