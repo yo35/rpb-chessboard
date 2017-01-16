@@ -30,8 +30,18 @@ class RPBChessboardModelCommonURLs extends RPBChessboardAbstractModel {
 
 	public function __construct() {
 		parent::__construct();
-		$this->registerDelegatableMethods('getOptionsGeneralURL', 'getOptionsSmallScreensURL', 'getThemingURL',
+		$this->registerDelegatableMethods('getMemoURL', 'getOptionsGeneralURL', 'getOptionsSmallScreensURL', 'getThemingURL',
 			'getHelpOnFENAttributesURL', 'getHelpOnPGNAttributesURL', 'getHelpOnFENSyntaxURL', 'getHelpOnPGNSyntaxURL');
+	}
+
+
+	/**
+	 * URL to memo page.
+	 *
+	 * @return string
+	 */
+	public function getMemoURL() {
+		return admin_url('admin.php') . '?page=rpbchessboard';
 	}
 
 

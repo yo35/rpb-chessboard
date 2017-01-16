@@ -41,6 +41,17 @@
 		); ?>
 	</p>
 
+	<p>
+		<?php echo sprintf(
+			__(
+				'Please note that, alternatively, the game can be described by passing an URL to a regular .pgn file, '.
+				'as described in the %1$smemo page%2$s.',
+			'rpbchessboard'),
+			sprintf('<a href="%1$s">', htmlspecialchars($model->getMemoURL())),
+			'</a>'
+		); ?>
+	</p>
+
 	<ol class="rpbchessboard-outline">
 		<li><a href="#rpbchessboard-pgnExample"><?php _e('Standard PGN game', 'rpbchessboard'); ?></a></li>
 		<li><a href="#rpbchessboard-pgnNAG"><?php _e('NAGs (aka. <em>Numeric Annotation Glyphs</em>)', 'rpbchessboard'); ?></a></li>
