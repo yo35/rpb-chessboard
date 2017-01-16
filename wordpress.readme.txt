@@ -31,6 +31,10 @@ and [PGN](http://en.wikipedia.org/wiki/Portable_Game_Notation) notations.
 `
 
 `
+[pgn url="http://your-blog.com/.../your-games.pgn" game=0]
+`
+
+`
 [pgn]
 
 [White "Bill Gates"]
@@ -51,6 +55,7 @@ and [PGN](http://en.wikipedia.org/wiki/Portable_Game_Notation) notations.
  * Colored square and arrow markers.
  * Compatibility mode to avoid conflicts with the other plugins that use
    the `[fen][/fen]` and `[pgn][/pgn]` shortcodes too.
+ * Upload PGN files and load PGN data from a URL.
  * Graphical assistant to create and modify chess diagrams in the post/page editor.
  * Multi-language support.
 
@@ -67,10 +72,10 @@ please [contact the author](mailto:yo35@melix.net).
 
 1. Download [rpb-chessboard.zip](http://downloads.wordpress.org/plugin/rpb-chessboard.zip)
 and upload its content to the `/wp-content/plugins/` directory of your website.
-2. Activate the plugin through the 'Plugins' menu in WordPress.
+2. Activate the plugin through the *Plugins* menu in WordPress.
 3. You are now able to put `[fen][/fen]` and `[pgn][/pgn]` tags in your posts and pages
 to insert chess diagrams and full chess games.
-Please look at the 'Chess > Memo' menu (created by the plugin) for examples of
+Please look at the *Chess* > *Memo* menu (created by the plugin) for examples of
 how to use these tags.
 
 For extensive details about plugin installation and management,
@@ -83,7 +88,7 @@ please have a look to the general [plugin management page](http://codex.wordpres
 = How to find help? =
 
 First, **look at the plugin help page**. This help page is available in the administration section
-of your WordPress website: in the main navigation menu > "Chess" > "Help". If no answer can be found there,
+of your WordPress website: in the main navigation menu > *Chess* > *Help*. If no answer can be found there,
 ask your question on [this forum](https://github.com/yo35/rpb-chessboard/issues).
 
 = I encounter a bug, or I think the plugin misses a key feature... =

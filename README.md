@@ -27,6 +27,7 @@ Features
 * Colored square and arrow markers.
 * Compatibility mode to avoid conflicts with the other plugins that use
   the `[fen][/fen]` and `[pgn][/pgn]` shortcodes too.
+* Upload PGN files and load PGN data from a URL.
 * Graphical assistant to create and modify chess diagrams in the post/page editor.
 * Multi-language support.
 
