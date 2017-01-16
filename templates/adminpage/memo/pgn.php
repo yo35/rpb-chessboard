@@ -53,7 +53,7 @@
 					'should be displayed (for instance, use %2$s to display the first game in the file, '.
 					'%3$s for the second game, etc...).',
 				'rpbchessboard'),
-				'<span class="rpbchessboard-sourceCode">game=&lt;INDEX&gt;</span>',
+				'<span class="rpbchessboard-sourceCode">game=...</span>',
 				'<span class="rpbchessboard-sourceCode">game=0</span>',
 				'<span class="rpbchessboard-sourceCode">game=1</span>'
 			); ?>
