@@ -37,8 +37,8 @@ abstract class RPBChessboardStyleSheets
 		wp_enqueue_style('rpbchessboard-chessfonts', RPBCHESSBOARD_URL . 'fonts/chess-fonts.css', false, RPBCHESSBOARD_VERSION);
 
 		// Custom widgets
-		wp_enqueue_style('rpbchessboard-chessboard', RPBCHESSBOARD_URL . 'css/uichess-chessboard.css', false, RPBCHESSBOARD_VERSION);
-		wp_enqueue_style('rpbchessboard-chessgame' , RPBCHESSBOARD_URL . 'css/uichess-chessgame.css' , false, RPBCHESSBOARD_VERSION);
+		wp_enqueue_style('rpbchessboard-chessboard', RPBCHESSBOARD_URL . 'css/rpbchess-ui-chessboard.css', false, RPBCHESSBOARD_VERSION);
+		wp_enqueue_style('rpbchessboard-chessgame' , RPBCHESSBOARD_URL . 'css/rpbchess-ui-chessgame.css' , false, RPBCHESSBOARD_VERSION);
 
 		// Small-screens
 		RPBChessboardHelperCache::ensureExists('small-screens.css', 'Misc/SmallScreens', 'Common/SmallScreens');

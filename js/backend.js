@@ -24,7 +24,7 @@ var RPBChessboard = {};
 /**
  * Miscellaneous functions used by the plugin in the backend.
  *
- * @requires uichess-chessboard.js
+ * @requires rpbchess-ui-chessboard.js
  * @requires jQuery
  * @requires jQuery UI Dialog
  * @requires jQuery UI Accordion

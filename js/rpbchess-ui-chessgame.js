@@ -24,7 +24,7 @@
  *
  * @requires rpbchess.js
  * @requires rpbchess-pgn.js
- * @requires uichess-chessboard.js
+ * @requires rpbchess-ui-chessboard.js
  * @requires Moment.js {@link http://momentjs.com/}
  * @requires jQuery
  * @requires jQuery UI Widget

@@ -43,14 +43,14 @@ abstract class RPBChessboardScripts
 		), RPBCHESSBOARD_VERSION);
 
 		// Chessboard widget
-		wp_register_script('rpbchessboard-chessboard', RPBCHESSBOARD_URL . 'js/uichess-chessboard' . $ext, array(
+		wp_register_script('rpbchessboard-chessboard', RPBCHESSBOARD_URL . 'js/rpbchess-ui-chessboard' . $ext, array(
 			'rpbchessboard-core',
 			'jquery-ui-widget',
 			'jquery-ui-selectable'
 		), RPBCHESSBOARD_VERSION);
 
 		// Chessgame widget
-		wp_register_script('rpbchessboard-chessgame', RPBCHESSBOARD_URL . 'js/uichess-chessgame' . $ext, array(
+		wp_register_script('rpbchessboard-chessgame', RPBCHESSBOARD_URL . 'js/rpbchess-ui-chessgame' . $ext, array(
 			'rpbchessboard-core',
 			'rpbchessboard-pgn',
 			'rpbchessboard-chessboard',
