@@ -37,7 +37,7 @@
 
 	// PGN parsing error messages
 	i18n.INVALID_PGN_TOKEN               = 'Unrecognized character or group of characters.';
-	i18n.INVALID_MOVE_IN_PGN_TEXT        = 'Invalid move. %1$s';
+	i18n.INVALID_MOVE_IN_PGN_TEXT        = 'Invalid move (%1$s). %2$s';
 	i18n.INVALID_NULL_MOVE_IN_PGN_TEXT   = 'Invalid null-move.';
 	i18n.INVALID_FEN_IN_PGN_TEXT         = 'Invalid FEN string in the initial position header. %1$s';
 	i18n.UNEXPECTED_PGN_HEADER           = 'Unexpected PGN item header.';
@@ -671,7 +671,7 @@
 					}
 					catch(error) {
 						if(error instanceof RPBChess.exceptions.InvalidNotation) {
-							throw new InvalidPGN(pgnString, tokenPos, i18n.INVALID_MOVE_IN_PGN_TEXT, error.message);
+							throw new InvalidPGN(pgnString, tokenPos, i18n.INVALID_MOVE_IN_PGN_TEXT, error.notation, error.message);
 						}
 						else {
 							throw error;
