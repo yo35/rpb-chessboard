@@ -363,6 +363,880 @@
 
 
 	/**
+	 * Initialize the internal `RPBChess.pgn.Item` object that contains the parsed PGN data.
+	 *
+	 * @param {uichess.chessgame} widget
+	 * @param {string} pgn
+	 * @returns {string}
+	 */
+	function initializePGN(widget, pgn) {
+
+		// Ensure that the input is actually a string.
+		if(typeof pgn !== 'string') {
+			pgn = '*';
+		}
+
+		// Trim the input.
+		pgn = pgn.replace(/^\s+|\s+$/g, '');
+
+		// Parse the input assuming a PGN format.
+		try {
+			widget._game = RPBChess.pgn.parseOne(pgn, widget.options.gameIndex);
+		}
+		catch(error) {
+			if(error instanceof RPBChess.exceptions.InvalidPGN) { // Parsing errors are reported to the user.
+				widget._game = error;
+			}
+			else { // Unknown exceptions are re-thrown.
+				widget._game = null;
+				throw error;
+			}
+		}
+
+		// Return the validated PGN string.
+		return pgn;
+	}
+
+
+	/**
+	 * Initialize the internal object that describes how to represent the chess pieces
+	 * in SAN notation.
+	 *
+	 * @param {uichess.chessgame} widget
+	 * @param {string} pieceSymbols
+	 * @returns {string}
+	 */
+	function initializePieceSymbols(widget, pieceSymbols) {
+
+		var FIELDS = ['K', 'Q', 'R', 'B', 'N', 'P'];
+
+		// Descriptors: 6 custom letters.
+		if(/^\([a-zA-Z]{6}\)$/.test(pieceSymbols)) {
+			pieceSymbols = pieceSymbols.toUpperCase();
+			widget._pieceSymbolTable = {};
+			for(var k=0; k<6; ++k) {
+				widget._pieceSymbolTable[FIELDS[k]] = pieceSymbols.substr(k+1, 1);
+			}
+		}
+
+		// Descriptors: figurines, using a custom chess font.
+		else if(/^:\w+$/.test(pieceSymbols)) {
+			var info = filterChessFontName(pieceSymbols.substr(1));
+			pieceSymbols = ':' + info.font;
+			widget._pieceSymbolTable = info.pieceSymbolTable;
+		}
+
+		// Special values: native (English initials, localized initials, or figurines using the default chess font).
+		else {
+			switch(pieceSymbols) {
+
+				// Figurines using the default chess font.
+				case 'figurines':
+					widget._pieceSymbolTable = filterChessFontName($.chessgame.chessFont).pieceSymbolTable;
+					break;
+
+				// Localized initials.
+				case 'localized':
+					widget._pieceSymbolTable = {};
+					for(var k=0; k<6; ++k) {
+						var field = FIELDS[k];
+						widget._pieceSymbolTable[field] = (field in $.chessgame.i18n.PIECE_SYMBOLS) ? $.chessgame.i18n.PIECE_SYMBOLS[field] : field;
+					}
+					break;
+
+				// English initials (also the fallback case).
+				default:
+					widget._pieceSymbolTable = { 'K':'K', 'Q':'Q', 'R':'R', 'B':'B', 'N':'N', 'P':'P' };
+					pieceSymbols = 'native';
+					break;
+			}
+		}
+
+		// Return the validated input.
+		return pieceSymbols;
+	}
+
+
+
+	// ---------------------------------------------------------------------------
+	// Widget rendering
+	// ---------------------------------------------------------------------------
+
+	/**
+	 * Destroy the widget content, prior to a refresh or a widget destruction.
+	 *
+	 * @param {uichess.chessgame} widget
+	 */
+	function destroyContent(widget) {
+		var navigationFrameTarget = $('#uichess-chessgame-navigationFrameTarget', widget.element);
+		if(navigationFrameTarget.length !== 0) {
+			$('#uichess-chessgame-navigationFrame').dialog('close');
+		}
+		widget.element.empty();
+	}
+
+
+	/**
+	 * Refresh the widget.
+	 *
+	 * @param {uichess.chessgame} widget
+	 */
+	function refresh(widget) {
+		destroyContent(widget);
+		if(widget._game === null) {
+			return;
+		}
+
+		// Handle parsing error problems.
+		if(widget._game instanceof RPBChess.exceptions.InvalidPGN) {
+			$(buildErrorMessage(widget)).appendTo(widget.element);
+			return;
+		}
+
+		// Headers
+		var headers = '';
+		headers += playerNameHeader(widget, 'White');
+		headers += playerNameHeader(widget, 'Black');
+		headers += eventHeader(widget);
+		headers += datePlaceHeader(widget);
+		headers += annotatorHeader(widget);
+		if(headers !== '') {
+			headers = '<div class="uichess-chessgame-headers">' + headers + '</div>';
+		}
+
+		// Body and initial move
+		var move0 = buildInitialMove(widget);
+		var body  = buildBody(widget);
+
+		// Navigation board
+		var prefix = '';
+		var suffix = '';
+		switch(widget.options.navigationBoard) {
+			case 'floatLeft':
+			case 'floatRight':
+				suffix = '<div class="uichess-chessgame-' + widget.options.navigationBoard.replace('float', 'clear') + '"></div>';
+				prefix = '<div class="uichess-chessgame-navigationBox uichess-chessgame-' + widget.options.navigationBoard + '">' +
+					buildNavigationSkeleton() + '</div>';
+				break;
+			case 'scrollLeft':
+				prefix = '<div class="uichess-chessgame-scrollBox"><div class="uichess-chessgame-navigationBox uichess-chessgame-scrollLeft">' +
+					buildNavigationSkeleton() + '</div><div class="uichess-chessgame-scrollArea">';
+				suffix = '</div></div>';
+				break;
+			case 'scrollRight':
+				prefix = '<div class="uichess-chessgame-scrollBox"><div class="uichess-chessgame-scrollArea">';
+				suffix = '</div><div class="uichess-chessgame-navigationBox uichess-chessgame-scrollRight">' + buildNavigationSkeleton() + '</div></div>';
+				break;
+			case 'above':
+				prefix = '<div class="uichess-chessgame-navigationBox uichess-chessgame-above">' + buildNavigationSkeleton() + '</div>';
+				break;
+			case 'below':
+				suffix = '<div class="uichess-chessgame-navigationBox uichess-chessgame-below">' + buildNavigationSkeleton() + '</div>';
+				break;
+		}
+
+		// Render the content.
+		$(prefix + move0 + headers + body + suffix).appendTo(widget.element);
+
+		// Render the diagrams in comments.
+		makeDiagrams(widget);
+
+		// Activate the navigation board, if required.
+		if(widget.options.navigationBoard !== 'none') {
+			makeMovesClickable(widget);
+			makeMovesRelated(widget);
+			if(widget.options.navigationBoard !== 'frame') {
+				makeNavigationBoxWidgets(widget);
+			}
+			if(widget.options.navigationBoard === 'scrollLeft' || widget.options.navigationBoard === 'scrollRight') {
+				$('.uichess-chessgame-scrollArea', widget.element).css('height', $('.uichess-chessgame-navigationBox', widget.element).height());
+			}
+		}
+	}
+
+
+	/**
+	 * Render the diagrams inserted in text comments.
+	 *
+	 * @param {uichess.chessgame} widget
+	 */
+	function makeDiagrams(widget) {
+		$('.uichess-chessgame-comment .uichess-chessgame-diagramAnchor', widget.element).each(function(index, element) {
+			var anchor = $(element);
+
+			// Retrieve the position
+			var commentNode = anchor.closest('.uichess-chessgame-comment');
+			var position = commentNode.data('position');
+			var csl = commentNode.data('csl');
+			var cal = commentNode.data('cal');
+
+			// Build the option set to pass to the chessboard widget constructor.
+			var options = { position: position };
+			if(typeof csl !== 'undefined') { options.squareMarkers = csl; }
+			if(typeof cal !== 'undefined') { options.arrowMarkers = cal; }
+			$.extend(options, widget.options.diagramOptions);
+			try {
+				$.extend(options, filterChessboardOptions($.parseJSON(anchor.text())));
+			}
+			catch(error) {} // The content of the node is ignored if it is not a valid JSON-encoded object.
+
+			// Render the diagram.
+			anchor.empty().removeClass('uichess-chessgame-diagramAnchor').addClass('uichess-chessgame-diagram').chessboard(options);
+		});
+	}
+
+
+	/**
+	 * Make the moves clickable: when clicked, the navigation board is updated to show
+	 * the position after the corresponding move.
+	 *
+	 * @param {uichess.chessgame} widget
+	 */
+	function makeMovesClickable(widget) {
+		$('.uichess-chessgame-move', widget.element).click(function() { updateNavigationBoard(widget, $(this), true); });
+	}
+
+
+	/**
+	 * For each move, add pointer to its predecessor and its successor in the variation.
+	 *
+	 * @param {uichess.chessgame} widget
+	 */
+	function makeMovesRelated(widget) {
+
+		// For each variation...
+		$('.uichess-chessgame-variation', widget.element).each(function(index, element) {
+
+			// Retrieve the moves of the variation.
+			var variation = $(element);
+			var moves     = variation.is('div') ?
+				variation.children('.uichess-chessgame-moveGroup').children('.uichess-chessgame-move') :
+				variation.children('.uichess-chessgame-move');
+
+			// Link each move to its successor and its predecessor.
+			var previousMove = null;
+			moves.each(function(index, element) {
+				var move = $(element);
+				if(previousMove !== null) {
+					move.data('prevMove', previousMove);
+					previousMove.data('nextMove', move);
+				}
+				previousMove = move;
+			});
+		});
+
+		// The initial move must be linked specifically since it does not belong to any variation.
+		var initialMove = $('.uichess-chessgame-initialMove', widget.element);
+		var allMoves    = $('.uichess-chessgame-variation .uichess-chessgame-move', widget.element);
+		if(allMoves.length !== 0) {
+			var secondMove = allMoves.first();
+			secondMove.data('prevMove', initialMove);
+			initialMove.data('nextMove', secondMove);
+		}
+	}
+
+
+	/**
+	 * Initialize the navigation box widgets.
+	 *
+	 * @param {uichess.chessgame} widget
+	 */
+	function makeNavigationBoxWidgets(widget) {
+
+		// Set-up the navigation board.
+		$('.uichess-chessgame-navigationBoard', widget.element).chessboard(widget.options.navigationBoardOptions);
+
+		// Navigation buttons
+		$('.uichess-chessgame-navigationButtonFrst', widget.element).click(function(event) { event.preventDefault(); widget.goFirstMove   (); });
+		$('.uichess-chessgame-navigationButtonPrev', widget.element).click(function(event) { event.preventDefault(); widget.goPreviousMove(); });
+		$('.uichess-chessgame-navigationButtonNext', widget.element).click(function(event) { event.preventDefault(); widget.goNextMove    (); });
+		$('.uichess-chessgame-navigationButtonLast', widget.element).click(function(event) { event.preventDefault(); widget.goLastMove    (); });
+
+		// Show the initial position on the navigation board.
+		updateNavigationBoard(widget, $('.uichess-chessgame-initialMove', widget.element), false);
+	}
+
+
+	/**
+	 * Build the error message resulting from a PGN parsing error.
+	 *
+	 * @param {uichess.chessgame} widget
+	 * @returns {string}
+	 */
+	function buildErrorMessage(widget) {
+
+		// Build the error report box.
+		var retVal = '<div class="uichess-chessgame-error">' +
+			'<div class="uichess-chessgame-errorTitle">Error while analysing a PGN string.</div>';
+
+		// Optional message.
+		if(widget._game.message !== null) {
+			retVal += '<div class="uichess-chessgame-errorMessage">' + widget._game.message + '</div>';
+		}
+
+		// Display where the error has occurred.
+		if(widget._game.index !== null && widget._game.index >= 0) {
+			retVal += '<div class="uichess-chessgame-errorAt">';
+			if(widget._game.index >= widget._game.pgn.length) {
+				retVal += 'Occurred at the end of the string.';
+			}
+			else {
+				retVal += 'Occurred at position ' + widget._game.index + ':' + '<div class="uichess-chessgame-errorAtCode">' +
+					ellipsisAt(widget._game.pgn, widget._game.index, 10, 40) + '</div>';
+			}
+			retVal += '</div>';
+		}
+
+		// Close the error report box, and return the result.
+		retVal += '</div>';
+		return retVal;
+	}
+
+
+	/**
+	 * Build the header containing the player-related information (name, rating, title)
+	 * corresponding to the requested color.
+	 *
+	 * @param {uichess.chessgame} widget
+	 * @param {string} color Either 'White' or 'Black'.
+	 * @returns {string}
+	 */
+	function playerNameHeader(widget, color) {
+
+		// Retrieve the name of the player -> no header is returned if the name not available.
+		var name = formatDefault(widget._game.header(color));
+		if(name===null) {
+			return '';
+		}
+
+		// Build the returned header.
+		var header = '<div class="uichess-chessgame-' + color.toLowerCase() + 'Player">' +
+			'<span class="uichess-chessgame-colorTag"></span> ' +
+			'<span class="uichess-chessgame-playerName">' + name + '</span>';
+
+		// Title + rating
+		var title  = formatTitle  (widget._game.header(color + 'Title'));
+		var rating = formatDefault(widget._game.header(color + 'Elo'  ));
+		if(title !== null || rating !== null) {
+			header += '<span class="uichess-chessgame-titleRatingGroup">';
+			if(title  !== null) { header += '<span class="uichess-chessgame-playerTitle">'  + title  + '</span>'; }
+			if(rating !== null) { header += '<span class="uichess-chessgame-playerRating">' + rating + '</span>'; }
+			header += '</span>';
+		}
+
+		// Add the closing tag and return the result.
+		header += '</div>';
+		return header;
+	}
+
+
+	/**
+	 * Build the header containing the event-related information (event + round).
+	 *
+	 * @param {uichess.chessgame} widget
+	 * @returns {string}
+	 */
+	function eventHeader(widget) {
+
+		// Retrieve the event -> no header is returned if the name not available.
+		var event = formatDefault(widget._game.header('Event'));
+		if(event===null) {
+			return '';
+		}
+
+		// Retrieve the round.
+		var round = formatDefault(widget._game.header('Round'));
+
+		// Build and return the header.
+		var header = '<div class="uichess-chessgame-event">' + event;
+		if(round !== null) {
+			header += '<span class="uichess-chessgame-round">' + round + '</span>';
+		}
+		header += '</div>';
+		return header;
+	}
+
+
+	/**
+	 * Build the header containing the date/place information.
+	 *
+	 * @param {uichess.chessgame} widget
+	 * @returns {string}
+	 */
+	function datePlaceHeader(widget) {
+
+		// Retrieve the date and the site field.
+		var date = formatDate   (widget._game.header('Date'));
+		var site = formatDefault(widget._game.header('Site'));
+		if(date===null && site===null) {
+			return '';
+		}
+
+		// Build and return the header.
+		var header = '<div class="uichess-chessgame-datePlaceGroup">';
+		if(date !== null) { header += '<span class="uichess-chessgame-date">' + date + '</span>'; }
+		if(site !== null) { header += '<span class="uichess-chessgame-site">' + site + '</span>'; }
+		header += '</div>';
+		return header;
+	}
+
+
+	/**
+	 * Build the header containing the annotator information.
+	 *
+	 * @param {uichess.chessgame} widget
+	 * @returns {string}
+	 */
+	function annotatorHeader(widget) {
+
+		// Retrieve the annotator field.
+		var annotator = formatDefault(widget._game.header('Annotator'));
+		if(annotator===null) {
+			return '';
+		}
+
+		// Build and return the header.
+		var header = '<div class="uichess-chessgame-annotator">' + $.chessgame.i18n.ANNOTATED_BY.replace(/%1\$s/g,
+			'<span class="uichess-chessgame-annotatorName">' + annotator + '</span>') + '</div>';
+		return header;
+	}
+
+
+	/**
+	 * Build the move tree.
+	 *
+	 * @param {uichess.chessgame} widget
+	 * @returns {string}
+	 */
+	function buildBody(widget) {
+		var mainVariation = buildVariation(widget, widget._game.mainVariation(), true, formatResult(widget._game.result()));
+
+		// Nothing to do if the main variation is empty.
+		if(mainVariation.content === '') {
+			return '';
+		}
+
+		// Otherwise, wrap it into a DIV node.
+		var bodyClass = 'uichess-chessgame-body';
+		if(mainVariation.divCount > 1) { bodyClass += ' uichess-chessgame-moreSpace'; }
+		if(widget.options.navigationBoard !== 'none') { bodyClass += ' uichess-chessgame-clickableMoves'; }
+		return '<div class="' + bodyClass + '">' + mainVariation.content + '</div>';
+	}
+
+
+	/**
+	 * Build the move tree corresponding to the given variation.
+	 *
+	 * @param {uichess.chessgame} widget
+	 * @param {RPBChess.pgn.Variation} variation
+	 * @param {boolean} isMainVariation
+	 * @param {null|string} result Must be set to null for sub-variations.
+	 * @returns {string|{content:string, divCount:number}} The second form is only used for the main variation.
+	 */
+	function buildVariation(widget, variation, isMainVariation, result) {
+
+		// Nothing to do if the variation is empty.
+		if(variation.comment() === null && variation.first() === null && result === null) {
+			return isMainVariation ? { content: '', divCount: 0 } : '';
+		}
+
+		// Open a new DOM node for the variation.
+		var tag = variation.isLongVariation() ? 'div' : 'span';
+		var retVal = '<' + tag + ' class="uichess-chessgame-variation' + (isMainVariation ? '' : ' uichess-chessgame-subVariation') + '">';
+
+		// The flag `moveGroupOpened` indicates whether a `<div class="moveGroup">` node
+		// is currently opened or not. Move group nodes are supposed to contain moves,
+		// short-comments and short-variations when the parent variation is long.
+		// In short variations, there is no move groups.
+		var enableMoveGroups = variation.isLongVariation();
+		var moveGroupOpened  = false;
+		var divCount         = 0;
+
+		// Open a new move group if necessary.
+		function openMoveGroup() {
+			if(enableMoveGroups && !moveGroupOpened) {
+				retVal += '<div class="uichess-chessgame-moveGroup">';
+				moveGroupOpened = true;
+				++divCount;
+			}
+		}
+
+		// Close the current move group, if any.
+		function closeMoveGroup() {
+			if(moveGroupOpened) {
+				retVal += '</div>';
+				moveGroupOpened = false;
+			}
+		}
+
+		// Write the initial comment, if any.
+		if(variation.comment() !== null) {
+			if(variation.isLongComment()) {
+				++divCount;
+			} else {
+				openMoveGroup();
+			}
+			retVal += buildComment(variation);
+		}
+
+		// Visit all the PGN nodes (one node per move) within the variation.
+		var forcePrintMoveNumber = true;
+		var node = variation.first();
+		while(node !== null)
+		{
+			// Write the move, including directly related information (i.e. move number + NAGs).
+			openMoveGroup();
+			retVal += buildMove(widget, node, forcePrintMoveNumber);
+
+			// Write the comment (if any).
+			if(node.comment() !== null) {
+				if(node.isLongComment()) {
+					closeMoveGroup();
+					++divCount;
+				}
+				retVal += buildComment(node);
+			}
+
+			// Write the sub-variations.
+			var nonEmptySubVariations = 0;
+			var subVariations = node.variations();
+			for(var k=0; k<subVariations.length; ++k) {
+				var subVariationText = buildVariation(widget, subVariations[k], false, null);
+				if(subVariationText !== '') {
+					if(subVariations[k].isLongVariation()) {
+						closeMoveGroup();
+						++divCount;
+					} else {
+						openMoveGroup();
+					}
+					retVal += subVariationText;
+					++nonEmptySubVariations;
+				}
+			}
+
+			// Back to the current variation, go to the next move.
+			forcePrintMoveNumber = (node.comment() !== null || nonEmptySubVariations > 0);
+			node = node.next();
+		}
+
+		// Append the result and the end of the main variation.
+		if(isMainVariation && result !== null) {
+			openMoveGroup();
+			retVal += '<span class="uichess-chessgame-result">' + result + '</span>';
+		}
+
+		// Close the opened DOM nodes, and returned the result.
+		closeMoveGroup();
+		retVal += '</' + tag + '>';
+		return isMainVariation ? { content: retVal, divCount: divCount } : retVal;
+	}
+
+
+	/**
+	 * Build the DOM attributes to add to a DOM node to be able to reload the position associated to the current node.
+	 *
+	 * @param {RPBChess.pgn.Node|RPBChess.pgn.Variation} node
+	 * @param {boolean} addAnimationSupport `true` to add the information required for move highlighting.
+	 * @returns {string}
+	 */
+	function buildPositionInformation(node, moveHighlightSupport) {
+		var res = 'data-position="' + node.position().fen() + '"';
+
+		// Move highlighting
+		if(moveHighlightSupport) {
+			res += ' data-position-before="' + node.positionBefore().fen() + '" data-move-notation="' + node.move() + '"';
+		}
+
+		// Square markers
+		var csl = node.tag('csl');
+		if(csl !== null) {
+			res += ' data-csl="' + csl + '"';
+		}
+
+		// Arrow markers
+		var cal = node.tag('cal');
+		if(cal !== null) {
+			res += ' data-cal="' + cal + '"';
+		}
+
+		return res;
+	}
+
+
+	/**
+	 * Build the DOM node corresponding to the given text comment.
+	 *
+	 * @param {RPBChess.pgn.Node|RPBChess.pgn.Variation} node
+	 * @returns {string}
+	 */
+	function buildComment(node) {
+		var tag = node.isLongComment() ? 'div' : 'span';
+		return '<' + tag + ' class="uichess-chessgame-comment" ' + buildPositionInformation(node, false) + '>' +
+			node.comment() + '</' + tag + '>';
+	}
+
+
+	/**
+	 * Build the DOM node corresponding to the given move (move number, SAN notation, NAGs).
+	 *
+	 * @param {uichess.chessgame} widget
+	 * @param {RPBChess.pgn.Node} node
+	 * @param {boolean} forcePrintMoveNumber
+	 * @returns {string}
+	 */
+	function buildMove(widget, node, forcePrintMoveNumber) {
+
+		// Create the DOM node.
+		var retVal = '<span class="uichess-chessgame-move" ' + buildPositionInformation(node, true) + '>';
+
+		// Move number
+		var printMoveNumber = forcePrintMoveNumber || node.moveColor() === 'w';
+		var moveNumberClass = 'uichess-chessgame-moveNumber' + (printMoveNumber ? '' : ' uichess-chessgame-hidden');
+		var moveNumberText  = node.fullMoveNumber() + (node.moveColor() === 'w' ? '.' : '\u2026');
+		retVal += '<span class="' + moveNumberClass + '">' + moveNumberText + '</span>';
+
+		// SAN notation.
+		var pieceSymbolTable = widget._pieceSymbolTable;
+		retVal += node.move().replace(/[KQRBNP]/g, function(match) {
+			return pieceSymbolTable[match];
+		});
+
+		// NAGs
+		var nags = node.nags();
+		for(var k=0; k<nags.length; ++k) {
+			retVal += ' ' + formatNag(nags[k]);
+		}
+
+		// Close the DOM node.
+		retVal += '</span>';
+		return retVal;
+	}
+
+
+	/**
+	 * Build the DOM node corresponding to the "initial-position-move",
+	 * which is always hidden, but must be added to make possible to display
+	 * the initial position in the navigation board.
+	 *
+	 * @param {uichess.chessgame} widget
+	 * @returns {string}
+	 */
+	function buildInitialMove(widget) {
+		return '<div class="uichess-chessgame-move uichess-chessgame-initialMove" ' + buildPositionInformation(widget._game.mainVariation(), false) +
+			'>' + $.chessgame.i18n.INITIAL_POSITION + '</div>';
+	}
+
+
+	/**
+	 * Build the DOM nodes that will be used as a skeleton for the navigation board and buttons.
+	 *
+	 * @returns {string}
+	 */
+	function buildNavigationSkeleton() {
+		return '<div class="uichess-chessgame-navigationBoard"></div>' +
+			'<div class="uichess-chessgame-navigationButtons">' +
+				'<button class="uichess-chessgame-navigationButtonFrst">&lt;&lt;</button>' +
+				'<button class="uichess-chessgame-navigationButtonPrev">&lt;</button>' +
+				'<button class="uichess-chessgame-navigationButtonNext">&gt;</button>' +
+				'<button class="uichess-chessgame-navigationButtonLast">&gt;&gt;</button>' +
+			'</div>';
+	}
+
+
+	/**
+	 * Create the navigation frame, if it does not exist yet.
+	 */
+	function buildNavigationFrame() {
+		if($('#uichess-chessgame-navigationFrame').length !== 0) {
+			return;
+		}
+
+		// Structure of the navigation frame.
+		$('<div id="uichess-chessgame-navigationFrame">' + buildNavigationSkeleton() + '</div>').appendTo($('body'));
+
+		// Create the dialog widget.
+		$('#uichess-chessgame-navigationFrame').dialog({
+			/* Hack to keep the dialog draggable after the page has being scrolled. */
+			create     : function(event) { $(event.target).parent().css('position', 'fixed'); },
+			resizeStart: function(event) { $(event.target).parent().css('position', 'fixed'); },
+			resizeStop : function(event) { $(event.target).parent().css('position', 'fixed'); },
+			/* End of hack */
+			autoOpen   : false,
+			dialogClass: $.chessgame.navigationFrameClass,
+			width      : 'auto',
+			close      : function() { unselectMove(); }
+		});
+
+		// Create the chessboard widget.
+		var widget = $('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationBoard');
+		widget.chessboard(filterChessboardOptions($.chessgame.navigationFrameOptions));
+		widget.chessboard('sizeControlledByContainer', $('#uichess-chessgame-navigationFrame'), 'dialogresize');
+
+		// Callback for the buttons.
+		function callback(methodName) {
+			var gameWidget = $('#uichess-chessgame-navigationFrameTarget').closest('.uichess-chessgame');
+			gameWidget.chessgame(methodName);
+
+			// Scroll to the selected move.
+			var target = $('.uichess-chessgame-selectedMove', gameWidget);
+			var allowScrollDown = true;
+			if(target.hasClass('uichess-chessgame-initialMove')) {
+				target = gameWidget;
+				allowScrollDown = false;
+			}
+			var targetOffset = target.offset();
+			if(targetOffset.top < $(window).scrollTop()) {
+				$('html, body').animate({ scrollTop: targetOffset.top }, 200);
+			}
+			else if(allowScrollDown && targetOffset.top + target.height() > $(window).scrollTop() + window.innerHeight) {
+				$('html, body').animate({ scrollTop: targetOffset.top + target.height() - window.innerHeight }, 200);
+			}
+		}
+
+		// Create the buttons.
+		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonFrst').click(function(event) { event.preventDefault(); callback('goFirstMove'   ); });
+		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonPrev').click(function(event) { event.preventDefault(); callback('goPreviousMove'); });
+		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonNext').click(function(event) { event.preventDefault(); callback('goNextMove'    ); });
+		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonLast').click(function(event) { event.preventDefault(); callback('goLastMove'    ); });
+	}
+
+
+
+	// ---------------------------------------------------------------------------
+	// Callbacks
+	// ---------------------------------------------------------------------------
+
+	/**
+	 * Select the given move and update the navigation board accordingly.
+	 *
+	 * @param {uichess.chessgame} widget
+	 * @param {jQuery} [move] Nothing is done if null or undefined.
+	 * @param {boolean} playTheMove
+	 */
+	function updateNavigationBoard(widget, move, playTheMove) {
+		if(move === undefined || move === null || move.hasClass('uichess-chessgame-selectedMove')) {
+			return;
+		}
+
+		// If the navigation board should be shown within the dedicated frame,
+		// ensure that the latter has been built.
+		if(widget.options.navigationBoard === 'frame') {
+			buildNavigationFrame();
+		}
+
+		// Update the selected move and the mini-board.
+		updateNavigationBoardWidget(widget, move, playTheMove);
+		updateSelectedMove(widget, move);
+
+		// If the navigation board is in the dedicated frame, update its title,
+		// and ensure that it is visible.
+		if(widget.options.navigationBoard === 'frame') {
+			var frame = $('#uichess-chessgame-navigationFrame');
+			if(!frame.dialog('isOpen')) {
+				frame.dialog('option', 'position', { my: 'center', at: 'center', of: window });
+				frame.dialog('open');
+			}
+			$('.ui-dialog-title', frame.closest('.ui-dialog')).empty().append(move.html());
+		}
+
+		// Scroll to the selected move if possible.
+		if(widget.options.navigationBoard === 'scrollLeft' || widget.options.navigationBoard === 'scrollRight') {
+			var target = $('.uichess-chessgame-selectedMove', widget.element);
+			var scrollArea = $('.uichess-chessgame-scrollArea', widget.element);
+			var allowScrollDown = true;
+			if(target.hasClass('uichess-chessgame-initialMove')) {
+				target = $('.uichess-chessgame-headers', widget.element);
+				allowScrollDown = false;
+			}
+			var targetOffsetTop = target.offset().top - scrollArea.offset().top;
+			if(targetOffsetTop < 0) {
+				scrollArea.animate({ scrollTop: scrollArea.scrollTop() + targetOffsetTop }, 200);
+			}
+			else if(allowScrollDown && targetOffsetTop + target.height() > scrollArea.height()) {
+				scrollArea.animate({ scrollTop: scrollArea.scrollTop() + targetOffsetTop + target.height() - scrollArea.height() }, 200);
+			}
+		}
+	}
+
+
+	/**
+	 * Refresh the navigation chessboard widget.
+	 *
+	 * @param {uichess.chessgame} widget
+	 * @param {jQuery} move
+	 * @param {boolean} playTheMove
+	 */
+	function updateNavigationBoardWidget(widget, move, playTheMove) {
+		var navigationBoard = widget.options.navigationBoard === 'frame' ?
+			$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationBoard') :
+			$('.uichess-chessgame-navigationBoard', widget.element);
+
+		// Flip the board if necessary.
+		if(widget.options.navigationBoardOptions.flip !== navigationBoard.chessboard('option', 'flip')) {
+			navigationBoard.chessboard('option', 'flip', widget.options.navigationBoardOptions.flip);
+		}
+
+		// Update the position.
+		if(playTheMove) {
+			navigationBoard.chessboard('option', 'position', move.data('positionBefore'));
+			navigationBoard.chessboard('play', move.data('moveNotation'));
+		}
+		else {
+			navigationBoard.chessboard('option', 'position', move.data('position'));
+		}
+
+		// Update the square/arrow markers
+		var csl = move.data('csl');
+		var cal = move.data('cal');
+		navigationBoard.chessboard('option', 'squareMarkers', typeof csl === 'undefined' ? '' : csl);
+		navigationBoard.chessboard('option', 'arrowMarkers', typeof cal === 'undefined' ? '' : cal);
+	}
+
+
+	/**
+	 * Make the given move appear as selected.
+	 *
+	 * @param {uichess.chessgame} widget
+	 * @param {jQuery} move
+	 */
+	function updateSelectedMove(widget, move) {
+		var global = widget.options.navigationBoard === 'frame';
+
+		// Unselect the previously selected move, if any.
+		unselectMove(global ? null : $('.uichess-chessgame-selectedMove', widget.element));
+
+		// Update the ID/class attributes.
+		move.addClass('uichess-chessgame-selectedMove');
+		if(global) {
+			move.attr('id', 'uichess-chessgame-navigationFrameTarget');
+		}
+
+		// Highlight the selected move.
+		var color = move.css('color');
+		move.css('background-color', color);
+		move.css('color', contrastedColor(color));
+	}
+
+
+	/**
+	 * Unselect the selected move, if any.
+	 *
+	 * @param {jQuery} [target] Move to unselect. If not provided, `#uichess-chessgame-navigationFrameTarget` is targeted.
+	 */
+	function unselectMove(target) {
+		if(target === undefined || target === null) {
+			target = $('#uichess-chessgame-navigationFrameTarget');
+		}
+		target.attr('style', null).attr('id', null).removeClass('uichess-chessgame-selectedMove');
+	}
+
+
+
+	// ---------------------------------------------------------------------------
+	// Widget registration in the jQuery widget framework.
+	// ---------------------------------------------------------------------------
+
+	/**
 	 * Register a 'chessgame' widget in the jQuery widget framework.
 	 */
 	$.widget('uichess.chessgame',
@@ -438,12 +1312,12 @@
 		_create: function()
 		{
 			this.element.addClass('uichess-chessgame');
-			this.options.pgn          = this._initializePGN         (this.options.pgn         );
-			this.options.pieceSymbols = this._initializePieceSymbols(this.options.pieceSymbols);
+			this.options.pgn          = initializePGN(this, this.options.pgn);
+			this.options.pieceSymbols = initializePieceSymbols(this, this.options.pieceSymbols);
 			this.options.navigationBoard        = filterNavigationBoard  (this.options.navigationBoard       );
 			this.options.navigationBoardOptions = filterChessboardOptions(this.options.navigationBoardOptions);
 			this.options.diagramOptions         = filterChessboardOptions(this.options.diagramOptions        );
-			this._refresh();
+			refresh(this);
 		},
 
 
@@ -452,7 +1326,7 @@
 		 */
 		_destroy: function()
 		{
-			this._destroyContent();
+			destroyContent(this);
 			this.element.removeClass('uichess-chessgame');
 		},
 
@@ -463,23 +1337,22 @@
 		_setOption: function(key, value)
 		{
 			switch(key) {
-				case 'pgn'         : value = this._initializePGN         (value); break;
-				case 'pieceSymbols': value = this._initializePieceSymbols(value); break;
+				case 'pgn'         : value = initializePGN(this, value); break;
+				case 'pieceSymbols': value = initializePieceSymbols(this, value); break;
 				case 'navigationBoard'       : value = filterNavigationBoard  (value); break;
 				case 'navigationBoardOptions': value = filterChessboardOptions(value); break;
 				case 'diagramOptions'        : value = filterChessboardOptions(value); break;
 			}
 
 			this.options[key] = value;
-			this._refresh();
+			refresh(this);
 		},
 
 
 		/**
 		 * Go to the first move of the variation of the currently selected move.
 		 */
-		goFirstMove: function()
-		{
+		goFirstMove: function() {
 			var target = $('.uichess-chessgame-selectedMove', this.element);
 			if(target.length === 0) {
 				return;
@@ -487,33 +1360,30 @@
 			while(target.data('prevMove') !== undefined) {
 				target = target.data('prevMove');
 			}
-			this._updateNavigationBoard(target, false);
+			updateNavigationBoard(this, target, false);
 		},
 
 
 		/**
 		 * Go to the previous move of the currently selected move.
 		 */
-		goPreviousMove: function()
-		{
-			this._updateNavigationBoard($('.uichess-chessgame-selectedMove', this.element).data('prevMove'), false);
+		goPreviousMove: function() {
+			updateNavigationBoard(this, $('.uichess-chessgame-selectedMove', this.element).data('prevMove'), false);
 		},
 
 
 		/**
 		 * Go to the next move of the currently selected move.
 		 */
-		goNextMove: function()
-		{
-			this._updateNavigationBoard($('.uichess-chessgame-selectedMove', this.element).data('nextMove'), true);
+		goNextMove: function() {
+			updateNavigationBoard(this, $('.uichess-chessgame-selectedMove', this.element).data('nextMove'), true);
 		},
 
 
 		/**
 		 * Go to the last move of the variation of the currently selected move.
 		 */
-		goLastMove: function()
-		{
+		goLastMove: function() {
 			var target = $('.uichess-chessgame-selectedMove', this.element);
 			if(target.length === 0) {
 				return;
@@ -521,860 +1391,9 @@
 			while(target.data('nextMove') !== undefined) {
 				target = target.data('nextMove');
 			}
-			this._updateNavigationBoard(target, false);
-		},
-
-
-		/**
-		 * Initialize the internal `RPBChess.pgn.Item` object that contains the parsed PGN data.
-		 *
-		 * @param {string} pgn
-		 * @returns {string}
-		 */
-		_initializePGN: function(pgn)
-		{
-			// Ensure that the input is actually a string.
-			if(typeof pgn !== 'string') {
-				pgn = '*';
-			}
-
-			// Trim the input.
-			pgn = pgn.replace(/^\s+|\s+$/g, '');
-
-			// Parse the input assuming a PGN format.
-			try {
-				this._game = RPBChess.pgn.parseOne(pgn, this.options.gameIndex);
-			}
-			catch(error) {
-				if(error instanceof RPBChess.exceptions.InvalidPGN) { // Parsing errors are reported to the user.
-					this._game = error;
-				}
-				else { // Unknown exceptions are re-thrown.
-					this._game = null;
-					throw error;
-				}
-			}
-
-			// Return the validated PGN string.
-			return pgn;
-		},
-
-
-		/**
-		 * Initialize the internal object that describes how to represent the chess pieces
-		 * in SAN notation.
-		 *
-		 * @param {string} pieceSymbols
-		 * @returns {string}
-		 */
-		_initializePieceSymbols: function(pieceSymbols)
-		{
-			var FIELDS = ['K', 'Q', 'R', 'B', 'N', 'P'];
-
-			// Descriptors: 6 custom letters.
-			if(/^\([a-zA-Z]{6}\)$/.test(pieceSymbols)) {
-				pieceSymbols = pieceSymbols.toUpperCase();
-				this._pieceSymbolTable = {};
-				for(var k=0; k<6; ++k) {
-					this._pieceSymbolTable[FIELDS[k]] = pieceSymbols.substr(k+1, 1);
-				}
-			}
-
-			// Descriptors: figurines, using a custom chess font.
-			else if(/^:\w+$/.test(pieceSymbols)) {
-				var info = filterChessFontName(pieceSymbols.substr(1));
-				pieceSymbols = ':' + info.font;
-				this._pieceSymbolTable = info.pieceSymbolTable;
-			}
-
-			// Special values: native (English initials, localized initials, or figurines
-			// using the default chess font).
-			else {
-				switch(pieceSymbols) {
-
-					// Figurines using the default chess font.
-					case 'figurines':
-						this._pieceSymbolTable = filterChessFontName($.chessgame.chessFont).pieceSymbolTable;
-						break;
-
-					// Localized initials.
-					case 'localized':
-						this._pieceSymbolTable = {};
-						for(var k=0; k<6; ++k) {
-							var field = FIELDS[k];
-							this._pieceSymbolTable[field] = (field in $.chessgame.i18n.PIECE_SYMBOLS) ?
-								$.chessgame.i18n.PIECE_SYMBOLS[field] : field;
-						}
-						break;
-
-					// English initials (also the fallback case).
-					default:
-						this._pieceSymbolTable = { 'K':'K', 'Q':'Q', 'R':'R', 'B':'B', 'N':'N', 'P':'P' };
-						pieceSymbols = 'native';
-						break;
-				}
-			}
-
-			// Return the validated input.
-			return pieceSymbols;
-		},
-
-
-		/**
-		 * Destroy the widget content, prior to a refresh or a widget destruction.
-		 */
-		_destroyContent: function()
-		{
-			var navigationFrameTarget = $('#uichess-chessgame-navigationFrameTarget', this.element);
-			if(navigationFrameTarget.length !== 0) {
-				$('#uichess-chessgame-navigationFrame').dialog('close');
-			}
-			this.element.empty();
-		},
-
-
-		/**
-		 * Refresh the widget.
-		 */
-		_refresh: function()
-		{
-			this._destroyContent();
-			if(this._game === null) {
-				return;
-			}
-
-			// Handle parsing error problems.
-			if(this._game instanceof RPBChess.exceptions.InvalidPGN) {
-				$(this._buildErrorMessage()).appendTo(this.element);
-				return;
-			}
-
-			// Headers
-			var headers = '';
-			headers += this._playerNameHeader('White');
-			headers += this._playerNameHeader('Black');
-			headers += this._eventHeader();
-			headers += this._datePlaceHeader();
-			headers += this._annotatorHeader();
-			if(headers !== '') {
-				headers = '<div class="uichess-chessgame-headers">' + headers + '</div>';
-			}
-
-			// Body and initial move
-			var move0 = this._buildInitialMove();
-			var body  = this._buildBody();
-
-			// Navigation board
-			var prefix = '';
-			var suffix = '';
-			switch(this.options.navigationBoard) {
-				case 'floatLeft':
-				case 'floatRight':
-					suffix = '<div class="uichess-chessgame-' + this.options.navigationBoard.replace('float', 'clear') + '"></div>';
-					prefix = '<div class="uichess-chessgame-navigationBox uichess-chessgame-' + this.options.navigationBoard + '">' +
-						buildNavigationSkeleton() + '</div>';
-					break;
-				case 'scrollLeft':
-					prefix = '<div class="uichess-chessgame-scrollBox"><div class="uichess-chessgame-navigationBox uichess-chessgame-scrollLeft">' +
-						buildNavigationSkeleton() + '</div><div class="uichess-chessgame-scrollArea">';
-					suffix = '</div></div>';
-					break;
-				case 'scrollRight':
-					prefix = '<div class="uichess-chessgame-scrollBox"><div class="uichess-chessgame-scrollArea">';
-					suffix = '</div><div class="uichess-chessgame-navigationBox uichess-chessgame-scrollRight">' + buildNavigationSkeleton() + '</div></div>';
-					break;
-				case 'above':
-					prefix = '<div class="uichess-chessgame-navigationBox uichess-chessgame-above">' + buildNavigationSkeleton() + '</div>';
-					break;
-				case 'below':
-					suffix = '<div class="uichess-chessgame-navigationBox uichess-chessgame-below">' + buildNavigationSkeleton() + '</div>';
-					break;
-			}
-
-			// Render the content.
-			$(prefix + move0 + headers + body + suffix).appendTo(this.element);
-
-			// Render the diagrams in comments.
-			this._makeDiagrams();
-
-			// Activate the navigation board, if required.
-			if(this.options.navigationBoard !== 'none') {
-				this._makeMovesClickable();
-				this._makeMovesRelated();
-				if(this.options.navigationBoard !== 'frame') {
-					this._makeNavigationBoxWidgets();
-				}
-				if(this.options.navigationBoard === 'scrollLeft' || this.options.navigationBoard === 'scrollRight') {
-					$('.uichess-chessgame-scrollArea', this.element).css('height', $('.uichess-chessgame-navigationBox', this.element).height());
-				}
-			}
-		},
-
-
-		/**
-		 * Render the diagrams inserted in text comments.
-		 */
-		_makeDiagrams: function()
-		{
-			var obj = this;
-			$('.uichess-chessgame-comment .uichess-chessgame-diagramAnchor', this.element).each(function(index, element)
-			{
-				var anchor = $(element);
-
-				// Retrieve the position
-				var commentNode = anchor.closest('.uichess-chessgame-comment');
-				var position = commentNode.data('position');
-				var csl = commentNode.data('csl');
-				var cal = commentNode.data('cal');
-
-				// Build the option set to pass to the chessboard widget constructor.
-				var options = { position: position };
-				if(typeof csl !== 'undefined') { options.squareMarkers = csl; }
-				if(typeof cal !== 'undefined') { options.arrowMarkers = cal; }
-				$.extend(options, obj.options.diagramOptions);
-				try {
-					$.extend(options, filterChessboardOptions($.parseJSON(anchor.text())));
-				}
-				catch(error) {} // The content of the node is ignored if it is not a valid JSON-encoded object.
-
-				// Render the diagram.
-				anchor.empty().removeClass('uichess-chessgame-diagramAnchor').addClass('uichess-chessgame-diagram').chessboard(options);
-			});
-		},
-
-
-		/**
-		 * Make the moves clickable: when clicked, the navigation board is updated to show
-		 * the position after the corresponding move.
-		 */
-		_makeMovesClickable: function() {
-			var obj = this;
-			$('.uichess-chessgame-move', this.element).click(function() { obj._updateNavigationBoard($(this), true); });
-		},
-
-
-		/**
-		 * For each move, add pointer to its predecessor and its successor in the variation.
-		 */
-		_makeMovesRelated: function()
-		{
-			// For each variation...
-			$('.uichess-chessgame-variation').each(function(index, element)
-			{
-				// Retrieve the moves of the variation.
-				var variation = $(element);
-				var moves     = variation.is('div') ?
-					variation.children('.uichess-chessgame-moveGroup').children('.uichess-chessgame-move') :
-					variation.children('.uichess-chessgame-move');
-
-				// Link each move to its successor and its predecessor.
-				var previousMove = null;
-				moves.each(function(index, element) {
-					var move = $(element);
-					if(previousMove !== null) {
-						move.data('prevMove', previousMove);
-						previousMove.data('nextMove', move);
-					}
-					previousMove = move;
-				});
-			});
-
-			// The initial move must be linked specifically since it does not belong to any variation.
-			var initialMove = $('.uichess-chessgame-initialMove', this.element);
-			var allMoves    = $('.uichess-chessgame-variation .uichess-chessgame-move', this.element);
-			if(allMoves.length !== 0) {
-				var secondMove = allMoves.first();
-				secondMove.data('prevMove', initialMove);
-				initialMove.data('nextMove', secondMove);
-			}
-		},
-
-
-		/**
-		 * Initialize the navigation box widgets.
-		 */
-		_makeNavigationBoxWidgets: function()
-		{
-			// Set-up the navigation board.
-			$('.uichess-chessgame-navigationBoard', this.element).chessboard(this.options.navigationBoardOptions);
-
-			// Navigation buttons
-			var obj = this;
-			$('.uichess-chessgame-navigationButtonFrst', this.element).click(function(event) { event.preventDefault(); obj.goFirstMove   (); });
-			$('.uichess-chessgame-navigationButtonPrev', this.element).click(function(event) { event.preventDefault(); obj.goPreviousMove(); });
-			$('.uichess-chessgame-navigationButtonNext', this.element).click(function(event) { event.preventDefault(); obj.goNextMove    (); });
-			$('.uichess-chessgame-navigationButtonLast', this.element).click(function(event) { event.preventDefault(); obj.goLastMove    (); });
-
-			// Show the initial position on the navigation board.
-			this._updateNavigationBoard($('.uichess-chessgame-initialMove', this.element), false);
-		},
-
-
-		/**
-		 * Build the error message resulting from a PGN parsing error.
-		 *
-		 * @returns {string}
-		 */
-		_buildErrorMessage: function()
-		{
-			// Build the error report box.
-			var retVal = '<div class="uichess-chessgame-error">' +
-				'<div class="uichess-chessgame-errorTitle">Error while analysing a PGN string.</div>';
-
-			// Optional message.
-			if(this._game.message !== null) {
-				retVal += '<div class="uichess-chessgame-errorMessage">' + this._game.message + '</div>';
-			}
-
-			// Display where the error has occurred.
-			if(this._game.index !== null && this._game.index >= 0) {
-				retVal += '<div class="uichess-chessgame-errorAt">';
-				if(this._game.index >= this._game.pgn.length) {
-					retVal += 'Occurred at the end of the string.';
-				}
-				else {
-					retVal += 'Occurred at position ' + this._game.index + ':' + '<div class="uichess-chessgame-errorAtCode">' +
-						ellipsisAt(this._game.pgn, this._game.index, 10, 40) + '</div>';
-				}
-				retVal += '</div>';
-			}
-
-			// Close the error report box, and return the result.
-			retVal += '</div>';
-			return retVal;
-		},
-
-
-		/**
-		 * Build the header containing the player-related information (name, rating, title)
-		 * corresponding to the requested color.
-		 *
-		 * @param {string} color Either 'White' or 'Black'.
-		 * @returns {string}
-		 */
-		_playerNameHeader: function(color)
-		{
-			// Retrieve the name of the player -> no header is returned if the name not available.
-			var name = formatDefault(this._game.header(color));
-			if(name===null) {
-				return '';
-			}
-
-			// Build the returned header.
-			var header = '<div class="uichess-chessgame-' + color.toLowerCase() + 'Player">' +
-				'<span class="uichess-chessgame-colorTag"></span> ' +
-				'<span class="uichess-chessgame-playerName">' + name + '</span>';
-
-			// Title + rating
-			var title  = formatTitle  (this._game.header(color + 'Title'));
-			var rating = formatDefault(this._game.header(color + 'Elo'  ));
-			if(title !== null || rating !== null) {
-				header += '<span class="uichess-chessgame-titleRatingGroup">';
-				if(title  !== null) { header += '<span class="uichess-chessgame-playerTitle">'  + title  + '</span>'; }
-				if(rating !== null) { header += '<span class="uichess-chessgame-playerRating">' + rating + '</span>'; }
-				header += '</span>';
-			}
-
-			// Add the closing tag and return the result.
-			header += '</div>';
-			return header;
-		},
-
-
-		/**
-		 * Build the header containing the event-related information (event + round).
-		 *
-		 * @returns {string}
-		 */
-		_eventHeader: function()
-		{
-			// Retrieve the event -> no header is returned if the name not available.
-			var event = formatDefault(this._game.header('Event'));
-			if(event===null) {
-				return '';
-			}
-
-			// Retrieve the round.
-			var round = formatDefault(this._game.header('Round'));
-
-			// Build and return the header.
-			var header = '<div class="uichess-chessgame-event">' + event;
-			if(round !== null) {
-				header += '<span class="uichess-chessgame-round">' + round + '</span>';
-			}
-			header += '</div>';
-			return header;
-		},
-
-
-		/**
-		 * Build the header containing the date/place information.
-		 *
-		 * @returns {string}
-		 */
-		_datePlaceHeader: function()
-		{
-			// Retrieve the date and the site field.
-			var date = formatDate   (this._game.header('Date'));
-			var site = formatDefault(this._game.header('Site'));
-			if(date===null && site===null) {
-				return '';
-			}
-
-			// Build and return the header.
-			var header = '<div class="uichess-chessgame-datePlaceGroup">';
-			if(date !== null) { header += '<span class="uichess-chessgame-date">' + date + '</span>'; }
-			if(site !== null) { header += '<span class="uichess-chessgame-site">' + site + '</span>'; }
-			header += '</div>';
-			return header;
-		},
-
-
-		/**
-		 * Build the header containing the annotator information.
-		 *
-		 * @returns {string}
-		 */
-		_annotatorHeader: function()
-		{
-			// Retrieve the annotator field.
-			var annotator = formatDefault(this._game.header('Annotator'));
-			if(annotator===null) {
-				return '';
-			}
-
-			// Build and return the header.
-			var header = '<div class="uichess-chessgame-annotator">' + $.chessgame.i18n.ANNOTATED_BY.replace(/%1\$s/g,
-				'<span class="uichess-chessgame-annotatorName">' + annotator + '</span>') + '</div>';
-			return header;
-		},
-
-
-		/**
-		 * Build the move tree.
-		 *
-		 * @returns {string}
-		 */
-		_buildBody: function()
-		{
-			var mainVariation = this._buildVariation(this._game.mainVariation(), true, formatResult(this._game.result()));
-
-			// Nothing to do if the main variation is empty.
-			if(mainVariation.content === '') {
-				return '';
-			}
-
-			// Otherwise, wrap it into a DIV node.
-			var bodyClass = 'uichess-chessgame-body';
-			if(mainVariation.divCount > 1) { bodyClass += ' uichess-chessgame-moreSpace'; }
-			if(this.options.navigationBoard !== 'none') { bodyClass += ' uichess-chessgame-clickableMoves'; }
-			return '<div class="' + bodyClass + '">' + mainVariation.content + '</div>';
-		},
-
-
-		/**
-		 * Build the move tree corresponding to the given variation.
-		 *
-		 * @param {RPBChess.pgn.Variation} variation
-		 * @param {boolean} isMainVariation
-		 * @param {null|string} result Must be set to null for sub-variations.
-		 * @returns {string|{content:string, divCount:number}} The second form is only used for the main variation.
-		 */
-		_buildVariation: function(variation, isMainVariation, result)
-		{
-			// Nothing to do if the variation if empty.
-			if(variation.comment() === null && variation.first() === null && result === null) {
-				return isMainVariation ? { content: '', divCount: 0 } : '';
-			}
-
-			// Open a new DOM node for the variation.
-			var tag = variation.isLongVariation() ? 'div' : 'span';
-			var retVal = '<' + tag + ' class="uichess-chessgame-variation' + (isMainVariation ? '' : ' uichess-chessgame-subVariation') + '">';
-
-			// The flag `moveGroupOpened` indicates whether a `<div class="moveGroup">` node
-			// is currently opened or not. Move group nodes are supposed to contain moves,
-			// short-comments and short-variations when the parent variation is long.
-			// In short variations, there is no move groups.
-			var enableMoveGroups = variation.isLongVariation();
-			var moveGroupOpened  = false;
-			var divCount         = 0;
-
-			// Open a new move group if necessary.
-			function openMoveGroup()
-			{
-				if(enableMoveGroups && !moveGroupOpened) {
-					retVal += '<div class="uichess-chessgame-moveGroup">';
-					moveGroupOpened = true;
-					++divCount;
-				}
-			}
-
-			// Close the current move group, if any.
-			function closeMoveGroup()
-			{
-				if(moveGroupOpened) {
-					retVal += '</div>';
-					moveGroupOpened = false;
-				}
-			}
-
-			// Write the initial comment, if any.
-			if(variation.comment() !== null) {
-				if(variation.isLongComment()) {
-					++divCount;
-				} else {
-					openMoveGroup();
-				}
-				retVal += this._buildComment(variation);
-			}
-
-			// Visit all the PGN nodes (one node per move) within the variation.
-			var forcePrintMoveNumber = true;
-			var node = variation.first();
-			while(node !== null)
-			{
-				// Write the move, including directly related information (i.e. move number + NAGs).
-				openMoveGroup();
-				retVal += this._buildMove(node, forcePrintMoveNumber);
-
-				// Write the comment (if any).
-				if(node.comment() !== null) {
-					if(node.isLongComment()) {
-						closeMoveGroup();
-						++divCount;
-					}
-					retVal += this._buildComment(node);
-				}
-
-				// Write the sub-variations.
-				var nonEmptySubVariations = 0;
-				var subVariations = node.variations();
-				for(var k=0; k<subVariations.length; ++k) {
-					var subVariationText = this._buildVariation(subVariations[k], false, null);
-					if(subVariationText !== '') {
-						if(subVariations[k].isLongVariation()) {
-							closeMoveGroup();
-							++divCount;
-						} else {
-							openMoveGroup();
-						}
-						retVal += subVariationText;
-						++nonEmptySubVariations;
-					}
-				}
-
-				// Back to the current variation, go to the next move.
-				forcePrintMoveNumber = (node.comment() !== null || nonEmptySubVariations > 0);
-				node = node.next();
-			}
-
-			// Append the result and the end of the main variation.
-			if(isMainVariation && result !== null) {
-				openMoveGroup();
-				retVal += '<span class="uichess-chessgame-result">' + result + '</span>';
-			}
-
-			// Close the opened DOM nodes, and returned the result.
-			closeMoveGroup();
-			retVal += '</' + tag + '>';
-			return isMainVariation ? { content: retVal, divCount: divCount } : retVal;
-		},
-
-
-		/**
-		 * Build the DOM attributes to add to a DOM node to be able to reload the position associated to the current node.
-		 *
-		 * @param {RPBChess.pgn.Node|RPBChess.pgn.Variation} node
-		 * @param {boolean} addAnimationSupport `true` to add the information required for move highlighting.
-		 * @returns {string}
-		 */
-		_buildPositionInformation: function(node, moveHighlightSupport) {
-			var res = 'data-position="' + node.position().fen() + '"';
-
-			// Move highlighting
-			if(moveHighlightSupport) {
-				res += ' data-position-before="' + node.positionBefore().fen() + '" data-move-notation="' + node.move() + '"';
-			}
-
-			// Square markers
-			var csl = node.tag('csl');
-			if(csl !== null) {
-				res += ' data-csl="' + csl + '"';
-			}
-
-			// Arrow markers
-			var cal = node.tag('cal');
-			if(cal !== null) {
-				res += ' data-cal="' + cal + '"';
-			}
-
-			return res;
-		},
-
-
-		/**
-		 * Build the DOM node corresponding to the given text comment.
-		 *
-		 * @param {RPBChess.pgn.Node|RPBChess.pgn.Variation} node
-		 * @returns {string}
-		 */
-		_buildComment: function(node) {
-			var tag = node.isLongComment() ? 'div' : 'span';
-			return '<' + tag + ' class="uichess-chessgame-comment" ' + this._buildPositionInformation(node, false) + '>' +
-				node.comment() + '</' + tag + '>';
-		},
-
-
-		/**
-		 * Build the DOM node corresponding to the given move (move number, SAN notation, NAGs).
-		 *
-		 * @param {RPBChess.pgn.Node} node
-		 * @param {boolean} forcePrintMoveNumber
-		 * @returns {string}
-		 */
-		_buildMove: function(node, forcePrintMoveNumber) {
-
-			// Create the DOM node.
-			var retVal = '<span class="uichess-chessgame-move" ' + this._buildPositionInformation(node, true) + '>';
-
-			// Move number
-			var printMoveNumber = forcePrintMoveNumber || node.moveColor() === 'w';
-			var moveNumberClass = 'uichess-chessgame-moveNumber' + (printMoveNumber ? '' : ' uichess-chessgame-hidden');
-			var moveNumberText  = node.fullMoveNumber() + (node.moveColor() === 'w' ? '.' : '\u2026');
-			retVal += '<span class="' + moveNumberClass + '">' + moveNumberText + '</span>';
-
-			// SAN notation.
-			var pieceSymbolTable = this._pieceSymbolTable;
-			retVal += node.move().replace(/[KQRBNP]/g, function(match) {
-				return pieceSymbolTable[match];
-			});
-
-			// NAGs
-			var nags = node.nags();
-			for(var k=0; k<nags.length; ++k) {
-				retVal += ' ' + formatNag(nags[k]);
-			}
-
-			// Close the DOM node.
-			retVal += '</span>';
-			return retVal;
-		},
-
-
-		/**
-		 * Build the DOM node corresponding to the "initial-position-move",
-		 * which is always hidden, but must be added to make possible to display
-		 * the initial position in the navigation board.
-		 *
-		 * @returns {string}
-		 */
-		_buildInitialMove: function() {
-			return '<div class="uichess-chessgame-move uichess-chessgame-initialMove" ' + this._buildPositionInformation(this._game.mainVariation(), false) +
-				'>' + $.chessgame.i18n.INITIAL_POSITION + '</div>';
-		},
-
-
-		/**
-		 * Select the given move and update the navigation board accordingly.
-		 *
-		 * @param {jQuery} [move] Nothing is done if null or undefined.
-		 * @param {boolean} playTheMove
-		 */
-		_updateNavigationBoard: function(move, playTheMove)
-		{
-			if(move === undefined || move === null || move.hasClass('uichess-chessgame-selectedMove')) {
-				return;
-			}
-
-			// If the navigation board should be shown within the dedicated frame,
-			// ensure that the latter has been built.
-			if(this.options.navigationBoard === 'frame') {
-				buildNavigationFrame();
-			}
-
-			// Update the selected move and the mini-board.
-			this._updateNavigationBoardWidget(move, playTheMove);
-			this._updateSelectedMove(move);
-
-			// If the navigation board is in the dedicated frame, update its title,
-			// and ensure that it is visible.
-			if(this.options.navigationBoard === 'frame') {
-				var frame = $('#uichess-chessgame-navigationFrame');
-				if(!frame.dialog('isOpen')) {
-					frame.dialog('option', 'position', { my: 'center', at: 'center', of: window });
-					frame.dialog('open');
-				}
-				$('.ui-dialog-title', frame.closest('.ui-dialog')).empty().append(move.html());
-			}
-
-			// Scroll to the selected move if possible.
-			if(this.options.navigationBoard === 'scrollLeft' || this.options.navigationBoard === 'scrollRight') {
-				var target = $('.uichess-chessgame-selectedMove', this.element);
-				var scrollArea = $('.uichess-chessgame-scrollArea', this.element);
-				var allowScrollDown = true;
-				if(target.hasClass('uichess-chessgame-initialMove')) {
-					target = $('.uichess-chessgame-headers', this.element);
-					allowScrollDown = false;
-				}
-				var targetOffsetTop = target.offset().top - scrollArea.offset().top;
-				if(targetOffsetTop < 0) {
-					scrollArea.animate({ scrollTop: scrollArea.scrollTop() + targetOffsetTop }, 200);
-				}
-				else if(allowScrollDown && targetOffsetTop + target.height() > scrollArea.height()) {
-					scrollArea.animate({ scrollTop: scrollArea.scrollTop() + targetOffsetTop + target.height() - scrollArea.height() }, 200);
-				}
-			}
-		},
-
-
-		/**
-		 * Refresh the navigation chessboard widget.
-		 *
-		 * @param {jQuery} move
-		 * @param {boolean} playTheMove
-		 */
-		_updateNavigationBoardWidget: function(move, playTheMove)
-		{
-			var widget = this.options.navigationBoard === 'frame' ?
-				$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationBoard') :
-				$('.uichess-chessgame-navigationBoard', this.element);
-
-			// Flip the board if necessary.
-			if(this.options.navigationBoardOptions.flip !== widget.chessboard('option', 'flip')) {
-				widget.chessboard('option', 'flip', this.options.navigationBoardOptions.flip);
-			}
-
-			// Update the position.
-			if(playTheMove) {
-				widget.chessboard('option', 'position', move.data('positionBefore'));
-				widget.chessboard('play', move.data('moveNotation'));
-			}
-			else {
-				widget.chessboard('option', 'position', move.data('position'));
-			}
-
-			// Update the square/arrow markers
-			var csl = move.data('csl');
-			var cal = move.data('cal');
-			widget.chessboard('option', 'squareMarkers', typeof csl === 'undefined' ? '' : csl);
-			widget.chessboard('option', 'arrowMarkers', typeof cal === 'undefined' ? '' : cal);
-		},
-
-
-		/**
-		 * Make the given move appear as selected.
-		 *
-		 * @param {jQuery} move
-		 */
-		_updateSelectedMove: function(move)
-		{
-			var global = this.options.navigationBoard === 'frame';
-
-			// Unselect the previously selected move, if any.
-			unselectMove(global ? null : $('.uichess-chessgame-selectedMove', this.element));
-
-			// Update the ID/class attributes.
-			move.addClass('uichess-chessgame-selectedMove');
-			if(global) {
-				move.attr('id', 'uichess-chessgame-navigationFrameTarget');
-			}
-
-			// Highlight the selected move.
-			var color = move.css('color');
-			move.css('background-color', color);
-			move.css('color', contrastedColor(color));
+			updateNavigationBoard(this, target, false);
 		}
 
 	}); /* $.widget('uichess.chessgame', { ... }) */
-
-
-	/**
-	 * Unselect the selected move, if any.
-	 *
-	 * @param {jQuery} [target] Move to unselect. If not provided, `#uichess-chessgame-navigationFrameTarget` is targeted.
-	 */
-	function unselectMove(target)
-	{
-		if(target === undefined || target === null) {
-			target = $('#uichess-chessgame-navigationFrameTarget');
-		}
-		target.attr('style', null).attr('id', null).removeClass('uichess-chessgame-selectedMove');
-	}
-
-
-	/**
-	 * Build the DOM nodes that will be used as a skeleton for the navigation board and buttons.
-	 *
-	 * @returns {string}
-	 */
-	function buildNavigationSkeleton()
-	{
-		return '<div class="uichess-chessgame-navigationBoard"></div>' +
-			'<div class="uichess-chessgame-navigationButtons">' +
-				'<button class="uichess-chessgame-navigationButtonFrst">&lt;&lt;</button>' +
-				'<button class="uichess-chessgame-navigationButtonPrev">&lt;</button>' +
-				'<button class="uichess-chessgame-navigationButtonNext">&gt;</button>' +
-				'<button class="uichess-chessgame-navigationButtonLast">&gt;&gt;</button>' +
-			'</div>';
-	}
-
-
-	/**
-	 * Create the navigation frame, if it does not exist yet.
-	 */
-	function buildNavigationFrame()
-	{
-		if($('#uichess-chessgame-navigationFrame').length !== 0) {
-			return;
-		}
-
-		// Structure of the navigation frame.
-		$('<div id="uichess-chessgame-navigationFrame">' + buildNavigationSkeleton() + '</div>').appendTo($('body'));
-
-		// Create the dialog widget.
-		$('#uichess-chessgame-navigationFrame').dialog({
-			/* Hack to keep the dialog draggable after the page has being scrolled. */
-			create     : function(event) { $(event.target).parent().css('position', 'fixed'); },
-			resizeStart: function(event) { $(event.target).parent().css('position', 'fixed'); },
-			resizeStop : function(event) { $(event.target).parent().css('position', 'fixed'); },
-			/* End of hack */
-			autoOpen   : false,
-			dialogClass: $.chessgame.navigationFrameClass,
-			width      : 'auto',
-			close      : function() { unselectMove(); }
-		});
-
-		// Create the chessboard widget.
-		var widget = $('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationBoard');
-		widget.chessboard(filterChessboardOptions($.chessgame.navigationFrameOptions));
-		widget.chessboard('sizeControlledByContainer', $('#uichess-chessgame-navigationFrame'), 'dialogresize');
-
-		// Callback for the buttons.
-		function callback(methodName) {
-			var gameWidget = $('#uichess-chessgame-navigationFrameTarget').closest('.uichess-chessgame');
-			gameWidget.chessgame(methodName);
-
-			// Scroll to the selected move.
-			var target = $('.uichess-chessgame-selectedMove', gameWidget);
-			var allowScrollDown = true;
-			if(target.hasClass('uichess-chessgame-initialMove')) {
-				target = gameWidget;
-				allowScrollDown = false;
-			}
-			var targetOffset = target.offset();
-			if(targetOffset.top < $(window).scrollTop()) {
-				$('html, body').animate({ scrollTop: targetOffset.top }, 200);
-			}
-			else if(allowScrollDown && targetOffset.top + target.height() > $(window).scrollTop() + window.innerHeight) {
-				$('html, body').animate({ scrollTop: targetOffset.top + target.height() - window.innerHeight }, 200);
-			}
-		}
-
-		// Create the buttons.
-		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonFrst').click(function(event) { event.preventDefault(); callback('goFirstMove'   ); });
-		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonPrev').click(function(event) { event.preventDefault(); callback('goPreviousMove'); });
-		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonNext').click(function(event) { event.preventDefault(); callback('goNextMove'    ); });
-		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonLast').click(function(event) { event.preventDefault(); callback('goLastMove'    ); });
-	}
 
 })(/* global RPBChess */ RPBChess, /* global jQuery */ jQuery, /* global moment */ moment);
