@@ -30,7 +30,7 @@
 			<?php if($model->getDefaultNavigationBoard()==='none'): ?>checked="yes"<?php endif; ?>
 		/>
 		<label for="rpbchessboard-navigationBoardButton-none" title="<?php _e('No navigation board', 'rpbchessboard'); ?>">
-			<img src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-board-none.png'; ?>"
+			<img src="<?php echo RPBCHESSBOARD_URL . 'images/alignment-none.png'; ?>"
 				alt="<?php _e('No navigation board', 'rpbchessboard'); ?>"
 			/>
 		</label>
@@ -41,7 +41,7 @@
 			<?php if($model->getDefaultNavigationBoard()==='frame'): ?>checked="yes"<?php endif; ?>
 		/>
 		<label for="rpbchessboard-navigationBoardButton-frame" title="<?php _e('In a popup frame', 'rpbchessboard'); ?>">
-			<img src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-board-frame.png'; ?>"
+			<img src="<?php echo RPBCHESSBOARD_URL . 'images/alignment-popup.png'; ?>"
 				alt="<?php _e('In a popup frame', 'rpbchessboard'); ?>"
 			/>
 		</label>
@@ -52,7 +52,7 @@
 			<?php if($model->getDefaultNavigationBoard()==='above'): ?>checked="yes"<?php endif; ?>
 		/>
 		<label for="rpbchessboard-navigationBoardButton-above" title="<?php _e('Above the game headers and the move list', 'rpbchessboard'); ?>">
-			<img src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-board-above.png'; ?>"
+			<img src="<?php echo RPBCHESSBOARD_URL . 'images/alignment-above.png'; ?>"
 				alt="<?php _e('Above the game headers and the move list', 'rpbchessboard'); ?>"
 			/>
 		</label>
@@ -63,7 +63,7 @@
 			<?php if($model->getDefaultNavigationBoard()==='below'): ?>checked="yes"<?php endif; ?>
 		/>
 		<label for="rpbchessboard-navigationBoardButton-below" title="<?php _e('Below the move list', 'rpbchessboard'); ?>">
-			<img src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-board-below.png'; ?>"
+			<img src="<?php echo RPBCHESSBOARD_URL . 'images/alignment-below.png'; ?>"
 				alt="<?php _e('Below the move list', 'rpbchessboard'); ?>"
 			/>
 		</label>
@@ -74,7 +74,7 @@
 			<?php if($model->getDefaultNavigationBoard()==='floatLeft'): ?>checked="yes"<?php endif; ?>
 		/>
 		<label for="rpbchessboard-navigationBoardButton-floatLeft" title="<?php _e('On the left of the move list', 'rpbchessboard'); ?>">
-			<img src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-board-float-left.png'; ?>"
+			<img src="<?php echo RPBCHESSBOARD_URL . 'images/alignment-float-left.png'; ?>"
 				alt="<?php _e('On the left of the move list', 'rpbchessboard'); ?>"
 			/>
 		</label>
@@ -85,7 +85,7 @@
 			<?php if($model->getDefaultNavigationBoard()==='floatRight'): ?>checked="yes"<?php endif; ?>
 		/>
 		<label for="rpbchessboard-navigationBoardButton-floatRight" title="<?php _e('On the right of the move list', 'rpbchessboard'); ?>">
-			<img src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-board-float-right.png'; ?>"
+			<img src="<?php echo RPBCHESSBOARD_URL . 'images/alignment-float-right.png'; ?>"
 				alt="<?php _e('On the right of the move list', 'rpbchessboard'); ?>"
 			/>
 		</label>
@@ -96,7 +96,7 @@
 			<?php if($model->getDefaultNavigationBoard()==='scrollLeft'): ?>checked="yes"<?php endif; ?>
 		/>
 		<label for="rpbchessboard-navigationBoardButton-scrollLeft" title="<?php _e('On the left, with scrollable move list', 'rpbchessboard'); ?>">
-			<img src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-board-scroll-left.png'; ?>"
+			<img src="<?php echo RPBCHESSBOARD_URL . 'images/alignment-scroll-left.png'; ?>"
 				alt="<?php _e('On the left, with scrollable move list', 'rpbchessboard'); ?>"
 			/>
 		</label>
@@ -107,7 +107,7 @@
 			<?php if($model->getDefaultNavigationBoard()==='scrollRight'): ?>checked="yes"<?php endif; ?>
 		/>
 		<label for="rpbchessboard-navigationBoardButton-scrollRight" title="<?php _e('On the right, with scrollable move list', 'rpbchessboard'); ?>">
-			<img src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-board-scroll-right.png'; ?>"
+			<img src="<?php echo RPBCHESSBOARD_URL . 'images/alignment-scroll-right.png'; ?>"
 				alt="<?php _e('On the right, with scrollable move list', 'rpbchessboard'); ?>"
 			/>
 		</label>
