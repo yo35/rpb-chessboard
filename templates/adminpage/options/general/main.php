@@ -39,8 +39,9 @@
 </p>
 
 <?php
-	RPBChessboardHelperLoader::printTemplate('AdminPage/Options/General/BoardAspect'    , $model);
-	RPBChessboardHelperLoader::printTemplate('AdminPage/Options/General/PieceSymbols'   , $model);
-	RPBChessboardHelperLoader::printTemplate('AdminPage/Options/General/NavigationBoard', $model);
-	RPBChessboardHelperLoader::printTemplate('AdminPage/Options/General/MoveAnimation'  , $model);
+	RPBChessboardHelperLoader::printTemplate('AdminPage/Options/General/BoardAspect'     , $model);
+	RPBChessboardHelperLoader::printTemplate('AdminPage/Options/General/DiagramAlignment', $model);
+	RPBChessboardHelperLoader::printTemplate('AdminPage/Options/General/PieceSymbols'    , $model);
+	RPBChessboardHelperLoader::printTemplate('AdminPage/Options/General/NavigationBoard' , $model);
+	RPBChessboardHelperLoader::printTemplate('AdminPage/Options/General/MoveAnimation'   , $model);
 ?>

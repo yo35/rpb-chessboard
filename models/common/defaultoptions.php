@@ -29,30 +29,32 @@ require_once(RPBCHESSBOARD_ABSPATH . 'helpers/validation.php');
  */
 class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 {
-	private static $squareSize     ;
-	private static $showCoordinates;
-	private static $colorset       ;
-	private static $pieceset       ;
-	private static $pieceSymbols   ;
-	private static $navigationBoard;
-	private static $animationSpeed ;
-	private static $showMoveArrow  ;
+	private static $squareSize      ;
+	private static $showCoordinates ;
+	private static $colorset        ;
+	private static $pieceset        ;
+	private static $diagramAlignment;
+	private static $pieceSymbols    ;
+	private static $navigationBoard ;
+	private static $animationSpeed  ;
+	private static $showMoveArrow   ;
 
 
-	const DEFAULT_SQUARE_SIZE      = 32;
-	const DEFAULT_SHOW_COORDINATES = true;
-	const DEFAULT_COLORSET         = 'original';
-	const DEFAULT_PIECESET         = 'cburnett';
-	const DEFAULT_PIECE_SYMBOLS    = 'localized';
-	const DEFAULT_NAVIGATION_BOARD = 'frame';
-	const DEFAULT_ANIMATION_SPEED  = 200;
-	const DEFAULT_SHOW_MOVE_ARROW  = true;
+	const DEFAULT_SQUARE_SIZE       = 32;
+	const DEFAULT_SHOW_COORDINATES  = true;
+	const DEFAULT_COLORSET          = 'original';
+	const DEFAULT_PIECESET          = 'cburnett';
+	const DEFAULT_DIAGRAM_ALIGNMENT = 'center';
+	const DEFAULT_PIECE_SYMBOLS     = 'localized';
+	const DEFAULT_NAVIGATION_BOARD  = 'frame';
+	const DEFAULT_ANIMATION_SPEED   = 200;
+	const DEFAULT_SHOW_MOVE_ARROW   = true;
 
 
 	public function __construct() {
 		parent::__construct();
 		$this->registerDelegatableMethods('getDefaultSquareSize', 'getDefaultShowCoordinates',
-			'getDefaultColorset', 'getDefaultPieceset', 'getDefaultPieceSymbols',
+			'getDefaultColorset', 'getDefaultPieceset', 'getDefaultDiagramAlignment', 'getDefaultPieceSymbols',
 			'getDefaultNavigationBoard', 'getDefaultAnimationSpeed', 'getDefaultShowMoveArrow');
 	}
 
@@ -115,6 +117,20 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 			self::$pieceset = isset($value) ? $value : self::DEFAULT_PIECESET;
 		}
 		return self::$pieceset;
+	}
+
+
+	/**
+	 * Default diagram alignment parameter for chessboard widgets.
+	 *
+	 * @return string
+	 */
+	public function getDefaultDiagramAlignment() {
+		if(!isset(self::$diagramAlignment)) {
+			$value = RPBChessboardHelperValidation::validateDiagramAlignment(get_option('rpbchessboard_diagramAlignment'));
+			self::$diagramAlignment = isset($value) ? $value : self::DEFAULT_DIAGRAM_ALIGNMENT;
+		}
+		return self::$diagramAlignment;
 	}
 
 

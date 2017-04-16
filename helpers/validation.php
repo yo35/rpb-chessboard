@@ -116,6 +116,17 @@ abstract class RPBChessboardHelperValidation
 
 
 	/**
+	 * Validate a diagram alignment parameter.
+	 *
+	 * @param mixed $value
+	 * @return string May be null is the value is not valid.
+	 */
+	public static function validateDiagramAlignment($value) {
+		return ($value==='center' || $value==='floatLeft' || $value==='floatRight') ? $value : null;
+	}
+
+
+	/**
 	 * Validate a piece symbol mode parameter.
 	 *
 	 * @param mixed $value
