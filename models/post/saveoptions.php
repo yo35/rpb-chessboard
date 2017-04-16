@@ -41,6 +41,7 @@ class RPBChessboardModelPostSaveOptions extends RPBChessboardAbstractModel {
 		self::processBooleanParameter('showCoordinates');
 		self::processSetCodeParameter('colorset');
 		self::processSetCodeParameter('pieceset');
+		self::processDiagramAlignment();
 		self::processPieceSymbols();
 		self::processNavigationBoard();
 		self::processAnimationSpeed();
@@ -81,6 +82,16 @@ class RPBChessboardModelPostSaveOptions extends RPBChessboardAbstractModel {
 			$value = RPBChessboardHelperValidation::validateSquareSize($_POST['squareSize']);
 			if(isset($value)) {
 				update_option('rpbchessboard_squareSize', $value);
+			}
+		}
+	}
+
+
+	private static function processDiagramAlignment() {
+		if(isset($_POST['diagramAlignment'])) {
+			$value = RPBChessboardHelperValidation::validateDiagramAlignment($_POST['diagramAlignment']);
+			if(isset($value)) {
+				update_option('rpbchessboard_diagramAlignment', $value);
 			}
 		}
 	}

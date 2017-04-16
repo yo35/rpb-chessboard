@@ -34,14 +34,15 @@ class RPBChessboardModelPostResetOptions extends RPBChessboardAbstractModel {
 	 * @return string
 	 */
 	public function resetGeneral() {
-		delete_option('rpbchessboard_squareSize'     );
-		delete_option('rpbchessboard_showCoordinates');
-		delete_option('rpbchessboard_colorset'       );
-		delete_option('rpbchessboard_pieceset'       );
-		delete_option('rpbchessboard_pieceSymbols'   );
-		delete_option('rpbchessboard_navigationBoard');
-		delete_option('rpbchessboard_animationSpeed' );
-		delete_option('rpbchessboard_showMoveArrow'  );
+		delete_option('rpbchessboard_squareSize'      );
+		delete_option('rpbchessboard_showCoordinates' );
+		delete_option('rpbchessboard_colorset'        );
+		delete_option('rpbchessboard_pieceset'        );
+		delete_option('rpbchessboard_diagramAlignment');
+		delete_option('rpbchessboard_pieceSymbols'    );
+		delete_option('rpbchessboard_navigationBoard' );
+		delete_option('rpbchessboard_animationSpeed'  );
+		delete_option('rpbchessboard_showMoveArrow'   );
 		return self::resetMessage();
 	}
 
