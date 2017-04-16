@@ -467,31 +467,31 @@ div.rpbchessboard-sourceCode {
 	margin-right: 0px;
 }
 
-#rpbchessboard-navigationBoardFields {
+.rpbchessboard-graphicRadioButtonFields {
 	margin-bottom: 0.5em;
 }
 
-#rpbchessboard-navigationBoardFields > div {
+.rpbchessboard-graphicRadioButtonFields > div {
 	display: inline-block;
 	margin-right: 30px;
 }
 
-#rpbchessboard-navigationBoardFields input[name="navigationBoard"] {
+.rpbchessboard-graphicRadioButtonFields input[type="radio"] {
 	display: none;
 }
 
-#rpbchessboard-navigationBoardFields input[name="navigationBoard"] + label {
+.rpbchessboard-graphicRadioButtonFields input[type="radio"] + label {
 	display: block;
 	padding: 14px;
 	line-height: 0px;
 }
 
-#rpbchessboard-navigationBoardFields input[name="navigationBoard"]:checked + label {
+.rpbchessboard-graphicRadioButtonFields input[type="radio"]:checked + label {
 	border: solid 4px rgb(0, 116, 162);
 	padding: 10px;
 }
 
-#rpbchessboard-navigationBoardFields label img {
+.rpbchessboard-graphicRadioButtonFields label img {
 	pointer-events: none;
 	-webkit-user-select: none;
 	-moz-user-select: none;

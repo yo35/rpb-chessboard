@@ -23,7 +23,7 @@
 <h3><?php _e('Position of the navigation board', 'rpbchessboard'); ?></h3>
 
 
-<div id="rpbchessboard-navigationBoardFields">
+<div class="rpbchessboard-graphicRadioButtonFields">
 
 	<div>
 		<input type="radio" id="rpbchessboard-navigationBoardButton-none" name="navigationBoard" value="none"
