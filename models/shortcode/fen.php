@@ -29,6 +29,7 @@ require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/shortcode.php');
 class RPBChessboardModelShortcodeFEN extends RPBChessboardAbstractModelShortcode {
 
 	private $widgetArgs;
+	private $diagramAlignment;
 
 
 	public function __construct($atts, $content) {
@@ -78,8 +79,22 @@ class RPBChessboardModelShortcodeFEN extends RPBChessboardAbstractModelShortcode
 			// Pieceset
 			$value = isset($atts['pieceset']) ? RPBChessboardHelperValidation::validateSetCode($atts['pieceset']) : null;
 			$this->widgetArgs['pieceset'] = isset($value) ? $value : $this->getDefaultPieceset();
+
+			// Diagram alignment
+
+
 		}
 		return $this->widgetArgs;
+	}
+
+
+	public function getDiagramAlignment() {
+		if(!isset($this->diagramAlignment)) {
+			$atts = $this->getAttributes();
+			$value = isset($atts['align']) ? RPBChessboardHelperValidation::validateDiagramAlignment($atts['align']) : null;
+			$this->diagramAlignment = isset($value) ? $value : $this->getDefaultDiagramAlignment();
+		}
+		return $this->diagramAlignment;
 	}
 
 

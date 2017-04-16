@@ -20,7 +20,11 @@
  ******************************************************************************/
 ?>
 
-<div style="float:left; margin-right: 1em; margin-top:0.4em; margin-bottom:0.4em;">
+<?php if($model->getDiagramAlignment() === 'center'): ?>
+	<p class="rpbchessboard-spacerBefore"></p>
+<?php else: ?>
+	<div class="rpbchessboard-diagramAlignment-<?php echo htmlspecialchars($model->getDiagramAlignment()); ?>">
+<?php endif; ?>
 
 <div id="<?php echo htmlspecialchars($model->getUniqueID()); ?>" class="rpbchessboard-chessboard">
 
@@ -45,4 +49,8 @@
 
 </div>
 
-</div>
+<?php if($model->getDiagramAlignment() === 'center'): ?>
+	<p class="rpbchessboard-spacerAfter"></p>
+<?php else: ?>
+	</div>
+<?php endif; ?>
