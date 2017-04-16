@@ -642,6 +642,20 @@ table.rpbchessboard-attributeTable td:nth-child(2) {
 #rpbchessboard-fenAttributeColorsetPieceset-content.rpbchessboard-columns > div:nth-child(1) { width: 35%; }
 #rpbchessboard-fenAttributeColorsetPieceset-content.rpbchessboard-columns > div:nth-child(2) { width: 65%; }
 
+.rpbchessboard-diagramAlignment-floatLeft {
+	float: left;
+	margin-right: 1em;
+	margin-top: 0.4em;
+	margin-bottom: 0.4em;
+}
+
+.rpbchessboard-diagramAlignment-floatRight {
+	float: right;
+	margin-left: 1em;
+	margin-top: 0.4em;
+	margin-bottom: 0.4em;
+}
+
 
 
 /* -------------------------------------------------------------------------- */
