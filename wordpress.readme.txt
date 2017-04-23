@@ -79,6 +79,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 4.8.1 (April 23, 2017) =
+* Workaround so that FEN works within bbPress content.
+
 = 4.8 (April 23, 2017) =
 * Allow left/right alignment for diagrams (see #81).
 * Minor fixes.
