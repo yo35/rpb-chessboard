@@ -13,10 +13,7 @@ This plugin allows you to typeset and display chess diagrams and PGN-encoded che
 
 == Description ==
 
-RPB Chessboard allows you to typeset and display chess games and diagrams
-in the posts and pages of your WordPress blog,
-using the standard [FEN](http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation)
-and [PGN](http://en.wikipedia.org/wiki/Portable_Game_Notation) notations.
+RPB Chessboard allows you to typeset and display chess games and diagrams in the posts and pages of your WordPress blog, using the standard [FEN](http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation) and [PGN](http://en.wikipedia.org/wiki/Portable_Game_Notation) notations.
 
 = Links =
 
@@ -24,62 +21,30 @@ and [PGN](http://en.wikipedia.org/wiki/Portable_Game_Notation) notations.
 * [Live demo](http://rpb-chessboard.yo35.org/)
 * [Source code (GitHub repository)](https://github.com/yo35/rpb-chessboard)
 
-= Examples =
-
-`
-[fen]rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1[/fen]
-`
-
-`
-[pgn url="http://your-blog.com/.../your-games.pgn" game=0]
-`
-
-`
-[pgn]
-
-[White "Bill Gates"]
-[Black "Magnus Carlsen"]
-[Result "0-1"]
-
-1. e4 Nc6 2. Nf3 d5 3. Bd3 Nf6 4. exd5 Qxd5 5. Nc3 Qh5 6. O-O Bg4
-7. h3 Ne5 8. hxg4 Nfxg4 9. Nxe5 Qh2# 0-1
-
-[/pgn]
-`
-
 = Features =
 
  * Customizable aspect for the chessboards (orientation, size, etc...).
  * Support comments and sub-variations in PGN-encoded games.
  * Support HTML formatting in PGN comments.
  * Colored square and arrow markers.
- * Compatibility mode to avoid conflicts with the other plugins that use
-   the `[fen][/fen]` and `[pgn][/pgn]` shortcodes too.
+ * Compatibility mode to avoid conflicts with the other plugins that use the `[fen][/fen]` and `[pgn][/pgn]` shortcodes too.
  * Upload PGN files and load PGN data from a URL.
  * Graphical assistant to create and modify chess diagrams in the post/page editor.
  * Multi-language support.
 
-If you encounter some bugs with this plugin, or if you wish to get new features
-in the future versions, you can report/propose them
-in the [GitHub bug tracker](https://github.com/yo35/rpb-chessboard/issues).
+If you encounter some bugs with this plugin, or if you wish to get new features in the future versions, you can report/propose them in the [GitHub bug tracker](https://github.com/yo35/rpb-chessboard/issues).
 
-If you are interested in translating this plugin into your language,
-please [contact the author](mailto:yo35@melix.net).
+If you are interested in translating this plugin into your language, please [contact the author](mailto:yo35@melix.net).
 
 
 
 == Installation ==
 
-1. Download [rpb-chessboard.zip](http://downloads.wordpress.org/plugin/rpb-chessboard.zip)
-and upload its content to the `/wp-content/plugins/` directory of your website.
+1. Download [rpb-chessboard.zip](http://downloads.wordpress.org/plugin/rpb-chessboard.zip) and upload its content to the `/wp-content/plugins/` directory of your website.
 2. Activate the plugin through the *Plugins* menu in WordPress.
-3. You are now able to put `[fen][/fen]` and `[pgn][/pgn]` tags in your posts and pages
-to insert chess diagrams and full chess games.
-Please look at the *Chess* > *Memo* menu (created by the plugin) for examples of
-how to use these tags.
+3. You are now able to put `[fen][/fen]` and `[pgn][/pgn]` tags in your posts and pages to insert chess diagrams and full chess games. Please look at the *Chess* > *Memo* menu (created by the plugin) for examples of how to use these tags.
 
-For extensive details about plugin installation and management,
-please have a look to the general [plugin management page](http://codex.wordpress.org/Managing_Plugins).
+For extensive details about plugin installation and management, please have a look to the general [plugin management page](http://codex.wordpress.org/Managing_Plugins).
 
 
 
@@ -87,15 +52,11 @@ please have a look to the general [plugin management page](http://codex.wordpres
 
 = How to find help? =
 
-First, **look at the plugin help page**. This help page is available in the administration section
-of your WordPress website: in the main navigation menu > *Chess* > *Help*. If no answer can be found there,
-ask your question on [this forum](https://github.com/yo35/rpb-chessboard/issues).
+First, **look at the plugin help page**. This help page is available in the administration section of your WordPress website: in the main navigation menu > *Chess* > *Help*. If no answer can be found there, ask your question on [this forum](https://github.com/yo35/rpb-chessboard/issues).
 
 = I encounter a bug, or I think the plugin misses a key feature... =
 
-Please expose your case on [the forum](https://github.com/yo35/rpb-chessboard/issues)!
-Usually, bugs get fixed very quickly after being reported. Feature requests are discussed,
-and then implemented if relevant.
+Please expose your case on [the forum](https://github.com/yo35/rpb-chessboard/issues)! Usually, bugs get fixed very quickly after being reported. Feature requests are discussed, and then implemented if relevant.
 
 = The plugin is not available in my language, I want to translate it. =
 
@@ -338,8 +299,7 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 == Upgrade Notice ==
 
 = 2.99 =
-The way margins above and below `[fen][/fen]` and `[pgn][/pgn]` sections are set has been changed,
-to make it more independent of the theme: you should check the new margins to ensure their correctness.
+The way margins above and below `[fen][/fen]` and `[pgn][/pgn]` sections are set has been changed, to make it more independent of the theme: you should check the new margins to ensure their correctness.
 
 
 
@@ -355,23 +315,10 @@ Marek Śmigielski
 
 = Translators =
 
-Markus Liebelt (German), Yoann Le Montagner (English and French), Ivan Deceuninck (Dutch),
-[Dawid Ziółkowski](http://dawidziolkowski.com/) (Polish), [Sergey Baravicov](http://safoyeth.com/) (Russian),
-Ali Nihat Yazıcı (Turkish).
+Markus Liebelt (German), Yoann Le Montagner (English and French), Ivan Deceuninck (Dutch), [Dawid Ziółkowski](http://dawidziolkowski.com/) (Polish), [Sergey Baravicov](http://safoyeth.com/) (Russian), Ali Nihat Yazıcı (Turkish).
 
 = Graphic resources =
 
-Pieceset *CBurnett* has been created by [Colin M.L. Burnett](https://en.wikipedia.org/wiki/User:Cburnett),
-who shares it under the [CC-BY-SA] license on [Wikimedia Commons](https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces);
-user [Antonsusi](https://commons.wikimedia.org/wiki/User:Antonsusi) has also contributed to this work.
-Piecesets *Celtic*, *Eyes*, *Fantasy*, *Skulls* and *Spatial* have been created by
-[Maurizio Monge](http://poisson.phc.unipi.it/~monge/), who makes them freely available for chess programs.
-Colorsets *Coral*, *Dusk*, *Emerald*, *Marine*, *Sandcastle* and *Wheat* have been proposed
-in this [blog post](http://omgchess.blogspot.fr/2015/09/chess-board-color-schemes.html)
-by [Gorgonian](http://omgchess.blogspot.fr/).
-Icons *Undo*, *Redo*, *Delete* and *Tick* have been created by [Momentum Design Lab](http://momentumdesignlab.com/),
-who shares them under the [CC-BY] license on [Find Icons](http://findicons.com/pack/2226/matte_basic).
-Icon *Not-Found* has been created by [gakuseiSean](http://gakuseisean.deviantart.com/),
-who makes it freely available for non-commercial use on [Find Icons](http://findicons.com/icon/89623/error).
+Pieceset *CBurnett* has been created by [Colin M.L. Burnett](https://en.wikipedia.org/wiki/User:Cburnett), who shares it under the [CC-BY-SA] license on [Wikimedia Commons](https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces); user [Antonsusi](https://commons.wikimedia.org/wiki/User:Antonsusi) has also contributed to this work. Piecesets *Celtic*, *Eyes*, *Fantasy*, *Skulls* and *Spatial* have been created by [Maurizio Monge](http://poisson.phc.unipi.it/~monge/), who makes them freely available for chess programs. Colorsets *Coral*, *Dusk*, *Emerald*, *Marine*, *Sandcastle* and *Wheat* have been proposed in this [blog post](http://omgchess.blogspot.fr/2015/09/chess-board-color-schemes.html) by [Gorgonian](http://omgchess.blogspot.fr/). Icons *Undo*, *Redo*, *Delete* and *Tick* have been created by [Momentum Design Lab](http://momentumdesignlab.com/), who shares them under the [CC-BY] license on [Find Icons](http://findicons.com/pack/2226/matte_basic). Icon *Not-Found* has been created by [gakuseiSean](http://gakuseisean.deviantart.com/), who makes it freely available for non-commercial use on [Find Icons](http://findicons.com/icon/89623/error).
 
 The author would like to thank all these people for their highly valuable work.
