@@ -27,26 +27,19 @@
 <?php endif; ?>
 
 <div id="<?php echo htmlspecialchars($model->getUniqueID()); ?>" class="rpbchessboard-chessboard">
-
 	<noscript>
 		<div class="rpbchessboard-noJavascriptBlock"><?php echo htmlspecialchars($model->getContent()); ?></div>
 		<div class="rpbchessboard-javascriptWarning">
 			<?php _e('You must activate JavaScript to enhance chess diagram visualization.', 'rpbchessboard'); ?>
 		</div>
 	</noscript>
-
 	<div class="rpbchessboard-chessboardAnchor"></div>
-
 	<script type="text/javascript">
-
-		jQuery(document).ready(function($)
-		{
+		jQuery(document).ready(function($) {
 			var selector = '#' + <?php echo json_encode($model->getUniqueID()); ?> + ' .rpbchessboard-chessboardAnchor';
 			$(selector).removeClass('rpbchessboard-chessboardAnchor').chessboard(<?php echo json_encode($model->getWidgetArgs()); ?>);
 		});
-
 	</script>
-
 </div>
 
 <?php if($model->getDiagramAlignment() === 'center'): ?>
