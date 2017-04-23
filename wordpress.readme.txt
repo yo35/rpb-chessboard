@@ -79,6 +79,10 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 4.8 (April 23, 2017) =
+* Allow left/right alignment for diagrams (see #81).
+* Minor fixes.
+
 = 4.7 (January 16, 2017) =
 * Enable .pgn file uploading.
 * Loading PGN data from a URL (see #50).
