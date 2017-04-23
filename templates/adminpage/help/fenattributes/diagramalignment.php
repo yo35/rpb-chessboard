@@ -40,17 +40,17 @@
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-fenAttributeDiagramAlignment-value">center</a></td>
 					<td><?php if($model->getDefaultDiagramAlignment()==='center'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
-					<td><?php _e('The row and column coordinates are hidden.', 'rpbchessboard'); ?></td>
+					<td><?php _e('The diagram is centered.', 'rpbchessboard'); ?></td>
 				</tr>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-fenAttributeDiagramAlignment-value">floatLeft</a></td>
 					<td><?php if($model->getDefaultDiagramAlignment()==='floatLeft'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
-					<td><?php _e('The row and column coordinates are hidden.', 'rpbchessboard'); ?></td>
+					<td><?php _e('The diagram floats on the left of the text.', 'rpbchessboard'); ?></td>
 				</tr>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-fenAttributeDiagramAlignment-value">floatRight</a></td>
 					<td><?php if($model->getDefaultDiagramAlignment()==='floatRight'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
-					<td><?php _e('The row and column coordinates are hidden.', 'rpbchessboard'); ?></td>
+					<td><?php _e('The diagram floats on the right of the text.', 'rpbchessboard'); ?></td>
 				</tr>
 			</tbody>
 		</table>
