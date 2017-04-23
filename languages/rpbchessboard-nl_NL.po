@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-16 10:56+0100\n"
+"POT-Creation-Date: 2017-04-23 15:45+0200\n"
 "PO-Revision-Date: 2014-09-02 16:48:49+0200\n"
 "Last-Translator: schaaktrainer <jdelemarre -at- hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -248,6 +248,30 @@ msgstr ""
 
 #: templates/adminpage/options/general/moveanimation.php
 msgid "Test capture"
+msgstr ""
+
+#: templates/adminpage/options/general/diagramalignment.php
+#: templates/adminpage/help/fenattributes/diagramalignment.php
+#: templates/adminpage/help/fenattributes/main.php
+msgid "Diagram alignment"
+msgstr ""
+
+#: templates/adminpage/options/general/diagramalignment.php
+msgid "Centered"
+msgstr ""
+
+#: templates/adminpage/options/general/diagramalignment.php
+msgid "On the left of the text"
+msgstr ""
+
+#: templates/adminpage/options/general/diagramalignment.php
+msgid "On the right of the text"
+msgstr ""
+
+#: templates/adminpage/options/general/diagramalignment.php
+msgid ""
+"This setting affects how diagrams are inserted and placed within the rest of "
+"the text (by default)."
 msgstr ""
 
 #: templates/adminpage/options/general/boardaspect.php
@@ -545,6 +569,7 @@ msgstr ""
 
 #: templates/adminpage/theming/piecesets.php
 #: templates/adminpage/theming/colorsets.php
+#: templates/adminpage/help/fenattributes/diagramalignment.php
 #: templates/adminpage/help/fenattributes/squaresize.php
 #: templates/adminpage/help/fenattributes/flip.php
 #: templates/adminpage/help/fenattributes/showcoordinates.php
@@ -816,16 +841,14 @@ msgid ""
 "diagram showing the current position."
 msgstr ""
 
-#: templates/adminpage/help/fenattributes/squaresize.php
-#: templates/adminpage/help/fenattributes/main.php
-msgid "Square size"
-msgstr "Veldgrootte"
-
-#: templates/adminpage/help/fenattributes/squaresize.php
+#: templates/adminpage/help/fenattributes/diagramalignment.php
 #, php-format
-msgid "The %1$s attribute controls the size of the chessboard squares."
+msgid ""
+"The %1$s attribute controls how the diagram is inserted within the rest of "
+"the text."
 msgstr ""
 
+#: templates/adminpage/help/fenattributes/diagramalignment.php
 #: templates/adminpage/help/fenattributes/squaresize.php
 #: templates/adminpage/help/fenattributes/flip.php
 #: templates/adminpage/help/fenattributes/showcoordinates.php
@@ -835,6 +858,7 @@ msgstr ""
 msgid "Value"
 msgstr ""
 
+#: templates/adminpage/help/fenattributes/diagramalignment.php
 #: templates/adminpage/help/fenattributes/squaresize.php
 #: templates/adminpage/help/fenattributes/flip.php
 #: templates/adminpage/help/fenattributes/showcoordinates.php
@@ -842,6 +866,28 @@ msgstr ""
 #: templates/adminpage/help/pgnattributes/navigationboard.php
 #: templates/adminpage/help/pgnattributes/piecesymbols.php
 msgid "Description"
+msgstr ""
+
+#: templates/adminpage/help/fenattributes/diagramalignment.php
+msgid "The diagram is centered."
+msgstr ""
+
+#: templates/adminpage/help/fenattributes/diagramalignment.php
+msgid "The diagram floats on the left of the text."
+msgstr ""
+
+#: templates/adminpage/help/fenattributes/diagramalignment.php
+msgid "The diagram floats on the right of the text."
+msgstr ""
+
+#: templates/adminpage/help/fenattributes/squaresize.php
+#: templates/adminpage/help/fenattributes/main.php
+msgid "Square size"
+msgstr "Veldgrootte"
+
+#: templates/adminpage/help/fenattributes/squaresize.php
+#, php-format
+msgid "The %1$s attribute controls the size of the chessboard squares."
 msgstr ""
 
 #: templates/adminpage/help/fenattributes/squaresize.php

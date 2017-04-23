@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-16 10:56+0100\n"
+"POT-Creation-Date: 2017-04-23 15:45+0200\n"
 "PO-Revision-Date: 2016-11-08 11:52+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -255,6 +255,30 @@ msgstr "Тест хода"
 #: templates/adminpage/options/general/moveanimation.php
 msgid "Test capture"
 msgstr "Тест взятия"
+
+#: templates/adminpage/options/general/diagramalignment.php
+#: templates/adminpage/help/fenattributes/diagramalignment.php
+#: templates/adminpage/help/fenattributes/main.php
+msgid "Diagram alignment"
+msgstr ""
+
+#: templates/adminpage/options/general/diagramalignment.php
+msgid "Centered"
+msgstr ""
+
+#: templates/adminpage/options/general/diagramalignment.php
+msgid "On the left of the text"
+msgstr ""
+
+#: templates/adminpage/options/general/diagramalignment.php
+msgid "On the right of the text"
+msgstr ""
+
+#: templates/adminpage/options/general/diagramalignment.php
+msgid ""
+"This setting affects how diagrams are inserted and placed within the rest of "
+"the text (by default)."
+msgstr ""
 
 #: templates/adminpage/options/general/boardaspect.php
 #: templates/adminpage/help/pgnattributes/boardaspect.php
@@ -588,6 +612,7 @@ msgstr "Добавить новый набор фигур"
 
 #: templates/adminpage/theming/piecesets.php
 #: templates/adminpage/theming/colorsets.php
+#: templates/adminpage/help/fenattributes/diagramalignment.php
 #: templates/adminpage/help/fenattributes/squaresize.php
 #: templates/adminpage/help/fenattributes/flip.php
 #: templates/adminpage/help/fenattributes/showcoordinates.php
@@ -890,16 +915,14 @@ msgstr ""
 "Пожалуйста, обратите внимание, что тег %1$s[pgndiagram]%2$s вставляется "
 "внутрь комментария чтобы показать текущую позицию."
 
-#: templates/adminpage/help/fenattributes/squaresize.php
-#: templates/adminpage/help/fenattributes/main.php
-msgid "Square size"
-msgstr "Размер клетки"
-
-#: templates/adminpage/help/fenattributes/squaresize.php
+#: templates/adminpage/help/fenattributes/diagramalignment.php
 #, php-format
-msgid "The %1$s attribute controls the size of the chessboard squares."
-msgstr "Атрибут %1$s контролирует размер клетки шахматной доски."
+msgid ""
+"The %1$s attribute controls how the diagram is inserted within the rest of "
+"the text."
+msgstr ""
 
+#: templates/adminpage/help/fenattributes/diagramalignment.php
 #: templates/adminpage/help/fenattributes/squaresize.php
 #: templates/adminpage/help/fenattributes/flip.php
 #: templates/adminpage/help/fenattributes/showcoordinates.php
@@ -909,6 +932,7 @@ msgstr "Атрибут %1$s контролирует размер клетки �
 msgid "Value"
 msgstr "Значение"
 
+#: templates/adminpage/help/fenattributes/diagramalignment.php
 #: templates/adminpage/help/fenattributes/squaresize.php
 #: templates/adminpage/help/fenattributes/flip.php
 #: templates/adminpage/help/fenattributes/showcoordinates.php
@@ -917,6 +941,28 @@ msgstr "Значение"
 #: templates/adminpage/help/pgnattributes/piecesymbols.php
 msgid "Description"
 msgstr "Описание"
+
+#: templates/adminpage/help/fenattributes/diagramalignment.php
+msgid "The diagram is centered."
+msgstr ""
+
+#: templates/adminpage/help/fenattributes/diagramalignment.php
+msgid "The diagram floats on the left of the text."
+msgstr ""
+
+#: templates/adminpage/help/fenattributes/diagramalignment.php
+msgid "The diagram floats on the right of the text."
+msgstr ""
+
+#: templates/adminpage/help/fenattributes/squaresize.php
+#: templates/adminpage/help/fenattributes/main.php
+msgid "Square size"
+msgstr "Размер клетки"
+
+#: templates/adminpage/help/fenattributes/squaresize.php
+#, php-format
+msgid "The %1$s attribute controls the size of the chessboard squares."
+msgstr "Атрибут %1$s контролирует размер клетки шахматной доски."
 
 #: templates/adminpage/help/fenattributes/squaresize.php
 #, php-format
