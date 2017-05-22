@@ -651,6 +651,7 @@
 		$('.uichess-chessgame-navigationButtonPrev', widget.element).click(function(event) { event.preventDefault(); widget.goPreviousMove(); });
 		$('.uichess-chessgame-navigationButtonNext', widget.element).click(function(event) { event.preventDefault(); widget.goNextMove    (); });
 		$('.uichess-chessgame-navigationButtonLast', widget.element).click(function(event) { event.preventDefault(); widget.goLastMove    (); });
+		$('.uichess-chessgame-navigationButtonFlip', widget.element).click(function(event) { event.preventDefault(); widget.flip          (); });
 
 		// Show the initial position on the navigation board.
 		updateNavigationBoard(widget, $('.uichess-chessgame-initialMove', widget.element), false);
@@ -1039,6 +1040,7 @@
 				'<button class="uichess-chessgame-navigationButtonPrev">&lt;</button>' +
 				'<button class="uichess-chessgame-navigationButtonNext">&gt;</button>' +
 				'<button class="uichess-chessgame-navigationButtonLast">&gt;&gt;</button>' +
+				'<button class="uichess-chessgame-navigationButtonFlip">F</button>' + // TODO: label
 			'</div>';
 	}
 
@@ -1098,6 +1100,7 @@
 		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonPrev').click(function(event) { event.preventDefault(); callback('goPreviousMove'); });
 		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonNext').click(function(event) { event.preventDefault(); callback('goNextMove'    ); });
 		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonLast').click(function(event) { event.preventDefault(); callback('goLastMove'    ); });
+		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonFlip').click(function(event) { event.preventDefault(); callback('flip'          ); });
 	}
 
 
@@ -1125,7 +1128,8 @@
 		}
 
 		// Update the selected move and the mini-board.
-		updateNavigationBoardWidget(widget, move, playTheMove);
+		updateNavigationBoardFlip(widget);
+		updateNavigationBoardPosition(widget, move, playTheMove);
 		updateSelectedMove(widget, move);
 
 		// If the navigation board is in the dedicated frame, update its title,
@@ -1160,21 +1164,27 @@
 
 
 	/**
-	 * Refresh the navigation chessboard widget.
-	 *
-	 * @param {uichess.chessgame} widget
-	 * @param {jQuery} move
-	 * @param {boolean} playTheMove
+	 * Refresh the orientation of the navigation chessboard widget.
 	 */
-	function updateNavigationBoardWidget(widget, move, playTheMove) {
-		var navigationBoard = widget.options.navigationBoard === 'frame' ?
-			$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationBoard') :
-			$('.uichess-chessgame-navigationBoard', widget.element);
+	function updateNavigationBoardFlip(widget) {
+		var navigationBoard = retrieveNavigationBoard(widget);
 
 		// Flip the board if necessary.
 		if(widget.options.navigationBoardOptions.flip !== navigationBoard.chessboard('option', 'flip')) {
 			navigationBoard.chessboard('option', 'flip', widget.options.navigationBoardOptions.flip);
 		}
+	}
+
+
+	/**
+	 * Refresh the position displayed on the navigation chessboard widget.
+	 *
+	 * @param {uichess.chessgame} widget
+	 * @param {jQuery} move
+	 * @param {boolean} playTheMove
+	 */
+	function updateNavigationBoardPosition(widget, move, playTheMove) {
+		var navigationBoard = retrieveNavigationBoard(widget);
 
 		// Update the position.
 		if(playTheMove) {
@@ -1190,6 +1200,19 @@
 		var cal = move.data('cal');
 		navigationBoard.chessboard('option', 'squareMarkers', typeof csl === 'undefined' ? '' : csl);
 		navigationBoard.chessboard('option', 'arrowMarkers', typeof cal === 'undefined' ? '' : cal);
+	}
+
+
+	/**
+	 * Return the navigation board of the given widget (either its own navigation board or the shared one in the popup frame).
+	 *
+	 * @param {uichess.chessgame} widget
+	 * @returns {jQuery}
+	 */
+	function retrieveNavigationBoard(widget) {
+		return widget.options.navigationBoard === 'frame' ?
+			$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationBoard') :
+			$('.uichess-chessgame-navigationBoard', widget.element);
 	}
 
 
@@ -1392,6 +1415,15 @@
 				target = target.data('nextMove');
 			}
 			updateNavigationBoard(this, target, false);
+		},
+
+
+		/**
+		 * Flip the navigation board.
+		 */
+		flip: function() {
+			this.options.navigationBoardOptions.flip = !this.options.navigationBoardOptions.flip;
+			updateNavigationBoardFlip(this);
 		}
 
 	}); /* $.widget('uichess.chessgame', { ... }) */
