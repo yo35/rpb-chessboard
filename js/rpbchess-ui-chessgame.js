@@ -84,7 +84,19 @@
 			 * Chess piece symbols.
 			 * @type {{K:string, Q:string, R:string, B:string, N:string, P:string}}
 			 */
-			PIECE_SYMBOLS: { 'K':'K', 'Q':'Q', 'R':'R', 'B':'B', 'N':'N', 'P':'P' }
+			PIECE_SYMBOLS: { 'K':'K', 'Q':'Q', 'R':'R', 'B':'B', 'N':'N', 'P':'P' },
+
+			/**
+			 * Error message in case of download failure.
+			 * @type {string}
+			 */
+			PGN_DOWNLOAD_ERROR_MESSAGE: 'Cannot download the PGN file.',
+
+			/**
+			 * Error message in case of download failure.
+			 * @type {string}
+			 */
+			PGN_PARSING_ERROR_MESSAGE: 'Error while analysing a PGN string.'
 		}
 
 	}; /* $.chessgame = { ... } */
@@ -363,6 +375,31 @@
 
 
 	/**
+	 * Initialize the internal URL attribute, and initiate the asynchrone PGN retrieval if necessary.
+	 */
+	function initializeURL(widget, url) {
+
+		// Nothing to do if no URL is defined.
+		if(typeof url !== 'string' || url === '') {
+			return '';
+		}
+
+		widget.options.pgn = '';
+		widget._game = null;
+
+		$.get(url).done(function(data) {
+			widget.options.pgn = initializePGN(widget, data);
+			refresh(widget);
+		}).fail(function() {
+			widget._game = { title: $.chessgame.i18n.PGN_DOWNLOAD_ERROR_MESSAGE, message: url };
+			refresh(widget);
+		});
+
+		return url;
+	}
+
+
+	/**
 	 * Initialize the internal `RPBChess.pgn.Item` object that contains the parsed PGN data.
 	 *
 	 * @param {uichess.chessgame} widget
@@ -488,7 +525,7 @@
 		}
 
 		// Handle parsing error problems.
-		if(widget._game instanceof RPBChess.exceptions.InvalidPGN) {
+		if(!(widget._game instanceof RPBChess.pgn.Item)) {
 			$(buildErrorMessage(widget)).appendTo(widget.element);
 			return;
 		}
@@ -667,8 +704,8 @@
 	function buildErrorMessage(widget) {
 
 		// Build the error report box.
-		var retVal = '<div class="uichess-chessgame-error">' +
-			'<div class="uichess-chessgame-errorTitle">Error while analysing a PGN string.</div>';
+		var title = widget._game instanceof RPBChess.exceptions.InvalidPGN ? $.chessgame.i18n.PGN_PARSING_ERROR_MESSAGE : widget._game.title;
+		var retVal = '<div class="uichess-chessgame-error"><div class="uichess-chessgame-errorTitle">' + title + '</div>';
 
 		// Optional message.
 		if(widget._game.message !== null) {
@@ -1275,6 +1312,11 @@
 			pgn: '*',
 
 			/**
+			 * URL from which the PGN data should be retrieved. If provided, the `pgn` attribute becomes read-only.
+			 */
+			url: '',
+
+			/**
 			 * Index of the game to consider in the PGN data.
 			 */
 			gameIndex: -1,
@@ -1335,8 +1377,14 @@
 		_create: function()
 		{
 			this.element.addClass('uichess-chessgame');
-			this.options.pgn          = initializePGN(this, this.options.pgn);
+
+			this.options.url = initializeURL(this, this.options.url);
+			if(!this.options.url) {
+				this.options.pgn = initializePGN(this, this.options.pgn);
+			}
+
 			this.options.pieceSymbols = initializePieceSymbols(this, this.options.pieceSymbols);
+
 			this.options.navigationBoard        = filterNavigationBoard  (this.options.navigationBoard       );
 			this.options.navigationBoardOptions = filterChessboardOptions(this.options.navigationBoardOptions);
 			this.options.diagramOptions         = filterChessboardOptions(this.options.diagramOptions        );
@@ -1360,7 +1408,14 @@
 		_setOption: function(key, value)
 		{
 			switch(key) {
-				case 'pgn'         : value = initializePGN(this, value); break;
+
+				case 'url': value = initializeURL(this, value); break;
+
+				case 'pgn':
+					if(this.options.url) { return; }
+					value = initializePGN(this, value);
+					break;
+
 				case 'pieceSymbols': value = initializePieceSymbols(this, value); break;
 				case 'navigationBoard'       : value = filterNavigationBoard  (value); break;
 				case 'navigationBoardOptions': value = filterChessboardOptions(value); break;
