@@ -23,7 +23,6 @@
 <p class="rpbchessboard-spacerBefore"></p>
 
 <div id="<?php echo htmlspecialchars($model->getUniqueID()); ?>" class="rpbchessboard-chessgame">
-
 	<noscript>
 		<?php if(!$model->isLoadedFromExternalPGNFile()): ?>
 			<div class="rpbchessboard-noJavascriptBlock"><?php echo htmlspecialchars($model->getContent()); ?></div>
@@ -32,53 +31,15 @@
 			<?php _e('You must activate JavaScript to enhance chess game visualization.', 'rpbchessboard'); ?>
 		</div>
 	</noscript>
-
 	<div class="rpbchessboard-chessgameAnchor"></div>
-
 	<script type="text/javascript">
-
 		jQuery(document).ready(function($) {
 			$.chessgame.navigationFrameClass   = 'wp-dialog';
 			$.chessgame.navigationFrameOptions = <?php echo json_encode($model->getNavigationFrameArgs()); ?>;
-
 			var selector = '#' + <?php echo json_encode($model->getUniqueID()); ?> + ' .rpbchessboard-chessgameAnchor';
-			var target = $(selector).removeClass('rpbchessboard-chessgameAnchor');
-
-			<?php if($model->isLoadedFromExternalPGNFile()): ?>
-
-				<?php if($model->isExternalPGNFileValid()): ?>
-
-					$.get(<?php echo json_encode($model->getExternalPGNFile()); ?>).done(function(data) {
-						var widgetArgs = <?php echo json_encode($model->getWidgetArgs()); ?>;
-						widgetArgs['pgn'] = data;
-						target.chessgame(widgetArgs);
-					}).fail(function() {
-						target.append(
-							'<div class="uichess-chessgame-error"><div class="uichess-chessgame-errorTitle">' +
-								<?php echo json_encode(__('Cannot download the PGN file.', 'rpbchessboard')); ?> +
-							'</div><div class="uichess-chessgame-errorMessage">' +
-								<?php echo json_encode($model->getExternalPGNFile()); ?> +
-							'</div></div>'
-						);
-					});
-
-				<?php else: ?>
-					target.append(
-						'<div class="uichess-chessgame-error"><div class="uichess-chessgame-errorTitle">' +
-							<?php echo json_encode(__('Invalid URL to the PGN file.', 'rpbchessboard')); ?> +
-						'</div><div class="uichess-chessgame-errorMessage">' +
-							<?php echo json_encode($model->getExternalPGNFile()); ?> +
-						'</div></div>'
-					);
-				<?php endif; ?>
-
-			<?php else: ?>
-				target.chessgame(<?php echo json_encode($model->getWidgetArgs()); ?>);
-			<?php endif; ?>
+			$(selector).removeClass('rpbchessboard-chessgameAnchor').chessgame(<?php echo json_encode($model->getWidgetArgs()); ?>);
 		});
-
 	</script>
-
 </div>
 
 <p class="rpbchessboard-spacerAfter"></p>

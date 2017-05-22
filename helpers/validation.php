@@ -221,18 +221,6 @@ abstract class RPBChessboardHelperValidation
 
 
 	/**
-	 * Validate a URL.
-	 *
-	 * @param mixed $value
-	 * @return string May be null is the value is not valid.
-	 */
-	public static function validateURL($value) {
-		$value = filter_var($value, FILTER_VALIDATE_URL);
-		return $value===false ? null : $value;
-	}
-
-
-	/**
 	 * Validate an integer.
 	 *
 	 * @param mixed $value
