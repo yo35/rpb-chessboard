@@ -248,6 +248,10 @@ div.uichess-chessgame-variation > div:last-child {
 	margin-top: 0.75em;
 }
 
+.uichess-chessgame-blobDownloadLink {
+	display: none;
+}
+
 #uichess-chessgame-navigationFrame {
 	box-sizing: content-box;
 	-moz-box-sizing: content-box;

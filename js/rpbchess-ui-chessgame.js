@@ -103,6 +103,12 @@
 
 
 	/**
+	 * Singleton used for dynamic-URL generation.
+	 */
+	var dynamicURL = null;
+
+
+	/**
 	 * Convert a PGN standard field into a human-readable site string.
 	 * Return null if the special code "?" is detected.
 	 *
@@ -689,6 +695,7 @@
 		$('.uichess-chessgame-navigationButtonNext', widget.element).click(function(event) { event.preventDefault(); widget.goNextMove    (); });
 		$('.uichess-chessgame-navigationButtonLast', widget.element).click(function(event) { event.preventDefault(); widget.goLastMove    (); });
 		$('.uichess-chessgame-navigationButtonFlip', widget.element).click(function(event) { event.preventDefault(); widget.flip          (); });
+		$('.uichess-chessgame-navigationButtonDwld', widget.element).click(function(event) { event.preventDefault(); widget.downloadPGN   (); });
 
 		// Show the initial position on the navigation board.
 		updateNavigationBoard(widget, $('.uichess-chessgame-initialMove', widget.element), false);
@@ -1078,7 +1085,9 @@
 				'<button class="uichess-chessgame-navigationButtonNext">&gt;</button>' +
 				'<button class="uichess-chessgame-navigationButtonLast">&gt;&gt;</button>' +
 				'<button class="uichess-chessgame-navigationButtonFlip">F</button>' + // TODO: label
-			'</div>';
+				'<button class="uichess-chessgame-navigationButtonDwld">D</button>' + // TODO: label
+			'</div>' +
+			'<a href="#" download="game.pgn" class="uichess-chessgame-blobDownloadLink"></a>';
 	}
 
 
@@ -1138,6 +1147,7 @@
 		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonNext').click(function(event) { event.preventDefault(); callback('goNextMove'    ); });
 		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonLast').click(function(event) { event.preventDefault(); callback('goLastMove'    ); });
 		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonFlip').click(function(event) { event.preventDefault(); callback('flip'          ); });
+		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonDwld').click(function(event) { event.preventDefault(); callback('downloadPGN'   ); });
 	}
 
 
@@ -1250,6 +1260,19 @@
 		return widget.options.navigationBoard === 'frame' ?
 			$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationBoard') :
 			$('.uichess-chessgame-navigationBoard', widget.element);
+	}
+
+
+	/**
+	 * Return the blob-download link of the given widget.
+	 *
+	 * @param {uichess.chessgame} widget
+	 * @returns {jQuery}
+	 */
+	function retrieveBlobDownloadLink(widget) {
+		return widget.options.navigationBoard === 'frame' ?
+			$('#uichess-chessgame-navigationFrame .uichess-chessgame-blobDownloadLink') :
+			$('.uichess-chessgame-blobDownloadLink', widget.element);
 	}
 
 
@@ -1479,6 +1502,28 @@
 		flip: function() {
 			this.options.navigationBoardOptions.flip = !this.options.navigationBoardOptions.flip;
 			updateNavigationBoardFlip(this);
+		},
+
+
+		/**
+		 * Download the PGN data.
+		 */
+		downloadPGN: function() {
+			if(this.options.url) {
+				window.location.href = this.options.url;
+			}
+			else {
+				var data = new Blob([this.options.pgn], { type: 'text/plain' });
+
+				if(dynamicURL !== null) {
+					window.URL.revokeObjectURL(dynamicURL);
+				}
+				dynamicURL = window.URL.createObjectURL(data);
+
+				var link = retrieveBlobDownloadLink(this);
+				link.attr('href', dynamicURL);
+				link.get(0).click();
+			}
 		}
 
 	}); /* $.widget('uichess.chessgame', { ... }) */
