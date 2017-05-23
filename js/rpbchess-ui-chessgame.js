@@ -1121,33 +1121,35 @@
 		widget.chessboard('sizeControlledByContainer', $('#uichess-chessgame-navigationFrame'), 'dialogresize');
 
 		// Callback for the buttons.
-		function callback(methodName) {
+		function callback(methodName, forceScroll) {
 			var gameWidget = $('#uichess-chessgame-navigationFrameTarget').closest('.uichess-chessgame');
 			gameWidget.chessgame(methodName);
 
 			// Scroll to the selected move.
-			var target = $('.uichess-chessgame-selectedMove', gameWidget);
-			var allowScrollDown = true;
-			if(target.hasClass('uichess-chessgame-initialMove')) {
-				target = gameWidget;
-				allowScrollDown = false;
-			}
-			var targetOffset = target.offset();
-			if(targetOffset.top < $(window).scrollTop()) {
-				$('html, body').animate({ scrollTop: targetOffset.top }, 200);
-			}
-			else if(allowScrollDown && targetOffset.top + target.height() > $(window).scrollTop() + window.innerHeight) {
-				$('html, body').animate({ scrollTop: targetOffset.top + target.height() - window.innerHeight }, 200);
+			if(forceScroll) {
+				var target = $('.uichess-chessgame-selectedMove', gameWidget);
+				var allowScrollDown = true;
+				if(target.hasClass('uichess-chessgame-initialMove')) {
+					target = gameWidget;
+					allowScrollDown = false;
+				}
+				var targetOffset = target.offset();
+				if(targetOffset.top < $(window).scrollTop()) {
+					$('html, body').animate({ scrollTop: targetOffset.top }, 200);
+				}
+				else if(allowScrollDown && targetOffset.top + target.height() > $(window).scrollTop() + window.innerHeight) {
+					$('html, body').animate({ scrollTop: targetOffset.top + target.height() - window.innerHeight }, 200);
+				}
 			}
 		}
 
 		// Create the buttons.
-		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonFrst').click(function(event) { event.preventDefault(); callback('goFirstMove'   ); });
-		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonPrev').click(function(event) { event.preventDefault(); callback('goPreviousMove'); });
-		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonNext').click(function(event) { event.preventDefault(); callback('goNextMove'    ); });
-		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonLast').click(function(event) { event.preventDefault(); callback('goLastMove'    ); });
-		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonFlip').click(function(event) { event.preventDefault(); callback('flip'          ); });
-		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonDwld').click(function(event) { event.preventDefault(); callback('downloadPGN'   ); });
+		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonFrst').click(function(event) { event.preventDefault(); callback('goFirstMove'   , true ); });
+		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonPrev').click(function(event) { event.preventDefault(); callback('goPreviousMove', true ); });
+		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonNext').click(function(event) { event.preventDefault(); callback('goNextMove'    , true ); });
+		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonLast').click(function(event) { event.preventDefault(); callback('goLastMove'    , true ); });
+		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonFlip').click(function(event) { event.preventDefault(); callback('flip'          , false); });
+		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonDwld').click(function(event) { event.preventDefault(); callback('downloadPGN'   , false); });
 	}
 
 
