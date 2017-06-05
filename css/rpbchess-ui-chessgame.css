@@ -252,6 +252,8 @@ div.uichess-chessgame-variation > div:last-child {
 	border-radius: 0px;
 	-webkit-box-shadow: none;
 	box-shadow: none;
+	margin-left: 0px;
+	margin-right: 0px;
 }
 
 .uichess-chessgame-navigationButtons .ui-button:first-child,

@@ -28,6 +28,7 @@
  * @requires Moment.js {@link http://momentjs.com/}
  * @requires jQuery
  * @requires jQuery UI Widget
+ * @requires jQuery UI Icons (optional, only if the navigation board feature is enabled)
  * @requires jQuery UI Selectable (optional, only if the navigation board feature is enabled)
  * @requires jQuery Color (optional, only if the navigation board feature is enabled)
  * @requires jQuery UI Dialog (optional, only if the framed navigation board feature is enabled)
@@ -55,6 +56,13 @@
 		 * @type {string}
 		 */
 		navigationFrameClass: '',
+
+
+		/**
+		 * Button class for the navigation buttons.
+		 * @type {string}
+		 */
+		navigationButtonClass: '',
 
 
 		/**
@@ -727,13 +735,9 @@
 		$('.uichess-chessgame-navigationBoard', widget.element).chessboard(widget.options.navigationBoardOptions);
 
 		// Navigation buttons
-		$('.uichess-chessgame-navigationButtons'       , widget.element).disableSelection();
-		$('.uichess-chessgame-navigationButtonFirst'   , widget.element).button().click(function() { widget.goFirstMove   (); });
-		$('.uichess-chessgame-navigationButtonPrevious', widget.element).button().click(function() { widget.goPreviousMove(); });
-		$('.uichess-chessgame-navigationButtonNext'    , widget.element).button().click(function() { widget.goNextMove    (); });
-		$('.uichess-chessgame-navigationButtonLast'    , widget.element).button().click(function() { widget.goLastMove    (); });
-		$('.uichess-chessgame-navigationButtonFlip'    , widget.element).button().click(function() { widget.flip          (); });
-		$('.uichess-chessgame-navigationButtonDownload', widget.element).button().click(function() { widget.downloadPGN   (); });
+		initializeNavigationButtons(function(buttonClass) { return $(buttonClass, widget.element); }, function(methodName) {
+			widget[methodName]();
+		});
 
 		// Show the initial position on the navigation board.
 		updateNavigationBoard(widget, $('.uichess-chessgame-initialMove', widget.element), false);
@@ -1117,15 +1121,29 @@
 	 */
 	function buildNavigationSkeleton() {
 		return '<div class="uichess-chessgame-navigationBoard"></div>' +
-			'<div class="uichess-chessgame-navigationButtons">' +
-				'<div title="' + $.chessgame.i18n.GO_FIRST_MOVE_TOOLTIP + '" class="uichess-chessgame-navigationButtonFirst">&lt;&lt;</div>' +
-				'<div title="' + $.chessgame.i18n.GO_PREVIOUS_MOVE_TOOLTIP + '" class="uichess-chessgame-navigationButtonPrevious">&lt;</div>' +
-				'<div title="' + $.chessgame.i18n.GO_NEXT_MOVE_TOOLTIP + '" class="uichess-chessgame-navigationButtonNext">&gt;</div>' +
-				'<div title="' + $.chessgame.i18n.GO_LAST_MOVE_TOOLTIP + '" class="uichess-chessgame-navigationButtonLast uichess-chessgame-spaceAfter">&gt;&gt;</div>' +
-				'<div title="' + $.chessgame.i18n.FLIP_TOOLTIP + '" class="uichess-chessgame-navigationButtonFlip uichess-chessgame-spaceAfter">F</div>' + // TODO: label
-				'<div title="' + $.chessgame.i18n.DOWNLOAD_PGN_TOOLTIP + '" class="uichess-chessgame-navigationButtonDownload uichess-chessgame-spaceAfter">D</div>' + // TODO: label
+			'<div class="uichess-chessgame-navigationButtons ' + $.chessgame.navigationButtonClass + '">' +
+				'<div title="' + $.chessgame.i18n.GO_FIRST_MOVE_TOOLTIP    + '" class="uichess-chessgame-navigationButtonFirst"></div>' +
+				'<div title="' + $.chessgame.i18n.GO_PREVIOUS_MOVE_TOOLTIP + '" class="uichess-chessgame-navigationButtonPrevious"></div>' +
+				'<div title="' + $.chessgame.i18n.GO_NEXT_MOVE_TOOLTIP     + '" class="uichess-chessgame-navigationButtonNext"></div>' +
+				'<div title="' + $.chessgame.i18n.GO_LAST_MOVE_TOOLTIP     + '" class="uichess-chessgame-navigationButtonLast uichess-chessgame-spaceAfter"></div>' +
+				'<div title="' + $.chessgame.i18n.FLIP_TOOLTIP             + '" class="uichess-chessgame-navigationButtonFlip uichess-chessgame-spaceAfter"></div>' +
+				'<div title="' + $.chessgame.i18n.DOWNLOAD_PGN_TOOLTIP     + '" class="uichess-chessgame-navigationButtonDownload uichess-chessgame-spaceAfter"></div>' +
 			'</div>' +
 			'<a href="#" download="game.pgn" class="uichess-chessgame-blobDownloadLink"></a>';
+	}
+
+
+	/**
+	 * jQuerize the navigation buttons and bind their callbacks.
+	 */
+	function initializeNavigationButtons(selector, callback) {
+		selector('.uichess-chessgame-navigationButtons'       ).disableSelection();
+		selector('.uichess-chessgame-navigationButtonFirst'   ).button({ icons:{ primary:'ui-icon-seek-first' }, text:false }).click(function() { callback('goFirstMove'   ); });
+		selector('.uichess-chessgame-navigationButtonPrevious').button({ icons:{ primary:'ui-icon-seek-prev'  }, text:false }).click(function() { callback('goPreviousMove'); });
+		selector('.uichess-chessgame-navigationButtonNext'    ).button({ icons:{ primary:'ui-icon-seek-next'  }, text:false }).click(function() { callback('goNextMove'    ); });
+		selector('.uichess-chessgame-navigationButtonLast'    ).button({ icons:{ primary:'ui-icon-seek-end'   }, text:false }).click(function() { callback('goLastMove'    ); });
+		selector('.uichess-chessgame-navigationButtonFlip'    ).button({ icons:{ primary:'ui-icon-refresh'    }, text:false }).click(function() { callback('flip'          ); });
+		selector('.uichess-chessgame-navigationButtonDownload').button({ icons:{ primary:'ui-icon-extlink'    }, text:false }).click(function() { callback('downloadPGN'   ); });
 	}
 
 
@@ -1159,12 +1177,12 @@
 		widget.chessboard('sizeControlledByContainer', $('#uichess-chessgame-navigationFrame'), 'dialogresize');
 
 		// Callback for the buttons.
-		function callback(methodName, forceScroll) {
+		initializeNavigationButtons(function(buttonClass) { return $('#uichess-chessgame-navigationFrame ' + buttonClass); }, function callback(methodName) {
 			var gameWidget = $('#uichess-chessgame-navigationFrameTarget').closest('.uichess-chessgame');
 			gameWidget.chessgame(methodName);
 
 			// Scroll to the selected move.
-			if(forceScroll) {
+			if(/^go/.test(methodName)) {
 				var target = $('.uichess-chessgame-selectedMove', gameWidget);
 				var allowScrollDown = true;
 				if(target.hasClass('uichess-chessgame-initialMove')) {
@@ -1179,16 +1197,7 @@
 					$('html, body').animate({ scrollTop: targetOffset.top + target.height() - window.innerHeight }, 200);
 				}
 			}
-		}
-
-		// Create the buttons.
-		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtons'       ).disableSelection();
-		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonFirst'   ).button().click(function() { callback('goFirstMove'   , true ); });
-		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonPrevious').button().click(function() { callback('goPreviousMove', true ); });
-		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonNext'    ).button().click(function() { callback('goNextMove'    , true ); });
-		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonLast'    ).button().click(function() { callback('goLastMove'    , true ); });
-		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonFlip'    ).button().click(function() { callback('flip'          , false); });
-		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonDownload').button().click(function() { callback('downloadPGN'   , false); });
+		});
 	}
 
 

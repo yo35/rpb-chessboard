@@ -34,6 +34,7 @@
 	<div class="rpbchessboard-chessgameAnchor"></div>
 	<script type="text/javascript">
 		jQuery(document).ready(function($) {
+			$.chessgame.navigationButtonClass  = 'rpbchessboard-jQuery-enableSmoothness';
 			$.chessgame.navigationFrameClass   = 'wp-dialog';
 			$.chessgame.navigationFrameOptions = <?php echo json_encode($model->getNavigationFrameArgs()); ?>;
 			var selector = '#' + <?php echo json_encode($model->getUniqueID()); ?> + ' .rpbchessboard-chessgameAnchor';

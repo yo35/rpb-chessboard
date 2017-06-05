@@ -32,6 +32,7 @@ abstract class RPBChessboardStyleSheets
 	{
 		// jQuery
 		wp_enqueue_style('wp-jquery-ui-dialog');
+		wp_enqueue_style('rpbchessboard-jquery-ui-smoothness', RPBCHESSBOARD_URL . 'third-party-libs/jquery/jquery-ui.smoothness.min.css', false, '1.11.4');
 
 		// Chess fonts
 		wp_enqueue_style('rpbchessboard-chessfonts', RPBCHESSBOARD_URL . 'fonts/chess-fonts.css', false, RPBCHESSBOARD_VERSION);
@@ -48,13 +49,10 @@ abstract class RPBChessboardStyleSheets
 		RPBChessboardHelperCache::ensureExists('theming.css', 'Misc/Theming', 'Misc/Theming');
 		self::enqueueCachedStyle('rpbchessboard-theming', 'theming.css');
 
-		// Additional CSS for the backend.
+		// Additional CSS for the frontend/backend.
 		if(is_admin()) {
-			wp_enqueue_style('rpbchessboard-jquery-ui-smoothness', RPBCHESSBOARD_URL . 'third-party-libs/jquery/jquery-ui.smoothness.min.css', false, '1.11.4');
-			wp_enqueue_style('rpbchessboard-backend'             , RPBCHESSBOARD_URL . 'css/backend.css', false, RPBCHESSBOARD_VERSION);
+			wp_enqueue_style('rpbchessboard-backend', RPBCHESSBOARD_URL . 'css/backend.css', false, RPBCHESSBOARD_VERSION);
 		}
-
-		// Additional CSS for the frontend.
 		else {
 			wp_enqueue_style('rpbchessboard-frontend', RPBCHESSBOARD_URL . 'css/frontend.css', false, RPBCHESSBOARD_VERSION);
 		}
