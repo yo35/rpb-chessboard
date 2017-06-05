@@ -87,6 +87,42 @@
 			PIECE_SYMBOLS: { 'K':'K', 'Q':'Q', 'R':'R', 'B':'B', 'N':'N', 'P':'P' },
 
 			/**
+			 * Tooltip for the "go-first-move" button.
+			 * @type {string}
+			 */
+			GO_FIRST_MOVE_TOOLTIP: 'Go to the beginning of the game',
+
+			/**
+			 * Tooltip for the "go-previous-move" button.
+			 * @type {string}
+			 */
+			GO_PREVIOUS_MOVE_TOOLTIP: 'Go to the previous move',
+
+			/**
+			 * Tooltip for the "go-next-move" button.
+			 * @type {string}
+			 */
+			GO_NEXT_MOVE_TOOLTIP: 'Go to the next move',
+
+			/**
+			 * Tooltip for the "go-last-move" button.
+			 * @type {string}
+			 */
+			GO_LAST_MOVE_TOOLTIP: 'Go to the end of the game',
+
+			/**
+			 * Tooltip for the "flip" button.
+			 * @type {string}
+			 */
+			FLIP_TOOLTIP: 'Flip the board',
+
+			/**
+			 * Tooltip for the "download PGN" button.
+			 * @type {string}
+			 */
+			DOWNLOAD_PGN_TOOLTIP: 'Download the game',
+
+			/**
 			 * Error message in case of download failure.
 			 * @type {string}
 			 */
@@ -1080,12 +1116,12 @@
 	function buildNavigationSkeleton() {
 		return '<div class="uichess-chessgame-navigationBoard"></div>' +
 			'<div class="uichess-chessgame-navigationButtons">' +
-				'<div class="uichess-chessgame-navigationButtonFrst">&lt;&lt;</div>' +
-				'<div class="uichess-chessgame-navigationButtonPrev">&lt;</div>' +
-				'<div class="uichess-chessgame-navigationButtonNext">&gt;</div>' +
-				'<div class="uichess-chessgame-navigationButtonLast uichess-chessgame-spaceAfter">&gt;&gt;</div>' +
-				'<div class="uichess-chessgame-navigationButtonFlip uichess-chessgame-spaceAfter">F</div>' + // TODO: label
-				'<div class="uichess-chessgame-navigationButtonDwld uichess-chessgame-spaceAfter">D</div>' + // TODO: label
+				'<div title="' + $.chessgame.i18n.GO_FIRST_MOVE_TOOLTIP + '" class="uichess-chessgame-navigationButtonFrst">&lt;&lt;</div>' +
+				'<div title="' + $.chessgame.i18n.GO_PREVIOUS_MOVE_TOOLTIP + '" class="uichess-chessgame-navigationButtonPrev">&lt;</div>' +
+				'<div title="' + $.chessgame.i18n.GO_NEXT_MOVE_TOOLTIP + '" class="uichess-chessgame-navigationButtonNext">&gt;</div>' +
+				'<div title="' + $.chessgame.i18n.GO_LAST_MOVE_TOOLTIP + '" class="uichess-chessgame-navigationButtonLast uichess-chessgame-spaceAfter">&gt;&gt;</div>' +
+				'<div title="' + $.chessgame.i18n.FLIP_TOOLTIP + '" class="uichess-chessgame-navigationButtonFlip uichess-chessgame-spaceAfter">F</div>' + // TODO: label
+				'<div title="' + $.chessgame.i18n.DOWNLOAD_PGN_TOOLTIP + '" class="uichess-chessgame-navigationButtonDwld uichess-chessgame-spaceAfter">D</div>' + // TODO: label
 			'</div>' +
 			'<a href="#" download="game.pgn" class="uichess-chessgame-blobDownloadLink"></a>';
 	}
