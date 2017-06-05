@@ -28,6 +28,7 @@
  * @requires Moment.js {@link http://momentjs.com/}
  * @requires jQuery
  * @requires jQuery UI Widget
+ * @requires jQuery UI Selectable (optional, only if the navigation board feature is enabled)
  * @requires jQuery Color (optional, only if the navigation board feature is enabled)
  * @requires jQuery UI Dialog (optional, only if the framed navigation board feature is enabled)
  * @requires jQuery UI Resizable (optional, only if the framed navigation board feature is enabled)
@@ -726,6 +727,7 @@
 		$('.uichess-chessgame-navigationBoard', widget.element).chessboard(widget.options.navigationBoardOptions);
 
 		// Navigation buttons
+		$('.uichess-chessgame-navigationButtons'       , widget.element).disableSelection();
 		$('.uichess-chessgame-navigationButtonFirst'   , widget.element).button().click(function() { widget.goFirstMove   (); });
 		$('.uichess-chessgame-navigationButtonPrevious', widget.element).button().click(function() { widget.goPreviousMove(); });
 		$('.uichess-chessgame-navigationButtonNext'    , widget.element).button().click(function() { widget.goNextMove    (); });
@@ -1180,6 +1182,7 @@
 		}
 
 		// Create the buttons.
+		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtons'       ).disableSelection();
 		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonFirst'   ).button().click(function() { callback('goFirstMove'   , true ); });
 		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonPrevious').button().click(function() { callback('goPreviousMove', true ); });
 		$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationButtonNext'    ).button().click(function() { callback('goNextMove'    , true ); });
