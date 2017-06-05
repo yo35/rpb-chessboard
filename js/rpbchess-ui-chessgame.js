@@ -1226,6 +1226,7 @@
 
 		// Update the selected move and the mini-board.
 		updateNavigationBoardFlip(widget);
+		updateNavigationButtons(widget);
 		updateNavigationBoardPosition(widget, move, playTheMove);
 		updateSelectedMove(widget, move);
 
@@ -1269,6 +1270,29 @@
 		// Flip the board if necessary.
 		if(widget.options.navigationBoardOptions.flip !== navigationBoard.chessboard('option', 'flip')) {
 			navigationBoard.chessboard('option', 'flip', widget.options.navigationBoardOptions.flip);
+		}
+	}
+
+
+	/**
+	 * Refresh the visibility of the navigation buttons.
+	 */
+	function updateNavigationButtons(widget) {
+		updateNavigationButton(widget, '.uichess-chessgame-navigationButtonFlip', widget.options.showFlipButton);
+		updateNavigationButton(widget, '.uichess-chessgame-navigationButtonDownload', widget.options.showDownloadButton);
+	}
+
+
+	/**
+	 * Refresh the visibility of the navigation button identified by the given class.
+	 */
+	function updateNavigationButton(widget, buttonClass, isVisible) {
+		var button = widget.options.navigationBoard === 'frame' ? $('#uichess-chessgame-navigationFrame ' + buttonClass) : $(buttonClass, widget.element);
+		if(isVisible) {
+			button.show();
+		}
+		else {
+			button.hide();
 		}
 	}
 
@@ -1426,7 +1450,17 @@
 			 * - ':' + chess font name: use the figurines defined by the specified chess font.
 			 * - '(' + six letters + ')': use custom letters.
 			 */
-			pieceSymbols: 'native'
+			pieceSymbols: 'native',
+
+			/**
+			 * Whether the "flip" button should be visible or not below the navigation boards.
+			 */
+			showFlipButton: true,
+
+			/**
+			 * Whether the "download" button should be visible or not below the navigation boards.
+			 */
+			showDownloadButton: true
 		},
 
 
