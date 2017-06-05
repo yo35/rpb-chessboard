@@ -24,8 +24,16 @@
 
 	(function(rpb, $) {
 
-		$.chessgame.i18n.ANNOTATED_BY     = <?php echo json_encode(__('Annotated by %1$s', 'rpbchessboard')); ?>;
-		$.chessgame.i18n.INITIAL_POSITION = <?php echo json_encode(__('Initial position' , 'rpbchessboard')); ?>;
+		$.chessgame.i18n.ANNOTATED_BY               = <?php echo json_encode(__('Annotated by %1$s'                  , 'rpbchessboard')); ?>;
+		$.chessgame.i18n.INITIAL_POSITION           = <?php echo json_encode(__('Initial position'                   , 'rpbchessboard')); ?>;
+		$.chessgame.i18n.GO_FIRST_MOVE_TOOLTIP      = <?php echo json_encode(__('Go to the beginning of the game'    , 'rpbchessboard')); ?>;
+		$.chessgame.i18n.GO_PREVIOUS_MOVE_TOOLTIP   = <?php echo json_encode(__('Go to the previous move'            , 'rpbchessboard')); ?>;
+		$.chessgame.i18n.GO_NEXT_MOVE_TOOLTIP       = <?php echo json_encode(__('Go to the next move'                , 'rpbchessboard')); ?>;
+		$.chessgame.i18n.GO_LAST_MOVE_TOOLTIP       = <?php echo json_encode(__('Go to the end of the game'          , 'rpbchessboard')); ?>;
+		$.chessgame.i18n.FLIP_TOOLTIP               = <?php echo json_encode(__('Flip the board'                     , 'rpbchessboard')); ?>;
+		$.chessgame.i18n.DOWNLOAD_PGN_TOOLTIP       = <?php echo json_encode(__('Download the game'                  , 'rpbchessboard')); ?>;
+		$.chessgame.i18n.PGN_DOWNLOAD_ERROR_MESSAGE = <?php echo json_encode(__('Cannot download the PGN file.'      , 'rpbchessboard')); ?>;
+		$.chessgame.i18n.PGN_PARSING_ERROR_MESSAGE  = <?php echo json_encode(__('Error while analysing a PGN string.', 'rpbchessboard')); ?>;
 
 		$.chessgame.i18n.PIECE_SYMBOLS = {
 			'K': <?php /*i18n King symbol   */ echo json_encode(__('K', 'rpbchessboard')); ?>,
