@@ -1083,9 +1083,9 @@
 				'<div class="uichess-chessgame-navigationButtonFrst">&lt;&lt;</div>' +
 				'<div class="uichess-chessgame-navigationButtonPrev">&lt;</div>' +
 				'<div class="uichess-chessgame-navigationButtonNext">&gt;</div>' +
-				'<div class="uichess-chessgame-navigationButtonLast">&gt;&gt;</div>' +
-				'<div class="uichess-chessgame-navigationButtonFlip">F</div>' + // TODO: label
-				'<div class="uichess-chessgame-navigationButtonDwld">D</div>' + // TODO: label
+				'<div class="uichess-chessgame-navigationButtonLast uichess-chessgame-spaceAfter">&gt;&gt;</div>' +
+				'<div class="uichess-chessgame-navigationButtonFlip uichess-chessgame-spaceAfter">F</div>' + // TODO: label
+				'<div class="uichess-chessgame-navigationButtonDwld uichess-chessgame-spaceAfter">D</div>' + // TODO: label
 			'</div>' +
 			'<a href="#" download="game.pgn" class="uichess-chessgame-blobDownloadLink"></a>';
 	}
