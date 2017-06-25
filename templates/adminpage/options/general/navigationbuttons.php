@@ -45,7 +45,12 @@
 	</div>
 	<div>
 
-		TODO: preview
+		<div id="rpbchessboard-navigationToolbarPreview">
+			<img id="rpbchessboard-navigationToolbar-n"   src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-toolbar-n.png'; ?>" />
+			<img id="rpbchessboard-navigationToolbar-nf"  src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-toolbar-nf.png'; ?>" />
+			<img id="rpbchessboard-navigationToolbar-nd"  src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-toolbar-nd.png'; ?>" />
+			<img id="rpbchessboard-navigationToolbar-nfd" src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-toolbar-nfd.png'; ?>" />
+		</div>
 
 	</div>
 </div>
@@ -54,3 +59,24 @@
 <p class="description">
 	<?php _e('These settings allow to customize the toolbar that is displayed below the navigation board.', 'rpbchessboard'); ?>
 </p>
+
+
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+
+		function refreshPreview() {
+
+			// ID of the preview image
+			var id = '#rpbchessboard-navigationToolbar-n';
+			if($('#rpbchessboard-showFlipButtonField').prop('checked')) id += 'f';
+			if($('#rpbchessboard-showDownloadButtonField').prop('checked')) id += 'd';
+
+			$('#rpbchessboard-navigationToolbarPreview img').hide();
+			$('#rpbchessboard-navigationToolbarPreview ' + id).show();
+		}
+
+		$('#rpbchessboard-showFlipButtonField').change(refreshPreview);
+		$('#rpbchessboard-showDownloadButtonField').change(refreshPreview);
+		refreshPreview();
+	});
+</script>
