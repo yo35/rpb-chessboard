@@ -637,6 +637,8 @@ table.rpbchessboard-attributeTable td:nth-child(2) {
 
 #rpbchessboard-pgnAttributeNavigationBoard-content.rpbchessboard-columns > div:nth-child(1) { width: 40%; }
 #rpbchessboard-pgnAttributeNavigationBoard-content.rpbchessboard-columns > div:nth-child(2) { width: 60%; }
+#rpbchessboard-pgnAttributeNavigationButtons-content.rpbchessboard-columns > div:nth-child(1) { width: 40%; }
+#rpbchessboard-pgnAttributeNavigationButtons-content.rpbchessboard-columns > div:nth-child(2) { width: 60%; }
 
 #rpbchessboard-fenAttributeSquareSize-content.rpbchessboard-columns > div:nth-child(1) { width: 35%; }
 #rpbchessboard-fenAttributeSquareSize-content.rpbchessboard-columns > div:nth-child(2) { width: 65%; }
