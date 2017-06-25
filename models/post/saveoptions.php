@@ -44,6 +44,8 @@ class RPBChessboardModelPostSaveOptions extends RPBChessboardAbstractModel {
 		self::processDiagramAlignment();
 		self::processPieceSymbols();
 		self::processNavigationBoard();
+		self::processBooleanParameter('showFlipButton');
+		self::processBooleanParameter('showDownloadButton');
 		self::processAnimationSpeed();
 		self::processBooleanParameter('showMoveArrow');
 
