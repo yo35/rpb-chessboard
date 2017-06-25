@@ -31,7 +31,6 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode
 	private $loadedFromExternalPGNFile;
 	private $externalPGNFile;
 	private $widgetArgs;
-	private $navigationFrameArgs;
 
 
 	public function __construct($atts, $content) {
@@ -155,26 +154,6 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode
 			$this->widgetArgs['diagramOptions'        ] = $chessboardOptions;
 		}
 		return $this->widgetArgs;
-	}
-
-
-	/**
-	 * Return the arguments to pass to the navigation frame constructor.
-	 *
-	 * @return array
-	 */
-	public function getNavigationFrameArgs() {
-		if(!isset($this->navigationFrameArgs)) {
-			$this->navigationFrameArgs = array(
-				'squareSize'      => $this->getDefaultSquareSize     (),
-				'showCoordinates' => $this->getDefaultShowCoordinates(),
-				'colorset'        => $this->getDefaultColorset       (),
-				'pieceset'        => $this->getDefaultPieceset       (),
-				'animationSpeed'  => $this->getDefaultAnimationSpeed (),
-				'showMoveArrow'   => $this->getDefaultShowMoveArrow  ()
-			);
-		}
-		return $this->navigationFrameArgs;
 	}
 
 

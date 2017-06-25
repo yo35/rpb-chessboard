@@ -61,7 +61,7 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 			'getDefaultColorset', 'getDefaultPieceset', 'getDefaultDiagramAlignment', 'getDefaultPieceSymbols',
 			'getDefaultNavigationBoard', 'getDefaultShowFlipButton', 'getDefaultShowDownloadButton',
 			'getDefaultAnimationSpeed', 'getDefaultShowMoveArrow',
-			'getDefaultChessboardSettings');
+			'getDefaultChessboardSettings', 'getDefaultChessgameSettings');
 	}
 
 
@@ -232,7 +232,25 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 			'squareSize'      => $this->getDefaultSquareSize(),
 			'showCoordinates' => $this->getDefaultShowCoordinates(),
 			'colorset'        => $this->getDefaultColorset(),
-			'pieceset'        => $this->getDefaultPieceset()
+			'pieceset'        => $this->getDefaultPieceset(),
+			'animationSpeed'  => $this->getDefaultAnimationSpeed(),
+			'showMoveArrow'   => $this->getDefaultShowMoveArrow()
+		);
+	}
+
+
+	/**
+	 * Default chessgame settings.
+	 */
+	public function getDefaultChessgameSettings() {
+		$defaultChessboardSettings = $this->getDefaultChessboardSettings();
+		return array(
+			'pieceSymbols'           => $this->getDefaultPieceSymbols(),
+			'navigationBoard'        => $this->getDefaultNavigationBoard(),
+			'showFlipButton'         => $this->getDefaultShowFlipButton(),
+			'showDownloadButton'     => $this->getDefaultShowDownloadButton(),
+			'navigationBoardOptions' => $defaultChessboardSettings,
+			'diagramOptions'         => $defaultChessboardSettings
 		);
 	}
 }

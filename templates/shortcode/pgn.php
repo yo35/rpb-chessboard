@@ -34,7 +34,9 @@
 	<div class="rpbchessboard-chessgameAnchor"></div>
 	<script type="text/javascript">
 		jQuery(document).ready(function($) {
-			$.chessgame.navigationFrameOptions = <?php echo json_encode($model->getNavigationFrameArgs()); ?>;
+			$.chessgame.navigationButtonClass  = 'rpbchessboard-jQuery-enableSmoothness';
+			$.chessgame.navigationFrameClass   = 'wp-dialog';
+			$.chessgame.navigationFrameOptions = <?php echo json_encode($model->getDefaultChessboardSettings()); ?>;
 			var selector = '#' + <?php echo json_encode($model->getUniqueID()); ?> + ' .rpbchessboard-chessgameAnchor';
 			$(selector).removeClass('rpbchessboard-chessgameAnchor').chessgame(<?php echo json_encode($model->getWidgetArgs()); ?>);
 		});
