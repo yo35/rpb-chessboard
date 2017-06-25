@@ -79,10 +79,6 @@ class RPBChessboardModelShortcodeFEN extends RPBChessboardAbstractModelShortcode
 			// Pieceset
 			$value = isset($atts['pieceset']) ? RPBChessboardHelperValidation::validateSetCode($atts['pieceset']) : null;
 			$this->widgetArgs['pieceset'] = isset($value) ? $value : $this->getDefaultPieceset();
-
-			// Diagram alignment
-
-
 		}
 		return $this->widgetArgs;
 	}
