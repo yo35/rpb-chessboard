@@ -348,6 +348,38 @@
 
 
 	/**
+	 * Ensure that the given value is a valid boolean.
+	 *
+	 * @param {mixed} value
+	 * @param {boolean} defaultValue
+	 * @returns {boolean}
+	 */
+	function filterBoolean(value, defaultValue) {
+		if(typeof value === 'boolean') {
+			return value;
+		}
+		else if(typeof value === 'number') {
+			return Boolean(value);
+		}
+		else if(typeof value === 'string') {
+			value = value.toLowerCase();
+			if(value === 'true' || value === '1' || value === 'on') {
+				return true;
+			}
+			else if(value === 'false' || value === '0' || value === 'off') {
+				return false;
+			}
+			else {
+				return defaultValue;
+			}
+		}
+		else {
+			return defaultValue;
+		}
+	}
+
+
+	/**
 	 * Ensure that the given argument is a valid value for the navigation board property.
 	 *
 	 * @param {string} value
@@ -1495,6 +1527,10 @@
 			this.options.navigationBoard        = filterNavigationBoard  (this.options.navigationBoard       );
 			this.options.navigationBoardOptions = filterChessboardOptions(this.options.navigationBoardOptions);
 			this.options.diagramOptions         = filterChessboardOptions(this.options.diagramOptions        );
+
+			this.options.showFlipButton     = filterBoolean(this.options.showFlipButton    , true);
+			this.options.showDownloadButton = filterBoolean(this.options.showDownloadButton, true);
+
 			refresh(this);
 		},
 
@@ -1527,9 +1563,13 @@
 				case 'navigationBoard'       : value = filterNavigationBoard  (value); break;
 				case 'navigationBoardOptions': value = filterChessboardOptions(value); break;
 				case 'diagramOptions'        : value = filterChessboardOptions(value); break;
+
+				case 'showFlipButton'    : value = filterBoolean(value, true); break;
+				case 'showDownloadButton': value = filterBoolean(value, true); break;
 			}
 
 			this.options[key] = value;
+
 			refresh(this);
 		},
 
