@@ -427,8 +427,9 @@ div.rpbchessboard-sourceCode {
 	width: 250px;
 }
 
+#rpbchessboard-optionPage #rpbchessboard-tuningNavigationToolbarParameterColumn,
 #rpbchessboard-optionPage #rpbchessboard-tuningMoveAnimationParameterColumn {
-	width: 500px;
+	width: 300px;
 }
 
 #rpbchessboard-optionPage span.rpbchessboard-slider {

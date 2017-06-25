@@ -29,33 +29,38 @@ require_once(RPBCHESSBOARD_ABSPATH . 'helpers/validation.php');
  */
 class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 {
-	private static $squareSize      ;
-	private static $showCoordinates ;
-	private static $colorset        ;
-	private static $pieceset        ;
-	private static $diagramAlignment;
-	private static $pieceSymbols    ;
-	private static $navigationBoard ;
-	private static $animationSpeed  ;
-	private static $showMoveArrow   ;
+	private static $squareSize        ;
+	private static $showCoordinates   ;
+	private static $colorset          ;
+	private static $pieceset          ;
+	private static $diagramAlignment  ;
+	private static $pieceSymbols      ;
+	private static $navigationBoard   ;
+	private static $showFlipButton    ;
+	private static $showDownloadButton;
+	private static $animationSpeed    ;
+	private static $showMoveArrow     ;
 
 
-	const DEFAULT_SQUARE_SIZE       = 32;
-	const DEFAULT_SHOW_COORDINATES  = true;
-	const DEFAULT_COLORSET          = 'original';
-	const DEFAULT_PIECESET          = 'cburnett';
-	const DEFAULT_DIAGRAM_ALIGNMENT = 'center';
-	const DEFAULT_PIECE_SYMBOLS     = 'localized';
-	const DEFAULT_NAVIGATION_BOARD  = 'frame';
-	const DEFAULT_ANIMATION_SPEED   = 200;
-	const DEFAULT_SHOW_MOVE_ARROW   = true;
+	const DEFAULT_SQUARE_SIZE          = 32;
+	const DEFAULT_SHOW_COORDINATES     = true;
+	const DEFAULT_COLORSET             = 'original';
+	const DEFAULT_PIECESET             = 'cburnett';
+	const DEFAULT_DIAGRAM_ALIGNMENT    = 'center';
+	const DEFAULT_PIECE_SYMBOLS        = 'localized';
+	const DEFAULT_NAVIGATION_BOARD     = 'frame';
+	const DEFAULT_SHOW_FLIP_BUTTON     = true;
+	const DEFAULT_SHOW_DOWNLOAD_BUTTON = true;
+	const DEFAULT_ANIMATION_SPEED      = 200;
+	const DEFAULT_SHOW_MOVE_ARROW      = true;
 
 
 	public function __construct() {
 		parent::__construct();
 		$this->registerDelegatableMethods('getDefaultSquareSize', 'getDefaultShowCoordinates',
 			'getDefaultColorset', 'getDefaultPieceset', 'getDefaultDiagramAlignment', 'getDefaultPieceSymbols',
-			'getDefaultNavigationBoard', 'getDefaultAnimationSpeed', 'getDefaultShowMoveArrow');
+			'getDefaultNavigationBoard', 'getDefaultShowFlipButton', 'getDefaultShowDownloadButton',
+			'getDefaultAnimationSpeed', 'getDefaultShowMoveArrow');
 	}
 
 
@@ -159,6 +164,34 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 			self::$navigationBoard = isset($value) ? $value : self::DEFAULT_NAVIGATION_BOARD;
 		}
 		return self::$navigationBoard;
+	}
+
+
+	/**
+	 * Whether the flip button in the navigation toolbar should be visible or not.
+	 *
+	 * @return boolean
+	 */
+	public function getDefaultShowFlipButton() {
+		if(!isset(self::$showFlipButton)) {
+			$value = RPBChessboardHelperValidation::validateBooleanFromInt(get_option('rpbchessboard_showFlipButton'));
+			self::$showFlipButton = isset($value) ? $value : self::DEFAULT_SHOW_FLIP_BUTTON;
+		}
+		return self::$showFlipButton;
+	}
+
+
+	/**
+	 * Whether the download button in the navigation toolbar should be visible or not.
+	 *
+	 * @return boolean
+	 */
+	public function getDefaultShowDownloadButton() {
+		if(!isset(self::$showDownloadButton)) {
+			$value = RPBChessboardHelperValidation::validateBooleanFromInt(get_option('rpbchessboard_showDownloadButton'));
+			self::$showDownloadButton = isset($value) ? $value : self::DEFAULT_SHOW_DOWNLOAD_BUTTON;
+		}
+		return self::$showDownloadButton;
 	}
 
 

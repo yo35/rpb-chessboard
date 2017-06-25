@@ -20,29 +20,37 @@
  ******************************************************************************/
 ?>
 
-<p>
-	<?php echo sprintf(
-		__(
-			'These settings control the default aspect and behavior of the chess diagrams and games ' .
-			'inserted in posts and pages with the %1$s[%3$s][/%3$s]%2$s and %1$s[%4$s][/%4$s]%2$s tags. ' .
-			'They can be overridden at each tag by passing appropriate tag attributes: ' .
-			'see %5$shelp on FEN diagram attributes%7$s and %6$shelp on PGN game attributes%7$s for more details.',
-		'rpbchessboard'),
-		'<span class="rpbchessboard-sourceCode">',
-		'</span>',
-		htmlspecialchars($model->getFENShortcode()),
-		htmlspecialchars($model->getPGNShortcode()),
-		'<a href="' . htmlspecialchars($model->getHelpOnFENAttributesURL()) . '">',
-		'<a href="' . htmlspecialchars($model->getHelpOnPGNAttributesURL()) . '">',
-		'</a>'
-	); ?>
-</p>
+<h3><?php _e('Navigation toolbar', 'rpbchessboard'); ?></h3>
 
-<?php
-	RPBChessboardHelperLoader::printTemplate('AdminPage/Options/General/BoardAspect'      , $model);
-	RPBChessboardHelperLoader::printTemplate('AdminPage/Options/General/DiagramAlignment' , $model);
-	RPBChessboardHelperLoader::printTemplate('AdminPage/Options/General/PieceSymbols'     , $model);
-	RPBChessboardHelperLoader::printTemplate('AdminPage/Options/General/NavigationBoard'  , $model);
-	RPBChessboardHelperLoader::printTemplate('AdminPage/Options/General/NavigationButtons', $model);
-	RPBChessboardHelperLoader::printTemplate('AdminPage/Options/General/MoveAnimation'    , $model);
-?>
+
+<div class="rpbchessboard-columns">
+	<div id="rpbchessboard-tuningNavigationToolbarParameterColumn">
+
+		<p>
+			<input type="hidden" name="showFlipButton" value="0" />
+			<input type="checkbox" id="rpbchessboard-showFlipButtonField" name="showFlipButton" value="1"
+				<?php if($model->getDefaultShowFlipButton()): ?>checked="yes"<?php endif; ?>
+			/>
+			<label for="rpbchessboard-showFlipButtonField"><?php _e('Show flip button', 'rpbchessboard'); ?></label>
+		</p>
+
+		<p>
+			<input type="hidden" name="showDownloadButton" value="0" />
+			<input type="checkbox" id="rpbchessboard-showDownloadButtonField" name="showDownloadButton" value="1"
+				<?php if($model->getDefaultShowDownloadButton()): ?>checked="yes"<?php endif; ?>
+			/>
+			<label for="rpbchessboard-showDownloadButtonField"><?php _e('Show download button', 'rpbchessboard'); ?></label>
+		</p>
+
+	</div>
+	<div>
+
+		TODO: preview
+
+	</div>
+</div>
+
+
+<p class="description">
+	<?php _e('These settings allow to customize the toolbar that is displayed below the navigation board.', 'rpbchessboard'); ?>
+</p>
