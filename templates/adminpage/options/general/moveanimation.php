@@ -24,7 +24,7 @@
 
 
 <div class="rpbchessboard-columns">
-	<div id="#rpbchessboard-tuningMoveAnimationParameterColumn">
+	<div id="rpbchessboard-tuningMoveAnimationParameterColumn">
 
 		<p>
 			<?php
