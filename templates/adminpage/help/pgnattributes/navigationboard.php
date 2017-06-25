@@ -98,7 +98,8 @@
 				<div id="rpbchessboard-pgnAttributeNavigationBoard-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-pgnAttributeNavigationBoard-anchor').chessgame({
+						$('#rpbchessboard-pgnAttributeNavigationBoard-anchor').chessgame($.extend(true, <?php echo json_encode($model->getDefaultChessgameSettings()); ?>, {
+							navigationBoard: 'none',
 							navigationBoardOptions: { squareSize: 28 },
 							pgn:
 								'[Event "World Championship"]\n' +
@@ -124,7 +125,7 @@
 								'h2 62. Kc2 Kc6 63. Rd1 b3+ 64. Kc3 h1=Q 65. Rxh1 Kd5 66. Kb2 ' +
 								'f4 67. Rd1+ Ke4 68. Rc1 Kd3 69. Rd1+ Ke2 70. Rc1 f3 71. Bc5 ' +
 								'Rxg7 72. Rxc4 Rd7 73. Re4+ Kf1 74. Bd4 f2 0-1'
-						});
+						}));
 						$('.rpbchessboard-pgnAttributeNavigationBoard-value').click(function(e) {
 							e.preventDefault();
 							var value = $(this).text();

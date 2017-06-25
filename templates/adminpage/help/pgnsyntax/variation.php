@@ -45,7 +45,8 @@
 				<div id="rpbchessboard-pgnVariation-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-pgnVariation-anchor').chessgame({
+						$('#rpbchessboard-pgnVariation-anchor').chessgame($.extend(<?php echo json_encode($model->getDefaultChessgameSettings()); ?>, {
+							navigationBoard: 'none',
 							pgn:
 								'1. e4 e5 (1... c5) (1... e6) 2. Nf3 Nc6 3. Bb5\n' +
 								'\n' +
@@ -54,7 +55,7 @@
 								'(3. d4 exd4 4. Nxd4 Bc5 5. Be3 Qf6)\n' +
 								'\n' +
 								'3... a6 4. Ba4 *'
-						});
+						}));
 					});
 				</script>
 			</div>

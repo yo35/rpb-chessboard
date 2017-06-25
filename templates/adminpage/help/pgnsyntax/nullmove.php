@@ -48,12 +48,13 @@
 				<div id="rpbchessboard-pgnNullMove-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-pgnNullMove-anchor').chessgame({
+						$('#rpbchessboard-pgnNullMove-anchor').chessgame($.extend(true, <?php echo json_encode($model->getDefaultChessgameSettings()); ?>, {
+							navigationBoard: 'none',
 							diagramOptions: { squareSize: 28 },
 							pgn:
 								'{' + <?php echo json_encode(__('A standard development scheme for white:', 'rpbchessboard')); ?> +
 								'} 1. e4 -- 2. Nf3 -- 3. Bc4 -- 4. Nc3 -- 5. d4 -- 6. O-O {<div class="uichess-chessgame-diagramAnchor"></div>} *'
-						});
+						}));
 					});
 				</script>
 			</div>

@@ -55,7 +55,8 @@
 				<div id="rpbchessboard-pgnDiagram-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-pgnDiagram-anchor').chessgame({
+						$('#rpbchessboard-pgnDiagram-anchor').chessgame($.extend(true, <?php echo json_encode($model->getDefaultChessgameSettings()); ?>, {
+							navigationBoard: 'none',
 							diagramOptions: { squareSize: 28 },
 							pgn:
 								'1. e4 c5\n' +
@@ -66,7 +67,7 @@
 								?> + '}\n' +
 								'\n' +
 								'2. Nf3 d6 *'
-						});
+						}));
 					});
 				</script>
 			</div>

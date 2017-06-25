@@ -32,6 +32,12 @@
 		?>
 	</p>
 
+	<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			$.chessgame.navigationFrameOptions = <?php echo json_encode($model->getDefaultChessboardSettings()); ?>;
+		});
+	</script>
+
 	<?php
 		RPBChessboardHelperLoader::printTemplate('AdminPage/Memo/FEN', $model);
 		RPBChessboardHelperLoader::printTemplate('AdminPage/Memo/PGN', $model);

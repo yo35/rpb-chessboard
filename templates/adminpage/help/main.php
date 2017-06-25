@@ -24,6 +24,9 @@
 
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
+
+		$.chessgame.navigationFrameOptions = <?php echo json_encode($model->getDefaultChessboardSettings()); ?>;
+
 		$('.rpbchessboard-outline a').click(function(e) {
 			e.preventDefault();
 			var target = $(this).attr('href');

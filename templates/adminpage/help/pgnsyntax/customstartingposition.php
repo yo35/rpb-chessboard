@@ -59,7 +59,8 @@
 				<div id="rpbchessboard-pgnCustomStartingPosition-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-pgnCustomStartingPosition-anchor').chessgame({
+						$('#rpbchessboard-pgnCustomStartingPosition-anchor').chessgame($.extend(true, <?php echo json_encode($model->getDefaultChessgameSettings()); ?>, {
+							navigationBoard: 'none',
 							diagramOptions: { squareSize: 28 },
 							pgn:
 								'[Event "' + <?php echo json_encode(__('Endgame example', 'rpbchessboard')); ?> + '"]\n' +
@@ -69,7 +70,7 @@
 								'{<div class="uichess-chessgame-diagramAnchor"></div>}\n' +
 								'\n' +
 								'50.Bc6+ Nxc6 51.c8=Q+ Nb8 52.Qb7# 1-0'
-						});
+						}));
 					});
 				</script>
 			</div>

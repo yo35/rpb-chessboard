@@ -130,7 +130,7 @@
 				<div id="rpbchessboard-example2"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-example2').chessgame({
+						$('#rpbchessboard-example2').chessgame($.extend(true, <?php echo json_encode($model->getDefaultChessgameSettings()); ?>, {
 							diagramOptions: { squareSize: 28 },
 							navigationBoard: 'frame',
 							pgn:
@@ -167,7 +167,7 @@
 								'23. Kg1 Bh3+ 24. Kh1 Bxf2 25. Qf1\n' +
 								'{' + <?php echo json_encode(__('Absolutely forced.', 'rpbchessboard')); ?> + '}\n' +
 								'25... Bxf1 26. Rxf1 Re2 27. Ra1 Rh6 28. d4 Be3 0-1'
-						});
+						}));
 					});
 				</script>
 			</div>

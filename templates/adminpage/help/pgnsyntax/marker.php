@@ -92,7 +92,8 @@
 				<div id="rpbchessboard-pgnMarker-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-pgnMarker-anchor').chessgame({
+						$('#rpbchessboard-pgnMarker-anchor').chessgame($.extend(true, <?php echo json_encode($model->getDefaultChessgameSettings()); ?>, {
+							navigationBoard: 'none',
 							diagramOptions: { squareSize: 28 },
 							pgn:
 								'1. e4 e5 2. Nf3\n' +
@@ -109,7 +110,7 @@
 								?> + '}\n' +
 								'\n' +
 								'*'
-						});
+						}));
 					});
 				</script>
 			</div>

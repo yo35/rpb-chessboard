@@ -96,14 +96,14 @@
 				<div id="rpbchessboard-pgnAttributeMoveAnimation-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-pgnAttributeMoveAnimation-anchor').chessgame({
+						$('#rpbchessboard-pgnAttributeMoveAnimation-anchor').chessgame($.extend(true, <?php echo json_encode($model->getDefaultChessgameSettings()); ?>, {
 							navigationBoard: 'floatLeft',
-							navigationBoardOptions: { squareSize: 28, showCoordinates: false, animationSpeed: 0, showMoveArrow: false },
+							navigationBoardOptions: { squareSize: 28, animationSpeed: 0, showMoveArrow: false },
 							pgn:
 								'1. d4 Nf6 2. c4 e6 3. Nc3 Bb4 4. Qc2 d5 5. cxd5 Qxd5 6. Nf3 Qf5 7. Qxf5 exf5 8. a3 Be7 ' +
 								'9. Bg5 Be6 10. e3 c6 11. Bd3 Nbd7 12. O-O h6 13. Bh4 a5 14. Rac1 O-O 15. Ne2 g5 ' +
 								'16. Bg3 Ne4 17. Nc3 Nxc3 18. Rxc3 Nf6 19. Rcc1 Rfd8 20. Rfd1 Rac8 1/2-1/2'
-						});
+						}));
 						$('.rpbchessboard-pgnAttributeAnimationSpeed-value').click(function(e) {
 							e.preventDefault();
 							var options = $('#rpbchessboard-pgnAttributeMoveAnimation-anchor').chessgame('option', 'navigationBoardOptions');

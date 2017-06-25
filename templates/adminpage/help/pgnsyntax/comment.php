@@ -49,7 +49,8 @@
 				<div id="rpbchessboard-pgnComment-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-pgnComment-anchor').chessgame({
+						$('#rpbchessboard-pgnComment-anchor').chessgame($.extend(<?php echo json_encode($model->getDefaultChessgameSettings()); ?>, {
+							navigationBoard: 'none',
 							pgn:
 								'1. d4 {' +
 								<?php echo json_encode(sprintf(__('I\'m a %1$sshort%2$s comment.', 'rpbchessboard'),
@@ -61,7 +62,7 @@
 									'<strong style="color:red;">', '</strong>')); ?> + '}\n' +
 								'\n' +
 								'13... a5 14. Rac1 O-O 15. Ne2 g5 16. Bg3 Ne4 17. Nc3 Nxc3 18. Rxc3 Nf6 19. Rcc1 Rfd8 20. Rfd1 Rac8 *'
-						});
+						}));
 					});
 				</script>
 			</div>
