@@ -144,6 +144,12 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode
 			$value = isset($atts['navigation_board']) ? RPBChessboardHelperValidation::validateNavigationBoard($atts['navigation_board']) : null;
 			$this->widgetArgs['navigationBoard'] = isset($value) ? $value : $this->getDefaultNavigationBoard();
 
+			// Navigation toolbar
+			$value = isset($atts['show_flip_button']) ? RPBChessboardHelperValidation::validateBoolean($atts['show_flip_button']) : null;
+			$this->widgetArgs['showFlipButton'] = isset($value) ? $value : $this->getDefaultShowFlipButton();
+			$value = isset($atts['show_download_button']) ? RPBChessboardHelperValidation::validateBoolean($atts['show_download_button']) : null;
+			$this->widgetArgs['showDownloadButton'] = isset($value) ? $value : $this->getDefaultShowDownloadButton();
+
 			// Use the same aspect parameters for the navigation board and the text comment diagrams.
 			$this->widgetArgs['navigationBoardOptions'] = $chessboardOptions;
 			$this->widgetArgs['diagramOptions'        ] = $chessboardOptions;
