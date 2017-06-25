@@ -60,7 +60,8 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 		$this->registerDelegatableMethods('getDefaultSquareSize', 'getDefaultShowCoordinates',
 			'getDefaultColorset', 'getDefaultPieceset', 'getDefaultDiagramAlignment', 'getDefaultPieceSymbols',
 			'getDefaultNavigationBoard', 'getDefaultShowFlipButton', 'getDefaultShowDownloadButton',
-			'getDefaultAnimationSpeed', 'getDefaultShowMoveArrow');
+			'getDefaultAnimationSpeed', 'getDefaultShowMoveArrow',
+			'getDefaultChessboardSettings');
 	}
 
 
@@ -220,5 +221,18 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 			self::$showMoveArrow = isset($value) ? $value : self::DEFAULT_SHOW_MOVE_ARROW;
 		}
 		return self::$showMoveArrow;
+	}
+
+
+	/**
+	 * Default chessboard settings.
+	 */
+	public function getDefaultChessboardSettings() {
+		return array(
+			'squareSize'      => $this->getDefaultSquareSize(),
+			'showCoordinates' => $this->getDefaultShowCoordinates(),
+			'colorset'        => $this->getDefaultColorset(),
+			'pieceset'        => $this->getDefaultPieceset()
+		);
 	}
 }

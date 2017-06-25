@@ -65,7 +65,10 @@
 				<div id="rpbchessboard-fenAttributeFlip-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-fenAttributeFlip-anchor').chessboard({ position: 'start', squareSize: 28 });
+						$('#rpbchessboard-fenAttributeFlip-anchor').chessboard($.extend(<?php echo json_encode($model->getDefaultChessboardSettings()); ?>, {
+							position: 'start',
+							squareSize: 28
+						}));
 						$('.rpbchessboard-fenAttributeFlip-value').click(function(e) {
 							e.preventDefault();
 							var value = $(this).text();

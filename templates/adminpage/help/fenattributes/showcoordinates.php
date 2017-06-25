@@ -65,7 +65,11 @@
 				<div id="rpbchessboard-fenAttributeShowCoordinates-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-fenAttributeShowCoordinates-anchor').chessboard({ position: 'start', squareSize: 28, showCoordinates: true });
+						$('#rpbchessboard-fenAttributeShowCoordinates-anchor').chessboard($.extend(<?php echo json_encode($model->getDefaultChessboardSettings()); ?>, {
+							position: 'start',
+							squareSize: 28,
+							showCoordinates: true
+						}));
 						$('.rpbchessboard-fenAttributeShowCoordinates-value').click(function(e) {
 							e.preventDefault();
 							var value = $(this).text();

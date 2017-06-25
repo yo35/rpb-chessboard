@@ -87,7 +87,10 @@
 				</p>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-fenAttributeDiagramAlignment-anchor').chessboard({ position: 'start', squareSize: 28, showCoordinates: true });
+						$('#rpbchessboard-fenAttributeDiagramAlignment-anchor').chessboard($.extend(<?php echo json_encode($model->getDefaultChessboardSettings()); ?>, {
+							position: 'start',
+							squareSize: 28
+						}));
 						$('.rpbchessboard-fenAttributeDiagramAlignment-value').click(function(e) {
 							e.preventDefault();
 							var value = $(this).text();

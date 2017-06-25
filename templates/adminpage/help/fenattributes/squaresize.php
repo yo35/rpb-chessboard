@@ -69,7 +69,10 @@
 				<div id="rpbchessboard-fenAttributeSquareSize-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-fenAttributeSquareSize-anchor').chessboard({ position: 'start', squareSize: <?php echo json_encode($model->getSquareSizeInitialExample()); ?> });
+						$('#rpbchessboard-fenAttributeSquareSize-anchor').chessboard($.extend(<?php echo json_encode($model->getDefaultChessboardSettings()); ?>, {
+							position: 'start',
+							squareSize: <?php echo json_encode($model->getSquareSizeInitialExample()); ?>
+						}));
 						$('.rpbchessboard-fenAttributeSquareSize-value').click(function(e) {
 							e.preventDefault();
 							var value = $(this).text();

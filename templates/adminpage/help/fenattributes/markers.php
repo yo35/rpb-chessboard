@@ -65,10 +65,12 @@
 				<div id="rpbchessboard-fenAttributeMarkers-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-fenAttributeMarkers-anchor').chessboard({
+						$('#rpbchessboard-fenAttributeMarkers-anchor').chessboard($.extend(<?php echo json_encode($model->getDefaultChessboardSettings()); ?>, {
 							position: 'r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 1',
-							squareSize: 28, squareMarkers: 'Ye5', arrowMarkers: 'Gc6e5,Rf3e5'
-						});
+							squareSize: 28,
+							squareMarkers: 'Ye5',
+							arrowMarkers: 'Gc6e5,Rf3e5'
+						}));
 					});
 				</script>
 			</div>

@@ -68,7 +68,12 @@
 				<div id="rpbchessboard-fenAttributeColorsetPieceset-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-fenAttributeColorsetPieceset-anchor').chessboard({ position: 'start', squareSize: 48, showCoordinates: true });
+						$('#rpbchessboard-fenAttributeColorsetPieceset-anchor').chessboard($.extend(<?php echo json_encode($model->getDefaultChessboardSettings()); ?>, {
+							position: 'start',
+							squareSize: 48,
+							colorset: 'cburnett',
+							pieceset: 'original'
+						}));
 						$('#rpbchessboard-fenAttributeColorset-field').val($('#rpbchessboard-fenAttributeColorset-sourceCodeExample').text());
 						$('#rpbchessboard-fenAttributePieceset-field').val($('#rpbchessboard-fenAttributePieceset-sourceCodeExample').text());
 						$('#rpbchessboard-fenAttributeColorset-field').change(function() {

@@ -31,6 +31,7 @@ class RPBChessboardModelAdminPageMemo extends RPBChessboardAbstractModelAdminPag
 	public function __construct() {
 		parent::__construct();
 		$this->loadDelegateModel('Common/Compatibility');
+		$this->loadDelegateModel('Common/DefaultOptions');
 	}
 
 
