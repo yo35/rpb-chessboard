@@ -207,7 +207,9 @@
 		$('#play-go').button().click(function() {
 			var move = $('#play-text').val();
 			if(move !== '') {
+				$('#a').chessboard('option', 'showMoveArrow', true);
 				$('#a').chessboard('play', move);
+				$('#a').chessboard('option', 'showMoveArrow', false);
 			}
 		});
 
