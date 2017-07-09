@@ -39,7 +39,7 @@ class RPBChessboardModelShortcodeFEN extends RPBChessboardAbstractModelShortcode
 
 
 	/**
-	 * Return the arguments to pass to the uichess-chessboard widget.
+	 * Return the arguments to pass to the JS chessboard widget.
 	 *
 	 * @return array
 	 */
