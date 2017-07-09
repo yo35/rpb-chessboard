@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-23 15:45+0200\n"
+"POT-Creation-Date: 2017-07-09 12:32+0200\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35 -at- melix.net>\n"
 "Language-Team: French\n"
@@ -255,6 +255,28 @@ msgstr "Tester un coup"
 #: templates/adminpage/options/general/moveanimation.php
 msgid "Test capture"
 msgstr "Tester une capture"
+
+#: templates/adminpage/options/general/navigationbuttons.php
+#: templates/adminpage/help/pgnattributes/navigationbuttons.php
+#: templates/adminpage/help/pgnattributes/main.php
+msgid "Navigation toolbar"
+msgstr "Barre d'outils de navigation"
+
+#: templates/adminpage/options/general/navigationbuttons.php
+msgid "Show flip button"
+msgstr "Afficher le bouton pour tourner l'échiquier"
+
+#: templates/adminpage/options/general/navigationbuttons.php
+msgid "Show download button"
+msgstr "Afficher le bouton de téléchargement"
+
+#: templates/adminpage/options/general/navigationbuttons.php
+msgid ""
+"These settings allow to customize the toolbar that is displayed below the "
+"navigation board."
+msgstr ""
+"Ces paramètres permettent de personnaliser la barre d'outils affichée en "
+"dessous de l'échiquier de navigation."
 
 #: templates/adminpage/options/general/diagramalignment.php
 #: templates/adminpage/help/fenattributes/diagramalignment.php
@@ -624,6 +646,7 @@ msgstr "Ajouter un thème"
 #: templates/adminpage/help/fenattributes/flip.php
 #: templates/adminpage/help/fenattributes/showcoordinates.php
 #: templates/adminpage/help/pgnattributes/moveanimation.php
+#: templates/adminpage/help/pgnattributes/navigationbuttons.php
 #: templates/adminpage/help/pgnattributes/navigationboard.php
 #: templates/adminpage/help/pgnattributes/piecesymbols.php
 msgid "Default"
@@ -951,6 +974,7 @@ msgstr ""
 #: templates/adminpage/help/fenattributes/flip.php
 #: templates/adminpage/help/fenattributes/showcoordinates.php
 #: templates/adminpage/help/pgnattributes/moveanimation.php
+#: templates/adminpage/help/pgnattributes/navigationbuttons.php
 #: templates/adminpage/help/pgnattributes/navigationboard.php
 #: templates/adminpage/help/pgnattributes/piecesymbols.php
 msgid "Value"
@@ -961,6 +985,7 @@ msgstr "Valeur"
 #: templates/adminpage/help/fenattributes/flip.php
 #: templates/adminpage/help/fenattributes/showcoordinates.php
 #: templates/adminpage/help/pgnattributes/moveanimation.php
+#: templates/adminpage/help/pgnattributes/navigationbuttons.php
 #: templates/adminpage/help/pgnattributes/navigationboard.php
 #: templates/adminpage/help/pgnattributes/piecesymbols.php
 msgid "Description"
@@ -1383,6 +1408,40 @@ msgstr "Aucune flèche n'est affichée."
 msgid "The moves are highlighted by an arrow."
 msgstr "Les coups sont mis en évidence avec une flèche."
 
+#: templates/adminpage/help/pgnattributes/navigationbuttons.php
+#, php-format
+msgid ""
+"The %1$s attribute controls whether the button that allows to flip the board "
+"is available or not (below the navigation board)."
+msgstr ""
+"L'attribut %1$s détermine si le bouton permettant de tourner l'échiquier est "
+"disponible ou pas (en dessous de l'échiquier de navigation)."
+
+#: templates/adminpage/help/pgnattributes/navigationbuttons.php
+msgid "No flip button."
+msgstr "Pas de bouton pour tourner l'échiquier."
+
+#: templates/adminpage/help/pgnattributes/navigationbuttons.php
+msgid "The flip button is visible."
+msgstr "Le bouton pour tourner l'échiquier est visible."
+
+#: templates/adminpage/help/pgnattributes/navigationbuttons.php
+#, php-format
+msgid ""
+"Similarly, the %1$s attribute affects whether the button that allows to "
+"download the game is available or not."
+msgstr ""
+"De même, l'attribut %1$s détermine si le bouton de téléchargement est "
+"disponible ou pas."
+
+#: templates/adminpage/help/pgnattributes/navigationbuttons.php
+msgid "No download button."
+msgstr "Pas de bouton de téléchargement."
+
+#: templates/adminpage/help/pgnattributes/navigationbuttons.php
+msgid "The download button is visible."
+msgstr "Le bouton de téléchargement est visible."
+
 #: templates/adminpage/help/pgnattributes/boardaspect.php
 #, php-format
 msgid ""
@@ -1522,14 +1581,6 @@ msgstr ""
 "Vous devez activer JavaScript pour améliorer l'affichage des parties "
 "d'échecs."
 
-#: templates/shortcode/pgn.php
-msgid "Cannot download the PGN file."
-msgstr "Impossible de télécharger le fichier PGN."
-
-#: templates/shortcode/pgn.php
-msgid "Invalid URL to the PGN file."
-msgstr "L'URL du fichier PGN est incorrecte."
-
 #: templates/localization.php
 #, php-format
 msgid "Annotated by %1$s"
@@ -1538,6 +1589,38 @@ msgstr "Commentée par %1$s"
 #: templates/localization.php
 msgid "Initial position"
 msgstr "Position initiale"
+
+#: templates/localization.php
+msgid "Go to the beginning of the game"
+msgstr "Aller au début de la partie"
+
+#: templates/localization.php
+msgid "Go to the previous move"
+msgstr "Aller au coup précédent"
+
+#: templates/localization.php
+msgid "Go to the next move"
+msgstr "Aller au coup suivant"
+
+#: templates/localization.php
+msgid "Go to the end of the game"
+msgstr "Aller à la fin de la partie"
+
+#: templates/localization.php
+msgid "Flip the board"
+msgstr "Tourner l'échiquier"
+
+#: templates/localization.php
+msgid "Download the game"
+msgstr "Télécharger la partie"
+
+#: templates/localization.php
+msgid "Cannot download the PGN file."
+msgstr "Impossible de télécharger le fichier PGN."
+
+#: templates/localization.php
+msgid "Error while analysing a PGN string."
+msgstr "Erreur lors du décodage du PGN."
 
 #: templates/localization.php
 msgid "chessboard"
@@ -1562,10 +1645,6 @@ msgstr "Annuler la dernière modification"
 #: templates/localization.php
 msgid "Re-do the last modification"
 msgstr "Rétablir la dernière modification"
-
-#: templates/localization.php
-msgid "Flip board"
-msgstr "Tourner l'échiquier"
 
 #: templates/localization.php
 msgid "Standard positions"

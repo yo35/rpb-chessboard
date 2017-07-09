@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-23 15:45+0200\n"
+"POT-Creation-Date: 2017-07-09 12:32+0200\n"
 "PO-Revision-Date: 2015-08-27 23:19+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -250,6 +250,26 @@ msgstr ""
 
 #: templates/adminpage/options/general/moveanimation.php
 msgid "Test capture"
+msgstr ""
+
+#: templates/adminpage/options/general/navigationbuttons.php
+#: templates/adminpage/help/pgnattributes/navigationbuttons.php
+#: templates/adminpage/help/pgnattributes/main.php
+msgid "Navigation toolbar"
+msgstr ""
+
+#: templates/adminpage/options/general/navigationbuttons.php
+msgid "Show flip button"
+msgstr ""
+
+#: templates/adminpage/options/general/navigationbuttons.php
+msgid "Show download button"
+msgstr ""
+
+#: templates/adminpage/options/general/navigationbuttons.php
+msgid ""
+"These settings allow to customize the toolbar that is displayed below the "
+"navigation board."
 msgstr ""
 
 #: templates/adminpage/options/general/diagramalignment.php
@@ -613,6 +633,7 @@ msgstr ""
 #: templates/adminpage/help/fenattributes/flip.php
 #: templates/adminpage/help/fenattributes/showcoordinates.php
 #: templates/adminpage/help/pgnattributes/moveanimation.php
+#: templates/adminpage/help/pgnattributes/navigationbuttons.php
 #: templates/adminpage/help/pgnattributes/navigationboard.php
 #: templates/adminpage/help/pgnattributes/piecesymbols.php
 msgid "Default"
@@ -907,6 +928,7 @@ msgstr ""
 #: templates/adminpage/help/fenattributes/flip.php
 #: templates/adminpage/help/fenattributes/showcoordinates.php
 #: templates/adminpage/help/pgnattributes/moveanimation.php
+#: templates/adminpage/help/pgnattributes/navigationbuttons.php
 #: templates/adminpage/help/pgnattributes/navigationboard.php
 #: templates/adminpage/help/pgnattributes/piecesymbols.php
 msgid "Value"
@@ -917,6 +939,7 @@ msgstr "Değer"
 #: templates/adminpage/help/fenattributes/flip.php
 #: templates/adminpage/help/fenattributes/showcoordinates.php
 #: templates/adminpage/help/pgnattributes/moveanimation.php
+#: templates/adminpage/help/pgnattributes/navigationbuttons.php
 #: templates/adminpage/help/pgnattributes/navigationboard.php
 #: templates/adminpage/help/pgnattributes/piecesymbols.php
 msgid "Description"
@@ -1321,6 +1344,36 @@ msgstr ""
 msgid "The moves are highlighted by an arrow."
 msgstr ""
 
+#: templates/adminpage/help/pgnattributes/navigationbuttons.php
+#, php-format
+msgid ""
+"The %1$s attribute controls whether the button that allows to flip the board "
+"is available or not (below the navigation board)."
+msgstr ""
+
+#: templates/adminpage/help/pgnattributes/navigationbuttons.php
+msgid "No flip button."
+msgstr ""
+
+#: templates/adminpage/help/pgnattributes/navigationbuttons.php
+msgid "The flip button is visible."
+msgstr ""
+
+#: templates/adminpage/help/pgnattributes/navigationbuttons.php
+#, php-format
+msgid ""
+"Similarly, the %1$s attribute affects whether the button that allows to "
+"download the game is available or not."
+msgstr ""
+
+#: templates/adminpage/help/pgnattributes/navigationbuttons.php
+msgid "No download button."
+msgstr ""
+
+#: templates/adminpage/help/pgnattributes/navigationbuttons.php
+msgid "The download button is visible."
+msgstr ""
+
 #: templates/adminpage/help/pgnattributes/boardaspect.php
 #, php-format
 msgid ""
@@ -1451,14 +1504,6 @@ msgstr ""
 "Satranç oyunu görselliğini zenginleştirmek için JavaScript'i "
 "aktifleştirmelisiniz."
 
-#: templates/shortcode/pgn.php
-msgid "Cannot download the PGN file."
-msgstr ""
-
-#: templates/shortcode/pgn.php
-msgid "Invalid URL to the PGN file."
-msgstr ""
-
 #: templates/localization.php
 #, php-format
 msgid "Annotated by %1$s"
@@ -1467,6 +1512,38 @@ msgstr "Analiz : %1$s"
 #: templates/localization.php
 msgid "Initial position"
 msgstr "Başlangıç konumu"
+
+#: templates/localization.php
+msgid "Go to the beginning of the game"
+msgstr ""
+
+#: templates/localization.php
+msgid "Go to the previous move"
+msgstr ""
+
+#: templates/localization.php
+msgid "Go to the next move"
+msgstr ""
+
+#: templates/localization.php
+msgid "Go to the end of the game"
+msgstr ""
+
+#: templates/localization.php
+msgid "Flip the board"
+msgstr "tahtayı çevir"
+
+#: templates/localization.php
+msgid "Download the game"
+msgstr ""
+
+#: templates/localization.php
+msgid "Cannot download the PGN file."
+msgstr ""
+
+#: templates/localization.php
+msgid "Error while analysing a PGN string."
+msgstr ""
 
 #: templates/localization.php
 msgid "chessboard"
@@ -1491,10 +1568,6 @@ msgstr "son  düzeltmeyi geri al"
 #: templates/localization.php
 msgid "Re-do the last modification"
 msgstr "Son düzeltmeyi tekrarla"
-
-#: templates/localization.php
-msgid "Flip board"
-msgstr "tahtayı çevir"
 
 #: templates/localization.php
 msgid "Standard positions"
