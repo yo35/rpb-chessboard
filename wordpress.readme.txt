@@ -79,6 +79,12 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 5.0 (July 9, 2017) =
+* Allow navigation board flipping (see #70).
+* Add a button to let readers download PGN data (see #78).
+* Refactor file and CSS class naming.
+* Improve memo/help pages to take into account theming and default settings.
+
 = 4.8.1 (April 23, 2017) =
 * Workaround so that FEN works within bbPress content.
 
