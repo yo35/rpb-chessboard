@@ -61,7 +61,7 @@
 							pgn:
 								'1. e4 c5\n' +
 								'\n' +
-								'{<div class="uichess-chessgame-diagramAnchor"></div> ' +
+								'{<div class="rpbui-chessgame-diagramAnchor"></div> ' +
 								<?php
 									echo json_encode(__('This opening is called the Sicilian defence. A possible continuation is:', 'rpbchessboard'));
 								?> + '}\n' +

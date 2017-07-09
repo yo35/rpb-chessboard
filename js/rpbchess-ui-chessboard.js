@@ -57,7 +57,7 @@
 	 *
 	 * @constant
 	 */
-	var HANDLE_TEMPLATE = '<div class="uichess-chessboard-handle"></div>';
+	var HANDLE_TEMPLATE = '<div class="rpbui-chessboard-handle"></div>';
 
 
 	/**
@@ -211,7 +211,7 @@
 	/**
 	 * Initialize the internal `RPBChess.Position` object with the given FEN string.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 * @param {string} fen
 	 * @returns {string}
 	 */
@@ -243,7 +243,7 @@
 	/**
 	 * Initialize the internal square marker buffer with the given string.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 * @param {string} value
 	 * @returns {string}
 	 */
@@ -256,7 +256,7 @@
 	/**
 	 * Initialize the internal arrow marker buffer with the given string.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 * @param {string} value
 	 * @returns {string}
 	 */
@@ -274,7 +274,7 @@
 	/**
 	 * Destroy the widget content, prior to a refresh or a widget destruction.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 */
 	function destroyContent(widget) {
 		widget.element.empty();
@@ -284,18 +284,18 @@
 	/**
 	 * Build the error message resulting from a FEN parsing error.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 * @returns {string}
 	 */
 	function buildErrorMessage(widget) {
 
 		// Build the error report box.
-		var res = '<div class="uichess-chessboard-error">' +
-			'<div class="uichess-chessboard-errorTitle">Error while analysing a FEN string.</div>';
+		var res = '<div class="rpbui-chessboard-error">' +
+			'<div class="rpbui-chessboard-errorTitle">Error while analysing a FEN string.</div>';
 
 		// Optional message.
 		if(widget._position.message !== null) {
-			res += '<div class="uichess-chessboard-errorMessage">' + widget._position.message + '</div>';
+			res += '<div class="rpbui-chessboard-errorMessage">' + widget._position.message + '</div>';
 		}
 
 		// Close the error report box, and return the result.
@@ -307,7 +307,7 @@
 	/**
 	 * Build the widget content.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 * @returns {string}
 	 */
 	function buildContent(widget) {
@@ -315,15 +315,15 @@
 		var COLUMNS = widget.options.flip ? 'hgfedcba' : 'abcdefgh';
 
 		// Open the "table" node.
-		var globalClazz = 'uichess-chessboard-table uichess-chessboard-size' + widget.options.squareSize;
+		var globalClazz = 'rpbui-chessboard-table rpbui-chessboard-size' + widget.options.squareSize;
 		if(!widget.options.showCoordinates) {
-			globalClazz += ' uichess-chessboard-hideCoordinates';
+			globalClazz += ' rpbui-chessboard-hideCoordinates';
 		}
 		if(widget.options.colorset !== '') {
-			globalClazz += ' uichess-chessboard-colorset-' + widget.options.colorset;
+			globalClazz += ' rpbui-chessboard-colorset-' + widget.options.colorset;
 		}
 		if(widget.options.pieceset !== '') {
-			globalClazz += ' uichess-chessboard-pieceset-' + widget.options.pieceset;
+			globalClazz += ' rpbui-chessboard-pieceset-' + widget.options.pieceset;
 		}
 		var res = '<div class="' + globalClazz + '">';
 
@@ -331,7 +331,7 @@
 		for(var r=0; r<8; ++r) {
 
 			// Begin row + row coordinate cell.
-			res += '<div class="uichess-chessboard-row"><div class="uichess-chessboard-cell uichess-chessboard-rowCoordinate">' + ROWS[r] + '</div>';
+			res += '<div class="rpbui-chessboard-row"><div class="rpbui-chessboard-cell rpbui-chessboard-rowCoordinate">' + ROWS[r] + '</div>';
 
 			// Chessboard squares
 			for(var c=0; c<8; ++c) {
@@ -339,9 +339,9 @@
 				// Square
 				var square = COLUMNS[c] + ROWS[r];
 				var squareColor = RPBChess.squareColor(square) === 'w' ? 'light' : 'dark';
-				var clazz = 'uichess-chessboard-sized uichess-chessboard-cell uichess-chessboard-square uichess-chessboard-' + squareColor + 'Square';
+				var clazz = 'rpbui-chessboard-sized rpbui-chessboard-cell rpbui-chessboard-square rpbui-chessboard-' + squareColor + 'Square';
 				if(square in widget._squareMarkers) {
-					clazz += ' uichess-chessboard-squareMarker uichess-chessboard-markerColor-' + widget._squareMarkers[square];
+					clazz += ' rpbui-chessboard-squareMarker rpbui-chessboard-markerColor-' + widget._squareMarkers[square];
 				}
 				res += '<div class="' + clazz + '">';
 
@@ -351,19 +351,19 @@
 					res += HANDLE_TEMPLATE;
 				}
 				else {
-					res += '<div class="uichess-chessboard-sized uichess-chessboard-piece uichess-chessboard-piece-' + coloredPiece.piece +
-						' uichess-chessboard-color-' + coloredPiece.color + '">' + HANDLE_TEMPLATE + '</div>';
+					res += '<div class="rpbui-chessboard-sized rpbui-chessboard-piece rpbui-chessboard-piece-' + coloredPiece.piece +
+						' rpbui-chessboard-color-' + coloredPiece.color + '">' + HANDLE_TEMPLATE + '</div>';
 				}
 				res += '</div>';
 			}
 
 			// Additional cell for the turn flag.
-			res += '<div class="uichess-chessboard-cell">';
+			res += '<div class="rpbui-chessboard-cell">';
 			if(ROWS[r] === '8' || ROWS[r] === '1') {
 				var flagColor = ROWS[r] === '8' ? 'b' : 'w';
-				var clazz = 'uichess-chessboard-sized uichess-chessboard-turnFlag uichess-chessboard-color-' + flagColor;
+				var clazz = 'rpbui-chessboard-sized rpbui-chessboard-turnFlag rpbui-chessboard-color-' + flagColor;
 				if(flagColor !== widget._position.turn()) {
-					clazz += ' uichess-chessboard-inactiveFlag';
+					clazz += ' rpbui-chessboard-inactiveFlag';
 				}
 				res += '<div class="' + clazz + '"></div>';
 			}
@@ -373,20 +373,20 @@
 		}
 
 		// Column coordinates
-		res += '<div class="uichess-chessboard-row uichess-chessboard-columnCoordinateRow">' +
-			'<div class="uichess-chessboard-cell uichess-chessboard-rowCoordinate"></div>';
+		res += '<div class="rpbui-chessboard-row rpbui-chessboard-columnCoordinateRow">' +
+			'<div class="rpbui-chessboard-cell rpbui-chessboard-rowCoordinate"></div>';
 		for(var c=0; c<8; ++c) {
-			res += '<div class="uichess-chessboard-cell uichess-chessboard-columnCoordinate">' + COLUMNS[c] + '</div>';
+			res += '<div class="rpbui-chessboard-cell rpbui-chessboard-columnCoordinate">' + COLUMNS[c] + '</div>';
 		}
-		res += '<div class="uichess-chessboard-cell"></div></div>';
+		res += '<div class="rpbui-chessboard-cell"></div></div>';
 
 		// Arrow markers
-		res += '<svg class="uichess-chessboard-annotations" viewBox="0 0 8 8">' +
+		res += '<svg class="rpbui-chessboard-annotations" viewBox="0 0 8 8">' +
 			'<defs>' +
-				'<marker id="uichess-chessboard-arrowMarkerEnd-G" markerWidth="4" markerHeight="4" refX="2.5" refY="2" orient="auto"><path d="M 4,2 L 0,4 L 1,2 L 0,0 Z" /></marker>' +
-				'<marker id="uichess-chessboard-arrowMarkerEnd-R" markerWidth="4" markerHeight="4" refX="2.5" refY="2" orient="auto"><path d="M 4,2 L 0,4 L 1,2 L 0,0 Z" /></marker>' +
-				'<marker id="uichess-chessboard-arrowMarkerEnd-Y" markerWidth="4" markerHeight="4" refX="2.5" refY="2" orient="auto"><path d="M 4,2 L 0,4 L 1,2 L 0,0 Z" /></marker>' +
-				'<marker id="uichess-chessboard-arrowMarkerEnd-B" markerWidth="4" markerHeight="4" refX="2.5" refY="2" orient="auto"><path d="M 4,2 L 0,4 L 1,2 L 0,0 Z" /></marker>' +
+				'<marker id="rpbui-chessboard-arrowMarkerEnd-G" markerWidth="4" markerHeight="4" refX="2.5" refY="2" orient="auto"><path d="M 4,2 L 0,4 L 1,2 L 0,0 Z" /></marker>' +
+				'<marker id="rpbui-chessboard-arrowMarkerEnd-R" markerWidth="4" markerHeight="4" refX="2.5" refY="2" orient="auto"><path d="M 4,2 L 0,4 L 1,2 L 0,0 Z" /></marker>' +
+				'<marker id="rpbui-chessboard-arrowMarkerEnd-Y" markerWidth="4" markerHeight="4" refX="2.5" refY="2" orient="auto"><path d="M 4,2 L 0,4 L 1,2 L 0,0 Z" /></marker>' +
+				'<marker id="rpbui-chessboard-arrowMarkerEnd-B" markerWidth="4" markerHeight="4" refX="2.5" refY="2" orient="auto"><path d="M 4,2 L 0,4 L 1,2 L 0,0 Z" /></marker>' +
 			'</defs>';
 		for(var arrow in widget._arrowMarkers) {
 			if(widget._arrowMarkers.hasOwnProperty(arrow) && /^([a-h][1-8])([a-h][1-8])$/.test(arrow)) {
@@ -394,17 +394,17 @@
 				var toSquare = RegExp.$2;
 				if(fromSquare !== toSquare) {
 					var vc = getArrowCoordinatesInSVG(widget, fromSquare, toSquare);
-					var clazz = 'uichess-chessboard-arrowMarker uichess-chessboard-arrowMarker-' + fromSquare + toSquare +
-						' uichess-chessboard-markerColor-' + widget._arrowMarkers[arrow];
-					var marker = 'url(#uichess-chessboard-arrowMarkerEnd-' + widget._arrowMarkers[arrow] + ')';
+					var clazz = 'rpbui-chessboard-arrowMarker rpbui-chessboard-arrowMarker-' + fromSquare + toSquare +
+						' rpbui-chessboard-markerColor-' + widget._arrowMarkers[arrow];
+					var marker = 'url(#rpbui-chessboard-arrowMarkerEnd-' + widget._arrowMarkers[arrow] + ')';
 					res += '<line class="' + clazz + '" x1="' + vc.x1 + '" y1="' + vc.y1 + '" x2="' + vc.x2 + '" y2="' + vc.y2 + '" marker-end="' + marker + '" />';
 				}
 			}
 		}
 		if(widget._moveArrow !== null) {
 			var vc = getArrowCoordinatesInSVG(widget, widget._moveArrow.from, widget._moveArrow.to);
-			res += '<line class="uichess-chessboard-arrowMarker uichess-chessboard-moveArrow uichess-chessboard-markerColor-B" ' +
-				'x1="' + vc.x1 + '" y1="' + vc.y1 + '" x2="' + vc.x2 + '" y2="' + vc.y2 + '" marker-end="url(#uichess-chessboard-arrowMarkerEnd-B)" />';
+			res += '<line class="rpbui-chessboard-arrowMarker rpbui-chessboard-moveArrow rpbui-chessboard-markerColor-B" ' +
+				'x1="' + vc.x1 + '" y1="' + vc.y1 + '" x2="' + vc.x2 + '" y2="' + vc.y2 + '" marker-end="url(#rpbui-chessboard-arrowMarkerEnd-B)" />';
 		}
 		res += '</svg>';
 
@@ -417,7 +417,7 @@
 	/**
 	 * Refresh the widget.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 */
 	function refresh(widget) {
 		destroyContent(widget);
@@ -460,32 +460,32 @@
 	/**
 	 * Update the widget when the turn gets modified.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 */
 	function onTurnChanged(widget) {
-		$('.uichess-chessboard-turnFlag', widget.element).toggleClass('uichess-chessboard-inactiveFlag');
+		$('.rpbui-chessboard-turnFlag', widget.element).toggleClass('rpbui-chessboard-inactiveFlag');
 	}
 
 
 	/**
 	 * Update the widget when the square-size parameter gets modified.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 * @param {number} oldValue
 	 * @param {number} newValue
 	 */
 	function onSquareSizeChanged(widget, oldValue, newValue) {
-		$('.uichess-chessboard-table', widget.element).removeClass('uichess-chessboard-size' + oldValue).addClass('uichess-chessboard-size' + newValue);
+		$('.rpbui-chessboard-table', widget.element).removeClass('rpbui-chessboard-size' + oldValue).addClass('rpbui-chessboard-size' + newValue);
 	}
 
 
 	/**
 	 * Update the widget when the show-coordinates parameter gets modified.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 */
 	function onShowCoordinatesChanged(widget) {
-		$('.uichess-chessboard-table', widget.element).toggleClass('uichess-chessboard-hideCoordinates');
+		$('.rpbui-chessboard-table', widget.element).toggleClass('rpbui-chessboard-hideCoordinates');
 	}
 
 
@@ -498,13 +498,13 @@
 	 */
 	function onSquareMarkerChanged(target, oldValue, newValue) {
 		if(typeof oldValue === 'undefined') {
-			target.addClass('uichess-chessboard-squareMarker').addClass('uichess-chessboard-markerColor-' + newValue);
+			target.addClass('rpbui-chessboard-squareMarker').addClass('rpbui-chessboard-markerColor-' + newValue);
 		}
 		else if(typeof newValue === 'undefined') {
-			target.removeClass('uichess-chessboard-squareMarker').removeClass('uichess-chessboard-markerColor-' + oldValue);
+			target.removeClass('rpbui-chessboard-squareMarker').removeClass('rpbui-chessboard-markerColor-' + oldValue);
 		}
 		else {
-			target.removeClass('uichess-chessboard-markerColor-' + oldValue).addClass('uichess-chessboard-markerColor-' + newValue);
+			target.removeClass('rpbui-chessboard-markerColor-' + oldValue).addClass('rpbui-chessboard-markerColor-' + newValue);
 		}
 	}
 
@@ -512,19 +512,19 @@
 	/**
 	 * Update the widget when all the square markers get changed.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 */
 	function onSquareMarkersChanged(widget) {
-		var oldSquareMarkers = $('.uichess-chessboard-squareMarker', widget.element);
-		oldSquareMarkers.removeClass('uichess-chessboard-markerColor-G');
-		oldSquareMarkers.removeClass('uichess-chessboard-markerColor-R');
-		oldSquareMarkers.removeClass('uichess-chessboard-markerColor-Y');
-		oldSquareMarkers.removeClass('uichess-chessboard-squareMarker');
+		var oldSquareMarkers = $('.rpbui-chessboard-squareMarker', widget.element);
+		oldSquareMarkers.removeClass('rpbui-chessboard-markerColor-G');
+		oldSquareMarkers.removeClass('rpbui-chessboard-markerColor-R');
+		oldSquareMarkers.removeClass('rpbui-chessboard-markerColor-Y');
+		oldSquareMarkers.removeClass('rpbui-chessboard-squareMarker');
 
 		for(var square in widget._squareMarkers) {
 			if(widget._squareMarkers.hasOwnProperty(square)) {
 				var color = widget._squareMarkers[square];
-				fetchSquare(widget, square).addClass('uichess-chessboard-squareMarker').addClass('uichess-chessboard-markerColor-' + color);
+				fetchSquare(widget, square).addClass('rpbui-chessboard-squareMarker').addClass('rpbui-chessboard-markerColor-' + color);
 			}
 		}
 	}
@@ -533,13 +533,13 @@
 	/**
 	 * Update the widget when an arrow marker gets added/changed/removed.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 * @param {string} key
 	 * @param {string} oldValue `undefined` if the square marker is added.
 	 * @param {string} newValue `undefined` if the square marker is removed.
 	 */
 	function onArrowMarkerChanged(widget, key, oldValue, newValue) {
-		var identifierClazz = 'uichess-chessboard-arrowMarker-' + key;
+		var identifierClazz = 'rpbui-chessboard-arrowMarker-' + key;
 		if(typeof oldValue === 'undefined') {
 			var fromSquare = key.substr(0, 2);
 			var toSquare = key.substr(2, 2);
@@ -552,8 +552,8 @@
 			$('.' + identifierClazz, widget.element).remove();
 		}
 		else {
-			var clazz = 'uichess-chessboard-arrowMarker ' + identifierClazz + ' uichess-chessboard-markerColor-' + newValue;
-			var marker = 'url(#uichess-chessboard-arrowMarkerEnd-' + newValue + ')';
+			var clazz = 'rpbui-chessboard-arrowMarker ' + identifierClazz + ' rpbui-chessboard-markerColor-' + newValue;
+			var marker = 'url(#rpbui-chessboard-arrowMarkerEnd-' + newValue + ')';
 			$('.' + identifierClazz, widget.element).attr('class', clazz).attr('marker-end', marker);
 		}
 	}
@@ -562,10 +562,10 @@
 	/**
 	 * Update the widget when all the arrow markers get changed.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 */
 	function onArrowMarkersChanged(widget) {
-		$('.uichess-chessboard-arrowMarker', widget.element).remove();
+		$('.rpbui-chessboard-arrowMarker', widget.element).remove();
 
 		for(var key in widget._arrowMarkers) {
 			if(widget._arrowMarkers.hasOwnProperty(key)) {
@@ -573,7 +573,7 @@
 				var toSquare = key.substr(2, 2);
 				if(fromSquare !== toSquare) {
 					var vc = getArrowCoordinatesInSVG(widget, fromSquare, toSquare);
-					var identifierClazz = 'uichess-chessboard-arrowMarker-' + key;
+					var identifierClazz = 'rpbui-chessboard-arrowMarker-' + key;
 					doCreateArrow(widget, identifierClazz, widget._arrowMarkers[key], vc.x1, vc.y1, vc.x2, vc.y2);
 				}
 			}
@@ -584,7 +584,7 @@
 	/**
 	 * Create a DOM node corresponding to an arrow between the given squares.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 * @param {string} identifierClazz
 	 * @param {string} color
 	 * @param {number} x1
@@ -594,11 +594,11 @@
 	 * @returns {jQuery} The created arrow.
 	 */
 	function doCreateArrow(widget, identifierClazz, color, x1, y1, x2, y2) {
-		var clazz = 'uichess-chessboard-arrowMarker ' + identifierClazz + ' uichess-chessboard-markerColor-' + color;
-		var marker = 'url(#uichess-chessboard-arrowMarkerEnd-' + color + ')';
+		var clazz = 'rpbui-chessboard-arrowMarker ' + identifierClazz + ' rpbui-chessboard-markerColor-' + color;
+		var marker = 'url(#rpbui-chessboard-arrowMarkerEnd-' + color + ')';
 		var line = $(document.createElementNS('http://www.w3.org/2000/svg', 'line'));
 		line.attr({ 'x1':x1, 'y1':y1, 'x2':x2, 'y2':y2, 'class':clazz, 'marker-end':marker });
-		$('.uichess-chessboard-annotations', widget.element).append(line);
+		$('.rpbui-chessboard-annotations', widget.element).append(line);
 		return line;
 	}
 
@@ -606,7 +606,7 @@
 	/**
 	 * Fetch the DOM node corresponding to a given square.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 * @param {string} square
 	 * @returns {jQuery}
 	 */
@@ -615,14 +615,14 @@
 		var COLUMNS = widget.options.flip ? 'hgfedcba' : 'abcdefgh';
 		var r = ROWS   .indexOf(square[1]);
 		var c = COLUMNS.indexOf(square[0]);
-		return $($('.uichess-chessboard-square', widget.element).get(r*8 + c));
+		return $($('.rpbui-chessboard-square', widget.element).get(r*8 + c));
 	}
 
 
 	/**
 	 * Return the coordinates of the given square in the annotation canvas.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 * @param {string} square
 	 * @returns {{x:number, y:number}}
 	 */
@@ -636,7 +636,7 @@
 	/**
 	 * Return the coordinates of the given arrow in the annotation canvas.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 * @param {string} fromSquare
 	 * @param {string} toSquare
 	 * @returns {{x1:number, y1:number, x2:number, y2:number}}
@@ -661,16 +661,16 @@
 	 *
 	 *   $(e).data('square');
 	 *
-	 * Where `e` is a DOM object with the class `uichess-chessboard-square`.
+	 * Where `e` is a DOM object with the class `rpbui-chessboard-square`.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 */
 	function tagSquares(widget) {
 		var ROWS    = widget.options.flip ? '12345678' : '87654321';
 		var COLUMNS = widget.options.flip ? 'hgfedcba' : 'abcdefgh';
 		var r = 0;
 		var c = 0;
-		$('.uichess-chessboard-square', widget.element).each(function(index, element) {
+		$('.rpbui-chessboard-square', widget.element).each(function(index, element) {
 			$(element).data('square', COLUMNS[c] + ROWS[r]);
 			++c;
 			if(c === 8) {
@@ -684,13 +684,13 @@
 	/**
 	 * Enable the "move-pieces" or "play" interaction modes.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 * @param {boolean} playMode
 	 */
 	function enableMovePieceOrPlayBehavior(widget, playMode) {
 
 		// Enable dragging.
-		$('.uichess-chessboard-piece', widget.element).draggable({
+		$('.rpbui-chessboard-piece', widget.element).draggable({
 			cursor        : 'move',
 			cursorAt      : { top: widget.options.squareSize/2, left: widget.options.squareSize/2 },
 			revert        : true,
@@ -699,19 +699,19 @@
 		});
 
 		// Enable dropping.
-		var tableNode = $('.uichess-chessboard-table', widget.element).get(0);
+		var tableNode = $('.rpbui-chessboard-table', widget.element).get(0);
 		var dropCallback = playMode ? doPlay : doMovePiece;
-		$('.uichess-chessboard-square', widget.element).droppable({
-			hoverClass: 'uichess-chessboard-squareHover',
+		$('.rpbui-chessboard-square', widget.element).droppable({
+			hoverClass: 'rpbui-chessboard-squareHover',
 
 			accept: function(e) {
-				return $(e).closest('.uichess-chessboard-table').get(0) === tableNode;
+				return $(e).closest('.rpbui-chessboard-table').get(0) === tableNode;
 			},
 
 			drop: function(event, ui) {
 				var target      = $(event.target);
 				var movingPiece = ui.draggable;
-				if(movingPiece.hasClass('uichess-chessboard-piece')) {
+				if(movingPiece.hasClass('rpbui-chessboard-piece')) {
 					var move = { from: movingPiece.parent().data('square'), to: target.data('square') };
 					dropCallback(widget, move, false, widget.options.showMoveArrow);
 					// TODO Handle promotions in drag & drop.
@@ -724,11 +724,11 @@
 	/**
 	 * Enable the "add-piece" interaction mode.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 * @param {{color:string, piece:string}} coloredPiece
 	 */
 	function enableAddPieceBehavior(widget, coloredPiece) {
-		$('.uichess-chessboard-square', widget.element).mousedown(function() {
+		$('.rpbui-chessboard-square', widget.element).mousedown(function() {
 			doAddPiece(widget, coloredPiece, $(this).data('square'), $(this));
 		});
 	}
@@ -737,11 +737,11 @@
 	/**
 	 * Enable the "add-square-marker" interaction mode.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 * @param {string} markerColor
 	 */
 	function enableAddSquareMarkerBehavior(widget, markerColor) {
-		$('.uichess-chessboard-square', widget.element).mousedown(function() {
+		$('.rpbui-chessboard-square', widget.element).mousedown(function() {
 			doAddSquareMarker(widget, markerColor, $(this).data('square'), $(this));
 		});
 	}
@@ -750,7 +750,7 @@
 	/**
 	 * Enable the "add-arrow-marker" interaction mode.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 * @param {string} markerColor
 	 */
 	function enableAddArrowMarkerBehavior(widget, markerColor) {
@@ -760,45 +760,45 @@
 		var canvasOffset = null;
 
 		// Conversion page coordinate -> SVG canvas coordinates.
-		var canvas = $('.uichess-chessboard-annotations', widget.element);
+		var canvas = $('.rpbui-chessboard-annotations', widget.element);
 		var canvasWidth  = canvas.width();
 		var canvasHeight = canvas.height();
 		function xInCanvas(x) { return (x - canvasOffset.left) * 8 / canvasWidth; }
 		function yInCanvas(y) { return (y - canvasOffset.top) * 8 / canvasHeight; }
 
 		// Enable dragging.
-		$('.uichess-chessboard-square .uichess-chessboard-handle', widget.element).draggable({
+		$('.rpbui-chessboard-square .rpbui-chessboard-handle', widget.element).draggable({
 			cursor  : 'crosshair',
 			cursorAt: { top: widget.options.squareSize/2, left: widget.options.squareSize/2 },
-			helper  : function() { return $('<div class="uichess-chessboard-sized"></div>'); },
+			helper  : function() { return $('<div class="rpbui-chessboard-sized"></div>'); },
 
 			start: function(event) {
 
 				// Initialized the drag control variables.
-				fromSquare = $(event.target).closest('.uichess-chessboard-square').data('square');
+				fromSquare = $(event.target).closest('.rpbui-chessboard-square').data('square');
 				canvasOffset = canvas.offset();
 
 				// Create the temporary arrow marker.
 				var p = getSquareCoordinatesInSVG(widget, fromSquare);
-				doCreateArrow(widget, 'uichess-chessboard-draggedArrow', markerColor, p.x, p.y, p.x, p.y);
+				doCreateArrow(widget, 'rpbui-chessboard-draggedArrow', markerColor, p.x, p.y, p.x, p.y);
 			},
 
 			drag: function(event) {
-				$('.uichess-chessboard-draggedArrow', widget.element).attr({ 'x2':xInCanvas(event.pageX), 'y2':yInCanvas(event.pageY) });
+				$('.rpbui-chessboard-draggedArrow', widget.element).attr({ 'x2':xInCanvas(event.pageX), 'y2':yInCanvas(event.pageY) });
 			},
 
 			stop: function() {
-				$('.uichess-chessboard-draggedArrow', widget.element).remove();
+				$('.rpbui-chessboard-draggedArrow', widget.element).remove();
 			}
 		});
 
 		// Enable dropping.
-		var tableNode = $('.uichess-chessboard-table', widget.element).get(0);
-		$('.uichess-chessboard-square', widget.element).droppable({
-			hoverClass: 'uichess-chessboard-squareHover',
+		var tableNode = $('.rpbui-chessboard-table', widget.element).get(0);
+		$('.rpbui-chessboard-square', widget.element).droppable({
+			hoverClass: 'rpbui-chessboard-squareHover',
 
 			accept: function(e) {
-				return $(e).closest('.uichess-chessboard-table').get(0) === tableNode;
+				return $(e).closest('.rpbui-chessboard-table').get(0) === tableNode;
 			},
 
 			drop: function(event) {
@@ -813,7 +813,7 @@
 	 * Callback for the "move pieces" mode -> move the moving piece to its destination square,
 	 * clearing the latter beforehand if necessary.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 * @param {{from: string, to: string}} move The origin and destination squares.
 	 * @param {boolean} animate
 	 * @param {boolean} withArrow
@@ -838,7 +838,7 @@
 	 * Callback for the "play" mode -> check if the proposed move is legal, and handle
 	 * the special situations (promotion, castle, en-passant...) that may be encountered.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 * @param {string|RPBChess.MoveDescriptor} move
 	 * @param {boolean} animate
 	 * @param {boolean} withArrow
@@ -869,12 +869,12 @@
 
 			// Switch to the promoted piece when the animation is 80%-complete.
 			scheduleMoveAnimation(widget, animate, 0.8, function() {
-				movingPiece.removeClass('uichess-chessboard-piece-p').addClass('uichess-chessboard-piece-' + moveDescriptor.promotion());
+				movingPiece.removeClass('rpbui-chessboard-piece-p').addClass('rpbui-chessboard-piece-' + moveDescriptor.promotion());
 			});
 		}
 
 		// Switch the turn flag.
-		$('.uichess-chessboard-turnFlag', widget.element).toggleClass('uichess-chessboard-inactiveFlag');
+		$('.rpbui-chessboard-turnFlag', widget.element).toggleClass('rpbui-chessboard-inactiveFlag');
 
 		// FEN update + notifications.
 		notifyFENChanged(widget);
@@ -884,18 +884,18 @@
 	/**
 	 * Remove the move arrow if it exist.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 */
 	function clearMoveArrow(widget) {
 		widget._moveArrow = null;
-		$('.uichess-chessboard-moveArrow', widget.element).remove();
+		$('.rpbui-chessboard-moveArrow', widget.element).remove();
 	}
 
 
 	/**
 	 * Execute a move.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 * @param {string} from
 	 * @param {string} to
 	 * @param {boolean} animate
@@ -903,7 +903,7 @@
 	 * @returns {jQuery} DOM object corresponding to the moving piece.
 	 */
 	function doDisplacement(widget, from, to, animate, withArrow) {
-		var movingPiece = $('.uichess-chessboard-piece', fetchSquare(widget, from));
+		var movingPiece = $('.rpbui-chessboard-piece', fetchSquare(widget, from));
 		movingPiece.parent().append(HANDLE_TEMPLATE);
 		fetchSquare(widget, to).empty().append(movingPiece);
 
@@ -911,7 +911,7 @@
 		if(withArrow) {
 			var vc = getArrowCoordinatesInSVG(widget, from, to);
 			scheduleMoveAnimation(widget, animate, 0.5, function() {
-				doCreateArrow(widget, 'uichess-chessboard-moveArrow', 'B', vc.x1, vc.y1, vc.x2, vc.y2);
+				doCreateArrow(widget, 'rpbui-chessboard-moveArrow', 'B', vc.x1, vc.y1, vc.x2, vc.y2);
 			});
 			widget._moveArrow = { from: from, to: to };
 		}
@@ -948,7 +948,7 @@
 	 * Callback for the "add-piece" mode -> add the requested colored piece in the targeted square, or clear
 	 * the targeted square if it already contains the requested colored piece.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 * @param {{color:string, piece:string}} coloredPiece
 	 * @param {string} square Targeted square.
 	 * @param {jQuery} target DOM node corresponding to the targeted square.
@@ -965,8 +965,8 @@
 		// Add-case
 		else {
 			widget._position.square(square, coloredPiece);
-			target.empty().append('<div class="uichess-chessboard-sized uichess-chessboard-piece uichess-chessboard-piece-' +
-				coloredPiece.piece + ' uichess-chessboard-color-' + coloredPiece.color + '">' + HANDLE_TEMPLATE + '</div>');
+			target.empty().append('<div class="rpbui-chessboard-sized rpbui-chessboard-piece rpbui-chessboard-piece-' +
+				coloredPiece.piece + ' rpbui-chessboard-color-' + coloredPiece.color + '">' + HANDLE_TEMPLATE + '</div>');
 		}
 
 		// FEN update + notifications.
@@ -977,7 +977,7 @@
 	/**
 	 * Callback for the "add-square-markers" mode -> toggle the requested square marker on the targeted square.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 * @param {string} color Square marker color.
 	 * @param {string} square Targeted square.
 	 * @param {jQuery} target DOM node corresponding to the targeted square.
@@ -1004,7 +1004,7 @@
 	/**
 	 * Callback for the "add-arrow-markers" mode -> toggle the requested arrow marker between the given squares.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 * @param {string} color Arrow marker color.
 	 * @param {string} fromSquare
 	 * @param {string} toSquare
@@ -1032,7 +1032,7 @@
 	/**
 	 * Update the property holding the current position in FEN format, and trigger the corresponding event.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 */
 	function notifyFENChanged(widget) {
 		var oldValue = widget.options.position;
@@ -1044,7 +1044,7 @@
 	/**
 	 * Update the property holding the list of square markers, and trigger the corresponding event.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 */
 	function notifySquareMarkersChanged(widget) {
 		var oldValue = widget.options.squareMarkers;
@@ -1056,7 +1056,7 @@
 	/**
 	 * Update the property holding the list of arrow markers, and trigger the corresponding event.
 	 *
-	 * @param {uichess.chessboard} widget
+	 * @param {rpbchess-ui.chessboard} widget
 	 */
 	function notifyArrowMarkersChanged(widget) {
 		var oldValue = widget.options.arrowMarkers;
@@ -1082,7 +1082,7 @@
 	/**
 	 * Widget registration.
 	 */
-	$.widget('uichess.chessboard',
+	$.widget('rpbchess-ui.chessboard',
 	{
 		/**
 		 * Default options.
@@ -1188,7 +1188,7 @@
 		 * Constructor.
 		 */
 		_create: function() {
-			this.element.addClass('uichess-chessboard').disableSelection();
+			this.element.addClass('rpbui-chessboard').disableSelection();
 			this.options.position      = initializePosition     (this, this.options.position     );
 			this.options.squareMarkers = initializeSquareMarkers(this, this.options.squareMarkers);
 			this.options.arrowMarkers  = initializeArrowMarkers (this, this.options.arrowMarkers );
@@ -1208,7 +1208,7 @@
 		 * Destructor.
 		 */
 		_destroy: function() {
-			this.element.empty().removeClass('uichess-chessboard').enableSelection();
+			this.element.empty().removeClass('rpbui-chessboard').enableSelection();
 		},
 
 
@@ -1439,6 +1439,6 @@
 			});
 		}
 
-	}); /* $.widget('uichess.chessboard', { ... }) */
+	}); /* $.widget('rpbchess-ui.chessboard', { ... }) */
 
 })( /* global RPBChess */ RPBChess, /* global jQuery */ jQuery );

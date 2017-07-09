@@ -45,8 +45,8 @@
 		<?php endif; ?>
 
 		<?php if($mode->hideCoordinates): ?>
-			.uichess-chessboard-cell.uichess-chessboard-rowCoordinate,
-			.uichess-chessboard-row.uichess-chessboard-columnCoordinateRow {
+			.rpbui-chessboard-cell.rpbui-chessboard-rowCoordinate,
+			.rpbui-chessboard-row.rpbui-chessboard-columnCoordinateRow {
 				display: none;
 			}
 		<?php endif; ?>

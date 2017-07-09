@@ -421,7 +421,7 @@
 		}
 
 		// Build the corresponding chess font set.
-		var prefix = '<span class="uichess-chessgame-' + font + 'Font">';
+		var prefix = '<span class="rpbui-chessgame-' + font + 'Font">';
 		var suffix = '</span>';
 		var pieceSymbolTable = {
 			'K': prefix + 'K' + suffix,
@@ -485,7 +485,7 @@
 	/**
 	 * Initialize the internal `RPBChess.pgn.Item` object that contains the parsed PGN data.
 	 *
-	 * @param {uichess.chessgame} widget
+	 * @param {rpbchess-ui.chessgame} widget
 	 * @param {string} pgn
 	 * @returns {string}
 	 */
@@ -522,7 +522,7 @@
 	 * Initialize the internal object that describes how to represent the chess pieces
 	 * in SAN notation.
 	 *
-	 * @param {uichess.chessgame} widget
+	 * @param {rpbchess-ui.chessgame} widget
 	 * @param {string} pieceSymbols
 	 * @returns {string}
 	 */
@@ -585,12 +585,12 @@
 	/**
 	 * Destroy the widget content, prior to a refresh or a widget destruction.
 	 *
-	 * @param {uichess.chessgame} widget
+	 * @param {rpbchess-ui.chessgame} widget
 	 */
 	function destroyContent(widget) {
-		var navigationFrameTarget = $('#uichess-chessgame-navigationFrameTarget', widget.element);
+		var navigationFrameTarget = $('#rpbui-chessgame-navigationFrameTarget', widget.element);
 		if(navigationFrameTarget.length !== 0) {
-			$('#uichess-chessgame-navigationFrame').dialog('close');
+			$('#rpbui-chessgame-navigationFrame').dialog('close');
 		}
 		widget.element.empty();
 	}
@@ -599,7 +599,7 @@
 	/**
 	 * Refresh the widget.
 	 *
-	 * @param {uichess.chessgame} widget
+	 * @param {rpbchess-ui.chessgame} widget
 	 */
 	function refresh(widget) {
 		destroyContent(widget);
@@ -621,7 +621,7 @@
 		headers += datePlaceHeader(widget);
 		headers += annotatorHeader(widget);
 		if(headers !== '') {
-			headers = '<div class="uichess-chessgame-headers">' + headers + '</div>';
+			headers = '<div class="rpbui-chessgame-headers">' + headers + '</div>';
 		}
 
 		// Body and initial move
@@ -634,24 +634,24 @@
 		switch(widget.options.navigationBoard) {
 			case 'floatLeft':
 			case 'floatRight':
-				suffix = '<div class="uichess-chessgame-' + widget.options.navigationBoard.replace('float', 'clear') + '"></div>';
-				prefix = '<div class="uichess-chessgame-navigationBox uichess-chessgame-' + widget.options.navigationBoard + '">' +
+				suffix = '<div class="rpbui-chessgame-' + widget.options.navigationBoard.replace('float', 'clear') + '"></div>';
+				prefix = '<div class="rpbui-chessgame-navigationBox rpbui-chessgame-' + widget.options.navigationBoard + '">' +
 					buildNavigationSkeleton() + '</div>';
 				break;
 			case 'scrollLeft':
-				prefix = '<div class="uichess-chessgame-scrollBox"><div class="uichess-chessgame-navigationBox uichess-chessgame-scrollLeft">' +
-					buildNavigationSkeleton() + '</div><div class="uichess-chessgame-scrollArea">';
+				prefix = '<div class="rpbui-chessgame-scrollBox"><div class="rpbui-chessgame-navigationBox rpbui-chessgame-scrollLeft">' +
+					buildNavigationSkeleton() + '</div><div class="rpbui-chessgame-scrollArea">';
 				suffix = '</div></div>';
 				break;
 			case 'scrollRight':
-				prefix = '<div class="uichess-chessgame-scrollBox"><div class="uichess-chessgame-scrollArea">';
-				suffix = '</div><div class="uichess-chessgame-navigationBox uichess-chessgame-scrollRight">' + buildNavigationSkeleton() + '</div></div>';
+				prefix = '<div class="rpbui-chessgame-scrollBox"><div class="rpbui-chessgame-scrollArea">';
+				suffix = '</div><div class="rpbui-chessgame-navigationBox rpbui-chessgame-scrollRight">' + buildNavigationSkeleton() + '</div></div>';
 				break;
 			case 'above':
-				prefix = '<div class="uichess-chessgame-navigationBox uichess-chessgame-above">' + buildNavigationSkeleton() + '</div>';
+				prefix = '<div class="rpbui-chessgame-navigationBox rpbui-chessgame-above">' + buildNavigationSkeleton() + '</div>';
 				break;
 			case 'below':
-				suffix = '<div class="uichess-chessgame-navigationBox uichess-chessgame-below">' + buildNavigationSkeleton() + '</div>';
+				suffix = '<div class="rpbui-chessgame-navigationBox rpbui-chessgame-below">' + buildNavigationSkeleton() + '</div>';
 				break;
 		}
 
@@ -669,7 +669,7 @@
 				makeNavigationBoxWidgets(widget);
 			}
 			if(widget.options.navigationBoard === 'scrollLeft' || widget.options.navigationBoard === 'scrollRight') {
-				$('.uichess-chessgame-scrollArea', widget.element).css('height', $('.uichess-chessgame-navigationBox', widget.element).height());
+				$('.rpbui-chessgame-scrollArea', widget.element).css('height', $('.rpbui-chessgame-navigationBox', widget.element).height());
 			}
 		}
 	}
@@ -678,14 +678,14 @@
 	/**
 	 * Render the diagrams inserted in text comments.
 	 *
-	 * @param {uichess.chessgame} widget
+	 * @param {rpbchess-ui.chessgame} widget
 	 */
 	function makeDiagrams(widget) {
-		$('.uichess-chessgame-comment .uichess-chessgame-diagramAnchor', widget.element).each(function(index, element) {
+		$('.rpbui-chessgame-comment .rpbui-chessgame-diagramAnchor', widget.element).each(function(index, element) {
 			var anchor = $(element);
 
 			// Retrieve the position
-			var commentNode = anchor.closest('.uichess-chessgame-comment');
+			var commentNode = anchor.closest('.rpbui-chessgame-comment');
 			var position = commentNode.data('position');
 			var csl = commentNode.data('csl');
 			var cal = commentNode.data('cal');
@@ -701,7 +701,7 @@
 			catch(error) {} // The content of the node is ignored if it is not a valid JSON-encoded object.
 
 			// Render the diagram.
-			anchor.empty().removeClass('uichess-chessgame-diagramAnchor').addClass('uichess-chessgame-diagram').chessboard(options);
+			anchor.empty().removeClass('rpbui-chessgame-diagramAnchor').addClass('rpbui-chessgame-diagram').chessboard(options);
 		});
 	}
 
@@ -710,28 +710,28 @@
 	 * Make the moves clickable: when clicked, the navigation board is updated to show
 	 * the position after the corresponding move.
 	 *
-	 * @param {uichess.chessgame} widget
+	 * @param {rpbchess-ui.chessgame} widget
 	 */
 	function makeMovesClickable(widget) {
-		$('.uichess-chessgame-move', widget.element).click(function() { updateNavigationBoard(widget, $(this), true); });
+		$('.rpbui-chessgame-move', widget.element).click(function() { updateNavigationBoard(widget, $(this), true); });
 	}
 
 
 	/**
 	 * For each move, add pointer to its predecessor and its successor in the variation.
 	 *
-	 * @param {uichess.chessgame} widget
+	 * @param {rpbchess-ui.chessgame} widget
 	 */
 	function makeMovesRelated(widget) {
 
 		// For each variation...
-		$('.uichess-chessgame-variation', widget.element).each(function(index, element) {
+		$('.rpbui-chessgame-variation', widget.element).each(function(index, element) {
 
 			// Retrieve the moves of the variation.
 			var variation = $(element);
 			var moves     = variation.is('div') ?
-				variation.children('.uichess-chessgame-moveGroup').children('.uichess-chessgame-move') :
-				variation.children('.uichess-chessgame-move');
+				variation.children('.rpbui-chessgame-moveGroup').children('.rpbui-chessgame-move') :
+				variation.children('.rpbui-chessgame-move');
 
 			// Link each move to its successor and its predecessor.
 			var previousMove = null;
@@ -746,8 +746,8 @@
 		});
 
 		// The initial move must be linked specifically since it does not belong to any variation.
-		var initialMove = $('.uichess-chessgame-initialMove', widget.element);
-		var allMoves    = $('.uichess-chessgame-variation .uichess-chessgame-move', widget.element);
+		var initialMove = $('.rpbui-chessgame-initialMove', widget.element);
+		var allMoves    = $('.rpbui-chessgame-variation .rpbui-chessgame-move', widget.element);
 		if(allMoves.length !== 0) {
 			var secondMove = allMoves.first();
 			secondMove.data('prevMove', initialMove);
@@ -759,12 +759,12 @@
 	/**
 	 * Initialize the navigation box widgets.
 	 *
-	 * @param {uichess.chessgame} widget
+	 * @param {rpbchess-ui.chessgame} widget
 	 */
 	function makeNavigationBoxWidgets(widget) {
 
 		// Set-up the navigation board.
-		$('.uichess-chessgame-navigationBoard', widget.element).chessboard(widget.options.navigationBoardOptions);
+		$('.rpbui-chessgame-navigationBoard', widget.element).chessboard(widget.options.navigationBoardOptions);
 
 		// Navigation buttons
 		initializeNavigationButtons(function(buttonClass) { return $(buttonClass, widget.element); }, function(methodName) {
@@ -772,35 +772,35 @@
 		});
 
 		// Show the initial position on the navigation board.
-		updateNavigationBoard(widget, $('.uichess-chessgame-initialMove', widget.element), false);
+		updateNavigationBoard(widget, $('.rpbui-chessgame-initialMove', widget.element), false);
 	}
 
 
 	/**
 	 * Build the error message resulting from a PGN parsing error.
 	 *
-	 * @param {uichess.chessgame} widget
+	 * @param {rpbchess-ui.chessgame} widget
 	 * @returns {string}
 	 */
 	function buildErrorMessage(widget) {
 
 		// Build the error report box.
 		var title = widget._game instanceof RPBChess.exceptions.InvalidPGN ? $.chessgame.i18n.PGN_PARSING_ERROR_MESSAGE : widget._game.title;
-		var retVal = '<div class="uichess-chessgame-error"><div class="uichess-chessgame-errorTitle">' + title + '</div>';
+		var retVal = '<div class="rpbui-chessgame-error"><div class="rpbui-chessgame-errorTitle">' + title + '</div>';
 
 		// Optional message.
 		if(widget._game.message !== null) {
-			retVal += '<div class="uichess-chessgame-errorMessage">' + widget._game.message + '</div>';
+			retVal += '<div class="rpbui-chessgame-errorMessage">' + widget._game.message + '</div>';
 		}
 
 		// Display where the error has occurred.
 		if(widget._game.index !== null && widget._game.index >= 0) {
-			retVal += '<div class="uichess-chessgame-errorAt">';
+			retVal += '<div class="rpbui-chessgame-errorAt">';
 			if(widget._game.index >= widget._game.pgn.length) {
 				retVal += 'Occurred at the end of the string.';
 			}
 			else {
-				retVal += 'Occurred at position ' + widget._game.index + ':' + '<div class="uichess-chessgame-errorAtCode">' +
+				retVal += 'Occurred at position ' + widget._game.index + ':' + '<div class="rpbui-chessgame-errorAtCode">' +
 					ellipsisAt(widget._game.pgn, widget._game.index, 10, 40) + '</div>';
 			}
 			retVal += '</div>';
@@ -816,7 +816,7 @@
 	 * Build the header containing the player-related information (name, rating, title)
 	 * corresponding to the requested color.
 	 *
-	 * @param {uichess.chessgame} widget
+	 * @param {rpbchess-ui.chessgame} widget
 	 * @param {string} color Either 'White' or 'Black'.
 	 * @returns {string}
 	 */
@@ -829,17 +829,17 @@
 		}
 
 		// Build the returned header.
-		var header = '<div class="uichess-chessgame-' + color.toLowerCase() + 'Player">' +
-			'<span class="uichess-chessgame-colorTag"></span> ' +
-			'<span class="uichess-chessgame-playerName">' + name + '</span>';
+		var header = '<div class="rpbui-chessgame-' + color.toLowerCase() + 'Player">' +
+			'<span class="rpbui-chessgame-colorTag"></span> ' +
+			'<span class="rpbui-chessgame-playerName">' + name + '</span>';
 
 		// Title + rating
 		var title  = formatTitle  (widget._game.header(color + 'Title'));
 		var rating = formatDefault(widget._game.header(color + 'Elo'  ));
 		if(title !== null || rating !== null) {
-			header += '<span class="uichess-chessgame-titleRatingGroup">';
-			if(title  !== null) { header += '<span class="uichess-chessgame-playerTitle">'  + title  + '</span>'; }
-			if(rating !== null) { header += '<span class="uichess-chessgame-playerRating">' + rating + '</span>'; }
+			header += '<span class="rpbui-chessgame-titleRatingGroup">';
+			if(title  !== null) { header += '<span class="rpbui-chessgame-playerTitle">'  + title  + '</span>'; }
+			if(rating !== null) { header += '<span class="rpbui-chessgame-playerRating">' + rating + '</span>'; }
 			header += '</span>';
 		}
 
@@ -852,7 +852,7 @@
 	/**
 	 * Build the header containing the event-related information (event + round).
 	 *
-	 * @param {uichess.chessgame} widget
+	 * @param {rpbchess-ui.chessgame} widget
 	 * @returns {string}
 	 */
 	function eventHeader(widget) {
@@ -867,9 +867,9 @@
 		var round = formatDefault(widget._game.header('Round'));
 
 		// Build and return the header.
-		var header = '<div class="uichess-chessgame-event">' + event;
+		var header = '<div class="rpbui-chessgame-event">' + event;
 		if(round !== null) {
-			header += '<span class="uichess-chessgame-round">' + round + '</span>';
+			header += '<span class="rpbui-chessgame-round">' + round + '</span>';
 		}
 		header += '</div>';
 		return header;
@@ -879,7 +879,7 @@
 	/**
 	 * Build the header containing the date/place information.
 	 *
-	 * @param {uichess.chessgame} widget
+	 * @param {rpbchess-ui.chessgame} widget
 	 * @returns {string}
 	 */
 	function datePlaceHeader(widget) {
@@ -892,9 +892,9 @@
 		}
 
 		// Build and return the header.
-		var header = '<div class="uichess-chessgame-datePlaceGroup">';
-		if(date !== null) { header += '<span class="uichess-chessgame-date">' + date + '</span>'; }
-		if(site !== null) { header += '<span class="uichess-chessgame-site">' + site + '</span>'; }
+		var header = '<div class="rpbui-chessgame-datePlaceGroup">';
+		if(date !== null) { header += '<span class="rpbui-chessgame-date">' + date + '</span>'; }
+		if(site !== null) { header += '<span class="rpbui-chessgame-site">' + site + '</span>'; }
 		header += '</div>';
 		return header;
 	}
@@ -903,7 +903,7 @@
 	/**
 	 * Build the header containing the annotator information.
 	 *
-	 * @param {uichess.chessgame} widget
+	 * @param {rpbchess-ui.chessgame} widget
 	 * @returns {string}
 	 */
 	function annotatorHeader(widget) {
@@ -915,8 +915,8 @@
 		}
 
 		// Build and return the header.
-		var header = '<div class="uichess-chessgame-annotator">' + $.chessgame.i18n.ANNOTATED_BY.replace(/%1\$s/g,
-			'<span class="uichess-chessgame-annotatorName">' + annotator + '</span>') + '</div>';
+		var header = '<div class="rpbui-chessgame-annotator">' + $.chessgame.i18n.ANNOTATED_BY.replace(/%1\$s/g,
+			'<span class="rpbui-chessgame-annotatorName">' + annotator + '</span>') + '</div>';
 		return header;
 	}
 
@@ -924,7 +924,7 @@
 	/**
 	 * Build the move tree.
 	 *
-	 * @param {uichess.chessgame} widget
+	 * @param {rpbchess-ui.chessgame} widget
 	 * @returns {string}
 	 */
 	function buildBody(widget) {
@@ -936,9 +936,9 @@
 		}
 
 		// Otherwise, wrap it into a DIV node.
-		var bodyClass = 'uichess-chessgame-body';
-		if(mainVariation.divCount > 1) { bodyClass += ' uichess-chessgame-moreSpace'; }
-		if(widget.options.navigationBoard !== 'none') { bodyClass += ' uichess-chessgame-clickableMoves'; }
+		var bodyClass = 'rpbui-chessgame-body';
+		if(mainVariation.divCount > 1) { bodyClass += ' rpbui-chessgame-moreSpace'; }
+		if(widget.options.navigationBoard !== 'none') { bodyClass += ' rpbui-chessgame-clickableMoves'; }
 		return '<div class="' + bodyClass + '">' + mainVariation.content + '</div>';
 	}
 
@@ -946,7 +946,7 @@
 	/**
 	 * Build the move tree corresponding to the given variation.
 	 *
-	 * @param {uichess.chessgame} widget
+	 * @param {rpbchess-ui.chessgame} widget
 	 * @param {RPBChess.pgn.Variation} variation
 	 * @param {boolean} isMainVariation
 	 * @param {null|string} result Must be set to null for sub-variations.
@@ -961,7 +961,7 @@
 
 		// Open a new DOM node for the variation.
 		var tag = variation.isLongVariation() ? 'div' : 'span';
-		var retVal = '<' + tag + ' class="uichess-chessgame-variation' + (isMainVariation ? '' : ' uichess-chessgame-subVariation') + '">';
+		var retVal = '<' + tag + ' class="rpbui-chessgame-variation' + (isMainVariation ? '' : ' rpbui-chessgame-subVariation') + '">';
 
 		// The flag `moveGroupOpened` indicates whether a `<div class="moveGroup">` node
 		// is currently opened or not. Move group nodes are supposed to contain moves,
@@ -974,7 +974,7 @@
 		// Open a new move group if necessary.
 		function openMoveGroup() {
 			if(enableMoveGroups && !moveGroupOpened) {
-				retVal += '<div class="uichess-chessgame-moveGroup">';
+				retVal += '<div class="rpbui-chessgame-moveGroup">';
 				moveGroupOpened = true;
 				++divCount;
 			}
@@ -1041,7 +1041,7 @@
 		// Append the result and the end of the main variation.
 		if(isMainVariation && result !== null) {
 			openMoveGroup();
-			retVal += '<span class="uichess-chessgame-result">' + result + '</span>';
+			retVal += '<span class="rpbui-chessgame-result">' + result + '</span>';
 		}
 
 		// Close the opened DOM nodes, and returned the result.
@@ -1090,7 +1090,7 @@
 	 */
 	function buildComment(node) {
 		var tag = node.isLongComment() ? 'div' : 'span';
-		return '<' + tag + ' class="uichess-chessgame-comment" ' + buildPositionInformation(node, false) + '>' +
+		return '<' + tag + ' class="rpbui-chessgame-comment" ' + buildPositionInformation(node, false) + '>' +
 			node.comment() + '</' + tag + '>';
 	}
 
@@ -1098,7 +1098,7 @@
 	/**
 	 * Build the DOM node corresponding to the given move (move number, SAN notation, NAGs).
 	 *
-	 * @param {uichess.chessgame} widget
+	 * @param {rpbchess-ui.chessgame} widget
 	 * @param {RPBChess.pgn.Node} node
 	 * @param {boolean} forcePrintMoveNumber
 	 * @returns {string}
@@ -1106,11 +1106,11 @@
 	function buildMove(widget, node, forcePrintMoveNumber) {
 
 		// Create the DOM node.
-		var retVal = '<span class="uichess-chessgame-move" ' + buildPositionInformation(node, true) + '>';
+		var retVal = '<span class="rpbui-chessgame-move" ' + buildPositionInformation(node, true) + '>';
 
 		// Move number
 		var printMoveNumber = forcePrintMoveNumber || node.moveColor() === 'w';
-		var moveNumberClass = 'uichess-chessgame-moveNumber' + (printMoveNumber ? '' : ' uichess-chessgame-hidden');
+		var moveNumberClass = 'rpbui-chessgame-moveNumber' + (printMoveNumber ? '' : ' rpbui-chessgame-hidden');
 		var moveNumberText  = node.fullMoveNumber() + (node.moveColor() === 'w' ? '.' : '\u2026');
 		retVal += '<span class="' + moveNumberClass + '">' + moveNumberText + '</span>';
 
@@ -1137,11 +1137,11 @@
 	 * which is always hidden, but must be added to make possible to display
 	 * the initial position in the navigation board.
 	 *
-	 * @param {uichess.chessgame} widget
+	 * @param {rpbchess-ui.chessgame} widget
 	 * @returns {string}
 	 */
 	function buildInitialMove(widget) {
-		return '<div class="uichess-chessgame-move uichess-chessgame-initialMove" ' + buildPositionInformation(widget._game.mainVariation(), false) +
+		return '<div class="rpbui-chessgame-move rpbui-chessgame-initialMove" ' + buildPositionInformation(widget._game.mainVariation(), false) +
 			'>' + $.chessgame.i18n.INITIAL_POSITION + '</div>';
 	}
 
@@ -1152,16 +1152,16 @@
 	 * @returns {string}
 	 */
 	function buildNavigationSkeleton() {
-		return '<div class="uichess-chessgame-navigationBoard"></div>' +
-			'<div class="uichess-chessgame-navigationButtons ' + $.chessgame.navigationButtonClass + '">' +
-				'<div title="' + $.chessgame.i18n.GO_FIRST_MOVE_TOOLTIP    + '" class="uichess-chessgame-navigationButtonFirst"></div>' +
-				'<div title="' + $.chessgame.i18n.GO_PREVIOUS_MOVE_TOOLTIP + '" class="uichess-chessgame-navigationButtonPrevious"></div>' +
-				'<div title="' + $.chessgame.i18n.GO_NEXT_MOVE_TOOLTIP     + '" class="uichess-chessgame-navigationButtonNext"></div>' +
-				'<div title="' + $.chessgame.i18n.GO_LAST_MOVE_TOOLTIP     + '" class="uichess-chessgame-navigationButtonLast uichess-chessgame-spaceAfter"></div>' +
-				'<div title="' + $.chessgame.i18n.FLIP_TOOLTIP             + '" class="uichess-chessgame-navigationButtonFlip uichess-chessgame-spaceAfter"></div>' +
-				'<div title="' + $.chessgame.i18n.DOWNLOAD_PGN_TOOLTIP     + '" class="uichess-chessgame-navigationButtonDownload uichess-chessgame-spaceAfter"></div>' +
+		return '<div class="rpbui-chessgame-navigationBoard"></div>' +
+			'<div class="rpbui-chessgame-navigationButtons ' + $.chessgame.navigationButtonClass + '">' +
+				'<div title="' + $.chessgame.i18n.GO_FIRST_MOVE_TOOLTIP    + '" class="rpbui-chessgame-navigationButtonFirst"></div>' +
+				'<div title="' + $.chessgame.i18n.GO_PREVIOUS_MOVE_TOOLTIP + '" class="rpbui-chessgame-navigationButtonPrevious"></div>' +
+				'<div title="' + $.chessgame.i18n.GO_NEXT_MOVE_TOOLTIP     + '" class="rpbui-chessgame-navigationButtonNext"></div>' +
+				'<div title="' + $.chessgame.i18n.GO_LAST_MOVE_TOOLTIP     + '" class="rpbui-chessgame-navigationButtonLast rpbui-chessgame-spaceAfter"></div>' +
+				'<div title="' + $.chessgame.i18n.FLIP_TOOLTIP             + '" class="rpbui-chessgame-navigationButtonFlip rpbui-chessgame-spaceAfter"></div>' +
+				'<div title="' + $.chessgame.i18n.DOWNLOAD_PGN_TOOLTIP     + '" class="rpbui-chessgame-navigationButtonDownload rpbui-chessgame-spaceAfter"></div>' +
 			'</div>' +
-			'<a href="#" download="game.pgn" class="uichess-chessgame-blobDownloadLink"></a>';
+			'<a href="#" download="game.pgn" class="rpbui-chessgame-blobDownloadLink"></a>';
 	}
 
 
@@ -1169,13 +1169,13 @@
 	 * jQuerize the navigation buttons and bind their callbacks.
 	 */
 	function initializeNavigationButtons(selector, callback) {
-		selector('.uichess-chessgame-navigationButtons'       ).disableSelection();
-		selector('.uichess-chessgame-navigationButtonFirst'   ).button({ icons:{ primary:'ui-icon-seek-first' }, text:false }).click(function() { callback('goFirstMove'   ); });
-		selector('.uichess-chessgame-navigationButtonPrevious').button({ icons:{ primary:'ui-icon-seek-prev'  }, text:false }).click(function() { callback('goPreviousMove'); });
-		selector('.uichess-chessgame-navigationButtonNext'    ).button({ icons:{ primary:'ui-icon-seek-next'  }, text:false }).click(function() { callback('goNextMove'    ); });
-		selector('.uichess-chessgame-navigationButtonLast'    ).button({ icons:{ primary:'ui-icon-seek-end'   }, text:false }).click(function() { callback('goLastMove'    ); });
-		selector('.uichess-chessgame-navigationButtonFlip'    ).button({ icons:{ primary:'ui-icon-refresh'    }, text:false }).click(function() { callback('flip'          ); });
-		selector('.uichess-chessgame-navigationButtonDownload').button({ icons:{ primary:'ui-icon-extlink'    }, text:false }).click(function() { callback('downloadPGN'   ); });
+		selector('.rpbui-chessgame-navigationButtons'       ).disableSelection();
+		selector('.rpbui-chessgame-navigationButtonFirst'   ).button({ icons:{ primary:'ui-icon-seek-first' }, text:false }).click(function() { callback('goFirstMove'   ); });
+		selector('.rpbui-chessgame-navigationButtonPrevious').button({ icons:{ primary:'ui-icon-seek-prev'  }, text:false }).click(function() { callback('goPreviousMove'); });
+		selector('.rpbui-chessgame-navigationButtonNext'    ).button({ icons:{ primary:'ui-icon-seek-next'  }, text:false }).click(function() { callback('goNextMove'    ); });
+		selector('.rpbui-chessgame-navigationButtonLast'    ).button({ icons:{ primary:'ui-icon-seek-end'   }, text:false }).click(function() { callback('goLastMove'    ); });
+		selector('.rpbui-chessgame-navigationButtonFlip'    ).button({ icons:{ primary:'ui-icon-refresh'    }, text:false }).click(function() { callback('flip'          ); });
+		selector('.rpbui-chessgame-navigationButtonDownload').button({ icons:{ primary:'ui-icon-extlink'    }, text:false }).click(function() { callback('downloadPGN'   ); });
 	}
 
 
@@ -1183,15 +1183,15 @@
 	 * Create the navigation frame, if it does not exist yet.
 	 */
 	function buildNavigationFrame() {
-		if($('#uichess-chessgame-navigationFrame').length !== 0) {
+		if($('#rpbui-chessgame-navigationFrame').length !== 0) {
 			return;
 		}
 
 		// Structure of the navigation frame.
-		$('<div id="uichess-chessgame-navigationFrame">' + buildNavigationSkeleton() + '</div>').appendTo($('body'));
+		$('<div id="rpbui-chessgame-navigationFrame">' + buildNavigationSkeleton() + '</div>').appendTo($('body'));
 
 		// Create the dialog widget.
-		$('#uichess-chessgame-navigationFrame').dialog({
+		$('#rpbui-chessgame-navigationFrame').dialog({
 			/* Hack to keep the dialog draggable after the page has being scrolled. */
 			create     : function(event) { $(event.target).parent().css('position', 'fixed'); },
 			resizeStart: function(event) { $(event.target).parent().css('position', 'fixed'); },
@@ -1204,20 +1204,20 @@
 		});
 
 		// Create the chessboard widget.
-		var widget = $('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationBoard');
+		var widget = $('#rpbui-chessgame-navigationFrame .rpbui-chessgame-navigationBoard');
 		widget.chessboard(filterChessboardOptions($.chessgame.navigationFrameOptions));
-		widget.chessboard('sizeControlledByContainer', $('#uichess-chessgame-navigationFrame'), 'dialogresize');
+		widget.chessboard('sizeControlledByContainer', $('#rpbui-chessgame-navigationFrame'), 'dialogresize');
 
 		// Callback for the buttons.
-		initializeNavigationButtons(function(buttonClass) { return $('#uichess-chessgame-navigationFrame ' + buttonClass); }, function callback(methodName) {
-			var gameWidget = $('#uichess-chessgame-navigationFrameTarget').closest('.uichess-chessgame');
+		initializeNavigationButtons(function(buttonClass) { return $('#rpbui-chessgame-navigationFrame ' + buttonClass); }, function callback(methodName) {
+			var gameWidget = $('#rpbui-chessgame-navigationFrameTarget').closest('.rpbui-chessgame');
 			gameWidget.chessgame(methodName);
 
 			// Scroll to the selected move.
 			if(/^go/.test(methodName)) {
-				var target = $('.uichess-chessgame-selectedMove', gameWidget);
+				var target = $('.rpbui-chessgame-selectedMove', gameWidget);
 				var allowScrollDown = true;
-				if(target.hasClass('uichess-chessgame-initialMove')) {
+				if(target.hasClass('rpbui-chessgame-initialMove')) {
 					target = gameWidget;
 					allowScrollDown = false;
 				}
@@ -1241,12 +1241,12 @@
 	/**
 	 * Select the given move and update the navigation board accordingly.
 	 *
-	 * @param {uichess.chessgame} widget
+	 * @param {rpbchess-ui.chessgame} widget
 	 * @param {jQuery} [move] Nothing is done if null or undefined.
 	 * @param {boolean} playTheMove
 	 */
 	function updateNavigationBoard(widget, move, playTheMove) {
-		if(move === undefined || move === null || move.hasClass('uichess-chessgame-selectedMove')) {
+		if(move === undefined || move === null || move.hasClass('rpbui-chessgame-selectedMove')) {
 			return;
 		}
 
@@ -1265,7 +1265,7 @@
 		// If the navigation board is in the dedicated frame, update its title,
 		// and ensure that it is visible.
 		if(widget.options.navigationBoard === 'frame') {
-			var frame = $('#uichess-chessgame-navigationFrame');
+			var frame = $('#rpbui-chessgame-navigationFrame');
 			if(!frame.dialog('isOpen')) {
 				frame.dialog('option', 'position', { my: 'center', at: 'center', of: window });
 				frame.dialog('open');
@@ -1275,11 +1275,11 @@
 
 		// Scroll to the selected move if possible.
 		if(widget.options.navigationBoard === 'scrollLeft' || widget.options.navigationBoard === 'scrollRight') {
-			var target = $('.uichess-chessgame-selectedMove', widget.element);
-			var scrollArea = $('.uichess-chessgame-scrollArea', widget.element);
+			var target = $('.rpbui-chessgame-selectedMove', widget.element);
+			var scrollArea = $('.rpbui-chessgame-scrollArea', widget.element);
 			var allowScrollDown = true;
-			if(target.hasClass('uichess-chessgame-initialMove')) {
-				target = $('.uichess-chessgame-headers', widget.element);
+			if(target.hasClass('rpbui-chessgame-initialMove')) {
+				target = $('.rpbui-chessgame-headers', widget.element);
 				allowScrollDown = false;
 			}
 			var targetOffsetTop = target.offset().top - scrollArea.offset().top;
@@ -1310,8 +1310,8 @@
 	 * Refresh the visibility of the navigation buttons.
 	 */
 	function updateNavigationButtons(widget) {
-		updateNavigationButton(widget, '.uichess-chessgame-navigationButtonFlip', widget.options.showFlipButton);
-		updateNavigationButton(widget, '.uichess-chessgame-navigationButtonDownload', widget.options.showDownloadButton);
+		updateNavigationButton(widget, '.rpbui-chessgame-navigationButtonFlip', widget.options.showFlipButton);
+		updateNavigationButton(widget, '.rpbui-chessgame-navigationButtonDownload', widget.options.showDownloadButton);
 	}
 
 
@@ -1319,7 +1319,7 @@
 	 * Refresh the visibility of the navigation button identified by the given class.
 	 */
 	function updateNavigationButton(widget, buttonClass, isVisible) {
-		var button = widget.options.navigationBoard === 'frame' ? $('#uichess-chessgame-navigationFrame ' + buttonClass) : $(buttonClass, widget.element);
+		var button = widget.options.navigationBoard === 'frame' ? $('#rpbui-chessgame-navigationFrame ' + buttonClass) : $(buttonClass, widget.element);
 		if(isVisible) {
 			button.show();
 		}
@@ -1332,7 +1332,7 @@
 	/**
 	 * Refresh the position displayed on the navigation chessboard widget.
 	 *
-	 * @param {uichess.chessgame} widget
+	 * @param {rpbchess-ui.chessgame} widget
 	 * @param {jQuery} move
 	 * @param {boolean} playTheMove
 	 */
@@ -1359,45 +1359,45 @@
 	/**
 	 * Return the navigation board of the given widget (either its own navigation board or the shared one in the popup frame).
 	 *
-	 * @param {uichess.chessgame} widget
+	 * @param {rpbchess-ui.chessgame} widget
 	 * @returns {jQuery}
 	 */
 	function retrieveNavigationBoard(widget) {
 		return widget.options.navigationBoard === 'frame' ?
-			$('#uichess-chessgame-navigationFrame .uichess-chessgame-navigationBoard') :
-			$('.uichess-chessgame-navigationBoard', widget.element);
+			$('#rpbui-chessgame-navigationFrame .rpbui-chessgame-navigationBoard') :
+			$('.rpbui-chessgame-navigationBoard', widget.element);
 	}
 
 
 	/**
 	 * Return the blob-download link of the given widget.
 	 *
-	 * @param {uichess.chessgame} widget
+	 * @param {rpbchess-ui.chessgame} widget
 	 * @returns {jQuery}
 	 */
 	function retrieveBlobDownloadLink(widget) {
 		return widget.options.navigationBoard === 'frame' ?
-			$('#uichess-chessgame-navigationFrame .uichess-chessgame-blobDownloadLink') :
-			$('.uichess-chessgame-blobDownloadLink', widget.element);
+			$('#rpbui-chessgame-navigationFrame .rpbui-chessgame-blobDownloadLink') :
+			$('.rpbui-chessgame-blobDownloadLink', widget.element);
 	}
 
 
 	/**
 	 * Make the given move appear as selected.
 	 *
-	 * @param {uichess.chessgame} widget
+	 * @param {rpbchess-ui.chessgame} widget
 	 * @param {jQuery} move
 	 */
 	function updateSelectedMove(widget, move) {
 		var global = widget.options.navigationBoard === 'frame';
 
 		// Unselect the previously selected move, if any.
-		unselectMove(global ? null : $('.uichess-chessgame-selectedMove', widget.element));
+		unselectMove(global ? null : $('.rpbui-chessgame-selectedMove', widget.element));
 
 		// Update the ID/class attributes.
-		move.addClass('uichess-chessgame-selectedMove');
+		move.addClass('rpbui-chessgame-selectedMove');
 		if(global) {
-			move.attr('id', 'uichess-chessgame-navigationFrameTarget');
+			move.attr('id', 'rpbui-chessgame-navigationFrameTarget');
 		}
 
 		// Highlight the selected move.
@@ -1410,13 +1410,13 @@
 	/**
 	 * Unselect the selected move, if any.
 	 *
-	 * @param {jQuery} [target] Move to unselect. If not provided, `#uichess-chessgame-navigationFrameTarget` is targeted.
+	 * @param {jQuery} [target] Move to unselect. If not provided, `#rpbui-chessgame-navigationFrameTarget` is targeted.
 	 */
 	function unselectMove(target) {
 		if(target === undefined || target === null) {
-			target = $('#uichess-chessgame-navigationFrameTarget');
+			target = $('#rpbui-chessgame-navigationFrameTarget');
 		}
-		target.attr('style', null).attr('id', null).removeClass('uichess-chessgame-selectedMove');
+		target.attr('style', null).attr('id', null).removeClass('rpbui-chessgame-selectedMove');
 	}
 
 
@@ -1428,7 +1428,7 @@
 	/**
 	 * Register a 'chessgame' widget in the jQuery widget framework.
 	 */
-	$.widget('uichess.chessgame',
+	$.widget('rpbchess-ui.chessgame',
 	{
 		/**
 		 * Default options.
@@ -1515,7 +1515,7 @@
 		 */
 		_create: function()
 		{
-			this.element.addClass('uichess-chessgame');
+			this.element.addClass('rpbui-chessgame');
 
 			this.options.url = initializeURL(this, this.options.url);
 			if(!this.options.url) {
@@ -1541,7 +1541,7 @@
 		_destroy: function()
 		{
 			destroyContent(this);
-			this.element.removeClass('uichess-chessgame');
+			this.element.removeClass('rpbui-chessgame');
 		},
 
 
@@ -1578,7 +1578,7 @@
 		 * Go to the first move of the variation of the currently selected move.
 		 */
 		goFirstMove: function() {
-			var target = $('.uichess-chessgame-selectedMove', this.element);
+			var target = $('.rpbui-chessgame-selectedMove', this.element);
 			if(target.length === 0) {
 				return;
 			}
@@ -1593,7 +1593,7 @@
 		 * Go to the previous move of the currently selected move.
 		 */
 		goPreviousMove: function() {
-			updateNavigationBoard(this, $('.uichess-chessgame-selectedMove', this.element).data('prevMove'), false);
+			updateNavigationBoard(this, $('.rpbui-chessgame-selectedMove', this.element).data('prevMove'), false);
 		},
 
 
@@ -1601,7 +1601,7 @@
 		 * Go to the next move of the currently selected move.
 		 */
 		goNextMove: function() {
-			updateNavigationBoard(this, $('.uichess-chessgame-selectedMove', this.element).data('nextMove'), true);
+			updateNavigationBoard(this, $('.rpbui-chessgame-selectedMove', this.element).data('nextMove'), true);
 		},
 
 
@@ -1609,7 +1609,7 @@
 		 * Go to the last move of the variation of the currently selected move.
 		 */
 		goLastMove: function() {
-			var target = $('.uichess-chessgame-selectedMove', this.element);
+			var target = $('.rpbui-chessgame-selectedMove', this.element);
 			if(target.length === 0) {
 				return;
 			}
@@ -1650,6 +1650,6 @@
 			}
 		}
 
-	}); /* $.widget('uichess.chessgame', { ... }) */
+	}); /* $.widget('rpbchess-ui.chessgame', { ... }) */
 
 })(/* global RPBChess */ RPBChess, /* global jQuery */ jQuery, /* global moment */ moment);

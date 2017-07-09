@@ -52,7 +52,7 @@
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributePieceSymbols-value">figurines</a></td>
 					<td><?php if($model->getDefaultSimplifiedPieceSymbols()==='figurines'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
-					<td><span class="uichess-chessgame-alphaFont">K Q R B N P</span></td>
+					<td><span class="rpbui-chessgame-alphaFont">K Q R B N P</span></td>
 				</tr>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributePieceSymbols-value">(<?php

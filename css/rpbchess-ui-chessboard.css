@@ -23,7 +23,7 @@
 /* Parsing error box */
 /* -------------------------------------------------------------------------- */
 
-.uichess-chessboard-error {
+.rpbui-chessboard-error {
 	text-align: left;
 	font-family: sans-serif;
 	font-size: 12px;
@@ -34,12 +34,12 @@
 	padding: 0.75em;
 }
 
-.uichess-chessboard-errorTitle {
+.rpbui-chessboard-errorTitle {
 	font-weight: bold;
 	font-style: italic;
 }
 
-.uichess-chessboard-errorMessage {
+.rpbui-chessboard-errorMessage {
 	margin-top: 0.4em;
 }
 
@@ -49,200 +49,200 @@
 /* Chessboard widget */
 /* -------------------------------------------------------------------------- */
 
-.uichess-chessboard {
+.rpbui-chessboard {
 	display: block;
 	text-align: center;
 }
 
-.uichess-chessboard-table {
+.rpbui-chessboard-table {
 	display: inline-table;
 	position: relative;
 	border-collapse: collapse;
 	font-size: 80%;
 }
 
-.uichess-chessboard-row {
+.rpbui-chessboard-row {
 	display: table-row;
 }
 
-.uichess-chessboard-cell {
+.rpbui-chessboard-cell {
 	display: table-cell;
 	line-height: 0px;
 }
 
-.uichess-chessboard-piece {
+.rpbui-chessboard-piece {
 	position: relative;
 }
 
-.uichess-chessboard-handle {
+.rpbui-chessboard-handle {
 	position: relative;
 	z-index: 200;
 	width: 100%;
 	height: 100%;
 }
 
-.uichess-chessboard-annotations {
+.rpbui-chessboard-annotations {
 	position: absolute;
 	z-index: 100;
 	top: 0px;
 	opacity: 0.8;
 }
 
-.uichess-chessboard-cell.uichess-chessboard-rowCoordinate {
+.rpbui-chessboard-cell.rpbui-chessboard-rowCoordinate {
 	vertical-align: middle;
 	padding-left : 5px;
 	padding-right: 5px;
 }
 
-.uichess-chessboard-cell.uichess-chessboard-columnCoordinate {
+.rpbui-chessboard-cell.rpbui-chessboard-columnCoordinate {
 	vertical-align: baseline;
 	line-height: 1ex;
 	padding-top: 6px;
 }
 
-.uichess-chessboard-cell .uichess-chessboard-turnFlag {
+.rpbui-chessboard-cell .rpbui-chessboard-turnFlag {
 	margin-left: 8px;
 }
 
-.uichess-chessboard-hideCoordinates .uichess-chessboard-cell.uichess-chessboard-rowCoordinate,
-.uichess-chessboard-hideCoordinates .uichess-chessboard-row.uichess-chessboard-columnCoordinateRow,
-.uichess-chessboard-turnFlag.uichess-chessboard-inactiveFlag {
+.rpbui-chessboard-hideCoordinates .rpbui-chessboard-cell.rpbui-chessboard-rowCoordinate,
+.rpbui-chessboard-hideCoordinates .rpbui-chessboard-row.rpbui-chessboard-columnCoordinateRow,
+.rpbui-chessboard-turnFlag.rpbui-chessboard-inactiveFlag {
 	display: none;
 }
 
-.uichess-chessboard-squareHover {
+.rpbui-chessboard-squareHover {
 	box-shadow: 0 0 7px 3px #ffb000 inset;
 }
 
-.uichess-chessboard-arrowMarker {
+.rpbui-chessboard-arrowMarker {
 	stroke-width: 0.15;
 	stroke-linecap: round;
 }
 
-.uichess-chessboard-arrowMarker.uichess-chessboard-markerColor-G { stroke: #0e0; }
-.uichess-chessboard-arrowMarker.uichess-chessboard-markerColor-R { stroke: #f20; }
-.uichess-chessboard-arrowMarker.uichess-chessboard-markerColor-Y { stroke: #db0; }
-.uichess-chessboard-arrowMarker.uichess-chessboard-markerColor-B { stroke: #04f; }
+.rpbui-chessboard-arrowMarker.rpbui-chessboard-markerColor-G { stroke: #0e0; }
+.rpbui-chessboard-arrowMarker.rpbui-chessboard-markerColor-R { stroke: #f20; }
+.rpbui-chessboard-arrowMarker.rpbui-chessboard-markerColor-Y { stroke: #db0; }
+.rpbui-chessboard-arrowMarker.rpbui-chessboard-markerColor-B { stroke: #04f; }
 
-#uichess-chessboard-arrowMarkerEnd-G { fill: #0e0; }
-#uichess-chessboard-arrowMarkerEnd-R { fill: #f20; }
-#uichess-chessboard-arrowMarkerEnd-Y { fill: #db0; }
-#uichess-chessboard-arrowMarkerEnd-B { fill: #04f; }
+#rpbui-chessboard-arrowMarkerEnd-G { fill: #0e0; }
+#rpbui-chessboard-arrowMarkerEnd-R { fill: #f20; }
+#rpbui-chessboard-arrowMarkerEnd-Y { fill: #db0; }
+#rpbui-chessboard-arrowMarkerEnd-B { fill: #04f; }
 
-.uichess-chessboard-squareMarker.uichess-chessboard-markerColor-G.uichess-chessboard-lightSquare { background-color: #60f250; }
-.uichess-chessboard-squareMarker.uichess-chessboard-markerColor-G.uichess-chessboard-darkSquare  { background-color: #48cf2b; }
-.uichess-chessboard-squareMarker.uichess-chessboard-markerColor-R.uichess-chessboard-lightSquare { background-color: #f95950; }
-.uichess-chessboard-squareMarker.uichess-chessboard-markerColor-R.uichess-chessboard-darkSquare  { background-color: #e1362b; }
-.uichess-chessboard-squareMarker.uichess-chessboard-markerColor-Y.uichess-chessboard-lightSquare { background-color: #f9f250; }
-.uichess-chessboard-squareMarker.uichess-chessboard-markerColor-Y.uichess-chessboard-darkSquare  { background-color: #e1cf2b; }
+.rpbui-chessboard-squareMarker.rpbui-chessboard-markerColor-G.rpbui-chessboard-lightSquare { background-color: #60f250; }
+.rpbui-chessboard-squareMarker.rpbui-chessboard-markerColor-G.rpbui-chessboard-darkSquare  { background-color: #48cf2b; }
+.rpbui-chessboard-squareMarker.rpbui-chessboard-markerColor-R.rpbui-chessboard-lightSquare { background-color: #f95950; }
+.rpbui-chessboard-squareMarker.rpbui-chessboard-markerColor-R.rpbui-chessboard-darkSquare  { background-color: #e1362b; }
+.rpbui-chessboard-squareMarker.rpbui-chessboard-markerColor-Y.rpbui-chessboard-lightSquare { background-color: #f9f250; }
+.rpbui-chessboard-squareMarker.rpbui-chessboard-markerColor-Y.rpbui-chessboard-darkSquare  { background-color: #e1cf2b; }
 
-.uichess-chessboard-size12 .uichess-chessboard-sized { min-width: 12px; width: 12px; height: 12px; background-position:  -450px -53px; }
-.uichess-chessboard-size13 .uichess-chessboard-sized { min-width: 13px; width: 13px; height: 13px; background-position:  -437px -52px; }
-.uichess-chessboard-size14 .uichess-chessboard-sized { min-width: 14px; width: 14px; height: 14px; background-position:  -423px -51px; }
-.uichess-chessboard-size15 .uichess-chessboard-sized { min-width: 15px; width: 15px; height: 15px; background-position:  -408px -50px; }
-.uichess-chessboard-size16 .uichess-chessboard-sized { min-width: 16px; width: 16px; height: 16px; background-position:  -392px -49px; }
-.uichess-chessboard-size17 .uichess-chessboard-sized { min-width: 17px; width: 17px; height: 17px; background-position:  -375px -48px; }
-.uichess-chessboard-size18 .uichess-chessboard-sized { min-width: 18px; width: 18px; height: 18px; background-position:  -357px -47px; }
-.uichess-chessboard-size19 .uichess-chessboard-sized { min-width: 19px; width: 19px; height: 19px; background-position:  -338px -46px; }
-.uichess-chessboard-size20 .uichess-chessboard-sized { min-width: 20px; width: 20px; height: 20px; background-position:  -318px -45px; }
-.uichess-chessboard-size21 .uichess-chessboard-sized { min-width: 21px; width: 21px; height: 21px; background-position:  -297px -44px; }
-.uichess-chessboard-size22 .uichess-chessboard-sized { min-width: 22px; width: 22px; height: 22px; background-position:  -275px -43px; }
-.uichess-chessboard-size23 .uichess-chessboard-sized { min-width: 23px; width: 23px; height: 23px; background-position:  -252px -42px; }
-.uichess-chessboard-size24 .uichess-chessboard-sized { min-width: 24px; width: 24px; height: 24px; background-position:  -228px -41px; }
-.uichess-chessboard-size25 .uichess-chessboard-sized { min-width: 25px; width: 25px; height: 25px; background-position:  -203px -40px; }
-.uichess-chessboard-size26 .uichess-chessboard-sized { min-width: 26px; width: 26px; height: 26px; background-position:  -177px -39px; }
-.uichess-chessboard-size27 .uichess-chessboard-sized { min-width: 27px; width: 27px; height: 27px; background-position:  -150px -38px; }
-.uichess-chessboard-size28 .uichess-chessboard-sized { min-width: 28px; width: 28px; height: 28px; background-position:  -122px -37px; }
-.uichess-chessboard-size29 .uichess-chessboard-sized { min-width: 29px; width: 29px; height: 29px; background-position:   -93px -36px; }
-.uichess-chessboard-size30 .uichess-chessboard-sized { min-width: 30px; width: 30px; height: 30px; background-position:   -63px -35px; }
-.uichess-chessboard-size31 .uichess-chessboard-sized { min-width: 31px; width: 31px; height: 31px; background-position:   -32px -34px; }
-.uichess-chessboard-size32 .uichess-chessboard-sized { min-width: 32px; width: 32px; height: 32px; background-position:     0px -33px; }
-.uichess-chessboard-size33 .uichess-chessboard-sized { min-width: 33px; width: 33px; height: 33px; background-position:     0px   0px; }
-.uichess-chessboard-size34 .uichess-chessboard-sized { min-width: 34px; width: 34px; height: 34px; background-position:   -33px   0px; }
-.uichess-chessboard-size35 .uichess-chessboard-sized { min-width: 35px; width: 35px; height: 35px; background-position:   -67px   0px; }
-.uichess-chessboard-size36 .uichess-chessboard-sized { min-width: 36px; width: 36px; height: 36px; background-position:  -102px   0px; }
-.uichess-chessboard-size37 .uichess-chessboard-sized { min-width: 37px; width: 37px; height: 37px; background-position:  -138px   0px; }
-.uichess-chessboard-size38 .uichess-chessboard-sized { min-width: 38px; width: 38px; height: 38px; background-position:  -175px   0px; }
-.uichess-chessboard-size39 .uichess-chessboard-sized { min-width: 39px; width: 39px; height: 39px; background-position:  -213px   0px; }
-.uichess-chessboard-size40 .uichess-chessboard-sized { min-width: 40px; width: 40px; height: 40px; background-position:  -252px   0px; }
-.uichess-chessboard-size41 .uichess-chessboard-sized { min-width: 41px; width: 41px; height: 41px; background-position:  -292px   0px; }
-.uichess-chessboard-size42 .uichess-chessboard-sized { min-width: 42px; width: 42px; height: 42px; background-position:  -333px   0px; }
-.uichess-chessboard-size43 .uichess-chessboard-sized { min-width: 43px; width: 43px; height: 43px; background-position:  -375px   0px; }
-.uichess-chessboard-size44 .uichess-chessboard-sized { min-width: 44px; width: 44px; height: 44px; background-position:  -418px   0px; }
-.uichess-chessboard-size45 .uichess-chessboard-sized { min-width: 45px; width: 45px; height: 45px; background-position:  -462px   0px; }
-.uichess-chessboard-size46 .uichess-chessboard-sized { min-width: 46px; width: 46px; height: 46px; background-position:  -507px   0px; }
-.uichess-chessboard-size47 .uichess-chessboard-sized { min-width: 47px; width: 47px; height: 47px; background-position:  -553px   0px; }
-.uichess-chessboard-size48 .uichess-chessboard-sized { min-width: 48px; width: 48px; height: 48px; background-position:  -600px   0px; }
-.uichess-chessboard-size49 .uichess-chessboard-sized { min-width: 49px; width: 49px; height: 49px; background-position:  -648px   0px; }
-.uichess-chessboard-size50 .uichess-chessboard-sized { min-width: 50px; width: 50px; height: 50px; background-position:  -697px   0px; }
-.uichess-chessboard-size51 .uichess-chessboard-sized { min-width: 51px; width: 51px; height: 51px; background-position:  -747px   0px; }
-.uichess-chessboard-size52 .uichess-chessboard-sized { min-width: 52px; width: 52px; height: 52px; background-position:  -798px   0px; }
-.uichess-chessboard-size53 .uichess-chessboard-sized { min-width: 53px; width: 53px; height: 53px; background-position:  -850px   0px; }
-.uichess-chessboard-size54 .uichess-chessboard-sized { min-width: 54px; width: 54px; height: 54px; background-position:  -903px   0px; }
-.uichess-chessboard-size55 .uichess-chessboard-sized { min-width: 55px; width: 55px; height: 55px; background-position:  -957px   0px; }
-.uichess-chessboard-size56 .uichess-chessboard-sized { min-width: 56px; width: 56px; height: 56px; background-position: -1012px   0px; }
-.uichess-chessboard-size57 .uichess-chessboard-sized { min-width: 57px; width: 57px; height: 57px; background-position: -1068px   0px; }
-.uichess-chessboard-size58 .uichess-chessboard-sized { min-width: 58px; width: 58px; height: 58px; background-position: -1125px   0px; }
-.uichess-chessboard-size59 .uichess-chessboard-sized { min-width: 59px; width: 59px; height: 59px; background-position: -1183px   0px; }
-.uichess-chessboard-size60 .uichess-chessboard-sized { min-width: 60px; width: 60px; height: 60px; background-position: -1242px   0px; }
-.uichess-chessboard-size61 .uichess-chessboard-sized { min-width: 61px; width: 61px; height: 61px; background-position: -1302px   0px; }
-.uichess-chessboard-size62 .uichess-chessboard-sized { min-width: 62px; width: 62px; height: 62px; background-position: -1363px   0px; }
-.uichess-chessboard-size63 .uichess-chessboard-sized { min-width: 63px; width: 63px; height: 63px; background-position: -1425px   0px; }
-.uichess-chessboard-size64 .uichess-chessboard-sized { min-width: 64px; width: 64px; height: 64px; background-position: -1488px   0px; }
+.rpbui-chessboard-size12 .rpbui-chessboard-sized { min-width: 12px; width: 12px; height: 12px; background-position:  -450px -53px; }
+.rpbui-chessboard-size13 .rpbui-chessboard-sized { min-width: 13px; width: 13px; height: 13px; background-position:  -437px -52px; }
+.rpbui-chessboard-size14 .rpbui-chessboard-sized { min-width: 14px; width: 14px; height: 14px; background-position:  -423px -51px; }
+.rpbui-chessboard-size15 .rpbui-chessboard-sized { min-width: 15px; width: 15px; height: 15px; background-position:  -408px -50px; }
+.rpbui-chessboard-size16 .rpbui-chessboard-sized { min-width: 16px; width: 16px; height: 16px; background-position:  -392px -49px; }
+.rpbui-chessboard-size17 .rpbui-chessboard-sized { min-width: 17px; width: 17px; height: 17px; background-position:  -375px -48px; }
+.rpbui-chessboard-size18 .rpbui-chessboard-sized { min-width: 18px; width: 18px; height: 18px; background-position:  -357px -47px; }
+.rpbui-chessboard-size19 .rpbui-chessboard-sized { min-width: 19px; width: 19px; height: 19px; background-position:  -338px -46px; }
+.rpbui-chessboard-size20 .rpbui-chessboard-sized { min-width: 20px; width: 20px; height: 20px; background-position:  -318px -45px; }
+.rpbui-chessboard-size21 .rpbui-chessboard-sized { min-width: 21px; width: 21px; height: 21px; background-position:  -297px -44px; }
+.rpbui-chessboard-size22 .rpbui-chessboard-sized { min-width: 22px; width: 22px; height: 22px; background-position:  -275px -43px; }
+.rpbui-chessboard-size23 .rpbui-chessboard-sized { min-width: 23px; width: 23px; height: 23px; background-position:  -252px -42px; }
+.rpbui-chessboard-size24 .rpbui-chessboard-sized { min-width: 24px; width: 24px; height: 24px; background-position:  -228px -41px; }
+.rpbui-chessboard-size25 .rpbui-chessboard-sized { min-width: 25px; width: 25px; height: 25px; background-position:  -203px -40px; }
+.rpbui-chessboard-size26 .rpbui-chessboard-sized { min-width: 26px; width: 26px; height: 26px; background-position:  -177px -39px; }
+.rpbui-chessboard-size27 .rpbui-chessboard-sized { min-width: 27px; width: 27px; height: 27px; background-position:  -150px -38px; }
+.rpbui-chessboard-size28 .rpbui-chessboard-sized { min-width: 28px; width: 28px; height: 28px; background-position:  -122px -37px; }
+.rpbui-chessboard-size29 .rpbui-chessboard-sized { min-width: 29px; width: 29px; height: 29px; background-position:   -93px -36px; }
+.rpbui-chessboard-size30 .rpbui-chessboard-sized { min-width: 30px; width: 30px; height: 30px; background-position:   -63px -35px; }
+.rpbui-chessboard-size31 .rpbui-chessboard-sized { min-width: 31px; width: 31px; height: 31px; background-position:   -32px -34px; }
+.rpbui-chessboard-size32 .rpbui-chessboard-sized { min-width: 32px; width: 32px; height: 32px; background-position:     0px -33px; }
+.rpbui-chessboard-size33 .rpbui-chessboard-sized { min-width: 33px; width: 33px; height: 33px; background-position:     0px   0px; }
+.rpbui-chessboard-size34 .rpbui-chessboard-sized { min-width: 34px; width: 34px; height: 34px; background-position:   -33px   0px; }
+.rpbui-chessboard-size35 .rpbui-chessboard-sized { min-width: 35px; width: 35px; height: 35px; background-position:   -67px   0px; }
+.rpbui-chessboard-size36 .rpbui-chessboard-sized { min-width: 36px; width: 36px; height: 36px; background-position:  -102px   0px; }
+.rpbui-chessboard-size37 .rpbui-chessboard-sized { min-width: 37px; width: 37px; height: 37px; background-position:  -138px   0px; }
+.rpbui-chessboard-size38 .rpbui-chessboard-sized { min-width: 38px; width: 38px; height: 38px; background-position:  -175px   0px; }
+.rpbui-chessboard-size39 .rpbui-chessboard-sized { min-width: 39px; width: 39px; height: 39px; background-position:  -213px   0px; }
+.rpbui-chessboard-size40 .rpbui-chessboard-sized { min-width: 40px; width: 40px; height: 40px; background-position:  -252px   0px; }
+.rpbui-chessboard-size41 .rpbui-chessboard-sized { min-width: 41px; width: 41px; height: 41px; background-position:  -292px   0px; }
+.rpbui-chessboard-size42 .rpbui-chessboard-sized { min-width: 42px; width: 42px; height: 42px; background-position:  -333px   0px; }
+.rpbui-chessboard-size43 .rpbui-chessboard-sized { min-width: 43px; width: 43px; height: 43px; background-position:  -375px   0px; }
+.rpbui-chessboard-size44 .rpbui-chessboard-sized { min-width: 44px; width: 44px; height: 44px; background-position:  -418px   0px; }
+.rpbui-chessboard-size45 .rpbui-chessboard-sized { min-width: 45px; width: 45px; height: 45px; background-position:  -462px   0px; }
+.rpbui-chessboard-size46 .rpbui-chessboard-sized { min-width: 46px; width: 46px; height: 46px; background-position:  -507px   0px; }
+.rpbui-chessboard-size47 .rpbui-chessboard-sized { min-width: 47px; width: 47px; height: 47px; background-position:  -553px   0px; }
+.rpbui-chessboard-size48 .rpbui-chessboard-sized { min-width: 48px; width: 48px; height: 48px; background-position:  -600px   0px; }
+.rpbui-chessboard-size49 .rpbui-chessboard-sized { min-width: 49px; width: 49px; height: 49px; background-position:  -648px   0px; }
+.rpbui-chessboard-size50 .rpbui-chessboard-sized { min-width: 50px; width: 50px; height: 50px; background-position:  -697px   0px; }
+.rpbui-chessboard-size51 .rpbui-chessboard-sized { min-width: 51px; width: 51px; height: 51px; background-position:  -747px   0px; }
+.rpbui-chessboard-size52 .rpbui-chessboard-sized { min-width: 52px; width: 52px; height: 52px; background-position:  -798px   0px; }
+.rpbui-chessboard-size53 .rpbui-chessboard-sized { min-width: 53px; width: 53px; height: 53px; background-position:  -850px   0px; }
+.rpbui-chessboard-size54 .rpbui-chessboard-sized { min-width: 54px; width: 54px; height: 54px; background-position:  -903px   0px; }
+.rpbui-chessboard-size55 .rpbui-chessboard-sized { min-width: 55px; width: 55px; height: 55px; background-position:  -957px   0px; }
+.rpbui-chessboard-size56 .rpbui-chessboard-sized { min-width: 56px; width: 56px; height: 56px; background-position: -1012px   0px; }
+.rpbui-chessboard-size57 .rpbui-chessboard-sized { min-width: 57px; width: 57px; height: 57px; background-position: -1068px   0px; }
+.rpbui-chessboard-size58 .rpbui-chessboard-sized { min-width: 58px; width: 58px; height: 58px; background-position: -1125px   0px; }
+.rpbui-chessboard-size59 .rpbui-chessboard-sized { min-width: 59px; width: 59px; height: 59px; background-position: -1183px   0px; }
+.rpbui-chessboard-size60 .rpbui-chessboard-sized { min-width: 60px; width: 60px; height: 60px; background-position: -1242px   0px; }
+.rpbui-chessboard-size61 .rpbui-chessboard-sized { min-width: 61px; width: 61px; height: 61px; background-position: -1302px   0px; }
+.rpbui-chessboard-size62 .rpbui-chessboard-sized { min-width: 62px; width: 62px; height: 62px; background-position: -1363px   0px; }
+.rpbui-chessboard-size63 .rpbui-chessboard-sized { min-width: 63px; width: 63px; height: 63px; background-position: -1425px   0px; }
+.rpbui-chessboard-size64 .rpbui-chessboard-sized { min-width: 64px; width: 64px; height: 64px; background-position: -1488px   0px; }
 
-.uichess-chessboard-size12 .uichess-chessboard-annotations { width:  96px; height:  96px; right: 20px; }
-.uichess-chessboard-size13 .uichess-chessboard-annotations { width: 104px; height: 104px; right: 21px; }
-.uichess-chessboard-size14 .uichess-chessboard-annotations { width: 112px; height: 112px; right: 22px; }
-.uichess-chessboard-size15 .uichess-chessboard-annotations { width: 120px; height: 120px; right: 23px; }
-.uichess-chessboard-size16 .uichess-chessboard-annotations { width: 128px; height: 128px; right: 24px; }
-.uichess-chessboard-size17 .uichess-chessboard-annotations { width: 136px; height: 136px; right: 25px; }
-.uichess-chessboard-size18 .uichess-chessboard-annotations { width: 144px; height: 144px; right: 26px; }
-.uichess-chessboard-size19 .uichess-chessboard-annotations { width: 152px; height: 152px; right: 27px; }
-.uichess-chessboard-size20 .uichess-chessboard-annotations { width: 160px; height: 160px; right: 28px; }
-.uichess-chessboard-size21 .uichess-chessboard-annotations { width: 168px; height: 168px; right: 29px; }
-.uichess-chessboard-size22 .uichess-chessboard-annotations { width: 176px; height: 176px; right: 30px; }
-.uichess-chessboard-size23 .uichess-chessboard-annotations { width: 184px; height: 184px; right: 31px; }
-.uichess-chessboard-size24 .uichess-chessboard-annotations { width: 192px; height: 192px; right: 32px; }
-.uichess-chessboard-size25 .uichess-chessboard-annotations { width: 200px; height: 200px; right: 33px; }
-.uichess-chessboard-size26 .uichess-chessboard-annotations { width: 208px; height: 208px; right: 34px; }
-.uichess-chessboard-size27 .uichess-chessboard-annotations { width: 216px; height: 216px; right: 35px; }
-.uichess-chessboard-size28 .uichess-chessboard-annotations { width: 224px; height: 224px; right: 36px; }
-.uichess-chessboard-size29 .uichess-chessboard-annotations { width: 232px; height: 232px; right: 37px; }
-.uichess-chessboard-size30 .uichess-chessboard-annotations { width: 240px; height: 240px; right: 38px; }
-.uichess-chessboard-size31 .uichess-chessboard-annotations { width: 248px; height: 248px; right: 39px; }
-.uichess-chessboard-size32 .uichess-chessboard-annotations { width: 256px; height: 256px; right: 40px; }
-.uichess-chessboard-size33 .uichess-chessboard-annotations { width: 264px; height: 264px; right: 41px; }
-.uichess-chessboard-size34 .uichess-chessboard-annotations { width: 272px; height: 272px; right: 42px; }
-.uichess-chessboard-size35 .uichess-chessboard-annotations { width: 280px; height: 280px; right: 43px; }
-.uichess-chessboard-size36 .uichess-chessboard-annotations { width: 288px; height: 288px; right: 44px; }
-.uichess-chessboard-size37 .uichess-chessboard-annotations { width: 296px; height: 296px; right: 45px; }
-.uichess-chessboard-size38 .uichess-chessboard-annotations { width: 304px; height: 304px; right: 46px; }
-.uichess-chessboard-size39 .uichess-chessboard-annotations { width: 312px; height: 312px; right: 47px; }
-.uichess-chessboard-size40 .uichess-chessboard-annotations { width: 320px; height: 320px; right: 48px; }
-.uichess-chessboard-size41 .uichess-chessboard-annotations { width: 328px; height: 328px; right: 49px; }
-.uichess-chessboard-size42 .uichess-chessboard-annotations { width: 336px; height: 336px; right: 50px; }
-.uichess-chessboard-size43 .uichess-chessboard-annotations { width: 344px; height: 344px; right: 51px; }
-.uichess-chessboard-size44 .uichess-chessboard-annotations { width: 352px; height: 352px; right: 52px; }
-.uichess-chessboard-size45 .uichess-chessboard-annotations { width: 360px; height: 360px; right: 53px; }
-.uichess-chessboard-size46 .uichess-chessboard-annotations { width: 368px; height: 368px; right: 54px; }
-.uichess-chessboard-size47 .uichess-chessboard-annotations { width: 376px; height: 376px; right: 55px; }
-.uichess-chessboard-size48 .uichess-chessboard-annotations { width: 384px; height: 384px; right: 56px; }
-.uichess-chessboard-size49 .uichess-chessboard-annotations { width: 392px; height: 392px; right: 57px; }
-.uichess-chessboard-size50 .uichess-chessboard-annotations { width: 400px; height: 400px; right: 58px; }
-.uichess-chessboard-size51 .uichess-chessboard-annotations { width: 408px; height: 408px; right: 59px; }
-.uichess-chessboard-size52 .uichess-chessboard-annotations { width: 416px; height: 416px; right: 60px; }
-.uichess-chessboard-size53 .uichess-chessboard-annotations { width: 424px; height: 424px; right: 61px; }
-.uichess-chessboard-size54 .uichess-chessboard-annotations { width: 432px; height: 432px; right: 62px; }
-.uichess-chessboard-size55 .uichess-chessboard-annotations { width: 440px; height: 440px; right: 63px; }
-.uichess-chessboard-size56 .uichess-chessboard-annotations { width: 448px; height: 448px; right: 64px; }
-.uichess-chessboard-size57 .uichess-chessboard-annotations { width: 456px; height: 456px; right: 65px; }
-.uichess-chessboard-size58 .uichess-chessboard-annotations { width: 464px; height: 464px; right: 66px; }
-.uichess-chessboard-size59 .uichess-chessboard-annotations { width: 472px; height: 472px; right: 67px; }
-.uichess-chessboard-size60 .uichess-chessboard-annotations { width: 480px; height: 480px; right: 68px; }
-.uichess-chessboard-size61 .uichess-chessboard-annotations { width: 488px; height: 488px; right: 69px; }
-.uichess-chessboard-size62 .uichess-chessboard-annotations { width: 496px; height: 496px; right: 70px; }
-.uichess-chessboard-size63 .uichess-chessboard-annotations { width: 504px; height: 504px; right: 71px; }
-.uichess-chessboard-size64 .uichess-chessboard-annotations { width: 512px; height: 512px; right: 72px; }
+.rpbui-chessboard-size12 .rpbui-chessboard-annotations { width:  96px; height:  96px; right: 20px; }
+.rpbui-chessboard-size13 .rpbui-chessboard-annotations { width: 104px; height: 104px; right: 21px; }
+.rpbui-chessboard-size14 .rpbui-chessboard-annotations { width: 112px; height: 112px; right: 22px; }
+.rpbui-chessboard-size15 .rpbui-chessboard-annotations { width: 120px; height: 120px; right: 23px; }
+.rpbui-chessboard-size16 .rpbui-chessboard-annotations { width: 128px; height: 128px; right: 24px; }
+.rpbui-chessboard-size17 .rpbui-chessboard-annotations { width: 136px; height: 136px; right: 25px; }
+.rpbui-chessboard-size18 .rpbui-chessboard-annotations { width: 144px; height: 144px; right: 26px; }
+.rpbui-chessboard-size19 .rpbui-chessboard-annotations { width: 152px; height: 152px; right: 27px; }
+.rpbui-chessboard-size20 .rpbui-chessboard-annotations { width: 160px; height: 160px; right: 28px; }
+.rpbui-chessboard-size21 .rpbui-chessboard-annotations { width: 168px; height: 168px; right: 29px; }
+.rpbui-chessboard-size22 .rpbui-chessboard-annotations { width: 176px; height: 176px; right: 30px; }
+.rpbui-chessboard-size23 .rpbui-chessboard-annotations { width: 184px; height: 184px; right: 31px; }
+.rpbui-chessboard-size24 .rpbui-chessboard-annotations { width: 192px; height: 192px; right: 32px; }
+.rpbui-chessboard-size25 .rpbui-chessboard-annotations { width: 200px; height: 200px; right: 33px; }
+.rpbui-chessboard-size26 .rpbui-chessboard-annotations { width: 208px; height: 208px; right: 34px; }
+.rpbui-chessboard-size27 .rpbui-chessboard-annotations { width: 216px; height: 216px; right: 35px; }
+.rpbui-chessboard-size28 .rpbui-chessboard-annotations { width: 224px; height: 224px; right: 36px; }
+.rpbui-chessboard-size29 .rpbui-chessboard-annotations { width: 232px; height: 232px; right: 37px; }
+.rpbui-chessboard-size30 .rpbui-chessboard-annotations { width: 240px; height: 240px; right: 38px; }
+.rpbui-chessboard-size31 .rpbui-chessboard-annotations { width: 248px; height: 248px; right: 39px; }
+.rpbui-chessboard-size32 .rpbui-chessboard-annotations { width: 256px; height: 256px; right: 40px; }
+.rpbui-chessboard-size33 .rpbui-chessboard-annotations { width: 264px; height: 264px; right: 41px; }
+.rpbui-chessboard-size34 .rpbui-chessboard-annotations { width: 272px; height: 272px; right: 42px; }
+.rpbui-chessboard-size35 .rpbui-chessboard-annotations { width: 280px; height: 280px; right: 43px; }
+.rpbui-chessboard-size36 .rpbui-chessboard-annotations { width: 288px; height: 288px; right: 44px; }
+.rpbui-chessboard-size37 .rpbui-chessboard-annotations { width: 296px; height: 296px; right: 45px; }
+.rpbui-chessboard-size38 .rpbui-chessboard-annotations { width: 304px; height: 304px; right: 46px; }
+.rpbui-chessboard-size39 .rpbui-chessboard-annotations { width: 312px; height: 312px; right: 47px; }
+.rpbui-chessboard-size40 .rpbui-chessboard-annotations { width: 320px; height: 320px; right: 48px; }
+.rpbui-chessboard-size41 .rpbui-chessboard-annotations { width: 328px; height: 328px; right: 49px; }
+.rpbui-chessboard-size42 .rpbui-chessboard-annotations { width: 336px; height: 336px; right: 50px; }
+.rpbui-chessboard-size43 .rpbui-chessboard-annotations { width: 344px; height: 344px; right: 51px; }
+.rpbui-chessboard-size44 .rpbui-chessboard-annotations { width: 352px; height: 352px; right: 52px; }
+.rpbui-chessboard-size45 .rpbui-chessboard-annotations { width: 360px; height: 360px; right: 53px; }
+.rpbui-chessboard-size46 .rpbui-chessboard-annotations { width: 368px; height: 368px; right: 54px; }
+.rpbui-chessboard-size47 .rpbui-chessboard-annotations { width: 376px; height: 376px; right: 55px; }
+.rpbui-chessboard-size48 .rpbui-chessboard-annotations { width: 384px; height: 384px; right: 56px; }
+.rpbui-chessboard-size49 .rpbui-chessboard-annotations { width: 392px; height: 392px; right: 57px; }
+.rpbui-chessboard-size50 .rpbui-chessboard-annotations { width: 400px; height: 400px; right: 58px; }
+.rpbui-chessboard-size51 .rpbui-chessboard-annotations { width: 408px; height: 408px; right: 59px; }
+.rpbui-chessboard-size52 .rpbui-chessboard-annotations { width: 416px; height: 416px; right: 60px; }
+.rpbui-chessboard-size53 .rpbui-chessboard-annotations { width: 424px; height: 424px; right: 61px; }
+.rpbui-chessboard-size54 .rpbui-chessboard-annotations { width: 432px; height: 432px; right: 62px; }
+.rpbui-chessboard-size55 .rpbui-chessboard-annotations { width: 440px; height: 440px; right: 63px; }
+.rpbui-chessboard-size56 .rpbui-chessboard-annotations { width: 448px; height: 448px; right: 64px; }
+.rpbui-chessboard-size57 .rpbui-chessboard-annotations { width: 456px; height: 456px; right: 65px; }
+.rpbui-chessboard-size58 .rpbui-chessboard-annotations { width: 464px; height: 464px; right: 66px; }
+.rpbui-chessboard-size59 .rpbui-chessboard-annotations { width: 472px; height: 472px; right: 67px; }
+.rpbui-chessboard-size60 .rpbui-chessboard-annotations { width: 480px; height: 480px; right: 68px; }
+.rpbui-chessboard-size61 .rpbui-chessboard-annotations { width: 488px; height: 488px; right: 69px; }
+.rpbui-chessboard-size62 .rpbui-chessboard-annotations { width: 496px; height: 496px; right: 70px; }
+.rpbui-chessboard-size63 .rpbui-chessboard-annotations { width: 504px; height: 504px; right: 71px; }
+.rpbui-chessboard-size64 .rpbui-chessboard-annotations { width: 512px; height: 512px; right: 72px; }
 
 
 
@@ -250,128 +250,128 @@
 /* Themes */
 /* -------------------------------------------------------------------------- */
 
-.uichess-chessboard-lightSquare { background-color: #f0dec7; }
-.uichess-chessboard-darkSquare  { background-color: #b5876b; }
+.rpbui-chessboard-lightSquare { background-color: #f0dec7; }
+.rpbui-chessboard-darkSquare  { background-color: #b5876b; }
 
-.uichess-chessboard-colorset-gray .uichess-chessboard-lightSquare { background-color: #f8f8f8; }
-.uichess-chessboard-colorset-gray .uichess-chessboard-darkSquare  { background-color: #bbbbbb; }
-.uichess-chessboard-colorset-scid .uichess-chessboard-lightSquare { background-color: #f3f3f3; }
-.uichess-chessboard-colorset-scid .uichess-chessboard-darkSquare  { background-color: #7389b6; }
-.uichess-chessboard-colorset-wikipedia .uichess-chessboard-lightSquare { background-color: #ffce9e; }
-.uichess-chessboard-colorset-wikipedia .uichess-chessboard-darkSquare  { background-color: #d18b47; }
-.uichess-chessboard-colorset-xboard .uichess-chessboard-lightSquare { background-color: #c8c365; }
-.uichess-chessboard-colorset-xboard .uichess-chessboard-darkSquare  { background-color: #77a26d; }
+.rpbui-chessboard-colorset-gray .rpbui-chessboard-lightSquare { background-color: #f8f8f8; }
+.rpbui-chessboard-colorset-gray .rpbui-chessboard-darkSquare  { background-color: #bbbbbb; }
+.rpbui-chessboard-colorset-scid .rpbui-chessboard-lightSquare { background-color: #f3f3f3; }
+.rpbui-chessboard-colorset-scid .rpbui-chessboard-darkSquare  { background-color: #7389b6; }
+.rpbui-chessboard-colorset-wikipedia .rpbui-chessboard-lightSquare { background-color: #ffce9e; }
+.rpbui-chessboard-colorset-wikipedia .rpbui-chessboard-darkSquare  { background-color: #d18b47; }
+.rpbui-chessboard-colorset-xboard .rpbui-chessboard-lightSquare { background-color: #c8c365; }
+.rpbui-chessboard-colorset-xboard .rpbui-chessboard-darkSquare  { background-color: #77a26d; }
 
 /**
  * Source: http://omgchess.blogspot.fr/2015/09/chess-board-color-schemes.html
  * Author: Gorgonian <http://omgchess.blogspot.fr/>
  */
-.uichess-chessboard-colorset-coral .uichess-chessboard-lightSquare { background-color: rgb(177,228,185); }
-.uichess-chessboard-colorset-coral .uichess-chessboard-darkSquare  { background-color: rgb(112,162,163); }
-.uichess-chessboard-colorset-dusk .uichess-chessboard-lightSquare { background-color: rgb(204,183,174); }
-.uichess-chessboard-colorset-dusk .uichess-chessboard-darkSquare  { background-color: rgb(112,102,119); }
-.uichess-chessboard-colorset-emerald .uichess-chessboard-lightSquare { background-color: rgb(173,189,143); }
-.uichess-chessboard-colorset-emerald .uichess-chessboard-darkSquare  { background-color: rgb(111,143,114); }
-.uichess-chessboard-colorset-marine .uichess-chessboard-lightSquare { background-color: rgb(157,172,255); }
-.uichess-chessboard-colorset-marine .uichess-chessboard-darkSquare  { background-color: rgb(111,115,210); }
-.uichess-chessboard-colorset-sandcastle .uichess-chessboard-lightSquare { background-color: rgb(227,193,111); }
-.uichess-chessboard-colorset-sandcastle .uichess-chessboard-darkSquare  { background-color: rgb(184,139,74); }
-.uichess-chessboard-colorset-wheat .uichess-chessboard-lightSquare { background-color: rgb(234,240,206); }
-.uichess-chessboard-colorset-wheat .uichess-chessboard-darkSquare  { background-color: rgb(187,190,100); }
+.rpbui-chessboard-colorset-coral .rpbui-chessboard-lightSquare { background-color: rgb(177,228,185); }
+.rpbui-chessboard-colorset-coral .rpbui-chessboard-darkSquare  { background-color: rgb(112,162,163); }
+.rpbui-chessboard-colorset-dusk .rpbui-chessboard-lightSquare { background-color: rgb(204,183,174); }
+.rpbui-chessboard-colorset-dusk .rpbui-chessboard-darkSquare  { background-color: rgb(112,102,119); }
+.rpbui-chessboard-colorset-emerald .rpbui-chessboard-lightSquare { background-color: rgb(173,189,143); }
+.rpbui-chessboard-colorset-emerald .rpbui-chessboard-darkSquare  { background-color: rgb(111,143,114); }
+.rpbui-chessboard-colorset-marine .rpbui-chessboard-lightSquare { background-color: rgb(157,172,255); }
+.rpbui-chessboard-colorset-marine .rpbui-chessboard-darkSquare  { background-color: rgb(111,115,210); }
+.rpbui-chessboard-colorset-sandcastle .rpbui-chessboard-lightSquare { background-color: rgb(227,193,111); }
+.rpbui-chessboard-colorset-sandcastle .rpbui-chessboard-darkSquare  { background-color: rgb(184,139,74); }
+.rpbui-chessboard-colorset-wheat .rpbui-chessboard-lightSquare { background-color: rgb(234,240,206); }
+.rpbui-chessboard-colorset-wheat .rpbui-chessboard-darkSquare  { background-color: rgb(187,190,100); }
 
 /**
  * Source: https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces
  * Authors: Cburnett <https://en.wikipedia.org/wiki/User:Cburnett>, Antonsusi <https://commons.wikimedia.org/wiki/User:Antonsusi>
  * License: Creative Commons Attribution ShareAlike [CC-BY-SA]
  */
-.uichess-chessboard-color-b.uichess-chessboard-piece-b { background-image: url(sprite/cburnett-bb.png); }
-.uichess-chessboard-color-b.uichess-chessboard-piece-k { background-image: url(sprite/cburnett-bk.png); }
-.uichess-chessboard-color-b.uichess-chessboard-piece-n { background-image: url(sprite/cburnett-bn.png); }
-.uichess-chessboard-color-b.uichess-chessboard-piece-p { background-image: url(sprite/cburnett-bp.png); }
-.uichess-chessboard-color-b.uichess-chessboard-piece-q { background-image: url(sprite/cburnett-bq.png); }
-.uichess-chessboard-color-b.uichess-chessboard-piece-r { background-image: url(sprite/cburnett-br.png); }
-.uichess-chessboard-color-w.uichess-chessboard-piece-b { background-image: url(sprite/cburnett-wb.png); }
-.uichess-chessboard-color-w.uichess-chessboard-piece-k { background-image: url(sprite/cburnett-wk.png); }
-.uichess-chessboard-color-w.uichess-chessboard-piece-n { background-image: url(sprite/cburnett-wn.png); }
-.uichess-chessboard-color-w.uichess-chessboard-piece-p { background-image: url(sprite/cburnett-wp.png); }
-.uichess-chessboard-color-w.uichess-chessboard-piece-q { background-image: url(sprite/cburnett-wq.png); }
-.uichess-chessboard-color-w.uichess-chessboard-piece-r { background-image: url(sprite/cburnett-wr.png); }
+.rpbui-chessboard-color-b.rpbui-chessboard-piece-b { background-image: url(sprite/cburnett-bb.png); }
+.rpbui-chessboard-color-b.rpbui-chessboard-piece-k { background-image: url(sprite/cburnett-bk.png); }
+.rpbui-chessboard-color-b.rpbui-chessboard-piece-n { background-image: url(sprite/cburnett-bn.png); }
+.rpbui-chessboard-color-b.rpbui-chessboard-piece-p { background-image: url(sprite/cburnett-bp.png); }
+.rpbui-chessboard-color-b.rpbui-chessboard-piece-q { background-image: url(sprite/cburnett-bq.png); }
+.rpbui-chessboard-color-b.rpbui-chessboard-piece-r { background-image: url(sprite/cburnett-br.png); }
+.rpbui-chessboard-color-w.rpbui-chessboard-piece-b { background-image: url(sprite/cburnett-wb.png); }
+.rpbui-chessboard-color-w.rpbui-chessboard-piece-k { background-image: url(sprite/cburnett-wk.png); }
+.rpbui-chessboard-color-w.rpbui-chessboard-piece-n { background-image: url(sprite/cburnett-wn.png); }
+.rpbui-chessboard-color-w.rpbui-chessboard-piece-p { background-image: url(sprite/cburnett-wp.png); }
+.rpbui-chessboard-color-w.rpbui-chessboard-piece-q { background-image: url(sprite/cburnett-wq.png); }
+.rpbui-chessboard-color-w.rpbui-chessboard-piece-r { background-image: url(sprite/cburnett-wr.png); }
 
 /**
  * Source: http://poisson.phc.unipi.it/~monge/chess_art.php
  * Author: Maurizio Monge <http://poisson.phc.unipi.it/~monge/>
  * License: ?? (give credit to the author and notify him by mail when using his work in a chess program)
  */
-.uichess-chessboard-pieceset-celtic .uichess-chessboard-color-b.uichess-chessboard-piece-b { background-image: url(sprite/celtic-bb.png); }
-.uichess-chessboard-pieceset-celtic .uichess-chessboard-color-b.uichess-chessboard-piece-k { background-image: url(sprite/celtic-bk.png); }
-.uichess-chessboard-pieceset-celtic .uichess-chessboard-color-b.uichess-chessboard-piece-n { background-image: url(sprite/celtic-bn.png); }
-.uichess-chessboard-pieceset-celtic .uichess-chessboard-color-b.uichess-chessboard-piece-p { background-image: url(sprite/celtic-bp.png); }
-.uichess-chessboard-pieceset-celtic .uichess-chessboard-color-b.uichess-chessboard-piece-q { background-image: url(sprite/celtic-bq.png); }
-.uichess-chessboard-pieceset-celtic .uichess-chessboard-color-b.uichess-chessboard-piece-r { background-image: url(sprite/celtic-br.png); }
-.uichess-chessboard-pieceset-celtic .uichess-chessboard-color-w.uichess-chessboard-piece-b { background-image: url(sprite/celtic-wb.png); }
-.uichess-chessboard-pieceset-celtic .uichess-chessboard-color-w.uichess-chessboard-piece-k { background-image: url(sprite/celtic-wk.png); }
-.uichess-chessboard-pieceset-celtic .uichess-chessboard-color-w.uichess-chessboard-piece-n { background-image: url(sprite/celtic-wn.png); }
-.uichess-chessboard-pieceset-celtic .uichess-chessboard-color-w.uichess-chessboard-piece-p { background-image: url(sprite/celtic-wp.png); }
-.uichess-chessboard-pieceset-celtic .uichess-chessboard-color-w.uichess-chessboard-piece-q { background-image: url(sprite/celtic-wq.png); }
-.uichess-chessboard-pieceset-celtic .uichess-chessboard-color-w.uichess-chessboard-piece-r { background-image: url(sprite/celtic-wr.png); }
-.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-b.uichess-chessboard-piece-b { background-image: url(sprite/eyes-bb.png); }
-.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-b.uichess-chessboard-piece-k { background-image: url(sprite/eyes-bk.png); }
-.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-b.uichess-chessboard-piece-n { background-image: url(sprite/eyes-bn.png); }
-.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-b.uichess-chessboard-piece-p { background-image: url(sprite/eyes-bp.png); }
-.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-b.uichess-chessboard-piece-q { background-image: url(sprite/eyes-bq.png); }
-.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-b.uichess-chessboard-piece-r { background-image: url(sprite/eyes-br.png); }
-.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-w.uichess-chessboard-piece-b { background-image: url(sprite/eyes-wb.png); }
-.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-w.uichess-chessboard-piece-k { background-image: url(sprite/eyes-wk.png); }
-.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-w.uichess-chessboard-piece-n { background-image: url(sprite/eyes-wn.png); }
-.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-w.uichess-chessboard-piece-p { background-image: url(sprite/eyes-wp.png); }
-.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-w.uichess-chessboard-piece-q { background-image: url(sprite/eyes-wq.png); }
-.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-w.uichess-chessboard-piece-r { background-image: url(sprite/eyes-wr.png); }
-.uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-b.uichess-chessboard-piece-b { background-image: url(sprite/fantasy-bb.png); }
-.uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-b.uichess-chessboard-piece-k { background-image: url(sprite/fantasy-bk.png); }
-.uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-b.uichess-chessboard-piece-n { background-image: url(sprite/fantasy-bn.png); }
-.uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-b.uichess-chessboard-piece-p { background-image: url(sprite/fantasy-bp.png); }
-.uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-b.uichess-chessboard-piece-q { background-image: url(sprite/fantasy-bq.png); }
-.uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-b.uichess-chessboard-piece-r { background-image: url(sprite/fantasy-br.png); }
-.uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-w.uichess-chessboard-piece-b { background-image: url(sprite/fantasy-wb.png); }
-.uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-w.uichess-chessboard-piece-k { background-image: url(sprite/fantasy-wk.png); }
-.uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-w.uichess-chessboard-piece-n { background-image: url(sprite/fantasy-wn.png); }
-.uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-w.uichess-chessboard-piece-p { background-image: url(sprite/fantasy-wp.png); }
-.uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-w.uichess-chessboard-piece-q { background-image: url(sprite/fantasy-wq.png); }
-.uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-w.uichess-chessboard-piece-r { background-image: url(sprite/fantasy-wr.png); }
-.uichess-chessboard-pieceset-skulls .uichess-chessboard-color-b.uichess-chessboard-piece-b { background-image: url(sprite/skulls-bb.png); }
-.uichess-chessboard-pieceset-skulls .uichess-chessboard-color-b.uichess-chessboard-piece-k { background-image: url(sprite/skulls-bk.png); }
-.uichess-chessboard-pieceset-skulls .uichess-chessboard-color-b.uichess-chessboard-piece-n { background-image: url(sprite/skulls-bn.png); }
-.uichess-chessboard-pieceset-skulls .uichess-chessboard-color-b.uichess-chessboard-piece-p { background-image: url(sprite/skulls-bp.png); }
-.uichess-chessboard-pieceset-skulls .uichess-chessboard-color-b.uichess-chessboard-piece-q { background-image: url(sprite/skulls-bq.png); }
-.uichess-chessboard-pieceset-skulls .uichess-chessboard-color-b.uichess-chessboard-piece-r { background-image: url(sprite/skulls-br.png); }
-.uichess-chessboard-pieceset-skulls .uichess-chessboard-color-w.uichess-chessboard-piece-b { background-image: url(sprite/skulls-wb.png); }
-.uichess-chessboard-pieceset-skulls .uichess-chessboard-color-w.uichess-chessboard-piece-k { background-image: url(sprite/skulls-wk.png); }
-.uichess-chessboard-pieceset-skulls .uichess-chessboard-color-w.uichess-chessboard-piece-n { background-image: url(sprite/skulls-wn.png); }
-.uichess-chessboard-pieceset-skulls .uichess-chessboard-color-w.uichess-chessboard-piece-p { background-image: url(sprite/skulls-wp.png); }
-.uichess-chessboard-pieceset-skulls .uichess-chessboard-color-w.uichess-chessboard-piece-q { background-image: url(sprite/skulls-wq.png); }
-.uichess-chessboard-pieceset-skulls .uichess-chessboard-color-w.uichess-chessboard-piece-r { background-image: url(sprite/skulls-wr.png); }
-.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-b.uichess-chessboard-piece-b { background-image: url(sprite/spatial-bb.png); }
-.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-b.uichess-chessboard-piece-k { background-image: url(sprite/spatial-bk.png); }
-.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-b.uichess-chessboard-piece-n { background-image: url(sprite/spatial-bn.png); }
-.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-b.uichess-chessboard-piece-p { background-image: url(sprite/spatial-bp.png); }
-.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-b.uichess-chessboard-piece-q { background-image: url(sprite/spatial-bq.png); }
-.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-b.uichess-chessboard-piece-r { background-image: url(sprite/spatial-br.png); }
-.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-w.uichess-chessboard-piece-b { background-image: url(sprite/spatial-wb.png); }
-.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-w.uichess-chessboard-piece-k { background-image: url(sprite/spatial-wk.png); }
-.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-w.uichess-chessboard-piece-n { background-image: url(sprite/spatial-wn.png); }
-.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-w.uichess-chessboard-piece-p { background-image: url(sprite/spatial-wp.png); }
-.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-w.uichess-chessboard-piece-q { background-image: url(sprite/spatial-wq.png); }
-.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-w.uichess-chessboard-piece-r { background-image: url(sprite/spatial-wr.png); }
+.rpbui-chessboard-pieceset-celtic .rpbui-chessboard-color-b.rpbui-chessboard-piece-b { background-image: url(sprite/celtic-bb.png); }
+.rpbui-chessboard-pieceset-celtic .rpbui-chessboard-color-b.rpbui-chessboard-piece-k { background-image: url(sprite/celtic-bk.png); }
+.rpbui-chessboard-pieceset-celtic .rpbui-chessboard-color-b.rpbui-chessboard-piece-n { background-image: url(sprite/celtic-bn.png); }
+.rpbui-chessboard-pieceset-celtic .rpbui-chessboard-color-b.rpbui-chessboard-piece-p { background-image: url(sprite/celtic-bp.png); }
+.rpbui-chessboard-pieceset-celtic .rpbui-chessboard-color-b.rpbui-chessboard-piece-q { background-image: url(sprite/celtic-bq.png); }
+.rpbui-chessboard-pieceset-celtic .rpbui-chessboard-color-b.rpbui-chessboard-piece-r { background-image: url(sprite/celtic-br.png); }
+.rpbui-chessboard-pieceset-celtic .rpbui-chessboard-color-w.rpbui-chessboard-piece-b { background-image: url(sprite/celtic-wb.png); }
+.rpbui-chessboard-pieceset-celtic .rpbui-chessboard-color-w.rpbui-chessboard-piece-k { background-image: url(sprite/celtic-wk.png); }
+.rpbui-chessboard-pieceset-celtic .rpbui-chessboard-color-w.rpbui-chessboard-piece-n { background-image: url(sprite/celtic-wn.png); }
+.rpbui-chessboard-pieceset-celtic .rpbui-chessboard-color-w.rpbui-chessboard-piece-p { background-image: url(sprite/celtic-wp.png); }
+.rpbui-chessboard-pieceset-celtic .rpbui-chessboard-color-w.rpbui-chessboard-piece-q { background-image: url(sprite/celtic-wq.png); }
+.rpbui-chessboard-pieceset-celtic .rpbui-chessboard-color-w.rpbui-chessboard-piece-r { background-image: url(sprite/celtic-wr.png); }
+.rpbui-chessboard-pieceset-eyes .rpbui-chessboard-color-b.rpbui-chessboard-piece-b { background-image: url(sprite/eyes-bb.png); }
+.rpbui-chessboard-pieceset-eyes .rpbui-chessboard-color-b.rpbui-chessboard-piece-k { background-image: url(sprite/eyes-bk.png); }
+.rpbui-chessboard-pieceset-eyes .rpbui-chessboard-color-b.rpbui-chessboard-piece-n { background-image: url(sprite/eyes-bn.png); }
+.rpbui-chessboard-pieceset-eyes .rpbui-chessboard-color-b.rpbui-chessboard-piece-p { background-image: url(sprite/eyes-bp.png); }
+.rpbui-chessboard-pieceset-eyes .rpbui-chessboard-color-b.rpbui-chessboard-piece-q { background-image: url(sprite/eyes-bq.png); }
+.rpbui-chessboard-pieceset-eyes .rpbui-chessboard-color-b.rpbui-chessboard-piece-r { background-image: url(sprite/eyes-br.png); }
+.rpbui-chessboard-pieceset-eyes .rpbui-chessboard-color-w.rpbui-chessboard-piece-b { background-image: url(sprite/eyes-wb.png); }
+.rpbui-chessboard-pieceset-eyes .rpbui-chessboard-color-w.rpbui-chessboard-piece-k { background-image: url(sprite/eyes-wk.png); }
+.rpbui-chessboard-pieceset-eyes .rpbui-chessboard-color-w.rpbui-chessboard-piece-n { background-image: url(sprite/eyes-wn.png); }
+.rpbui-chessboard-pieceset-eyes .rpbui-chessboard-color-w.rpbui-chessboard-piece-p { background-image: url(sprite/eyes-wp.png); }
+.rpbui-chessboard-pieceset-eyes .rpbui-chessboard-color-w.rpbui-chessboard-piece-q { background-image: url(sprite/eyes-wq.png); }
+.rpbui-chessboard-pieceset-eyes .rpbui-chessboard-color-w.rpbui-chessboard-piece-r { background-image: url(sprite/eyes-wr.png); }
+.rpbui-chessboard-pieceset-fantasy .rpbui-chessboard-color-b.rpbui-chessboard-piece-b { background-image: url(sprite/fantasy-bb.png); }
+.rpbui-chessboard-pieceset-fantasy .rpbui-chessboard-color-b.rpbui-chessboard-piece-k { background-image: url(sprite/fantasy-bk.png); }
+.rpbui-chessboard-pieceset-fantasy .rpbui-chessboard-color-b.rpbui-chessboard-piece-n { background-image: url(sprite/fantasy-bn.png); }
+.rpbui-chessboard-pieceset-fantasy .rpbui-chessboard-color-b.rpbui-chessboard-piece-p { background-image: url(sprite/fantasy-bp.png); }
+.rpbui-chessboard-pieceset-fantasy .rpbui-chessboard-color-b.rpbui-chessboard-piece-q { background-image: url(sprite/fantasy-bq.png); }
+.rpbui-chessboard-pieceset-fantasy .rpbui-chessboard-color-b.rpbui-chessboard-piece-r { background-image: url(sprite/fantasy-br.png); }
+.rpbui-chessboard-pieceset-fantasy .rpbui-chessboard-color-w.rpbui-chessboard-piece-b { background-image: url(sprite/fantasy-wb.png); }
+.rpbui-chessboard-pieceset-fantasy .rpbui-chessboard-color-w.rpbui-chessboard-piece-k { background-image: url(sprite/fantasy-wk.png); }
+.rpbui-chessboard-pieceset-fantasy .rpbui-chessboard-color-w.rpbui-chessboard-piece-n { background-image: url(sprite/fantasy-wn.png); }
+.rpbui-chessboard-pieceset-fantasy .rpbui-chessboard-color-w.rpbui-chessboard-piece-p { background-image: url(sprite/fantasy-wp.png); }
+.rpbui-chessboard-pieceset-fantasy .rpbui-chessboard-color-w.rpbui-chessboard-piece-q { background-image: url(sprite/fantasy-wq.png); }
+.rpbui-chessboard-pieceset-fantasy .rpbui-chessboard-color-w.rpbui-chessboard-piece-r { background-image: url(sprite/fantasy-wr.png); }
+.rpbui-chessboard-pieceset-skulls .rpbui-chessboard-color-b.rpbui-chessboard-piece-b { background-image: url(sprite/skulls-bb.png); }
+.rpbui-chessboard-pieceset-skulls .rpbui-chessboard-color-b.rpbui-chessboard-piece-k { background-image: url(sprite/skulls-bk.png); }
+.rpbui-chessboard-pieceset-skulls .rpbui-chessboard-color-b.rpbui-chessboard-piece-n { background-image: url(sprite/skulls-bn.png); }
+.rpbui-chessboard-pieceset-skulls .rpbui-chessboard-color-b.rpbui-chessboard-piece-p { background-image: url(sprite/skulls-bp.png); }
+.rpbui-chessboard-pieceset-skulls .rpbui-chessboard-color-b.rpbui-chessboard-piece-q { background-image: url(sprite/skulls-bq.png); }
+.rpbui-chessboard-pieceset-skulls .rpbui-chessboard-color-b.rpbui-chessboard-piece-r { background-image: url(sprite/skulls-br.png); }
+.rpbui-chessboard-pieceset-skulls .rpbui-chessboard-color-w.rpbui-chessboard-piece-b { background-image: url(sprite/skulls-wb.png); }
+.rpbui-chessboard-pieceset-skulls .rpbui-chessboard-color-w.rpbui-chessboard-piece-k { background-image: url(sprite/skulls-wk.png); }
+.rpbui-chessboard-pieceset-skulls .rpbui-chessboard-color-w.rpbui-chessboard-piece-n { background-image: url(sprite/skulls-wn.png); }
+.rpbui-chessboard-pieceset-skulls .rpbui-chessboard-color-w.rpbui-chessboard-piece-p { background-image: url(sprite/skulls-wp.png); }
+.rpbui-chessboard-pieceset-skulls .rpbui-chessboard-color-w.rpbui-chessboard-piece-q { background-image: url(sprite/skulls-wq.png); }
+.rpbui-chessboard-pieceset-skulls .rpbui-chessboard-color-w.rpbui-chessboard-piece-r { background-image: url(sprite/skulls-wr.png); }
+.rpbui-chessboard-pieceset-spatial .rpbui-chessboard-color-b.rpbui-chessboard-piece-b { background-image: url(sprite/spatial-bb.png); }
+.rpbui-chessboard-pieceset-spatial .rpbui-chessboard-color-b.rpbui-chessboard-piece-k { background-image: url(sprite/spatial-bk.png); }
+.rpbui-chessboard-pieceset-spatial .rpbui-chessboard-color-b.rpbui-chessboard-piece-n { background-image: url(sprite/spatial-bn.png); }
+.rpbui-chessboard-pieceset-spatial .rpbui-chessboard-color-b.rpbui-chessboard-piece-p { background-image: url(sprite/spatial-bp.png); }
+.rpbui-chessboard-pieceset-spatial .rpbui-chessboard-color-b.rpbui-chessboard-piece-q { background-image: url(sprite/spatial-bq.png); }
+.rpbui-chessboard-pieceset-spatial .rpbui-chessboard-color-b.rpbui-chessboard-piece-r { background-image: url(sprite/spatial-br.png); }
+.rpbui-chessboard-pieceset-spatial .rpbui-chessboard-color-w.rpbui-chessboard-piece-b { background-image: url(sprite/spatial-wb.png); }
+.rpbui-chessboard-pieceset-spatial .rpbui-chessboard-color-w.rpbui-chessboard-piece-k { background-image: url(sprite/spatial-wk.png); }
+.rpbui-chessboard-pieceset-spatial .rpbui-chessboard-color-w.rpbui-chessboard-piece-n { background-image: url(sprite/spatial-wn.png); }
+.rpbui-chessboard-pieceset-spatial .rpbui-chessboard-color-w.rpbui-chessboard-piece-p { background-image: url(sprite/spatial-wp.png); }
+.rpbui-chessboard-pieceset-spatial .rpbui-chessboard-color-w.rpbui-chessboard-piece-q { background-image: url(sprite/spatial-wq.png); }
+.rpbui-chessboard-pieceset-spatial .rpbui-chessboard-color-w.rpbui-chessboard-piece-r { background-image: url(sprite/spatial-wr.png); }
 
-.uichess-chessboard-color-b.uichess-chessboard-turnFlag { background-image: url(sprite/cburnett-bx.png); }
-.uichess-chessboard-color-w.uichess-chessboard-turnFlag { background-image: url(sprite/cburnett-wx.png); }
-.uichess-chessboard-pieceset-celtic .uichess-chessboard-color-b.uichess-chessboard-turnFlag { background-image: url(sprite/celtic-bx.png); }
-.uichess-chessboard-pieceset-celtic .uichess-chessboard-color-w.uichess-chessboard-turnFlag { background-image: url(sprite/celtic-wx.png); }
-.uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-b.uichess-chessboard-turnFlag { background-image: url(sprite/fantasy-bx.png); }
-.uichess-chessboard-pieceset-fantasy .uichess-chessboard-color-w.uichess-chessboard-turnFlag { background-image: url(sprite/fantasy-wx.png); }
-.uichess-chessboard-pieceset-skulls .uichess-chessboard-color-b.uichess-chessboard-turnFlag { background-image: url(sprite/skulls-bx.png); }
-.uichess-chessboard-pieceset-skulls .uichess-chessboard-color-w.uichess-chessboard-turnFlag { background-image: url(sprite/skulls-wx.png); }
-.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-b.uichess-chessboard-turnFlag,
-.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-b.uichess-chessboard-turnFlag { background-image: url(sprite/eyes-spatial-bx.png); }
-.uichess-chessboard-pieceset-eyes .uichess-chessboard-color-w.uichess-chessboard-turnFlag,
-.uichess-chessboard-pieceset-spatial .uichess-chessboard-color-w.uichess-chessboard-turnFlag { background-image: url(sprite/eyes-spatial-wx.png); }
+.rpbui-chessboard-color-b.rpbui-chessboard-turnFlag { background-image: url(sprite/cburnett-bx.png); }
+.rpbui-chessboard-color-w.rpbui-chessboard-turnFlag { background-image: url(sprite/cburnett-wx.png); }
+.rpbui-chessboard-pieceset-celtic .rpbui-chessboard-color-b.rpbui-chessboard-turnFlag { background-image: url(sprite/celtic-bx.png); }
+.rpbui-chessboard-pieceset-celtic .rpbui-chessboard-color-w.rpbui-chessboard-turnFlag { background-image: url(sprite/celtic-wx.png); }
+.rpbui-chessboard-pieceset-fantasy .rpbui-chessboard-color-b.rpbui-chessboard-turnFlag { background-image: url(sprite/fantasy-bx.png); }
+.rpbui-chessboard-pieceset-fantasy .rpbui-chessboard-color-w.rpbui-chessboard-turnFlag { background-image: url(sprite/fantasy-wx.png); }
+.rpbui-chessboard-pieceset-skulls .rpbui-chessboard-color-b.rpbui-chessboard-turnFlag { background-image: url(sprite/skulls-bx.png); }
+.rpbui-chessboard-pieceset-skulls .rpbui-chessboard-color-w.rpbui-chessboard-turnFlag { background-image: url(sprite/skulls-wx.png); }
+.rpbui-chessboard-pieceset-eyes .rpbui-chessboard-color-b.rpbui-chessboard-turnFlag,
+.rpbui-chessboard-pieceset-spatial .rpbui-chessboard-color-b.rpbui-chessboard-turnFlag { background-image: url(sprite/eyes-spatial-bx.png); }
+.rpbui-chessboard-pieceset-eyes .rpbui-chessboard-color-w.rpbui-chessboard-turnFlag,
+.rpbui-chessboard-pieceset-spatial .rpbui-chessboard-color-w.rpbui-chessboard-turnFlag { background-image: url(sprite/eyes-spatial-wx.png); }

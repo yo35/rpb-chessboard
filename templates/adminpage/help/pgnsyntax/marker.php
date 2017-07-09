@@ -98,11 +98,11 @@
 							pgn:
 								'1. e4 e5 2. Nf3\n' +
 								'\n' +
-								'{<div class="uichess-chessgame-diagramAnchor"></div>[%csl Re5][%cal Rf3e5]}\n' +
+								'{<div class="rpbui-chessgame-diagramAnchor"></div>[%csl Re5][%cal Rf3e5]}\n' +
 								'\n' +
 								'2... Nc6 3. Bb5\n' +
 								'\n' +
-								'{<div class="uichess-chessgame-diagramAnchor"></div>[%csl Re5,Gc6][%cal Rf3e5,Rb5c6,Gc6e5] ' +
+								'{<div class="rpbui-chessgame-diagramAnchor"></div>[%csl Re5,Gc6][%cal Rf3e5,Rb5c6,Gc6e5] ' +
 								<?php
 									echo json_encode(__(
 										'The Ruy Lopez: White\'s third move attacks the knight which defends the e5-pawn from the attack by the f3-knight.',

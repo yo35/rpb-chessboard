@@ -94,22 +94,22 @@
 				hide: false,
 				target: $('.rpbchessboard-darkSquareColorSelector', target),
 				change: function(event, ui) {
-					$('#rpbchessboard-themingPreviewWidget .uichess-chessboard-darkSquare').css('background-color', ui.color.toString());
+					$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-darkSquare').css('background-color', ui.color.toString());
 				}
 			});
 			$('.rpbchessboard-lightSquareColorField', target).iris({
 				hide: false,
 				target: $('.rpbchessboard-lightSquareColorSelector', target),
 				change: function(event, ui) {
-					$('#rpbchessboard-themingPreviewWidget .uichess-chessboard-lightSquare').css('background-color', ui.color.toString());
+					$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-lightSquare').css('background-color', ui.color.toString());
 				}
 			});
 
 			// Initialize the colors of the preview chessboard
 			var darkSquareColor = $('.rpbchessboard-darkSquareColorField', target).iris('color');
 			var lightSquareColor = $('.rpbchessboard-lightSquareColorField', target).iris('color');
-			$('#rpbchessboard-themingPreviewWidget .uichess-chessboard-darkSquare').css('background-color', darkSquareColor);
-			$('#rpbchessboard-themingPreviewWidget .uichess-chessboard-lightSquare').css('background-color', lightSquareColor);
+			$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-darkSquare').css('background-color', darkSquareColor);
+			$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-lightSquare').css('background-color', lightSquareColor);
 		}
 
 	});

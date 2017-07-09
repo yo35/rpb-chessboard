@@ -22,11 +22,11 @@
 
 <?php foreach($model->getCustomColorsets() as $colorset): ?>
 
-	.uichess-chessboard-colorset-<?php echo htmlspecialchars($colorset); ?> .uichess-chessboard-darkSquare {
+	.rpbui-chessboard-colorset-<?php echo htmlspecialchars($colorset); ?> .rpbui-chessboard-darkSquare {
 		background-color: <?php echo htmlspecialchars($model->getDarkSquareColor($colorset)); ?>;
 	}
 
-	.uichess-chessboard-colorset-<?php echo htmlspecialchars($colorset); ?> .uichess-chessboard-lightSquare {
+	.rpbui-chessboard-colorset-<?php echo htmlspecialchars($colorset); ?> .rpbui-chessboard-lightSquare {
 		background-color: <?php echo htmlspecialchars($model->getLightSquareColor($colorset)); ?>;
 	}
 
@@ -38,13 +38,13 @@
 	<?php foreach(array('b', 'w') as $color): ?>
 
 		<?php foreach(array('p', 'n', 'b', 'r', 'q', 'k') as $piece): ?>
-			.uichess-chessboard-pieceset-<?php echo htmlspecialchars($pieceset); ?>
-				.uichess-chessboard-color-<?php echo $color; ?>.uichess-chessboard-piece-<?php echo $piece; ?>
+			.rpbui-chessboard-pieceset-<?php echo htmlspecialchars($pieceset); ?>
+				.rpbui-chessboard-color-<?php echo $color; ?>.rpbui-chessboard-piece-<?php echo $piece; ?>
 				{ background-image: url(<?php echo htmlspecialchars($model->getCustomPiecesetSpriteURL($pieceset, $color . $piece)); ?>); }
 		<?php endforeach; ?>
 
-		.uichess-chessboard-pieceset-<?php echo htmlspecialchars($pieceset); ?>
-			.uichess-chessboard-color-<?php echo $color; ?>.uichess-chessboard-turnFlag
+		.rpbui-chessboard-pieceset-<?php echo htmlspecialchars($pieceset); ?>
+			.rpbui-chessboard-color-<?php echo $color; ?>.rpbui-chessboard-turnFlag
 			{ background-image: url(<?php echo htmlspecialchars($model->getCustomPiecesetSpriteURL($pieceset, $color . 'x')); ?>); }
 
 	<?php endforeach; ?>

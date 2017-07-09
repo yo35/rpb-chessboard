@@ -125,7 +125,7 @@ class RPBChessboardModelCommonSmallScreens extends RPBChessboardAbstractModel
 	public function getSmallScreenModeSquareSizeSelector($mode) {
 		$selectors = array();
 		for($size = $mode->squareSize+1; $size <= RPBChessboardHelperValidation::MAXIMUM_SQUARE_SIZE; ++$size) {
-			array_push($selectors, '.uichess-chessboard-size' . $size . ' .uichess-chessboard-sized');
+			array_push($selectors, '.rpbui-chessboard-size' . $size . ' .rpbui-chessboard-sized');
 		}
 		return implode(',', $selectors);
 	}
@@ -139,7 +139,7 @@ class RPBChessboardModelCommonSmallScreens extends RPBChessboardAbstractModel
 	public function getSmallScreenModeAnnotationLayerSelector($mode) {
 		$selectors = array();
 		for($size = $mode->squareSize+1; $size <= RPBChessboardHelperValidation::MAXIMUM_SQUARE_SIZE; ++$size) {
-			array_push($selectors, '.uichess-chessboard-size' . $size . ' .uichess-chessboard-annotations');
+			array_push($selectors, '.rpbui-chessboard-size' . $size . ' .rpbui-chessboard-annotations');
 		}
 		return implode(',', $selectors);
 	}

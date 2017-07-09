@@ -23,7 +23,7 @@
 /******************************************************************************/
 /*** Parsing error box ***/
 
-.uichess-chessgame-error {
+.rpbui-chessgame-error {
 	text-align: left;
 	font-family: sans-serif;
 	font-size: 12px;
@@ -34,18 +34,18 @@
 	padding: 0.75em;
 }
 
-.uichess-chessgame-errorTitle {
+.rpbui-chessgame-errorTitle {
 	font-weight: bold;
 	font-style: italic;
 }
 
-.uichess-chessgame-errorMessage,
-.uichess-chessgame-errorAt,
-.uichess-chessgame-errorAtCode {
+.rpbui-chessgame-errorMessage,
+.rpbui-chessgame-errorAt,
+.rpbui-chessgame-errorAtCode {
 	margin-top: 0.4em;
 }
 
-.uichess-chessgame-errorAtCode {
+.rpbui-chessgame-errorAtCode {
 	white-space: pre-wrap;
 	font-family: monospace;
 	line-height: 1.5em;
@@ -60,7 +60,7 @@
 /******************************************************************************/
 /*** PGN headers ***/
 
-.uichess-chessgame-colorTag {
+.rpbui-chessgame-colorTag {
 	width : 1.2em;
 	height: 1.2em;
 	vertical-align: middle;
@@ -68,34 +68,34 @@
 	border: 1px solid black;
 }
 
-.uichess-chessgame-whitePlayer .uichess-chessgame-colorTag {
+.rpbui-chessgame-whitePlayer .rpbui-chessgame-colorTag {
 	background-color: white;
 }
 
-.uichess-chessgame-blackPlayer .uichess-chessgame-colorTag {
+.rpbui-chessgame-blackPlayer .rpbui-chessgame-colorTag {
 	background-color: black;
 }
 
-.uichess-chessgame-titleRatingGroup:before,
-.uichess-chessgame-round:before {
+.rpbui-chessgame-titleRatingGroup:before,
+.rpbui-chessgame-round:before {
 	content: "\a0("; /* \a0 == &nbsp; */
 }
 
-.uichess-chessgame-titleRatingGroup:after,
-.uichess-chessgame-round:after {
+.rpbui-chessgame-titleRatingGroup:after,
+.rpbui-chessgame-round:after {
 	content: ")";
 }
 
-.uichess-chessgame-playerTitle + .uichess-chessgame-playerRating:before {
+.rpbui-chessgame-playerTitle + .rpbui-chessgame-playerRating:before {
 	content: "\a0"; /* \a0 == &nbsp; */
 }
 
-.uichess-chessgame-round,
-.uichess-chessgame-annotator {
+.rpbui-chessgame-round,
+.rpbui-chessgame-annotator {
 	font-style: italic;
 }
 
-.uichess-chessgame-date + .uichess-chessgame-site:before {
+.rpbui-chessgame-date + .rpbui-chessgame-site:before {
 	content: "\a0\2013\a0"; /* \a0 == &nbsp;   \2013 == &ndash; */
 }
 
@@ -104,88 +104,88 @@
 /******************************************************************************/
 /*** PGN body ***/
 
-.uichess-chessgame-move {
+.rpbui-chessgame-move {
 	font-weight: bold;
 	display: inline-block;
 	padding-left : 1px;
 	padding-right: 1px;
 }
 
-.uichess-chessgame-initialMove,
-.uichess-chessgame-moveNumber.uichess-chessgame-hidden {
+.rpbui-chessgame-initialMove,
+.rpbui-chessgame-moveNumber.rpbui-chessgame-hidden {
 	display: none;
 }
 
-.ui-dialog-title .uichess-chessgame-moveNumber.uichess-chessgame-hidden {
+.ui-dialog-title .rpbui-chessgame-moveNumber.rpbui-chessgame-hidden {
 	display: inline;
 }
 
-.uichess-chessgame-clickableMoves .uichess-chessgame-move:hover {
+.rpbui-chessgame-clickableMoves .rpbui-chessgame-move:hover {
 	text-decoration: underline;
 	cursor: pointer;
 }
 
-.uichess-chessgame-subVariation .uichess-chessgame-move {
+.rpbui-chessgame-subVariation .rpbui-chessgame-move {
 	font-weight: inherit;
 }
 
-span.uichess-chessgame-variation:before {
+span.rpbui-chessgame-variation:before {
 	content: "(";
 }
 
-span.uichess-chessgame-variation:after {
+span.rpbui-chessgame-variation:after {
 	content: ")";
 }
 
-.uichess-chessgame-result {
+.rpbui-chessgame-result {
 	font-weight: bold;
 }
 
-span.uichess-chessgame-move,
-span.uichess-chessgame-comment,
-span.uichess-chessgame-variation {
+span.rpbui-chessgame-move,
+span.rpbui-chessgame-comment,
+span.rpbui-chessgame-variation {
 	margin-right: 0.4em;
 }
 
-span.uichess-chessgame-move:last-child,
-span.uichess-chessgame-comment:last-child,
-span.uichess-chessgame-variation:last-child {
+span.rpbui-chessgame-move:last-child,
+span.rpbui-chessgame-comment:last-child,
+span.rpbui-chessgame-variation:last-child {
 	margin-right: 0px;
 }
 
-div.uichess-chessgame-subVariation {
+div.rpbui-chessgame-subVariation {
 	position: relative;
 	left: 1.5em;
 	width: calc(100% - 1.5em);
 }
 
-.uichess-chessgame-alphaFont  { font-family: "Chess Alpha" , sans-serif; }
-.uichess-chessgame-meridaFont { font-family: "Chess Merida", sans-serif; }
-.uichess-chessgame-piratFont  { font-family: "Chess Pirat" , sans-serif; }
+.rpbui-chessgame-alphaFont  { font-family: "Chess Alpha" , sans-serif; }
+.rpbui-chessgame-meridaFont { font-family: "Chess Merida", sans-serif; }
+.rpbui-chessgame-piratFont  { font-family: "Chess Pirat" , sans-serif; }
 
 
 
 /******************************************************************************/
 /*** Vertical spacing ***/
 
-.uichess-chessgame-headers > div {
+.rpbui-chessgame-headers > div {
 	margin-bottom: 0.25em;
 }
 
-div.uichess-chessgame-variation > div {
+div.rpbui-chessgame-variation > div {
 	margin-bottom: 0.5em;
 }
 
-.uichess-chessgame-headers > div:last-child,
-div.uichess-chessgame-variation > div:last-child {
+.rpbui-chessgame-headers > div:last-child,
+div.rpbui-chessgame-variation > div:last-child {
 	margin-bottom: 0px;
 }
 
-.uichess-chessgame-headers + .uichess-chessgame-body {
+.rpbui-chessgame-headers + .rpbui-chessgame-body {
 	margin-top: 0.25em;
 }
 
-.uichess-chessgame-headers + .uichess-chessgame-body.uichess-chessgame-moreSpace {
+.rpbui-chessgame-headers + .rpbui-chessgame-body.rpbui-chessgame-moreSpace {
 	margin-top: 0.5em;
 }
 
@@ -194,35 +194,35 @@ div.uichess-chessgame-variation > div:last-child {
 /******************************************************************************/
 /*** Navigation board ***/
 
-.uichess-chessgame-navigationBox.uichess-chessgame-above,
-.uichess-chessgame-navigationBox.uichess-chessgame-floatLeft,
-.uichess-chessgame-navigationBox.uichess-chessgame-floatRight {
+.rpbui-chessgame-navigationBox.rpbui-chessgame-above,
+.rpbui-chessgame-navigationBox.rpbui-chessgame-floatLeft,
+.rpbui-chessgame-navigationBox.rpbui-chessgame-floatRight {
 	margin-bottom: 0.5em;
 }
 
-.uichess-chessgame-navigationBox.uichess-chessgame-below {
+.rpbui-chessgame-navigationBox.rpbui-chessgame-below {
 	margin-top: 0.5em;
 }
 
-.uichess-chessgame-navigationBox.uichess-chessgame-floatLeft {
+.rpbui-chessgame-navigationBox.rpbui-chessgame-floatLeft {
 	float: left;
 	margin-right: 0.5em;
 }
 
-.uichess-chessgame-navigationBox.uichess-chessgame-floatRight {
+.rpbui-chessgame-navigationBox.rpbui-chessgame-floatRight {
 	float: right;
 	margin-left: 0.5em;
 }
 
-.uichess-chessgame-clearLeft {
+.rpbui-chessgame-clearLeft {
 	clear: left;
 }
 
-.uichess-chessgame-clearRight {
+.rpbui-chessgame-clearRight {
 	clear: right;
 }
 
-.uichess-chessgame-scrollBox {
+.rpbui-chessgame-scrollBox {
 	display: flex;
 	display: -webkit-flex;
 	flex-direction: row;
@@ -231,24 +231,24 @@ div.uichess-chessgame-variation > div:last-child {
 	align-items: -webkit-flex-start;
 }
 
-.uichess-chessgame-navigationBox.uichess-chessgame-scrollLeft {
+.rpbui-chessgame-navigationBox.rpbui-chessgame-scrollLeft {
 	margin-right: 0.5em;
 }
 
-.uichess-chessgame-navigationBox.uichess-chessgame-scrollRight {
+.rpbui-chessgame-navigationBox.rpbui-chessgame-scrollRight {
 	margin-left: 0.5em;
 }
 
-.uichess-chessgame-scrollArea {
+.rpbui-chessgame-scrollArea {
 	overflow-y: auto;
 }
 
-.uichess-chessgame-navigationButtons {
+.rpbui-chessgame-navigationButtons {
 	text-align: center;
 	margin-top: 0.75em;
 }
 
-.uichess-chessgame-navigationButtons .ui-button {
+.rpbui-chessgame-navigationButtons .ui-button {
 	border-radius: 0px;
 	-webkit-box-shadow: none;
 	box-shadow: none;
@@ -258,27 +258,27 @@ div.uichess-chessgame-variation > div:last-child {
 	width: 36px;
 }
 
-.uichess-chessgame-navigationButtons .ui-button:first-child,
-.uichess-chessgame-navigationButtons .ui-button.uichess-chessgame-spaceAfter + .ui-button {
+.rpbui-chessgame-navigationButtons .ui-button:first-child,
+.rpbui-chessgame-navigationButtons .ui-button.rpbui-chessgame-spaceAfter + .ui-button {
 	border-top-left-radius: 4px;
 	border-bottom-left-radius: 4px;
 }
 
-.uichess-chessgame-navigationButtons .ui-button:last-child,
-.uichess-chessgame-navigationButtons .ui-button.uichess-chessgame-spaceAfter {
+.rpbui-chessgame-navigationButtons .ui-button:last-child,
+.rpbui-chessgame-navigationButtons .ui-button.rpbui-chessgame-spaceAfter {
 	border-top-right-radius: 4px;
 	border-bottom-right-radius: 4px;
 }
 
-.uichess-chessgame-navigationButtons .ui-button.uichess-chessgame-spaceAfter + .ui-button {
+.rpbui-chessgame-navigationButtons .ui-button.rpbui-chessgame-spaceAfter + .ui-button {
 	margin-left: 6px;
 }
 
-.uichess-chessgame-blobDownloadLink {
+.rpbui-chessgame-blobDownloadLink {
 	display: none;
 }
 
-#uichess-chessgame-navigationFrame {
+#rpbui-chessgame-navigationFrame {
 	box-sizing: content-box;
 	-moz-box-sizing: content-box;
 	-webkit-box-sizing: content-box;
@@ -289,16 +289,16 @@ div.uichess-chessgame-variation > div:last-child {
 /******************************************************************************/
 /*** Diagrams ***/
 
-.uichess-chessgame-diagramAnchor {
+.rpbui-chessgame-diagramAnchor {
 	display: none;
 }
 
-.uichess-chessgame-body .uichess-chessgame-comment .uichess-chessgame-diagram {
+.rpbui-chessgame-body .rpbui-chessgame-comment .rpbui-chessgame-diagram {
 	margin-top   : 0.25em;
 	margin-bottom: 0.25em;
 }
 
-.uichess-chessgame-body.uichess-chessgame-moreSpace .uichess-chessgame-comment .uichess-chessgame-diagram {
+.rpbui-chessgame-body.rpbui-chessgame-moreSpace .rpbui-chessgame-comment .rpbui-chessgame-diagram {
 	margin-top   : 0.5em;
 	margin-bottom: 0.5em;
 }
