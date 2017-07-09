@@ -53,7 +53,7 @@
 			rpb.i18n.SUBMIT_BUTTON_EDIT_LABEL         = <?php echo json_encode(__('Update the chess diagram'   , 'rpbchessboard')); ?>;
 			rpb.i18n.UNDO_TOOLTIP                     = <?php echo json_encode(__('Undo the last modification' , 'rpbchessboard')); ?>;
 			rpb.i18n.REDO_TOOLTIP                     = <?php echo json_encode(__('Re-do the last modification', 'rpbchessboard')); ?>;
-			rpb.i18n.FLIP_CHECKBOX_LABEL              = <?php echo json_encode(__('Flip board'                 , 'rpbchessboard')); ?>;
+			rpb.i18n.FLIP_CHECKBOX_LABEL              = <?php echo json_encode(__('Flip the board'             , 'rpbchessboard')); ?>;
 			rpb.i18n.STANDARD_POSITIONS_TAB_LABEL     = <?php echo json_encode(__('Standard positions'         , 'rpbchessboard')); ?>;
 			rpb.i18n.START_POSITION_TOOLTIP           = <?php echo json_encode(__('Set the initial position'   , 'rpbchessboard')); ?>;
 			rpb.i18n.EMPTY_POSITION_TOOLTIP           = <?php echo json_encode(__('Clear the chessboard'       , 'rpbchessboard')); ?>;

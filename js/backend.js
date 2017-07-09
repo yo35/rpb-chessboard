@@ -53,7 +53,7 @@ var RPBChessboard = {};
 		SUBMIT_BUTTON_EDIT_LABEL: 'Update the chess diagram',
 		UNDO_TOOLTIP: 'Undo the last modification',
 		REDO_TOOLTIP: 'Re-do the last modification',
-		FLIP_CHECKBOX_LABEL: 'Flip board',
+		FLIP_CHECKBOX_LABEL: 'Flip the board',
 		STANDARD_POSITIONS_TAB_LABEL: 'Standard positions',
 		START_POSITION_TOOLTIP: 'Set the initial position',
 		EMPTY_POSITION_TOOLTIP: 'Clear the chessboard',
