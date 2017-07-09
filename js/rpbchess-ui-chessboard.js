@@ -401,6 +401,11 @@
 				}
 			}
 		}
+		if(widget._moveArrow !== null) {
+			var vc = getArrowCoordinatesInSVG(widget, widget._moveArrow.from, widget._moveArrow.to);
+			res += '<line class="uichess-chessboard-arrowMarker uichess-chessboard-moveArrow uichess-chessboard-markerColor-B" ' +
+				'x1="' + vc.x1 + '" y1="' + vc.y1 + '" x2="' + vc.x2 + '" y2="' + vc.y2 + '" marker-end="url(#uichess-chessboard-arrowMarkerEnd-B)" />';
+		}
 		res += '</svg>';
 
 		// Close the "table" node and return the result.
@@ -821,7 +826,7 @@
 		widget._position.square(move.from, '-');
 
 		// Update the DOM elements.
-		$('.uichess-chessboard-moveArrow', widget.element).remove();
+		clearMoveArrow(widget);
 		doDisplacement(widget, move.from, move.to, animate, withArrow);
 
 		// FEN update + notifications.
@@ -846,7 +851,7 @@
 		widget._position.play(moveDescriptor);
 
 		// Move the moving piece to its destination square.
-		$('.uichess-chessboard-moveArrow', widget.element).remove();
+		clearMoveArrow(widget);
 		var movingPiece = doDisplacement(widget, moveDescriptor.from(), moveDescriptor.to(), animate, withArrow);
 
 		// Castling move -> move the rook.
@@ -877,6 +882,17 @@
 
 
 	/**
+	 * Remove the move arrow if it exist.
+	 *
+	 * @param {uichess.chessboard} widget
+	 */
+	function clearMoveArrow(widget) {
+		widget._moveArrow = null;
+		$('.uichess-chessboard-moveArrow', widget.element).remove();
+	}
+
+
+	/**
 	 * Execute a move.
 	 *
 	 * @param {uichess.chessboard} widget
@@ -897,6 +913,7 @@
 			scheduleMoveAnimation(widget, animate, 0.5, function() {
 				doCreateArrow(widget, 'uichess-chessboard-moveArrow', 'B', vc.x1, vc.y1, vc.x2, vc.y2);
 			});
+			widget._moveArrow = { from: from, to: to };
 		}
 
 		// Animation
@@ -1161,6 +1178,13 @@
 
 
 		/**
+		 * Initial and destination squares of the move arrow, if any.
+		 * @type {object?} `null` if there is no move arrow.
+		 */
+		_moveArrow: null,
+
+
+		/**
 		 * Constructor.
 		 */
 		_create: function() {
@@ -1217,8 +1241,8 @@
 
 			// Update the widget.
 			switch(key) {
-				case 'position': refresh(this); this._trigger('positionChange', null, { oldValue:oldValue, newValue:this.options.position }); break;
-				case 'flip'    : refresh(this); this._trigger('flipChange'    , null, { oldValue:oldValue, newValue:this.options.flip     }); break;
+				case 'position': this._moveArrow=null; refresh(this); this._trigger('positionChange', null, { oldValue:oldValue, newValue:this.options.position }); break;
+				case 'flip': refresh(this); this._trigger('flipChange', null, { oldValue:oldValue, newValue:this.options.flip }); break;
 				case 'squareMarkers': onSquareMarkersChanged(this); this._trigger('squareMarkersChange', null, { oldValue:oldValue, newValue:this.options.squareMarkers }); break;
 				case 'arrowMarkers' : onArrowMarkersChanged (this); this._trigger('arrowMarkersChange' , null, { oldValue:oldValue, newValue:this.options.arrowMarkers  }); break;
 				case 'squareSize': onSquareSizeChanged(this, oldValue, value); break;
