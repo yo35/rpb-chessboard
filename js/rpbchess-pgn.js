@@ -22,7 +22,7 @@
 /**
  * Tools to parse PGN text data.
  *
- * @requires rpbchess.js
+ * @requires rpbchess-core.js
  */
 (function(RPBChess)
 {

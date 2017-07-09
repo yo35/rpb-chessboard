@@ -22,7 +22,7 @@
 /**
  * jQuery widget to create chess diagrams.
  *
- * @requires rpbchess.js
+ * @requires rpbchess-core.js
  * @requires jQuery
  * @requires jQuery UI Widget
  * @requires jQuery UI Selectable

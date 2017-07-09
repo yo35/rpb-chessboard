@@ -22,7 +22,7 @@
 /**
  * jQuery widget to display a chess game.
  *
- * @requires rpbchess.js
+ * @requires rpbchess-core.js
  * @requires rpbchess-pgn.js
  * @requires rpbchess-ui-chessboard.js
  * @requires Moment.js {@link http://momentjs.com/}
