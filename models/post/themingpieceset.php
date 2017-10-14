@@ -32,15 +32,15 @@ class RPBChessboardModelPostThemingPieceset extends RPBChessboardModelPostThemin
 
 
 	protected function getCreationSuccessMessage() {
-		return __('Pieceset created.', 'rpbchessboard');
+		return __('Pieceset created.', 'rpb-chessboard');
 	}
 
 	protected function getEditionSuccessMessage() {
-		return __('Pieceset updated.', 'rpbchessboard');
+		return __('Pieceset updated.', 'rpb-chessboard');
 	}
 
 	protected function getDeletionSuccessMessage() {
-		return __('Pieceset deleted.', 'rpbchessboard');
+		return __('Pieceset deleted.', 'rpb-chessboard');
 	}
 
 	protected function getManagedSetCode() {

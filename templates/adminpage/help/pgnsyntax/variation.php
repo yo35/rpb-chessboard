@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-pgnVariation"><?php _e('Variations', 'rpbchessboard'); ?></h3>
+<h3 id="rpbchessboard-pgnVariation"><?php _e('Variations', 'rpb-chessboard'); ?></h3>
 
 <div class="rpbchessboard-columns">
 	<div>
@@ -71,6 +71,6 @@
 			'or as separated paragraphs if they are preceded by a blank line in the PGN string. '.
 			'Variations can be nested. However, inlined variations cannot contain &quot;paragraph-style&quot; variations '.
 			'(or &quot;paragraph-style&quot; comments).',
-		'rpbchessboard');
+		'rpb-chessboard');
 	?>
 </p>

@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-pgnDiagram"><?php _e('Diagrams', 'rpbchessboard'); ?></h3>
+<h3 id="rpbchessboard-pgnDiagram"><?php _e('Diagrams', 'rpb-chessboard'); ?></h3>
 
 <div class="rpbchessboard-columns">
 	<div>
@@ -29,7 +29,7 @@
 			[<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]<br/>
 			1. e4 c5<br/>
 			<br/>
-			{[pgndiagram] <?php _e('This opening is called the Sicilian defence. A possible continuation is:', 'rpbchessboard'); ?>}<br/>
+			{[pgndiagram] <?php _e('This opening is called the Sicilian defence. A possible continuation is:', 'rpb-chessboard'); ?>}<br/>
 			<br/>
 			2. Nf3 d6 *<br/>
 			[/<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]
@@ -40,7 +40,7 @@
 				__(
 					'Notice that %1$s[pgndiagram]%2$s tags must not be used outside a PGN game. '.
 					'To insert a diagram outside a PGN game, use the %1$s[%3$s][/%3$s]%2$s tag instead.',
-				'rpbchessboard'),
+				'rpb-chessboard'),
 				'<span class="rpbchessboard-sourceCode">',
 				'</span>',
 				htmlspecialchars($model->getFENShortcode())
@@ -63,7 +63,7 @@
 								'\n' +
 								'{<div class="rpbui-chessgame-diagramAnchor"></div> ' +
 								<?php
-									echo json_encode(__('This opening is called the Sicilian defence. A possible continuation is:', 'rpbchessboard'));
+									echo json_encode(__('This opening is called the Sicilian defence. A possible continuation is:', 'rpb-chessboard'));
 								?> + '}\n' +
 								'\n' +
 								'2. Nf3 d6 *'

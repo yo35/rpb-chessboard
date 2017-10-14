@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-pgnAttributeBoardAspect"><?php _e('Chessboard aspect', 'rpbchessboard'); ?></h3>
+<h3 id="rpbchessboard-pgnAttributeBoardAspect"><?php _e('Chessboard aspect', 'rpb-chessboard'); ?></h3>
 
 <div class="rpbchessboard-sourceCode">
 	<?php echo sprintf(
@@ -36,7 +36,7 @@
 			'The %1$s, %2$s, %3$s, %4$s and %5$s attributes control the aspect of both the navigation board and the chessboard diagrams '.
 			'inserted using tag %6$s. These attributes are identical to those used to customize the aspect of standalone FEN diagrams '.
 			'(those inserted using tag %7$s): see %8$shelp on FEN diagram attributes%9$s for more details about them.',
-		'rpbchessboard'),
+		'rpb-chessboard'),
 		'<span class="rpbchessboard-sourceCode">flip</span>',
 		'<span class="rpbchessboard-sourceCode">square_size</span>',
 		'<span class="rpbchessboard-sourceCode">show_coordinates</span>',

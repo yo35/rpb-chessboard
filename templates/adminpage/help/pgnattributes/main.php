@@ -30,7 +30,7 @@
 				'All these attributes are optional: if not specified, the default setting '.
 				'(defined by the blog administrator) applies. '.
 				'These attributes are presented in this page.',
-			'rpbchessboard'),
+			'rpb-chessboard'),
 			'<span class="rpbchessboard-sourceCode">',
 			'</span>',
 			htmlspecialchars($model->getPGNShortcode())
@@ -38,11 +38,11 @@
 	</p>
 
 	<ol class="rpbchessboard-outline">
-		<li><a href="#rpbchessboard-pgnAttributePieceSymbols"><?php _e('Piece symbols', 'rpbchessboard'); ?></a></li>
-		<li><a href="#rpbchessboard-pgnAttributeNavigationBoard"><?php _e('Navigation board', 'rpbchessboard'); ?></a></li>
-		<li><a href="#rpbchessboard-pgnAttributeNavigationButtons"><?php _e('Navigation toolbar', 'rpbchessboard'); ?></a></li>
-		<li><a href="#rpbchessboard-pgnAttributeMoveAnimation"><?php _e('Move animation', 'rpbchessboard'); ?></a></li>
-		<li><a href="#rpbchessboard-pgnAttributeBoardAspect"><?php _e('Chessboard aspect', 'rpbchessboard'); ?></a></li>
+		<li><a href="#rpbchessboard-pgnAttributePieceSymbols"><?php _e('Piece symbols', 'rpb-chessboard'); ?></a></li>
+		<li><a href="#rpbchessboard-pgnAttributeNavigationBoard"><?php _e('Navigation board', 'rpb-chessboard'); ?></a></li>
+		<li><a href="#rpbchessboard-pgnAttributeNavigationButtons"><?php _e('Navigation toolbar', 'rpb-chessboard'); ?></a></li>
+		<li><a href="#rpbchessboard-pgnAttributeMoveAnimation"><?php _e('Move animation', 'rpb-chessboard'); ?></a></li>
+		<li><a href="#rpbchessboard-pgnAttributeBoardAspect"><?php _e('Chessboard aspect', 'rpb-chessboard'); ?></a></li>
 	</ol>
 
 	<?php

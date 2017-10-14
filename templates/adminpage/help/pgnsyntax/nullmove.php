@@ -20,21 +20,21 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-pgnNullMove"><?php _e('Null moves', 'rpbchessboard'); ?></h3>
+<h3 id="rpbchessboard-pgnNullMove"><?php _e('Null moves', 'rpb-chessboard'); ?></h3>
 
 <div class="rpbchessboard-columns">
 	<div>
 
 		<div class="rpbchessboard-sourceCode">
 			[<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]<br/>
-			{<?php _e('A standard development scheme for white:', 'rpbchessboard'); ?>}
+			{<?php _e('A standard development scheme for white:', 'rpb-chessboard'); ?>}
 			1. e4 -- 2. Nf3 -- 3. Bc4 -- 4. Nc3 -- 5. d4 -- 6. O-O {[pgndiagram]}<br/>
 			[/<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]
 		</div>
 
 		<p>
 			<?php echo sprintf(
-				__('A %1$s--%2$s token in the move list allows to skip the underlying move.', 'rpbchessboard'),
+				__('A %1$s--%2$s token in the move list allows to skip the underlying move.', 'rpb-chessboard'),
 				'<span class="rpbchessboard-sourceCode">',
 				'</span>'
 			); ?>
@@ -52,7 +52,7 @@
 							navigationBoard: 'none',
 							diagramOptions: { squareSize: 28 },
 							pgn:
-								'{' + <?php echo json_encode(__('A standard development scheme for white:', 'rpbchessboard')); ?> +
+								'{' + <?php echo json_encode(__('A standard development scheme for white:', 'rpb-chessboard')); ?> +
 								'} 1. e4 -- 2. Nf3 -- 3. Bc4 -- 4. Nc3 -- 5. d4 -- 6. O-O {<div class="rpbui-chessgame-diagramAnchor"></div>} *'
 						}));
 					});

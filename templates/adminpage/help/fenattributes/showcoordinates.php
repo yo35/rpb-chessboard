@@ -20,32 +20,32 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-fenAttributeShowCoordinates"><?php _e('Show coordinates', 'rpbchessboard'); ?></h3>
+<h3 id="rpbchessboard-fenAttributeShowCoordinates"><?php _e('Show coordinates', 'rpb-chessboard'); ?></h3>
 
 <div class="rpbchessboard-columns">
 	<div>
 
 		<p>
-			<?php echo sprintf(__('The %1$s attribute controls whether the row and column coordinates are visible or not.', 'rpbchessboard'),
+			<?php echo sprintf(__('The %1$s attribute controls whether the row and column coordinates are visible or not.', 'rpb-chessboard'),
 				'<span class="rpbchessboard-sourceCode">show_coordinates</span>'); ?>
 		</p>
 
 		<table class="rpbchessboard-attributeTable">
 			<tbody>
 				<tr>
-					<th><?php _e('Value', 'rpbchessboard'); ?></th>
-					<th><?php _e('Default', 'rpbchessboard'); ?></th>
-					<th><?php _e('Description', 'rpbchessboard'); ?></th>
+					<th><?php _e('Value', 'rpb-chessboard'); ?></th>
+					<th><?php _e('Default', 'rpb-chessboard'); ?></th>
+					<th><?php _e('Description', 'rpb-chessboard'); ?></th>
 				</tr>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-fenAttributeShowCoordinates-value">false</a></td>
 					<td><?php if(!$model->getDefaultShowCoordinates()): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
-					<td><?php _e('The row and column coordinates are hidden.', 'rpbchessboard'); ?></td>
+					<td><?php _e('The row and column coordinates are hidden.', 'rpb-chessboard'); ?></td>
 				</tr>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-fenAttributeShowCoordinates-value">true</a></td>
 					<td><?php if($model->getDefaultShowCoordinates()): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
-					<td><?php _e('The row and column coordinates are visible.', 'rpbchessboard'); ?></td>
+					<td><?php _e('The row and column coordinates are visible.', 'rpb-chessboard'); ?></td>
 				</tr>
 			</tbody>
 		</table>

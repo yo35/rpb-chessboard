@@ -20,65 +20,65 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-pgnAttributeNavigationBoard"><?php _e('Navigation board', 'rpbchessboard'); ?></h3>
+<h3 id="rpbchessboard-pgnAttributeNavigationBoard"><?php _e('Navigation board', 'rpb-chessboard'); ?></h3>
 
 <div id="rpbchessboard-pgnAttributeNavigationBoard-content" class="rpbchessboard-columns">
 	<div>
 
 		<p>
-			<?php echo sprintf(__('The %1$s attribute controls the position of the navigation board.', 'rpbchessboard'),
+			<?php echo sprintf(__('The %1$s attribute controls the position of the navigation board.', 'rpb-chessboard'),
 				'<span class="rpbchessboard-sourceCode">navigation_board</span>'); ?>
 		</p>
 
 		<table class="rpbchessboard-attributeTable">
 			<tbody>
 				<tr>
-					<th><?php _e('Value', 'rpbchessboard'); ?></th>
-					<th><?php _e('Default', 'rpbchessboard'); ?></th>
-					<th><?php _e('Description', 'rpbchessboard'); ?></th>
+					<th><?php _e('Value', 'rpb-chessboard'); ?></th>
+					<th><?php _e('Default', 'rpb-chessboard'); ?></th>
+					<th><?php _e('Description', 'rpb-chessboard'); ?></th>
 				</tr>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributeNavigationBoard-value">none</a></td>
 					<td><?php if($model->getDefaultNavigationBoard()==='none'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
-					<td><?php _e('No navigation board.', 'rpbchessboard'); ?></td>
+					<td><?php _e('No navigation board.', 'rpb-chessboard'); ?></td>
 				</tr>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributeNavigationBoard-value">frame</a></td>
 					<td><?php if($model->getDefaultNavigationBoard()==='frame'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
 					<td><?php _e('The navigation board is displayed in a popup frame, which becomes visible '.
-						'when the user clicks on a move within the move list.', 'rpbchessboard'); ?></td>
+						'when the user clicks on a move within the move list.', 'rpb-chessboard'); ?></td>
 				</tr>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributeNavigationBoard-value">above</a></td>
 					<td><?php if($model->getDefaultNavigationBoard()==='above'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
-					<td><?php _e('The navigation board is displayed above the game headers and the move list.', 'rpbchessboard'); ?></td>
+					<td><?php _e('The navigation board is displayed above the game headers and the move list.', 'rpb-chessboard'); ?></td>
 				</tr>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributeNavigationBoard-value">below</a></td>
 					<td><?php if($model->getDefaultNavigationBoard()==='below'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
-					<td><?php _e('The navigation board is displayed below the move list.', 'rpbchessboard'); ?></td>
+					<td><?php _e('The navigation board is displayed below the move list.', 'rpb-chessboard'); ?></td>
 				</tr>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributeNavigationBoard-value">floatLeft</a></td>
 					<td><?php if($model->getDefaultNavigationBoard()==='floatLeft'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
-					<td><?php _e('The navigation board is displayed on the left of the move list.', 'rpbchessboard'); ?></td>
+					<td><?php _e('The navigation board is displayed on the left of the move list.', 'rpb-chessboard'); ?></td>
 				</tr>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributeNavigationBoard-value">floatRight</a></td>
 					<td><?php if($model->getDefaultNavigationBoard()==='floatRight'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
-					<td><?php _e('The navigation board is displayed on the right of the move list.', 'rpbchessboard'); ?></td>
+					<td><?php _e('The navigation board is displayed on the right of the move list.', 'rpb-chessboard'); ?></td>
 				</tr>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributeNavigationBoard-value">scrollLeft</a></td>
 					<td><?php if($model->getDefaultNavigationBoard()==='scrollLeft'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
 					<td><?php _e('The navigation board is displayed on the left of the move list. ' .
-						'The move list becomes scrollable if it is higher than the navigation board.', 'rpbchessboard'); ?></td>
+						'The move list becomes scrollable if it is higher than the navigation board.', 'rpb-chessboard'); ?></td>
 				</tr>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributeNavigationBoard-value">scrollRight</a></td>
 					<td><?php if($model->getDefaultNavigationBoard()==='scrollRight'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
 					<td><?php _e('The navigation board is displayed on the right of the move list. ' .
-						'The move list becomes scrollable if it is higher than the navigation board.', 'rpbchessboard'); ?></td>
+						'The move list becomes scrollable if it is higher than the navigation board.', 'rpb-chessboard'); ?></td>
 				</tr>
 			</tbody>
 		</table>

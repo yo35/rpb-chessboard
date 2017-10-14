@@ -30,7 +30,7 @@
 				'All these attributes are optional: if not specified, the default setting '.
 				'(defined by the blog administrator) applies. '.
 				'These attributes are presented in this page.',
-			'rpbchessboard'),
+			'rpb-chessboard'),
 			'<span class="rpbchessboard-sourceCode">',
 			'</span>',
 			htmlspecialchars($model->getFENShortcode())
@@ -38,12 +38,12 @@
 	</p>
 
 	<ol class="rpbchessboard-outline">
-		<li><a href="#rpbchessboard-fenAttributeFlip"><?php _e('Board flipping', 'rpbchessboard'); ?></a></li>
-		<li><a href="#rpbchessboard-fenAttributeSquareSize"><?php _e('Square size', 'rpbchessboard'); ?></a></li>
-		<li><a href="#rpbchessboard-fenAttributeShowCoordinates"><?php _e('Show coordinates', 'rpbchessboard'); ?></a></li>
-		<li><a href="#rpbchessboard-fenAttributeMarkers"><?php _e('Square and arrow markers', 'rpbchessboard'); ?></a></li>
-		<li><a href="#rpbchessboard-fenAttributeColorsetPieceset"><?php _e('Colorset and pieceset', 'rpbchessboard'); ?></a></li>
-		<li><a href="#rpbchessboard-fenAttributeDiagramAlignment"><?php _e('Diagram alignment', 'rpbchessboard'); ?></a></li>
+		<li><a href="#rpbchessboard-fenAttributeFlip"><?php _e('Board flipping', 'rpb-chessboard'); ?></a></li>
+		<li><a href="#rpbchessboard-fenAttributeSquareSize"><?php _e('Square size', 'rpb-chessboard'); ?></a></li>
+		<li><a href="#rpbchessboard-fenAttributeShowCoordinates"><?php _e('Show coordinates', 'rpb-chessboard'); ?></a></li>
+		<li><a href="#rpbchessboard-fenAttributeMarkers"><?php _e('Square and arrow markers', 'rpb-chessboard'); ?></a></li>
+		<li><a href="#rpbchessboard-fenAttributeColorsetPieceset"><?php _e('Colorset and pieceset', 'rpb-chessboard'); ?></a></li>
+		<li><a href="#rpbchessboard-fenAttributeDiagramAlignment"><?php _e('Diagram alignment', 'rpb-chessboard'); ?></a></li>
 	</ol>
 
 	<?php

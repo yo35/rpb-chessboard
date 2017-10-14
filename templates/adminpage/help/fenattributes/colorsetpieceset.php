@@ -20,18 +20,18 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-fenAttributeColorsetPieceset"><?php _e('Colorset and pieceset', 'rpbchessboard'); ?></h3>
+<h3 id="rpbchessboard-fenAttributeColorsetPieceset"><?php _e('Colorset and pieceset', 'rpb-chessboard'); ?></h3>
 
 <div id="rpbchessboard-fenAttributeColorsetPieceset-content" class="rpbchessboard-columns">
 	<div>
 
 		<p>
-			<?php echo sprintf(__('The %1$s and %2$s attributes controls respectively the colors of the chessboard and the piece theme.', 'rpbchessboard'),
+			<?php echo sprintf(__('The %1$s and %2$s attributes controls respectively the colors of the chessboard and the piece theme.', 'rpb-chessboard'),
 				'<span class="rpbchessboard-sourceCode">colorset</span>', '<span class="rpbchessboard-sourceCode">pieceset</span>'); ?>
 		</p>
 
 		<p>
-			<label for="rpbchessboard-fenAttributeColorset-field"><?php _e('Colorset:', 'rpbchessboard'); ?></label>
+			<label for="rpbchessboard-fenAttributeColorset-field"><?php _e('Colorset:', 'rpb-chessboard'); ?></label>
 			<select id="rpbchessboard-fenAttributeColorset-field">
 				<?php foreach($model->getAvailableColorsets() as $colorset): ?>
 					<option value="<?php echo htmlspecialchars($colorset); ?>">
@@ -42,7 +42,7 @@
 		</p>
 
 		<p>
-			<label for="rpbchessboard-fenAttributePieceset-field"><?php _e('Pieceset:', 'rpbchessboard'); ?></label>
+			<label for="rpbchessboard-fenAttributePieceset-field"><?php _e('Pieceset:', 'rpb-chessboard'); ?></label>
 			<select id="rpbchessboard-fenAttributePieceset-field">
 				<?php foreach($model->getAvailablePiecesets() as $pieceset): ?>
 					<option value="<?php echo htmlspecialchars($pieceset); ?>">

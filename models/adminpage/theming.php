@@ -35,8 +35,8 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 		$this->loadDelegateModel('Common/DefaultOptionsEx');
 
 		// Create the sub-pages.
-		$this->addSubPage('Colorsets', __('Colorsets', 'rpbchessboard'), true);
-		$this->addSubPage('Piecesets', __('Piecesets', 'rpbchessboard'));
+		$this->addSubPage('Colorsets', __('Colorsets', 'rpb-chessboard'), true);
+		$this->addSubPage('Piecesets', __('Piecesets', 'rpb-chessboard'));
 	}
 
 
@@ -61,8 +61,8 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 	 */
 	public function getDeleteConfirmMessage() {
 		$text = $this->getSelectedSubPageName() === 'Colorsets' ?
-			__('Delete colorset "%1$s"?. Press OK to confirm...', 'rpbchessboard') :
-			__('Delete pieceset "%1$s"?. Press OK to confirm...', 'rpbchessboard');
+			__('Delete colorset "%1$s"?. Press OK to confirm...', 'rpb-chessboard') :
+			__('Delete pieceset "%1$s"?. Press OK to confirm...', 'rpb-chessboard');
 		return sprintf($text, '{1}');
 	}
 
@@ -72,7 +72,7 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 	 */
 	public function getLabelProposalForNewSetCode() {
 		$counter = 1;
-		$base = $this->getSelectedSubPageName() === 'Colorsets' ? __('My colorset', 'rpbchessboard') : __('My pieceset', 'rpbchessboard');
+		$base = $this->getSelectedSubPageName() === 'Colorsets' ? __('My colorset', 'rpb-chessboard') : __('My pieceset', 'rpb-chessboard');
 		$result = $base;
 		$method = $this->getSelectedSubPageName() === 'Colorsets' ? 'isColorsetLabelAlreadyUsed' : 'isPiecesetLabelAlreadyUsed';
 		while($this->$method($result)) {
@@ -183,20 +183,20 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 	public function getPiecesetEditionButtonTitle($coloredPiece) {
 		if(!isset(self::$piecesetEditionButtonTitle)) {
 			self::$piecesetEditionButtonTitle = array(
-				'bp' =>  __('Select the image to use for black pawns'     , 'rpbchessboard'),
-				'bn' =>  __('Select the image to use for black knights'   , 'rpbchessboard'),
-				'bb' =>  __('Select the image to use for black bishops'   , 'rpbchessboard'),
-				'br' =>  __('Select the image to use for black rooks'     , 'rpbchessboard'),
-				'bq' =>  __('Select the image to use for black queens'    , 'rpbchessboard'),
-				'bk' =>  __('Select the image to use for black kings'     , 'rpbchessboard'),
-				'bx' =>  __('Select the image to use for black turn flags', 'rpbchessboard'),
-				'wp' =>  __('Select the image to use for white pawns'     , 'rpbchessboard'),
-				'wn' =>  __('Select the image to use for white knights'   , 'rpbchessboard'),
-				'wb' =>  __('Select the image to use for white bishops'   , 'rpbchessboard'),
-				'wr' =>  __('Select the image to use for white rooks'     , 'rpbchessboard'),
-				'wq' =>  __('Select the image to use for white queens'    , 'rpbchessboard'),
-				'wk' =>  __('Select the image to use for white kings'     , 'rpbchessboard'),
-				'wx' =>  __('Select the image to use for white turn flags', 'rpbchessboard')
+				'bp' =>  __('Select the image to use for black pawns'     , 'rpb-chessboard'),
+				'bn' =>  __('Select the image to use for black knights'   , 'rpb-chessboard'),
+				'bb' =>  __('Select the image to use for black bishops'   , 'rpb-chessboard'),
+				'br' =>  __('Select the image to use for black rooks'     , 'rpb-chessboard'),
+				'bq' =>  __('Select the image to use for black queens'    , 'rpb-chessboard'),
+				'bk' =>  __('Select the image to use for black kings'     , 'rpb-chessboard'),
+				'bx' =>  __('Select the image to use for black turn flags', 'rpb-chessboard'),
+				'wp' =>  __('Select the image to use for white pawns'     , 'rpb-chessboard'),
+				'wn' =>  __('Select the image to use for white knights'   , 'rpb-chessboard'),
+				'wb' =>  __('Select the image to use for white bishops'   , 'rpb-chessboard'),
+				'wr' =>  __('Select the image to use for white rooks'     , 'rpb-chessboard'),
+				'wq' =>  __('Select the image to use for white queens'    , 'rpb-chessboard'),
+				'wk' =>  __('Select the image to use for white kings'     , 'rpb-chessboard'),
+				'wx' =>  __('Select the image to use for white turn flags', 'rpb-chessboard')
 			);
 		}
 		return self::$piecesetEditionButtonTitle[$coloredPiece];

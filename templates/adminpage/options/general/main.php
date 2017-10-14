@@ -27,7 +27,7 @@
 			'inserted in posts and pages with the %1$s[%3$s][/%3$s]%2$s and %1$s[%4$s][/%4$s]%2$s tags. ' .
 			'They can be overridden at each tag by passing appropriate tag attributes: ' .
 			'see %5$shelp on FEN diagram attributes%7$s and %6$shelp on PGN game attributes%7$s for more details.',
-		'rpbchessboard'),
+		'rpb-chessboard'),
 		'<span class="rpbchessboard-sourceCode">',
 		'</span>',
 		htmlspecialchars($model->getFENShortcode()),

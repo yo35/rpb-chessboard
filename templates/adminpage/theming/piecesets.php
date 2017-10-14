@@ -22,7 +22,7 @@
 
 <p>
 	<button id="rpbchessboard-addSetCodeButton" class="button">
-		<?php _e('Add a new pieceset', 'rpbchessboard'); ?>
+		<?php _e('Add a new pieceset', 'rpb-chessboard'); ?>
 	</button>
 </p>
 
@@ -30,9 +30,9 @@
 
 	<thead>
 		<tr>
-			<th scope="col"><?php _e('Name', 'rpbchessboard'); ?></th>
-			<th scope="col"><?php _e('Slug', 'rpbchessboard'); ?></th>
-			<th scope="col"><?php _e('Default', 'rpbchessboard'); ?></th>
+			<th scope="col"><?php _e('Name', 'rpb-chessboard'); ?></th>
+			<th scope="col"><?php _e('Slug', 'rpb-chessboard'); ?></th>
+			<th scope="col"><?php _e('Default', 'rpb-chessboard'); ?></th>
 		</tr>
 	</thead>
 
@@ -49,11 +49,11 @@
 					<strong class="row-title"><?php echo htmlspecialchars($model->getPiecesetLabel($pieceset)); ?></strong>
 					<span class="row-actions rpbchessboard-inlinedRowActions">
 						<?php if($model->isBuiltinPieceset($pieceset)): ?>
-							<span><a href="#" class="rpbchessboard-action-setDefault"><?php _e('Set default', 'rpbchessboard'); ?></a></span>
+							<span><a href="#" class="rpbchessboard-action-setDefault"><?php _e('Set default', 'rpb-chessboard'); ?></a></span>
 						<?php else: ?>
-							<span><a href="#" class="rpbchessboard-action-setDefault"><?php _e('Set default', 'rpbchessboard'); ?></a> |</span>
-							<span><a href="#" class="rpbchessboard-action-edit"><?php _e('Edit', 'rpbchessboard'); ?></a> |</span>
-							<span><a href="#" class="rpbchessboard-action-delete"><?php _e('Delete', 'rpbchessboard'); ?></a></span>
+							<span><a href="#" class="rpbchessboard-action-setDefault"><?php _e('Set default', 'rpb-chessboard'); ?></a> |</span>
+							<span><a href="#" class="rpbchessboard-action-edit"><?php _e('Edit', 'rpb-chessboard'); ?></a> |</span>
+							<span><a href="#" class="rpbchessboard-action-delete"><?php _e('Delete', 'rpb-chessboard'); ?></a></span>
 						<?php endif; ?>
 					</span>
 				</td>
@@ -76,9 +76,9 @@
 
 	<tfoot>
 		<tr>
-			<th scope="col"><?php _e('Name', 'rpbchessboard'); ?></th>
-			<th scope="col"><?php _e('Slug', 'rpbchessboard'); ?></th>
-			<th scope="col"><?php _e('Default', 'rpbchessboard'); ?></th>
+			<th scope="col"><?php _e('Name', 'rpb-chessboard'); ?></th>
+			<th scope="col"><?php _e('Slug', 'rpb-chessboard'); ?></th>
+			<th scope="col"><?php _e('Default', 'rpb-chessboard'); ?></th>
 		</tr>
 	</tfoot>
 
@@ -98,7 +98,7 @@
 
 				mediaFrame[coloredPiece] = wp.media({
 					title: $(button).attr('title'),
-					button: {	text: <?php echo json_encode(__('Select', 'rpbchessboard')); ?>	},
+					button: {	text: <?php echo json_encode(__('Select', 'rpb-chessboard')); ?>	},
 					multiple: false
 				});
 
@@ -181,7 +181,7 @@
 			$('input[type="submit"]', target).click(function(e) {
 				if($('input[name="pieceset"]', target).val() === '' && !isAllImageFieldsDefined(target)) {
 					e.preventDefault();
-					var message = <?php echo json_encode(__('All the images must be defined to create a pieceset.', 'rpbchessboard')); ?>;
+					var message = <?php echo json_encode(__('All the images must be defined to create a pieceset.', 'rpb-chessboard')); ?>;
 					$('.rpbchessboard-piecesetEditionErrorMessage', target).text(message).slideDown();
 				}
 			});

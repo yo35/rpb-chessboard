@@ -26,12 +26,12 @@
 		<input type="hidden" name="rpbchessboard_action" value="<?php echo htmlspecialchars($model->getFormAction($isNew)); ?>" />
 
 		<div class="rpbchessboard-inlineFormTitle">
-			<?php $isNew ? _e('New colorset', 'rpbchessboard') : _e('Edit colorset', 'rpbchessboard'); ?>
+			<?php $isNew ? _e('New colorset', 'rpb-chessboard') : _e('Edit colorset', 'rpb-chessboard'); ?>
 		</div>
 
 		<div>
 			<label>
-				<span><?php _e('Name', 'rpbchessboard'); ?></span>
+				<span><?php _e('Name', 'rpb-chessboard'); ?></span>
 				<input type="text" name="label"
 					value="<?php echo htmlspecialchars($isNew ? $model->getLabelProposalForNewSetCode() : $model->getCustomColorsetLabel($colorset)); ?>" />
 			</label>
@@ -40,7 +40,7 @@
 		<?php if($isNew): ?>
 			<div>
 				<label>
-					<span><?php _e('Slug', 'rpbchessboard'); ?></span>
+					<span><?php _e('Slug', 'rpb-chessboard'); ?></span>
 					<input type="text" name="colorset" value="" />
 				</label>
 			</div>
@@ -52,7 +52,7 @@
 
 			<div class="rpbchessboard-stretchable rpbchessboard-colorFieldAndSelector">
 				<label>
-					<span><?php _e('Dark squares', 'rpbchessboard'); ?></span>
+					<span><?php _e('Dark squares', 'rpb-chessboard'); ?></span>
 					<input type="text" size="7" maxlength="7" class="rpbchessboard-darkSquareColorField" name="darkSquareColor"
 						value="<?php echo htmlspecialchars($isNew ? $model->getRandomDarkSquareColor() : $model->getDarkSquareColor($colorset)); ?>" />
 				</label>
@@ -63,7 +63,7 @@
 
 			<div class="rpbchessboard-stretchable rpbchessboard-colorFieldAndSelector">
 				<label>
-					<span><?php _e('Light squares', 'rpbchessboard'); ?></span>
+					<span><?php _e('Light squares', 'rpb-chessboard'); ?></span>
 					<input type="text" size="7" maxlength="7" class="rpbchessboard-lightSquareColorField" name="lightSquareColor"
 						value="<?php echo htmlspecialchars($isNew ? $model->getRandomLightSquareColor() : $model->getLightSquareColor($colorset)); ?>" />
 				</label>
@@ -75,8 +75,8 @@
 		</div>
 
 		<p class="submit rpbchessboard-inlineFormButtons">
-			<input type="submit" class="button-primary" value="<?php $isNew ? _e('Create colorset', 'rpbchessboard') : _e('Save changes', 'rpbchessboard'); ?>" />
-			<a class="button" href="<?php echo htmlspecialchars($model->getFormActionURL()); ?>"><?php _e('Cancel', 'rpbchessboard'); ?></a>
+			<input type="submit" class="button-primary" value="<?php $isNew ? _e('Create colorset', 'rpb-chessboard') : _e('Save changes', 'rpb-chessboard'); ?>" />
+			<a class="button" href="<?php echo htmlspecialchars($model->getFormActionURL()); ?>"><?php _e('Cancel', 'rpb-chessboard'); ?></a>
 		</p>
 
 	</form>

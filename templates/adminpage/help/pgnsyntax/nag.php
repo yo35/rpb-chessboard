@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-pgnNAG"><?php _e('NAGs (aka. <em>Numeric Annotation Glyphs</em>)', 'rpbchessboard'); ?></h3>
+<h3 id="rpbchessboard-pgnNAG"><?php _e('NAGs (aka. <em>Numeric Annotation Glyphs</em>)', 'rpb-chessboard'); ?></h3>
 
 <div class="rpbchessboard-columns">
 	<div>
@@ -59,10 +59,10 @@
 			'This is what is advocated by the PGN norm, which defines equivalences between this syntax and the human-readable one '.
 			'(for instance, %1$s&quot;$1&quot;%2$s is equivalent to %1$s&quot;!&quot;%2$s). Both syntaxes are understood '.
 			'by the RPB Chessboard plugin. See the %3$slist of NAGs%4$s.',
-		'rpbchessboard'),
+		'rpb-chessboard'),
 		'<span class="rpbchessboard-sourceCode">',
 		'</span>',
-		sprintf('<a href="%1$s" target="_blank">', __('http://en.wikipedia.org/wiki/Numeric_Annotation_Glyphs', 'rpbchessboard')),
+		sprintf('<a href="%1$s" target="_blank">', __('http://en.wikipedia.org/wiki/Numeric_Annotation_Glyphs', 'rpb-chessboard')),
 		'</a>'
 	); ?>
 </p>

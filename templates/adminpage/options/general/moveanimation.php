@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<h3><?php _e('Move animation', 'rpbchessboard'); ?></h3>
+<h3><?php _e('Move animation', 'rpb-chessboard'); ?></h3>
 
 
 <div class="rpbchessboard-columns">
@@ -28,7 +28,7 @@
 
 		<p>
 			<?php
-				echo sprintf(__('Animation speed: %1$s milliseconds', 'rpbchessboard'),
+				echo sprintf(__('Animation speed: %1$s milliseconds', 'rpb-chessboard'),
 					'<input type="text" id="rpbchessboard-animationSpeedField" class="rpbchessboard-animationSpeedField" name="animationSpeed" ' .
 						'size="'      . htmlspecialchars($model->getDigitNumberForAnimationSpeed()) . '" ' .
 						'maxLength="' . htmlspecialchars($model->getDigitNumberForAnimationSpeed()) . '" ' .
@@ -40,7 +40,7 @@
 		<div id="rpbchessboard-animationSpeedSlider" class="rpbchessboard-slider"></div>
 
 		<p class="description">
-			<?php _e('Set the animation speed to 0 to disable animations.', 'rpbchessboard'); ?>
+			<?php _e('Set the animation speed to 0 to disable animations.', 'rpb-chessboard'); ?>
 		</p>
 
 		<p>
@@ -48,15 +48,15 @@
 			<input type="checkbox" id="rpbchessboard-showMoveArrowField" name="showMoveArrow" value="1"
 				<?php if($model->getDefaultShowMoveArrow()): ?>checked="yes"<?php endif; ?>
 			/>
-			<label for="rpbchessboard-showMoveArrowField"><?php _e('Show move arrow', 'rpbchessboard'); ?></label>
+			<label for="rpbchessboard-showMoveArrowField"><?php _e('Show move arrow', 'rpb-chessboard'); ?></label>
 		</p>
 
 		<p>
 			<a href="#" class="button rpbchessboard-testMoveAnimation" id="rpbchessboard-testMoveAnimation1">
-				<?php _e('Test move', 'rpbchessboard'); ?>
+				<?php _e('Test move', 'rpb-chessboard'); ?>
 			</a>
 			<a href="#" class="button rpbchessboard-testMoveAnimation" id="rpbchessboard-testMoveAnimation2">
-				<?php _e('Test capture', 'rpbchessboard'); ?>
+				<?php _e('Test capture', 'rpb-chessboard'); ?>
 			</a>
 		</p>
 

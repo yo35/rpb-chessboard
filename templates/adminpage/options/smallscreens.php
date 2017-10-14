@@ -26,7 +26,7 @@
 		<?php if($model->getSmallScreenCompatibility()): ?>checked="yes"<?php endif; ?>
 	/>
 	<label for="rpbchessboard-smallScreenCompatibilityField">
-		<?php _e('Enable support for small-screen devices', 'rpbchessboard'); ?>
+		<?php _e('Enable support for small-screen devices', 'rpb-chessboard'); ?>
 	</label>
 </p>
 
@@ -34,7 +34,7 @@
 	<?php
 		_e(
 			'Activating this option allows to customize how RPB Chessboard renders chess diagrams on small-screen devices (such as smartphones).',
-		'rpbchessboard');
+		'rpb-chessboard');
 	?>
 </p>
 
@@ -47,19 +47,19 @@
 	<h3 title="<?php
 		if($mode->minScreenWidth === 0) {
 			echo sprintf(
-				__('These options apply to devices whose resolution is less than %1$s pixel width.', 'rpbchessboard'),
+				__('These options apply to devices whose resolution is less than %1$s pixel width.', 'rpb-chessboard'),
 				htmlspecialchars($mode->maxScreenWidth)
 			);
 		}
 		else {
 			echo sprintf(
-				__('These options apply to devices whose resolution lies between %1$s and %2$s pixel width.', 'rpbchessboard'),
+				__('These options apply to devices whose resolution lies between %1$s and %2$s pixel width.', 'rpb-chessboard'),
 				htmlspecialchars($mode->minScreenWidth + 1),
 				htmlspecialchars($mode->maxScreenWidth)
 			);
 		}
 	?>">
-		<?php echo sprintf(__('Screen width &le; %1$s pixels', 'rpbchessboard'), htmlspecialchars($mode->maxScreenWidth)); ?>
+		<?php echo sprintf(__('Screen width &le; %1$s pixels', 'rpb-chessboard'), htmlspecialchars($mode->maxScreenWidth)); ?>
 	</h3>
 
 	<input type="hidden" name="smallScreenMode<?php echo htmlspecialchars($index); ?>-screenWidth" value="<?php echo htmlspecialchars($mode->maxScreenWidth); ?>" />
@@ -67,7 +67,7 @@
 	<div>
 		<p>
 			<?php
-				echo sprintf(__('Restrict square size to: %1$s pixels', 'rpbchessboard'),
+				echo sprintf(__('Restrict square size to: %1$s pixels', 'rpb-chessboard'),
 					'<input type="text" id="rpbchessboard-smallScreenMode' . htmlspecialchars($index) . '-squareSizeField" class="rpbchessboard-squareSizeField" ' .
 						'name="smallScreenMode' . htmlspecialchars($index) . '-squareSize" ' .
 						'size="'      . htmlspecialchars($model->getDigitNumberForSquareSize()) . '" ' .
@@ -86,7 +86,7 @@
 							'Chess diagrams will be displayed with a square size not larger than this value if the screen width is less than %1$s pixels, '.
 							'whatever the %2$sdefault aspect and behavior settings%3$s or the tag attributes that may be specified in the posts/pages. '.
 							'Diagrams for which the square size is less than this value will be displayed as they normally do on large screen devices.',
-						'rpbchessboard'),
+						'rpb-chessboard'),
 						htmlspecialchars($mode->maxScreenWidth),
 						'<a href="' . htmlspecialchars($model->getOptionsGeneralURL()) . '">',
 						'</a>'
@@ -102,7 +102,7 @@
 				<?php if($mode->hideCoordinates): ?>checked="yes"<?php endif; ?>
 			/>
 			<label for="rpbchessboard-smallScreenMode<?php echo htmlspecialchars($index); ?>-hideCoordinatesField">
-				<?php _e('Always hide coordinates', 'rpbchessboard'); ?>
+				<?php _e('Always hide coordinates', 'rpb-chessboard'); ?>
 			</label>
 		</p>
 
@@ -114,7 +114,7 @@
 							'If enabled, row and column coordinates will be hidden if the screen width is less than %1$s pixels, '.
 							'whatever the %2$sdefault aspect and behavior settings%3$s or the tag attributes that may be specified in the posts/pages. '.
 							'If disabled, row and column coordinates will be displayed as they normally do on large screen devices.',
-						'rpbchessboard'),
+						'rpb-chessboard'),
 						htmlspecialchars($mode->maxScreenWidth),
 						'<a href="' . htmlspecialchars($model->getOptionsGeneralURL()) . '">',
 						'</a>'
@@ -124,7 +124,7 @@
 		<?php else: ?>
 			<p class="description">
 				<?php
-					_e('See explanations about theses settings above.', 'rpbchessboard');
+					_e('See explanations about theses settings above.', 'rpb-chessboard');
 				?>
 			</p>
 		<?php endif; ?>

@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-pgnMarker"><?php _e('Square and arrow markers', 'rpbchessboard'); ?></h3>
+<h3 id="rpbchessboard-pgnMarker"><?php _e('Square and arrow markers', 'rpb-chessboard'); ?></h3>
 
 <div class="rpbchessboard-columns">
 	<div>
@@ -36,7 +36,7 @@
 			{[pgndiagram][%csl Re5,Gc6][%cal Rf3e5,Rb5c6,Gc6e5]
 			<?php
 				_e('The Ruy Lopez: White\'s third move attacks the knight which defends the e5-pawn from the attack by the f3-knight.',
-					'rpbchessboard');
+					'rpb-chessboard');
 			?>}<br/>
 			<br/>
 			*<br/>
@@ -52,7 +52,7 @@
 					'the second and third ones represent the targeted square. '.
 					'For instance, %1$s[%%csl Re5,Gc6,Yf3,Yb5]%2$s highlights square e5 in red, square c6 in green, '.
 					'and squares f3 and b5 in yellow.',
-				'rpbchessboard'),
+				'rpb-chessboard'),
 				'<span class="rpbchessboard-sourceCode">',
 				'</span>'
 			); ?>
@@ -65,7 +65,7 @@
 					'An arrow is encoded by a group of 5 characters: the first one is the color to use (%1$sG%2$s, %1$sR%2$s, or %1$sY%2$s), '.
 					'the second and third ones represent the origin square, the fourth and fifth ones the destination square. '.
 					'For instance, %1$s[%%cal Rf3e5,Gd8d4]%2$s creates a red arrow from f3 to e5, and a green arrow from d8 to d4.',
-				'rpbchessboard'),
+				'rpb-chessboard'),
 				'<span class="rpbchessboard-sourceCode">',
 				'</span>'
 			); ?>
@@ -76,7 +76,7 @@
 				__(
 					'Square and arrow markers that are created in %3$sChessbase softwares%4$s are exported in PGN format '.
 					'using these %1$s[%%csl ...]%2$s and %1$s[%%cal ...]%2$s notations.',
-				'rpbchessboard'),
+				'rpb-chessboard'),
 				'<span class="rpbchessboard-sourceCode">',
 				'</span>',
 				'<a href="http://www.chessbase.com/" target="_blank">',
@@ -106,7 +106,7 @@
 								<?php
 									echo json_encode(__(
 										'The Ruy Lopez: White\'s third move attacks the knight which defends the e5-pawn from the attack by the f3-knight.',
-										'rpbchessboard'));
+										'rpb-chessboard'));
 								?> + '}\n' +
 								'\n' +
 								'*'

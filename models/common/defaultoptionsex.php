@@ -140,7 +140,7 @@ class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractMode
 		}
 		else {
 			$result = $this->getCustomColorsetLabel($colorset);
-			return $result === '' ? __('(no name)', 'rpbchessboard') : $result;
+			return $result === '' ? __('(no name)', 'rpb-chessboard') : $result;
 		}
 	}
 
@@ -193,7 +193,7 @@ class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractMode
 		}
 		else {
 			$result = $this->getCustomPiecesetLabel($pieceset);
-			return $result === '' ? __('(no name)', 'rpbchessboard') : $result;
+			return $result === '' ? __('(no name)', 'rpb-chessboard') : $result;
 		}
 	}
 
@@ -225,12 +225,12 @@ class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractMode
 		if(!isset(self::$pieceSymbolLocalizationAvailable)) {
 			$englishPieceSymbols = 'KQRBNP';
 			$localizedPieceSymbols =
-				/*i18n King symbol   */ __('K', 'rpbchessboard') .
-				/*i18n Queen symbol  */ __('Q', 'rpbchessboard') .
-				/*i18n Rook symbol   */ __('R', 'rpbchessboard') .
-				/*i18n Bishop symbol */ __('B', 'rpbchessboard') .
-				/*i18n Knight symbol */ __('N', 'rpbchessboard') .
-				/*i18n Pawn symbol   */ __('P', 'rpbchessboard');
+				/*i18n King symbol   */ __('K', 'rpb-chessboard') .
+				/*i18n Queen symbol  */ __('Q', 'rpb-chessboard') .
+				/*i18n Rook symbol   */ __('R', 'rpb-chessboard') .
+				/*i18n Bishop symbol */ __('B', 'rpb-chessboard') .
+				/*i18n Knight symbol */ __('N', 'rpb-chessboard') .
+				/*i18n Pawn symbol   */ __('P', 'rpb-chessboard');
 			self::$pieceSymbolLocalizationAvailable = ($englishPieceSymbols !== $localizedPieceSymbols);
 		}
 		return self::$pieceSymbolLocalizationAvailable;

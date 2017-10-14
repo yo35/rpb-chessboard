@@ -59,7 +59,7 @@ class RPBChessboardModelPostSaveOptions extends RPBChessboardAbstractModel {
 		RPBChessboardHelperCache::remove('small-screens.css');
 
 		// Notify the user.
-		return __('Settings saved.', 'rpbchessboard');
+		return __('Settings saved.', 'rpb-chessboard');
 	}
 
 
@@ -67,7 +67,7 @@ class RPBChessboardModelPostSaveOptions extends RPBChessboardAbstractModel {
 	 * Change the default colorset.
 	 */
 	public function updateDefaultColorset() {
-		return self::processSetCodeParameter('colorset') ? __('Default colorset changed.', 'rpbchessboard') : null;
+		return self::processSetCodeParameter('colorset') ? __('Default colorset changed.', 'rpb-chessboard') : null;
 	}
 
 
@@ -75,7 +75,7 @@ class RPBChessboardModelPostSaveOptions extends RPBChessboardAbstractModel {
 	 * Change the default pieceset.
 	 */
 	public function updateDefaultPieceset() {
-		return self::processSetCodeParameter('pieceset') ? __('Default pieceset changed.', 'rpbchessboard') : null;
+		return self::processSetCodeParameter('pieceset') ? __('Default pieceset changed.', 'rpb-chessboard') : null;
 	}
 
 

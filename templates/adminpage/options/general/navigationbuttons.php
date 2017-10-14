@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<h3><?php _e('Navigation toolbar', 'rpbchessboard'); ?></h3>
+<h3><?php _e('Navigation toolbar', 'rpb-chessboard'); ?></h3>
 
 
 <div class="rpbchessboard-columns">
@@ -31,7 +31,7 @@
 			<input type="checkbox" id="rpbchessboard-showFlipButtonField" name="showFlipButton" value="1"
 				<?php if($model->getDefaultShowFlipButton()): ?>checked="yes"<?php endif; ?>
 			/>
-			<label for="rpbchessboard-showFlipButtonField"><?php _e('Show flip button', 'rpbchessboard'); ?></label>
+			<label for="rpbchessboard-showFlipButtonField"><?php _e('Show flip button', 'rpb-chessboard'); ?></label>
 		</p>
 
 		<p>
@@ -39,7 +39,7 @@
 			<input type="checkbox" id="rpbchessboard-showDownloadButtonField" name="showDownloadButton" value="1"
 				<?php if($model->getDefaultShowDownloadButton()): ?>checked="yes"<?php endif; ?>
 			/>
-			<label for="rpbchessboard-showDownloadButtonField"><?php _e('Show download button', 'rpbchessboard'); ?></label>
+			<label for="rpbchessboard-showDownloadButtonField"><?php _e('Show download button', 'rpb-chessboard'); ?></label>
 		</p>
 
 	</div>
@@ -57,7 +57,7 @@
 
 
 <p class="description">
-	<?php _e('These settings allow to customize the toolbar that is displayed below the navigation board.', 'rpbchessboard'); ?>
+	<?php _e('These settings allow to customize the toolbar that is displayed below the navigation board.', 'rpb-chessboard'); ?>
 </p>
 
 

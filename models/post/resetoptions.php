@@ -80,6 +80,6 @@ class RPBChessboardModelPostResetOptions extends RPBChessboardAbstractModel {
 	 * @return string
 	 */
 	private static function resetMessage() {
-		return __('Settings reseted.', 'rpbchessboard');
+		return __('Settings reseted.', 'rpb-chessboard');
 	}
 }

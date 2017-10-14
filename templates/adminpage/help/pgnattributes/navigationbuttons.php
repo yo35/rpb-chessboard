@@ -20,59 +20,59 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-pgnAttributeNavigationButtons"><?php _e('Navigation toolbar', 'rpbchessboard'); ?></h3>
+<h3 id="rpbchessboard-pgnAttributeNavigationButtons"><?php _e('Navigation toolbar', 'rpb-chessboard'); ?></h3>
 
 <div id="rpbchessboard-pgnAttributeNavigationButtons-content" class="rpbchessboard-columns">
 	<div>
 
 		<p>
 			<?php echo sprintf(__('The %1$s attribute controls whether the button that allows to flip the board ' .
-				'is available or not (below the navigation board).', 'rpbchessboard'),
+				'is available or not (below the navigation board).', 'rpb-chessboard'),
 				'<span class="rpbchessboard-sourceCode">show_flip_button</span>'); ?>
 		</p>
 
 		<table class="rpbchessboard-attributeTable">
 			<tbody>
 				<tr>
-					<th><?php _e('Value', 'rpbchessboard'); ?></th>
-					<th><?php _e('Default', 'rpbchessboard'); ?></th>
-					<th><?php _e('Description', 'rpbchessboard'); ?></th>
+					<th><?php _e('Value', 'rpb-chessboard'); ?></th>
+					<th><?php _e('Default', 'rpb-chessboard'); ?></th>
+					<th><?php _e('Description', 'rpb-chessboard'); ?></th>
 				</tr>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributeShowFlipButton-value">false</a></td>
 					<td><?php if(!$model->getDefaultShowFlipButton()): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
-					<td><?php _e('No flip button.', 'rpbchessboard'); ?></td>
+					<td><?php _e('No flip button.', 'rpb-chessboard'); ?></td>
 				</tr>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributeShowFlipButton-value">true</a></td>
 					<td><?php if($model->getDefaultShowFlipButton()): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
-					<td><?php _e('The flip button is visible.', 'rpbchessboard'); ?></td>
+					<td><?php _e('The flip button is visible.', 'rpb-chessboard'); ?></td>
 				</tr>
 			</tbody>
 		</table>
 
 		<p>
 			<?php echo sprintf(__('Similarly, the %1$s attribute affects whether the button that allows to ' .
-				'download the game is available or not.', 'rpbchessboard'),
+				'download the game is available or not.', 'rpb-chessboard'),
 				'<span class="rpbchessboard-sourceCode">show_download_button</span>'); ?>
 		</p>
 
 		<table class="rpbchessboard-attributeTable">
 			<tbody>
 				<tr>
-					<th><?php _e('Value', 'rpbchessboard'); ?></th>
-					<th><?php _e('Default', 'rpbchessboard'); ?></th>
-					<th><?php _e('Description', 'rpbchessboard'); ?></th>
+					<th><?php _e('Value', 'rpb-chessboard'); ?></th>
+					<th><?php _e('Default', 'rpb-chessboard'); ?></th>
+					<th><?php _e('Description', 'rpb-chessboard'); ?></th>
 				</tr>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributeShowDownloadButton-value">false</a></td>
 					<td><?php if(!$model->getDefaultShowDownloadButton()): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
-					<td><?php _e('No download button.', 'rpbchessboard'); ?></td>
+					<td><?php _e('No download button.', 'rpb-chessboard'); ?></td>
 				</tr>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributeShowDownloadButton-value">true</a></td>
 					<td><?php if($model->getDefaultShowDownloadButton()): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
-					<td><?php _e('The download button is visible.', 'rpbchessboard'); ?></td>
+					<td><?php _e('The download button is visible.', 'rpb-chessboard'); ?></td>
 				</tr>
 			</tbody>
 		</table>

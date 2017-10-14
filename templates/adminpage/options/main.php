@@ -29,9 +29,9 @@
 
 		<p class="submit">
 
-			<input type="submit" class="button-primary" value="<?php _e('Save changes', 'rpbchessboard'); ?>" />
-			<a class="button" href="<?php echo htmlspecialchars($model->getFormActionURL()); ?>"><?php _e('Cancel', 'rpbchessboard'); ?></a>
-			<a class="button" id="rpbchessboard-resetButton" href="#"><?php _e('Reset settings', 'rpbchessboard'); ?></a>
+			<input type="submit" class="button-primary" value="<?php _e('Save changes', 'rpb-chessboard'); ?>" />
+			<a class="button" href="<?php echo htmlspecialchars($model->getFormActionURL()); ?>"><?php _e('Cancel', 'rpb-chessboard'); ?></a>
+			<a class="button" id="rpbchessboard-resetButton" href="#"><?php _e('Reset settings', 'rpb-chessboard'); ?></a>
 
 			<script type="text/javascript">
 				jQuery(document).ready(function($) {
@@ -40,7 +40,7 @@
 
 						// Ask for confirmation from the user.
 						var message = <?php
-							echo json_encode(__('This will reset all the settings in this page to their default values. Press OK to confirm...', 'rpbchessboard'));
+							echo json_encode(__('This will reset all the settings in this page to their default values. Press OK to confirm...', 'rpb-chessboard'));
 						?>;
 						if(!confirm(message)) { return; }
 

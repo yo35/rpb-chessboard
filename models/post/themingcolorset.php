@@ -29,15 +29,15 @@ require_once(RPBCHESSBOARD_ABSPATH . 'models/post/theming.php');
 class RPBChessboardModelPostThemingColorset extends RPBChessboardModelPostTheming {
 
 	protected function getCreationSuccessMessage() {
-		return __('Colorset created.', 'rpbchessboard');
+		return __('Colorset created.', 'rpb-chessboard');
 	}
 
 	protected function getEditionSuccessMessage() {
-		return __('Colorset updated.', 'rpbchessboard');
+		return __('Colorset updated.', 'rpb-chessboard');
 	}
 
 	protected function getDeletionSuccessMessage() {
-		return __('Colorset deleted.', 'rpbchessboard');
+		return __('Colorset deleted.', 'rpb-chessboard');
 	}
 
 	protected function getManagedSetCode() {

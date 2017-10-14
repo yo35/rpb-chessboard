@@ -20,34 +20,34 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-fenAttributeSquareSize"><?php _e('Square size', 'rpbchessboard'); ?></h3>
+<h3 id="rpbchessboard-fenAttributeSquareSize"><?php _e('Square size', 'rpb-chessboard'); ?></h3>
 
 <div id="rpbchessboard-fenAttributeSquareSize-content" class="rpbchessboard-columns">
 	<div>
 
 		<p>
-			<?php echo sprintf(__('The %1$s attribute controls the size of the chessboard squares.', 'rpbchessboard'),
+			<?php echo sprintf(__('The %1$s attribute controls the size of the chessboard squares.', 'rpb-chessboard'),
 				'<span class="rpbchessboard-sourceCode">square_size</span>'); ?>
 		</p>
 
 		<table class="rpbchessboard-attributeTable">
 			<tbody>
 				<tr>
-					<th><?php _e('Value', 'rpbchessboard'); ?></th>
-					<th><?php _e('Default', 'rpbchessboard'); ?></th>
-					<th><?php _e('Description', 'rpbchessboard'); ?></th>
+					<th><?php _e('Value', 'rpb-chessboard'); ?></th>
+					<th><?php _e('Default', 'rpb-chessboard'); ?></th>
+					<th><?php _e('Description', 'rpb-chessboard'); ?></th>
 				</tr>
 				<?php foreach($model->getSquareSizeList() as $squareSize): ?>
 					<tr>
 						<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-fenAttributeSquareSize-value"><?php echo htmlspecialchars($squareSize); ?></a></td>
 						<td><?php if($model->getDefaultSquareSize() === $squareSize): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
-						<td><?php echo sprintf(__('The square width is %1$s pixels.', 'rpbchessboard'), htmlspecialchars($squareSize)); ?></td>
+						<td><?php echo sprintf(__('The square width is %1$s pixels.', 'rpb-chessboard'), htmlspecialchars($squareSize)); ?></td>
 					</tr>
 				<?php endforeach; ?>
 				<tr>
-					<td><?php _e('etc...', 'rpbchessboard'); ?></td>
+					<td><?php _e('etc...', 'rpb-chessboard'); ?></td>
 					<td></td>
-					<td><?php echo sprintf(__('Any value between %1$s and %2$s can be used.', 'rpbchessboard'),
+					<td><?php echo sprintf(__('Any value between %1$s and %2$s can be used.', 'rpb-chessboard'),
 						htmlspecialchars($model->getMinimumSquareSize()), htmlspecialchars($model->getMaximumSquareSize())); ?></td>
 				</tr>
 			</tbody>

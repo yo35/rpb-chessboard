@@ -28,11 +28,11 @@
 				'The string between the %1$s[%3$s][/%3$s]%2$s tags describe the position. '.
 				'The used notation follows the standard %4$sFEN format%5$s (Forsyth-Edwards Notation), '.
 				'which is comprehensively described on %4$sWikipedia%5$s.',
-			'rpbchessboard'),
+			'rpb-chessboard'),
 			'<span class="rpbchessboard-sourceCode">',
 			'</span>',
 			htmlspecialchars($model->getFENShortcode()),
-			sprintf('<a href="%1$s" target="_blank">', __('http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation', 'rpbchessboard')),
+			sprintf('<a href="%1$s" target="_blank">', __('http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation', 'rpb-chessboard')),
 			'</a>'
 		); ?>
 	</p>
@@ -43,7 +43,7 @@
 				'A chess diagram editor is appended to the WordPress post/page editor by RPB Chessboard (see the screenshots below). '.
 				'As a consequence, there is no need to manually edit the content of the %1$s[%3$s][/%3$s]%2$s tags '.
 				'to create a chessboard diagram.',
-			'rpbchessboard'),
+			'rpb-chessboard'),
 			'<span class="rpbchessboard-sourceCode">',
 			'</span>',
 			htmlspecialchars($model->getFENShortcode())
