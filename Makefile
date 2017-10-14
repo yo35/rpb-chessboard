@@ -35,7 +35,7 @@ INFO_FILES            = LICENSE examples.pgn
 DEPLOYMENT_FILE = $(PLUGIN_NAME).zip
 
 # Localization
-I18N_TEXT_DOMAIN = rpbchessboard
+I18N_TEXT_DOMAIN = rpb-chessboard
 
 
 # Files by type
