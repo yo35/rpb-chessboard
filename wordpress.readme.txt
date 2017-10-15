@@ -81,7 +81,8 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 == Changelog ==
 
 = 5.1 (October 15, 2017) =
-* Change the text domain to comply with WP.org recommendations.
+* Add keyboard shortcuts on the navigation board (see #48).
+* Add a "Donate" button.
 
 = 5.0.1 (October 14, 2017) =
 * Change the text domain to comply with WP.org recommendations.
