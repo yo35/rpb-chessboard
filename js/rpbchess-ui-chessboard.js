@@ -824,6 +824,7 @@
 		}
 		widget._position.square(move.to, widget._position.square(move.from));
 		widget._position.square(move.from, '-');
+		++widget._animationCounter;
 
 		// Update the DOM elements.
 		clearMoveArrow(widget);
@@ -849,6 +850,7 @@
 			return;
 		}
 		widget._position.play(moveDescriptor);
+		++widget._animationCounter;
 
 		// Move the moving piece to its destination square.
 		clearMoveArrow(widget);
@@ -936,7 +938,12 @@
 	 */
 	function scheduleMoveAnimation(widget, animate, delayFactor, callback) {
 		if(animate) {
-			setTimeout(callback, widget.options.animationSpeed * delayFactor);
+			var currentAnimationCounter = widget._animationCounter;
+			setTimeout(function() {
+				if(widget._animationCounter === currentAnimationCounter) {
+					callback();
+				}
+			}, widget.options.animationSpeed * delayFactor);
 		}
 		else {
 			callback();
@@ -1182,6 +1189,12 @@
 		 * @type {object?} `null` if there is no move arrow.
 		 */
 		_moveArrow: null,
+
+
+		/**
+		 * Counter to validate/invalidate animations.
+		 */
+		_animationCounter: 0,
 
 
 		/**
