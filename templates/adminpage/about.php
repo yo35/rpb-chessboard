@@ -43,16 +43,21 @@
 		<a href="https://github.com/yo35/rpb-chessboard" target="_blank">https://github.com/yo35/rpb-chessboard</a>
 		<?php echo sprintf('(%1$s)', __('source code on GitHub', 'rpb-chessboard')); ?>
 	</p>
-	<p class="description rpbchessboard-clearfix">
-		<?php echo sprintf(
-			__(
-				'If you encounter some bugs with this plugin, or if you wish to get new features in the future versions, '.
-				'you can report/propose them in the %1$sGitHub bug tracker%2$s.',
-			'rpb-chessboard'),
-			'<a href="https://github.com/yo35/rpb-chessboard/issues" target="_blank">',
-			'</a>');
-		?>
-	</p>
+	<div class="description rpbchessboard-clearfix">
+		<a class="button" href="https://github.com/yo35/rpb-chessboard/issues" target="_blank" title="<?php
+			_e('If you need help to use this plugin, if you encounter some bugs, or if you wish to get new features in the future versions, ' .
+				'please feel free to use the GitHub tracker.', 'rpb-chessboard');
+		?>">
+			<img src="<?php echo RPBCHESSBOARD_URL . 'images/help.png'; ?>" /><?php
+				_e('Need help', 'rpb-chessboard'); ?> / <?php _e('Report a bug', 'rpb-chessboard'); ?>
+		</a>
+		<a class="button" href="#" target="_blank" title="<?php
+			_e('This plugin is and will remain free. However, if you want to make a donation to support the author\'s work, ' .
+				'please feel free to use this PayPal donation link.', 'rpb-chessboard');
+		?>">
+			<img src="<?php echo RPBCHESSBOARD_URL . 'images/paypal.png'; ?>" /><?php _e('Donate', 'rpb-chessboard'); ?>
+		</a>
+	</div>
 
 
 	<h3><?php _e('Plugin version', 'rpb-chessboard'); ?></h3>

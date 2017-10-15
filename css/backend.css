@@ -306,6 +306,18 @@ div.rpbchessboard-sourceCode {
 	 */
 }
 
+.rpbchessboard-helpIcon {
+	display: inline-block;
+	width : 20px;
+	height: 20px;
+	background-image: url(../images/help.png);
+	/**
+	 * Source: http://findicons.com/icon/26233/help
+	 * Author: Ruby Software <http://www.rubysoftware.nl/>
+	 * License: Freeware (link required)
+	 */
+}
+
 .rpbchessboard-squareMarkerGreenIcon,
 .rpbchessboard-squareMarkerRedIcon,
 .rpbchessboard-squareMarkerYellowIcon,
@@ -696,6 +708,12 @@ table.rpbchessboard-attributeTable td:nth-child(2) {
 .rpbchessboard-translatorList img {
 	vertical-align: middle;
 	margin-right: 0.25em;
+}
+
+#rpbchessboard-aboutPage .button img {
+	vertical-align: middle;
+	margin-right: 0.4em;
+	margin-bottom: 3px;
 }
 
 
