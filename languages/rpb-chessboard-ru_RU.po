@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-09 12:32+0200\n"
+"POT-Creation-Date: 2017-10-15 16:27+0200\n"
 "PO-Revision-Date: 2016-11-08 11:52+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -696,15 +696,33 @@ msgid "source code on GitHub"
 msgstr "исходный код на GitHub"
 
 #: templates/adminpage/about.php
-#, php-format
+#, fuzzy
 msgid ""
-"If you encounter some bugs with this plugin, or if you wish to get new "
-"features in the future versions, you can report/propose them in the "
-"%1$sGitHub bug tracker%2$s."
+"If you need help to use this plugin, if you encounter some bugs, or if you "
+"wish to get new features in the future versions, please feel free to use the "
+"GitHub tracker."
 msgstr ""
 "Если у вас возникнут некоторые проблемы с этим плагином, или если вы хотите "
 "получить новые функции в будущих версиях, вы можете сообщить/предложить их в "
 "%1$sGitHub багтрекер%2$s."
+
+#: templates/adminpage/about.php
+msgid "Need help"
+msgstr ""
+
+#: templates/adminpage/about.php
+msgid "Report a bug"
+msgstr ""
+
+#: templates/adminpage/about.php
+msgid ""
+"This plugin is and will remain free. However, if you want to make a donation "
+"to support the author's work, you can do it through this PayPal link."
+msgstr ""
+
+#: templates/adminpage/about.php
+msgid "Donate"
+msgstr ""
 
 #: templates/adminpage/about.php
 msgid "Plugin version"
@@ -791,6 +809,13 @@ msgid ""
 msgstr ""
 "Иконка %1$sNot-Found%2$s была создана %3$sgakuseiSean%5$s, свободно "
 "распространяется для некоммерческого использования на %4$sFind Icons%5$s."
+
+#: templates/adminpage/about.php
+#, php-format
+msgid ""
+"Icon %1$sHelp%2$s has been created by %3$sRuby Software%5$s, who shares it "
+"as a freeware on %4$sFind Icons%5$s."
+msgstr ""
 
 #: templates/adminpage/about.php
 msgid ""
