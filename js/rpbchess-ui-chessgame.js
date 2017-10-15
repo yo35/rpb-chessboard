@@ -668,6 +668,12 @@
 		if(widget.options.navigationBoard !== 'none') {
 			makeMovesClickable(widget);
 			makeMovesRelated(widget);
+			$('.rpbui-chessgame-focusField', widget.element).keypress(function(event) {
+				if(event.key === 'Home') { widget.goFirstMove(); }
+				else if(event.key === 'ArrowLeft') { widget.goPreviousMove(); }
+				else if(event.key === 'ArrowRight') { widget.goNextMove(); }
+				else if(event.key === 'End') { widget.goLastMove(); }
+			});
 			if(widget.options.navigationBoard !== 'frame') {
 				makeNavigationBoxWidgets(widget);
 			}
