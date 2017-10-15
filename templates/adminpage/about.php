@@ -53,7 +53,7 @@
 		</a>
 		<a class="button" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YHNERW43QN49E" target="_blank" title="<?php
 			_e('This plugin is and will remain free. However, if you want to make a donation to support the author\'s work, ' .
-				'please feel free to use this PayPal donation link.', 'rpb-chessboard');
+				'you can do it through this PayPal link.', 'rpb-chessboard');
 		?>">
 			<img src="<?php echo RPBCHESSBOARD_URL . 'images/paypal.png'; ?>" /><?php _e('Donate', 'rpb-chessboard'); ?>
 		</a>
