@@ -177,6 +177,16 @@
 			'<a href="http://findicons.com/icon/89623/error" target="_blank">',
 			'</a>');
 		?>
+		<?php
+			echo sprintf(__(
+				'Icon %1$sHelp%2$s has been created by %3$sRuby Software%5$s, who shares it as a freeware on %4$sFind Icons%5$s.',
+			'rpb-chessboard'),
+			'<em>',
+			'</em>',
+			'<a href="http://www.rubysoftware.nl/" target="_blank">',
+			'<a href="http://findicons.com/icon/26233/help" target="_blank">',
+			'</a>');
+		?>
 	</p>
 	<p>
 		<?php _e('The author would like to thank all these people for their highly valuable work.', 'rpb-chessboard'); ?>

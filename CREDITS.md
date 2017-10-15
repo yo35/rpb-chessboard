@@ -40,5 +40,7 @@ Icons *Undo*, *Redo*, *Delete* and *Tick* have been created by [Momentum Design 
 who shares them under the [CC-BY] license on [Find Icons](http://findicons.com/pack/2226/matte_basic).
 Icon *Not-Found* has been created by [gakuseiSean](http://gakuseisean.deviantart.com/),
 who makes it freely available for non-commercial use on [Find Icons](http://findicons.com/icon/89623/error).
+Icon *Help* has been created by [Ruby Software](http://www.rubysoftware.nl/),
+who shares it as a freeware on [Find Icons](http://findicons.com/icon/26233/help).
 
 The author would like to thank all these people for their highly valuable work.
