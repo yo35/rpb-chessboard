@@ -1,5 +1,6 @@
 === RPB Chessboard ===
 Contributors: yo35
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YHNERW43QN49E
 Tags: chess, chessboard, fen, pgn, games
 Requires at least: 3.9
 Tested up to: 4.8

@@ -51,7 +51,7 @@
 			<img src="<?php echo RPBCHESSBOARD_URL . 'images/help.png'; ?>" /><?php
 				_e('Need help', 'rpb-chessboard'); ?> / <?php _e('Report a bug', 'rpb-chessboard'); ?>
 		</a>
-		<a class="button" href="#" target="_blank" title="<?php
+		<a class="button" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YHNERW43QN49E" target="_blank" title="<?php
 			_e('This plugin is and will remain free. However, if you want to make a donation to support the author\'s work, ' .
 				'please feel free to use this PayPal donation link.', 'rpb-chessboard');
 		?>">
