@@ -628,6 +628,9 @@
 		var move0 = buildInitialMove(widget);
 		var body  = buildBody(widget);
 
+		// A hidden field to catch the keyboard events
+		var focusField = '<div class="rpbui-chessgame-focusFieldContainer"><input class="rpbui-chessgame-focusField" type="text" /></div>';
+
 		// Navigation board
 		var prefix = '';
 		var suffix = '';
@@ -656,7 +659,7 @@
 		}
 
 		// Render the content.
-		$(prefix + move0 + headers + body + suffix).appendTo(widget.element);
+		$(prefix + move0 + focusField + headers + body + suffix).appendTo(widget.element);
 
 		// Render the diagrams in comments.
 		makeDiagrams(widget);
@@ -713,7 +716,10 @@
 	 * @param {rpbchess-ui.chessgame} widget
 	 */
 	function makeMovesClickable(widget) {
-		$('.rpbui-chessgame-move', widget.element).click(function() { updateNavigationBoard(widget, $(this), true); });
+		$('.rpbui-chessgame-move', widget.element).click(function() {
+			updateNavigationBoard(widget, $(this), true);
+			widget.focus();
+		});
 	}
 
 
@@ -769,6 +775,7 @@
 		// Navigation buttons
 		initializeNavigationButtons(function(buttonClass) { return $(buttonClass, widget.element); }, function(methodName) {
 			widget[methodName]();
+			widget.focus();
 		});
 
 		// Show the initial position on the navigation board.
@@ -1212,6 +1219,7 @@
 		initializeNavigationButtons(function(buttonClass) { return $('#rpbui-chessgame-navigationFrame ' + buttonClass); }, function callback(methodName) {
 			var gameWidget = $('#rpbui-chessgame-navigationFrameTarget').closest('.rpbui-chessgame');
 			gameWidget.chessgame(methodName);
+			gameWidget.chessgame('focus');
 
 			// Scroll to the selected move.
 			if(/^go/.test(methodName)) {
@@ -1648,6 +1656,13 @@
 				link.attr('href', dynamicURL);
 				link.get(0).click();
 			}
+		},
+
+		/**
+		 * Give the focus to the widget.
+		 */
+		focus: function() {
+			$('.rpbui-chessgame-focusField', this.element).focus();
 		}
 
 	}); /* $.widget('rpbchess-ui.chessgame', { ... }) */

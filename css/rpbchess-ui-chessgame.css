@@ -111,6 +111,16 @@
 	padding-right: 1px;
 }
 
+.rpbui-chessgame-focusFieldContainer {
+	width: 0px;
+	height: 0px;
+	overflow: hidden;
+}
+
+.rpbui-chessgame-focusField {
+	opacity: 0;
+}
+
 .rpbui-chessgame-initialMove,
 .rpbui-chessgame-moveNumber.rpbui-chessgame-hidden {
 	display: none;
