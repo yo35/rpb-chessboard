@@ -80,6 +80,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 5.1.1 (October 15, 2017) =
+* Fix browser-related issue with the keyboard shortcut feature.
+
 = 5.1 (October 15, 2017) =
 * Add keyboard shortcuts on the navigation board (see #48).
 * Add a "Donate" button.
