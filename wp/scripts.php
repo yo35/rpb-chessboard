@@ -56,6 +56,8 @@ abstract class RPBChessboardScripts
 			'rpbchessboard-chessboard',
 			$momentjs,
 			'jquery-ui-widget',
+			'jquery-ui-button',
+			'jquery-ui-selectable',
 			'jquery-color',
 			'jquery-ui-dialog',
 			'jquery-ui-resizable'

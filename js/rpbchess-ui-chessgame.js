@@ -28,6 +28,7 @@
  * @requires Moment.js {@link http://momentjs.com/}
  * @requires jQuery
  * @requires jQuery UI Widget
+ * @requires jQuery UI Button (optional, only if the navigation board feature is enabled)
  * @requires jQuery UI Icons (optional, only if the navigation board feature is enabled)
  * @requires jQuery UI Selectable (optional, only if the navigation board feature is enabled)
  * @requires jQuery Color (optional, only if the navigation board feature is enabled)
