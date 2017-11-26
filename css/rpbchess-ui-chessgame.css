@@ -249,6 +249,21 @@ div.rpbui-chessgame-variation > div:last-child {
 	margin-left: 0.5em;
 }
 
+@media all and (max-width:480px) {
+	.rpbui-chessgame-scrollBox {
+		flex-direction: column;
+		-webkit-flex-direction: column;
+	}
+	.rpbui-chessgame-navigationBox.rpbui-chessgame-scrollLeft {
+		margin-right: 0em;
+		margin-bottom: 0.75em;
+	}
+	.rpbui-chessgame-navigationBox.rpbui-chessgame-scrollRight {
+		margin-left: 0em;
+		margin-top: 0.75em;
+	}
+}
+
 .rpbui-chessgame-scrollArea {
 	overflow-y: auto;
 }
