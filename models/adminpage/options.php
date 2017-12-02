@@ -39,9 +39,9 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 		$this->loadDelegateModel('Common/SmallScreens'    );
 
 		// Create the sub-pages.
-		$this->addSubPage('General'      , __('Default aspect & behavior settings'    , 'rpb-chessboard'), true);
-		$this->addSubPage('Compatibility', __('Compatibility with other chess plugins', 'rpb-chessboard'));
-		$this->addSubPage('SmallScreens' , __('Small-screen devices'                  , 'rpb-chessboard'));
+		$this->addSubPage('General'      , __('Default aspect & behavior settings', 'rpb-chessboard'), true);
+		$this->addSubPage('Compatibility', __('Compatibility settings', 'rpb-chessboard'));
+		$this->addSubPage('SmallScreens' , __('Small-screen devices', 'rpb-chessboard'));
 	}
 
 

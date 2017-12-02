@@ -20,12 +20,14 @@
  ******************************************************************************/
 ?>
 
+<h3><?php _e('Compatibility with other chess plugins', 'rpb-chessboard'); ?></h3>
+
 <p>
 	<?php echo sprintf(
 		__(
 			'By default, the RPB Chessboard plugin use the %1$s[fen][/fen]%2$s and %1$s[pgn][/pgn]%2$s tags '.
 			'for FEN diagrams and PGN games. However, this behavior causes conflicts with other WordPress plugins '.
-			'(typically chess plugins) that use the same tags. The compatibility modes are provided to avoid those conflicts.',
+			'(typically chess plugins) that use the same tags. These compatibility settings are provided to avoid those conflicts.',
 		'rpb-chessboard'),
 		'<span class="rpbchessboard-sourceCode">',
 		'</span>'
