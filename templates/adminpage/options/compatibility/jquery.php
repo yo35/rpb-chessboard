@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<h3><?php _e('Compatibility with plugins/themes that modify jQuery', 'rpb-chessboard'); ?></h3>
+<h3><?php _e('Compatibility with plugins and themes that modify jQuery', 'rpb-chessboard'); ?></h3>
 
 <p>
 	<?php
@@ -52,7 +52,7 @@
 	<?php
 		_e(
 			'Enable this option if the navigation bar does not appear below the navigation board, ' .
-			'or if the closing button of the navigation frame appears to be weirdly placed.',
+			'or if the closing button of the popup frame appears to be weirdly placed.',
 		'rpb-chessboard'
 	); ?>
 </p>
