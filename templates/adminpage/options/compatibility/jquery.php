@@ -20,8 +20,39 @@
  ******************************************************************************/
 ?>
 
-<h3><?php echo sprintf(__('%1$s mode for jQuery', 'rpb-chessboard'), '<span class="rpbchessboard-sourceCode">noConflict</span>'); ?></h3>
+<h3><?php _e('Compatibility with plugins/themes that modify jQuery', 'rpb-chessboard'); ?></h3>
 
 <p>
-	TODO
+	<?php
+		echo sprintf(__(
+			'The RPB Chessboard plugin relies heavily on the %1$sjQuery%2$s JavaScript library, ' .
+			'which is packaged by default with WordPress. Yet, some plugins and themes modify ' .
+			'the standard behavior of jQuery for their own needs, thus creating a conflict ' .
+			'with RPB Chessboard. These settings aim at providing a workaround to deal with ' .
+			'these conflicts.',
+		'rpb-chessboard'),
+		'<a href="https://jquery.com/">',
+		'</a>'
+	); ?>
+</p>
+
+
+
+<p>
+	<input type="hidden" name="noConflictForButton" value="0" />
+	<input type="checkbox" id="rpbchessboard-noConflictForButtonField" name="noConflictForButton" value="1"
+		<?php if($model->getNoConflictForButton()): ?>checked="yes"<?php endif; ?>
+	/>
+	<label for="rpbchessboard-noConflictForButtonField">
+		<?php _e('Try to fix jQuery\'s buttons', 'rpb-chessboard'); ?>
+	</label>
+</p>
+
+<p class="description">
+	<?php
+		_e(
+			'Enable this option if the navigation bar does not appear below the navigation board, ' .
+			'or if the closing button of the navigation frame appears to be weirdly placed.',
+		'rpb-chessboard'
+	); ?>
 </p>

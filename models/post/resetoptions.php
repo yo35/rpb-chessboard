@@ -57,6 +57,7 @@ class RPBChessboardModelPostResetOptions extends RPBChessboardAbstractModel {
 	public function resetCompatibility() {
 		delete_option('rpbchessboard_fenCompatibilityMode');
 		delete_option('rpbchessboard_pgnCompatibilityMode');
+		delete_option('rpbchessboard_noConflictForButton');
 		return self::resetMessage();
 	}
 
