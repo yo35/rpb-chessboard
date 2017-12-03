@@ -80,6 +80,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 5.1.4 (December 3, 2017) =
+* Add the "Fix jQuery's buttons" option as a workaround for conflicts with Bootstrap-based plugins and themes.
+
 = 5.1.3 (November 26, 2017) =
 * Tested up to WordPress 4.9.
 * Fix scrollLeft/scrollRight rendering on small-screen devices (see #101).
