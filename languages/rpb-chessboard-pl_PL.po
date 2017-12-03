@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-15 16:27+0200\n"
+"POT-Creation-Date: 2017-12-03 18:07+0100\n"
 "PO-Revision-Date: 2014-07-15 13:03+0100\n"
 "Last-Translator: Dawid Ziółkowski <kontakt -at- dawidziolkowski.pl>\n"
 "Language-Team: Dawid Ziółkowski <mr -at- dawidziolkowski.com>\n"
@@ -37,8 +37,8 @@ msgid "Default aspect & behavior settings"
 msgstr "Domyślne ustawienia"
 
 #: models/adminpage/options.php
-msgid "Compatibility with other chess plugins"
-msgstr "Kompatybilność z innymi wtyczkami szachowymi"
+msgid "Compatibility settings"
+msgstr ""
 
 #: models/adminpage/options.php
 msgid "Small-screen devices"
@@ -426,6 +426,80 @@ msgstr ""
 "admnistracyjnym należy zawsze używać oryginalnego zapisu w formacie PGN, "
 "czyli z wykorzystaniem angielskich oznaczeń figur."
 
+#: templates/adminpage/options/compatibility/chessplugins.php
+msgid "Compatibility with other chess plugins"
+msgstr "Kompatybilność z innymi wtyczkami szachowymi"
+
+#: templates/adminpage/options/compatibility/chessplugins.php
+#, fuzzy, php-format
+msgid ""
+"By default, the RPB Chessboard plugin use the %1$s[fen][/fen]%2$s and "
+"%1$s[pgn][/pgn]%2$s tags for FEN diagrams and PGN games. However, this "
+"behavior causes conflicts with other WordPress plugins (typically chess "
+"plugins) that use the same tags. These compatibility settings are provided "
+"to avoid those conflicts."
+msgstr ""
+"Domyślnie wtyczka RPB Chessboard używa tagów 1$s[fen][/fen]%2$s i %1$s[pgn][/"
+"pgn]%2$s dla diagramów zapisanych w formacie FEN i partii szachowych "
+"zapisanych w formacie PGN. Może to jednak powodować konflikty z innymi "
+"wtyczkami (przede wszystkim szachowymi), które też używają tych tagów. Tryb "
+"kompatybilności zapobiegnie tym konfliktom."
+
+#: templates/adminpage/options/compatibility/chessplugins.php
+msgid "Compatibility mode for the FEN diagram tag"
+msgstr "Tryb kompatybilności z tagiem diagramu FEN"
+
+#: templates/adminpage/options/compatibility/chessplugins.php
+#, php-format
+msgid ""
+"Activating this option makes RPB Chessboard use %1$s[fen_compat][/"
+"fen_compat]%2$s instead of %1$s[fen][/fen]%2$s for FEN diagrams."
+msgstr ""
+"Aktywacja tej opcji umożliwi wtyczce RPB Chessboard używanie tagów "
+"%1$s[fen_compat][/fen_compat]%2$s zamiast %1$s[fen][/fen]%2$s przy "
+"wstawianiu diagramów w formacie FEN. Dzięki temu uniknie się konfliktów z "
+"innymi wtyczkami szachowymi korzystający z tagu [fen]."
+
+#: templates/adminpage/options/compatibility/chessplugins.php
+msgid "Compatibility mode for the PGN game tag"
+msgstr "Tryb kompatybilności z tagiem zapisu partii szachowej PGN"
+
+#: templates/adminpage/options/compatibility/chessplugins.php
+#, php-format
+msgid ""
+"Activating this option makes RPB Chessboard use %1$s[pgn_compat][/"
+"pgn_compat]%2$s instead of %1$s[pgn][/pgn]%2$s for PGN games."
+msgstr ""
+"Aktywacja tej opcji umożliwi wtyczce RPB Chessboard używanie tagów "
+"%1$s[pgn_compat][/pgn_compat]%2$s zamiast %1$s[pgn][/pgn]%2$s przy "
+"wstawianiu zapisu partii szachowej w formacie PGN. Dzięki temu uniknie się "
+"konfliktów z innymi wtyczkami szachowymi korzystający z tagu [pgn]."
+
+#: templates/adminpage/options/compatibility/jquery.php
+msgid "Compatibility with plugins and themes that modify jQuery"
+msgstr ""
+
+#: templates/adminpage/options/compatibility/jquery.php
+#, php-format
+msgid ""
+"The RPB Chessboard plugin relies heavily on the %1$sjQuery%2$s JavaScript "
+"library, which is packaged by default with WordPress. Yet, some plugins and "
+"themes modify the standard behavior of jQuery for their own needs, thus "
+"creating a conflict with RPB Chessboard. These settings aim at providing a "
+"workaround to deal with these conflicts."
+msgstr ""
+
+#: templates/adminpage/options/compatibility/jquery.php
+msgid "Try to fix jQuery's buttons"
+msgstr ""
+
+#: templates/adminpage/options/compatibility/jquery.php
+msgid ""
+"Enable this option if the navigation bar does not appear below the "
+"navigation board, or if the closing button of the popup frame appears to be "
+"weirdly placed."
+msgstr ""
+
 #: templates/adminpage/options/smallscreens.php
 msgid "Enable support for small-screen devices"
 msgstr ""
@@ -509,51 +583,6 @@ msgid ""
 "This will reset all the settings in this page to their default values. Press "
 "OK to confirm..."
 msgstr ""
-
-#: templates/adminpage/options/compatibility.php
-#, php-format
-msgid ""
-"By default, the RPB Chessboard plugin use the %1$s[fen][/fen]%2$s and "
-"%1$s[pgn][/pgn]%2$s tags for FEN diagrams and PGN games. However, this "
-"behavior causes conflicts with other WordPress plugins (typically chess "
-"plugins) that use the same tags. The compatibility modes are provided to "
-"avoid those conflicts."
-msgstr ""
-"Domyślnie wtyczka RPB Chessboard używa tagów 1$s[fen][/fen]%2$s i %1$s[pgn][/"
-"pgn]%2$s dla diagramów zapisanych w formacie FEN i partii szachowych "
-"zapisanych w formacie PGN. Może to jednak powodować konflikty z innymi "
-"wtyczkami (przede wszystkim szachowymi), które też używają tych tagów. Tryb "
-"kompatybilności zapobiegnie tym konfliktom."
-
-#: templates/adminpage/options/compatibility.php
-msgid "Compatibility mode for the FEN diagram tag"
-msgstr "Tryb kompatybilności z tagiem diagramu FEN"
-
-#: templates/adminpage/options/compatibility.php
-#, php-format
-msgid ""
-"Activating this option makes RPB Chessboard use %1$s[fen_compat][/"
-"fen_compat]%2$s instead of %1$s[fen][/fen]%2$s for FEN diagrams."
-msgstr ""
-"Aktywacja tej opcji umożliwi wtyczce RPB Chessboard używanie tagów "
-"%1$s[fen_compat][/fen_compat]%2$s zamiast %1$s[fen][/fen]%2$s przy "
-"wstawianiu diagramów w formacie FEN. Dzięki temu uniknie się konfliktów z "
-"innymi wtyczkami szachowymi korzystający z tagu [fen]."
-
-#: templates/adminpage/options/compatibility.php
-msgid "Compatibility mode for the PGN game tag"
-msgstr "Tryb kompatybilności z tagiem zapisu partii szachowej PGN"
-
-#: templates/adminpage/options/compatibility.php
-#, php-format
-msgid ""
-"Activating this option makes RPB Chessboard use %1$s[pgn_compat][/"
-"pgn_compat]%2$s instead of %1$s[pgn][/pgn]%2$s for PGN games."
-msgstr ""
-"Aktywacja tej opcji umożliwi wtyczce RPB Chessboard używanie tagów "
-"%1$s[pgn_compat][/pgn_compat]%2$s zamiast %1$s[pgn][/pgn]%2$s przy "
-"wstawianiu zapisu partii szachowej w formacie PGN. Dzięki temu uniknie się "
-"konfliktów z innymi wtyczkami szachowymi korzystający z tagu [pgn]."
 
 #: templates/adminpage/theming/piecesetedition.php
 msgid "New pieceset"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-15 16:27+0200\n"
+"POT-Creation-Date: 2017-12-03 18:07+0100\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35 -at- melix.net>\n"
 "Language-Team: French\n"
@@ -34,8 +34,8 @@ msgid "Default aspect & behavior settings"
 msgstr "Apparence et comportement par défaut"
 
 #: models/adminpage/options.php
-msgid "Compatibility with other chess plugins"
-msgstr "Compatibilité avec les autres plugins d'échecs"
+msgid "Compatibility settings"
+msgstr "Paramètres de compatibilité"
 
 #: models/adminpage/options.php
 msgid "Small-screen devices"
@@ -353,7 +353,7 @@ msgstr "Pas d'échiquier de navigation"
 
 #: templates/adminpage/options/general/navigationboard.php
 msgid "In a popup frame"
-msgstr "Dans un <em>popup</em>"
+msgstr "Dans un popup"
 
 #: templates/adminpage/options/general/navigationboard.php
 msgid "Above the game headers and the move list"
@@ -441,6 +441,86 @@ msgstr ""
 "Ce paramètre n'affecte que la façon dont les coups sont affichés aux "
 "lecteurs du blog. Les auteurs doivent toujours utiliser les initiales "
 "anglaises lorsqu'ils écrivent des données PGN dans leurs articles et pages."
+
+#: templates/adminpage/options/compatibility/chessplugins.php
+msgid "Compatibility with other chess plugins"
+msgstr "Compatibilité avec les autres plugins d'échecs"
+
+#: templates/adminpage/options/compatibility/chessplugins.php
+#, php-format
+msgid ""
+"By default, the RPB Chessboard plugin use the %1$s[fen][/fen]%2$s and "
+"%1$s[pgn][/pgn]%2$s tags for FEN diagrams and PGN games. However, this "
+"behavior causes conflicts with other WordPress plugins (typically chess "
+"plugins) that use the same tags. These compatibility settings are provided "
+"to avoid those conflicts."
+msgstr ""
+"Par défaut, le plugin RPB Chessboard utilise les balises %1$s[fen][/fen]%2$s "
+"et %1$s[pgn][/pgn]%2$s pour les diagrammes FEN et les parties PGN. "
+"Cependant, ce comportement entraîne des conflits avec les autres plugins "
+"WordPress utilisant ces mêmes balises (typiquement d'autres plugins "
+"d'échecs). Les paramètres de compatibilité ci-dessous permettent d'éviter ces "
+"conflits."
+
+#: templates/adminpage/options/compatibility/chessplugins.php
+msgid "Compatibility mode for the FEN diagram tag"
+msgstr "Mode de compatibilité pour la balise de diagramme FEN"
+
+#: templates/adminpage/options/compatibility/chessplugins.php
+#, php-format
+msgid ""
+"Activating this option makes RPB Chessboard use %1$s[fen_compat][/"
+"fen_compat]%2$s instead of %1$s[fen][/fen]%2$s for FEN diagrams."
+msgstr ""
+"Activer cette option force RPB Chessboard à utiliser %1$s[fen_compat][/"
+"fen_compat]%2$s au lieu de %1$s[fen][/fen]%2$s pour les diagrammes FEN."
+
+#: templates/adminpage/options/compatibility/chessplugins.php
+msgid "Compatibility mode for the PGN game tag"
+msgstr "Mode de compatibilité pour la balise de partie PGN"
+
+#: templates/adminpage/options/compatibility/chessplugins.php
+#, php-format
+msgid ""
+"Activating this option makes RPB Chessboard use %1$s[pgn_compat][/"
+"pgn_compat]%2$s instead of %1$s[pgn][/pgn]%2$s for PGN games."
+msgstr ""
+"Activer cette option force RPB Chessboard à utiliser %1$s[pgn_compat][/"
+"pgn_compat]%2$s au lieu de %1$s[pgn][/pgn]%2$s pour les parties PGN."
+
+#: templates/adminpage/options/compatibility/jquery.php
+msgid "Compatibility with plugins and themes that modify jQuery"
+msgstr "Compatibilité avec les plugins et thèmes qui modifient jQuery"
+
+#: templates/adminpage/options/compatibility/jquery.php
+#, php-format
+msgid ""
+"The RPB Chessboard plugin relies heavily on the %1$sjQuery%2$s JavaScript "
+"library, which is packaged by default with WordPress. Yet, some plugins and "
+"themes modify the standard behavior of jQuery for their own needs, thus "
+"creating a conflict with RPB Chessboard. These settings aim at providing a "
+"workaround to deal with these conflicts."
+msgstr ""
+"Le plugin RPB Chessboard utilise de façon importante la bibliothèque "
+"JavaScript %1$sjQuery%2$s, qui est fournie par défaut avec WordPress. Or, il "
+"s'avère que certains plugins et thèmes modifient le comportement standard de "
+"jQuery pour leurs propres besoins, créant ainsi un conflit avec RPB "
+"Chessboard. Le but des paramètres ci-dessous est d'activer des stratégies de "
+"contournement pour gérer ces conflits."
+
+#: templates/adminpage/options/compatibility/jquery.php
+msgid "Try to fix jQuery's buttons"
+msgstr "Réparation des boutons jQuery"
+
+#: templates/adminpage/options/compatibility/jquery.php
+msgid ""
+"Enable this option if the navigation bar does not appear below the "
+"navigation board, or if the closing button of the popup frame appears to be "
+"weirdly placed."
+msgstr ""
+"Activez cette option si la barre de navigation n'apparait pas en dessous de "
+"l'échiquier de navigation, ou bien si le bouton de fermeture du <em>popup</"
+"em> semble être bizarrement placé."
 
 #: templates/adminpage/options/smallscreens.php
 msgid "Enable support for small-screen devices"
@@ -547,47 +627,6 @@ msgid ""
 msgstr ""
 "Toutes les paramètres définis dans cette page vont être ré-initialisés à "
 "leurs valeurs par défaut. Cliquer sur OK pour confirmer..."
-
-#: templates/adminpage/options/compatibility.php
-#, php-format
-msgid ""
-"By default, the RPB Chessboard plugin use the %1$s[fen][/fen]%2$s and "
-"%1$s[pgn][/pgn]%2$s tags for FEN diagrams and PGN games. However, this "
-"behavior causes conflicts with other WordPress plugins (typically chess "
-"plugins) that use the same tags. The compatibility modes are provided to "
-"avoid those conflicts."
-msgstr ""
-"Par défaut, le plugin RPB Chessboard utilise les balises %1$s[fen][/fen]%2$s "
-"et %1$s[pgn][/pgn]%2$s pour les diagrammes FEN et les parties PGN. "
-"Cependant, ce comportement entraîne des conflits avec les autres plugins "
-"WordPress utilisant ces mêmes balises (typiquement d'autres plugins "
-"d'échecs). Les modes de compatibilité permettent d'éviter ces conflits."
-
-#: templates/adminpage/options/compatibility.php
-msgid "Compatibility mode for the FEN diagram tag"
-msgstr "Mode de compatibilité pour la balise de diagramme FEN"
-
-#: templates/adminpage/options/compatibility.php
-#, php-format
-msgid ""
-"Activating this option makes RPB Chessboard use %1$s[fen_compat][/"
-"fen_compat]%2$s instead of %1$s[fen][/fen]%2$s for FEN diagrams."
-msgstr ""
-"Activer cette option force RPB Chessboard à utiliser %1$s[fen_compat][/"
-"fen_compat]%2$s au lieu de %1$s[fen][/fen]%2$s pour les diagrammes FEN."
-
-#: templates/adminpage/options/compatibility.php
-msgid "Compatibility mode for the PGN game tag"
-msgstr "Mode de compatibilité pour la balise de partie PGN"
-
-#: templates/adminpage/options/compatibility.php
-#, php-format
-msgid ""
-"Activating this option makes RPB Chessboard use %1$s[pgn_compat][/"
-"pgn_compat]%2$s instead of %1$s[pgn][/pgn]%2$s for PGN games."
-msgstr ""
-"Activer cette option force RPB Chessboard à utiliser %1$s[pgn_compat][/"
-"pgn_compat]%2$s au lieu de %1$s[pgn][/pgn]%2$s pour les parties PGN."
 
 #: templates/adminpage/theming/piecesetedition.php
 msgid "New pieceset"
@@ -729,7 +768,8 @@ msgid ""
 "to support the author's work, you can do it through this PayPal link."
 msgstr ""
 "Ce plugin est et restera gratuit. Cependant, si vous souhaitez faire un don "
-"pour soutenir le travail de l'auteur, vous pouvez le faire via ce lien PayPal."
+"pour soutenir le travail de l'auteur, vous pouvez le faire via ce lien "
+"PayPal."
 
 #: templates/adminpage/about.php
 msgid "Donate"
@@ -829,8 +869,8 @@ msgid ""
 "Icon %1$sHelp%2$s has been created by %3$sRuby Software%5$s, who shares it "
 "as a freeware on %4$sFind Icons%5$s."
 msgstr ""
-"L'icône %1$sHelp%2$s a été crée par %3$sRuby Software%5$s, qui la partage "
-"en tant que freeware sur %4$sFind Icons%5$s."
+"L'icône %1$sHelp%2$s a été crée par %3$sRuby Software%5$s, qui la partage en "
+"tant que freeware sur %4$sFind Icons%5$s."
 
 #: templates/adminpage/about.php
 msgid ""
