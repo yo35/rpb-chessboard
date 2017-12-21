@@ -19,7 +19,7 @@ RPB Chessboard allows you to typeset and display chess games and diagrams in the
 = Links =
 
 * [Ask for help or report a problem](https://github.com/yo35/rpb-chessboard/issues)
-* [Live demo](http://rpb-chessboard.yo35.org/)
+* [Live demo](https://rpb-chessboard.yo35.org/)
 * [Source code (GitHub repository)](https://github.com/yo35/rpb-chessboard)
 
 = Features =
