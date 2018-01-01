@@ -153,11 +153,13 @@ class RPBChessboardModelCommonSmallScreens extends RPBChessboardAbstractModel
 	 */
 	public function getBackgroundPositionXForSquareSize($squareSize) {
 		if($squareSize <= 32) {
-			$squareSize = 65 - $squareSize;
+			// delta_x = - sum (k = $squareSize + 1 to 32) { k }
+			return - ($squareSize + 33)*(32 - $squareSize)/2;
 		}
-
-		// delta_x = - sum (k = 33 to $squareSize - 1) { k }
-		return 528 - $squareSize*($squareSize - 1)/2;
+		else {
+			// delta_x = - sum (k = 33 to $squareSize - 1) { k }
+			return - ($squareSize + 32)*($squareSize - 33)/2;
+		}
 	}
 
 
