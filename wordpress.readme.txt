@@ -80,6 +80,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 5.1.5 (January 1, 2018) =
+* Fix several issues affecting mobile devices (see #101, #104 and #105).
+
 = 5.1.4 (December 3, 2017) =
 * Add the "Fix jQuery's buttons" option as a workaround for conflicts with Bootstrap-based plugins and themes.
 
