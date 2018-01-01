@@ -1,5 +1,5 @@
 # French translations for RPB Chessboard package.
-# Copyright (C) 2013-2017  Yoann Le Montagner <yo35 -at- melix.net>
+# Copyright (C) 2013-2018  Yoann Le Montagner <yo35 -at- melix.net>
 # This file is distributed under the same license as the RPB Chessboard package.
 #
 msgid ""
