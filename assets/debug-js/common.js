@@ -54,8 +54,8 @@ var registeredTests = [];
  * @param {function} constructor
  * @param {function} formatter
  */
-function registerException(constructor, formatter) {
-	registeredExceptions.push({ constructor:constructor, formatter:formatter });
+function registerException( constructor, formatter ) {
+	registeredExceptions.push({ constructor: constructor, formatter: formatter });
 }
 
 
@@ -65,8 +65,8 @@ function registerException(constructor, formatter) {
  * @param {string} id
  * @param {function} unitTest
  */
-function registerTest(id, unitTest) {
-	registeredTests.push({ id:id, unitTest:unitTest });
+function registerTest( id, unitTest ) {
+	registeredTests.push({ id: id, unitTest: unitTest });
 }
 
 
@@ -77,16 +77,16 @@ function registerTest(id, unitTest) {
  * @param {object[]} scenarios
  * @param {function} genericUnitTest
  */
-function registerTests(id, scenarios, genericUnitTest) {
+function registerTests( id, scenarios, genericUnitTest ) {
 
-	function makeUnitTest(scenario) {
+	function makeUnitTest( scenario ) {
 		return function() {
-			genericUnitTest(scenario);
+			genericUnitTest( scenario );
 		};
 	}
 
-	for(var i=0; i<scenarios.length; ++i) {
-		registerTest(id + '.<scenario-' + i + '>', makeUnitTest(scenarios[i]));
+	for ( var i = 0; i < scenarios.length; ++i ) {
+		registerTest( id + '.<scenario-' + i + '>', makeUnitTest( scenarios[i] ) );
 	}
 }
 
@@ -94,27 +94,26 @@ function registerTests(id, scenarios, genericUnitTest) {
 /**
  * Refresh the global counters.
  */
-function refreshCounters(isFinished) {
+function refreshCounters( isFinished ) {
 
 	// State
-	var div0 = document.getElementById('testState');
+	var div0 = document.getElementById( 'testState' );
 	div0.innerHTML = '';
-	div0.appendChild(document.createTextNode(isFinished ? 'Done.' : 'Working...'));
+	div0.appendChild( document.createTextNode( isFinished ? 'Done.' : 'Working...' ) );
 
 	// Total number of tests
-	var div1 = document.getElementById('testCounter');
+	var div1 = document.getElementById( 'testCounter' );
 	div1.innerHTML = '';
-	div1.appendChild(document.createTextNode(testCounter + ' tests performed.'));
+	div1.appendChild( document.createTextNode( testCounter + ' tests performed.' ) );
 
 	// Number of successes/failures
-	var div2 = document.getElementById('successCounter');
+	var div2 = document.getElementById( 'successCounter' );
 	div2.innerHTML = '';
-	if(testCounter===successCounter) {
-		div2.appendChild(document.createTextNode('All tests were successful.'));
+	if ( testCounter === successCounter ) {
+		div2.appendChild( document.createTextNode( 'All tests were successful.' ) );
 		div2.className = 'allSuccessful';
-	}
-	else {
-		div2.appendChild(document.createTextNode((testCounter-successCounter) + ' tests failed.'));
+	} else {
+		div2.appendChild( document.createTextNode( ( testCounter - successCounter ) + ' tests failed.' ) );
 		div2.className = 'someFailure';
 	}
 }
@@ -126,11 +125,11 @@ function refreshCounters(isFinished) {
  * @param {boolean} success
  * @param {string} message
  */
-function printMessage(success, message) {
-	var div = document.createElement('div');
-	div.className = 'message ' + (success ? 'success' : 'failure');
-	div.appendChild(document.createTextNode(message));
-	document.getElementById('report').appendChild(div);
+function printMessage( success, message ) {
+	var div = document.createElement( 'div' );
+	div.className = 'message ' + ( success ? 'success' : 'failure' );
+	div.appendChild( document.createTextNode( message ) );
+	document.getElementById( 'report' ).appendChild( div );
 }
 
 
@@ -139,8 +138,8 @@ function printMessage(success, message) {
  *
  * @param {string} label
  */
-function printSuccess(label) {
-	printMessage(true, label);
+function printSuccess( label ) {
+	printMessage( true, label );
 }
 
 
@@ -151,15 +150,14 @@ function printSuccess(label) {
  * @param {mixed} observedValue
  * @param {mixed} expectedValue
  */
-function printBadValue(label, observedValue, expectedValue) {
+function printBadValue( label, observedValue, expectedValue ) {
 	var message = label + ' => observed >>' + observedValue + '<<';
-	if(typeof expectedValue === 'undefined') {
+	if ( 'undefined' === typeof expectedValue ) {
 		message += ' while error expected';
-	}
-	else {
+	} else {
 		message += ' while expected >>' + expectedValue + '<<';
 	}
-	printMessage(false, message);
+	printMessage( false, message );
 }
 
 
@@ -169,27 +167,27 @@ function printBadValue(label, observedValue, expectedValue) {
  * @param {string} label
  * @param {mixed} exception
  */
-function printException(label, exception) {
+function printException( label, exception ) {
 	var message = label + ' => ';
 	var isRegisteredException = false;
 
 	// Try to match the exception with the registered types
-	for(var i=0; i<registeredExceptions.length; ++i) {
+	for ( var i = 0; i < registeredExceptions.length; ++i ) {
 		var re = registeredExceptions[i];
-		if(exception instanceof re.constructor) {
-			message += re.formatter(exception);
+		if ( exception instanceof re.constructor ) {
+			message += re.formatter( exception );
 			isRegisteredException = true;
 			break;
 		}
 	}
 
 	// Fallback case if the exception do not match the registered types
-	if(!isRegisteredException) {
+	if ( ! isRegisteredException ) {
 		message += 'unknown exception => ' + exception;
 	}
 
 	// Reporting
-	printMessage(false, message);
+	printMessage( false, message );
 }
 
 
@@ -200,20 +198,18 @@ function printException(label, exception) {
  * @param {function} fun
  * @param {mixed} expectedValue
  */
-function test(label, fun, expectedValue) {
+function test( label, fun, expectedValue ) {
 	try {
 		++testCounter;
 		var observedValue = fun();
-		if(observedValue === expectedValue) {
+		if ( observedValue === expectedValue ) {
 			++successCounter;
-			printSuccess(label);
+			printSuccess( label );
+		} else {
+			printBadValue( label, observedValue, expectedValue );
 		}
-		else {
-			printBadValue(label, observedValue, expectedValue);
-		}
-	}
-	catch(exception) {
-		printException(label, exception);
+	} catch ( exception ) {
+		printException( label, exception );
 	}
 }
 
@@ -225,19 +221,17 @@ function test(label, fun, expectedValue) {
  * @param {function} fun
  * @param {function} checkException
  */
-function testError(label, fun, checkException) {
+function testError( label, fun, checkException ) {
 	try {
 		++testCounter;
 		var observedValue = fun();
-		printBadValue(label, observedValue);
-	}
-	catch(exception) {
-		if(checkException(exception)) {
+		printBadValue( label, observedValue );
+	} catch ( exception ) {
+		if ( checkException( exception ) ) {
 			++successCounter;
-			printSuccess(label);
-		}
-		else {
-			printException(label, exception);
+			printSuccess( label );
+		} else {
+			printException( label, exception );
 		}
 	}
 }
@@ -248,47 +242,46 @@ function testError(label, fun, checkException) {
  *
  * @param {string} [pattern='*']
  */
-function playTests(pattern) {
-	if(typeof pattern === 'undefined') {
+function playTests( pattern ) {
+	if ( 'undefined' === typeof pattern ) {
 		pattern = '*';
 	}
 
 	// Match the test ID against the test selection pattern.
-	pattern = pattern.split('.');
-	function match(id) {
-		id = id.split('.');
-		for(var i=0; i<pattern.length; ++i) {
-			if(pattern[i] === '*') {
+	pattern = pattern.split( '.' );
+	function match( id ) {
+		id = id.split( '.' );
+		for ( var i = 0; i < pattern.length; ++i ) {
+			if ( '*' === pattern[i] ) {
 				return true;
-			}
-			else if(i>=id.length || pattern[i]!==id[i]) {
+			} else if ( i >= id.length || pattern[i] !== id[i] ) {
 				return false;
 			}
 		}
-		return pattern.length===id.length;
+		return pattern.length === id.length;
 	}
 
 	// Return the callback to use to play the given test.
-	function doPlayTest(index, unitTest) {
+	function doPlayTest( index, unitTest ) {
 		return function() {
-			refreshCounters(false);
+			refreshCounters( false );
 			unitTest();
-			playNextTest(index+1);
+			playNextTest( index + 1 );
 		};
 	}
 
 	// Schedule the next test.
-	function playNextTest(index) {
-		while(index < registeredTests.length) {
-			if(match(registeredTests[index].id)) {
-				setTimeout(doPlayTest(index, registeredTests[index].unitTest), 0);
+	function playNextTest( index ) {
+		while ( index < registeredTests.length ) {
+			if ( match( registeredTests[index].id ) ) {
+				setTimeout( doPlayTest( index, registeredTests[index].unitTest ), 0 );
 				return;
 			}
 			++index;
 		}
-		refreshCounters(true);
+		refreshCounters( true );
 	}
 
 	// Queue all the tests.
-	playNextTest(0);
+	playNextTest( 0 );
 }

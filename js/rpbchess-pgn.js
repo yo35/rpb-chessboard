@@ -24,8 +24,7 @@
  *
  * @requires rpbchess-core.js
  */
-(function(RPBChess)
-{
+( function( RPBChess ) {
 	'use strict';
 
 
@@ -50,7 +49,6 @@
 	i18n.INVALID_GAME_INDEX              = 'Game index %1$s is invalid (%2$s game(s) found in the PGN data).';
 
 
-
 	// ---------------------------------------------------------------------------
 	// Exceptions
 	// ---------------------------------------------------------------------------
@@ -68,16 +66,15 @@
 	 * @param {string} message Human-readable error message.
 	 * @param ...
 	 */
-	function InvalidPGN(pgn, index, message) {
+	function InvalidPGN( pgn, index, message ) {
 		this.pgn     = pgn    ;
 		this.index   = index  ;
 		this.message = message;
-		for(var i=3; i<arguments.length; ++i) {
-			var re = new RegExp('%' + (i-2) + '\\$s');
-			this.message = this.message.replace(re, arguments[i]);
+		for ( var i = 3; i < arguments.length; ++i ) {
+			var re = new RegExp( '%' + ( i - 2 ) + '\\$s' );
+			this.message = this.message.replace( re, arguments[i] );
 		}
 	}
-
 
 
 	// ---------------------------------------------------------------------------
@@ -96,36 +93,34 @@
 	 * @param {string} move Move notation.
 	 * @throws {InvalidNotation} If the move notation cannot be parsed.
 	 */
-	function Node(parent, move) {
+	function Node( parent, move ) {
 
 		this._parent = parent; // Either a `Node` or a `Variation` object.
 		this._next   = null  ; // Next node (always a `Node` object if defined).
-		this._position = new RPBChess.Position(parent.position());
+		this._position = new RPBChess.Position( parent.position() );
 
 		// Null move.
-		if(move === '--') {
+		if ( '--' === move ) {
 			this._notation = '--';
-			if(!this._position.playNullMove()) {
-				throw new RPBChess.exceptions.InvalidNotation(this._position, '--', i18n.INVALID_NULL_MOVE_IN_PGN_TEXT);
+			if ( ! this._position.playNullMove() ) {
+				throw new RPBChess.exceptions.InvalidNotation( this._position, '--', i18n.INVALID_NULL_MOVE_IN_PGN_TEXT );
 			}
-		}
 
 		// Regular move.
-		else {
-			var moveDescriptor = this._position.notation(move);
-			this._notation = this._position.notation(moveDescriptor);
-			this._position.play(moveDescriptor);
+		} else {
+			var moveDescriptor = this._position.notation( move );
+			this._notation = this._position.notation( moveDescriptor );
+			this._position.play( moveDescriptor );
 		}
 
 		// Moving color
 		this._movingColor = parent.position().turn();
 
 		// Full-move number
-		if(parent instanceof Variation) {
+		if ( parent instanceof Variation ) {
 			this._fullMoveNumber = parent._parent._fullMoveNumber;
-		}
-		else {
-			this._fullMoveNumber = this._movingColor==='w' ? parent._fullMoveNumber+1 : parent._fullMoveNumber;
+		} else {
+			this._fullMoveNumber = 'w' === this._movingColor ? parent._fullMoveNumber + 1 : parent._fullMoveNumber;
 		}
 
 		// Whether the node belongs or not to a "long-variation".
@@ -143,10 +138,9 @@
 		this._isLongComment = false;
 
 		// Connect to parent.
-		if(parent instanceof Variation) {
+		if ( parent instanceof Variation ) {
 			parent._first = this;
-		}
-		else {
+		} else {
 			parent._next = this;
 		}
 	}
@@ -239,9 +233,9 @@
 	 */
 	Node.prototype.tags = function() {
 		var res = [];
-		for(var key in this._tags) {
-			if(this._tags.hasOwnProperty(key)) {
-				res.push(key);
+		for ( var key in this._tags ) {
+			if ( this._tags.hasOwnProperty( key ) ) {
+				res.push( key );
 			}
 		}
 		return res;
@@ -254,9 +248,9 @@
 	 * @param {string} key
 	 * @returns {string?} `null` if no value is defined for this tag on the current move.
 	 */
-	Node.prototype.tag = function(key) {
+	Node.prototype.tag = function( key ) {
 		var res = this._tags[key];
-		return typeof res === 'string' ? res : null;
+		return 'string' === typeof res ? res : null;
 	};
 
 
@@ -280,7 +274,6 @@
 	};
 
 
-
 	// ---------------------------------------------------------------------------
 	// Variation
 	// ---------------------------------------------------------------------------
@@ -297,8 +290,7 @@
 	 * @param {Node|Item} parent Parent node in the tree structure.
 	 * @param {boolean} isLongVariation Whether the variation is long or short.
 	 */
-	function Variation(parent, isLongVariation)
-	{
+	function Variation( parent, isLongVariation ) {
 		this._parent = parent; // Either a `Node` or a `Item` object.
 		this._first  = null  ; // First node of the variation (always a `Node` object if defined).
 
@@ -314,11 +306,10 @@
 		this._isLongComment = false;
 
 		// Connect to parent.
-		if(parent instanceof Item) {
+		if ( parent instanceof Item ) {
 			parent._mainVariation = this;
-		}
-		else {
-			parent._variations.push(this);
+		} else {
+			parent._variations.push( this );
 		}
 	}
 
@@ -340,7 +331,7 @@
 	 * @returns {Position}
 	 */
 	Variation.prototype.position = function() {
-		return (this._parent instanceof Node) ? this._parent.positionBefore() : this._parent.initialPosition();
+		return ( this._parent instanceof Node ) ? this._parent.positionBefore() : this._parent.initialPosition();
 	};
 
 
@@ -360,7 +351,6 @@
 	Variation.prototype.tag           = Node.prototype.tag          ;
 	Variation.prototype.comment       = Node.prototype.comment      ;
 	Variation.prototype.isLongComment = Node.prototype.isLongComment;
-
 
 
 	// ---------------------------------------------------------------------------
@@ -384,7 +374,7 @@
 		this._fullMoveNumber  = 1;
 		this._result          = '*';
 
-		/* jshint nonew:false */ new Variation(this, true); /* jshint nonew:true */
+		/* jshint nonew:false */ new Variation( this, true ); /* jshint nonew:true */
 	}
 
 
@@ -395,9 +385,9 @@
 	 */
 	Item.prototype.headers = function() {
 		var retVal = [];
-		for(var h in this._headers) {
-			if(this._headers.hasOwnProperty(h)) {
-				retVal.push(h);
+		for ( var h in this._headers ) {
+			if ( this._headers.hasOwnProperty( h ) ) {
+				retVal.push( h );
 			}
 		}
 		return retVal;
@@ -410,9 +400,9 @@
 	 * @param {string} key Header to access to.
 	 * @returns {string}
 	 */
-	Item.prototype.header = function(key) {
+	Item.prototype.header = function( key ) {
 		var retVal = this._headers[key];
-		return typeof retVal === 'string' ? retVal : null;
+		return 'string' === typeof retVal ? retVal : null;
 	};
 
 
@@ -446,27 +436,26 @@
 	};
 
 
-
 	// ---------------------------------------------------------------------------
 	// Parsing functions
 	// ---------------------------------------------------------------------------
 
 	// Conversion table NAG -> numeric code
 	var SPECIAL_NAGS_LOOKUP = {
-		'!!' :  3,             // very good move
-		'!'  :  1,             // good move
-		'!?' :  5,             // interesting move
-		'?!' :  6,             // questionable move
-		'?'  :  2,             // bad move
-		'??' :  4,             // very bad move
-		'+-' : 18,             // White has a decisive advantage
+		'!!': 3,             // very good move
+		'!': 1,             // good move
+		'!?': 5,             // interesting move
+		'?!': 6,             // questionable move
+		'?': 2,             // bad move
+		'??': 4,             // very bad move
+		'+-': 18,             // White has a decisive advantage
 		'+/-': 16,             // White has a moderate advantage
-		'+/=': 14, '+=' : 14,  // White has a slight advantage
-		'='  : 10,             // equal position
-		'~'  : 13, 'inf': 13,  // unclear position
-		'=/+': 15, '=+' : 15,  // Black has a slight advantage
+		'+/=': 14, '+=': 14,  // White has a slight advantage
+		'=': 10,             // equal position
+		'~': 13, 'inf': 13,  // unclear position
+		'=/+': 15, '=+': 15,  // Black has a slight advantage
 		'-/+': 17,             // Black has a moderate advantage
-		'-+' : 19              // Black has a decisive advantage
+		'-+': 19              // Black has a decisive advantage
 	};
 
 	// PGN token types
@@ -485,23 +474,23 @@
 	 * @param {string} rawComment String to parse.
 	 * @returns {{comment:string, tags:object}}
 	 */
-	function parseComment(rawComment) {
+	function parseComment( rawComment ) {
 		var tags = {};
 
 		// Find and remove the tags from the raw comment.
-		var comment = rawComment.replace(/\[%([a-zA-Z]+) ([^\[\]]+)\]/g, function(match, p1, p2) {
+		var comment = rawComment.replace( /\[%([a-zA-Z]+) ([^\[\]]+)\]/g, function( match, p1, p2 ) {
 			tags[p1] = p2;
 			return ' ';
 		});
 
 		// Trim the comment and collapse sequences of space characters into 1 character only.
-		comment = comment.replace(/^\s+|\s+$/g, '').replace(/\s+/g, ' ');
-		if(comment==='') {
+		comment = comment.replace( /^\s+|\s+$/g, '' ).replace( /\s+/g, ' ' );
+		if ( '' === comment ) {
 			comment = null;
 		}
 
 		// Return the result
-		return { comment:comment, tags:tags };
+		return { comment: comment, tags: tags };
 	}
 
 
@@ -512,7 +501,7 @@
 	 * @returns {Item[]}
 	 * @throws {InvalidPGN}
 	 */
-	function parse(pgnString) {
+	function parse( pgnString ) {
 
 		// State variables for lexical analysis (performed by the function consumeToken()).
 		var pos            = 0;     // current position in the string
@@ -522,92 +511,82 @@
 		var tokenPos       = 0;     // position of the current token in the string
 
 		// Skip the blank and newline characters.
-		function skipBlank()
-		{
+		function skipBlank() {
 			var newLineCount = 0;
-			while(pos<pgnString.length) {
-				var s = pgnString.substr(pos);
-				if(/^([ \f\t\v])+/.test(s)) { // match spaces
+			while ( pos < pgnString.length ) {
+				var s = pgnString.substr( pos );
+				if ( /^([ \f\t\v])+/.test( s ) ) { // match spaces
 					pos += RegExp.$1.length;
-				}
-				else if(/^(\r?\n|\r)/.test(s)) { // match line-breaks
+				} else if ( /^(\r?\n|\r)/.test( s ) ) { // match line-breaks
 					pos += RegExp.$1.length;
 					++newLineCount;
-				}
-				else {
+				} else {
 					break;
 				}
 			}
 
 			// An empty line was encountered if and only if at least to line breaks were found.
-			emptyLineFound = newLineCount>=2;
+			emptyLineFound = newLineCount >= 2;
 		}
 
 		// Read the next token in the input string.
-		function consumeToken()
-		{
+		function consumeToken() {
+
 			// Consume blank (i.e. meaning-less) characters
 			skipBlank();
-			if(pos>=pgnString.length) {
+			if ( pos >= pgnString.length ) {
 				return false; // -> `false` means that the end of the string have been reached
 			}
 
 			// Remaining part of the string
-			var s = pgnString.substr(pos);
+			var s = pgnString.substr( pos );
 			var deltaPos = 0;
 
 			// Match a game header (ex: [White "Kasparov, G."])
-			if(/^(\[\s*(\w+)\s+\"([^\"]*)\"\s*\])/.test(s)) {
+			if ( /^(\[\s*(\w+)\s+\"([^\"]*)\"\s*\])/.test( s ) ) {
 				deltaPos   = RegExp.$1.length;
 				token      = TOKEN_HEADER;
 				tokenValue = {key: RegExp.$2, value: RegExp.$3};
-			}
 
 			// Match a move or a null-move
-			else if(/^((?:[1-9][0-9]*\s*\.(?:\.\.)?\s*)?((?:O-O-O|O-O|[KQRBN][a-h]?[1-8]?x?[a-h][1-8]|(?:[a-h]x?)?[a-h][1-8](?:=?[KQRBNP])?)[\+#]?|--))/.test(s)) {
+			} else if ( /^((?:[1-9][0-9]*\s*\.(?:\.\.)?\s*)?((?:O-O-O|O-O|[KQRBN][a-h]?[1-8]?x?[a-h][1-8]|(?:[a-h]x?)?[a-h][1-8](?:=?[KQRBNP])?)[\+#]?|--))/.test( s ) ) {
 				deltaPos   = RegExp.$1.length;
 				token      = TOKEN_MOVE;
 				tokenValue = RegExp.$2;
-			}
 
 			// Match a NAG
-			else if(/^(([!\?][!\?]?|\+\/?[\-=]|[\-=]\/?\+|=|inf|~)|\$([1-9][0-9]*))/.test(s)) {
+			} else if ( /^(([!\?][!\?]?|\+\/?[\-=]|[\-=]\/?\+|=|inf|~)|\$([1-9][0-9]*))/.test( s ) ) {
 				deltaPos   = RegExp.$1.length;
 				token      = TOKEN_NAG;
-				tokenValue = RegExp.$3.length === 0 ? SPECIAL_NAGS_LOOKUP[RegExp.$2] : parseInt(RegExp.$3, 10);
-			}
+				tokenValue = 0 === RegExp.$3.length ? SPECIAL_NAGS_LOOKUP[RegExp.$2] : parseInt( RegExp.$3, 10 );
 
 			// Match a comment
-			else if(/^(\{((?:\\\\|\\\{|\\\}|[^\{\}])*)\})/.test(s)) {
+			} else if ( /^(\{((?:\\\\|\\\{|\\\}|[^\{\}])*)\})/.test( s ) ) {
 				deltaPos   = RegExp.$1.length;
 				token      = TOKEN_COMMENT;
-				tokenValue = parseComment(RegExp.$2.replace(/\\(\\|\{|\})/g, '$1'));
-			}
+				tokenValue = parseComment( RegExp.$2.replace( /\\(\\|\{|\})/g, '$1' ) );
 
 			// Match the beginning of a variation
-			else if(/^(\()/.test(s)) {
+			} else if ( /^(\()/.test( s ) ) {
 				deltaPos   = RegExp.$1.length;
 				token      = TOKEN_BEGIN_VARIATION;
 				tokenValue = null;
-			}
 
 			// Match the end of a variation
-			else if(/^(\))/.test(s)) {
+			} else if ( /^(\))/.test( s ) ) {
 				deltaPos   = RegExp.$1.length;
 				token      = TOKEN_END_VARIATION;
 				tokenValue = null;
-			}
 
 			// Match a end-of-game marker
-			else if(/^(1\-0|0\-1|1\/2\-1\/2|\*)/.test(s)) {
+			} else if ( /^(1\-0|0\-1|1\/2\-1\/2|\*)/.test( s ) ) {
 				deltaPos   = RegExp.$1.length;
 				token      = TOKEN_END_OF_GAME;
 				tokenValue = RegExp.$1;
-			}
 
 			// Otherwise, the string is badly formatted with respect to the PGN syntax
-			else {
-				throw new InvalidPGN(pgnString, pos, i18n.INVALID_PGN_TOKEN);
+			} else {
+				throw new InvalidPGN( pgnString, pos, i18n.INVALID_PGN_TOKEN );
 			}
 
 			// Increment the character pointer and return the result
@@ -623,41 +602,39 @@
 		var nodeStack = [];    // when starting to parse a variation, its parent node is stacked here
 
 		// Token loop
-		while(consumeToken())
-		{
+		while ( consumeToken() ) {
+
 			// Create a new item if necessary
-			if(item === null) {
+			if ( null === item ) {
 				item = new Item();
 			}
 
 			// Matching anything else different from a header means that the move section
 			// is going to be parse => set-up the root node.
-			if(token !== TOKEN_HEADER && node === null) {
+			if ( token !== TOKEN_HEADER && null === node ) {
 				node = item.mainVariation();
 			}
 
 			// Token type switch
-			switch(token)
-			{
+			switch ( token ) {
+
 				// Header
 				case TOKEN_HEADER:
-					if(node !== null) {
-						throw new InvalidPGN(pgnString, tokenPos, i18n.UNEXPECTED_PGN_HEADER);
+					if ( node !== null ) {
+						throw new InvalidPGN( pgnString, tokenPos, i18n.UNEXPECTED_PGN_HEADER );
 					}
 					item._headers[tokenValue.key] = tokenValue.value;
 
 					// The header 'FEN' has a special meaning, in that it is used to define a custom
 					// initial position, that may be different from the usual one.
-					if(tokenValue.key === 'FEN') {
+					if ( 'FEN' === tokenValue.key ) {
 						try {
-							var moveCounters = item._initialPosition.fen(tokenValue.value);
+							var moveCounters = item._initialPosition.fen( tokenValue.value );
 							item._fullMoveNumber = moveCounters.fullMoveNumber;
-						}
-						catch(error) {
-							if(error instanceof RPBChess.exceptions.InvalidFEN) {
-								throw new InvalidPGN(pgnString, tokenPos, i18n.INVALID_FEN_IN_PGN_TEXT, error.message);
-							}
-							else {
+						} catch ( error ) {
+							if ( error instanceof RPBChess.exceptions.InvalidFEN ) {
+								throw new InvalidPGN( pgnString, tokenPos, i18n.INVALID_FEN_IN_PGN_TEXT, error.message );
+							} else {
 								throw error;
 							}
 						}
@@ -667,13 +644,11 @@
 				// Move or null-move
 				case TOKEN_MOVE:
 					try {
-						node = new Node(node, tokenValue);
-					}
-					catch(error) {
-						if(error instanceof RPBChess.exceptions.InvalidNotation) {
-							throw new InvalidPGN(pgnString, tokenPos, i18n.INVALID_MOVE_IN_PGN_TEXT, error.notation, error.message);
-						}
-						else {
+						node = new Node( node, tokenValue );
+					} catch ( error ) {
+						if ( error instanceof RPBChess.exceptions.InvalidNotation ) {
+							throw new InvalidPGN( pgnString, tokenPos, i18n.INVALID_MOVE_IN_PGN_TEXT, error.notation, error.message );
+						} else {
 							throw error;
 						}
 					}
@@ -681,7 +656,7 @@
 
 				// NAG
 				case TOKEN_NAG:
-					node._nags.push(tokenValue);
+					node._nags.push( tokenValue );
 					break;
 
 				// Comment
@@ -693,28 +668,28 @@
 
 				// Begin of variation
 				case TOKEN_BEGIN_VARIATION:
-					if(!(node instanceof Node)) {
-						throw new InvalidPGN(pgnString, tokenPos, i18n.UNEXPECTED_BEGIN_OF_VARIATION);
+					if ( ! ( node instanceof Node ) ) {
+						throw new InvalidPGN( pgnString, tokenPos, i18n.UNEXPECTED_BEGIN_OF_VARIATION );
 					}
-					nodeStack.push(node);
-					node = new Variation(node, node._withinLongVariation && emptyLineFound);
+					nodeStack.push( node );
+					node = new Variation( node, node._withinLongVariation && emptyLineFound );
 					break;
 
 				// End of variation
 				case TOKEN_END_VARIATION:
-					if(nodeStack.length === 0) {
-						throw new InvalidPGN(pgnString, tokenPos, i18n.UNEXPECTED_END_OF_VARIATION);
+					if ( 0 === nodeStack.length ) {
+						throw new InvalidPGN( pgnString, tokenPos, i18n.UNEXPECTED_END_OF_VARIATION );
 					}
 					node = nodeStack.pop();
 					break;
 
 					// End-of-game
 				case TOKEN_END_OF_GAME:
-					if(nodeStack.length>0) {
-						throw new InvalidPGN(pgnString, tokenPos, i18n.UNEXPECTED_END_OF_GAME);
+					if ( nodeStack.length > 0 ) {
+						throw new InvalidPGN( pgnString, tokenPos, i18n.UNEXPECTED_END_OF_GAME );
 					}
 					item._result = tokenValue;
-					retVal.push(item);
+					retVal.push( item );
 					item = null;
 					node = null;
 					break;
@@ -724,8 +699,8 @@
 		} // while(consume(token()))
 
 		// Return the result
-		if(item !== null) {
-			throw new InvalidPGN(pgnString, pgnString.length, i18n.UNEXPECTED_END_OF_TEXT);
+		if ( item !== null ) {
+			throw new InvalidPGN( pgnString, pgnString.length, i18n.UNEXPECTED_END_OF_TEXT );
 		}
 		return retVal;
 	}
@@ -739,32 +714,29 @@
 	 * @returns {Item}
 	 * @throws {InvalidPGN}
 	 */
-	function parseOne(pgnString, gameIndex)
-	{
-		var items = parse(pgnString);
+	function parseOne( pgnString, gameIndex ) {
+		var items = parse( pgnString );
 
 		// No item found -> throw an exception.
-		if(items.length === 0) {
-			throw new InvalidPGN(pgnString, -1, i18n.PGN_TEXT_IS_EMPTY);
+		if ( 0 === items.length ) {
+			throw new InvalidPGN( pgnString, -1, i18n.PGN_TEXT_IS_EMPTY );
 		}
 
 		// No explicit game index -> throw an exception if there is more than 1 item found.
-		if(typeof gameIndex === 'undefined' || gameIndex < 0) {
-			if(items.length === 1) {
+		if ( 'undefined' === typeof gameIndex || gameIndex < 0 ) {
+			if ( 1 === items.length ) {
 				return items[0];
 			}
-			throw new InvalidPGN(pgnString, -1, i18n.PGN_TEXT_CONTAINS_SEVERAL_GAMES);
-		}
+			throw new InvalidPGN( pgnString, -1, i18n.PGN_TEXT_CONTAINS_SEVERAL_GAMES );
 
 		// Explicit game index -> throw an exception if the game index is not valid.
-		else {
-			if(gameIndex < items.length) {
+		} else {
+			if ( gameIndex < items.length ) {
 				return items[gameIndex];
 			}
-			throw new InvalidPGN(pgnString, -1, i18n.INVALID_GAME_INDEX, gameIndex, items.length);
+			throw new InvalidPGN( pgnString, -1, i18n.INVALID_GAME_INDEX, gameIndex, items.length );
 		}
 	}
-
 
 
 	// ---------------------------------------------------------------------------
@@ -773,11 +745,11 @@
 
 	RPBChess.exceptions.InvalidPGN = InvalidPGN;
 	RPBChess.pgn = {
-		Node      : Node      ,
-		Variation : Variation ,
-		Item      : Item      ,
-		parse     : parse     ,
-		parseOne  : parseOne
+		Node: Node,
+		Variation: Variation,
+		Item: Item,
+		parse: parse,
+		parseOne: parseOne
 	};
 
-})( /* global RPBChess */ RPBChess );
+}( /* global RPBChess */ RPBChess ) );

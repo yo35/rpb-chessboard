@@ -33,7 +33,6 @@
 /* global registerTests */
 
 
-
 // -----------------------------------------------------------------------------
 // PGN samples
 // -----------------------------------------------------------------------------
@@ -425,29 +424,27 @@ pgns.push({
 });
 
 
-
 // -----------------------------------------------------------------------------
 // Parsing
 // -----------------------------------------------------------------------------
 
-registerTests('rpbchess.pgn.parse', pgns, function(scenario) {
-	test('Parse PGN ' + scenario.label, function() {
-		var pgnItems = RPBChess.pgn.parse(scenario.pgn);
-		return '\n#' + pgnItems.length + '\n' + dumpPGNItems(pgnItems);
-	}, '\n#' + scenario.gameCount + '\n' + scenario.dump);
+registerTests( 'rpbchess.pgn.parse', pgns, function( scenario ) {
+	test( 'Parse PGN ' + scenario.label, function() {
+		var pgnItems = RPBChess.pgn.parse( scenario.pgn );
+		return '\n#' + pgnItems.length + '\n' + dumpPGNItems( pgnItems );
+	}, '\n#' + scenario.gameCount + '\n' + scenario.dump );
 });
 
-registerTests('rpbchess.pgn.parseOne', pgns, function(scenario) {
-	if(scenario.gameCount === 1) {
-		test('Parse-one PGN ' + scenario.label, function() {
-			var pgnItem = RPBChess.pgn.parseOne(scenario.pgn);
-			return dumpPGNItem(pgnItem);
-		}, scenario.dump);
-	}
-	else {
-		testError('Parse-one PGN ' + scenario.label + ' (error)', function() {
-			var pgnItem = RPBChess.pgn.parseOne(scenario.pgn);
-			return dumpPGNItem(pgnItem);
-		}, checkInvalidPGN(scenario.gameCount===0 ? 'PGN_TEXT_IS_EMPTY' : 'PGN_TEXT_CONTAINS_SEVERAL_GAMES'));
+registerTests( 'rpbchess.pgn.parseOne', pgns, function( scenario ) {
+	if ( 1 === scenario.gameCount ) {
+		test( 'Parse-one PGN ' + scenario.label, function() {
+			var pgnItem = RPBChess.pgn.parseOne( scenario.pgn );
+			return dumpPGNItem( pgnItem );
+		}, scenario.dump );
+	} else {
+		testError( 'Parse-one PGN ' + scenario.label + ' (error)', function() {
+			var pgnItem = RPBChess.pgn.parseOne( scenario.pgn );
+			return dumpPGNItem( pgnItem );
+		}, checkInvalidPGN( 0 === scenario.gameCount ? 'PGN_TEXT_IS_EMPTY' : 'PGN_TEXT_CONTAINS_SEVERAL_GAMES' ) );
 	}
 });

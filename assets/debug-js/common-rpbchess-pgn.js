@@ -28,7 +28,7 @@
 
 
 // Exception registration
-registerException(RPBChess.exceptions.InvalidPGN, function(e) {
+registerException( RPBChess.exceptions.InvalidPGN, function( e ) {
 	return 'bad PGN\n\n>> ----- <<\n\n' + e.pgn.trim() + '\n\n>> ----- <<\n\n=> ' + e.message;
 });
 
@@ -40,24 +40,23 @@ registerException(RPBChess.exceptions.InvalidPGN, function(e) {
  * @param ...
  * @returns {function}
  */
-function checkInvalidPGN(code) {
+function checkInvalidPGN( code ) {
 
 	// Build the error message
 	var message = '<not an error message>';
-	if(typeof code === 'undefined') {
+	if ( 'undefined' === typeof code ) {
 		message = null;
-	}
-	else if(code in RPBChess.i18n) {
+	} else if ( code in RPBChess.i18n ) {
 		message = RPBChess.i18n[code];
-		for(var i=1; i<arguments.length; ++i) {
-			var re = new RegExp('%' + i + '\\$s');
-			message = message.replace(re, arguments[i]);
+		for ( var i = 1; i < arguments.length; ++i ) {
+			var re = new RegExp( '%' + i + '\\$s' );
+			message = message.replace( re, arguments[i] );
 		}
 	}
 
 	// Generate the predicate
-	return function(e) {
-		return (e instanceof RPBChess.exceptions.InvalidPGN) && (message === null || message === e.message);
+	return function( e ) {
+		return ( e instanceof RPBChess.exceptions.InvalidPGN ) && ( null === message || message === e.message );
 	};
 }
 
@@ -68,8 +67,8 @@ function checkInvalidPGN(code) {
  * @param {number} gameResult
  * @returns {string}
  */
-function wrapGameResult(gameResult) {
-	switch(gameResult) {
+function wrapGameResult( gameResult ) {
+	switch ( gameResult ) {
 		case '1-0'    : return 'White wins';
 		case '1/2-1/2': return 'Draw';
 		case '0-1'    : return 'Black wins';
@@ -85,49 +84,49 @@ function wrapGameResult(gameResult) {
  * @param {RPBChess.pgn.Item} pgnItem
  * @returns {string}
  */
-function dumpPGNItem(pgnItem) {
+function dumpPGNItem( pgnItem ) {
 	var res = '\n';
 
 	// Dump the headers.
 	var headers = pgnItem.headers();
 	headers.sort();
-	for(var k=0; k<headers.length; ++k) {
+	for ( var k = 0; k < headers.length; ++k ) {
 		var key = headers[k];
-		res += key + ' = {' + pgnItem.header(key) + '}\n';
+		res += key + ' = {' + pgnItem.header( key ) + '}\n';
 	}
 
 	// Helper function to dump the nags in an order that does not depend on the parsing order.
-	function dumpNags(nags) {
+	function dumpNags( nags ) {
 		nags.sort();
-		for(var k=0; k<nags.length; ++k) {
+		for ( var k = 0; k < nags.length; ++k ) {
 			res += ' $' + nags[k];
 		}
 	}
 
 	// Helper function to dump the tags in an order that does not depend on the parsing order.
-	function dumpTags(node) {
+	function dumpTags( node ) {
 		var tags = node.tags();
 		tags.sort();
-		for(var k=0; k<tags.length; ++k) {
+		for ( var k = 0; k < tags.length; ++k ) {
 			var key = tags[k];
-			res += ' [' + key + ' = {' + node.tag(key) + '}]';
+			res += ' [' + key + ' = {' + node.tag( key ) + '}]';
 		}
 	}
 
 
 	// Recursive function to dump a variation.
-	function dumpVariation(variation, indent, indentFirst) {
+	function dumpVariation( variation, indent, indentFirst ) {
 
 		// Variation header
 		res += indentFirst + '-+';
-		if(variation.isLongVariation()) {
+		if ( variation.isLongVariation() ) {
 			res += '<LONG';
 		}
-		dumpNags(variation.nags());
-		dumpTags(variation);
-		if(variation.comment() !== null) {
+		dumpNags( variation.nags() );
+		dumpTags( variation );
+		if ( variation.comment() !== null ) {
 			res += ' {' + variation.comment() + '}';
-			if(variation.isLongComment()) {
+			if ( variation.isLongComment() ) {
 				res += '<LONG';
 			}
 		}
@@ -135,15 +134,15 @@ function dumpPGNItem(pgnItem) {
 
 		// List of moves
 		var node = variation.first();
-		while(node !== null) {
+		while ( node !== null ) {
 
 			// Describe the move
 			res += indent + '(' + node.fullMoveNumber() + node.moveColor() + ') ' + node.move();
-			dumpNags(node.nags());
-			dumpTags(node);
-			if(node.comment() !== null) {
+			dumpNags( node.nags() );
+			dumpTags( node );
+			if ( node.comment() !== null ) {
 				res += ' {' + node.comment() + '}';
-				if(node.isLongComment()) {
+				if ( node.isLongComment() ) {
 					res += '<LONG';
 				}
 			}
@@ -151,11 +150,11 @@ function dumpPGNItem(pgnItem) {
 
 			// Print the sub-variations
 			var subVariations = node.variations();
-			for(var k=0; k<subVariations.length; ++k) {
+			for ( var k = 0; k < subVariations.length; ++k ) {
 				res += indent + ' |\n';
-				dumpVariation(subVariations[k], indent + ' |  ', indent + ' +--');
+				dumpVariation( subVariations[k], indent + ' |  ', indent + ' +--' );
 			}
-			if(subVariations.length > 0) {
+			if ( subVariations.length > 0 ) {
 				res += indent + ' |\n';
 			}
 
@@ -165,8 +164,8 @@ function dumpPGNItem(pgnItem) {
 	}
 
 	// Dump the moves and the result.
-	dumpVariation(pgnItem.mainVariation(), '', '');
-	res += '{' + wrapGameResult(pgnItem.result()) + '}\n';
+	dumpVariation( pgnItem.mainVariation(), '', '' );
+	res += '{' + wrapGameResult( pgnItem.result() ) + '}\n';
 
 	return res;
 }
@@ -178,10 +177,10 @@ function dumpPGNItem(pgnItem) {
  * @param {RPBChess.pgn.Item[]} pgnItems
  * @returns {string}
  */
-function dumpPGNItems(pgnItems) {
+function dumpPGNItems( pgnItems ) {
 	var res = '';
-	for(var k=0; k<pgnItems.length; ++k) {
-		res += dumpPGNItem(pgnItems[k]);
+	for ( var k = 0; k < pgnItems.length; ++k ) {
+		res += dumpPGNItem( pgnItems[k] );
 	}
 	return res;
 }
