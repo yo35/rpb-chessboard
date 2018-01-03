@@ -2,6 +2,7 @@
 	"extends": "wordpress",
 	"rules": {
 		"camelcase": [ "error", { "properties": "never" } ],
-		"yoda": [ "error", "always", { "onlyEquality": true } ]
+		"yoda": [ "error", "always", { "onlyEquality": true } ],
+		"vars-on-top": [ 0 ]
 	}
 }
