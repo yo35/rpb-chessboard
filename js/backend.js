@@ -306,8 +306,8 @@ var RPBChessboard = {};
 			// Flip parameter
 			var flip = ( 'flip' in options ) ? validateBoolean( options.flip ) : null;
 			if ( null === flip ) {
- flip = false;
-}
+				flip = false;
+			}
 			cb.chessboard( 'option', 'flip', flip );
 			$( '#rpbchessboard-editFENDialog-flip' ).prop( 'checked', flip );
 
@@ -557,8 +557,8 @@ var RPBChessboard = {};
 			positionChange: function( event, ui ) {
 				if ( ! shuntUndoHistoryListeners ) {
 					pushActionOnUndoHistory( function( value ) {
- resetPosition( value );
-}, ui.oldValue, ui.newValue );
+						resetPosition( value );
+					}, ui.oldValue, ui.newValue );
 				}
 			},
 
@@ -574,16 +574,16 @@ var RPBChessboard = {};
 			squareMarkersChange: function( event, ui ) {
 				if ( ! shuntUndoHistoryListeners ) {
 					pushActionOnUndoHistory( function( value ) {
- cb.chessboard( 'option', 'squareMarkers', value );
-}, ui.oldValue, ui.newValue );
+						cb.chessboard( 'option', 'squareMarkers', value );
+					}, ui.oldValue, ui.newValue );
 				}
 			},
 
 			arrowMarkersChange: function( event, ui ) {
 				if ( ! shuntUndoHistoryListeners ) {
 					pushActionOnUndoHistory( function( value ) {
- cb.chessboard( 'option', 'arrowMarkers', value );
-}, ui.oldValue, ui.newValue );
+						cb.chessboard( 'option', 'arrowMarkers', value );
+					}, ui.oldValue, ui.newValue );
 				}
 			}
 		});
@@ -592,20 +592,20 @@ var RPBChessboard = {};
 		// Add-pieces buttons
 		$( '#rpbchessboard-editFENDialog-addPiecesSelector input' ).button().each( function( index, elem ) {
 			$( elem ).click( function() {
- switchInteractionMode( $( elem ).val() );
-});
+				switchInteractionMode( $( elem ).val() );
+			});
 		});
 
 		// Add-markers buttons
 		$( '#rpbchessboard-editFENDialog-addSquareMarkersSelector input' ).button().each( function( index, elem ) {
 			$( elem ).click( function() {
- switchInteractionMode( $( elem ).val() );
-});
+				switchInteractionMode( $( elem ).val() );
+			});
 		});
 		$( '#rpbchessboard-editFENDialog-addArrowMarkersSelector input' ).button().each( function( index, elem ) {
 			$( elem ).click( function() {
- switchInteractionMode( $( elem ).val() );
-});
+				switchInteractionMode( $( elem ).val() );
+			});
 		});
 
 		// Delete-markers buttons
@@ -619,8 +619,8 @@ var RPBChessboard = {};
 		// Turn buttons
 		$( '#rpbchessboard-editFENDialog-turnSelector input' ).button().each( function( index, elem ) {
 			$( elem ).click( function() {
- cb.chessboard( 'turn', $( elem ).val() );
-});
+				cb.chessboard( 'turn', $( elem ).val() );
+			});
 		});
 
 		// Flip board checkbox
@@ -630,19 +630,19 @@ var RPBChessboard = {};
 
 		// Undo/redo
 		$( '#rpbchessboard-editFENDialog-undo' ).button().click( function() {
- undo();
-});
+			undo();
+		});
 		$( '#rpbchessboard-editFENDialog-redo' ).button().click( function() {
- redo();
-});
+			redo();
+		});
 
 		// Buttons 'reset' and 'clear'
 		$( '#rpbchessboard-editFENDialog-startPosition' ).button().click( function() {
- resetPosition( 'start' );
-});
+			resetPosition( 'start' );
+		});
 		$( '#rpbchessboard-editFENDialog-emptyPosition' ).button().click( function() {
- resetPosition( 'empty' );
-});
+			resetPosition( 'empty' );
+		});
 
 		// Castle rights widgets
 		$( '#rpbchessboard-editFENDialog-castleRights input' ).each( function( index, elem ) {
@@ -679,8 +679,8 @@ var RPBChessboard = {};
 				{
 					'text': RPBChessboard.i18n.CANCEL_BUTTON_LABEL,
 					'click': function() {
- $( this ).dialog( 'close' );
-}
+						$( this ).dialog( 'close' );
+					}
 				},
 				{
 					'class': 'button-primary',
@@ -776,8 +776,8 @@ var RPBChessboard = {};
 		var re = /([a-zA-Z_0-9]+)=([^ \]]+)(?: |\])/g;
 		var m = null;
 		var fun = function( m, p1 ) {
- return p1.toUpperCase();
-};
+			return p1.toUpperCase();
+		};
 		while ( ( m = re.exec( openingTag ) ) !== null ) {
 			var attribute = m[1].toLowerCase().replace( /_([a-z]?)/g, fun );
 			retVal[attribute] = m[2];
@@ -807,11 +807,11 @@ var RPBChessboard = {};
 			res += ' cal=' + options.cal;
 		}
 		if ( 'squareSize'      in options ) {
- res += ' square_size='      + options.squareSize     ;
-}
+			res += ' square_size='      + options.squareSize     ;
+		}
 		if ( 'showCoordinates' in options ) {
- res += ' show_coordinates=' + options.showCoordinates;
-}
+			res += ' show_coordinates=' + options.showCoordinates;
+		}
 
 		res += ']' + fen + '[/' + fenShortcode + ']';
 		return res;

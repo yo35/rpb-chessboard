@@ -36,19 +36,19 @@ registerTest( 'rpbchess.basic.constructor', function() {
 	var optsFEN2 = { fullMoveNumber: 60 };
 
 	test( 'Default constructor', function() {
- return ( new RPBChess.Position() ).fen();
+return ( new RPBChess.Position() ).fen();
 }, startFEN );
 	test( 'Constructor \'start\'', function() {
- return ( new RPBChess.Position( 'start' ) ).fen();
+return ( new RPBChess.Position( 'start' ) ).fen();
 }, startFEN );
 	test( 'Constructor \'empty\'', function() {
- return ( new RPBChess.Position( 'empty' ) ).fen();
+return ( new RPBChess.Position( 'empty' ) ).fen();
 }, emptyFEN );
 	test( 'Constructor FEN-based 1', function() {
- return ( new RPBChess.Position( customFEN1 ) ).fen( optsFEN1 );
+return ( new RPBChess.Position( customFEN1 ) ).fen( optsFEN1 );
 }, customFEN1 );
 	test( 'Constructor FEN-based 2', function() {
- return ( new RPBChess.Position( customFEN2 ) ).fen( optsFEN2 );
+return ( new RPBChess.Position( customFEN2 ) ).fen( optsFEN2 );
 }, customFEN2 );
 
 	test( 'Copy constructor', function() {
@@ -75,32 +75,32 @@ registerTest( 'rpbchess.basic.strict-fen', function() {
 	var customFEN3c = 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b Kq e3 00 1';
 
 	test( 'Set FEN (tolerant) A', function() {
- var p = new RPBChess.Position(); p.fen( customFEN3a ); return p.fen();
-}, customFEN3 );
+		var p = new RPBChess.Position(); p.fen( customFEN3a ); return p.fen();
+	}, customFEN3 );
 	test( 'Set FEN (tolerant) B', function() {
- var p = new RPBChess.Position(); p.fen( customFEN3b ); return p.fen();
-}, customFEN3 );
+		var p = new RPBChess.Position(); p.fen( customFEN3b ); return p.fen();
+	}, customFEN3 );
 	test( 'Set FEN (tolerant) C', function() {
- var p = new RPBChess.Position(); p.fen( customFEN3c ); return p.fen();
-}, customFEN3 );
+		var p = new RPBChess.Position(); p.fen( customFEN3c ); return p.fen();
+	}, customFEN3 );
 	test( 'Set FEN (strict) OK 1', function() {
- var p = new RPBChess.Position(); p.fen( customFEN1, true ); return p.fen( optsFEN1 );
-}, customFEN1 );
+		var p = new RPBChess.Position(); p.fen( customFEN1, true ); return p.fen( optsFEN1 );
+	}, customFEN1 );
 	test( 'Set FEN (strict) OK 2', function() {
- var p = new RPBChess.Position(); p.fen( customFEN2, true ); return p.fen( optsFEN2 );
-}, customFEN2 );
+		var p = new RPBChess.Position(); p.fen( customFEN2, true ); return p.fen( optsFEN2 );
+	}, customFEN2 );
 	test( 'Set FEN (strict) OK 3', function() {
- var p = new RPBChess.Position(); p.fen( customFEN3, true ); return p.fen();
-}, customFEN3 );
+		var p = new RPBChess.Position(); p.fen( customFEN3, true ); return p.fen();
+	}, customFEN3 );
 	testError( 'Set FEN (strict) NOK A', function() {
- var p = new RPBChess.Position(); p.fen( customFEN3a, true );
-}, checkInvalidFEN( 'INVALID_CASTLE_RIGHTS_FIELD' ) );
+		var p = new RPBChess.Position(); p.fen( customFEN3a, true );
+	}, checkInvalidFEN( 'INVALID_CASTLE_RIGHTS_FIELD' ) );
 	testError( 'Set FEN (strict) NOK B', function() {
- var p = new RPBChess.Position(); p.fen( customFEN3b, true );
-}, checkInvalidFEN( 'WRONG_ROW_IN_EN_PASSANT_FIELD' ) );
+		var p = new RPBChess.Position(); p.fen( customFEN3b, true );
+	}, checkInvalidFEN( 'WRONG_ROW_IN_EN_PASSANT_FIELD' ) );
 	testError( 'Set FEN (strict) NOK C', function() {
- var p = new RPBChess.Position(); p.fen( customFEN3c, true );
-}, checkInvalidFEN( 'INVALID_MOVE_COUNTING_FIELD', '5th' ) );
+		var p = new RPBChess.Position(); p.fen( customFEN3c, true );
+	}, checkInvalidFEN( 'INVALID_MOVE_COUNTING_FIELD', '5th' ) );
 });
 
 
@@ -110,38 +110,38 @@ registerTest( 'rpbchess.basic.getters', function() {
 	var customFEN = 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b Kk e3 0 1';
 
 	test( 'Getter board 1', function() {
- var p = new RPBChess.Position(); return wrapCP( p.square( 'e1' ) );
-}, 'w:k' );
+		var p = new RPBChess.Position(); return wrapCP( p.square( 'e1' ) );
+	}, 'w:k' );
 	test( 'Getter board 2', function() {
- var p = new RPBChess.Position(); return wrapCP( p.square( 'b4' ) );
-}, '-' );
+		var p = new RPBChess.Position(); return wrapCP( p.square( 'b4' ) );
+	}, '-' );
 	test( 'Getter turn 1', function() {
- var p = new RPBChess.Position(); return p.turn();
-}, 'w' );
+		var p = new RPBChess.Position(); return p.turn();
+	}, 'w' );
 	test( 'Getter turn 2', function() {
- var p = new RPBChess.Position( customFEN ); return p.turn();
-}, 'b' );
+		var p = new RPBChess.Position( customFEN ); return p.turn();
+	}, 'b' );
 	test( 'Getter castling 1', function() {
- var p = new RPBChess.Position(); return p.castleRights( 'w', 'q' );
-}, true );
+		var p = new RPBChess.Position(); return p.castleRights( 'w', 'q' );
+	}, true );
 	test( 'Getter castling 2', function() {
- var p = new RPBChess.Position( customFEN ); return p.castleRights( 'b', 'q' );
-}, false );
+		var p = new RPBChess.Position( customFEN ); return p.castleRights( 'b', 'q' );
+	}, false );
 	test( 'Getter castling 3', function() {
- var p = new RPBChess.Position( customFEN ); return p.castleRights( 'b', 'k' );
-}, true );
+		var p = new RPBChess.Position( customFEN ); return p.castleRights( 'b', 'k' );
+	}, true );
 	test( 'Getter en-passant 1', function() {
- var p = new RPBChess.Position(); return p.enPassant();
-}, '-' );
+		var p = new RPBChess.Position(); return p.enPassant();
+	}, '-' );
 	test( 'Getter en-passant 2', function() {
- var p = new RPBChess.Position( customFEN ); return p.enPassant();
-}, 'e' );
+		var p = new RPBChess.Position( customFEN ); return p.enPassant();
+	}, 'e' );
 	testError( 'Getter board NOK', function() {
- var p = new RPBChess.Position(); return wrapCP( p.square( 'j1' ) );
-}, checkIllegalArgument( 'Position#square()' ) );
+		var p = new RPBChess.Position(); return wrapCP( p.square( 'j1' ) );
+	}, checkIllegalArgument( 'Position#square()' ) );
 	testError( 'Getter castling NOK', function() {
- var p = new RPBChess.Position(); return p.castleRights( 'b', 'K' );
-}, checkIllegalArgument( 'Position#castleRights()' ) );
+		var p = new RPBChess.Position(); return p.castleRights( 'b', 'K' );
+	}, checkIllegalArgument( 'Position#castleRights()' ) );
 });
 
 
@@ -153,50 +153,50 @@ registerTest( 'rpbchess.basic.setters', function() {
 
 	// Setters
 	test( 'Setter board 1a', function() {
- pos1.square( 'a8', '-' ); return pos1.fen();
-}, '1nbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' );
+		pos1.square( 'a8', '-' ); return pos1.fen();
+	}, '1nbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' );
 	test( 'Setter board 1b', function() {
- pos1.square( 'f6', {color: 'w', piece: 'b'}); return pos1.fen();
-}, '1nbqkbnr/pppppppp/5B2/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' );
+		pos1.square( 'f6', {color: 'w', piece: 'b'}); return pos1.fen();
+	}, '1nbqkbnr/pppppppp/5B2/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' );
 	test( 'Setter board 2a', function() {
- pos2.square( 'c3', {color: 'b', piece: 'k'}); return pos2.fen();
-}, '8/8/8/8/8/2k5/8/8 w - - 0 1' );
+		pos2.square( 'c3', {color: 'b', piece: 'k'}); return pos2.fen();
+	}, '8/8/8/8/8/2k5/8/8 w - - 0 1' );
 	test( 'Setter board 2b', function() {
- pos2.square( 'g5', {color: 'w', piece: 'k'}); return pos2.fen();
-}, '8/8/8/6K1/8/2k5/8/8 w - - 0 1' );
+		pos2.square( 'g5', {color: 'w', piece: 'k'}); return pos2.fen();
+	}, '8/8/8/6K1/8/2k5/8/8 w - - 0 1' );
 	test( 'Setter board 2c', function() {
- pos2.square( 'c3', '-' ); return pos2.fen();
-}, '8/8/8/6K1/8/8/8/8 w - - 0 1' );
+		pos2.square( 'c3', '-' ); return pos2.fen();
+	}, '8/8/8/6K1/8/8/8/8 w - - 0 1' );
 	test( 'Setter turn 1', function() {
- pos1.turn( 'w' ); return pos1.fen();
-}, '1nbqkbnr/pppppppp/5B2/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' );
+		pos1.turn( 'w' ); return pos1.fen();
+	}, '1nbqkbnr/pppppppp/5B2/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' );
 	test( 'Setter turn 2', function() {
- pos2.turn( 'b' ); return pos2.fen();
-}, '8/8/8/6K1/8/8/8/8 b - - 0 1' );
+		pos2.turn( 'b' ); return pos2.fen();
+	}, '8/8/8/6K1/8/8/8/8 b - - 0 1' );
 	test( 'Setter castling 1a', function() {
- pos1.castleRights( 'w', 'k', false ); return pos1.fen();
-}, '1nbqkbnr/pppppppp/5B2/8/8/8/PPPPPPPP/RNBQKBNR w Qkq - 0 1' );
+		pos1.castleRights( 'w', 'k', false ); return pos1.fen();
+	}, '1nbqkbnr/pppppppp/5B2/8/8/8/PPPPPPPP/RNBQKBNR w Qkq - 0 1' );
 	test( 'Setter castling 1b', function() {
- pos1.castleRights( 'b', 'k', true ); return pos1.fen();
-}, '1nbqkbnr/pppppppp/5B2/8/8/8/PPPPPPPP/RNBQKBNR w Qkq - 0 1' );
+		pos1.castleRights( 'b', 'k', true ); return pos1.fen();
+	}, '1nbqkbnr/pppppppp/5B2/8/8/8/PPPPPPPP/RNBQKBNR w Qkq - 0 1' );
 	test( 'Setter castling 2a', function() {
- pos2.castleRights( 'w', 'q', false ); return pos2.fen();
-}, '8/8/8/6K1/8/8/8/8 b - - 0 1' );
+		pos2.castleRights( 'w', 'q', false ); return pos2.fen();
+	}, '8/8/8/6K1/8/8/8/8 b - - 0 1' );
 	test( 'Setter castling 2b', function() {
- pos2.castleRights( 'b', 'q', true ); return pos2.fen();
-}, '8/8/8/6K1/8/8/8/8 b q - 0 1' );
+		pos2.castleRights( 'b', 'q', true ); return pos2.fen();
+	}, '8/8/8/6K1/8/8/8/8 b q - 0 1' );
 	test( 'Setter en-passant 1a', function() {
- pos1.enPassant( 'e' ); return pos1.fen();
-}, '1nbqkbnr/pppppppp/5B2/8/8/8/PPPPPPPP/RNBQKBNR w Qkq e6 0 1' );
+		pos1.enPassant( 'e' ); return pos1.fen();
+	}, '1nbqkbnr/pppppppp/5B2/8/8/8/PPPPPPPP/RNBQKBNR w Qkq e6 0 1' );
 	test( 'Setter en-passant 1b', function() {
- pos1.enPassant( '-' ); return pos1.fen();
-}, '1nbqkbnr/pppppppp/5B2/8/8/8/PPPPPPPP/RNBQKBNR w Qkq - 0 1' );
+		pos1.enPassant( '-' ); return pos1.fen();
+	}, '1nbqkbnr/pppppppp/5B2/8/8/8/PPPPPPPP/RNBQKBNR w Qkq - 0 1' );
 	test( 'Setter en-passant 2a', function() {
- pos2.enPassant( 'a' ); return pos2.fen();
-}, '8/8/8/6K1/8/8/8/8 b q a3 0 1' );
+		pos2.enPassant( 'a' ); return pos2.fen();
+	}, '8/8/8/6K1/8/8/8/8 b q a3 0 1' );
 	test( 'Setter en-passant 2b', function() {
- pos2.enPassant( 'h' ); return pos2.fen();
-}, '8/8/8/6K1/8/8/8/8 b q h3 0 1' );
+		pos2.enPassant( 'h' ); return pos2.fen();
+	}, '8/8/8/6K1/8/8/8/8 b q h3 0 1' );
 });
 
 
@@ -213,8 +213,8 @@ registerTest( 'rpbchess.square-color', function() {
 		for ( var r = 0; r < 8; ++r ) {
 			for ( var c = 0; c < 8; ++c ) {
 				if ( res !== '' ) {
- res += '/';
-}
+					res += '/';
+				}
 				res += asExpected ? ( c % 2 === r % 2 ? 'b' : 'w' ) : RPBChess.squareColor( COLUMN[c] + ROW[r] );
 			}
 		}
@@ -222,14 +222,14 @@ registerTest( 'rpbchess.square-color', function() {
 	}
 
 	test( 'Square color', function() {
- return fun( false );
-}, fun( true ) );
+		return fun( false );
+	}, fun( true ) );
 	testError( 'Square color NOK 1', function() {
- return RPBChess.squareColor( 'e9' );
-}, checkIllegalArgument( 'squareColor()' ) );
+		return RPBChess.squareColor( 'e9' );
+	}, checkIllegalArgument( 'squareColor()' ) );
 	testError( 'Square color NOK 2', function() {
- return RPBChess.squareColor( 'i5' );
-}, checkIllegalArgument( 'squareColor()' ) );
+		return RPBChess.squareColor( 'i5' );
+	}, checkIllegalArgument( 'squareColor()' ) );
 });
 
 
@@ -249,8 +249,8 @@ registerTest( 'rpbchess.attacks', function() {
 				var square = COLUMN[c] + ROW[r];
 				if ( position.isAttacked( square, byWho, byWhat ) ) {
 					if ( res !== '' ) {
- res += '/';
-}
+						res += '/';
+					}
 					res += square;
 				}
 			}
@@ -259,41 +259,41 @@ registerTest( 'rpbchess.attacks', function() {
 	}
 
 	test( 'King attacks 1', function() {
- var p = new RPBChess.Position( '8/8/8/4K3/8/8/8/8 w - - 0 1' ); return attacked( p, 'w' );
-}, 'd4/e4/f4/d5/f5/d6/e6/f6' );
+		var p = new RPBChess.Position( '8/8/8/4K3/8/8/8/8 w - - 0 1' ); return attacked( p, 'w' );
+	}, 'd4/e4/f4/d5/f5/d6/e6/f6' );
 	test( 'King attacks 2', function() {
- var p = new RPBChess.Position( '8/8/8/8/8/8/PPP5/K1P5 w - - 0 1' ); return attacked( p, 'w', 'k' );
-}, 'b1/a2/b2' );
+		var p = new RPBChess.Position( '8/8/8/8/8/8/PPP5/K1P5 w - - 0 1' ); return attacked( p, 'w', 'k' );
+	}, 'b1/a2/b2' );
 	test( 'Queen attacks 1', function() {
- var p = new RPBChess.Position( '8/8/8/4q3/8/8/8/8 w - - 0 1' ); return attacked( p, 'b' );
-}, 'a1/e1/b2/e2/h2/c3/e3/g3/d4/e4/f4/a5/b5/c5/d5/f5/g5/h5/d6/e6/f6/c7/e7/g7/b8/e8/h8' );
+		var p = new RPBChess.Position( '8/8/8/4q3/8/8/8/8 w - - 0 1' ); return attacked( p, 'b' );
+	}, 'a1/e1/b2/e2/h2/c3/e3/g3/d4/e4/f4/a5/b5/c5/d5/f5/g5/h5/d6/e6/f6/c7/e7/g7/b8/e8/h8' );
 	test( 'Queen attacks 2', function() {
- var p = new RPBChess.Position( '8/8/8/8/8/pppp4/3p4/q2p4 w - - 0 1' ); return attacked( p, 'b', 'q' );
-}, 'b1/c1/d1/a2/b2/a3/c3' );
+		var p = new RPBChess.Position( '8/8/8/8/8/pppp4/3p4/q2p4 w - - 0 1' ); return attacked( p, 'b', 'q' );
+	}, 'b1/c1/d1/a2/b2/a3/c3' );
 	test( 'Rook attacks 1', function() {
- var p = new RPBChess.Position( '8/8/8/4R3/8/8/8/8 w - - 0 1' ); return attacked( p, 'w' );
-}, 'e1/e2/e3/e4/a5/b5/c5/d5/f5/g5/h5/e6/e7/e8' );
+		var p = new RPBChess.Position( '8/8/8/4R3/8/8/8/8 w - - 0 1' ); return attacked( p, 'w' );
+	}, 'e1/e2/e3/e4/a5/b5/c5/d5/f5/g5/h5/e6/e7/e8' );
 	test( 'Rook attacks 2', function() {
- var p = new RPBChess.Position( '8/8/8/8/8/PPPP4/3P4/R2P4 w - - 0 1' ); return attacked( p, 'w', 'r' );
-}, 'b1/c1/d1/a2/a3' );
+		var p = new RPBChess.Position( '8/8/8/8/8/PPPP4/3P4/R2P4 w - - 0 1' ); return attacked( p, 'w', 'r' );
+	}, 'b1/c1/d1/a2/a3' );
 	test( 'Bishop attacks 1', function() {
- var p = new RPBChess.Position( '8/8/8/4b3/8/8/8/8 w - - 0 1' ); return attacked( p, 'b' );
-}, 'a1/b2/h2/c3/g3/d4/f4/d6/f6/c7/g7/b8/h8' );
+		var p = new RPBChess.Position( '8/8/8/4b3/8/8/8/8 w - - 0 1' ); return attacked( p, 'b' );
+	}, 'a1/b2/h2/c3/g3/d4/f4/d6/f6/c7/g7/b8/h8' );
 	test( 'Bishop attacks 2', function() {
- var p = new RPBChess.Position( '8/8/8/8/8/pppp4/3p4/b2p4 w - - 0 1' ); return attacked( p, 'b', 'b' );
-}, 'b2/c3' );
+		var p = new RPBChess.Position( '8/8/8/8/8/pppp4/3p4/b2p4 w - - 0 1' ); return attacked( p, 'b', 'b' );
+	}, 'b2/c3' );
 	test( 'Knight attacks 1', function() {
- var p = new RPBChess.Position( '8/8/8/4N3/8/8/8/8 w - - 0 1' ); return attacked( p, 'w' );
-}, 'd3/f3/c4/g4/c6/g6/d7/f7' );
+		var p = new RPBChess.Position( '8/8/8/4N3/8/8/8/8 w - - 0 1' ); return attacked( p, 'w' );
+	}, 'd3/f3/c4/g4/c6/g6/d7/f7' );
 	test( 'Knight attacks 2', function() {
- var p = new RPBChess.Position( '8/8/8/8/8/8/PPP5/NP6 w - - 0 1' ); return attacked( p, 'w', 'n' );
-}, 'c2/b3' );
+		var p = new RPBChess.Position( '8/8/8/8/8/8/PPP5/NP6 w - - 0 1' ); return attacked( p, 'w', 'n' );
+	}, 'c2/b3' );
 	test( 'White pawn attacks', function() {
- var p = new RPBChess.Position( '8/8/8/4P3/8/8/8/8 w - - 0 1' ); return attacked( p, 'w' );
-}, 'd6/f6' );
+		var p = new RPBChess.Position( '8/8/8/4P3/8/8/8/8 w - - 0 1' ); return attacked( p, 'w' );
+	}, 'd6/f6' );
 	test( 'Black pawn attacks', function() {
- var p = new RPBChess.Position( '8/8/8/4p3/8/8/8/8 w - - 0 1' ); return attacked( p, 'b' );
-}, 'd4/f4' );
+		var p = new RPBChess.Position( '8/8/8/4p3/8/8/8/8 w - - 0 1' ); return attacked( p, 'b' );
+	}, 'd4/f4' );
 });
 
 
@@ -305,8 +305,8 @@ registerTest( 'rpbchess.is-legal', function() {
 
 	function fun( label, fen, expected ) {
 		test( label, function() {
- var p = new RPBChess.Position( fen ); return legalInfo( p );
-}, expected );
+			var p = new RPBChess.Position( fen ); return legalInfo( p );
+		}, expected );
 	}
 
 	fun( 'Legality starting position', 'start', 'true:e1:e8' );
@@ -860,8 +860,8 @@ registerTests( 'rpbchess.moves.is-legal', positions, function( scenario ) {
 							var descriptor = position.isMoveLegal( move );
 							if ( descriptor ) {
 								if ( res !== '' ) {
- res += '/';
-}
+									res += '/';
+								}
 								res += wrapMove( descriptor );
 							}
 						}
@@ -885,8 +885,8 @@ registerTest( 'rpbchess.moves.is-legal.errors', function() {
 
 	function fun( label, arg ) {
 		testError( label, function() {
- var p = new RPBChess.Position(); return p.isMoveLegal( arg );
-}, checkIllegalArgument( 'Position#isMoveLegal()' ) );
+			var p = new RPBChess.Position(); return p.isMoveLegal( arg );
+		}, checkIllegalArgument( 'Position#isMoveLegal()' ) );
 	}
 
 	fun( 'Move bad-format 1', { from: 'e2' });
@@ -911,8 +911,8 @@ registerTests( 'rpbchess.moves.generate', positions, function( scenario ) {
 		var res = '';
 		for ( var i = 0; i < moves.length; ++i ) {
 			if ( res !== '' ) {
- res += '/';
-}
+				res += '/';
+			}
 			res += moves[i];
 		}
 		return res;
@@ -956,15 +956,18 @@ registerTests( 'rpbchess.moves.play', games, function( scenario ) {
 	}
 
 	var g = new RPBChess.Position( 'fen' === scenario.constructor ? scenario.fen : scenario.constructor );
-	test( 'Play ' + scenario.label + ' (initial position)', function() {
- return fenInfo( g );
-}, fun( scenario ) );
+	test( 'Play ' + scenario.label + ' (initial position)',
+		function() {
+			return fenInfo( g );
+		}, fun( scenario )
+	);
 	for ( var i = 0; i < scenario.moves.length; ++i ) {
 		var move = scenario.moves[i];
 		test( 'Play ' + scenario.label + ' (move ' + i + ')',
 			function() {
-				fun2( g, move.go ); return fenInfo( g );
-			}
+				fun2( g, move.go );
+				return fenInfo( g );
+			},
 			fun( move )
 		);
 	}
@@ -995,15 +998,17 @@ registerTests( 'rpbchess.moves.generate-and-play', games, function( scenario ) {
 	}
 
 	var g = new RPBChess.Position( 'fen' === scenario.constructor ? scenario.fen : scenario.constructor );
-	test( 'Generate and play ' + scenario.label + ' (initial position)', function() {
- return fenInfo( g );
-}, fun( scenario ) );
+	test( 'Generate and play ' + scenario.label + ' (initial position)',
+	function() {
+		return fenInfo( g );
+	}, fun( scenario ) );
 	for ( var i = 0; i < scenario.moves.length; ++i ) {
 		var move = scenario.moves[i];
 		test( 'Generate and play ' + scenario.label + ' (move ' + i + ')',
 			function() {
-				fun2( g, move.go ); return fenInfo( g );
-			}
+				fun2( g, move.go );
+				return fenInfo( g );
+			},
 			fun( move )
 		);
 	}
@@ -1027,8 +1032,8 @@ registerTests( 'rpbchess.notation.to-string', positions, function( scenario ) {
 		var res = '';
 		for ( var i = 0; i < moves.length; ++i ) {
 			if ( res !== '' ) {
- res += '/';
-}
+				res += '/';
+			}
 			res += notations[i];
 		}
 		return res;
@@ -1105,15 +1110,15 @@ registerTests( 'rpbchess.notation.from-string', positions, function( scenario ) 
 		// Sort the moves and remove the duplicates.
 		moves.sort();
 		moves = moves.filter( function( elem, index, tab ) {
- return 0 === index || elem !== tab[index - 1];
-});
+			return 0 === index || elem !== tab[index - 1];
+		});
 
 		// Flatten the result.
 		var res = '';
 		for ( var i = 0; i < moves.length; ++i ) {
 			if ( res !== '' ) {
- res += '/';
-}
+				res += '/';
+			}
 			res += moves[i];
 		}
 		return res;

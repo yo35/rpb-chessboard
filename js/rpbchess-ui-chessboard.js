@@ -746,19 +746,19 @@
 		var canvasWidth  = canvas.width();
 		var canvasHeight = canvas.height();
 		function xInCanvas( x ) {
- return ( x - canvasOffset.left ) * 8 / canvasWidth;
-}
+			return ( x - canvasOffset.left ) * 8 / canvasWidth;
+		}
 		function yInCanvas( y ) {
- return ( y - canvasOffset.top ) * 8 / canvasHeight;
-}
+			return ( y - canvasOffset.top ) * 8 / canvasHeight;
+		}
 
 		// Enable dragging.
 		$( '.rpbui-chessboard-square .rpbui-chessboard-handle', widget.element ).draggable({
 			cursor: 'crosshair',
 			cursorAt: { top: widget.options.squareSize / 2, left: widget.options.squareSize / 2 },
 			helper: function() {
- return $( '<div class="rpbui-chessboard-sized"></div>' );
-},
+				return $( '<div class="rpbui-chessboard-sized"></div>' );
+			},
 
 			start: function( event ) {
 

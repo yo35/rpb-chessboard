@@ -269,12 +269,12 @@
 	 */
 	function formatNag( nag ) {
 		if ( null === nag ) {
- return null;
-} else if ( nag in SPECIAL_NAGS_LOOKUP ) {
- return SPECIAL_NAGS_LOOKUP[nag];
-} else {
- return '$' + nag;
-}
+			return null;
+		} else if ( nag in SPECIAL_NAGS_LOOKUP ) {
+			return SPECIAL_NAGS_LOOKUP[nag];
+		} else {
+			return '$' + nag;
+		}
 	}
 
 
@@ -438,26 +438,26 @@
 	function filterChessboardOptions( value ) {
 		var result = {};
 		if ( typeof value.flip            !== 'undefined' ) {
- result.flip            = value.flip           ;
-}
+			result.flip            = value.flip           ;
+		}
 		if ( typeof value.squareSize      !== 'undefined' ) {
- result.squareSize      = value.squareSize     ;
-}
+			result.squareSize      = value.squareSize     ;
+		}
 		if ( typeof value.showCoordinates !== 'undefined' ) {
- result.showCoordinates = value.showCoordinates;
-}
+			result.showCoordinates = value.showCoordinates;
+		}
 		if ( typeof value.colorset        !== 'undefined' ) {
- result.colorset        = value.colorset       ;
-}
+			result.colorset        = value.colorset       ;
+		}
 		if ( typeof value.pieceset        !== 'undefined' ) {
- result.pieceset        = value.pieceset       ;
-}
+			result.pieceset        = value.pieceset       ;
+		}
 		if ( typeof value.animationSpeed  !== 'undefined' ) {
- result.animationSpeed  = value.animationSpeed ;
-}
+			result.animationSpeed  = value.animationSpeed ;
+		}
 		if ( typeof value.showMoveArrow   !== 'undefined' ) {
- result.showMoveArrow   = value.showMoveArrow  ;
-}
+			result.showMoveArrow   = value.showMoveArrow  ;
+		}
 		return result;
 	}
 
@@ -670,14 +670,14 @@
 			makeMovesRelated( widget );
 			$( '.rpbui-chessgame-focusField', widget.element ).keydown( function( event ) {
 				if ( 'Home' === event.key ) {
- widget.goFirstMove();
-} else if ( 'ArrowLeft' === event.key ) {
- widget.goPreviousMove();
-} else if ( 'ArrowRight' === event.key ) {
- widget.goNextMove();
-} else if ( 'End' === event.key ) {
- widget.goLastMove();
-}
+					widget.goFirstMove();
+				} else if ( 'ArrowLeft' === event.key ) {
+					widget.goPreviousMove();
+				} else if ( 'ArrowRight' === event.key ) {
+					widget.goNextMove();
+				} else if ( 'End' === event.key ) {
+					widget.goLastMove();
+				}
 			});
 			if ( widget.options.navigationBoard !== 'frame' ) {
 				makeNavigationBoxWidgets( widget );
@@ -707,11 +707,11 @@
 			// Build the option set to pass to the chessboard widget constructor.
 			var options = { position: position };
 			if ( typeof csl !== 'undefined' ) {
- options.squareMarkers = csl;
-}
+				options.squareMarkers = csl;
+			}
 			if ( typeof cal !== 'undefined' ) {
- options.arrowMarkers = cal;
-}
+				options.arrowMarkers = cal;
+			}
 			$.extend( options, widget.options.diagramOptions );
 			try {
 				$.extend( options, filterChessboardOptions( $.parseJSON( anchor.text() ) ) );
@@ -788,8 +788,8 @@
 
 		// Navigation buttons
 		initializeNavigationButtons( function( buttonClass ) {
- return $( buttonClass, widget.element );
-}, function( methodName ) {
+			return $( buttonClass, widget.element );
+		}, function( methodName ) {
 			widget[methodName]();
 			widget.focus();
 		});
@@ -861,11 +861,11 @@
 		if ( title !== null || rating !== null ) {
 			header += '<span class="rpbui-chessgame-titleRatingGroup">';
 			if ( title  !== null ) {
- header += '<span class="rpbui-chessgame-playerTitle">'  + title  + '</span>';
-}
+				header += '<span class="rpbui-chessgame-playerTitle">'  + title  + '</span>';
+			}
 			if ( rating !== null ) {
- header += '<span class="rpbui-chessgame-playerRating">' + rating + '</span>';
-}
+				header += '<span class="rpbui-chessgame-playerRating">' + rating + '</span>';
+			}
 			header += '</span>';
 		}
 
@@ -920,11 +920,11 @@
 		// Build and return the header.
 		var header = '<div class="rpbui-chessgame-datePlaceGroup">';
 		if ( date !== null ) {
- header += '<span class="rpbui-chessgame-date">' + date + '</span>';
-}
+			header += '<span class="rpbui-chessgame-date">' + date + '</span>';
+		}
 		if ( site !== null ) {
- header += '<span class="rpbui-chessgame-site">' + site + '</span>';
-}
+			header += '<span class="rpbui-chessgame-site">' + site + '</span>';
+		}
 		header += '</div>';
 		return header;
 	}
@@ -968,11 +968,11 @@
 		// Otherwise, wrap it into a DIV node.
 		var bodyClass = 'rpbui-chessgame-body';
 		if ( mainVariation.divCount > 1 ) {
- bodyClass += ' rpbui-chessgame-moreSpace';
-}
+			bodyClass += ' rpbui-chessgame-moreSpace';
+		}
 		if ( widget.options.navigationBoard !== 'none' ) {
- bodyClass += ' rpbui-chessgame-clickableMoves';
-}
+			bodyClass += ' rpbui-chessgame-clickableMoves';
+		}
 		return '<div class="' + bodyClass + '">' + mainVariation.content + '</div>';
 	}
 
@@ -1205,23 +1205,23 @@
 	function initializeNavigationButtons( selector, callback ) {
 		selector( '.rpbui-chessgame-navigationButtons'       ).disableSelection();
 		selector( '.rpbui-chessgame-navigationButtonFirst'   ).button({ icons: { primary: 'ui-icon-seek-first' }, text: false }).click( function() {
- callback( 'goFirstMove'   );
-});
+			callback( 'goFirstMove' );
+		});
 		selector( '.rpbui-chessgame-navigationButtonPrevious' ).button({ icons: { primary: 'ui-icon-seek-prev'  }, text: false }).click( function() {
- callback( 'goPreviousMove' );
-});
+			callback( 'goPreviousMove' );
+		});
 		selector( '.rpbui-chessgame-navigationButtonNext'    ).button({ icons: { primary: 'ui-icon-seek-next'  }, text: false }).click( function() {
- callback( 'goNextMove'    );
-});
+			callback( 'goNextMove' );
+		});
 		selector( '.rpbui-chessgame-navigationButtonLast'    ).button({ icons: { primary: 'ui-icon-seek-end'   }, text: false }).click( function() {
- callback( 'goLastMove'    );
-});
+			callback( 'goLastMove' );
+		});
 		selector( '.rpbui-chessgame-navigationButtonFlip'    ).button({ icons: { primary: 'ui-icon-refresh'    }, text: false }).click( function() {
- callback( 'flip'          );
-});
+			callback( 'flip');
+		});
 		selector( '.rpbui-chessgame-navigationButtonDownload' ).button({ icons: { primary: 'ui-icon-extlink'    }, text: false }).click( function() {
- callback( 'downloadPGN'   );
-});
+			callback( 'downloadPGN' );
+		});
 	}
 
 
@@ -1241,22 +1241,22 @@
 
 			/* Hack to keep the dialog draggable after the page has being scrolled. */
 			create: function( event ) {
- $( event.target ).parent().css( 'position', 'fixed' );
-},
+				$( event.target ).parent().css( 'position', 'fixed' );
+			},
 			resizeStart: function( event ) {
- $( event.target ).parent().css( 'position', 'fixed' );
-},
+				$( event.target ).parent().css( 'position', 'fixed' );
+			},
 			resizeStop: function( event ) {
- $( event.target ).parent().css( 'position', 'fixed' );
-},
+				$( event.target ).parent().css( 'position', 'fixed' );
+			},
 
 			/* End of hack */
 			autoOpen: false,
 			dialogClass: $.chessgame.navigationFrameClass,
 			width: 'auto',
 			close: function() {
- unselectMove();
-}
+				unselectMove();
+			}
 		});
 
 		// Create the chessboard widget.
@@ -1266,8 +1266,8 @@
 
 		// Callback for the buttons.
 		initializeNavigationButtons( function( buttonClass ) {
- return $( '#rpbui-chessgame-navigationFrame ' + buttonClass );
-}, function callback( methodName ) {
+			return $( '#rpbui-chessgame-navigationFrame ' + buttonClass );
+		}, function callback( methodName ) {
 			var gameWidget = $( '#rpbui-chessgame-navigationFrameTarget' ).closest( '.rpbui-chessgame' );
 			gameWidget.chessgame( methodName );
 			gameWidget.chessgame( 'focus' );
@@ -1608,8 +1608,8 @@
 
 				case 'pgn':
 					if ( this.options.url ) {
- return;
-}
+						return;
+					}
 					value = initializePGN( this, value );
 					break;
 

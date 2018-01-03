@@ -63,8 +63,8 @@
 
 		// Open the FEN dialog.
 		var callback = function( fen, options ) {
- editFENDialogCallback( editor, fen, options );
-};
+			editFENDialogCallback( editor, fen, options );
+		};
 		if ( null === info ) {
 			RPBChessboard.showEditFENDialog( callback );
 		} else {
@@ -85,9 +85,9 @@
 			title: RPBChessboard.i18n.EDIT_CHESS_DIAGRAM_DIALOG_TITLE,
 			image: url + '/../images/tinymce.png',
 			onclick: function() {
- editFENButtonCallback( editor );
-}
-    });
+				editFENButtonCallback( editor );
+			}
+		});
 	});
 
 }( /* global RPBChessboard */ RPBChessboard ) );

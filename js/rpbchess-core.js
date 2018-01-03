@@ -239,11 +239,11 @@ var RPBChess = ( function() { /* exported RPBChess */
 	 */
 	function squareColor( square ) {
 		if ( 'string' === typeof square ) {
-			if     ( /^[aceg][1357]$/.test( square ) || /^[bdfh][2468]$/.test( square ) ) {
- return 'b';
-} else if ( /^[aceg][2468]$/.test( square ) || /^[bdfh][1357]$/.test( square ) ) {
- return 'w';
-}
+			if ( /^[aceg][1357]$/.test( square ) || /^[bdfh][2468]$/.test( square ) ) {
+				return 'b';
+			} else if ( /^[aceg][2468]$/.test( square ) || /^[bdfh][1357]$/.test( square ) ) {
+				return 'w';
+			}
 		}
 		throw new IllegalArgument( 'squareColor()' );
 	}
@@ -606,18 +606,18 @@ var RPBChess = ( function() { /* exported RPBChess */
 	 */
 	function castleRightsToString( castleRights ) {
 		var res = '';
- res += 'K';
-}
- res += 'Q';
-}
- res += 'k';
-}
- res += 'q';
-}
 		if ( castleRights[WHITE] & 1 << 7 ) {
+			res += 'K';
+		}
 		if ( castleRights[WHITE] & 1 << 0 ) {
+			res += 'Q';
+		}
 		if ( castleRights[BLACK] & 1 << 7 ) {
+			res += 'k';
+		}
 		if ( castleRights[BLACK] & 1 << 0 ) {
+			res += 'q';
+		}
 		return '' === res ? '-' : res;
 	}
 
@@ -638,17 +638,17 @@ var RPBChess = ( function() { /* exported RPBChess */
 			return null;
 		}
 		if ( castleRights.indexOf( 'K' ) >= 0 ) {
-}
 			res[WHITE] |= 1 << 7;
+		}
 		if ( castleRights.indexOf( 'Q' ) >= 0 ) {
-}
 			res[WHITE] |= 1 << 0;
+		}
 		if ( castleRights.indexOf( 'k' ) >= 0 ) {
-}
 			res[BLACK] |= 1 << 7;
+		}
 		if ( castleRights.indexOf( 'q' ) >= 0 ) {
-}
 			res[BLACK] |= 1 << 0;
+		}
 		return res;
 	}
 
@@ -915,10 +915,10 @@ var RPBChess = ( function() { /* exported RPBChess */
 					if ( 0 === ( sq & 0x88 ) ) {
 						var cp = position._board[sq];
 						if ( cp === attacker ) {
- return true;
-} else if ( cp === EMPTY ) {
- continue;
-}
+							return true;
+						} else if ( cp === EMPTY ) {
+							continue;
+						}
 					}
 					break;
 				}
@@ -1355,16 +1355,16 @@ var RPBChess = ( function() { /* exported RPBChess */
 		try {
 			generateMoves( this, function( descriptor ) {
 				if ( descriptor ) {
- throw new MoveFound();
-}
+					throw new MoveFound();
+				}
 			});
 			return false;
 		} catch ( err ) {
 			if ( err instanceof MoveFound ) {
- return true;
-} else {
- throw err;
-}
+				return true;
+			} else {
+				throw err;
+			}
 		}
 	};
 
@@ -1402,8 +1402,8 @@ var RPBChess = ( function() { /* exported RPBChess */
 
 		// Ensure that the position is legal.
 		if ( ! position.isLegal() ) {
- return;
-}
+			return;
+		}
 
 		// For all potential 'from' square...
 		for ( var from = 0; from < 120; from += 7 === ( from & 0x7 ) ? 9 : 1 ) {
@@ -1521,26 +1521,26 @@ var RPBChess = ( function() { /* exported RPBChess */
 
 		// Step (1)
 		if ( ! position.isLegal() ) {
- return false;
-}
+			return false;
+		}
 
 		// Step (2)
 		var fromContent = position._board[from];
 		var toContent   = position._board[to  ];
 		var movingPiece = Math.floor( fromContent / 2 );
 		if ( fromContent < 0 || fromContent % 2 !== position._turn ) {
- return false;
-}
+			return false;
+		}
 
 		// Step (3)
 		if ( movingPiece === PAWN && ( to < 8 || to >= 112 ) ) {
 			if ( ! isPromotablePiece( promotion ) ) {
- return false;
-}
+				return false;
+			}
 		} else {
 			if ( promotion >= 0 ) {
- return false;
-}
+				return false;
+			}
 		}
 
 		// Miscellaneous variables
@@ -1553,8 +1553,8 @@ var RPBChess = ( function() { /* exported RPBChess */
 			if ( movingPiece === PAWN && displacement === 151 - position._turn * 64 ) {
 				var firstSquareOfRow = ( 1 + position._turn * 5 ) * 16;
 				if ( from < firstSquareOfRow || from >= firstSquareOfRow + 8 ) {
- return false;
-}
+					return false;
+				}
 				twoSquarePawnMoveColumn = from % 8;
 			} else if ( movingPiece === KING && ( 117 === displacement || 121 === displacement ) ) {
 				return isCastlingLegal( position, from, to );
@@ -1567,22 +1567,22 @@ var RPBChess = ( function() { /* exported RPBChess */
 		if ( movingPiece === PAWN ) {
 			if ( displacement === 135 - position._turn * 32 || twoSquarePawnMoveColumn >= 0 ) { // non-capturing pawn move
 				if ( toContent !== EMPTY ) {
- return false;
-}
+					return false;
+				}
 			} else if ( toContent === EMPTY ) { // en-passant pawn move
 				if ( position._enPassant < 0 || to !== ( 5 - position._turn * 3 ) * 16 + position._enPassant ) {
- return false;
-}
+					return false;
+				}
 				enPassantSquare = ( 4 - position._turn ) * 16 + position._enPassant;
 			} else { // regular capturing pawn move
 				if ( toContent % 2 === position._turn ) {
- return false;
-}
+					return false;
+				}
 			}
 		} else { // piece move
 			if ( toContent >= 0 && toContent % 2 === position._turn ) {
- return false;
-}
+				return false;
+			}
 		}
 
 		// Step (6) -> For sliding pieces, ensure that there is nothing between the origin and the destination squares.
@@ -1590,13 +1590,13 @@ var RPBChess = ( function() { /* exported RPBChess */
 			var direction = SLIDING_DIRECTION[displacement];
 			for ( var sq = from + direction; sq !== to; sq += direction ) {
 				if ( position._board[sq] !== EMPTY ) {
- return false;
-}
+					return false;
+				}
 			}
 		} else if ( twoSquarePawnMoveColumn >= 0 ) { // two-square pawn moves also require this test.
 			if ( position._board[( from + to ) / 2] !== EMPTY ) {
- return false;
-}
+				return false;
+			}
 		}
 
 		// Steps (7) to (9) are delegated to `isKingSafeAfterMove`.
@@ -1681,8 +1681,8 @@ var RPBChess = ( function() { /* exported RPBChess */
 		var offset = from < rookFrom ? 1 : -1;
 		for ( var sq = from + offset; sq !== rookFrom; sq += offset ) {
 			if ( position._board[sq] !== EMPTY ) {
- return false;
-}
+				return false;
+			}
 		}
 
 		// The origin and destination squares of the king, and the square between them must not be attacked.
@@ -1722,17 +1722,17 @@ var RPBChess = ( function() { /* exported RPBChess */
 				this._castleRights[this._turn] = 0;
 			}
 			if ( descriptor._from <    8 ) {
-}
 				this._castleRights[WHITE] &= ~( 1 <<  descriptor._from    );
+			}
 			if ( descriptor._to   <    8 ) {
-}
 				this._castleRights[WHITE] &= ~( 1 <<  descriptor._to      );
+			}
 			if ( descriptor._from >= 112 ) {
-}
 				this._castleRights[BLACK] &= ~( 1 << ( descriptor._from % 16 ) );
+			}
 			if ( descriptor._to   >= 112 ) {
-}
 				this._castleRights[BLACK] &= ~( 1 << ( descriptor._to  % 16 ) );
+			}
 
 			// Update the other flags
 			this._enPassant = descriptor._type === movetype.TWO_SQUARE_PAWN_MOVE ? descriptor._twoSquarePawnMoveColumn : -1;
@@ -1923,10 +1923,10 @@ var RPBChess = ( function() { /* exported RPBChess */
 					if ( 0 === ( sq & 0x88 ) ) {
 						var cp = position._board[sq];
 						if ( cp === attacker ) {
- res.push( sq );
-} else if ( cp === EMPTY ) {
- continue;
-}
+							res.push( sq );
+						} else if ( cp === EMPTY ) {
+							continue;
+						}
 					}
 					break;
 				}
@@ -2129,10 +2129,10 @@ var RPBChess = ( function() { /* exported RPBChess */
 		// Compute the "from"-square.
 		var columnTo = to % 16;
 		if ( 1 === columnTo - columnFrom ) {
- from -= 1;
-} else if ( -1 === columnTo - columnFrom ) {
- from += 1;
-} else {
+			from -= 1;
+		} else if ( -1 === columnTo - columnFrom ) {
+			from += 1;
+		} else {
 			throw new InvalidNotation( position, notation, i18n.INVALID_CAPTURING_PAWN_MOVE );
 		}
 

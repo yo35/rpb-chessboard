@@ -22,13 +22,13 @@
 
 // Exception registration
 registerException( RPBChess.exceptions.IllegalArgument, function( e ) {
- return 'illegal argument in ' + e.fun;
+	return 'illegal argument in ' + e.fun;
 });
 registerException( RPBChess.exceptions.InvalidFEN, function( e ) {
- return 'bad FEN >>' + e.fen + '<< => ' + e.message;
+	return 'bad FEN >>' + e.fen + '<< => ' + e.message;
 });
 registerException( RPBChess.exceptions.InvalidNotation, function( e ) {
- return 'bad SAN >>' + e.notation + '<< => ' + e.message;
+	return 'bad SAN >>' + e.notation + '<< => ' + e.message;
 });
 
 
