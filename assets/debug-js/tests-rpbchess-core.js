@@ -18,25 +18,7 @@
  *                                                                            *
  ******************************************************************************/
 
-
-/* jshint unused:false */
-/* jshint globalstrict:true */
 'use strict';
-
-/* global RPBChess */
-/* global checkIllegalArgument */
-/* global checkInvalidFEN */
-/* global wrapCP */
-/* global wrapMove */
-/* global legalInfo */
-/* global ccsInfo */
-/* global fenInfo */
-/* global nullMoveInfo */
-/* global test */
-/* global testError */
-/* global registerTest */
-/* global registerTests */
-
 
 // -----------------------------------------------------------------------------
 // Basic tests
@@ -980,10 +962,11 @@ registerTests( 'rpbchess.moves.play', games, function( scenario ) {
 	for ( var i = 0; i < scenario.moves.length; ++i ) {
 		var move = scenario.moves[i];
 		test( 'Play ' + scenario.label + ' (move ' + i + ')',
-			/* jshint loopfunc:true */ function() {
- fun2( g, move.go ); return fenInfo( g );
-} /* jshint loopfunc:false */,
-			fun( move ) );
+			function() {
+				fun2( g, move.go ); return fenInfo( g );
+			}
+			fun( move )
+		);
 	}
 });
 
@@ -1018,10 +1001,11 @@ registerTests( 'rpbchess.moves.generate-and-play', games, function( scenario ) {
 	for ( var i = 0; i < scenario.moves.length; ++i ) {
 		var move = scenario.moves[i];
 		test( 'Generate and play ' + scenario.label + ' (move ' + i + ')',
-			/* jshint loopfunc:true */ function() {
- fun2( g, move.go ); return fenInfo( g );
-} /* jshint loopfunc:false */,
-			fun( move ) );
+			function() {
+				fun2( g, move.go ); return fenInfo( g );
+			}
+			fun( move )
+		);
 	}
 });
 

@@ -606,18 +606,18 @@ var RPBChess = ( function() { /* exported RPBChess */
 	 */
 	function castleRightsToString( castleRights ) {
 		var res = '';
-		if ( castleRights[WHITE] /* jshint bitwise:false */ & 1 << 7 /* jshint bitwise:true */ ) {
  res += 'K';
 }
-		if ( castleRights[WHITE] /* jshint bitwise:false */ & 1 << 0 /* jshint bitwise:true */ ) {
  res += 'Q';
 }
-		if ( castleRights[BLACK] /* jshint bitwise:false */ & 1 << 7 /* jshint bitwise:true */ ) {
  res += 'k';
 }
-		if ( castleRights[BLACK] /* jshint bitwise:false */ & 1 << 0 /* jshint bitwise:true */ ) {
  res += 'q';
 }
+		if ( castleRights[WHITE] & 1 << 7 ) {
+		if ( castleRights[WHITE] & 1 << 0 ) {
+		if ( castleRights[BLACK] & 1 << 7 ) {
+		if ( castleRights[BLACK] & 1 << 0 ) {
 		return '' === res ? '-' : res;
 	}
 
@@ -638,17 +638,17 @@ var RPBChess = ( function() { /* exported RPBChess */
 			return null;
 		}
 		if ( castleRights.indexOf( 'K' ) >= 0 ) {
- res[WHITE] /* jshint bitwise:false */ |= 1 << 7; /* jshint bitwise:true */
 }
+			res[WHITE] |= 1 << 7;
 		if ( castleRights.indexOf( 'Q' ) >= 0 ) {
- res[WHITE] /* jshint bitwise:false */ |= 1 << 0; /* jshint bitwise:true */
 }
+			res[WHITE] |= 1 << 0;
 		if ( castleRights.indexOf( 'k' ) >= 0 ) {
- res[BLACK] /* jshint bitwise:false */ |= 1 << 7; /* jshint bitwise:true */
 }
+			res[BLACK] |= 1 << 7;
 		if ( castleRights.indexOf( 'q' ) >= 0 ) {
- res[BLACK] /* jshint bitwise:false */ |= 1 << 0; /* jshint bitwise:true */
 }
+			res[BLACK] |= 1 << 0;
 		return res;
 	}
 
@@ -788,7 +788,7 @@ var RPBChess = ( function() { /* exported RPBChess */
 	 * @returns {boolean}
 	 */
 	function getCastleRights( position, color, column ) {
-		return ( position._castleRights[color] /* jshint bitwise:false */ & ( 1 << column ) /* jshint bitwise:true */ ) !== 0;
+		return ( position._castleRights[color] & ( 1 << column ) ) !== 0;
 	}
 
 
@@ -802,9 +802,9 @@ var RPBChess = ( function() { /* exported RPBChess */
 	function setCastleRights( position, color, column, value ) {
 		if ( 'boolean' === typeof value ) {
 			if ( value ) {
-				position._castleRights[color] /* jshint bitwise:false */ |= 1 << column; /* jshint bitwise:true */
+				position._castleRights[color] |= 1 << column;
 			} else {
-				position._castleRights[color] /* jshint bitwise:false */ &= ~( 1 << column ); /* jshint bitwise:true */
+				position._castleRights[color] &= ~( 1 << column );
 			}
 			position._legal = null;
 			return true;
@@ -912,7 +912,7 @@ var RPBChess = ( function() { /* exported RPBChess */
 				var sq = square;
 				while ( true ) {
 					sq -= directions[i];
-					if ( 0 === ( sq /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */ ) ) {
+					if ( 0 === ( sq & 0x88 ) ) {
 						var cp = position._board[sq];
 						if ( cp === attacker ) {
  return true;
@@ -926,7 +926,7 @@ var RPBChess = ( function() { /* exported RPBChess */
 		} else {
 			for ( var i = 0; i < directions.length; ++i ) {
 				var sq = square - directions[i];
-				if ( 0 === ( sq /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */ ) && position._board[sq] === attacker ) {
+				if ( 0 === ( sq & 0x88 ) && position._board[sq] === attacker ) {
 					return true;
 				}
 			}
@@ -1069,7 +1069,7 @@ var RPBChess = ( function() { /* exported RPBChess */
 	function refreshKingSquare( position, color ) {
 		var target = KING * 2 + color;
 		position._king[color] = -1;
-		for ( var sq = 0; sq < 120; sq += 7 === ( sq /* jshint bitwise:false */ & 0x7 /* jshint bitwise:true */ ) ? 9 : 1 ) {
+		for ( var sq = 0; sq < 120; sq += 7 === ( sq & 0x7 ) ? 9 : 1 ) {
 			if ( position._board[sq] === target ) {
 
 				// If the targeted king is detected on the square sq, two situations may occur:
@@ -1406,7 +1406,7 @@ var RPBChess = ( function() { /* exported RPBChess */
 }
 
 		// For all potential 'from' square...
-		for ( var from = 0; from < 120; from += 7 === ( from /* jshint bitwise:false */ & 0x7 /* jshint bitwise:true */ ) ? 9 : 1 ) {
+		for ( var from = 0; from < 120; from += 7 === ( from & 0x7 ) ? 9 : 1 ) {
 
 			// Nothing to do if the current square does not contain a piece of the right color.
 			var fromContent = position._board[from];
@@ -1422,7 +1422,7 @@ var RPBChess = ( function() { /* exported RPBChess */
 				var attackDirections = ATTACK_DIRECTIONS[fromContent];
 				for ( var i = 0; i < attackDirections.length; ++i ) {
 					var to = from + attackDirections[i];
-					if ( 0 === ( to /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */ ) ) {
+					if ( 0 === ( to & 0x88 ) ) {
 						var toContent = position._board[to];
 						if ( toContent >= 0 && toContent % 2 !== position._turn ) { // regular capturing move
 							fun( isKingSafeAfterMove( position, from, to, -1, -1 ), to < 8 || to >= 112 );
@@ -1452,7 +1452,7 @@ var RPBChess = ( function() { /* exported RPBChess */
 			} else if ( isSliding( fromContent ) ) {
 				var directions = ATTACK_DIRECTIONS[fromContent];
 				for ( var i = 0; i < directions.length; ++i ) {
-					for ( var to = from + directions[i]; 0 === ( to /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */ ); to += directions[i] ) {
+					for ( var to = from + directions[i]; 0 === ( to & 0x88 ); to += directions[i] ) {
 						var toContent = position._board[to];
 						if ( toContent < 0 || toContent % 2 !== position._turn ) {
 							fun( isKingSafeAfterMove( position, from, to, -1, -1 ), false );
@@ -1468,7 +1468,7 @@ var RPBChess = ( function() { /* exported RPBChess */
 				var directions = ATTACK_DIRECTIONS[fromContent];
 				for ( var i = 0; i < directions.length; ++i ) {
 					var to = from + directions[i];
-					if ( 0 === ( to /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */ ) ) {
+					if ( 0 === ( to & 0x88 ) ) {
 						var toContent = position._board[to];
 						if ( toContent < 0 || toContent % 2 !== position._turn ) {
 							fun( isKingSafeAfterMove( position, from, to, -1, -1 ), false );
@@ -1549,7 +1549,7 @@ var RPBChess = ( function() { /* exported RPBChess */
 		var twoSquarePawnMoveColumn = -1; // column where the pawn moves in case of a two-square pawn move
 
 		// Step (4)
-		if ( 0 === ( DISPLACEMENT_LOOKUP[displacement] /* jshint bitwise:false */ & 1 << fromContent /* jshint bitwise:true */ ) ) {
+		if ( 0 === ( DISPLACEMENT_LOOKUP[displacement] & 1 << fromContent ) ) {
 			if ( movingPiece === PAWN && displacement === 151 - position._turn * 64 ) {
 				var firstSquareOfRow = ( 1 + position._turn * 5 ) * 16;
 				if ( from < firstSquareOfRow || from >= firstSquareOfRow + 8 ) {
@@ -1669,7 +1669,7 @@ var RPBChess = ( function() { /* exported RPBChess */
 
 		// Ensure that the given underlying castling is allowed.
 		var column = from < to ? 7 : 0;
-		if ( 0 === ( position._castleRights[position._turn] /* jshint bitwise:false */ & 1 << column /* jshint bitwise:true */ ) ) {
+		if ( 0 === ( position._castleRights[position._turn] & 1 << column ) ) {
 			return false;
 		}
 
@@ -1722,17 +1722,17 @@ var RPBChess = ( function() { /* exported RPBChess */
 				this._castleRights[this._turn] = 0;
 			}
 			if ( descriptor._from <    8 ) {
- this._castleRights[WHITE] /* jshint bitwise:false */ &= ~( 1 <<  descriptor._from    ); /* jshint bitwise:true */
 }
+				this._castleRights[WHITE] &= ~( 1 <<  descriptor._from    );
 			if ( descriptor._to   <    8 ) {
- this._castleRights[WHITE] /* jshint bitwise:false */ &= ~( 1 <<  descriptor._to      ); /* jshint bitwise:true */
 }
+				this._castleRights[WHITE] &= ~( 1 <<  descriptor._to      );
 			if ( descriptor._from >= 112 ) {
- this._castleRights[BLACK] /* jshint bitwise:false */ &= ~( 1 << ( descriptor._from % 16 ) ); /* jshint bitwise:true */
 }
+				this._castleRights[BLACK] &= ~( 1 << ( descriptor._from % 16 ) );
 			if ( descriptor._to   >= 112 ) {
- this._castleRights[BLACK] /* jshint bitwise:false */ &= ~( 1 << ( descriptor._to  % 16 ) ); /* jshint bitwise:true */
 }
+				this._castleRights[BLACK] &= ~( 1 << ( descriptor._to  % 16 ) );
 
 			// Update the other flags
 			this._enPassant = descriptor._type === movetype.TWO_SQUARE_PAWN_MOVE ? descriptor._twoSquarePawnMoveColumn : -1;
@@ -1920,7 +1920,7 @@ var RPBChess = ( function() { /* exported RPBChess */
 				var sq = square;
 				while ( true ) {
 					sq -= directions[i];
-					if ( 0 === ( sq /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */ ) ) {
+					if ( 0 === ( sq & 0x88 ) ) {
 						var cp = position._board[sq];
 						if ( cp === attacker ) {
  res.push( sq );
@@ -1934,7 +1934,7 @@ var RPBChess = ( function() { /* exported RPBChess */
 		} else {
 			for ( var i = 0; i < directions.length; ++i ) {
 				var sq = square - directions[i];
-				if ( 0 === ( sq /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */ ) && position._board[sq] === attacker ) {
+				if ( 0 === ( sq & 0x88 ) && position._board[sq] === attacker ) {
 					res.push( sq );
 				}
 			}
@@ -2122,7 +2122,7 @@ var RPBChess = ( function() { /* exported RPBChess */
 
 		// Ensure that `to` is not on the 1st row.
 		var from = to - 16 + position._turn * 32;
-		if ( ( from /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */ ) !== 0 ) {
+		if ( ( from & 0x88 ) !== 0 ) {
 			throw new InvalidNotation( position, notation, i18n.INVALID_CAPTURING_PAWN_MOVE );
 		}
 
@@ -2168,7 +2168,7 @@ var RPBChess = ( function() { /* exported RPBChess */
 		// Ensure that `to` is not on the 1st row.
 		var offset = 16 - position._turn * 32;
 		var from = to - offset;
-		if ( ( from /* jshint bitwise:false */ & 0x88 /* jshint bitwise:true */ ) !== 0 ) {
+		if ( ( from & 0x88 ) !== 0 ) {
 			throw new InvalidNotation( position, notation, i18n.INVALID_NON_CAPTURING_PAWN_MOVE );
 		}
 

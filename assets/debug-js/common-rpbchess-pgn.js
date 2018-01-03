@@ -18,13 +18,7 @@
  *                                                                            *
  ******************************************************************************/
 
-
-/* jshint unused:false */
-/* jshint globalstrict:true */
 'use strict';
-
-/* global RPBChess */
-/* global registerException */
 
 
 // Exception registration

@@ -18,20 +18,7 @@
  *                                                                            *
  ******************************************************************************/
 
-
-/* jshint unused:false */
-/* jshint globalstrict:true */
 'use strict';
-
-/* global RPBChess */
-/* global checkInvalidPGN */
-/* global dumpPGNItem */
-/* global dumpPGNItems */
-/* global test */
-/* global testError */
-/* global registerTest */
-/* global registerTests */
-
 
 // -----------------------------------------------------------------------------
 // PGN samples
