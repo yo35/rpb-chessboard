@@ -1,0 +1,7 @@
+{
+	"extends": "wordpress",
+	"rules": {
+		"camelcase": [ "error", { "properties": "never" } ],
+		"yoda": [ "error", "always", { "onlyEquality": true } ]
+	}
+}
