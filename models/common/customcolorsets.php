@@ -20,8 +20,8 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php');
-require_once(RPBCHESSBOARD_ABSPATH . 'helpers/validation.php');
+require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php';
+require_once RPBCHESSBOARD_ABSPATH . 'helpers/validation.php';
 
 
 /**
@@ -30,16 +30,16 @@ require_once(RPBCHESSBOARD_ABSPATH . 'helpers/validation.php');
 class RPBChessboardModelCommonCustomColorsets extends RPBChessboardAbstractModel {
 
 	private static $customColorsets;
-	private static $customColorsetLabels = array();
+	private static $customColorsetLabels     = array();
 	private static $customColorsetAttributes = array();
 
-	const DEFAULT_DARK_SQUARE_COLOR = '#bbbbbb';
+	const DEFAULT_DARK_SQUARE_COLOR  = '#bbbbbb';
 	const DEFAULT_LIGHT_SQUARE_COLOR = '#f8f8f8';
 
 
 	public function __construct() {
 		parent::__construct();
-		$this->registerDelegatableMethods('getCustomColorsets', 'getCustomColorsetLabel', 'getDarkSquareColor', 'getLightSquareColor');
+		$this->registerDelegatableMethods( 'getCustomColorsets', 'getCustomColorsetLabel', 'getDarkSquareColor', 'getLightSquareColor' );
 	}
 
 
@@ -49,9 +49,9 @@ class RPBChessboardModelCommonCustomColorsets extends RPBChessboardAbstractModel
 	 * @return array
 	 */
 	public function getCustomColorsets() {
-		if(!isset(self::$customColorsets)) {
-			$value = RPBChessboardHelperValidation::validateSetCodeList(get_option('rpbchessboard_custom_colorsets'));
-			self::$customColorsets = isset($value) ? $value : array();
+		if ( ! isset( self::$customColorsets ) ) {
+			$value                 = RPBChessboardHelperValidation::validateSetCodeList( get_option( 'rpbchessboard_custom_colorsets' ) );
+			self::$customColorsets = isset( $value ) ? $value : array();
 		}
 		return self::$customColorsets;
 	}
@@ -63,12 +63,12 @@ class RPBChessboardModelCommonCustomColorsets extends RPBChessboardAbstractModel
 	 * @param string $colorset
 	 * @return string
 	 */
-	public function getCustomColorsetLabel($colorset) {
-		if(!isset(self::$customColorsetLabels[$colorset])) {
-			$value = get_option('rpbchessboard_custom_colorset_label_' . $colorset, null);
-			self::$customColorsetLabels[$colorset] = isset($value) ? $value : ucfirst(str_replace('-', ' ', $colorset));
+	public function getCustomColorsetLabel( $colorset ) {
+		if ( ! isset( self::$customColorsetLabels[ $colorset ] ) ) {
+			$value                                   = get_option( 'rpbchessboard_custom_colorset_label_' . $colorset, null );
+			self::$customColorsetLabels[ $colorset ] = isset( $value ) ? $value : ucfirst( str_replace( '-', ' ', $colorset ) );
 		}
-		return self::$customColorsetLabels[$colorset];
+		return self::$customColorsetLabels[ $colorset ];
 	}
 
 
@@ -77,9 +77,9 @@ class RPBChessboardModelCommonCustomColorsets extends RPBChessboardAbstractModel
 	 *
 	 * @return string
 	 */
-	public function getDarkSquareColor($colorset) {
-		self::initializeCustomColorsetAttributes($colorset);
-		return self::$customColorsetAttributes[$colorset]->darkSquareColor;
+	public function getDarkSquareColor( $colorset ) {
+		self::initializeCustomColorsetAttributes( $colorset );
+		return self::$customColorsetAttributes[ $colorset ]->darkSquareColor;
 	}
 
 
@@ -88,33 +88,35 @@ class RPBChessboardModelCommonCustomColorsets extends RPBChessboardAbstractModel
 	 *
 	 * @return string
 	 */
-	public function getLightSquareColor($colorset) {
-		self::initializeCustomColorsetAttributes($colorset);
-		return self::$customColorsetAttributes[$colorset]->lightSquareColor;
+	public function getLightSquareColor( $colorset ) {
+		self::initializeCustomColorsetAttributes( $colorset );
+		return self::$customColorsetAttributes[ $colorset ]->lightSquareColor;
 	}
 
 
-	private static function initializeCustomColorsetAttributes($colorset) {
-		if(isset(self::$customColorsetAttributes[$colorset])) {
+	private static function initializeCustomColorsetAttributes( $colorset ) {
+		if ( isset( self::$customColorsetAttributes[ $colorset ] ) ) {
 			return;
 		}
 
 		// Default attributes
-		self::$customColorsetAttributes[$colorset] = (object) array(
-			'darkSquareColor' => self::DEFAULT_DARK_SQUARE_COLOR,
-			'lightSquareColor' => self::DEFAULT_LIGHT_SQUARE_COLOR
+		self::$customColorsetAttributes[ $colorset ] = (object) array(
+			'darkSquareColor'  => self::DEFAULT_DARK_SQUARE_COLOR,
+			'lightSquareColor' => self::DEFAULT_LIGHT_SQUARE_COLOR,
 		);
 
 		// Retrieve the attributes from the database
-		$values = explode('|', get_option('rpbchessboard_custom_colorset_attributes_' . $colorset, ''));
-		if(count($values) !== 2) {
+		$values = explode( '|', get_option( 'rpbchessboard_custom_colorset_attributes_' . $colorset, '' ) );
+		if ( count( $values ) !== 2 ) {
 			return;
 		}
 
 		// Validate the values retrieved from the database
-		$darkSquareColor = RPBChessboardHelperValidation::validateColor($values[0]);
-		$lightSquareColor = RPBChessboardHelperValidation::validateColor($values[1]);
-		if(isset($darkSquareColor)) { self::$customColorsetAttributes[$colorset]->darkSquareColor = $darkSquareColor; }
-		if(isset($lightSquareColor)) { self::$customColorsetAttributes[$colorset]->lightSquareColor = $lightSquareColor; }
+		$darkSquareColor  = RPBChessboardHelperValidation::validateColor( $values[0] );
+		$lightSquareColor = RPBChessboardHelperValidation::validateColor( $values[1] );
+		if ( isset( $darkSquareColor ) ) {
+			self::$customColorsetAttributes[ $colorset ]->darkSquareColor = $darkSquareColor; }
+		if ( isset( $lightSquareColor ) ) {
+			self::$customColorsetAttributes[ $colorset ]->lightSquareColor = $lightSquareColor; }
 	}
 }

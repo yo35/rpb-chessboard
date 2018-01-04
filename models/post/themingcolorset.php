@@ -20,7 +20,7 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH . 'models/post/theming.php');
+require_once RPBCHESSBOARD_ABSPATH . 'models/post/theming.php';
 
 
 /**
@@ -29,30 +29,30 @@ require_once(RPBCHESSBOARD_ABSPATH . 'models/post/theming.php');
 class RPBChessboardModelPostThemingColorset extends RPBChessboardModelPostTheming {
 
 	protected function getCreationSuccessMessage() {
-		return __('Colorset created.', 'rpb-chessboard');
+		return __( 'Colorset created.', 'rpb-chessboard' );
 	}
 
 	protected function getEditionSuccessMessage() {
-		return __('Colorset updated.', 'rpb-chessboard');
+		return __( 'Colorset updated.', 'rpb-chessboard' );
 	}
 
 	protected function getDeletionSuccessMessage() {
-		return __('Colorset deleted.', 'rpb-chessboard');
+		return __( 'Colorset deleted.', 'rpb-chessboard' );
 	}
 
 	protected function getManagedSetCode() {
 		return 'colorset';
 	}
 
-	protected function isBuiltinSetCode($colorset) {
-		return $this->isBuiltinColorset($colorset);
+	protected function isBuiltinSetCode( $colorset ) {
+		return $this->isBuiltinColorset( $colorset );
 	}
 
-	protected function processAttributes($colorset) {
-		$darkSquareColor = self::getSquareColor('dark');
-		$lightSquareColor = self::getSquareColor('light');
-		if(isset($darkSquareColor) && isset($lightSquareColor)) {
-			update_option('rpbchessboard_custom_colorset_attributes_' . $colorset, $darkSquareColor . '|' . $lightSquareColor);
+	protected function processAttributes( $colorset ) {
+		$darkSquareColor  = self::getSquareColor( 'dark' );
+		$lightSquareColor = self::getSquareColor( 'light' );
+		if ( isset( $darkSquareColor ) && isset( $lightSquareColor ) ) {
+			update_option( 'rpbchessboard_custom_colorset_attributes_' . $colorset, $darkSquareColor . '|' . $lightSquareColor );
 			return true;
 		}
 		return false;
@@ -62,8 +62,8 @@ class RPBChessboardModelPostThemingColorset extends RPBChessboardModelPostThemin
 	/**
 	 * Retrieve either the dark or the light square color.
 	 */
-	private static function getSquareColor($darkOrLight) {
+	private static function getSquareColor( $darkOrLight ) {
 		$key = $darkOrLight . 'SquareColor';
-		return isset($_POST[$key]) ? RPBChessboardHelperValidation::validateColor($_POST[$key]) : null;
+		return isset( $_POST[ $key ] ) ? RPBChessboardHelperValidation::validateColor( $_POST[ $key ] ) : null;
 	}
 }

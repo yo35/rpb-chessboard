@@ -26,7 +26,7 @@
 abstract class RPBChessboardAbstractModel {
 
 	private $modelName;
-	private $methodIndex = array();
+	private $methodIndex            = array();
 	private $selfDelegatableMethods = array();
 
 
@@ -41,17 +41,17 @@ abstract class RPBChessboardAbstractModel {
 	 * In this case, the call is deferred to the delegate model that exposes a method
 	 * with the corresponding name.
 	 */
-	public function __call($method, $args) {
+	public function __call( $method, $args ) {
 
 		// Ensure that the requested method exists in one of the delegate models.
-		if(!isset($this->methodIndex[$method])) {
+		if ( ! isset( $this->methodIndex[ $method ] ) ) {
 			$modelName = $this->getModelName();
-			throw new Exception("Invalid call to method `$method` in the model `$modelName`.");
+			throw new Exception( "Invalid call to method `$method` in the model `$modelName`." );
 		}
 
 		// Call the method on the delegate model.
-		$delegateModel = $this->methodIndex[$method];
-		return call_user_func_array(array($delegateModel, $method), $args);
+		$delegateModel = $this->methodIndex[ $method ];
+		return call_user_func_array( array( $delegateModel, $method ), $args );
 	}
 
 
@@ -61,11 +61,11 @@ abstract class RPBChessboardAbstractModel {
 	 * @param string $modelName Name of the model.
 	 * @param mixed ... Arguments to pass to the model (optional).
 	 */
-	protected function loadDelegateModel($modelName) {
+	protected function loadDelegateModel( $modelName ) {
 
 		// Load the model.
-		$args = func_get_args();
-		$delegateModel = call_user_func_array(array('RPBChessboardHelperLoader', 'loadModel'), $args);
+		$args          = func_get_args();
+		$delegateModel = call_user_func_array( array( 'RPBChessboardHelperLoader', 'loadModel' ), $args );
 
 		// Register the new delegatable methods.
 		$this->methodIndex += $delegateModel->getDelegatableMethods();
@@ -78,7 +78,7 @@ abstract class RPBChessboardAbstractModel {
 	 * @param string ... Methods to register.
 	 */
 	protected function registerDelegatableMethods() {
-		$methods = func_get_args();
+		$methods                       = func_get_args();
 		$this->selfDelegatableMethods += $methods;
 	}
 
@@ -90,8 +90,8 @@ abstract class RPBChessboardAbstractModel {
 	 */
 	private function getDelegatableMethods() {
 		$result = $this->methodIndex;
-		foreach($this->selfDelegatableMethods as $method) {
-			$result[$method] = $this;
+		foreach ( $this->selfDelegatableMethods as $method ) {
+			$result[ $method ] = $this;
 		}
 		return $result;
 	}
@@ -103,8 +103,8 @@ abstract class RPBChessboardAbstractModel {
 	 * @return string
 	 */
 	public function getModelName() {
-		if(!isset($this->modelName)) {
-			$this->modelName = preg_match('/^RPBChessboardModel(.*)$/', get_class($this), $m) ? $m[1] : '';
+		if ( ! isset( $this->modelName ) ) {
+			$this->modelName = preg_match( '/^RPBChessboardModel(.*)$/', get_class( $this ), $m ) ? $m[1] : '';
 		}
 		return $this->modelName;
 	}

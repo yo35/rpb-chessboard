@@ -20,7 +20,7 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php');
+require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php';
 
 
 /**
@@ -30,7 +30,7 @@ class RPBChessboardModelMiscTheming extends RPBChessboardAbstractModel {
 
 	public function __construct() {
 		parent::__construct();
-		$this->loadDelegateModel('Common/CustomColorsets');
-		$this->loadDelegateModel('Common/CustomPiecesets');
+		$this->loadDelegateModel( 'Common/CustomColorsets' );
+		$this->loadDelegateModel( 'Common/CustomPiecesets' );
 	}
 }

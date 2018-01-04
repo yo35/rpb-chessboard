@@ -20,7 +20,7 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php');
+require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php';
 
 
 /**
@@ -34,17 +34,17 @@ class RPBChessboardModelPostResetOptions extends RPBChessboardAbstractModel {
 	 * @return string
 	 */
 	public function resetGeneral() {
-		delete_option('rpbchessboard_squareSize'        );
-		delete_option('rpbchessboard_showCoordinates'   );
-		delete_option('rpbchessboard_colorset'          );
-		delete_option('rpbchessboard_pieceset'          );
-		delete_option('rpbchessboard_diagramAlignment'  );
-		delete_option('rpbchessboard_pieceSymbols'      );
-		delete_option('rpbchessboard_navigationBoard'   );
-		delete_option('rpbchessboard_showFlipButton'    );
-		delete_option('rpbchessboard_showDownloadButton');
-		delete_option('rpbchessboard_animationSpeed'    );
-		delete_option('rpbchessboard_showMoveArrow'     );
+		delete_option( 'rpbchessboard_squareSize' );
+		delete_option( 'rpbchessboard_showCoordinates' );
+		delete_option( 'rpbchessboard_colorset' );
+		delete_option( 'rpbchessboard_pieceset' );
+		delete_option( 'rpbchessboard_diagramAlignment' );
+		delete_option( 'rpbchessboard_pieceSymbols' );
+		delete_option( 'rpbchessboard_navigationBoard' );
+		delete_option( 'rpbchessboard_showFlipButton' );
+		delete_option( 'rpbchessboard_showDownloadButton' );
+		delete_option( 'rpbchessboard_animationSpeed' );
+		delete_option( 'rpbchessboard_showMoveArrow' );
 		return self::resetMessage();
 	}
 
@@ -55,9 +55,9 @@ class RPBChessboardModelPostResetOptions extends RPBChessboardAbstractModel {
 	 * @return string
 	 */
 	public function resetCompatibility() {
-		delete_option('rpbchessboard_fenCompatibilityMode');
-		delete_option('rpbchessboard_pgnCompatibilityMode');
-		delete_option('rpbchessboard_noConflictForButton');
+		delete_option( 'rpbchessboard_fenCompatibilityMode' );
+		delete_option( 'rpbchessboard_pgnCompatibilityMode' );
+		delete_option( 'rpbchessboard_noConflictForButton' );
 		return self::resetMessage();
 	}
 
@@ -68,9 +68,9 @@ class RPBChessboardModelPostResetOptions extends RPBChessboardAbstractModel {
 	 * @return string
 	 */
 	public function resetSmallScreens() {
-		delete_option('rpbchessboard_smallScreenCompatibility');
-		delete_option('rpbchessboard_smallScreenModes'        );
-		RPBChessboardHelperCache::remove('small-screens.css');
+		delete_option( 'rpbchessboard_smallScreenCompatibility' );
+		delete_option( 'rpbchessboard_smallScreenModes' );
+		RPBChessboardHelperCache::remove( 'small-screens.css' );
 		return self::resetMessage();
 	}
 
@@ -81,6 +81,6 @@ class RPBChessboardModelPostResetOptions extends RPBChessboardAbstractModel {
 	 * @return string
 	 */
 	private static function resetMessage() {
-		return __('Settings reseted.', 'rpb-chessboard');
+		return __( 'Settings reseted.', 'rpb-chessboard' );
 	}
 }
