@@ -32,20 +32,45 @@ abstract class RPBChessboardPostActions {
 	 * Look at the POST variable `$_POST['rpbchessboard_action']` and execute the corresponding action, if any.
 	 */
 	public static function run() {
-		switch(self::getPostAction()) {
-			case 'update-options'      : self::executeAction('SaveOptions'    , 'updateOptions'        ); break;
-			case 'set-default-colorset': self::executeAction('SaveOptions'    , 'updateDefaultColorset'); break;
-			case 'set-default-pieceset': self::executeAction('SaveOptions'    , 'updateDefaultPieceset'); break;
-			case 'reset-general'       : self::executeAction('ResetOptions'   , 'resetGeneral'         ); break;
-			case 'reset-compatibility' : self::executeAction('ResetOptions'   , 'resetCompatibility'   ); break;
-			case 'reset-smallscreens'  : self::executeAction('ResetOptions'   , 'resetSmallScreens'    ); break;
-			case 'add-colorset'        : self::executeAction('ThemingColorset', 'add'                  ); break;
-			case 'edit-colorset'       : self::executeAction('ThemingColorset', 'edit'                 ); break;
-			case 'delete-colorset'     : self::executeAction('ThemingColorset', 'delete'               ); break;
-			case 'add-pieceset'        : self::executeAction('ThemingPieceset', 'add'                  ); break;
-			case 'edit-pieceset'       : self::executeAction('ThemingPieceset', 'edit'                 ); break;
-			case 'delete-pieceset'     : self::executeAction('ThemingPieceset', 'delete'               ); break;
-			default: break;
+		switch ( self::getPostAction() ) {
+			case 'update-options':
+				self::executeAction( 'SaveOptions', 'updateOptions' );
+				break;
+			case 'set-default-colorset':
+				self::executeAction( 'SaveOptions', 'updateDefaultColorset' );
+				break;
+			case 'set-default-pieceset':
+				self::executeAction( 'SaveOptions', 'updateDefaultPieceset' );
+				break;
+			case 'reset-general':
+				self::executeAction( 'ResetOptions', 'resetGeneral' );
+				break;
+			case 'reset-compatibility':
+				self::executeAction( 'ResetOptions', 'resetCompatibility' );
+				break;
+			case 'reset-smallscreens':
+				self::executeAction( 'ResetOptions', 'resetSmallScreens' );
+				break;
+			case 'add-colorset':
+				self::executeAction( 'ThemingColorset', 'add' );
+				break;
+			case 'edit-colorset':
+				self::executeAction( 'ThemingColorset', 'edit' );
+				break;
+			case 'delete-colorset':
+				self::executeAction( 'ThemingColorset', 'delete' );
+				break;
+			case 'add-pieceset':
+				self::executeAction( 'ThemingPieceset', 'add' );
+				break;
+			case 'edit-pieceset':
+				self::executeAction( 'ThemingPieceset', 'edit' );
+				break;
+			case 'delete-pieceset':
+				self::executeAction( 'ThemingPieceset', 'delete' );
+				break;
+			default:
+				break;
 		}
 	}
 
@@ -57,16 +82,16 @@ abstract class RPBChessboardPostActions {
 	 * @param string $methodName
 	 * @param string $capability Required capability to execute the action. Default is `'manage_options'`.
 	 */
-	private static function executeAction($postModelName, $methodName, $capability='manage_options') {
-		if(!current_user_can($capability)) {
+	private static function executeAction( $postModelName, $methodName, $capability = 'manage_options' ) {
+		if ( ! current_user_can( $capability ) ) {
 			return;
 		}
 
-		$postModel = RPBChessboardHelperLoader::loadModel('Post/' . $postModelName);
-		$message = $postModel->$methodName();
+		$postModel = RPBChessboardHelperLoader::loadModel( 'Post/' . $postModelName );
+		$message   = $postModel->$methodName();
 
-		require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/adminpage.php');
-		RPBChessboardAbstractModelAdminPage::initializePostMessage($message);
+		require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/adminpage.php';
+		RPBChessboardAbstractModelAdminPage::initializePostMessage( $message );
 	}
 
 
@@ -80,6 +105,6 @@ abstract class RPBChessboardPostActions {
 	 * @return string
 	 */
 	private static function getPostAction() {
-		return isset($_POST['rpbchessboard_action']) ? $_POST['rpbchessboard_action'] : '';
+		return isset( $_POST['rpbchessboard_action'] ) ? $_POST['rpbchessboard_action'] : '';
 	}
 }

@@ -20,6 +20,8 @@
  ******************************************************************************/
 ?>
 
-<div class="rpbui-chessgame-diagramAnchor"><?php
-	echo htmlspecialchars($model->getDiagramOptionsAsString());
-?></div>
+<div class="rpbui-chessgame-diagramAnchor">
+<?php
+	echo htmlspecialchars( $model->getDiagramOptionsAsString() );
+?>
+</div>

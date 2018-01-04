@@ -20,7 +20,7 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php');
+require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php';
 
 
 /**
@@ -40,10 +40,10 @@ abstract class RPBChessboardAbstractModelShortcode extends RPBChessboardAbstract
 	 * @param array $atts Attributes passed with the shortcode.
 	 * @param string $content Shortcode enclosed content.
 	 */
-	public function __construct($attributes, $content) {
+	public function __construct( $attributes, $content ) {
 		parent::__construct();
-		$this->attributes = isset($attributes) && is_array($attributes) ? $attributes : array();
-		$this->content = isset($content) && is_string($content) ? $content : '';
+		$this->attributes = isset( $attributes ) && is_array( $attributes ) ? $attributes : array();
+		$this->content    = isset( $content ) && is_string( $content ) ? $content : '';
 	}
 
 
@@ -63,8 +63,8 @@ abstract class RPBChessboardAbstractModelShortcode extends RPBChessboardAbstract
 	 * @return string
 	 */
 	public function getContent() {
-		if(!$this->contentFiltered) {
-			$this->content = $this->filterShortcodeContent($this->content);
+		if ( ! $this->contentFiltered ) {
+			$this->content         = $this->filterShortcodeContent( $this->content );
 			$this->contentFiltered = true;
 		}
 		return $this->content;
@@ -80,7 +80,7 @@ abstract class RPBChessboardAbstractModelShortcode extends RPBChessboardAbstract
 	 * @param string $content Raw content.
 	 * @return string Filtered content.
 	 */
-	protected function filterShortcodeContent($content) {
+	protected function filterShortcodeContent( $content ) {
 		return $content;
 	}
 
@@ -91,7 +91,7 @@ abstract class RPBChessboardAbstractModelShortcode extends RPBChessboardAbstract
 	 * @return string
 	 */
 	public function getUniqueID() {
-		if(!isset($this->uniqueID)) {
+		if ( ! isset( $this->uniqueID ) ) {
 			$this->uniqueID = self::makeUniqueID();
 		}
 		return $this->uniqueID;
@@ -104,7 +104,7 @@ abstract class RPBChessboardAbstractModelShortcode extends RPBChessboardAbstract
 	 * @return string
 	 */
 	private static function makeUniqueID() {
-		if(!isset(self::$idPrefix)) {
+		if ( ! isset( self::$idPrefix ) ) {
 			self::$idPrefix = 'rpbchessboard-' . uniqid() . '-';
 		}
 		++self::$idCounter;

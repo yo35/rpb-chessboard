@@ -20,63 +20,75 @@
  ******************************************************************************/
 ?>
 
-<h3><?php _e('Piece symbols', 'rpb-chessboard'); ?></h3>
+<h3><?php _e( 'Piece symbols', 'rpb-chessboard' ); ?></h3>
 
 
 <p>
 	<input type="radio" id="rpbchessboard-pieceSymbolButton-english" name="pieceSymbols" value="english"
-		<?php if($model->getDefaultSimplifiedPieceSymbols()==='english'): ?>checked="yes"<?php endif; ?>
+		<?php
+		if ( $model->getDefaultSimplifiedPieceSymbols() === 'english' ) :
+?>
+checked="yes"<?php endif; ?>
 	/>
-	<label for="rpbchessboard-pieceSymbolButton-english"><?php _e('English initials', 'rpb-chessboard'); ?></label>
+	<label for="rpbchessboard-pieceSymbolButton-english"><?php _e( 'English initials', 'rpb-chessboard' ); ?></label>
 
-	<?php if($model->isPieceSymbolLocalizationAvailable()): ?>
+	<?php if ( $model->isPieceSymbolLocalizationAvailable() ) : ?>
 		<input type="radio" id="rpbchessboard-pieceSymbolButton-localized" name="pieceSymbols" value="localized"
-			<?php if($model->getDefaultSimplifiedPieceSymbols()==='localized'): ?>checked="yes"<?php endif; ?>
+			<?php
+			if ( $model->getDefaultSimplifiedPieceSymbols() === 'localized' ) :
+?>
+checked="yes"<?php endif; ?>
 		/>
-		<label for="rpbchessboard-pieceSymbolButton-localized"><?php _e('Localized initials', 'rpb-chessboard'); ?></label>
+		<label for="rpbchessboard-pieceSymbolButton-localized"><?php _e( 'Localized initials', 'rpb-chessboard' ); ?></label>
 	<?php endif; ?>
 
 	<input type="radio" id="rpbchessboard-pieceSymbolButton-figurines" name="pieceSymbols" value="figurines"
-		<?php if($model->getDefaultSimplifiedPieceSymbols()==='figurines'): ?>checked="yes"<?php endif; ?>
+		<?php
+		if ( $model->getDefaultSimplifiedPieceSymbols() === 'figurines' ) :
+?>
+checked="yes"<?php endif; ?>
 	/>
-	<label for="rpbchessboard-pieceSymbolButton-figurines"><?php _e('Figurines', 'rpb-chessboard'); ?></label>
+	<label for="rpbchessboard-pieceSymbolButton-figurines"><?php _e( 'Figurines', 'rpb-chessboard' ); ?></label>
 
 	<input type="radio" id="rpbchessboard-pieceSymbolButton-custom" name="pieceSymbols" value="custom"
-		<?php if($model->getDefaultSimplifiedPieceSymbols()==='custom'): ?>checked="yes"<?php endif; ?>
+		<?php
+		if ( $model->getDefaultSimplifiedPieceSymbols() === 'custom' ) :
+?>
+checked="yes"<?php endif; ?>
 	/>
-	<label for="rpbchessboard-pieceSymbolButton-custom"><?php _e('Custom', 'rpb-chessboard'); ?></label>
+	<label for="rpbchessboard-pieceSymbolButton-custom"><?php _e( 'Custom', 'rpb-chessboard' ); ?></label>
 </p>
 
 
 <p class="rpbui-chessboard-size40">
 	<label for="rpbchessboard-kingSymbolField" class="rpbchessboard-pieceSymbolLabel rpbui-chessboard-piece-k rpbui-chessboard-color-w rpbui-chessboard-sized"></label>
 	<input id="rpbchessboard-kingSymbolField" class="rpbchessboard-pieceSymbolField" type="text" name="kingSymbol" size="1" maxLength="1"
-		value="<?php echo htmlspecialchars($model->getPieceSymbolCustomValue('K')); ?>"
+		value="<?php echo htmlspecialchars( $model->getPieceSymbolCustomValue( 'K' ) ); ?>"
 	/>
 
 	<label for="rpbchessboard-queenSymbolField" class="rpbchessboard-pieceSymbolLabel rpbui-chessboard-piece-q rpbui-chessboard-color-w rpbui-chessboard-sized"></label>
 	<input id="rpbchessboard-queenSymbolField" class="rpbchessboard-pieceSymbolField" type="text" name="queenSymbol" size="1" maxLength="1"
-		value="<?php echo htmlspecialchars($model->getPieceSymbolCustomValue('Q')); ?>"
+		value="<?php echo htmlspecialchars( $model->getPieceSymbolCustomValue( 'Q' ) ); ?>"
 	/>
 
 	<label for="rpbchessboard-rookSymbolField" class="rpbchessboard-pieceSymbolLabel rpbui-chessboard-piece-r rpbui-chessboard-color-w rpbui-chessboard-sized"></label>
 	<input id="rpbchessboard-rookSymbolField" class="rpbchessboard-pieceSymbolField" type="text" name="rookSymbol" size="1" maxLength="1"
-		value="<?php echo htmlspecialchars($model->getPieceSymbolCustomValue('R')); ?>"
+		value="<?php echo htmlspecialchars( $model->getPieceSymbolCustomValue( 'R' ) ); ?>"
 	/>
 
 	<label for="rpbchessboard-bishopSymbolField" class="rpbchessboard-pieceSymbolLabel rpbui-chessboard-piece-b rpbui-chessboard-color-w rpbui-chessboard-sized"></label>
 	<input id="rpbchessboard-bishopSymbolField" class="rpbchessboard-pieceSymbolField" type="text" name="bishopSymbol" size="1" maxLength="1"
-		value="<?php echo htmlspecialchars($model->getPieceSymbolCustomValue('B')); ?>"
+		value="<?php echo htmlspecialchars( $model->getPieceSymbolCustomValue( 'B' ) ); ?>"
 	/>
 
 	<label for="rpbchessboard-knightSymbolField" class="rpbchessboard-pieceSymbolLabel rpbui-chessboard-piece-n rpbui-chessboard-color-w rpbui-chessboard-sized"></label>
 	<input id="rpbchessboard-knightSymbolField" class="rpbchessboard-pieceSymbolField" type="text" name="knightSymbol" size="1" maxLength="1"
-		value="<?php echo htmlspecialchars($model->getPieceSymbolCustomValue('N')); ?>"
+		value="<?php echo htmlspecialchars( $model->getPieceSymbolCustomValue( 'N' ) ); ?>"
 	/>
 
 	<label for="rpbchessboard-pawnSymbolField" class="rpbchessboard-pieceSymbolLabel rpbui-chessboard-piece-p rpbui-chessboard-color-w rpbui-chessboard-sized"></label>
 	<input id="rpbchessboard-pawnSymbolField" class="rpbchessboard-pieceSymbolField" type="text" name="pawnSymbol" size="1" maxLength="1"
-		value="<?php echo htmlspecialchars($model->getPieceSymbolCustomValue('P')); ?>"
+		value="<?php echo htmlspecialchars( $model->getPieceSymbolCustomValue( 'P' ) ); ?>"
 	/>
 </p>
 
@@ -86,7 +98,8 @@
 		_e(
 			'This setting only affects how chess moves are rendered to post/page readers. ' .
 			'Authors must always use English initials when writting PGN content into posts and pages.',
-		'rpb-chessboard');
+			'rpb-chessboard'
+		);
 	?>
 </p>
 
@@ -110,12 +123,12 @@
 
 		// Callback for the localized piece symbol button.
 		$('#rpbchessboard-pieceSymbolButton-localized').change(function() {
-			$('#rpbchessboard-kingSymbolField'  ).val(<?php /*i18n King symbol   */ echo json_encode(__('K', 'rpb-chessboard')); ?>);
-			$('#rpbchessboard-queenSymbolField' ).val(<?php /*i18n Queen symbol  */ echo json_encode(__('Q', 'rpb-chessboard')); ?>);
-			$('#rpbchessboard-rookSymbolField'  ).val(<?php /*i18n Rook symbol   */ echo json_encode(__('R', 'rpb-chessboard')); ?>);
-			$('#rpbchessboard-bishopSymbolField').val(<?php /*i18n Bishop symbol */ echo json_encode(__('B', 'rpb-chessboard')); ?>);
-			$('#rpbchessboard-knightSymbolField').val(<?php /*i18n Knight symbol */ echo json_encode(__('N', 'rpb-chessboard')); ?>);
-			$('#rpbchessboard-pawnSymbolField'  ).val(<?php /*i18n Pawn symbol   */ echo json_encode(__('P', 'rpb-chessboard')); ?>);
+			$('#rpbchessboard-kingSymbolField'  ).val(<?php /*i18n King symbol   */ echo json_encode( __( 'K', 'rpb-chessboard' ) ); ?>);
+			$('#rpbchessboard-queenSymbolField' ).val(<?php /*i18n Queen symbol  */ echo json_encode( __( 'Q', 'rpb-chessboard' ) ); ?>);
+			$('#rpbchessboard-rookSymbolField'  ).val(<?php /*i18n Rook symbol   */ echo json_encode( __( 'R', 'rpb-chessboard' ) ); ?>);
+			$('#rpbchessboard-bishopSymbolField').val(<?php /*i18n Bishop symbol */ echo json_encode( __( 'B', 'rpb-chessboard' ) ); ?>);
+			$('#rpbchessboard-knightSymbolField').val(<?php /*i18n Knight symbol */ echo json_encode( __( 'N', 'rpb-chessboard' ) ); ?>);
+			$('#rpbchessboard-pawnSymbolField'  ).val(<?php /*i18n Pawn symbol   */ echo json_encode( __( 'P', 'rpb-chessboard' ) ); ?>);
 			needInitIfCustomClicked = false;
 			$('.rpbchessboard-pieceSymbolField').prop('readonly', true);
 		});
@@ -141,7 +154,7 @@
 		});
 
 		// Initialize the symbol fields.
-		$('#rpbchessboard-pieceSymbolButton-' + <?php echo json_encode($model->getDefaultSimplifiedPieceSymbols()); ?>).change();
+		$('#rpbchessboard-pieceSymbolButton-' + <?php echo json_encode( $model->getDefaultSimplifiedPieceSymbols() ); ?>).change();
 
 	});
 </script>

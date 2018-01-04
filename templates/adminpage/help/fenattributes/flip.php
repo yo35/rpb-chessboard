@@ -20,32 +20,36 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-fenAttributeFlip"><?php _e('Board flipping', 'rpb-chessboard'); ?></h3>
+<h3 id="rpbchessboard-fenAttributeFlip"><?php _e( 'Board flipping', 'rpb-chessboard' ); ?></h3>
 
 <div class="rpbchessboard-columns">
 	<div>
 
 		<p>
-			<?php echo sprintf(__('The %1$s attribute controls whether the chessboard is rotated or not.', 'rpb-chessboard'),
-				'<span class="rpbchessboard-sourceCode">flip</span>'); ?>
+			<?php
+			echo sprintf(
+				__( 'The %1$s attribute controls whether the chessboard is rotated or not.', 'rpb-chessboard' ),
+				'<span class="rpbchessboard-sourceCode">flip</span>'
+			);
+				?>
 		</p>
 
 		<table class="rpbchessboard-attributeTable">
 			<tbody>
 				<tr>
-					<th><?php _e('Value', 'rpb-chessboard'); ?></th>
-					<th><?php _e('Default', 'rpb-chessboard'); ?></th>
-					<th><?php _e('Description', 'rpb-chessboard'); ?></th>
+					<th><?php _e( 'Value', 'rpb-chessboard' ); ?></th>
+					<th><?php _e( 'Default', 'rpb-chessboard' ); ?></th>
+					<th><?php _e( 'Description', 'rpb-chessboard' ); ?></th>
 				</tr>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-fenAttributeFlip-value">false</a></td>
 					<td><div class="rpbchessboard-tickIcon"></div></td>
-					<td><?php _e('The board is seen from White\'s point of view.', 'rpb-chessboard'); ?></td>
+					<td><?php _e( 'The board is seen from White\'s point of view.', 'rpb-chessboard' ); ?></td>
 				</tr>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-fenAttributeFlip-value">true</a></td>
 					<td></td>
-					<td><?php _e('The board is seen from Black\'s point of view.', 'rpb-chessboard'); ?></td>
+					<td><?php _e( 'The board is seen from Black\'s point of view.', 'rpb-chessboard' ); ?></td>
 				</tr>
 			</tbody>
 		</table>
@@ -54,10 +58,12 @@
 	<div>
 
 		<div class="rpbchessboard-sourceCode">
-			<?php echo sprintf(
+			<?php
+			echo sprintf(
 				'[%1$s <strong>flip=<span id="rpbchessboard-fenAttributeFlip-sourceCodeExample">false</span></strong>] ... [/%1$s]',
-				htmlspecialchars($model->getFENShortcode())
-			); ?>
+				htmlspecialchars( $model->getFENShortcode() )
+			);
+			?>
 		</div>
 
 		<div class="rpbchessboard-visuBlock">
@@ -65,7 +71,7 @@
 				<div id="rpbchessboard-fenAttributeFlip-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-fenAttributeFlip-anchor').chessboard($.extend(<?php echo json_encode($model->getDefaultChessboardSettings()); ?>, {
+						$('#rpbchessboard-fenAttributeFlip-anchor').chessboard($.extend(<?php echo json_encode( $model->getDefaultChessboardSettings() ); ?>, {
 							position: 'start',
 							squareSize: 28
 						}));

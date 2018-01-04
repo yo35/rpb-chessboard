@@ -20,7 +20,7 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/adminpage.php');
+require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/adminpage.php';
 
 
 /**
@@ -32,11 +32,11 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 
 	public function __construct() {
 		parent::__construct();
-		$this->loadDelegateModel('Common/DefaultOptionsEx');
+		$this->loadDelegateModel( 'Common/DefaultOptionsEx' );
 
 		// Create the sub-pages.
-		$this->addSubPage('Colorsets', __('Colorsets', 'rpb-chessboard'), true);
-		$this->addSubPage('Piecesets', __('Piecesets', 'rpb-chessboard'));
+		$this->addSubPage( 'Colorsets', __( 'Colorsets', 'rpb-chessboard' ), true );
+		$this->addSubPage( 'Piecesets', __( 'Piecesets', 'rpb-chessboard' ) );
 	}
 
 
@@ -61,9 +61,9 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 	 */
 	public function getDeleteConfirmMessage() {
 		$text = $this->getSelectedSubPageName() === 'Colorsets' ?
-			__('Delete colorset "%1$s"?. Press OK to confirm...', 'rpb-chessboard') :
-			__('Delete pieceset "%1$s"?. Press OK to confirm...', 'rpb-chessboard');
-		return sprintf($text, '{1}');
+			__( 'Delete colorset "%1$s"?. Press OK to confirm...', 'rpb-chessboard' ) :
+			__( 'Delete pieceset "%1$s"?. Press OK to confirm...', 'rpb-chessboard' );
+		return sprintf( $text, '{1}' );
 	}
 
 
@@ -72,10 +72,10 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 	 */
 	public function getLabelProposalForNewSetCode() {
 		$counter = 1;
-		$base = $this->getSelectedSubPageName() === 'Colorsets' ? __('My colorset', 'rpb-chessboard') : __('My pieceset', 'rpb-chessboard');
-		$result = $base;
-		$method = $this->getSelectedSubPageName() === 'Colorsets' ? 'isColorsetLabelAlreadyUsed' : 'isPiecesetLabelAlreadyUsed';
-		while($this->$method($result)) {
+		$base    = $this->getSelectedSubPageName() === 'Colorsets' ? __( 'My colorset', 'rpb-chessboard' ) : __( 'My pieceset', 'rpb-chessboard' );
+		$result  = $base;
+		$method  = $this->getSelectedSubPageName() === 'Colorsets' ? 'isColorsetLabelAlreadyUsed' : 'isPiecesetLabelAlreadyUsed';
+		while ( $this->$method($result) ) {
 			++$counter;
 			$result = $base . ' ' . $counter;
 		}
@@ -89,7 +89,7 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 	 * @return string
 	 */
 	public function getFormActionURL() {
-		return $this->getSubPage($this->getSelectedSubPageName())->link;
+		return $this->getSubPage( $this->getSelectedSubPageName() )->link;
 	}
 
 
@@ -98,8 +98,8 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 	 *
 	 * @return string
 	 */
-	public function getFormAction($isNew) {
-		return ($isNew ? 'add-' : 'edit-') . $this->getManagedSetCode();
+	public function getFormAction( $isNew ) {
+		return ( $isNew ? 'add-' : 'edit-' ) . $this->getManagedSetCode();
 	}
 
 
@@ -126,9 +126,9 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 	/**
 	 * Check whether the given label is already used or not by an existing colorset.
 	 */
-	private function isColorsetLabelAlreadyUsed($label) {
-		foreach($this->getAvailableColorsets() as $colorset) {
-			if($label === $this->getColorsetLabel($colorset)) {
+	private function isColorsetLabelAlreadyUsed( $label ) {
+		foreach ( $this->getAvailableColorsets() as $colorset ) {
+			if ( $label === $this->getColorsetLabel( $colorset ) ) {
 				return true;
 			}
 		}
@@ -139,9 +139,9 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 	/**
 	 * Check whether the given label is already used or not by an existing pieceset.
 	 */
-	private function isPiecesetLabelAlreadyUsed($label) {
-		foreach($this->getAvailablePiecesets() as $pieceset) {
-			if($label === $this->getPiecesetLabel($pieceset)) {
+	private function isPiecesetLabelAlreadyUsed( $label ) {
+		foreach ( $this->getAvailablePiecesets() as $pieceset ) {
+			if ( $label === $this->getPiecesetLabel( $pieceset ) ) {
 				return true;
 			}
 		}
@@ -155,7 +155,7 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 	 * @return string
 	 */
 	public function getRandomDarkSquareColor() {
-		return self::getRandomColor(0x88, 0xbf);
+		return self::getRandomColor( 0x88, 0xbf );
 	}
 
 
@@ -165,40 +165,40 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 	 * @return string
 	 */
 	public function getRandomLightSquareColor() {
-		return self::getRandomColor(0xc0, 0xf7);
+		return self::getRandomColor( 0xc0, 0xf7 );
 	}
 
 
-	private static function getRandomColor($grayRangeMin, $grayRangeMax) {
-		$red = rand($grayRangeMin, $grayRangeMax);
-		$green = rand($grayRangeMin, $grayRangeMax);
-		$blue = rand($grayRangeMin, $grayRangeMax);
-		return sprintf('#%02x%02x%02x', $red, $green, $blue);
+	private static function getRandomColor( $grayRangeMin, $grayRangeMax ) {
+		$red   = rand( $grayRangeMin, $grayRangeMax );
+		$green = rand( $grayRangeMin, $grayRangeMax );
+		$blue  = rand( $grayRangeMin, $grayRangeMax );
+		return sprintf( '#%02x%02x%02x', $red, $green, $blue );
 	}
 
 
 	/**
 	 * Text to use for the tooltip of the pieceset edition buttons.
 	 */
-	public function getPiecesetEditionButtonTitle($coloredPiece) {
-		if(!isset(self::$piecesetEditionButtonTitle)) {
+	public function getPiecesetEditionButtonTitle( $coloredPiece ) {
+		if ( ! isset( self::$piecesetEditionButtonTitle ) ) {
 			self::$piecesetEditionButtonTitle = array(
-				'bp' =>  __('Select the image to use for black pawns'     , 'rpb-chessboard'),
-				'bn' =>  __('Select the image to use for black knights'   , 'rpb-chessboard'),
-				'bb' =>  __('Select the image to use for black bishops'   , 'rpb-chessboard'),
-				'br' =>  __('Select the image to use for black rooks'     , 'rpb-chessboard'),
-				'bq' =>  __('Select the image to use for black queens'    , 'rpb-chessboard'),
-				'bk' =>  __('Select the image to use for black kings'     , 'rpb-chessboard'),
-				'bx' =>  __('Select the image to use for black turn flags', 'rpb-chessboard'),
-				'wp' =>  __('Select the image to use for white pawns'     , 'rpb-chessboard'),
-				'wn' =>  __('Select the image to use for white knights'   , 'rpb-chessboard'),
-				'wb' =>  __('Select the image to use for white bishops'   , 'rpb-chessboard'),
-				'wr' =>  __('Select the image to use for white rooks'     , 'rpb-chessboard'),
-				'wq' =>  __('Select the image to use for white queens'    , 'rpb-chessboard'),
-				'wk' =>  __('Select the image to use for white kings'     , 'rpb-chessboard'),
-				'wx' =>  __('Select the image to use for white turn flags', 'rpb-chessboard')
+				'bp' => __( 'Select the image to use for black pawns', 'rpb-chessboard' ),
+				'bn' => __( 'Select the image to use for black knights', 'rpb-chessboard' ),
+				'bb' => __( 'Select the image to use for black bishops', 'rpb-chessboard' ),
+				'br' => __( 'Select the image to use for black rooks', 'rpb-chessboard' ),
+				'bq' => __( 'Select the image to use for black queens', 'rpb-chessboard' ),
+				'bk' => __( 'Select the image to use for black kings', 'rpb-chessboard' ),
+				'bx' => __( 'Select the image to use for black turn flags', 'rpb-chessboard' ),
+				'wp' => __( 'Select the image to use for white pawns', 'rpb-chessboard' ),
+				'wn' => __( 'Select the image to use for white knights', 'rpb-chessboard' ),
+				'wb' => __( 'Select the image to use for white bishops', 'rpb-chessboard' ),
+				'wr' => __( 'Select the image to use for white rooks', 'rpb-chessboard' ),
+				'wq' => __( 'Select the image to use for white queens', 'rpb-chessboard' ),
+				'wk' => __( 'Select the image to use for white kings', 'rpb-chessboard' ),
+				'wx' => __( 'Select the image to use for white turn flags', 'rpb-chessboard' ),
 			);
 		}
-		return self::$piecesetEditionButtonTitle[$coloredPiece];
+		return self::$piecesetEditionButtonTitle[ $coloredPiece ];
 	}
 }

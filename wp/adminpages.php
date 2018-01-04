@@ -26,60 +26,69 @@
  * This class is not constructible. Call the static method `register()`
  * to trigger the registration operations (must be called only once).
  */
-abstract class RPBChessboardAdminPages
-{
-	public static function register()
-	{
+abstract class RPBChessboardAdminPages {
+
+	public static function register() {
 		// Create the menu
 		add_menu_page(
-			__('Chess games and diagrams', 'rpb-chessboard'),
-			__('Chess', 'rpb-chessboard'),
-			'edit_posts', 'rpbchessboard', array(__CLASS__, 'callbackPageMemo'),
+			__( 'Chess games and diagrams', 'rpb-chessboard' ),
+			__( 'Chess', 'rpb-chessboard' ),
+			'edit_posts', 'rpbchessboard', array( __CLASS__, 'callbackPageMemo' ),
 			RPBCHESSBOARD_URL . 'images/menu.png'
 		);
 
 		// Page "memo" (same slug code that for the menu, to make it the default page).
-		add_submenu_page('rpbchessboard',
-			__('Chess games and diagrams', 'rpb-chessboard') . ' - ' . __('Memo', 'rpb-chessboard'),
-			__('Memo', 'rpb-chessboard'),
-			'edit_posts', 'rpbchessboard', array(__CLASS__, 'callbackPageMemo')
+		add_submenu_page(
+			'rpbchessboard',
+			__( 'Chess games and diagrams', 'rpb-chessboard' ) . ' - ' . __( 'Memo', 'rpb-chessboard' ),
+			__( 'Memo', 'rpb-chessboard' ),
+			'edit_posts', 'rpbchessboard', array( __CLASS__, 'callbackPageMemo' )
 		);
 
 		// Page "options"
-		add_submenu_page('rpbchessboard',
-			sprintf(__('Settings of the %1$s plugin', 'rpb-chessboard'), 'RPB Chessboard'),
-			__('Settings', 'rpb-chessboard'),
-			'manage_options', 'rpbchessboard-options', array(__CLASS__, 'callbackPageOptions')
+		add_submenu_page(
+			'rpbchessboard',
+			sprintf( __( 'Settings of the %1$s plugin', 'rpb-chessboard' ), 'RPB Chessboard' ),
+			__( 'Settings', 'rpb-chessboard' ),
+			'manage_options', 'rpbchessboard-options', array( __CLASS__, 'callbackPageOptions' )
 		);
 
 		// Page "theming"
-		add_submenu_page('rpbchessboard',
-			__('Manage colorsets & piecesets', 'rpb-chessboard'),
-			__('Theming', 'rpb-chessboard'),
-			'manage_options', 'rpbchessboard-theming', array(__CLASS__, 'callbackPageTheming')
+		add_submenu_page(
+			'rpbchessboard',
+			__( 'Manage colorsets & piecesets', 'rpb-chessboard' ),
+			__( 'Theming', 'rpb-chessboard' ),
+			'manage_options', 'rpbchessboard-theming', array( __CLASS__, 'callbackPageTheming' )
 		);
 
 		// Page "help"
-		add_submenu_page('rpbchessboard',
-			__('Chess games and diagrams', 'rpb-chessboard') . ' - ' . __('Help', 'rpb-chessboard'),
-			__('Help', 'rpb-chessboard'),
-			'edit_posts', 'rpbchessboard-help', array(__CLASS__, 'callbackPageHelp')
+		add_submenu_page(
+			'rpbchessboard',
+			__( 'Chess games and diagrams', 'rpb-chessboard' ) . ' - ' . __( 'Help', 'rpb-chessboard' ),
+			__( 'Help', 'rpb-chessboard' ),
+			'edit_posts', 'rpbchessboard-help', array( __CLASS__, 'callbackPageHelp' )
 		);
 
 		// Page "about"
-		add_submenu_page('rpbchessboard',
-			sprintf(__('About %1$s', 'rpb-chessboard'), 'RPB Chessboard'),
-			__('About', 'rpb-chessboard'),
-			'manage_options', 'rpbchessboard-about', array(__CLASS__, 'callbackPageAbout')
+		add_submenu_page(
+			'rpbchessboard',
+			sprintf( __( 'About %1$s', 'rpb-chessboard' ), 'RPB Chessboard' ),
+			__( 'About', 'rpb-chessboard' ),
+			'manage_options', 'rpbchessboard-about', array( __CLASS__, 'callbackPageAbout' )
 		);
 	}
 
 
-	public static function callbackPageMemo   () { self::printAdminPage('Memo'   ); }
-	public static function callbackPageOptions() { self::printAdminPage('Options'); }
-	public static function callbackPageTheming() { self::printAdminPage('Theming'); }
-	public static function callbackPageHelp   () { self::printAdminPage('Help'   ); }
-	public static function callbackPageAbout  () { self::printAdminPage('About'  ); }
+	public static function callbackPageMemo() {
+		self::printAdminPage( 'Memo' ); }
+	public static function callbackPageOptions() {
+		self::printAdminPage( 'Options' ); }
+	public static function callbackPageTheming() {
+		self::printAdminPage( 'Theming' ); }
+	public static function callbackPageHelp() {
+		self::printAdminPage( 'Help' ); }
+	public static function callbackPageAbout() {
+		self::printAdminPage( 'About' ); }
 
 
 	/**
@@ -87,8 +96,8 @@ abstract class RPBChessboardAdminPages
 	 *
 	 * @param string $adminPageName
 	 */
-	private static function printAdminPage($adminPageName) {
-		$model = RPBChessboardHelperLoader::loadModel('AdminPage/' . $adminPageName);
-		RPBChessboardHelperLoader::printTemplate('AdminPage', $model);
+	private static function printAdminPage( $adminPageName ) {
+		$model = RPBChessboardHelperLoader::loadModel( 'AdminPage/' . $adminPageName );
+		RPBChessboardHelperLoader::printTemplate( 'AdminPage', $model );
 	}
 }

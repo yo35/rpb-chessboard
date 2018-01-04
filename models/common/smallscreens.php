@@ -20,22 +20,22 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php');
-require_once(RPBCHESSBOARD_ABSPATH . 'helpers/validation.php');
+require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php';
+require_once RPBCHESSBOARD_ABSPATH . 'helpers/validation.php';
 
 
 /**
  * Specific settings to deal with small-screen devices (such as smartphones).
  */
-class RPBChessboardModelCommonSmallScreens extends RPBChessboardAbstractModel
-{
+class RPBChessboardModelCommonSmallScreens extends RPBChessboardAbstractModel {
+
 	private static $smallScreenCompatibility;
 	private static $smallScreenModes;
 
 
 	public function __construct() {
 		parent::__construct();
-		$this->registerDelegatableMethods('getSmallScreenCompatibility', 'getSmallScreenModes');
+		$this->registerDelegatableMethods( 'getSmallScreenCompatibility', 'getSmallScreenModes' );
 	}
 
 
@@ -45,9 +45,9 @@ class RPBChessboardModelCommonSmallScreens extends RPBChessboardAbstractModel
 	 * @return boolean
 	 */
 	public function getSmallScreenCompatibility() {
-		if(!isset(self::$smallScreenCompatibility)) {
-			$value = RPBChessboardHelperValidation::validateBooleanFromInt(get_option('rpbchessboard_smallScreenCompatibility'));
-			self::$smallScreenCompatibility = isset($value) ? $value : true;
+		if ( ! isset( self::$smallScreenCompatibility ) ) {
+			$value                          = RPBChessboardHelperValidation::validateBooleanFromInt( get_option( 'rpbchessboard_smallScreenCompatibility' ) );
+			self::$smallScreenCompatibility = isset( $value ) ? $value : true;
 		}
 		return self::$smallScreenCompatibility;
 	}
@@ -59,7 +59,7 @@ class RPBChessboardModelCommonSmallScreens extends RPBChessboardAbstractModel
 	 * @return array
 	 */
 	public function getSmallScreenModes() {
-		if(!isset(self::$smallScreenModes)) {
+		if ( ! isset( self::$smallScreenModes ) ) {
 			self::loadSmallScreenModes();
 		}
 		return self::$smallScreenModes;
@@ -72,21 +72,33 @@ class RPBChessboardModelCommonSmallScreens extends RPBChessboardAbstractModel
 	private static function loadSmallScreenModes() {
 
 		// Load the raw data
-		$data = RPBChessboardHelperValidation::validateSmallScreenModes(get_option('rpbchessboard_smallScreenModes'));
-		$data = isset($data) ? $data : array(
-			240 => (object) array('squareSize' => 18, 'hideCoordinates' => true ),
-			320 => (object) array('squareSize' => 24, 'hideCoordinates' => true ),
-			480 => (object) array('squareSize' => 32, 'hideCoordinates' => false),
-			768 => (object) array('squareSize' => 56, 'hideCoordinates' => false)
+		$data = RPBChessboardHelperValidation::validateSmallScreenModes( get_option( 'rpbchessboard_smallScreenModes' ) );
+		$data = isset( $data ) ? $data : array(
+			240 => (object) array(
+				'squareSize'      => 18,
+				'hideCoordinates' => true,
+			),
+			320 => (object) array(
+				'squareSize'      => 24,
+				'hideCoordinates' => true,
+			),
+			480 => (object) array(
+				'squareSize'      => 32,
+				'hideCoordinates' => false,
+			),
+			768 => (object) array(
+				'squareSize'      => 56,
+				'hideCoordinates' => false,
+			),
 		);
 
 		// Format the mode entries
-		self::$smallScreenModes = array();
+		self::$smallScreenModes   = array();
 		$previousScreenWidthBound = 0;
-		foreach($data as $screenWidthBound => $mode) {
+		foreach ( $data as $screenWidthBound => $mode ) {
 			$mode->minScreenWidth = $previousScreenWidthBound;
 			$mode->maxScreenWidth = $screenWidthBound;
-			array_push(self::$smallScreenModes, $mode);
+			array_push( self::$smallScreenModes, $mode );
 			$previousScreenWidthBound = $screenWidthBound;
 		}
 	}
@@ -97,7 +109,7 @@ class RPBChessboardModelCommonSmallScreens extends RPBChessboardAbstractModel
 	 *
 	 * @return boolean
 	 */
-	public function hasSmallScreenSizeSquareSizeSection($mode) {
+	public function hasSmallScreenSizeSquareSizeSection( $mode ) {
 		return $mode->squareSize < RPBChessboardHelperValidation::MAXIMUM_SQUARE_SIZE;
 	}
 
@@ -107,10 +119,10 @@ class RPBChessboardModelCommonSmallScreens extends RPBChessboardAbstractModel
 	 *
 	 * @return string
 	 */
-	public function getSmallScreenModeMainSelector($mode) {
+	public function getSmallScreenModeMainSelector( $mode ) {
 		$res = '@media all';
-		if($mode->minScreenWidth > 0) {
-			$res .= ' and (min-width:' . ($mode->minScreenWidth + 1) . 'px)';
+		if ( $mode->minScreenWidth > 0 ) {
+			$res .= ' and (min-width:' . ( $mode->minScreenWidth + 1 ) . 'px)';
 		}
 		$res .= ' and (max-width:' . $mode->maxScreenWidth . 'px)';
 		return $res;
@@ -122,12 +134,12 @@ class RPBChessboardModelCommonSmallScreens extends RPBChessboardAbstractModel
 	 *
 	 * @return string
 	 */
-	public function getSmallScreenModeSquareSizeSelector($mode) {
+	public function getSmallScreenModeSquareSizeSelector( $mode ) {
 		$selectors = array();
-		for($size = $mode->squareSize+1; $size <= RPBChessboardHelperValidation::MAXIMUM_SQUARE_SIZE; ++$size) {
-			array_push($selectors, '.rpbui-chessboard-size' . $size . ' .rpbui-chessboard-sized');
+		for ( $size = $mode->squareSize + 1; $size <= RPBChessboardHelperValidation::MAXIMUM_SQUARE_SIZE; ++$size ) {
+			array_push( $selectors, '.rpbui-chessboard-size' . $size . ' .rpbui-chessboard-sized' );
 		}
-		return implode(',', $selectors);
+		return implode( ',', $selectors );
 	}
 
 
@@ -136,12 +148,12 @@ class RPBChessboardModelCommonSmallScreens extends RPBChessboardAbstractModel
 	 *
 	 * @return string
 	 */
-	public function getSmallScreenModeAnnotationLayerSelector($mode) {
+	public function getSmallScreenModeAnnotationLayerSelector( $mode ) {
 		$selectors = array();
-		for($size = $mode->squareSize+1; $size <= RPBChessboardHelperValidation::MAXIMUM_SQUARE_SIZE; ++$size) {
-			array_push($selectors, '.rpbui-chessboard-size' . $size . ' .rpbui-chessboard-annotations');
+		for ( $size = $mode->squareSize + 1; $size <= RPBChessboardHelperValidation::MAXIMUM_SQUARE_SIZE; ++$size ) {
+			array_push( $selectors, '.rpbui-chessboard-size' . $size . ' .rpbui-chessboard-annotations' );
 		}
-		return implode(',', $selectors);
+		return implode( ',', $selectors );
 	}
 
 
@@ -151,14 +163,13 @@ class RPBChessboardModelCommonSmallScreens extends RPBChessboardAbstractModel
 	 * @param int $squareSize
 	 * @return int
 	 */
-	public function getBackgroundPositionXForSquareSize($squareSize) {
-		if($squareSize <= 32) {
+	public function getBackgroundPositionXForSquareSize( $squareSize ) {
+		if ( $squareSize <= 32 ) {
 			// delta_x = - sum (k = $squareSize + 1 to 32) { k }
-			return - ($squareSize + 33)*(32 - $squareSize)/2;
-		}
-		else {
+			return - ( $squareSize + 33 ) * ( 32 - $squareSize ) / 2;
+		} else {
 			// delta_x = - sum (k = 33 to $squareSize - 1) { k }
-			return - ($squareSize + 32)*($squareSize - 33)/2;
+			return - ( $squareSize + 32 ) * ( $squareSize - 33 ) / 2;
 		}
 	}
 
@@ -169,7 +180,7 @@ class RPBChessboardModelCommonSmallScreens extends RPBChessboardAbstractModel
 	 * @param int $squareSize
 	 * @return int
 	 */
-	public function getBackgroundPositionYForSquareSize($squareSize) {
+	public function getBackgroundPositionYForSquareSize( $squareSize ) {
 		return $squareSize <= 32 ? $squareSize - 65 : 0;
 	}
 
@@ -180,7 +191,7 @@ class RPBChessboardModelCommonSmallScreens extends RPBChessboardAbstractModel
 	 * @param int $squareSize
 	 * @return int
 	 */
-	public function getHeightWidthForAnnotationLayer($squareSize) {
+	public function getHeightWidthForAnnotationLayer( $squareSize ) {
 		return $squareSize * 8;
 	}
 
@@ -191,7 +202,7 @@ class RPBChessboardModelCommonSmallScreens extends RPBChessboardAbstractModel
 	 * @param int $squareSize
 	 * @return int
 	 */
-	public function getRightForAnnotationLayer($squareSize) {
+	public function getRightForAnnotationLayer( $squareSize ) {
 		return $squareSize + 8;
 	}
 }

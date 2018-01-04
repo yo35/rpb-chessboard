@@ -20,7 +20,7 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/adminpage.php');
+require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/adminpage.php';
 
 
 /**
@@ -33,15 +33,15 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 
 	public function __construct() {
 		parent::__construct();
-		$this->loadDelegateModel('Common/DefaultOptionsEx');
-		$this->loadDelegateModel('Common/Compatibility'   );
-		$this->loadDelegateModel('Common/URLs'            );
-		$this->loadDelegateModel('Common/SmallScreens'    );
+		$this->loadDelegateModel( 'Common/DefaultOptionsEx' );
+		$this->loadDelegateModel( 'Common/Compatibility' );
+		$this->loadDelegateModel( 'Common/URLs' );
+		$this->loadDelegateModel( 'Common/SmallScreens' );
 
 		// Create the sub-pages.
-		$this->addSubPage('General'      , __('Default aspect & behavior settings', 'rpb-chessboard'), true);
-		$this->addSubPage('Compatibility', __('Compatibility settings', 'rpb-chessboard'));
-		$this->addSubPage('SmallScreens' , __('Small-screen devices', 'rpb-chessboard'));
+		$this->addSubPage( 'General', __( 'Default aspect & behavior settings', 'rpb-chessboard' ), true );
+		$this->addSubPage( 'Compatibility', __( 'Compatibility settings', 'rpb-chessboard' ) );
+		$this->addSubPage( 'SmallScreens', __( 'Small-screen devices', 'rpb-chessboard' ) );
 	}
 
 
@@ -51,7 +51,7 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 	 * @return string
 	 */
 	public function getFormActionURL() {
-		return $this->getSubPage($this->getSelectedSubPageName())->link;
+		return $this->getSubPage( $this->getSelectedSubPageName() )->link;
 	}
 
 
@@ -71,7 +71,7 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 	 * @return string
 	 */
 	public function getFormResetAction() {
-		return 'reset-' . strtolower($this->getSelectedSubPageName());
+		return 'reset-' . strtolower( $this->getSelectedSubPageName() );
 	}
 
 
@@ -82,7 +82,7 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 	 */
 	public function getDigitNumberForSquareSize() {
 		$maxVal = $this->getMaximumSquareSize();
-		return 1 + floor(log10($maxVal));
+		return 1 + floor( log10( $maxVal ) );
 	}
 
 
@@ -93,7 +93,7 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 	 */
 	public function getDigitNumberForAnimationSpeed() {
 		$maxVal = $this->getMaximumAnimationSpeed();
-		return 1 + floor(log10($maxVal));
+		return 1 + floor( log10( $maxVal ) );
 	}
 
 
@@ -103,13 +103,20 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 	 * @param string $piece `'K'`, `'Q'`, `'R'`, `'B'`, `'N'`, or `'P'`.
 	 * @return string
 	 */
-	public function getPieceSymbolCustomValue($piece) {
-		if(!isset($this->pieceSymbolCustomValues)) {
+	public function getPieceSymbolCustomValue( $piece ) {
+		if ( ! isset( $this->pieceSymbolCustomValues ) ) {
 			$this->pieceSymbolCustomValues = $this->getDefaultPieceSymbolCustomValues();
-			if(empty($this->pieceSymbolCustomValues)) {
-				$this->pieceSymbolCustomValues = array('K'=>'', 'Q'=>'', 'R'=>'', 'B'=>'', 'N'=>'', 'P'=>'');
+			if ( empty( $this->pieceSymbolCustomValues ) ) {
+				$this->pieceSymbolCustomValues = array(
+					'K' => '',
+					'Q' => '',
+					'R' => '',
+					'B' => '',
+					'N' => '',
+					'P' => '',
+				);
 			}
 		}
-		return $this->pieceSymbolCustomValues[$piece];
+		return $this->pieceSymbolCustomValues[ $piece ];
 	}
 }

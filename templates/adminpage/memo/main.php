@@ -25,22 +25,23 @@
 	<p>
 		<?php
 			_e(
-				'This short reminder presents through examples the features provided by the RPB Chessboard plugin, '.
-				'namely the insertion of chess diagrams and games in WordPress websites. '.
+				'This short reminder presents through examples the features provided by the RPB Chessboard plugin, ' .
+				'namely the insertion of chess diagrams and games in WordPress websites. ' .
 				'On the left is the code written in posts and pages, while the right column shows the corresponding rendering.',
-			'rpb-chessboard');
+				'rpb-chessboard'
+			);
 		?>
 	</p>
 
 	<script type="text/javascript">
 		jQuery(document).ready(function($) {
-			$.chessgame.navigationFrameOptions = <?php echo json_encode($model->getDefaultChessboardSettings()); ?>;
+			$.chessgame.navigationFrameOptions = <?php echo json_encode( $model->getDefaultChessboardSettings() ); ?>;
 		});
 	</script>
 
 	<?php
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Memo/FEN', $model);
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Memo/PGN', $model);
+		RPBChessboardHelperLoader::printTemplate( 'AdminPage/Memo/FEN', $model );
+		RPBChessboardHelperLoader::printTemplate( 'AdminPage/Memo/PGN', $model );
 	?>
 
 </div>

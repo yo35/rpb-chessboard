@@ -20,32 +20,32 @@
  ******************************************************************************/
 ?>
 
-<?php foreach($model->getCustomColorsets() as $colorset): ?>
+<?php foreach ( $model->getCustomColorsets() as $colorset ) : ?>
 
-	.rpbui-chessboard-colorset-<?php echo htmlspecialchars($colorset); ?> .rpbui-chessboard-darkSquare {
-		background-color: <?php echo htmlspecialchars($model->getDarkSquareColor($colorset)); ?>;
+	.rpbui-chessboard-colorset-<?php echo htmlspecialchars( $colorset ); ?> .rpbui-chessboard-darkSquare {
+		background-color: <?php echo htmlspecialchars( $model->getDarkSquareColor( $colorset ) ); ?>;
 	}
 
-	.rpbui-chessboard-colorset-<?php echo htmlspecialchars($colorset); ?> .rpbui-chessboard-lightSquare {
-		background-color: <?php echo htmlspecialchars($model->getLightSquareColor($colorset)); ?>;
+	.rpbui-chessboard-colorset-<?php echo htmlspecialchars( $colorset ); ?> .rpbui-chessboard-lightSquare {
+		background-color: <?php echo htmlspecialchars( $model->getLightSquareColor( $colorset ) ); ?>;
 	}
 
 <?php endforeach; ?>
 
 
-<?php foreach($model->getCustomPiecesets() as $pieceset): ?>
+<?php foreach ( $model->getCustomPiecesets() as $pieceset ) : ?>
 
-	<?php foreach(array('b', 'w') as $color): ?>
+	<?php foreach ( array( 'b', 'w' ) as $color ) : ?>
 
-		<?php foreach(array('p', 'n', 'b', 'r', 'q', 'k') as $piece): ?>
-			.rpbui-chessboard-pieceset-<?php echo htmlspecialchars($pieceset); ?>
+		<?php foreach ( array( 'p', 'n', 'b', 'r', 'q', 'k' ) as $piece ) : ?>
+			.rpbui-chessboard-pieceset-<?php echo htmlspecialchars( $pieceset ); ?>
 				.rpbui-chessboard-color-<?php echo $color; ?>.rpbui-chessboard-piece-<?php echo $piece; ?>
-				{ background-image: url(<?php echo htmlspecialchars($model->getCustomPiecesetSpriteURL($pieceset, $color . $piece)); ?>); }
+				{ background-image: url(<?php echo htmlspecialchars( $model->getCustomPiecesetSpriteURL( $pieceset, $color . $piece ) ); ?>); }
 		<?php endforeach; ?>
 
-		.rpbui-chessboard-pieceset-<?php echo htmlspecialchars($pieceset); ?>
+		.rpbui-chessboard-pieceset-<?php echo htmlspecialchars( $pieceset ); ?>
 			.rpbui-chessboard-color-<?php echo $color; ?>.rpbui-chessboard-turnFlag
-			{ background-image: url(<?php echo htmlspecialchars($model->getCustomPiecesetSpriteURL($pieceset, $color . 'x')); ?>); }
+			{ background-image: url(<?php echo htmlspecialchars( $model->getCustomPiecesetSpriteURL( $pieceset, $color . 'x' ) ); ?>); }
 
 	<?php endforeach; ?>
 <?php endforeach; ?>
