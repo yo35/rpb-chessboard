@@ -20,15 +20,15 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-pgnCustomStartingPosition"><?php _e('Custom starting position', 'rpb-chessboard'); ?></h3>
+<h3 id="rpbchessboard-pgnCustomStartingPosition"><?php _e( 'Custom starting position', 'rpb-chessboard' ); ?></h3>
 
 <div class="rpbchessboard-columns">
 	<div>
 
 		<div class="rpbchessboard-sourceCode">
-			[<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]<br/>
+			[<?php echo htmlspecialchars( $model->getPGNShortcode() ); ?>]<br/>
 			<br/>
-			[Event &quot;<?php _e('Endgame example', 'rpb-chessboard'); ?>&quot;]<br/>
+			[Event &quot;<?php _e( 'Endgame example', 'rpb-chessboard' ); ?>&quot;]<br/>
 			[SetUp &quot;1&quot;]<br/>
 			[FEN &quot;k7/n1PB4/1K6/8/8/8/8/8 w - - 0 50&quot;]<br/>
 			<br/>
@@ -36,19 +36,22 @@
 			<br/>
 			50.Bc6+ Nxc6 51.c8=Q+ Nb8 52.Qb7# 1-0<br/>
 			<br/>
-			[/<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]
+			[/<?php echo htmlspecialchars( $model->getPGNShortcode() ); ?>]
 		</div>
 
 		<p>
-			<?php echo sprintf(
+			<?php
+			echo sprintf(
 				__(
-					'The %1$s[FEN &quot;...&quot;]%2$s header might be used to specify that the game '.
-					'starts with a custom position. Additionally, the strict PGN syntax requires that '.
+					'The %1$s[FEN &quot;...&quot;]%2$s header might be used to specify that the game ' .
+					'starts with a custom position. Additionally, the strict PGN syntax requires that ' .
 					'%1$s[SetUp &quot;1&quot;]%2$s is added when using the %1$s[FEN &quot;...&quot;]%2$s header.',
-				'rpb-chessboard'),
+					'rpb-chessboard'
+				),
 				'<span class="rpbchessboard-sourceCode">',
 				'</span>'
-			); ?>
+			);
+			?>
 		</p>
 
 	</div>
@@ -59,11 +62,11 @@
 				<div id="rpbchessboard-pgnCustomStartingPosition-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-pgnCustomStartingPosition-anchor').chessgame($.extend(true, <?php echo json_encode($model->getDefaultChessgameSettings()); ?>, {
+						$('#rpbchessboard-pgnCustomStartingPosition-anchor').chessgame($.extend(true, <?php echo json_encode( $model->getDefaultChessgameSettings() ); ?>, {
 							navigationBoard: 'none',
 							diagramOptions: { squareSize: 28 },
 							pgn:
-								'[Event "' + <?php echo json_encode(__('Endgame example', 'rpb-chessboard')); ?> + '"]\n' +
+								'[Event "' + <?php echo json_encode( __( 'Endgame example', 'rpb-chessboard' ) ); ?> + '"]\n' +
 								'[SetUp "1"]\n' +
 								'[FEN "k7/n1PB4/1K6/8/8/8/8/8 w - - 0 50"]\n' +
 								'\n' +

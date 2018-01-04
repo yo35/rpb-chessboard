@@ -20,12 +20,12 @@
  ******************************************************************************/
 ?>
 
-<?php RPBChessboardHelperLoader::printTemplate($model->getSubPageTemplateName(), $model); ?>
+<?php RPBChessboardHelperLoader::printTemplate( $model->getSubPageTemplateName(), $model ); ?>
 
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
 
-		$.chessgame.navigationFrameOptions = <?php echo json_encode($model->getDefaultChessboardSettings()); ?>;
+		$.chessgame.navigationFrameOptions = <?php echo json_encode( $model->getDefaultChessboardSettings() ); ?>;
 
 		$('.rpbchessboard-outline a').click(function(e) {
 			e.preventDefault();

@@ -20,18 +20,21 @@
  ******************************************************************************/
 ?>
 
-<h3><?php _e('Compatibility with other chess plugins', 'rpb-chessboard'); ?></h3>
+<h3><?php _e( 'Compatibility with other chess plugins', 'rpb-chessboard' ); ?></h3>
 
 <p>
-	<?php echo sprintf(
+	<?php
+	echo sprintf(
 		__(
-			'By default, the RPB Chessboard plugin use the %1$s[fen][/fen]%2$s and %1$s[pgn][/pgn]%2$s tags '.
-			'for FEN diagrams and PGN games. However, this behavior causes conflicts with other WordPress plugins '.
+			'By default, the RPB Chessboard plugin use the %1$s[fen][/fen]%2$s and %1$s[pgn][/pgn]%2$s tags ' .
+			'for FEN diagrams and PGN games. However, this behavior causes conflicts with other WordPress plugins ' .
 			'(typically chess plugins) that use the same tags. These compatibility settings are provided to avoid those conflicts.',
-		'rpb-chessboard'),
+			'rpb-chessboard'
+		),
 		'<span class="rpbchessboard-sourceCode">',
 		'</span>'
-	); ?>
+	);
+	?>
 </p>
 
 
@@ -39,22 +42,28 @@
 <p>
 	<input type="hidden" name="fenCompatibilityMode" value="0" />
 	<input type="checkbox" id="rpbchessboard-fenCompatibilityModeField" name="fenCompatibilityMode" value="1"
-		<?php if($model->getFENCompatibilityMode()): ?>checked="yes"<?php endif; ?>
+		<?php
+		if ( $model->getFENCompatibilityMode() ) :
+?>
+checked="yes"<?php endif; ?>
 	/>
 	<label for="rpbchessboard-fenCompatibilityModeField">
-		<?php _e('Compatibility mode for the FEN diagram tag', 'rpb-chessboard'); ?>
+		<?php _e( 'Compatibility mode for the FEN diagram tag', 'rpb-chessboard' ); ?>
 	</label>
 </p>
 
 <p class="description">
-	<?php echo sprintf(
+	<?php
+	echo sprintf(
 		__(
 			'Activating this option makes RPB Chessboard use %1$s[fen_compat][/fen_compat]%2$s ' .
 			'instead of %1$s[fen][/fen]%2$s for FEN diagrams.',
-		'rpb-chessboard'),
+			'rpb-chessboard'
+		),
 		'<span class="rpbchessboard-sourceCode">',
 		'</span>'
-	); ?>
+	);
+	?>
 </p>
 
 
@@ -62,20 +71,26 @@
 <p>
 	<input type="hidden" name="pgnCompatibilityMode" value="0" />
 	<input type="checkbox" id="rpbchessboard-pgnCompatibilityModeField" name="pgnCompatibilityMode" value="1"
-		<?php if($model->getPGNCompatibilityMode()): ?>checked="yes"<?php endif; ?>
+		<?php
+		if ( $model->getPGNCompatibilityMode() ) :
+?>
+checked="yes"<?php endif; ?>
 	/>
 	<label for="rpbchessboard-pgnCompatibilityModeField">
-		<?php _e('Compatibility mode for the PGN game tag', 'rpb-chessboard'); ?>
+		<?php _e( 'Compatibility mode for the PGN game tag', 'rpb-chessboard' ); ?>
 	</label>
 </p>
 
 <p class="description">
-	<?php echo sprintf(
+	<?php
+	echo sprintf(
 		__(
 			'Activating this option makes RPB Chessboard use %1$s[pgn_compat][/pgn_compat]%2$s ' .
 			'instead of %1$s[pgn][/pgn]%2$s for PGN games.',
-		'rpb-chessboard'),
+			'rpb-chessboard'
+		),
 		'<span class="rpbchessboard-sourceCode">',
 		'</span>'
-	); ?>
+	);
+	?>
 </p>
