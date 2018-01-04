@@ -32,56 +32,54 @@ Version: 5.1.5
 
 
 // Directories
-define('RPBCHESSBOARD_ABSPATH', plugin_dir_path(__FILE__));
-define('RPBCHESSBOARD_URL'    , plugin_dir_url (__FILE__));
-define('RPBCHESSBOARD_VERSION', '5.1.5');
+define( 'RPBCHESSBOARD_ABSPATH', plugin_dir_path( __FILE__ ) );
+define( 'RPBCHESSBOARD_URL', plugin_dir_url( __FILE__ ) );
+define( 'RPBCHESSBOARD_VERSION', '5.1.5' );
 
 
 // Enable localization
-load_plugin_textdomain('rpb-chessboard', false, basename(dirname(__FILE__)) . '/languages');
+load_plugin_textdomain( 'rpb-chessboard', false, basename( dirname( __FILE__ ) ) . '/languages' );
 
 
 // Various tools
-require_once(RPBCHESSBOARD_ABSPATH . 'helpers/loader.php');
-require_once(RPBCHESSBOARD_ABSPATH . 'helpers/cache.php');
+require_once RPBCHESSBOARD_ABSPATH . 'helpers/loader.php';
+require_once RPBCHESSBOARD_ABSPATH . 'helpers/cache.php';
 
 
 // POST actions, AJAX & shortcodes
-add_action('init', 'rpbchessboard_init');
+add_action( 'init', 'rpbchessboard_init' );
 function rpbchessboard_init() {
 
-	if(is_admin()) {
+	if ( is_admin() ) {
 
-		require_once(RPBCHESSBOARD_ABSPATH . 'wp/postactions.php');
+		require_once RPBCHESSBOARD_ABSPATH . 'wp/postactions.php';
 		RPBChessboardPostActions::run();
 
-		require_once(RPBCHESSBOARD_ABSPATH . 'wp/misc.php');
+		require_once RPBCHESSBOARD_ABSPATH . 'wp/misc.php';
 		RPBChessboardMisc::register();
 	}
 
-	require_once(RPBCHESSBOARD_ABSPATH . 'wp/shortcodes.php');
+	require_once RPBCHESSBOARD_ABSPATH . 'wp/shortcodes.php';
 	RPBChessboardShortcodes::register();
 }
 
 
 // JavaScript & CSS
-add_action(is_admin() ? 'admin_enqueue_scripts' : 'wp_enqueue_scripts', 'rpbchessboard_init_js_css');
-function rpbchessboard_init_js_css()
-{
-	require_once(RPBCHESSBOARD_ABSPATH . 'wp/scripts.php');
+add_action( is_admin() ? 'admin_enqueue_scripts' : 'wp_enqueue_scripts', 'rpbchessboard_init_js_css' );
+function rpbchessboard_init_js_css() {
+	require_once RPBCHESSBOARD_ABSPATH . 'wp/scripts.php';
 	RPBChessboardScripts::register();
 
-	require_once(RPBCHESSBOARD_ABSPATH . 'wp/stylesheets.php');
+	require_once RPBCHESSBOARD_ABSPATH . 'wp/stylesheets.php';
 	RPBChessboardStyleSheets::register();
 }
 
 
 // Administration pages
-if(is_admin()) {
-	add_action('admin_menu', 'rpbchessboard_init_admin_pages');
-	function rpbchessboard_init_admin_pages()
-	{
-		require_once(RPBCHESSBOARD_ABSPATH . 'wp/adminpages.php');
+if ( is_admin() ) {
+	add_action( 'admin_menu', 'rpbchessboard_init_admin_pages' );
+	function rpbchessboard_init_admin_pages() {
+		require_once RPBCHESSBOARD_ABSPATH . 'wp/adminpages.php';
 		RPBChessboardAdminPages::register();
 	}
 }
