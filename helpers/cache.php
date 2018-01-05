@@ -68,7 +68,8 @@ abstract class RPBChessboardHelperCache {
 	public static function ensureExists( $fileName, $templateName, $modelName ) {
 		$fullFileName = self::getFullFileName( $fileName );
 		if ( file_exists( $fullFileName ) ) {
-			return; }
+			return;
+		}
 
 		$model = RPBChessboardHelperLoader::loadModel( $modelName );
 		$text  = RPBChessboardHelperLoader::printTemplateOffScreen( $templateName, $model );
