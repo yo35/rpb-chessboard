@@ -68,7 +68,7 @@
 				<div id="rpbchessboard-fenAttributeColorsetPieceset-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-fenAttributeColorsetPieceset-anchor').chessboard($.extend(<?php echo json_encode($model->getDefaultChessboardSettings()); ?>, {
+						$('#rpbchessboard-fenAttributeColorsetPieceset-anchor').chessboard($.extend(<?php echo wp_json_encode($model->getDefaultChessboardSettings()); ?>, {
 							position: 'start',
 							squareSize: 48,
 							colorset: 'cburnett',

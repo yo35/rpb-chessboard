@@ -144,12 +144,12 @@
 			field.prop('readonly', true);
 			$('#rpbchessboard-smallScreenMode' + index + '-squareSizeSlider').slider({
 				value: field.val(),
-				min: <?php echo json_encode($model->getMinimumSquareSize()); ?>,
-				max: <?php echo json_encode($model->getMaximumSquareSize()); ?>,
+				min: <?php echo wp_json_encode($model->getMinimumSquareSize()); ?>,
+				max: <?php echo wp_json_encode($model->getMaximumSquareSize()); ?>,
 				slide: function(event, ui) { field.val(ui.value); }
 			});
 		}
-		for(var k=0; k<<?php echo json_encode(count($model->getSmallScreenModes())); ?>; ++k) {
+		for(var k=0; k<<?php echo wp_json_encode(count($model->getSmallScreenModes())); ?>; ++k) {
 			initializeSmallScreenSection(k);
 		}
 

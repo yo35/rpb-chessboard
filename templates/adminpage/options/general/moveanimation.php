@@ -78,8 +78,8 @@
 		$('#rpbchessboard-animationSpeedSlider').slider({
 			value: animationSpeed,
 			min: 0,
-			max: <?php echo json_encode($model->getMaximumAnimationSpeed()); ?>,
-			step: <?php echo json_encode($model->getStepAnimationSpeed()); ?>,
+			max: <?php echo wp_json_encode($model->getMaximumAnimationSpeed()); ?>,
+			step: <?php echo wp_json_encode($model->getStepAnimationSpeed()); ?>,
 			slide: function(event, ui) { $('#rpbchessboard-animationSpeedField').val(ui.value); }
 		});
 

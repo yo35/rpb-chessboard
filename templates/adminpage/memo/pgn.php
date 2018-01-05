@@ -130,7 +130,7 @@
 				<div id="rpbchessboard-example2"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-example2').chessgame($.extend(true, <?php echo json_encode($model->getDefaultChessgameSettings()); ?>, {
+						$('#rpbchessboard-example2').chessgame($.extend(true, <?php echo wp_json_encode($model->getDefaultChessgameSettings()); ?>, {
 							diagramOptions: { squareSize: 28 },
 							navigationBoard: 'frame',
 							pgn:
@@ -147,7 +147,7 @@
 								'\n' +
 								'{<div class="rpbui-chessgame-diagramAnchor"></div>' +
 								<?php
-									echo json_encode(__(
+									echo wp_json_encode(__(
 										'Morphy took twelve minutes over his next move, '.
 										'probably to assure himself that the combination was sound and '.
 										'that he had a forced win in every variation.',
@@ -156,16 +156,16 @@
 								'}\n' +
 								'\n' +
 								'17... Qxf3 !! 18. gxf3 Rg6+ 19. Kh1 Bh3 20. Rd1\n' +
-								'({' + <?php echo json_encode(__('Not', 'rpb-chessboard')); ?> + '}\n' +
+								'({' + <?php echo wp_json_encode(__('Not', 'rpb-chessboard')); ?> + '}\n' +
 								'20. Rg1 Rxg1+ 21. Kxg1 Re1+ -+)\n' +
 								'20... Bg2+ 21. Kg1 Bxf3+ 22. Kf1 Bg2+\n' +
 								'\n' +
 								'(22...Rg2 ! {' +
-								<?php echo json_encode(__('would have won more quickly. For instance:', 'rpb-chessboard')); ?> +
+								<?php echo wp_json_encode(__('would have won more quickly. For instance:', 'rpb-chessboard')); ?> +
 								'} 23. Qd3 Rxf2+ 24. Kg1 Rg2+ 25. Kh1 Rg1#)\n' +
 								'\n' +
 								'23. Kg1 Bh3+ 24. Kh1 Bxf2 25. Qf1\n' +
-								'{' + <?php echo json_encode(__('Absolutely forced.', 'rpb-chessboard')); ?> + '}\n' +
+								'{' + <?php echo wp_json_encode(__('Absolutely forced.', 'rpb-chessboard')); ?> + '}\n' +
 								'25... Bxf1 26. Rxf1 Re2 27. Ra1 Rh6 28. d4 Be3 0-1'
 						}));
 					});

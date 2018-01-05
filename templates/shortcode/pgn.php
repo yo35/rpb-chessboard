@@ -39,9 +39,9 @@
 			<?php endif; ?>
 			$.chessgame.navigationButtonClass  = 'rpbchessboard-jQuery-enableSmoothness';
 			$.chessgame.navigationFrameClass   = 'wp-dialog';
-			$.chessgame.navigationFrameOptions = <?php echo json_encode($model->getDefaultChessboardSettings()); ?>;
-			var selector = '#' + <?php echo json_encode($model->getUniqueID()); ?> + ' .rpbchessboard-chessgameAnchor';
-			$(selector).removeClass('rpbchessboard-chessgameAnchor').chessgame(<?php echo json_encode($model->getWidgetArgs()); ?>);
+			$.chessgame.navigationFrameOptions = <?php echo wp_json_encode($model->getDefaultChessboardSettings()); ?>;
+			var selector = '#' + <?php echo wp_json_encode($model->getUniqueID()); ?> + ' .rpbchessboard-chessgameAnchor';
+			$(selector).removeClass('rpbchessboard-chessgameAnchor').chessgame(<?php echo wp_json_encode($model->getWidgetArgs()); ?>);
 		});
 	</script>
 </div>

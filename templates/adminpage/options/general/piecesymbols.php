@@ -110,12 +110,12 @@
 
 		// Callback for the localized piece symbol button.
 		$('#rpbchessboard-pieceSymbolButton-localized').change(function() {
-			$('#rpbchessboard-kingSymbolField'  ).val(<?php /*i18n King symbol   */ echo json_encode(__('K', 'rpb-chessboard')); ?>);
-			$('#rpbchessboard-queenSymbolField' ).val(<?php /*i18n Queen symbol  */ echo json_encode(__('Q', 'rpb-chessboard')); ?>);
-			$('#rpbchessboard-rookSymbolField'  ).val(<?php /*i18n Rook symbol   */ echo json_encode(__('R', 'rpb-chessboard')); ?>);
-			$('#rpbchessboard-bishopSymbolField').val(<?php /*i18n Bishop symbol */ echo json_encode(__('B', 'rpb-chessboard')); ?>);
-			$('#rpbchessboard-knightSymbolField').val(<?php /*i18n Knight symbol */ echo json_encode(__('N', 'rpb-chessboard')); ?>);
-			$('#rpbchessboard-pawnSymbolField'  ).val(<?php /*i18n Pawn symbol   */ echo json_encode(__('P', 'rpb-chessboard')); ?>);
+			$('#rpbchessboard-kingSymbolField'  ).val(<?php /*i18n King symbol   */ echo wp_json_encode(__('K', 'rpb-chessboard')); ?>);
+			$('#rpbchessboard-queenSymbolField' ).val(<?php /*i18n Queen symbol  */ echo wp_json_encode(__('Q', 'rpb-chessboard')); ?>);
+			$('#rpbchessboard-rookSymbolField'  ).val(<?php /*i18n Rook symbol   */ echo wp_json_encode(__('R', 'rpb-chessboard')); ?>);
+			$('#rpbchessboard-bishopSymbolField').val(<?php /*i18n Bishop symbol */ echo wp_json_encode(__('B', 'rpb-chessboard')); ?>);
+			$('#rpbchessboard-knightSymbolField').val(<?php /*i18n Knight symbol */ echo wp_json_encode(__('N', 'rpb-chessboard')); ?>);
+			$('#rpbchessboard-pawnSymbolField'  ).val(<?php /*i18n Pawn symbol   */ echo wp_json_encode(__('P', 'rpb-chessboard')); ?>);
 			needInitIfCustomClicked = false;
 			$('.rpbchessboard-pieceSymbolField').prop('readonly', true);
 		});
@@ -141,7 +141,7 @@
 		});
 
 		// Initialize the symbol fields.
-		$('#rpbchessboard-pieceSymbolButton-' + <?php echo json_encode($model->getDefaultSimplifiedPieceSymbols()); ?>).change();
+		$('#rpbchessboard-pieceSymbolButton-' + <?php echo wp_json_encode($model->getDefaultSimplifiedPieceSymbols()); ?>).change();
 
 	});
 </script>

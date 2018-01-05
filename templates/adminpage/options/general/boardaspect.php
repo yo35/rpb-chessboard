@@ -141,8 +141,8 @@
 		$('#rpbchessboard-squareSizeField').prop('readonly', true);
 		$('#rpbchessboard-squareSizeSlider').slider({
 			value: squareSize,
-			min: <?php echo json_encode($model->getMinimumSquareSize()); ?>,
-			max: <?php echo json_encode($model->getMaximumSquareSize()); ?>,
+			min: <?php echo wp_json_encode($model->getMinimumSquareSize()); ?>,
+			max: <?php echo wp_json_encode($model->getMaximumSquareSize()); ?>,
 			slide: function(event, ui) { onSquareSizeChange(ui.value); }
 		});
 

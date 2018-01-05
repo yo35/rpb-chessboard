@@ -59,11 +59,11 @@
 				<div id="rpbchessboard-pgnCustomStartingPosition-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-pgnCustomStartingPosition-anchor').chessgame($.extend(true, <?php echo json_encode($model->getDefaultChessgameSettings()); ?>, {
+						$('#rpbchessboard-pgnCustomStartingPosition-anchor').chessgame($.extend(true, <?php echo wp_json_encode($model->getDefaultChessgameSettings()); ?>, {
 							navigationBoard: 'none',
 							diagramOptions: { squareSize: 28 },
 							pgn:
-								'[Event "' + <?php echo json_encode(__('Endgame example', 'rpb-chessboard')); ?> + '"]\n' +
+								'[Event "' + <?php echo wp_json_encode(__('Endgame example', 'rpb-chessboard')); ?> + '"]\n' +
 								'[SetUp "1"]\n' +
 								'[FEN "k7/n1PB4/1K6/8/8/8/8/8 w - - 0 50"]\n' +
 								'\n' +

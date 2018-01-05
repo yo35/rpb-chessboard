@@ -52,19 +52,19 @@
 			position       : 'start',
 			squareSize     : 48     ,
 			showCoordinates: false  ,
-			colorset       : <?php echo json_encode($model->getDefaultColorset()); ?>,
-			pieceset       : <?php echo json_encode($model->getDefaultPieceset()); ?>
+			colorset       : <?php echo wp_json_encode($model->getDefaultColorset()); ?>,
+			pieceset       : <?php echo wp_json_encode($model->getDefaultPieceset()); ?>
 		});
 
 		var disableAutoPreview = false;
 
 		function preview(slug) {
 			if(disableAutoPreview) { return; }
-			$('#rpbchessboard-themingPreviewWidget').chessboard('option', <?php echo json_encode($model->getManagedSetCode()); ?>, slug);
+			$('#rpbchessboard-themingPreviewWidget').chessboard('option', <?php echo wp_json_encode($model->getManagedSetCode()); ?>, slug);
 		}
 
 		$('#rpbchessboard-setCodeList tbody tr').mouseleave(function() {
-			preview(<?php echo json_encode($model->getDefaultSetCodeValue()); ?>);
+			preview(<?php echo wp_json_encode($model->getDefaultSetCodeValue()); ?>);
 		}).mouseenter(function(e) {
 			preview($(e.currentTarget).data('slug'));
 		});
@@ -116,13 +116,13 @@
 			var row = $(this).closest('tr');
 
 			// Ask for confirmation from the user.
-			var message = <?php echo json_encode($model->getDeleteConfirmMessage()); ?>;
+			var message = <?php echo wp_json_encode($model->getDeleteConfirmMessage()); ?>;
 			message = message.replace('{1}', $('.row-title', row).text());
 			if(!confirm(message)) { return; }
 
 			// Process the request.
 			var form = $('#rpbchessboard-deleteForm');
-			$('input[name="' + <?php echo json_encode($model->getManagedSetCode()); ?> + '"]', form).val(row.data('slug'));
+			$('input[name="' + <?php echo wp_json_encode($model->getManagedSetCode()); ?> + '"]', form).val(row.data('slug'));
 			form.submit();
 		});
 
@@ -134,7 +134,7 @@
 			var row = $(this).closest('tr');
 
 			var form = $('#rpbchessboard-setDefaultForm');
-			$('input[name="' + <?php echo json_encode($model->getManagedSetCode()); ?> + '"]', form).val(row.data('slug'));
+			$('input[name="' + <?php echo wp_json_encode($model->getManagedSetCode()); ?> + '"]', form).val(row.data('slug'));
 			form.submit();
 		});
 

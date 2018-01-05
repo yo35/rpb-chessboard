@@ -84,7 +84,7 @@ class RPBChessboardModelShortcodePGNDiagram extends RPBChessboardAbstractModelSh
 	 */
 	public function getDiagramOptionsAsString() {
 		if(!isset($this->diagramOptionsAsString)) {
-			$this->diagramOptionsAsString = json_encode($this->getDiagramOptions());
+			$this->diagramOptionsAsString = wp_json_encode($this->getDiagramOptions());
 			$this->diagramOptionsAsString = preg_replace('/{|}|\\\\/', '\\\\$0', $this->diagramOptionsAsString);
 		}
 		return $this->diagramOptionsAsString;
