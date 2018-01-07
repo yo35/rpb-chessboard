@@ -98,7 +98,7 @@
 				<div id="rpbchessboard-pgnAttributeNavigationBoard-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-pgnAttributeNavigationBoard-anchor').chessgame($.extend(true, <?php echo json_encode($model->getDefaultChessgameSettings()); ?>, {
+						$('#rpbchessboard-pgnAttributeNavigationBoard-anchor').chessgame($.extend(true, <?php echo wp_json_encode($model->getDefaultChessgameSettings()); ?>, {
 							navigationBoard: 'none',
 							navigationBoardOptions: { squareSize: 28 },
 							pgn:

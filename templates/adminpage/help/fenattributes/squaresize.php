@@ -69,9 +69,9 @@
 				<div id="rpbchessboard-fenAttributeSquareSize-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-fenAttributeSquareSize-anchor').chessboard($.extend(<?php echo json_encode($model->getDefaultChessboardSettings()); ?>, {
+						$('#rpbchessboard-fenAttributeSquareSize-anchor').chessboard($.extend(<?php echo wp_json_encode($model->getDefaultChessboardSettings()); ?>, {
 							position: 'start',
-							squareSize: <?php echo json_encode($model->getSquareSizeInitialExample()); ?>
+							squareSize: <?php echo wp_json_encode($model->getSquareSizeInitialExample()); ?>
 						}));
 						$('.rpbchessboard-fenAttributeSquareSize-value').click(function(e) {
 							e.preventDefault();

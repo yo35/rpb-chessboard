@@ -55,7 +55,7 @@
 				<div id="rpbchessboard-pgnDiagram-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-pgnDiagram-anchor').chessgame($.extend(true, <?php echo json_encode($model->getDefaultChessgameSettings()); ?>, {
+						$('#rpbchessboard-pgnDiagram-anchor').chessgame($.extend(true, <?php echo wp_json_encode($model->getDefaultChessgameSettings()); ?>, {
 							navigationBoard: 'none',
 							diagramOptions: { squareSize: 28 },
 							pgn:
@@ -63,7 +63,7 @@
 								'\n' +
 								'{<div class="rpbui-chessgame-diagramAnchor"></div> ' +
 								<?php
-									echo json_encode(__('This opening is called the Sicilian defence. A possible continuation is:', 'rpb-chessboard'));
+									echo wp_json_encode(__('This opening is called the Sicilian defence. A possible continuation is:', 'rpb-chessboard'));
 								?> + '}\n' +
 								'\n' +
 								'2. Nf3 d6 *'

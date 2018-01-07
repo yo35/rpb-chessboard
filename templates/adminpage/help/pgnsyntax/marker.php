@@ -92,7 +92,7 @@
 				<div id="rpbchessboard-pgnMarker-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-pgnMarker-anchor').chessgame($.extend(true, <?php echo json_encode($model->getDefaultChessgameSettings()); ?>, {
+						$('#rpbchessboard-pgnMarker-anchor').chessgame($.extend(true, <?php echo wp_json_encode($model->getDefaultChessgameSettings()); ?>, {
 							navigationBoard: 'none',
 							diagramOptions: { squareSize: 28 },
 							pgn:
@@ -104,7 +104,7 @@
 								'\n' +
 								'{<div class="rpbui-chessgame-diagramAnchor"></div>[%csl Re5,Gc6][%cal Rf3e5,Rb5c6,Gc6e5] ' +
 								<?php
-									echo json_encode(__(
+									echo wp_json_encode(__(
 										'The Ruy Lopez: White\'s third move attacks the knight which defends the e5-pawn from the attack by the f3-knight.',
 										'rpb-chessboard'));
 								?> + '}\n' +

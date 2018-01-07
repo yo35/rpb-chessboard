@@ -98,7 +98,7 @@
 
 				mediaFrame[coloredPiece] = wp.media({
 					title: $(button).attr('title'),
-					button: {	text: <?php echo json_encode(__('Select', 'rpb-chessboard')); ?>	},
+					button: {	text: <?php echo wp_json_encode(__('Select', 'rpb-chessboard')); ?>	},
 					multiple: false
 				});
 
@@ -116,8 +116,8 @@
 
 			$('.rpbchessboard-piecesetEditionErrorMessage', form).hide();
 
-			var ajaxUrl = <?php echo json_encode(admin_url('admin-ajax.php')); ?>;
-			var nonce = <?php echo json_encode(wp_create_nonce('rpbchessboard_format_pieceset_sprite')); ?>;
+			var ajaxUrl = <?php echo wp_json_encode(admin_url('admin-ajax.php')); ?>;
+			var nonce = <?php echo wp_json_encode(wp_create_nonce('rpbchessboard_format_pieceset_sprite')); ?>;
 
 			$.post(ajaxUrl, {
 				action: 'rpbchessboard_format_pieceset_sprite',
@@ -181,7 +181,7 @@
 			$('input[type="submit"]', target).click(function(e) {
 				if($('input[name="pieceset"]', target).val() === '' && !isAllImageFieldsDefined(target)) {
 					e.preventDefault();
-					var message = <?php echo json_encode(__('All the images must be defined to create a pieceset.', 'rpb-chessboard')); ?>;
+					var message = <?php echo wp_json_encode(__('All the images must be defined to create a pieceset.', 'rpb-chessboard')); ?>;
 					$('.rpbchessboard-piecesetEditionErrorMessage', target).text(message).slideDown();
 				}
 			});

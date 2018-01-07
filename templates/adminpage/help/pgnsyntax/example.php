@@ -56,7 +56,7 @@
 				<div id="rpbchessboard-pgnExample-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-pgnExample-anchor').chessgame($.extend(<?php echo json_encode($model->getDefaultChessgameSettings()); ?>, {
+						$('#rpbchessboard-pgnExample-anchor').chessgame($.extend(<?php echo wp_json_encode($model->getDefaultChessgameSettings()); ?>, {
 							navigationBoard: 'none',
 							pgn:
 								'[Event "Linares 16<sup>th</sup>"]\n' +

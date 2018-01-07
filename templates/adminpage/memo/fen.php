@@ -63,7 +63,7 @@
 				<div id="rpbchessboard-example1"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-example1').chessboard($.extend(<?php echo json_encode($model->getDefaultChessboardSettings()); ?>, {
+						$('#rpbchessboard-example1').chessboard($.extend(<?php echo wp_json_encode($model->getDefaultChessboardSettings()); ?>, {
 							squareSize: 28,
 							position: 'r2qkbnr/ppp2ppp/2np4/4N3/2B1P3/2N5/PPPP1PPP/R1BbK2R w KQkq - 0 6'
 						}));

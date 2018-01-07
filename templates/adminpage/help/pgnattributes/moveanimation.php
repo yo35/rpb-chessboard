@@ -96,7 +96,7 @@
 				<div id="rpbchessboard-pgnAttributeMoveAnimation-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-pgnAttributeMoveAnimation-anchor').chessgame($.extend(true, <?php echo json_encode($model->getDefaultChessgameSettings()); ?>, {
+						$('#rpbchessboard-pgnAttributeMoveAnimation-anchor').chessgame($.extend(true, <?php echo wp_json_encode($model->getDefaultChessgameSettings()); ?>, {
 							navigationBoard: 'floatLeft',
 							navigationBoardOptions: { squareSize: 28, animationSpeed: 0, showMoveArrow: false },
 							pgn:

@@ -36,8 +36,8 @@
 	<div class="rpbchessboard-chessboardAnchor"></div>
 	<script type="text/javascript">
 		jQuery(document).ready(function($) {
-			var selector = '#' + <?php echo json_encode($model->getUniqueID()); ?> + ' .rpbchessboard-chessboardAnchor';
-			$(selector).removeClass('rpbchessboard-chessboardAnchor').chessboard(<?php echo json_encode($model->getWidgetArgs()); ?>);
+			var selector = '#' + <?php echo wp_json_encode($model->getUniqueID()); ?> + ' .rpbchessboard-chessboardAnchor';
+			$(selector).removeClass('rpbchessboard-chessboardAnchor').chessboard(<?php echo wp_json_encode($model->getWidgetArgs()); ?>);
 		});
 	</script>
 </div>

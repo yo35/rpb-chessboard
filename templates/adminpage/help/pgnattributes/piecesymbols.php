@@ -94,7 +94,7 @@
 				<div id="rpbchessboard-pgnAttributePieceSymbols-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-pgnAttributePieceSymbols-anchor').chessgame($.extend(<?php echo json_encode($model->getDefaultChessgameSettings()); ?>, {
+						$('#rpbchessboard-pgnAttributePieceSymbols-anchor').chessgame($.extend(<?php echo wp_json_encode($model->getDefaultChessgameSettings()); ?>, {
 							navigationBoard: 'none',
 							pieceSymbols: 'native',
 							pgn:

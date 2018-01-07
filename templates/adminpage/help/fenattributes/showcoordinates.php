@@ -65,7 +65,7 @@
 				<div id="rpbchessboard-fenAttributeShowCoordinates-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-fenAttributeShowCoordinates-anchor').chessboard($.extend(<?php echo json_encode($model->getDefaultChessboardSettings()); ?>, {
+						$('#rpbchessboard-fenAttributeShowCoordinates-anchor').chessboard($.extend(<?php echo wp_json_encode($model->getDefaultChessboardSettings()); ?>, {
 							position: 'start',
 							squareSize: 28,
 							showCoordinates: true

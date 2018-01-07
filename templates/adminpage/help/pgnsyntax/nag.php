@@ -39,7 +39,7 @@
 				<div id="rpbchessboard-pgnNAG-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-pgnNAG-anchor').chessgame($.extend(<?php echo json_encode($model->getDefaultChessgameSettings()); ?>, {
+						$('#rpbchessboard-pgnNAG-anchor').chessgame($.extend(<?php echo wp_json_encode($model->getDefaultChessgameSettings()); ?>, {
 							navigationBoard: 'none',
 							pgn: '1.e4 !! ! !? ?! ? ?? +- +/- +/= = ~ =/+ -/+ -+ *'
 						}));
