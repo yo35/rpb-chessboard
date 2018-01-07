@@ -20,7 +20,7 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/shortcode.php');
+require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/shortcode.php';
 
 
 /**
@@ -39,37 +39,37 @@ class RPBChessboardModelShortcodePGNDiagram extends RPBChessboardAbstractModelSh
 	 * @return array
 	 */
 	public function getDiagramOptions() {
-		if(!isset($this->diagramOptions)) {
+		if ( ! isset( $this->diagramOptions ) ) {
 			$this->diagramOptions = array();
-			$atts = $this->getAttributes();
+			$atts                 = $this->getAttributes();
 
 			// Orientation
-			$value = isset($atts['flip']) ? RPBChessboardHelperValidation::validateBoolean($atts['flip']) : null;
-			if(isset($value)) {
+			$value = isset( $atts['flip'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['flip'] ) : null;
+			if ( isset( $value ) ) {
 				$this->diagramOptions['flip'] = $value;
 			}
 
 			// Square size
-			$value = isset($atts['square_size']) ? RPBChessboardHelperValidation::validateSquareSize($atts['square_size']) : null;
-			if(isset($value)) {
+			$value = isset( $atts['square_size'] ) ? RPBChessboardHelperValidation::validateSquareSize( $atts['square_size'] ) : null;
+			if ( isset( $value ) ) {
 				$this->diagramOptions['squareSize'] = $value;
 			}
 
 			// Show coordinates
-			$value = isset($atts['show_coordinates']) ? RPBChessboardHelperValidation::validateBoolean($atts['show_coordinates']) : null;
-			if(isset($value)) {
+			$value = isset( $atts['show_coordinates'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_coordinates'] ) : null;
+			if ( isset( $value ) ) {
 				$this->diagramOptions['showCoordinates'] = $value;
 			}
 
 			// Colorset
-			$value = isset($atts['colorset']) ? RPBChessboardHelperValidation::validateSetCode($atts['colorset']) : null;
-			if(isset($value)) {
+			$value = isset( $atts['colorset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['colorset'] ) : null;
+			if ( isset( $value ) ) {
 				$this->diagramOptions['colorset'] = $value;
 			}
 
 			// Pieceset
-			$value = isset($atts['pieceset']) ? RPBChessboardHelperValidation::validateSetCode($atts['pieceset']) : null;
-			if(isset($value)) {
+			$value = isset( $atts['pieceset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['pieceset'] ) : null;
+			if ( isset( $value ) ) {
 				$this->diagramOptions['pieceset'] = $value;
 			}
 		}
@@ -83,9 +83,9 @@ class RPBChessboardModelShortcodePGNDiagram extends RPBChessboardAbstractModelSh
 	 * @return string
 	 */
 	public function getDiagramOptionsAsString() {
-		if(!isset($this->diagramOptionsAsString)) {
-			$this->diagramOptionsAsString = wp_json_encode($this->getDiagramOptions());
-			$this->diagramOptionsAsString = preg_replace('/{|}|\\\\/', '\\\\$0', $this->diagramOptionsAsString);
+		if ( ! isset( $this->diagramOptionsAsString ) ) {
+			$this->diagramOptionsAsString = wp_json_encode( $this->getDiagramOptions() );
+			$this->diagramOptionsAsString = preg_replace( '/{|}|\\\\/', '\\\\$0', $this->diagramOptionsAsString );
 		}
 		return $this->diagramOptionsAsString;
 	}

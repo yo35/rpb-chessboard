@@ -22,26 +22,26 @@
 
 <p class="rpbchessboard-spacerBefore"></p>
 
-<div id="<?php echo htmlspecialchars($model->getUniqueID()); ?>" class="rpbchessboard-chessgame">
+<div id="<?php echo htmlspecialchars( $model->getUniqueID() ); ?>" class="rpbchessboard-chessgame">
 	<noscript>
-		<?php if(!$model->isLoadedFromExternalPGNFile()): ?>
-			<div class="rpbchessboard-noJavascriptBlock"><?php echo htmlspecialchars($model->getContent()); ?></div>
+		<?php if ( ! $model->isLoadedFromExternalPGNFile() ) : ?>
+		<div class="rpbchessboard-noJavascriptBlock"><?php echo htmlspecialchars( $model->getContent() ); ?></div>
 		<?php endif; ?>
 		<div class="rpbchessboard-javascriptWarning">
-			<?php _e('You must activate JavaScript to enhance chess game visualization.', 'rpb-chessboard'); ?>
+			<?php _e( 'You must activate JavaScript to enhance chess game visualization.', 'rpb-chessboard' ); ?>
 		</div>
 	</noscript>
 	<div class="rpbchessboard-chessgameAnchor"></div>
 	<script type="text/javascript">
 		jQuery(document).ready(function($) {
-			<?php if($model->getNoConflictForButton()): ?>
-				if(typeof $.fn.button.noConflict === 'function') { $.fn.button.noConflict(); }
+			<?php if ( $model->getNoConflictForButton() ) : ?>
+			if(typeof $.fn.button.noConflict === 'function') { $.fn.button.noConflict(); }
 			<?php endif; ?>
 			$.chessgame.navigationButtonClass  = 'rpbchessboard-jQuery-enableSmoothness';
 			$.chessgame.navigationFrameClass   = 'wp-dialog';
-			$.chessgame.navigationFrameOptions = <?php echo wp_json_encode($model->getDefaultChessboardSettings()); ?>;
-			var selector = '#' + <?php echo wp_json_encode($model->getUniqueID()); ?> + ' .rpbchessboard-chessgameAnchor';
-			$(selector).removeClass('rpbchessboard-chessgameAnchor').chessgame(<?php echo wp_json_encode($model->getWidgetArgs()); ?>);
+			$.chessgame.navigationFrameOptions = <?php echo wp_json_encode( $model->getDefaultChessboardSettings() ); ?>;
+			var selector = '#' + <?php echo wp_json_encode( $model->getUniqueID() ); ?> + ' .rpbchessboard-chessgameAnchor';
+			$(selector).removeClass('rpbchessboard-chessgameAnchor').chessgame(<?php echo wp_json_encode( $model->getWidgetArgs() ); ?>);
 		});
 	</script>
 </div>

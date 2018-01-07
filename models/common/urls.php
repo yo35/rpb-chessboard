@@ -20,7 +20,7 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php');
+require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php';
 
 
 /**
@@ -30,8 +30,10 @@ class RPBChessboardModelCommonURLs extends RPBChessboardAbstractModel {
 
 	public function __construct() {
 		parent::__construct();
-		$this->registerDelegatableMethods('getMemoURL', 'getOptionsGeneralURL', 'getOptionsSmallScreensURL', 'getThemingURL',
-			'getHelpOnFENAttributesURL', 'getHelpOnPGNAttributesURL', 'getHelpOnFENSyntaxURL', 'getHelpOnPGNSyntaxURL');
+		$this->registerDelegatableMethods(
+			'getMemoURL', 'getOptionsGeneralURL', 'getOptionsSmallScreensURL', 'getThemingURL',
+			'getHelpOnFENAttributesURL', 'getHelpOnPGNAttributesURL', 'getHelpOnFENSyntaxURL', 'getHelpOnPGNSyntaxURL'
+		);
 	}
 
 
@@ -41,7 +43,7 @@ class RPBChessboardModelCommonURLs extends RPBChessboardAbstractModel {
 	 * @return string
 	 */
 	public function getMemoURL() {
-		return admin_url('admin.php') . '?page=rpbchessboard';
+		return admin_url( 'admin.php' ) . '?page=rpbchessboard';
 	}
 
 
@@ -51,7 +53,7 @@ class RPBChessboardModelCommonURLs extends RPBChessboardAbstractModel {
 	 * @return string
 	 */
 	public function getOptionsGeneralURL() {
-		return admin_url('admin.php') . '?page=rpbchessboard-options&subpage=general';
+		return admin_url( 'admin.php' ) . '?page=rpbchessboard-options&subpage=general';
 	}
 
 
@@ -61,7 +63,7 @@ class RPBChessboardModelCommonURLs extends RPBChessboardAbstractModel {
 	 * @return string
 	 */
 	public function getOptionsSmallScreensURL() {
-		return admin_url('admin.php') . '?page=rpbchessboard-options&subpage=smallscreens';
+		return admin_url( 'admin.php' ) . '?page=rpbchessboard-options&subpage=smallscreens';
 	}
 
 
@@ -71,7 +73,7 @@ class RPBChessboardModelCommonURLs extends RPBChessboardAbstractModel {
 	 * @return string
 	 */
 	public function getThemingURL() {
-		return admin_url('admin.php') . '?page=rpbchessboard-theming';
+		return admin_url( 'admin.php' ) . '?page=rpbchessboard-theming';
 	}
 
 
@@ -81,7 +83,7 @@ class RPBChessboardModelCommonURLs extends RPBChessboardAbstractModel {
 	 * @return string
 	 */
 	public function getHelpOnFENAttributesURL() {
-		return admin_url('admin.php') . '?page=rpbchessboard-help&subpage=fenattributes';
+		return admin_url( 'admin.php' ) . '?page=rpbchessboard-help&subpage=fenattributes';
 	}
 
 
@@ -91,7 +93,7 @@ class RPBChessboardModelCommonURLs extends RPBChessboardAbstractModel {
 	 * @return string
 	 */
 	public function getHelpOnPGNAttributesURL() {
-		return admin_url('admin.php') . '?page=rpbchessboard-help&subpage=pgnattributes';
+		return admin_url( 'admin.php' ) . '?page=rpbchessboard-help&subpage=pgnattributes';
 	}
 
 
@@ -101,7 +103,7 @@ class RPBChessboardModelCommonURLs extends RPBChessboardAbstractModel {
 	 * @return string
 	 */
 	public function getHelpOnFENSyntaxURL() {
-		return admin_url('admin.php') . '?page=rpbchessboard-help&subpage=fensyntax';
+		return admin_url( 'admin.php' ) . '?page=rpbchessboard-help&subpage=fensyntax';
 	}
 
 
@@ -111,6 +113,6 @@ class RPBChessboardModelCommonURLs extends RPBChessboardAbstractModel {
 	 * @return string
 	 */
 	public function getHelpOnPGNSyntaxURL() {
-		return admin_url('admin.php') . '?page=rpbchessboard-help&subpage=pgnsyntax';
+		return admin_url( 'admin.php' ) . '?page=rpbchessboard-help&subpage=pgnsyntax';
 	}
 }

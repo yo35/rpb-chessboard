@@ -20,60 +20,66 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-pgnAttributePieceSymbols"><?php _e('Piece symbols', 'rpb-chessboard'); ?></h3>
+<h3 id="rpbchessboard-pgnAttributePieceSymbols"><?php _e( 'Piece symbols', 'rpb-chessboard' ); ?></h3>
 
 <div class="rpbchessboard-columns">
 	<div>
 
 		<p>
-			<?php echo sprintf(__('The %1$s attribute controls how chess pieces are denoted in the move list.', 'rpb-chessboard'),
-				'<span class="rpbchessboard-sourceCode">piece_symbols</span>'); ?>
+			<?php
+				echo sprintf(
+					__( 'The %1$s attribute controls how chess pieces are denoted in the move list.', 'rpb-chessboard' ),
+					'<span class="rpbchessboard-sourceCode">piece_symbols</span>'
+				);
+			?>
 		</p>
 
 		<table class="rpbchessboard-attributeTable">
 			<tbody>
 				<tr>
-					<th><?php _e('Value', 'rpb-chessboard'); ?></th>
-					<th><?php _e('Default', 'rpb-chessboard'); ?></th>
-					<th><?php _e('Description', 'rpb-chessboard'); ?></th>
+					<th><?php _e( 'Value', 'rpb-chessboard' ); ?></th>
+					<th><?php _e( 'Default', 'rpb-chessboard' ); ?></th>
+					<th><?php _e( 'Description', 'rpb-chessboard' ); ?></th>
 				</tr>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributePieceSymbols-value">native</a></td>
-					<td><?php if($model->getDefaultSimplifiedPieceSymbols()==='english'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
-					<td><?php _e('First character of the piece name in English.', 'rpb-chessboard'); ?></td>
+					<td><?php echo $model->getDefaultSimplifiedPieceSymbols() === 'english' ? '<div class="rpbchessboard-tickIcon"></div>' : ''; ?></td>
+					<td><?php _e( 'First character of the piece name in English.', 'rpb-chessboard' ); ?></td>
 				</tr>
-				<?php if($model->isPieceSymbolLocalizationAvailable()): ?>
-					<tr>
-						<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributePieceSymbols-value">localized</a></td>
-						<td><?php if($model->getDefaultSimplifiedPieceSymbols()==='localized'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
-						<td><?php _e('First character of the piece name in the blog language.', 'rpb-chessboard'); ?></td>
-					</tr>
+				<?php if ( $model->isPieceSymbolLocalizationAvailable() ) : ?>
+				<tr>
+					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributePieceSymbols-value">localized</a></td>
+					<td><?php echo $model->getDefaultSimplifiedPieceSymbols() === 'localized' ? '<div class="rpbchessboard-tickIcon"></div>' : ''; ?></td>
+					<td><?php _e( 'First character of the piece name in the blog language.', 'rpb-chessboard' ); ?></td>
+				</tr>
 				<?php endif; ?>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributePieceSymbols-value">figurines</a></td>
-					<td><?php if($model->getDefaultSimplifiedPieceSymbols()==='figurines'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
+					<td><?php echo $model->getDefaultSimplifiedPieceSymbols() === 'figurines' ? '<div class="rpbchessboard-tickIcon"></div>' : ''; ?></td>
 					<td><span class="rpbui-chessgame-alphaFont">K Q R B N P</span></td>
 				</tr>
 				<tr>
-					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributePieceSymbols-value">(<?php
-						echo htmlspecialchars($model->getPieceSymbolCustomValue()); ?>)</a></td>
-					<td><?php if($model->getDefaultSimplifiedPieceSymbols()==='custom'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
+					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributePieceSymbols-value">(<?php echo htmlspecialchars( $model->getPieceSymbolCustomValue() ); ?>)</a></td>
+					<td><?php echo $model->getDefaultSimplifiedPieceSymbols() === 'custom' ? '<div class="rpbchessboard-tickIcon"></div>' : ''; ?></td>
 					<td>
-						<?php echo sprintf(
-							__(
-								'Any sequence of 6 capital letters surrounded with parenthesis is allowed to set custom symbols. '.
-								'For instance, with %1$s(%3$s%4$s%5$s%6$s%7$s%8$s)%2$s, %3$s will be used to denote a king, ' .
-								'%4$s for a queen, %5$s for a rook, %6$s for a bishop, %7$s for a knight and %8$s for a pawn.',
-							'rpb-chessboard'),
-							'<span class="rpbchessboard-sourceCode">',
-							'</span>',
-							htmlspecialchars($model->getPieceSymbolCustomValue('K')),
-							htmlspecialchars($model->getPieceSymbolCustomValue('Q')),
-							htmlspecialchars($model->getPieceSymbolCustomValue('R')),
-							htmlspecialchars($model->getPieceSymbolCustomValue('B')),
-							htmlspecialchars($model->getPieceSymbolCustomValue('N')),
-							htmlspecialchars($model->getPieceSymbolCustomValue('P'))
-						); ?>
+						<?php
+							echo sprintf(
+								__(
+									'Any sequence of 6 capital letters surrounded with parenthesis is allowed to set custom symbols. ' .
+									'For instance, with %1$s(%3$s%4$s%5$s%6$s%7$s%8$s)%2$s, %3$s will be used to denote a king, ' .
+									'%4$s for a queen, %5$s for a rook, %6$s for a bishop, %7$s for a knight and %8$s for a pawn.',
+									'rpb-chessboard'
+								),
+								'<span class="rpbchessboard-sourceCode">',
+								'</span>',
+								htmlspecialchars( $model->getPieceSymbolCustomValue( 'K' ) ),
+								htmlspecialchars( $model->getPieceSymbolCustomValue( 'Q' ) ),
+								htmlspecialchars( $model->getPieceSymbolCustomValue( 'R' ) ),
+								htmlspecialchars( $model->getPieceSymbolCustomValue( 'B' ) ),
+								htmlspecialchars( $model->getPieceSymbolCustomValue( 'N' ) ),
+								htmlspecialchars( $model->getPieceSymbolCustomValue( 'P' ) )
+							);
+						?>
 					</td>
 				</tr>
 			</tbody>
@@ -83,10 +89,12 @@
 	<div>
 
 		<div class="rpbchessboard-sourceCode">
-			<?php echo sprintf(
-				'[%1$s <strong>piece_symbols=<span id="rpbchessboard-pgnAttributePieceSymbols-sourceCodeExample">native</span></strong>] ... [/%1$s]',
-				htmlspecialchars($model->getPGNShortcode())
-			); ?>
+			<?php
+				echo sprintf(
+					'[%1$s <strong>piece_symbols=<span id="rpbchessboard-pgnAttributePieceSymbols-sourceCodeExample">native</span></strong>] ... [/%1$s]',
+					htmlspecialchars( $model->getPGNShortcode() )
+				);
+			?>
 		</div>
 
 		<div class="rpbchessboard-visuBlock">
@@ -94,7 +102,7 @@
 				<div id="rpbchessboard-pgnAttributePieceSymbols-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-pgnAttributePieceSymbols-anchor').chessgame($.extend(<?php echo wp_json_encode($model->getDefaultChessgameSettings()); ?>, {
+						$('#rpbchessboard-pgnAttributePieceSymbols-anchor').chessgame($.extend(<?php echo wp_json_encode( $model->getDefaultChessgameSettings() ); ?>, {
 							navigationBoard: 'none',
 							pieceSymbols: 'native',
 							pgn:

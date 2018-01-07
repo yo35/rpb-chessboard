@@ -20,13 +20,13 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-pgnVariation"><?php _e('Variations', 'rpb-chessboard'); ?></h3>
+<h3 id="rpbchessboard-pgnVariation"><?php _e( 'Variations', 'rpb-chessboard' ); ?></h3>
 
 <div class="rpbchessboard-columns">
 	<div>
 
 		<div class="rpbchessboard-sourceCode">
-			[<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]<br/>
+			[<?php echo htmlspecialchars( $model->getPGNShortcode() ); ?>]<br/>
 			1. e4 e5 (1... c5) (1... e6) 2. Nf3 Nc6 3. Bb5<br/>
 			<br/>
 			(3. Bc4 Bc5 (3... Be7) 4.d4)<br/>
@@ -34,7 +34,7 @@
 			(3. d4 exd4 4. Nxd4 Bc5 5. Be3 Qf6)<br/>
 			<br/>
 			3... a6 4. Ba4 *<br/>
-			[/<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]
+			[/<?php echo htmlspecialchars( $model->getPGNShortcode() ); ?>]
 		</div>
 
 	</div>
@@ -45,7 +45,7 @@
 				<div id="rpbchessboard-pgnVariation-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-pgnVariation-anchor').chessgame($.extend(<?php echo wp_json_encode($model->getDefaultChessgameSettings()); ?>, {
+						$('#rpbchessboard-pgnVariation-anchor').chessgame($.extend(<?php echo wp_json_encode( $model->getDefaultChessgameSettings() ); ?>, {
 							navigationBoard: 'none',
 							pgn:
 								'1. e4 e5 (1... c5) (1... e6) 2. Nf3 Nc6 3. Bb5\n' +
@@ -67,10 +67,11 @@
 <p>
 	<?php
 		_e(
-			'As for comments, variations can be rendered either inlined within the move sequence, '.
-			'or as separated paragraphs if they are preceded by a blank line in the PGN string. '.
-			'Variations can be nested. However, inlined variations cannot contain &quot;paragraph-style&quot; variations '.
+			'As for comments, variations can be rendered either inlined within the move sequence, ' .
+			'or as separated paragraphs if they are preceded by a blank line in the PGN string. ' .
+			'Variations can be nested. However, inlined variations cannot contain &quot;paragraph-style&quot; variations ' .
 			'(or &quot;paragraph-style&quot; comments).',
-		'rpb-chessboard');
+			'rpb-chessboard'
+		);
 	?>
 </p>

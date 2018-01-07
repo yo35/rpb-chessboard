@@ -22,7 +22,7 @@
 
 <p>
 	<button id="rpbchessboard-addSetCodeButton" class="button">
-		<?php _e('Add a new pieceset', 'rpb-chessboard'); ?>
+		<?php _e( 'Add a new pieceset', 'rpb-chessboard' ); ?>
 	</button>
 </p>
 
@@ -30,55 +30,69 @@
 
 	<thead>
 		<tr>
-			<th scope="col"><?php _e('Name', 'rpb-chessboard'); ?></th>
-			<th scope="col"><?php _e('Slug', 'rpb-chessboard'); ?></th>
-			<th scope="col"><?php _e('Default', 'rpb-chessboard'); ?></th>
+			<th scope="col"><?php _e( 'Name', 'rpb-chessboard' ); ?></th>
+			<th scope="col"><?php _e( 'Slug', 'rpb-chessboard' ); ?></th>
+			<th scope="col"><?php _e( 'Default', 'rpb-chessboard' ); ?></th>
 		</tr>
 	</thead>
 
 	<tbody>
 
 		<tr>
-			<?php RPBChessboardHelperLoader::printTemplate('AdminPage/Theming/PiecesetEdition', $model, array('isNew' => true, 'pieceset' => '')); ?>
+			<?php
+				RPBChessboardHelperLoader::printTemplate(
+					'AdminPage/Theming/PiecesetEdition', $model, array(
+						'isNew'    => true,
+						'pieceset' => '',
+					)
+				);
+			?>
 		</tr>
 
-		<?php foreach($model->getAvailablePiecesets() as $pieceset): ?>
-			<tr data-slug="<?php echo htmlspecialchars($pieceset); ?>">
+		<?php foreach ( $model->getAvailablePiecesets() as $pieceset ) : ?>
+		<tr data-slug="<?php echo htmlspecialchars( $pieceset ); ?>">
 
-				<td class="has-row-actions">
-					<strong class="row-title"><?php echo htmlspecialchars($model->getPiecesetLabel($pieceset)); ?></strong>
-					<span class="row-actions rpbchessboard-inlinedRowActions">
-						<?php if($model->isBuiltinPieceset($pieceset)): ?>
-							<span><a href="#" class="rpbchessboard-action-setDefault"><?php _e('Set default', 'rpb-chessboard'); ?></a></span>
-						<?php else: ?>
-							<span><a href="#" class="rpbchessboard-action-setDefault"><?php _e('Set default', 'rpb-chessboard'); ?></a> |</span>
-							<span><a href="#" class="rpbchessboard-action-edit"><?php _e('Edit', 'rpb-chessboard'); ?></a> |</span>
-							<span><a href="#" class="rpbchessboard-action-delete"><?php _e('Delete', 'rpb-chessboard'); ?></a></span>
-						<?php endif; ?>
-					</span>
-				</td>
-
-				<td><?php echo htmlspecialchars($pieceset); ?></td>
-
-				<td>
-					<?php if($model->isDefaultPieceset($pieceset)): ?>
-						<div class="rpbchessboard-tickIcon"></div>
+			<td class="has-row-actions">
+				<strong class="row-title"><?php echo htmlspecialchars( $model->getPiecesetLabel( $pieceset ) ); ?></strong>
+				<span class="row-actions rpbchessboard-inlinedRowActions">
+					<?php if ( $model->isBuiltinPieceset( $pieceset ) ) : ?>
+					<span><a href="#" class="rpbchessboard-action-setDefault"><?php _e( 'Set default', 'rpb-chessboard' ); ?></a></span>
+					<?php else : ?>
+					<span><a href="#" class="rpbchessboard-action-setDefault"><?php _e( 'Set default', 'rpb-chessboard' ); ?></a> |</span>
+					<span><a href="#" class="rpbchessboard-action-edit"><?php _e( 'Edit', 'rpb-chessboard' ); ?></a> |</span>
+					<span><a href="#" class="rpbchessboard-action-delete"><?php _e( 'Delete', 'rpb-chessboard' ); ?></a></span>
 					<?php endif; ?>
-				</td>
+				</span>
+			</td>
 
-				<?php if(!$model->isBuiltinPieceset($pieceset)): ?>
-					<?php RPBChessboardHelperLoader::printTemplate('AdminPage/Theming/PiecesetEdition', $model, array('isNew' => false, 'pieceset' => $pieceset)); ?>
+			<td><?php echo htmlspecialchars( $pieceset ); ?></td>
+
+			<td>
+				<?php if ( $model->isDefaultPieceset( $pieceset ) ) : ?>
+				<div class="rpbchessboard-tickIcon"></div>
 				<?php endif; ?>
+			</td>
 
-			</tr>
+			<?php
+			if ( ! $model->isBuiltinPieceset( $pieceset ) ) {
+				RPBChessboardHelperLoader::printTemplate(
+					'AdminPage/Theming/PiecesetEdition', $model, array(
+						'isNew'    => false,
+						'pieceset' => $pieceset,
+					)
+				);
+			}
+			?>
+
+		</tr>
 		<?php endforeach; ?>
 	</tbody>
 
 	<tfoot>
 		<tr>
-			<th scope="col"><?php _e('Name', 'rpb-chessboard'); ?></th>
-			<th scope="col"><?php _e('Slug', 'rpb-chessboard'); ?></th>
-			<th scope="col"><?php _e('Default', 'rpb-chessboard'); ?></th>
+			<th scope="col"><?php _e( 'Name', 'rpb-chessboard' ); ?></th>
+			<th scope="col"><?php _e( 'Slug', 'rpb-chessboard' ); ?></th>
+			<th scope="col"><?php _e( 'Default', 'rpb-chessboard' ); ?></th>
 		</tr>
 	</tfoot>
 
@@ -98,7 +112,7 @@
 
 				mediaFrame[coloredPiece] = wp.media({
 					title: $(button).attr('title'),
-					button: {	text: <?php echo wp_json_encode(__('Select', 'rpb-chessboard')); ?>	},
+					button: {	text: <?php echo wp_json_encode( __( 'Select', 'rpb-chessboard' ) ); ?>	},
 					multiple: false
 				});
 
@@ -116,8 +130,8 @@
 
 			$('.rpbchessboard-piecesetEditionErrorMessage', form).hide();
 
-			var ajaxUrl = <?php echo wp_json_encode(admin_url('admin-ajax.php')); ?>;
-			var nonce = <?php echo wp_json_encode(wp_create_nonce('rpbchessboard_format_pieceset_sprite')); ?>;
+			var ajaxUrl = <?php echo wp_json_encode( admin_url( 'admin-ajax.php' ) ); ?>;
+			var nonce = <?php echo wp_json_encode( wp_create_nonce( 'rpbchessboard_format_pieceset_sprite' ) ); ?>;
 
 			$.post(ajaxUrl, {
 				action: 'rpbchessboard_format_pieceset_sprite',
@@ -181,7 +195,7 @@
 			$('input[type="submit"]', target).click(function(e) {
 				if($('input[name="pieceset"]', target).val() === '' && !isAllImageFieldsDefined(target)) {
 					e.preventDefault();
-					var message = <?php echo wp_json_encode(__('All the images must be defined to create a pieceset.', 'rpb-chessboard')); ?>;
+					var message = <?php echo wp_json_encode( __( 'All the images must be defined to create a pieceset.', 'rpb-chessboard' ) ); ?>;
 					$('.rpbchessboard-piecesetEditionErrorMessage', target).text(message).slideDown();
 				}
 			});

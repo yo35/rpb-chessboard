@@ -20,20 +20,23 @@
  ******************************************************************************/
 ?>
 
-<h3><?php _e('Compatibility with plugins and themes that modify jQuery', 'rpb-chessboard'); ?></h3>
+<h3><?php _e( 'Compatibility with plugins and themes that modify jQuery', 'rpb-chessboard' ); ?></h3>
 
 <p>
 	<?php
-		echo sprintf(__(
-			'The RPB Chessboard plugin relies heavily on the %1$sjQuery%2$s JavaScript library, ' .
-			'which is packaged by default with WordPress. Yet, some plugins and themes modify ' .
-			'the standard behavior of jQuery for their own needs, thus creating a conflict ' .
-			'with RPB Chessboard. These settings aim at providing a workaround to deal with ' .
-			'these conflicts.',
-		'rpb-chessboard'),
-		'<a href="https://jquery.com/">',
-		'</a>'
-	); ?>
+		echo sprintf(
+			__(
+				'The RPB Chessboard plugin relies heavily on the %1$sjQuery%2$s JavaScript library, ' .
+				'which is packaged by default with WordPress. Yet, some plugins and themes modify ' .
+				'the standard behavior of jQuery for their own needs, thus creating a conflict ' .
+				'with RPB Chessboard. These settings aim at providing a workaround to deal with ' .
+				'these conflicts.',
+				'rpb-chessboard'
+			),
+			'<a href="https://jquery.com/">',
+			'</a>'
+		);
+	?>
 </p>
 
 
@@ -41,10 +44,10 @@
 <p>
 	<input type="hidden" name="noConflictForButton" value="0" />
 	<input type="checkbox" id="rpbchessboard-noConflictForButtonField" name="noConflictForButton" value="1"
-		<?php if($model->getNoConflictForButton()): ?>checked="yes"<?php endif; ?>
+		<?php echo $model->getNoConflictForButton() ? 'checked="yes"' : ''; ?>
 	/>
 	<label for="rpbchessboard-noConflictForButtonField">
-		<?php _e('Try to fix jQuery\'s buttons', 'rpb-chessboard'); ?>
+		<?php _e( 'Try to fix jQuery\'s buttons', 'rpb-chessboard' ); ?>
 	</label>
 </p>
 
@@ -53,6 +56,7 @@
 		_e(
 			'Enable this option if the navigation bar does not appear below the navigation board, ' .
 			'or if the closing button of the popup frame appears to be weirdly placed.',
-		'rpb-chessboard'
-	); ?>
+			'rpb-chessboard'
+		);
+	?>
 </p>

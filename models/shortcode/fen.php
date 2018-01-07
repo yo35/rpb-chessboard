@@ -20,7 +20,7 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/shortcode.php');
+require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/shortcode.php';
 
 
 /**
@@ -32,9 +32,9 @@ class RPBChessboardModelShortcodeFEN extends RPBChessboardAbstractModelShortcode
 	private $diagramAlignment;
 
 
-	public function __construct($atts, $content) {
-		parent::__construct($atts, $content);
-		$this->loadDelegateModel('Common/DefaultOptions');
+	public function __construct( $atts, $content ) {
+		parent::__construct( $atts, $content );
+		$this->loadDelegateModel( 'Common/DefaultOptions' );
 	}
 
 
@@ -44,51 +44,51 @@ class RPBChessboardModelShortcodeFEN extends RPBChessboardAbstractModelShortcode
 	 * @return array
 	 */
 	public function getWidgetArgs() {
-		if(!isset($this->widgetArgs)) {
-			$this->widgetArgs = array('position' => $this->getContent());
-			$atts = $this->getAttributes();
+		if ( ! isset( $this->widgetArgs ) ) {
+			$this->widgetArgs = array( 'position' => $this->getContent() );
+			$atts             = $this->getAttributes();
 
 			// Square markers
-			if(isset($atts['csl']) && is_string($atts['csl'])) {
+			if ( isset( $atts['csl'] ) && is_string( $atts['csl'] ) ) {
 				$this->widgetArgs['squareMarkers'] = $atts['csl'];
 			}
 
 			// Arrow markers
-			if(isset($atts['cal']) && is_string($atts['cal'])) {
+			if ( isset( $atts['cal'] ) && is_string( $atts['cal'] ) ) {
 				$this->widgetArgs['arrowMarkers'] = $atts['cal'];
 			}
 
 			// Orientation
-			$value = isset($atts['flip']) ? RPBChessboardHelperValidation::validateBoolean($atts['flip']) : null;
-			if(isset($value)) {
+			$value = isset( $atts['flip'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['flip'] ) : null;
+			if ( isset( $value ) ) {
 				$this->widgetArgs['flip'] = $value;
 			}
 
 			// Square size
-			$value = isset($atts['square_size']) ? RPBChessboardHelperValidation::validateSquareSize($atts['square_size']) : null;
-			$this->widgetArgs['squareSize'] = isset($value) ? $value : $this->getDefaultSquareSize();
+			$value                          = isset( $atts['square_size'] ) ? RPBChessboardHelperValidation::validateSquareSize( $atts['square_size'] ) : null;
+			$this->widgetArgs['squareSize'] = isset( $value ) ? $value : $this->getDefaultSquareSize();
 
 			// Show coordinates
-			$value = isset($atts['show_coordinates']) ? RPBChessboardHelperValidation::validateBoolean($atts['show_coordinates']) : null;
-			$this->widgetArgs['showCoordinates'] = isset($value) ? $value : $this->getDefaultShowCoordinates();
+			$value                               = isset( $atts['show_coordinates'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_coordinates'] ) : null;
+			$this->widgetArgs['showCoordinates'] = isset( $value ) ? $value : $this->getDefaultShowCoordinates();
 
 			// Colorset
-			$value = isset($atts['colorset']) ? RPBChessboardHelperValidation::validateSetCode($atts['colorset']) : null;
-			$this->widgetArgs['colorset'] = isset($value) ? $value : $this->getDefaultColorset();
+			$value                        = isset( $atts['colorset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['colorset'] ) : null;
+			$this->widgetArgs['colorset'] = isset( $value ) ? $value : $this->getDefaultColorset();
 
 			// Pieceset
-			$value = isset($atts['pieceset']) ? RPBChessboardHelperValidation::validateSetCode($atts['pieceset']) : null;
-			$this->widgetArgs['pieceset'] = isset($value) ? $value : $this->getDefaultPieceset();
+			$value                        = isset( $atts['pieceset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['pieceset'] ) : null;
+			$this->widgetArgs['pieceset'] = isset( $value ) ? $value : $this->getDefaultPieceset();
 		}
 		return $this->widgetArgs;
 	}
 
 
 	public function getDiagramAlignment() {
-		if(!isset($this->diagramAlignment)) {
-			$atts = $this->getAttributes();
-			$value = isset($atts['align']) ? RPBChessboardHelperValidation::validateDiagramAlignment($atts['align']) : null;
-			$this->diagramAlignment = isset($value) ? $value : $this->getDefaultDiagramAlignment();
+		if ( ! isset( $this->diagramAlignment ) ) {
+			$atts                   = $this->getAttributes();
+			$value                  = isset( $atts['align'] ) ? RPBChessboardHelperValidation::validateDiagramAlignment( $atts['align'] ) : null;
+			$this->diagramAlignment = isset( $value ) ? $value : $this->getDefaultDiagramAlignment();
 		}
 		return $this->diagramAlignment;
 	}
@@ -97,9 +97,9 @@ class RPBChessboardModelShortcodeFEN extends RPBChessboardAbstractModelShortcode
 	/**
 	 * Ensure that the FEN string is trimmed.
 	 */
-	protected function filterShortcodeContent($content) {
+	protected function filterShortcodeContent( $content ) {
 		$regex = '\s|<br *\/>';
 		$regex = "(?:$regex)*";
-		return preg_replace("/^$regex|$regex\$/i", '', $content);
+		return preg_replace( "/^$regex|$regex\$/i", '', $content );
 	}
 }

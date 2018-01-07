@@ -20,26 +20,26 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php');
-require_once(RPBCHESSBOARD_ABSPATH . 'helpers/validation.php');
+require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php';
+require_once RPBCHESSBOARD_ABSPATH . 'helpers/validation.php';
 
 
 /**
  * Default general options associated to chessboard and chessgame widgets.
  */
-class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
-{
-	private static $squareSize        ;
-	private static $showCoordinates   ;
-	private static $colorset          ;
-	private static $pieceset          ;
-	private static $diagramAlignment  ;
-	private static $pieceSymbols      ;
-	private static $navigationBoard   ;
-	private static $showFlipButton    ;
+class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel {
+
+	private static $squareSize;
+	private static $showCoordinates;
+	private static $colorset;
+	private static $pieceset;
+	private static $diagramAlignment;
+	private static $pieceSymbols;
+	private static $navigationBoard;
+	private static $showFlipButton;
 	private static $showDownloadButton;
-	private static $animationSpeed    ;
-	private static $showMoveArrow     ;
+	private static $animationSpeed;
+	private static $showMoveArrow;
 
 
 	const DEFAULT_SQUARE_SIZE          = 32;
@@ -57,11 +57,13 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 
 	public function __construct() {
 		parent::__construct();
-		$this->registerDelegatableMethods('getDefaultSquareSize', 'getDefaultShowCoordinates',
+		$this->registerDelegatableMethods(
+			'getDefaultSquareSize', 'getDefaultShowCoordinates',
 			'getDefaultColorset', 'getDefaultPieceset', 'getDefaultDiagramAlignment', 'getDefaultPieceSymbols',
 			'getDefaultNavigationBoard', 'getDefaultShowFlipButton', 'getDefaultShowDownloadButton',
 			'getDefaultAnimationSpeed', 'getDefaultShowMoveArrow',
-			'getDefaultChessboardSettings', 'getDefaultChessgameSettings');
+			'getDefaultChessboardSettings', 'getDefaultChessgameSettings'
+		);
 	}
 
 
@@ -71,9 +73,9 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 	 * @return int
 	 */
 	public function getDefaultSquareSize() {
-		if(!isset(self::$squareSize)) {
-			$value = RPBChessboardHelperValidation::validateSquareSize(get_option('rpbchessboard_squareSize'));
-			self::$squareSize = isset($value) ? $value : self::DEFAULT_SQUARE_SIZE;
+		if ( ! isset( self::$squareSize ) ) {
+			$value            = RPBChessboardHelperValidation::validateSquareSize( get_option( 'rpbchessboard_squareSize' ) );
+			self::$squareSize = isset( $value ) ? $value : self::DEFAULT_SQUARE_SIZE;
 		}
 		return self::$squareSize;
 	}
@@ -85,9 +87,9 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 	 * @return boolean
 	 */
 	public function getDefaultShowCoordinates() {
-		if(!isset(self::$showCoordinates)) {
-			$value = RPBChessboardHelperValidation::validateBooleanFromInt(get_option('rpbchessboard_showCoordinates'));
-			self::$showCoordinates = isset($value) ? $value : self::DEFAULT_SHOW_COORDINATES;
+		if ( ! isset( self::$showCoordinates ) ) {
+			$value                 = RPBChessboardHelperValidation::validateBooleanFromInt( get_option( 'rpbchessboard_showCoordinates' ) );
+			self::$showCoordinates = isset( $value ) ? $value : self::DEFAULT_SHOW_COORDINATES;
 		}
 		return self::$showCoordinates;
 	}
@@ -99,12 +101,12 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 	 * @return string
 	 */
 	public function getDefaultColorset() {
-		if(!isset(self::$colorset)) {
-			$value = RPBChessboardHelperValidation::validateSetCode(get_option('rpbchessboard_colorset'));
-			self::$colorset = isset($value) ? $value : self::DEFAULT_COLORSET;
+		if ( ! isset( self::$colorset ) ) {
+			$value          = RPBChessboardHelperValidation::validateSetCode( get_option( 'rpbchessboard_colorset' ) );
+			self::$colorset = isset( $value ) ? $value : self::DEFAULT_COLORSET;
 
 			// FIXME Colorset 'original' was named as 'default' in version 4.3 and 4.3.1.
-			if(self::$colorset === 'default') {
+			if ( self::$colorset === 'default' ) {
 				self::$colorset = 'original';
 			}
 		}
@@ -118,9 +120,9 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 	 * @return string
 	 */
 	public function getDefaultPieceset() {
-		if(!isset(self::$pieceset)) {
-			$value = RPBChessboardHelperValidation::validateSetCode(get_option('rpbchessboard_pieceset'));
-			self::$pieceset = isset($value) ? $value : self::DEFAULT_PIECESET;
+		if ( ! isset( self::$pieceset ) ) {
+			$value          = RPBChessboardHelperValidation::validateSetCode( get_option( 'rpbchessboard_pieceset' ) );
+			self::$pieceset = isset( $value ) ? $value : self::DEFAULT_PIECESET;
 		}
 		return self::$pieceset;
 	}
@@ -132,9 +134,9 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 	 * @return string
 	 */
 	public function getDefaultDiagramAlignment() {
-		if(!isset(self::$diagramAlignment)) {
-			$value = RPBChessboardHelperValidation::validateDiagramAlignment(get_option('rpbchessboard_diagramAlignment'));
-			self::$diagramAlignment = isset($value) ? $value : self::DEFAULT_DIAGRAM_ALIGNMENT;
+		if ( ! isset( self::$diagramAlignment ) ) {
+			$value                  = RPBChessboardHelperValidation::validateDiagramAlignment( get_option( 'rpbchessboard_diagramAlignment' ) );
+			self::$diagramAlignment = isset( $value ) ? $value : self::DEFAULT_DIAGRAM_ALIGNMENT;
 		}
 		return self::$diagramAlignment;
 	}
@@ -146,9 +148,9 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 	 * @return string
 	 */
 	public function getDefaultPieceSymbols() {
-		if(!isset(self::$pieceSymbols)) {
-			$value = RPBChessboardHelperValidation::validatePieceSymbols(get_option('rpbchessboard_pieceSymbols'));
-			self::$pieceSymbols = isset($value) ? $value : self::DEFAULT_PIECE_SYMBOLS;
+		if ( ! isset( self::$pieceSymbols ) ) {
+			$value              = RPBChessboardHelperValidation::validatePieceSymbols( get_option( 'rpbchessboard_pieceSymbols' ) );
+			self::$pieceSymbols = isset( $value ) ? $value : self::DEFAULT_PIECE_SYMBOLS;
 		}
 		return self::$pieceSymbols;
 	}
@@ -160,9 +162,9 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 	 * @return string
 	 */
 	public function getDefaultNavigationBoard() {
-		if(!isset(self::$navigationBoard)) {
-			$value = RPBChessboardHelperValidation::validateNavigationBoard(get_option('rpbchessboard_navigationBoard'));
-			self::$navigationBoard = isset($value) ? $value : self::DEFAULT_NAVIGATION_BOARD;
+		if ( ! isset( self::$navigationBoard ) ) {
+			$value                 = RPBChessboardHelperValidation::validateNavigationBoard( get_option( 'rpbchessboard_navigationBoard' ) );
+			self::$navigationBoard = isset( $value ) ? $value : self::DEFAULT_NAVIGATION_BOARD;
 		}
 		return self::$navigationBoard;
 	}
@@ -174,9 +176,9 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 	 * @return boolean
 	 */
 	public function getDefaultShowFlipButton() {
-		if(!isset(self::$showFlipButton)) {
-			$value = RPBChessboardHelperValidation::validateBooleanFromInt(get_option('rpbchessboard_showFlipButton'));
-			self::$showFlipButton = isset($value) ? $value : self::DEFAULT_SHOW_FLIP_BUTTON;
+		if ( ! isset( self::$showFlipButton ) ) {
+			$value                = RPBChessboardHelperValidation::validateBooleanFromInt( get_option( 'rpbchessboard_showFlipButton' ) );
+			self::$showFlipButton = isset( $value ) ? $value : self::DEFAULT_SHOW_FLIP_BUTTON;
 		}
 		return self::$showFlipButton;
 	}
@@ -188,9 +190,9 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 	 * @return boolean
 	 */
 	public function getDefaultShowDownloadButton() {
-		if(!isset(self::$showDownloadButton)) {
-			$value = RPBChessboardHelperValidation::validateBooleanFromInt(get_option('rpbchessboard_showDownloadButton'));
-			self::$showDownloadButton = isset($value) ? $value : self::DEFAULT_SHOW_DOWNLOAD_BUTTON;
+		if ( ! isset( self::$showDownloadButton ) ) {
+			$value                    = RPBChessboardHelperValidation::validateBooleanFromInt( get_option( 'rpbchessboard_showDownloadButton' ) );
+			self::$showDownloadButton = isset( $value ) ? $value : self::DEFAULT_SHOW_DOWNLOAD_BUTTON;
 		}
 		return self::$showDownloadButton;
 	}
@@ -202,9 +204,9 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 	 * @return int
 	 */
 	public function getDefaultAnimationSpeed() {
-		if(!isset(self::$animationSpeed)) {
-			$value = RPBChessboardHelperValidation::validateAnimationSpeed(get_option('rpbchessboard_animationSpeed'));
-			self::$animationSpeed = isset($value) ? $value : self::DEFAULT_ANIMATION_SPEED;
+		if ( ! isset( self::$animationSpeed ) ) {
+			$value                = RPBChessboardHelperValidation::validateAnimationSpeed( get_option( 'rpbchessboard_animationSpeed' ) );
+			self::$animationSpeed = isset( $value ) ? $value : self::DEFAULT_ANIMATION_SPEED;
 		}
 		return self::$animationSpeed;
 	}
@@ -216,9 +218,9 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 	 * @return boolean
 	 */
 	public function getDefaultShowMoveArrow() {
-		if(!isset(self::$showMoveArrow)) {
-			$value = RPBChessboardHelperValidation::validateBooleanFromInt(get_option('rpbchessboard_showMoveArrow'));
-			self::$showMoveArrow = isset($value) ? $value : self::DEFAULT_SHOW_MOVE_ARROW;
+		if ( ! isset( self::$showMoveArrow ) ) {
+			$value               = RPBChessboardHelperValidation::validateBooleanFromInt( get_option( 'rpbchessboard_showMoveArrow' ) );
+			self::$showMoveArrow = isset( $value ) ? $value : self::DEFAULT_SHOW_MOVE_ARROW;
 		}
 		return self::$showMoveArrow;
 	}
@@ -234,7 +236,7 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 			'colorset'        => $this->getDefaultColorset(),
 			'pieceset'        => $this->getDefaultPieceset(),
 			'animationSpeed'  => $this->getDefaultAnimationSpeed(),
-			'showMoveArrow'   => $this->getDefaultShowMoveArrow()
+			'showMoveArrow'   => $this->getDefaultShowMoveArrow(),
 		);
 	}
 
@@ -250,7 +252,7 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel
 			'showFlipButton'         => $this->getDefaultShowFlipButton(),
 			'showDownloadButton'     => $this->getDefaultShowDownloadButton(),
 			'navigationBoardOptions' => $defaultChessboardSettings,
-			'diagramOptions'         => $defaultChessboardSettings
+			'diagramOptions'         => $defaultChessboardSettings,
 		);
 	}
 }
