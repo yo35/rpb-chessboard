@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-03 18:07+0100\n"
+"POT-Creation-Date: 2018-01-07 14:10+0100\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35 -at- melix.net>\n"
 "Language-Team: French\n"
@@ -459,8 +459,8 @@ msgstr ""
 "et %1$s[pgn][/pgn]%2$s pour les diagrammes FEN et les parties PGN. "
 "Cependant, ce comportement entraîne des conflits avec les autres plugins "
 "WordPress utilisant ces mêmes balises (typiquement d'autres plugins "
-"d'échecs). Les paramètres de compatibilité ci-dessous permettent d'éviter ces "
-"conflits."
+"d'échecs). Les paramètres de compatibilité ci-dessous permettent d'éviter "
+"ces conflits."
 
 #: templates/adminpage/options/compatibility/chessplugins.php
 msgid "Compatibility mode for the FEN diagram tag"
@@ -788,8 +788,8 @@ msgid "Author"
 msgstr "Auteur"
 
 #: templates/adminpage/about.php
-msgid "Contributor"
-msgstr "Contributeur"
+msgid "Contributors"
+msgstr "Contributeurs"
 
 #: templates/adminpage/about.php
 msgid "Translators"

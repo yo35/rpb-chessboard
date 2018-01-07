@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 2.3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-03 18:07+0100\n"
+"POT-Creation-Date: 2018-01-07 14:10+0100\n"
 "PO-Revision-Date: 2014-04-26 16:53+0100\n"
 "Last-Translator: Markus Liebelt <markusliebelt -at- gmail.com>\n"
 "Language-Team: German\n"
@@ -724,7 +724,7 @@ msgid "Author"
 msgstr "Autor"
 
 #: templates/adminpage/about.php
-msgid "Contributor"
+msgid "Contributors"
 msgstr ""
 
 #: templates/adminpage/about.php
