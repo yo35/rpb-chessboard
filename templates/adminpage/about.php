@@ -69,8 +69,8 @@
 	<h4><?php _e('Author', 'rpb-chessboard'); ?></h4>
 	<p><a href="mailto:yo35@melix.net">Yoann Le Montagner</a></p>
 
-	<h4><?php _e('Contributor', 'rpb-chessboard'); ?></h4>
-	<p>Marek Śmigielski</p>
+	<h4><?php _e('Contributors', 'rpb-chessboard'); ?></h4>
+	<p>Marek Śmigielski, <a href="https://paulschreiber.com/" target="_blank">Paul Schreiber</a></p>
 
 	<h4><?php _e('Translators', 'rpb-chessboard'); ?></h4>
 	<dl class="rpbchessboard-translatorList">

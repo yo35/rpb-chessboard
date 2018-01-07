@@ -332,9 +332,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 Yoann Le Montagner
 
-= Contributor =
+= Contributors =
 
-Marek Śmigielski
+Marek Śmigielski, [Paul Schreiber](https://paulschreiber.com/)
 
 = Translators =
 
