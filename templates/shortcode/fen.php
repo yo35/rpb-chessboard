@@ -20,30 +20,30 @@
  ******************************************************************************/
 ?>
 
-<?php if($model->getDiagramAlignment() === 'center'): ?>
-	<p class="rpbchessboard-spacerBefore"></p>
-<?php else: ?>
-	<div class="rpbchessboard-diagramAlignment-<?php echo htmlspecialchars($model->getDiagramAlignment()); ?>">
+<?php if ( $model->getDiagramAlignment() === 'center' ) : ?>
+<p class="rpbchessboard-spacerBefore"></p>
+<?php else : ?>
+<div class="rpbchessboard-diagramAlignment-<?php echo htmlspecialchars( $model->getDiagramAlignment() ); ?>">
 <?php endif; ?>
 
-<div id="<?php echo htmlspecialchars($model->getUniqueID()); ?>" class="rpbchessboard-chessboard">
+<div id="<?php echo htmlspecialchars( $model->getUniqueID() ); ?>" class="rpbchessboard-chessboard">
 	<noscript>
-		<div class="rpbchessboard-noJavascriptBlock"><?php echo htmlspecialchars($model->getContent()); ?></div>
+		<div class="rpbchessboard-noJavascriptBlock"><?php echo htmlspecialchars( $model->getContent() ); ?></div>
 		<div class="rpbchessboard-javascriptWarning">
-			<?php _e('You must activate JavaScript to enhance chess diagram visualization.', 'rpb-chessboard'); ?>
+			<?php _e( 'You must activate JavaScript to enhance chess diagram visualization.', 'rpb-chessboard' ); ?>
 		</div>
 	</noscript>
 	<div class="rpbchessboard-chessboardAnchor"></div>
 	<script type="text/javascript">
 		jQuery(document).ready(function($) {
-			var selector = '#' + <?php echo json_encode($model->getUniqueID()); ?> + ' .rpbchessboard-chessboardAnchor';
-			$(selector).removeClass('rpbchessboard-chessboardAnchor').chessboard(<?php echo json_encode($model->getWidgetArgs()); ?>);
+			var selector = '#' + <?php echo wp_json_encode( $model->getUniqueID() ); ?> + ' .rpbchessboard-chessboardAnchor';
+			$(selector).removeClass('rpbchessboard-chessboardAnchor').chessboard(<?php echo wp_json_encode( $model->getWidgetArgs() ); ?>);
 		});
 	</script>
 </div>
 
-<?php if($model->getDiagramAlignment() === 'center'): ?>
-	<p class="rpbchessboard-spacerAfter"></p>
-<?php else: ?>
-	</div>
+<?php if ( $model->getDiagramAlignment() === 'center' ) : ?>
+<p class="rpbchessboard-spacerAfter"></p>
+<?php else : ?>
+</div>
 <?php endif; ?>

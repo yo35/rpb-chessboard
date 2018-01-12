@@ -9,10 +9,10 @@ Yoann Le Montagner
 
 
 
-Contributor
------------
+Contributors
+------------
 
-Marek Śmigielski
+Marek Śmigielski, [Paul Schreiber](https://paulschreiber.com/)
 
 
 

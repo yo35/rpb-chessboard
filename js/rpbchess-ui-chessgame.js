@@ -260,7 +260,6 @@
 	};
 	/* eslint-enable no-mixed-spaces-and-tabs */
 
-
 	/**
 	 * Return the annotation symbol (e.g. "+-", "!?") associated to a numeric NAG code.
 	 *
@@ -659,7 +658,7 @@
 		}
 
 		// Render the content.
-		$( prefix + move0 + focusField + headers + body + suffix ).appendTo( widget.element );
+		$( move0 + focusField + prefix + headers + body + suffix ).appendTo( widget.element );
 
 		// Render the diagrams in comments.
 		makeDiagrams( widget );
@@ -1217,7 +1216,7 @@
 			callback( 'goLastMove' );
 		});
 		selector( '.rpbui-chessgame-navigationButtonFlip'    ).button({ icons: { primary: 'ui-icon-refresh'    }, text: false }).click( function() {
-			callback( 'flip');
+			callback( 'flip' );
 		});
 		selector( '.rpbui-chessgame-navigationButtonDownload' ).button({ icons: { primary: 'ui-icon-extlink'    }, text: false }).click( function() {
 			callback( 'downloadPGN' );
@@ -1271,22 +1270,6 @@
 			var gameWidget = $( '#rpbui-chessgame-navigationFrameTarget' ).closest( '.rpbui-chessgame' );
 			gameWidget.chessgame( methodName );
 			gameWidget.chessgame( 'focus' );
-
-			// Scroll to the selected move.
-			if ( /^go/.test( methodName ) ) {
-				var target = $( '.rpbui-chessgame-selectedMove', gameWidget );
-				var allowScrollDown = true;
-				if ( target.hasClass( 'rpbui-chessgame-initialMove' ) ) {
-					target = gameWidget;
-					allowScrollDown = false;
-				}
-				var targetOffset = target.offset();
-				if ( targetOffset.top < $( window ).scrollTop() ) {
-					$( 'html, body' ).animate({ scrollTop: targetOffset.top }, 200 );
-				} else if ( allowScrollDown && targetOffset.top + target.height() > $( window ).scrollTop() + window.innerHeight ) {
-					$( 'html, body' ).animate({ scrollTop: targetOffset.top + target.height() - window.innerHeight }, 200 );
-				}
-			}
 		});
 	}
 
@@ -1330,20 +1313,32 @@
 			$( '.ui-dialog-title', frame.closest( '.ui-dialog' ) ).empty().append( move.html() );
 		}
 
+		// Determine the scroll target (i.e. the selected move most of the time).
+		var scrollTarget = $( '.rpbui-chessgame-selectedMove', widget.element );
+		var allowScrollDown = true;
+		if ( scrollTarget.hasClass( 'rpbui-chessgame-initialMove' ) ) {
+			scrollTarget = $( '.rpbui-chessgame-headers', widget.element );
+			if ( 0 === scrollTarget.length ) {
+ scrollTarget = $( '.rpbui-chessgame-body', widget.element );
+}
+			allowScrollDown = false;
+		}
+
 		// Scroll to the selected move if possible.
 		if ( 'scrollLeft' === widget.options.navigationBoard || 'scrollRight' === widget.options.navigationBoard ) {
-			var target = $( '.rpbui-chessgame-selectedMove', widget.element );
 			var scrollArea = $( '.rpbui-chessgame-scrollArea', widget.element );
-			var allowScrollDown = true;
-			if ( target.hasClass( 'rpbui-chessgame-initialMove' ) ) {
-				target = $( '.rpbui-chessgame-headers', widget.element );
-				allowScrollDown = false;
-			}
-			var targetOffsetTop = target.offset().top - scrollArea.offset().top;
+			var targetOffsetTop = scrollTarget.offset().top - scrollArea.offset().top;
 			if ( targetOffsetTop < 0 ) {
-				scrollArea.animate({ scrollTop: scrollArea.scrollTop() + targetOffsetTop }, 200 );
-			} else if ( allowScrollDown && targetOffsetTop + target.height() > scrollArea.height() ) {
-				scrollArea.animate({ scrollTop: scrollArea.scrollTop() + targetOffsetTop + target.height() - scrollArea.height() }, 200 );
+				scrollArea.stop().animate({ scrollTop: scrollArea.scrollTop() + targetOffsetTop }, 200 );
+			} else if ( allowScrollDown && targetOffsetTop + scrollTarget.height() > scrollArea.height() ) {
+				scrollArea.stop().animate({ scrollTop: scrollArea.scrollTop() + targetOffsetTop + scrollTarget.height() - scrollArea.height() }, 200 );
+			}
+		} else if ( 'frame' === widget.options.navigationBoard ) {
+			var targetOffset = scrollTarget.offset();
+			if ( targetOffset.top < $( window ).scrollTop() ) {
+				$( 'html, body' ).stop().animate({ scrollTop: targetOffset.top }, 200 );
+			} else if ( allowScrollDown && targetOffset.top + scrollTarget.height() > $( window ).scrollTop() + window.innerHeight ) {
+				$( 'html, body' ).stop().animate({ scrollTop: targetOffset.top + scrollTarget.height() - window.innerHeight }, 200 );
 			}
 		}
 	}

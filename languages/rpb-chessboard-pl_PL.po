@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-03 18:07+0100\n"
+"POT-Creation-Date: 2018-01-07 14:10+0100\n"
 "PO-Revision-Date: 2014-07-15 13:03+0100\n"
 "Last-Translator: Dawid Ziółkowski <kontakt -at- dawidziolkowski.pl>\n"
 "Language-Team: Dawid Ziółkowski <mr -at- dawidziolkowski.com>\n"
@@ -739,7 +739,7 @@ msgid "Author"
 msgstr "Autor"
 
 #: templates/adminpage/about.php
-msgid "Contributor"
+msgid "Contributors"
 msgstr ""
 
 #: templates/adminpage/about.php

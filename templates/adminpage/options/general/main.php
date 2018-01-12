@@ -21,28 +21,31 @@
 ?>
 
 <p>
-	<?php echo sprintf(
-		__(
-			'These settings control the default aspect and behavior of the chess diagrams and games ' .
-			'inserted in posts and pages with the %1$s[%3$s][/%3$s]%2$s and %1$s[%4$s][/%4$s]%2$s tags. ' .
-			'They can be overridden at each tag by passing appropriate tag attributes: ' .
-			'see %5$shelp on FEN diagram attributes%7$s and %6$shelp on PGN game attributes%7$s for more details.',
-		'rpb-chessboard'),
-		'<span class="rpbchessboard-sourceCode">',
-		'</span>',
-		htmlspecialchars($model->getFENShortcode()),
-		htmlspecialchars($model->getPGNShortcode()),
-		'<a href="' . htmlspecialchars($model->getHelpOnFENAttributesURL()) . '">',
-		'<a href="' . htmlspecialchars($model->getHelpOnPGNAttributesURL()) . '">',
-		'</a>'
-	); ?>
+	<?php
+		echo sprintf(
+			__(
+				'These settings control the default aspect and behavior of the chess diagrams and games ' .
+				'inserted in posts and pages with the %1$s[%3$s][/%3$s]%2$s and %1$s[%4$s][/%4$s]%2$s tags. ' .
+				'They can be overridden at each tag by passing appropriate tag attributes: ' .
+				'see %5$shelp on FEN diagram attributes%7$s and %6$shelp on PGN game attributes%7$s for more details.',
+				'rpb-chessboard'
+			),
+			'<span class="rpbchessboard-sourceCode">',
+			'</span>',
+			htmlspecialchars( $model->getFENShortcode() ),
+			htmlspecialchars( $model->getPGNShortcode() ),
+			'<a href="' . htmlspecialchars( $model->getHelpOnFENAttributesURL() ) . '">',
+			'<a href="' . htmlspecialchars( $model->getHelpOnPGNAttributesURL() ) . '">',
+			'</a>'
+		);
+	?>
 </p>
 
 <?php
-	RPBChessboardHelperLoader::printTemplate('AdminPage/Options/General/BoardAspect'      , $model);
-	RPBChessboardHelperLoader::printTemplate('AdminPage/Options/General/DiagramAlignment' , $model);
-	RPBChessboardHelperLoader::printTemplate('AdminPage/Options/General/PieceSymbols'     , $model);
-	RPBChessboardHelperLoader::printTemplate('AdminPage/Options/General/NavigationBoard'  , $model);
-	RPBChessboardHelperLoader::printTemplate('AdminPage/Options/General/NavigationButtons', $model);
-	RPBChessboardHelperLoader::printTemplate('AdminPage/Options/General/MoveAnimation'    , $model);
+	RPBChessboardHelperLoader::printTemplate( 'AdminPage/Options/General/BoardAspect', $model );
+	RPBChessboardHelperLoader::printTemplate( 'AdminPage/Options/General/DiagramAlignment', $model );
+	RPBChessboardHelperLoader::printTemplate( 'AdminPage/Options/General/PieceSymbols', $model );
+	RPBChessboardHelperLoader::printTemplate( 'AdminPage/Options/General/NavigationBoard', $model );
+	RPBChessboardHelperLoader::printTemplate( 'AdminPage/Options/General/NavigationButtons', $model );
+	RPBChessboardHelperLoader::printTemplate( 'AdminPage/Options/General/MoveAnimation', $model );
 ?>

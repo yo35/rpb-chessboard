@@ -20,37 +20,41 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-fenAttributeDiagramAlignment"><?php _e('Diagram alignment', 'rpb-chessboard'); ?></h3>
+<h3 id="rpbchessboard-fenAttributeDiagramAlignment"><?php _e( 'Diagram alignment', 'rpb-chessboard' ); ?></h3>
 
 <div class="rpbchessboard-columns">
 	<div>
 
 		<p>
-			<?php echo sprintf(__('The %1$s attribute controls how the diagram is inserted within the rest of the text.', 'rpb-chessboard'),
-				'<span class="rpbchessboard-sourceCode">align</span>'); ?>
+			<?php
+				echo sprintf(
+					__( 'The %1$s attribute controls how the diagram is inserted within the rest of the text.', 'rpb-chessboard' ),
+					'<span class="rpbchessboard-sourceCode">align</span>'
+				);
+			?>
 		</p>
 
 		<table class="rpbchessboard-attributeTable">
 			<tbody>
 				<tr>
-					<th><?php _e('Value', 'rpb-chessboard'); ?></th>
-					<th><?php _e('Default', 'rpb-chessboard'); ?></th>
-					<th><?php _e('Description', 'rpb-chessboard'); ?></th>
+					<th><?php _e( 'Value', 'rpb-chessboard' ); ?></th>
+					<th><?php _e( 'Default', 'rpb-chessboard' ); ?></th>
+					<th><?php _e( 'Description', 'rpb-chessboard' ); ?></th>
 				</tr>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-fenAttributeDiagramAlignment-value">center</a></td>
-					<td><?php if($model->getDefaultDiagramAlignment()==='center'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
-					<td><?php _e('The diagram is centered.', 'rpb-chessboard'); ?></td>
+					<td><?php echo $model->getDefaultDiagramAlignment() === 'center' ? '<div class="rpbchessboard-tickIcon"></div>' : ''; ?></td>
+					<td><?php _e( 'The diagram is centered.', 'rpb-chessboard' ); ?></td>
 				</tr>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-fenAttributeDiagramAlignment-value">floatLeft</a></td>
-					<td><?php if($model->getDefaultDiagramAlignment()==='floatLeft'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
-					<td><?php _e('The diagram floats on the left of the text.', 'rpb-chessboard'); ?></td>
+					<td><?php echo $model->getDefaultDiagramAlignment() === 'floatLeft' ? '<div class="rpbchessboard-tickIcon"></div>' : ''; ?></td>
+					<td><?php _e( 'The diagram floats on the left of the text.', 'rpb-chessboard' ); ?></td>
 				</tr>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-fenAttributeDiagramAlignment-value">floatRight</a></td>
-					<td><?php if($model->getDefaultDiagramAlignment()==='floatRight'): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
-					<td><?php _e('The diagram floats on the right of the text.', 'rpb-chessboard'); ?></td>
+					<td><?php echo $model->getDefaultDiagramAlignment() === 'floatRight' ? '<div class="rpbchessboard-tickIcon"></div>' : ''; ?></td>
+					<td><?php _e( 'The diagram floats on the right of the text.', 'rpb-chessboard' ); ?></td>
 				</tr>
 			</tbody>
 		</table>
@@ -59,10 +63,12 @@
 	<div>
 
 		<div class="rpbchessboard-sourceCode">
-			<?php echo sprintf(
-				'[%1$s <strong>align=<span id="rpbchessboard-fenAttributeDiagramAlignment-sourceCodeExample">center</span></strong>] ... [/%1$s]',
-				htmlspecialchars($model->getFENShortcode())
-			); ?>
+			<?php
+				echo sprintf(
+					'[%1$s <strong>align=<span id="rpbchessboard-fenAttributeDiagramAlignment-sourceCodeExample">center</span></strong>] ... [/%1$s]',
+					htmlspecialchars( $model->getFENShortcode() )
+				);
+			?>
 		</div>
 
 		<div class="rpbchessboard-visuBlock">
@@ -87,7 +93,7 @@
 				</p>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-fenAttributeDiagramAlignment-anchor').chessboard($.extend(<?php echo json_encode($model->getDefaultChessboardSettings()); ?>, {
+						$('#rpbchessboard-fenAttributeDiagramAlignment-anchor').chessboard($.extend(<?php echo wp_json_encode( $model->getDefaultChessboardSettings() ); ?>, {
 							position: 'start',
 							squareSize: 28
 						}));

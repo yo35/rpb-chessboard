@@ -23,34 +23,37 @@
 <div id="rpbchessboard-helpPGNAttributesPage" class="rpbchessboard-helpPage">
 
 	<p>
-		<?php echo sprintf(
-			__(
-				'Several attributes may be passed to the %1$s[%3$s][/%3$s]%2$s tags '.
-				'in order to customize how the PGN games are displayed. '.
-				'All these attributes are optional: if not specified, the default setting '.
-				'(defined by the blog administrator) applies. '.
-				'These attributes are presented in this page.',
-			'rpb-chessboard'),
-			'<span class="rpbchessboard-sourceCode">',
-			'</span>',
-			htmlspecialchars($model->getPGNShortcode())
-		); ?>
+		<?php
+			echo sprintf(
+				__(
+					'Several attributes may be passed to the %1$s[%3$s][/%3$s]%2$s tags ' .
+					'in order to customize how the PGN games are displayed. ' .
+					'All these attributes are optional: if not specified, the default setting ' .
+					'(defined by the blog administrator) applies. ' .
+					'These attributes are presented in this page.',
+					'rpb-chessboard'
+				),
+				'<span class="rpbchessboard-sourceCode">',
+				'</span>',
+				htmlspecialchars( $model->getPGNShortcode() )
+			);
+		?>
 	</p>
 
 	<ol class="rpbchessboard-outline">
-		<li><a href="#rpbchessboard-pgnAttributePieceSymbols"><?php _e('Piece symbols', 'rpb-chessboard'); ?></a></li>
-		<li><a href="#rpbchessboard-pgnAttributeNavigationBoard"><?php _e('Navigation board', 'rpb-chessboard'); ?></a></li>
-		<li><a href="#rpbchessboard-pgnAttributeNavigationButtons"><?php _e('Navigation toolbar', 'rpb-chessboard'); ?></a></li>
-		<li><a href="#rpbchessboard-pgnAttributeMoveAnimation"><?php _e('Move animation', 'rpb-chessboard'); ?></a></li>
-		<li><a href="#rpbchessboard-pgnAttributeBoardAspect"><?php _e('Chessboard aspect', 'rpb-chessboard'); ?></a></li>
+		<li><a href="#rpbchessboard-pgnAttributePieceSymbols"><?php _e( 'Piece symbols', 'rpb-chessboard' ); ?></a></li>
+		<li><a href="#rpbchessboard-pgnAttributeNavigationBoard"><?php _e( 'Navigation board', 'rpb-chessboard' ); ?></a></li>
+		<li><a href="#rpbchessboard-pgnAttributeNavigationButtons"><?php _e( 'Navigation toolbar', 'rpb-chessboard' ); ?></a></li>
+		<li><a href="#rpbchessboard-pgnAttributeMoveAnimation"><?php _e( 'Move animation', 'rpb-chessboard' ); ?></a></li>
+		<li><a href="#rpbchessboard-pgnAttributeBoardAspect"><?php _e( 'Chessboard aspect', 'rpb-chessboard' ); ?></a></li>
 	</ol>
 
 	<?php
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/PGNAttributes/PieceSymbols'     , $model);
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/PGNAttributes/NavigationBoard'  , $model);
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/PGNAttributes/NavigationButtons', $model);
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/PGNAttributes/MoveAnimation'    , $model);
-		RPBChessboardHelperLoader::printTemplate('AdminPage/Help/PGNAttributes/BoardAspect'      , $model);
+		RPBChessboardHelperLoader::printTemplate( 'AdminPage/Help/PGNAttributes/PieceSymbols', $model );
+		RPBChessboardHelperLoader::printTemplate( 'AdminPage/Help/PGNAttributes/NavigationBoard', $model );
+		RPBChessboardHelperLoader::printTemplate( 'AdminPage/Help/PGNAttributes/NavigationButtons', $model );
+		RPBChessboardHelperLoader::printTemplate( 'AdminPage/Help/PGNAttributes/MoveAnimation', $model );
+		RPBChessboardHelperLoader::printTemplate( 'AdminPage/Help/PGNAttributes/BoardAspect', $model );
 	?>
 
 </div>

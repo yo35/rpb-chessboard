@@ -20,13 +20,13 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-pgnExample"><?php _e('Standard PGN game', 'rpb-chessboard'); ?></h3>
+<h3 id="rpbchessboard-pgnExample"><?php _e( 'Standard PGN game', 'rpb-chessboard' ); ?></h3>
 
 <div class="rpbchessboard-columns">
 	<div>
 
 		<div class="rpbchessboard-sourceCode">
-			[<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]<br/>
+			[<?php echo htmlspecialchars( $model->getPGNShortcode() ); ?>]<br/>
 			<br/>
 			[Event &quot;Linares 16&lt;sup&gt;th&lt;/sup&gt;&quot;]<br/>
 			[Site &quot;Linares, ESP&quot;]<br/>
@@ -45,7 +45,7 @@
 			a3 Be7 9. Bg5 Be6 10. e3 c6 11. Bd3 Nbd7 12. O-O h6 13. Bh4 a5 14. Rac1 O-O 15.
 			Ne2 g5 16. Bg3 Ne4 17. Nc3 Nxc3 18. Rxc3 Nf6 19. Rcc1 Rfd8 20. Rfd1 Rac8 1/2-1/2<br/>
 			<br/>
-			[/<?php echo htmlspecialchars($model->getPGNShortcode()); ?>]
+			[/<?php echo htmlspecialchars( $model->getPGNShortcode() ); ?>]
 		</div>
 
 	</div>
@@ -56,7 +56,7 @@
 				<div id="rpbchessboard-pgnExample-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-pgnExample-anchor').chessgame($.extend(<?php echo json_encode($model->getDefaultChessgameSettings()); ?>, {
+						$('#rpbchessboard-pgnExample-anchor').chessgame($.extend(<?php echo wp_json_encode( $model->getDefaultChessgameSettings() ); ?>, {
 							navigationBoard: 'none',
 							pgn:
 								'[Event "Linares 16<sup>th</sup>"]\n' +

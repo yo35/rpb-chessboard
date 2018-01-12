@@ -21,36 +21,27 @@
 
 @font-face {
 	font-family: 'Chess Alpha';
-	src: url('chessalpha-webfont.eot');
 	src:
-		url('chessalpha-webfont.eot?#iefix') format('embedded-opentype'),
-		url('chessalpha-webfont.woff') format('woff'),
-		url('chessalpha-webfont.ttf') format('truetype'),
-		url('chessalpha-webfont.svg#chess_alphabook') format('svg');
+		url('chessalpha-webfont.woff2') format('woff2'),
+		url('chessalpha-webfont.woff') format('woff');
 	font-weight: normal;
 	font-style: normal;
 }
 
 @font-face {
 	font-family: 'Chess Merida';
-	src: url('chessmerida-webfont.eot');
 	src:
-		url('chessmerida-webfont.eot?#iefix') format('embedded-opentype'),
-		url('chessmerida-webfont.woff') format('woff'),
-		url('chessmerida-webfont.ttf') format('truetype'),
-		url('chessmerida-webfont.svg#chess_meridabook') format('svg');
+		url('chessmerida-webfont.woff2') format('woff2'),
+		url('chessmerida-webfont.woff') format('woff');
 	font-weight: normal;
 	font-style: normal;
 }
 
 @font-face {
 	font-family: 'Chess Pirat';
-	src: url('chesspirat-webfont.eot');
 	src:
-		url('chesspirat-webfont.eot?#iefix') format('embedded-opentype'),
-		url('chesspirat-webfont.woff') format('woff'),
-		url('chesspirat-webfont.ttf') format('truetype'),
-		url('chesspirat-webfont.svg#chess_piratbook') format('svg');
+		url('chesspirat-webfont.woff2') format('woff2'),
+		url('chesspirat-webfont.woff') format('woff');
 	font-weight: normal;
 	font-style: normal;
 }

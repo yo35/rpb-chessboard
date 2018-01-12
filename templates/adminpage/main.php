@@ -22,13 +22,15 @@
 
 <div class="wrap rpbchessboard-adminPage">
 
-	<h2><?php echo htmlspecialchars($model->getTitle()); ?></h2>
+	<h2><?php echo htmlspecialchars( $model->getTitle() ); ?></h2>
 
 	<noscript>
 		<div class="error">
-			<p><?php
-				_e('To work properly, the RPB Chessboard plugin needs JavaScript to be activated in your browser.', 'rpb-chessboard');
-			?></p>
+			<p>
+			<?php
+				_e( 'To work properly, the RPB Chessboard plugin needs JavaScript to be activated in your browser.', 'rpb-chessboard' );
+			?>
+			</p>
 		</div>
 	</noscript>
 
@@ -39,26 +41,24 @@
 		});
 	</script>
 
-	<?php if($model->hasPostMessage()): ?>
-		<div class="updated">
-			<p><?php echo htmlspecialchars($model->getPostMessage()); ?></p>
-		</div>
+	<?php if ( $model->hasPostMessage() ) : ?>
+	<div class="updated">
+		<p><?php echo htmlspecialchars( $model->getPostMessage() ); ?></p>
+	</div>
 	<?php endif; ?>
 
-	<?php if($model->hasSubPages()): ?>
-		<ul id="rpbchessboard-subPageSelector" class="subsubsub">
-			<?php foreach($model->getSubPages() as $subPage): ?>
-
-				<li>
-					<a href="<?php echo $subPage->link; ?>" class="<?php if($subPage->selected) { echo 'current'; } ?>">
-						<?php echo $subPage->label; ?>
-					</a>
-				</li>
-
-			<?php endforeach; ?>
-		</ul>
+	<?php if ( $model->hasSubPages() ) : ?>
+	<ul id="rpbchessboard-subPageSelector" class="subsubsub">
+		<?php foreach ( $model->getSubPages() as $subPage ) : ?>
+		<li>
+			<a href="<?php echo $subPage->link; ?>" class="<?php echo $subPage->selected ? 'current' : ''; ?>">
+				<?php echo $subPage->label; ?>
+			</a>
+		</li>
+		<?php endforeach; ?>
+	</ul>
 	<?php endif; ?>
 
-	<?php RPBChessboardHelperLoader::printTemplate($model->getPageTemplateName(), $model); ?>
+	<?php RPBChessboardHelperLoader::printTemplate( $model->getPageTemplateName(), $model ); ?>
 
 </div>

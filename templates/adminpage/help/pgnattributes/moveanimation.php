@@ -20,62 +20,87 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-pgnAttributeMoveAnimation"><?php _e('Move animation', 'rpb-chessboard'); ?></h3>
+<h3 id="rpbchessboard-pgnAttributeMoveAnimation"><?php _e( 'Move animation', 'rpb-chessboard' ); ?></h3>
 
 <div class="rpbchessboard-columns">
 	<div>
 
 		<p>
-			<?php echo sprintf(__('The %1$s attribute controls the duration of the move animation on the navigation board.', 'rpb-chessboard'),
-				'<span class="rpbchessboard-sourceCode">animation_speed</span>'); ?>
+			<?php
+				echo sprintf(
+					__( 'The %1$s attribute controls the duration of the move animation on the navigation board.', 'rpb-chessboard' ),
+					'<span class="rpbchessboard-sourceCode">animation_speed</span>'
+				);
+				?>
 		</p>
 
 		<table class="rpbchessboard-attributeTable">
 			<tbody>
 				<tr>
-					<th><?php _e('Value', 'rpb-chessboard'); ?></th>
-					<th><?php _e('Default', 'rpb-chessboard'); ?></th>
-					<th><?php _e('Description', 'rpb-chessboard'); ?></th>
+					<th><?php _e( 'Value', 'rpb-chessboard' ); ?></th>
+					<th><?php _e( 'Default', 'rpb-chessboard' ); ?></th>
+					<th><?php _e( 'Description', 'rpb-chessboard' ); ?></th>
 				</tr>
-				<?php foreach($model->getAnimationSpeedList() as $animationSpeed): ?>
-					<tr>
-						<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributeAnimationSpeed-value"><?php echo htmlspecialchars($animationSpeed); ?></a></td>
-						<td><?php if($model->getDefaultAnimationSpeed() === $animationSpeed): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
-						<td><?php echo $animationSpeed===0 ? __('No animation', 'rpb-chessboard') : sprintf(__('The animation lasts %1$s milliseconds.',
-							'rpb-chessboard'), htmlspecialchars($animationSpeed)); ?></td>
-					</tr>
+				<?php foreach ( $model->getAnimationSpeedList() as $animationSpeed ) : ?>
+				<tr>
+					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributeAnimationSpeed-value"><?php echo htmlspecialchars( $animationSpeed ); ?></a></td>
+					<td><?php echo $model->getDefaultAnimationSpeed() === $animationSpeed ? '<div class="rpbchessboard-tickIcon"></div>' : ''; ?></td>
+					<td>
+						<?php
+							echo $animationSpeed === 0 ? __( 'No animation', 'rpb-chessboard' ) : sprintf(
+								__(
+									'The animation lasts %1$s milliseconds.',
+									'rpb-chessboard'
+								), htmlspecialchars( $animationSpeed )
+							);
+						?>
+					</td>
+				</tr>
 				<?php endforeach; ?>
 				<tr>
-					<td><?php _e('etc...', 'rpb-chessboard'); ?></td>
+					<td><?php _e( 'etc...', 'rpb-chessboard' ); ?></td>
 					<td></td>
-					<td><?php echo sprintf(__('Any value between %1$s and %2$s can be used.', 'rpb-chessboard'),
-						'0', htmlspecialchars($model->getMaximumAnimationSpeed())); ?></td>
+					<td>
+						<?php
+							echo sprintf(
+								__( 'Any value between %1$s and %2$s can be used.', 'rpb-chessboard' ),
+								'0',
+								htmlspecialchars( $model->getMaximumAnimationSpeed() )
+							);
+						?>
+					</td>
 				</tr>
 			</tbody>
 		</table>
 
 		<p>
-			<?php echo sprintf(__('The %1$s attribute controls whether an arrow should be used or not '.
-				'to highlight the moves on the navigation board.', 'rpb-chessboard'),
-				'<span class="rpbchessboard-sourceCode">animation_speed</span>'); ?>
+			<?php
+				echo sprintf(
+					__(
+						'The %1$s attribute controls whether an arrow should be used or not ' .
+						'to highlight the moves on the navigation board.', 'rpb-chessboard'
+					),
+					'<span class="rpbchessboard-sourceCode">animation_speed</span>'
+				);
+			?>
 		</p>
 
 		<table class="rpbchessboard-attributeTable">
 			<tbody>
 				<tr>
-					<th><?php _e('Value', 'rpb-chessboard'); ?></th>
-					<th><?php _e('Default', 'rpb-chessboard'); ?></th>
-					<th><?php _e('Description', 'rpb-chessboard'); ?></th>
+					<th><?php _e( 'Value', 'rpb-chessboard' ); ?></th>
+					<th><?php _e( 'Default', 'rpb-chessboard' ); ?></th>
+					<th><?php _e( 'Description', 'rpb-chessboard' ); ?></th>
 				</tr>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributeShowMoveArrow-value">false</a></td>
-					<td><?php if(!$model->getDefaultShowMoveArrow()): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
-					<td><?php _e('No arrow is shown.', 'rpb-chessboard'); ?></td>
+					<td><?php echo $model->getDefaultShowMoveArrow() ? '' : '<div class="rpbchessboard-tickIcon">'; ?></td>
+					<td><?php _e( 'No arrow is shown.', 'rpb-chessboard' ); ?></td>
 				</tr>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributeShowMoveArrow-value">true</a></td>
-					<td><?php if($model->getDefaultShowMoveArrow()): ?><div class="rpbchessboard-tickIcon"></div><?php endif; ?></td>
-					<td><?php _e('The moves are highlighted by an arrow.', 'rpb-chessboard'); ?></td>
+					<td><?php echo $model->getDefaultShowMoveArrow() ? '<div class="rpbchessboard-tickIcon">' : ''; ?></td>
+					<td><?php _e( 'The moves are highlighted by an arrow.', 'rpb-chessboard' ); ?></td>
 				</tr>
 			</tbody>
 		</table>
@@ -84,11 +109,13 @@
 	<div>
 
 		<div class="rpbchessboard-sourceCode">
-			<?php echo sprintf(
-				'[%1$s <strong>animation_speed=<span id="rpbchessboard-pgnAttributeAnimationSpeed-sourceCodeExample">0</span></strong> ' .
-				'<strong>show_move_arrow=<span id="rpbchessboard-pgnAttributeShowMoveArrow-sourceCodeExample">false</span></strong>] ... [/%1$s]',
-				htmlspecialchars($model->getPGNShortcode())
-			); ?>
+			<?php
+				echo sprintf(
+					'[%1$s <strong>animation_speed=<span id="rpbchessboard-pgnAttributeAnimationSpeed-sourceCodeExample">0</span></strong> ' .
+					'<strong>show_move_arrow=<span id="rpbchessboard-pgnAttributeShowMoveArrow-sourceCodeExample">false</span></strong>] ... [/%1$s]',
+					htmlspecialchars( $model->getPGNShortcode() )
+				);
+			?>
 		</div>
 
 		<div class="rpbchessboard-visuBlock">
@@ -96,7 +123,7 @@
 				<div id="rpbchessboard-pgnAttributeMoveAnimation-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-pgnAttributeMoveAnimation-anchor').chessgame($.extend(true, <?php echo json_encode($model->getDefaultChessgameSettings()); ?>, {
+						$('#rpbchessboard-pgnAttributeMoveAnimation-anchor').chessgame($.extend(true, <?php echo wp_json_encode( $model->getDefaultChessgameSettings() ); ?>, {
 							navigationBoard: 'floatLeft',
 							navigationBoardOptions: { squareSize: 28, animationSpeed: 0, showMoveArrow: false },
 							pgn:

@@ -20,7 +20,7 @@
  ******************************************************************************/
 
 
-require_once(RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php');
+require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php';
 
 
 /**
@@ -30,18 +30,18 @@ class RPBChessboardModelAjaxRemovePiecesetSprite extends RPBChessboardAbstractMo
 
 	public function __construct() {
 		parent::__construct();
-		$this->loadDelegateModel('Common/DefaultOptionsEx');
+		$this->loadDelegateModel( 'Common/DefaultOptionsEx' );
 	}
 
 
-	public function run($attachmentId) {
+	public function run( $attachmentId ) {
 
-		$path = get_attached_file($attachmentId);
-		$spritePath = $this->computeCustomPiecesetSpritePathOrURL($path);
+		$path       = get_attached_file( $attachmentId );
+		$spritePath = $this->computeCustomPiecesetSpritePathOrURL( $path );
 
-		if(file_exists($spritePath)) {
-			unlink($spritePath);
-			RPBChessboardHelperCache::remove('theming.css');
+		if ( file_exists( $spritePath ) ) {
+			unlink( $spritePath );
+			RPBChessboardHelperCache::remove( 'theming.css' );
 		}
 	}
 }

@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<h3><?php _e('Move animation', 'rpb-chessboard'); ?></h3>
+<h3><?php _e( 'Move animation', 'rpb-chessboard' ); ?></h3>
 
 
 <div class="rpbchessboard-columns">
@@ -28,11 +28,12 @@
 
 		<p>
 			<?php
-				echo sprintf(__('Animation speed: %1$s milliseconds', 'rpb-chessboard'),
+				echo sprintf(
+					__( 'Animation speed: %1$s milliseconds', 'rpb-chessboard' ),
 					'<input type="text" id="rpbchessboard-animationSpeedField" class="rpbchessboard-animationSpeedField" name="animationSpeed" ' .
-						'size="'      . htmlspecialchars($model->getDigitNumberForAnimationSpeed()) . '" ' .
-						'maxLength="' . htmlspecialchars($model->getDigitNumberForAnimationSpeed()) . '" ' .
-						'value="'     . htmlspecialchars($model->getDefaultAnimationSpeed       ()) . '" />'
+						'size="' . htmlspecialchars( $model->getDigitNumberForAnimationSpeed() ) . '" ' .
+						'maxLength="' . htmlspecialchars( $model->getDigitNumberForAnimationSpeed() ) . '" ' .
+						'value="' . htmlspecialchars( $model->getDefaultAnimationSpeed() ) . '" />'
 				);
 			?>
 		</p>
@@ -40,23 +41,23 @@
 		<div id="rpbchessboard-animationSpeedSlider" class="rpbchessboard-slider"></div>
 
 		<p class="description">
-			<?php _e('Set the animation speed to 0 to disable animations.', 'rpb-chessboard'); ?>
+			<?php _e( 'Set the animation speed to 0 to disable animations.', 'rpb-chessboard' ); ?>
 		</p>
 
 		<p>
 			<input type="hidden" name="showMoveArrow" value="0" />
 			<input type="checkbox" id="rpbchessboard-showMoveArrowField" name="showMoveArrow" value="1"
-				<?php if($model->getDefaultShowMoveArrow()): ?>checked="yes"<?php endif; ?>
+				<?php echo $model->getDefaultShowMoveArrow() ? 'checked="yes"' : ''; ?>
 			/>
-			<label for="rpbchessboard-showMoveArrowField"><?php _e('Show move arrow', 'rpb-chessboard'); ?></label>
+			<label for="rpbchessboard-showMoveArrowField"><?php _e( 'Show move arrow', 'rpb-chessboard' ); ?></label>
 		</p>
 
 		<p>
 			<a href="#" class="button rpbchessboard-testMoveAnimation" id="rpbchessboard-testMoveAnimation1">
-				<?php _e('Test move', 'rpb-chessboard'); ?>
+				<?php _e( 'Test move', 'rpb-chessboard' ); ?>
 			</a>
 			<a href="#" class="button rpbchessboard-testMoveAnimation" id="rpbchessboard-testMoveAnimation2">
-				<?php _e('Test capture', 'rpb-chessboard'); ?>
+				<?php _e( 'Test capture', 'rpb-chessboard' ); ?>
 			</a>
 		</p>
 
@@ -78,8 +79,8 @@
 		$('#rpbchessboard-animationSpeedSlider').slider({
 			value: animationSpeed,
 			min: 0,
-			max: <?php echo json_encode($model->getMaximumAnimationSpeed()); ?>,
-			step: <?php echo json_encode($model->getStepAnimationSpeed()); ?>,
+			max: <?php echo wp_json_encode( $model->getMaximumAnimationSpeed() ); ?>,
+			step: <?php echo wp_json_encode( $model->getStepAnimationSpeed() ); ?>,
 			slide: function(event, ui) { $('#rpbchessboard-animationSpeedField').val(ui.value); }
 		});
 

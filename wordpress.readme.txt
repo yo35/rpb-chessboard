@@ -80,6 +80,11 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 5.1.6 (January 7, 2018) =
+* Fix scrolling issue (see #111).
+* Enforce WP coding conventions and code cleanup.
+* Chess font size optimization.
+
 = 5.1.5 (January 1, 2018) =
 * Fix several issues affecting mobile devices (see #101, #104 and #105).
 
@@ -332,9 +337,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 Yoann Le Montagner
 
-= Contributor =
+= Contributors =
 
-Marek Śmigielski
+Marek Śmigielski, [Paul Schreiber](https://paulschreiber.com/)
 
 = Translators =
 

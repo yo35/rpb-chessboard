@@ -22,7 +22,7 @@
 
 <p>
 	<button id="rpbchessboard-addSetCodeButton" class="button">
-		<?php _e('Add a new colorset', 'rpb-chessboard'); ?>
+		<?php _e( 'Add a new colorset', 'rpb-chessboard' ); ?>
 	</button>
 </p>
 
@@ -30,55 +30,62 @@
 
 	<thead>
 		<tr>
-			<th scope="col"><?php _e('Name', 'rpb-chessboard'); ?></th>
-			<th scope="col"><?php _e('Slug', 'rpb-chessboard'); ?></th>
-			<th scope="col"><?php _e('Default', 'rpb-chessboard'); ?></th>
+			<th scope="col"><?php _e( 'Name', 'rpb-chessboard' ); ?></th>
+			<th scope="col"><?php _e( 'Slug', 'rpb-chessboard' ); ?></th>
+			<th scope="col"><?php _e( 'Default', 'rpb-chessboard' ); ?></th>
 		</tr>
 	</thead>
 
 	<tbody>
 
 		<tr>
-			<?php RPBChessboardHelperLoader::printTemplate('AdminPage/Theming/ColorsetEdition', $model, array('isNew' => true)); ?>
+			<?php RPBChessboardHelperLoader::printTemplate( 'AdminPage/Theming/ColorsetEdition', $model, array( 'isNew' => true ) ); ?>
 		</tr>
 
-		<?php foreach($model->getAvailableColorsets() as $colorset): ?>
-			<tr data-slug="<?php echo htmlspecialchars($colorset); ?>">
+		<?php foreach ( $model->getAvailableColorsets() as $colorset ) : ?>
+		<tr data-slug="<?php echo htmlspecialchars( $colorset ); ?>">
 
-				<td class="has-row-actions">
-					<strong class="row-title"><?php echo htmlspecialchars($model->getColorsetLabel($colorset)); ?></strong>
-					<span class="row-actions rpbchessboard-inlinedRowActions">
-						<?php if($model->isBuiltinColorset($colorset)): ?>
-							<span><a href="#" class="rpbchessboard-action-setDefault"><?php _e('Set default', 'rpb-chessboard'); ?></a></span>
-						<?php else: ?>
-							<span><a href="#" class="rpbchessboard-action-setDefault"><?php _e('Set default', 'rpb-chessboard'); ?></a> |</span>
-							<span><a href="#" class="rpbchessboard-action-edit"><?php _e('Edit', 'rpb-chessboard'); ?></a> |</span>
-							<span><a href="#" class="rpbchessboard-action-delete"><?php _e('Delete', 'rpb-chessboard'); ?></a></span>
-						<?php endif; ?>
-					</span>
-				</td>
-
-				<td><?php echo htmlspecialchars($colorset); ?></td>
-
-				<td>
-					<?php if($model->isDefaultColorset($colorset)): ?>
-						<div class="rpbchessboard-tickIcon"></div>
+			<td class="has-row-actions">
+				<strong class="row-title"><?php echo htmlspecialchars( $model->getColorsetLabel( $colorset ) ); ?></strong>
+				<span class="row-actions rpbchessboard-inlinedRowActions">
+					<?php if ( $model->isBuiltinColorset( $colorset ) ) : ?>
+					<span><a href="#" class="rpbchessboard-action-setDefault"><?php _e( 'Set default', 'rpb-chessboard' ); ?></a></span>
+					<?php else : ?>
+					<span><a href="#" class="rpbchessboard-action-setDefault"><?php _e( 'Set default', 'rpb-chessboard' ); ?></a> |</span>
+					<span><a href="#" class="rpbchessboard-action-edit"><?php _e( 'Edit', 'rpb-chessboard' ); ?></a> |</span>
+					<span><a href="#" class="rpbchessboard-action-delete"><?php _e( 'Delete', 'rpb-chessboard' ); ?></a></span>
 					<?php endif; ?>
-				</td>
+				</span>
+			</td>
 
-				<?php if(!$model->isBuiltinColorset($colorset)): ?>
-					<?php RPBChessboardHelperLoader::printTemplate('AdminPage/Theming/ColorsetEdition', $model, array('isNew' => false, 'colorset' => $colorset)); ?>
+			<td><?php echo htmlspecialchars( $colorset ); ?></td>
+
+			<td>
+				<?php if ( $model->isDefaultColorset( $colorset ) ) : ?>
+				<div class="rpbchessboard-tickIcon"></div>
 				<?php endif; ?>
+			</td>
 
-			</tr>
+			<?php
+			if ( ! $model->isBuiltinColorset( $colorset ) ) {
+				RPBChessboardHelperLoader::printTemplate(
+					'AdminPage/Theming/ColorsetEdition', $model, array(
+						'isNew'    => false,
+						'colorset' => $colorset,
+					)
+				);
+			}
+			?>
+
+		</tr>
 		<?php endforeach; ?>
 	</tbody>
 
 	<tfoot>
 		<tr>
-			<th scope="col"><?php _e('Name', 'rpb-chessboard'); ?></th>
-			<th scope="col"><?php _e('Slug', 'rpb-chessboard'); ?></th>
-			<th scope="col"><?php _e('Default', 'rpb-chessboard'); ?></th>
+			<th scope="col"><?php _e( 'Name', 'rpb-chessboard' ); ?></th>
+			<th scope="col"><?php _e( 'Slug', 'rpb-chessboard' ); ?></th>
+			<th scope="col"><?php _e( 'Default', 'rpb-chessboard' ); ?></th>
 		</tr>
 	</tfoot>
 
