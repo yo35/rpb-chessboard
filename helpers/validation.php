@@ -103,7 +103,7 @@ abstract class RPBChessboardHelperValidation {
 	public static function validateSetCodeList( $value ) {
 		if ( is_string( $value ) ) {
 			$value = strtolower( $value );
-			if ( $value === '' ) {
+			if ( '' === $value ) {
 				return array();
 			} elseif ( preg_match( '/^[a-z0-9]+(?:-[a-z0-9]+)*(?:\|[a-z0-9]+(?:-[a-z0-9]+)*)*$/', $value ) ) {
 				return explode( '|', $value );
@@ -120,7 +120,7 @@ abstract class RPBChessboardHelperValidation {
 	 * @return string May be null is the value is not valid.
 	 */
 	public static function validateDiagramAlignment( $value ) {
-		return ( $value === 'center' || $value === 'floatLeft' || $value === 'floatRight' ) ? $value : null;
+		return ( in_array( $value, array( 'center', 'floatLeft', 'floatRight' ), true ) ) ? $value : null;
 	}
 
 
@@ -131,7 +131,7 @@ abstract class RPBChessboardHelperValidation {
 	 * @return string May be null is the value is not valid.
 	 */
 	public static function validatePieceSymbols( $value ) {
-		if ( $value === 'native' || $value === 'localized' || $value === 'figurines' ) {
+		if ( in_array( $value, array( 'native', 'localized', 'figurines' ), true ) ) {
 			return $value;
 		} elseif ( is_string( $value ) && preg_match( '/^\([a-zA-Z]{6}\)$/', $value ) ) {
 			return strtoupper( $value );
@@ -159,8 +159,7 @@ abstract class RPBChessboardHelperValidation {
 	 * @return string May be null is the value is not valid.
 	 */
 	public static function validateNavigationBoard( $value ) {
-		return ( $value === 'none' || $value === 'frame' || $value === 'above' || $value === 'below'
-			|| $value === 'floatLeft' || $value === 'floatRight' || $value === 'scrollLeft' || $value === 'scrollRight' ) ? $value : null;
+		return ( in_array( $value, array( 'none', 'frame', 'above', 'below', 'floatLeft', 'floatRight', 'scrollLeft', 'scrollRight' ), true ) ) ? $value : null;
 	}
 
 
@@ -226,7 +225,7 @@ abstract class RPBChessboardHelperValidation {
 	 */
 	public static function validateInteger( $value, $min = null, $max = null ) {
 		$value = filter_var( $value, FILTER_VALIDATE_INT );
-		return $value === false ? null : max( $max === null ? $value : min( $value, $max ), $min );
+		return false === $value ? null : max( null === $max ? $value : min( $value, $max ), $min );
 	}
 
 
@@ -237,7 +236,7 @@ abstract class RPBChessboardHelperValidation {
 	 * @return boolean May be null is the value is not valid.
 	 */
 	public static function validateBoolean( $value ) {
-		return ( $value === null || $value === '' ) ? null : filter_var( $value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
+		return ( null === $value || '' === $value ) ? null : filter_var( $value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
 	}
 
 
@@ -249,9 +248,9 @@ abstract class RPBChessboardHelperValidation {
 	 */
 	public static function validateBooleanFromInt( $value ) {
 		$value = filter_var( $value, FILTER_VALIDATE_INT );
-		if ( $value === 0 ) {
+		if ( 0 === $value ) {
 			return false;
-		} elseif ( $value === 1 ) {
+		} elseif ( 1 === $value ) {
 			return true;
 		} else {
 			return null;

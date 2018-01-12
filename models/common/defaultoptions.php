@@ -106,7 +106,7 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel 
 			self::$colorset = isset( $value ) ? $value : self::DEFAULT_COLORSET;
 
 			// FIXME Colorset 'original' was named as 'default' in version 4.3 and 4.3.1.
-			if ( self::$colorset === 'default' ) {
+			if ( 'default' === self::$colorset ) {
 				self::$colorset = 'original';
 			}
 		}

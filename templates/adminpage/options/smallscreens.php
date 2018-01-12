@@ -47,7 +47,7 @@
 
 <h3 title="
 <?php
-if ( $mode->minScreenWidth === 0 ) {
+if ( 0 === $mode->minScreenWidth ) {
 	echo sprintf(
 		__( 'These options apply to devices whose resolution is less than %1$s pixel width.', 'rpb-chessboard' ),
 		htmlspecialchars( $mode->maxScreenWidth )
@@ -81,7 +81,7 @@ if ( $mode->minScreenWidth === 0 ) {
 		<span id="rpbchessboard-smallScreenMode<?php echo htmlspecialchars( $index ); ?>-squareSizeSlider" class="rpbchessboard-slider"></span>
 	</p>
 
-	<?php if ( $index === 0 ) : ?>
+	<?php if ( 0 === $index ) : ?>
 	<p class="description">
 		<?php
 			echo sprintf(
@@ -110,7 +110,7 @@ if ( $mode->minScreenWidth === 0 ) {
 		</label>
 	</p>
 
-	<?php if ( $index === 0 ) : ?>
+	<?php if ( 0 === $index ) : ?>
 	<p class="description">
 		<?php
 			echo sprintf(
