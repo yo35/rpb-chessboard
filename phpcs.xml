@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<ruleset name="WordPress-RPB">
+	<description>WordPress VIP, without snake_case restrictions.</description>
+	<rule ref="WordPress-Extra" />
+	<rule ref="WordPress-VIP">
+		<exclude name="WordPress.NamingConventions.ValidVariableName.NotSnakeCaseMemberVar"/>
+		<exclude name="WordPress.NamingConventions.ValidVariableName.NotSnakeCase"/>
+		<exclude name="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid"/>
+		<exclude name="WordPress.NamingConventions.ValidVariableName.MemberNotSnakeCase"/>
+	</rule>
+</ruleset>
