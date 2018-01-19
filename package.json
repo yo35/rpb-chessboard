@@ -4,11 +4,13 @@
   "description": "This plugin allows you to typeset and display chess diagrams and PGN-encoded chess games.",
   "main": "index.js",
   "dependencies": {},
+	"peerDependencies": {
+		"grunt-cli": ">=1.2.0"
+	},
   "devDependencies": {
     "eslint": "^4.14.0",
     "eslint-config-wordpress": "^2.0.0",
     "grunt": "^1.0.1",
-    "grunt-cli": "^1.2.0",
     "grunt-phpcs": "^0.4.0"
   },
   "scripts": {
