@@ -45,8 +45,7 @@
 
 <?php foreach ( $model->getSmallScreenModes() as $index => $mode ) : ?>
 
-<h3 title="
-<?php
+<h3 title="<?php
 if ( $mode->minScreenWidth === 0 ) {
 	echo sprintf(
 		__( 'These options apply to devices whose resolution is less than %1$s pixel width.', 'rpb-chessboard' ),
