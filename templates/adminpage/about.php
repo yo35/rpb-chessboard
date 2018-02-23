@@ -28,17 +28,15 @@
 
 	<p>
 		<?php
-			echo wp_kses_post(
-				sprintf(
+				printf(
 					esc_html__(
 						'RPB Chessboard allows you to typeset and display chess games and diagrams in the posts and pages of your WordPress blog, using the standard %1$sFEN%3$s and %2$sPGN%3$s notations.',
 						'rpb-chessboard'
 					),
-					sprintf( '<a href="%1$s" target="_blank">', __( 'http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation', 'rpb-chessboard' ) ),
-					sprintf( '<a href="%1$s" target="_blank">', __( 'http://en.wikipedia.org/wiki/Portable_Game_Notation', 'rpb-chessboard' ) ),
+					sprintf( '<a href="%1$s" target="_blank">', esc_url( __( 'http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation', 'rpb-chessboard' ) ) ),
+					sprintf( '<a href="%1$s" target="_blank">', esc_url( __( 'http://en.wikipedia.org/wiki/Portable_Game_Notation', 'rpb-chessboard' ) ) ),
 					'</a>'
-				)
-			);
+				);
 		?>
 	</p>
 	<p>
@@ -120,15 +118,13 @@
 	</dl>
 	<p class="description">
 		<?php
-			echo wp_kses_post(
-				sprintf(
-					esc_html__(
-						'If you are interested in translating this plugin into your language, please %1$scontact the author%2$s.',
-						'rpb-chessboard'
-					),
-					'<a href="mailto:yo35@melix.net">',
-					'</a>'
-				)
+			printf(
+				esc_html__(
+					'If you are interested in translating this plugin into your language, please %1$scontact the author%2$s.',
+					'rpb-chessboard'
+				),
+				'<a href="mailto:yo35@melix.net">',
+				'</a>'
 			);
 		?>
 	</p>
@@ -136,38 +132,33 @@
 	<h4><?php esc_html_e( 'Graphic resources', 'rpb-chessboard' ); ?></h4>
 	<p>
 		<?php
-			echo wp_kses_post(
-				sprintf(
-					esc_html__(
-						'Pieceset %1$sCBurnett%2$s has been created by %3$sColin M.L. Burnett%6$s, who shares it under the [CC-BY-SA] license on %4$sWikimedia Commons%6$s; user %5$sAntonsusi%6$s has also contributed to this work.',
-						'rpb-chessboard'
-					),
-					'<em>',
-					'</em>',
-					'<a href="https://en.wikipedia.org/wiki/User:Cburnett" target="_blank">',
-					'<a href="https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces" target="_blank">',
-					'<a href="https://commons.wikimedia.org/wiki/User:Antonsusi" target="_blank">',
-					'</a>'
-				)
+			printf(
+				esc_html__(
+					'Pieceset %1$sCBurnett%2$s has been created by %3$sColin M.L. Burnett%6$s, who shares it under the [CC-BY-SA] license on %4$sWikimedia Commons%6$s; user %5$sAntonsusi%6$s has also contributed to this work.',
+					'rpb-chessboard'
+				),
+				'<em>',
+				'</em>',
+				'<a href="https://en.wikipedia.org/wiki/User:Cburnett" target="_blank">',
+				'<a href="https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces" target="_blank">',
+				'<a href="https://commons.wikimedia.org/wiki/User:Antonsusi" target="_blank">',
+				'</a>'
 			);
 		?>
 		<?php
-			echo wp_kses_post(
-				sprintf(
-					esc_html__(
-						'Piecesets %1$sCeltic%2$s, %1$sEyes%2$s, %1$sFantasy%2$s, %1$sSkulls%2$s and %1$sSpatial%2$s have been created by %3$sMaurizio Monge%4$s, who makes them freely available for chess programs.',
-						'rpb-chessboard'
-					),
-					'<em>',
-					'</em>',
-					'<a href="http://poisson.phc.unipi.it/~monge/" target="_blank">',
-					'</a>'
-				)
+			printf(
+				esc_html__(
+					'Piecesets %1$sCeltic%2$s, %1$sEyes%2$s, %1$sFantasy%2$s, %1$sSkulls%2$s and %1$sSpatial%2$s have been created by %3$sMaurizio Monge%4$s, who makes them freely available for chess programs.',
+					'rpb-chessboard'
+				),
+				'<em>',
+				'</em>',
+				'<a href="http://poisson.phc.unipi.it/~monge/" target="_blank">',
+				'</a>'
 			);
 		?>
 		<?php
-			echo wp_kses_post(
-				sprintf(
+				printf(
 					esc_html__(
 						'Colorsets %1$sCoral%2$s, %1$sDusk%2$s, %1$sEmerald%2$s, %1$sMarine%2$s, %1$sSandcastle%2$s and %1$sWheat%2$s have been proposed in this %3$sblog post%5$s by %4$sGorgonian%5$s.',
 						'rpb-chessboard'
@@ -177,12 +168,10 @@
 					'<a href="http://omgchess.blogspot.fr/2015/09/chess-board-color-schemes.html" target="_blank">',
 					'<a href="http://omgchess.blogspot.fr/" target="_blank">',
 					'</a>'
-				)
-			);
+				);
 		?>
 		<?php
-		echo wp_kses_post(
-			sprintf(
+			printf(
 				esc_html__(
 					'Icons %1$sUndo%2$s, %1$sRedo%2$s, %1$sDelete%2$s and %1$sTick%2$s have been created by %3$sMomentum Design Lab%5$s, who shares them under the [CC-BY] license on %4$sFind Icons%5$s.',
 					'rpb-chessboard'
@@ -192,12 +181,10 @@
 				'<a href="http://momentumdesignlab.com/" target="_blank">',
 				'<a href="http://findicons.com/pack/2226/matte_basic" target="_blank">',
 				'</a>'
-			)
-		);
+			);
 		?>
 		<?php
-		echo wp_kses_post(
-			sprintf(
+			printf(
 				esc_html__(
 					'Icon %1$sNot-Found%2$s has been created by %3$sgakuseiSean%5$s, who makes it freely available for non-commercial use on %4$sFind Icons%5$s.',
 					'rpb-chessboard'
@@ -207,12 +194,10 @@
 				'<a href="http://gakuseisean.deviantart.com/" target="_blank">',
 				'<a href="http://findicons.com/icon/89623/error" target="_blank">',
 				'</a>'
-			)
-		);
+			);
 		?>
 		<?php
-		echo wp_kses_post(
-			sprintf(
+			printf(
 				esc_html__(
 					'Icon %1$sHelp%2$s has been created by %3$sRuby Software%5$s, who shares it as a freeware on %4$sFind Icons%5$s.',
 					'rpb-chessboard'
@@ -222,8 +207,7 @@
 				'<a href="http://www.rubysoftware.nl/" target="_blank">',
 				'<a href="http://findicons.com/icon/26233/help" target="_blank">',
 				'</a>'
-			)
-		);
+			);
 		?>
 	</p>
 	<p>
@@ -234,8 +218,7 @@
 	<h3><?php esc_html_e( 'License', 'rpb-chessboard' ); ?></h3>
 	<p>
 		<?php
-		echo wp_kses_post(
-			sprintf(
+			printf(
 				esc_html__(
 					'This plugin is distributed under the terms of the %1$sGNU General Public License version 3%3$s (GPLv3),  as published by the %2$sFree Software Foundation%3$s. The full text of this license is available at %4$s. A copy of this document is also provided with the plugin source code.',
 					'rpb-chessboard'
@@ -244,8 +227,7 @@
 				'<a href="http://www.fsf.org/" target="_blank">',
 				'</a>',
 				'<a href="http://www.gnu.org/licenses/gpl.html" target="_blank">http://www.gnu.org/licenses/gpl.html</a>'
-			)
-		);
+			);
 		?>
 	</p>
 	<p>
