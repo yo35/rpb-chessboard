@@ -22,7 +22,7 @@
 
 <div class="wrap rpbchessboard-adminPage">
 
-	<h2><?php echo htmlspecialchars( $model->getTitle() ); ?></h2>
+	<h2><?php echo esc_html( $model->getTitle() ); ?></h2>
 
 	<noscript>
 		<div class="error">
@@ -43,7 +43,7 @@
 
 	<?php if ( $model->hasPostMessage() ) : ?>
 	<div class="updated">
-		<p><?php echo htmlspecialchars( $model->getPostMessage() ); ?></p>
+		<p><?php echo esc_html( $model->getPostMessage() ); ?></p>
 	</div>
 	<?php endif; ?>
 

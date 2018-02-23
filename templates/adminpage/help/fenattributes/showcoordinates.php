@@ -61,7 +61,7 @@
 			<?php
 				echo sprintf(
 					'[%1$s <strong>show_coordinates=<span id="rpbchessboard-fenAttributeShowCoordinates-sourceCodeExample">true</span></strong>] ... [/%1$s]',
-					htmlspecialchars( $model->getFENShortcode() )
+					esc_html( $model->getFENShortcode() )
 				);
 			?>
 		</div>

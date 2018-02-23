@@ -22,6 +22,6 @@
 
 <div class="rpbui-chessgame-diagramAnchor">
 <?php
-	echo htmlspecialchars( $model->getDiagramOptionsAsString() );
+	echo esc_html( $model->getDiagramOptionsAsString() );
 ?>
 </div>

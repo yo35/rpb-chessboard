@@ -36,7 +36,7 @@
 					),
 					'<span class="rpbchessboard-sourceCode">csl</span>',
 					'<span class="rpbchessboard-sourceCode">cal</span>',
-					sprintf( '<a href="%s">', htmlspecialchars( $model->getHelpOnFENSyntaxURL() ) ),
+					sprintf( '<a href="%s">', esc_html( $model->getHelpOnFENSyntaxURL() ) ),
 					'</a>'
 				);
 			?>
@@ -50,7 +50,7 @@
 						'is described in the %1$sPGN game syntax help page%2$s.',
 						'rpb-chessboard'
 					),
-					sprintf( '<a href="%s">', htmlspecialchars( $model->getHelpOnPGNSyntaxURL() ) ),
+					sprintf( '<a href="%s">', esc_html( $model->getHelpOnPGNSyntaxURL() ) ),
 					'</a>'
 				);
 			?>
@@ -63,7 +63,7 @@
 			<?php
 				echo sprintf(
 					'[%1$s <strong>csl=Ye5</strong> <strong>cal=Gc6e5,Rf3e5</strong>] ... [/%1$s]',
-					htmlspecialchars( $model->getFENShortcode() )
+					esc_html( $model->getFENShortcode() )
 				);
 			?>
 		</div>

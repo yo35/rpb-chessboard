@@ -23,12 +23,12 @@
 <?php if ( $model->getDiagramAlignment() === 'center' ) : ?>
 <p class="rpbchessboard-spacerBefore"></p>
 <?php else : ?>
-<div class="rpbchessboard-diagramAlignment-<?php echo htmlspecialchars( $model->getDiagramAlignment() ); ?>">
+<div class="<?php echo esc_attr( 'rpbchessboard-diagramAlignment-' . $model->getDiagramAlignment() ); ?>">
 <?php endif; ?>
 
-<div id="<?php echo htmlspecialchars( $model->getUniqueID() ); ?>" class="rpbchessboard-chessboard">
+<div id="<?php echo esc_attr( $model->getUniqueID() ); ?>" class="rpbchessboard-chessboard">
 	<noscript>
-		<div class="rpbchessboard-noJavascriptBlock"><?php echo htmlspecialchars( $model->getContent() ); ?></div>
+		<div class="rpbchessboard-noJavascriptBlock"><?php echo esc_html( $model->getContent() ); ?></div>
 		<div class="rpbchessboard-javascriptWarning">
 			<?php esc_html_e( 'You must activate JavaScript to enhance chess diagram visualization.', 'rpb-chessboard' ); ?>
 		</div>
