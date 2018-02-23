@@ -51,8 +51,8 @@
 	<ul id="rpbchessboard-subPageSelector" class="subsubsub">
 		<?php foreach ( $model->getSubPages() as $subPage ) : ?>
 		<li>
-			<a href="<?php echo $subPage->link; ?>" class="<?php echo $subPage->selected ? 'current' : ''; ?>">
-				<?php echo $subPage->label; ?>
+			<a href="<?php echo esc_url( $subPage->link ); ?>" class="<?php echo $subPage->selected ? 'current' : ''; ?>">
+				<?php echo esc_html( $subPage->label ); ?>
 			</a>
 		</li>
 		<?php endforeach; ?>
