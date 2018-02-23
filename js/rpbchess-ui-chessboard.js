@@ -287,20 +287,26 @@
 	 * @param {rpbchess-ui.chessboard} widget
 	 * @returns {string}
 	 */
-	function buildErrorMessage(widget) {
-
-		// Build the error report box.
-		var res = '<div class="rpbui-chessboard-error">' +
-			'<div class="rpbui-chessboard-errorTitle">Error while analysing a FEN string.</div>';
+	function buildErrorMessage( widget ) {
+		var errorDiv = document.createElement( 'div' );
+		var insideDiv = document.createElement( 'div' );
+		var messageDiv;
+		errorDiv.setAttribute( 'class', 'rpbui-chessboard-error' );
+		insideDiv.setAttribute( 'class', 'rpbui-chessboard-errorTitle' );
+		insideDiv.textContent = 'Error while analysing a FEN string.';
 
 		// Optional message.
-		if(widget._position.message !== null) {
-			res += '<div class="rpbui-chessboard-errorMessage">' + widget._position.message + '</div>';
+		if ( null !== widget._position.message ) {
+			messageDiv = document.createElement( 'div' );
+			messageDiv.setAttribute( 'class', 'rpbui-chessboard-errorMessage' );
+			messageDiv.textContent = widget._position.message;
+			insideDiv.appendChild( messageDiv );
 		}
 
-		// Close the error report box, and return the result.
-		res += '</div>';
-		return res;
+		// Build the error report box.
+		errorDiv.appendChild( insideDiv );
+
+		return errorDiv.outerHTML;
 	}
 
 
