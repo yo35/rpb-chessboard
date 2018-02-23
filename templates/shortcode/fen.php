@@ -30,7 +30,7 @@
 	<noscript>
 		<div class="rpbchessboard-noJavascriptBlock"><?php echo htmlspecialchars( $model->getContent() ); ?></div>
 		<div class="rpbchessboard-javascriptWarning">
-			<?php _e( 'You must activate JavaScript to enhance chess diagram visualization.', 'rpb-chessboard' ); ?>
+			<?php esc_html_e( 'You must activate JavaScript to enhance chess diagram visualization.', 'rpb-chessboard' ); ?>
 		</div>
 	</noscript>
 	<div class="rpbchessboard-chessboardAnchor"></div>

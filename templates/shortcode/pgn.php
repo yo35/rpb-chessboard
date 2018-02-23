@@ -28,7 +28,7 @@
 		<div class="rpbchessboard-noJavascriptBlock"><?php echo htmlspecialchars( $model->getContent() ); ?></div>
 		<?php endif; ?>
 		<div class="rpbchessboard-javascriptWarning">
-			<?php _e( 'You must activate JavaScript to enhance chess game visualization.', 'rpb-chessboard' ); ?>
+			<?php esc_html_e( 'You must activate JavaScript to enhance chess game visualization.', 'rpb-chessboard' ); ?>
 		</div>
 	</noscript>
 	<div class="rpbchessboard-chessgameAnchor"></div>

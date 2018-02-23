@@ -49,41 +49,41 @@
 	<div class="description rpbchessboard-clearfix">
 		<a class="button" href="https://github.com/yo35/rpb-chessboard/issues" target="_blank" title="
 		<?php
-			_e(
+			esc_html_e(
 				'If you need help to use this plugin, if you encounter some bugs, or if you wish to get new features in the future versions, ' .
 				'please feel free to use the GitHub tracker.', 'rpb-chessboard'
 			);
 		?>
 		">
 			<img src="<?php echo RPBCHESSBOARD_URL . 'images/help.png'; ?>" />
-			<?php _e( 'Need help', 'rpb-chessboard' ); ?> / <?php _e( 'Report a bug', 'rpb-chessboard' ); ?>
+			<?php esc_html_e( 'Need help', 'rpb-chessboard' ); ?> / <?php esc_html_e( 'Report a bug', 'rpb-chessboard' ); ?>
 		</a>
 		<a class="button" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YHNERW43QN49E" target="_blank" title="
 		<?php
-			_e(
+			esc_html_e(
 				'This plugin is and will remain free. However, if you want to make a donation to support the author\'s work, ' .
 				'you can do it through this PayPal link.', 'rpb-chessboard'
 			);
 		?>
 		">
-			<img src="<?php echo RPBCHESSBOARD_URL . 'images/paypal.png'; ?>" /><?php _e( 'Donate', 'rpb-chessboard' ); ?>
+			<img src="<?php echo RPBCHESSBOARD_URL . 'images/paypal.png'; ?>" /><?php esc_html_e( 'Donate', 'rpb-chessboard' ); ?>
 		</a>
 	</div>
 
 
-	<h3><?php _e( 'Plugin version', 'rpb-chessboard' ); ?></h3>
+	<h3><?php esc_html_e( 'Plugin version', 'rpb-chessboard' ); ?></h3>
 	<p><?php echo htmlspecialchars( $model->getPluginVersion() ); ?></p>
 
 
-	<h3><?php _e( 'Credits', 'rpb-chessboard' ); ?></h3>
+	<h3><?php esc_html_e( 'Credits', 'rpb-chessboard' ); ?></h3>
 
-	<h4><?php _e( 'Author', 'rpb-chessboard' ); ?></h4>
+	<h4><?php esc_html_e( 'Author', 'rpb-chessboard' ); ?></h4>
 	<p><a href="mailto:yo35@melix.net">Yoann Le Montagner</a></p>
 
-	<h4><?php _e( 'Contributors', 'rpb-chessboard' ); ?></h4>
+	<h4><?php esc_html_e( 'Contributors', 'rpb-chessboard' ); ?></h4>
 	<p>Marek Śmigielski, <a href="https://paulschreiber.com/" target="_blank">Paul Schreiber</a></p>
 
-	<h4><?php _e( 'Translators', 'rpb-chessboard' ); ?></h4>
+	<h4><?php esc_html_e( 'Translators', 'rpb-chessboard' ); ?></h4>
 	<dl class="rpbchessboard-translatorList">
 		<div>
 			<div>
@@ -133,7 +133,7 @@
 		?>
 	</p>
 
-	<h4><?php _e( 'Graphic resources', 'rpb-chessboard' ); ?></h4>
+	<h4><?php esc_html_e( 'Graphic resources', 'rpb-chessboard' ); ?></h4>
 	<p>
 		<?php
 			echo sprintf(
@@ -221,11 +221,11 @@
 		?>
 	</p>
 	<p>
-		<?php _e( 'The author would like to thank all these people for their highly valuable work.', 'rpb-chessboard' ); ?>
+		<?php esc_html_e( 'The author would like to thank all these people for their highly valuable work.', 'rpb-chessboard' ); ?>
 	</p>
 
 
-	<h3><?php _e( 'License', 'rpb-chessboard' ); ?></h3>
+	<h3><?php esc_html_e( 'License', 'rpb-chessboard' ); ?></h3>
 	<p>
 		<?php
 			echo sprintf(
@@ -244,7 +244,7 @@
 	</p>
 	<p>
 		<?php
-			_e(
+			esc_html_e(
 				'This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; ' .
 				'without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. ' .
 				'See the GNU General Public License for more details.',
