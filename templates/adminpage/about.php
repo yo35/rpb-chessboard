@@ -30,9 +30,7 @@
 		<?php
 			echo sprintf(
 				__(
-					'RPB Chessboard allows you to typeset and display chess games and diagrams ' .
-					'in the posts and pages of your WordPress blog, ' .
-					'using the standard %1$sFEN%3$s and %2$sPGN%3$s notations.',
+					'RPB Chessboard allows you to typeset and display chess games and diagrams in the posts and pages of your WordPress blog, using the standard %1$sFEN%3$s and %2$sPGN%3$s notations.',
 					'rpb-chessboard'
 				),
 				sprintf( '<a href="%1$s" target="_blank">', __( 'http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation', 'rpb-chessboard' ) ),
@@ -50,8 +48,7 @@
 		<a class="button" href="https://github.com/yo35/rpb-chessboard/issues" target="_blank" title="
 		<?php
 			esc_html_e(
-				'If you need help to use this plugin, if you encounter some bugs, or if you wish to get new features in the future versions, ' .
-				'please feel free to use the GitHub tracker.', 'rpb-chessboard'
+				'If you need help to use this plugin, if you encounter some bugs, or if you wish to get new features in the future versions, please feel free to use the GitHub tracker.', 'rpb-chessboard'
 			);
 		?>
 		">
@@ -61,8 +58,7 @@
 		<a class="button" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YHNERW43QN49E" target="_blank" title="
 		<?php
 			esc_html_e(
-				'This plugin is and will remain free. However, if you want to make a donation to support the author\'s work, ' .
-				'you can do it through this PayPal link.', 'rpb-chessboard'
+				'This plugin is and will remain free. However, if you want to make a donation to support the author\'s work, you can do it through this PayPal link.', 'rpb-chessboard'
 			);
 		?>
 		">
@@ -138,9 +134,7 @@
 		<?php
 			echo sprintf(
 				__(
-					'Pieceset %1$sCBurnett%2$s has been created by %3$sColin M.L. Burnett%6$s, ' .
-					'who shares it under the [CC-BY-SA] license on %4$sWikimedia Commons%6$s; ' .
-					'user %5$sAntonsusi%6$s has also contributed to this work.',
+					'Pieceset %1$sCBurnett%2$s has been created by %3$sColin M.L. Burnett%6$s, who shares it under the [CC-BY-SA] license on %4$sWikimedia Commons%6$s; user %5$sAntonsusi%6$s has also contributed to this work.',
 					'rpb-chessboard'
 				),
 				'<em>',
@@ -154,8 +148,7 @@
 		<?php
 			echo sprintf(
 				__(
-					'Piecesets %1$sCeltic%2$s, %1$sEyes%2$s, %1$sFantasy%2$s, %1$sSkulls%2$s and %1$sSpatial%2$s ' .
-					'have been created by %3$sMaurizio Monge%4$s, who makes them freely available for chess programs.',
+					'Piecesets %1$sCeltic%2$s, %1$sEyes%2$s, %1$sFantasy%2$s, %1$sSkulls%2$s and %1$sSpatial%2$s have been created by %3$sMaurizio Monge%4$s, who makes them freely available for chess programs.',
 					'rpb-chessboard'
 				),
 				'<em>',
@@ -167,8 +160,7 @@
 		<?php
 			echo sprintf(
 				__(
-					'Colorsets %1$sCoral%2$s, %1$sDusk%2$s, %1$sEmerald%2$s, %1$sMarine%2$s, %1$sSandcastle%2$s and %1$sWheat%2$s ' .
-					'have been proposed in this %3$sblog post%5$s by %4$sGorgonian%5$s.',
+					'Colorsets %1$sCoral%2$s, %1$sDusk%2$s, %1$sEmerald%2$s, %1$sMarine%2$s, %1$sSandcastle%2$s and %1$sWheat%2$s have been proposed in this %3$sblog post%5$s by %4$sGorgonian%5$s.',
 					'rpb-chessboard'
 				),
 				'<em>',
@@ -181,8 +173,7 @@
 		<?php
 			echo sprintf(
 				__(
-					'Icons %1$sUndo%2$s, %1$sRedo%2$s, %1$sDelete%2$s and %1$sTick%2$s have been created by %3$sMomentum Design Lab%5$s, ' .
-					'who shares them under the [CC-BY] license on %4$sFind Icons%5$s.',
+					'Icons %1$sUndo%2$s, %1$sRedo%2$s, %1$sDelete%2$s and %1$sTick%2$s have been created by %3$sMomentum Design Lab%5$s, who shares them under the [CC-BY] license on %4$sFind Icons%5$s.',
 					'rpb-chessboard'
 				),
 				'<em>',
@@ -195,8 +186,7 @@
 		<?php
 			echo sprintf(
 				__(
-					'Icon %1$sNot-Found%2$s has been created by %3$sgakuseiSean%5$s, ' .
-					'who makes it freely available for non-commercial use on %4$sFind Icons%5$s.',
+					'Icon %1$sNot-Found%2$s has been created by %3$sgakuseiSean%5$s, who makes it freely available for non-commercial use on %4$sFind Icons%5$s.',
 					'rpb-chessboard'
 				),
 				'<em>',
@@ -230,9 +220,7 @@
 		<?php
 			echo sprintf(
 				__(
-					'This plugin is distributed under the terms of the %1$sGNU General Public License version 3%3$s (GPLv3), ' .
-					'as published by the %2$sFree Software Foundation%3$s. The full text of this license ' .
-					'is available at %4$s. A copy of this document is also provided with the plugin source code.',
+					'This plugin is distributed under the terms of the %1$sGNU General Public License version 3%3$s (GPLv3),  as published by the %2$sFree Software Foundation%3$s. The full text of this license is available at %4$s. A copy of this document is also provided with the plugin source code.',
 					'rpb-chessboard'
 				),
 				'<a href="http://www.gnu.org/licenses/gpl.html" target="_blank">',
@@ -245,9 +233,7 @@
 	<p>
 		<?php
 			esc_html_e(
-				'This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; ' .
-				'without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. ' .
-				'See the GNU General Public License for more details.',
+				'This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.',
 				'rpb-chessboard'
 			);
 		?>
