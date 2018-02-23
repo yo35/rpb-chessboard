@@ -978,8 +978,13 @@
 		// Add-case
 		else {
 			widget._position.square(square, coloredPiece);
-			target.empty().append('<div class="rpbui-chessboard-sized rpbui-chessboard-piece rpbui-chessboard-piece-' +
-				coloredPiece.piece + ' rpbui-chessboard-color-' + coloredPiece.color + '">' + HANDLE_TEMPLATE + '</div>');
+
+			var div = document.createElement( 'div' );
+			div.setAttribute( 'class', 'rpbui-chessboard-sized rpbui-chessboard-piece rpbui-chessboard-piece-' +  +
+				coloredPiece.piece + ' rpbui-chessboard-color-' + coloredPiece.color );
+			div.innerHTML = HANDLE_TEMPLATE;
+
+			target.empty().append(div);
 		}
 
 		// FEN update + notifications.
