@@ -46,10 +46,10 @@
 	<div>
 
 		<div id="rpbchessboard-navigationToolbarPreview">
-			<img id="rpbchessboard-navigationToolbar-n"   src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-toolbar-n.png'; ?>" />
-			<img id="rpbchessboard-navigationToolbar-nf"  src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-toolbar-nf.png'; ?>" />
-			<img id="rpbchessboard-navigationToolbar-nd"  src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-toolbar-nd.png'; ?>" />
-			<img id="rpbchessboard-navigationToolbar-nfd" src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-toolbar-nfd.png'; ?>" />
+			<img id="rpbchessboard-navigationToolbar-n"   src="<?php echo esc_attr( RPBCHESSBOARD_URL . 'images/navigation-toolbar-n.png' ); ?>" />
+			<img id="rpbchessboard-navigationToolbar-nf"  src="<?php echo esc_attr( RPBCHESSBOARD_URL . 'images/navigation-toolbar-nf.png' ); ?>" />
+			<img id="rpbchessboard-navigationToolbar-nd"  src="<?php echo esc_attr( RPBCHESSBOARD_URL . 'images/navigation-toolbar-nd.png' ); ?>" />
+			<img id="rpbchessboard-navigationToolbar-nfd" src="<?php echo esc_attr( RPBCHESSBOARD_URL . 'images/navigation-toolbar-nfd.png' ); ?>" />
 		</div>
 
 	</div>

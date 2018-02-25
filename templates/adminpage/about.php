@@ -23,7 +23,7 @@
 <div id="rpbchessboard-aboutPage">
 
 	<div class="rpbchessboard-floatLeft">
-		<img src="<?php echo RPBCHESSBOARD_URL . 'images/rpb-chessboard-icon.png'; ?>" alt="RPB Chessboard icon" />
+		<img src="<?php echo esc_attr( RPBCHESSBOARD_URL . 'images/rpb-chessboard-icon.png' ); ?>" alt="RPB Chessboard icon" />
 	</div>
 
 	<p>
@@ -54,7 +54,7 @@
 			);
 		?>
 		">
-			<img src="<?php echo RPBCHESSBOARD_URL . 'images/help.png'; ?>" />
+			<img src="<?php echo esc_attr( RPBCHESSBOARD_URL . 'images/help.png' ); ?>" />
 			<?php _e( 'Need help', 'rpb-chessboard' ); ?> / <?php _e( 'Report a bug', 'rpb-chessboard' ); ?>
 		</a>
 		<a class="button" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YHNERW43QN49E" target="_blank" title="<?php
@@ -64,7 +64,7 @@
 			);
 		?>
 		">
-			<img src="<?php echo RPBCHESSBOARD_URL . 'images/paypal.png'; ?>" /><?php _e( 'Donate', 'rpb-chessboard' ); ?>
+			<img src="<?php echo esc_attr( RPBCHESSBOARD_URL . 'images/paypal.png' ); ?>" /><?php _e( 'Donate', 'rpb-chessboard' ); ?>
 		</a>
 	</div>
 
@@ -85,35 +85,35 @@
 	<dl class="rpbchessboard-translatorList">
 		<div>
 			<div>
-				<dt><img src="<?php echo RPBCHESSBOARD_URL . 'images/flags/de.png'; ?>" alt="German flag" />Deutsch</dt>
+				<dt><img src="<?php echo esc_attr( RPBCHESSBOARD_URL . 'images/flags/de.png' ); ?>" alt="German flag" />Deutsch</dt>
 				<dd>Markus Liebelt</dd>
 			</div>
 			<div>
-				<dt><img src="<?php echo RPBCHESSBOARD_URL . 'images/flags/fr.png'; ?>" alt="French flag" />Français</dt>
+				<dt><img src="<?php echo esc_attr( RPBCHESSBOARD_URL . 'images/flags/fr.png' ); ?>" alt="French flag" />Français</dt>
 				<dd>Yoann Le Montagner</dd>
 			</div>
 			<div>
-				<dt><img src="<?php echo RPBCHESSBOARD_URL . 'images/flags/gb.png'; ?>" alt="British flag" />English</dt>
+				<dt><img src="<?php echo esc_attr( RPBCHESSBOARD_URL . 'images/flags/gb.png' ); ?>" alt="British flag" />English</dt>
 				<dd>Yoann Le Montagner</dd>
 			</div>
 		</div>
 		<div>
 			<div>
-				<dt><img src="<?php echo RPBCHESSBOARD_URL . 'images/flags/nl.png'; ?>" alt="Dutch flag" />Dutch</dt>
+				<dt><img src="<?php echo esc_attr( RPBCHESSBOARD_URL . 'images/flags/nl.png' ); ?>" alt="Dutch flag" />Dutch</dt>
 				<dd>Ivan Deceuninck</dd>
 			</div>
 			<div>
-				<dt><img src="<?php echo RPBCHESSBOARD_URL . 'images/flags/pl.png'; ?>" alt="Polish flag" />Polski</dt>
+				<dt><img src="<?php echo esc_attr( RPBCHESSBOARD_URL . 'images/flags/pl.png' ); ?>" alt="Polish flag" />Polski</dt>
 				<dd><a href="http://dawidziolkowski.com/" target="_blank">Dawid Ziółkowski</a></dd>
 			</div>
 			<div>
-				<dt><img src="<?php echo RPBCHESSBOARD_URL . 'images/flags/ru.png'; ?>" alt="Russian flag" />Russian</dt>
+				<dt><img src="<?php echo esc_attr( RPBCHESSBOARD_URL . 'images/flags/ru.png' ); ?>" alt="Russian flag" />Russian</dt>
 				<dd><a href="http://safoyeth.com/" target="_blank">Sergey Baravicov</a></dd>
 			</div>
 		</div>
 		<div>
 			<div>
-				<dt><img src="<?php echo RPBCHESSBOARD_URL . 'images/flags/tr.png'; ?>" alt="Turkish flag" />Turkish</dt>
+				<dt><img src="<?php echo esc_attr( RPBCHESSBOARD_URL . 'images/flags/tr.png' ); ?>" alt="Turkish flag" />Turkish</dt>
 				<dd>Ali Nihat Yazıcı</dd>
 			</div>
 		</div>
