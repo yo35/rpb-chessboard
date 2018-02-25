@@ -24,6 +24,7 @@
 	<form class="rpbchessboard-inlineForm" action="<?php echo htmlspecialchars( $model->getFormActionURL() ); ?>" method="post">
 
 		<input type="hidden" name="rpbchessboard_action" value="<?php echo htmlspecialchars( $model->getFormAction( $isNew ) ); ?>" />
+		<?php wp_nonce_field( 'rpbchessboard_post_action' ); ?>
 
 		<div class="rpbchessboard-inlineFormTitle">
 			<?php $isNew ? _e( 'New colorset', 'rpb-chessboard' ) : _e( 'Edit colorset', 'rpb-chessboard' ); ?>

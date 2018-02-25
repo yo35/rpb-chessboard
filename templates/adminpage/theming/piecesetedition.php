@@ -24,6 +24,7 @@
 	<form class="rpbchessboard-inlineForm" action="<?php echo htmlspecialchars( $model->getFormActionURL() ); ?>" method="post">
 
 		<input type="hidden" name="rpbchessboard_action" value="<?php echo htmlspecialchars( $model->getFormAction( $isNew ) ); ?>" />
+		<?php wp_nonce_field( 'rpbchessboard_post_action' ); ?>
 
 		<?php foreach ( array( 'bp', 'bn', 'bb', 'br', 'bq', 'bk', 'bx', 'wp', 'wn', 'wb', 'wr', 'wq', 'wk', 'wx' ) as $coloredPiece ) : ?>
 		<input type="hidden" class="rpbchessboard-imageIdField" name="imageId-<?php echo $coloredPiece; ?>"

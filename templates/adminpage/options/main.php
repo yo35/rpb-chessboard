@@ -24,6 +24,7 @@
 	<form action="<?php echo htmlspecialchars( $model->getFormActionURL() ); ?>" method="post">
 
 		<input type="hidden" name="rpbchessboard_action" value="<?php echo htmlspecialchars( $model->getFormAction() ); ?>" />
+		<?php wp_nonce_field( 'rpbchessboard_post_action' ); ?>
 
 		<div>
 			<?php RPBChessboardHelperLoader::printTemplate( $model->getSubPageTemplateName(), $model ); ?>

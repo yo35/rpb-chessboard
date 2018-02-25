@@ -35,11 +35,13 @@
 <form id="rpbchessboard-deleteForm" action="<?php echo htmlspecialchars( $model->getFormActionURL() ); ?>" method="post">
 	<input type="hidden" name="rpbchessboard_action" value="<?php echo htmlspecialchars( $model->getDeleteAction() ); ?>" />
 	<input type="hidden" name="<?php echo htmlspecialchars( $model->getManagedSetCode() ); ?>" value="" />
+	<?php wp_nonce_field( 'rpbchessboard_post_action' ); ?>
 </form>
 
 <form id="rpbchessboard-setDefaultForm" action="<?php echo htmlspecialchars( $model->getFormActionURL() ); ?>" method="post">
 	<input type="hidden" name="rpbchessboard_action" value="<?php echo htmlspecialchars( $model->getSetDefaultAction() ); ?>" />
 	<input type="hidden" name="<?php echo htmlspecialchars( $model->getManagedSetCode() ); ?>" value="" />
+	<?php wp_nonce_field( 'rpbchessboard_post_action' ); ?>
 </form>
 
 <script type="text/javascript">
