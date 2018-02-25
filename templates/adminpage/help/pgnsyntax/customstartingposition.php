@@ -26,7 +26,7 @@
 	<div>
 
 		<div class="rpbchessboard-sourceCode">
-			[<?php echo htmlspecialchars( $model->getPGNShortcode() ); ?>]<br/>
+			[<?php echo esc_html( $model->getPGNShortcode() ); ?>]<br/>
 			<br/>
 			[Event &quot;<?php _e( 'Endgame example', 'rpb-chessboard' ); ?>&quot;]<br/>
 			[SetUp &quot;1&quot;]<br/>
@@ -36,7 +36,7 @@
 			<br/>
 			50.Bc6+ Nxc6 51.c8=Q+ Nb8 52.Qb7# 1-0<br/>
 			<br/>
-			[/<?php echo htmlspecialchars( $model->getPGNShortcode() ); ?>]
+			[/<?php echo esc_html( $model->getPGNShortcode() ); ?>]
 		</div>
 
 		<p>

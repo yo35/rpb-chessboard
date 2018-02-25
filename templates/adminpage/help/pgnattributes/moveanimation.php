@@ -43,7 +43,7 @@
 				</tr>
 				<?php foreach ( $model->getAnimationSpeedList() as $animationSpeed ) : ?>
 				<tr>
-					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributeAnimationSpeed-value"><?php echo htmlspecialchars( $animationSpeed ); ?></a></td>
+					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributeAnimationSpeed-value"><?php echo esc_html( $animationSpeed ); ?></a></td>
 					<td><?php echo $model->getDefaultAnimationSpeed() === $animationSpeed ? '<div class="rpbchessboard-tickIcon"></div>' : ''; ?></td>
 					<td>
 						<?php
@@ -51,7 +51,7 @@
 								__(
 									'The animation lasts %1$s milliseconds.',
 									'rpb-chessboard'
-								), htmlspecialchars( $animationSpeed )
+								), esc_html( $animationSpeed )
 							);
 						?>
 					</td>
@@ -65,7 +65,7 @@
 							echo sprintf(
 								__( 'Any value between %1$s and %2$s can be used.', 'rpb-chessboard' ),
 								'0',
-								htmlspecialchars( $model->getMaximumAnimationSpeed() )
+								esc_html( $model->getMaximumAnimationSpeed() )
 							);
 						?>
 					</td>
@@ -113,7 +113,7 @@
 				echo sprintf(
 					'[%1$s <strong>animation_speed=<span id="rpbchessboard-pgnAttributeAnimationSpeed-sourceCodeExample">0</span></strong> ' .
 					'<strong>show_move_arrow=<span id="rpbchessboard-pgnAttributeShowMoveArrow-sourceCodeExample">false</span></strong>] ... [/%1$s]',
-					htmlspecialchars( $model->getPGNShortcode() )
+					esc_html( $model->getPGNShortcode() )
 				);
 			?>
 		</div>

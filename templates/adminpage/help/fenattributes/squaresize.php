@@ -43,9 +43,9 @@
 				</tr>
 				<?php foreach ( $model->getSquareSizeList() as $squareSize ) : ?>
 				<tr>
-					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-fenAttributeSquareSize-value"><?php echo htmlspecialchars( $squareSize ); ?></a></td>
+					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-fenAttributeSquareSize-value"><?php echo esc_html( $squareSize ); ?></a></td>
 					<td><?php echo $model->getDefaultSquareSize() === $squareSize ? '<div class="rpbchessboard-tickIcon"></div>' : ''; ?></td>
-					<td><?php echo sprintf( __( 'The square width is %1$s pixels.', 'rpb-chessboard' ), htmlspecialchars( $squareSize ) ); ?></td>
+					<td><?php echo sprintf( __( 'The square width is %1$s pixels.', 'rpb-chessboard' ), esc_html( $squareSize ) ); ?></td>
 				</tr>
 				<?php endforeach; ?>
 				<tr>
@@ -55,7 +55,7 @@
 						<?php
 							echo sprintf(
 								__( 'Any value between %1$s and %2$s can be used.', 'rpb-chessboard' ),
-								htmlspecialchars( $model->getMinimumSquareSize() ), htmlspecialchars( $model->getMaximumSquareSize() )
+								esc_html( $model->getMinimumSquareSize() ), esc_html( $model->getMaximumSquareSize() )
 							);
 						?>
 					</td>
@@ -70,8 +70,8 @@
 			<?php
 				echo sprintf(
 					'[%1$s <strong>square_size=<span id="rpbchessboard-fenAttributeSquareSize-sourceCodeExample">%2$s</span></strong>] ... [/%1$s]',
-					htmlspecialchars( $model->getFENShortcode() ),
-					htmlspecialchars( $model->getSquareSizeInitialExample() )
+					esc_html( $model->getFENShortcode() ),
+					esc_html( $model->getSquareSizeInitialExample() )
 				);
 			?>
 		</div>

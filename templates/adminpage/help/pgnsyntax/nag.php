@@ -26,9 +26,9 @@
 	<div>
 
 		<div class="rpbchessboard-sourceCode">
-			[<?php echo htmlspecialchars( $model->getPGNShortcode() ); ?>]
+			[<?php echo esc_html( $model->getPGNShortcode() ); ?>]
 			1.e4 !! ! !? ?! ? ?? +- +/- +/= = ~ =/+ -/+ -+ *
-			[/<?php echo htmlspecialchars( $model->getPGNShortcode() ); ?>]
+			[/<?php echo esc_html( $model->getPGNShortcode() ); ?>]
 		</div>
 
 	</div>

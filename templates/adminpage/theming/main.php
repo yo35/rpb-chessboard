@@ -32,15 +32,15 @@
 
 </div>
 
-<form id="rpbchessboard-deleteForm" action="<?php echo htmlspecialchars( $model->getFormActionURL() ); ?>" method="post">
-	<input type="hidden" name="rpbchessboard_action" value="<?php echo htmlspecialchars( $model->getDeleteAction() ); ?>" />
-	<input type="hidden" name="<?php echo htmlspecialchars( $model->getManagedSetCode() ); ?>" value="" />
+<form id="rpbchessboard-deleteForm" action="<?php echo esc_attr( $model->getFormActionURL() ); ?>" method="post">
+	<input type="hidden" name="rpbchessboard_action" value="<?php echo esc_attr( $model->getDeleteAction() ); ?>" />
+	<input type="hidden" name="<?php echo esc_attr( $model->getManagedSetCode() ); ?>" value="" />
 	<?php wp_nonce_field( 'rpbchessboard_post_action' ); ?>
 </form>
 
-<form id="rpbchessboard-setDefaultForm" action="<?php echo htmlspecialchars( $model->getFormActionURL() ); ?>" method="post">
-	<input type="hidden" name="rpbchessboard_action" value="<?php echo htmlspecialchars( $model->getSetDefaultAction() ); ?>" />
-	<input type="hidden" name="<?php echo htmlspecialchars( $model->getManagedSetCode() ); ?>" value="" />
+<form id="rpbchessboard-setDefaultForm" action="<?php echo esc_attr( $model->getFormActionURL() ); ?>" method="post">
+	<input type="hidden" name="rpbchessboard_action" value="<?php echo esc_attr( $model->getSetDefaultAction() ); ?>" />
+	<input type="hidden" name="<?php echo esc_attr( $model->getManagedSetCode() ); ?>" value="" />
 	<?php wp_nonce_field( 'rpbchessboard_post_action' ); ?>
 </form>
 

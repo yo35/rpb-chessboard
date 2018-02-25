@@ -26,13 +26,13 @@
 	<div>
 
 		<div class="rpbchessboard-sourceCode">
-			[<?php echo htmlspecialchars( $model->getPGNShortcode() ); ?>]<br/>
+			[<?php echo esc_html( $model->getPGNShortcode() ); ?>]<br/>
 			1. e4 c5<br/>
 			<br/>
 			{[pgndiagram] <?php _e( 'This opening is called the Sicilian defence. A possible continuation is:', 'rpb-chessboard' ); ?>}<br/>
 			<br/>
 			2. Nf3 d6 *<br/>
-			[/<?php echo htmlspecialchars( $model->getPGNShortcode() ); ?>]
+			[/<?php echo esc_html( $model->getPGNShortcode() ); ?>]
 		</div>
 
 		<p>
@@ -45,7 +45,7 @@
 					),
 					'<span class="rpbchessboard-sourceCode">',
 					'</span>',
-					htmlspecialchars( $model->getFENShortcode() )
+					esc_html( $model->getFENShortcode() )
 				);
 			?>
 		</p>

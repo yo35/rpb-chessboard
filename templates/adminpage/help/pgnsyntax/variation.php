@@ -26,7 +26,7 @@
 	<div>
 
 		<div class="rpbchessboard-sourceCode">
-			[<?php echo htmlspecialchars( $model->getPGNShortcode() ); ?>]<br/>
+			[<?php echo esc_html( $model->getPGNShortcode() ); ?>]<br/>
 			1. e4 e5 (1... c5) (1... e6) 2. Nf3 Nc6 3. Bb5<br/>
 			<br/>
 			(3. Bc4 Bc5 (3... Be7) 4.d4)<br/>
@@ -34,7 +34,7 @@
 			(3. d4 exd4 4. Nxd4 Bc5 5. Be3 Qf6)<br/>
 			<br/>
 			3... a6 4. Ba4 *<br/>
-			[/<?php echo htmlspecialchars( $model->getPGNShortcode() ); ?>]
+			[/<?php echo esc_html( $model->getPGNShortcode() ); ?>]
 		</div>
 
 	</div>

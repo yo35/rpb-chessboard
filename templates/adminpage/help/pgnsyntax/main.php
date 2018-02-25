@@ -35,7 +35,7 @@
 				),
 				'<span class="rpbchessboard-sourceCode">',
 				'</span>',
-				htmlspecialchars( $model->getPGNShortcode() ),
+				esc_html( $model->getPGNShortcode() ),
 				sprintf( '<a href="%1$s" target="_blank">', __( 'http://en.wikipedia.org/wiki/Portable_Game_Notation', 'rpb-chessboard' ) ),
 				'<a href="http://www.chessbase.com/" target="_blank">',
 				'<a href="http://scid.sourceforge.net/" target="_blank">',
@@ -52,7 +52,7 @@
 					'as described in the %1$smemo page%2$s.',
 					'rpb-chessboard'
 				),
-				sprintf( '<a href="%1$s">', htmlspecialchars( $model->getMemoURL() ) ),
+				sprintf( '<a href="%1$s">', esc_html( $model->getMemoURL() ) ),
 				'</a>'
 			);
 		?>

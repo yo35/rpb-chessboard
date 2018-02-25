@@ -33,7 +33,7 @@
 				),
 				'<span class="rpbchessboard-sourceCode">',
 				'</span>',
-				htmlspecialchars( $model->getFENShortcode() ),
+				esc_html( $model->getFENShortcode() ),
 				sprintf( '<a href="%1$s" target="_blank">', __( 'http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation', 'rpb-chessboard' ) ),
 				'</a>'
 			);
@@ -51,7 +51,7 @@
 				),
 				'<span class="rpbchessboard-sourceCode">',
 				'</span>',
-				htmlspecialchars( $model->getFENShortcode() )
+				esc_html( $model->getFENShortcode() )
 			);
 		?>
 	</p>
