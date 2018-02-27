@@ -105,6 +105,14 @@ class RPBChessboardModelAjaxFormatPiecesetSprite extends RPBChessboardAbstractMo
 		// Save the output image.
 		imagepng( $destImage, $destPath );
 
+		$file_array = [
+			'name'     => basename( $destPath ),
+			'tmp_name' => $destPath,
+		];
+
+		// Sideload the image
+		$attachment_id = media_handle_sideload( $file_array, 0 );
+
 		// Free resources.
 		imagedestroy( $destImage );
 		imagedestroy( $srcImage );
