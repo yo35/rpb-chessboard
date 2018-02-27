@@ -22,11 +22,11 @@
 
 <?php foreach ( $model->getCustomColorsets() as $colorset ) : ?>
 
-<?php echo sanitize_html_class( '.rpbui-chessboard-colorset-' . $colorset ); ?> .rpbui-chessboard-darkSquare {
+.<?php echo sanitize_html_class( 'rpbui-chessboard-colorset-' . $colorset ); ?> .rpbui-chessboard-darkSquare {
 	background-color: <?php echo sanitize_hex_color( $model->getDarkSquareColor( $colorset ) ); ?>;
 }
 
-<?php echo sanitize_html_class( '.rpbui-chessboard-colorset-' . $colorset ); ?> .rpbui-chessboard-lightSquare {
+.<?php echo sanitize_html_class( 'rpbui-chessboard-colorset-' . $colorset ); ?> .rpbui-chessboard-lightSquare {
 	background-color: <?php echo sanitize_hex_color( $model->getLightSquareColor( $colorset ) ); ?>;
 }
 
@@ -37,13 +37,13 @@
 <?php foreach ( array( 'b', 'w' ) as $color ) : ?>
 
 <?php foreach ( array( 'p', 'n', 'b', 'r', 'q', 'k' ) as $piece ) : ?>
-<?php echo sanitize_html_class( '.rpbui-chessboard-pieceset-' . $pieceset ); ?>
-	<?php echo sanitize_html_class( '.rpbui-chessboard-color-' . $color . '.rpbui-chessboard-piece-' . $piece ); ?>
+.<?php echo sanitize_html_class( 'rpbui-chessboard-pieceset-' . $pieceset ); ?>
+	.<?php echo sanitize_html_class( 'rpbui-chessboard-color-' . $color ); ?>.<?php echo sanitize_html_class( 'rpbui-chessboard-piece-' . $piece ); ?>
 	{ background-image: url(<?php echo esc_url( $model->getCustomPiecesetSpriteURL( $pieceset, $color . $piece ) ); ?>); }
 <?php endforeach; ?>
 
-<?php echo sanitize_html_class( '.rpbui-chessboard-pieceset-' . $pieceset ); ?>
-	<?php echo sanitize_html_class( '.rpbui-chessboard-color-' . $color . '.rpbui-chessboard-turnFlag' ); ?>
+.<?php echo sanitize_html_class( 'rpbui-chessboard-pieceset-' . $pieceset ); ?>
+	.<?php echo sanitize_html_class( 'rpbui-chessboard-color-' . $color ); ?>.rpbui-chessboard-turnFlag
 	{ background-image: url(<?php echo esc_url( $model->getCustomPiecesetSpriteURL( $pieceset, $color . 'x' ) ); ?>); }
 
 <?php endforeach; ?>

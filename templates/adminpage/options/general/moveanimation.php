@@ -31,9 +31,9 @@
 				echo sprintf(
 					__( 'Animation speed: %1$s milliseconds', 'rpb-chessboard' ),
 					'<input type="text" id="rpbchessboard-animationSpeedField" class="rpbchessboard-animationSpeedField" name="animationSpeed" ' .
-						'size="' . htmlspecialchars( $model->getDigitNumberForAnimationSpeed() ) . '" ' .
-						'maxLength="' . htmlspecialchars( $model->getDigitNumberForAnimationSpeed() ) . '" ' .
-						'value="' . htmlspecialchars( $model->getDefaultAnimationSpeed() ) . '" />'
+						'size="' . esc_attr( $model->getDigitNumberForAnimationSpeed() ) . '" ' .
+						'maxLength="' . esc_attr( $model->getDigitNumberForAnimationSpeed() ) . '" ' .
+						'value="' . esc_attr( $model->getDefaultAnimationSpeed() ) . '" />'
 				);
 			?>
 		</p>

@@ -36,7 +36,7 @@
 					),
 					'<span class="rpbchessboard-sourceCode">csl</span>',
 					'<span class="rpbchessboard-sourceCode">cal</span>',
-					sprintf( '<a href="%s">', esc_html( $model->getHelpOnFENSyntaxURL() ) ),
+					sprintf( '<a href="%s">', esc_attr( $model->getHelpOnFENSyntaxURL() ) ),
 					'</a>'
 				);
 			?>
@@ -50,7 +50,7 @@
 						'is described in the %1$sPGN game syntax help page%2$s.',
 						'rpb-chessboard'
 					),
-					sprintf( '<a href="%s">', esc_html( $model->getHelpOnPGNSyntaxURL() ) ),
+					sprintf( '<a href="%s">', esc_attr( $model->getHelpOnPGNSyntaxURL() ) ),
 					'</a>'
 				);
 			?>

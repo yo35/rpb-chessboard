@@ -21,15 +21,16 @@
 ?>
 
 <div id="rpbchessboard-optionPage" class="rpbchessboard-jQuery-enableSmoothness">
-	<form action="<?php echo htmlspecialchars( $model->getFormActionURL() ); ?>" method="post">
+	<form action="<?php echo esc_attr( $model->getFormActionURL() ); ?>" method="post">
 
-		<input type="hidden" name="rpbchessboard_action" value="<?php echo htmlspecialchars( $model->getFormAction() ); ?>" />
+		<input type="hidden" name="rpbchessboard_action" value="<?php echo esc_attr( $model->getFormAction() ); ?>" />
+		<?php wp_nonce_field( 'rpbchessboard_post_action' ); ?>
 
 		<div>
 			<?php RPBChessboardHelperLoader::printTemplate( $model->getSubPageTemplateName(), $model ); ?>
 			<p class="submit">
 				<input type="submit" class="button-primary" value="<?php _e( 'Save changes', 'rpb-chessboard' ); ?>" />
-				<a class="button" href="<?php echo htmlspecialchars( $model->getFormActionURL() ); ?>"><?php _e( 'Cancel', 'rpb-chessboard' ); ?></a>
+				<a class="button" href="<?php echo esc_attr( $model->getFormActionURL() ); ?>"><?php _e( 'Cancel', 'rpb-chessboard' ); ?></a>
 				<a class="button" id="rpbchessboard-resetButton" href="#"><?php _e( 'Reset settings', 'rpb-chessboard' ); ?></a>
 			</p>
 		</div>

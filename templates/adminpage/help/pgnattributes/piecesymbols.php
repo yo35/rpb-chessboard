@@ -59,7 +59,7 @@
 					<td><span class="rpbui-chessgame-alphaFont">K Q R B N P</span></td>
 				</tr>
 				<tr>
-					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributePieceSymbols-value">(<?php echo htmlspecialchars( $model->getPieceSymbolCustomValue() ); ?>)</a></td>
+					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributePieceSymbols-value">(<?php echo esc_html( $model->getPieceSymbolCustomValue() ); ?>)</a></td>
 					<td><?php echo $model->getDefaultSimplifiedPieceSymbols() === 'custom' ? '<div class="rpbchessboard-tickIcon"></div>' : ''; ?></td>
 					<td>
 						<?php
@@ -72,12 +72,12 @@
 								),
 								'<span class="rpbchessboard-sourceCode">',
 								'</span>',
-								htmlspecialchars( $model->getPieceSymbolCustomValue( 'K' ) ),
-								htmlspecialchars( $model->getPieceSymbolCustomValue( 'Q' ) ),
-								htmlspecialchars( $model->getPieceSymbolCustomValue( 'R' ) ),
-								htmlspecialchars( $model->getPieceSymbolCustomValue( 'B' ) ),
-								htmlspecialchars( $model->getPieceSymbolCustomValue( 'N' ) ),
-								htmlspecialchars( $model->getPieceSymbolCustomValue( 'P' ) )
+								esc_html( $model->getPieceSymbolCustomValue( 'K' ) ),
+								esc_html( $model->getPieceSymbolCustomValue( 'Q' ) ),
+								esc_html( $model->getPieceSymbolCustomValue( 'R' ) ),
+								esc_html( $model->getPieceSymbolCustomValue( 'B' ) ),
+								esc_html( $model->getPieceSymbolCustomValue( 'N' ) ),
+								esc_html( $model->getPieceSymbolCustomValue( 'P' ) )
 							);
 						?>
 					</td>
@@ -92,7 +92,7 @@
 			<?php
 				echo sprintf(
 					'[%1$s <strong>piece_symbols=<span id="rpbchessboard-pgnAttributePieceSymbols-sourceCodeExample">native</span></strong>] ... [/%1$s]',
-					htmlspecialchars( $model->getPGNShortcode() )
+					esc_html( $model->getPGNShortcode() )
 				);
 			?>
 		</div>
