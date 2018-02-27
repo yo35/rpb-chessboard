@@ -46,7 +46,7 @@ abstract class RPBChessboardStyleSheets {
 
 		// Theming
 		RPBChessboardHelperCache::ensureExists( 'theming.css', 'Misc/Theming', 'Misc/Theming' );
-		self::enqueueCachedStyle( 'rpbchessboard-theming', 'theming.css' );
+		self::addCachedStyle( 'rpbchessboard-theming', 'theming.css' );
 
 		// Additional CSS for the frontend/backend.
 		if ( is_admin() ) {
@@ -57,7 +57,7 @@ abstract class RPBChessboardStyleSheets {
 	}
 
 
-	private static function enqueueCachedStyle( $handle, $fileName ) {
-		wp_enqueue_style( $handle, RPBChessboardHelperCache::getURL( $fileName ), false, RPBChessboardHelperCache::getVersion( $fileName ) );
+	private static function addCachedStyle( $handle, $fileName ) {
+		wp_add_inline_style( $handle, RPBChessboardHelperCache::get( $fileName ) );
 	}
 }
