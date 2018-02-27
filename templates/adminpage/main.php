@@ -52,7 +52,7 @@
 		<?php foreach ( $model->getSubPages() as $subPage ) : ?>
 		<li>
 			<a href="<?php echo esc_url( $subPage->link ); ?>" class="<?php echo $subPage->selected ? 'current' : ''; ?>">
-				<?php echo esc_html( $subPage->label ); ?>
+				<?php echo wp_kses_post( $subPage->label ); ?>
 			</a>
 		</li>
 		<?php endforeach; ?>
