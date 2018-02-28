@@ -799,31 +799,46 @@
 	 */
 	function buildErrorMessage(widget) {
 
-		// Build the error report box.
+		// Container error <div>
+		var errorDiv = document.createElement( 'div' );
+		errorDiv.setAttribute( 'class', 'rpbui-chessgame-error' );
+		errorDiv.appendChild( errorTitleDiv );
+
+		// Title
 		var title = widget._game instanceof RPBChess.exceptions.InvalidPGN ? $.chessgame.i18n.PGN_PARSING_ERROR_MESSAGE : widget._game.title;
-		var retVal = '<div class="rpbui-chessgame-error"><div class="rpbui-chessgame-errorTitle">' + title + '</div>';
+		var errorTitleDiv = document.createElement( 'div' );
+		errorTitleDiv.setAttribute( 'class', 'rpbui-chessgame-errorTitle' );
+		errorTitleDiv.textContent = title;
 
 		// Optional message.
-		if(widget._game.message !== null) {
-			retVal += '<div class="rpbui-chessgame-errorMessage">' + widget._game.message + '</div>';
+		if ( null !== widget._game.message ) {
+			var errorMessageDiv = document.createElement( 'div' );
+			errorMessageDiv.setAttribute( 'class', 'rpbui-chessgame-errorMessage' );
+			errorMessageDiv.textContent = widget._game.message;
+			errorDiv.appendChild( errorMessageDiv );
 		}
 
-		// Display where the error has occurred.
-		if(widget._game.index !== null && widget._game.index >= 0) {
-			retVal += '<div class="rpbui-chessgame-errorAt">';
-			if(widget._game.index >= widget._game.pgn.length) {
-				retVal += 'Occurred at the end of the string.';
+		// Error location (and optional error code)
+		if ( null !== widget._game.index && widget._game.index >= 0 ) {
+			var errorAtDiv = document.createElement( 'div' );
+			errorAtDiv.setAttribute( 'class', 'rpbui-chessgame-errorAt' );
+
+
+			if ( widget._game.index >= widget._game.pgn.length ) {
+				errorAtDiv.textContent = 'Occurred at the end of the string.';
+			} else {
+				errorAtDiv.textContent = 'Occurred at position ' + widget._game.index + ':';
+
+				var errorCodeDiv = document.createElement( 'div' );
+				errorCodeDiv.setAttribute( 'class', 'rpbui-chessgame-errorAtCode' );
+				errorCodeDiv.textContent = ellipsisAt(widget._game.pgn, widget._game.index, 10, 40);
+				errorAtDiv.appendChild( errorCodeDiv );
 			}
-			else {
-				retVal += 'Occurred at position ' + widget._game.index + ':' + '<div class="rpbui-chessgame-errorAtCode">' +
-					ellipsisAt(widget._game.pgn, widget._game.index, 10, 40) + '</div>';
-			}
-			retVal += '</div>';
+
+			errorDiv.appendChild( errorAtDiv );
 		}
 
-		// Close the error report box, and return the result.
-		retVal += '</div>';
-		return retVal;
+		return errorDiv.outerHTML;
 	}
 
 
