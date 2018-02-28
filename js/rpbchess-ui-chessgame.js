@@ -1275,16 +1275,38 @@
 	 * @returns {string}
 	 */
 	function buildNavigationSkeleton() {
-		return '<div class="rpbui-chessgame-navigationBoard"></div>' +
-			'<div class="rpbui-chessgame-navigationButtons ' + $.chessgame.navigationButtonClass + '">' +
-				'<div title="' + $.chessgame.i18n.GO_FIRST_MOVE_TOOLTIP    + '" class="rpbui-chessgame-navigationButtonFirst"></div>' +
-				'<div title="' + $.chessgame.i18n.GO_PREVIOUS_MOVE_TOOLTIP + '" class="rpbui-chessgame-navigationButtonPrevious"></div>' +
-				'<div title="' + $.chessgame.i18n.GO_NEXT_MOVE_TOOLTIP     + '" class="rpbui-chessgame-navigationButtonNext"></div>' +
-				'<div title="' + $.chessgame.i18n.GO_LAST_MOVE_TOOLTIP     + '" class="rpbui-chessgame-navigationButtonLast rpbui-chessgame-spaceAfter"></div>' +
-				'<div title="' + $.chessgame.i18n.FLIP_TOOLTIP             + '" class="rpbui-chessgame-navigationButtonFlip rpbui-chessgame-spaceAfter"></div>' +
-				'<div title="' + $.chessgame.i18n.DOWNLOAD_PGN_TOOLTIP     + '" class="rpbui-chessgame-navigationButtonDownload rpbui-chessgame-spaceAfter"></div>' +
-			'</div>' +
-			'<a href="#" download="game.pgn" class="rpbui-chessgame-blobDownloadLink"></a>';
+		var result = document.createElement( 'div' );
+		result.setAttribute( 'class', 'rpbui-chessgame-navigationBoard' );
+
+		var link = document.createElement( 'a' );
+		link.setAttribute( 'href', '#' );
+		link.setAttribute( 'class', 'rpbui-chessgame-blobDownloadLink' );
+		link.setAttribute( 'download', 'game.pgn' );
+
+		var buttonsDiv = document.createElement( 'div' );
+		buttonsDiv.setAttribute( 'class', 'rpbui-chessgame-navigationButtons ' + $.chessgame.navigationButtonClass );
+
+		var buttonsDivData = [
+			{ title: $.chessgame.i18n.GO_FIRST_MOVE_TOOLTIP   , class: 'rpbui-chessgame-navigationButtonFirst' },
+			{ title: $.chessgame.i18n.GO_PREVIOUS_MOVE_TOOLTIP, class: 'rpbui-chessgame-navigationButtonPrevious' },
+			{ title: $.chessgame.i18n.GO_NEXT_MOVE_TOOLTIP    , class: 'rpbui-chessgame-navigationButtonNext' },
+			{ title: $.chessgame.i18n.GO_LAST_MOVE_TOOLTIP    , class: 'rpbui-chessgame-navigationButtonLast rpbui-chessgame-spaceAfter' },
+			{ title: $.chessgame.i18n.FLIP_TOOLTIP            , class: 'rpbui-chessgame-navigationButtonFlip rpbui-chessgame-spaceAfter' },
+			{ title: $.chessgame.i18n.DOWNLOAD_PGN_TOOLTIP    , class: 'rpbui-chessgame-navigationButtonDownload rpbui-chessgame-spaceAfter' }
+		];
+
+		var buttonDivItem;
+		for ( var index = 0; index < buttonsDivData.length; index++ ) {
+			buttonDivItem = document.createElement( 'div ')
+			buttonDivItem.setAttribute( 'title', buttonsDivData[index].title );
+			buttonDivItem.setAttribute( 'class', buttonsDivData[index].class );
+			buttonsDiv.appendChild( buttonDivItem );
+		}
+
+		result.appendChild( buttonsDiv );
+		result.appendChild( link );
+
+		return result.outerHTML;
 	}
 
 
