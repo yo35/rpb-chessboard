@@ -1146,27 +1146,29 @@
 	 * @param {boolean} addAnimationSupport `true` to add the information required for move highlighting.
 	 * @returns {string}
 	 */
-	function buildPositionInformation(node, moveHighlightSupport) {
-		var res = 'data-position="' + node.position().fen() + '"';
+	function buildPositionInformation( node, moveHighlightSupport ) {
+		var result = {};
+		result[ 'data-position' ] = node.position().fen();
 
 		// Move highlighting
-		if(moveHighlightSupport) {
-			res += ' data-position-before="' + node.positionBefore().fen() + '" data-move-notation="' + node.move() + '"';
+		if ( moveHighlightSupport ) {
+			result[ 'data-position-before' ] = node.positionBefore().fen();
+			result[ 'data-move-notation' ] = node.move();
 		}
 
 		// Square markers
-		var csl = node.tag('csl');
-		if(csl !== null) {
-			res += ' data-csl="' + csl + '"';
+		var csl = node.tag( 'csl' );
+		if ( null !== csl ) {
+			result[ 'data-csl' ] = csl;
 		}
 
 		// Arrow markers
 		var cal = node.tag('cal');
-		if(cal !== null) {
-			res += ' data-cal="' + cal + '"';
+		if ( null !== cal ) {
+			result[ 'data-cal' ] = cal;
 		}
 
-		return res;
+		return result;
 	}
 
 
