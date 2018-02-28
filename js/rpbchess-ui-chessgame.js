@@ -802,13 +802,14 @@
 		// Container error <div>
 		var errorDiv = document.createElement( 'div' );
 		errorDiv.setAttribute( 'class', 'rpbui-chessgame-error' );
-		errorDiv.appendChild( errorTitleDiv );
 
 		// Title
 		var title = widget._game instanceof RPBChess.exceptions.InvalidPGN ? $.chessgame.i18n.PGN_PARSING_ERROR_MESSAGE : widget._game.title;
 		var errorTitleDiv = document.createElement( 'div' );
 		errorTitleDiv.setAttribute( 'class', 'rpbui-chessgame-errorTitle' );
 		errorTitleDiv.textContent = title;
+
+		errorDiv.appendChild( errorTitleDiv );
 
 		// Optional message.
 		if ( null !== widget._game.message ) {
