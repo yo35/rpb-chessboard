@@ -1178,10 +1178,20 @@
 	 * @param {RPBChess.pgn.Node|RPBChess.pgn.Variation} node
 	 * @returns {string}
 	 */
-	function buildComment(node) {
+	function buildComment( node ) {
 		var tag = node.isLongComment() ? 'div' : 'span';
-		return '<' + tag + ' class="rpbui-chessgame-comment" ' + buildPositionInformation(node, false) + '>' +
-			node.comment() + '</' + tag + '>';
+		var result = document.createElement( tag );
+		result.setAttribute( 'class', 'rpbui-chessgame-comment' );
+
+		var positionInformation = buildPositionInformation( node, false );
+		for ( var key in positionInformation ) {
+			if ( positionInformation.hasOwnProperty( key )) {
+				result.setAttribute( key, value );
+			}
+		}
+		result.textContent = node.comment();
+
+		return result.outerHTML;
 	}
 
 
@@ -1196,29 +1206,42 @@
 	function buildMove(widget, node, forcePrintMoveNumber) {
 
 		// Create the DOM node.
-		var retVal = '<span class="rpbui-chessgame-move" ' + buildPositionInformation(node, true) + '>';
+		var result = document.createElement( 'span' );
+		result.setAttribute( 'class', 'rpbui-chessgame-move' );
+
+		var positionInformation = buildPositionInformation( node, true );
+		for ( var key in positionInformation ) {
+			if ( positionInformation.hasOwnProperty( key )) {
+				result.setAttribute( key, value );
+			}
+		}
 
 		// Move number
 		var printMoveNumber = forcePrintMoveNumber || node.moveColor() === 'w';
 		var moveNumberClass = 'rpbui-chessgame-moveNumber' + (printMoveNumber ? '' : ' rpbui-chessgame-hidden');
 		var moveNumberText  = node.fullMoveNumber() + (node.moveColor() === 'w' ? '.' : '\u2026');
-		retVal += '<span class="' + moveNumberClass + '">' + moveNumberText + '</span>';
+
+		var moveNumberSpan = document.createElement( 'span' );
+		moveNumberSpan.setAttribute( 'class', moveNumberClass );
+		moveNumberSpan.textContent = moveNumberText;
+		result.appendChild( moveNumberSpan );
 
 		// SAN notation.
 		var pieceSymbolTable = widget._pieceSymbolTable;
-		retVal += node.move().replace(/[KQRBNP]/g, function(match) {
+		var resultContent;
+		resultContent += node.move().replace(/[KQRBNP]/g, function( match ) {
 			return pieceSymbolTable[match];
 		});
 
 		// NAGs
 		var nags = node.nags();
-		for(var k=0; k<nags.length; ++k) {
-			retVal += ' ' + formatNag(nags[k]);
+		for ( var k=0; k < nags.length; ++k ) {
+			resultContent += ' ' + formatNag( nags[k] );
 		}
+		result.innerHTML = resultContent;
 
 		// Close the DOM node.
-		retVal += '</span>';
-		return retVal;
+		return result.outerHTML;
 	}
 
 
@@ -1230,9 +1253,19 @@
 	 * @param {rpbchess-ui.chessgame} widget
 	 * @returns {string}
 	 */
-	function buildInitialMove(widget) {
-		return '<div class="rpbui-chessgame-move rpbui-chessgame-initialMove" ' + buildPositionInformation(widget._game.mainVariation(), false) +
-			'>' + $.chessgame.i18n.INITIAL_POSITION + '</div>';
+	function buildInitialMove( widget ) {
+		var result = document.createElement( 'div' );
+		result.setAttribute( 'class', 'rpbui-chessgame-move rpbui-chessgame-initialMove' );
+
+		var positionInformation = buildPositionInformation( widget._game.mainVariation(), false );
+		for ( var key in positionInformation ) {
+			if ( positionInformation.hasOwnProperty( key )) {
+				result.setAttribute( key, value );
+			}
+		}
+		result.textContent = $.chessgame.i18n.INITIAL_POSITION;
+
+		return result.outerHTML;
 	}
 
 
