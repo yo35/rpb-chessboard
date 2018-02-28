@@ -972,18 +972,24 @@
 	 * @param {rpbchess-ui.chessgame} widget
 	 * @returns {string}
 	 */
-	function annotatorHeader(widget) {
+	function annotatorHeader( widget ) {
 
 		// Retrieve the annotator field.
-		var annotator = formatDefault(widget._game.header('Annotator'));
-		if(annotator===null) {
+		var annotator = formatDefault( widget._game.header( 'Annotator' ) );
+		if ( null === annotator ) {
 			return '';
 		}
 
+		var annotatorSpan = document.createElement( 'span' );
+		annotatorSpan.setAttribute( 'class', 'rpbui-chessgame-annotatorName' );
+		annotatorSpan.textContent = annotator;
+
 		// Build and return the header.
-		var header = '<div class="rpbui-chessgame-annotator">' + $.chessgame.i18n.ANNOTATED_BY.replace(/%1\$s/g,
-			'<span class="rpbui-chessgame-annotatorName">' + annotator + '</span>') + '</div>';
-		return header;
+		var header = document.createElement( 'div' );
+		siteSpan.setAttribute( 'class', 'rpbui-chessgame-annotator' );
+		siteSpan.textContent = $.chessgame.i18n.ANNOTATED_BY.replace( /%1\$s/g, annotatorSpan.outerHTML );
+
+		return header.outerHTML;
 	}
 
 
