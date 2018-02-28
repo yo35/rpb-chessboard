@@ -412,7 +412,7 @@
 	function filterChessFontName(font)
 	{
 		// Ensure that the input is a valid chess font name.
-		switch(font) {
+		switch (font) {
 			case 'merida':
 			case 'pirat':
 				break;
@@ -422,16 +422,17 @@
 		}
 
 		// Build the corresponding chess font set.
-		var prefix = '<span class="rpbui-chessgame-' + font + 'Font">';
-		var suffix = '</span>';
-		var pieceSymbolTable = {
-			'K': prefix + 'K' + suffix,
-			'Q': prefix + 'Q' + suffix,
-			'R': prefix + 'R' + suffix,
-			'B': prefix + 'B' + suffix,
-			'N': prefix + 'N' + suffix,
-			'P': prefix + 'P' + suffix
-		};
+		var span;
+		var pieceSymbolTable = {};
+		var currentPiece;
+		var pieceTypes = [ 'K', 'Q', 'R', 'B', 'N', 'P' ];
+		for ( var index = 0; index < pieceTypes.length; index++ ) {
+			currentPiece = pieceTypes[index];
+			span = document.createElement( 'span' );
+			span.setAttribute( 'class', 'rpbui-chessgame-' + font + 'Font' );
+			span.textContent = currentPiece;
+			pieceSymbolTable[currentPiece] = span.outerHTML;
+		}
 
 		// Return the result.
 		return { font: font, pieceSymbolTable: pieceSymbolTable };
