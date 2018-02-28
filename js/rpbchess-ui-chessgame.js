@@ -603,84 +603,147 @@
 	 *
 	 * @param {rpbchess-ui.chessgame} widget
 	 */
-	function refresh(widget) {
-		destroyContent(widget);
-		if(widget._game === null) {
+	function refresh( widget ) {
+		destroyContent( widget );
+		if ( null === widget._game ) {
 			return;
 		}
 
 		// Handle parsing error problems.
-		if(!(widget._game instanceof RPBChess.pgn.Item)) {
-			$(buildErrorMessage(widget)).appendTo(widget.element);
+		if ( ! widget._game instanceof RPBChess.pgn.Item ) {
+			$( buildErrorMessage( widget ) ).appendTo( widget.element );
 			return;
 		}
 
 		// Headers
-		var headers = '';
-		headers += playerNameHeader(widget, 'White');
-		headers += playerNameHeader(widget, 'Black');
-		headers += eventHeader(widget);
-		headers += datePlaceHeader(widget);
-		headers += annotatorHeader(widget);
-		if(headers !== '') {
-			headers = '<div class="rpbui-chessgame-headers">' + headers + '</div>';
-		}
+		var headers = document.createElement( 'div' );
+		headers.setAttribute( 'class', 'rpbui-chessgame-headers' );
+		headers.appendChild( playerNameHeader( widget, 'White' ) );
+		headers.appendChild( playerNameHeader( widget, 'Black' ) );
+		headers.appendChild( eventHeader( widget ) );
+		headers.appendChild( datePlaceHeader( widget ) );
+		headers.appendChild( annotatorHeader( widget ) );
 
 		// Body and initial move
-		var move0 = buildInitialMove(widget);
-		var body  = buildBody(widget);
+		var move0 = buildInitialMove( widget );
+		var body  = buildBody( widget );
 
 		// A hidden field to catch the keyboard events
-		var focusField = '<div class="rpbui-chessgame-focusFieldContainer"><input class="rpbui-chessgame-focusField" type="text" readonly="true" /></div>';
+		var inputField = document.createElement( 'input' );
+		inputField.setAttribute( 'class', 'rpbui-chessgame-focusField' );
+		inputField.setAttribute( 'type', 'text' );
+		inputField.setAttribute( 'readonly', 'true' );
+
+		var focusField = document.createElement( 'div' );
+		focusField.setAttribute( 'class', 'rpbui-chessgame-focusFieldContainer' );
+		focusField.appendChild( inputField );
 
 		// Navigation board
-		var prefix = '';
-		var suffix = '';
-		switch(widget.options.navigationBoard) {
+		var prefixDiv;
+		var suffixDiv;
+		var result = document.createElement( 'div' );
+		result.appendChild( move0 );
+		result.appendChild( focusField );
+
+		switch( widget.options.navigationBoard ) {
 			case 'floatLeft':
 			case 'floatRight':
-				suffix = '<div class="rpbui-chessgame-' + widget.options.navigationBoard.replace('float', 'clear') + '"></div>';
-				prefix = '<div class="rpbui-chessgame-navigationBox rpbui-chessgame-' + widget.options.navigationBoard + '">' +
-					buildNavigationSkeleton() + '</div>';
+				var suffixDiv = document.createElement( 'div' );
+				suffixDiv.setAttribute( 'class', 'rpbui-chessgame-' + widget.options.navigationBoard.replace('float', 'clear') );
+
+				var prefixDiv = document.createElement( 'div' );
+				prefixDiv.setAttribute( 'class', 'rpbui-chessgame-navigationBox rpbui-chessgame-' + widget.options.navigationBoard );
+				prefixDiv.appendChild( buildNavigationSkeleton() );
+
+				result.appendChild( prefixDiv );
+				result.appendChild( headers );
+				result.appendChild( body );
+				result.appendChild( suffixDiv );
 				break;
+
 			case 'scrollLeft':
-				prefix = '<div class="rpbui-chessgame-scrollBox"><div class="rpbui-chessgame-navigationBox rpbui-chessgame-scrollLeft">' +
-					buildNavigationSkeleton() + '</div><div class="rpbui-chessgame-scrollArea">';
-				suffix = '</div></div>';
+				var navigationBoxDiv = document.createElement( 'div' );
+				navigationBoxDiv.setAttribute( 'class', 'rpbui-chessgame-navigationBox rpbui-chessgame-scrollLeft' );
+				navigationBoxDiv.appendChild( buildNavigationSkeleton() );
+
+				var scrollBoxDiv = document.createElement( 'div' );
+				scrollBoxDiv.setAttribute( 'class', 'rpbui-chessgame-scrollBox' );
+				scrollBoxDiv.appendChild( navigationBoxDiv );
+
+				var scrollAreaDiv = document.createElement( 'div' );
+				scrollAreaDiv.setAttribute( 'class', 'rpbui-chessgame-scrollArea' );
+				scrollAreaDiv.appendChild( headers );
+				scrollAreaDiv.appendChild( body );
+				scrollBoxDiv.appendChild( scrollAreaDiv );
+
+				result.appendChild( prefixDiv );
 				break;
+
 			case 'scrollRight':
-				prefix = '<div class="rpbui-chessgame-scrollBox"><div class="rpbui-chessgame-scrollArea">';
-				suffix = '</div><div class="rpbui-chessgame-navigationBox rpbui-chessgame-scrollRight">' + buildNavigationSkeleton() + '</div></div>';
+				var scrollBoxDiv = document.createElement( 'div' );
+				scrollBoxDiv.setAttribute( 'class', 'rpbui-chessgame-scrollBox' );
+
+				var scrollAreaDiv = document.createElement( 'div' );
+				scrollAreaDiv.setAttribute( 'class', 'rpbui-chessgame-scrollArea' );
+
+				scrollAreaDiv.appendChild( headers );
+				scrollAreaDiv.appendChild( body );
+				scrollBoxDiv.appendChild( scrollAreaDiv );
+				result.appendChild( scrollBoxDiv );
+
+				var navigationBoxDiv = document.createElement( 'div' );
+				navigationBoxDiv.setAttribute( 'class', 'rpbui-chessgame-navigationBox rpbui-chessgame-scrollRight' );
+				navigationBoxDiv.appendChild( buildNavigationSkeleton() );
+				result.appendChild( navigationBoxDiv );
 				break;
+
 			case 'above':
-				prefix = '<div class="rpbui-chessgame-navigationBox rpbui-chessgame-above">' + buildNavigationSkeleton() + '</div>';
+				var navigationBoxDiv = document.createElement( 'div' );
+				navigationBoxDiv.setAttribute( 'class', 'rpbui-chessgame-navigationBox rpbui-chessgame-above' );
+				navigationBoxDiv.appendChild( buildNavigationSkeleton() );
+
+				result.appendChild( navigationBoxDiv );
+				result.appendChild( headers );
+				result.appendChild( body );
 				break;
+
 			case 'below':
-				suffix = '<div class="rpbui-chessgame-navigationBox rpbui-chessgame-below">' + buildNavigationSkeleton() + '</div>';
+				var navigationBoxDiv = document.createElement( 'div' );
+				navigationBoxDiv.setAttribute( 'class', 'rpbui-chessgame-navigationBox rpbui-chessgame-below' );
+				navigationBoxDiv.appendChild( buildNavigationSkeleton() );
+
+				result.appendChild( headers );
+				result.appendChild( body );
+				result.appendChild( navigationBoxDiv );
 				break;
 		}
 
 		// Render the content.
-		$(move0 + focusField + prefix + headers + body + suffix).appendTo(widget.element);
+		$( result ).appendTo( widget.element );
 
 		// Render the diagrams in comments.
-		makeDiagrams(widget);
+		makeDiagrams( widget );
 
 		// Activate the navigation board, if required.
-		if(widget.options.navigationBoard !== 'none') {
-			makeMovesClickable(widget);
-			makeMovesRelated(widget);
-			$('.rpbui-chessgame-focusField', widget.element).keydown(function(event) {
-				if(event.key === 'Home') { widget.goFirstMove(); }
-				else if(event.key === 'ArrowLeft') { widget.goPreviousMove(); }
-				else if(event.key === 'ArrowRight') { widget.goNextMove(); }
-				else if(event.key === 'End') { widget.goLastMove(); }
+		if ( 'none' !== widget.options.navigationBoard ) {
+			makeMovesClickable( widget );
+			makeMovesRelated( widget );
+			$( '.rpbui-chessgame-focusField', widget.element ).keydown( function( event ) {
+				if ( 'Home' === event.key ) {
+					widget.goFirstMove();
+				} else if ( 'ArrowLeft' === event.key ) {
+					widget.goPreviousMove();
+				} else if ( 'ArrowRight' === event.key ) {
+					widget.goNextMove();
+				} else if ( 'End' === event.key ) {
+					widget.goLastMove();
+				}
 			});
-			if(widget.options.navigationBoard !== 'frame') {
-				makeNavigationBoxWidgets(widget);
+			if ( 'frame' !== widget.options.navigationBoard ) {
+				makeNavigationBoxWidgets( widget );
 			}
-			if(widget.options.navigationBoard === 'scrollLeft' || widget.options.navigationBoard === 'scrollRight') {
-				$('.rpbui-chessgame-scrollArea', widget.element).css('height', $('.rpbui-chessgame-navigationBox', widget.element).height());
+			if ( 'scrollLeft' === widget.options.navigationBoard || 'scrollRight' === widget.options.navigationBoard ) {
+				$( '.rpbui-chessgame-scrollArea', widget.element ).css( 'height', $( '.rpbui-chessgame-navigationBox', widget.element ).height() );
 			}
 		}
 	}
