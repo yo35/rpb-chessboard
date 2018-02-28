@@ -1328,19 +1328,23 @@
 	 * Create the navigation frame, if it does not exist yet.
 	 */
 	function buildNavigationFrame() {
-		if($('#rpbui-chessgame-navigationFrame').length !== 0) {
+		if ( null !== document.getElementById( 'rpbui-chessgame-navigationFrame' ) ) {
 			return;
 		}
 
 		// Structure of the navigation frame.
-		$('<div id="rpbui-chessgame-navigationFrame">' + buildNavigationSkeleton() + '</div>').appendTo($('body'));
+		var navigationFrame = document.createElement( 'div' );
+		navigationFrame.setAttribute( 'id', 'rpbui-chessgame-navigationFrame' );
+		navigationFrame.innerHTML = buildNavigationSkeleton();
+
+		document.body.appendChild( navigationFrame );
 
 		// Create the dialog widget.
-		$('#rpbui-chessgame-navigationFrame').dialog({
+		$( '#rpbui-chessgame-navigationFrame' ).dialog({
 			/* Hack to keep the dialog draggable after the page has being scrolled. */
-			create     : function(event) { $(event.target).parent().css('position', 'fixed'); },
-			resizeStart: function(event) { $(event.target).parent().css('position', 'fixed'); },
-			resizeStop : function(event) { $(event.target).parent().css('position', 'fixed'); },
+			create     : function( event ) { $( event.target ).parent().css('position', 'fixed'); },
+			resizeStart: function( event ) { $( event.target ).parent().css('position', 'fixed'); },
+			resizeStop : function( event ) { $( event.target ).parent().css('position', 'fixed'); },
 			/* End of hack */
 			autoOpen   : false,
 			dialogClass: $.chessgame.navigationFrameClass,
@@ -1349,16 +1353,21 @@
 		});
 
 		// Create the chessboard widget.
-		var widget = $('#rpbui-chessgame-navigationFrame .rpbui-chessgame-navigationBoard');
-		widget.chessboard(filterChessboardOptions($.chessgame.navigationFrameOptions));
-		widget.chessboard('sizeControlledByContainer', $('#rpbui-chessgame-navigationFrame'), 'dialogresize');
+		var widget = $( '#rpbui-chessgame-navigationFrame .rpbui-chessgame-navigationBoard' );
+		widget.chessboard( filterChessboardOptions( $.chessgame.navigationFrameOptions ) );
+		widget.chessboard( 'sizeControlledByContainer', $('#rpbui-chessgame-navigationFrame' ), 'dialogresize' );
 
 		// Callback for the buttons.
-		initializeNavigationButtons(function(buttonClass) { return $('#rpbui-chessgame-navigationFrame ' + buttonClass); }, function callback(methodName) {
-			var gameWidget = $('#rpbui-chessgame-navigationFrameTarget').closest('.rpbui-chessgame');
-			gameWidget.chessgame(methodName);
-			gameWidget.chessgame('focus');
-		});
+		initializeNavigationButtons(
+			function( buttonClass ) {
+				return $( '#rpbui-chessgame-navigationFrame ' + buttonClass );
+			},
+			function callback( methodName ) {
+				var gameWidget = $( '#rpbui-chessgame-navigationFrameTarget' ).closest( '.rpbui-chessgame' );
+				gameWidget.chessgame( methodName );
+				gameWidget.chessgame( 'focus' );
+			}
+		);
 	}
 
 
