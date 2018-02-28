@@ -1006,19 +1006,28 @@
 	 * @param {rpbchess-ui.chessgame} widget
 	 * @returns {string}
 	 */
-	function buildBody(widget) {
+	function buildBody( widget ) {
 		var mainVariation = buildVariation(widget, widget._game.mainVariation(), true, formatResult(widget._game.result()));
 
 		// Nothing to do if the main variation is empty.
-		if(mainVariation.content === '') {
+		if ( '' === mainVariation.content ) {
 			return '';
 		}
 
 		// Otherwise, wrap it into a DIV node.
-		var bodyClass = 'rpbui-chessgame-body';
-		if(mainVariation.divCount > 1) { bodyClass += ' rpbui-chessgame-moreSpace'; }
-		if(widget.options.navigationBoard !== 'none') { bodyClass += ' rpbui-chessgame-clickableMoves'; }
-		return '<div class="' + bodyClass + '">' + mainVariation.content + '</div>';
+		var bodyClassList = [ 'rpbui-chessgame-body' ];
+		if ( mainVariation.divCount > 1 ) {
+			bodyClassList[] = 'rpbui-chessgame-moreSpace';
+		}
+		if ( 'none' !== widget.options.navigationBoard ) {
+			bodyClassList[] += 'rpbui-chessgame-clickableMoves';
+		}
+
+		var result = document.createElement( 'div' );
+		result.setAttribute( 'class', bodyClassList.join( ' ' ) );
+		result.innerHTML = mainVariation.content;
+
+		return result.outerHTML;
 	}
 
 
