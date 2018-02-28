@@ -908,24 +908,31 @@
 	 * @param {rpbchess-ui.chessgame} widget
 	 * @returns {string}
 	 */
-	function eventHeader(widget) {
+	function eventHeader( widget ) {
 
 		// Retrieve the event -> no header is returned if the name not available.
-		var event = formatDefault(widget._game.header('Event'));
-		if(event===null) {
+		var event = formatDefault( widget._game.header( 'Event' ) );
+		if ( null === event ) {
 			return '';
 		}
 
 		// Retrieve the round.
-		var round = formatDefault(widget._game.header('Round'));
+		var round = formatDefault( widget._game.header( 'Round' ) );
 
-		// Build and return the header.
-		var header = '<div class="rpbui-chessgame-event">' + event;
-		if(round !== null) {
-			header += '<span class="rpbui-chessgame-round">' + round + '</span>';
+		// Build and return the header
+		var header = document.createElement( 'div' );
+		header.setAttribute( 'class', 'rpbui-chessgame-event' );
+		header.textContent = event;
+
+		if ( null !== round ) {
+			var round = document.createElement( 'span' );
+			round.setAttribute( 'class', 'rpbui-chessgame-round' );
+			round.textContent = round;
+
+			header.appendChild( round )
 		}
-		header += '</div>';
-		return header;
+
+		return header.outerHTML;
 	}
 
 
