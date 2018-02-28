@@ -935,21 +935,34 @@
 	 * @param {rpbchess-ui.chessgame} widget
 	 * @returns {string}
 	 */
-	function datePlaceHeader(widget) {
+	function datePlaceHeader( widget ) {
 
 		// Retrieve the date and the site field.
-		var date = formatDate   (widget._game.header('Date'));
-		var site = formatDefault(widget._game.header('Site'));
-		if(date===null && site===null) {
+		var date = formatDate( widget._game.header( 'Date' ) );
+		var site = formatDefault( widget._game.header( 'Site' ) );
+		if ( null === date && null === site ) {
 			return '';
 		}
 
-		// Build and return the header.
-		var header = '<div class="rpbui-chessgame-datePlaceGroup">';
-		if(date !== null) { header += '<span class="rpbui-chessgame-date">' + date + '</span>'; }
-		if(site !== null) { header += '<span class="rpbui-chessgame-site">' + site + '</span>'; }
-		header += '</div>';
-		return header;
+		// Build and return the header
+		var header = document.createElement( 'div' );
+		header.setAttribute( 'class', 'rpbui-chessgame-datePlaceGroup' );
+
+		if ( null !== date ) {
+			var dateSpan = document.createElement( 'span' );
+			dateSpan.setAttribute( 'class', 'rpbui-chessgame-date' );
+			dateSpan.textContent = date;
+			header.appendChild( dateSpan );
+		}
+
+		if ( null !== site ) {
+			var siteSpan = document.createElement( 'span' );
+			siteSpan.setAttribute( 'class', 'rpbui-chessgame-site' );
+			siteSpan.textContent = site;
+			header.appendChild( siteSpan );
+		}
+
+		return header.outerHTML;
 	}
 
 
