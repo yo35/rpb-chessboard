@@ -899,7 +899,7 @@
 			header.appendChild( titleRatingGroup );
 		}
 
-		return header.outerHTML;
+		return header;
 	}
 
 
@@ -933,7 +933,7 @@
 			header.appendChild( round )
 		}
 
-		return header.outerHTML;
+		return header;
 	}
 
 
@@ -970,7 +970,7 @@
 			header.appendChild( siteSpan );
 		}
 
-		return header.outerHTML;
+		return header;
 	}
 
 
@@ -997,7 +997,7 @@
 		siteSpan.setAttribute( 'class', 'rpbui-chessgame-annotator' );
 		siteSpan.textContent = $.chessgame.i18n.ANNOTATED_BY.replace( /%1\$s/g, annotatorSpan.outerHTML );
 
-		return header.outerHTML;
+		return header;
 	}
 
 
@@ -1028,7 +1028,7 @@
 		result.setAttribute( 'class', bodyClassList.join( ' ' ) );
 		result.innerHTML = mainVariation.content;
 
-		return result.outerHTML;
+		return result;
 	}
 
 
@@ -1266,7 +1266,7 @@
 		}
 		result.textContent = $.chessgame.i18n.INITIAL_POSITION;
 
-		return result.outerHTML;
+		return result;
 	}
 
 
@@ -1307,7 +1307,7 @@
 		result.appendChild( buttonsDiv );
 		result.appendChild( link );
 
-		return result.outerHTML;
+		return result;
 	}
 
 
@@ -1336,7 +1336,7 @@
 		// Structure of the navigation frame.
 		var navigationFrame = document.createElement( 'div' );
 		navigationFrame.setAttribute( 'id', 'rpbui-chessgame-navigationFrame' );
-		navigationFrame.innerHTML = buildNavigationSkeleton();
+		navigationFrame.appendChild( buildNavigationSkeleton() );
 
 		document.body.appendChild( navigationFrame );
 
