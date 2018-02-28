@@ -850,32 +850,55 @@
 	 * @param {string} color Either 'White' or 'Black'.
 	 * @returns {string}
 	 */
-	function playerNameHeader(widget, color) {
+	function playerNameHeader( widget, color ) {
 
 		// Retrieve the name of the player -> no header is returned if the name not available.
-		var name = formatDefault(widget._game.header(color));
-		if(name===null) {
+		var name = formatDefault( widget._game.header( color ) );
+		if ( null === name ) {
 			return '';
 		}
 
-		// Build the returned header.
-		var header = '<div class="rpbui-chessgame-' + color.toLowerCase() + 'Player">' +
-			'<span class="rpbui-chessgame-colorTag"></span> ' +
-			'<span class="rpbui-chessgame-playerName">' + name + '</span>';
+		// Container header <div>
+		var header = document.createElement( 'div' );
+		header.setAttribute( 'class', 'rpbui-chessgame-' + color.toLowerCase() + 'Player' );
 
-		// Title + rating
+		// Color and player name
+		var colorTag = document.createElement( 'span' );
+		colorTag.setAttribute( 'class', 'rpbui-chessgame-colorTag' );
+
+		var playerName = document.createElement( 'span' );
+		playerName.setAttribute( 'class', 'rpbui-chessgame-playerName' );
+		playerName.textCOntent = name;
+
+		header.appendChild( colorTag );
+		header.appendChild( playerName );
+
+		// Title and rating
 		var title  = formatTitle  (widget._game.header(color + 'Title'));
 		var rating = formatDefault(widget._game.header(color + 'Elo'  ));
-		if(title !== null || rating !== null) {
-			header += '<span class="rpbui-chessgame-titleRatingGroup">';
-			if(title  !== null) { header += '<span class="rpbui-chessgame-playerTitle">'  + title  + '</span>'; }
-			if(rating !== null) { header += '<span class="rpbui-chessgame-playerRating">' + rating + '</span>'; }
-			header += '</span>';
+
+		if ( null !== title || null !== rating) {
+			var titleRatingGroup = document.createElement( 'span' );
+			titleRatingGroup.setAttribute( 'class', 'rpbui-chessgame-titleRatingGroup' );
+
+			if ( null !== title ) {
+				var playerTitle = document.createElement( 'span' );
+				playerTitle.setAttribute( 'class', 'rpbui-chessgame-playerTitle' );
+				playerTitle.textContent = title;
+
+				titleRatingGroup.appendChild( playerTitle );
+			}
+			if ( null !== rating ) {
+				var playerRating = document.createElement( 'span' );
+				playerRating.setAttribute( 'class', 'rpbui-chessgame-playerRating' );
+				playerRating.textContent = rating;
+				titleRatingGroup.appendChild( playerRating );
+			}
+
+			header.appendChild( titleRatingGroup );
 		}
 
-		// Add the closing tag and return the result.
-		header += '</div>';
-		return header;
+		return header.outerHTML;
 	}
 
 
