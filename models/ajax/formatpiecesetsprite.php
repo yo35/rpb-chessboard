@@ -111,7 +111,7 @@ class RPBChessboardModelAjaxFormatPiecesetSprite extends RPBChessboardAbstractMo
 		];
 
 		// Sideload the image
-		$attachment_id = media_handle_sideload( $file_array, 0 );
+		media_handle_sideload( $file_array, 0 );
 
 		// Free resources.
 		imagedestroy( $destImage );
