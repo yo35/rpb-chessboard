@@ -49,11 +49,9 @@ class RPBChessboardModelAjaxFormatPiecesetSprite extends RPBChessboardAbstractMo
 			wp_send_json_error( array( 'message' => __( 'Only PNG images can be used to create piecesets.', 'rpb-chessboard' ) ) );
 		}
 
-		$outputPath = $this->computeCustomPiecesetSpritePathOrURL( $attachment->path );
-		if ( ! file_exists( $outputPath ) ) {
-			if ( ! $this->generateSprite( $outputPath, $attachment->path, $attachment->width, $attachment->height ) ) {
-				wp_send_json_error( array( 'message' => __( 'Error while processing the selected image.', 'rpb-chessboard' ) ) );
-			}
+
+		if ( ! $this->generateSprite( $attachment->path, $attachment->width, $attachment->height ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error while processing the selected image.', 'rpb-chessboard' ) ) );
 		}
 
 		$thumbnailURL = wp_get_attachment_image_url( $attachment->id );
@@ -67,14 +65,16 @@ class RPBChessboardModelAjaxFormatPiecesetSprite extends RPBChessboardAbstractMo
 		);
 	}
 
-
-	private function generateSprite( $destPath, $srcPath, $srcWidth, $srcHeight ) {
+	private function generateSprite( $srcPath, $srcWidth, $srcHeight ) {
 
 		// Load the input image.
 		$srcImage = imagecreatefrompng( $srcPath );
 		if ( ! $srcImage ) {
 			return false;
 		}
+
+		// Create a temporary image we can remove later.
+		$temp_image = wp_tempnam();
 
 		// Compute sizes.
 		$sizeMin    = $this->getMinimumSquareSize();
@@ -103,11 +103,11 @@ class RPBChessboardModelAjaxFormatPiecesetSprite extends RPBChessboardAbstractMo
 		}
 
 		// Save the output image.
-		imagepng( $destImage, $destPath );
+		imagepng( $destImage, $temp_image );
 
 		$file_array = [
-			'name'     => basename( $destPath ),
-			'tmp_name' => $destPath,
+			'name'     => basename( $temp_image ),
+			'tmp_name' => $temp_image,
 		];
 
 		// Sideload the image
@@ -116,6 +116,7 @@ class RPBChessboardModelAjaxFormatPiecesetSprite extends RPBChessboardAbstractMo
 		// Free resources.
 		imagedestroy( $destImage );
 		imagedestroy( $srcImage );
+		unlink( $temp_image );
 		return true;
 	}
 
