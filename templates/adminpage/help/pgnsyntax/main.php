@@ -60,7 +60,7 @@
 
 	<ol class="rpbchessboard-outline">
 		<li><a href="#rpbchessboard-pgnExample"><?php _e( 'Standard PGN game', 'rpb-chessboard' ); ?></a></li>
-		<li><a href="#rpbchessboard-pgnNAG"><?php _e( 'NAGs (aka. <em>Numeric Annotation Glyphs</em>)', 'rpb-chessboard' ); ?></a></li>
+		<li><a href="#rpbchessboard-pgnNAG"><?php _e( 'NAGs (aka. Numeric Annotation Glyphs)', 'rpb-chessboard' ); ?></a></li>
 		<li><a href="#rpbchessboard-pgnComment"><?php _e( 'Comments', 'rpb-chessboard' ); ?></a></li>
 		<li><a href="#rpbchessboard-pgnVariation"><?php _e( 'Variations', 'rpb-chessboard' ); ?></a></li>
 		<li><a href="#rpbchessboard-pgnDiagram"><?php _e( 'Diagrams', 'rpb-chessboard' ); ?></a></li>

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-07 14:10+0100\n"
+"POT-Creation-Date: 2018-03-11 22:05+0100\n"
 "PO-Revision-Date: 2016-11-08 11:52+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1278,7 +1278,7 @@ msgstr ""
 
 #: templates/adminpage/help/pgnsyntax/main.php
 #: templates/adminpage/help/pgnsyntax/nag.php
-msgid "NAGs (aka. <em>Numeric Annotation Glyphs</em>)"
+msgid "NAGs (aka. Numeric Annotation Glyphs)"
 msgstr "Стандартная Алгебраическая Нотация"
 
 #: templates/adminpage/help/pgnsyntax/main.php

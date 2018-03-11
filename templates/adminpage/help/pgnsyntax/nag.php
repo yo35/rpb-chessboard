@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-pgnNAG"><?php _e( 'NAGs (aka. <em>Numeric Annotation Glyphs</em>)', 'rpb-chessboard' ); ?></h3>
+<h3 id="rpbchessboard-pgnNAG"><?php _e( 'NAGs (aka. Numeric Annotation Glyphs)', 'rpb-chessboard' ); ?></h3>
 
 <div class="rpbchessboard-columns">
 	<div>

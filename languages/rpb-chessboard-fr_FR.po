@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-07 14:10+0100\n"
+"POT-Creation-Date: 2018-03-11 22:05+0100\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35 -at- melix.net>\n"
 "Language-Team: French\n"
@@ -1337,8 +1337,8 @@ msgstr ""
 
 #: templates/adminpage/help/pgnsyntax/main.php
 #: templates/adminpage/help/pgnsyntax/nag.php
-msgid "NAGs (aka. <em>Numeric Annotation Glyphs</em>)"
-msgstr "NAGs (aka. <em>Numeric Annotation Glyphs</em>)"
+msgid "NAGs (aka. Numeric Annotation Glyphs)"
+msgstr "NAGs (Numeric Annotation Glyphs)"
 
 #: templates/adminpage/help/pgnsyntax/main.php
 #: templates/adminpage/help/pgnsyntax/comment.php
