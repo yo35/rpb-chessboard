@@ -27,7 +27,12 @@ if ( ! $model->getSmallScreenCompatibility() ) {
 ?>
 
 <?php foreach ( $model->getSmallScreenModes() as $mode ) : ?>
-<?php echo sanitize_html_class( $model->getSmallScreenModeMainSelector( $mode ) ); ?> {
+<?php $smallScreenData = $model->getSmallScreenModeMainData( $mode );
+	if ( $smallScreenData['min'] ) { ?>
+		@media all and (max-width: <?php echo intval( $smallScreenData['max'] ) ?>px and (min-width: <?php echo intval( $smallScreenData['min'] ) ?>px {
+	<?php } else { ?>
+		@media all and (max-width: <?php echo intval( $smallScreenData['max'] ) ?>px {
+	} ?>
 
 	<?php if ( $model->hasSmallScreenSizeSquareSizeSection( $mode ) ) : ?>
 

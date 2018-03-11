@@ -119,12 +119,12 @@ class RPBChessboardModelCommonSmallScreens extends RPBChessboardAbstractModel {
 	 *
 	 * @return string
 	 */
-	public function getSmallScreenModeMainSelector( $mode ) {
-		$res = '@media all';
+	public function getSmallScreenModeMainData( $mode ) {
+		$res = [ 'min' => false ];
 		if ( $mode->minScreenWidth > 0 ) {
-			$res .= ' and (min-width:' . ( $mode->minScreenWidth + 1 ) . 'px)';
+			$res['min'] = $mode->minScreenWidth + 1;
 		}
-		$res .= ' and (max-width:' . $mode->maxScreenWidth . 'px)';
+		$res['max'] = $mode->maxScreenWidth;
 		return $res;
 	}
 
