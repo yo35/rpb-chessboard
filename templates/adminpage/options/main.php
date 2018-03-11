@@ -30,7 +30,7 @@
 			<?php RPBChessboardHelperLoader::printTemplate( $model->getSubPageTemplateName(), $model ); ?>
 			<p class="submit">
 				<input type="submit" class="button-primary" value="<?php _e( 'Save changes', 'rpb-chessboard' ); ?>" />
-				<a class="button" href="<?php echo esc_attr( $model->getFormActionURL() ); ?>"><?php _e( 'Cancel', 'rpb-chessboard' ); ?></a>
+				<a class="button" href="<?php echo esc_url( $model->getFormActionURL() ); ?>"><?php _e( 'Cancel', 'rpb-chessboard' ); ?></a>
 				<a class="button" id="rpbchessboard-resetButton" href="#"><?php _e( 'Reset settings', 'rpb-chessboard' ); ?></a>
 			</p>
 		</div>

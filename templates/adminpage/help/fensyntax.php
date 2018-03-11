@@ -56,8 +56,8 @@
 		?>
 	</p>
 
-	<p><img class="rpbchessboard-screenshot" src="<?php echo esc_attr( RPBCHESSBOARD_URL . 'images/screenshot-fen-diagram-button-tinymce.png' ); ?>" /></p>
+	<p><img class="rpbchessboard-screenshot" src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/screenshot-fen-diagram-button-tinymce.png' ); ?>" /></p>
 
-	<p><img class="rpbchessboard-screenshot" src="<?php echo esc_attr( RPBCHESSBOARD_URL . 'images/screenshot-fen-diagram-button-quicktags.png' ); ?>" /></p>
+	<p><img class="rpbchessboard-screenshot" src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/screenshot-fen-diagram-button-quicktags.png' ); ?>" /></p>
 
 </div>

@@ -83,35 +83,35 @@
 	<dl class="rpbchessboard-translatorList">
 		<div>
 			<div>
-				<dt><img src="<?php esc_url( RPBCHESSBOARD_URL . 'images/flags/de.png' ); ?>" alt="German flag" />Deutsch</dt>
+				<dt><img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/flags/de.png' ); ?>" alt="German flag" />Deutsch</dt>
 				<dd>Markus Liebelt</dd>
 			</div>
 			<div>
-				<dt><img src="<?php esc_url( RPBCHESSBOARD_URL . 'images/flags/fr.png' ); ?>" alt="French flag" />Français</dt>
+				<dt><img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/flags/fr.png' ); ?>" alt="French flag" />Français</dt>
 				<dd>Yoann Le Montagner</dd>
 			</div>
 			<div>
-				<dt><img src="<?php esc_url( RPBCHESSBOARD_URL . 'images/flags/gb.png' ); ?>" alt="British flag" />English</dt>
+				<dt><img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/flags/gb.png' ); ?>" alt="British flag" />English</dt>
 				<dd>Yoann Le Montagner</dd>
 			</div>
 		</div>
 		<div>
 			<div>
-				<dt><img src="<?php esc_url( RPBCHESSBOARD_URL . 'images/flags/nl.png' ); ?>" alt="Dutch flag" />Dutch</dt>
+				<dt><img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/flags/nl.png' ); ?>" alt="Dutch flag" />Dutch</dt>
 				<dd>Ivan Deceuninck</dd>
 			</div>
 			<div>
-				<dt><img src="<?php esc_url( RPBCHESSBOARD_URL . 'images/flags/pl.png' ); ?>" alt="Polish flag" />Polski</dt>
+				<dt><img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/flags/pl.png' ); ?>" alt="Polish flag" />Polski</dt>
 				<dd><a href="http://dawidziolkowski.com/" target="_blank">Dawid Ziółkowski</a></dd>
 			</div>
 			<div>
-				<dt><img src="<?php esc_url( RPBCHESSBOARD_URL . 'images/flags/ru.png' ); ?>" alt="Russian flag" />Russian</dt>
+				<dt><img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/flags/ru.png' ); ?>" alt="Russian flag" />Russian</dt>
 				<dd><a href="http://safoyeth.com/" target="_blank">Sergey Baravicov</a></dd>
 			</div>
 		</div>
 		<div>
 			<div>
-				<dt><img src="<?php esc_url( RPBCHESSBOARD_URL . 'images/flags/tr.png' ); ?>" alt="Turkish flag" />Turkish</dt>
+				<dt><img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/flags/tr.png' ); ?>" alt="Turkish flag" />Turkish</dt>
 				<dd>Ali Nihat Yazıcı</dd>
 			</div>
 		</div>

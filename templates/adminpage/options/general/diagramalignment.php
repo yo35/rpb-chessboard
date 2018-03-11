@@ -30,7 +30,7 @@
 			<?php echo $model->getDefaultDiagramAlignment() === 'center' ? 'checked="yes"' : ''; ?>
 		/>
 		<label for="rpbchessboard-diagramAlignmentButton-center" title="<?php _e( 'Centered', 'rpb-chessboard' ); ?>">
-			<img src="<?php echo esc_attr( RPBCHESSBOARD_URL . 'images/alignment-center.png' ); ?>"
+			<img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-center.png' ); ?>"
 				alt="<?php _e( 'Centered', 'rpb-chessboard' ); ?>"
 			/>
 		</label>
@@ -41,7 +41,7 @@
 			<?php echo $model->getDefaultDiagramAlignment() === 'floatLeft' ? 'checked="yes"' : ''; ?>
 		/>
 		<label for="rpbchessboard-diagramAlignmentButton-floatLeft" title="<?php _e( 'On the left of the text', 'rpb-chessboard' ); ?>">
-			<img src="<?php echo esc_attr( RPBCHESSBOARD_URL . 'images/alignment-float-left.png' ); ?>"
+			<img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-float-left.png' ); ?>"
 				alt="<?php _e( 'On the left of the text', 'rpb-chessboard' ); ?>"
 			/>
 		</label>
@@ -52,7 +52,7 @@
 			<?php echo $model->getDefaultDiagramAlignment() === 'floatRight' ? 'checked="yes"' : ''; ?>
 		/>
 		<label for="rpbchessboard-diagramAlignmentButton-floatRight" title="<?php _e( 'On the right of the text', 'rpb-chessboard' ); ?>">
-			<img src="<?php echo esc_attr( RPBCHESSBOARD_URL . 'images/alignment-float-right.png' ); ?>"
+			<img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-float-right.png' ); ?>"
 				alt="<?php _e( 'On the right of the text', 'rpb-chessboard' ); ?>"
 			/>
 		</label>

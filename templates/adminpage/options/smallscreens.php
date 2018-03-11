@@ -91,7 +91,7 @@ if ( $mode->minScreenWidth === 0 ) {
 					'rpb-chessboard'
 				),
 				esc_html( $mode->maxScreenWidth ),
-				'<a href="' . esc_attr( $model->getOptionsGeneralURL() ) . '">',
+				'<a href="' . esc_url( $model->getOptionsGeneralURL() ) . '">',
 				'</a>'
 			);
 		?>
@@ -120,7 +120,7 @@ if ( $mode->minScreenWidth === 0 ) {
 					'rpb-chessboard'
 				),
 				esc_html( $mode->maxScreenWidth ),
-					'<a href="' . esc_attr( $model->getOptionsGeneralURL() ) . '">',
+					'<a href="' . esc_url( $model->getOptionsGeneralURL() ) . '">',
 				'</a>'
 			);
 		?>
