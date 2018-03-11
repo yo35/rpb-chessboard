@@ -34,8 +34,8 @@
 			'</span>',
 			esc_html( $model->getFENShortcode() ),
 			esc_html( $model->getPGNShortcode() ),
-			'<a href="' . esc_attr( $model->getHelpOnFENAttributesURL() ) . '">',
-			'<a href="' . esc_attr( $model->getHelpOnPGNAttributesURL() ) . '">',
+			'<a href="' . esc_url( $model->getHelpOnFENAttributesURL() ) . '">',
+			'<a href="' . esc_url( $model->getHelpOnPGNAttributesURL() ) . '">',
 			'</a>'
 		);
 	?>

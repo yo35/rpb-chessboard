@@ -87,8 +87,8 @@
 				'Additional colorsets and piecesets can be created in the %2$stheming page%3$s.',
 				'rpb-chessboard'
 			),
-			'<a href="' . esc_attr( $model->getOptionsSmallScreensURL() ) . '">',
-			'<a href="' . esc_attr( $model->getThemingURL() ) . '">',
+			'<a href="' . esc_url( $model->getOptionsSmallScreensURL() ) . '">',
+			'<a href="' . esc_url( $model->getThemingURL() ) . '">',
 			'</a>'
 		);
 	?>

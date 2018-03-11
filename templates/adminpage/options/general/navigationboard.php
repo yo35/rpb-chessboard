@@ -30,7 +30,7 @@
 			<?php echo $model->getDefaultNavigationBoard() === 'none' ? 'checked="yes"' : ''; ?>
 		/>
 		<label for="rpbchessboard-navigationBoardButton-none" title="<?php _e( 'No navigation board', 'rpb-chessboard' ); ?>">
-			<img src="<?php echo esc_attr( RPBCHESSBOARD_URL . 'images/alignment-none.png' ); ?>"
+			<img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-none.png' ); ?>"
 				alt="<?php _e( 'No navigation board', 'rpb-chessboard' ); ?>"
 			/>
 		</label>
@@ -41,7 +41,7 @@
 			<?php echo $model->getDefaultNavigationBoard() === 'frame' ? 'checked="yes"' : ''; ?>
 		/>
 		<label for="rpbchessboard-navigationBoardButton-frame" title="<?php _e( 'In a popup frame', 'rpb-chessboard' ); ?>">
-			<img src="<?php echo esc_attr( RPBCHESSBOARD_URL . 'images/alignment-popup.png' ); ?>"
+			<img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-popup.png' ); ?>"
 				alt="<?php _e( 'In a popup frame', 'rpb-chessboard' ); ?>"
 			/>
 		</label>
@@ -52,7 +52,7 @@
 			<?php echo $model->getDefaultNavigationBoard() === 'above' ? 'checked="yes"' : ''; ?>
 		/>
 		<label for="rpbchessboard-navigationBoardButton-above" title="<?php _e( 'Above the game headers and the move list', 'rpb-chessboard' ); ?>">
-			<img src="<?php echo esc_attr( RPBCHESSBOARD_URL . 'images/alignment-above.png' ); ?>"
+			<img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-above.png' ); ?>"
 				alt="<?php _e( 'Above the game headers and the move list', 'rpb-chessboard' ); ?>"
 			/>
 		</label>
@@ -63,7 +63,7 @@
 			<?php echo $model->getDefaultNavigationBoard() === 'below' ? 'checked="yes"' : ''; ?>
 		/>
 		<label for="rpbchessboard-navigationBoardButton-below" title="<?php _e( 'Below the move list', 'rpb-chessboard' ); ?>">
-			<img src="<?php echo esc_attr( RPBCHESSBOARD_URL . 'images/alignment-below.png' ); ?>"
+			<img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-below.png' ); ?>"
 				alt="<?php _e( 'Below the move list', 'rpb-chessboard' ); ?>"
 			/>
 		</label>
@@ -74,7 +74,7 @@
 			<?php echo $model->getDefaultNavigationBoard() === 'floatLeft' ? 'checked="yes"' : ''; ?>
 		/>
 		<label for="rpbchessboard-navigationBoardButton-floatLeft" title="<?php _e( 'On the left of the move list', 'rpb-chessboard' ); ?>">
-			<img src="<?php echo esc_attr( RPBCHESSBOARD_URL . 'images/alignment-float-left.png' ); ?>"
+			<img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-float-left.png' ); ?>"
 				alt="<?php _e( 'On the left of the move list', 'rpb-chessboard' ); ?>"
 			/>
 		</label>
@@ -85,7 +85,7 @@
 			<?php echo $model->getDefaultNavigationBoard() === 'floatRight' ? 'checked="yes"' : ''; ?>
 		/>
 		<label for="rpbchessboard-navigationBoardButton-floatRight" title="<?php _e( 'On the right of the move list', 'rpb-chessboard' ); ?>">
-			<img src="<?php echo esc_attr( RPBCHESSBOARD_URL . 'images/alignment-float-right.png' ); ?>"
+			<img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-float-right.png' ); ?>"
 				alt="<?php _e( 'On the right of the move list', 'rpb-chessboard' ); ?>"
 			/>
 		</label>
@@ -96,7 +96,7 @@
 			<?php echo $model->getDefaultNavigationBoard() === 'scrollLeft' ? 'checked="yes"' : ''; ?>
 		/>
 		<label for="rpbchessboard-navigationBoardButton-scrollLeft" title="<?php _e( 'On the left, with scrollable move list', 'rpb-chessboard' ); ?>">
-			<img src="<?php echo esc_attr( RPBCHESSBOARD_URL . 'images/alignment-scroll-left.png' ); ?>"
+			<img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-scroll-left.png' ); ?>"
 				alt="<?php _e( 'On the left, with scrollable move list', 'rpb-chessboard' ); ?>"
 			/>
 		</label>
@@ -107,7 +107,7 @@
 			<?php echo $model->getDefaultNavigationBoard() === 'scrollRight' ? 'checked="yes"' : ''; ?>
 		/>
 		<label for="rpbchessboard-navigationBoardButton-scrollRight" title="<?php _e( 'On the right, with scrollable move list', 'rpb-chessboard' ); ?>">
-			<img src="<?php echo esc_attr( RPBCHESSBOARD_URL . 'images/alignment-scroll-right.png' ); ?>"
+			<img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-scroll-right.png' ); ?>"
 				alt="<?php _e( 'On the right, with scrollable move list', 'rpb-chessboard' ); ?>"
 			/>
 		</label>

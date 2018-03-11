@@ -48,7 +48,7 @@
 			'<span class="rpbchessboard-sourceCode">pieceset</span>',
 			'<span class="rpbchessboard-sourceCode">[pgndiagram]</span>',
 			sprintf( '<span class="rpbchessboard-sourceCode">[%1$s][/%1$s]</span>', esc_html( $model->getFENShortcode() ) ),
-			'<a href="' . esc_attr( $model->getHelpOnFENAttributesURL() ) . '">',
+			'<a href="' . esc_url( $model->getHelpOnFENAttributesURL() ) . '">',
 			'</a>'
 		);
 	?>

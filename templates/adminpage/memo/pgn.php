@@ -42,7 +42,7 @@
 					),
 					'<a href="http://www.chessbase.com/" target="_blank">',
 					'<a href="http://scid.sourceforge.net/" target="_blank">',
-					'<a href="' . esc_attr( $model->getPGNExampleURL() ) . '" target="_blank">',
+					'<a href="' . esc_url( $model->getPGNExampleURL() ) . '" target="_blank">',
 					'</a>'
 				);
 			?>

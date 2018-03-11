@@ -77,7 +77,7 @@
 
 		<p class="submit rpbchessboard-inlineFormButtons">
 			<input type="submit" class="button-primary" value="<?php $isNew ? _e( 'Create colorset', 'rpb-chessboard' ) : _e( 'Save changes', 'rpb-chessboard' ); ?>" />
-			<a class="button" href="<?php echo esc_attr( $model->getFormActionURL() ); ?>"><?php _e( 'Cancel', 'rpb-chessboard' ); ?></a>
+			<a class="button" href="<?php echo esc_url( $model->getFormActionURL() ); ?>"><?php _e( 'Cancel', 'rpb-chessboard' ); ?></a>
 		</p>
 
 	</form>

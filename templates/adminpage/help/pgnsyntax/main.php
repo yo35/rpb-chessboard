@@ -52,7 +52,7 @@
 					'as described in the %1$smemo page%2$s.',
 					'rpb-chessboard'
 				),
-				sprintf( '<a href="%1$s">', esc_html( $model->getMemoURL() ) ),
+				sprintf( '<a href="%1$s">', esc_url( $model->getMemoURL() ) ),
 				'</a>'
 			);
 		?>

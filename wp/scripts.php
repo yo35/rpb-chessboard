@@ -123,7 +123,7 @@ abstract class RPBChessboardScripts {
 
 	public static function callbackRegisterQuickTagsButtons() {
 		$url = RPBCHESSBOARD_URL . 'js/quicktags' . self::getJSFileExtension();
-		echo '<script type="text/javascript" src="' . esc_attr( $url ) . '"></script>';
+		echo '<script type="text/javascript" src="' . esc_url( $url ) . '"></script>';
 	}
 
 
