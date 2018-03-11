@@ -26,82 +26,50 @@
 abstract class RPBChessboardHelperCache {
 
 	/**
-	 * Return the URL of the given cached file.
+	 * Return the given cached data
 	 *
-	 * @param string $fileName File name, relative to the cache root.
+	 * @param string $cacheKey
 	 * @return string
 	 */
-	public static function getURL( $fileName ) {
-		return RPBCHESSBOARD_URL . 'cache/' . $fileName;
+	public static function get( $cacheKey ) {
+		return wp_cache_get( $cacheKey );
 	}
-
 
 	/**
 	 * Return the version of the given cached file.
 	 *
-	 * @param string $fileName File name, relative to the cache root.
+	 * @param string $cacheKey
 	 * @return string
 	 */
-	public static function getVersion( $fileName ) {
-		return get_option( 'rpbchessboard_cache_' . $fileName, '0' );
+	public static function getVersion( $cacheKey ) {
+		return get_option( 'rpbchessboard_cache_' . $cacheKey, '0' );
 	}
-
-
-	/**
-	 * Check whether the given file exists in the cache or not.
-	 *
-	 * @param string $fileName File name, relative to the cache root.
-	 * @return boolean
-	 */
-	public static function exists( $fileName ) {
-		return file_exists( self::getFullFileName( $fileName ) );
-	}
-
 
 	/**
 	 * Write a file into the cache. Nothing happens if the file already exists.
 	 *
-	 * @param string $fileName File name, relative to the cache root.
+	 * @param string $cacheKey
 	 * @param string $templateName Template to use to generate the file, if necessary.
 	 * @param string $modelName Model to use to generate the file, if necessary.
 	 */
-	public static function ensureExists( $fileName, $templateName, $modelName ) {
-		$fullFileName = self::getFullFileName( $fileName );
-		if ( file_exists( $fullFileName ) ) {
+	public static function ensureExists( $cacheKey, $templateName, $modelName ) {
+		if ( false !== wp_cache_get( $cacheKey ) ) {
 			return;
 		}
 
 		$model = RPBChessboardHelperLoader::loadModel( $modelName );
 		$text  = RPBChessboardHelperLoader::printTemplateOffScreen( $templateName, $model );
 
-		$dirName = dirname( $fullFileName );
-		if ( ! file_exists( $dirName ) ) {
-			mkdir( $dirName, 0777, true );
-		}
-		file_put_contents( $fullFileName, $text );
-		update_option( 'rpbchessboard_cache_' . $fileName, uniqid() );
+		wp_cache_set( $cacheKey, $text );
+		update_option( 'rpbchessboard_cache_' . $cacheKey, uniqid() );
 	}
-
 
 	/**
 	 * Remove the given file from the cache.
 	 *
-	 * @param string $fileName File name, relative to the cache root.
+	 * @param string $cacheKey
 	 */
-	public static function remove( $fileName ) {
-		$fullFileName = self::getFullFileName( $fileName );
-		if ( file_exists( $fullFileName ) ) {
-			unlink( $fullFileName );
-		}
-	}
-
-
-	/**
-	 * Return the full-path to a file in the cache directory.
-	 *
-	 * @param string $fileName File name, relative to the cache root.
-	 */
-	private static function getFullFileName( $fileName ) {
-		return RPBCHESSBOARD_ABSPATH . 'cache/' . $fileName;
+	public static function remove( $cacheKey ) {
+		wp_cache_delete( $cacheKey );
 	}
 }
