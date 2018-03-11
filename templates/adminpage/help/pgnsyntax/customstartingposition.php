@@ -41,11 +41,10 @@
 
 		<p>
 			<?php
-				echo sprintf(
-					__(
-						'The %1$s[FEN &quot;...&quot;]%2$s header might be used to specify that the game ' .
-						'starts with a custom position. Additionally, the strict PGN syntax requires that ' .
-						'%1$s[SetUp &quot;1&quot;]%2$s is added when using the %1$s[FEN &quot;...&quot;]%2$s header.',
+				printf(
+					esc_html__(
+						'The %1$s[FEN "..."]%2$s header might be used to specify that the game starts with a custom position. Additionally, the strict ' .
+						'PGN syntax requires that %1$s[SetUp "1"]%2$s is added when using the %1$s[FEN "..."]%2$s header.',
 						'rpb-chessboard'
 					),
 					'<span class="rpbchessboard-sourceCode">',

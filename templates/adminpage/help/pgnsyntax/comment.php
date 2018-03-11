@@ -85,10 +85,10 @@
 
 <p>
 	<?php
-		_e(
-			'Text comments can be inserted, surrounded with braces. They can be rendered either inlined within the move sequence ' .
-			'(&quot;short comment&quot; style), or as separated paragraphs (&quot;long comment&quot; style). To insert a comment ' .
-			'as a separated paragraph, let a blank line before it in the PGN string. Also, notice that HTML tags are allowed within comments.',
+		esc_html_e(
+			'Text comments can be inserted, surrounded with braces. They can be rendered either inlined within the move sequence ("short comment" ' .
+			'style), or as separated paragraphs ("long comment" style). To insert a comment as a separated paragraph, let a blank line before it ' .
+			'in the PGN string. Also, notice that HTML tags are allowed within comments.',
 			'rpb-chessboard'
 		);
 	?>
