@@ -25,6 +25,8 @@
  */
 abstract class RPBChessboardHelperCache {
 
+	const GROUP = 'rpbchessboard';
+
 	/**
 	 * Return the text data corresponding to the given key.
 	 *
@@ -34,7 +36,7 @@ abstract class RPBChessboardHelperCache {
 	 * @return string
 	 */
 	public static function get( $cacheKey, $templateName, $modelName ) {
-		$result = wp_cache_get( $cacheKey );
+		$result = wp_cache_get( $cacheKey, self::GROUP );
 		if ( false !== $result ) {
 			return $result;
 		}
@@ -42,7 +44,7 @@ abstract class RPBChessboardHelperCache {
 		$model = RPBChessboardHelperLoader::loadModel( $modelName );
 		$result = RPBChessboardHelperLoader::printTemplateOffScreen( $templateName, $model );
 
-		wp_cache_set( $cacheKey, $result );
+		wp_cache_set( $cacheKey, $result, self::GROUP );
 		return $result;
 	}
 
@@ -52,6 +54,6 @@ abstract class RPBChessboardHelperCache {
 	 * @param string $cacheKey
 	 */
 	public static function remove( $cacheKey ) {
-		wp_cache_delete( $cacheKey );
+		wp_cache_delete( $cacheKey, self::GROUP );
 	}
 }
