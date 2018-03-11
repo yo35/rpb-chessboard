@@ -53,14 +53,14 @@ msgstr "Thèmes de pièces"
 #, php-format
 msgid "Delete colorset \"%1$s\"?. Press OK to confirm..."
 msgstr ""
-"Supprimer le thème de couleurs \"%1$s\" ;? Cliquer sur OK pour "
+"Supprimer le thème de couleurs \"%1$s\"&nbsp;? Cliquer sur OK pour "
 "confirmer..."
 
 #: models/adminpage/theming.php
 #, php-format
 msgid "Delete pieceset \"%1$s\"?. Press OK to confirm..."
 msgstr ""
-"Supprimer le thème de pièces \"%1$s\" ;? Cliquer sur OK pour confirmer..."
+"Supprimer le thème de pièces \"%1$s\"&nbsp;? Cliquer sur OK pour confirmer..."
 
 #: models/adminpage/theming.php
 msgid "My colorset"
@@ -238,7 +238,7 @@ msgstr "Animation des coups"
 #: templates/adminpage/options/general/moveanimation.php
 #, php-format
 msgid "Animation speed: %1$s milliseconds"
-msgstr "Durée de l'animation ;: %1$s millisecondes"
+msgstr "Durée de l'animation&nbsp;: %1$s millisecondes"
 
 #: templates/adminpage/options/general/moveanimation.php
 msgid "Set the animation speed to 0 to disable animations."
@@ -313,7 +313,7 @@ msgstr "Apparance des échiquiers"
 #: templates/adminpage/options/general/boardaspect.php
 #, php-format
 msgid "Square size: %1$s pixels"
-msgstr "Taille des cases ;: %1$s pixels"
+msgstr "Taille des cases&nbsp;: %1$s pixels"
 
 #: templates/adminpage/options/general/boardaspect.php
 #: templates/adminpage/help/fenattributes/main.php
@@ -324,12 +324,12 @@ msgstr "Afficher les coordonnées"
 #: templates/adminpage/options/general/boardaspect.php
 #: templates/adminpage/help/fenattributes/colorsetpieceset.php
 msgid "Colorset:"
-msgstr "Couleurs ;:"
+msgstr "Couleurs&nbsp;:"
 
 #: templates/adminpage/options/general/boardaspect.php
 #: templates/adminpage/help/fenattributes/colorsetpieceset.php
 msgid "Pieceset:"
-msgstr "Pièces ;:"
+msgstr "Pièces&nbsp;:"
 
 #: templates/adminpage/options/general/boardaspect.php
 #, php-format
@@ -406,7 +406,7 @@ msgstr ""
 "défaut les diagrammes et parties d'échecs insérés dans les articles et pages "
 "du blog au moyen des balises %1$s[%3$s][/%3$s]%2$s et %1$s[%4$s][/%4$s]%2$s. "
 "Ils peuvent être modifiés au niveau de chacune des balises en spécifiant des "
-"attributs de balise <em>ad hoc</em> ;: voir l'aide sur les %5$sattributs "
+"attributs de balise <em>ad hoc</em>&nbsp;: voir l'aide sur les %5$sattributs "
 "de diagramme FEN%7$s et sur les %6$sattributs de partie PGN%7$s pour plus de "
 "détails."
 
@@ -561,7 +561,7 @@ msgstr "Largeur d'écran &le; %1$s pixels"
 #: templates/adminpage/options/smallscreens.php
 #, php-format
 msgid "Restrict square size to: %1$s pixels"
-msgstr "Restreindre la taille des cases à ;: %1$s pixels"
+msgstr "Restreindre la taille des cases à&nbsp;: %1$s pixels"
 
 #: templates/adminpage/options/smallscreens.php
 #, php-format
@@ -689,7 +689,7 @@ msgstr "Ajouter un thème"
 #: templates/adminpage/help/pgnattributes/navigationboard.php
 #: templates/adminpage/help/pgnattributes/piecesymbols.php
 msgid "Default"
-msgstr "Par ;défaut"
+msgstr "Par&nbsp;défaut"
 
 #: templates/adminpage/theming/piecesets.php
 #: templates/adminpage/theming/colorsets.php
@@ -817,7 +817,7 @@ msgid ""
 msgstr ""
 "Le thème de pièces %1$sCBurnett%2$s a été créé par %3$sColin M.L. Burnett"
 "%6$s, qui le partage sous licence [CC-BY-SA] sur %4$sWikimedia Commons"
-"%6$s ;; l'utilisateur %5$sAntonsusi%6$s a également travaillé sur ce "
+"%6$s&nbsp;; l'utilisateur %5$sAntonsusi%6$s a également travaillé sur ce "
 "thème."
 
 #: templates/adminpage/about.php
@@ -906,7 +906,7 @@ msgid ""
 "more details."
 msgstr ""
 "Ce programme est distribué dans l'espoir qu'il vous sera utile, mais SANS "
-"AUCUNE GARANTIE ;: sans même la garantie implicite de "
+"AUCUNE GARANTIE&nbsp;: sans même la garantie implicite de "
 "COMMERCIALISABILITÉ ni d'ADÉQUATION À UN OBJECTIF PARTICULIER. Consultez la "
 "<em>GNU General Public License</em> pour plus de détails."
 
@@ -929,7 +929,7 @@ msgstr "Diagramme FEN"
 
 #: templates/adminpage/memo/fen.php
 msgid "White to move and mate in two:"
-msgstr "Trait aux blancs, mat en deux ;:"
+msgstr "Trait aux blancs, mat en deux&nbsp;:"
 
 #: templates/adminpage/memo/fen.php
 msgid ""
@@ -959,7 +959,7 @@ msgstr "Partie PGN"
 #: templates/adminpage/memo/pgn.php
 msgid "Two different syntaxes exist for PGN games:"
 msgstr ""
-"Deux syntaxes différentes existent pour les parties au format PGN ;:"
+"Deux syntaxes différentes existent pour les parties au format PGN&nbsp;:"
 
 #: templates/adminpage/memo/pgn.php
 #, php-format
@@ -1002,7 +1002,7 @@ msgstr "Pas"
 
 #: templates/adminpage/memo/pgn.php
 msgid "would have won more quickly. For instance:"
-msgstr "aurait gagné plus rapidement. Par exemple ;:"
+msgstr "aurait gagné plus rapidement. Par exemple&nbsp;:"
 
 #: templates/adminpage/memo/pgn.php
 msgid "Absolutely forced."
@@ -1170,7 +1170,7 @@ msgid ""
 msgstr ""
 "Plusieurs attributs peuvent être passés aux balises %1$s[%3$s][/%3$s]%2$s "
 "afin de personaliser la façon dont les diagrammes FEN sont affichés. Tous "
-"ces attributs sont optionnels ;: s'ils ne sont pas spécifiés, une valeur "
+"ces attributs sont optionnels&nbsp;: s'ils ne sont pas spécifiés, une valeur "
 "par défaut (définie par l'administrateur du blog) est utilisée. Ces "
 "attributs sont présentés ci-dessous."
 
@@ -1240,7 +1240,7 @@ msgstr "Passer son tour"
 
 #: templates/adminpage/help/pgnsyntax/nullmove.php
 msgid "A standard development scheme for white:"
-msgstr "Un schéma de développement classique pour les blancs ;:"
+msgstr "Un schéma de développement classique pour les blancs&nbsp;:"
 
 #: templates/adminpage/help/pgnsyntax/nullmove.php
 #, php-format
@@ -1254,7 +1254,7 @@ msgid ""
 "The Ruy Lopez: White's third move attacks the knight which defends the e5-"
 "pawn from the attack by the f3-knight."
 msgstr ""
-"L'espagnole ;: le troisième coup des blancs attaque le cavalier "
+"L'espagnole&nbsp;: le troisième coup des blancs attaque le cavalier "
 "défendant le pion e5 de l'attaque du cavalier f3."
 
 #: templates/adminpage/help/pgnsyntax/marker.php
@@ -1270,7 +1270,7 @@ msgid ""
 msgstr ""
 "Il est possible de faire resortir certaines cases en insérant la balise "
 "%1$s[%%csl ...]%2$s dans un commentaire. Les cases à mettre en évidence sont "
-"représentées par un groupe de 3 caractères ;: le premier représente la "
+"représentées par un groupe de 3 caractères&nbsp;: le premier représente la "
 "couleur à utiliser (%1$sG%2$s pour vert, %1$sR%2$s pour rouge, %1$sY%2$s "
 "pour jaune), le second et le troisième désignent la case. Par exemple, "
 "%1$s[%%csl Re5,Gc6,Yf3,Yb5]%2$s fait resortir e5 en rouge, c6 en vert, et f3 "
@@ -1288,7 +1288,7 @@ msgid ""
 msgstr ""
 "De la même manière, des flèches peuvent être ajoutées en insérant la balise "
 "%1$s[%%cal ...]%2$s dans un commentaire. Une flèche est codée par un groupe "
-"de 5 caractères ;: le premier est la couleur à utiliser (%1$sG%2$s, %1$sR"
+"de 5 caractères&nbsp;: le premier est la couleur à utiliser (%1$sG%2$s, %1$sR"
 "%2$s, ou %1$sY%2$s), le second et le troisième représentent la case de "
 "départ de la flèche, le quatrième et le cinquième la case d'arrivée. Par "
 "exemple, %1$s[%%cal Rf3e5,Gd8d4]%2$s crée une flèche rouge de f3 vers e5, et "
@@ -1355,7 +1355,7 @@ msgid ""
 "This opening is called the Sicilian defence. A possible continuation is:"
 msgstr ""
 "Cette ouverture s'appelle la défense sicilienne. Une suite possible "
-"est ;:"
+"est&nbsp;:"
 
 #: templates/adminpage/help/pgnsyntax/diagram.php
 #, php-format
@@ -1524,7 +1524,7 @@ msgstr ""
 "l'échiquier de navigation et des diagrammes insérés dans les commentaires "
 "via la balise %6$s. Ces attributs sont identiques à ceux utiliser pour "
 "personnaliser l'apparence des diagrammes FEN autonomes (ceux insérés via la "
-"balise %7$s) ;: voir %8$sl'aide sur les attributs des diagrammes FEN%9$s "
+"balise %7$s)&nbsp;: voir %8$sl'aide sur les attributs des diagrammes FEN%9$s "
 "pour plus d'information."
 
 #: templates/adminpage/help/pgnattributes/navigationboard.php
@@ -1596,7 +1596,7 @@ msgid ""
 msgstr ""
 "Plusieurs attributs peuvent être passés aux balises %1$s[%3$s][/%3$s]%2$s "
 "afin de personaliser la façon dont les parties PGN sont affichées. Tous ces "
-"attributs sont optionnels ;: s'ils ne sont pas spécifiés, une valeur par "
+"attributs sont optionnels&nbsp;: s'ils ne sont pas spécifiés, une valeur par "
 "défaut (définie par l'administrateur du blog) est utilisée. Ces attributs "
 "sont présentés ci-dessous."
 
