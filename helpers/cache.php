@@ -26,46 +26,28 @@
 abstract class RPBChessboardHelperCache {
 
 	/**
-	 * Return the given cached data
+	 * Return the text data corresponding to the given key.
 	 *
 	 * @param string $cacheKey
+	 * @param string $templateName Template to use to generate the text data, if necessary.
+	 * @param string $modelName Model to use to generate the text data, if necessary.
 	 * @return string
 	 */
-	public static function get( $cacheKey ) {
-		return wp_cache_get( $cacheKey );
-	}
-
-	/**
-	 * Return the version of the given cached file.
-	 *
-	 * @param string $cacheKey
-	 * @return string
-	 */
-	public static function getVersion( $cacheKey ) {
-		return get_option( 'rpbchessboard_cache_' . $cacheKey, '0' );
-	}
-
-	/**
-	 * Write a file into the cache. Nothing happens if the file already exists.
-	 *
-	 * @param string $cacheKey
-	 * @param string $templateName Template to use to generate the file, if necessary.
-	 * @param string $modelName Model to use to generate the file, if necessary.
-	 */
-	public static function ensureExists( $cacheKey, $templateName, $modelName ) {
-		if ( false !== wp_cache_get( $cacheKey ) ) {
-			return;
+	public static function get( $cacheKey, $templateName, $modelName ) {
+		$result = wp_cache_get( $cacheKey );
+		if ( false !== $result ) {
+			return $result;
 		}
 
 		$model = RPBChessboardHelperLoader::loadModel( $modelName );
-		$text  = RPBChessboardHelperLoader::printTemplateOffScreen( $templateName, $model );
+		$result = RPBChessboardHelperLoader::printTemplateOffScreen( $templateName, $model );
 
-		wp_cache_set( $cacheKey, $text );
-		update_option( 'rpbchessboard_cache_' . $cacheKey, uniqid() );
+		wp_cache_set( $cacheKey, $result );
+		return $result;
 	}
 
 	/**
-	 * Remove the given file from the cache.
+	 * Remove the given text data from the cache.
 	 *
 	 * @param string $cacheKey
 	 */

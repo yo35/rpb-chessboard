@@ -52,7 +52,6 @@ abstract class RPBChessboardStyleSheets {
 
 
 	private static function enqueueCachedStyle( $handle, $cacheKey, $templateName, $modelName ) {
-		RPBChessboardHelperCache::ensureExists( $cacheKey, $templateName, $modelName );
-		wp_add_inline_style( $handle, RPBChessboardHelperCache::get( $cacheKey ) );
+		wp_add_inline_style( $handle, RPBChessboardHelperCache::get( $cacheKey, $templateName, $modelName ) );
 	}
 }
