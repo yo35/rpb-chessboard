@@ -986,7 +986,7 @@
 		// Build and return the header
 		var header = document.createElement( 'div' );
 		header.setAttribute( 'class', 'rpbui-chessgame-event' );
-		header.innerHTML = event;
+		header.textContent = event;
 
 		if ( null !== round ) {
 			var round = document.createElement( 'span' );
@@ -1253,7 +1253,7 @@
 				result.setAttribute( key, value );
 			}
 		}
-		result.innerHTML = node.comment();
+		result.textContent = node.comment();
 
 		return result.outerHTML;
 	}
