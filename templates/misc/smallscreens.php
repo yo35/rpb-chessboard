@@ -18,6 +18,7 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.   *
  *                                                                            *
  ******************************************************************************/
+
 ?>
 
 <?php
@@ -27,25 +28,26 @@ if ( ! $model->getSmallScreenCompatibility() ) {
 ?>
 
 <?php foreach ( $model->getSmallScreenModes() as $mode ) : ?>
-<?php $smallScreenData = $model->getSmallScreenModeMainData( $mode );
+<?php
+	$smallScreenData = $model->getSmallScreenModeMainData( $mode );
 	if ( $smallScreenData['min'] ) { ?>
 		@media all and (max-width: <?php echo intval( $smallScreenData['max'] ) ?>px and (min-width: <?php echo intval( $smallScreenData['min'] ) ?>px {
 	<?php } else { ?>
 		@media all and (max-width: <?php echo intval( $smallScreenData['max'] ) ?>px {
-	} ?>
+	<?php } ?>
 
 	<?php if ( $model->hasSmallScreenSizeSquareSizeSection( $mode ) ) : ?>
 
-	<?php echo sanitize_html_class( $model->getSmallScreenModeSquareSizeSelector( $mode ) ); ?> {
+	<?php
+		RPBChessboardModelCommonSmallScreens::printSelectorList( $model->getSmallScreenModeSquareSizeSelectorList( $mode ) ); ?> {
 		min-width: <?php echo intval( $mode->squareSize ); ?>px;
 		width    : <?php echo intval( $mode->squareSize ); ?>px;
 		height   : <?php echo intval( $mode->squareSize ); ?>px;
-		background-position:
-			<?php echo intval( $model->getBackgroundPositionXForSquareSize( $mode->squareSize ) ); ?>px
-			<?php echo intval( $model->getBackgroundPositionYForSquareSize( $mode->squareSize ) ); ?>px;
+		background-position: <?php echo intval( $model->getBackgroundPositionXForSquareSize( $mode->squareSize ) ); ?>px <?php echo intval( $model->getBackgroundPositionYForSquareSize( $mode->squareSize ) ); ?>px;
 	}
 
-	<?php echo sanitize_html_class( $model->getSmallScreenModeAnnotationLayerSelector( $mode ) ); ?> {
+	<?php
+		RPBChessboardModelCommonSmallScreens::printSelectorList( $model->getSmallScreenModeAnnotationLayerSelectorList( $mode ) ); ?> {
 		width : <?php echo intval( $model->getHeightWidthForAnnotationLayer( $mode->squareSize ) ); ?>px;
 		height: <?php echo intval( $model->getHeightWidthForAnnotationLayer( $mode->squareSize ) ); ?>px;
 		right : <?php echo intval( $model->getRightForAnnotationLayer( $mode->squareSize ) ); ?>px;
