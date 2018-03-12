@@ -139,7 +139,7 @@ class RPBChessboardModelCommonSmallScreens extends RPBChessboardAbstractModel {
 		for ( $size = $mode->squareSize + 1; $size <= RPBChessboardHelperValidation::MAXIMUM_SQUARE_SIZE; ++$size ) {
 			array_push( $selectors, '.rpbui-chessboard-size' . $size . ' .rpbui-chessboard-sized' );
 		}
-		return implode( ',', $selectors );
+		return $selectors;
 	}
 
 
@@ -153,7 +153,7 @@ class RPBChessboardModelCommonSmallScreens extends RPBChessboardAbstractModel {
 		for ( $size = $mode->squareSize + 1; $size <= RPBChessboardHelperValidation::MAXIMUM_SQUARE_SIZE; ++$size ) {
 			array_push( $selectors, '.rpbui-chessboard-size' . $size . ' .rpbui-chessboard-annotations' );
 		}
-		return implode( ',', $selectors );
+		return $selectors;
 	}
 
 
