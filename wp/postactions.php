@@ -83,6 +83,7 @@ abstract class RPBChessboardPostActions {
 	 * @param string $capability Required capability to execute the action. Default is `'manage_options'`.
 	 */
 	private static function executeAction( $postModelName, $methodName, $capability = 'manage_options' ) {
+		check_admin_referer( 'rpbchessboard_post_action' );
 		if ( ! current_user_can( $capability ) ) {
 			return;
 		}

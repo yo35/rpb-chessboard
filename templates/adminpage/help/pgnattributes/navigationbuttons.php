@@ -97,7 +97,7 @@
 				echo sprintf(
 					'[%1$s <strong>show_flip_button=<span id="rpbchessboard-pgnAttributeShowFlipButton-sourceCodeExample">false</span></strong> ' .
 					'<strong>show_download_button=<span id="rpbchessboard-pgnAttributeShowDownloadButton-sourceCodeExample">false</span></strong>] ... [/%1$s]',
-					htmlspecialchars( $model->getPGNShortcode() )
+					esc_html( $model->getPGNShortcode() )
 				);
 			?>
 		</div>

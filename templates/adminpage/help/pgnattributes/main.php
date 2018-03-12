@@ -35,7 +35,7 @@
 				),
 				'<span class="rpbchessboard-sourceCode">',
 				'</span>',
-				htmlspecialchars( $model->getPGNShortcode() )
+				esc_html( $model->getPGNShortcode() )
 			);
 		?>
 	</p>

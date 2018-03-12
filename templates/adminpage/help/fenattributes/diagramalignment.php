@@ -66,7 +66,7 @@
 			<?php
 				echo sprintf(
 					'[%1$s <strong>align=<span id="rpbchessboard-fenAttributeDiagramAlignment-sourceCodeExample">center</span></strong>] ... [/%1$s]',
-					htmlspecialchars( $model->getFENShortcode() )
+					esc_html( $model->getFENShortcode() )
 				);
 			?>
 		</div>

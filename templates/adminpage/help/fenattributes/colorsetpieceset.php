@@ -38,8 +38,8 @@
 			<label for="rpbchessboard-fenAttributeColorset-field"><?php _e( 'Colorset:', 'rpb-chessboard' ); ?></label>
 			<select id="rpbchessboard-fenAttributeColorset-field">
 				<?php foreach ( $model->getAvailableColorsets() as $colorset ) : ?>
-				<option value="<?php echo htmlspecialchars( $colorset ); ?>">
-					<?php echo htmlspecialchars( $model->getColorsetLabel( $colorset ) ); ?>
+				<option value="<?php echo esc_attr( $colorset ); ?>">
+					<?php echo esc_html( $model->getColorsetLabel( $colorset ) ); ?>
 				</option>
 				<?php endforeach; ?>
 			</select>
@@ -49,8 +49,8 @@
 			<label for="rpbchessboard-fenAttributePieceset-field"><?php _e( 'Pieceset:', 'rpb-chessboard' ); ?></label>
 			<select id="rpbchessboard-fenAttributePieceset-field">
 				<?php foreach ( $model->getAvailablePiecesets() as $pieceset ) : ?>
-				<option value="<?php echo htmlspecialchars( $pieceset ); ?>">
-					<?php echo htmlspecialchars( $model->getPiecesetLabel( $pieceset ) ); ?>
+				<option value="<?php echo esc_attr( $pieceset ); ?>">
+					<?php echo esc_html( $model->getPiecesetLabel( $pieceset ) ); ?>
 				</option>
 				<?php endforeach; ?>
 			</select>
@@ -64,7 +64,7 @@
 				echo sprintf(
 					'[%1$s <strong>colorset=<span id="rpbchessboard-fenAttributeColorset-sourceCodeExample">original</span></strong> ' .
 					'<strong>pieceset=<span id="rpbchessboard-fenAttributePieceset-sourceCodeExample">cburnett</span></strong>] ... [/%1$s]',
-					htmlspecialchars( $model->getFENShortcode() )
+					esc_html( $model->getFENShortcode() )
 				);
 			?>
 		</div>

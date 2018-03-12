@@ -26,7 +26,7 @@
 	<div>
 
 		<div class="rpbchessboard-sourceCode">
-			[<?php echo htmlspecialchars( $model->getPGNShortcode() ); ?>]<br/>
+			[<?php echo esc_html( $model->getPGNShortcode() ); ?>]<br/>
 			1. e4 e5 2. Nf3<br/>
 			<br/>
 			{[pgndiagram][%csl Re5][%cal Rf3e5]}<br/>
@@ -43,7 +43,7 @@
 			}<br/>
 			<br/>
 			*<br/>
-			[/<?php echo htmlspecialchars( $model->getPGNShortcode() ); ?>]
+			[/<?php echo esc_html( $model->getPGNShortcode() ); ?>]
 		</div>
 
 		<p>

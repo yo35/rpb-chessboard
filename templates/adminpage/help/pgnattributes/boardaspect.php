@@ -27,7 +27,7 @@
 		echo sprintf(
 			'[%1$s <strong>flip</strong>=... <strong>square_size</strong>=... <strong>show_coordinates</strong>=... ' .
 			'<strong>colorset</strong>=... <strong>pieceset</strong>=...] ... [/%1$s]',
-			htmlspecialchars( $model->getPGNShortcode() )
+			esc_html( $model->getPGNShortcode() )
 		);
 	?>
 </div>
@@ -47,8 +47,8 @@
 			'<span class="rpbchessboard-sourceCode">colorset</span>',
 			'<span class="rpbchessboard-sourceCode">pieceset</span>',
 			'<span class="rpbchessboard-sourceCode">[pgndiagram]</span>',
-			sprintf( '<span class="rpbchessboard-sourceCode">[%1$s][/%1$s]</span>', htmlspecialchars( $model->getFENShortcode() ) ),
-			'<a href="' . htmlspecialchars( $model->getHelpOnFENAttributesURL() ) . '">',
+			sprintf( '<span class="rpbchessboard-sourceCode">[%1$s][/%1$s]</span>', esc_html( $model->getFENShortcode() ) ),
+			'<a href="' . esc_url( $model->getHelpOnFENAttributesURL() ) . '">',
 			'</a>'
 		);
 	?>

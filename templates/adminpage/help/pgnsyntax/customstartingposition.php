@@ -26,7 +26,7 @@
 	<div>
 
 		<div class="rpbchessboard-sourceCode">
-			[<?php echo htmlspecialchars( $model->getPGNShortcode() ); ?>]<br/>
+			[<?php echo esc_html( $model->getPGNShortcode() ); ?>]<br/>
 			<br/>
 			[Event &quot;<?php _e( 'Endgame example', 'rpb-chessboard' ); ?>&quot;]<br/>
 			[SetUp &quot;1&quot;]<br/>
@@ -36,16 +36,15 @@
 			<br/>
 			50.Bc6+ Nxc6 51.c8=Q+ Nb8 52.Qb7# 1-0<br/>
 			<br/>
-			[/<?php echo htmlspecialchars( $model->getPGNShortcode() ); ?>]
+			[/<?php echo esc_html( $model->getPGNShortcode() ); ?>]
 		</div>
 
 		<p>
 			<?php
-				echo sprintf(
-					__(
-						'The %1$s[FEN &quot;...&quot;]%2$s header might be used to specify that the game ' .
-						'starts with a custom position. Additionally, the strict PGN syntax requires that ' .
-						'%1$s[SetUp &quot;1&quot;]%2$s is added when using the %1$s[FEN &quot;...&quot;]%2$s header.',
+				printf(
+					esc_html__(
+						'The %1$s[FEN "..."]%2$s header might be used to specify that the game starts with a custom position. Additionally, the strict ' .
+						'PGN syntax requires that %1$s[SetUp "1"]%2$s is added when using the %1$s[FEN "..."]%2$s header.',
 						'rpb-chessboard'
 					),
 					'<span class="rpbchessboard-sourceCode">',
