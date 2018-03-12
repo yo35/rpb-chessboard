@@ -993,7 +993,7 @@
 			round.setAttribute( 'class', 'rpbui-chessgame-round' );
 			round.textContent = round;
 
-			header.appendChild( round )
+			header.appendChild( round );
 		}
 
 		return header;
