@@ -119,12 +119,12 @@ class RPBChessboardModelCommonSmallScreens extends RPBChessboardAbstractModel {
 	 *
 	 * @return string
 	 */
-	public function getSmallScreenModeMainSelector( $mode ) {
-		$res = '@media all';
+	public function getSmallScreenModeMainData( $mode ) {
+		$res = [ 'min' => false ];
 		if ( $mode->minScreenWidth > 0 ) {
-			$res .= ' and (min-width:' . ( $mode->minScreenWidth + 1 ) . 'px)';
+			$res['min'] = $mode->minScreenWidth + 1;
 		}
-		$res .= ' and (max-width:' . $mode->maxScreenWidth . 'px)';
+		$res['max'] = $mode->maxScreenWidth;
 		return $res;
 	}
 
@@ -134,12 +134,12 @@ class RPBChessboardModelCommonSmallScreens extends RPBChessboardAbstractModel {
 	 *
 	 * @return string
 	 */
-	public function getSmallScreenModeSquareSizeSelector( $mode ) {
+	public function getSmallScreenModeSquareSizeSelectorList( $mode ) {
 		$selectors = array();
 		for ( $size = $mode->squareSize + 1; $size <= RPBChessboardHelperValidation::MAXIMUM_SQUARE_SIZE; ++$size ) {
-			array_push( $selectors, '.rpbui-chessboard-size' . $size . ' .rpbui-chessboard-sized' );
+			array_push( $selectors, [ '.rpbui-chessboard-size' . $size, '.rpbui-chessboard-sized' ] );
 		}
-		return implode( ',', $selectors );
+		return $selectors;
 	}
 
 
@@ -148,12 +148,27 @@ class RPBChessboardModelCommonSmallScreens extends RPBChessboardAbstractModel {
 	 *
 	 * @return string
 	 */
-	public function getSmallScreenModeAnnotationLayerSelector( $mode ) {
+	public function getSmallScreenModeAnnotationLayerSelectorList( $mode ) {
 		$selectors = array();
 		for ( $size = $mode->squareSize + 1; $size <= RPBChessboardHelperValidation::MAXIMUM_SQUARE_SIZE; ++$size ) {
-			array_push( $selectors, '.rpbui-chessboard-size' . $size . ' .rpbui-chessboard-annotations' );
+			array_push( $selectors, [ '.rpbui-chessboard-size' . $size, ' .rpbui-chessboard-annotations' ] );
 		}
-		return implode( ',', $selectors );
+		return $selectors;
+	}
+
+	/**
+	 * Print a sanitized selector list
+	 *
+	 * @param array $selectorList
+	 */
+	public static function printSelectorList( $selectorList ) {
+		$selectorListCount = count( $selectorList );
+		for ( $index = 0; $index < $selectorListCount; $index ++ ) {
+			echo '.' . sanitize_html_class( $selectorList[ $index ][0] ) . ' .' . sanitize_html_class( $selectorList[ $index ][1] );
+			if ( $index !== $selectorListCount - 1 ) {
+				echo ', ';
+			}
+		}
 	}
 
 
