@@ -50,10 +50,10 @@
 		</tr>
 
 		<?php foreach ( $model->getAvailablePiecesets() as $pieceset ) : ?>
-		<tr data-slug="<?php echo htmlspecialchars( $pieceset ); ?>">
+		<tr data-slug="<?php echo esc_attr( $pieceset ); ?>">
 
 			<td class="has-row-actions">
-				<strong class="row-title"><?php echo htmlspecialchars( $model->getPiecesetLabel( $pieceset ) ); ?></strong>
+				<strong class="row-title"><?php echo esc_html( $model->getPiecesetLabel( $pieceset ) ); ?></strong>
 				<span class="row-actions rpbchessboard-inlinedRowActions">
 					<?php if ( $model->isBuiltinPieceset( $pieceset ) ) : ?>
 					<span><a href="#" class="rpbchessboard-action-setDefault"><?php _e( 'Set default', 'rpb-chessboard' ); ?></a></span>
@@ -65,7 +65,7 @@
 				</span>
 			</td>
 
-			<td><?php echo htmlspecialchars( $pieceset ); ?></td>
+			<td><?php echo esc_html( $pieceset ); ?></td>
 
 			<td>
 				<?php if ( $model->isDefaultPieceset( $pieceset ) ) : ?>

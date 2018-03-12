@@ -21,9 +21,10 @@
 ?>
 
 <td colspan="3" <?php echo $isNew ? 'id="rpbchessboard-setCodeCreator"' : 'class="rpbchessboard-setCodeEditor"'; ?> >
-	<form class="rpbchessboard-inlineForm" action="<?php echo htmlspecialchars( $model->getFormActionURL() ); ?>" method="post">
+	<form class="rpbchessboard-inlineForm" action="<?php echo esc_attr( $model->getFormActionURL() ); ?>" method="post">
 
-		<input type="hidden" name="rpbchessboard_action" value="<?php echo htmlspecialchars( $model->getFormAction( $isNew ) ); ?>" />
+		<input type="hidden" name="rpbchessboard_action" value="<?php echo esc_attr( $model->getFormAction( $isNew ) ); ?>" />
+		<?php wp_nonce_field( 'rpbchessboard_post_action' ); ?>
 
 		<div class="rpbchessboard-inlineFormTitle">
 			<?php $isNew ? _e( 'New colorset', 'rpb-chessboard' ) : _e( 'Edit colorset', 'rpb-chessboard' ); ?>
@@ -33,7 +34,7 @@
 			<label>
 				<span><?php _e( 'Name', 'rpb-chessboard' ); ?></span>
 				<input type="text" name="label"
-					value="<?php echo htmlspecialchars( $isNew ? $model->getLabelProposalForNewSetCode() : $model->getCustomColorsetLabel( $colorset ) ); ?>" />
+					value="<?php echo esc_attr( $isNew ? $model->getLabelProposalForNewSetCode() : $model->getCustomColorsetLabel( $colorset ) ); ?>" />
 			</label>
 		</div>
 
@@ -45,7 +46,7 @@
 			</label>
 		</div>
 		<?php else : ?>
-		<input type="hidden" name="colorset" value="<?php echo htmlspecialchars( $colorset ); ?>" />
+		<input type="hidden" name="colorset" value="<?php echo esc_attr( $colorset ); ?>" />
 		<?php endif; ?>
 
 		<div class="rpbchessboard-columns">
@@ -54,7 +55,7 @@
 				<label>
 					<span><?php _e( 'Dark squares', 'rpb-chessboard' ); ?></span>
 					<input type="text" size="7" maxlength="7" class="rpbchessboard-darkSquareColorField" name="darkSquareColor"
-						value="<?php echo htmlspecialchars( $isNew ? $model->getRandomDarkSquareColor() : $model->getDarkSquareColor( $colorset ) ); ?>" />
+						value="<?php echo esc_attr( $isNew ? $model->getRandomDarkSquareColor() : $model->getDarkSquareColor( $colorset ) ); ?>" />
 				</label>
 				<div>
 					<div class="rpbchessboard-darkSquareColorSelector"></div>
@@ -65,7 +66,7 @@
 				<label>
 					<span><?php _e( 'Light squares', 'rpb-chessboard' ); ?></span>
 					<input type="text" size="7" maxlength="7" class="rpbchessboard-lightSquareColorField" name="lightSquareColor"
-						value="<?php echo htmlspecialchars( $isNew ? $model->getRandomLightSquareColor() : $model->getLightSquareColor( $colorset ) ); ?>" />
+						value="<?php echo esc_attr( $isNew ? $model->getRandomLightSquareColor() : $model->getLightSquareColor( $colorset ) ); ?>" />
 				</label>
 				<div>
 					<div class="rpbchessboard-lightSquareColorSelector"></div>
@@ -76,7 +77,7 @@
 
 		<p class="submit rpbchessboard-inlineFormButtons">
 			<input type="submit" class="button-primary" value="<?php $isNew ? _e( 'Create colorset', 'rpb-chessboard' ) : _e( 'Save changes', 'rpb-chessboard' ); ?>" />
-			<a class="button" href="<?php echo htmlspecialchars( $model->getFormActionURL() ); ?>"><?php _e( 'Cancel', 'rpb-chessboard' ); ?></a>
+			<a class="button" href="<?php echo esc_url( $model->getFormActionURL() ); ?>"><?php _e( 'Cancel', 'rpb-chessboard' ); ?></a>
 		</p>
 
 	</form>

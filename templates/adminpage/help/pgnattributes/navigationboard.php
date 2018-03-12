@@ -112,7 +112,7 @@
 			<?php
 				echo sprintf(
 					'[%1$s <strong>navigation_board=<span id="rpbchessboard-pgnAttributeNavigationBoard-sourceCodeExample">none</span></strong>] ... [/%1$s]',
-					htmlspecialchars( $model->getPGNShortcode() )
+					esc_html( $model->getPGNShortcode() )
 				);
 			?>
 		</div>

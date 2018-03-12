@@ -43,10 +43,10 @@
 		</tr>
 
 		<?php foreach ( $model->getAvailableColorsets() as $colorset ) : ?>
-		<tr data-slug="<?php echo htmlspecialchars( $colorset ); ?>">
+		<tr data-slug="<?php echo esc_attr( $colorset ); ?>">
 
 			<td class="has-row-actions">
-				<strong class="row-title"><?php echo htmlspecialchars( $model->getColorsetLabel( $colorset ) ); ?></strong>
+				<strong class="row-title"><?php echo esc_html( $model->getColorsetLabel( $colorset ) ); ?></strong>
 				<span class="row-actions rpbchessboard-inlinedRowActions">
 					<?php if ( $model->isBuiltinColorset( $colorset ) ) : ?>
 					<span><a href="#" class="rpbchessboard-action-setDefault"><?php _e( 'Set default', 'rpb-chessboard' ); ?></a></span>
@@ -58,7 +58,7 @@
 				</span>
 			</td>
 
-			<td><?php echo htmlspecialchars( $colorset ); ?></td>
+			<td><?php echo esc_html( $colorset ); ?></td>
 
 			<td>
 				<?php if ( $model->isDefaultColorset( $colorset ) ) : ?>
