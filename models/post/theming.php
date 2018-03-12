@@ -93,8 +93,11 @@ abstract class RPBChessboardModelPostTheming extends RPBChessboardAbstractModel 
 
 	private function processLabel( $setCode ) {
 		if ( isset( $_POST['label'] ) ) {
-			update_option( 'rpbchessboard_custom_' . $this->getManagedSetCode() . '_label_' . $setCode, $_POST['label'] );
-			return true;
+			$value = RPBChessboardHelperValidation::validateString( $_POST['label'] );
+			if( isset( $value ) ) {
+				update_option( 'rpbchessboard_custom_' . $this->getManagedSetCode() . '_label_' . $setCode, $value );
+				return true;
+			}
 		}
 		return false;
 	}

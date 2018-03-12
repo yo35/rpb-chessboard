@@ -43,14 +43,14 @@ class RPBChessboardModelAdminPageHelp extends RPBChessboardAbstractModelAdminPag
 			__( '%1$s[%3$s][/%3$s]%2$s tag attributes', 'rpb-chessboard' ),
 			'<span class="rpbchessboard-sourceCode">',
 			'</span>',
-			htmlspecialchars( $this->getFENShortcode() )
+			$this->getFENShortcode()
 		);
 
 		$pgnAttrLabel = sprintf(
 			__( '%1$s[%3$s][/%3$s]%2$s tag attributes', 'rpb-chessboard' ),
 			'<span class="rpbchessboard-sourceCode">',
 			'</span>',
-			htmlspecialchars( $this->getPGNShortcode() )
+			$this->getPGNShortcode()
 		);
 
 		// Create the sub-pages.

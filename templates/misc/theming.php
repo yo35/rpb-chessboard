@@ -22,12 +22,12 @@
 
 <?php foreach ( $model->getCustomColorsets() as $colorset ) : ?>
 
-.rpbui-chessboard-colorset-<?php echo htmlspecialchars( $colorset ); ?> .rpbui-chessboard-darkSquare {
-	background-color: <?php echo htmlspecialchars( $model->getDarkSquareColor( $colorset ) ); ?>;
+.<?php echo sanitize_html_class( 'rpbui-chessboard-colorset-' . $colorset ); ?> .rpbui-chessboard-darkSquare {
+	background-color: <?php echo sanitize_hex_color( $model->getDarkSquareColor( $colorset ) ); ?>;
 }
 
-.rpbui-chessboard-colorset-<?php echo htmlspecialchars( $colorset ); ?> .rpbui-chessboard-lightSquare {
-	background-color: <?php echo htmlspecialchars( $model->getLightSquareColor( $colorset ) ); ?>;
+.<?php echo sanitize_html_class( 'rpbui-chessboard-colorset-' . $colorset ); ?> .rpbui-chessboard-lightSquare {
+	background-color: <?php echo sanitize_hex_color( $model->getLightSquareColor( $colorset ) ); ?>;
 }
 
 <?php endforeach; ?>
@@ -37,14 +37,14 @@
 <?php foreach ( array( 'b', 'w' ) as $color ) : ?>
 
 <?php foreach ( array( 'p', 'n', 'b', 'r', 'q', 'k' ) as $piece ) : ?>
-.rpbui-chessboard-pieceset-<?php echo htmlspecialchars( $pieceset ); ?>
-	.rpbui-chessboard-color-<?php echo $color; ?>.rpbui-chessboard-piece-<?php echo $piece; ?>
-	{ background-image: url(<?php echo htmlspecialchars( $model->getCustomPiecesetSpriteURL( $pieceset, $color . $piece ) ); ?>); }
+.<?php echo sanitize_html_class( 'rpbui-chessboard-pieceset-' . $pieceset ); ?>
+	.<?php echo sanitize_html_class( 'rpbui-chessboard-color-' . $color ); ?>.<?php echo sanitize_html_class( 'rpbui-chessboard-piece-' . $piece ); ?>
+	{ background-image: url(<?php echo esc_url( $model->getCustomPiecesetSpriteURL( $pieceset, $color . $piece ) ); ?>); }
 <?php endforeach; ?>
 
-.rpbui-chessboard-pieceset-<?php echo htmlspecialchars( $pieceset ); ?>
-	.rpbui-chessboard-color-<?php echo $color; ?>.rpbui-chessboard-turnFlag
-	{ background-image: url(<?php echo htmlspecialchars( $model->getCustomPiecesetSpriteURL( $pieceset, $color . 'x' ) ); ?>); }
+.<?php echo sanitize_html_class( 'rpbui-chessboard-pieceset-' . $pieceset ); ?>
+	.<?php echo sanitize_html_class( 'rpbui-chessboard-color-' . $color ); ?>.rpbui-chessboard-turnFlag
+	{ background-image: url(<?php echo esc_url( $model->getCustomPiecesetSpriteURL( $pieceset, $color . 'x' ) ); ?>); }
 
 <?php endforeach; ?>
 <?php endforeach; ?>

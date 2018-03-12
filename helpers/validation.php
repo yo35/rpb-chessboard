@@ -256,4 +256,15 @@ abstract class RPBChessboardHelperValidation {
 			return null;
 		}
 	}
+
+
+	/**
+	 * Validate a boolean specified as a string.
+	 *
+	 * @param mixed $value
+	 * @return string May be null is the value is not valid.
+	 */
+	public static function validateString( $value ) {
+		return is_string( $value ) ? $value : null;
+	}
 }

@@ -51,32 +51,32 @@
 <p class="rpbui-chessboard-size40">
 	<label for="rpbchessboard-kingSymbolField" class="rpbchessboard-pieceSymbolLabel rpbui-chessboard-piece-k rpbui-chessboard-color-w rpbui-chessboard-sized"></label>
 	<input id="rpbchessboard-kingSymbolField" class="rpbchessboard-pieceSymbolField" type="text" name="kingSymbol" size="1" maxLength="1"
-		value="<?php echo htmlspecialchars( $model->getPieceSymbolCustomValue( 'K' ) ); ?>"
+		value="<?php echo esc_attr( $model->getPieceSymbolCustomValue( 'K' ) ); ?>"
 	/>
 
 	<label for="rpbchessboard-queenSymbolField" class="rpbchessboard-pieceSymbolLabel rpbui-chessboard-piece-q rpbui-chessboard-color-w rpbui-chessboard-sized"></label>
 	<input id="rpbchessboard-queenSymbolField" class="rpbchessboard-pieceSymbolField" type="text" name="queenSymbol" size="1" maxLength="1"
-		value="<?php echo htmlspecialchars( $model->getPieceSymbolCustomValue( 'Q' ) ); ?>"
+		value="<?php echo esc_attr( $model->getPieceSymbolCustomValue( 'Q' ) ); ?>"
 	/>
 
 	<label for="rpbchessboard-rookSymbolField" class="rpbchessboard-pieceSymbolLabel rpbui-chessboard-piece-r rpbui-chessboard-color-w rpbui-chessboard-sized"></label>
 	<input id="rpbchessboard-rookSymbolField" class="rpbchessboard-pieceSymbolField" type="text" name="rookSymbol" size="1" maxLength="1"
-		value="<?php echo htmlspecialchars( $model->getPieceSymbolCustomValue( 'R' ) ); ?>"
+		value="<?php echo esc_attr( $model->getPieceSymbolCustomValue( 'R' ) ); ?>"
 	/>
 
 	<label for="rpbchessboard-bishopSymbolField" class="rpbchessboard-pieceSymbolLabel rpbui-chessboard-piece-b rpbui-chessboard-color-w rpbui-chessboard-sized"></label>
 	<input id="rpbchessboard-bishopSymbolField" class="rpbchessboard-pieceSymbolField" type="text" name="bishopSymbol" size="1" maxLength="1"
-		value="<?php echo htmlspecialchars( $model->getPieceSymbolCustomValue( 'B' ) ); ?>"
+		value="<?php echo esc_attr( $model->getPieceSymbolCustomValue( 'B' ) ); ?>"
 	/>
 
 	<label for="rpbchessboard-knightSymbolField" class="rpbchessboard-pieceSymbolLabel rpbui-chessboard-piece-n rpbui-chessboard-color-w rpbui-chessboard-sized"></label>
 	<input id="rpbchessboard-knightSymbolField" class="rpbchessboard-pieceSymbolField" type="text" name="knightSymbol" size="1" maxLength="1"
-		value="<?php echo htmlspecialchars( $model->getPieceSymbolCustomValue( 'N' ) ); ?>"
+		value="<?php echo esc_attr( $model->getPieceSymbolCustomValue( 'N' ) ); ?>"
 	/>
 
 	<label for="rpbchessboard-pawnSymbolField" class="rpbchessboard-pieceSymbolLabel rpbui-chessboard-piece-p rpbui-chessboard-color-w rpbui-chessboard-sized"></label>
 	<input id="rpbchessboard-pawnSymbolField" class="rpbchessboard-pieceSymbolField" type="text" name="pawnSymbol" size="1" maxLength="1"
-		value="<?php echo htmlspecialchars( $model->getPieceSymbolCustomValue( 'P' ) ); ?>"
+		value="<?php echo esc_attr( $model->getPieceSymbolCustomValue( 'P' ) ); ?>"
 	/>
 </p>
 
