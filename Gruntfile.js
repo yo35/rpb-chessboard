@@ -1,7 +1,7 @@
 module.exports = function( grunt ) {
 
 	// Project configuration
-	grunt.initConfig( {
+	grunt.initConfig({
 		pkg: grunt.file.readJSON( 'package.json' ),
 
 		phpcs: {
@@ -13,12 +13,28 @@ module.exports = function( grunt ) {
 				standard: 'phpcs.xml'
 			}
 		},
-	} );
+
+		uglify: {
+			all: {
+				files: [ {
+					expand: true,
+					cwd: 'js',
+					src: [ '*.js', '!*.min.js' ],
+					dest: 'js',
+					ext: '.min.js'
+				} ]
+			}
+		}
+	});
 
 	grunt.loadNpmTasks( 'grunt-phpcs' );
+	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 
-	// PHP Only
+	// PHP
 	grunt.registerTask( 'php', [ 'phpcs' ] );
+
+	// JavaScript
+	grunt.registerTask( 'js', [ 'uglify' ] );
 
 	// Default task.
 	grunt.registerTask( 'default', [ 'php' ] );
