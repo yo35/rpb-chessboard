@@ -39,12 +39,27 @@ module.exports = function( grunt ) {
 					ext: '.min.js'
 				} ]
 			}
+		},
+
+		shell: {
+			stats: {
+				command: [
+					"echo",
+					"echo '\033[34;1mJavaScript source code\033[0m'",
+					"assets/dev-tools/statistics.sh `find js -name '*.js' -not -name '*.min.js'`",
+					"echo",
+					"echo '\033[34;1mPHP source code\033[0m'",
+					"assets/dev-tools/statistics.sh `find rpb-chessboard.php css fonts helpers images js languages models templates wp -name '*.php'`",
+					"echo"
+				].join( '&&' )
+			}
 		}
 	});
 
 	grunt.loadNpmTasks( 'grunt-phpcs' );
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 	grunt.loadNpmTasks( 'grunt-eslint' );
+	grunt.loadNpmTasks( 'grunt-shell' );
 
 	// PHP
 	grunt.registerTask( 'php', [ 'phpcs' ] );
@@ -52,8 +67,11 @@ module.exports = function( grunt ) {
 	// JavaScript
 	grunt.registerTask( 'js', [ 'eslint', 'uglify' ] );
 
+	// Shell
+	grunt.registerTask( 'stats', [ 'shell' ] );
+
 	// Default task.
-	grunt.registerTask( 'default', [ 'php' ] );
+	grunt.registerTask( 'default', [ 'php', 'js' ] );
 
 	grunt.util.linefeed = '\n';
 };
