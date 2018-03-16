@@ -53,13 +53,22 @@ module.exports = function( grunt ) {
 					"echo"
 				].join( '&&' )
 			}
-		}
+		},
+
+		clean: [
+			'.temp',
+			'cache',
+			'rpb-chessboard.zip',
+			'languages/*.mo',
+			'js/*.min.js'
+		]
 	});
 
 	grunt.loadNpmTasks( 'grunt-phpcs' );
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 	grunt.loadNpmTasks( 'grunt-eslint' );
 	grunt.loadNpmTasks( 'grunt-shell' );
+	grunt.loadNpmTasks( 'grunt-contrib-clean' );
 
 	// PHP
 	grunt.registerTask( 'php', [ 'phpcs' ] );
