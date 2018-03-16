@@ -69,6 +69,9 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-eslint' );
 	grunt.loadNpmTasks( 'grunt-shell' );
 	grunt.loadNpmTasks( 'grunt-contrib-clean' );
+	grunt.loadNpmTasks( 'grunt-mkdir' );
+	grunt.loadNpmTasks( 'grunt-contrib-copy' );
+
 
 	// PHP
 	grunt.registerTask( 'php', [ 'phpcs' ] );
