@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-pgnCustomStartingPosition"><?php _e( 'Custom starting position', 'rpb-chessboard' ); ?></h3>
+<h3 id="rpbchessboard-pgnCustomStartingPosition"><?php esc_html_e( 'Custom starting position', 'rpb-chessboard' ); ?></h3>
 
 <div class="rpbchessboard-columns">
 	<div>
@@ -28,7 +28,7 @@
 		<div class="rpbchessboard-sourceCode">
 			[<?php echo esc_html( $model->getPGNShortcode() ); ?>]<br/>
 			<br/>
-			[Event &quot;<?php _e( 'Endgame example', 'rpb-chessboard' ); ?>&quot;]<br/>
+			[Event &quot;<?php esc_html_e( 'Endgame example', 'rpb-chessboard' ); ?>&quot;]<br/>
 			[SetUp &quot;1&quot;]<br/>
 			[FEN &quot;k7/n1PB4/1K6/8/8/8/8/8 w - - 0 50&quot;]<br/>
 			<br/>

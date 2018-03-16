@@ -27,9 +27,7 @@
 	<noscript>
 		<div class="error">
 			<p>
-			<?php
-				_e( 'To work properly, the RPB Chessboard plugin needs JavaScript to be activated in your browser.', 'rpb-chessboard' );
-			?>
+				<?php esc_html_e( 'To work properly, the RPB Chessboard plugin needs JavaScript to be activated in your browser.', 'rpb-chessboard' ); ?>
 			</p>
 		</div>
 	</noscript>
@@ -51,8 +49,8 @@
 	<ul id="rpbchessboard-subPageSelector" class="subsubsub">
 		<?php foreach ( $model->getSubPages() as $subPage ) : ?>
 		<li>
-			<a href="<?php echo $subPage->link; ?>" class="<?php echo $subPage->selected ? 'current' : ''; ?>">
-				<?php echo $subPage->label; ?>
+			<a href="<?php echo esc_url( $subPage->link ); ?>" class="<?php echo $subPage->selected ? 'current' : ''; ?>">
+				<?php echo wp_kses_post( $subPage->label ); ?>
 			</a>
 		</li>
 		<?php endforeach; ?>

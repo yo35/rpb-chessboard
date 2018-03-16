@@ -33,12 +33,12 @@
 		<?php endforeach; ?>
 
 		<div class="rpbchessboard-inlineFormTitle">
-			<?php $isNew ? _e( 'New pieceset', 'rpb-chessboard' ) : _e( 'Edit pieceset', 'rpb-chessboard' ); ?>
+			<?php $isNew ? esc_html_e( 'New pieceset', 'rpb-chessboard' ) : esc_html_e( 'Edit pieceset', 'rpb-chessboard' ); ?>
 		</div>
 
 		<div>
 			<label>
-				<span><?php _e( 'Name', 'rpb-chessboard' ); ?></span>
+				<span><?php esc_html_e( 'Name', 'rpb-chessboard' ); ?></span>
 				<input type="text" name="label"
 					value="<?php echo esc_attr( $isNew ? $model->getLabelProposalForNewSetCode() : $model->getCustomPiecesetLabel( $pieceset ) ); ?>" />
 			</label>
@@ -47,7 +47,7 @@
 		<?php if ( $isNew ) : ?>
 		<div>
 			<label>
-				<span><?php _e( 'Slug', 'rpb-chessboard' ); ?></span>
+				<span><?php esc_html_e( 'Slug', 'rpb-chessboard' ); ?></span>
 				<input type="text" name="pieceset" value="" />
 			</label>
 		</div>
@@ -75,8 +75,8 @@
 		<p class="rpbchessboard-piecesetEditionErrorMessage"></p>
 
 		<p class="submit rpbchessboard-inlineFormButtons">
-			<input type="submit" class="button-primary" value="<?php $isNew ? _e( 'Create pieceset', 'rpb-chessboard' ) : _e( 'Save changes', 'rpb-chessboard' ); ?>" />
-			<a class="button" href="<?php echo esc_url( $model->getFormActionURL() ); ?>"><?php _e( 'Cancel', 'rpb-chessboard' ); ?></a>
+			<input type="submit" class="button-primary" value="<?php $isNew ? esc_attr_e( 'Create pieceset', 'rpb-chessboard' ) : esc_attr_e( 'Save changes', 'rpb-chessboard' ); ?>" />
+			<a class="button" href="<?php echo esc_url( $model->getFormActionURL() ); ?>"><?php esc_html_e( 'Cancel', 'rpb-chessboard' ); ?></a>
 		</p>
 
 	</form>
