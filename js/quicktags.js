@@ -24,13 +24,12 @@
  *
  * @requires backend.js
  */
-(function(RPBChessboard)
-{
+( function( RPBChessboard ) {
 	'use strict';
 
 
 	// Skip if QuickTags is not defined.
-	if(/* global QTags */ typeof QTags === 'undefined') {
+	if ( /* global QTags */ 'undefined' === typeof QTags ) {
 		return;
 	}
 
@@ -38,26 +37,24 @@
 	/**
 	 * Callback for the edit-FEN dialog.
 	 */
-	function editFENDialogCallback(fen, options) {
-		QTags.insertContent(RPBChessboard.serializeFENShortcodeContent(fen, options));
+	function editFENDialogCallback( fen, options ) {
+		QTags.insertContent( RPBChessboard.serializeFENShortcodeContent( fen, options ) );
 	}
 
 
 	/**
 	 * Callback for the edit-FEN button.
 	 */
-	function editFENButtonCallback(button, canvas)
-	{
-		var info = RPBChessboard.identifyFENShortcodeContent(canvas.value, canvas.selectionStart, canvas.selectionEnd);
-		if(info === null) {
-			RPBChessboard.showEditFENDialog(editFENDialogCallback);
-		}
-		else {
+	function editFENButtonCallback( button, canvas ) {
+		var info = RPBChessboard.identifyFENShortcodeContent( canvas.value, canvas.selectionStart, canvas.selectionEnd );
+		if ( null === info ) {
+			RPBChessboard.showEditFENDialog( editFENDialogCallback );
+		} else {
 			canvas.selectionStart = info.beginShortcode;
 			canvas.selectionEnd   = info.endShortcode;
 			RPBChessboard.showEditFENDialog({
-				fen     : info.fen,
-				options : info.options,
+				fen: info.fen,
+				options: info.options,
 				callback: editFENDialogCallback
 			});
 		}
@@ -73,4 +70,4 @@
 		RPBChessboard.i18n.EDIT_CHESS_DIAGRAM_DIALOG_TITLE
 	);
 
-})( /* global RPBChessboard */ RPBChessboard );
+}( /* global RPBChessboard */ RPBChessboard ) );

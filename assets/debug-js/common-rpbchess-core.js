@@ -18,19 +18,18 @@
  *                                                                            *
  ******************************************************************************/
 
-
-/* jshint unused:false */
-/* jshint globalstrict:true */
 'use strict';
 
-/* global RPBChess */
-/* global registerException */
-
-
 // Exception registration
-registerException(RPBChess.exceptions.IllegalArgument, function(e) { return 'illegal argument in ' + e.fun; });
-registerException(RPBChess.exceptions.InvalidFEN     , function(e) { return 'bad FEN >>' + e.fen + '<< => ' + e.message; });
-registerException(RPBChess.exceptions.InvalidNotation, function(e) { return 'bad SAN >>' + e.notation + '<< => ' + e.message; });
+registerException( RPBChess.exceptions.IllegalArgument, function( e ) {
+	return 'illegal argument in ' + e.fun;
+});
+registerException( RPBChess.exceptions.InvalidFEN, function( e ) {
+	return 'bad FEN >>' + e.fen + '<< => ' + e.message;
+});
+registerException( RPBChess.exceptions.InvalidNotation, function( e ) {
+	return 'bad SAN >>' + e.notation + '<< => ' + e.message;
+});
 
 
 /**
@@ -39,8 +38,10 @@ registerException(RPBChess.exceptions.InvalidNotation, function(e) { return 'bad
  * @param {string} fun
  * @returns {function}
  */
-function checkIllegalArgument(fun) {
-	return function(e) { return (e instanceof RPBChess.exceptions.IllegalArgument) && (e.fun === fun); };
+function checkIllegalArgument( fun ) {
+	return function( e ) {
+		return ( e instanceof RPBChess.exceptions.IllegalArgument ) && ( e.fun === fun );
+	};
 }
 
 
@@ -51,24 +52,23 @@ function checkIllegalArgument(fun) {
  * @param ...
  * @returns {function}
  */
-function checkInvalidFEN(code) {
+function checkInvalidFEN( code ) {
 
 	// Build the error message
 	var message = '<not an error message>';
-	if(typeof code === 'undefined') {
+	if ( 'undefined' === typeof code ) {
 		message = null;
-	}
-	else if(code in RPBChess.i18n) {
+	} else if ( code in RPBChess.i18n ) {
 		message = RPBChess.i18n[code];
-		for(var i=1; i<arguments.length; ++i) {
-			var re = new RegExp('%' + i + '\\$s');
-			message = message.replace(re, arguments[i]);
+		for ( var i = 1; i < arguments.length; ++i ) {
+			var re = new RegExp( '%' + i + '\\$s' );
+			message = message.replace( re, arguments[i] );
 		}
 	}
 
 	// Generate the predicate
-	return function(e) {
-		return (e instanceof RPBChess.exceptions.InvalidFEN) && (message === null || message === e.message);
+	return function( e ) {
+		return ( e instanceof RPBChess.exceptions.InvalidFEN ) && ( null === message || message === e.message );
 	};
 }
 
@@ -79,8 +79,8 @@ function checkInvalidFEN(code) {
  * @param {object} cp
  * @returns {string}
  */
-function wrapCP(cp) {
-	return (typeof cp === 'object') && ('piece' in cp) && ('color' in cp) ? (cp.color + ':' + cp.piece) : cp;
+function wrapCP( cp ) {
+	return ( 'object' === typeof cp ) && ( 'piece' in cp ) && ( 'color' in cp ) ? ( cp.color + ':' + cp.piece ) : cp;
 }
 
 
@@ -90,8 +90,8 @@ function wrapCP(cp) {
  * @param {RPBChess.MoveDescriptor} descriptor
  * @returns {string}
  */
-function wrapMove(descriptor) {
-	return descriptor.from() + descriptor.to() + (descriptor.type()===RPBChess.movetype.PROMOTION ? descriptor.promotion().toUpperCase() : '');
+function wrapMove( descriptor ) {
+	return descriptor.from() + descriptor.to() + ( descriptor.type() === RPBChess.movetype.PROMOTION ? descriptor.promotion().toUpperCase() : '' );
 }
 
 
@@ -101,8 +101,8 @@ function wrapMove(descriptor) {
  * @param {RPBChess.Position} position
  * @returns {string}
  */
-function legalInfo(position) {
-	return position.isLegal() + ':' + position.kingSquare('w') + ':' + position.kingSquare('b');
+function legalInfo( position ) {
+	return position.isLegal() + ':' + position.kingSquare( 'w' ) + ':' + position.kingSquare( 'b' );
 }
 
 
@@ -112,8 +112,8 @@ function legalInfo(position) {
  * @param {RPBChess.Position} position
  * @returns {string}
  */
-function fenInfo(position) {
-	return position.fen() + ' ' + position.isLegal() + ' ' + position.kingSquare('w') + ' ' + position.kingSquare('b');
+function fenInfo( position ) {
+	return position.fen() + ' ' + position.isLegal() + ' ' + position.kingSquare( 'w' ) + ' ' + position.kingSquare( 'b' );
 }
 
 
@@ -123,7 +123,7 @@ function fenInfo(position) {
  * @param {RPBChess.Position} position
  * @returns {string}
  */
-function nullMoveInfo(position) {
+function nullMoveInfo( position ) {
 	return position.isLegal() + ':' + position.isNullMoveLegal();
 }
 
@@ -134,11 +134,10 @@ function nullMoveInfo(position) {
  * @param {RPBChess.Position} position
  * @returns {string}
  */
-function ccsInfo(position) {
-	if(position.isLegal()) {
+function ccsInfo( position ) {
+	if ( position.isLegal() ) {
 		return position.isCheck() + ':' + position.isCheckmate() + ':' + position.isStalemate() + ':' + position.hasMove();
-	}
-	else {
+	} else {
 		return '';
 	}
 }

@@ -13,3 +13,5 @@
 /js/*.min.js
 /languages/*.mo
 
+# node.js
+node_modules
