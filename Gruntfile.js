@@ -55,13 +55,32 @@ module.exports = function( grunt ) {
 			}
 		},
 
-		clean: [
+		mkdir: {
+			snapshot: {
+				options: {
+					create: [ '<%= snapshot.folder %>/<%= plugin.name %>' ]
+				}
+			},
+			assets: {
+				options: {
+					create: [ '<%= snapshot.folder %>/<%= plugin.name %>-assets' ]
+				}
+			}
+		},
+
+		clean: {
+			build: [
 			'.temp',
 			'cache',
 			'rpb-chessboard.zip',
 			'languages/*.mo',
 			'js/*.min.js'
-		]
+			],
+			release: [
+				'.temp/snapshot',
+				'rpb-chessboard.zip'
+			]
+		}
 	});
 
 	grunt.config.set( 'plugin.name', 'rpb-chessboard' );
