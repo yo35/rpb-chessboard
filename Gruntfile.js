@@ -121,7 +121,13 @@ module.exports = function( grunt ) {
 	grunt.registerTask( 'js', [ 'eslint', 'uglify' ] );
 
 	// Shell
-	grunt.registerTask( 'stats', [ 'shell' ] );
+	grunt.registerTask( 'stats', [ 'shell:stats' ] );
+
+	// Clean
+	grunt.registerTask( 'clean', [ 'clean:build' ] );
+
+	// Pack
+	// grunt.registerTask( 'pack', [ 'XXXXi18ncompile', 'uglify', 'clean:release', 'mkdir:snapshot', 'copy:snapshots', 'copy:readme', 'mkdir:assets', 'copy:pngs', 'XXXXzip:snapshots', 'done' ] );
 
 	// Default task.
 	grunt.registerTask( 'default', [ 'php', 'js' ] );
