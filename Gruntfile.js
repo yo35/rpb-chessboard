@@ -111,7 +111,7 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-contrib-copy' );
 
 	grunt.registerTask( 'done', function() {
-		grunt.log.writeln( grunt.config.get( 'deployment.file' )['blue'].bold + ' updated'['blue'].bold );
+		grunt.log.writeln( grunt.config.get( 'deployment.file' ).blue.bold + ' updated'.blue.bold );
 	});
 
 	// PHP
