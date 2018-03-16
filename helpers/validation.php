@@ -120,7 +120,7 @@ abstract class RPBChessboardHelperValidation {
 	 * @return string May be null is the value is not valid.
 	 */
 	public static function validateDiagramAlignment( $value ) {
-		return ( in_array( $value, array( 'center', 'floatLeft', 'floatRight' ), true ) ) ? $value : null;
+		return ( 'floatLeft' === $value || 'floatRight' === $value || 'center' === $value ) ? $value : null;
 	}
 
 
@@ -131,7 +131,7 @@ abstract class RPBChessboardHelperValidation {
 	 * @return string May be null is the value is not valid.
 	 */
 	public static function validatePieceSymbols( $value ) {
-		if ( in_array( $value, array( 'native', 'localized', 'figurines' ), true ) ) {
+		if ( 'native' === $value || 'localized' === $value || 'figurines' === $value ) {
 			return $value;
 		} elseif ( is_string( $value ) && preg_match( '/^\([a-zA-Z]{6}\)$/', $value ) ) {
 			return strtoupper( $value );
@@ -159,7 +159,8 @@ abstract class RPBChessboardHelperValidation {
 	 * @return string May be null is the value is not valid.
 	 */
 	public static function validateNavigationBoard( $value ) {
-		return ( in_array( $value, array( 'none', 'frame', 'above', 'below', 'floatLeft', 'floatRight', 'scrollLeft', 'scrollRight' ), true ) ) ? $value : null;
+		return ( 'none' === $value || 'frame' === $value || 'above' === $value || 'below' === $value
+			|| 'floatLeft' === $value || 'floatRight' === $value || 'scrollLeft' === $value || 'scrollRight' === $value ) ? $value : null;
 	}
 
 
