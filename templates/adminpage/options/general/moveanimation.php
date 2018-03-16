@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<h3><?php _e( 'Move animation', 'rpb-chessboard' ); ?></h3>
+<h3><?php esc_html_e( 'Move animation', 'rpb-chessboard' ); ?></h3>
 
 
 <div class="rpbchessboard-columns">
@@ -28,12 +28,12 @@
 
 		<p>
 			<?php
-				echo sprintf(
-					__( 'Animation speed: %1$s milliseconds', 'rpb-chessboard' ),
+				printf(
+					esc_html__( 'Animation speed: %1$s milliseconds', 'rpb-chessboard' ),
 					'<input type="text" id="rpbchessboard-animationSpeedField" class="rpbchessboard-animationSpeedField" name="animationSpeed" ' .
-						'size="' . htmlspecialchars( $model->getDigitNumberForAnimationSpeed() ) . '" ' .
-						'maxLength="' . htmlspecialchars( $model->getDigitNumberForAnimationSpeed() ) . '" ' .
-						'value="' . htmlspecialchars( $model->getDefaultAnimationSpeed() ) . '" />'
+						'size="' . esc_attr( $model->getDigitNumberForAnimationSpeed() ) . '" ' .
+						'maxLength="' . esc_attr( $model->getDigitNumberForAnimationSpeed() ) . '" ' .
+						'value="' . esc_attr( $model->getDefaultAnimationSpeed() ) . '" />'
 				);
 			?>
 		</p>
@@ -41,7 +41,7 @@
 		<div id="rpbchessboard-animationSpeedSlider" class="rpbchessboard-slider"></div>
 
 		<p class="description">
-			<?php _e( 'Set the animation speed to 0 to disable animations.', 'rpb-chessboard' ); ?>
+			<?php esc_html_e( 'Set the animation speed to 0 to disable animations.', 'rpb-chessboard' ); ?>
 		</p>
 
 		<p>
@@ -49,15 +49,15 @@
 			<input type="checkbox" id="rpbchessboard-showMoveArrowField" name="showMoveArrow" value="1"
 				<?php echo $model->getDefaultShowMoveArrow() ? 'checked="yes"' : ''; ?>
 			/>
-			<label for="rpbchessboard-showMoveArrowField"><?php _e( 'Show move arrow', 'rpb-chessboard' ); ?></label>
+			<label for="rpbchessboard-showMoveArrowField"><?php esc_html_e( 'Show move arrow', 'rpb-chessboard' ); ?></label>
 		</p>
 
 		<p>
 			<a href="#" class="button rpbchessboard-testMoveAnimation" id="rpbchessboard-testMoveAnimation1">
-				<?php _e( 'Test move', 'rpb-chessboard' ); ?>
+				<?php esc_html_e( 'Test move', 'rpb-chessboard' ); ?>
 			</a>
 			<a href="#" class="button rpbchessboard-testMoveAnimation" id="rpbchessboard-testMoveAnimation2">
-				<?php _e( 'Test capture', 'rpb-chessboard' ); ?>
+				<?php esc_html_e( 'Test capture', 'rpb-chessboard' ); ?>
 			</a>
 		</p>
 

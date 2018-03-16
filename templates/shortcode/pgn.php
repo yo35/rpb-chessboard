@@ -22,13 +22,13 @@
 
 <p class="rpbchessboard-spacerBefore"></p>
 
-<div id="<?php echo htmlspecialchars( $model->getUniqueID() ); ?>" class="rpbchessboard-chessgame">
+<div id="<?php echo esc_attr( $model->getUniqueID() ); ?>" class="rpbchessboard-chessgame">
 	<noscript>
 		<?php if ( ! $model->isLoadedFromExternalPGNFile() ) : ?>
-		<div class="rpbchessboard-noJavascriptBlock"><?php echo htmlspecialchars( $model->getContent() ); ?></div>
+		<div class="rpbchessboard-noJavascriptBlock"><?php echo esc_html( $model->getContent() ); ?></div>
 		<?php endif; ?>
 		<div class="rpbchessboard-javascriptWarning">
-			<?php _e( 'You must activate JavaScript to enhance chess game visualization.', 'rpb-chessboard' ); ?>
+			<?php esc_html_e( 'You must activate JavaScript to enhance chess game visualization.', 'rpb-chessboard' ); ?>
 		</div>
 	</noscript>
 	<div class="rpbchessboard-chessgameAnchor"></div>

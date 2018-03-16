@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<h3><?php _e( 'Chessboard aspect', 'rpb-chessboard' ); ?></h3>
+<h3><?php esc_html_e( 'Chessboard aspect', 'rpb-chessboard' ); ?></h3>
 
 
 <div class="rpbchessboard-columns">
@@ -28,12 +28,12 @@
 
 		<p>
 			<?php
-				echo sprintf(
-					__( 'Square size: %1$s pixels', 'rpb-chessboard' ),
+				printf(
+					esc_html__( 'Square size: %1$s pixels', 'rpb-chessboard' ),
 					'<input type="text" id="rpbchessboard-squareSizeField" class="rpbchessboard-squareSizeField" name="squareSize" ' .
-						'size="' . htmlspecialchars( $model->getDigitNumberForSquareSize() ) . '" ' .
-						'maxLength="' . htmlspecialchars( $model->getDigitNumberForSquareSize() ) . '" ' .
-						'value="' . htmlspecialchars( $model->getDefaultSquareSize() ) . '"/>'
+						'size="' . esc_attr( $model->getDigitNumberForSquareSize() ) . '" ' .
+						'maxLength="' . esc_attr( $model->getDigitNumberForSquareSize() ) . '" ' .
+						'value="' . esc_attr( $model->getDefaultSquareSize() ) . '"/>'
 				);
 			?>
 		</p>
@@ -45,26 +45,26 @@
 			<input type="checkbox" id="rpbchessboard-showCoordinatesField" name="showCoordinates" value="1"
 				<?php echo $model->getDefaultShowCoordinates() ? 'checked="yes"' : ''; ?>
 			/>
-			<label for="rpbchessboard-showCoordinatesField"><?php _e( 'Show coordinates', 'rpb-chessboard' ); ?></label>
+			<label for="rpbchessboard-showCoordinatesField"><?php esc_html_e( 'Show coordinates', 'rpb-chessboard' ); ?></label>
 		</p>
 
 		<p>
-			<label for="rpbchessboard-colorsetField"><?php _e( 'Colorset:', 'rpb-chessboard' ); ?></label>
+			<label for="rpbchessboard-colorsetField"><?php esc_html_e( 'Colorset:', 'rpb-chessboard' ); ?></label>
 			<select id="rpbchessboard-colorsetField" name="colorset">
 				<?php foreach ( $model->getAvailableColorsets() as $colorset ) : ?>
-				<option value="<?php echo htmlspecialchars( $colorset ); ?>" <?php echo $model->isDefaultColorset( $colorset ) ? 'selected="yes"' : ''; ?> >
-					<?php echo htmlspecialchars( $model->getColorsetLabel( $colorset ) ); ?>
+				<option value="<?php echo esc_attr( $colorset ); ?>" <?php echo $model->isDefaultColorset( $colorset ) ? 'selected="yes"' : ''; ?> >
+					<?php echo esc_html( $model->getColorsetLabel( $colorset ) ); ?>
 				</option>
 				<?php endforeach; ?>
 			</select>
 		</p>
 
 		<p>
-			<label for="rpbchessboard-piecesetField"><?php _e( 'Pieceset:', 'rpb-chessboard' ); ?></label>
+			<label for="rpbchessboard-piecesetField"><?php esc_html_e( 'Pieceset:', 'rpb-chessboard' ); ?></label>
 			<select id="rpbchessboard-piecesetField" name="pieceset">
 				<?php foreach ( $model->getAvailablePiecesets() as $pieceset ) : ?>
-				<option value="<?php echo htmlspecialchars( $pieceset ); ?>" <?php echo $model->isDefaultPieceset( $pieceset ) ? 'selected="yes"' : ''; ?> >
-					<?php echo htmlspecialchars( $model->getPiecesetLabel( $pieceset ) ); ?>
+				<option value="<?php echo esc_attr( $pieceset ); ?>" <?php echo $model->isDefaultPieceset( $pieceset ) ? 'selected="yes"' : ''; ?> >
+					<?php echo esc_html( $model->getPiecesetLabel( $pieceset ) ); ?>
 				</option>
 				<?php endforeach; ?>
 			</select>
@@ -81,14 +81,14 @@
 
 <p class="description">
 	<?php
-		echo sprintf(
-			__(
+		printf(
+			esc_html__(
 				'Note that specific chessboard aspect settings can be defined for %1$ssmall-screen devices%3$s (such as smartphones). ' .
 				'Additional colorsets and piecesets can be created in the %2$stheming page%3$s.',
 				'rpb-chessboard'
 			),
-			'<a href="' . htmlspecialchars( $model->getOptionsSmallScreensURL() ) . '">',
-			'<a href="' . htmlspecialchars( $model->getThemingURL() ) . '">',
+			sprintf( '<a href="%s">', esc_url( $model->getOptionsSmallScreensURL() ) ),
+			sprintf( '<a href="%s">', esc_url( $model->getThemingURL() ) ),
 			'</a>'
 		);
 	?>

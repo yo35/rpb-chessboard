@@ -26,73 +26,72 @@
 		<?php echo $model->getSmallScreenCompatibility() ? 'checked="yes"' : ''; ?>
 	/>
 	<label for="rpbchessboard-smallScreenCompatibilityField">
-		<?php _e( 'Enable support for small-screen devices', 'rpb-chessboard' ); ?>
+		<?php esc_html_e( 'Enable support for small-screen devices', 'rpb-chessboard' ); ?>
 	</label>
 </p>
 
 <p class="description">
 	<?php
-		_e(
+		esc_html_e(
 			'Activating this option allows to customize how RPB Chessboard renders chess diagrams on small-screen devices (such as smartphones).',
 			'rpb-chessboard'
 		);
 	?>
 </p>
 
-<input type="hidden" name="smallScreenModes" value="<?php echo htmlspecialchars( count( $model->getSmallScreenModes() ) ); ?>" />
+<input type="hidden" name="smallScreenModes" value="<?php echo esc_attr( count( $model->getSmallScreenModes() ) ); ?>" />
 
 
 
 <?php foreach ( $model->getSmallScreenModes() as $index => $mode ) : ?>
 
-<h3 title="
-<?php
+<h3 title="<?php
 if ( $mode->minScreenWidth === 0 ) {
-	echo sprintf(
-		__( 'These options apply to devices whose resolution is less than %1$s pixel width.', 'rpb-chessboard' ),
-		htmlspecialchars( $mode->maxScreenWidth )
+	printf(
+		esc_attr__( 'These options apply to devices whose resolution is less than %1$s pixel width.', 'rpb-chessboard' ),
+		esc_attr( $mode->maxScreenWidth )
 	);
 } else {
-	echo sprintf(
-		__( 'These options apply to devices whose resolution lies between %1$s and %2$s pixel width.', 'rpb-chessboard' ),
-		htmlspecialchars( $mode->minScreenWidth + 1 ),
-		htmlspecialchars( $mode->maxScreenWidth )
+	printf(
+		esc_attr__( 'These options apply to devices whose resolution lies between %1$s and %2$s pixel width.', 'rpb-chessboard' ),
+		esc_attr( $mode->minScreenWidth + 1 ),
+		esc_attr( $mode->maxScreenWidth )
 	);
 }
 ?>
 ">
-	<?php echo sprintf( __( 'Screen width &le; %1$s pixels', 'rpb-chessboard' ), htmlspecialchars( $mode->maxScreenWidth ) ); ?>
+	<?php printf( esc_html__( 'Screen width &le; %1$s pixels', 'rpb-chessboard' ), esc_html( $mode->maxScreenWidth ) ); ?>
 </h3>
 
-<input type="hidden" name="smallScreenMode<?php echo htmlspecialchars( $index ); ?>-screenWidth" value="<?php echo htmlspecialchars( $mode->maxScreenWidth ); ?>" />
+<input type="hidden" name="smallScreenMode<?php echo esc_attr( $index ); ?>-screenWidth" value="<?php echo esc_attr( $mode->maxScreenWidth ); ?>" />
 
 <div>
 	<p>
 		<?php
-			echo sprintf(
-				__( 'Restrict square size to: %1$s pixels', 'rpb-chessboard' ),
-				'<input type="text" id="rpbchessboard-smallScreenMode' . htmlspecialchars( $index ) . '-squareSizeField" class="rpbchessboard-squareSizeField" ' .
-					'name="smallScreenMode' . htmlspecialchars( $index ) . '-squareSize" ' .
-					'size="' . htmlspecialchars( $model->getDigitNumberForSquareSize() ) . '" ' .
-					'maxLength="' . htmlspecialchars( $model->getDigitNumberForSquareSize() ) . '" ' .
-					'value="' . htmlspecialchars( $mode->squareSize ) . '"/>'
+			printf(
+				esc_html__( 'Restrict square size to: %1$s pixels', 'rpb-chessboard' ),
+				'<input type="text" id="rpbchessboard-smallScreenMode' . esc_attr( $index ) . '-squareSizeField" class="rpbchessboard-squareSizeField" ' .
+					'name="smallScreenMode' . esc_attr( $index ) . '-squareSize" ' .
+					'size="' . esc_attr( $model->getDigitNumberForSquareSize() ) . '" ' .
+					'maxLength="' . esc_attr( $model->getDigitNumberForSquareSize() ) . '" ' .
+					'value="' . esc_attr( $mode->squareSize ) . '"/>'
 			);
 		?>
-		<span id="rpbchessboard-smallScreenMode<?php echo htmlspecialchars( $index ); ?>-squareSizeSlider" class="rpbchessboard-slider"></span>
+		<span id="rpbchessboard-smallScreenMode<?php echo esc_attr( $index ); ?>-squareSizeSlider" class="rpbchessboard-slider"></span>
 	</p>
 
 	<?php if ( $index === 0 ) : ?>
 	<p class="description">
 		<?php
-			echo sprintf(
-				__(
+			printf(
+				esc_html__(
 					'Chess diagrams will be displayed with a square size not larger than this value if the screen width is less than %1$s pixels, ' .
 					'whatever the %2$sdefault aspect and behavior settings%3$s or the tag attributes that may be specified in the posts/pages. ' .
 					'Diagrams for which the square size is less than this value will be displayed as they normally do on large screen devices.',
 					'rpb-chessboard'
 				),
-				htmlspecialchars( $mode->maxScreenWidth ),
-				'<a href="' . htmlspecialchars( $model->getOptionsGeneralURL() ) . '">',
+				esc_html( $mode->maxScreenWidth ),
+				sprintf( '<a href="%s">', esc_url( $model->getOptionsGeneralURL() ) ),
 				'</a>'
 			);
 		?>
@@ -100,37 +99,35 @@ if ( $mode->minScreenWidth === 0 ) {
 	<?php endif; ?>
 
 	<p>
-		<input type="hidden" name="smallScreenMode<?php echo htmlspecialchars( $index ); ?>-hideCoordinates" value="0" />
-		<input type="checkbox" name="smallScreenMode<?php echo htmlspecialchars( $index ); ?>-hideCoordinates" class="rpbchessboard-hideCoordinatesField"
-			id="rpbchessboard-smallScreenMode<?php echo htmlspecialchars( $index ); ?>-hideCoordinatesField" value="1"
+		<input type="hidden" name="smallScreenMode<?php echo esc_attr( $index ); ?>-hideCoordinates" value="0" />
+		<input type="checkbox" name="smallScreenMode<?php echo esc_attr( $index ); ?>-hideCoordinates" class="rpbchessboard-hideCoordinatesField"
+			id="rpbchessboard-smallScreenMode<?php echo esc_attr( $index ); ?>-hideCoordinatesField" value="1"
 			<?php echo $mode->hideCoordinates ? 'checked="yes"' : ''; ?>
 		/>
-		<label for="rpbchessboard-smallScreenMode<?php echo htmlspecialchars( $index ); ?>-hideCoordinatesField">
-			<?php _e( 'Always hide coordinates', 'rpb-chessboard' ); ?>
+		<label for="rpbchessboard-smallScreenMode<?php echo esc_attr( $index ); ?>-hideCoordinatesField">
+			<?php esc_html_e( 'Always hide coordinates', 'rpb-chessboard' ); ?>
 		</label>
 	</p>
 
 	<?php if ( $index === 0 ) : ?>
 	<p class="description">
 		<?php
-			echo sprintf(
-				__(
+			printf(
+				esc_html__(
 					'If enabled, row and column coordinates will be hidden if the screen width is less than %1$s pixels, ' .
 					'whatever the %2$sdefault aspect and behavior settings%3$s or the tag attributes that may be specified in the posts/pages. ' .
 					'If disabled, row and column coordinates will be displayed as they normally do on large screen devices.',
 					'rpb-chessboard'
 				),
-				htmlspecialchars( $mode->maxScreenWidth ),
-				'<a href="' . htmlspecialchars( $model->getOptionsGeneralURL() ) . '">',
+				esc_html( $mode->maxScreenWidth ),
+				sprintf( '<a href="%s">', esc_url( $model->getOptionsGeneralURL() ) ),
 				'</a>'
 			);
 		?>
 	</p>
 	<?php else : ?>
 	<p class="description">
-		<?php
-			_e( 'See explanations about theses settings above.', 'rpb-chessboard' );
-		?>
+		<?php esc_html_e( 'See explanations about theses settings above.', 'rpb-chessboard' ); ?>
 	</p>
 	<?php endif; ?>
 

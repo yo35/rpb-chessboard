@@ -6,9 +6,6 @@
 # Directory for temporary objects
 /.temp
 
-# Cache directory
-/cache
-
 # Deployment file
 /rpb-chessboard.zip
 

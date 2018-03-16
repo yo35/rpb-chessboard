@@ -20,15 +20,15 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-fenAttributeDiagramAlignment"><?php _e( 'Diagram alignment', 'rpb-chessboard' ); ?></h3>
+<h3 id="rpbchessboard-fenAttributeDiagramAlignment"><?php esc_html_e( 'Diagram alignment', 'rpb-chessboard' ); ?></h3>
 
 <div class="rpbchessboard-columns">
 	<div>
 
 		<p>
 			<?php
-				echo sprintf(
-					__( 'The %1$s attribute controls how the diagram is inserted within the rest of the text.', 'rpb-chessboard' ),
+				printf(
+					esc_html__( 'The %1$s attribute controls how the diagram is inserted within the rest of the text.', 'rpb-chessboard' ),
 					'<span class="rpbchessboard-sourceCode">align</span>'
 				);
 			?>
@@ -37,24 +37,24 @@
 		<table class="rpbchessboard-attributeTable">
 			<tbody>
 				<tr>
-					<th><?php _e( 'Value', 'rpb-chessboard' ); ?></th>
-					<th><?php _e( 'Default', 'rpb-chessboard' ); ?></th>
-					<th><?php _e( 'Description', 'rpb-chessboard' ); ?></th>
+					<th><?php esc_html_e( 'Value', 'rpb-chessboard' ); ?></th>
+					<th><?php esc_html_e( 'Default', 'rpb-chessboard' ); ?></th>
+					<th><?php esc_html_e( 'Description', 'rpb-chessboard' ); ?></th>
 				</tr>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-fenAttributeDiagramAlignment-value">center</a></td>
 					<td><?php echo $model->getDefaultDiagramAlignment() === 'center' ? '<div class="rpbchessboard-tickIcon"></div>' : ''; ?></td>
-					<td><?php _e( 'The diagram is centered.', 'rpb-chessboard' ); ?></td>
+					<td><?php esc_html_e( 'The diagram is centered.', 'rpb-chessboard' ); ?></td>
 				</tr>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-fenAttributeDiagramAlignment-value">floatLeft</a></td>
 					<td><?php echo $model->getDefaultDiagramAlignment() === 'floatLeft' ? '<div class="rpbchessboard-tickIcon"></div>' : ''; ?></td>
-					<td><?php _e( 'The diagram floats on the left of the text.', 'rpb-chessboard' ); ?></td>
+					<td><?php esc_html_e( 'The diagram floats on the left of the text.', 'rpb-chessboard' ); ?></td>
 				</tr>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-fenAttributeDiagramAlignment-value">floatRight</a></td>
 					<td><?php echo $model->getDefaultDiagramAlignment() === 'floatRight' ? '<div class="rpbchessboard-tickIcon"></div>' : ''; ?></td>
-					<td><?php _e( 'The diagram floats on the right of the text.', 'rpb-chessboard' ); ?></td>
+					<td><?php esc_html_e( 'The diagram floats on the right of the text.', 'rpb-chessboard' ); ?></td>
 				</tr>
 			</tbody>
 		</table>
@@ -64,9 +64,9 @@
 
 		<div class="rpbchessboard-sourceCode">
 			<?php
-				echo sprintf(
+				printf(
 					'[%1$s <strong>align=<span id="rpbchessboard-fenAttributeDiagramAlignment-sourceCodeExample">center</span></strong>] ... [/%1$s]',
-					htmlspecialchars( $model->getFENShortcode() )
+					esc_html( $model->getFENShortcode() )
 				);
 			?>
 		</div>

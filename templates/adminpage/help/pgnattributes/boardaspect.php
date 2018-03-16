@@ -20,22 +20,22 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-pgnAttributeBoardAspect"><?php _e( 'Chessboard aspect', 'rpb-chessboard' ); ?></h3>
+<h3 id="rpbchessboard-pgnAttributeBoardAspect"><?php esc_html_e( 'Chessboard aspect', 'rpb-chessboard' ); ?></h3>
 
 <div class="rpbchessboard-sourceCode">
 	<?php
-		echo sprintf(
+		printf(
 			'[%1$s <strong>flip</strong>=... <strong>square_size</strong>=... <strong>show_coordinates</strong>=... ' .
 			'<strong>colorset</strong>=... <strong>pieceset</strong>=...] ... [/%1$s]',
-			htmlspecialchars( $model->getPGNShortcode() )
+			esc_html( $model->getPGNShortcode() )
 		);
 	?>
 </div>
 
 <p>
 	<?php
-		echo sprintf(
-			__(
+		printf(
+			esc_html__(
 				'The %1$s, %2$s, %3$s, %4$s and %5$s attributes control the aspect of both the navigation board and the chessboard diagrams ' .
 				'inserted using tag %6$s. These attributes are identical to those used to customize the aspect of standalone FEN diagrams ' .
 				'(those inserted using tag %7$s): see %8$shelp on FEN diagram attributes%9$s for more details about them.',
@@ -47,8 +47,8 @@
 			'<span class="rpbchessboard-sourceCode">colorset</span>',
 			'<span class="rpbchessboard-sourceCode">pieceset</span>',
 			'<span class="rpbchessboard-sourceCode">[pgndiagram]</span>',
-			sprintf( '<span class="rpbchessboard-sourceCode">[%1$s][/%1$s]</span>', htmlspecialchars( $model->getFENShortcode() ) ),
-			'<a href="' . htmlspecialchars( $model->getHelpOnFENAttributesURL() ) . '">',
+			sprintf( '<span class="rpbchessboard-sourceCode">[%1$s][/%1$s]</span>', esc_html( $model->getFENShortcode() ) ),
+			sprintf( '<a href="%s">', esc_url( $model->getHelpOnFENAttributesURL() ) ),
 			'</a>'
 		);
 	?>

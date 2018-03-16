@@ -20,22 +20,22 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-pgnNullMove"><?php _e( 'Null moves', 'rpb-chessboard' ); ?></h3>
+<h3 id="rpbchessboard-pgnNullMove"><?php esc_html_e( 'Null moves', 'rpb-chessboard' ); ?></h3>
 
 <div class="rpbchessboard-columns">
 	<div>
 
 		<div class="rpbchessboard-sourceCode">
-			[<?php echo htmlspecialchars( $model->getPGNShortcode() ); ?>]<br/>
-			{<?php _e( 'A standard development scheme for white:', 'rpb-chessboard' ); ?>}
+			[<?php echo esc_html( $model->getPGNShortcode() ); ?>]<br/>
+			{<?php esc_html_e( 'A standard development scheme for white:', 'rpb-chessboard' ); ?>}
 			1. e4 -- 2. Nf3 -- 3. Bc4 -- 4. Nc3 -- 5. d4 -- 6. O-O {[pgndiagram]}<br/>
-			[/<?php echo htmlspecialchars( $model->getPGNShortcode() ); ?>]
+			[/<?php echo esc_html( $model->getPGNShortcode() ); ?>]
 		</div>
 
 		<p>
 			<?php
-				echo sprintf(
-					__( 'A %1$s--%2$s token in the move list allows to skip the underlying move.', 'rpb-chessboard' ),
+				printf(
+					esc_html__( 'A %1$s--%2$s token in the move list allows to skip the underlying move.', 'rpb-chessboard' ),
 					'<span class="rpbchessboard-sourceCode">',
 					'</span>'
 				);

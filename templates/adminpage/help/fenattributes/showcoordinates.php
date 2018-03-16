@@ -20,15 +20,15 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-fenAttributeShowCoordinates"><?php _e( 'Show coordinates', 'rpb-chessboard' ); ?></h3>
+<h3 id="rpbchessboard-fenAttributeShowCoordinates"><?php esc_html_e( 'Show coordinates', 'rpb-chessboard' ); ?></h3>
 
 <div class="rpbchessboard-columns">
 	<div>
 
 		<p>
 			<?php
-				echo sprintf(
-					__( 'The %1$s attribute controls whether the row and column coordinates are visible or not.', 'rpb-chessboard' ),
+				printf(
+					esc_html__( 'The %1$s attribute controls whether the row and column coordinates are visible or not.', 'rpb-chessboard' ),
 					'<span class="rpbchessboard-sourceCode">show_coordinates</span>'
 				);
 			?>
@@ -37,19 +37,19 @@
 		<table class="rpbchessboard-attributeTable">
 			<tbody>
 				<tr>
-					<th><?php _e( 'Value', 'rpb-chessboard' ); ?></th>
-					<th><?php _e( 'Default', 'rpb-chessboard' ); ?></th>
-					<th><?php _e( 'Description', 'rpb-chessboard' ); ?></th>
+					<th><?php esc_html_e( 'Value', 'rpb-chessboard' ); ?></th>
+					<th><?php esc_html_e( 'Default', 'rpb-chessboard' ); ?></th>
+					<th><?php esc_html_e( 'Description', 'rpb-chessboard' ); ?></th>
 				</tr>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-fenAttributeShowCoordinates-value">false</a></td>
 					<td><?php echo $model->getDefaultShowCoordinates() ? '' : '<div class="rpbchessboard-tickIcon"></div>'; ?></td>
-					<td><?php _e( 'The row and column coordinates are hidden.', 'rpb-chessboard' ); ?></td>
+					<td><?php esc_html_e( 'The row and column coordinates are hidden.', 'rpb-chessboard' ); ?></td>
 				</tr>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-fenAttributeShowCoordinates-value">true</a></td>
 					<td><?php echo $model->getDefaultShowCoordinates() ? '<div class="rpbchessboard-tickIcon"></div>' : ''; ?></td>
-					<td><?php _e( 'The row and column coordinates are visible.', 'rpb-chessboard' ); ?></td>
+					<td><?php esc_html_e( 'The row and column coordinates are visible.', 'rpb-chessboard' ); ?></td>
 				</tr>
 			</tbody>
 		</table>
@@ -59,9 +59,9 @@
 
 		<div class="rpbchessboard-sourceCode">
 			<?php
-				echo sprintf(
+				printf(
 					'[%1$s <strong>show_coordinates=<span id="rpbchessboard-fenAttributeShowCoordinates-sourceCodeExample">true</span></strong>] ... [/%1$s]',
-					htmlspecialchars( $model->getFENShortcode() )
+					esc_html( $model->getFENShortcode() )
 				);
 			?>
 		</div>

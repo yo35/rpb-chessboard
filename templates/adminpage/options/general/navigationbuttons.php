@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<h3><?php _e( 'Navigation toolbar', 'rpb-chessboard' ); ?></h3>
+<h3><?php esc_html_e( 'Navigation toolbar', 'rpb-chessboard' ); ?></h3>
 
 
 <div class="rpbchessboard-columns">
@@ -31,7 +31,7 @@
 			<input type="checkbox" id="rpbchessboard-showFlipButtonField" name="showFlipButton" value="1"
 				<?php echo $model->getDefaultShowFlipButton() ? 'checked="yes"' : ''; ?>
 			/>
-			<label for="rpbchessboard-showFlipButtonField"><?php _e( 'Show flip button', 'rpb-chessboard' ); ?></label>
+			<label for="rpbchessboard-showFlipButtonField"><?php esc_html_e( 'Show flip button', 'rpb-chessboard' ); ?></label>
 		</p>
 
 		<p>
@@ -39,17 +39,17 @@
 			<input type="checkbox" id="rpbchessboard-showDownloadButtonField" name="showDownloadButton" value="1"
 				<?php echo $model->getDefaultShowDownloadButton() ? 'checked="yes"' : ''; ?>
 			/>
-			<label for="rpbchessboard-showDownloadButtonField"><?php _e( 'Show download button', 'rpb-chessboard' ); ?></label>
+			<label for="rpbchessboard-showDownloadButtonField"><?php esc_html_e( 'Show download button', 'rpb-chessboard' ); ?></label>
 		</p>
 
 	</div>
 	<div>
 
 		<div id="rpbchessboard-navigationToolbarPreview">
-			<img id="rpbchessboard-navigationToolbar-n"   src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-toolbar-n.png'; ?>" />
-			<img id="rpbchessboard-navigationToolbar-nf"  src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-toolbar-nf.png'; ?>" />
-			<img id="rpbchessboard-navigationToolbar-nd"  src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-toolbar-nd.png'; ?>" />
-			<img id="rpbchessboard-navigationToolbar-nfd" src="<?php echo RPBCHESSBOARD_URL . 'images/navigation-toolbar-nfd.png'; ?>" />
+			<img id="rpbchessboard-navigationToolbar-n"   src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/navigation-toolbar-n.png' ); ?>" />
+			<img id="rpbchessboard-navigationToolbar-nf"  src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/navigation-toolbar-nf.png' ); ?>" />
+			<img id="rpbchessboard-navigationToolbar-nd"  src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/navigation-toolbar-nd.png' ); ?>" />
+			<img id="rpbchessboard-navigationToolbar-nfd" src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/navigation-toolbar-nfd.png' ); ?>" />
 		</div>
 
 	</div>
@@ -57,7 +57,7 @@
 
 
 <p class="description">
-	<?php _e( 'These settings allow to customize the toolbar that is displayed below the navigation board.', 'rpb-chessboard' ); ?>
+	<?php esc_html_e( 'These settings allow to customize the toolbar that is displayed below the navigation board.', 'rpb-chessboard' ); ?>
 </p>
 
 
