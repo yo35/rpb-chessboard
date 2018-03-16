@@ -20,15 +20,15 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-fenAttributeMarkers"><?php _e( 'Square and arrow markers', 'rpb-chessboard' ); ?></h3>
+<h3 id="rpbchessboard-fenAttributeMarkers"><?php esc_html_e( 'Square and arrow markers', 'rpb-chessboard' ); ?></h3>
 
 <div class="rpbchessboard-columns">
 	<div>
 
 		<p>
 			<?php
-				echo sprintf(
-					__(
+				printf(
+					esc_html__(
 						'The %1$s and %2$s attributes are used to add respectively square and arrow markers. ' .
 						'There is no need to manually edit the value of these attributes as ' .
 						'square and arrow marker edition is handled by the %3$schess diagram editor%4$s.',
@@ -44,8 +44,8 @@
 
 		<p>
 			<?php
-				echo sprintf(
-					__(
+				printf(
+					esc_html__(
 						'For information, the syntax used to define square and arrow markers ' .
 						'is described in the %1$sPGN game syntax help page%2$s.',
 						'rpb-chessboard'
@@ -61,7 +61,7 @@
 
 		<div class="rpbchessboard-sourceCode">
 			<?php
-				echo sprintf(
+				printf(
 					'[%1$s <strong>csl=Ye5</strong> <strong>cal=Gc6e5,Rf3e5</strong>] ... [/%1$s]',
 					esc_html( $model->getFENShortcode() )
 				);

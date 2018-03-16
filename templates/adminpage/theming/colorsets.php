@@ -22,7 +22,7 @@
 
 <p>
 	<button id="rpbchessboard-addSetCodeButton" class="button">
-		<?php _e( 'Add a new colorset', 'rpb-chessboard' ); ?>
+		<?php esc_html_e( 'Add a new colorset', 'rpb-chessboard' ); ?>
 	</button>
 </p>
 
@@ -30,9 +30,9 @@
 
 	<thead>
 		<tr>
-			<th scope="col"><?php _e( 'Name', 'rpb-chessboard' ); ?></th>
-			<th scope="col"><?php _e( 'Slug', 'rpb-chessboard' ); ?></th>
-			<th scope="col"><?php _e( 'Default', 'rpb-chessboard' ); ?></th>
+			<th scope="col"><?php esc_html_e( 'Name', 'rpb-chessboard' ); ?></th>
+			<th scope="col"><?php esc_html_e( 'Slug', 'rpb-chessboard' ); ?></th>
+			<th scope="col"><?php esc_html_e( 'Default', 'rpb-chessboard' ); ?></th>
 		</tr>
 	</thead>
 
@@ -49,11 +49,11 @@
 				<strong class="row-title"><?php echo esc_html( $model->getColorsetLabel( $colorset ) ); ?></strong>
 				<span class="row-actions rpbchessboard-inlinedRowActions">
 					<?php if ( $model->isBuiltinColorset( $colorset ) ) : ?>
-					<span><a href="#" class="rpbchessboard-action-setDefault"><?php _e( 'Set default', 'rpb-chessboard' ); ?></a></span>
+					<span><a href="#" class="rpbchessboard-action-setDefault"><?php esc_html_e( 'Set default', 'rpb-chessboard' ); ?></a></span>
 					<?php else : ?>
-					<span><a href="#" class="rpbchessboard-action-setDefault"><?php _e( 'Set default', 'rpb-chessboard' ); ?></a> |</span>
-					<span><a href="#" class="rpbchessboard-action-edit"><?php _e( 'Edit', 'rpb-chessboard' ); ?></a> |</span>
-					<span><a href="#" class="rpbchessboard-action-delete"><?php _e( 'Delete', 'rpb-chessboard' ); ?></a></span>
+					<span><a href="#" class="rpbchessboard-action-setDefault"><?php esc_html_e( 'Set default', 'rpb-chessboard' ); ?></a> |</span>
+					<span><a href="#" class="rpbchessboard-action-edit"><?php esc_html_e( 'Edit', 'rpb-chessboard' ); ?></a> |</span>
+					<span><a href="#" class="rpbchessboard-action-delete"><?php esc_html_e( 'Delete', 'rpb-chessboard' ); ?></a></span>
 					<?php endif; ?>
 				</span>
 			</td>
@@ -83,9 +83,9 @@
 
 	<tfoot>
 		<tr>
-			<th scope="col"><?php _e( 'Name', 'rpb-chessboard' ); ?></th>
-			<th scope="col"><?php _e( 'Slug', 'rpb-chessboard' ); ?></th>
-			<th scope="col"><?php _e( 'Default', 'rpb-chessboard' ); ?></th>
+			<th scope="col"><?php esc_html_e( 'Name', 'rpb-chessboard' ); ?></th>
+			<th scope="col"><?php esc_html_e( 'Slug', 'rpb-chessboard' ); ?></th>
+			<th scope="col"><?php esc_html_e( 'Default', 'rpb-chessboard' ); ?></th>
 		</tr>
 	</tfoot>
 

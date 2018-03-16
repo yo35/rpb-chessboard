@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-pgnNAG"><?php _e( 'NAGs (aka. Numeric Annotation Glyphs)', 'rpb-chessboard' ); ?></h3>
+<h3 id="rpbchessboard-pgnNAG"><?php esc_html_e( 'NAGs (aka. Numeric Annotation Glyphs)', 'rpb-chessboard' ); ?></h3>
 
 <div class="rpbchessboard-columns">
 	<div>
@@ -63,7 +63,7 @@
 			),
 			'<span class="rpbchessboard-sourceCode">',
 			'</span>',
-			sprintf( '<a href="%1$s" target="_blank">', esc_url( __( 'http://en.wikipedia.org/wiki/Numeric_Annotation_Glyphs', 'rpb-chessboard' ) ) ),
+			sprintf( '<a href="%s" target="_blank">', esc_url( __( 'http://en.wikipedia.org/wiki/Numeric_Annotation_Glyphs', 'rpb-chessboard' ) ) ),
 			'</a>'
 		);
 	?>

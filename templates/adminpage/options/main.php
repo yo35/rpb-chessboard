@@ -29,9 +29,9 @@
 		<div>
 			<?php RPBChessboardHelperLoader::printTemplate( $model->getSubPageTemplateName(), $model ); ?>
 			<p class="submit">
-				<input type="submit" class="button-primary" value="<?php _e( 'Save changes', 'rpb-chessboard' ); ?>" />
-				<a class="button" href="<?php echo esc_url( $model->getFormActionURL() ); ?>"><?php _e( 'Cancel', 'rpb-chessboard' ); ?></a>
-				<a class="button" id="rpbchessboard-resetButton" href="#"><?php _e( 'Reset settings', 'rpb-chessboard' ); ?></a>
+				<input type="submit" class="button-primary" value="<?php esc_attr_e( 'Save changes', 'rpb-chessboard' ); ?>" />
+				<a class="button" href="<?php echo esc_url( $model->getFormActionURL() ); ?>"><?php esc_html_e( 'Cancel', 'rpb-chessboard' ); ?></a>
+				<a class="button" id="rpbchessboard-resetButton" href="#"><?php esc_html_e( 'Reset settings', 'rpb-chessboard' ); ?></a>
 			</p>
 		</div>
 
