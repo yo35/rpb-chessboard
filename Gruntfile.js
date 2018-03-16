@@ -14,6 +14,21 @@ module.exports = function( grunt ) {
 			}
 		},
 
+		eslint: {
+			src: [
+				'js/*.js',
+				'!js/*min..js'
+			],
+			options: {
+				extends: 'wordpress',
+				fix: true,
+				rules: {
+					camelcase: [ 'error', { properties: 'never' } ],
+					yoda: [ 'error', 'always', { onlyEquality: true } ]
+				}
+			}
+		},
+
 		uglify: {
 			all: {
 				files: [ {
@@ -29,12 +44,13 @@ module.exports = function( grunt ) {
 
 	grunt.loadNpmTasks( 'grunt-phpcs' );
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
+	grunt.loadNpmTasks( 'grunt-eslint' );
 
 	// PHP
 	grunt.registerTask( 'php', [ 'phpcs' ] );
 
 	// JavaScript
-	grunt.registerTask( 'js', [ 'uglify' ] );
+	grunt.registerTask( 'js', [ 'eslint', 'uglify' ] );
 
 	// Default task.
 	grunt.registerTask( 'default', [ 'php' ] );
