@@ -183,8 +183,8 @@ abstract class RPBChessboardModelPostTheming extends RPBChessboardAbstractModel 
 
 		// Ensure that the result is valid and not already used for another set-code.
 		$counter = 1;
-		$base    = $setCode === '' ? $managedSetCode : $setCode;
-		$setCode = $setCode === '' ? $managedSetCode . '-1' : $setCode;
+		$base    = '' === $setCode ? $managedSetCode : $setCode;
+		$setCode = '' === $setCode ? $managedSetCode . '-1' : $setCode;
 		while ( $this->isCustomSetCode( $setCode ) || $this->isBuiltinSetCode( $setCode ) ) {
 			$setCode = $base . '-' . ( $counter++ );
 		}
