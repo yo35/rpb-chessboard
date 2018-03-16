@@ -72,6 +72,9 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-mkdir' );
 	grunt.loadNpmTasks( 'grunt-contrib-copy' );
 
+	grunt.registerTask( 'done', function() {
+		grunt.log.writeln( grunt.config.get( 'deployment.file' )['blue'].bold + ' updated'['blue'].bold );
+	});
 
 	// PHP
 	grunt.registerTask( 'php', [ 'phpcs' ] );
