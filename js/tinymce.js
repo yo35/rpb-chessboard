@@ -24,13 +24,12 @@
  *
  * @requires backend.js
  */
-(function(RPBChessboard)
-{
+( function( RPBChessboard ) {
 	'use strict';
 
 
 	// Skip if tinymce is not defined.
-	if(/* global tinymce */ typeof tinymce === 'undefined') {
+	if ( /* global tinymce */ 'undefined' === typeof tinymce ) {
 		return;
 	}
 
@@ -38,19 +37,19 @@
 	/**
 	 * Callback for the edit-FEN dialog.
 	 */
-	function editFENDialogCallback(editor, fen, options) {
-		editor.selection.setContent(RPBChessboard.serializeFENShortcodeContent(fen, options));
+	function editFENDialogCallback( editor, fen, options ) {
+		editor.selection.setContent( RPBChessboard.serializeFENShortcodeContent( fen, options ) );
 	}
 
 
 	/**
 	 * Callback for the edit-FEN button.
 	 */
-	function editFENButtonCallback(editor)
-	{
+	function editFENButtonCallback( editor ) {
+
 		// Ensure that the selection does not span over several DOM nodes.
 		var selectionRange = editor.selection.getRng();
-		if(selectionRange.startContainer !== selectionRange.endContainer) {
+		if ( selectionRange.startContainer !== selectionRange.endContainer ) {
 			editor.selection.collapse();
 		}
 		var currentNode = selectionRange.startContainer;
@@ -59,20 +58,21 @@
 		var text = currentNode.textContent;
 		var beginSelection = selectionRange.startOffset;
 		var endSelection   = selectionRange.endOffset;
-		var info = (0 <= beginSelection && beginSelection <= endSelection && endSelection <= text.length) ?
-			RPBChessboard.identifyFENShortcodeContent(text, beginSelection, endSelection) : null;
+		var info = ( 0 <= beginSelection && beginSelection <= endSelection && endSelection <= text.length ) ?
+			RPBChessboard.identifyFENShortcodeContent( text, beginSelection, endSelection ) : null;
 
 		// Open the FEN dialog.
-		var callback = function(fen, options) { editFENDialogCallback(editor, fen, options); };
-		if(info === null) {
-			RPBChessboard.showEditFENDialog(callback);
-		}
-		else {
-			selectionRange.setStart(currentNode, info.beginShortcode);
-			selectionRange.setEnd  (currentNode, info.endShortcode  );
+		var callback = function( fen, options ) {
+			editFENDialogCallback( editor, fen, options );
+		};
+		if ( null === info ) {
+			RPBChessboard.showEditFENDialog( callback );
+		} else {
+			selectionRange.setStart( currentNode, info.beginShortcode );
+			selectionRange.setEnd  ( currentNode, info.endShortcode  );
 			RPBChessboard.showEditFENDialog({
-				fen     : info.fen,
-				options : info.options,
+				fen: info.fen,
+				options: info.options,
 				callback: callback
 			});
 		}
@@ -80,12 +80,14 @@
 
 
 	// Register the edit-FEN button.
-	tinymce.PluginManager.add('RPBChessboard', function(editor, url) {
-		editor.addButton('rpb-chessboard', {
+	tinymce.PluginManager.add( 'RPBChessboard', function( editor, url ) {
+		editor.addButton( 'rpb-chessboard', {
 			title: RPBChessboard.i18n.EDIT_CHESS_DIAGRAM_DIALOG_TITLE,
 			image: url + '/../images/tinymce.png',
-			onclick: function() { editFENButtonCallback(editor); }
-    });
+			onclick: function() {
+				editFENButtonCallback( editor );
+			}
+		});
 	});
 
-})(/* global RPBChessboard */ RPBChessboard);
+}( /* global RPBChessboard */ RPBChessboard ) );

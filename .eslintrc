@@ -1,0 +1,9 @@
+{
+	"extends": "wordpress",
+	"rules": {
+		"camelcase": [ "error", { "properties": "never" } ],
+		"yoda": [ "error", "always", { "onlyEquality": true } ],
+		"vars-on-top": [ 0 ],
+		"space-in-parens": [ "error", "always", { "exceptions": [ "{}" ] } ]
+	}
+}
