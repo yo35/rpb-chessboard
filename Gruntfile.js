@@ -68,6 +68,25 @@ module.exports = function( grunt ) {
 			}
 		},
 
+		copy: {
+			snapshot: {
+				expand: true,
+				flatten: true,
+				src: ['<%= src.main.file %>', '<%= info.files %>', '<%= third.party.folder %>' ],
+				dest: '<%= snapshot.folder %>/<%= plugin.name %>'
+			},
+			readme: {
+				src: '<%= wordpress.readme.file %>',
+				dest: '<%= snapshot.folder %>/<%= plugin.name %>/readme.txt'
+			},
+			pngs: {
+				expand: true,
+				flatten: true,
+				src: '<%= asset.folder %>/*.png',
+				dest: '<%= snapshot.folder %>/<%= plugin.name %>-assets'
+			}
+		},
+
 		clean: {
 			build: [
 			'.temp',
