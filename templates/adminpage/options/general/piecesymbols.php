@@ -20,31 +20,31 @@
  ******************************************************************************/
 ?>
 
-<h3><?php _e( 'Piece symbols', 'rpb-chessboard' ); ?></h3>
+<h3><?php esc_html_e( 'Piece symbols', 'rpb-chessboard' ); ?></h3>
 
 
 <p>
 	<input type="radio" id="rpbchessboard-pieceSymbolButton-english" name="pieceSymbols" value="english"
 		<?php echo $model->getDefaultSimplifiedPieceSymbols() === 'english' ? 'checked="yes"' : ''; ?>
 	/>
-	<label for="rpbchessboard-pieceSymbolButton-english"><?php _e( 'English initials', 'rpb-chessboard' ); ?></label>
+	<label for="rpbchessboard-pieceSymbolButton-english"><?php esc_html_e( 'English initials', 'rpb-chessboard' ); ?></label>
 
 	<?php if ( $model->isPieceSymbolLocalizationAvailable() ) : ?>
 	<input type="radio" id="rpbchessboard-pieceSymbolButton-localized" name="pieceSymbols" value="localized"
 		<?php echo $model->getDefaultSimplifiedPieceSymbols() === 'localized' ? 'checked="yes"' : ''; ?>
 	/>
-	<label for="rpbchessboard-pieceSymbolButton-localized"><?php _e( 'Localized initials', 'rpb-chessboard' ); ?></label>
+	<label for="rpbchessboard-pieceSymbolButton-localized"><?php esc_html_e( 'Localized initials', 'rpb-chessboard' ); ?></label>
 	<?php endif; ?>
 
 	<input type="radio" id="rpbchessboard-pieceSymbolButton-figurines" name="pieceSymbols" value="figurines"
 		<?php echo $model->getDefaultSimplifiedPieceSymbols() === 'figurines' ? 'checked="yes"' : ''; ?>
 	/>
-	<label for="rpbchessboard-pieceSymbolButton-figurines"><?php _e( 'Figurines', 'rpb-chessboard' ); ?></label>
+	<label for="rpbchessboard-pieceSymbolButton-figurines"><?php esc_html_e( 'Figurines', 'rpb-chessboard' ); ?></label>
 
 	<input type="radio" id="rpbchessboard-pieceSymbolButton-custom" name="pieceSymbols" value="custom"
 		<?php echo $model->getDefaultSimplifiedPieceSymbols() === 'custom' ? 'checked="yes"' : ''; ?>
 	/>
-	<label for="rpbchessboard-pieceSymbolButton-custom"><?php _e( 'Custom', 'rpb-chessboard' ); ?></label>
+	<label for="rpbchessboard-pieceSymbolButton-custom"><?php esc_html_e( 'Custom', 'rpb-chessboard' ); ?></label>
 </p>
 
 
@@ -83,7 +83,7 @@
 
 <p class="description">
 	<?php
-		_e(
+		esc_html_e(
 			'This setting only affects how chess moves are rendered to post/page readers. ' .
 			'Authors must always use English initials when writting PGN content into posts and pages.',
 			'rpb-chessboard'

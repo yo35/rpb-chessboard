@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-pgnComment"><?php _e( 'Comments', 'rpb-chessboard' ); ?></h3>
+<h3 id="rpbchessboard-pgnComment"><?php esc_html_e( 'Comments', 'rpb-chessboard' ); ?></h3>
 
 <div class="rpbchessboard-columns">
 	<div>
@@ -30,8 +30,8 @@
 			1. d4
 			{
 			<?php
-				echo sprintf(
-					__( 'I\'m a %1$sshort%2$s comment.', 'rpb-chessboard' ),
+				printf(
+					esc_html__( 'I\'m a %1$sshort%2$s comment.', 'rpb-chessboard' ),
 					'&lt;strong style=&quot;color:red;&quot;&gt;', '&lt;/strong&gt;'
 				);
 			?>
@@ -41,8 +41,8 @@
 			<br/>
 			{
 			<?php
-				echo sprintf(
-					__( 'I\'m a %1$slong%2$s comment.', 'rpb-chessboard' ),
+				printf(
+					esc_html__( 'I\'m a %1$slong%2$s comment.', 'rpb-chessboard' ),
 					'&lt;strong style=&quot;color:red;&quot;&gt;', '&lt;/strong&gt;'
 				);
 			?>

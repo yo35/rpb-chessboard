@@ -39,7 +39,7 @@ abstract class RPBChessboardStyleSheets {
 		// Custom widgets
 		wp_enqueue_style( 'rpbchessboard-chessboard', RPBCHESSBOARD_URL . 'css/rpbchess-ui-chessboard.css', false, RPBCHESSBOARD_VERSION );
 		wp_enqueue_style( 'rpbchessboard-chessgame', RPBCHESSBOARD_URL . 'css/rpbchess-ui-chessgame.css', false, RPBCHESSBOARD_VERSION );
-		self::enqueueCachedStyle( 'rpbchessboard-chessboard', 'small-screens.css', 'Misc/SmallScreens', 'Common/SmallScreens' );
+		self::enqueueCachedStyle( 'rpbchessboard-chessboard', 'small-screens.css', 'Misc/SmallScreens', 'Misc/SmallScreens' );
 		self::enqueueCachedStyle( 'rpbchessboard-chessboard', 'theming.css', 'Misc/Theming', 'Misc/Theming' );
 
 		// Additional CSS for the frontend/backend.
