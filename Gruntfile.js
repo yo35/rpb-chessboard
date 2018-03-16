@@ -44,13 +44,13 @@ module.exports = function( grunt ) {
 		shell: {
 			stats: {
 				command: [
-					"echo",
-					"echo '\033[34;1mJavaScript source code\033[0m'",
-					"assets/dev-tools/statistics.sh `find js -name '*.js' -not -name '*.min.js'`",
-					"echo",
-					"echo '\033[34;1mPHP source code\033[0m'",
-					"assets/dev-tools/statistics.sh `find rpb-chessboard.php css fonts helpers images js languages models templates wp -name '*.php'`",
-					"echo"
+					'echo',
+					'echo "<%= color.in %>JavaScript source code<%= color.out %>"',
+					'assets/dev-tools/statistics.sh `find js -name "*.js" -not -name "*.min.js"`',
+					'echo',
+					'echo "<%= color.in %>PHP source code<%= color.out %>"',
+					'assets/dev-tools/statistics.sh `find <%= src.main.file %> <%= src.folders.join(" ") %> -name "*.php"`',
+					'echo'
 				].join( '&&' )
 			}
 		},
