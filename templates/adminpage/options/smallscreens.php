@@ -26,13 +26,13 @@
 		<?php echo $model->getSmallScreenCompatibility() ? 'checked="yes"' : ''; ?>
 	/>
 	<label for="rpbchessboard-smallScreenCompatibilityField">
-		<?php _e( 'Enable support for small-screen devices', 'rpb-chessboard' ); ?>
+		<?php esc_html_e( 'Enable support for small-screen devices', 'rpb-chessboard' ); ?>
 	</label>
 </p>
 
 <p class="description">
 	<?php
-		_e(
+		esc_html_e(
 			'Activating this option allows to customize how RPB Chessboard renders chess diagrams on small-screen devices (such as smartphones).',
 			'rpb-chessboard'
 		);
@@ -47,20 +47,20 @@
 
 <h3 title="<?php
 if ( $mode->minScreenWidth === 0 ) {
-	echo sprintf(
-		__( 'These options apply to devices whose resolution is less than %1$s pixel width.', 'rpb-chessboard' ),
+	printf(
+		esc_attr__( 'These options apply to devices whose resolution is less than %1$s pixel width.', 'rpb-chessboard' ),
 		esc_attr( $mode->maxScreenWidth )
 	);
 } else {
-	echo sprintf(
-		__( 'These options apply to devices whose resolution lies between %1$s and %2$s pixel width.', 'rpb-chessboard' ),
+	printf(
+		esc_attr__( 'These options apply to devices whose resolution lies between %1$s and %2$s pixel width.', 'rpb-chessboard' ),
 		esc_attr( $mode->minScreenWidth + 1 ),
 		esc_attr( $mode->maxScreenWidth )
 	);
 }
 ?>
 ">
-	<?php echo sprintf( __( 'Screen width &le; %1$s pixels', 'rpb-chessboard' ), esc_html( $mode->maxScreenWidth ) ); ?>
+	<?php printf( esc_html__( 'Screen width &le; %1$s pixels', 'rpb-chessboard' ), esc_html( $mode->maxScreenWidth ) ); ?>
 </h3>
 
 <input type="hidden" name="smallScreenMode<?php echo esc_attr( $index ); ?>-screenWidth" value="<?php echo esc_attr( $mode->maxScreenWidth ); ?>" />
@@ -68,8 +68,8 @@ if ( $mode->minScreenWidth === 0 ) {
 <div>
 	<p>
 		<?php
-			echo sprintf(
-				__( 'Restrict square size to: %1$s pixels', 'rpb-chessboard' ),
+			printf(
+				esc_html__( 'Restrict square size to: %1$s pixels', 'rpb-chessboard' ),
 				'<input type="text" id="rpbchessboard-smallScreenMode' . esc_attr( $index ) . '-squareSizeField" class="rpbchessboard-squareSizeField" ' .
 					'name="smallScreenMode' . esc_attr( $index ) . '-squareSize" ' .
 					'size="' . esc_attr( $model->getDigitNumberForSquareSize() ) . '" ' .
@@ -83,15 +83,15 @@ if ( $mode->minScreenWidth === 0 ) {
 	<?php if ( $index === 0 ) : ?>
 	<p class="description">
 		<?php
-			echo sprintf(
-				__(
+			printf(
+				esc_html__(
 					'Chess diagrams will be displayed with a square size not larger than this value if the screen width is less than %1$s pixels, ' .
 					'whatever the %2$sdefault aspect and behavior settings%3$s or the tag attributes that may be specified in the posts/pages. ' .
 					'Diagrams for which the square size is less than this value will be displayed as they normally do on large screen devices.',
 					'rpb-chessboard'
 				),
 				esc_html( $mode->maxScreenWidth ),
-				'<a href="' . esc_url( $model->getOptionsGeneralURL() ) . '">',
+				sprintf( '<a href="%s">', esc_url( $model->getOptionsGeneralURL() ) ),
 				'</a>'
 			);
 		?>
@@ -105,31 +105,29 @@ if ( $mode->minScreenWidth === 0 ) {
 			<?php echo $mode->hideCoordinates ? 'checked="yes"' : ''; ?>
 		/>
 		<label for="rpbchessboard-smallScreenMode<?php echo esc_attr( $index ); ?>-hideCoordinatesField">
-			<?php _e( 'Always hide coordinates', 'rpb-chessboard' ); ?>
+			<?php esc_html_e( 'Always hide coordinates', 'rpb-chessboard' ); ?>
 		</label>
 	</p>
 
 	<?php if ( $index === 0 ) : ?>
 	<p class="description">
 		<?php
-			echo sprintf(
-				__(
+			printf(
+				esc_html__(
 					'If enabled, row and column coordinates will be hidden if the screen width is less than %1$s pixels, ' .
 					'whatever the %2$sdefault aspect and behavior settings%3$s or the tag attributes that may be specified in the posts/pages. ' .
 					'If disabled, row and column coordinates will be displayed as they normally do on large screen devices.',
 					'rpb-chessboard'
 				),
 				esc_html( $mode->maxScreenWidth ),
-					'<a href="' . esc_url( $model->getOptionsGeneralURL() ) . '">',
+				sprintf( '<a href="%s">', esc_url( $model->getOptionsGeneralURL() ) ),
 				'</a>'
 			);
 		?>
 	</p>
 	<?php else : ?>
 	<p class="description">
-		<?php
-			_e( 'See explanations about theses settings above.', 'rpb-chessboard' );
-		?>
+		<?php esc_html_e( 'See explanations about theses settings above.', 'rpb-chessboard' ); ?>
 	</p>
 	<?php endif; ?>
 

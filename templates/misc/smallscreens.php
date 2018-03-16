@@ -27,11 +27,11 @@ if ( ! $model->getSmallScreenCompatibility() ) {
 ?>
 
 <?php foreach ( $model->getSmallScreenModes() as $mode ) : ?>
-<?php echo $model->getSmallScreenModeMainSelector( $mode ); ?> {
+<?php echo $model->getSanitizedMainSelector( $mode ); ?> {
 
-	<?php if ( $model->hasSmallScreenSizeSquareSizeSection( $mode ) ) : ?>
+	<?php if ( $model->hasSquareSizeSection( $mode ) ) : ?>
 
-	<?php echo $model->getSmallScreenModeSquareSizeSelector( $mode ); ?> {
+	<?php echo $model->getSanitizedSquareSizeSelector( $mode ); ?> {
 		min-width: <?php echo intval( $mode->squareSize ); ?>px;
 		width    : <?php echo intval( $mode->squareSize ); ?>px;
 		height   : <?php echo intval( $mode->squareSize ); ?>px;
@@ -40,7 +40,7 @@ if ( ! $model->getSmallScreenCompatibility() ) {
 			<?php echo intval( $model->getBackgroundPositionYForSquareSize( $mode->squareSize ) ); ?>px;
 	}
 
-	<?php echo $model->getSmallScreenModeAnnotationLayerSelector( $mode ); ?> {
+	<?php echo $model->getSanitizedAnnotationLayerSelector( $mode ); ?> {
 		width : <?php echo intval( $model->getHeightWidthForAnnotationLayer( $mode->squareSize ) ); ?>px;
 		height: <?php echo intval( $model->getHeightWidthForAnnotationLayer( $mode->squareSize ) ); ?>px;
 		right : <?php echo intval( $model->getRightForAnnotationLayer( $mode->squareSize ) ); ?>px;

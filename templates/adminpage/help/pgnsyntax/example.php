@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-pgnExample"><?php _e( 'Standard PGN game', 'rpb-chessboard' ); ?></h3>
+<h3 id="rpbchessboard-pgnExample"><?php esc_html_e( 'Standard PGN game', 'rpb-chessboard' ); ?></h3>
 
 <div class="rpbchessboard-columns">
 	<div>

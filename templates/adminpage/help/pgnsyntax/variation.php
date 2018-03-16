@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-pgnVariation"><?php _e( 'Variations', 'rpb-chessboard' ); ?></h3>
+<h3 id="rpbchessboard-pgnVariation"><?php esc_html_e( 'Variations', 'rpb-chessboard' ); ?></h3>
 
 <div class="rpbchessboard-columns">
 	<div>
