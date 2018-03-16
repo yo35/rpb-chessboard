@@ -39,7 +39,7 @@ class RPBChessboardModelMiscSmallScreens extends RPBChessboardAbstractModel {
 	 *
 	 * @return boolean
 	 */
-	public function hasSmallScreenSizeSquareSizeSection( $mode ) {
+	public function hasSquareSizeSection( $mode ) {
 		return $mode->squareSize < RPBChessboardHelperValidation::MAXIMUM_SQUARE_SIZE;
 	}
 
@@ -47,14 +47,14 @@ class RPBChessboardModelMiscSmallScreens extends RPBChessboardAbstractModel {
 	/**
 	 * Selector to use to introduce the specific CSS instructions for the given small-screen mode.
 	 *
-	 * @return string
+	 * @return string Sanitized for use as a CSS selector. NO EXTRA-SANITIZATION NEEDED.
 	 */
-	public function getSmallScreenModeMainSelector( $mode ) {
+	public function getSanitizedMainSelector( $mode ) {
 		$res = '@media all';
 		if ( $mode->minScreenWidth > 0 ) {
-			$res .= ' and (min-width:' . ( $mode->minScreenWidth + 1 ) . 'px)';
+			$res .= ' and (min-width:' . intval( $mode->minScreenWidth + 1 ) . 'px)';
 		}
-		$res .= ' and (max-width:' . $mode->maxScreenWidth . 'px)';
+		$res .= ' and (max-width:' . intval( $mode->maxScreenWidth ) . 'px)';
 		return $res;
 	}
 
@@ -62,12 +62,12 @@ class RPBChessboardModelMiscSmallScreens extends RPBChessboardAbstractModel {
 	/**
 	 * Selector to use to introduce the specific CSS instructions to customize the square size in the given small-screen mode.
 	 *
-	 * @return string
+	 * @return string Sanitized for use as a CSS selector. NO EXTRA-SANITIZATION NEEDED.
 	 */
-	public function getSmallScreenModeSquareSizeSelector( $mode ) {
+	public function getSanitizedSquareSizeSelector( $mode ) {
 		$selectors = array();
 		for ( $size = $mode->squareSize + 1; $size <= RPBChessboardHelperValidation::MAXIMUM_SQUARE_SIZE; ++$size ) {
-			array_push( $selectors, '.rpbui-chessboard-size' . $size . ' .rpbui-chessboard-sized' );
+			array_push( $selectors, '.rpbui-chessboard-size' . intval( $size ) . ' .rpbui-chessboard-sized' );
 		}
 		return implode( ',', $selectors );
 	}
@@ -76,12 +76,12 @@ class RPBChessboardModelMiscSmallScreens extends RPBChessboardAbstractModel {
 	/**
 	 * Selector to use to introduce the specific CSS instructions to customize the annotation layer in the given small-screen mode.
 	 *
-	 * @return string
+	 * @return string Sanitized for use as a CSS selector. NO EXTRA-SANITIZATION NEEDED.
 	 */
-	public function getSmallScreenModeAnnotationLayerSelector( $mode ) {
+	public function getSanitizedAnnotationLayerSelector( $mode ) {
 		$selectors = array();
 		for ( $size = $mode->squareSize + 1; $size <= RPBChessboardHelperValidation::MAXIMUM_SQUARE_SIZE; ++$size ) {
-			array_push( $selectors, '.rpbui-chessboard-size' . $size . ' .rpbui-chessboard-annotations' );
+			array_push( $selectors, '.rpbui-chessboard-size' . intval( $size ) . ' .rpbui-chessboard-annotations' );
 		}
 		return implode( ',', $selectors );
 	}
