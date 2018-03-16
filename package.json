@@ -11,7 +11,8 @@
     "eslint": "^4.14.0",
     "eslint-config-wordpress": "^2.0.0",
     "grunt": "^1.0.1",
-    "grunt-phpcs": "^0.4.0"
+    "grunt-phpcs": "^0.4.0",
+    "grunt-contrib-uglify": "^3.3.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
