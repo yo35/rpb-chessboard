@@ -64,6 +64,25 @@ module.exports = function( grunt ) {
 		]
 	});
 
+	grunt.config.set( 'plugin.name', 'rpb-chessboard' );
+	grunt.config.set( 'deployment.file', '<%= plugin.name %>.zip' );
+	grunt.config.set( 'temp.folder', '.temp' );
+	grunt.config.set( 'snapshot.folder', '<%= temp.folder %>/snapshot' );
+	grunt.config.set( 'src.main.file', '<%= plugin.name %>.php' );
+	grunt.config.set( 'src.folders', [ 'css', 'fonts', 'helpers', 'images', 'js', 'languages', 'models', 'templates', 'wp' ] );
+	grunt.config.set( 'third.party.folder', 'third-party-libs' );
+	grunt.config.set( 'asset.folder', 'assets' );
+	grunt.config.set( 'cache.folder', 'cache' );
+	grunt.config.set( 'wordpress.readme.file', 'wordpress.readme.txt' );
+	grunt.config.set( 'info.files', [ 'LICENSE', 'examples.pgn' ] );
+
+	grunt.config.set( 'color.in', '\033[34;1m' );
+	grunt.config.set( 'color.out', '\033[0m' );
+	grunt.config.set( 'color.arg.in', '\033[31m' );
+	grunt.config.set( 'color.arg.out', '\033[34m' );
+	grunt.config.set( 'color.item.in', '\033[35;1m' );
+	grunt.config.set( 'color.item.out', '\033[0m' );
+
 	grunt.loadNpmTasks( 'grunt-phpcs' );
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 	grunt.loadNpmTasks( 'grunt-eslint' );
