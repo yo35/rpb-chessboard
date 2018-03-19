@@ -165,7 +165,7 @@ module.exports = function( grunt ) {
 	// JavaScript
 	grunt.registerTask( 'js', [ 'eslint', 'uglify' ] );
 
-	// Shell
+	// Stats
 	grunt.registerTask( 'stats', [ 'shell:stats' ] );
 
 	// Clean
