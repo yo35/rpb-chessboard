@@ -95,6 +95,19 @@ module.exports = function( grunt ) {
 			}
 		},
 
+		compress: {
+			snapshot: {
+				options: {
+					archive: '<%= deployment.file %>'
+				},
+				files: [{
+					expand: true,
+					cwd: '<%= snapshot.folder %>',
+					src: [ '<%= plugin.name %>/**', '<%= plugin.name %>-assets/**' ]
+				}]
+			}
+		},
+
 		clean: {
 			build: [
 			'.temp',
@@ -136,6 +149,7 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-contrib-clean' );
 	grunt.loadNpmTasks( 'grunt-mkdir' );
 	grunt.loadNpmTasks( 'grunt-contrib-copy' );
+	grunt.loadNpmTasks( 'grunt-contrib-compress' );
 
 	grunt.config.get( 'src.folders' ).forEach( function( item ) {
 		srcFoldersWithPath.push( item + '/**' );
