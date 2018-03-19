@@ -172,7 +172,7 @@ module.exports = function( grunt ) {
 	grunt.registerTask( 'clean', [ 'clean:build' ] );
 
 	// Pack
-	// grunt.registerTask( 'pack', [ 'XXXXi18ncompile', 'uglify', 'clean:release', 'mkdir:snapshot', 'copy:snapshots', 'copy:readme', 'mkdir:assets', 'copy:pngs', 'XXXXzip:snapshots', 'done' ] );
+	// grunt.registerTask( 'pack', [ 'XXXXi18ncompile', 'uglify', 'clean:release', 'mkdir:snapshot', 'copy:snapshot', 'copy:snapshotFolders', 'copy:readme', 'mkdir:assets', 'copy:pngs', 'compress', 'done' ] );
 
 	// Default task.
 	grunt.registerTask( 'default', [ 'php', 'js' ] );
