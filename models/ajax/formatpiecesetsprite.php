@@ -45,7 +45,7 @@ class RPBChessboardModelAjaxFormatPiecesetSprite extends RPBChessboardAbstractMo
 		if ( $attachment->width !== $attachment->height ) {
 			wp_send_json_error( array( 'message' => __( 'Images used to create piecesets must be square images (identical height and width).', 'rpb-chessboard' ) ) );
 		}
-		if ( $attachment->type !== IMAGETYPE_PNG ) {
+		if ( IMAGETYPE_PNG !== $attachment->type ) {
 			wp_send_json_error( array( 'message' => __( 'Only PNG images can be used to create piecesets.', 'rpb-chessboard' ) ) );
 		}
 

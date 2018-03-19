@@ -47,7 +47,7 @@
 					<td><?php echo $model->getDefaultAnimationSpeed() === $animationSpeed ? '<div class="rpbchessboard-tickIcon"></div>' : ''; ?></td>
 					<td>
 						<?php
-							echo $animationSpeed === 0 ? esc_html__( 'No animation', 'rpb-chessboard' ) :
+							echo 0 === $animationSpeed ? esc_html__( 'No animation', 'rpb-chessboard' ) :
 								sprintf( esc_html__('The animation lasts %1$s milliseconds.', 'rpb-chessboard'), esc_html( $animationSpeed ) );
 						?>
 					</td>

@@ -98,7 +98,7 @@ class RPBChessboardModelAdminPageHelp extends RPBChessboardAbstractModelAdminPag
 	public function getAnimationSpeedList() {
 		if ( ! isset( $this->animationSpeedList ) ) {
 			$defaultAnimationSpeed = $this->getDefaultAnimationSpeed();
-			if ( $defaultAnimationSpeed === 0 ) {
+			if ( 0 === $defaultAnimationSpeed ) {
 				$this->animationSpeedList = array( 0, 200, 800 );
 			} elseif ( $defaultAnimationSpeed <= 500 ) {
 				$this->animationSpeedList = array( 0, $defaultAnimationSpeed, 800 );
@@ -131,6 +131,6 @@ class RPBChessboardModelAdminPageHelp extends RPBChessboardAbstractModelAdminPag
 			}
 		}
 		$t = $this->pieceSymbolCustomValues;
-		return $piece === null ? $t['K'] . $t['Q'] . $t['R'] . $t['B'] . $t['N'] . $t['P'] : $t[ $piece ];
+		return null === $piece ? $t['K'] . $t['Q'] . $t['R'] . $t['B'] . $t['N'] . $t['P'] : $t[ $piece ];
 	}
 }

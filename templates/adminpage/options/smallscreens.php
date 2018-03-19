@@ -46,7 +46,7 @@
 <?php foreach ( $model->getSmallScreenModes() as $index => $mode ) : ?>
 
 <h3 title="<?php
-if ( $mode->minScreenWidth === 0 ) {
+if ( 0 === $mode->minScreenWidth ) {
 	printf(
 		esc_attr__( 'These options apply to devices whose resolution is less than %1$s pixel width.', 'rpb-chessboard' ),
 		esc_attr( $mode->maxScreenWidth )
@@ -80,7 +80,7 @@ if ( $mode->minScreenWidth === 0 ) {
 		<span id="rpbchessboard-smallScreenMode<?php echo esc_attr( $index ); ?>-squareSizeSlider" class="rpbchessboard-slider"></span>
 	</p>
 
-	<?php if ( $index === 0 ) : ?>
+	<?php if ( 0 === $index ) : ?>
 	<p class="description">
 		<?php
 			printf(
@@ -109,7 +109,7 @@ if ( $mode->minScreenWidth === 0 ) {
 		</label>
 	</p>
 
-	<?php if ( $index === 0 ) : ?>
+	<?php if ( 0 === $index ) : ?>
 	<p class="description">
 		<?php
 			printf(
