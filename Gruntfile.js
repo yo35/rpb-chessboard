@@ -1,5 +1,8 @@
 module.exports = function( grunt ) {
 
+	// define this before initConfig()
+	var srcFoldersWithPath = [];
+
 	// Project configuration
 	grunt.initConfig({
 		pkg: grunt.file.readJSON( 'package.json' ),
@@ -72,7 +75,12 @@ module.exports = function( grunt ) {
 			snapshot: {
 				expand: true,
 				flatten: true,
-				src: ['<%= src.main.file %>', '<%= info.files %>', '<%= third.party.folder %>' ],
+				src: [ '<%= src.main.file %>', '<%= third.party.folder %>', '<%= info.files %>' ],
+				dest: '<%= snapshot.folder %>/<%= plugin.name %>'
+			},
+			snapshotFolders: {
+				expand: true,
+				src: srcFoldersWithPath,
 				dest: '<%= snapshot.folder %>/<%= plugin.name %>'
 			},
 			readme: {
@@ -128,6 +136,10 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-contrib-clean' );
 	grunt.loadNpmTasks( 'grunt-mkdir' );
 	grunt.loadNpmTasks( 'grunt-contrib-copy' );
+
+	grunt.config.get( 'src.folders' ).forEach( function( item ) {
+		srcFoldersWithPath.push( item + '/**' );
+	});
 
 	grunt.registerTask( 'done', function() {
 		grunt.log.writeln( grunt.config.get( 'deployment.file' ).blue.bold + ' updated'.blue.bold );
