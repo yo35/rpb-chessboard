@@ -8,4 +8,16 @@
 		<exclude name="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid"/>
 		<exclude name="WordPress.NamingConventions.ValidVariableName.MemberNotSnakeCase"/>
 	</rule>
+
+	<config name="installed_paths" value="vendor/wp-coding-standards/wpcs" />
+
+	<arg name="colors" />
+
+	<arg value="s"/>
+	<arg name="extensions" value="php"/>
+	<file>.</file>
+
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/third-party-libs/*</exclude-pattern>
 </ruleset>
