@@ -118,6 +118,14 @@ class RPBChessboardModelCommonCustomPiecesets extends RPBChessboardAbstractModel
 	 */
 	public function getCustomPiecesetSpriteURL( $pieceset, $coloredPiece ) {
 
+		// Use custom sprite stored for this pieceset if available.
+		$thumbnailURL = $this->getCustomPiecesetThumbnailURL( $pieceset, $coloredPiece );
+		$sprite = get_option( 'rpb_sprite_' . md5( $thumbnailURL ) );
+
+		if ( $sprite ) {
+			return $sprite;
+		}
+
 		if ( '' === $pieceset ) {
 			return '#';
 		}

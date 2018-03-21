@@ -49,15 +49,17 @@ class RPBChessboardModelAjaxFormatPiecesetSprite extends RPBChessboardAbstractMo
 			wp_send_json_error( array( 'message' => __( 'Only PNG images can be used to create piecesets.', 'rpb-chessboard' ) ) );
 		}
 
-		$outputPath = $this->computeCustomPiecesetSpritePathOrURL( $attachment->path );
-		if ( ! file_exists( $outputPath ) ) {
-			if ( ! $this->generateSprite( $outputPath, $attachment->path, $attachment->width, $attachment->height ) ) {
-				wp_send_json_error( array( 'message' => __( 'Error while processing the selected image.', 'rpb-chessboard' ) ) );
-			}
+		$sprite = $this->generateSprite( $attachment->path, $attachment->width, $attachment->height );
+		if ( ! $sprite ) {
+			wp_send_json_error( array( 'message' => __( 'Error while processing the selected image.', 'rpb-chessboard' ) ) );
 		}
 
 		$thumbnailURL = wp_get_attachment_image_url( $attachment->id );
-		$spriteURL    = $this->computeCustomPiecesetSpritePathOrURL( $attachment->url );
+		$spriteURL    = $sprite;
+
+		// Store the sprite URL for later reuse.
+		update_option( 'rpb_sprite_' . md5( $thumbnailURL ), $sprite );
+
 		wp_send_json_success(
 			array(
 				'attachmentId' => $attachment->id,
@@ -67,14 +69,19 @@ class RPBChessboardModelAjaxFormatPiecesetSprite extends RPBChessboardAbstractMo
 		);
 	}
 
-
-	private function generateSprite( $destPath, $srcPath, $srcWidth, $srcHeight ) {
+	private function generateSprite( $srcPath, $srcWidth, $srcHeight ) {
 
 		// Load the input image.
 		$srcImage = imagecreatefrompng( $srcPath );
 		if ( ! $srcImage ) {
 			return false;
 		}
+
+		// Create a temporary image we can remove later.
+		$dir        = get_temp_dir();
+		$filename   = uniqid();
+		$temp_image = basename( $filename ) . '-' . wp_generate_password( 6, false ) . '.jpg';
+		$temp_image = $dir . wp_unique_filename( $dir, $temp_image );
 
 		// Compute sizes.
 		$sizeMin    = $this->getMinimumSquareSize();
@@ -103,12 +110,28 @@ class RPBChessboardModelAjaxFormatPiecesetSprite extends RPBChessboardAbstractMo
 		}
 
 		// Save the output image.
-		imagepng( $destImage, $destPath );
+		imagepng( $destImage, $temp_image );
+
+		$file_array = [
+			'name'     => basename( $temp_image ),
+			'tmp_name' => $temp_image,
+		];
+
+		// Sideload the image
+		$sprite = media_handle_sideload( $file_array, 0 );
 
 		// Free resources.
 		imagedestroy( $destImage );
 		imagedestroy( $srcImage );
-		return true;
+
+		// Store the generated image URL, and make it an auto-draft to hide from the media library.
+		$url = wp_get_attachment_image_url( $sprite );
+		wp_update_post( array(
+			'ID'          => $sprite,
+			'post_status' => 'auto-draft',
+		) );
+
+		return $url;
 	}
 
 
