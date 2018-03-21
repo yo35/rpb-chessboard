@@ -20,12 +20,12 @@
  ******************************************************************************/
 ?>
 
-<h3><?php _e( 'Compatibility with plugins and themes that modify jQuery', 'rpb-chessboard' ); ?></h3>
+<h3><?php esc_html_e( 'Compatibility with plugins and themes that modify jQuery', 'rpb-chessboard' ); ?></h3>
 
 <p>
 	<?php
-		echo sprintf(
-			__(
+		printf(
+			esc_html__(
 				'The RPB Chessboard plugin relies heavily on the %1$sjQuery%2$s JavaScript library, ' .
 				'which is packaged by default with WordPress. Yet, some plugins and themes modify ' .
 				'the standard behavior of jQuery for their own needs, thus creating a conflict ' .
@@ -33,7 +33,7 @@
 				'these conflicts.',
 				'rpb-chessboard'
 			),
-			'<a href="https://jquery.com/">',
+			'<a href="https://jquery.com/" target="_blank">',
 			'</a>'
 		);
 	?>
@@ -47,13 +47,13 @@
 		<?php echo $model->getNoConflictForButton() ? 'checked="yes"' : ''; ?>
 	/>
 	<label for="rpbchessboard-noConflictForButtonField">
-		<?php _e( 'Try to fix jQuery\'s buttons', 'rpb-chessboard' ); ?>
+		<?php esc_html_e( 'Try to fix jQuery\'s buttons', 'rpb-chessboard' ); ?>
 	</label>
 </p>
 
 <p class="description">
 	<?php
-		_e(
+		esc_html_e(
 			'Enable this option if the navigation bar does not appear below the navigation board, ' .
 			'or if the closing button of the popup frame appears to be weirdly placed.',
 			'rpb-chessboard'

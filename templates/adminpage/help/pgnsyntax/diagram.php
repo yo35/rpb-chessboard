@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-pgnDiagram"><?php _e( 'Diagrams', 'rpb-chessboard' ); ?></h3>
+<h3 id="rpbchessboard-pgnDiagram"><?php esc_html_e( 'Diagrams', 'rpb-chessboard' ); ?></h3>
 
 <div class="rpbchessboard-columns">
 	<div>
@@ -29,7 +29,7 @@
 			[<?php echo esc_html( $model->getPGNShortcode() ); ?>]<br/>
 			1. e4 c5<br/>
 			<br/>
-			{[pgndiagram] <?php _e( 'This opening is called the Sicilian defence. A possible continuation is:', 'rpb-chessboard' ); ?>}<br/>
+			{[pgndiagram] <?php esc_html_e( 'This opening is called the Sicilian defence. A possible continuation is:', 'rpb-chessboard' ); ?>}<br/>
 			<br/>
 			2. Nf3 d6 *<br/>
 			[/<?php echo esc_html( $model->getPGNShortcode() ); ?>]
@@ -37,8 +37,8 @@
 
 		<p>
 			<?php
-				echo sprintf(
-					__(
+				printf(
+					esc_html__(
 						'Notice that %1$s[pgndiagram]%2$s tags must not be used outside a PGN game. ' .
 						'To insert a diagram outside a PGN game, use the %1$s[%3$s][/%3$s]%2$s tag instead.',
 						'rpb-chessboard'

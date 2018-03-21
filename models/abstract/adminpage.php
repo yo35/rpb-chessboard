@@ -171,7 +171,7 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 		if ( isset( $this->subPages ) ) {
 			$name = strtolower( $name );
 			foreach ( $this->subPages as $subPage ) {
-				if ( $name === strtolower( $subPage->name ) ) {
+				if ( strtolower( $subPage->name ) === $name ) {
 					return $subPage->name;
 				}
 			}

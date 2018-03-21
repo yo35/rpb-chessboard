@@ -22,8 +22,8 @@
 
 <p>
 	<?php
-		echo sprintf(
-			__(
+		printf(
+			esc_html__(
 				'These settings control the default aspect and behavior of the chess diagrams and games ' .
 				'inserted in posts and pages with the %1$s[%3$s][/%3$s]%2$s and %1$s[%4$s][/%4$s]%2$s tags. ' .
 				'They can be overridden at each tag by passing appropriate tag attributes: ' .
@@ -34,8 +34,8 @@
 			'</span>',
 			esc_html( $model->getFENShortcode() ),
 			esc_html( $model->getPGNShortcode() ),
-			'<a href="' . esc_attr( $model->getHelpOnFENAttributesURL() ) . '">',
-			'<a href="' . esc_attr( $model->getHelpOnPGNAttributesURL() ) . '">',
+			sprintf( '<a href="%s">', esc_url( $model->getHelpOnFENAttributesURL() ) ),
+			sprintf( '<a href="%s">', esc_url( $model->getHelpOnPGNAttributesURL() ) ),
 			'</a>'
 		);
 	?>

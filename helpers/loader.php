@@ -57,7 +57,7 @@ abstract class RPBChessboardHelperLoader {
 
 		if ( isset( $args ) ) {
 			foreach ( $args as $key => $value ) {
-				if ( $key === 'model' || $key === 'templateName' || $key === 'fileName' ) {
+				if ( 'model' === $key || 'templateName' === $key || 'fileName' === $key ) {
 					continue;
 				}
 				$$key = $value;

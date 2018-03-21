@@ -20,15 +20,15 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-pgnAttributePieceSymbols"><?php _e( 'Piece symbols', 'rpb-chessboard' ); ?></h3>
+<h3 id="rpbchessboard-pgnAttributePieceSymbols"><?php esc_html_e( 'Piece symbols', 'rpb-chessboard' ); ?></h3>
 
 <div class="rpbchessboard-columns">
 	<div>
 
 		<p>
 			<?php
-				echo sprintf(
-					__( 'The %1$s attribute controls how chess pieces are denoted in the move list.', 'rpb-chessboard' ),
+				printf(
+					esc_html__( 'The %1$s attribute controls how chess pieces are denoted in the move list.', 'rpb-chessboard' ),
 					'<span class="rpbchessboard-sourceCode">piece_symbols</span>'
 				);
 			?>
@@ -37,20 +37,20 @@
 		<table class="rpbchessboard-attributeTable">
 			<tbody>
 				<tr>
-					<th><?php _e( 'Value', 'rpb-chessboard' ); ?></th>
-					<th><?php _e( 'Default', 'rpb-chessboard' ); ?></th>
-					<th><?php _e( 'Description', 'rpb-chessboard' ); ?></th>
+					<th><?php esc_html_e( 'Value', 'rpb-chessboard' ); ?></th>
+					<th><?php esc_html_e( 'Default', 'rpb-chessboard' ); ?></th>
+					<th><?php esc_html_e( 'Description', 'rpb-chessboard' ); ?></th>
 				</tr>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributePieceSymbols-value">native</a></td>
 					<td><?php echo $model->getDefaultSimplifiedPieceSymbols() === 'english' ? '<div class="rpbchessboard-tickIcon"></div>' : ''; ?></td>
-					<td><?php _e( 'First character of the piece name in English.', 'rpb-chessboard' ); ?></td>
+					<td><?php esc_html_e( 'First character of the piece name in English.', 'rpb-chessboard' ); ?></td>
 				</tr>
 				<?php if ( $model->isPieceSymbolLocalizationAvailable() ) : ?>
 				<tr>
 					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributePieceSymbols-value">localized</a></td>
 					<td><?php echo $model->getDefaultSimplifiedPieceSymbols() === 'localized' ? '<div class="rpbchessboard-tickIcon"></div>' : ''; ?></td>
-					<td><?php _e( 'First character of the piece name in the blog language.', 'rpb-chessboard' ); ?></td>
+					<td><?php esc_html_e( 'First character of the piece name in the blog language.', 'rpb-chessboard' ); ?></td>
 				</tr>
 				<?php endif; ?>
 				<tr>
@@ -63,8 +63,8 @@
 					<td><?php echo $model->getDefaultSimplifiedPieceSymbols() === 'custom' ? '<div class="rpbchessboard-tickIcon"></div>' : ''; ?></td>
 					<td>
 						<?php
-							echo sprintf(
-								__(
+							printf(
+								esc_html__(
 									'Any sequence of 6 capital letters surrounded with parenthesis is allowed to set custom symbols. ' .
 									'For instance, with %1$s(%3$s%4$s%5$s%6$s%7$s%8$s)%2$s, %3$s will be used to denote a king, ' .
 									'%4$s for a queen, %5$s for a rook, %6$s for a bishop, %7$s for a knight and %8$s for a pawn.',

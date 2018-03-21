@@ -23,14 +23,14 @@
 <?php if ( $model->getDiagramAlignment() === 'center' ) : ?>
 <p class="rpbchessboard-spacerBefore"></p>
 <?php else : ?>
-<div class="rpbchessboard-diagramAlignment-<?php echo esc_attr( $model->getDiagramAlignment() ); ?>">
+<div class="<?php echo esc_attr( 'rpbchessboard-diagramAlignment-' . $model->getDiagramAlignment() ); ?>">
 <?php endif; ?>
 
 <div id="<?php echo esc_attr( $model->getUniqueID() ); ?>" class="rpbchessboard-chessboard">
 	<noscript>
 		<div class="rpbchessboard-noJavascriptBlock"><?php echo esc_html( $model->getContent() ); ?></div>
 		<div class="rpbchessboard-javascriptWarning">
-			<?php _e( 'You must activate JavaScript to enhance chess diagram visualization.', 'rpb-chessboard' ); ?>
+			<?php esc_html_e( 'You must activate JavaScript to enhance chess diagram visualization.', 'rpb-chessboard' ); ?>
 		</div>
 	</noscript>
 	<div class="rpbchessboard-chessboardAnchor"></div>

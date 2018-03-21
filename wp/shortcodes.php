@@ -118,7 +118,7 @@ abstract class RPBChessboardShortcodes {
 	 */
 	private static function preprocessLowLevelShortcode( $m ) {
 		// Allow the [[foo]...[/foo]] syntax for escaping a tag.
-		if ( $m[1] === '[' && $m[5] === ']' ) {
+		if ( '[' === $m[1] && ']' === $m[5] ) {
 			return $m[0];
 		}
 

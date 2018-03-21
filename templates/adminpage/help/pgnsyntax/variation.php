@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-pgnVariation"><?php _e( 'Variations', 'rpb-chessboard' ); ?></h3>
+<h3 id="rpbchessboard-pgnVariation"><?php esc_html_e( 'Variations', 'rpb-chessboard' ); ?></h3>
 
 <div class="rpbchessboard-columns">
 	<div>
@@ -66,11 +66,10 @@
 
 <p>
 	<?php
-		_e(
-			'As for comments, variations can be rendered either inlined within the move sequence, ' .
-			'or as separated paragraphs if they are preceded by a blank line in the PGN string. ' .
-			'Variations can be nested. However, inlined variations cannot contain &quot;paragraph-style&quot; variations ' .
-			'(or &quot;paragraph-style&quot; comments).',
+		esc_html_e(
+			'As for comments, variations can be rendered either inlined within the move sequence, or as separated paragraphs if they are preceded ' .
+			'by a blank line in the PGN string. Variations can be nested. However, inlined variations cannot contain "paragraph-style" variations ' .
+			'(or "paragraph-style" comments).',
 			'rpb-chessboard'
 		);
 	?>

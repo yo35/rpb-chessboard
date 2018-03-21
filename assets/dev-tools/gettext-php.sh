@@ -39,7 +39,7 @@ I18N_TRANSLATOR_KEYWORD=i18n
 
 
 # Parse the PHP files
-xgettext --from-code=UTF-8 --language=PHP -c$I18N_TRANSLATOR_KEYWORD -k__ -k_e -o $OUTPUT_POT_FILE $ALL_PHP_FILES
+xgettext --from-code=UTF-8 --language=PHP -c$I18N_TRANSLATOR_KEYWORD -k__ -k_e -kesc_html__ -kesc_html_e -kesc_attr__ -kesc_attr_e -o $OUTPUT_POT_FILE $ALL_PHP_FILES
 
 # Extract the plugin description from the WordPress plugin header
 sed -n -e "s/^Description: *\(.*\)/\n#: $MAIN_PHP_FILE\nmsgid \"\1\"\nmsgstr \"\"/p" $MAIN_PHP_FILE >> $OUTPUT_POT_FILE
