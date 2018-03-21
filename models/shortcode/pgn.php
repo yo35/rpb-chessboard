@@ -69,7 +69,7 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode
 
 		$atts = $this->getAttributes();
 
-		if ( isset( $atts['url'] ) && $atts['url'] !== '' ) {
+		if ( isset( $atts['url'] ) && '' !== $atts['url'] ) {
 			$this->externalPGNFile           = $atts['url'];
 			$this->loadedFromExternalPGNFile = true;
 		} else {

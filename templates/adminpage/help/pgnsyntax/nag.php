@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-pgnNAG"><?php _e( 'NAGs (aka. <em>Numeric Annotation Glyphs</em>)', 'rpb-chessboard' ); ?></h3>
+<h3 id="rpbchessboard-pgnNAG"><?php esc_html_e( 'NAGs (aka. Numeric Annotation Glyphs)', 'rpb-chessboard' ); ?></h3>
 
 <div class="rpbchessboard-columns">
 	<div>
@@ -53,18 +53,17 @@
 
 <p>
 	<?php
-		echo sprintf(
-			__(
-				'Notice that the chess database softwares may introduce annotations such as %1$s&quot;$x&quot;%2$s ' .
-				'where %1$s&quot;x&quot;%2$s is replaced with one or more digits (for instance, %1$s&quot;1.e4 $1&quot;%2$s). ' .
-				'This is what is advocated by the PGN norm, which defines equivalences between this syntax and the human-readable one ' .
-				'(for instance, %1$s&quot;$1&quot;%2$s is equivalent to %1$s&quot;!&quot;%2$s). Both syntaxes are understood ' .
-				'by the RPB Chessboard plugin. See the %3$slist of NAGs%4$s.',
+		printf(
+			esc_html__(
+				'Notice that the chess database softwares may introduce annotations such as %1$s"$x"%2$s where %1$s"x"%2$s is replaced with one or ' .
+				'more digits (for instance, %1$s"1.e4 $1"%2$s). This is what is advocated by the PGN norm, which defines equivalences between this ' .
+				'syntax and the human-readable one (for instance, %1$s"$1"%2$s is equivalent to %1$s"!"%2$s). Both syntaxes are understood by the ' .
+				'RPB Chessboard plugin. See the %3$slist of NAGs%4$s.',
 				'rpb-chessboard'
 			),
 			'<span class="rpbchessboard-sourceCode">',
 			'</span>',
-			sprintf( '<a href="%1$s" target="_blank">', __( 'http://en.wikipedia.org/wiki/Numeric_Annotation_Glyphs', 'rpb-chessboard' ) ),
+			sprintf( '<a href="%s" target="_blank">', esc_url( __( 'http://en.wikipedia.org/wiki/Numeric_Annotation_Glyphs', 'rpb-chessboard' ) ) ),
 			'</a>'
 		);
 	?>

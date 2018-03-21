@@ -29,16 +29,16 @@
 		<?php foreach ( array( 'bp', 'bn', 'bb', 'br', 'bq', 'bk', 'bx', 'wp', 'wn', 'wb', 'wr', 'wq', 'wk', 'wx' ) as $coloredPiece ) : ?>
 		<input type="hidden" class="rpbchessboard-imageIdField" name="imageId-<?php echo $coloredPiece; ?>"
 			value="<?php echo esc_attr( $model->getCustomPiecesetImageId( $pieceset, $coloredPiece ) ); ?>"
-			data-sprite-url="<?php echo esc_attr( $model->getCustomPiecesetSpriteURL( $pieceset, $coloredPiece ) ); ?>" />
+			data-sprite-url="<?php echo esc_url( $model->getCustomPiecesetSpriteURL( $pieceset, $coloredPiece ) ); ?>" />
 		<?php endforeach; ?>
 
 		<div class="rpbchessboard-inlineFormTitle">
-			<?php $isNew ? _e( 'New pieceset', 'rpb-chessboard' ) : _e( 'Edit pieceset', 'rpb-chessboard' ); ?>
+			<?php $isNew ? esc_html_e( 'New pieceset', 'rpb-chessboard' ) : esc_html_e( 'Edit pieceset', 'rpb-chessboard' ); ?>
 		</div>
 
 		<div>
 			<label>
-				<span><?php _e( 'Name', 'rpb-chessboard' ); ?></span>
+				<span><?php esc_html_e( 'Name', 'rpb-chessboard' ); ?></span>
 				<input type="text" name="label"
 					value="<?php echo esc_attr( $isNew ? $model->getLabelProposalForNewSetCode() : $model->getCustomPiecesetLabel( $pieceset ) ); ?>" />
 			</label>
@@ -47,7 +47,7 @@
 		<?php if ( $isNew ) : ?>
 		<div>
 			<label>
-				<span><?php _e( 'Slug', 'rpb-chessboard' ); ?></span>
+				<span><?php esc_html_e( 'Slug', 'rpb-chessboard' ); ?></span>
 				<input type="text" name="pieceset" value="" />
 			</label>
 		</div>
@@ -59,7 +59,7 @@
 			<?php foreach ( array( 'bp', 'bn', 'bb', 'br', 'bq', 'bk', 'bx' ) as $coloredPiece ) : ?>
 			<a class="rpbchessboard-coloredPieceButton rpbchessboard-coloredPieceButton-<?php echo $coloredPiece; ?>" href="#"
 				data-colored-piece="<?php echo $coloredPiece; ?>" title="<?php echo esc_attr( $model->getPiecesetEditionButtonTitle( $coloredPiece ) ); ?>">
-				<img src="<?php echo esc_attr( $model->getCustomPiecesetThumbnailURL( $pieceset, $coloredPiece ) ); ?>" width="64px" height="64px" />
+				<img src="<?php echo esc_url( $model->getCustomPiecesetThumbnailURL( $pieceset, $coloredPiece ) ); ?>" width="64px" height="64px" />
 			</a>
 			<?php endforeach; ?>
 		</div>
@@ -67,7 +67,7 @@
 			<?php foreach ( array( 'wp', 'wn', 'wb', 'wr', 'wq', 'wk', 'wx' ) as $coloredPiece ) : ?>
 			<a class="rpbchessboard-coloredPieceButton rpbchessboard-coloredPieceButton-<?php echo $coloredPiece; ?>" href="#"
 				data-colored-piece="<?php echo $coloredPiece; ?>" title="<?php echo esc_attr( $model->getPiecesetEditionButtonTitle( $coloredPiece ) ); ?>">
-				<img src="<?php echo esc_attr( $model->getCustomPiecesetThumbnailURL( $pieceset, $coloredPiece ) ); ?>" width="64px" height="64px" />
+				<img src="<?php echo esc_url( $model->getCustomPiecesetThumbnailURL( $pieceset, $coloredPiece ) ); ?>" width="64px" height="64px" />
 			</a>
 			<?php endforeach; ?>
 		</div>
@@ -75,8 +75,8 @@
 		<p class="rpbchessboard-piecesetEditionErrorMessage"></p>
 
 		<p class="submit rpbchessboard-inlineFormButtons">
-			<input type="submit" class="button-primary" value="<?php $isNew ? _e( 'Create pieceset', 'rpb-chessboard' ) : _e( 'Save changes', 'rpb-chessboard' ); ?>" />
-			<a class="button" href="<?php echo esc_attr( $model->getFormActionURL() ); ?>"><?php _e( 'Cancel', 'rpb-chessboard' ); ?></a>
+			<input type="submit" class="button-primary" value="<?php $isNew ? esc_attr_e( 'Create pieceset', 'rpb-chessboard' ) : esc_attr_e( 'Save changes', 'rpb-chessboard' ); ?>" />
+			<a class="button" href="<?php echo esc_url( $model->getFormActionURL() ); ?>"><?php esc_html_e( 'Cancel', 'rpb-chessboard' ); ?></a>
 		</p>
 
 	</form>

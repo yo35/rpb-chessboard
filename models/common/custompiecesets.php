@@ -82,7 +82,7 @@ class RPBChessboardModelCommonCustomPiecesets extends RPBChessboardAbstractModel
 	 */
 	public function getCustomPiecesetImageId( $pieceset, $coloredPiece ) {
 
-		if ( $pieceset === '' ) {
+		if ( '' === $pieceset ) {
 			return -1;
 		}
 
@@ -100,7 +100,7 @@ class RPBChessboardModelCommonCustomPiecesets extends RPBChessboardAbstractModel
 	 */
 	public function getCustomPiecesetThumbnailURL( $pieceset, $coloredPiece ) {
 
-		if ( $pieceset === '' ) {
+		if ( '' === $pieceset ) {
 			return self::getEmptyPiecesetThumbnailURL( $coloredPiece );
 		}
 
@@ -118,7 +118,7 @@ class RPBChessboardModelCommonCustomPiecesets extends RPBChessboardAbstractModel
 	 */
 	public function getCustomPiecesetSpriteURL( $pieceset, $coloredPiece ) {
 
-		if ( $pieceset === '' ) {
+		if ( '' === $pieceset ) {
 			return '#';
 		}
 

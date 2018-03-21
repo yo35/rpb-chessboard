@@ -24,7 +24,7 @@
 
 	<p>
 		<?php
-			_e(
+			esc_html_e(
 				'This short reminder presents through examples the features provided by the RPB Chessboard plugin, ' .
 				'namely the insertion of chess diagrams and games in WordPress websites. ' .
 				'On the left is the code written in posts and pages, while the right column shows the corresponding rendering.',
