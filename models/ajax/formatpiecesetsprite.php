@@ -118,12 +118,14 @@ class RPBChessboardModelAjaxFormatPiecesetSprite extends RPBChessboardAbstractMo
 		];
 
 		// Sideload the image
-		media_handle_sideload( $file_array, 0 );
+		$sprite = media_handle_sideload( $file_array, 0 );
 
 		// Free resources.
 		imagedestroy( $destImage );
 		imagedestroy( $srcImage );
-		return true;
+
+		// Store the generated image URL, and make it an auto-draft to hide from the media library.
+		$url = wp_get_attachment_image_url( $sprite );
 	}
 
 
