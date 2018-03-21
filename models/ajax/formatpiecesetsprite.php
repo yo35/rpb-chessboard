@@ -126,6 +126,12 @@ class RPBChessboardModelAjaxFormatPiecesetSprite extends RPBChessboardAbstractMo
 
 		// Store the generated image URL, and make it an auto-draft to hide from the media library.
 		$url = wp_get_attachment_image_url( $sprite );
+		wp_update_post( array(
+			'ID'          => $sprite,
+			'post_status' => 'auto-draft',
+		) );
+
+		return $url;
 	}
 
 
