@@ -49,13 +49,17 @@ class RPBChessboardModelAjaxFormatPiecesetSprite extends RPBChessboardAbstractMo
 			wp_send_json_error( array( 'message' => __( 'Only PNG images can be used to create piecesets.', 'rpb-chessboard' ) ) );
 		}
 
-
-		if ( ! $this->generateSprite( $attachment->path, $attachment->width, $attachment->height ) ) {
+		$sprite = $this->generateSprite( $attachment->path, $attachment->width, $attachment->height );
+		if ( ! $sprite ) {
 			wp_send_json_error( array( 'message' => __( 'Error while processing the selected image.', 'rpb-chessboard' ) ) );
 		}
 
 		$thumbnailURL = wp_get_attachment_image_url( $attachment->id );
-		$spriteURL    = $this->computeCustomPiecesetSpritePathOrURL( $attachment->url );
+		$spriteURL    = $sprite;
+
+		// Store the sprite URL for later reuse.
+		update_option( 'rpb_sprite_' . md5( $thumbnailURL ), $sprite );
+
 		wp_send_json_success(
 			array(
 				'attachmentId' => $attachment->id,
