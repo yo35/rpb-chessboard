@@ -123,7 +123,6 @@ class RPBChessboardModelAjaxFormatPiecesetSprite extends RPBChessboardAbstractMo
 		// Free resources.
 		imagedestroy( $destImage );
 		imagedestroy( $srcImage );
-		unlink( $temp_image );
 		return true;
 	}
 
