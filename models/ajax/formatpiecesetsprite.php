@@ -78,7 +78,10 @@ class RPBChessboardModelAjaxFormatPiecesetSprite extends RPBChessboardAbstractMo
 		}
 
 		// Create a temporary image we can remove later.
-		$temp_image = wp_tempnam();
+		$dir        = get_temp_dir();
+		$filename   = uniqid();
+		$temp_image = basename( $filename ) . '-' . wp_generate_password( 6, false ) . '.jpg';
+		$temp_image = $dir . wp_unique_filename( $dir, $temp_image );
 
 		// Compute sizes.
 		$sizeMin    = $this->getMinimumSquareSize();
