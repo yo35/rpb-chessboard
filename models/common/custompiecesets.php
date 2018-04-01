@@ -80,11 +80,6 @@ class RPBChessboardModelCommonCustomPiecesets extends RPBChessboardAbstractModel
 	 * @return integer
 	 */
 	public function getCustomPiecesetImageId( $pieceset, $coloredPiece ) {
-
-		if ( '' === $pieceset ) {
-			return -1;
-		}
-
 		$this->initializeCustomPiecesetAttributes( $pieceset );
 		return self::$customPiecesetAttributes[ $pieceset ]->imageId[ $coloredPiece ];
 	}
@@ -98,11 +93,6 @@ class RPBChessboardModelCommonCustomPiecesets extends RPBChessboardAbstractModel
 	 * @return string
 	 */
 	public function getCustomPiecesetImageURL( $pieceset, $coloredPiece ) {
-
-		if ( '' === $pieceset ) {
-			return self::getEmptyPiecesetImageURL( $coloredPiece );
-		}
-
 		$this->initializeCustomPiecesetAttributes( $pieceset );
 		return self::$customPiecesetAttributes[ $pieceset ]->imageURL[ $coloredPiece ];
 	}
@@ -147,10 +137,5 @@ class RPBChessboardModelCommonCustomPiecesets extends RPBChessboardAbstractModel
 	private static function initializeCustomPiecesetAttributesAsInvalid( $pieceset, $coloredPiece ) {
 		self::$customPiecesetAttributes[ $pieceset ]->imageId[ $coloredPiece ] = -1;
 		self::$customPiecesetAttributes[ $pieceset ]->imageURL[ $coloredPiece ] = RPBCHESSBOARD_URL . 'images/not-found.png';
-	}
-
-
-	private static function getEmptyPiecesetImageURL( $coloredPiece ) {
-		return RPBCHESSBOARD_URL . 'images/undefined-' . $coloredPiece . '.png';
 	}
 }
