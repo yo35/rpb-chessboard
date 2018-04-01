@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-11 23:09+0100\n"
+"POT-Creation-Date: 2018-04-01 16:58+0200\n"
 "PO-Revision-Date: 2014-07-15 13:03+0100\n"
 "Last-Translator: Dawid Ziółkowski <kontakt -at- dawidziolkowski.pl>\n"
 "Language-Team: Dawid Ziółkowski <mr -at- dawidziolkowski.com>\n"
@@ -171,20 +171,6 @@ msgstr "S"
 #: templates/localization.php
 msgid "P"
 msgstr "p"
-
-#: models/ajax/formatpiecesetsprite.php
-msgid ""
-"Images used to create piecesets must be square images (identical height and "
-"width)."
-msgstr ""
-
-#: models/ajax/formatpiecesetsprite.php
-msgid "Only PNG images can be used to create piecesets."
-msgstr ""
-
-#: models/ajax/formatpiecesetsprite.php
-msgid "Error while processing the selected image."
-msgstr ""
 
 #: models/post/saveoptions.php
 msgid "Settings saved."
