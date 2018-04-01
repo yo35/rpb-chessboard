@@ -88,34 +88,6 @@ class RPBChessboardModelMiscSmallScreens extends RPBChessboardAbstractModel {
 
 
 	/**
-	 * Return the background-position x-offset to use for sprites having size `$squareSize`.
-	 *
-	 * @param int $squareSize
-	 * @return int
-	 */
-	public function getBackgroundPositionXForSquareSize( $squareSize ) {
-		if ( $squareSize <= 32 ) {
-			// delta_x = - sum (k = $squareSize + 1 to 32) { k }
-			return - ( $squareSize + 33 ) * ( 32 - $squareSize ) / 2;
-		} else {
-			// delta_x = - sum (k = 33 to $squareSize - 1) { k }
-			return - ( $squareSize + 32 ) * ( $squareSize - 33 ) / 2;
-		}
-	}
-
-
-	/**
-	 * Return the background-position y-offset to use for sprites having size `$squareSize`.
-	 *
-	 * @param int $squareSize
-	 * @return int
-	 */
-	public function getBackgroundPositionYForSquareSize( $squareSize ) {
-		return $squareSize <= 32 ? $squareSize - 65 : 0;
-	}
-
-
-	/**
 	 * Return the height and width to use for the annotation layer when using the given square size.
 	 *
 	 * @param int $squareSize

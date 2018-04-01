@@ -35,9 +35,8 @@ if ( ! $model->getSmallScreenCompatibility() ) {
 		min-width: <?php echo intval( $mode->squareSize ); ?>px;
 		width    : <?php echo intval( $mode->squareSize ); ?>px;
 		height   : <?php echo intval( $mode->squareSize ); ?>px;
-		background-position:
-			<?php echo intval( $model->getBackgroundPositionXForSquareSize( $mode->squareSize ) ); ?>px
-			<?php echo intval( $model->getBackgroundPositionYForSquareSize( $mode->squareSize ) ); ?>px;
+		background-size: <?php echo intval( $mode->squareSize ); ?>px <?php echo intval( $mode->squareSize ); ?>px;
+		-webkit-background-size: <?php echo intval( $mode->squareSize ); ?>px <?php echo intval( $mode->squareSize ); ?>px;
 	}
 
 	<?php echo $model->getSanitizedAnnotationLayerSelector( $mode ); ?> {
