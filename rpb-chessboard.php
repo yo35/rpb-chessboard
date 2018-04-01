@@ -46,7 +46,7 @@ require_once RPBCHESSBOARD_ABSPATH . 'helpers/loader.php';
 require_once RPBCHESSBOARD_ABSPATH . 'helpers/cache.php';
 
 
-// POST actions, AJAX & shortcodes
+// POST actions, shortcodes, and miscellaneous...
 add_action( 'init', 'rpbchessboard_init' );
 function rpbchessboard_init() {
 
