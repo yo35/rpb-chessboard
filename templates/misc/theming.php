@@ -39,12 +39,12 @@
 <?php foreach ( array( 'p', 'n', 'b', 'r', 'q', 'k' ) as $piece ) : ?>
 .<?php echo sanitize_html_class( 'rpbui-chessboard-pieceset-' . $pieceset ); ?>
 	.<?php echo sanitize_html_class( 'rpbui-chessboard-color-' . $color ); ?>.<?php echo sanitize_html_class( 'rpbui-chessboard-piece-' . $piece ); ?>
-	{ background-image: url(<?php echo esc_url( $model->getCustomPiecesetSpriteURL( $pieceset, $color . $piece ) ); ?>); }
+	{ background-image: url(<?php echo esc_url( $model->getCustomPiecesetImageURL( $pieceset, $color . $piece ) ); ?>); }
 <?php endforeach; ?>
 
 .<?php echo sanitize_html_class( 'rpbui-chessboard-pieceset-' . $pieceset ); ?>
 	.<?php echo sanitize_html_class( 'rpbui-chessboard-color-' . $color ); ?>.rpbui-chessboard-turnFlag
-	{ background-image: url(<?php echo esc_url( $model->getCustomPiecesetSpriteURL( $pieceset, $color . 'x' ) ); ?>); }
+	{ background-image: url(<?php echo esc_url( $model->getCustomPiecesetImageURL( $pieceset, $color . 'x' ) ); ?>); }
 
 <?php endforeach; ?>
 <?php endforeach; ?>
