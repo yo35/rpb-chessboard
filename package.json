@@ -1,0 +1,36 @@
+{
+  "name": "rpb-chessboard",
+  "version": "5.1.5",
+  "description": "This plugin allows you to typeset and display chess diagrams and PGN-encoded chess games.",
+  "main": "index.js",
+  "dependencies": {},
+  "peerDependencies": {
+    "grunt-cli": ">=1.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.14.0",
+    "eslint-config-wordpress": "^2.0.0",
+    "grunt": "^1.0.1",
+    "grunt-contrib-clean": "^1.1.0",
+    "grunt-contrib-compress": "^1.4.3",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-uglify": "^3.3.0",
+    "grunt-eslint": "^20.1.0",
+    "grunt-mkdir": "^1.0.0",
+    "grunt-phpcs": "^0.4.0",
+    "grunt-shell": "^2.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yo35/rpb-chessboard.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yo35/rpb-chessboard/issues"
+  },
+  "homepage": "https://github.com/yo35/rpb-chessboard#readme"
+}
