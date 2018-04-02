@@ -78,13 +78,13 @@ abstract class RPBChessboardAdminPages {
 		);
 	}
 
-	// @codingStandardsIgnoreStart
+	// phpcs:disable
 	public static function callbackPageMemo   () { self::printAdminPage( 'Memo'    ); }
 	public static function callbackPageOptions() { self::printAdminPage( 'Options' ); }
 	public static function callbackPageTheming() { self::printAdminPage( 'Theming' ); }
 	public static function callbackPageHelp   () { self::printAdminPage( 'Help'    ); }
 	public static function callbackPageAbout  () { self::printAdminPage( 'About'   ); }
-	// @codingStandardsIgnoreEnd
+	// phpcs:enable
 
 
 	/**

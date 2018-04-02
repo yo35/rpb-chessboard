@@ -183,7 +183,7 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 	public function getPiecesetEditionButtonTitle( $coloredPiece ) {
 		if ( ! isset( self::$piecesetEditionButtonTitle ) ) {
 			self::$piecesetEditionButtonTitle = array(
-				// @codingStandardsIgnoreStart
+				// phpcs:disable Generic.Functions.FunctionCallArgumentSpacing.SpaceBeforeComma
 				'bp' => __( 'Select the image to use for black pawns'     , 'rpb-chessboard' ),
 				'bn' => __( 'Select the image to use for black knights'   , 'rpb-chessboard' ),
 				'bb' => __( 'Select the image to use for black bishops'   , 'rpb-chessboard' ),
@@ -198,7 +198,7 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 				'wq' => __( 'Select the image to use for white queens'    , 'rpb-chessboard' ),
 				'wk' => __( 'Select the image to use for white kings'     , 'rpb-chessboard' ),
 				'wx' => __( 'Select the image to use for white turn flags', 'rpb-chessboard' ),
-				// @codingStandardsIgnoreEnd
+				// phpcs:enable Generic.Functions.FunctionCallArgumentSpacing.SpaceBeforeComma
 			);
 		}
 		return self::$piecesetEditionButtonTitle[ $coloredPiece ];
