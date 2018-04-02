@@ -23,11 +23,11 @@
 <?php foreach ( $model->getCustomColorsets() as $colorset ) : ?>
 
 .<?php echo sanitize_html_class( 'rpbui-chessboard-colorset-' . $colorset ); ?> .rpbui-chessboard-darkSquare {
-	background-color: <?php echo sanitize_hex_color( $model->getDarkSquareColor( $colorset ) ); ?>;
+	background-color: <?php echo sanitize_hex_color( $model->getDarkSquareColor( $colorset ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>;
 }
 
 .<?php echo sanitize_html_class( 'rpbui-chessboard-colorset-' . $colorset ); ?> .rpbui-chessboard-lightSquare {
-	background-color: <?php echo sanitize_hex_color( $model->getLightSquareColor( $colorset ) ); ?>;
+	background-color: <?php echo sanitize_hex_color( $model->getLightSquareColor( $colorset ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>;
 }
 
 <?php endforeach; ?>

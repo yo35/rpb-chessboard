@@ -220,7 +220,7 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 	 */
 	private static function makeSubPageLink( $subPageName ) {
 		global $pagenow;
-		return admin_url( $pagenow ) . '?page=' . urlencode( $_GET['page'] ) . '&subpage=' . urlencode( strtolower( $subPageName ) );
+		return admin_url( $pagenow ) . '?page=' . rawurlencode( $_GET['page'] ) . '&subpage=' . rawurlencode( strtolower( $subPageName ) );
 	}
 
 

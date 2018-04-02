@@ -125,7 +125,7 @@ abstract class RPBChessboardModelPostTheming extends RPBChessboardAbstractModel 
 	 * Check whether the given set-code represents an existing custom theming set or not.
 	 */
 	private function isCustomSetCode( $setCode ) {
-		return in_array( $setCode, $this->getCustomSetCodes() );
+		return in_array( $setCode, $this->getCustomSetCodes(), true );
 	}
 
 

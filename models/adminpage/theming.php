@@ -170,9 +170,9 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 
 
 	private static function getRandomColor( $grayRangeMin, $grayRangeMax ) {
-		$red   = rand( $grayRangeMin, $grayRangeMax );
-		$green = rand( $grayRangeMin, $grayRangeMax );
-		$blue  = rand( $grayRangeMin, $grayRangeMax );
+		$red   = wp_rand( $grayRangeMin, $grayRangeMax );
+		$green = wp_rand( $grayRangeMin, $grayRangeMax );
+		$blue  = wp_rand( $grayRangeMin, $grayRangeMax );
 		return sprintf( '#%02x%02x%02x', $red, $green, $blue );
 	}
 
