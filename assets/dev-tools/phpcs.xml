@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ruleset name="WordPress-RPBChessboard">
+
+	<rule ref="WordPress-Extra">
+		<exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+		<exclude name="WordPress.NamingConventions.ValidVariableName.NotSnakeCaseMemberVar"/>
+		<exclude name="WordPress.NamingConventions.ValidVariableName.NotSnakeCase"/>
+		<exclude name="WordPress.NamingConventions.ValidVariableName.MemberNotSnakeCase"/>
+		<exclude name="WordPress.NamingConventions.ValidVariableName.StringNotSnakeCase"/>
+		<exclude name="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid"/>
+		<exclude name="WordPress.WP.I18n.MissingTranslatorsComment"/>
+		<exclude name="WordPress.WP.I18n.NonSingularStringLiteralText"/>
+		<exclude name="WordPress.Security.NonceVerification.NoNonceVerification"/>
+	</rule>
+
+	<arg name="extensions" value="php"/>
+</ruleset>

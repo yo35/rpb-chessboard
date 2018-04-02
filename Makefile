@@ -64,6 +64,10 @@ JSHINT        = jshint
 JSHINT_FLAGS  = -c assets/dev-tools/jshintrc
 UGLIFYJS      = uglifyjs
 UGLIFYJS_ARGS = -c -nc
+PHPCS         = phpcs
+PHPCS_ARGS    = --colors --standard=assets/dev-tools/phpcs.xml
+PHPCBF        = phpcbf
+PHPCBF_ARGS   = --standard=assets/dev-tools/phpcs.xml
 STATISTICS    = ./assets/dev-tools/statistics.sh
 COLOR_IN      = \033[34;1m
 COLOR_OUT     = \033[0m
@@ -156,6 +160,25 @@ js-minify: $(JS_MINIFIED_FILES)
 
 
 ################################################################################
+# PHP targets
+################################################################################
+
+
+# PHP validation
+php-check:
+	@$(ECHO) "$(COLOR_IN)Checking the PHP files...$(COLOR_OUT)"
+	@$(PHPCS) $(PHPCS_ARGS) $(PHP_FILES)
+
+
+# PHP autofix
+php-fix:
+	@$(ECHO) "$(COLOR_IN)Fixing the PHP files...$(COLOR_OUT)"
+	@$(PHPCBF) $(PHPCBF_ARGS) $(PHP_FILES)
+
+
+
+
+################################################################################
 # Other targets
 ################################################################################
 
@@ -189,4 +212,4 @@ clean:
 
 
 # Make's stuff
-.PHONY: help i18n-extract i18n-merge i18n-compile js-lint js-minify pack stats clean
+.PHONY: help i18n-extract i18n-merge i18n-compile js-lint js-minify php-check php-fix pack stats clean
