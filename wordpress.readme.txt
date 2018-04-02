@@ -80,6 +80,11 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 5.2 (April 2, 2018) =
+* Fix several code security issues (see #116, #117, #118, #119, #120 and #121).
+* Image size optimization.
+* IE 8 not supported anymore.
+
 = 5.1.6 (January 7, 2018) =
 * Fix scrolling issue (see #111).
 * Enforce WP coding conventions and code cleanup.
