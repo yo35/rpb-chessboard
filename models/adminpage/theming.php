@@ -209,7 +209,7 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 	 * URL to the image to use for the pieceset edition buttons.
 	 */
 	public function getPiecesetEditionButtonImage( $pieceset, $coloredPiece ) {
-		return  '' === $pieceset || $this->getCustomPiecesetImageId( $pieceset, $coloredPiece ) < 0 ? self::getEmptyPiecesetImageURL( $coloredPiece ) :
+		return '' === $pieceset || $this->getCustomPiecesetImageId( $pieceset, $coloredPiece ) < 0 ? self::getEmptyPiecesetImageURL( $coloredPiece ) :
 			$this->getCustomPiecesetImageURL( $pieceset, $coloredPiece );
 	}
 

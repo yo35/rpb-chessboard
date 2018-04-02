@@ -94,7 +94,7 @@ abstract class RPBChessboardModelPostTheming extends RPBChessboardAbstractModel 
 	private function processLabel( $setCode ) {
 		if ( isset( $_POST['label'] ) ) {
 			$value = RPBChessboardHelperValidation::validateString( $_POST['label'] );
-			if( isset( $value ) ) {
+			if ( isset( $value ) ) {
 				update_option( 'rpbchessboard_custom_' . $this->getManagedSetCode() . '_label_' . $setCode, $value );
 				return true;
 			}

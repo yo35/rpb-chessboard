@@ -125,7 +125,7 @@ class RPBChessboardModelCommonCustomPiecesets extends RPBChessboardAbstractModel
 			$currentURL = isset( $currentId ) ? wp_get_attachment_image_url( $currentId ) : false;
 
 			if ( $currentURL ) {
-				self::$customPiecesetAttributes[ $pieceset ]->imageId[ $coloredPiece ] = $currentId;
+				self::$customPiecesetAttributes[ $pieceset ]->imageId[ $coloredPiece ]  = $currentId;
 				self::$customPiecesetAttributes[ $pieceset ]->imageURL[ $coloredPiece ] = $currentURL;
 			} else {
 				self::initializeCustomPiecesetAttributesAsInvalid( $pieceset, $coloredPiece );
@@ -135,7 +135,7 @@ class RPBChessboardModelCommonCustomPiecesets extends RPBChessboardAbstractModel
 
 
 	private static function initializeCustomPiecesetAttributesAsInvalid( $pieceset, $coloredPiece ) {
-		self::$customPiecesetAttributes[ $pieceset ]->imageId[ $coloredPiece ] = -1;
+		self::$customPiecesetAttributes[ $pieceset ]->imageId[ $coloredPiece ]  = -1;
 		self::$customPiecesetAttributes[ $pieceset ]->imageURL[ $coloredPiece ] = RPBCHESSBOARD_URL . 'images/not-found.png';
 	}
 }

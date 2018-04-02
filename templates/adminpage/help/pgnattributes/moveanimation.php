@@ -48,7 +48,7 @@
 					<td>
 						<?php
 							echo 0 === $animationSpeed ? esc_html__( 'No animation', 'rpb-chessboard' ) :
-								sprintf( esc_html__('The animation lasts %1$s milliseconds.', 'rpb-chessboard'), esc_html( $animationSpeed ) );
+								sprintf( esc_html__( 'The animation lasts %1$s milliseconds.', 'rpb-chessboard' ), esc_html( $animationSpeed ) );
 						?>
 					</td>
 				</tr>
