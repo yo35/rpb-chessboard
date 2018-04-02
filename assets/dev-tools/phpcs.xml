@@ -2,15 +2,26 @@
 <ruleset name="WordPress-RPBChessboard">
 
 	<rule ref="WordPress-Extra">
+
+		<!-- Ignore naming convention rules relative to snake-case and "class-" prefix -->
 		<exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
 		<exclude name="WordPress.NamingConventions.ValidVariableName.NotSnakeCaseMemberVar"/>
 		<exclude name="WordPress.NamingConventions.ValidVariableName.NotSnakeCase"/>
 		<exclude name="WordPress.NamingConventions.ValidVariableName.MemberNotSnakeCase"/>
 		<exclude name="WordPress.NamingConventions.ValidVariableName.StringNotSnakeCase"/>
 		<exclude name="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid"/>
+
+		<!-- FIXME refactor internationalized strings to comply with these rules -->
 		<exclude name="WordPress.WP.I18n.MissingTranslatorsComment"/>
 		<exclude name="WordPress.WP.I18n.NonSingularStringLiteralText"/>
+
+		<!-- It would be highly suitable to not ignore this rule relative to nonce checking.
+		However, its implementation generates a large number of false-positive detection. -->
 		<exclude name="WordPress.Security.NonceVerification.NoNonceVerification"/>
+
+		<!-- Harmful code formatting rules -->
+		<exclude name="Squiz.PHP.EmbeddedPhp.ContentBeforeOpen"/>
+		<exclude name="Squiz.PHP.EmbeddedPhp.SpacingBeforeClose"/>
 	</rule>
 
 	<arg name="extensions" value="php"/>
