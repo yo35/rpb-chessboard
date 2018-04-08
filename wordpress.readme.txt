@@ -80,6 +80,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 5.2.1 (April 8, 2018) =
+* Fix scrolling issue (see #128).
+
 = 5.2 (April 2, 2018) =
 * Fix several code security issues (see #116, #117, #118, #119, #120 and #121).
 * Image size optimization.
