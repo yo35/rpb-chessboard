@@ -630,7 +630,7 @@
 		var body  = buildBody(widget);
 
 		// A hidden field to catch the keyboard events
-		var focusField = '<div class="rpbui-chessgame-focusFieldContainer"><input class="rpbui-chessgame-focusField" type="text" readonly="true" /></div>';
+		var focusField = '<div class="rpbui-chessgame-focusFieldContainer"><a href="#" class="rpbui-chessgame-focusField"></a></div>';
 
 		// Navigation board
 		var prefix = '';
