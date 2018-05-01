@@ -80,6 +80,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 5.2.2 (May 1, 2018) =
+* Fix page jump issue (see #129).
+
 = 5.2.1 (April 8, 2018) =
 * Fix scrolling issue (see #128).
 
