@@ -22,8 +22,7 @@
 /**
  * jQuery widget to display a chess game.
  *
- * @requires rpbchess-core.js
- * @requires rpbchess-pgn.js
+ * @requires kokopu
  * @requires rpbchess-ui-chessboard.js
  * @requires Moment.js {@link http://momentjs.com/}
  * @requires jQuery
@@ -35,7 +34,7 @@
  * @requires jQuery UI Dialog (optional, only if the framed navigation board feature is enabled)
  * @requires jQuery UI Resizable (optional, only if the framed navigation board feature is enabled)
  */
-(function(RPBChess, $, moment)
+(function(kokopu, $, moment)
 {
 	'use strict';
 
@@ -154,90 +153,33 @@
 	var dynamicURL = null;
 
 
-	/**
-	 * Convert a PGN standard field into a human-readable site string.
-	 * Return null if the special code "?" is detected.
-	 *
-	 * The fields processed with this filter include "Site", "Event", "Round",
-	 * "White", "Black", "WhiteElo", "BlackElo".
-	 *
-	 * @param {string} value Value of a PGN standard field.
-	 * @returns {string}
-	 */
-	function formatDefault(value)
-	{
-		return (value===null || value==='?') ? null : value;
-	}
 
-
-	/**
-	 * Convert a PGN date field value into a human-readable date string.
-	 * Return null if the special code "????.??.??" is detected.
-	 * Otherwise, if the input is badly-formatted, it is returned "as-is".
-	 *
-	 * @param {string} date Value of a PGN date field.
-	 * @returns {string}
-	 */
-	function formatDate(date)
-	{
-		// Null input or case "????.??.??" -> no date is defined.
-		if(date===null || date==='????.??.??') {
-			return null;
-		}
+	function formatDate(date) {
 
 		// Case "2013.05.20" -> return "May 20, 2013"
-		else if(date.match(/([0-9]{4})\.([0-9]{2})\.([0-9]{2})/)) {
-			var dateObj = moment(RegExp.$1 + '-' + RegExp.$2 + '-' + RegExp.$3);
-			return dateObj.isValid() ? capitalize(dateObj.format('LL')) : date;
+		if(date instanceof Date) {
+			return capitalize(moment(date).format('LL'));
 		}
 
 		// Case "2013.05.??" -> return "May 2013"
-		else if(date.match(/([0-9]{4})\.([0-9]{2})\.\?\?/)) {
-			var dateObj = moment(RegExp.$1 + '-' + RegExp.$2 + '-01');
-			return dateObj.isValid() ? capitalize(dateObj.format('MMMM YYYY')) : date;
+		else if('month' in date) {
+			return capitalize(moment({ year: date.year, month: date.month - 1 }).format('MMMM YYYY'));
 		}
 
 		// Case "2013.??.??" -> return "2013"
-		else if(date.match(/([0-9]{4})\.\?\?\.\?\?/)) {
-			return RegExp.$1;
-		}
-
-		// Badly-formatted input -> return it "as-is"
 		else {
-			return date;
+			return date.year;
 		}
 	}
 
 
-	/**
-	 * Convert a PGN result field value into a human-readable string.
-	 * Return null if the special code "*" is detected.
-	 *
-	 * @param {string} result PGN-like game result code.
-	 * @returns {string}
-	 */
-	function formatResult(result)
-	{
+	function formatResult(result) {
 		switch(result) {
-			case '*'      : return null;
 			case '1/2-1/2': return '&#189;&#8211;&#189;';
 			case '1-0'    : return '1&#8211;0';
 			case '0-1'    : return '0&#8211;1';
 			default: return result;
 		}
-	}
-
-
-	/**
-	 * Convert a PGN title field value into a human-readable title string.
-	 * Return null if the special code "-" is detected.
-	 *
-	 * @param {string} title Value of a PGN title field.
-	 * @returns {string}
-	 */
-	function formatTitle(title)
-	{
-		return (title===null || title==='-') ? null : title;
 	}
 
 
@@ -271,10 +213,8 @@
 	 * @param {number} nag Numeric NAG code.
 	 * @returns {string} Human-readable NAG symbol.
 	 */
-	function formatNag(nag)
-	{
-		if(nag===null) { return null; }
-		else if(nag in SPECIAL_NAGS_LOOKUP) { return SPECIAL_NAGS_LOOKUP[nag]; }
+	function formatNag(nag) {
+		if(nag in SPECIAL_NAGS_LOOKUP) { return SPECIAL_NAGS_LOOKUP[nag]; }
 		else { return '$' + nag; }
 	}
 
@@ -484,7 +424,7 @@
 
 
 	/**
-	 * Initialize the internal `RPBChess.pgn.Item` object that contains the parsed PGN data.
+	 * Initialize the internal `kokopu.Game` object that contains the parsed PGN data.
 	 *
 	 * @param {rpbchess-ui.chessgame} widget
 	 * @param {string} pgn
@@ -502,10 +442,10 @@
 
 		// Parse the input assuming a PGN format.
 		try {
-			widget._game = RPBChess.pgn.parseOne(pgn, widget.options.gameIndex);
+			widget._game = kokopu.pgnRead(pgn, widget.options.gameIndex);
 		}
 		catch(error) {
-			if(error instanceof RPBChess.exceptions.InvalidPGN) { // Parsing errors are reported to the user.
+			if(error instanceof kokopu.exception.InvalidPGN) { // Parsing errors are reported to the user.
 				widget._game = error;
 			}
 			else { // Unknown exceptions are re-thrown.
@@ -609,15 +549,15 @@
 		}
 
 		// Handle parsing error problems.
-		if(!(widget._game instanceof RPBChess.pgn.Item)) {
+		if(!(widget._game instanceof kokopu.Game)) {
 			$(buildErrorMessage(widget)).appendTo(widget.element);
 			return;
 		}
 
 		// Headers
 		var headers = '';
-		headers += playerNameHeader(widget, 'White');
-		headers += playerNameHeader(widget, 'Black');
+		headers += playerNameHeader(widget, 'w');
+		headers += playerNameHeader(widget, 'b');
 		headers += eventHeader(widget);
 		headers += datePlaceHeader(widget);
 		headers += annotatorHeader(widget);
@@ -799,7 +739,7 @@
 	function buildErrorMessage(widget) {
 
 		// Build the error report box.
-		var title = widget._game instanceof RPBChess.exceptions.InvalidPGN ? $.chessgame.i18n.PGN_PARSING_ERROR_MESSAGE : widget._game.title;
+		var title = widget._game instanceof kokopu.exception.InvalidPGN ? $.chessgame.i18n.PGN_PARSING_ERROR_MESSAGE : widget._game.title;
 		var retVal = '<div class="rpbui-chessgame-error"><div class="rpbui-chessgame-errorTitle">' + title + '</div>';
 
 		// Optional message.
@@ -831,29 +771,29 @@
 	 * corresponding to the requested color.
 	 *
 	 * @param {rpbchess-ui.chessgame} widget
-	 * @param {string} color Either 'White' or 'Black'.
+	 * @param {string} color Either 'w' or 'b'.
 	 * @returns {string}
 	 */
 	function playerNameHeader(widget, color) {
 
 		// Retrieve the name of the player -> no header is returned if the name not available.
-		var name = formatDefault(widget._game.header(color));
-		if(name===null) {
+		var name = widget._game.playerName(color);
+		if(name === undefined) {
 			return '';
 		}
 
 		// Build the returned header.
-		var header = '<div class="rpbui-chessgame-' + color.toLowerCase() + 'Player">' +
+		var header = '<div class="rpbui-chessgame-' + (color === 'w' ? 'white' : 'black') + 'Player">' +
 			'<span class="rpbui-chessgame-colorTag"></span> ' +
 			'<span class="rpbui-chessgame-playerName">' + name + '</span>';
 
 		// Title + rating
-		var title  = formatTitle  (widget._game.header(color + 'Title'));
-		var rating = formatDefault(widget._game.header(color + 'Elo'  ));
-		if(title !== null || rating !== null) {
+		var title  = widget._game.playerTitle(color);
+		var rating = widget._game.playerElo(color);
+		if(title !== undefined || rating !== undefined) {
 			header += '<span class="rpbui-chessgame-titleRatingGroup">';
-			if(title  !== null) { header += '<span class="rpbui-chessgame-playerTitle">'  + title  + '</span>'; }
-			if(rating !== null) { header += '<span class="rpbui-chessgame-playerRating">' + rating + '</span>'; }
+			if(title  !== undefined) { header += '<span class="rpbui-chessgame-playerTitle">'  + title  + '</span>'; }
+			if(rating !== undefined) { header += '<span class="rpbui-chessgame-playerRating">' + rating + '</span>'; }
 			header += '</span>';
 		}
 
@@ -872,17 +812,17 @@
 	function eventHeader(widget) {
 
 		// Retrieve the event -> no header is returned if the name not available.
-		var event = formatDefault(widget._game.header('Event'));
-		if(event===null) {
+		var event = widget._game.event();
+		if(event === undefined) {
 			return '';
 		}
 
 		// Retrieve the round.
-		var round = formatDefault(widget._game.header('Round'));
+		var round = widget._game.round();
 
 		// Build and return the header.
 		var header = '<div class="rpbui-chessgame-event">' + event;
-		if(round !== null) {
+		if(round !== undefined) {
 			header += '<span class="rpbui-chessgame-round">' + round + '</span>';
 		}
 		header += '</div>';
@@ -899,16 +839,16 @@
 	function datePlaceHeader(widget) {
 
 		// Retrieve the date and the site field.
-		var date = formatDate   (widget._game.header('Date'));
-		var site = formatDefault(widget._game.header('Site'));
-		if(date===null && site===null) {
+		var date = widget._game.date();
+		var site = widget._game.site();
+		if(date === undefined && site === undefined) {
 			return '';
 		}
 
 		// Build and return the header.
 		var header = '<div class="rpbui-chessgame-datePlaceGroup">';
-		if(date !== null) { header += '<span class="rpbui-chessgame-date">' + date + '</span>'; }
-		if(site !== null) { header += '<span class="rpbui-chessgame-site">' + site + '</span>'; }
+		if(date !== undefined) { header += '<span class="rpbui-chessgame-date">' + formatDate(date) + '</span>'; }
+		if(site !== undefined) { header += '<span class="rpbui-chessgame-site">' + site + '</span>'; }
 		header += '</div>';
 		return header;
 	}
@@ -923,8 +863,8 @@
 	function annotatorHeader(widget) {
 
 		// Retrieve the annotator field.
-		var annotator = formatDefault(widget._game.header('Annotator'));
-		if(annotator===null) {
+		var annotator = widget._game.annotator();
+		if(annotator === undefined) {
 			return '';
 		}
 
@@ -942,7 +882,7 @@
 	 * @returns {string}
 	 */
 	function buildBody(widget) {
-		var mainVariation = buildVariation(widget, widget._game.mainVariation(), true, formatResult(widget._game.result()));
+		var mainVariation = buildVariation(widget, widget._game.mainVariation(), true, widget._game.result());
 
 		// Nothing to do if the main variation is empty.
 		if(mainVariation.content === '') {
@@ -961,15 +901,15 @@
 	 * Build the move tree corresponding to the given variation.
 	 *
 	 * @param {rpbchess-ui.chessgame} widget
-	 * @param {RPBChess.pgn.Variation} variation
+	 * @param {kokopu.Variation} variation
 	 * @param {boolean} isMainVariation
-	 * @param {null|string} result Must be set to null for sub-variations.
+	 * @param {null|string} result Must be set to `'*'` for sub-variations.
 	 * @returns {string|{content:string, divCount:number}} The second form is only used for the main variation.
 	 */
 	function buildVariation(widget, variation, isMainVariation, result) {
 
 		// Nothing to do if the variation is empty.
-		if(variation.comment() === null && variation.first() === null && result === null) {
+		if(variation.comment() === undefined && variation.first() === undefined && result === '*') {
 			return isMainVariation ? { content: '', divCount: 0 } : '';
 		}
 
@@ -1003,38 +943,38 @@
 		}
 
 		// Write the initial comment, if any.
-		if(variation.comment() !== null) {
+		if(variation.comment() !== undefined) {
 			if(variation.isLongComment()) {
 				++divCount;
 			} else {
 				openMoveGroup();
 			}
-			retVal += buildComment(variation);
+			retVal += buildComment(variation, true);
 		}
 
 		// Visit all the PGN nodes (one node per move) within the variation.
 		var forcePrintMoveNumber = true;
 		var node = variation.first();
-		while(node !== null)
+		while(node !== undefined)
 		{
 			// Write the move, including directly related information (i.e. move number + NAGs).
 			openMoveGroup();
 			retVal += buildMove(widget, node, forcePrintMoveNumber);
 
 			// Write the comment (if any).
-			if(node.comment() !== null) {
+			if(node.comment() !== undefined) {
 				if(node.isLongComment()) {
 					closeMoveGroup();
 					++divCount;
 				}
-				retVal += buildComment(node);
+				retVal += buildComment(node, false);
 			}
 
 			// Write the sub-variations.
 			var nonEmptySubVariations = 0;
 			var subVariations = node.variations();
 			for(var k=0; k<subVariations.length; ++k) {
-				var subVariationText = buildVariation(widget, subVariations[k], false, null);
+				var subVariationText = buildVariation(widget, subVariations[k], false, '*');
 				if(subVariationText !== '') {
 					if(subVariations[k].isLongVariation()) {
 						closeMoveGroup();
@@ -1048,14 +988,14 @@
 			}
 
 			// Back to the current variation, go to the next move.
-			forcePrintMoveNumber = (node.comment() !== null || nonEmptySubVariations > 0);
+			forcePrintMoveNumber = (node.comment() !== undefined || nonEmptySubVariations > 0);
 			node = node.next();
 		}
 
 		// Append the result and the end of the main variation.
-		if(isMainVariation && result !== null) {
+		if(isMainVariation && result !== '*') {
 			openMoveGroup();
-			retVal += '<span class="rpbui-chessgame-result">' + result + '</span>';
+			retVal += '<span class="rpbui-chessgame-result">' + formatResult(result) + '</span>';
 		}
 
 		// Close the opened DOM nodes, and returned the result.
@@ -1068,27 +1008,28 @@
 	/**
 	 * Build the DOM attributes to add to a DOM node to be able to reload the position associated to the current node.
 	 *
-	 * @param {RPBChess.pgn.Node|RPBChess.pgn.Variation} node
+	 * @param {kokopu.Node|kokopu.Variation} node
+	 * @param {boolean} isVariation
 	 * @param {boolean} addAnimationSupport `true` to add the information required for move highlighting.
 	 * @returns {string}
 	 */
-	function buildPositionInformation(node, moveHighlightSupport) {
-		var res = 'data-position="' + node.position().fen() + '"';
+	function buildPositionInformation(node, isVariation, moveHighlightSupport) {
+		var res = 'data-position="' + (isVariation ? node.initialPosition() : node.position()).fen() + '"';
 
 		// Move highlighting
 		if(moveHighlightSupport) {
-			res += ' data-position-before="' + node.positionBefore().fen() + '" data-move-notation="' + node.move() + '"';
+			res += ' data-position-before="' + node.positionBefore().fen() + '" data-move-notation="' + node.notation() + '"';
 		}
 
 		// Square markers
 		var csl = node.tag('csl');
-		if(csl !== null) {
+		if(csl !== undefined) {
 			res += ' data-csl="' + csl + '"';
 		}
 
 		// Arrow markers
 		var cal = node.tag('cal');
-		if(cal !== null) {
+		if(cal !== undefined) {
 			res += ' data-cal="' + cal + '"';
 		}
 
@@ -1099,12 +1040,13 @@
 	/**
 	 * Build the DOM node corresponding to the given text comment.
 	 *
-	 * @param {RPBChess.pgn.Node|RPBChess.pgn.Variation} node
+	 * @param {kokopu.Node|kokopu.Variation} node
+	 * @param {boolean} isVariation
 	 * @returns {string}
 	 */
-	function buildComment(node) {
+	function buildComment(node, isVariation) {
 		var tag = node.isLongComment() ? 'div' : 'span';
-		return '<' + tag + ' class="rpbui-chessgame-comment" ' + buildPositionInformation(node, false) + '>' +
+		return '<' + tag + ' class="rpbui-chessgame-comment" ' + buildPositionInformation(node, isVariation, false) + '>' +
 			node.comment() + '</' + tag + '>';
 	}
 
@@ -1113,14 +1055,14 @@
 	 * Build the DOM node corresponding to the given move (move number, SAN notation, NAGs).
 	 *
 	 * @param {rpbchess-ui.chessgame} widget
-	 * @param {RPBChess.pgn.Node} node
+	 * @param {kokopu.Node} node
 	 * @param {boolean} forcePrintMoveNumber
 	 * @returns {string}
 	 */
 	function buildMove(widget, node, forcePrintMoveNumber) {
 
 		// Create the DOM node.
-		var retVal = '<span class="rpbui-chessgame-move" ' + buildPositionInformation(node, true) + '>';
+		var retVal = '<span class="rpbui-chessgame-move" ' + buildPositionInformation(node, false, true) + '>';
 
 		// Move number
 		var printMoveNumber = forcePrintMoveNumber || node.moveColor() === 'w';
@@ -1130,7 +1072,7 @@
 
 		// SAN notation.
 		var pieceSymbolTable = widget._pieceSymbolTable;
-		retVal += node.move().replace(/[KQRBNP]/g, function(match) {
+		retVal += node.notation().replace(/[KQRBNP]/g, function(match) {
 			return pieceSymbolTable[match];
 		});
 
@@ -1155,7 +1097,7 @@
 	 * @returns {string}
 	 */
 	function buildInitialMove(widget) {
-		return '<div class="rpbui-chessgame-move rpbui-chessgame-initialMove" ' + buildPositionInformation(widget._game.mainVariation(), false) +
+		return '<div class="rpbui-chessgame-move rpbui-chessgame-initialMove" ' + buildPositionInformation(widget._game.mainVariation(), true, false) +
 			'>' + $.chessgame.i18n.INITIAL_POSITION + '</div>';
 	}
 
@@ -1458,7 +1400,7 @@
 			/**
 			 * Index of the game to consider in the PGN data.
 			 */
-			gameIndex: -1,
+			gameIndex: 0,
 
 			/**
 			 * Position of the navigation board.
@@ -1508,7 +1450,7 @@
 
 		/**
 		 * Hold the parsed information about the displayed chess game.
-		 * @type {RPBChess.pgn.Item}
+		 * @type {kokopu.Game}
 		 */
 		_game: null,
 
@@ -1669,4 +1611,4 @@
 
 	}); /* $.widget('rpbchess-ui.chessgame', { ... }) */
 
-})(/* global RPBChess */ RPBChess, /* global jQuery */ jQuery, /* global moment */ moment);
+})(/* global kokopu */ kokopu, /* global jQuery */ jQuery, /* global moment */ moment);
