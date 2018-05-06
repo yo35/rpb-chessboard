@@ -34,17 +34,17 @@
 
 
 <?php foreach ( $model->getCustomPiecesets() as $pieceset ) : ?>
-<?php foreach ( array( 'b', 'w' ) as $color ) : ?>
 
-<?php foreach ( array( 'p', 'n', 'b', 'r', 'q', 'k' ) as $piece ) : ?>
+<?php foreach ( array( 'bp', 'bn', 'bb', 'br', 'bq', 'bk', 'wp', 'wn', 'wb', 'wr', 'wq', 'wk' ) as $coloredPiece ) : ?>
 .<?php echo sanitize_html_class( 'rpbui-chessboard-pieceset-' . $pieceset ); ?>
-	.<?php echo sanitize_html_class( 'rpbui-chessboard-color-' . $color ); ?>.<?php echo sanitize_html_class( 'rpbui-chessboard-piece-' . $piece ); ?>
-	{ background-image: url(<?php echo esc_url( $model->getCustomPiecesetImageURL( $pieceset, $color . $piece ) ); ?>); }
+	.<?php echo sanitize_html_class( 'rpbui-chessboard-piece-' . $coloredPiece ); ?>
+	{ background-image: url(<?php echo esc_url( $model->getCustomPiecesetImageURL( $pieceset, $coloredPiece ) ); ?>); }
 <?php endforeach; ?>
 
+<?php foreach ( array( 'b', 'w' ) as $color ) : ?>
 .<?php echo sanitize_html_class( 'rpbui-chessboard-pieceset-' . $pieceset ); ?>
 	.<?php echo sanitize_html_class( 'rpbui-chessboard-color-' . $color ); ?>.rpbui-chessboard-turnFlag
 	{ background-image: url(<?php echo esc_url( $model->getCustomPiecesetImageURL( $pieceset, $color . 'x' ) ); ?>); }
-
 <?php endforeach; ?>
+
 <?php endforeach; ?>

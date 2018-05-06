@@ -1295,17 +1295,16 @@
 		/**
 		 * Get or set the castle right flags.
 		 *
-		 * @param {string} color Either 'w' or 'b'.
-		 * @param {string} side Either 'k' or 'q'.
+		 * @param {string} castle
 		 * @param {boolean?} value Nothing to get the current value.
 		 * @returns {undefined|boolean}
 		 */
-		castleRights: function(color, side, value) {
+		castling: function(castle, value) {
 			if(typeof value === 'undefined' || value === null) {
-				return this._position.castleRights(color, side);
+				return this._position.castling(castle);
 			}
-			else if(value !== this._position.castleRights(color, side)) {
-				this._position.castleRights(color, side, value);
+			else if(value !== this._position.castling(castle)) {
+				this._position.castling(castle, value);
 				notifyFENChanged(this);
 			}
 		},
