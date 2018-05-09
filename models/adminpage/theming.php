@@ -170,9 +170,9 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 
 
 	private static function getRandomColor( $grayRangeMin, $grayRangeMax ) {
-		$red   = rand( $grayRangeMin, $grayRangeMax );
-		$green = rand( $grayRangeMin, $grayRangeMax );
-		$blue  = rand( $grayRangeMin, $grayRangeMax );
+		$red   = wp_rand( $grayRangeMin, $grayRangeMax );
+		$green = wp_rand( $grayRangeMin, $grayRangeMax );
+		$blue  = wp_rand( $grayRangeMin, $grayRangeMax );
 		return sprintf( '#%02x%02x%02x', $red, $green, $blue );
 	}
 
@@ -183,7 +183,7 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 	public function getPiecesetEditionButtonTitle( $coloredPiece ) {
 		if ( ! isset( self::$piecesetEditionButtonTitle ) ) {
 			self::$piecesetEditionButtonTitle = array(
-				// @codingStandardsIgnoreStart
+				// phpcs:disable Generic.Functions.FunctionCallArgumentSpacing.SpaceBeforeComma
 				'bp' => __( 'Select the image to use for black pawns'     , 'rpb-chessboard' ),
 				'bn' => __( 'Select the image to use for black knights'   , 'rpb-chessboard' ),
 				'bb' => __( 'Select the image to use for black bishops'   , 'rpb-chessboard' ),
@@ -198,9 +198,23 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 				'wq' => __( 'Select the image to use for white queens'    , 'rpb-chessboard' ),
 				'wk' => __( 'Select the image to use for white kings'     , 'rpb-chessboard' ),
 				'wx' => __( 'Select the image to use for white turn flags', 'rpb-chessboard' ),
-				// @codingStandardsIgnoreEnd
+				// phpcs:enable Generic.Functions.FunctionCallArgumentSpacing.SpaceBeforeComma
 			);
 		}
 		return self::$piecesetEditionButtonTitle[ $coloredPiece ];
+	}
+
+
+	/**
+	 * URL to the image to use for the pieceset edition buttons.
+	 */
+	public function getPiecesetEditionButtonImage( $pieceset, $coloredPiece ) {
+		return '' === $pieceset || $this->getCustomPiecesetImageId( $pieceset, $coloredPiece ) < 0 ? self::getEmptyPiecesetImageURL( $coloredPiece ) :
+			$this->getCustomPiecesetImageURL( $pieceset, $coloredPiece );
+	}
+
+
+	private static function getEmptyPiecesetImageURL( $coloredPiece ) {
+		return RPBCHESSBOARD_URL . 'images/undefined-' . $coloredPiece . '.png';
 	}
 }

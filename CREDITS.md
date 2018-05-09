@@ -12,7 +12,7 @@ Yoann Le Montagner
 Contributors
 ------------
 
-Marek Śmigielski, [Paul Schreiber](https://paulschreiber.com/)
+Marek Śmigielski, [Paul Schreiber](https://paulschreiber.com/), [Adam Silverstein](http://www.10up.com/)
 
 
 

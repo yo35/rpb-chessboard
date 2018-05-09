@@ -141,7 +141,7 @@ class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractMode
 			return self::$BUILTIN_COLORSETS[ $colorset ];
 		} else {
 			$result = $this->getCustomColorsetLabel( $colorset );
-			return $result === '' ? __( '(no name)', 'rpb-chessboard' ) : $result;
+			return '' === $result ? __( '(no name)', 'rpb-chessboard' ) : $result;
 		}
 	}
 
@@ -193,7 +193,7 @@ class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractMode
 			return self::$BUILTIN_PIECESETS[ $pieceset ];
 		} else {
 			$result = $this->getCustomPiecesetLabel( $pieceset );
-			return $result === '' ? __( '(no name)', 'rpb-chessboard' ) : $result;
+			return '' === $result ? __( '(no name)', 'rpb-chessboard' ) : $result;
 		}
 	}
 

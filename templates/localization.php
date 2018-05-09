@@ -24,7 +24,7 @@
 
 	(function(rpb, $) {
 
-		<?php // @codingStandardsIgnoreStart ?>
+		<?php // phpcs:disable Generic.Functions.FunctionCallArgumentSpacing.SpaceBeforeComma ?>
 		$.chessgame.i18n.ANNOTATED_BY               = <?php echo wp_json_encode( __( 'Annotated by %1$s'                  , 'rpb-chessboard' ) ); ?>;
 		$.chessgame.i18n.INITIAL_POSITION           = <?php echo wp_json_encode( __( 'Initial position'                   , 'rpb-chessboard' ) ); ?>;
 		$.chessgame.i18n.GO_FIRST_MOVE_TOOLTIP      = <?php echo wp_json_encode( __( 'Go to the beginning of the game'    , 'rpb-chessboard' ) ); ?>;
@@ -35,7 +35,7 @@
 		$.chessgame.i18n.DOWNLOAD_PGN_TOOLTIP       = <?php echo wp_json_encode( __( 'Download the game'                  , 'rpb-chessboard' ) ); ?>;
 		$.chessgame.i18n.PGN_DOWNLOAD_ERROR_MESSAGE = <?php echo wp_json_encode( __( 'Cannot download the PGN file.'      , 'rpb-chessboard' ) ); ?>;
 		$.chessgame.i18n.PGN_PARSING_ERROR_MESSAGE  = <?php echo wp_json_encode( __( 'Error while analysing a PGN string.', 'rpb-chessboard' ) ); ?>;
-		<?php // @codingStandardsIgnoreEnd ?>
+		<?php // phpcs:enable Generic.Functions.FunctionCallArgumentSpacing.SpaceBeforeComma ?>
 
 		$.chessgame.i18n.PIECE_SYMBOLS = {
 			'K': <?php /*i18n King symbol   */ echo wp_json_encode( __( 'K', 'rpb-chessboard' ) ); ?>,
@@ -48,7 +48,7 @@
 
 		<?php if ( is_admin() ) : ?>
 
-			<?php // @codingStandardsIgnoreStart ?>
+			<?php // phpcs:disable Generic.Functions.FunctionCallArgumentSpacing.SpaceBeforeComma ?>
 			rpb.i18n.EDITOR_BUTTON_LABEL              = <?php echo wp_json_encode( __( 'chessboard'                 , 'rpb-chessboard' ) ); ?>;
 			rpb.i18n.EDIT_CHESS_DIAGRAM_DIALOG_TITLE  = <?php echo wp_json_encode( __( 'Insert/edit a chess diagram', 'rpb-chessboard' ) ); ?>;
 			rpb.i18n.CANCEL_BUTTON_LABEL              = <?php echo wp_json_encode( __( 'Cancel'                     , 'rpb-chessboard' ) ); ?>;
@@ -79,7 +79,7 @@
 			rpb.i18n.ADD_ROOKS_SHORTCUT_LABEL         = <?php echo wp_json_encode( __( 'add rooks'                  , 'rpb-chessboard' ) ); ?>;
 			rpb.i18n.ADD_QUEENS_SHORTCUT_LABEL        = <?php echo wp_json_encode( __( 'add queens'                 , 'rpb-chessboard' ) ); ?>;
 			rpb.i18n.ADD_KINGS_SHORTCUT_LABEL         = <?php echo wp_json_encode( __( 'add kings'                  , 'rpb-chessboard' ) ); ?>;
-			<?php // @codingStandardsIgnoreEnd ?>
+			<?php // phpcs:enable Generic.Functions.FunctionCallArgumentSpacing.SpaceBeforeComma ?>
 
 			rpb.config.FEN_SHORTCODE = <?php echo wp_json_encode( $model->getFENShortcode() ); ?>;
 

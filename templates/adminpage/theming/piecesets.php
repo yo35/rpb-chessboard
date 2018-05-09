@@ -118,46 +118,17 @@
 
 				mediaFrame[coloredPiece].on('select', function() {
 					var attachment = mediaFrame[coloredPiece].state().get('selection').first().toJSON();
-					launchFormatPiecesetSprite(form, coloredPiece, attachment);
+					onMediaSelected(form, coloredPiece, attachment.id, attachment.url);
 				});
 			}
 
 			mediaFrame[coloredPiece].open();
 		}
 
-		// Initiate the AJAX that is in charge of formating the uploaded image into a sprite.
-		function launchFormatPiecesetSprite(form, coloredPiece, attachment) {
-
-			$('.rpbchessboard-piecesetEditionErrorMessage', form).hide();
-
-			var ajaxUrl = <?php echo wp_json_encode( admin_url( 'admin-ajax.php' ) ); ?>;
-			var nonce = <?php echo wp_json_encode( wp_create_nonce( 'rpbchessboard_format_pieceset_sprite' ) ); ?>;
-
-			$.post(ajaxUrl, {
-				action: 'rpbchessboard_format_pieceset_sprite',
-				_ajax_nonce: nonce,
-				coloredPiece: coloredPiece,
-				attachmentId: attachment.id
-			}, function(data) {
-				if(data.success) {
-					onFormatPiecesetSpriteSuccess(form, coloredPiece, data.data.attachmentId, data.data.thumbnailURL, data.data.spriteURL);
-				}
-				else {
-					onFormatPiecesetSpriteFailure(form, coloredPiece, data.data.message);
-				}
-			});
-		}
-
-		// Process the AJAX response in case of success.
-		function onFormatPiecesetSpriteSuccess(form, coloredPiece, attachmentId, thumbnailURL, spriteURL) {
-			$('.rpbchessboard-coloredPieceButton-' + coloredPiece, form).empty().append('<img src="' + thumbnailURL + '" width="64px" height="64px" />');
+		function onMediaSelected(form, coloredPiece, attachmentId, attachmentURL) {
+			$('.rpbchessboard-coloredPieceButton-' + coloredPiece, form).empty().append('<img src="' + attachmentURL + '" width="64px" height="64px" />');
 			$('input[name="imageId-' + coloredPiece + '"]', form).val(attachmentId);
-			$(coloredPieceSelector(coloredPiece)).css('background-image', 'url(' + spriteURL + ')');
-		}
-
-		// Process the AJAX response in case of success.
-		function onFormatPiecesetSpriteFailure(form, coloredPiece, message) {
-			$('.rpbchessboard-piecesetEditionErrorMessage', form).text(message).slideDown();
+			$(coloredPieceSelector(coloredPiece)).css('background-image', 'url(' + attachmentURL + ')');
 		}
 
 		function coloredPieceSelector(coloredPiece) {
@@ -180,7 +151,7 @@
 			// Hide the error message box.
 			$('.rpbchessboard-piecesetEditionErrorMessage', target).hide();
 
-			// Initialize the color picker widgets
+			// Initialize the buttons showing the image picker frame.
 			$('.rpbchessboard-coloredPieceButton', target).click(function(e) {
 				e.preventDefault();
 				displayMediaFrame(target, $(this));
@@ -188,7 +159,7 @@
 
 			// Initialize the preview widget
 			['bp', 'bn', 'bb', 'br', 'bq', 'bk', 'bx', 'wp', 'wn', 'wb', 'wr', 'wq', 'wk', 'wx'].forEach(function(coloredPiece) {
-				$(coloredPieceSelector(coloredPiece)).css('background-image', 'url(' + $('input[name="imageId-' + coloredPiece + '"]', target).data('spriteUrl') + ')');
+				$(coloredPieceSelector(coloredPiece)).css('background-image', 'url(' + $('input[name="imageId-' + coloredPiece + '"]', target).data('url') + ')');
 			});
 
 			// Validate submit.

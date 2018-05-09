@@ -27,20 +27,19 @@ if ( ! $model->getSmallScreenCompatibility() ) {
 ?>
 
 <?php foreach ( $model->getSmallScreenModes() as $mode ) : ?>
-<?php echo $model->getSanitizedMainSelector( $mode ); ?> {
+<?php echo $model->getSanitizedMainSelector( $mode ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> {
 
 	<?php if ( $model->hasSquareSizeSection( $mode ) ) : ?>
 
-	<?php echo $model->getSanitizedSquareSizeSelector( $mode ); ?> {
+	<?php echo $model->getSanitizedSquareSizeSelector( $mode ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> {
 		min-width: <?php echo intval( $mode->squareSize ); ?>px;
 		width    : <?php echo intval( $mode->squareSize ); ?>px;
 		height   : <?php echo intval( $mode->squareSize ); ?>px;
-		background-position:
-			<?php echo intval( $model->getBackgroundPositionXForSquareSize( $mode->squareSize ) ); ?>px
-			<?php echo intval( $model->getBackgroundPositionYForSquareSize( $mode->squareSize ) ); ?>px;
+		background-size: <?php echo intval( $mode->squareSize ); ?>px <?php echo intval( $mode->squareSize ); ?>px;
+		-webkit-background-size: <?php echo intval( $mode->squareSize ); ?>px <?php echo intval( $mode->squareSize ); ?>px;
 	}
 
-	<?php echo $model->getSanitizedAnnotationLayerSelector( $mode ); ?> {
+	<?php echo $model->getSanitizedAnnotationLayerSelector( $mode ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> {
 		width : <?php echo intval( $model->getHeightWidthForAnnotationLayer( $mode->squareSize ) ); ?>px;
 		height: <?php echo intval( $model->getHeightWidthForAnnotationLayer( $mode->squareSize ) ); ?>px;
 		right : <?php echo intval( $model->getRightForAnnotationLayer( $mode->squareSize ) ); ?>px;

@@ -171,7 +171,7 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 		if ( isset( $this->subPages ) ) {
 			$name = strtolower( $name );
 			foreach ( $this->subPages as $subPage ) {
-				if ( $name === strtolower( $subPage->name ) ) {
+				if ( strtolower( $subPage->name ) === $name ) {
 					return $subPage->name;
 				}
 			}
@@ -220,7 +220,7 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 	 */
 	private static function makeSubPageLink( $subPageName ) {
 		global $pagenow;
-		return admin_url( $pagenow ) . '?page=' . urlencode( $_GET['page'] ) . '&subpage=' . urlencode( strtolower( $subPageName ) );
+		return admin_url( $pagenow ) . '?page=' . rawurlencode( $_GET['page'] ) . '&subpage=' . rawurlencode( strtolower( $subPageName ) );
 	}
 
 

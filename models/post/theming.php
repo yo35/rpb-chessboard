@@ -94,7 +94,7 @@ abstract class RPBChessboardModelPostTheming extends RPBChessboardAbstractModel 
 	private function processLabel( $setCode ) {
 		if ( isset( $_POST['label'] ) ) {
 			$value = RPBChessboardHelperValidation::validateString( $_POST['label'] );
-			if( isset( $value ) ) {
+			if ( isset( $value ) ) {
 				update_option( 'rpbchessboard_custom_' . $this->getManagedSetCode() . '_label_' . $setCode, $value );
 				return true;
 			}
@@ -125,7 +125,7 @@ abstract class RPBChessboardModelPostTheming extends RPBChessboardAbstractModel 
 	 * Check whether the given set-code represents an existing custom theming set or not.
 	 */
 	private function isCustomSetCode( $setCode ) {
-		return in_array( $setCode, $this->getCustomSetCodes() );
+		return in_array( $setCode, $this->getCustomSetCodes(), true );
 	}
 
 
@@ -183,8 +183,8 @@ abstract class RPBChessboardModelPostTheming extends RPBChessboardAbstractModel 
 
 		// Ensure that the result is valid and not already used for another set-code.
 		$counter = 1;
-		$base    = $setCode === '' ? $managedSetCode : $setCode;
-		$setCode = $setCode === '' ? $managedSetCode . '-1' : $setCode;
+		$base    = '' === $setCode ? $managedSetCode : $setCode;
+		$setCode = '' === $setCode ? $managedSetCode . '-1' : $setCode;
 		while ( $this->isCustomSetCode( $setCode ) || $this->isBuiltinSetCode( $setCode ) ) {
 			$setCode = $base . '-' . ( $counter++ );
 		}

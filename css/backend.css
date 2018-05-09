@@ -792,13 +792,13 @@ table.rpbchessboard-attributeTable td:nth-child(2) {
 	vertical-align: middle;
 }
 
-#rpbchessboard-editFENDialog-castleRights td {
+#rpbchessboard-editFENDialog-castling td {
 	vertical-align: middle;
 	text-align: center;
 	padding: 0px 5px 0px;
 }
 
-#rpbchessboard-editFENDialog-castleRights input[type="checkbox"] {
+#rpbchessboard-editFENDialog-castling input[type="checkbox"] {
 	margin: 0px;
 }
 

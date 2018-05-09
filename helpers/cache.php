@@ -41,7 +41,7 @@ abstract class RPBChessboardHelperCache {
 			return $result;
 		}
 
-		$model = RPBChessboardHelperLoader::loadModel( $modelName );
+		$model  = RPBChessboardHelperLoader::loadModel( $modelName );
 		$result = RPBChessboardHelperLoader::printTemplateOffScreen( $templateName, $model );
 
 		wp_cache_set( $cacheKey, $result, self::GROUP );

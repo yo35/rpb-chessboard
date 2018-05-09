@@ -79,7 +79,11 @@
 	<p><a href="mailto:yo35@melix.net">Yoann Le Montagner</a></p>
 
 	<h4><?php esc_html_e( 'Contributors', 'rpb-chessboard' ); ?></h4>
-	<p>Marek Śmigielski, <a href="https://paulschreiber.com/" target="_blank">Paul Schreiber</a></p>
+	<p>
+		Marek Śmigielski,
+		<a href="https://paulschreiber.com/" target="_blank">Paul Schreiber</a>,
+		<a href="http://www.10up.com/" target="_blank">Adam Silverstein</a>
+	</p>
 
 	<h4><?php esc_html_e( 'Translators', 'rpb-chessboard' ); ?></h4>
 	<dl class="rpbchessboard-translatorList">

@@ -38,8 +38,7 @@ class RPBChessboardModelCommonCustomPiecesets extends RPBChessboardAbstractModel
 	public function __construct() {
 		parent::__construct();
 		$this->registerDelegatableMethods(
-			'getCustomPiecesets', 'getCustomPiecesetLabel', 'getCustomPiecesetImageId',
-			'getCustomPiecesetThumbnailURL', 'getCustomPiecesetSpriteURL', 'computeCustomPiecesetSpritePathOrURL'
+			'getCustomPiecesets', 'getCustomPiecesetLabel', 'getCustomPiecesetImageId', 'getCustomPiecesetImageURL'
 		);
 	}
 
@@ -81,57 +80,21 @@ class RPBChessboardModelCommonCustomPiecesets extends RPBChessboardAbstractModel
 	 * @return integer
 	 */
 	public function getCustomPiecesetImageId( $pieceset, $coloredPiece ) {
-
-		if ( $pieceset === '' ) {
-			return -1;
-		}
-
 		$this->initializeCustomPiecesetAttributes( $pieceset );
 		return self::$customPiecesetAttributes[ $pieceset ]->imageId[ $coloredPiece ];
 	}
 
 
 	/**
-	 * Return the URL to the thumbnail image for the given colored piece in the given pieceset.
+	 * Return the URL to the image for the given colored piece in the given pieceset.
 	 *
 	 * @param string $pieceset
 	 * @param string $coloredPiece
 	 * @return string
 	 */
-	public function getCustomPiecesetThumbnailURL( $pieceset, $coloredPiece ) {
-
-		if ( $pieceset === '' ) {
-			return self::getEmptyPiecesetThumbnailURL( $coloredPiece );
-		}
-
+	public function getCustomPiecesetImageURL( $pieceset, $coloredPiece ) {
 		$this->initializeCustomPiecesetAttributes( $pieceset );
-		return self::$customPiecesetAttributes[ $pieceset ]->thumbnailURL[ $coloredPiece ];
-	}
-
-
-	/**
-	 * Return the URL to the sprite image for the given colored piece in the given pieceset.
-	 *
-	 * @param string $pieceset
-	 * @param string $coloredPiece
-	 * @return string
-	 */
-	public function getCustomPiecesetSpriteURL( $pieceset, $coloredPiece ) {
-
-		if ( $pieceset === '' ) {
-			return '#';
-		}
-
-		$this->initializeCustomPiecesetAttributes( $pieceset );
-		return self::$customPiecesetAttributes[ $pieceset ]->spriteURL[ $coloredPiece ];
-	}
-
-
-	/**
-	 * Generate the path/URL to the sprite image from the path/URL to the raw image.
-	 */
-	public function computeCustomPiecesetSpritePathOrURL( $rawImagePathOrURL ) {
-		return preg_replace( '/\.[^.]*$/', '', $rawImagePathOrURL ) . '-sprite.png';
+		return self::$customPiecesetAttributes[ $pieceset ]->imageURL[ $coloredPiece ];
 	}
 
 
@@ -141,16 +104,15 @@ class RPBChessboardModelCommonCustomPiecesets extends RPBChessboardAbstractModel
 		}
 
 		self::$customPiecesetAttributes[ $pieceset ] = (object) array(
-			'imageId'      => array(),
-			'thumbnailURL' => array(),
-			'spriteURL'    => array(),
+			'imageId'  => array(),
+			'imageURL' => array(),
 		);
 
 		// Retrieve the attributes from the database
-		$values = explode( '|', get_option( 'rpbchessboard_custom_pieceset_attributes_' . $pieceset, '' ) );
-		if ( count( $values ) !== count( self::$COLORED_PIECE_CODES ) ) {
+		$ids = explode( '|', get_option( 'rpbchessboard_custom_pieceset_attributes_' . $pieceset, '' ) );
+		if ( count( $ids ) !== count( self::$COLORED_PIECE_CODES ) ) {
 			foreach ( self::$COLORED_PIECE_CODES as $coloredPiece ) {
-				self::$customPiecesetAttributes[ $pieceset ]->imageId[ $coloredPiece ] = -1;
+				self::initializeCustomPiecesetAttributesAsInvalid( $pieceset, $coloredPiece );
 			}
 			return;
 		}
@@ -159,24 +121,21 @@ class RPBChessboardModelCommonCustomPiecesets extends RPBChessboardAbstractModel
 		$counter = 0;
 		foreach ( self::$COLORED_PIECE_CODES as $coloredPiece ) {
 
-			$currentId     = RPBChessboardHelperValidation::validateInteger( $values[ $counter++ ] );
-			$thumbnailURL  = isset( $currentId ) ? wp_get_attachment_image_url( $currentId ) : false;
-			$attachmentURL = isset( $currentId ) ? wp_get_attachment_url( $currentId ) : false;
+			$currentId  = RPBChessboardHelperValidation::validateInteger( $ids[ $counter++ ] );
+			$currentURL = isset( $currentId ) ? wp_get_attachment_image_url( $currentId ) : false;
 
-			if ( $thumbnailURL && $attachmentURL ) {
-				self::$customPiecesetAttributes[ $pieceset ]->imageId[ $coloredPiece ]      = $currentId;
-				self::$customPiecesetAttributes[ $pieceset ]->thumbnailURL[ $coloredPiece ] = $thumbnailURL;
-				self::$customPiecesetAttributes[ $pieceset ]->spriteURL[ $coloredPiece ]    = $this->computeCustomPiecesetSpritePathOrURL( $attachmentURL );
+			if ( $currentURL ) {
+				self::$customPiecesetAttributes[ $pieceset ]->imageId[ $coloredPiece ]  = $currentId;
+				self::$customPiecesetAttributes[ $pieceset ]->imageURL[ $coloredPiece ] = $currentURL;
 			} else {
-				self::$customPiecesetAttributes[ $pieceset ]->imageId[ $coloredPiece ]      = -1;
-				self::$customPiecesetAttributes[ $pieceset ]->thumbnailURL[ $coloredPiece ] = self::getEmptyPiecesetThumbnailURL( $coloredPiece );
-				self::$customPiecesetAttributes[ $pieceset ]->spriteURL[ $coloredPiece ]    = RPBCHESSBOARD_URL . 'images/not-found-sprite.png';
+				self::initializeCustomPiecesetAttributesAsInvalid( $pieceset, $coloredPiece );
 			}
 		}
 	}
 
 
-	private static function getEmptyPiecesetThumbnailURL( $coloredPiece ) {
-		return RPBCHESSBOARD_URL . 'images/undefined-' . $coloredPiece . '.png';
+	private static function initializeCustomPiecesetAttributesAsInvalid( $pieceset, $coloredPiece ) {
+		self::$customPiecesetAttributes[ $pieceset ]->imageId[ $coloredPiece ]  = -1;
+		self::$customPiecesetAttributes[ $pieceset ]->imageURL[ $coloredPiece ] = RPBCHESSBOARD_URL . 'images/not-found.png';
 	}
 }

@@ -22,14 +22,14 @@
 /**
  * jQuery widget to create chess diagrams.
  *
- * @requires rpbchess-core.js
+ * @requires kokopu
  * @requires jQuery
  * @requires jQuery UI Widget
  * @requires jQuery UI Selectable
  * @requires jQuery UI Draggable (optional, only if the moveable piece feature is enabled)
  * @requires jQuery UI Droppable (optional, only if the moveable piece feature is enabled)
  */
-(function(RPBChess, $)
+(function(kokopu, $)
 {
 	'use strict';
 
@@ -209,7 +209,7 @@
 
 
 	/**
-	 * Initialize the internal `RPBChess.Position` object with the given FEN string.
+	 * Initialize the internal `kokopu.Position` object with the given FEN string.
 	 *
 	 * @param {rpbchess-ui.chessboard} widget
 	 * @param {string} fen
@@ -222,11 +222,11 @@
 
 		// Parse the FEN string.
 		try {
-			widget._position = new RPBChess.Position(fen);
+			widget._position = new kokopu.Position(fen);
 			fen = widget._position.fen();
 		}
 		catch(e) {
-			if(e instanceof RPBChess.exceptions.InvalidFEN) {
+			if(e instanceof kokopu.exception.InvalidFEN) {
 				widget._position = e;
 			}
 			else {
@@ -348,8 +348,8 @@
 			for ( var colIndex = 0; colIndex < 8; ++colIndex ) {
 
 				// Square
-				var square = COLUMNS[colIndex] + ROWS[rowIndex];
-				var squareColor = RPBChess.squareColor(square) === 'w' ? 'light' : 'dark';
+				var square = COLUMNS[c] + ROWS[r];
+				var squareColor = kokopu.squareColor(square) === 'w' ? 'light' : 'dark';
 				var clazz = 'rpbui-chessboard-sized rpbui-chessboard-cell rpbui-chessboard-square rpbui-chessboard-' + squareColor + 'Square';
 				if(square in widget._squareMarkers) {
 					clazz += ' rpbui-chessboard-squareMarker rpbui-chessboard-markerColor-' + widget._squareMarkers[square];
@@ -363,7 +363,7 @@
 					squareDiv.innerHTML = HANDLE_TEMPLATE;
 				} else {
 					pieceDiv = document.createElement( 'div' );
-					pieceDiv.setAttribute( 'class', 'rpbui-chessboard-sized rpbui-chessboard-piece rpbui-chessboard-piece-' + coloredPiece.piece + ' rpbui-chessboard-color-' + coloredPiece.color );
+					pieceDiv.setAttribute( 'class', 'rpbui-chessboard-sized rpbui-chessboard-piece rpbui-chessboard-piece-' + coloredPiece.piece );
 					pieceDiv.innerHTML = HANDLE_TEMPLATE;
 					squareDiv.appendChild( pieceDiv );
 				}
@@ -486,7 +486,7 @@
 		}
 
 		// Handle parsing error problems.
-		if(widget._position instanceof RPBChess.exceptions.InvalidFEN) {
+		if(widget._position instanceof kokopu.exception.InvalidFEN) {
 			$(buildErrorMessage(widget)).appendTo(widget.element);
 		}
 
@@ -497,11 +497,10 @@
 				tagSquares(widget);
 				enableMovePieceOrPlayBehavior(widget, widget.options.interactionMode==='play');
 			}
-			else if(/^addPieces-([wb])([kqrbnp])$/.test(widget.options.interactionMode)) {
-				var color = RegExp.$1;
-				var piece = RegExp.$2;
+			else if(/^addPieces-([wb][kqrbnp])$/.test(widget.options.interactionMode)) {
+				var coloredPiece = RegExp.$1;
 				tagSquares(widget);
-				enableAddPieceBehavior(widget, { color:color, piece:piece });
+				enableAddPieceBehavior(widget, coloredPiece);
 			}
 			else if(/^addSquareMarkers-([GRY])$/.test(widget.options.interactionMode)) {
 				var markerColor = RegExp.$1;
@@ -760,7 +759,6 @@
 
 		// Enable dropping.
 		var tableNode = $('.rpbui-chessboard-table', widget.element).get(0);
-		var dropCallback = playMode ? doPlay : doMovePiece;
 		$('.rpbui-chessboard-square', widget.element).droppable({
 			hoverClass: 'rpbui-chessboard-squareHover',
 
@@ -772,9 +770,20 @@
 				var target      = $(event.target);
 				var movingPiece = ui.draggable;
 				if(movingPiece.hasClass('rpbui-chessboard-piece')) {
-					var move = { from: movingPiece.parent().data('square'), to: target.data('square') };
-					dropCallback(widget, move, false, widget.options.showMoveArrow);
-					// TODO Handle promotions in drag & drop.
+					if(playMode) {
+						var moveDescriptor = widget._position.isMoveLegal(movingPiece.parent().data('square'), target.data('square'));
+						if(!moveDescriptor) {
+							return;
+						}
+						else if(moveDescriptor.needPromotion) {
+							moveDescriptor = moveDescriptor('q'); // TODO handle non-queen promotions in drag & drop.
+						}
+						doPlay(widget, moveDescriptor, false, widget.options.showMoveArrow);
+					}
+					else {
+						var move = { from: movingPiece.parent().data('square'), to: target.data('square') };
+						doMovePiece(widget, move, false, widget.options.showMoveArrow);
+					}
 				}
 			}
 		});
@@ -785,7 +794,7 @@
 	 * Enable the "add-piece" interaction mode.
 	 *
 	 * @param {rpbchess-ui.chessboard} widget
-	 * @param {{color:string, piece:string}} coloredPiece
+	 * @param {string} coloredPiece
 	 */
 	function enableAddPieceBehavior(widget, coloredPiece) {
 		$('.rpbui-chessboard-square', widget.element).mousedown(function() {
@@ -900,15 +909,11 @@
 	 * the special situations (promotion, castle, en-passant...) that may be encountered.
 	 *
 	 * @param {rpbchess-ui.chessboard} widget
-	 * @param {string|RPBChess.MoveDescriptor} move
+	 * @param {kokopu.MoveDescriptor} move
 	 * @param {boolean} animate
 	 * @param {boolean} withArrow
 	 */
-	function doPlay(widget, move, animate, withArrow) {
-		var moveDescriptor = widget._position.isMoveLegal(move);
-		if(!moveDescriptor) {
-			return;
-		}
+	function doPlay(widget, moveDescriptor, animate, withArrow) {
 		widget._position.play(moveDescriptor);
 		++widget._animationCounter;
 
@@ -917,21 +922,23 @@
 		var movingPiece = doDisplacement(widget, moveDescriptor.from(), moveDescriptor.to(), animate, withArrow);
 
 		// Castling move -> move the rook.
-		if(moveDescriptor.type() === RPBChess.movetype.CASTLING_MOVE) {
+		if(moveDescriptor.isCastling()) {
 			doDisplacement(widget, moveDescriptor.rookFrom(), moveDescriptor.rookTo(), animate, false);
 		}
 
 		// En-passant move -> remove the taken pawn.
-		if(moveDescriptor.type() === RPBChess.movetype.EN_PASSANT_CAPTURE) {
+		if(moveDescriptor.isEnPassant()) {
 			fetchSquare(widget, moveDescriptor.enPassantSquare()).empty().append(HANDLE_TEMPLATE);
 		}
 
 		// Promotion move -> change the type of the promoted piece.
-		if(moveDescriptor.type() === RPBChess.movetype.PROMOTION) {
+		if(moveDescriptor.isPromotion()) {
 
 			// Switch to the promoted piece when the animation is 80%-complete.
 			scheduleMoveAnimation(widget, animate, 0.8, function() {
-				movingPiece.removeClass('rpbui-chessboard-piece-p').addClass('rpbui-chessboard-piece-' + moveDescriptor.promotion());
+				var oldClazz = 'rpbui-chessboard-piece-' + moveDescriptor.movingColoredPiece();
+				var newClazz = 'rpbui-chessboard-piece-' + moveDescriptor.coloredPromotion();
+				movingPiece.removeClass(oldClazz).addClass(newClazz);
 			});
 		}
 
@@ -980,10 +987,10 @@
 
 		// Animation
 		if(animate) {
-			var p1 = RPBChess.squareToCoordinates(from);
-			var p2 = RPBChess.squareToCoordinates(to  );
-			var deltaTop  = (p1.r - p2.r) * widget.options.squareSize * (widget.options.flip ? 1 : -1);
-			var deltaLeft = (p2.c - p1.c) * widget.options.squareSize * (widget.options.flip ? 1 : -1);
+			var p1 = kokopu.squareToCoordinates(from);
+			var p2 = kokopu.squareToCoordinates(to  );
+			var deltaTop  = (p1.rank - p2.rank) * widget.options.squareSize * (widget.options.flip ? 1 : -1);
+			var deltaLeft = (p2.file - p1.file) * widget.options.squareSize * (widget.options.flip ? 1 : -1);
 			movingPiece.css('top', deltaTop + 'px');
 			movingPiece.css('left', deltaLeft + 'px');
 			movingPiece.animate({ top: '0px', left: '0px' }, widget.options.animationSpeed);
@@ -1016,7 +1023,7 @@
 	 * the targeted square if it already contains the requested colored piece.
 	 *
 	 * @param {rpbchess-ui.chessboard} widget
-	 * @param {{color:string, piece:string}} coloredPiece
+	 * @param {string} coloredPiece
 	 * @param {string} square Targeted square.
 	 * @param {jQuery} target DOM node corresponding to the targeted square.
 	 */
@@ -1024,7 +1031,7 @@
 		var oldColoredPiece = widget._position.square(square);
 
 		// Remove-case
-		if(typeof oldColoredPiece === 'object' && oldColoredPiece.color === coloredPiece.color && oldColoredPiece.piece === coloredPiece.piece) {
+		if(oldColoredPiece === coloredPiece) {
 			widget._position.square(square, '-');
 			target.empty().append(HANDLE_TEMPLATE);
 		}
@@ -1035,7 +1042,7 @@
 
 			var div = document.createElement( 'div' );
 			div.setAttribute( 'class', 'rpbui-chessboard-sized rpbui-chessboard-piece rpbui-chessboard-piece-' +  +
-				coloredPiece.piece + ' rpbui-chessboard-color-' + coloredPiece.color );
+				coloredPiece.piece );
 			div.innerHTML = HANDLE_TEMPLATE;
 
 			target.empty().append(div);
@@ -1230,7 +1237,7 @@
 
 		/**
 		 * The chess position.
-		 * @type {RPBChess.Position}
+		 * @type {kokopu.Position}
 		 */
 		_position: null,
 
@@ -1353,17 +1360,16 @@
 		/**
 		 * Get or set the castle right flags.
 		 *
-		 * @param {string} color Either 'w' or 'b'.
-		 * @param {string} side Either 'k' or 'q'.
+		 * @param {string} castle
 		 * @param {boolean?} value Nothing to get the current value.
 		 * @returns {undefined|boolean}
 		 */
-		castleRights: function(color, side, value) {
+		castling: function(castle, value) {
 			if(typeof value === 'undefined' || value === null) {
-				return this._position.castleRights(color, side);
+				return this._position.castling(castle);
 			}
-			else if(value !== this._position.castleRights(color, side)) {
-				this._position.castleRights(color, side, value);
+			else if(value !== this._position.castling(castle)) {
+				this._position.castling(castle, value);
 				notifyFENChanged(this);
 			}
 		},
@@ -1399,10 +1405,11 @@
 		/**
 		 * Play a legal move.
 		 *
-		 * @param {string|RPBChess.MoveDescriptor} move
+		 * @param {string|kokopu.MoveDescriptor} move
 		 */
 		play: function(move) {
-			doPlay(this, move, this.options.animationSpeed > 0, this.options.showMoveArrow);
+			var moveDescriptor = kokopu.isMoveDescriptor(move) ? move : this._position.notation(move);
+			doPlay(this, moveDescriptor, this.options.animationSpeed > 0, this.options.showMoveArrow);
 		},
 
 
@@ -1519,4 +1526,4 @@
 
 	}); /* $.widget('rpbchess-ui.chessboard', { ... }) */
 
-})( /* global RPBChess */ RPBChess, /* global jQuery */ jQuery );
+})( /* global kokopu */ kokopu, /* global jQuery */ jQuery );

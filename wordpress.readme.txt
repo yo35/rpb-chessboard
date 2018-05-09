@@ -2,7 +2,7 @@
 Contributors: yo35
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YHNERW43QN49E
 Tags: chess, chessboard, fen, pgn, games
-Requires at least: 3.9
+Requires at least: 4.1
 Tested up to: 4.9
 Stable tag: trunk
 License: GPLv3
@@ -79,6 +79,17 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 
 == Changelog ==
+
+= 5.2.2 (May 1, 2018) =
+* Fix page jump issue (see #129).
+
+= 5.2.1 (April 8, 2018) =
+* Fix scrolling issue (see #128).
+
+= 5.2 (April 2, 2018) =
+* Fix several code security issues (see #116, #117, #118, #119, #120 and #121).
+* Image size optimization.
+* IE 8 not supported anymore.
 
 = 5.1.6 (January 7, 2018) =
 * Fix scrolling issue (see #111).
@@ -339,7 +350,7 @@ Yoann Le Montagner
 
 = Contributors =
 
-Marek Śmigielski, [Paul Schreiber](https://paulschreiber.com/)
+Marek Śmigielski, [Paul Schreiber](https://paulschreiber.com/), [Adam Silverstein](http://www.10up.com/)
 
 = Translators =
 

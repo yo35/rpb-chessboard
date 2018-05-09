@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-11 23:09+0100\n"
+"POT-Creation-Date: 2018-04-01 16:58+0200\n"
 "PO-Revision-Date: 2016-11-08 11:52+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -171,23 +171,6 @@ msgstr "К"
 #: templates/localization.php
 msgid "P"
 msgstr "п"
-
-#: models/ajax/formatpiecesetsprite.php
-msgid ""
-"Images used to create piecesets must be square images (identical height and "
-"width)."
-msgstr ""
-"Изображения для создания набора фигур должны быть квадратными (равной высоты "
-"и ширины)."
-
-#: models/ajax/formatpiecesetsprite.php
-msgid "Only PNG images can be used to create piecesets."
-msgstr ""
-"Только PNG изображения могут быть использованы для создания набора фигур."
-
-#: models/ajax/formatpiecesetsprite.php
-msgid "Error while processing the selected image."
-msgstr "Ошибка обработки выбранного файла."
 
 #: models/post/saveoptions.php
 msgid "Settings saved."

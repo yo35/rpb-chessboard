@@ -27,9 +27,9 @@
 		<?php wp_nonce_field( 'rpbchessboard_post_action' ); ?>
 
 		<?php foreach ( array( 'bp', 'bn', 'bb', 'br', 'bq', 'bk', 'bx', 'wp', 'wn', 'wb', 'wr', 'wq', 'wk', 'wx' ) as $coloredPiece ) : ?>
-		<input type="hidden" class="rpbchessboard-imageIdField" name="imageId-<?php echo $coloredPiece; ?>"
-			value="<?php echo esc_attr( $model->getCustomPiecesetImageId( $pieceset, $coloredPiece ) ); ?>"
-			data-sprite-url="<?php echo esc_url( $model->getCustomPiecesetSpriteURL( $pieceset, $coloredPiece ) ); ?>" />
+		<input type="hidden" class="rpbchessboard-imageIdField" name="<?php echo esc_attr( 'imageId-' . $coloredPiece ); ?>"
+			value="<?php echo esc_attr( $isNew ? -1 : $model->getCustomPiecesetImageId( $pieceset, $coloredPiece ) ); ?>"
+			data-url="<?php echo esc_url( $isNew ? '#' : $model->getCustomPiecesetImageURL( $pieceset, $coloredPiece ) ); ?>" />
 		<?php endforeach; ?>
 
 		<div class="rpbchessboard-inlineFormTitle">
@@ -57,17 +57,17 @@
 
 		<div>
 			<?php foreach ( array( 'bp', 'bn', 'bb', 'br', 'bq', 'bk', 'bx' ) as $coloredPiece ) : ?>
-			<a class="rpbchessboard-coloredPieceButton rpbchessboard-coloredPieceButton-<?php echo $coloredPiece; ?>" href="#"
-				data-colored-piece="<?php echo $coloredPiece; ?>" title="<?php echo esc_attr( $model->getPiecesetEditionButtonTitle( $coloredPiece ) ); ?>">
-				<img src="<?php echo esc_url( $model->getCustomPiecesetThumbnailURL( $pieceset, $coloredPiece ) ); ?>" width="64px" height="64px" />
+			<a class="rpbchessboard-coloredPieceButton <?php echo esc_attr( 'rpbchessboard-coloredPieceButton-' . $coloredPiece ); ?>" href="#"
+				data-colored-piece="<?php echo esc_attr( $coloredPiece ); ?>" title="<?php echo esc_attr( $model->getPiecesetEditionButtonTitle( $coloredPiece ) ); ?>">
+				<img src="<?php echo esc_url( $model->getPiecesetEditionButtonImage( $pieceset, $coloredPiece ) ); ?>" width="64px" height="64px" />
 			</a>
 			<?php endforeach; ?>
 		</div>
 		<div>
 			<?php foreach ( array( 'wp', 'wn', 'wb', 'wr', 'wq', 'wk', 'wx' ) as $coloredPiece ) : ?>
-			<a class="rpbchessboard-coloredPieceButton rpbchessboard-coloredPieceButton-<?php echo $coloredPiece; ?>" href="#"
-				data-colored-piece="<?php echo $coloredPiece; ?>" title="<?php echo esc_attr( $model->getPiecesetEditionButtonTitle( $coloredPiece ) ); ?>">
-				<img src="<?php echo esc_url( $model->getCustomPiecesetThumbnailURL( $pieceset, $coloredPiece ) ); ?>" width="64px" height="64px" />
+			<a class="rpbchessboard-coloredPieceButton <?php echo esc_attr( 'rpbchessboard-coloredPieceButton-' . $coloredPiece ); ?>" href="#"
+				data-colored-piece="<?php echo esc_attr( $coloredPiece ); ?>" title="<?php echo esc_attr( $model->getPiecesetEditionButtonTitle( $coloredPiece ) ); ?>">
+				<img src="<?php echo esc_url( $model->getPiecesetEditionButtonImage( $pieceset, $coloredPiece ) ); ?>" width="64px" height="64px" />
 			</a>
 			<?php endforeach; ?>
 		</div>

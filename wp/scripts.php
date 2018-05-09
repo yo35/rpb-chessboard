@@ -35,18 +35,13 @@ abstract class RPBChessboardScripts {
 		wp_register_script( 'rpbchessboard-momentjs', RPBCHESSBOARD_URL . 'third-party-libs/moment-js/moment' . $ext, false, '2.13.0' );
 		$momentjs = self::localizeJavaScriptLib( 'rpbchessboard-momentjs', 'third-party-libs/moment-js/locales/%1$s.js', '2.13.0' );
 
-		// RPBChess
-		wp_register_script( 'rpbchessboard-core', RPBCHESSBOARD_URL . 'js/rpbchess-core' . $ext, false, RPBCHESSBOARD_VERSION );
-		wp_register_script(
-			'rpbchessboard-pgn', RPBCHESSBOARD_URL . 'js/rpbchess-pgn' . $ext, array(
-				'rpbchessboard-core',
-			), RPBCHESSBOARD_VERSION
-		);
+		// Kokopu
+		wp_register_script( 'rpbchessboard-kokopu', RPBCHESSBOARD_URL . 'third-party-libs/kokopu/kokopu.js', false, '0.99.3' );
 
 		// Chessboard widget
 		wp_register_script(
 			'rpbchessboard-chessboard', RPBCHESSBOARD_URL . 'js/rpbchess-ui-chessboard' . $ext, array(
-				'rpbchessboard-core',
+				'rpbchessboard-kokopu',
 				'jquery-ui-widget',
 				'jquery-ui-selectable',
 			), RPBCHESSBOARD_VERSION
@@ -55,8 +50,7 @@ abstract class RPBChessboardScripts {
 		// Chessgame widget
 		wp_register_script(
 			'rpbchessboard-chessgame', RPBCHESSBOARD_URL . 'js/rpbchess-ui-chessgame' . $ext, array(
-				'rpbchessboard-core',
-				'rpbchessboard-pgn',
+				'rpbchessboard-kokopu',
 				'rpbchessboard-chessboard',
 				$momentjs,
 				'jquery-ui-widget',
@@ -90,6 +84,12 @@ abstract class RPBChessboardScripts {
 			wp_enqueue_script( 'iris' );
 			wp_enqueue_script( 'rpbchessboard-backend' );
 			wp_enqueue_media();
+
+			// QuickTags editor
+			wp_enqueue_script( 'rpbchessboard-quicktags', RPBCHESSBOARD_URL . 'js/quicktags' . $ext, array(
+				'rpbchessboard-backend',
+				'quicktags',
+			), RPBCHESSBOARD_VERSION, true );
 		}
 
 		// Inlined scripts
@@ -98,9 +98,6 @@ abstract class RPBChessboardScripts {
 		// TinyMCE editor
 		add_filter( 'mce_external_plugins', array( __CLASS__, 'callbackRegisterTinyMCEPlugin' ) );
 		add_filter( 'mce_buttons', array( __CLASS__, 'callbackRegisterTinyMCEButtons' ) );
-
-		// QuickTags editor
-		add_action( 'admin_print_footer_scripts', array( __CLASS__, 'callbackRegisterQuickTagsButtons' ) );
 	}
 
 
@@ -118,12 +115,6 @@ abstract class RPBChessboardScripts {
 	public static function callbackRegisterTinyMCEButtons( $buttons ) {
 		array_push( $buttons, 'rpb-chessboard' );
 		return $buttons;
-	}
-
-
-	public static function callbackRegisterQuickTagsButtons() {
-		$url = RPBCHESSBOARD_URL . 'js/quicktags' . self::getJSFileExtension();
-		echo '<script type="text/javascript" src="' . esc_url( $url ) . '"></script>';
 	}
 
 

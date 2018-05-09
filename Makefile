@@ -64,6 +64,10 @@ JSHINT        = jshint
 JSHINT_FLAGS  = -c assets/dev-tools/jshintrc
 UGLIFYJS      = uglifyjs
 UGLIFYJS_ARGS = -c -nc
+PHPCS         = phpcs
+PHPCS_ARGS    = --colors --standard=assets/dev-tools/phpcs.xml
+PHPCBF        = phpcbf
+PHPCBF_ARGS   = --standard=assets/dev-tools/phpcs.xml
 STATISTICS    = ./assets/dev-tools/statistics.sh
 COLOR_IN      = \033[34;1m
 COLOR_OUT     = \033[0m
@@ -83,6 +87,8 @@ help:
 	@$(ECHO) " * make $(COLOR_ITEM_IN)i18n-compile$(COLOR_ITEM_OUT): compile the translation files (*.po) into binaries (*.mo)."
 	@$(ECHO) " * make $(COLOR_ITEM_IN)js-lint$(COLOR_ITEM_OUT): run the static analysis of JavaScript files."
 	@$(ECHO) " * make $(COLOR_ITEM_IN)js-minify$(COLOR_ITEM_OUT): run the JavaScript minifier tool on JavaScript files."
+	@$(ECHO) " * make $(COLOR_ITEM_IN)phpcs$(COLOR_ITEM_OUT): run the static analysis of PHP files."
+	@$(ECHO) " * make $(COLOR_ITEM_IN)phpcbf$(COLOR_ITEM_OUT): try to fix some of the errors detected by static analysis on PHP files."
 	@$(ECHO) " * make $(COLOR_ITEM_IN)pack$(COLOR_ITEM_OUT): pack the source files into a zip file, ready for WordPress deployment."
 	@$(ECHO) " * make $(COLOR_ITEM_IN)stats$(COLOR_ITEM_OUT): display some source code metrics."
 	@$(ECHO) " * make $(COLOR_ITEM_IN)clean$(COLOR_ITEM_OUT): remove the automatically generated files."
@@ -156,12 +162,31 @@ js-minify: $(JS_MINIFIED_FILES)
 
 
 ################################################################################
+# PHP targets
+################################################################################
+
+
+# PHP validation
+phpcs:
+	@$(ECHO) "$(COLOR_IN)Checking the PHP files...$(COLOR_OUT)"
+	@$(PHPCS) $(PHPCS_ARGS) $(PHP_FILES)
+
+
+# PHP autofix
+phpcbf:
+	@$(ECHO) "$(COLOR_IN)Fixing the PHP files...$(COLOR_OUT)"
+	@$(PHPCBF) $(PHPCBF_ARGS) $(PHP_FILES)
+
+
+
+
+################################################################################
 # Other targets
 ################################################################################
 
 
 # Pack the source files into a zip file, ready for WordPress deployment
-pack: i18n-compile js-minify
+pack: phpcs i18n-compile js-minify
 	@rm -rf $(SNAPSHOT_FOLDER) $(DEPLOYMENT_FILE)
 	@mkdir -p $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)
 	@cp -r $(SRC_MAIN_FILE) $(SRC_FOLDERS) $(THIRD_PARTY_FOLDER) $(INFO_FILES) $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)
@@ -189,4 +214,4 @@ clean:
 
 
 # Make's stuff
-.PHONY: help i18n-extract i18n-merge i18n-compile js-lint js-minify pack stats clean
+.PHONY: help i18n-extract i18n-merge i18n-compile js-lint js-minify phpcs phpcbf pack stats clean
