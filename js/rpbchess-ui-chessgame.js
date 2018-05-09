@@ -352,7 +352,7 @@
 	function filterChessFontName(font)
 	{
 		// Ensure that the input is a valid chess font name.
-		switch(font) {
+		switch (font) {
 			case 'merida':
 			case 'pirat':
 				break;
@@ -362,16 +362,17 @@
 		}
 
 		// Build the corresponding chess font set.
-		var prefix = '<span class="rpbui-chessgame-' + font + 'Font">';
-		var suffix = '</span>';
-		var pieceSymbolTable = {
-			'K': prefix + 'K' + suffix,
-			'Q': prefix + 'Q' + suffix,
-			'R': prefix + 'R' + suffix,
-			'B': prefix + 'B' + suffix,
-			'N': prefix + 'N' + suffix,
-			'P': prefix + 'P' + suffix
-		};
+		var span;
+		var pieceSymbolTable = {};
+		var currentPiece;
+		var pieceTypes = [ 'K', 'Q', 'R', 'B', 'N', 'P' ];
+		for ( var index = 0; index < pieceTypes.length; index++ ) {
+			currentPiece = pieceTypes[index];
+			span = document.createElement( 'span' );
+			span.setAttribute( 'class', 'rpbui-chessgame-' + font + 'Font' );
+			span.textContent = currentPiece;
+			pieceSymbolTable[currentPiece] = span.outerHTML;
+		}
 
 		// Return the result.
 		return { font: font, pieceSymbolTable: pieceSymbolTable };
@@ -542,84 +543,147 @@
 	 *
 	 * @param {rpbchess-ui.chessgame} widget
 	 */
-	function refresh(widget) {
-		destroyContent(widget);
-		if(widget._game === null) {
+	function refresh( widget ) {
+		destroyContent( widget );
+		if ( null === widget._game ) {
 			return;
 		}
 
 		// Handle parsing error problems.
-		if(!(widget._game instanceof kokopu.Game)) {
-			$(buildErrorMessage(widget)).appendTo(widget.element);
+		if ( ! ( widget._game instanceof kokopu.Game ) ) {
+			$( buildErrorMessage( widget ) ).appendTo( widget.element );
 			return;
 		}
 
 		// Headers
-		var headers = '';
-		headers += playerNameHeader(widget, 'w');
-		headers += playerNameHeader(widget, 'b');
-		headers += eventHeader(widget);
-		headers += datePlaceHeader(widget);
-		headers += annotatorHeader(widget);
-		if(headers !== '') {
-			headers = '<div class="rpbui-chessgame-headers">' + headers + '</div>';
-		}
+		var headers = document.createElement( 'div' );
+		headers.setAttribute( 'class', 'rpbui-chessgame-headers' );
+		headers.appendChild( playerNameHeader( widget, 'w' ) );
+		headers.appendChild( playerNameHeader( widget, 'b' ) );
+		headers.appendChild( eventHeader( widget ) );
+		headers.appendChild( datePlaceHeader( widget ) );
+		headers.appendChild( annotatorHeader( widget ) );
 
 		// Body and initial move
-		var move0 = buildInitialMove(widget);
-		var body  = buildBody(widget);
+		var move0 = buildInitialMove( widget );
+		var body  = buildBody( widget );
 
 		// A hidden field to catch the keyboard events
-		var focusField = '<div class="rpbui-chessgame-focusFieldContainer"><a href="#" class="rpbui-chessgame-focusField"></a></div>';
+		var inputField = document.createElement( 'input' );
+		inputField.setAttribute( 'class', 'rpbui-chessgame-focusField' );
+		inputField.setAttribute( 'type', 'text' );
+		inputField.setAttribute( 'readonly', 'true' );
+
+		var focusField = document.createElement( 'div' );
+		focusField.setAttribute( 'class', 'rpbui-chessgame-focusFieldContainer' );
+		focusField.appendChild( inputField );
 
 		// Navigation board
-		var prefix = '';
-		var suffix = '';
-		switch(widget.options.navigationBoard) {
+		var prefixDiv;
+		var suffixDiv;
+		var result = document.createElement( 'div' );
+		result.appendChild( move0 );
+		result.appendChild( focusField );
+
+		switch( widget.options.navigationBoard ) {
 			case 'floatLeft':
 			case 'floatRight':
-				suffix = '<div class="rpbui-chessgame-' + widget.options.navigationBoard.replace('float', 'clear') + '"></div>';
-				prefix = '<div class="rpbui-chessgame-navigationBox rpbui-chessgame-' + widget.options.navigationBoard + '">' +
-					buildNavigationSkeleton() + '</div>';
+				var suffixDiv = document.createElement( 'div' );
+				suffixDiv.setAttribute( 'class', 'rpbui-chessgame-' + widget.options.navigationBoard.replace('float', 'clear') );
+
+				var prefixDiv = document.createElement( 'div' );
+				prefixDiv.setAttribute( 'class', 'rpbui-chessgame-navigationBox rpbui-chessgame-' + widget.options.navigationBoard );
+				prefixDiv.appendChild( buildNavigationSkeleton() );
+
+				result.appendChild( prefixDiv );
+				result.appendChild( headers );
+				result.appendChild( body );
+				result.appendChild( suffixDiv );
 				break;
+
 			case 'scrollLeft':
-				prefix = '<div class="rpbui-chessgame-scrollBox"><div class="rpbui-chessgame-navigationBox rpbui-chessgame-scrollLeft">' +
-					buildNavigationSkeleton() + '</div><div class="rpbui-chessgame-scrollArea">';
-				suffix = '</div></div>';
+				var navigationBoxDiv = document.createElement( 'div' );
+				navigationBoxDiv.setAttribute( 'class', 'rpbui-chessgame-navigationBox rpbui-chessgame-scrollLeft' );
+				navigationBoxDiv.appendChild( buildNavigationSkeleton() );
+
+				var scrollBoxDiv = document.createElement( 'div' );
+				scrollBoxDiv.setAttribute( 'class', 'rpbui-chessgame-scrollBox' );
+				scrollBoxDiv.appendChild( navigationBoxDiv );
+
+				var scrollAreaDiv = document.createElement( 'div' );
+				scrollAreaDiv.setAttribute( 'class', 'rpbui-chessgame-scrollArea' );
+				scrollAreaDiv.appendChild( headers );
+				scrollAreaDiv.appendChild( body );
+				scrollBoxDiv.appendChild( scrollAreaDiv );
+
+				result.appendChild( prefixDiv );
 				break;
+
 			case 'scrollRight':
-				prefix = '<div class="rpbui-chessgame-scrollBox"><div class="rpbui-chessgame-scrollArea">';
-				suffix = '</div><div class="rpbui-chessgame-navigationBox rpbui-chessgame-scrollRight">' + buildNavigationSkeleton() + '</div></div>';
+				var scrollBoxDiv = document.createElement( 'div' );
+				scrollBoxDiv.setAttribute( 'class', 'rpbui-chessgame-scrollBox' );
+
+				var scrollAreaDiv = document.createElement( 'div' );
+				scrollAreaDiv.setAttribute( 'class', 'rpbui-chessgame-scrollArea' );
+
+				scrollAreaDiv.appendChild( headers );
+				scrollAreaDiv.appendChild( body );
+				scrollBoxDiv.appendChild( scrollAreaDiv );
+				result.appendChild( scrollBoxDiv );
+
+				var navigationBoxDiv = document.createElement( 'div' );
+				navigationBoxDiv.setAttribute( 'class', 'rpbui-chessgame-navigationBox rpbui-chessgame-scrollRight' );
+				navigationBoxDiv.appendChild( buildNavigationSkeleton() );
+				result.appendChild( navigationBoxDiv );
 				break;
+
 			case 'above':
-				prefix = '<div class="rpbui-chessgame-navigationBox rpbui-chessgame-above">' + buildNavigationSkeleton() + '</div>';
+				var navigationBoxDiv = document.createElement( 'div' );
+				navigationBoxDiv.setAttribute( 'class', 'rpbui-chessgame-navigationBox rpbui-chessgame-above' );
+				navigationBoxDiv.appendChild( buildNavigationSkeleton() );
+
+				result.appendChild( navigationBoxDiv );
+				result.appendChild( headers );
+				result.appendChild( body );
 				break;
+
 			case 'below':
-				suffix = '<div class="rpbui-chessgame-navigationBox rpbui-chessgame-below">' + buildNavigationSkeleton() + '</div>';
+				var navigationBoxDiv = document.createElement( 'div' );
+				navigationBoxDiv.setAttribute( 'class', 'rpbui-chessgame-navigationBox rpbui-chessgame-below' );
+				navigationBoxDiv.appendChild( buildNavigationSkeleton() );
+
+				result.appendChild( headers );
+				result.appendChild( body );
+				result.appendChild( navigationBoxDiv );
 				break;
 		}
 
 		// Render the content.
-		$(move0 + focusField + prefix + headers + body + suffix).appendTo(widget.element);
+		$( result ).appendTo( widget.element );
 
 		// Render the diagrams in comments.
-		makeDiagrams(widget);
+		makeDiagrams( widget );
 
 		// Activate the navigation board, if required.
-		if(widget.options.navigationBoard !== 'none') {
-			makeMovesClickable(widget);
-			makeMovesRelated(widget);
-			$('.rpbui-chessgame-focusField', widget.element).keydown(function(event) {
-				if(event.key === 'Home') { widget.goFirstMove(); }
-				else if(event.key === 'ArrowLeft') { widget.goPreviousMove(); }
-				else if(event.key === 'ArrowRight') { widget.goNextMove(); }
-				else if(event.key === 'End') { widget.goLastMove(); }
+		if ( 'none' !== widget.options.navigationBoard ) {
+			makeMovesClickable( widget );
+			makeMovesRelated( widget );
+			$( '.rpbui-chessgame-focusField', widget.element ).keydown( function( event ) {
+				if ( 'Home' === event.key ) {
+					widget.goFirstMove();
+				} else if ( 'ArrowLeft' === event.key ) {
+					widget.goPreviousMove();
+				} else if ( 'ArrowRight' === event.key ) {
+					widget.goNextMove();
+				} else if ( 'End' === event.key ) {
+					widget.goLastMove();
+				}
 			});
-			if(widget.options.navigationBoard !== 'frame') {
-				makeNavigationBoxWidgets(widget);
+			if ( 'frame' !== widget.options.navigationBoard ) {
+				makeNavigationBoxWidgets( widget );
 			}
-			if(widget.options.navigationBoard === 'scrollLeft' || widget.options.navigationBoard === 'scrollRight') {
-				$('.rpbui-chessgame-scrollArea', widget.element).css('height', $('.rpbui-chessgame-navigationBox', widget.element).height());
+			if ( 'scrollLeft' === widget.options.navigationBoard || 'scrollRight' === widget.options.navigationBoard ) {
+				$( '.rpbui-chessgame-scrollArea', widget.element ).css( 'height', $( '.rpbui-chessgame-navigationBox', widget.element ).height() );
 			}
 		}
 	}
@@ -738,31 +802,47 @@
 	 */
 	function buildErrorMessage(widget) {
 
-		// Build the error report box.
+		// Container error <div>
+		var errorDiv = document.createElement( 'div' );
+		errorDiv.setAttribute( 'class', 'rpbui-chessgame-error' );
+
+		// Title
 		var title = widget._game instanceof kokopu.exception.InvalidPGN ? $.chessgame.i18n.PGN_PARSING_ERROR_MESSAGE : widget._game.title;
-		var retVal = '<div class="rpbui-chessgame-error"><div class="rpbui-chessgame-errorTitle">' + title + '</div>';
+		var errorTitleDiv = document.createElement( 'div' );
+		errorTitleDiv.setAttribute( 'class', 'rpbui-chessgame-errorTitle' );
+		errorTitleDiv.textContent = title;
+
+		errorDiv.appendChild( errorTitleDiv );
 
 		// Optional message.
-		if(widget._game.message !== null) {
-			retVal += '<div class="rpbui-chessgame-errorMessage">' + widget._game.message + '</div>';
+		if ( null !== widget._game.message ) {
+			var errorMessageDiv = document.createElement( 'div' );
+			errorMessageDiv.setAttribute( 'class', 'rpbui-chessgame-errorMessage' );
+			errorMessageDiv.textContent = widget._game.message;
+			errorDiv.appendChild( errorMessageDiv );
 		}
 
-		// Display where the error has occurred.
-		if(widget._game.index !== null && widget._game.index >= 0) {
-			retVal += '<div class="rpbui-chessgame-errorAt">';
-			if(widget._game.index >= widget._game.pgn.length) {
-				retVal += 'Occurred at the end of the string.';
+		// Error location (and optional error code)
+		if ( null !== widget._game.index && widget._game.index >= 0 ) {
+			var errorAtDiv = document.createElement( 'div' );
+			errorAtDiv.setAttribute( 'class', 'rpbui-chessgame-errorAt' );
+
+
+			if ( widget._game.index >= widget._game.pgn.length ) {
+				errorAtDiv.textContent = 'Occurred at the end of the string.';
+			} else {
+				errorAtDiv.textContent = 'Occurred at position ' + widget._game.index + ':';
+
+				var errorCodeDiv = document.createElement( 'div' );
+				errorCodeDiv.setAttribute( 'class', 'rpbui-chessgame-errorAtCode' );
+				errorCodeDiv.textContent = ellipsisAt(widget._game.pgn, widget._game.index, 10, 40);
+				errorAtDiv.appendChild( errorCodeDiv );
 			}
-			else {
-				retVal += 'Occurred at position ' + widget._game.index + ':' + '<div class="rpbui-chessgame-errorAtCode">' +
-					ellipsisAt(widget._game.pgn, widget._game.index, 10, 40) + '</div>';
-			}
-			retVal += '</div>';
+
+			errorDiv.appendChild( errorAtDiv );
 		}
 
-		// Close the error report box, and return the result.
-		retVal += '</div>';
-		return retVal;
+		return errorDiv.outerHTML;
 	}
 
 
@@ -774,31 +854,54 @@
 	 * @param {string} color Either 'w' or 'b'.
 	 * @returns {string}
 	 */
-	function playerNameHeader(widget, color) {
+	function playerNameHeader( widget, color ) {
 
 		// Retrieve the name of the player -> no header is returned if the name not available.
 		var name = widget._game.playerName(color);
-		if(name === undefined) {
+		if ( undefined === name ) {
 			return '';
 		}
 
-		// Build the returned header.
-		var header = '<div class="rpbui-chessgame-' + (color === 'w' ? 'white' : 'black') + 'Player">' +
-			'<span class="rpbui-chessgame-colorTag"></span> ' +
-			'<span class="rpbui-chessgame-playerName">' + name + '</span>';
+		// Container header <div>
+		var header = document.createElement( 'div' );
+		header.setAttribute( 'class', 'rpbui-chessgame-' + ( color === 'w' ? 'white' : 'black' ) + 'Player' );
 
-		// Title + rating
-		var title  = widget._game.playerTitle(color);
-		var rating = widget._game.playerElo(color);
-		if(title !== undefined || rating !== undefined) {
-			header += '<span class="rpbui-chessgame-titleRatingGroup">';
-			if(title  !== undefined) { header += '<span class="rpbui-chessgame-playerTitle">'  + title  + '</span>'; }
-			if(rating !== undefined) { header += '<span class="rpbui-chessgame-playerRating">' + rating + '</span>'; }
-			header += '</span>';
+		// Color and player name
+		var colorTag = document.createElement( 'span' );
+		colorTag.setAttribute( 'class', 'rpbui-chessgame-colorTag' );
+
+		var playerName = document.createElement( 'span' );
+		playerName.setAttribute( 'class', 'rpbui-chessgame-playerName' );
+		playerName.textCOntent = name;
+
+		header.appendChild( colorTag );
+		header.appendChild( playerName );
+
+		// Title and rating
+		var title  = widget._game.playerTitle( color );
+		var rating = widget._game.playerElo( color );
+
+		if ( undefined !== title || undefined !== rating) {
+			var titleRatingGroup = document.createElement( 'span' );
+			titleRatingGroup.setAttribute( 'class', 'rpbui-chessgame-titleRatingGroup' );
+
+			if ( null !== title ) {
+				var playerTitle = document.createElement( 'span' );
+				playerTitle.setAttribute( 'class', 'rpbui-chessgame-playerTitle' );
+				playerTitle.textContent = title;
+
+				titleRatingGroup.appendChild( playerTitle );
+			}
+			if ( null !== rating ) {
+				var playerRating = document.createElement( 'span' );
+				playerRating.setAttribute( 'class', 'rpbui-chessgame-playerRating' );
+				playerRating.textContent = rating;
+				titleRatingGroup.appendChild( playerRating );
+			}
+
+			header.appendChild( titleRatingGroup );
 		}
 
-		// Add the closing tag and return the result.
-		header += '</div>';
 		return header;
 	}
 
@@ -809,23 +912,30 @@
 	 * @param {rpbchess-ui.chessgame} widget
 	 * @returns {string}
 	 */
-	function eventHeader(widget) {
+	function eventHeader( widget ) {
 
 		// Retrieve the event -> no header is returned if the name not available.
 		var event = widget._game.event();
-		if(event === undefined) {
+		if ( undefined === event ) {
 			return '';
 		}
 
 		// Retrieve the round.
 		var round = widget._game.round();
 
-		// Build and return the header.
-		var header = '<div class="rpbui-chessgame-event">' + event;
-		if(round !== undefined) {
-			header += '<span class="rpbui-chessgame-round">' + round + '</span>';
+		// Build and return the header
+		var header = document.createElement( 'div' );
+		header.setAttribute( 'class', 'rpbui-chessgame-event' );
+		header.textContent = event;
+
+		if ( null !== round ) {
+			var round = document.createElement( 'span' );
+			round.setAttribute( 'class', 'rpbui-chessgame-round' );
+			round.textContent = round;
+
+			header.appendChild( round );
 		}
-		header += '</div>';
+
 		return header;
 	}
 
@@ -836,20 +946,33 @@
 	 * @param {rpbchess-ui.chessgame} widget
 	 * @returns {string}
 	 */
-	function datePlaceHeader(widget) {
+	function datePlaceHeader( widget ) {
 
 		// Retrieve the date and the site field.
 		var date = widget._game.date();
 		var site = widget._game.site();
-		if(date === undefined && site === undefined) {
+		if ( undefined === date && undefined === site ) {
 			return '';
 		}
 
-		// Build and return the header.
-		var header = '<div class="rpbui-chessgame-datePlaceGroup">';
-		if(date !== undefined) { header += '<span class="rpbui-chessgame-date">' + formatDate(date) + '</span>'; }
-		if(site !== undefined) { header += '<span class="rpbui-chessgame-site">' + site + '</span>'; }
-		header += '</div>';
+		// Build and return the header
+		var header = document.createElement( 'div' );
+		header.setAttribute( 'class', 'rpbui-chessgame-datePlaceGroup' );
+
+		if ( null !== date ) {
+			var dateSpan = document.createElement( 'span' );
+			dateSpan.setAttribute( 'class', 'rpbui-chessgame-date' );
+			dateSpan.textContent = formatDate(date);
+			header.appendChild( dateSpan );
+		}
+
+		if ( null !== site ) {
+			var siteSpan = document.createElement( 'span' );
+			siteSpan.setAttribute( 'class', 'rpbui-chessgame-site' );
+			siteSpan.textContent = site;
+			header.appendChild( siteSpan );
+		}
+
 		return header;
 	}
 
@@ -860,17 +983,23 @@
 	 * @param {rpbchess-ui.chessgame} widget
 	 * @returns {string}
 	 */
-	function annotatorHeader(widget) {
+	function annotatorHeader( widget ) {
 
 		// Retrieve the annotator field.
 		var annotator = widget._game.annotator();
-		if(annotator === undefined) {
+		if ( undefined === annotator ) {
 			return '';
 		}
 
+		var annotatorSpan = document.createElement( 'span' );
+		annotatorSpan.setAttribute( 'class', 'rpbui-chessgame-annotatorName' );
+		annotatorSpan.textContent = annotator;
+
 		// Build and return the header.
-		var header = '<div class="rpbui-chessgame-annotator">' + $.chessgame.i18n.ANNOTATED_BY.replace(/%1\$s/g,
-			'<span class="rpbui-chessgame-annotatorName">' + annotator + '</span>') + '</div>';
+		var header = document.createElement( 'div' );
+		siteSpan.setAttribute( 'class', 'rpbui-chessgame-annotator' );
+		siteSpan.textContent = $.chessgame.i18n.ANNOTATED_BY.replace( /%1\$s/g, annotatorSpan.outerHTML );
+
 		return header;
 	}
 
@@ -881,19 +1010,28 @@
 	 * @param {rpbchess-ui.chessgame} widget
 	 * @returns {string}
 	 */
-	function buildBody(widget) {
-		var mainVariation = buildVariation(widget, widget._game.mainVariation(), true, widget._game.result());
+	function buildBody( widget ) {
+		var mainVariation = buildVariation( widget, widget._game.mainVariation(), true, widget._game.result() );
 
 		// Nothing to do if the main variation is empty.
-		if(mainVariation.content === '') {
+		if ( '' === mainVariation.content ) {
 			return '';
 		}
 
 		// Otherwise, wrap it into a DIV node.
-		var bodyClass = 'rpbui-chessgame-body';
-		if(mainVariation.divCount > 1) { bodyClass += ' rpbui-chessgame-moreSpace'; }
-		if(widget.options.navigationBoard !== 'none') { bodyClass += ' rpbui-chessgame-clickableMoves'; }
-		return '<div class="' + bodyClass + '">' + mainVariation.content + '</div>';
+		var bodyClassList = [ 'rpbui-chessgame-body' ];
+		if ( mainVariation.divCount > 1 ) {
+			bodyClassList[] = 'rpbui-chessgame-moreSpace';
+		}
+		if ( 'none' !== widget.options.navigationBoard ) {
+			bodyClassList[] += 'rpbui-chessgame-clickableMoves';
+		}
+
+		var result = document.createElement( 'div' );
+		result.setAttribute( 'class', bodyClassList.join( ' ' ) );
+		result.innerHTML = mainVariation.content;
+
+		return result;
 	}
 
 
@@ -1013,27 +1151,29 @@
 	 * @param {boolean} addAnimationSupport `true` to add the information required for move highlighting.
 	 * @returns {string}
 	 */
-	function buildPositionInformation(node, isVariation, moveHighlightSupport) {
-		var res = 'data-position="' + (isVariation ? node.initialPosition() : node.position()).fen() + '"';
+	function buildPositionInformation( node, moveHighlightSupport ) {
+		var result = {};
+		result[ 'data-position' ] = isVariation ? node.initialPosition() : node.position()).fen();
 
 		// Move highlighting
-		if(moveHighlightSupport) {
-			res += ' data-position-before="' + node.positionBefore().fen() + '" data-move-notation="' + node.notation() + '"';
+		if ( moveHighlightSupport ) {
+			result[ 'data-position-before' ] = node.positionBefore().fen();
+			result[ 'data-move-notation' ] = node.notation();
 		}
 
-		// Square markers
-		var csl = node.tag('csl');
-		if(csl !== undefined) {
-			res += ' data-csl="' + csl + '"';
+  	// Square markers
+		var csl = node.tag( 'csl' );
+		if ( undefined !== csl ) {
+			result[ 'data-csl' ] = csl;
 		}
 
 		// Arrow markers
-		var cal = node.tag('cal');
-		if(cal !== undefined) {
-			res += ' data-cal="' + cal + '"';
+		var cal = node.tag( 'cal' );
+		if ( undefined !== cal ) {
+			result[ 'data-cal' ] = cal;
 		}
 
-		return res;
+		return result;
 	}
 
 
@@ -1044,10 +1184,20 @@
 	 * @param {boolean} isVariation
 	 * @returns {string}
 	 */
-	function buildComment(node, isVariation) {
+	function buildComment( node, isVariation ) {
 		var tag = node.isLongComment() ? 'div' : 'span';
-		return '<' + tag + ' class="rpbui-chessgame-comment" ' + buildPositionInformation(node, isVariation, false) + '>' +
-			node.comment() + '</' + tag + '>';
+		var result = document.createElement( tag );
+		result.setAttribute( 'class', 'rpbui-chessgame-comment' );
+
+		var positionInformation = buildPositionInformation( node, isVariation, false );
+		for ( var key in positionInformation ) {
+			if ( positionInformation.hasOwnProperty( key )) {
+				result.setAttribute( key, value );
+			}
+		}
+		result.textContent = node.comment();
+
+		return result.outerHTML;
 	}
 
 
@@ -1062,29 +1212,42 @@
 	function buildMove(widget, node, forcePrintMoveNumber) {
 
 		// Create the DOM node.
-		var retVal = '<span class="rpbui-chessgame-move" ' + buildPositionInformation(node, false, true) + '>';
+		var result = document.createElement( 'span' );
+		result.setAttribute( 'class', 'rpbui-chessgame-move' );
+
+		var positionInformation = buildPositionInformation( node, false, true );
+		for ( var key in positionInformation ) {
+			if ( positionInformation.hasOwnProperty( key )) {
+				result.setAttribute( key, value );
+			}
+		}
 
 		// Move number
 		var printMoveNumber = forcePrintMoveNumber || node.moveColor() === 'w';
 		var moveNumberClass = 'rpbui-chessgame-moveNumber' + (printMoveNumber ? '' : ' rpbui-chessgame-hidden');
 		var moveNumberText  = node.fullMoveNumber() + (node.moveColor() === 'w' ? '.' : '\u2026');
-		retVal += '<span class="' + moveNumberClass + '">' + moveNumberText + '</span>';
+
+		var moveNumberSpan = document.createElement( 'span' );
+		moveNumberSpan.setAttribute( 'class', moveNumberClass );
+		moveNumberSpan.textContent = moveNumberText;
+		result.appendChild( moveNumberSpan );
 
 		// SAN notation.
 		var pieceSymbolTable = widget._pieceSymbolTable;
-		retVal += node.notation().replace(/[KQRBNP]/g, function(match) {
+		var resultContent;
+		resultContent += node.notation().replace(/[KQRBNP]/g, function( match ) {
 			return pieceSymbolTable[match];
 		});
 
 		// NAGs
 		var nags = node.nags();
-		for(var k=0; k<nags.length; ++k) {
-			retVal += ' ' + formatNag(nags[k]);
+		for ( var k=0; k < nags.length; ++k ) {
+			resultContent += ' ' + formatNag( nags[k] );
 		}
+		result.innerHTML = resultContent;
 
 		// Close the DOM node.
-		retVal += '</span>';
-		return retVal;
+		return result.outerHTML;
 	}
 
 
@@ -1096,9 +1259,19 @@
 	 * @param {rpbchess-ui.chessgame} widget
 	 * @returns {string}
 	 */
-	function buildInitialMove(widget) {
-		return '<div class="rpbui-chessgame-move rpbui-chessgame-initialMove" ' + buildPositionInformation(widget._game.mainVariation(), true, false) +
-			'>' + $.chessgame.i18n.INITIAL_POSITION + '</div>';
+	function buildInitialMove( widget ) {
+		var result = document.createElement( 'div' );
+		result.setAttribute( 'class', 'rpbui-chessgame-move rpbui-chessgame-initialMove' );
+
+		var positionInformation = buildPositionInformation( widget._game.mainVariation(), true, false );
+		for ( var key in positionInformation ) {
+			if ( positionInformation.hasOwnProperty( key )) {
+				result.setAttribute( key, value );
+			}
+		}
+		result.textContent = $.chessgame.i18n.INITIAL_POSITION;
+
+		return result;
 	}
 
 
@@ -1108,16 +1281,38 @@
 	 * @returns {string}
 	 */
 	function buildNavigationSkeleton() {
-		return '<div class="rpbui-chessgame-navigationBoard"></div>' +
-			'<div class="rpbui-chessgame-navigationButtons ' + $.chessgame.navigationButtonClass + '">' +
-				'<div title="' + $.chessgame.i18n.GO_FIRST_MOVE_TOOLTIP    + '" class="rpbui-chessgame-navigationButtonFirst"></div>' +
-				'<div title="' + $.chessgame.i18n.GO_PREVIOUS_MOVE_TOOLTIP + '" class="rpbui-chessgame-navigationButtonPrevious"></div>' +
-				'<div title="' + $.chessgame.i18n.GO_NEXT_MOVE_TOOLTIP     + '" class="rpbui-chessgame-navigationButtonNext"></div>' +
-				'<div title="' + $.chessgame.i18n.GO_LAST_MOVE_TOOLTIP     + '" class="rpbui-chessgame-navigationButtonLast rpbui-chessgame-spaceAfter"></div>' +
-				'<div title="' + $.chessgame.i18n.FLIP_TOOLTIP             + '" class="rpbui-chessgame-navigationButtonFlip rpbui-chessgame-spaceAfter"></div>' +
-				'<div title="' + $.chessgame.i18n.DOWNLOAD_PGN_TOOLTIP     + '" class="rpbui-chessgame-navigationButtonDownload rpbui-chessgame-spaceAfter"></div>' +
-			'</div>' +
-			'<a href="#" download="game.pgn" class="rpbui-chessgame-blobDownloadLink"></a>';
+		var result = document.createElement( 'div' );
+		result.setAttribute( 'class', 'rpbui-chessgame-navigationBoard' );
+
+		var link = document.createElement( 'a' );
+		link.setAttribute( 'href', '#' );
+		link.setAttribute( 'class', 'rpbui-chessgame-blobDownloadLink' );
+		link.setAttribute( 'download', 'game.pgn' );
+
+		var buttonsDiv = document.createElement( 'div' );
+		buttonsDiv.setAttribute( 'class', 'rpbui-chessgame-navigationButtons ' + $.chessgame.navigationButtonClass );
+
+		var buttonsDivData = [
+			{ title: $.chessgame.i18n.GO_FIRST_MOVE_TOOLTIP   , class: 'rpbui-chessgame-navigationButtonFirst' },
+			{ title: $.chessgame.i18n.GO_PREVIOUS_MOVE_TOOLTIP, class: 'rpbui-chessgame-navigationButtonPrevious' },
+			{ title: $.chessgame.i18n.GO_NEXT_MOVE_TOOLTIP    , class: 'rpbui-chessgame-navigationButtonNext' },
+			{ title: $.chessgame.i18n.GO_LAST_MOVE_TOOLTIP    , class: 'rpbui-chessgame-navigationButtonLast rpbui-chessgame-spaceAfter' },
+			{ title: $.chessgame.i18n.FLIP_TOOLTIP            , class: 'rpbui-chessgame-navigationButtonFlip rpbui-chessgame-spaceAfter' },
+			{ title: $.chessgame.i18n.DOWNLOAD_PGN_TOOLTIP    , class: 'rpbui-chessgame-navigationButtonDownload rpbui-chessgame-spaceAfter' }
+		];
+
+		var buttonDivItem;
+		for ( var index = 0; index < buttonsDivData.length; index++ ) {
+			buttonDivItem = document.createElement( 'div ')
+			buttonDivItem.setAttribute( 'title', buttonsDivData[index].title );
+			buttonDivItem.setAttribute( 'class', buttonsDivData[index].class );
+			buttonsDiv.appendChild( buttonDivItem );
+		}
+
+		result.appendChild( buttonsDiv );
+		result.appendChild( link );
+
+		return result;
 	}
 
 
@@ -1139,19 +1334,23 @@
 	 * Create the navigation frame, if it does not exist yet.
 	 */
 	function buildNavigationFrame() {
-		if($('#rpbui-chessgame-navigationFrame').length !== 0) {
+		if ( null !== document.getElementById( 'rpbui-chessgame-navigationFrame' ) ) {
 			return;
 		}
 
 		// Structure of the navigation frame.
-		$('<div id="rpbui-chessgame-navigationFrame">' + buildNavigationSkeleton() + '</div>').appendTo($('body'));
+		var navigationFrame = document.createElement( 'div' );
+		navigationFrame.setAttribute( 'id', 'rpbui-chessgame-navigationFrame' );
+		navigationFrame.appendChild( buildNavigationSkeleton() );
+
+		document.body.appendChild( navigationFrame );
 
 		// Create the dialog widget.
-		$('#rpbui-chessgame-navigationFrame').dialog({
+		$( '#rpbui-chessgame-navigationFrame' ).dialog({
 			/* Hack to keep the dialog draggable after the page has being scrolled. */
-			create     : function(event) { $(event.target).parent().css('position', 'fixed'); },
-			resizeStart: function(event) { $(event.target).parent().css('position', 'fixed'); },
-			resizeStop : function(event) { $(event.target).parent().css('position', 'fixed'); },
+			create     : function( event ) { $( event.target ).parent().css('position', 'fixed'); },
+			resizeStart: function( event ) { $( event.target ).parent().css('position', 'fixed'); },
+			resizeStop : function( event ) { $( event.target ).parent().css('position', 'fixed'); },
 			/* End of hack */
 			autoOpen   : false,
 			dialogClass: $.chessgame.navigationFrameClass,
@@ -1160,16 +1359,21 @@
 		});
 
 		// Create the chessboard widget.
-		var widget = $('#rpbui-chessgame-navigationFrame .rpbui-chessgame-navigationBoard');
-		widget.chessboard(filterChessboardOptions($.chessgame.navigationFrameOptions));
-		widget.chessboard('sizeControlledByContainer', $('#rpbui-chessgame-navigationFrame'), 'dialogresize');
+		var widget = $( '#rpbui-chessgame-navigationFrame .rpbui-chessgame-navigationBoard' );
+		widget.chessboard( filterChessboardOptions( $.chessgame.navigationFrameOptions ) );
+		widget.chessboard( 'sizeControlledByContainer', $('#rpbui-chessgame-navigationFrame' ), 'dialogresize' );
 
 		// Callback for the buttons.
-		initializeNavigationButtons(function(buttonClass) { return $('#rpbui-chessgame-navigationFrame ' + buttonClass); }, function callback(methodName) {
-			var gameWidget = $('#rpbui-chessgame-navigationFrameTarget').closest('.rpbui-chessgame');
-			gameWidget.chessgame(methodName);
-			gameWidget.chessgame('focus');
-		});
+		initializeNavigationButtons(
+			function( buttonClass ) {
+				return $( '#rpbui-chessgame-navigationFrame ' + buttonClass );
+			},
+			function callback( methodName ) {
+				var gameWidget = $( '#rpbui-chessgame-navigationFrameTarget' ).closest( '.rpbui-chessgame' );
+				gameWidget.chessgame( methodName );
+				gameWidget.chessgame( 'focus' );
+			}
+		);
 	}
 
 
