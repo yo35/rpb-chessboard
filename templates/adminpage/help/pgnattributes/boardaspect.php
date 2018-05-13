@@ -46,7 +46,7 @@
 			'<span class="rpbchessboard-sourceCode">show_coordinates</span>',
 			'<span class="rpbchessboard-sourceCode">colorset</span>',
 			'<span class="rpbchessboard-sourceCode">pieceset</span>',
-			'<span class="rpbchessboard-sourceCode">[pgndiagram]</span>',
+			'<span class="rpbchessboard-sourceCode">[#]</span>',
 			sprintf( '<span class="rpbchessboard-sourceCode">[%1$s][/%1$s]</span>', esc_html( $model->getFENShortcode() ) ),
 			sprintf( '<a href="%s">', esc_url( $model->getHelpOnFENAttributesURL() ) ),
 			'</a>'

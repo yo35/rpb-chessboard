@@ -29,11 +29,11 @@
 			[<?php echo esc_html( $model->getPGNShortcode() ); ?>]<br/>
 			1. e4 e5 2. Nf3<br/>
 			<br/>
-			{[pgndiagram][%csl Re5][%cal Rf3e5]}<br/>
+			{[#][%csl Re5][%cal Rf3e5]}<br/>
 			<br/>
 			2... Nc6 3. Bb5<br/>
 			<br/>
-			{[pgndiagram][%csl Re5,Gc6][%cal Rf3e5,Rb5c6,Gc6e5]
+			{[#][%csl Re5,Gc6][%cal Rf3e5,Rb5c6,Gc6e5]
 			<?php
 				esc_html_e(
 					'The Ruy Lopez: White\'s third move attacks the knight which defends the e5-pawn from the attack by the f3-knight.',

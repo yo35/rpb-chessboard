@@ -32,7 +32,7 @@
 			[SetUp &quot;1&quot;]<br/>
 			[FEN &quot;k7/n1PB4/1K6/8/8/8/8/8 w - - 0 50&quot;]<br/>
 			<br/>
-			{[pgndiagram]}<br/>
+			{[#]}<br/>
 			<br/>
 			50.Bc6+ Nxc6 51.c8=Q+ Nb8 52.Qb7# 1-0<br/>
 			<br/>

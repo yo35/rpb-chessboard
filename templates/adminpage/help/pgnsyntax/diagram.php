@@ -29,7 +29,7 @@
 			[<?php echo esc_html( $model->getPGNShortcode() ); ?>]<br/>
 			1. e4 c5<br/>
 			<br/>
-			{[pgndiagram] <?php esc_html_e( 'This opening is called the Sicilian defence. A possible continuation is:', 'rpb-chessboard' ); ?>}<br/>
+			{[#] <?php esc_html_e( 'This opening is called the Sicilian defence. A possible continuation is:', 'rpb-chessboard' ); ?>}<br/>
 			<br/>
 			2. Nf3 d6 *<br/>
 			[/<?php echo esc_html( $model->getPGNShortcode() ); ?>]
@@ -39,13 +39,11 @@
 			<?php
 				printf(
 					esc_html__(
-						'Notice that %1$s[pgndiagram]%2$s tags must not be used outside a PGN game. ' .
-						'To insert a diagram outside a PGN game, use the %1$s[%3$s][/%3$s]%2$s tag instead.',
+						'Notice that the %1$s tag must not be used outside a PGN game. To insert a diagram outside a PGN game, use the %2$s tag instead.',
 						'rpb-chessboard'
 					),
-					'<span class="rpbchessboard-sourceCode">',
-					'</span>',
-					esc_html( $model->getFENShortcode() )
+					'<span class="rpbchessboard-sourceCode">[#]</span>',
+					sprintf( '<span class="rpbchessboard-sourceCode">[%1$s][/%1$s]</span>', esc_html( $model->getFENShortcode() ) )
 				);
 			?>
 		</p>

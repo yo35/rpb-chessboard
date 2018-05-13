@@ -81,7 +81,7 @@
 			12. c3 Qd3 13. b4 Bb6 14. a4 bxa4 15. Qxa4 Bd7 16. Ra2 Rae8
 			17. Qa6<br/>
 			<br/>
-			{[pgndiagram]
+			{[#]
 			<?php
 				esc_html_e(
 					'Morphy took twelve minutes over his next move, ' .
@@ -125,13 +125,8 @@
 		<p>
 			<?php
 				printf(
-					esc_html__(
-						'Please note the %1$s[pgndiagram]%2$s tag placed inside a comment ' .
-						'to insert a diagram showing the current position.',
-						'rpb-chessboard'
-					),
-					'<span class="rpbchessboard-sourceCode">',
-					'</span>'
+					esc_html__( 'Please note the %1$s tag placed inside a comment to insert a diagram showing the current position.', 'rpb-chessboard' ),
+					'<span class="rpbchessboard-sourceCode">[#]</span>'
 				);
 			?>
 		</p>
