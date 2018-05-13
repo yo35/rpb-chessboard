@@ -185,18 +185,6 @@
 
 
 	/**
-	 * Options passed to `sanitizeHtml` for sanitizing comments. See documentation on {@link https://www.npmjs.com/package/sanitize-html}.
-	 */
-	var SANITIZE_HTML_OPTIONS = {
-		allowedTags: [ 'a', 'b', 'br', 'code', 'em', 'i', 'span', 'strong', 'sub', 'sup' ],
-		allowedAttributes: {
-			'*': [ 'class', 'id', 'title' ],
-			'a': [ 'href', 'target' ]
-		}
-	};
-
-
-	/**
 	 * The human-readable symbols corresponding to most common NAGs.
 	 *
 	 * @constant
@@ -229,6 +217,20 @@
 	function formatNag(nag) {
 		if(nag in SPECIAL_NAGS_LOOKUP) { return SPECIAL_NAGS_LOOKUP[nag]; }
 		else { return '$' + nag; }
+	}
+
+
+	/**
+	 * Method to use to sanitize comments and headers. See documentation on {@link https://www.npmjs.com/package/sanitize-html}.
+	 */
+	function sanitizeRichText(text) {
+		return sanitizeHtml(text, {
+			allowedTags: [ 'a', 'b', 'br', 'code', 'em', 'i', 'span', 'strong', 'sub', 'sup' ],
+			allowedAttributes: {
+				'*': [ 'class', 'id', 'title' ],
+				'a': [ 'href', 'target' ]
+			}
+		});
 	}
 
 
@@ -794,15 +796,15 @@
 		// Build the returned header.
 		var header = '<div class="rpbui-chessgame-' + (color === 'w' ? 'white' : 'black') + 'Player">' +
 			'<span class="rpbui-chessgame-colorTag"></span> ' +
-			'<span class="rpbui-chessgame-playerName">' + name + '</span>';
+			'<span class="rpbui-chessgame-playerName">' + sanitizeRichText(name) + '</span>';
 
 		// Title + rating
 		var title  = widget._game.playerTitle(color);
 		var rating = widget._game.playerElo(color);
 		if(title !== undefined || rating !== undefined) {
 			header += '<span class="rpbui-chessgame-titleRatingGroup">';
-			if(title  !== undefined) { header += '<span class="rpbui-chessgame-playerTitle">'  + title  + '</span>'; }
-			if(rating !== undefined) { header += '<span class="rpbui-chessgame-playerRating">' + rating + '</span>'; }
+			if(title  !== undefined) { header += '<span class="rpbui-chessgame-playerTitle">'  + sanitizeRichText(title)  + '</span>'; }
+			if(rating !== undefined) { header += '<span class="rpbui-chessgame-playerRating">' + sanitizeRichText(rating) + '</span>'; }
 			header += '</span>';
 		}
 
@@ -830,9 +832,9 @@
 		var round = widget._game.round();
 
 		// Build and return the header.
-		var header = '<div class="rpbui-chessgame-event">' + event;
+		var header = '<div class="rpbui-chessgame-event">' + sanitizeRichText(event);
 		if(round !== undefined) {
-			header += '<span class="rpbui-chessgame-round">' + round + '</span>';
+			header += '<span class="rpbui-chessgame-round">' + sanitizeRichText(round) + '</span>';
 		}
 		header += '</div>';
 		return header;
@@ -856,8 +858,8 @@
 
 		// Build and return the header.
 		var header = '<div class="rpbui-chessgame-datePlaceGroup">';
-		if(date !== undefined) { header += '<span class="rpbui-chessgame-date">' + formatDate(date) + '</span>'; }
-		if(site !== undefined) { header += '<span class="rpbui-chessgame-site">' + site + '</span>'; }
+		if(date !== undefined) { header += '<span class="rpbui-chessgame-date">' + sanitizeRichText(formatDate(date)) + '</span>'; }
+		if(site !== undefined) { header += '<span class="rpbui-chessgame-site">' + sanitizeRichText(site) + '</span>'; }
 		header += '</div>';
 		return header;
 	}
@@ -879,7 +881,7 @@
 
 		// Build and return the header.
 		var header = '<div class="rpbui-chessgame-annotator">' + $.chessgame.i18n.ANNOTATED_BY.replace(/%1\$s/g,
-			'<span class="rpbui-chessgame-annotatorName">' + annotator + '</span>') + '</div>';
+			'<span class="rpbui-chessgame-annotatorName">' + sanitizeRichText(annotator) + '</span>') + '</div>';
 		return header;
 	}
 
@@ -1057,7 +1059,7 @@
 		var tag = node.isLongComment() ? 'div' : 'span';
 		var comment = node.comment().replace(/\[#]/g, '<span class="rpbui-chessgame-diagramAnchor"></span>');
 		return '<' + tag + ' class="rpbui-chessgame-comment" ' + buildPositionInformation(node, isVariation, false) + '>' +
-			sanitizeHtml(comment, SANITIZE_HTML_OPTIONS) + '</' + tag + '>';
+			sanitizeRichText(comment) + '</' + tag + '>';
 	}
 
 
