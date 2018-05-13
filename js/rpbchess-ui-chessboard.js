@@ -53,14 +53,6 @@
 
 
 	/**
-	 * HTML template for handle nodes.
-	 *
-	 * @constant
-	 */
-	var HANDLE_TEMPLATE = '<div class="rpbui-chessboard-handle"></div>';
-
-
-	/**
 	 * Regular expression matching a square marker.
 	 *
 	 * @constant
@@ -366,15 +358,7 @@
 
 				// Colored piece within the square (if any).
 				var cp = widget._position.square(sq);
-				if(cp === '-') {
-					square.appendChild(buildHandle());
-				}
-				else {
-					var coloredPiece = document.createElement('div');
-					coloredPiece.className = 'rpbui-chessboard-sized rpbui-chessboard-piece rpbui-chessboard-piece-' + cp;
-					coloredPiece.appendChild(buildHandle());
-					square.appendChild(coloredPiece);
-				}
+				square.appendChild(cp === '-' ? buildHandle() : buildColoredPiece(cp));
 			}
 
 			// Additional cell for the turn flag.
@@ -487,6 +471,20 @@
 		line.setAttribute('y2', y2);
 		line.setAttribute('marker-end', 'url(#rpbui-chessboard-arrowMarkerEnd-' + color + ')');
 		return line;
+	}
+
+
+	/**
+	 * Build an element corresponding to the given colored piece code.
+	 *
+	 * @param {string} cp For example: `'wr'` for a white rook.
+	 * @returns {Element}
+	 */
+	function buildColoredPiece(cp) {
+		var coloredPiece = document.createElement('div');
+		coloredPiece.className = 'rpbui-chessboard-sized rpbui-chessboard-piece rpbui-chessboard-piece-' + cp;
+		coloredPiece.appendChild(buildHandle());
+		return coloredPiece;
 	}
 
 
@@ -632,7 +630,7 @@
 			var toSquare = key.substr(2, 2);
 			if(fromSquare !== toSquare) {
 				var vc = getArrowCoordinatesInSVG(widget, fromSquare, toSquare);
-				doCreateArrow(widget, identifierClazz, newValue, vc.x1, vc.y1, vc.x2, vc.y2);
+				$('.rpbui-chessboard-annotations', widget.element).append(buildArrow(identifierClazz, newValue, vc.x1, vc.y1, vc.x2, vc.y2));
 			}
 		}
 		else if(typeof newValue === 'undefined') {
@@ -660,33 +658,11 @@
 				var toSquare = key.substr(2, 2);
 				if(fromSquare !== toSquare) {
 					var vc = getArrowCoordinatesInSVG(widget, fromSquare, toSquare);
-					var identifierClazz = 'rpbui-chessboard-arrowMarker-' + key;
-					doCreateArrow(widget, identifierClazz, widget._arrowMarkers[key], vc.x1, vc.y1, vc.x2, vc.y2);
+					var arrow = buildArrow('rpbui-chessboard-arrowMarker-' + key, widget._arrowMarkers[key], vc.x1, vc.y1, vc.x2, vc.y2);
+					$('.rpbui-chessboard-annotations', widget.element).append(arrow);
 				}
 			}
 		}
-	}
-
-
-	/**
-	 * Create a DOM node corresponding to an arrow between the given squares.
-	 *
-	 * @param {rpbchess-ui.chessboard} widget
-	 * @param {string} identifierClazz
-	 * @param {string} color
-	 * @param {number} x1
-	 * @param {number} y1
-	 * @param {number} x2
-	 * @param {number} y2
-	 * @returns {jQuery} The created arrow.
-	 */
-	function doCreateArrow(widget, identifierClazz, color, x1, y1, x2, y2) {
-		var clazz = 'rpbui-chessboard-arrowMarker ' + identifierClazz + ' rpbui-chessboard-markerColor-' + color;
-		var marker = 'url(#rpbui-chessboard-arrowMarkerEnd-' + color + ')';
-		var line = $(document.createElementNS('http://www.w3.org/2000/svg', 'line'));
-		line.attr({ 'x1':x1, 'y1':y1, 'x2':x2, 'y2':y2, 'class':clazz, 'marker-end':marker });
-		$('.rpbui-chessboard-annotations', widget.element).append(line);
-		return line;
 	}
 
 
@@ -877,7 +853,7 @@
 
 				// Create the temporary arrow marker.
 				var p = getSquareCoordinatesInSVG(widget, fromSquare);
-				doCreateArrow(widget, 'rpbui-chessboard-draggedArrow', markerColor, p.x, p.y, p.x, p.y);
+				$('.rpbui-chessboard-annotations', widget.element).append(buildArrow('rpbui-chessboard-draggedArrow', markerColor, p.x, p.y, p.x, p.y));
 			},
 
 			drag: function(event) {
@@ -956,7 +932,7 @@
 
 		// En-passant move -> remove the taken pawn.
 		if(moveDescriptor.isEnPassant()) {
-			fetchSquare(widget, moveDescriptor.enPassantSquare()).empty().append(HANDLE_TEMPLATE);
+			fetchSquare(widget, moveDescriptor.enPassantSquare()).empty().append(buildHandle());
 		}
 
 		// Promotion move -> change the type of the promoted piece.
@@ -1001,14 +977,14 @@
 	 */
 	function doDisplacement(widget, from, to, animate, withArrow) {
 		var movingPiece = $('.rpbui-chessboard-piece', fetchSquare(widget, from));
-		movingPiece.parent().append(HANDLE_TEMPLATE);
+		movingPiece.parent().append(buildHandle());
 		fetchSquare(widget, to).empty().append(movingPiece);
 
 		// Create the move arrow
 		if(withArrow) {
 			var vc = getArrowCoordinatesInSVG(widget, from, to);
 			scheduleMoveAnimation(widget, animate, 0.5, function() {
-				doCreateArrow(widget, 'rpbui-chessboard-moveArrow', 'B', vc.x1, vc.y1, vc.x2, vc.y2);
+				$('.rpbui-chessboard-annotations', widget.element).append(buildArrow('rpbui-chessboard-moveArrow', 'B', vc.x1, vc.y1, vc.x2, vc.y2));
 			});
 			widget._moveArrow = { from: from, to: to };
 		}
@@ -1061,14 +1037,13 @@
 		// Remove-case
 		if(oldColoredPiece === coloredPiece) {
 			widget._position.square(square, '-');
-			target.empty().append(HANDLE_TEMPLATE);
+			target.empty().append(buildHandle());
 		}
 
 		// Add-case
 		else {
 			widget._position.square(square, coloredPiece);
-			target.empty().append('<div class="rpbui-chessboard-sized rpbui-chessboard-piece rpbui-chessboard-piece-' + coloredPiece + '">' +
-				HANDLE_TEMPLATE + '</div>');
+			target.empty().append(buildColoredPiece(coloredPiece));
 		}
 
 		// FEN update + notifications.
