@@ -285,22 +285,29 @@
 	 * Build the error message resulting from a FEN parsing error.
 	 *
 	 * @param {rpbchess-ui.chessboard} widget
-	 * @returns {string}
+	 * @returns {Element}
 	 */
 	function buildErrorMessage(widget) {
 
 		// Build the error report box.
-		var res = '<div class="rpbui-chessboard-error">' +
-			'<div class="rpbui-chessboard-errorTitle">Error while analysing a FEN string.</div>';
+		var result = document.createElement('div');
+		result.className = 'rpbui-chessboard-error';
+
+		// Title
+		var title = document.createElement('div');
+		title.className = 'rpbui-chessboard-errorTitle';
+		title.appendChild(document.createTextNode('Error while analysing a FEN string.'));
+		result.appendChild(title);
 
 		// Optional message.
 		if(widget._position.message !== null) {
-			res += '<div class="rpbui-chessboard-errorMessage">' + widget._position.message + '</div>';
+			var message = document.createElement('div');
+			message.className = 'rpbui-chessboard-errorMessage';
+			message.appendChild(document.createTextNode(widget._position.message));
+			result.appendChild(message);
 		}
 
-		// Close the error report box, and return the result.
-		res += '</div>';
-		return res;
+		return result;
 	}
 
 
@@ -308,13 +315,14 @@
 	 * Build the widget content.
 	 *
 	 * @param {rpbchess-ui.chessboard} widget
-	 * @returns {string}
+	 * @returns {Element}
 	 */
 	function buildContent(widget) {
 		var ROWS    = widget.options.flip ? '12345678' : '87654321';
 		var COLUMNS = widget.options.flip ? 'hgfedcba' : 'abcdefgh';
 
 		// Open the "table" node.
+		var result = document.createElement('div');
 		var globalClazz = 'rpbui-chessboard-table rpbui-chessboard-size' + widget.options.squareSize;
 		if(!widget.options.showCoordinates) {
 			globalClazz += ' rpbui-chessboard-hideCoordinates';
@@ -325,92 +333,172 @@
 		if(widget.options.pieceset !== '') {
 			globalClazz += ' rpbui-chessboard-pieceset-' + widget.options.pieceset;
 		}
-		var res = '<div class="' + globalClazz + '">';
+		result.className = globalClazz;
 
 		// For each row...
-		for(var r=0; r<8; ++r) {
+		for(var r = 0; r < 8; ++r) {
+
+			// The row container...
+			var row = document.createElement('div');
+			row.className = 'rpbui-chessboard-row';
+			result.appendChild(row);
 
 			// Begin row + row coordinate cell.
-			res += '<div class="rpbui-chessboard-row"><div class="rpbui-chessboard-cell rpbui-chessboard-rowCoordinate">' + ROWS[r] + '</div>';
+			var rowHeader = document.createElement('div');
+			rowHeader.className = 'rpbui-chessboard-cell rpbui-chessboard-rowCoordinate';
+			rowHeader.appendChild(document.createTextNode(ROWS[r]));
+			row.appendChild(rowHeader);
 
 			// Chessboard squares
-			for(var c=0; c<8; ++c) {
+			for(var c = 0; c < 8; ++c) {
+
+				var sq = COLUMNS[c] + ROWS[r];
 
 				// Square
-				var square = COLUMNS[c] + ROWS[r];
-				var squareColor = kokopu.squareColor(square) === 'w' ? 'light' : 'dark';
+				var square = document.createElement('div');
+				var squareColor = kokopu.squareColor(sq) === 'w' ? 'light' : 'dark';
 				var clazz = 'rpbui-chessboard-sized rpbui-chessboard-cell rpbui-chessboard-square rpbui-chessboard-' + squareColor + 'Square';
-				if(square in widget._squareMarkers) {
-					clazz += ' rpbui-chessboard-squareMarker rpbui-chessboard-markerColor-' + widget._squareMarkers[square];
+				if(sq in widget._squareMarkers) {
+					clazz += ' rpbui-chessboard-squareMarker rpbui-chessboard-markerColor-' + widget._squareMarkers[sq];
 				}
-				res += '<div class="' + clazz + '">';
+				square.className = clazz;
+				row.appendChild(square);
 
 				// Colored piece within the square (if any).
-				var coloredPiece = widget._position.square(square);
-				if(coloredPiece === '-') {
-					res += HANDLE_TEMPLATE;
+				var cp = widget._position.square(sq);
+				if(cp === '-') {
+					square.appendChild(buildHandle());
 				}
 				else {
-					res += '<div class="rpbui-chessboard-sized rpbui-chessboard-piece rpbui-chessboard-piece-' + coloredPiece + '">' +
-						HANDLE_TEMPLATE + '</div>';
+					var coloredPiece = document.createElement('div');
+					coloredPiece.className = 'rpbui-chessboard-sized rpbui-chessboard-piece rpbui-chessboard-piece-' + cp;
+					coloredPiece.appendChild(buildHandle());
+					square.appendChild(coloredPiece);
 				}
-				res += '</div>';
 			}
 
 			// Additional cell for the turn flag.
-			res += '<div class="rpbui-chessboard-cell">';
+			var flagCell = document.createElement('div');
+			flagCell.className = 'rpbui-chessboard-cell';
 			if(ROWS[r] === '8' || ROWS[r] === '1') {
+				var flag = document.createElement('div');
 				var flagColor = ROWS[r] === '8' ? 'b' : 'w';
 				var clazz = 'rpbui-chessboard-sized rpbui-chessboard-turnFlag rpbui-chessboard-color-' + flagColor;
 				if(flagColor !== widget._position.turn()) {
 					clazz += ' rpbui-chessboard-inactiveFlag';
 				}
-				res += '<div class="' + clazz + '"></div>';
+				flag.className = clazz;
+				flagCell.appendChild(flag);
 			}
-
-			// End additional cell + end row.
-			res += '</div></div>';
+			row.appendChild(flagCell);
 		}
 
 		// Column coordinates
-		res += '<div class="rpbui-chessboard-row rpbui-chessboard-columnCoordinateRow">' +
-			'<div class="rpbui-chessboard-cell rpbui-chessboard-rowCoordinate"></div>';
+		var columnHeaderRow = document.createElement('div');
+		columnHeaderRow.className = 'rpbui-chessboard-row rpbui-chessboard-columnCoordinateRow';
+		var firstColumnHeader = document.createElement('div');
+		firstColumnHeader.className = 'rpbui-chessboard-cell rpbui-chessboard-rowCoordinate';
+		columnHeaderRow.appendChild(firstColumnHeader);
 		for(var c=0; c<8; ++c) {
-			res += '<div class="rpbui-chessboard-cell rpbui-chessboard-columnCoordinate">' + COLUMNS[c] + '</div>';
+			var columnHeader = document.createElement('div');
+			columnHeader.className = 'rpbui-chessboard-cell rpbui-chessboard-columnCoordinate';
+			columnHeader.appendChild(document.createTextNode(COLUMNS[c]));
+			columnHeaderRow.appendChild(columnHeader);
 		}
-		res += '<div class="rpbui-chessboard-cell"></div></div>';
+		var lastColumnHeader = document.createElement('div');
+		lastColumnHeader.className = 'rpbui-chessboard-cell';
+		columnHeaderRow.appendChild(lastColumnHeader);
+		result.appendChild(columnHeaderRow);
 
-		// Arrow markers
-		res += '<svg class="rpbui-chessboard-annotations" viewBox="0 0 8 8">' +
-			'<defs>' +
-				'<marker id="rpbui-chessboard-arrowMarkerEnd-G" markerWidth="4" markerHeight="4" refX="2.5" refY="2" orient="auto"><path d="M 4,2 L 0,4 L 1,2 L 0,0 Z" /></marker>' +
-				'<marker id="rpbui-chessboard-arrowMarkerEnd-R" markerWidth="4" markerHeight="4" refX="2.5" refY="2" orient="auto"><path d="M 4,2 L 0,4 L 1,2 L 0,0 Z" /></marker>' +
-				'<marker id="rpbui-chessboard-arrowMarkerEnd-Y" markerWidth="4" markerHeight="4" refX="2.5" refY="2" orient="auto"><path d="M 4,2 L 0,4 L 1,2 L 0,0 Z" /></marker>' +
-				'<marker id="rpbui-chessboard-arrowMarkerEnd-B" markerWidth="4" markerHeight="4" refX="2.5" refY="2" orient="auto"><path d="M 4,2 L 0,4 L 1,2 L 0,0 Z" /></marker>' +
-			'</defs>';
+		// Layer containing the arrows
+		var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+		svg.setAttribute('class', 'rpbui-chessboard-annotations');
+		svg.setAttribute('viewBox', '0 0 8 8');
+		var defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+		defs.appendChild(buildArrowMarkerStyle('G'));
+		defs.appendChild(buildArrowMarkerStyle('R'));
+		defs.appendChild(buildArrowMarkerStyle('Y'));
+		defs.appendChild(buildArrowMarkerStyle('B'));
+		svg.appendChild(defs);
+		result.appendChild(svg);
+
+		// Arrows
 		for(var arrow in widget._arrowMarkers) {
 			if(widget._arrowMarkers.hasOwnProperty(arrow) && /^([a-h][1-8])([a-h][1-8])$/.test(arrow)) {
 				var fromSquare = RegExp.$1;
 				var toSquare = RegExp.$2;
 				if(fromSquare !== toSquare) {
 					var vc = getArrowCoordinatesInSVG(widget, fromSquare, toSquare);
-					var clazz = 'rpbui-chessboard-arrowMarker rpbui-chessboard-arrowMarker-' + fromSquare + toSquare +
-						' rpbui-chessboard-markerColor-' + widget._arrowMarkers[arrow];
-					var marker = 'url(#rpbui-chessboard-arrowMarkerEnd-' + widget._arrowMarkers[arrow] + ')';
-					res += '<line class="' + clazz + '" x1="' + vc.x1 + '" y1="' + vc.y1 + '" x2="' + vc.x2 + '" y2="' + vc.y2 + '" marker-end="' + marker + '" />';
+					var identifierClazz = 'rpbui-chessboard-arrowMarker-' + fromSquare + toSquare;
+					svg.appendChild(buildArrow(identifierClazz, widget._arrowMarkers[arrow], vc.x1, vc.y1, vc.x2, vc.y2));
 				}
 			}
 		}
 		if(widget._moveArrow !== null) {
 			var vc = getArrowCoordinatesInSVG(widget, widget._moveArrow.from, widget._moveArrow.to);
-			res += '<line class="rpbui-chessboard-arrowMarker rpbui-chessboard-moveArrow rpbui-chessboard-markerColor-B" ' +
-				'x1="' + vc.x1 + '" y1="' + vc.y1 + '" x2="' + vc.x2 + '" y2="' + vc.y2 + '" marker-end="url(#rpbui-chessboard-arrowMarkerEnd-B)" />';
+			svg.appendChild(buildArrow('rpbui-chessboard-moveArrow', 'B', vc.x1, vc.y1, vc.x2, vc.y2));
 		}
-		res += '</svg>';
 
-		// Close the "table" node and return the result.
-		res += '</div>';
-		return res;
+		return result;
+	}
+
+
+	/**
+	 * Create a DOM node corresponding to a style for an arrow termination.
+	 *
+	 * @param {string} color
+	 * @returns {Element}
+	 */
+	function buildArrowMarkerStyle(color) {
+
+		var marker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
+		marker.setAttribute('id', 'rpbui-chessboard-arrowMarkerEnd-' + color);
+		marker.setAttribute('markerWidth', 4);
+		marker.setAttribute('markerHeight', 4);
+		marker.setAttribute('refX', 2.5);
+		marker.setAttribute('refY', 2);
+		marker.setAttribute('orient', 'auto');
+
+		var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+		path.setAttribute('d', 'M 4,2 L 0,4 L 1,2 L 0,0 Z');
+		marker.appendChild(path);
+
+		return marker;
+	}
+
+
+	/**
+	 * Create a DOM node corresponding to an arrow between the given squares.
+	 *
+	 * @param {string} identifierClazz
+	 * @param {string} color
+	 * @param {number} x1
+	 * @param {number} y1
+	 * @param {number} x2
+	 * @param {number} y2
+	 * @returns {Element}
+	 */
+	function buildArrow(identifierClazz, color, x1, y1, x2, y2) {
+		var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+		line.setAttribute('class', 'rpbui-chessboard-arrowMarker ' + identifierClazz + ' rpbui-chessboard-markerColor-' + color);
+		line.setAttribute('x1', x1);
+		line.setAttribute('y1', y1);
+		line.setAttribute('x2', x2);
+		line.setAttribute('y2', y2);
+		line.setAttribute('marker-end', 'url(#rpbui-chessboard-arrowMarkerEnd-' + color + ')');
+		return line;
+	}
+
+
+	/**
+	 * Build a handle element (each empty square and piece must have a handle).
+	 *
+	 * @returns {Element}
+	 */
+	function buildHandle() {
+		var handle = document.createElement('div');
+		handle.className = 'rpbui-chessboard-handle';
+		return handle;
 	}
 
 
@@ -427,12 +515,12 @@
 
 		// Handle parsing error problems.
 		if(widget._position instanceof kokopu.exception.InvalidFEN) {
-			$(buildErrorMessage(widget)).appendTo(widget.element);
+			widget.element.append(buildErrorMessage(widget));
 		}
 
 		// Regular rendering
 		else {
-			$(buildContent(widget)).appendTo(widget.element);
+			widget.element.append(buildContent(widget));
 			if(widget.options.interactionMode==='play' || widget.options.interactionMode==='movePieces') {
 				tagSquares(widget);
 				enableMovePieceOrPlayBehavior(widget, widget.options.interactionMode==='play');
