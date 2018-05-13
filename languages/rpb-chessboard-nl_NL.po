@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-01 16:58+0200\n"
+"POT-Creation-Date: 2018-05-13 11:21+0200\n"
 "PO-Revision-Date: 2014-09-02 16:48:49+0200\n"
 "Last-Translator: schaaktrainer <jdelemarre -at- hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -898,8 +898,8 @@ msgstr ""
 #: templates/adminpage/memo/pgn.php
 #, php-format
 msgid ""
-"Please note the %1$s[pgndiagram]%2$s tag placed inside a comment to insert a "
-"diagram showing the current position."
+"Please note the %1$s tag placed inside a comment to insert a diagram showing "
+"the current position."
 msgstr ""
 
 #: templates/adminpage/help/fenattributes/diagramalignment.php
@@ -1175,12 +1175,10 @@ msgstr "Deze opening heet Siciliaans. Een mogelijk vervolg is:"
 #: templates/adminpage/help/pgnsyntax/diagram.php
 #, fuzzy, php-format
 msgid ""
-"Notice that %1$s[pgndiagram]%2$s tags must not be used outside a PGN game. "
-"To insert a diagram outside a PGN game, use the %1$s[%3$s][/%3$s]%2$s tag "
-"instead."
+"Notice that the %1$s tag must not be used outside a PGN game. To insert a "
+"diagram outside a PGN game, use the %2$s tag instead."
 msgstr ""
-"Let op dat %1$s[pgndiagram]%2$s tags niet toegevoegd mogen worden buiten een "
-"PGN opmerking."
+"Let op dat %1$s tags niet toegevoegd mogen worden buiten een PGN opmerking."
 
 #: templates/adminpage/help/pgnsyntax/comment.php
 #, php-format

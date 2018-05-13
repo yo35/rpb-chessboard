@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-01 16:58+0200\n"
+"POT-Creation-Date: 2018-05-13 11:21+0200\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35 -at- melix.net>\n"
 "Language-Team: French\n"
@@ -1006,11 +1006,11 @@ msgstr ""
 #: templates/adminpage/memo/pgn.php
 #, php-format
 msgid ""
-"Please note the %1$s[pgndiagram]%2$s tag placed inside a comment to insert a "
-"diagram showing the current position."
+"Please note the %1$s tag placed inside a comment to insert a diagram showing "
+"the current position."
 msgstr ""
-"Remarquez la balise %1$s[pgndiagram]%2$s placée dans un commentaire pour "
-"insérer un diagramme montrant la position courante."
+"Remarquez la balise %1$s placée dans un commentaire pour insérer un "
+"diagramme montrant la position courante."
 
 #: templates/adminpage/help/fenattributes/diagramalignment.php
 #, php-format
@@ -1342,13 +1342,12 @@ msgstr ""
 #: templates/adminpage/help/pgnsyntax/diagram.php
 #, php-format
 msgid ""
-"Notice that %1$s[pgndiagram]%2$s tags must not be used outside a PGN game. "
-"To insert a diagram outside a PGN game, use the %1$s[%3$s][/%3$s]%2$s tag "
-"instead."
+"Notice that the %1$s tag must not be used outside a PGN game. To insert a "
+"diagram outside a PGN game, use the %2$s tag instead."
 msgstr ""
-"À noter que la balise %1$s[pgndiagram]%2$s ne peut pas être utilisée en "
-"dehors d'une partie PGN. Pour insérer un diagramme hors d'une partie PGN, "
-"utiliser plutôt la balise %1$s[%3$s][/%3$s]%2$s."
+"À noter que la balise %1$s ne peut pas être utilisée en dehors d'une partie "
+"PGN. Pour insérer un diagramme hors d'une partie PGN, utiliser plutôt la "
+"balise %2$s."
 
 #: templates/adminpage/help/pgnsyntax/comment.php
 #, php-format

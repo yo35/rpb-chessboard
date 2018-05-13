@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-01 16:58+0200\n"
+"POT-Creation-Date: 2018-05-13 11:21+0200\n"
 "PO-Revision-Date: 2015-08-27 23:19+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -950,11 +950,11 @@ msgstr ""
 #: templates/adminpage/memo/pgn.php
 #, php-format
 msgid ""
-"Please note the %1$s[pgndiagram]%2$s tag placed inside a comment to insert a "
-"diagram showing the current position."
+"Please note the %1$s tag placed inside a comment to insert a diagram showing "
+"the current position."
 msgstr ""
-"Lütfen, %1$s[pgndiagram]%2$s etiketlerinin bir yorum içerisine eklendiğinde "
-"o anda var olan diyagramı göstermek için kullanıldığına dikkat ediniz."
+"Lütfen, %1$s etiketlerinin bir yorum içerisine eklendiğinde o anda var olan "
+"diyagramı göstermek için kullanıldığına dikkat ediniz."
 
 #: templates/adminpage/help/fenattributes/diagramalignment.php
 #, php-format
@@ -1270,13 +1270,11 @@ msgstr "Bu açılışın adı Sicilya Savunmasıdır. Makul bir devam yolu:"
 #: templates/adminpage/help/pgnsyntax/diagram.php
 #, php-format
 msgid ""
-"Notice that %1$s[pgndiagram]%2$s tags must not be used outside a PGN game. "
-"To insert a diagram outside a PGN game, use the %1$s[%3$s][/%3$s]%2$s tag "
-"instead."
+"Notice that the %1$s tag must not be used outside a PGN game. To insert a "
+"diagram outside a PGN game, use the %2$s tag instead."
 msgstr ""
-"%1$s[pgndiagram]%2$s etiketlerinin PGN dışında kullanılmamasına dikkat "
-"ediniz. GN dışına bir diyagram koymak için %1$s[%3$s][/%3$s]%2$s etiketini "
-"kullanınız."
+"%1$s etiketlerinin PGN dışında kullanılmamasına dikkat ediniz. GN dışına bir "
+"diyagram koymak için %2$s etiketini kullanınız."
 
 #: templates/adminpage/help/pgnsyntax/comment.php
 #, php-format

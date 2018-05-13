@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-01 16:58+0200\n"
+"POT-Creation-Date: 2018-05-13 11:21+0200\n"
 "PO-Revision-Date: 2016-11-08 11:52+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -967,11 +967,11 @@ msgstr ""
 #: templates/adminpage/memo/pgn.php
 #, php-format
 msgid ""
-"Please note the %1$s[pgndiagram]%2$s tag placed inside a comment to insert a "
-"diagram showing the current position."
+"Please note the %1$s tag placed inside a comment to insert a diagram showing "
+"the current position."
 msgstr ""
-"Пожалуйста, обратите внимание, что тег %1$s[pgndiagram]%2$s вставляется "
-"внутрь комментария чтобы показать текущую позицию."
+"Пожалуйста, обратите внимание, что тег %1$s вставляется внутрь комментария "
+"чтобы показать текущую позицию."
 
 #: templates/adminpage/help/fenattributes/diagramalignment.php
 #, php-format
@@ -1281,13 +1281,11 @@ msgstr "Дебют называется Сицилианская защита. �
 #: templates/adminpage/help/pgnsyntax/diagram.php
 #, php-format
 msgid ""
-"Notice that %1$s[pgndiagram]%2$s tags must not be used outside a PGN game. "
-"To insert a diagram outside a PGN game, use the %1$s[%3$s][/%3$s]%2$s tag "
-"instead."
+"Notice that the %1$s tag must not be used outside a PGN game. To insert a "
+"diagram outside a PGN game, use the %2$s tag instead."
 msgstr ""
-"Обратите внимание, что теги %1$s[pgndiagram]%2$s не могут использоваться вне "
-"PGN записи. Чтобы вставить диаграмму вне PGN используйте тег %1$s[%3$s][/"
-"%3$s]%2$s. "
+"Обратите внимание, что теги %1$s не могут использоваться вне PGN записи. "
+"Чтобы вставить диаграмму вне PGN используйте тег %2$s."
 
 #: templates/adminpage/help/pgnsyntax/comment.php
 #, php-format

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-01 16:58+0200\n"
+"POT-Creation-Date: 2018-05-13 11:21+0200\n"
 "PO-Revision-Date: 2014-07-15 13:03+0100\n"
 "Last-Translator: Dawid Ziółkowski <kontakt -at- dawidziolkowski.pl>\n"
 "Language-Team: Dawid Ziółkowski <mr -at- dawidziolkowski.com>\n"
@@ -928,11 +928,11 @@ msgstr ""
 #: templates/adminpage/memo/pgn.php
 #, php-format
 msgid ""
-"Please note the %1$s[pgndiagram]%2$s tag placed inside a comment to insert a "
-"diagram showing the current position."
+"Please note the %1$s tag placed inside a comment to insert a diagram showing "
+"the current position."
 msgstr ""
-"Zwróc uwagę, że tag %1$s[pgndiagram]%2$s umiejscowiony w komentarzu pozwala "
-"na wyświetlenie aktualnej pozycji."
+"Zwróc uwagę, że tag %1$s umiejscowiony w komentarzu pozwala na wyświetlenie "
+"aktualnej pozycji."
 
 #: templates/adminpage/help/fenattributes/diagramalignment.php
 #, php-format
@@ -1221,12 +1221,9 @@ msgstr "Obrona sycylijska. Możliwa kontynuuacja to:"
 #: templates/adminpage/help/pgnsyntax/diagram.php
 #, fuzzy, php-format
 msgid ""
-"Notice that %1$s[pgndiagram]%2$s tags must not be used outside a PGN game. "
-"To insert a diagram outside a PGN game, use the %1$s[%3$s][/%3$s]%2$s tag "
-"instead."
-msgstr ""
-"Zauważ, że tagi %1$s[pgndiagram]%2$s nie mogą pojawić się poza komenatrzem "
-"PGN."
+"Notice that the %1$s tag must not be used outside a PGN game. To insert a "
+"diagram outside a PGN game, use the %2$s tag instead."
+msgstr "Zauważ, że tagi %1$s nie mogą pojawić się poza komenatrzem PGN."
 
 #: templates/adminpage/help/pgnsyntax/comment.php
 #, php-format
