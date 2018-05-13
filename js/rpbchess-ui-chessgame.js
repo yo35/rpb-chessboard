@@ -185,6 +185,18 @@
 
 
 	/**
+	 * Options passed to `sanitizeHtml` for sanitizing comments. See documentation on {@link https://www.npmjs.com/package/sanitize-html}.
+	 */
+	var SANITIZE_HTML_OPTIONS = {
+		allowedTags: [ 'a', 'b', 'br', 'code', 'em', 'i', 'span', 'strong', 'sub', 'sup' ],
+		allowedAttributes: {
+			'*': [ 'class', 'id', 'title' ],
+			'a': [ 'href', 'target' ]
+		}
+	};
+
+
+	/**
 	 * The human-readable symbols corresponding to most common NAGs.
 	 *
 	 * @constant
@@ -1045,7 +1057,7 @@
 		var tag = node.isLongComment() ? 'div' : 'span';
 		var comment = node.comment().replace(/\[#]/g, '<span class="rpbui-chessgame-diagramAnchor"></span>');
 		return '<' + tag + ' class="rpbui-chessgame-comment" ' + buildPositionInformation(node, isVariation, false) + '>' +
-			comment + '</' + tag + '>';
+			sanitizeHtml(comment, SANITIZE_HTML_OPTIONS) + '</' + tag + '>';
 	}
 
 
