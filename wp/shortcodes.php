@@ -57,11 +57,22 @@ abstract class RPBChessboardShortcodes {
 	}
 
 
-	// phpcs:disable
-	public static function callbackShortcodeFEN       ( $atts, $content ) { return self::runShortcode( 'FEN'       , false, $atts, $content ); }
-	public static function callbackShortcodePGN       ( $atts, $content ) { return self::runShortcode( 'PGN'       , true , $atts, $content ); }
-	public static function callbackShortcodePGNDiagram( $atts, $content ) { return self::runShortcode( 'PGNDiagram', false, $atts, $content ); }
-	// phpcs:enable
+	public static function callbackShortcodeFEN( $atts, $content ) {
+		return self::runShortcode( 'FEN', false, $atts, $content );
+	}
+
+
+	public static function callbackShortcodePGN( $atts, $content ) {
+		return self::runShortcode( 'PGN', true, $atts, $content );
+	}
+
+
+	/**
+	 * Legacy support of the `[pgndiagram]` shortcode.
+	 */
+	public static function callbackShortcodePGNDiagram( $atts, $content ) {
+		return '[#]';
+	}
 
 
 	/**
