@@ -159,7 +159,7 @@
 								'7. Nxc6 dxc6 8. Bc4 b5 9. Be2 Nxe4 10. Nxe4 Rxe4 11. Bf3 Re6\n' +
 								'12. c3 Qd3 13. b4 Bb6 14. a4 bxa4 15. Qxa4 Bd7 16. Ra2 Rae8 17. Qa6\n' +
 								'\n' +
-								'{<div class="rpbui-chessgame-diagramAnchor"></div>' +
+								'{[#]' +
 								<?php
 									echo wp_json_encode(
 										__(

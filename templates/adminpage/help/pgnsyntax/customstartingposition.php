@@ -69,7 +69,7 @@
 								'[SetUp "1"]\n' +
 								'[FEN "k7/n1PB4/1K6/8/8/8/8/8 w - - 0 50"]\n' +
 								'\n' +
-								'{<div class="rpbui-chessgame-diagramAnchor"></div>}\n' +
+								'{[#]}\n' +
 								'\n' +
 								'50.Bc6+ Nxc6 51.c8=Q+ Nb8 52.Qb7# 1-0'
 						}));

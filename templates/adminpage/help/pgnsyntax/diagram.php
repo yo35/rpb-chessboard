@@ -64,7 +64,7 @@
 							pgn:
 								'1. e4 c5\n' +
 								'\n' +
-								'{<div class="rpbui-chessgame-diagramAnchor"></div> ' +
+								'{[#] ' +
 								<?php echo wp_json_encode( __( 'This opening is called the Sicilian defence. A possible continuation is:', 'rpb-chessboard' ) ); ?> +
 								'}\n' +
 								'\n' +

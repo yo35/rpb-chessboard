@@ -645,10 +645,6 @@
 			if(typeof csl !== 'undefined') { options.squareMarkers = csl; }
 			if(typeof cal !== 'undefined') { options.arrowMarkers = cal; }
 			$.extend(options, widget.options.diagramOptions);
-			try {
-				$.extend(options, filterChessboardOptions($.parseJSON(anchor.text())));
-			}
-			catch(error) {} // The content of the node is ignored if it is not a valid JSON-encoded object.
 
 			// Render the diagram.
 			anchor.empty().removeClass('rpbui-chessgame-diagramAnchor').addClass('rpbui-chessgame-diagram').chessboard(options);
@@ -1046,8 +1042,9 @@
 	 */
 	function buildComment(node, isVariation) {
 		var tag = node.isLongComment() ? 'div' : 'span';
+		var comment = node.comment().replace(/\[#]/g, '<span class="rpbui-chessgame-diagramAnchor"></span>');
 		return '<' + tag + ' class="rpbui-chessgame-comment" ' + buildPositionInformation(node, isVariation, false) + '>' +
-			node.comment() + '</' + tag + '>';
+			comment + '</' + tag + '>';
 	}
 
 
