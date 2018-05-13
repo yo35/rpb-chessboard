@@ -25,6 +25,7 @@
  * @requires kokopu
  * @requires rpbchess-ui-chessboard.js
  * @requires Moment.js {@link http://momentjs.com/}
+ * @requires sanitize-html {@link https://www.npmjs.com/package/sanitize-html}
  * @requires jQuery
  * @requires jQuery UI Widget
  * @requires jQuery UI Button (optional, only if the navigation board feature is enabled)
@@ -34,7 +35,7 @@
  * @requires jQuery UI Dialog (optional, only if the framed navigation board feature is enabled)
  * @requires jQuery UI Resizable (optional, only if the framed navigation board feature is enabled)
  */
-(function(kokopu, $, moment)
+(function(kokopu, $, moment, sanitizeHtml)
 {
 	'use strict';
 
@@ -1608,4 +1609,4 @@
 
 	}); /* $.widget('rpbchess-ui.chessgame', { ... }) */
 
-})(/* global kokopu */ kokopu, /* global jQuery */ jQuery, /* global moment */ moment);
+})(/* global kokopu */ kokopu, /* global jQuery */ jQuery, /* global moment */ moment, /* global sanitizeHtml */ sanitizeHtml);
