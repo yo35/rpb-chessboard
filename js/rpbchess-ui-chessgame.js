@@ -565,20 +565,12 @@
 
 		// Handle parsing error problems.
 		if(!(widget._game instanceof kokopu.Game)) {
-			$(buildErrorMessage(widget)).appendTo(widget.element);
+			widget.element.append(buildErrorMessage(widget));
 			return;
 		}
 
 		// Headers
-		var headers = '';
-		headers += playerNameHeader(widget, 'w');
-		headers += playerNameHeader(widget, 'b');
-		headers += eventHeader(widget);
-		headers += datePlaceHeader(widget);
-		headers += annotatorHeader(widget);
-		if(headers !== '') {
-			headers = '<div class="rpbui-chessgame-headers">' + headers + '</div>';
-		}
+		var headers = buildHeaders(widget);
 
 		// Body and initial move
 		var move0 = buildInitialMove(widget);
@@ -745,35 +737,62 @@
 	 * Build the error message resulting from a PGN parsing error.
 	 *
 	 * @param {rpbchess-ui.chessgame} widget
-	 * @returns {string}
+	 * @returns {Element}
 	 */
 	function buildErrorMessage(widget) {
 
 		// Build the error report box.
-		var title = widget._game instanceof kokopu.exception.InvalidPGN ? $.chessgame.i18n.PGN_PARSING_ERROR_MESSAGE : widget._game.title;
-		var retVal = '<div class="rpbui-chessgame-error"><div class="rpbui-chessgame-errorTitle">' + title + '</div>';
+		var result = buildElement('div', 'rpbui-chessgame-error');
+		result.appendChild(buildTextElement('div', 'rpbui-chessgame-errorTitle', widget._game instanceof kokopu.exception.InvalidPGN ?
+			$.chessgame.i18n.PGN_PARSING_ERROR_MESSAGE : widget._game.title));
 
 		// Optional message.
 		if(widget._game.message !== null) {
-			retVal += '<div class="rpbui-chessgame-errorMessage">' + widget._game.message + '</div>';
+			result.appendChild(buildTextElement('div', 'rpbui-chessgame-errorMessage', widget._game.message));
 		}
 
 		// Display where the error has occurred.
 		if(widget._game.index !== null && widget._game.index >= 0) {
-			retVal += '<div class="rpbui-chessgame-errorAt">';
+			var errorAt = buildElement('div', 'rpbui-chessgame-errorAt');
 			if(widget._game.index >= widget._game.pgn.length) {
-				retVal += 'Occurred at the end of the string.';
+				errorAt.appendChild(document.createTextNode('Occurred at the end of the string.'));
 			}
 			else {
-				retVal += 'Occurred at position ' + widget._game.index + ':' + '<div class="rpbui-chessgame-errorAtCode">' +
-					ellipsisAt(widget._game.pgn, widget._game.index, 10, 40) + '</div>';
+				errorAt.appendChild(document.createTextNode('Occurred at position ' + widget._game.index + ':'));
+				errorAt.appendChild(buildTextElement('div', 'rpbui-chessgame-errorAtCode', ellipsisAt(widget._game.pgn, widget._game.index, 10, 40)));
 			}
-			retVal += '</div>';
+			result.appendChild(errorAt);
 		}
 
-		// Close the error report box, and return the result.
-		retVal += '</div>';
-		return retVal;
+		return result;
+	}
+
+
+	/**
+	 * Build the DOM node containing the game headers, if any.
+	 *
+	 * @param {rpbchess-ui.chessgame} widget
+	 * @returns {Element?} `false` if there is no header.
+	 */
+	function buildHeaders(widget) {
+		var whitePlayer = buildPlayerNameHeader(widget, 'w');
+		var blackPlayer = buildPlayerNameHeader(widget, 'b');
+		var event       = buildEventHeader(widget);
+		var datePlace   = buildDatePlaceHeader(widget);
+		var annotator   = buildAnnotatorHeader(widget);
+
+		if(whitePlayer || blackPlayer || event || datePlace || annotator) {
+			var result = buildElement('div', 'rpbui-chessgame-headers');
+			if(whitePlayer) { result.appendChild(whitePlayer); }
+			if(blackPlayer) { result.appendChild(blackPlayer); }
+			if(event      ) { result.appendChild(event      ); }
+			if(datePlace  ) { result.appendChild(datePlace  ); }
+			if(annotator  ) { result.appendChild(annotator  ); }
+			return result;
+		}
+		else {
+			return false;
+		}
 	}
 
 
@@ -783,33 +802,32 @@
 	 *
 	 * @param {rpbchess-ui.chessgame} widget
 	 * @param {string} color Either 'w' or 'b'.
-	 * @returns {string}
+	 * @returns {Element?} `false` if there is no header.
 	 */
-	function playerNameHeader(widget, color) {
+	function buildPlayerNameHeader(widget, color) {
 
 		// Retrieve the name of the player -> no header is returned if the name not available.
 		var name = widget._game.playerName(color);
 		if(name === undefined) {
-			return '';
+			return false;
 		}
 
-		// Build the returned header.
-		var header = '<div class="rpbui-chessgame-' + (color === 'w' ? 'white' : 'black') + 'Player">' +
-			'<span class="rpbui-chessgame-colorTag"></span> ' +
-			'<span class="rpbui-chessgame-playerName">' + sanitizeRichText(name) + '</span>';
+		var header = buildElement('div', 'rpbui-chessgame-' + (color === 'w' ? 'white' : 'black') + 'Player');
+
+		// Color tag & player name
+		header.appendChild(buildElement('span', 'rpbui-chessgame-colorTag'));
+		header.appendChild(buildRichTextElement('span', 'rpbui-chessgame-playerName', name));
 
 		// Title + rating
 		var title  = widget._game.playerTitle(color);
 		var rating = widget._game.playerElo(color);
 		if(title !== undefined || rating !== undefined) {
-			header += '<span class="rpbui-chessgame-titleRatingGroup">';
-			if(title  !== undefined) { header += '<span class="rpbui-chessgame-playerTitle">'  + sanitizeRichText(title)  + '</span>'; }
-			if(rating !== undefined) { header += '<span class="rpbui-chessgame-playerRating">' + sanitizeRichText(rating) + '</span>'; }
-			header += '</span>';
+			var group = buildElement('span', 'rpbui-chessgame-titleRatingGroup');
+			if(title  !== undefined) { group.appendChild(buildRichTextElement('span', 'rpbui-chessgame-playerTitle' , title )); }
+			if(rating !== undefined) { group.appendChild(buildRichTextElement('span', 'rpbui-chessgame-playerRating', rating)); }
+			header.appendChild(group);
 		}
 
-		// Add the closing tag and return the result.
-		header += '</div>';
 		return header;
 	}
 
@@ -818,25 +836,24 @@
 	 * Build the header containing the event-related information (event + round).
 	 *
 	 * @param {rpbchess-ui.chessgame} widget
-	 * @returns {string}
+	 * @returns {Element?} `false` if there is no header.
 	 */
-	function eventHeader(widget) {
+	function buildEventHeader(widget) {
 
 		// Retrieve the event -> no header is returned if the name not available.
 		var event = widget._game.event();
 		if(event === undefined) {
-			return '';
+			return false;
 		}
 
 		// Retrieve the round.
 		var round = widget._game.round();
 
 		// Build and return the header.
-		var header = '<div class="rpbui-chessgame-event">' + sanitizeRichText(event);
+		var header = buildRichTextElement('div', 'rpbui-chessgame-event', event);
 		if(round !== undefined) {
-			header += '<span class="rpbui-chessgame-round">' + sanitizeRichText(round) + '</span>';
+			header.appendChild(buildRichTextElement('span', 'rpbui-chessgame-round', round));
 		}
-		header += '</div>';
 		return header;
 	}
 
@@ -845,22 +862,21 @@
 	 * Build the header containing the date/place information.
 	 *
 	 * @param {rpbchess-ui.chessgame} widget
-	 * @returns {string}
+	 * @returns {Element?} `false` if there is no header.
 	 */
-	function datePlaceHeader(widget) {
+	function buildDatePlaceHeader(widget) {
 
 		// Retrieve the date and the site field.
 		var date = widget._game.date();
 		var site = widget._game.site();
 		if(date === undefined && site === undefined) {
-			return '';
+			return false;
 		}
 
 		// Build and return the header.
-		var header = '<div class="rpbui-chessgame-datePlaceGroup">';
-		if(date !== undefined) { header += '<span class="rpbui-chessgame-date">' + sanitizeRichText(formatDate(date)) + '</span>'; }
-		if(site !== undefined) { header += '<span class="rpbui-chessgame-site">' + sanitizeRichText(site) + '</span>'; }
-		header += '</div>';
+		var header = buildElement('div', 'rpbui-chessgame-datePlaceGroup');
+		if(date !== undefined) { header.appendChild(buildRichTextElement('span', 'rpbui-chessgame-date', formatDate(date))); }
+		if(site !== undefined) { header.appendChild(buildRichTextElement('span', 'rpbui-chessgame-site', site)); }
 		return header;
 	}
 
@@ -869,20 +885,19 @@
 	 * Build the header containing the annotator information.
 	 *
 	 * @param {rpbchess-ui.chessgame} widget
-	 * @returns {string}
+	 * @returns {Element?} `false` if there is no header.
 	 */
-	function annotatorHeader(widget) {
+	function buildAnnotatorHeader(widget) {
 
 		// Retrieve the annotator field.
 		var annotator = widget._game.annotator();
 		if(annotator === undefined) {
-			return '';
+			return false;
 		}
 
 		// Build and return the header.
-		var header = '<div class="rpbui-chessgame-annotator">' + $.chessgame.i18n.ANNOTATED_BY.replace(/%1\$s/g,
-			'<span class="rpbui-chessgame-annotatorName">' + sanitizeRichText(annotator) + '</span>') + '</div>';
-		return header;
+		return buildRichTextElement('div', 'rpbui-chessgame-annotator', $.chessgame.i18n.ANNOTATED_BY.replace(/%1\$s/g,
+			'<span class="rpbui-chessgame-annotatorName">' + annotator + '</span>'));
 	}
 
 
@@ -1182,6 +1197,52 @@
 			gameWidget.chessgame(methodName);
 			gameWidget.chessgame('focus');
 		});
+	}
+
+
+	/**
+	 * Instantiate a new DOM element of the given type, that contains only text.
+	 *
+	 * @param {string} type
+	 * @param {string} className Use `''` to not define a classname.
+	 * @param {string} text
+	 * @returns {Element}
+	 */
+	function buildTextElement(type, className, text) {
+		var result = buildElement(type, className);
+		result.appendChild(document.createTextElement(text));
+		return result;
+	}
+
+
+	/**
+	 * Instantiate a new DOM element of the given type, that contains text with possibly HTML tags.
+	 *
+	 * @param {string} type
+	 * @param {string} className Use `''` to not define a classname.
+	 * @param {string} html
+	 * @returns {Element}
+	 */
+	function buildRichTextElement(type, className, html) {
+		var result = buildElement(type, className);
+		result.innerHTML = sanitizeRichText(html);
+		return result;
+	}
+
+
+	/**
+	 * Instantiate a new DOM element of the given type and set its classname.
+	 *
+	 * @param {string} type
+	 * @param {string} className Use `''` to not define a classname.
+	 * @returns {Element}
+	 */
+	function buildElement(type, className) {
+		var result = document.createElement(type);
+		if(className !== '') {
+			result.className = className;
+		}
+		return result;
 	}
 
 
