@@ -362,34 +362,16 @@
 	 * Ensure that the given argument is a valid chess font name.
 	 *
 	 * @param {string} font
-	 * @returns {{font:string, pieceSymbolTable:object}}
+	 * @returns {string}
 	 */
-	function filterChessFontName(font)
-	{
-		// Ensure that the input is a valid chess font name.
+	function filterChessFontName(font) {
 		switch(font) {
 			case 'merida':
 			case 'pirat':
-				break;
+				return font;
 			default:
-				font = 'alpha';
-				break;
+				return 'alpha';
 		}
-
-		// Build the corresponding chess font set.
-		var prefix = '<span class="rpbui-chessgame-' + font + 'Font">';
-		var suffix = '</span>';
-		var pieceSymbolTable = {
-			'K': prefix + 'K' + suffix,
-			'Q': prefix + 'Q' + suffix,
-			'R': prefix + 'R' + suffix,
-			'B': prefix + 'B' + suffix,
-			'N': prefix + 'N' + suffix,
-			'P': prefix + 'P' + suffix
-		};
-
-		// Return the result.
-		return { font: font, pieceSymbolTable: pieceSymbolTable };
 	}
 
 
@@ -495,20 +477,18 @@
 			}
 		}
 
-		// Descriptors: figurines, using a custom chess font.
-		else if(/^:\w+$/.test(pieceSymbols)) {
-			var info = filterChessFontName(pieceSymbols.substr(1));
-			pieceSymbols = ':' + info.font;
-			widget._pieceSymbolTable = info.pieceSymbolTable;
-		}
-
 		// Special values: native (English initials, localized initials, or figurines using the default chess font).
 		else {
 			switch(pieceSymbols) {
 
 				// Figurines using the default chess font.
 				case 'figurines':
-					widget._pieceSymbolTable = filterChessFontName($.chessgame.chessFont).pieceSymbolTable;
+					widget._pieceSymbolTable = {};
+					var font = filterChessFontName($.chessgame.chessFont);
+					for(var k=0; k<6; ++k) {
+						var field = FIELDS[k];
+						widget._pieceSymbolTable[field] = '<span class="rpbui-chessgame-' + font + 'Font">' + field + '<span>';
+					}
 					break;
 
 				// Localized initials.
@@ -905,21 +885,23 @@
 	 * Build the move tree.
 	 *
 	 * @param {rpbchess-ui.chessgame} widget
-	 * @returns {string}
+	 * @returns {Element?} `false` if there is no body.
 	 */
 	function buildBody(widget) {
 		var mainVariation = buildVariation(widget, widget._game.mainVariation(), true, widget._game.result());
 
 		// Nothing to do if the main variation is empty.
-		if(mainVariation.content === '') {
-			return '';
+		if(!mainVariation) {
+			return false;
 		}
 
 		// Otherwise, wrap it into a DIV node.
 		var bodyClass = 'rpbui-chessgame-body';
-		if(mainVariation.divCount > 1) { bodyClass += ' rpbui-chessgame-moreSpace'; }
+		if(mainVariation.childNodes.length > 1) { bodyClass += ' rpbui-chessgame-moreSpace'; }
 		if(widget.options.navigationBoard !== 'none') { bodyClass += ' rpbui-chessgame-clickableMoves'; }
-		return '<div class="' + bodyClass + '">' + mainVariation.content + '</div>';
+		var result = buildElement('div', bodyClass);
+		result.appendChild(mainVariation);
+		return result;
 	}
 
 
@@ -929,137 +911,125 @@
 	 * @param {rpbchess-ui.chessgame} widget
 	 * @param {kokopu.Variation} variation
 	 * @param {boolean} isMainVariation
-	 * @param {null|string} result Must be set to `'*'` for sub-variations.
-	 * @returns {string|{content:string, divCount:number}} The second form is only used for the main variation.
+	 * @param {string} result Must be set to `'*'` for sub-variations.
+	 * @returns {Element?} `false` if the variation is empty.
 	 */
 	function buildVariation(widget, variation, isMainVariation, result) {
 
 		// Nothing to do if the variation is empty.
 		if(variation.comment() === undefined && variation.first() === undefined && result === '*') {
-			return isMainVariation ? { content: '', divCount: 0 } : '';
+			return false;
 		}
 
 		// Open a new DOM node for the variation.
-		var tag = variation.isLongVariation() ? 'div' : 'span';
-		var retVal = '<' + tag + ' class="rpbui-chessgame-variation' + (isMainVariation ? '' : ' rpbui-chessgame-subVariation') + '">';
+		var variationClass = 'rpbui-chessgame-variation' + (isMainVariation ? '' : ' rpbui-chessgame-subVariation');
+		var result = buildElement(variation.isLongVariation() ? 'div' : 'span', variationClass);
 
 		// The flag `moveGroupOpened` indicates whether a `<div class="moveGroup">` node
 		// is currently opened or not. Move group nodes are supposed to contain moves,
 		// short-comments and short-variations when the parent variation is long.
 		// In short variations, there is no move groups.
 		var enableMoveGroups = variation.isLongVariation();
-		var moveGroupOpened  = false;
-		var divCount         = 0;
+		var moveGroupOpened = false;
+		var insertionElement = result;
 
 		// Open a new move group if necessary.
 		function openMoveGroup() {
 			if(enableMoveGroups && !moveGroupOpened) {
-				retVal += '<div class="rpbui-chessgame-moveGroup">';
+				insertionElement = buildElement('div', 'rpbui-chessgame-moveGroup');
+				result.appendChild(insertionElement);
 				moveGroupOpened = true;
-				++divCount;
 			}
 		}
 
 		// Close the current move group, if any.
 		function closeMoveGroup() {
 			if(moveGroupOpened) {
-				retVal += '</div>';
+				insertionElement = result;
 				moveGroupOpened = false;
 			}
 		}
 
 		// Write the initial comment, if any.
 		if(variation.comment() !== undefined) {
-			if(variation.isLongComment()) {
-				++divCount;
-			} else {
+			if(!variation.isLongComment()) {
 				openMoveGroup();
 			}
-			retVal += buildComment(variation, true);
+			insertionElement.appendChild(buildComment(variation, true));
 		}
 
 		// Visit all the PGN nodes (one node per move) within the variation.
 		var forcePrintMoveNumber = true;
 		var node = variation.first();
-		while(node !== undefined)
-		{
+		while(node !== undefined) {
+
 			// Write the move, including directly related information (i.e. move number + NAGs).
 			openMoveGroup();
-			retVal += buildMove(widget, node, forcePrintMoveNumber);
+			insertionElement.appendChild(buildMove(widget, node, forcePrintMoveNumber));
 
 			// Write the comment (if any).
 			if(node.comment() !== undefined) {
 				if(node.isLongComment()) {
 					closeMoveGroup();
-					++divCount;
 				}
-				retVal += buildComment(node, false);
+				insertionElement.appendChild(buildComment(node, false));
 			}
 
 			// Write the sub-variations.
-			var nonEmptySubVariations = 0;
+			var hasNonEmptySubVariations = false;
 			var subVariations = node.variations();
 			for(var k=0; k<subVariations.length; ++k) {
-				var subVariationText = buildVariation(widget, subVariations[k], false, '*');
-				if(subVariationText !== '') {
+				var subVariationElement = buildVariation(widget, subVariations[k], false, '*');
+				if(subVariationElement) {
 					if(subVariations[k].isLongVariation()) {
 						closeMoveGroup();
-						++divCount;
-					} else {
+					}
+					else {
 						openMoveGroup();
 					}
-					retVal += subVariationText;
-					++nonEmptySubVariations;
+					insertionElement.appendChild(subVariationElement);
+					hasNonEmptySubVariations = true;
 				}
 			}
 
 			// Back to the current variation, go to the next move.
-			forcePrintMoveNumber = (node.comment() !== undefined || nonEmptySubVariations > 0);
+			forcePrintMoveNumber = (node.comment() !== undefined || hasNonEmptySubVariations);
 			node = node.next();
 		}
 
-		// Append the result and the end of the main variation.
+		// Append the result at the end of the main variation.
 		if(isMainVariation && result !== '*') {
 			openMoveGroup();
-			retVal += '<span class="rpbui-chessgame-result">' + formatResult(result) + '</span>';
+			insertionElement.appendChild(buildTextElement('span', 'rpbui-chessgame-result', formatResult(result)));
 		}
 
-		// Close the opened DOM nodes, and returned the result.
+		// Close the last move group, and returned the result.
 		closeMoveGroup();
-		retVal += '</' + tag + '>';
-		return isMainVariation ? { content: retVal, divCount: divCount } : retVal;
+		return result;
 	}
 
 
 	/**
-	 * Build the DOM attributes to add to a DOM node to be able to reload the position associated to the current node.
+	 * Insert the `data-*` attributes on the given DOM element so that it is possible to reload the position associated to the current node.
 	 *
+	 * @param {Element} element
 	 * @param {kokopu.Node|kokopu.Variation} node
 	 * @param {boolean} isVariation
-	 * @param {boolean} addAnimationSupport `true` to add the information required for move highlighting.
-	 * @returns {string}
 	 */
-	function buildPositionInformation(node, isVariation, moveHighlightSupport) {
-		var res = 'data-position="' + (isVariation ? node.initialPosition() : node.position()).fen() + '"';
-
-		// Move highlighting
-		if(moveHighlightSupport) {
-			res += ' data-position-before="' + node.positionBefore().fen() + '" data-move-notation="' + node.notation() + '"';
-		}
+	function insertPositionInformation(element, node, isVariation) {
+		element.setAttribute('data-position', (isVariation ? node.initialPosition() : node.position()).fen());
 
 		// Square markers
 		var csl = node.tag('csl');
 		if(csl !== undefined) {
-			res += ' data-csl="' + csl + '"';
+			element.setAttribute('data-csl', csl);
 		}
 
 		// Arrow markers
 		var cal = node.tag('cal');
 		if(cal !== undefined) {
-			res += ' data-cal="' + cal + '"';
+			element.setAttribute('data-cal', cal);
 		}
-
-		return res;
 	}
 
 
@@ -1068,13 +1038,13 @@
 	 *
 	 * @param {kokopu.Node|kokopu.Variation} node
 	 * @param {boolean} isVariation
-	 * @returns {string}
+	 * @returns {Element}
 	 */
 	function buildComment(node, isVariation) {
-		var tag = node.isLongComment() ? 'div' : 'span';
-		var comment = node.comment().replace(/\[#]/g, '<span class="rpbui-chessgame-diagramAnchor"></span>');
-		return '<' + tag + ' class="rpbui-chessgame-comment" ' + buildPositionInformation(node, isVariation, false) + '>' +
-			sanitizeRichText(comment) + '</' + tag + '>';
+		var html = node.comment().replace(/\[#]/g, '<span class="rpbui-chessgame-diagramAnchor"></span>');
+		var result = buildRichTextElement(node.isLongComment() ? 'div' : 'span', 'rpbui-chessgame-comment', html);
+		insertPositionInformation(result, node, isVariation);
+		return result;
 	}
 
 
@@ -1084,34 +1054,38 @@
 	 * @param {rpbchess-ui.chessgame} widget
 	 * @param {kokopu.Node} node
 	 * @param {boolean} forcePrintMoveNumber
-	 * @returns {string}
+	 * @returns {Element}
 	 */
 	function buildMove(widget, node, forcePrintMoveNumber) {
 
 		// Create the DOM node.
-		var retVal = '<span class="rpbui-chessgame-move" ' + buildPositionInformation(node, false, true) + '>';
+		var result = buildElement('span', 'rpbui-chessgame-move');
+
+		// Position information.
+		insertPositionInformation(result, node, false);
+		result.setAttribute('data-position-before', node.positionBefore().fen());
+		result.setAttribute('data-move-notation', node.notation());
 
 		// Move number
 		var printMoveNumber = forcePrintMoveNumber || node.moveColor() === 'w';
 		var moveNumberClass = 'rpbui-chessgame-moveNumber' + (printMoveNumber ? '' : ' rpbui-chessgame-hidden');
 		var moveNumberText  = node.fullMoveNumber() + (node.moveColor() === 'w' ? '.' : '\u2026');
-		retVal += '<span class="' + moveNumberClass + '">' + moveNumberText + '</span>';
+		result.appendChild(buildTextElement('span', moveNumberClass, moveNumberText));
 
 		// SAN notation.
 		var pieceSymbolTable = widget._pieceSymbolTable;
-		retVal += node.notation().replace(/[KQRBNP]/g, function(match) {
+		var html = node.notation().replace(/[KQRBNP]/g, function(match) {
 			return pieceSymbolTable[match];
 		});
 
 		// NAGs
 		var nags = node.nags();
-		for(var k=0; k<nags.length; ++k) {
-			retVal += ' ' + formatNag(nags[k]);
+		for(var k = 0; k < nags.length; ++k) {
+			html += ' ' + formatNag(nags[k]);
 		}
 
-		// Close the DOM node.
-		retVal += '</span>';
-		return retVal;
+		result.insertAdjacentHTML('beforeend', sanitizeRichText(html));
+		return result;
 	}
 
 
@@ -1121,11 +1095,12 @@
 	 * the initial position in the navigation board.
 	 *
 	 * @param {rpbchess-ui.chessgame} widget
-	 * @returns {string}
+	 * @returns {Element}
 	 */
 	function buildInitialMove(widget) {
-		return '<div class="rpbui-chessgame-move rpbui-chessgame-initialMove" ' + buildPositionInformation(widget._game.mainVariation(), true, false) +
-			'>' + $.chessgame.i18n.INITIAL_POSITION + '</div>';
+		var result = buildTextElement('div', 'rpbui-chessgame-move rpbui-chessgame-initialMove', $.chessgame.i18n.INITIAL_POSITION);
+		insertPositionInformation(result, widget._game.mainVariation(), true);
+		return result;
 	}
 
 
