@@ -1188,7 +1188,10 @@
 		}
 
 		// Structure of the navigation frame.
-		$('<div id="rpbui-chessgame-navigationFrame">' + buildNavigationSkeleton() + '</div>').appendTo($('body'));
+		var navigationFrame = buildElement('div', '');
+		navigationFrame.id = 'rpbui-chessgame-navigationFrame';
+		insertNavigationSkeleton(navigationFrame);
+		$('body').append(navigationFrame);
 
 		// Create the dialog widget.
 		$('#rpbui-chessgame-navigationFrame').dialog({
