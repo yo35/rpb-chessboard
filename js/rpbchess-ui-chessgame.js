@@ -487,7 +487,7 @@
 					var font = filterChessFontName($.chessgame.chessFont);
 					for(var k=0; k<6; ++k) {
 						var field = FIELDS[k];
-						widget._pieceSymbolTable[field] = '<span class="rpbui-chessgame-' + font + 'Font">' + field + '<span>';
+						widget._pieceSymbolTable[field] = '<span class="rpbui-chessgame-' + font + 'Font">' + field + '</span>';
 					}
 					break;
 
@@ -562,8 +562,8 @@
 				break;
 			case 'scrollLeft':
 			case 'scrollRight':
-				insertionPoint = buildElement('div', 'scrollArea');
-				var scrollBox = buildElement('div', 'scrollBox');
+				insertionPoint = buildElement('div', 'rpbui-chessgame-scrollArea');
+				var scrollBox = buildElement('div', 'rpbui-chessgame-scrollBox');
 				scrollBox.appendChild(widget.options.navigationBoard === 'scrollLeft' ? buildNavigationBox(widget) : insertionPoint);
 				scrollBox.appendChild(widget.options.navigationBoard === 'scrollLeft' ? insertionPoint : buildNavigationBox(widget));
 				fragment.appendChild(scrollBox);
@@ -1142,7 +1142,10 @@
 	function insertNavigationSkeleton(element) {
 		element.appendChild(buildElement('div', 'rpbui-chessgame-navigationBoard'));
 
-		var buttonsClass = 'rpbui-chessgame-navigationButtons' + ($.chessgame.navigationButtonClass === '' ? '' : $.chessgame.navigationButtonClass);
+		var buttonsClass = 'rpbui-chessgame-navigationButtons';
+		if($.chessgame.navigationButtonClass !== '') {
+			buttonsClass += ' ' + $.chessgame.navigationButtonClass;
+		}
 		var buttons = buildElement('div', buttonsClass);
 		element.appendChild(buttons);
 

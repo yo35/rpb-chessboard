@@ -66,6 +66,7 @@
 	vertical-align: middle;
 	display: inline-block;
 	border: 1px solid black;
+	margin-right: 0.25em;
 }
 
 .rpbui-chessgame-whitePlayer .rpbui-chessgame-colorTag {
