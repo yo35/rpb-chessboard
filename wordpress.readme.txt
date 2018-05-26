@@ -80,6 +80,11 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 5.3 (May 26, 2018) =
+* Fix diagram issues (see #130 and #131): `[pgndiagram]` is no-longer available. From now on, the standard `[#]` should be used instead.
+* Fix security issue (see #122): refactor DOM building process and set-up proper HTML sanitization where needed.
+* Refactor move generation/validation + PGN parsing code as a standalone NPM library (Kokopu).
+
 = 5.2.2 (May 1, 2018) =
 * Fix page jump issue (see #129).
 
