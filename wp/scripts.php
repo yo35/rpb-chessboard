@@ -38,8 +38,8 @@ abstract class RPBChessboardScripts {
 		# sanitize-html (https://www.npmjs.com/package/sanitize-html)
 		wp_register_script( 'rpbchessboard-sanitizehtml', RPBCHESSBOARD_URL . 'third-party-libs/sanitize-html/sanitize-html' . $ext, false, '1.18.2' );
 
-		// Kokopu
-		wp_register_script( 'rpbchessboard-kokopu', RPBCHESSBOARD_URL . 'third-party-libs/kokopu/kokopu.js', false, '0.99.3' );
+		// Kokopu (https://www.npmjs.com/package/kokopu)
+		wp_register_script( 'rpbchessboard-kokopu', RPBCHESSBOARD_URL . 'third-party-libs/kokopu/kokopu' . $ext, false, '0.99.4' );
 
 		// Chessboard widget
 		wp_register_script(
