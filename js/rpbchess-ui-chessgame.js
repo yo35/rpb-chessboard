@@ -176,9 +176,9 @@
 
 	function formatResult(result) {
 		switch(result) {
-			case '1/2-1/2': return '&#189;&#8211;&#189;';
-			case '1-0'    : return '1&#8211;0';
-			case '0-1'    : return '0&#8211;1';
+			case '1/2-1/2': return '\u00bd\u2013\u00bd';
+			case '1-0'    : return '1\u20130';
+			case '0-1'    : return '0\u20131';
 			default: return result;
 		}
 	}
@@ -915,13 +915,13 @@
 	 * @param {rpbchess-ui.chessgame} widget
 	 * @param {kokopu.Variation} variation
 	 * @param {boolean} isMainVariation
-	 * @param {string} result Must be set to `'*'` for sub-variations.
+	 * @param {string} gameResult Must be set to `'*'` for sub-variations.
 	 * @returns {Element?} `false` if the variation is empty.
 	 */
-	function buildVariation(widget, variation, isMainVariation, result) {
+	function buildVariation(widget, variation, isMainVariation, gameResult) {
 
 		// Nothing to do if the variation is empty.
-		if(variation.comment() === undefined && variation.first() === undefined && result === '*') {
+		if(variation.comment() === undefined && variation.first() === undefined && gameResult === '*') {
 			return false;
 		}
 
@@ -1001,10 +1001,10 @@
 			node = node.next();
 		}
 
-		// Append the result at the end of the main variation.
-		if(isMainVariation && result !== '*') {
+		// Append the game result at the end of the main variation.
+		if(isMainVariation && gameResult !== '*') {
 			openMoveGroup();
-			insertionPoint.appendChild(buildTextElement('span', 'rpbui-chessgame-result', formatResult(result)));
+			insertionPoint.appendChild(buildTextElement('span', 'rpbui-chessgame-result', formatResult(gameResult)));
 		}
 
 		// Close the last move group, and return the result.
