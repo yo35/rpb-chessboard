@@ -549,45 +549,49 @@
 			return;
 		}
 
-		// Headers
-		var headers = buildHeaders(widget);
+		var fragment = document.createDocumentFragment();
+		fragment.appendChild(buildInitialMove(widget));
+		fragment.appendChild(buildFocusField());
 
-		// Body and initial move
-		var move0 = buildInitialMove(widget);
-		var body  = buildBody(widget);
-
-		// A hidden field to catch the keyboard events
-		var focusField = '<div class="rpbui-chessgame-focusFieldContainer"><a href="#" class="rpbui-chessgame-focusField"></a></div>';
-
-		// Navigation board
-		var prefix = '';
-		var suffix = '';
+		var insertionPoint = fragment;
 		switch(widget.options.navigationBoard) {
 			case 'floatLeft':
 			case 'floatRight':
-				suffix = '<div class="rpbui-chessgame-' + widget.options.navigationBoard.replace('float', 'clear') + '"></div>';
-				prefix = '<div class="rpbui-chessgame-navigationBox rpbui-chessgame-' + widget.options.navigationBoard + '">' +
-					buildNavigationSkeleton() + '</div>';
+			case 'above':
+				fragment.appendChild(buildNavigationBox(widget));
 				break;
 			case 'scrollLeft':
-				prefix = '<div class="rpbui-chessgame-scrollBox"><div class="rpbui-chessgame-navigationBox rpbui-chessgame-scrollLeft">' +
-					buildNavigationSkeleton() + '</div><div class="rpbui-chessgame-scrollArea">';
-				suffix = '</div></div>';
-				break;
 			case 'scrollRight':
-				prefix = '<div class="rpbui-chessgame-scrollBox"><div class="rpbui-chessgame-scrollArea">';
-				suffix = '</div><div class="rpbui-chessgame-navigationBox rpbui-chessgame-scrollRight">' + buildNavigationSkeleton() + '</div></div>';
+				insertionPoint = buildElement('div', 'scrollArea');
+				var scrollBox = buildElement('div', 'scrollBox');
+				scrollBox.appendChild(widget.options.navigationBoard === 'scrollLeft' ? buildNavigationBox(widget) : insertionPoint);
+				scrollBox.appendChild(widget.options.navigationBoard === 'scrollLeft' ? insertionPoint : buildNavigationBox(widget));
+				fragment.appendChild(scrollBox);
 				break;
-			case 'above':
-				prefix = '<div class="rpbui-chessgame-navigationBox rpbui-chessgame-above">' + buildNavigationSkeleton() + '</div>';
+		}
+
+		var headers = buildHeaders(widget);
+		if(headers) {
+			insertionPoint.appendChild(headers);
+		}
+
+		var body = buildBody(widget);
+		if(body) {
+			insertionPoint.appendChild(body);
+		}
+
+		switch(widget.options.navigationBoard) {
+			case 'floatLeft':
+			case 'floatRight':
+				fragment.appendChild(buildElement('div', 'rpbui-chessgame-' + widget.options.navigationBoard.replace('float', 'clear')));
 				break;
 			case 'below':
-				suffix = '<div class="rpbui-chessgame-navigationBox rpbui-chessgame-below">' + buildNavigationSkeleton() + '</div>';
+				fragment.appendChild(buildNavigationBox(widget));
 				break;
 		}
 
 		// Render the content.
-		$(move0 + focusField + prefix + headers + body + suffix).appendTo(widget.element);
+		widget.element.append(fragment);
 
 		// Render the diagrams in comments.
 		makeDiagrams(widget);
@@ -931,13 +935,13 @@
 		// In short variations, there is no move groups.
 		var enableMoveGroups = variation.isLongVariation();
 		var moveGroupOpened = false;
-		var insertionElement = result;
+		var insertionPoint = result;
 
 		// Open a new move group if necessary.
 		function openMoveGroup() {
 			if(enableMoveGroups && !moveGroupOpened) {
-				insertionElement = buildElement('div', 'rpbui-chessgame-moveGroup');
-				result.appendChild(insertionElement);
+				insertionPoint = buildElement('div', 'rpbui-chessgame-moveGroup');
+				result.appendChild(insertionPoint);
 				moveGroupOpened = true;
 			}
 		}
@@ -945,7 +949,7 @@
 		// Close the current move group, if any.
 		function closeMoveGroup() {
 			if(moveGroupOpened) {
-				insertionElement = result;
+				insertionPoint = result;
 				moveGroupOpened = false;
 			}
 		}
@@ -955,7 +959,7 @@
 			if(!variation.isLongComment()) {
 				openMoveGroup();
 			}
-			insertionElement.appendChild(buildComment(variation, true));
+			insertionPoint.appendChild(buildComment(variation, true));
 		}
 
 		// Visit all the PGN nodes (one node per move) within the variation.
@@ -965,14 +969,14 @@
 
 			// Write the move, including directly related information (i.e. move number + NAGs).
 			openMoveGroup();
-			insertionElement.appendChild(buildMove(widget, node, forcePrintMoveNumber));
+			insertionPoint.appendChild(buildMove(widget, node, forcePrintMoveNumber));
 
 			// Write the comment (if any).
 			if(node.comment() !== undefined) {
 				if(node.isLongComment()) {
 					closeMoveGroup();
 				}
-				insertionElement.appendChild(buildComment(node, false));
+				insertionPoint.appendChild(buildComment(node, false));
 			}
 
 			// Write the sub-variations.
@@ -987,7 +991,7 @@
 					else {
 						openMoveGroup();
 					}
-					insertionElement.appendChild(subVariationElement);
+					insertionPoint.appendChild(subVariationElement);
 					hasNonEmptySubVariations = true;
 				}
 			}
@@ -1000,10 +1004,10 @@
 		// Append the result at the end of the main variation.
 		if(isMainVariation && result !== '*') {
 			openMoveGroup();
-			insertionElement.appendChild(buildTextElement('span', 'rpbui-chessgame-result', formatResult(result)));
+			insertionPoint.appendChild(buildTextElement('span', 'rpbui-chessgame-result', formatResult(result)));
 		}
 
-		// Close the last move group, and returned the result.
+		// Close the last move group, and return the result.
 		closeMoveGroup();
 		return result;
 	}
@@ -1105,21 +1109,59 @@
 
 
 	/**
+	 * Build a hidden DOM node, that is use to catch the focus and allow keyboard interactions.
+	 *
+	 * @returns {Element}
+	 */
+	function buildFocusField() {
+		var focusField = buildElement('a', 'rpbui-chessgame-focusField');
+		focusField.setAttribute('href', '#');
+		var result = buildElement('div', 'rpbui-chessgame-focusFieldContainer');
+		result.appendChild(focusField);
+		return result;
+	}
+
+
+	/**
+	 * Build the DOM node for the inlined navigation board (i.e. not the navigation frame).
+	 *
+	 * returns {Element}
+	 */
+	function buildNavigationBox(widget) {
+		var result = buildElement('div', 'rpbui-chessgame-navigationBox rpbui-chessgame-' + widget.options.navigationBoard);
+		insertNavigationSkeleton(result);
+		return result;
+	}
+
+
+	/**
 	 * Build the DOM nodes that will be used as a skeleton for the navigation board and buttons.
 	 *
-	 * @returns {string}
+	 * @param {Element} element
 	 */
-	function buildNavigationSkeleton() {
-		return '<div class="rpbui-chessgame-navigationBoard"></div>' +
-			'<div class="rpbui-chessgame-navigationButtons ' + $.chessgame.navigationButtonClass + '">' +
-				'<div title="' + $.chessgame.i18n.GO_FIRST_MOVE_TOOLTIP    + '" class="rpbui-chessgame-navigationButtonFirst"></div>' +
-				'<div title="' + $.chessgame.i18n.GO_PREVIOUS_MOVE_TOOLTIP + '" class="rpbui-chessgame-navigationButtonPrevious"></div>' +
-				'<div title="' + $.chessgame.i18n.GO_NEXT_MOVE_TOOLTIP     + '" class="rpbui-chessgame-navigationButtonNext"></div>' +
-				'<div title="' + $.chessgame.i18n.GO_LAST_MOVE_TOOLTIP     + '" class="rpbui-chessgame-navigationButtonLast rpbui-chessgame-spaceAfter"></div>' +
-				'<div title="' + $.chessgame.i18n.FLIP_TOOLTIP             + '" class="rpbui-chessgame-navigationButtonFlip rpbui-chessgame-spaceAfter"></div>' +
-				'<div title="' + $.chessgame.i18n.DOWNLOAD_PGN_TOOLTIP     + '" class="rpbui-chessgame-navigationButtonDownload rpbui-chessgame-spaceAfter"></div>' +
-			'</div>' +
-			'<a href="#" download="game.pgn" class="rpbui-chessgame-blobDownloadLink"></a>';
+	function insertNavigationSkeleton(element) {
+		element.appendChild(buildElement('div', 'rpbui-chessgame-navigationBoard'));
+
+		var buttonsClass = 'rpbui-chessgame-navigationButtons' + ($.chessgame.navigationButtonClass === '' ? '' : $.chessgame.navigationButtonClass);
+		var buttons = buildElement('div', buttonsClass);
+		element.appendChild(buttons);
+
+		function addButton(buttonClass, buttonTitle) {
+			var button = buildElement('div', buttonClass);
+			button.setAttribute('title', buttonTitle);
+			buttons.appendChild(button);
+		}
+		addButton('rpbui-chessgame-navigationButtonFirst'                              , $.chessgame.i18n.GO_FIRST_MOVE_TOOLTIP   );
+		addButton('rpbui-chessgame-navigationButtonPrevious'                           , $.chessgame.i18n.GO_PREVIOUS_MOVE_TOOLTIP);
+		addButton('rpbui-chessgame-navigationButtonNext'                               , $.chessgame.i18n.GO_NEXT_MOVE_TOOLTIP    );
+		addButton('rpbui-chessgame-navigationButtonLast rpbui-chessgame-spaceAfter'    , $.chessgame.i18n.GO_LAST_MOVE_TOOLTIP    );
+		addButton('rpbui-chessgame-navigationButtonFlip rpbui-chessgame-spaceAfter'    , $.chessgame.i18n.FLIP_TOOLTIP            );
+		addButton('rpbui-chessgame-navigationButtonDownload rpbui-chessgame-spaceAfter', $.chessgame.i18n.DOWNLOAD_PGN_TOOLTIP    );
+
+		var downloadLink = buildElement('a', 'rpbui-chessgame-blobDownloadLink');
+		downloadLink.setAttribute('href', '#');
+		downloadLink.setAttribute('download', 'game.pgn');
+		element.appendChild(downloadLink);
 	}
 
 
@@ -1185,7 +1227,7 @@
 	 */
 	function buildTextElement(type, className, text) {
 		var result = buildElement(type, className);
-		result.appendChild(document.createTextElement(text));
+		result.appendChild(document.createTextNode(text));
 		return result;
 	}
 
