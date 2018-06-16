@@ -84,11 +84,12 @@ all: help
 help:
 	@$(ECHO)
 	@$(ECHO) "$(COLOR_IN)Available commands:$(COLOR_OUT)"
+	@$(ECHO) " * make $(COLOR_ITEM_IN)init$(COLOR_ITEM_OUT): initialize the repository for development."
 	@$(ECHO) " * make $(COLOR_ITEM_IN)i18n-extract$(COLOR_ITEM_OUT): extract the strings to translate."
 	@$(ECHO) " * make $(COLOR_ITEM_IN)i18n-merge$(COLOR_ITEM_OUT): merge the translation files (*.po) with the template (.pot)."
 	@$(ECHO) " * make $(COLOR_ITEM_IN)i18n-compile$(COLOR_ITEM_OUT): compile the translation files (*.po) into binaries (*.mo)."
-	@$(ECHO) " * make $(COLOR_ITEM_IN)js-lint$(COLOR_ITEM_OUT): run the static analysis of JavaScript files."
-	@$(ECHO) " * make $(COLOR_ITEM_IN)js-minify$(COLOR_ITEM_OUT): run the JavaScript minifier tool on JavaScript files."
+	@$(ECHO) " * make $(COLOR_ITEM_IN)jshint$(COLOR_ITEM_OUT): run the static analysis of JavaScript files."
+	@$(ECHO) " * make $(COLOR_ITEM_IN)jsmin$(COLOR_ITEM_OUT): run the JavaScript minifier tool on JavaScript files."
 	@$(ECHO) " * make $(COLOR_ITEM_IN)phpcs$(COLOR_ITEM_OUT): run the static analysis of PHP files."
 	@$(ECHO) " * make $(COLOR_ITEM_IN)phpcbf$(COLOR_ITEM_OUT): try to fix some of the errors detected by static analysis on PHP files."
 	@$(ECHO) " * make $(COLOR_ITEM_IN)pack$(COLOR_ITEM_OUT): pack the source files into a zip file, ready for WordPress deployment."
