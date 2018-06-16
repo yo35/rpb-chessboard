@@ -35,16 +35,13 @@ abstract class RPBChessboardScripts {
 		wp_register_script( 'rpbchessboard-momentjs', RPBCHESSBOARD_URL . 'third-party-libs/moment-js/moment' . $ext, false, '2.13.0' );
 		$momentjs = self::localizeJavaScriptLib( 'rpbchessboard-momentjs', 'third-party-libs/moment-js/locales/%1$s.js', '2.13.0' );
 
-		# sanitize-html (https://www.npmjs.com/package/sanitize-html)
-		wp_register_script( 'rpbchessboard-sanitizehtml', RPBCHESSBOARD_URL . 'third-party-libs/sanitize-html/sanitize-html' . $ext, false, '1.18.2' );
-
-		// Kokopu (https://www.npmjs.com/package/kokopu)
-		wp_register_script( 'rpbchessboard-kokopu', RPBCHESSBOARD_URL . 'third-party-libs/kokopu/kokopu' . $ext, false, '0.99.4' );
+		# Dependencies resolved using NPM
+		wp_register_script( 'rpbchessboard-externals', RPBCHESSBOARD_URL . 'third-party-libs/npm-dependencies' . $ext, false, RPBCHESSBOARD_VERSION );
 
 		// Chessboard widget
 		wp_register_script(
 			'rpbchessboard-chessboard', RPBCHESSBOARD_URL . 'js/rpbchess-ui-chessboard' . $ext, array(
-				'rpbchessboard-kokopu',
+				'rpbchessboard-externals',
 				'jquery-ui-widget',
 				'jquery-ui-selectable',
 			), RPBCHESSBOARD_VERSION
@@ -53,10 +50,9 @@ abstract class RPBChessboardScripts {
 		// Chessgame widget
 		wp_register_script(
 			'rpbchessboard-chessgame', RPBCHESSBOARD_URL . 'js/rpbchess-ui-chessgame' . $ext, array(
-				'rpbchessboard-kokopu',
-				'rpbchessboard-chessboard',
+				'rpbchessboard-externals',
 				$momentjs,
-				'rpbchessboard-sanitizehtml',
+				'rpbchessboard-chessboard',
 				'jquery-ui-widget',
 				'jquery-ui-button',
 				'jquery-ui-selectable',
