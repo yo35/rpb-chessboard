@@ -68,8 +68,7 @@ MSGFMT        = msgfmt -v
 JSHINT        = jshint
 JSHINT_FLAGS  = -c assets/dev-tools/jshintrc
 BROWSERIFY    = ./node_modules/.bin/browserify
-UGLIFYJS      = uglifyjs
-UGLIFYJS_ARGS = -c -nc
+UGLIFYJS      = ./node_modules/.bin/uglifyjs -c
 PHPCS         = phpcs
 PHPCS_ARGS    = --colors --standard=assets/dev-tools/phpcs.xml
 PHPCBF        = phpcbf
@@ -175,13 +174,13 @@ js-lint:
 
 
 # JavaScript minification
-js-minify: $(JS_MINIFIED_FILES) $(NPM_DEPS_MIN_FILE)
+jsmin: $(JS_MINIFIED_FILES) $(NPM_DEPS_MIN_FILE)
 
 
 # Single JS file minification
-%.min.js: %.js
+%.min.js: %.js init
 	@$(ECHO) "$(COLOR_IN)Minifying JS file [ $(COLOR_ARG_IN)$<$(COLOR_ARG_OUT) ]...$(COLOR_OUT)"
-	@$(UGLIFYJS) $(UGLIFYJS_ARGS) -o $@ $^
+	@$(UGLIFYJS) -o $@ $<
 
 
 
@@ -192,7 +191,7 @@ js-minify: $(JS_MINIFIED_FILES) $(NPM_DEPS_MIN_FILE)
 
 
 # PHP validation
-phpcs:
+phpcs:js
 	@$(ECHO) "$(COLOR_IN)Checking the PHP files...$(COLOR_OUT)"
 	@$(PHPCS) $(PHPCS_ARGS) $(PHP_FILES)
 
@@ -211,7 +210,7 @@ phpcbf:
 
 
 # Pack the source files into a zip file, ready for WordPress deployment
-pack: init phpcs i18n-compile js-minify
+pack: init phpcs i18n-compile jsmin
 	@rm -rf $(SNAPSHOT_FOLDER) $(DEPLOYMENT_FILE)
 	@mkdir -p $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)
 	@cp -r $(SRC_MAIN_FILE) $(SRC_FOLDERS) $(THIRD_PARTY_FOLDER) $(INFO_FILES) $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)
@@ -239,4 +238,4 @@ clean:
 
 
 # Make's stuff
-.PHONY: help init i18n-extract i18n-merge i18n-compile js-lint js-minify phpcs phpcbf pack stats clean
+.PHONY: help init i18n-extract i18n-merge i18n-compile js-lint jsmin phpcs phpcbf pack stats clean
