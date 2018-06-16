@@ -46,7 +46,7 @@ I18N_TEXT_DOMAIN = rpb-chessboard
 PHP_FILES         = $(SRC_MAIN_FILE) $(shell find $(SRC_FOLDERS) -name '*.php')
 JS_FILES          = $(shell find js -name '*.js' -not -name '*.min.js')
 JS_MINIFIED_FILES = $(patsubst %.js,%.min.js,$(JS_FILES))
-JS_DEBUG_FILES    = $(shell find assets/debug-js -name '*.js')
+JS_DEBUG_FILES    = $(wildcard assets/debug-js/*.js)
 I18N_POT_FILE     = languages/$(I18N_TEXT_DOMAIN).pot
 I18N_PO_FILES     = $(wildcard languages/*.po)
 I18N_MO_FILES     = $(patsubst %.po,%.mo,$(I18N_PO_FILES))
@@ -68,10 +68,8 @@ MSGFMT        = msgfmt -v
 JSHINT        = ./node_modules/.bin/jshint -c assets/dev-tools/jshintrc
 BROWSERIFY    = ./node_modules/.bin/browserify
 UGLIFYJS      = ./node_modules/.bin/uglifyjs -c
-PHPCS         = phpcs
-PHPCS_ARGS    = --colors --standard=assets/dev-tools/phpcs.xml
-PHPCBF        = phpcbf
-PHPCBF_ARGS   = --standard=assets/dev-tools/phpcs.xml
+PHPCS         = phpcs --colors --standard=assets/dev-tools/phpcs.xml
+PHPCBF        = phpcbf --standard=assets/dev-tools/phpcs.xml
 STATISTICS    = ./assets/dev-tools/statistics.sh
 COLOR_IN      = \033[34;1m
 COLOR_OUT     = \033[0m
@@ -192,13 +190,13 @@ jsmin: $(JS_MINIFIED_FILES) $(NPM_DEPS_MIN_FILE)
 # PHP validation
 phpcs:js
 	@$(ECHO) "$(COLOR_IN)Checking the PHP files...$(COLOR_OUT)"
-	@$(PHPCS) $(PHPCS_ARGS) $(PHP_FILES)
+	@$(PHPCS) $(PHP_FILES)
 
 
 # PHP autofix
 phpcbf:
 	@$(ECHO) "$(COLOR_IN)Fixing the PHP files...$(COLOR_OUT)"
-	@$(PHPCBF) $(PHPCBF_ARGS) $(PHP_FILES)
+	@$(PHPCBF) $(PHP_FILES)
 
 
 
