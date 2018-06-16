@@ -3,6 +3,10 @@
 /.project
 /.settings
 
+# Node's stuff
+/node_modules
+/npm-debug.log
+
 # Directory for temporary objects
 /.temp
 
@@ -12,4 +16,6 @@
 # Automatically generated files
 /js/*.min.js
 /languages/*.mo
+/third-party-libs/npm-dependencies.js
+/third-party-libs/npm-dependencies.min.js
 

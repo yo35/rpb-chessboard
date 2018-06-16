@@ -27,9 +27,13 @@ SRC_MAIN_FILE         = $(PLUGIN_NAME).php
 SRC_FOLDERS           = css fonts helpers images js languages models templates wp
 THIRD_PARTY_FOLDER    = third-party-libs
 ASSET_FOLDER          = assets
-CACHE_FOLDER          = cache
 WORDPRESS_README_FILE = wordpress.readme.txt
 INFO_FILES            = LICENSE examples.pgn
+PACKAGE_JSON_FILE     = package.json
+NPM_TEMPLATE_FILE     = assets/dev-tools/npm-template.js
+NPM_DEPS_FILE         = third-party-libs/npm-dependencies.js
+NPM_DEPS_MIN_FILE     = third-party-libs/npm-dependencies.min.js
+
 
 # Zip file used for deployment
 DEPLOYMENT_FILE = $(PLUGIN_NAME).zip
@@ -49,6 +53,7 @@ I18N_MO_FILES     = $(patsubst %.po,%.mo,$(I18N_PO_FILES))
 
 
 # Temporary objects
+NODE_MODULES      = node_modules
 TEMPORARY_FOLDER  = .temp
 SNAPSHOT_FOLDER   = $(TEMPORARY_FOLDER)/snapshot
 I18N_MERGED_FILES = $(patsubst %.po,$(TEMPORARY_FOLDER)/%.merged,$(I18N_PO_FILES))
@@ -62,6 +67,7 @@ MSGMERGE      = msgmerge -v --backup=none
 MSGFMT        = msgfmt -v
 JSHINT        = jshint
 JSHINT_FLAGS  = -c assets/dev-tools/jshintrc
+BROWSERIFY    = ./node_modules/.bin/browserify
 UGLIFYJS      = uglifyjs
 UGLIFYJS_ARGS = -c -nc
 PHPCS         = phpcs
@@ -94,6 +100,26 @@ help:
 	@$(ECHO) " * make $(COLOR_ITEM_IN)clean$(COLOR_ITEM_OUT): remove the automatically generated files."
 	@$(ECHO) " * make $(COLOR_ITEM_IN)help$(COLOR_ITEM_OUT): show this help."
 	@$(ECHO)
+
+
+
+
+################################################################################
+# Initialization
+################################################################################
+
+
+init: $(NODE_MODULES) $(NPM_DEPS_FILE)
+
+
+$(NPM_DEPS_FILE): $(NPM_TEMPLATE_FILE) $(NODE_MODULES)
+	@$(ECHO) "$(COLOR_IN)Generating JS file [ $(COLOR_ARG_IN)$@$(COLOR_ARG_OUT) ]...$(COLOR_OUT)"
+	@$(BROWSERIFY) $< > $@
+
+
+$(NODE_MODULES): $(PACKAGE_JSON_FILE)
+	@$(ECHO) "$(COLOR_IN)Installing NPM modules...$(COLOR_OUT)"
+	@npm install
 
 
 
@@ -149,13 +175,12 @@ js-lint:
 
 
 # JavaScript minification
-js-minify: $(JS_MINIFIED_FILES)
+js-minify: $(JS_MINIFIED_FILES) $(NPM_DEPS_MIN_FILE)
 
 
 # Single JS file minification
 %.min.js: %.js
 	@$(ECHO) "$(COLOR_IN)Minifying JS file [ $(COLOR_ARG_IN)$<$(COLOR_ARG_OUT) ]...$(COLOR_OUT)"
-	@$(JSHINT) $(JSHINT_FLAGS) $^
 	@$(UGLIFYJS) $(UGLIFYJS_ARGS) -o $@ $^
 
 
@@ -186,7 +211,7 @@ phpcbf:
 
 
 # Pack the source files into a zip file, ready for WordPress deployment
-pack: phpcs i18n-compile js-minify
+pack: init phpcs i18n-compile js-minify
 	@rm -rf $(SNAPSHOT_FOLDER) $(DEPLOYMENT_FILE)
 	@mkdir -p $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)
 	@cp -r $(SRC_MAIN_FILE) $(SRC_FOLDERS) $(THIRD_PARTY_FOLDER) $(INFO_FILES) $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)
@@ -210,8 +235,8 @@ stats:
 
 # Clean the automatically generated files
 clean:
-	@rm -rf $(TEMPORARY_FOLDER) $(CACHE_FOLDER) $(DEPLOYMENT_FILE) $(I18N_MO_FILES) $(JS_MINIFIED_FILES)
+	@rm -rf $(NODE_MODULES) $(TEMPORARY_FOLDER) $(DEPLOYMENT_FILE) $(JS_MINIFIED_FILES) $(I18N_MO_FILES) $(NPM_DEPS_FILE) $(NPM_DEPS_MIN_FILE)
 
 
 # Make's stuff
-.PHONY: help i18n-extract i18n-merge i18n-compile js-lint js-minify phpcs phpcbf pack stats clean
+.PHONY: help init i18n-extract i18n-merge i18n-compile js-lint js-minify phpcs phpcbf pack stats clean

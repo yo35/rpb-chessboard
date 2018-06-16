@@ -1,0 +1,10 @@
+{
+	"private": true,
+	"dependencies": {
+		"kokopu": "~1.0.0",
+		"sanitize-html": "~1.18.2"
+	},
+	"devDependencies": {
+		"browserify": "~16.2.0"
+	}
+}
