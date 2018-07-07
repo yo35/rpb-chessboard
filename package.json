@@ -6,7 +6,7 @@
 	},
 	"devDependencies": {
 		"jshint": "~2.9.5",
-		"browserify": "~16.2.0",
-		"uglify-js": "~3.4.0"
+		"browserify": "~16.2.2",
+		"uglify-js": "~3.4.3"
 	}
 }
