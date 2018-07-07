@@ -126,7 +126,13 @@
 		}
 
 		function onMediaSelected(form, coloredPiece, attachmentId, attachmentURL) {
-			$('.rpbchessboard-coloredPieceButton-' + coloredPiece, form).empty().append('<img src="' + attachmentURL + '" width="64px" height="64px" />');
+
+			var image = document.createElement('img');
+			image.setAttribute('src', attachmentURL);
+			image.setAttribute('width', '64px');
+			image.setAttribute('height', '64px');
+
+			$('.rpbchessboard-coloredPieceButton-' + coloredPiece, form).empty().append(image);
 			$('input[name="imageId-' + coloredPiece + '"]', form).val(attachmentId);
 			$(coloredPieceSelector(coloredPiece)).css('background-image', 'url(' + attachmentURL + ')');
 		}
