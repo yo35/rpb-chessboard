@@ -166,7 +166,7 @@ $(TEMPORARY_FOLDER)/%.merged: %.po $(I18N_POT_FILE)
 
 
 # JavaScript validation
-jshint: init
+jshint: $(NODE_MODULES)
 	@$(ECHO) "$(COLOR_IN)Checking the JavaScript files...$(COLOR_OUT)"
 	@$(JSHINT) $(JS_FILES) $(JS_DEBUG_FILES)
 
@@ -176,7 +176,7 @@ jsmin: $(JS_MINIFIED_FILES) $(NPM_DEPS_MIN_FILE)
 
 
 # Single JS file minification
-%.min.js: %.js init
+%.min.js: %.js $(NODE_MODULES)
 	@$(ECHO) "$(COLOR_IN)Minifying JS file [ $(COLOR_ARG_IN)$<$(COLOR_ARG_OUT) ]...$(COLOR_OUT)"
 	@$(UGLIFYJS) -o $@ $<
 
