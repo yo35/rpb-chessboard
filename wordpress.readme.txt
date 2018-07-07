@@ -80,6 +80,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 5.3.1 (July 7, 2018) =
+* Fix security issue (see #132).
+
 = 5.3 (May 26, 2018) =
 * Fix diagram issues (see #130 and #131): `[pgndiagram]` is no-longer available. From now on, the standard `[#]` should be used instead.
 * Fix security issue (see #122): refactor DOM building process and set-up proper HTML sanitization where needed.
