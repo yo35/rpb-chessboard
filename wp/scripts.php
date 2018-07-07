@@ -86,10 +86,12 @@ abstract class RPBChessboardScripts {
 			wp_enqueue_media();
 
 			// QuickTags editor
-			wp_enqueue_script( 'rpbchessboard-quicktags', RPBCHESSBOARD_URL . 'js/quicktags' . $ext, array(
-				'rpbchessboard-backend',
-				'quicktags',
-			), RPBCHESSBOARD_VERSION, true );
+			wp_enqueue_script(
+				'rpbchessboard-quicktags', RPBCHESSBOARD_URL . 'js/quicktags' . $ext, array(
+					'rpbchessboard-backend',
+					'quicktags',
+				), RPBCHESSBOARD_VERSION, true
+			);
 		}
 
 		// Inlined scripts
