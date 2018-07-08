@@ -26,7 +26,7 @@ require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php';
 /**
  * Model to generate the small-screen-specific CSS configuration.
  */
-class RPBChessboardModelMiscSmallScreens extends RPBChessboardAbstractModel {
+class RPBChessboardModelCSSSmallScreens extends RPBChessboardAbstractModel {
 
 	public function __construct() {
 		parent::__construct();

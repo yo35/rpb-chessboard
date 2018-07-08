@@ -26,7 +26,7 @@ require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php';
 /**
  * Model to generate the theming CSS.
  */
-class RPBChessboardModelMiscTheming extends RPBChessboardAbstractModel {
+class RPBChessboardModelCSSTheming extends RPBChessboardAbstractModel {
 
 	public function __construct() {
 		parent::__construct();
