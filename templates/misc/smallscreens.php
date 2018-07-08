@@ -27,31 +27,32 @@ if ( ! $model->getSmallScreenCompatibility() ) {
 ?>
 
 <?php foreach ( $model->getSmallScreenModes() as $mode ) : ?>
-<?php echo $model->getSanitizedMainSelector( $mode ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> {
+<?php echo esc_html( $model->getSanitizedMainSelector( $mode ) ); ?> {
 
 	<?php if ( $model->hasSquareSizeSection( $mode ) ) : ?>
 
-	<?php echo $model->getSanitizedSquareSizeSelector( $mode ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> {
-		min-width: <?php echo intval( $mode->squareSize ); ?>px;
-		width    : <?php echo intval( $mode->squareSize ); ?>px;
-		height   : <?php echo intval( $mode->squareSize ); ?>px;
-		background-size: <?php echo intval( $mode->squareSize ); ?>px <?php echo intval( $mode->squareSize ); ?>px;
-		-webkit-background-size: <?php echo intval( $mode->squareSize ); ?>px <?php echo intval( $mode->squareSize ); ?>px;
+	<?php echo esc_html( $model->getSanitizedSquareSizeSelector( $mode ) ); ?> {
+		min-width: <?php echo esc_html( $mode->squareSize ); ?>px;
+		width    : <?php echo esc_html( $mode->squareSize ); ?>px;
+		height   : <?php echo esc_html( $mode->squareSize ); ?>px;
+		background-size: <?php echo esc_html( $mode->squareSize ); ?>px <?php echo esc_html( $mode->squareSize ); ?>px;
+		-webkit-background-size: <?php echo esc_html( $mode->squareSize ); ?>px <?php echo esc_html( $mode->squareSize ); ?>px;
 	}
 
-	<?php echo $model->getSanitizedAnnotationLayerSelector( $mode ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> {
-		width : <?php echo intval( $model->getHeightWidthForAnnotationLayer( $mode->squareSize ) ); ?>px;
-		height: <?php echo intval( $model->getHeightWidthForAnnotationLayer( $mode->squareSize ) ); ?>px;
-		right : <?php echo intval( $model->getRightForAnnotationLayer( $mode->squareSize ) ); ?>px;
+	<?php echo esc_html( $model->getSanitizedAnnotationLayerSelector( $mode ) ); ?> {
+		width : <?php echo esc_html( $model->getHeightWidthForAnnotationLayer( $mode->squareSize ) ); ?>px;
+		height: <?php echo esc_html( $model->getHeightWidthForAnnotationLayer( $mode->squareSize ) ); ?>px;
+		right : <?php echo esc_html( $model->getRightForAnnotationLayer( $mode->squareSize ) ); ?>px;
 	}
 
 	<?php endif; ?>
 
 	<?php if ( $mode->hideCoordinates ) : ?>
-	.rpbui-chessboard-cell.rpbui-chessboard-rowCoordinate,
-	.rpbui-chessboard-row.rpbui-chessboard-columnCoordinateRow {
+
+	.rpbui-chessboard-cell.rpbui-chessboard-rowCoordinate, .rpbui-chessboard-row.rpbui-chessboard-columnCoordinateRow {
 		display: none;
 	}
+
 	<?php endif; ?>
 
 }
