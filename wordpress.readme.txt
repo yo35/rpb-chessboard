@@ -80,6 +80,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 5.3.3 (July 9, 2018) =
+* Fix invalid move notation issue (see #134).
+
 = 5.3.2 (July 8, 2018) =
 * Fix security issue (see #133).
 
