@@ -24,6 +24,7 @@ Features
 * Customizable aspect for the chessboards (orientation, size, etc...).
 * Support comments and sub-variations in PGN-encoded games.
 * Support HTML formatting in PGN comments.
+* Support [Chess 960](https://en.wikipedia.org/wiki/Chess960) (also known as Fischer Random Chess).
 * Colored square and arrow markers.
 * Compatibility mode to avoid conflicts with the other plugins that use
   the `[fen][/fen]` and `[pgn][/pgn]` shortcodes too.

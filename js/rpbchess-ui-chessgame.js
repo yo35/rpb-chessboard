@@ -1389,11 +1389,11 @@
 
 		// Update the position.
 		if(playTheMove) {
-			navigationBoard.chessboard('option', 'position', move.data('positionBefore'));
+			navigationBoard.chessboard('option', 'position', widget._game.variant() + ':' + move.data('positionBefore'));
 			navigationBoard.chessboard('play', move.data('moveNotation'));
 		}
 		else {
-			navigationBoard.chessboard('option', 'position', move.data('position'));
+			navigationBoard.chessboard('option', 'position', widget._game.variant() + ':' + move.data('position'));
 		}
 
 		// Update the square/arrow markers
