@@ -779,8 +779,23 @@
 						if(!moveDescriptor) {
 							return;
 						}
-						else if(moveDescriptor.needPromotion) {
-							moveDescriptor = moveDescriptor('q'); // TODO handle non-queen promotions in drag & drop.
+						else {
+							switch(moveDescriptor.status) {
+								case 'regular':
+									moveDescriptor = moveDescriptor();
+									break;
+
+								case 'promotion':
+									moveDescriptor = moveDescriptor('q'); // TODO handle non-queen promotions in drag & drop.
+									break;
+
+								case 'castle960':
+									moveDescriptor = moveDescriptor('castle'); // TODO handle ambiguous chess960 moves in drag & drop.
+									break;
+
+								default:
+									return;
+							}
 						}
 						doPlay(widget, moveDescriptor, false, widget.options.showMoveArrow);
 					}
