@@ -32,11 +32,13 @@ abstract class RPBChessboardScripts {
 		$ext = self::getJSFileExtension();
 
 		// Moment.js (http://momentjs.com/)
-		wp_register_script( 'rpbchessboard-momentjs', RPBCHESSBOARD_URL . 'third-party-libs/moment-js/moment' . $ext, false, '2.13.0' );
-		$momentjs = self::localizeJavaScriptLib( 'rpbchessboard-momentjs', 'third-party-libs/moment-js/locales/%1$s.js', '2.13.0' );
+		wp_register_script( 'rpbchessboard-momentjs', RPBCHESSBOARD_URL . 'third-party-libs/moment-js/moment' . $ext, false, '2.13.0', false );
+		$momentjs = self::localizeJavaScriptLib( 'rpbchessboard-momentjs', 'third-party-libs/moment-js/locales/%1$s.js', '2.13.0', false );
 
 		# Dependencies resolved using NPM
-		wp_register_script( 'rpbchessboard-externals', RPBCHESSBOARD_URL . 'third-party-libs/npm-dependencies' . $ext, false, RPBCHESSBOARD_VERSION );
+		wp_register_script(
+			'rpbchessboard-externals', RPBCHESSBOARD_URL . 'third-party-libs/npm-dependencies' . $ext, false, RPBCHESSBOARD_VERSION, false
+		);
 
 		// Chessboard widget
 		wp_register_script(
@@ -44,7 +46,7 @@ abstract class RPBChessboardScripts {
 				'rpbchessboard-externals',
 				'jquery-ui-widget',
 				'jquery-ui-selectable',
-			), RPBCHESSBOARD_VERSION
+			), RPBCHESSBOARD_VERSION, false
 		);
 
 		// Chessgame widget
@@ -59,7 +61,7 @@ abstract class RPBChessboardScripts {
 				'jquery-color',
 				'jquery-ui-dialog',
 				'jquery-ui-resizable',
-			), RPBCHESSBOARD_VERSION
+			), RPBCHESSBOARD_VERSION, false
 		);
 
 		// Plugin specific
@@ -70,7 +72,7 @@ abstract class RPBChessboardScripts {
 				'jquery-ui-accordion',
 				'jquery-ui-draggable',
 				'jquery-ui-droppable',
-			), RPBCHESSBOARD_VERSION
+			), RPBCHESSBOARD_VERSION, false
 		);
 
 		// Enqueue the scripts.
@@ -148,7 +150,7 @@ abstract class RPBChessboardScripts {
 
 			// If it exists, register it, and return a handle pointing to the localization file.
 			$localizedHandle = $handle . '-localized';
-			wp_register_script( $localizedHandle, RPBCHESSBOARD_URL . $relativeFilePath, array( $handle ), $version );
+			wp_register_script( $localizedHandle, RPBCHESSBOARD_URL . $relativeFilePath, array( $handle ), $version, false );
 			return $localizedHandle;
 		}
 
