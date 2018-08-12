@@ -627,12 +627,13 @@
 
 			// Retrieve the position
 			var commentNode = anchor.closest('.rpbui-chessgame-comment');
+			var variant = widget._game.variant();
 			var position = commentNode.data('position');
 			var csl = commentNode.data('csl');
 			var cal = commentNode.data('cal');
 
 			// Build the option set to pass to the chessboard widget constructor.
-			var options = { position: position };
+			var options = { position: variant + ':' + position };
 			if(typeof csl !== 'undefined') { options.squareMarkers = csl; }
 			if(typeof cal !== 'undefined') { options.arrowMarkers = cal; }
 			$.extend(options, widget.options.diagramOptions);
