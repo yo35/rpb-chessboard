@@ -1008,8 +1008,8 @@
 		if(animate) {
 			var p1 = kokopu.squareToCoordinates(from);
 			var p2 = kokopu.squareToCoordinates(to  );
-			var deltaTop  = (p1.rank - p2.rank) * widget.options.squareSize * (widget.options.flip ? 1 : -1);
-			var deltaLeft = (p2.file - p1.file) * widget.options.squareSize * (widget.options.flip ? 1 : -1);
+			var deltaTop  = (p1.rank - p2.rank) * movingPiece.height() * (widget.options.flip ? 1 : -1);
+			var deltaLeft = (p2.file - p1.file) * movingPiece.width() * (widget.options.flip ? 1 : -1);
 			movingPiece.css('top', deltaTop + 'px');
 			movingPiece.css('left', deltaLeft + 'px');
 			movingPiece.animate({ top: '0px', left: '0px' }, widget.options.animationSpeed);
