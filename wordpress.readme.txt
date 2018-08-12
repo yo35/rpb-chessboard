@@ -81,6 +81,11 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 5.4.1 (August 12, 2018) =
+* Fix animation issue occurring on small-screen devices (see #136).
+* Fix page/post rendering for Gutenberg (see #137).
+* Fix diagrams not working in Chess 960 games (see #138).
+
 = 5.4 (July 22, 2018) =
 * Add support for [Chess 960](https://en.wikipedia.org/wiki/Chess960), aka. Fischer Random Chess (see #15).
 
