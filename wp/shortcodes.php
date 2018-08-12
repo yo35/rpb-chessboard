@@ -47,13 +47,9 @@ abstract class RPBChessboardShortcodes {
 
 		// A high-priority filter is required to prevent the WP engine to perform some nasty operations
 		// (e.g. wptexturize, wpautop, etc...) on the text enclosed by the shortcodes.
-		//
-		// The priority level 8 what is used by the WP engine to process the special [embed] shortcode.
-		// As the same type of low-level operation is performed here, using this priority level seems to be a good choice.
-		// However, having "official" guidelines or core methods to achieve this would be desirable.
-		//
-		add_filter( 'the_content', array( __CLASS__, 'preprocessLowLevelShortcodes' ), 8 );
-		add_filter( 'comment_text', array( __CLASS__, 'preprocessLowLevelShortcodes' ), 8 );
+		// Use of priority level 7 to be run before 'gutenberg_wpautop'.
+		add_filter( 'the_content', array( __CLASS__, 'preprocessLowLevelShortcodes' ), 7 );
+		add_filter( 'comment_text', array( __CLASS__, 'preprocessLowLevelShortcodes' ), 7 );
 	}
 
 
