@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-13 11:21+0200\n"
+"POT-Creation-Date: 2018-08-12 12:46+0200\n"
 "PO-Revision-Date: 2014-07-15 13:03+0100\n"
 "Last-Translator: Dawid Ziółkowski <kontakt -at- dawidziolkowski.pl>\n"
 "Language-Team: Dawid Ziółkowski <mr -at- dawidziolkowski.com>\n"
@@ -1119,6 +1119,19 @@ msgstr ""
 "sekwencji posunięć lub jako oddzielne bloki, jeśli poprzedza je pusta linia "
 "odstępu w łancuch znaków PGN. Warianty mogą być zagnieżdzane. Jednakże, "
 "warianty w jednej linii nie mogą zawierać wariantów \"w wersji bloków\"."
+
+#: templates/adminpage/help/pgnsyntax/chess960.php
+#: templates/adminpage/help/pgnsyntax/main.php
+msgid "Chess 960 (aka. Fischer Random Chess)"
+msgstr ""
+
+#: templates/adminpage/help/pgnsyntax/chess960.php
+#, php-format
+msgid ""
+"The %1$s header indicates that the game is a Chess 960 game (%2$s is also "
+"supported), and the %3$s header defines the starting position. Please note "
+"that the %3$s header is mandatory for Chess 960 games."
+msgstr ""
 
 #: templates/adminpage/help/pgnsyntax/nullmove.php
 #: templates/adminpage/help/pgnsyntax/main.php

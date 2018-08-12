@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-13 11:21+0200\n"
+"POT-Creation-Date: 2018-08-12 12:46+0200\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35 -at- melix.net>\n"
 "Language-Team: French\n"
@@ -1214,6 +1214,23 @@ msgstr ""
 "variantes peuvent être imbriquées les unes dans les autres. Cependant une "
 "variante \"en ligne\" ne peut pas contenir une \"variante-bloc\" (ou un "
 "\"commentaire-bloc\")."
+
+#: templates/adminpage/help/pgnsyntax/chess960.php
+#: templates/adminpage/help/pgnsyntax/main.php
+msgid "Chess 960 (aka. Fischer Random Chess)"
+msgstr "Chess 960 (aussi appelé Fischer Random Chess)"
+
+#: templates/adminpage/help/pgnsyntax/chess960.php
+#, php-format
+msgid ""
+"The %1$s header indicates that the game is a Chess 960 game (%2$s is also "
+"supported), and the %3$s header defines the starting position. Please note "
+"that the %3$s header is mandatory for Chess 960 games."
+msgstr ""
+"L'en-tête %1$s indique que la partie est une partie de Chess 960 (la syntaxe "
+"%2$s est également acceptée), et l'en-tête %3$s définit la position de "
+"départ. Veuillez noter que l'en-tête %3$s est obligatoire dans le cas des "
+"parties de Chess 960."
 
 #: templates/adminpage/help/pgnsyntax/nullmove.php
 #: templates/adminpage/help/pgnsyntax/main.php
