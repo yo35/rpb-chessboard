@@ -519,11 +519,23 @@
 	// ---------------------------------------------------------------------------
 
 	/**
+	 * Interrupt the internal timer in charge of setting the size of the scroll area, if any.
+	 */
+	function stopScrollAreaSizeTimer(widget) {
+		if(widget._scrollAreaSizeTimerId === null) { return; }
+
+		clearInterval(widget._scrollAreaSizeTimerId);
+		widget._scrollAreaSizeTimerId = null;
+	}
+
+
+	/**
 	 * Destroy the widget content, prior to a refresh or a widget destruction.
 	 *
 	 * @param {rpbchess-ui.chessgame} widget
 	 */
 	function destroyContent(widget) {
+		stopScrollAreaSizeTimer(widget);
 		var navigationFrameTarget = $('#rpbui-chessgame-navigationFrameTarget', widget.element);
 		if(navigationFrameTarget.length !== 0) {
 			$('#rpbui-chessgame-navigationFrame').dialog('close');
@@ -610,7 +622,21 @@
 				makeNavigationBoxWidgets(widget);
 			}
 			if(widget.options.navigationBoard === 'scrollLeft' || widget.options.navigationBoard === 'scrollRight') {
-				$('.rpbui-chessgame-scrollArea', widget.element).css('height', $('.rpbui-chessgame-navigationBox', widget.element).height());
+				var currentHeight = $('.rpbui-chessgame-navigationBox', widget.element).height();
+				if(currentHeight > 0) {
+					$('.rpbui-chessgame-scrollArea', widget.element).css('height', currentHeight);
+				}
+				else {
+					// FIXME This is an ugly way to solve the problem of `.height()` returning 0 if the widget is hidden (see #141).
+					// Any solution that would allow to get rid of the timer is welcome.
+					widget._scrollAreaSizeTimerId = setInterval(function() {
+						var currentHeightTmp = $('.rpbui-chessgame-navigationBox', widget.element).height();
+						if(currentHeightTmp > 0) {
+							$('.rpbui-chessgame-scrollArea', widget.element).css('height', currentHeightTmp);
+							stopScrollAreaSizeTimer(widget);
+						}
+					}, 100);
+				}
 			}
 		}
 	}
@@ -1557,6 +1583,13 @@
 		 * @type {{K:string, Q:string, R:string, B:string, N:string, P:string}}
 		 */
 		_pieceSymbolTable: null,
+
+
+		/**
+		 * ID of the timer setting the height of the scroll area, if any.
+		 * @type {number}
+		 */
+		_scrollAreaSizeTimerId: null,
 
 
 		/**
