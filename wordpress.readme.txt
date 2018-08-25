@@ -81,6 +81,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 5.4.2 (August 25, 2018) =
+* Fix scroll area sizing in hidden chessgames (see #141).
+
 = 5.4.1 (August 12, 2018) =
 * Fix animation issue occurring on small-screen devices (see #136).
 * Fix page/post rendering for Gutenberg (see #137).
