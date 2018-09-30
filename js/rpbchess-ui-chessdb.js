@@ -41,7 +41,19 @@
 		 * CSS class for the select menu widget.
 		 * @type {string}
 		 */
-		selectMenuClass: ''
+		selectMenuClass: '',
+		
+		/**
+		 * Localization constants.
+		 */
+		i18n:
+		{
+			/**
+			 * Annotator field template.
+			 * @type {string}
+			 */
+			PGN_EMPTY_ERROR_MESSAGE: 'Empty PGN file'
+		}
 
 	}; /* $.chessdb = { ... } */
 
@@ -100,13 +112,18 @@
 
 		widget.options.pgn = '';
 		widget._database = null;
+		widget._databaseIsError = false;
 
 		$.get(url).done(function(data) {
 			widget.options.pgn = initializePGN(widget, data);
 			refresh(widget);
+			notifySelectedGameChanged(widget);
 		}).fail(function() {
 			widget._database = { title: $.chessgame.i18n.PGN_DOWNLOAD_ERROR_MESSAGE, message: url };
+			widget._databaseIsError = true;
+			widget._selectedGame = undefined;
 			refresh(widget);
+			notifySelectedGameChanged(widget);
 		});
 
 		return url;
@@ -121,6 +138,9 @@
 	 * @returns {string}
 	 */
 	function initializePGN(widget, pgn) {
+		widget._database = null;
+		widget._databaseIsError = false;
+		widget._selectedGame = undefined;
 
 		// Ensure that the input is actually a string.
 		if(typeof pgn !== 'string') {
@@ -133,7 +153,13 @@
 		// Parse the input assuming a PGN format.
 		try {
 			widget._database = kokopu.pgnRead(pgn);
-			widget._databaseIsError = false;
+			if(widget._database.gameCount() === 0) {
+				widget._database = { title: $.chessdb.i18n.PGN_EMPTY_ERROR_MESSAGE, message: null };
+				widget._databaseIsError = true;
+			}
+			else {
+				widget._selectedGame = widget._database.game(0);
+			}
 		}
 		catch(error) {
 			if(error instanceof kokopu.exception.InvalidPGN) { // Parsing errors are reported to the user.
@@ -141,8 +167,6 @@
 				widget._databaseIsError = true;
 			}
 			else { // Unknown exceptions are re-thrown.
-				widget._database = null;
-				widget._databaseIsError = false;
 				throw error;
 			}
 		}
@@ -221,8 +245,10 @@
 
 		// Render the content.
 		widget.element.append(buildSelector(widget));
-		
-		$('.rpbui-chessdb-selectMenu', widget.element).selectmenu({ appendTo: $('.rpbui-chessdb-selectMenuContainer', widget.element) });
+		$('.rpbui-chessdb-selectMenu', widget.element).selectmenu({
+			appendTo: $('.rpbui-chessdb-selectMenuContainer', widget.element),
+			change: function(event, ui) { onSelectMenuChanged(widget, ui.item.index); }
+		});
 	}
 	
 	
@@ -253,10 +279,10 @@
 	 * Build the DOM node corresponding to a game item in the selector.
 	 * 
 	 * @param {rpbchess-ui.chessdb} widget
-	 * @param {number} itemIndex
+	 * @param {number} gameIndex
 	 */
-	function buildSelectorItem(widget, itemIndex) {
-		var game = widget._database.game(itemIndex);
+	function buildSelectorItem(widget, gameIndex) {
+		var game = widget._database.game(gameIndex);
 		return buildTextElement('option', '', game.playerName('w') + ' - ' + game.playerName('b'));
 	}
 
@@ -291,8 +317,32 @@
 		return result;
 	}
 
-
-
+	
+	
+	// ---------------------------------------------------------------------------
+	// Events.
+	// ---------------------------------------------------------------------------
+	
+	function onSelectMenuChanged(widget, gameIndex) {
+		if(widget._database === null || widget._databaseIsError) { return; }
+		
+		console.log(gameIndex);
+		widget._selectedGame = widget._database.game(gameIndex);
+		notifySelectedGameChanged(widget);
+	}
+	
+	
+	/**
+	 * Build the DOM node corresponding the selector.
+	 * 
+	 * @param {rpbchess-ui.chessdb} widget
+	 */
+	function notifySelectedGameChanged(widget) {
+		widget._trigger('selectedGameChanged', null, widget._selectedGame );
+	}
+	
+	
+	
 	// ---------------------------------------------------------------------------
 	// Widget registration in the jQuery widget framework.
 	// ---------------------------------------------------------------------------
@@ -328,8 +378,16 @@
 		
 		/**
 		 * Whether an error has occurred while loading the database.
+		 * @type {boolean}
 		 */
 		_databaseIsError: false,
+		
+		
+		/**
+		 * The game that is currently selected.
+		 * @type {kokopu.Game}
+		 */
+		_selectedGame: undefined,
 
 
 		/**
@@ -372,6 +430,16 @@
 
 			this.options[key] = value;
 			refresh(this);
+		},
+		
+		
+		/**
+		 * Return the currently selected game, if any.
+		 * 
+		 * @return {kokopu.Game?}
+		 */
+		selectedGame: function() {
+			return this._selectedGame;
 		}
 
 
