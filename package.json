@@ -1,12 +1,12 @@
 {
 	"private": true,
 	"dependencies": {
-		"kokopu": "~1.1.0",
-		"sanitize-html": "~1.18.4"
+		"kokopu": "~1.2.0",
+		"sanitize-html": "~1.19.1"
 	},
 	"devDependencies": {
 		"jshint": "~2.9.6",
-		"browserify": "~16.2.2",
-		"uglify-js": "~3.4.8"
+		"browserify": "~16.2.3",
+		"uglify-js": "~3.4.9"
 	}
 }
