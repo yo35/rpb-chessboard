@@ -64,6 +64,15 @@ abstract class RPBChessboardScripts {
 			), RPBCHESSBOARD_VERSION, false
 		);
 
+		// Chessdb widget
+		wp_register_script(
+			'rpbchessboard-chessdb', RPBCHESSBOARD_URL . 'js/rpbchess-ui-chessdb' . $ext, array(
+				'rpbchessboard-externals',
+				'jquery-ui-widget',
+				'jquery-ui-selectmenu',
+			), RPBCHESSBOARD_VERSION, false
+		);
+
 		// Plugin specific
 		wp_register_script(
 			'rpbchessboard-backend', RPBCHESSBOARD_URL . 'js/backend' . $ext, array(
@@ -78,6 +87,7 @@ abstract class RPBChessboardScripts {
 		// Enqueue the scripts.
 		wp_enqueue_script( 'rpbchessboard-chessboard' );
 		wp_enqueue_script( 'rpbchessboard-chessgame' );
+		wp_enqueue_script( 'rpbchessboard-chessdb' );
 
 		// Additional scripts for the backend.
 		if ( is_admin() ) {

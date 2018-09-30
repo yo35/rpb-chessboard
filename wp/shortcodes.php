@@ -40,6 +40,7 @@ abstract class RPBChessboardShortcodes {
 		// Register the shortcodes
 		add_shortcode( $fenShortcode, array( __CLASS__, 'callbackShortcodeFEN' ) );
 		add_shortcode( $pgnShortcode, array( __CLASS__, 'callbackShortcodePGN' ) );
+		add_shortcode( 'pgndb', array( __CLASS__, 'callbackShortcodePGNDB' ) );
 		add_shortcode( 'pgndiagram', array( __CLASS__, 'callbackShortcodePGNDiagram' ) );
 
 		// Register the no-texturize shortcodes
@@ -60,6 +61,11 @@ abstract class RPBChessboardShortcodes {
 
 	public static function callbackShortcodePGN( $atts, $content ) {
 		return self::runShortcode( 'PGN', true, $atts, $content );
+	}
+
+
+	public static function callbackShortcodePGNDB( $atts, $content ) {
+		return self::runShortcode( 'PGNDB', true, $atts, $content );
 	}
 
 
