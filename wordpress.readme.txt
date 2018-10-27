@@ -81,6 +81,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 5.4.3 (October 27, 2018) =
+* Fix (again) page/post rendering for Gutenberg (see #137).
+
 = 5.4.2 (August 25, 2018) =
 * Fix scroll area sizing in hidden chessgames (see #141).
 
