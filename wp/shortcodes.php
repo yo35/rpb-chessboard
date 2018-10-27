@@ -47,9 +47,9 @@ abstract class RPBChessboardShortcodes {
 
 		// A high-priority filter is required to prevent the WP engine to perform some nasty operations
 		// (e.g. wptexturize, wpautop, etc...) on the text enclosed by the shortcodes.
-		// Use of priority level 7 to be run before 'gutenberg_wpautop'.
-		add_filter( 'the_content', array( __CLASS__, 'preprocessLowLevelShortcodes' ), 7 );
-		add_filter( 'comment_text', array( __CLASS__, 'preprocessLowLevelShortcodes' ), 7 );
+		// Use of priority level 5 to be run before 'gutenberg_wpautop'.
+		add_filter( 'the_content', array( __CLASS__, 'preprocessLowLevelShortcodes' ), 5 );
+		add_filter( 'comment_text', array( __CLASS__, 'preprocessLowLevelShortcodes' ), 5 );
 	}
 
 
