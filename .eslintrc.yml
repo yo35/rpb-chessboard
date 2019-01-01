@@ -6,7 +6,7 @@ parserOptions:
 rules:
 
   # Style
-  #indent: [ error, tab, { SwitchCase: 1 }]
+  indent: [ error, tab, { SwitchCase: 1 }]
 
   # Relaxed style rules (to be removed to comply to WP coding style)
   space-in-parens: [ off ]

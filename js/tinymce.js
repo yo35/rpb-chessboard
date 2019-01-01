@@ -85,7 +85,7 @@
 			title: RPBChessboard.i18n.EDIT_CHESS_DIAGRAM_DIALOG_TITLE,
 			image: url + '/../images/tinymce.png',
 			onclick: function() { editFENButtonCallback(editor); }
-    });
+		});
 	});
 
 }(/* global RPBChessboard */ RPBChessboard));
