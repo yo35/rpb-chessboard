@@ -1,7 +1,7 @@
 /******************************************************************************
  *                                                                            *
  *    This file is part of RPB Chessboard, a WordPress plugin.                *
- *    Copyright (C) 2013-2018  Yoann Le Montagner <yo35 -at- melix.net>       *
+ *    Copyright (C) 2013-2019  Yoann Le Montagner <yo35 -at- melix.net>       *
  *                                                                            *
  *    This program is free software: you can redistribute it and/or modify    *
  *    it under the terms of the GNU General Public License as published by    *
@@ -43,8 +43,8 @@
 	/**
 	 * Public static properties.
 	 */
-	$.chessgame =
-	{
+	$.chessgame = {
+
 		/**
 		 * Default options for the chessboard in the navigation frame.
 		 * @type {object}
@@ -76,8 +76,8 @@
 		/**
 		 * Localization constants.
 		 */
-		i18n:
-		{
+		i18n: {
+
 			/**
 			 * Annotator field template.
 			 * @type {string}
@@ -190,6 +190,7 @@
 	 * @constant
 	 */
 	var SPECIAL_NAGS_LOOKUP = {
+		/* eslint-disable no-mixed-spaces-and-tabs */
 		 3: '!!',      // very good move
 		 1: '!',       // good move
 		 5: '!?',      // interesting move
@@ -205,6 +206,7 @@
 		15: '\u2a71',  // Black has a slight advantage
 		17: '\u2213',  // Black has a moderate advantage
 		19: '\u2212+'  // Black has a decisive advantage
+		/* eslint-enable no-mixed-spaces-and-tabs */
 	};
 
 
@@ -265,8 +267,8 @@
 	 * @param {number} forwardCharacters Number of characters to keep after `pos`.
 	 * @returns {string}
 	 */
-	function ellipsisAt(text, pos, backwardCharacters, forwardCharacters)
-	{
+	function ellipsisAt(text, pos, backwardCharacters, forwardCharacters) {
+
 		// p1 => begin of the extracted sub-string
 		var p1 = pos - backwardCharacters;
 		var e1 = '...';
@@ -466,7 +468,7 @@
 	 */
 	function initializePieceSymbols(widget, pieceSymbols) {
 
-		var FIELDS = ['K', 'Q', 'R', 'B', 'N', 'P'];
+		var FIELDS = [ 'K', 'Q', 'R', 'B', 'N', 'P' ];
 
 		// Descriptors: 6 custom letters.
 		if(/^\([a-zA-Z]{6}\)$/.test(pieceSymbols)) {
@@ -678,7 +680,7 @@
 	 */
 	function makeMovesClickable(widget) {
 		$('.rpbui-chessgame-move', widget.element).click(function() {
-			updateNavigationBoard(widget, $(this), true);
+			updateNavigationBoard(widget, $(this), true); // eslint-disable-line no-invalid-this
 			widget.focus();
 		});
 	}
@@ -702,8 +704,8 @@
 
 			// Link each move to its successor and its predecessor.
 			var previousMove = null;
-			moves.each(function(index, element) {
-				var move = $(element);
+			moves.each(function(index2, element2) {
+				var move = $(element2);
 				if(previousMove !== null) {
 					move.data('prevMove', previousMove);
 					previousMove.data('nextMove', move);
@@ -818,8 +820,8 @@
 	function buildPlayerNameHeader(widget, color) {
 
 		// Retrieve the name of the player -> no header is returned if the name not available.
-		var name = widget._game.playerName(color);
-		if(name === undefined) {
+		var playerName = widget._game.playerName(color);
+		if(playerName === undefined) {
 			return false;
 		}
 
@@ -827,7 +829,7 @@
 
 		// Color tag & player name
 		header.appendChild(buildElement('span', 'rpbui-chessgame-colorTag'));
-		header.appendChild(buildRichTextElement('span', 'rpbui-chessgame-playerName', name));
+		header.appendChild(buildRichTextElement('span', 'rpbui-chessgame-playerName', playerName));
 
 		// Title + rating
 		var title  = widget._game.playerTitle(color);
@@ -1225,11 +1227,13 @@
 
 		// Create the dialog widget.
 		$('#rpbui-chessgame-navigationFrame').dialog({
+
 			/* Hack to keep the dialog draggable after the page has being scrolled. */
 			create     : function(event) { $(event.target).parent().css('position', 'fixed'); },
 			resizeStart: function(event) { $(event.target).parent().css('position', 'fixed'); },
 			resizeStop : function(event) { $(event.target).parent().css('position', 'fixed'); },
 			/* End of hack */
+
 			autoOpen   : false,
 			dialogClass: $.chessgame.navigationFrameClass,
 			width      : 'auto',
@@ -1503,13 +1507,13 @@
 	/**
 	 * Register a 'chessgame' widget in the jQuery widget framework.
 	 */
-	$.widget('rpbchess-ui.chessgame',
-	{
+	$.widget('rpbchess-ui.chessgame', {
+
 		/**
 		 * Default options.
 		 */
-		options:
-		{
+		options: {
+
 			/**
 			 * String describing the game (PGN format).
 			 */
@@ -1719,7 +1723,7 @@
 				window.location.href = this.options.url;
 			}
 			else {
-				var data = new Blob([this.options.pgn], { type: 'text/plain' });
+				var data = new Blob([ this.options.pgn ], { type: 'text/plain' });
 
 				if(dynamicURL !== null) {
 					window.URL.revokeObjectURL(dynamicURL);
@@ -1741,4 +1745,4 @@
 
 	}); /* $.widget('rpbchess-ui.chessgame', { ... }) */
 
-})(/* global kokopu */ kokopu, /* global jQuery */ jQuery, /* global moment */ moment, /* global sanitizeHtml */ sanitizeHtml);
+}(/* global kokopu */ kokopu, /* global jQuery */ jQuery, /* global moment */ moment, /* global sanitizeHtml */ sanitizeHtml));

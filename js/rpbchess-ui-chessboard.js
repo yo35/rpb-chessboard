@@ -1,7 +1,7 @@
 /******************************************************************************
  *                                                                            *
  *    This file is part of RPB Chessboard, a WordPress plugin.                *
- *    Copyright (C) 2013-2018  Yoann Le Montagner <yo35 -at- melix.net>       *
+ *    Copyright (C) 2013-2019  Yoann Le Montagner <yo35 -at- melix.net>       *
  *                                                                            *
  *    This program is free software: you can redistribute it and/or modify    *
  *    it under the terms of the GNU General Public License as published by    *
@@ -817,7 +817,7 @@
 	 */
 	function enableAddPieceBehavior(widget, coloredPiece) {
 		$('.rpbui-chessboard-square', widget.element).mousedown(function() {
-			doAddPiece(widget, coloredPiece, $(this).data('square'), $(this));
+			doAddPiece(widget, coloredPiece, $(this).data('square'), $(this)); // eslint-disable-line no-invalid-this
 		});
 	}
 
@@ -830,7 +830,7 @@
 	 */
 	function enableAddSquareMarkerBehavior(widget, markerColor) {
 		$('.rpbui-chessboard-square', widget.element).mousedown(function() {
-			doAddSquareMarker(widget, markerColor, $(this).data('square'), $(this));
+			doAddSquareMarker(widget, markerColor, $(this).data('square'), $(this)); // eslint-disable-line no-invalid-this
 		});
 	}
 
@@ -1174,13 +1174,13 @@
 	/**
 	 * Widget registration.
 	 */
-	$.widget('rpbchess-ui.chessboard',
-	{
+	$.widget('rpbchess-ui.chessboard', {
+
 		/**
 		 * Default options.
 		 */
-		options:
-		{
+		options: {
+
 			/**
 			 * String describing the chess position (FEN format).
 			 */
@@ -1539,4 +1539,4 @@
 
 	}); /* $.widget('rpbchess-ui.chessboard', { ... }) */
 
-})( /* global kokopu */ kokopu, /* global jQuery */ jQuery );
+}( /* global kokopu */ kokopu, /* global jQuery */ jQuery ));

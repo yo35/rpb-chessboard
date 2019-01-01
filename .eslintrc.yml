@@ -1,0 +1,57 @@
+extends: [ 'eslint:recommended', wordpress ]
+
+parserOptions:
+  ecmaVersion: 5
+
+rules:
+
+  # Style
+  indent: [ error, tab, { SwitchCase: 1 }]
+
+  # Relaxed style rules (to be removed to comply to WP coding style)
+  space-in-parens: [ off ]
+  vars-on-top: [ off ]
+  comma-spacing: [ off ]
+  keyword-spacing: [ off ]
+  key-spacing: [ off ]
+  brace-style: [ off ]
+  yoda: [ off ]
+  space-infix-ops: [ off ]
+  space-unary-ops: [ off ]
+  no-multiple-empty-lines: [ off ]
+  lines-around-comment: [ off ]
+
+  # Additional rules
+  strict:                       [ error ]
+  eqeqeq:                       [ error, always ]
+  guard-for-in:                 [ error ]
+  no-alert:                     [ error ]
+  no-eval:                      [ error ]
+  no-extend-native:             [ error ]
+  no-floating-decimal:          [ error ]
+  no-implicit-coercion:         [ error ]
+  no-implied-eval:              [ error ]
+  no-invalid-this:              [ error ]
+  no-labels:                    [ error ]
+  no-loop-func:                 [ error ]
+  no-new:                       [ error ]
+  no-new-func:                  [ error ]
+  no-new-wrappers:              [ error ]
+  no-return-assign:             [ error, always ]
+  no-script-url:                [ error ]
+  no-self-compare:              [ error ]
+  no-throw-literal:             [ error ]
+  no-unmodified-loop-condition: [ error ]
+  no-unused-expressions:        [ error ]
+  no-useless-catch:             [ error ]
+  no-useless-concat:            [ error ]
+  no-useless-return:            [ error ]
+  no-warning-comments:          [ warn, { location: anywhere, terms: [ TODO ] }]
+  no-restricted-globals:        [ error, event, name ]
+  no-shadow:                    [ error, { builtinGlobals: true, allow: [ event, kokopu, moment, sanitizeHtml, RPBChessboard ] }]
+  no-shadow-restricted-names:   [ error ]
+
+  # Relaxed rules
+  no-redeclare:          [ off ]
+  no-constant-condition: [ error, { checkLoops: false }]
+

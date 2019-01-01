@@ -1,7 +1,7 @@
 /******************************************************************************
  *                                                                            *
  *    This file is part of RPB Chessboard, a WordPress plugin.                *
- *    Copyright (C) 2013-2018  Yoann Le Montagner <yo35 -at- melix.net>       *
+ *    Copyright (C) 2013-2019  Yoann Le Montagner <yo35 -at- melix.net>       *
  *                                                                            *
  *    This program is free software: you can redistribute it and/or modify    *
  *    it under the terms of the GNU General Public License as published by    *
@@ -85,7 +85,7 @@
 			title: RPBChessboard.i18n.EDIT_CHESS_DIAGRAM_DIALOG_TITLE,
 			image: url + '/../images/tinymce.png',
 			onclick: function() { editFENButtonCallback(editor); }
-    });
+		});
 	});
 
-})(/* global RPBChessboard */ RPBChessboard);
+}(/* global RPBChessboard */ RPBChessboard));

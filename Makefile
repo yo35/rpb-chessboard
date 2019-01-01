@@ -1,7 +1,7 @@
 ################################################################################
 #                                                                              #
 #    This file is part of RPB Chessboard, a WordPress plugin.                  #
-#    Copyright (C) 2013-2018  Yoann Le Montagner <yo35 -at- melix.net>         #
+#    Copyright (C) 2013-2019  Yoann Le Montagner <yo35 -at- melix.net>         #
 #                                                                              #
 #    This program is free software: you can redistribute it and/or modify      #
 #    it under the terms of the GNU General Public License as published by      #
@@ -46,7 +46,6 @@ I18N_TEXT_DOMAIN = rpb-chessboard
 PHP_FILES         = $(SRC_MAIN_FILE) $(shell find $(SRC_FOLDERS) -name '*.php')
 JS_FILES          = $(shell find js -name '*.js' -not -name '*.min.js')
 JS_MINIFIED_FILES = $(patsubst %.js,%.min.js,$(JS_FILES))
-JS_DEBUG_FILES    = $(wildcard assets/debug-js/*.js)
 I18N_POT_FILE     = languages/$(I18N_TEXT_DOMAIN).pot
 I18N_PO_FILES     = $(wildcard languages/*.po)
 I18N_MO_FILES     = $(patsubst %.po,%.mo,$(I18N_PO_FILES))
@@ -65,7 +64,7 @@ TOUCH         = touch
 GETTEXT_PHP   = ./assets/dev-tools/gettext-php.sh
 MSGMERGE      = msgmerge -v --backup=none
 MSGFMT        = msgfmt -v
-JSHINT        = ./node_modules/.bin/jshint -c assets/dev-tools/jshintrc
+ESLINT        = ./node_modules/.bin/eslint
 BROWSERIFY    = ./node_modules/.bin/browserify
 UGLIFYJS      = ./node_modules/.bin/uglifyjs -c
 PHPCS         = phpcs --colors --standard=assets/dev-tools/phpcs.xml
@@ -88,7 +87,7 @@ help:
 	@$(ECHO) " * make $(COLOR_ITEM_IN)i18n-extract$(COLOR_ITEM_OUT): extract the strings to translate."
 	@$(ECHO) " * make $(COLOR_ITEM_IN)i18n-merge$(COLOR_ITEM_OUT): merge the translation files (*.po) with the template (.pot)."
 	@$(ECHO) " * make $(COLOR_ITEM_IN)i18n-compile$(COLOR_ITEM_OUT): compile the translation files (*.po) into binaries (*.mo)."
-	@$(ECHO) " * make $(COLOR_ITEM_IN)jshint$(COLOR_ITEM_OUT): run the static analysis of JavaScript files."
+	@$(ECHO) " * make $(COLOR_ITEM_IN)eslint$(COLOR_ITEM_OUT): run the static analysis of JavaScript files."
 	@$(ECHO) " * make $(COLOR_ITEM_IN)jsmin$(COLOR_ITEM_OUT): run the JavaScript minifier tool on JavaScript files."
 	@$(ECHO) " * make $(COLOR_ITEM_IN)phpcs$(COLOR_ITEM_OUT): run the static analysis of PHP files."
 	@$(ECHO) " * make $(COLOR_ITEM_IN)phpcbf$(COLOR_ITEM_OUT): try to fix some of the errors detected by static analysis on PHP files."
@@ -166,9 +165,9 @@ $(TEMPORARY_FOLDER)/%.merged: %.po $(I18N_POT_FILE)
 
 
 # JavaScript validation
-jshint: $(NODE_MODULES)
+eslint: $(NODE_MODULES)
 	@$(ECHO) "$(COLOR_IN)Checking the JavaScript files...$(COLOR_OUT)"
-	@$(JSHINT) $(JS_FILES) $(JS_DEBUG_FILES)
+	@$(ESLINT) $(JS_FILES)
 
 
 # JavaScript minification
@@ -208,7 +207,7 @@ phpcbf:
 
 
 # Pack the source files into a zip file, ready for WordPress deployment
-pack: init phpcs jshint i18n-compile jsmin
+pack: init phpcs eslint i18n-compile jsmin
 	@rm -rf $(SNAPSHOT_FOLDER) $(DEPLOYMENT_FILE)
 	@mkdir -p $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)
 	@cp -r $(SRC_MAIN_FILE) $(SRC_FOLDERS) $(THIRD_PARTY_FOLDER) $(INFO_FILES) $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)
@@ -236,4 +235,4 @@ clean:
 
 
 # Make's stuff
-.PHONY: help init i18n-extract i18n-merge i18n-compile jshint jsmin phpcs phpcbf pack stats clean
+.PHONY: help init i18n-extract i18n-merge i18n-compile eslint jsmin phpcs phpcbf pack stats clean
