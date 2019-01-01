@@ -81,6 +81,10 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 5.4.4 (January 1, 2019) =
+* Tested up to WordPress 5.0.
+* Code cleanup.
+
 = 5.4.3 (October 27, 2018) =
 * Fix (again) page/post rendering for Gutenberg (see #137).
 
