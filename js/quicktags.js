@@ -73,4 +73,4 @@
 		RPBChessboard.i18n.EDIT_CHESS_DIAGRAM_DIALOG_TITLE
 	);
 
-})( /* global RPBChessboard */ RPBChessboard );
+}( /* global RPBChessboard */ RPBChessboard ));

@@ -616,7 +616,7 @@ var RPBChessboard = {};
 
 		// Flip board checkbox
 		$('#rpbchessboard-editFENDialog-flip').click(function() {
-			cb.chessboard('option', 'flip', $(this).prop('checked'));
+			cb.chessboard('option', 'flip', $(this).prop('checked')); // eslint-disable-line no-invalid-this
 		});
 
 		// Undo/redo
@@ -759,7 +759,7 @@ var RPBChessboard = {};
 		var retVal = {};
 		var re = /([a-zA-Z_0-9]+)=([^ \]]+)(?: |\])/g;
 		var m = null;
-		var fun = function(m, p1) { return p1.toUpperCase(); };
+		var fun = function(m2, p1) { return p1.toUpperCase(); };
 		while((m = re.exec(openingTag)) !== null) {
 			var attribute = m[1].toLowerCase().replace(/_([a-z]?)/g, fun);
 			retVal[attribute] = m[2];
@@ -880,6 +880,6 @@ var RPBChessboard = {};
 		}
 	};
 
-})( /* global RPBChessboard */ RPBChessboard, /* global jQuery */ jQuery );
+}( /* global RPBChessboard */ RPBChessboard, /* global jQuery */ jQuery ));
 
 /* exported RPBChessboard */

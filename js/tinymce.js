@@ -88,4 +88,4 @@
     });
 	});
 
-})(/* global RPBChessboard */ RPBChessboard);
+}(/* global RPBChessboard */ RPBChessboard));

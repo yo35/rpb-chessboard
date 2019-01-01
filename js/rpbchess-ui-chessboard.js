@@ -817,7 +817,7 @@
 	 */
 	function enableAddPieceBehavior(widget, coloredPiece) {
 		$('.rpbui-chessboard-square', widget.element).mousedown(function() {
-			doAddPiece(widget, coloredPiece, $(this).data('square'), $(this));
+			doAddPiece(widget, coloredPiece, $(this).data('square'), $(this)); // eslint-disable-line no-invalid-this
 		});
 	}
 
@@ -830,7 +830,7 @@
 	 */
 	function enableAddSquareMarkerBehavior(widget, markerColor) {
 		$('.rpbui-chessboard-square', widget.element).mousedown(function() {
-			doAddSquareMarker(widget, markerColor, $(this).data('square'), $(this));
+			doAddSquareMarker(widget, markerColor, $(this).data('square'), $(this)); // eslint-disable-line no-invalid-this
 		});
 	}
 
@@ -1174,13 +1174,13 @@
 	/**
 	 * Widget registration.
 	 */
-	$.widget('rpbchess-ui.chessboard',
-	{
+	$.widget('rpbchess-ui.chessboard', {
+
 		/**
 		 * Default options.
 		 */
-		options:
-		{
+		options: {
+
 			/**
 			 * String describing the chess position (FEN format).
 			 */
@@ -1539,4 +1539,4 @@
 
 	}); /* $.widget('rpbchess-ui.chessboard', { ... }) */
 
-})( /* global kokopu */ kokopu, /* global jQuery */ jQuery );
+}( /* global kokopu */ kokopu, /* global jQuery */ jQuery ));
