@@ -5,7 +5,8 @@
 		"sanitize-html": "~1.20.0"
 	},
 	"devDependencies": {
-		"jshint": "~2.9.7",
+		"eslint": "~5.11.1",
+		"eslint-config-wordpress": "~2.0.0",
 		"browserify": "~16.2.3",
 		"uglify-js": "~3.4.9"
 	}
