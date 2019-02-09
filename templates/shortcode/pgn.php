@@ -20,7 +20,11 @@
  ******************************************************************************/
 ?>
 
-<?php wp_enqueue_script( 'rpbchessboard-chessgame' ); ?>
+<?php
+	wp_enqueue_script( 'rpbchessboard-chessgame' );
+	wp_enqueue_style( 'rpbchessboard-chessgame' );
+	wp_enqueue_style( 'rpbchessboard-frontend' );
+?>
 
 <p class="rpbchessboard-spacerBefore"></p>
 

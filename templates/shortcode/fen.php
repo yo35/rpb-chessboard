@@ -20,7 +20,11 @@
  ******************************************************************************/
 ?>
 
-<?php wp_enqueue_script( 'rpbchessboard-chessboard' ); ?>
+<?php
+	wp_enqueue_script( 'rpbchessboard-chessboard' );
+	wp_enqueue_style( 'rpbchessboard-chessboard' );
+	wp_enqueue_style( 'rpbchessboard-frontend' );
+?>
 
 <?php if ( $model->getDiagramAlignment() === 'center' ) : ?>
 <p class="rpbchessboard-spacerBefore"></p>
