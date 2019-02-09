@@ -32,8 +32,9 @@ abstract class RPBChessboardScripts {
 		$ext = self::getJSFileExtension();
 
 		// Moment.js (http://momentjs.com/)
-		self::registerLocalizedScript( 'rpbchessboard-momentjs', 'third-party-libs/moment-js/moment' . $ext, 'third-party-libs/moment-js/locales/%1$s.js',
-			false, '2.13.0', false );
+		self::registerLocalizedScript(
+			'rpbchessboard-momentjs', 'third-party-libs/moment-js/moment' . $ext, 'third-party-libs/moment-js/locales/%1$s.js', false, '2.13.0', false
+		);
 
 		// Dependencies resolved using NPM
 		wp_register_script(
@@ -97,7 +98,7 @@ abstract class RPBChessboardScripts {
 		}
 
 		// Inlined scripts
-		if( is_admin() ) {
+		if ( is_admin() ) {
 			add_action( 'admin_print_footer_scripts', array( __CLASS__, 'callbackInlinedScripts' ) );
 		}
 
@@ -147,12 +148,11 @@ abstract class RPBChessboardScripts {
 
 		$relativeLocalizationPath = self::computeLocalizationPath( $relativeLocalizationPathTemplate );
 
-		if( isset($relativeLocalizationPath) ) {
+		if ( isset( $relativeLocalizationPath ) ) {
 			$baseHandle = $handle . '-core';
 			wp_register_script( $baseHandle, RPBCHESSBOARD_URL . $relativeBasePath, $dependencies, $version, false );
 			wp_register_script( $handle, RPBCHESSBOARD_URL . $relativeLocalizationPath, array( $baseHandle ), $version, false );
-		}
-		else {
+		} else {
 			wp_register_script( $handle, RPBCHESSBOARD_URL . $relativeBasePath, $dependencies, $version, false );
 		}
 	}
