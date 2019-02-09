@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-12 12:46+0200\n"
+"POT-Creation-Date: 2019-02-09 17:18+0100\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35 -at- melix.net>\n"
 "Language-Team: French\n"
@@ -135,42 +135,36 @@ msgstr "(pas de nom)"
 #. King symbol
 #: models/common/defaultoptionsex.php
 #: templates/adminpage/options/general/piecesymbols.php
-#: templates/localization.php
 msgid "K"
 msgstr "R"
 
 #. Queen symbol
 #: models/common/defaultoptionsex.php
 #: templates/adminpage/options/general/piecesymbols.php
-#: templates/localization.php
 msgid "Q"
 msgstr "D"
 
 #. Rook symbol
 #: models/common/defaultoptionsex.php
 #: templates/adminpage/options/general/piecesymbols.php
-#: templates/localization.php
 msgid "R"
 msgstr "T"
 
 #. Bishop symbol
 #: models/common/defaultoptionsex.php
 #: templates/adminpage/options/general/piecesymbols.php
-#: templates/localization.php
 msgid "B"
 msgstr "F"
 
 #. Knight symbol
 #: models/common/defaultoptionsex.php
 #: templates/adminpage/options/general/piecesymbols.php
-#: templates/localization.php
 msgid "N"
 msgstr "C"
 
 #. Pawn symbol
 #: models/common/defaultoptionsex.php
 #: templates/adminpage/options/general/piecesymbols.php
-#: templates/localization.php
 msgid "P"
 msgstr "P"
 
@@ -1647,47 +1641,6 @@ msgstr ""
 "d'échecs."
 
 #: templates/localization.php
-#, php-format
-msgid "Annotated by %1$s"
-msgstr "Commentée par %1$s"
-
-#: templates/localization.php
-msgid "Initial position"
-msgstr "Position initiale"
-
-#: templates/localization.php
-msgid "Go to the beginning of the game"
-msgstr "Aller au début de la partie"
-
-#: templates/localization.php
-msgid "Go to the previous move"
-msgstr "Aller au coup précédent"
-
-#: templates/localization.php
-msgid "Go to the next move"
-msgstr "Aller au coup suivant"
-
-#: templates/localization.php
-msgid "Go to the end of the game"
-msgstr "Aller à la fin de la partie"
-
-#: templates/localization.php
-msgid "Flip the board"
-msgstr "Tourner l'échiquier"
-
-#: templates/localization.php
-msgid "Download the game"
-msgstr "Télécharger la partie"
-
-#: templates/localization.php
-msgid "Cannot download the PGN file."
-msgstr "Impossible de télécharger le fichier PGN."
-
-#: templates/localization.php
-msgid "Error while analysing a PGN string."
-msgstr "Erreur lors du décodage du PGN."
-
-#: templates/localization.php
 msgid "chessboard"
 msgstr "échiquier"
 
@@ -1710,6 +1663,10 @@ msgstr "Annuler la dernière modification"
 #: templates/localization.php
 msgid "Re-do the last modification"
 msgstr "Rétablir la dernière modification"
+
+#: templates/localization.php
+msgid "Flip the board"
+msgstr "Tourner l'échiquier"
 
 #: templates/localization.php
 msgid "Standard positions"

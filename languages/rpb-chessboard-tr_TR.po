@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-12 12:46+0200\n"
+"POT-Creation-Date: 2019-02-09 17:18+0100\n"
 "PO-Revision-Date: 2015-08-27 23:19+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -132,42 +132,36 @@ msgstr ""
 #. King symbol
 #: models/common/defaultoptionsex.php
 #: templates/adminpage/options/general/piecesymbols.php
-#: templates/localization.php
 msgid "K"
 msgstr "K"
 
 #. Queen symbol
 #: models/common/defaultoptionsex.php
 #: templates/adminpage/options/general/piecesymbols.php
-#: templates/localization.php
 msgid "Q"
 msgstr "Q"
 
 #. Rook symbol
 #: models/common/defaultoptionsex.php
 #: templates/adminpage/options/general/piecesymbols.php
-#: templates/localization.php
 msgid "R"
 msgstr "R"
 
 #. Bishop symbol
 #: models/common/defaultoptionsex.php
 #: templates/adminpage/options/general/piecesymbols.php
-#: templates/localization.php
 msgid "B"
 msgstr "B"
 
 #. Knight symbol
 #: models/common/defaultoptionsex.php
 #: templates/adminpage/options/general/piecesymbols.php
-#: templates/localization.php
 msgid "N"
 msgstr "N"
 
 #. Pawn symbol
 #: models/common/defaultoptionsex.php
 #: templates/adminpage/options/general/piecesymbols.php
-#: templates/localization.php
 msgid "P"
 msgstr "P"
 
@@ -1551,47 +1545,6 @@ msgstr ""
 "aktifleştirmelisiniz."
 
 #: templates/localization.php
-#, php-format
-msgid "Annotated by %1$s"
-msgstr "Analiz : %1$s"
-
-#: templates/localization.php
-msgid "Initial position"
-msgstr "Başlangıç konumu"
-
-#: templates/localization.php
-msgid "Go to the beginning of the game"
-msgstr ""
-
-#: templates/localization.php
-msgid "Go to the previous move"
-msgstr ""
-
-#: templates/localization.php
-msgid "Go to the next move"
-msgstr ""
-
-#: templates/localization.php
-msgid "Go to the end of the game"
-msgstr ""
-
-#: templates/localization.php
-msgid "Flip the board"
-msgstr "tahtayı çevir"
-
-#: templates/localization.php
-msgid "Download the game"
-msgstr ""
-
-#: templates/localization.php
-msgid "Cannot download the PGN file."
-msgstr ""
-
-#: templates/localization.php
-msgid "Error while analysing a PGN string."
-msgstr ""
-
-#: templates/localization.php
 msgid "chessboard"
 msgstr "satranç tahtası"
 
@@ -1614,6 +1567,10 @@ msgstr "son  düzeltmeyi geri al"
 #: templates/localization.php
 msgid "Re-do the last modification"
 msgstr "Son düzeltmeyi tekrarla"
+
+#: templates/localization.php
+msgid "Flip the board"
+msgstr "tahtayı çevir"
 
 #: templates/localization.php
 msgid "Standard positions"

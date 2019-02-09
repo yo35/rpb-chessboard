@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-12 12:46+0200\n"
+"POT-Creation-Date: 2019-02-09 17:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -132,42 +132,36 @@ msgstr ""
 #. King symbol
 #: models/common/defaultoptionsex.php
 #: templates/adminpage/options/general/piecesymbols.php
-#: templates/localization.php
 msgid "K"
 msgstr ""
 
 #. Queen symbol
 #: models/common/defaultoptionsex.php
 #: templates/adminpage/options/general/piecesymbols.php
-#: templates/localization.php
 msgid "Q"
 msgstr ""
 
 #. Rook symbol
 #: models/common/defaultoptionsex.php
 #: templates/adminpage/options/general/piecesymbols.php
-#: templates/localization.php
 msgid "R"
 msgstr ""
 
 #. Bishop symbol
 #: models/common/defaultoptionsex.php
 #: templates/adminpage/options/general/piecesymbols.php
-#: templates/localization.php
 msgid "B"
 msgstr ""
 
 #. Knight symbol
 #: models/common/defaultoptionsex.php
 #: templates/adminpage/options/general/piecesymbols.php
-#: templates/localization.php
 msgid "N"
 msgstr ""
 
 #. Pawn symbol
 #: models/common/defaultoptionsex.php
 #: templates/adminpage/options/general/piecesymbols.php
-#: templates/localization.php
 msgid "P"
 msgstr ""
 
@@ -1415,47 +1409,6 @@ msgid "You must activate JavaScript to enhance chess game visualization."
 msgstr ""
 
 #: templates/localization.php
-#, php-format
-msgid "Annotated by %1$s"
-msgstr ""
-
-#: templates/localization.php
-msgid "Initial position"
-msgstr ""
-
-#: templates/localization.php
-msgid "Go to the beginning of the game"
-msgstr ""
-
-#: templates/localization.php
-msgid "Go to the previous move"
-msgstr ""
-
-#: templates/localization.php
-msgid "Go to the next move"
-msgstr ""
-
-#: templates/localization.php
-msgid "Go to the end of the game"
-msgstr ""
-
-#: templates/localization.php templates/localization.php
-msgid "Flip the board"
-msgstr ""
-
-#: templates/localization.php
-msgid "Download the game"
-msgstr ""
-
-#: templates/localization.php
-msgid "Cannot download the PGN file."
-msgstr ""
-
-#: templates/localization.php
-msgid "Error while analysing a PGN string."
-msgstr ""
-
-#: templates/localization.php
 msgid "chessboard"
 msgstr ""
 
@@ -1477,6 +1430,10 @@ msgstr ""
 
 #: templates/localization.php
 msgid "Re-do the last modification"
+msgstr ""
+
+#: templates/localization.php
+msgid "Flip the board"
 msgstr ""
 
 #: templates/localization.php
