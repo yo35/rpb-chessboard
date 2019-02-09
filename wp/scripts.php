@@ -75,12 +75,12 @@ abstract class RPBChessboardScripts {
 			), RPBCHESSBOARD_VERSION, false
 		);
 
-		// Enqueue the scripts.
-		wp_enqueue_script( 'rpbchessboard-chessboard' );
-		wp_enqueue_script( 'rpbchessboard-chessgame' );
-
 		// Additional scripts for the backend.
+		// FIXME Those scripts should be enqueued only if necessary. To achieve that, we need to fix issue concerning inlined scripts,
+		// interaction with the TinyMCE/QuickTag editors, and to carefully review what is used on which page.
 		if ( is_admin() ) {
+			wp_enqueue_script( 'rpbchessboard-chessboard' );
+			wp_enqueue_script( 'rpbchessboard-chessgame' );
 			wp_enqueue_script( 'jquery-ui-slider' );
 			wp_enqueue_script( 'jquery-ui-tabs' );
 			wp_enqueue_script( 'iris' );

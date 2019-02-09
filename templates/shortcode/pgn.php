@@ -20,6 +20,8 @@
  ******************************************************************************/
 ?>
 
+<?php wp_enqueue_script( 'rpbchessboard-chessgame' ); ?>
+
 <p class="rpbchessboard-spacerBefore"></p>
 
 <div id="<?php echo esc_attr( $model->getUniqueID() ); ?>" class="rpbchessboard-chessgame">
