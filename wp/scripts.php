@@ -97,7 +97,9 @@ abstract class RPBChessboardScripts {
 		}
 
 		// Inlined scripts
-		add_action( is_admin() ? 'admin_print_footer_scripts' : 'wp_print_footer_scripts', array( __CLASS__, 'callbackInlinedScripts' ) );
+		if( is_admin() ) {
+			add_action( 'admin_print_footer_scripts', array( __CLASS__, 'callbackInlinedScripts' ) );
+		}
 
 		// TinyMCE editor
 		add_filter( 'mce_external_plugins', array( __CLASS__, 'callbackRegisterTinyMCEPlugin' ) );
