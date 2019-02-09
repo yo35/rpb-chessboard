@@ -50,8 +50,8 @@ abstract class RPBChessboardScripts {
 		);
 
 		// Chessgame widget
-		wp_register_script(
-			'rpbchessboard-chessgame', RPBCHESSBOARD_URL . 'js/rpbchess-ui-chessgame' . $ext, array(
+		self::registerLocalizedScript(
+			'rpbchessboard-chessgame', 'js/rpbchess-ui-chessgame' . $ext, 'js/chessgame-locales/%1$s' . $ext, array(
 				'rpbchessboard-externals',
 				'rpbchessboard-momentjs',
 				'rpbchessboard-chessboard',
@@ -61,7 +61,7 @@ abstract class RPBChessboardScripts {
 				'jquery-color',
 				'jquery-ui-dialog',
 				'jquery-ui-resizable',
-			), RPBCHESSBOARD_VERSION, false
+			), RPBCHESSBOARD_VERSION
 		);
 
 		// Plugin specific

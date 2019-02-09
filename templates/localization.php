@@ -24,28 +24,6 @@
 
 	(function(rpb, $) {
 
-		<?php // phpcs:disable Generic.Functions.FunctionCallArgumentSpacing.SpaceBeforeComma ?>
-		$.chessgame.i18n.ANNOTATED_BY               = <?php echo wp_json_encode( __( 'Annotated by %1$s'                  , 'rpb-chessboard' ) ); ?>;
-		$.chessgame.i18n.INITIAL_POSITION           = <?php echo wp_json_encode( __( 'Initial position'                   , 'rpb-chessboard' ) ); ?>;
-		$.chessgame.i18n.GO_FIRST_MOVE_TOOLTIP      = <?php echo wp_json_encode( __( 'Go to the beginning of the game'    , 'rpb-chessboard' ) ); ?>;
-		$.chessgame.i18n.GO_PREVIOUS_MOVE_TOOLTIP   = <?php echo wp_json_encode( __( 'Go to the previous move'            , 'rpb-chessboard' ) ); ?>;
-		$.chessgame.i18n.GO_NEXT_MOVE_TOOLTIP       = <?php echo wp_json_encode( __( 'Go to the next move'                , 'rpb-chessboard' ) ); ?>;
-		$.chessgame.i18n.GO_LAST_MOVE_TOOLTIP       = <?php echo wp_json_encode( __( 'Go to the end of the game'          , 'rpb-chessboard' ) ); ?>;
-		$.chessgame.i18n.FLIP_TOOLTIP               = <?php echo wp_json_encode( __( 'Flip the board'                     , 'rpb-chessboard' ) ); ?>;
-		$.chessgame.i18n.DOWNLOAD_PGN_TOOLTIP       = <?php echo wp_json_encode( __( 'Download the game'                  , 'rpb-chessboard' ) ); ?>;
-		$.chessgame.i18n.PGN_DOWNLOAD_ERROR_MESSAGE = <?php echo wp_json_encode( __( 'Cannot download the PGN file.'      , 'rpb-chessboard' ) ); ?>;
-		$.chessgame.i18n.PGN_PARSING_ERROR_MESSAGE  = <?php echo wp_json_encode( __( 'Error while analysing a PGN string.', 'rpb-chessboard' ) ); ?>;
-		<?php // phpcs:enable Generic.Functions.FunctionCallArgumentSpacing.SpaceBeforeComma ?>
-
-		$.chessgame.i18n.PIECE_SYMBOLS = {
-			'K': <?php /*i18n King symbol   */ echo wp_json_encode( __( 'K', 'rpb-chessboard' ) ); ?>,
-			'Q': <?php /*i18n Queen symbol  */ echo wp_json_encode( __( 'Q', 'rpb-chessboard' ) ); ?>,
-			'R': <?php /*i18n Rook symbol   */ echo wp_json_encode( __( 'R', 'rpb-chessboard' ) ); ?>,
-			'B': <?php /*i18n Bishop symbol */ echo wp_json_encode( __( 'B', 'rpb-chessboard' ) ); ?>,
-			'N': <?php /*i18n Knight symbol */ echo wp_json_encode( __( 'N', 'rpb-chessboard' ) ); ?>,
-			'P': <?php /*i18n Pawn symbol   */ echo wp_json_encode( __( 'P', 'rpb-chessboard' ) ); ?>
-		};
-
 		<?php if ( is_admin() ) : ?>
 
 			<?php // phpcs:disable Generic.Functions.FunctionCallArgumentSpacing.SpaceBeforeComma ?>
