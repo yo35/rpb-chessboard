@@ -14,7 +14,7 @@
 /rpb-chessboard.zip
 
 # Automatically generated files
-/js/*.min.js
+/js/**/*.min.js
 /languages/*.mo
 /third-party-libs/npm-dependencies.js
 /third-party-libs/npm-dependencies.min.js
