@@ -32,10 +32,10 @@ abstract class RPBChessboardScripts {
 		$ext = self::getJSFileExtension();
 
 		// Moment.js (http://momentjs.com/)
-		wp_register_script( 'rpbchessboard-momentjs', RPBCHESSBOARD_URL . 'third-party-libs/moment-js/moment' . $ext, false, '2.13.0', false );
-		$momentjs = self::localizeJavaScriptLib( 'rpbchessboard-momentjs', 'third-party-libs/moment-js/locales/%1$s.js', '2.13.0', false );
+		self::registerLocalizedScript( 'rpbchessboard-momentjs', 'third-party-libs/moment-js/moment' . $ext, 'third-party-libs/moment-js/locales/%1$s.js',
+			false, '2.13.0', false );
 
-		# Dependencies resolved using NPM
+		// Dependencies resolved using NPM
 		wp_register_script(
 			'rpbchessboard-externals', RPBCHESSBOARD_URL . 'third-party-libs/npm-dependencies' . $ext, false, RPBCHESSBOARD_VERSION, false
 		);
@@ -53,7 +53,7 @@ abstract class RPBChessboardScripts {
 		wp_register_script(
 			'rpbchessboard-chessgame', RPBCHESSBOARD_URL . 'js/rpbchess-ui-chessgame' . $ext, array(
 				'rpbchessboard-externals',
-				$momentjs,
+				'rpbchessboard-momentjs',
 				'rpbchessboard-chessboard',
 				'jquery-ui-widget',
 				'jquery-ui-button',
@@ -135,27 +135,45 @@ abstract class RPBChessboardScripts {
 	/**
 	 * Determine the language code to use to configure a given JavaScript library, and enqueue the required file.
 	 *
-	 * @param string $handle Handle of the file to localize.
-	 * @param string $relativeFilePathTemplate Where the localized files should be searched.
+	 * @param string $handle Handle of the library.
+	 * @param string $relativeBasePath Relative path to the core library file.
+	 * @param string $relativeLocalizationPathTemplate Relative path to where the localized files should be searched.
+	 * @param array $dependencies Dependencies of the core library.
 	 * @param string $version Version the library.
-	 * @return string Handle of the localized file a suitable translation has been found, original handle otherwise.
 	 */
-	private static function localizeJavaScriptLib( $handle, $relativeFilePathTemplate, $version ) {
-		foreach ( self::getBlogLangCodes() as $langCode ) {
-			// Does the translation script file exist for the current language code?
-			$relativeFilePath = sprintf( $relativeFilePathTemplate, $langCode );
-			if ( ! file_exists( RPBCHESSBOARD_ABSPATH . $relativeFilePath ) ) {
-				continue;
-			}
+	private static function registerLocalizedScript( $handle, $relativeBasePath, $relativeLocalizationPathTemplate, $dependencies, $version ) {
 
-			// If it exists, register it, and return a handle pointing to the localization file.
-			$localizedHandle = $handle . '-localized';
-			wp_register_script( $localizedHandle, RPBCHESSBOARD_URL . $relativeFilePath, array( $handle ), $version, false );
-			return $localizedHandle;
+		$relativeLocalizationPath = self::computeLocalizationPath( $relativeLocalizationPathTemplate );
+
+		if( isset($relativeLocalizationPath) ) {
+			$baseHandle = $handle . '-core';
+			wp_register_script( $baseHandle, RPBCHESSBOARD_URL . $relativeBasePath, $dependencies, $version, false );
+			wp_register_script( $handle, RPBCHESSBOARD_URL . $relativeLocalizationPath, array( $baseHandle ), $version, false );
+		}
+		else {
+			wp_register_script( $handle, RPBCHESSBOARD_URL . $relativeBasePath, $dependencies, $version, false );
+		}
+	}
+
+
+	/**
+	 * Find the localization file of a library, based on the current locale.
+	 *
+	 * @param string $relativeLocalizationPathTemplate Relative path to where the localized files should be searched.
+	 * @return string Relative path to the localization file of the target library, or `null` if no such file could be found.
+	 */
+	private static function computeLocalizationPath( $relativeLocalizationPathTemplate ) {
+		foreach ( self::getBlogLangCodes() as $langCode ) {
+
+			// Does the translation script file exist for the current language code?
+			$relativeLocalizationPath = sprintf( $relativeLocalizationPathTemplate, $langCode );
+			if ( file_exists( RPBCHESSBOARD_ABSPATH . $relativeLocalizationPath ) ) {
+				return $relativeLocalizationPath;
+			}
 		}
 
-		// Otherwise, if no translation file exists, return the handle of the original library.
-		return $handle;
+		// Otherwise, if no translation file exists, return null.
+		return null;
 	}
 
 
