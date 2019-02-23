@@ -81,6 +81,10 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 5.5.1 (February 23, 2019) =
+* Tested up to WordPress 5.1.
+* Lazy-loading of CSS assets does not work with some themes (see #145): revert this feature.
+
 = 5.5 (February 9, 2019) =
 * Load CSS/JS assets only when necessary in the front end (see #135).
 
