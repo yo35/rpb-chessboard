@@ -81,6 +81,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 5.5.3 (March 23, 2019) =
+* Fix PGN parsing error encountered with games downloaded from lichess.org (see #149).
+
 = 5.5.2 (March 10, 2019) =
 * Fix PGN parsing issue (see #146).
 
