@@ -191,21 +191,32 @@
 	 */
 	var SPECIAL_NAGS_LOOKUP = {
 		/* eslint-disable no-mixed-spaces-and-tabs */
-		 3: '!!',      // very good move
-		 1: '!',       // good move
-		 5: '!?',      // interesting move
-		 6: '?!',      // questionable move
-		 2: '?',       // bad move
-		 4: '??',      // very bad move
-		18: '+\u2212', // White has a decisive advantage
-		16: '\u00b1',  // White has a moderate advantage
-		14: '\u2a72',  // White has a slight advantage
-		10: '=',       // equal position
-		11: '=',       // equal chances, quiet position
-		13: '\u221e',  // unclear position
-		15: '\u2a71',  // Black has a slight advantage
-		17: '\u2213',  // Black has a moderate advantage
-		19: '\u2212+'  // Black has a decisive advantage
+		  3: '!!',      // very good move
+		  1: '!',       // good move
+		  5: '!?',      // interesting move
+		  6: '?!',      // questionable move
+		  2: '?',       // bad move
+		  4: '??',      // very bad move
+		 18: '+\u2212', // White has a decisive advantage
+		 16: '\u00b1',  // White has a moderate advantage
+		 14: '\u2a72',  // White has a slight advantage
+		 10: '=',       // equal position
+		 11: '=',       // equal position (ChessBase)
+		 15: '\u2a71',  // Black has a slight advantage
+		 17: '\u2213',  // Black has a moderate advantage
+		 19: '\u2212+', // Black has a decisive advantage
+		  7: '\u25a1',  // Only move
+		  8: '\u25a1',  // Only move (ChessBase)
+		 13: '\u221e',  // unclear position
+		 22: '\u2a00',  // Zugzwang
+		 32: '\u27f3',  // Development advantage
+		 36: '\u2191',  // Initiative
+		 40: '\u2192',  // Attack
+		132: '\u21c6',  // Counterplay
+		138: '\u2295',  // Zeitnot
+		140: '\u2206',  // With idea
+		142: '\u2313',  // Better is
+		146: 'N'        // Novelty
 		/* eslint-enable no-mixed-spaces-and-tabs */
 	};
 
