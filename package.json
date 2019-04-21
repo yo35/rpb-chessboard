@@ -1,7 +1,7 @@
 {
 	"private": true,
 	"dependencies": {
-		"kokopu": "~1.2.3",
+		"kokopu": "~1.2.4",
 		"sanitize-html": "~1.20.0"
 	},
 	"devDependencies": {
