@@ -81,6 +81,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 5.6.1 (April 21, 2019) =
+* Fix disambiguation issue on rook move (see #153).
+
 = 5.6 (April 20, 2019) =
 * Fix PGN parsing error encountered with lichess syntax for %csl/%cal (see #151).
 * Add support for advanced NAGs (see #152).
