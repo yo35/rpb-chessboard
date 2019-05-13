@@ -95,6 +95,10 @@ abstract class RPBChessboardScripts {
 					'quicktags',
 				), RPBCHESSBOARD_VERSION, true
 			);
+		} else {
+
+			// In frontend, force jQuery to be loaded in the header (should be the case anyway in most themes).
+			wp_enqueue_script( 'jquery' );
 		}
 
 		// Inlined scripts
