@@ -7,7 +7,7 @@
 	"devDependencies": {
 		"eslint": "~5.16.0",
 		"eslint-config-wordpress": "~2.0.0",
-		"browserify": "~16.2.3",
+		"browserify": "~16.5.0",
 		"uglify-js": "~3.6.0"
 	}
 }
