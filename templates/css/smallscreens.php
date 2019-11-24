@@ -26,28 +26,28 @@ if ( ! $model->getSmallScreenCompatibility() ) {
 }
 ?>
 
-<?php foreach ( $model->getSmallScreenModes() as $mode ) : ?>
-<?php echo esc_html( $model->getSanitizedMainSelector( $mode ) ); ?> {
+<?php foreach ( $model->getSmallScreenModes() as $screenMode ) : ?>
+<?php echo esc_html( $model->getSanitizedMainSelector( $screenMode ) ); ?> {
 
-	<?php if ( $model->hasSquareSizeSection( $mode ) ) : ?>
+	<?php if ( $model->hasSquareSizeSection( $screenMode ) ) : ?>
 
-	<?php echo esc_html( $model->getSanitizedSquareSizeSelector( $mode ) ); ?> {
-		min-width: <?php echo esc_html( $mode->squareSize ); ?>px;
-		width    : <?php echo esc_html( $mode->squareSize ); ?>px;
-		height   : <?php echo esc_html( $mode->squareSize ); ?>px;
-		background-size: <?php echo esc_html( $mode->squareSize ); ?>px <?php echo esc_html( $mode->squareSize ); ?>px;
-		-webkit-background-size: <?php echo esc_html( $mode->squareSize ); ?>px <?php echo esc_html( $mode->squareSize ); ?>px;
+	<?php echo esc_html( $model->getSanitizedSquareSizeSelector( $screenMode ) ); ?> {
+		min-width: <?php echo esc_html( $screenMode->squareSize ); ?>px;
+		width    : <?php echo esc_html( $screenMode->squareSize ); ?>px;
+		height   : <?php echo esc_html( $screenMode->squareSize ); ?>px;
+		background-size: <?php echo esc_html( $screenMode->squareSize ); ?>px <?php echo esc_html( $screenMode->squareSize ); ?>px;
+		-webkit-background-size: <?php echo esc_html( $screenMode->squareSize ); ?>px <?php echo esc_html( $screenMode->squareSize ); ?>px;
 	}
 
-	<?php echo esc_html( $model->getSanitizedAnnotationLayerSelector( $mode ) ); ?> {
-		width : <?php echo esc_html( $model->getHeightWidthForAnnotationLayer( $mode->squareSize ) ); ?>px;
-		height: <?php echo esc_html( $model->getHeightWidthForAnnotationLayer( $mode->squareSize ) ); ?>px;
-		right : <?php echo esc_html( $model->getRightForAnnotationLayer( $mode->squareSize ) ); ?>px;
+	<?php echo esc_html( $model->getSanitizedAnnotationLayerSelector( $screenMode ) ); ?> {
+		width : <?php echo esc_html( $model->getHeightWidthForAnnotationLayer( $screenMode->squareSize ) ); ?>px;
+		height: <?php echo esc_html( $model->getHeightWidthForAnnotationLayer( $screenMode->squareSize ) ); ?>px;
+		right : <?php echo esc_html( $model->getRightForAnnotationLayer( $screenMode->squareSize ) ); ?>px;
 	}
 
 	<?php endif; ?>
 
-	<?php if ( $mode->hideCoordinates ) : ?>
+	<?php if ( $screenMode->hideCoordinates ) : ?>
 
 	.rpbui-chessboard-cell.rpbui-chessboard-rowCoordinate, .rpbui-chessboard-row.rpbui-chessboard-columnCoordinateRow {
 		display: none;

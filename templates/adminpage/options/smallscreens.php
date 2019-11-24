@@ -43,27 +43,27 @@
 
 
 
-<?php foreach ( $model->getSmallScreenModes() as $index => $mode ) : ?>
+<?php foreach ( $model->getSmallScreenModes() as $index => $screenMode ) : ?>
 
 <h3 title="<?php
-if ( 0 === $mode->minScreenWidth ) {
+if ( 0 === $screenMode->minScreenWidth ) {
 	printf(
 		esc_attr__( 'These options apply to devices whose resolution is less than %1$s pixel width.', 'rpb-chessboard' ),
-		esc_attr( $mode->maxScreenWidth )
+		esc_attr( $screenMode->maxScreenWidth )
 	);
 } else {
 	printf(
 		esc_attr__( 'These options apply to devices whose resolution lies between %1$s and %2$s pixel width.', 'rpb-chessboard' ),
-		esc_attr( $mode->minScreenWidth + 1 ),
-		esc_attr( $mode->maxScreenWidth )
+		esc_attr( $screenMode->minScreenWidth + 1 ),
+		esc_attr( $screenMode->maxScreenWidth )
 	);
 }
 ?>
 ">
-	<?php printf( esc_html__( 'Screen width &le; %1$s pixels', 'rpb-chessboard' ), esc_html( $mode->maxScreenWidth ) ); ?>
+	<?php printf( esc_html__( 'Screen width &le; %1$s pixels', 'rpb-chessboard' ), esc_html( $screenMode->maxScreenWidth ) ); ?>
 </h3>
 
-<input type="hidden" name="smallScreenMode<?php echo esc_attr( $index ); ?>-screenWidth" value="<?php echo esc_attr( $mode->maxScreenWidth ); ?>" />
+<input type="hidden" name="smallScreenMode<?php echo esc_attr( $index ); ?>-screenWidth" value="<?php echo esc_attr( $screenMode->maxScreenWidth ); ?>" />
 
 <div>
 	<p>
@@ -74,7 +74,7 @@ if ( 0 === $mode->minScreenWidth ) {
 					'name="smallScreenMode' . esc_attr( $index ) . '-squareSize" ' .
 					'size="' . esc_attr( $model->getDigitNumberForSquareSize() ) . '" ' .
 					'maxLength="' . esc_attr( $model->getDigitNumberForSquareSize() ) . '" ' .
-					'value="' . esc_attr( $mode->squareSize ) . '"/>'
+					'value="' . esc_attr( $screenMode->squareSize ) . '"/>'
 			);
 		?>
 		<span id="rpbchessboard-smallScreenMode<?php echo esc_attr( $index ); ?>-squareSizeSlider" class="rpbchessboard-slider"></span>
@@ -90,7 +90,7 @@ if ( 0 === $mode->minScreenWidth ) {
 					'Diagrams for which the square size is less than this value will be displayed as they normally do on large screen devices.',
 					'rpb-chessboard'
 				),
-				esc_html( $mode->maxScreenWidth ),
+				esc_html( $screenMode->maxScreenWidth ),
 				sprintf( '<a href="%s">', esc_url( $model->getOptionsGeneralURL() ) ),
 				'</a>'
 			);
@@ -102,7 +102,7 @@ if ( 0 === $mode->minScreenWidth ) {
 		<input type="hidden" name="smallScreenMode<?php echo esc_attr( $index ); ?>-hideCoordinates" value="0" />
 		<input type="checkbox" name="smallScreenMode<?php echo esc_attr( $index ); ?>-hideCoordinates" class="rpbchessboard-hideCoordinatesField"
 			id="rpbchessboard-smallScreenMode<?php echo esc_attr( $index ); ?>-hideCoordinatesField" value="1"
-			<?php echo $mode->hideCoordinates ? 'checked="yes"' : ''; ?>
+			<?php echo $screenMode->hideCoordinates ? 'checked="yes"' : ''; ?>
 		/>
 		<label for="rpbchessboard-smallScreenMode<?php echo esc_attr( $index ); ?>-hideCoordinatesField">
 			<?php esc_html_e( 'Always hide coordinates', 'rpb-chessboard' ); ?>
@@ -119,7 +119,7 @@ if ( 0 === $mode->minScreenWidth ) {
 					'If disabled, row and column coordinates will be displayed as they normally do on large screen devices.',
 					'rpb-chessboard'
 				),
-				esc_html( $mode->maxScreenWidth ),
+				esc_html( $screenMode->maxScreenWidth ),
 				sprintf( '<a href="%s">', esc_url( $model->getOptionsGeneralURL() ) ),
 				'</a>'
 			);
