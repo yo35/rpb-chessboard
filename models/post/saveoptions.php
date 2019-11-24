@@ -237,8 +237,8 @@ class RPBChessboardModelPostSaveOptions extends RPBChessboardAbstractModel {
 		$squareSizeKey      = 'smallScreenMode' . $index . '-squareSize';
 		$hideCoordinatesKey = 'smallScreenMode' . $index . '-hideCoordinates';
 		if ( isset( $_POST[ $screenWidthKey ] ) && isset( $squareSizeKey ) && isset( $hideCoordinatesKey ) ) {
-			$screenWidth     = RPBChessboardHelperValidation::validateInteger( $_POST[ $screenWidthKey    ], 1 );
-			$squareSize      = RPBChessboardHelperValidation::validateSquareSize( $_POST[ $squareSizeKey     ] );
+			$screenWidth     = RPBChessboardHelperValidation::validateInteger( $_POST[ $screenWidthKey ], 1 );
+			$squareSize      = RPBChessboardHelperValidation::validateSquareSize( $_POST[ $squareSizeKey ] );
 			$hideCoordinates = RPBChessboardHelperValidation::validateBooleanFromInt( $_POST[ $hideCoordinatesKey ] );
 			if ( isset( $screenWidth ) && isset( $squareSize ) && isset( $hideCoordinates ) ) {
 				return $screenWidth . ':' . $squareSize . ':' . ( $hideCoordinates ? 'true' : 'false' );

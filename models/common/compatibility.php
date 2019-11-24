@@ -38,7 +38,10 @@ class RPBChessboardModelCommonCompatibility extends RPBChessboardAbstractModel {
 	public function __construct() {
 		parent::__construct();
 		$this->registerDelegatableMethods(
-			'getFENCompatibilityMode', 'getPGNCompatibilityMode', 'getFENShortcode', 'getPGNShortcode',
+			'getFENCompatibilityMode',
+			'getPGNCompatibilityMode',
+			'getFENShortcode',
+			'getPGNShortcode',
 			'getNoConflictForButton'
 		);
 	}

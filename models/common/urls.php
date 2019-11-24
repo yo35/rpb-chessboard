@@ -31,8 +31,14 @@ class RPBChessboardModelCommonURLs extends RPBChessboardAbstractModel {
 	public function __construct() {
 		parent::__construct();
 		$this->registerDelegatableMethods(
-			'getMemoURL', 'getOptionsGeneralURL', 'getOptionsSmallScreensURL', 'getThemingURL',
-			'getHelpOnFENAttributesURL', 'getHelpOnPGNAttributesURL', 'getHelpOnFENSyntaxURL', 'getHelpOnPGNSyntaxURL'
+			'getMemoURL',
+			'getOptionsGeneralURL',
+			'getOptionsSmallScreensURL',
+			'getThemingURL',
+			'getHelpOnFENAttributesURL',
+			'getHelpOnPGNAttributesURL',
+			'getHelpOnFENSyntaxURL',
+			'getHelpOnPGNSyntaxURL'
 		);
 	}
 

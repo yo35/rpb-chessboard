@@ -53,7 +53,8 @@
 						<?php
 							esc_html_e(
 								'The navigation board is displayed in a popup frame, which becomes visible ' .
-								'when the user clicks on a move within the move list.', 'rpb-chessboard'
+								'when the user clicks on a move within the move list.',
+								'rpb-chessboard'
 							);
 						?>
 					</td>
@@ -85,7 +86,8 @@
 						<?php
 							esc_html_e(
 								'The navigation board is displayed on the left of the move list. ' .
-								'The move list becomes scrollable if it is higher than the navigation board.', 'rpb-chessboard'
+								'The move list becomes scrollable if it is higher than the navigation board.',
+								'rpb-chessboard'
 							);
 						?>
 					</td>
@@ -97,7 +99,8 @@
 						<?php
 							esc_html_e(
 								'The navigation board is displayed on the right of the move list. ' .
-								'The move list becomes scrollable if it is higher than the navigation board.', 'rpb-chessboard'
+								'The move list becomes scrollable if it is higher than the navigation board.',
+								'rpb-chessboard'
 							);
 						?>
 					</td>

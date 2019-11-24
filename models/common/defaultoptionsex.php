@@ -61,11 +61,21 @@ class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractMode
 	public function __construct() {
 		parent::__construct();
 		$this->registerDelegatableMethods(
-			'getMinimumSquareSize', 'getMaximumSquareSize',
-			'getAvailableColorsets', 'isBuiltinColorset', 'isDefaultColorset', 'getColorsetLabel',
-			'getAvailablePiecesets', 'isBuiltinPieceset', 'isDefaultPieceset', 'getPiecesetLabel',
-			'getMaximumAnimationSpeed', 'getStepAnimationSpeed',
-			'isPieceSymbolLocalizationAvailable', 'getDefaultSimplifiedPieceSymbols', 'getDefaultPieceSymbolCustomValues'
+			'getMinimumSquareSize',
+			'getMaximumSquareSize',
+			'getAvailableColorsets',
+			'isBuiltinColorset',
+			'isDefaultColorset',
+			'getColorsetLabel',
+			'getAvailablePiecesets',
+			'isBuiltinPieceset',
+			'isDefaultPieceset',
+			'getPiecesetLabel',
+			'getMaximumAnimationSpeed',
+			'getStepAnimationSpeed',
+			'isPieceSymbolLocalizationAvailable',
+			'getDefaultSimplifiedPieceSymbols',
+			'getDefaultPieceSymbolCustomValues'
 		);
 
 		$this->loadDelegateModel( 'Common/DefaultOptions' );

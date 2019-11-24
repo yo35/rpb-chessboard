@@ -69,7 +69,9 @@
 			<?php
 			if ( ! $model->isBuiltinColorset( $colorset ) ) {
 				RPBChessboardHelperLoader::printTemplate(
-					'AdminPage/Theming/ColorsetEdition', $model, array(
+					'AdminPage/Theming/ColorsetEdition',
+					$model,
+					array(
 						'isNew'    => false,
 						'colorset' => $colorset,
 					)

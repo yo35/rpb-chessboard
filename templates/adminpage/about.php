@@ -50,7 +50,8 @@
 		<a class="button" href="https://github.com/yo35/rpb-chessboard/issues" target="_blank" title="<?php
 			esc_attr_e(
 				'If you need help to use this plugin, if you encounter some bugs, or if you wish to get new features in the future versions, ' .
-				'please feel free to use the GitHub tracker.', 'rpb-chessboard'
+				'please feel free to use the GitHub tracker.',
+				'rpb-chessboard'
 			);
 		?>
 		">
@@ -60,7 +61,8 @@
 		<a class="button" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YHNERW43QN49E" target="_blank" title="<?php
 			esc_attr_e(
 				'This plugin is and will remain free. However, if you want to make a donation to support the author\'s work, ' .
-				'you can do it through this PayPal link.', 'rpb-chessboard'
+				'you can do it through this PayPal link.',
+				'rpb-chessboard'
 			);
 		?>
 		">

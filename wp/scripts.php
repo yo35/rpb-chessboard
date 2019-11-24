@@ -33,26 +33,42 @@ abstract class RPBChessboardScripts {
 
 		// Moment.js (http://momentjs.com/)
 		self::registerLocalizedScript(
-			'rpbchessboard-momentjs', 'third-party-libs/moment-js/moment' . $ext, 'third-party-libs/moment-js/locales/%1$s.js', false, '2.13.0', false
+			'rpbchessboard-momentjs',
+			'third-party-libs/moment-js/moment' . $ext,
+			'third-party-libs/moment-js/locales/%1$s.js',
+			false,
+			'2.13.0',
+			false
 		);
 
 		// Dependencies resolved using NPM
 		wp_register_script(
-			'rpbchessboard-externals', RPBCHESSBOARD_URL . 'third-party-libs/npm-dependencies' . $ext, false, RPBCHESSBOARD_VERSION, false
+			'rpbchessboard-externals',
+			RPBCHESSBOARD_URL . 'third-party-libs/npm-dependencies' . $ext,
+			false,
+			RPBCHESSBOARD_VERSION,
+			false
 		);
 
 		// Chessboard widget
 		wp_register_script(
-			'rpbchessboard-chessboard', RPBCHESSBOARD_URL . 'js/rpbchess-ui-chessboard' . $ext, array(
+			'rpbchessboard-chessboard',
+			RPBCHESSBOARD_URL . 'js/rpbchess-ui-chessboard' . $ext,
+			array(
 				'rpbchessboard-externals',
 				'jquery-ui-widget',
 				'jquery-ui-selectable',
-			), RPBCHESSBOARD_VERSION, false
+			),
+			RPBCHESSBOARD_VERSION,
+			false
 		);
 
 		// Chessgame widget
 		self::registerLocalizedScript(
-			'rpbchessboard-chessgame', 'js/rpbchess-ui-chessgame' . $ext, 'js/chessgame-locales/%1$s' . $ext, array(
+			'rpbchessboard-chessgame',
+			'js/rpbchess-ui-chessgame' . $ext,
+			'js/chessgame-locales/%1$s' . $ext,
+			array(
 				'rpbchessboard-externals',
 				'rpbchessboard-momentjs',
 				'rpbchessboard-chessboard',
@@ -62,18 +78,23 @@ abstract class RPBChessboardScripts {
 				'jquery-color',
 				'jquery-ui-dialog',
 				'jquery-ui-resizable',
-			), RPBCHESSBOARD_VERSION
+			),
+			RPBCHESSBOARD_VERSION
 		);
 
 		// Plugin specific
 		wp_register_script(
-			'rpbchessboard-backend', RPBCHESSBOARD_URL . 'js/backend' . $ext, array(
+			'rpbchessboard-backend',
+			RPBCHESSBOARD_URL . 'js/backend' . $ext,
+			array(
 				'rpbchessboard-chessboard',
 				'jquery-ui-dialog',
 				'jquery-ui-accordion',
 				'jquery-ui-draggable',
 				'jquery-ui-droppable',
-			), RPBCHESSBOARD_VERSION, false
+			),
+			RPBCHESSBOARD_VERSION,
+			false
 		);
 
 		// Additional scripts for the backend.
@@ -90,10 +111,14 @@ abstract class RPBChessboardScripts {
 
 			// QuickTags editor
 			wp_enqueue_script(
-				'rpbchessboard-quicktags', RPBCHESSBOARD_URL . 'js/quicktags' . $ext, array(
+				'rpbchessboard-quicktags',
+				RPBCHESSBOARD_URL . 'js/quicktags' . $ext,
+				array(
 					'rpbchessboard-backend',
 					'quicktags',
-				), RPBCHESSBOARD_VERSION, true
+				),
+				RPBCHESSBOARD_VERSION,
+				true
 			);
 		} else {
 

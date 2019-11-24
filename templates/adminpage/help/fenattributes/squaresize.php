@@ -55,7 +55,8 @@
 						<?php
 							printf(
 								esc_html__( 'Any value between %1$s and %2$s can be used.', 'rpb-chessboard' ),
-								esc_html( $model->getMinimumSquareSize() ), esc_html( $model->getMaximumSquareSize() )
+								esc_html( $model->getMinimumSquareSize() ),
+								esc_html( $model->getMaximumSquareSize() )
 							);
 						?>
 					</td>

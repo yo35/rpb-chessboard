@@ -58,11 +58,19 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel 
 	public function __construct() {
 		parent::__construct();
 		$this->registerDelegatableMethods(
-			'getDefaultSquareSize', 'getDefaultShowCoordinates',
-			'getDefaultColorset', 'getDefaultPieceset', 'getDefaultDiagramAlignment', 'getDefaultPieceSymbols',
-			'getDefaultNavigationBoard', 'getDefaultShowFlipButton', 'getDefaultShowDownloadButton',
-			'getDefaultAnimationSpeed', 'getDefaultShowMoveArrow',
-			'getDefaultChessboardSettings', 'getDefaultChessgameSettings'
+			'getDefaultSquareSize',
+			'getDefaultShowCoordinates',
+			'getDefaultColorset',
+			'getDefaultPieceset',
+			'getDefaultDiagramAlignment',
+			'getDefaultPieceSymbols',
+			'getDefaultNavigationBoard',
+			'getDefaultShowFlipButton',
+			'getDefaultShowDownloadButton',
+			'getDefaultAnimationSpeed',
+			'getDefaultShowMoveArrow',
+			'getDefaultChessboardSettings',
+			'getDefaultChessgameSettings'
 		);
 	}
 

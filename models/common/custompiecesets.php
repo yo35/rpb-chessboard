@@ -38,7 +38,10 @@ class RPBChessboardModelCommonCustomPiecesets extends RPBChessboardAbstractModel
 	public function __construct() {
 		parent::__construct();
 		$this->registerDelegatableMethods(
-			'getCustomPiecesets', 'getCustomPiecesetLabel', 'getCustomPiecesetImageId', 'getCustomPiecesetImageURL'
+			'getCustomPiecesets',
+			'getCustomPiecesetLabel',
+			'getCustomPiecesetImageId',
+			'getCustomPiecesetImageURL'
 		);
 	}
 

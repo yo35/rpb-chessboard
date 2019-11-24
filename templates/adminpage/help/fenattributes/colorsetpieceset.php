@@ -29,7 +29,8 @@
 			<?php
 				printf(
 					esc_html__( 'The %1$s and %2$s attributes controls respectively the colors of the chessboard and the piece theme.', 'rpb-chessboard' ),
-					'<span class="rpbchessboard-sourceCode">colorset</span>', '<span class="rpbchessboard-sourceCode">pieceset</span>'
+					'<span class="rpbchessboard-sourceCode">colorset</span>',
+					'<span class="rpbchessboard-sourceCode">pieceset</span>'
 				);
 			?>
 		</p>

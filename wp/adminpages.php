@@ -33,7 +33,9 @@ abstract class RPBChessboardAdminPages {
 		add_menu_page(
 			__( 'Chess games and diagrams', 'rpb-chessboard' ),
 			__( 'Chess', 'rpb-chessboard' ),
-			'edit_posts', 'rpbchessboard', array( __CLASS__, 'callbackPageMemo' ),
+			'edit_posts',
+			'rpbchessboard',
+			array( __CLASS__, 'callbackPageMemo' ),
 			RPBCHESSBOARD_URL . 'images/menu.png'
 		);
 
@@ -42,7 +44,9 @@ abstract class RPBChessboardAdminPages {
 			'rpbchessboard',
 			__( 'Chess games and diagrams', 'rpb-chessboard' ) . ' - ' . __( 'Memo', 'rpb-chessboard' ),
 			__( 'Memo', 'rpb-chessboard' ),
-			'edit_posts', 'rpbchessboard', array( __CLASS__, 'callbackPageMemo' )
+			'edit_posts',
+			'rpbchessboard',
+			array( __CLASS__, 'callbackPageMemo' )
 		);
 
 		// Page "options"
@@ -50,7 +54,9 @@ abstract class RPBChessboardAdminPages {
 			'rpbchessboard',
 			sprintf( __( 'Settings of the %1$s plugin', 'rpb-chessboard' ), 'RPB Chessboard' ),
 			__( 'Settings', 'rpb-chessboard' ),
-			'manage_options', 'rpbchessboard-options', array( __CLASS__, 'callbackPageOptions' )
+			'manage_options',
+			'rpbchessboard-options',
+			array( __CLASS__, 'callbackPageOptions' )
 		);
 
 		// Page "theming"
@@ -58,7 +64,9 @@ abstract class RPBChessboardAdminPages {
 			'rpbchessboard',
 			__( 'Manage colorsets & piecesets', 'rpb-chessboard' ),
 			__( 'Theming', 'rpb-chessboard' ),
-			'manage_options', 'rpbchessboard-theming', array( __CLASS__, 'callbackPageTheming' )
+			'manage_options',
+			'rpbchessboard-theming',
+			array( __CLASS__, 'callbackPageTheming' )
 		);
 
 		// Page "help"
@@ -66,7 +74,9 @@ abstract class RPBChessboardAdminPages {
 			'rpbchessboard',
 			__( 'Chess games and diagrams', 'rpb-chessboard' ) . ' - ' . __( 'Help', 'rpb-chessboard' ),
 			__( 'Help', 'rpb-chessboard' ),
-			'edit_posts', 'rpbchessboard-help', array( __CLASS__, 'callbackPageHelp' )
+			'edit_posts',
+			'rpbchessboard-help',
+			array( __CLASS__, 'callbackPageHelp' )
 		);
 
 		// Page "about"
@@ -74,7 +84,9 @@ abstract class RPBChessboardAdminPages {
 			'rpbchessboard',
 			sprintf( __( 'About %1$s', 'rpb-chessboard' ), 'RPB Chessboard' ),
 			__( 'About', 'rpb-chessboard' ),
-			'manage_options', 'rpbchessboard-about', array( __CLASS__, 'callbackPageAbout' )
+			'manage_options',
+			'rpbchessboard-about',
+			array( __CLASS__, 'callbackPageAbout' )
 		);
 	}
 

@@ -33,7 +33,8 @@
 			<?php
 				esc_html_e(
 					'This position is known as the Légal Trap. ' .
-					'It is named after the French player François Antoine de Legall de Kermeur (1702&ndash;1792).', 'rpb-chessboard'
+					'It is named after the French player François Antoine de Legall de Kermeur (1702&ndash;1792).',
+					'rpb-chessboard'
 				);
 			?>
 		</div>
@@ -76,7 +77,8 @@
 				<?php
 					esc_html_e(
 						'This position is known as the Légal Trap. ' .
-						'It is named after the French player François Antoine de Legall de Kermeur (1702&ndash;1792).', 'rpb-chessboard'
+						'It is named after the French player François Antoine de Legall de Kermeur (1702&ndash;1792).',
+						'rpb-chessboard'
 					);
 				?>
 			</p>

@@ -74,7 +74,8 @@
 				printf(
 					esc_html__(
 						'The %1$s attribute controls whether an arrow should be used or not ' .
-						'to highlight the moves on the navigation board.', 'rpb-chessboard'
+						'to highlight the moves on the navigation board.',
+						'rpb-chessboard'
 					),
 					'<span class="rpbchessboard-sourceCode">animation_speed</span>'
 				);

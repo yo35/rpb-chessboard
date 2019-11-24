@@ -30,7 +30,8 @@
 				printf(
 					esc_html__(
 						'The %1$s attribute controls whether the button that allows to flip the board ' .
-						'is available or not (below the navigation board).', 'rpb-chessboard'
+						'is available or not (below the navigation board).',
+						'rpb-chessboard'
 					),
 					'<span class="rpbchessboard-sourceCode">show_flip_button</span>'
 				);
@@ -62,7 +63,8 @@
 				printf(
 					esc_html__(
 						'Similarly, the %1$s attribute affects whether the button that allows to ' .
-						'download the game is available or not.', 'rpb-chessboard'
+						'download the game is available or not.',
+						'rpb-chessboard'
 					),
 					'<span class="rpbchessboard-sourceCode">show_download_button</span>'
 				);

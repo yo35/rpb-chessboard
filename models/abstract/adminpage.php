@@ -154,8 +154,7 @@ abstract class RPBChessboardAbstractModelAdminPage extends RPBChessboardAbstract
 			foreach ( $this->subPages as $subPage ) {
 				$subPage->selected = ( $this->selectedSubPageName === $subPage->name );
 			}
-		} // Fallback case if no sub-page exists.
-		else {
+		} else { // Fallback case if no sub-page exists.
 			$this->selectedSubPageName = '';
 		}
 	}
