@@ -19,7 +19,7 @@ Marek Śmigielski, [Paul Schreiber](https://paulschreiber.com/), [Adam Silverste
 Translators
 -----------
 
-Markus Liebelt (German), Yoann Le Montagner (English and French), Ivan Deceuninck (Dutch),
+Jan Jílek (Czech), Markus Liebelt (German), Yoann Le Montagner (English and French), Ivan Deceuninck (Dutch),
 [Dawid Ziółkowski](http://dawidziolkowski.com/) (Polish), [Sergey Baravicov](http://safoyeth.com/) (Russian),
 Ali Nihat Yazıcı (Turkish).
 
