@@ -112,7 +112,7 @@
 	function flattenMarkerList(markers) {
 		var res = [];
 		for(var item in markers) {
-			if(markers.hasOwnProperty(item)) {
+			if(item in markers) {
 				res.push(markers[item] + item);
 			}
 		}
@@ -408,7 +408,7 @@
 
 		// Arrows
 		for(var arrow in widget._arrowMarkers) {
-			if(widget._arrowMarkers.hasOwnProperty(arrow) && /^([a-h][1-8])([a-h][1-8])$/.test(arrow)) {
+			if(arrow in widget && /^([a-h][1-8])([a-h][1-8])$/.test(arrow)) {
 				var fromSquare = RegExp.$1;
 				var toSquare = RegExp.$2;
 				if(fromSquare !== toSquare) {
@@ -607,7 +607,7 @@
 		oldSquareMarkers.removeClass('rpbui-chessboard-squareMarker');
 
 		for(var square in widget._squareMarkers) {
-			if(widget._squareMarkers.hasOwnProperty(square)) {
+			if(square in widget._squareMarkers) {
 				var color = widget._squareMarkers[square];
 				fetchSquare(widget, square).addClass('rpbui-chessboard-squareMarker').addClass('rpbui-chessboard-markerColor-' + color);
 			}
@@ -653,7 +653,7 @@
 		$('.rpbui-chessboard-arrowMarker', widget.element).remove();
 
 		for(var key in widget._arrowMarkers) {
-			if(widget._arrowMarkers.hasOwnProperty(key)) {
+			if(key in widget._arrowMarkers) {
 				var fromSquare = key.substr(0, 2);
 				var toSquare = key.substr(2, 2);
 				if(fromSquare !== toSquare) {
