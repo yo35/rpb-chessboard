@@ -8,6 +8,6 @@
 		"eslint": "~6.7.2",
 		"eslint-config-wordpress": "~2.0.0",
 		"browserify": "~16.5.0",
-		"uglify-js": "~3.6.0"
+		"uglify-js": "~3.7.2"
 	}
 }
