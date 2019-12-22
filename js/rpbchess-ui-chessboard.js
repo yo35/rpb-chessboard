@@ -408,7 +408,7 @@
 
 		// Arrows
 		for(var arrow in widget._arrowMarkers) {
-			if(arrow in widget && /^([a-h][1-8])([a-h][1-8])$/.test(arrow)) {
+			if(arrow in widget._arrowMarkers && /^([a-h][1-8])([a-h][1-8])$/.test(arrow)) {
 				var fromSquare = RegExp.$1;
 				var toSquare = RegExp.$2;
 				if(fromSquare !== toSquare) {
