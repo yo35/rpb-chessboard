@@ -36,6 +36,6 @@
 	i18n.FLIP_TOOLTIP               = 'Tourner l\'échiquier';
 	i18n.DOWNLOAD_PGN_TOOLTIP       = 'Télécharger la partie';
 	i18n.PGN_DOWNLOAD_ERROR_MESSAGE = 'Impossible de télécharger le fichier PGN.';
-	i18n.PGN_PARSING_ERROR_MESSAGE  = 'Erreur lors du décodage du PGN';
+	i18n.PGN_PARSING_ERROR_MESSAGE  = 'Erreur lors du décodage du PGN.';
 
 }(/* global jQuery */ jQuery));
