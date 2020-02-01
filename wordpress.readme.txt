@@ -81,6 +81,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 5.6.7 (February 1, 2020) =
+* Spanish translation (thanks to Martin Frith).
+
 = 5.6.6 (December 22, 2019) =
 * Fix annotation arrows (regression from 5.6.5).
 
