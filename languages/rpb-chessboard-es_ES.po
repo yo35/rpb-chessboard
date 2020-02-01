@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-01 14:02+0100\n"
+"POT-Creation-Date: 2020-02-01 19:50+0100\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35 -at- melix.net>\n"
 "Language-Team: French\n"
@@ -315,8 +315,8 @@ msgid ""
 "can be created in the %2$stheming page%3$s."
 msgstr ""
 "Tenga en cuenta que la apariencia de los tableros puede ser definida para "
-"%1$pantallas pequeñas%3$s (como teléfonos inteligentes). Se pueden crear "
-"temas de color y estilos de pieza adicionales en la %2$página de temas%3$s."
+"%1$spantallas pequeñas%3$s (como teléfonos inteligentes). Se pueden crear "
+"temas de color y estilos de pieza adicionales en la %2$spágina de temas%3$s."
 
 #: templates/adminpage/options/general/navigationboard.php
 msgid "Position of the navigation board"
@@ -377,7 +377,7 @@ msgid ""
 "appropriate tag attributes: see %5$shelp on FEN diagram attributes%7$s and "
 "%6$shelp on PGN game attributes%7$s for more details."
 msgstr ""
-"Estos parámetros determinan la apariencia y el comportamiento que los "
+"Estos parámetros determinan la apariencia y el comportamiento de los "
 "diagramas predeterminados y las partidas insertadas en artículos de blog y "
 "páginas que usan como etiquetas %1$s[%3$s][/%3$s]%2$s y %1$s[%4$s][/"
 "%4$s]%2$s. Se pueden modificar al nivel de cada etiqueta especificando los "
@@ -569,9 +569,9 @@ msgstr ""
 "Si esta opción está habilitada, las coordenadas de las filas y columnas "
 "serán ocultadas si la resolución de la pantalla es inferior a %1$s pixeles "
 "de ancho independientemente de la %2$sconfiguración de visualización general "
-"oatributos de etiqueta%3$s que se pueden definir en los artículos / páginas. "
-"Si está desactivado, las coordenadas de filas y columnas serán como se "
-"muestran normalmente en pantallas grandes."
+"o atributos de etiqueta%3$s que se pueden definir en los artículos / "
+"páginas. Si está desactivado, las coordenadas de filas y columnas serán como "
+"se muestran normalmente en pantallas grandes."
 
 #: templates/adminpage/options/smallscreens.php
 msgid "See explanations about theses settings above."
@@ -851,7 +851,7 @@ msgstr ""
 
 #: templates/adminpage/about.php
 msgid "License"
-msgstr "Licence"
+msgstr "Licencia"
 
 #: templates/adminpage/about.php
 #, php-format
@@ -917,7 +917,7 @@ msgid ""
 "%5$s."
 msgstr ""
 "El texto entre las etiquetas %1$s[%3$s][/%3$s]%2$s describe la posición. La "
-"notación utilizada sigue el %4$formato FEN%5$s (notación Forsyth-Edwards). "
+"notación utilizada sigue el %4$sformato FEN%5$s (notación Forsyth-Edwards). "
 "La descripción completa de esta notación FEN está disponible en %4$sWikipedia"
 "%5$s."
 
@@ -939,7 +939,7 @@ msgstr ""
 "Aquí, la URL apunta a un archivo .pgn que contiene la partida. Este tipo de "
 "archivo puede ser generado por cualquier software de base de datos de "
 "ajedrez, incluyendo %1$sChessbase%4$s, %2$sScid%4$s, etc... Ver un archivo "
-"de muestra .pgn %3$sphere%4$s."
+"de muestra pgn %3$saquí%4$s."
 
 #: templates/adminpage/memo/pgn.php
 #, php-format
@@ -951,7 +951,7 @@ msgid ""
 msgstr ""
 "Tenga en cuenta que un archivo .pgn puede contener varias partidas. El "
 "atributo %1$s puede usarse para seleccionar la parte a mostrar (por "
-"ejemplo , especifique%2$s para mostrar la primera parte del archivo, %3$s "
+"ejemplo, especifique %2$s para mostrar la primera parte del archivo, %3$s "
 "para el segundo, etc...)."
 
 #: templates/adminpage/memo/pgn.php
@@ -1177,7 +1177,7 @@ msgid ""
 "header."
 msgstr ""
 "El encabezado %1$s[FEN \"...\"]%2$s se puede usar para definir una posición "
-"de inicio personalizado. Además, la sintaxis estricta de PGN requiere que "
+"de inicio personalizada. Además, la sintaxis estricta de PGN requiere que "
 "%1$s[SetUp \"1\"]%2$s sea agregada cuando el encabezado %1$s[FEN \"..."
 "\"]%2$s es utilizado."
 
@@ -1194,7 +1194,7 @@ msgid ""
 "contain \"paragraph-style\" variations (or \"paragraph-style\" comments)."
 msgstr ""
 "En cuanto a los comentarios, las variaciones se pueden mostrar \"inline\" "
-"dentro de la lista de movimientos, o como párragos separados si están "
+"dentro de la lista de movimientos, o como párrafos separados si están "
 "precedidos por una línea vacía en el texto PGN. Las variaciones se pueden "
 "anidar una dentro de otra. Sin embargo, una variación \"inline\" no puede "
 "contener una variación \"estilo párrafo\" (o un comentario \"estilo de "
@@ -1224,7 +1224,7 @@ msgstr "Movimientos nulos"
 
 #: templates/adminpage/help/pgnsyntax/nullmove.php
 msgid "A standard development scheme for white:"
-msgstr "Un esquema de desarrollo estándar para blancos:"
+msgstr "Un esquema de desarrollo estándar para blancas:"
 
 #: templates/adminpage/help/pgnsyntax/nullmove.php
 #, php-format
@@ -1238,7 +1238,7 @@ msgid ""
 "The Ruy Lopez: White's third move attacks the knight which defends the e5-"
 "pawn from the attack by the f3-knight."
 msgstr ""
-"La Ruy Lopez: el tercer movimientos de las blancas ataca al caballo "
+"La Ruy Lopez: el tercer movimiento de las blancas ataca al caballo "
 "defendiendo el peón e5 del ataque del caballo en f3."
 
 #: templates/adminpage/help/pgnsyntax/marker.php
@@ -1285,9 +1285,9 @@ msgid ""
 "exported in PGN format using these %1$s[%%csl ...]%2$s and "
 "%1$s[%%cal ...]%2$s notations."
 msgstr ""
-"Los marcadores de casilla y flechas creadas en %3$ssoftwares Chessbase%4$s "
+"Los marcadores de casilla y flechas creadas en %3$sprogramas Chessbase%4$s "
 "se exportan en formato PGN utilizando estas mismas anotaciones "
-"%1$s[%%csl ...]%2$s y% %1$s[%%cal ...]%2$s."
+"%1$s[%%csl ...]%2$s y %1$s[%%cal ...]%2$s."
 
 #: templates/adminpage/help/pgnsyntax/example.php
 #: templates/adminpage/help/pgnsyntax/main.php
@@ -1304,8 +1304,8 @@ msgid ""
 "through a few representative examples."
 msgstr ""
 "El código entre las etiquetas %1$s[%3$s][/%3$s]%2$s describe la partida. La "
-"notación utilizada sigue el %4$sPGN format%7$s estándar, y puede generarse "
-"automáticamente a partir de softwares comunes de base de datos de ajedrez "
+"notación utilizada sigue el %4$sformato PGN%7$s estándar, y puede generarse "
+"automáticamente a partir de programas comunes de base de datos de ajedrez "
 "como %5$sChessbase%7$s, %6$sScid%7$s, etc... La sintaxis de PGN se resume "
 "aquí a través de ejemplos explicativos."
 
@@ -1371,7 +1371,7 @@ msgstr ""
 "pueden mostrar dentro de la lista de resultados (estilo \"comentario corto"
 "\"), o ya sea como bloques separados (estilo \"comentario largo\"). Para "
 "insertar un comentario como un bloque aislado, deje una línea vacía "
-"precediéndolo en el texto PGN. Nota además que las etiquetas HTML están "
+"precediéndolo en el texto PGN. Note además que las etiquetas HTML están "
 "permitidas en los comentarios."
 
 #: templates/adminpage/help/pgnsyntax/nag.php
@@ -1384,7 +1384,7 @@ msgid ""
 "(for instance, %1$s\"$1\"%2$s is equivalent to %1$s\"!\"%2$s). Both syntaxes "
 "are understood by the RPB Chessboard plugin. See the %3$slist of NAGs%4$s."
 msgstr ""
-"Tenga en cuenta que los softwares de base de datos de ajedrez pueden "
+"Tenga en cuenta que los programas de base de datos de ajedrez pueden "
 "introducir anotaciones como %1$s\"$x\"%2$s, donde %1$s\"x\"%2$s es "
 "reemplazado por uno o más dígitos (por ejemplo, %1$s\"1.e4 $1\"%2$s). Esto "
 "es lo que recomienda el estándar PGN, que define las equivalencias entre "
@@ -1782,11 +1782,11 @@ msgstr "Ayuda"
 #: wp/adminpages.php
 #, php-format
 msgid "About %1$s"
-msgstr "Sobre %1$s"
+msgstr "Acerca de %1$s"
 
 #: wp/adminpages.php
 msgid "About"
-msgstr "Sobre"
+msgstr "Acerca de"
 
 #: rpb-chessboard.php
 msgid ""
