@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-09 17:18+0100\n"
+"POT-Creation-Date: 2020-02-01 14:02+0100\n"
 "PO-Revision-Date: 2014-07-15 13:03+0100\n"
 "Last-Translator: Dawid Ziółkowski <kontakt -at- dawidziolkowski.pl>\n"
 "Language-Team: Dawid Ziółkowski <mr -at- dawidziolkowski.com>\n"
@@ -666,13 +666,13 @@ msgstr ""
 
 #: templates/adminpage/about.php templates/adminpage/memo/fen.php
 #: templates/adminpage/help/fensyntax.php
-msgid "http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation"
-msgstr "http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation"
+msgid "https://en.wikipedia.org/wiki/Forsyth-Edwards_Notation"
+msgstr "https://en.wikipedia.org/wiki/Forsyth-Edwards_Notation"
 
 #: templates/adminpage/about.php templates/adminpage/memo/pgn.php
 #: templates/adminpage/help/pgnsyntax/main.php
-msgid "http://en.wikipedia.org/wiki/Portable_Game_Notation"
-msgstr "http://en.wikipedia.org/wiki/Portable_Game_Notation"
+msgid "https://en.wikipedia.org/wiki/Portable_Game_Notation"
+msgstr "https://en.wikipedia.org/wiki/Portable_Game_Notation"
 
 #: templates/adminpage/about.php
 msgid "source code on GitHub"
@@ -1274,8 +1274,8 @@ msgstr ""
 "przez wtyczkę RPB Chessboard. Zobacz listę %3$slist dla NAGs%4$s."
 
 #: templates/adminpage/help/pgnsyntax/nag.php
-msgid "http://en.wikipedia.org/wiki/Numeric_Annotation_Glyphs"
-msgstr "http://en.wikipedia.org/wiki/Numeric_Annotation_Glyphs"
+msgid "https://en.wikipedia.org/wiki/Numeric_Annotation_Glyphs"
+msgstr "https://en.wikipedia.org/wiki/Numeric_Annotation_Glyphs"
 
 #: templates/adminpage/help/fensyntax.php
 #, php-format
