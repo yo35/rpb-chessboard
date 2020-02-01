@@ -36,7 +36,7 @@
 				'<span class="rpbchessboard-sourceCode">',
 				'</span>',
 				esc_html( $model->getPGNShortcode() ),
-				sprintf( '<a href="%s" target="_blank">', esc_url( __( 'http://en.wikipedia.org/wiki/Portable_Game_Notation', 'rpb-chessboard' ) ) ),
+				sprintf( '<a href="%s" target="_blank">', esc_url( __( 'https://en.wikipedia.org/wiki/Portable_Game_Notation', 'rpb-chessboard' ) ) ),
 				'<a href="http://www.chessbase.com/" target="_blank">',
 				'<a href="http://scid.sourceforge.net/" target="_blank">',
 				'</a>'

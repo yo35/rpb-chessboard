@@ -116,7 +116,7 @@
 						'rpb-chessboard'
 					),
 					sprintf( '<span class="rpbchessboard-sourceCode">[%1$s][/%1$s]</span>', esc_html( $model->getPGNShortcode() ) ),
-					sprintf( '<a href="%s" target="_blank">', esc_url( __( 'http://en.wikipedia.org/wiki/Portable_Game_Notation', 'rpb-chessboard' ) ) ),
+					sprintf( '<a href="%s" target="_blank">', esc_url( __( 'https://en.wikipedia.org/wiki/Portable_Game_Notation', 'rpb-chessboard' ) ) ),
 					'</a>'
 				);
 			?>

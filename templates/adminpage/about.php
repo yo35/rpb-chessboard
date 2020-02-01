@@ -35,8 +35,8 @@
 					'using the standard %1$sFEN%3$s and %2$sPGN%3$s notations.',
 					'rpb-chessboard'
 				),
-				sprintf( '<a href="%s" target="_blank">', esc_url( __( 'http://en.wikipedia.org/wiki/Forsyth-Edwards_Notation', 'rpb-chessboard' ) ) ),
-				sprintf( '<a href="%s" target="_blank">', esc_url( __( 'http://en.wikipedia.org/wiki/Portable_Game_Notation', 'rpb-chessboard' ) ) ),
+				sprintf( '<a href="%s" target="_blank">', esc_url( __( 'https://en.wikipedia.org/wiki/Forsyth-Edwards_Notation', 'rpb-chessboard' ) ) ),
+				sprintf( '<a href="%s" target="_blank">', esc_url( __( 'https://en.wikipedia.org/wiki/Portable_Game_Notation', 'rpb-chessboard' ) ) ),
 				'</a>'
 			);
 		?>

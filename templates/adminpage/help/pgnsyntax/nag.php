@@ -63,7 +63,7 @@
 			),
 			'<span class="rpbchessboard-sourceCode">',
 			'</span>',
-			sprintf( '<a href="%s" target="_blank">', esc_url( __( 'http://en.wikipedia.org/wiki/Numeric_Annotation_Glyphs', 'rpb-chessboard' ) ) ),
+			sprintf( '<a href="%s" target="_blank">', esc_url( __( 'https://en.wikipedia.org/wiki/Numeric_Annotation_Glyphs', 'rpb-chessboard' ) ) ),
 			'</a>'
 		);
 	?>
