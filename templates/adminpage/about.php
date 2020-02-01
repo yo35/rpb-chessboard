@@ -99,11 +99,15 @@
 				<dd>Markus Liebelt</dd>
 			</div>
 			<div>
-				<dt><img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/flags/fr.png' ); ?>" alt="French flag" />Français</dt>
-				<dd>Yoann Le Montagner</dd>
+				<dt><img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/flags/es.png' ); ?>" alt="Spanish flag" />Español</dt>
+				<dd>Martin Frith</dd>
 			</div>
 		</div>
 		<div>
+			<div>
+				<dt><img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/flags/fr.png' ); ?>" alt="French flag" />Français</dt>
+				<dd>Yoann Le Montagner</dd>
+			</div>
 			<div>
 				<dt><img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/flags/gb.png' ); ?>" alt="British flag" />English</dt>
 				<dd>Yoann Le Montagner</dd>
@@ -112,12 +116,12 @@
 				<dt><img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/flags/nl.png' ); ?>" alt="Dutch flag" />Dutch</dt>
 				<dd>Ivan Deceuninck</dd>
 			</div>
+		</div>
+		<div>
 			<div>
 				<dt><img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/flags/pl.png' ); ?>" alt="Polish flag" />Polski</dt>
 				<dd><a href="http://dawidziolkowski.com/" target="_blank">Dawid Ziółkowski</a></dd>
 			</div>
-		</div>
-		<div>
 			<div>
 				<dt><img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/flags/ru.png' ); ?>" alt="Russian flag" />Russian</dt>
 				<dd><a href="http://safoyeth.com/" target="_blank">Sergey Baravicov</a></dd>
