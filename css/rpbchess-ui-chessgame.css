@@ -21,6 +21,38 @@
 
 
 /******************************************************************************/
+/*** Fonts ***/
+
+@font-face {
+	font-family: 'Chess Alpha';
+	src:
+		url('fonts/chessalpha-webfont.woff2') format('woff2'),
+		url('fonts/chessalpha-webfont.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Chess Merida';
+	src:
+		url('fonts/chessmerida-webfont.woff2') format('woff2'),
+		url('fonts/chessmerida-webfont.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Chess Pirat';
+	src:
+		url('fonts/chesspirat-webfont.woff2') format('woff2'),
+		url('fonts/chesspirat-webfont.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
+
+/******************************************************************************/
 /*** Parsing error box ***/
 
 .rpbui-chessgame-error {

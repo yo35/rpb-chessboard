@@ -36,14 +36,12 @@ abstract class RPBChessboardStyleSheets {
 
 		// Chessgame widget
 		wp_register_style( 'rpbchessboard-jquery-ui-smoothness', RPBCHESSBOARD_URL . 'third-party-libs/jquery/jquery-ui.smoothness' . $ext, false, '1.11.4' );
-		wp_register_style( 'rpbchessboard-chessfonts', RPBCHESSBOARD_URL . 'fonts/chess-fonts.css', false, RPBCHESSBOARD_VERSION );
 		wp_register_style(
 			'rpbchessboard-chessgame',
 			RPBCHESSBOARD_URL . 'css/rpbchess-ui-chessgame' . $ext,
 			array(
 				'wp-jquery-ui-dialog',
 				'rpbchessboard-jquery-ui-smoothness',
-				'rpbchessboard-chessfonts',
 				'rpbchessboard-chessboard',
 			),
 			RPBCHESSBOARD_VERSION
