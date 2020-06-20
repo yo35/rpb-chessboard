@@ -61,7 +61,7 @@ abstract class RPBChessboardStyleSheets {
 
 			// Enqueue the CSS if lazy-loading is disabled.
 			$compatibility = RPBChessboardHelperLoader::loadModel( 'Common/Compatibility' );
-			if( !$compatibility->getLazyLoadingForCSSAndJS() ) {
+			if ( ! $compatibility->getLazyLoadingForCSSAndJS() ) {
 				wp_enqueue_style( 'rpbchessboard-chessboard' );
 				wp_enqueue_style( 'rpbchessboard-chessgame' );
 				wp_enqueue_style( 'rpbchessboard-frontend' );

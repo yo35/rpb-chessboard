@@ -121,7 +121,7 @@ class RPBChessboardModelCommonCompatibility extends RPBChessboardAbstractModel {
 	 */
 	public function getLazyLoadingForCSSAndJS() {
 		if ( ! isset( self::$lazyLoadingForCSSAndJS ) ) {
-			$value = RPBChessboardHelperValidation::validateBooleanFromInt( get_option( 'rpbchessboard_lazyLoadingForCSSAndJS' ) );
+			$value                        = RPBChessboardHelperValidation::validateBooleanFromInt( get_option( 'rpbchessboard_lazyLoadingForCSSAndJS' ) );
 			self::$lazyLoadingForCSSAndJS = isset( $value ) ? $value : true;
 		}
 		return self::$lazyLoadingForCSSAndJS;

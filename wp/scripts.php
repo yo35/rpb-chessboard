@@ -127,7 +127,7 @@ abstract class RPBChessboardScripts {
 
 			// Enqueue the JS if lazy-loading is disabled.
 			$compatibility = RPBChessboardHelperLoader::loadModel( 'Common/Compatibility' );
-			if( !$compatibility->getLazyLoadingForCSSAndJS() ) {
+			if ( ! $compatibility->getLazyLoadingForCSSAndJS() ) {
 				wp_enqueue_script( 'rpbchessboard-chessboard' );
 				wp_enqueue_script( 'rpbchessboard-chessgame' );
 			}
