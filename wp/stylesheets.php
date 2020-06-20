@@ -51,14 +51,13 @@ abstract class RPBChessboardStyleSheets {
 		self::enqueueCachedStyle( 'rpbchessboard-chessboard', 'small-screens.css', 'CSS/SmallScreens', 'CSS/SmallScreens' );
 		self::enqueueCachedStyle( 'rpbchessboard-chessboard', 'theming.css', 'CSS/Theming', 'CSS/Theming' );
 
-		wp_enqueue_style( 'rpbchessboard-chessboard' );
-		wp_enqueue_style( 'rpbchessboard-chessgame' );
-
 		// Additional CSS for the frontend/backend.
 		if ( is_admin() ) {
+			wp_enqueue_style( 'rpbchessboard-chessboard' );
+			wp_enqueue_style( 'rpbchessboard-chessgame' );
 			wp_enqueue_style( 'rpbchessboard-backend', RPBCHESSBOARD_URL . 'css/backend' . $ext, false, RPBCHESSBOARD_VERSION );
 		} else {
-			wp_enqueue_style( 'rpbchessboard-frontend', RPBCHESSBOARD_URL . 'css/frontend' . $ext, false, RPBCHESSBOARD_VERSION );
+			wp_register_style( 'rpbchessboard-frontend', RPBCHESSBOARD_URL . 'css/frontend' . $ext, false, RPBCHESSBOARD_VERSION );
 		}
 	}
 
