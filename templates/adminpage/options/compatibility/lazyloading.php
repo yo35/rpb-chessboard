@@ -18,8 +18,40 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.   *
  *                                                                            *
  ******************************************************************************/
+?>
+
+<h3><?php esc_html_e( 'Compatibility with themes and plugins with complex behaviors', 'rpb-chessboard' ); ?></h3>
+
+<p>
+	<?php
+		esc_html_e(
+			'By default, the RPB Chessboard plugin tries to avoid loading its CSS and JavaScript files on pages ' .
+			'with no chess diagram or game content, in order to reduce its impact on performance of your website as much as possible. ' .
+			'Still, this approach may fail in non-standard situations: for example, if the the theme makes use of AJAX queries ' .
+			'to render posts/pages, if you try to use chess diagrams or chess games in post/page comments, in bbPress forums, etc... ' .
+			'Disable this option to avoid issues if you are in those situations.',
+			'rpb-chessboard'
+		);
+	?>
+</p>
 
 
-RPBChessboardHelperLoader::printTemplate( 'AdminPage/Options/Compatibility/ChessPlugins', $model );
-RPBChessboardHelperLoader::printTemplate( 'AdminPage/Options/Compatibility/jQuery', $model );
-RPBChessboardHelperLoader::printTemplate( 'AdminPage/Options/Compatibility/LazyLoading', $model );
+
+<p>
+	<input type="hidden" name="lazyLoadingForCSSAndJS" value="0" />
+	<input type="checkbox" id="rpbchessboard-lazyLoadingForCSSAndJSField" name="lazyLoadingForCSSAndJS" value="1"
+		<?php echo $model->getLazyLoadingForCSSAndJS() ? 'checked="yes"' : ''; ?>
+	/>
+	<label for="rpbchessboard-lazyLoadingForCSSAndJSField">
+		<?php esc_html_e( 'Lazy-loading for CSS/JavaScript files', 'rpb-chessboard' ); ?>
+	</label>
+</p>
+
+<p class="description">
+	<?php
+		esc_html_e(
+			'Disable this option FEN diagrams or PGN games are not properly-rendered on your website.',
+			'rpb-chessboard'
+		);
+	?>
+</p>

@@ -53,6 +53,7 @@ class RPBChessboardModelPostSaveOptions extends RPBChessboardAbstractModel {
 		self::processBooleanParameter( 'fenCompatibilityMode' );
 		self::processBooleanParameter( 'pgnCompatibilityMode' );
 		self::processBooleanParameter( 'noConflictForButton' );
+		self::processBooleanParameter( 'lazyLoadingForCSSAndJS' );
 
 		// Small-screen parameters
 		self::processBooleanParameter( 'smallScreenCompatibility' );

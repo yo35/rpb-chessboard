@@ -58,6 +58,14 @@ abstract class RPBChessboardStyleSheets {
 			wp_enqueue_style( 'rpbchessboard-backend', RPBCHESSBOARD_URL . 'css/backend' . $ext, false, RPBCHESSBOARD_VERSION );
 		} else {
 			wp_register_style( 'rpbchessboard-frontend', RPBCHESSBOARD_URL . 'css/frontend' . $ext, false, RPBCHESSBOARD_VERSION );
+
+			// Enqueue the CSS if lazy-loading is disabled.
+			$compatibility = RPBChessboardHelperLoader::loadModel( 'Common/Compatibility' );
+			if( !$compatibility->getLazyLoadingForCSSAndJS() ) {
+				wp_enqueue_style( 'rpbchessboard-chessboard' );
+				wp_enqueue_style( 'rpbchessboard-chessgame' );
+				wp_enqueue_style( 'rpbchessboard-frontend' );
+			}
 		}
 	}
 

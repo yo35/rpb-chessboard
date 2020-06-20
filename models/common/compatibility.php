@@ -33,6 +33,7 @@ class RPBChessboardModelCommonCompatibility extends RPBChessboardAbstractModel {
 	private static $fenCompatibilityMode;
 	private static $pgnCompatibilityMode;
 	private static $noConflictForButton;
+	private static $lazyLoadingForCSSAndJS;
 
 
 	public function __construct() {
@@ -42,7 +43,8 @@ class RPBChessboardModelCommonCompatibility extends RPBChessboardAbstractModel {
 			'getPGNCompatibilityMode',
 			'getFENShortcode',
 			'getPGNShortcode',
-			'getNoConflictForButton'
+			'getNoConflictForButton',
+			'getLazyLoadingForCSSAndJS'
 		);
 	}
 
@@ -108,5 +110,20 @@ class RPBChessboardModelCommonCompatibility extends RPBChessboardAbstractModel {
 			self::$noConflictForButton = isset( $value ) ? $value : false;
 		}
 		return self::$noConflictForButton;
+	}
+
+
+	/**
+	 * Whether lazy-loading is enabled for CSS and JS. When enabled, plugin-specific CSS and JS files are enqueued only when a plugin shortcode
+	 * is encountered in a page/post.
+	 *
+	 * @return boolean
+	 */
+	public function getLazyLoadingForCSSAndJS() {
+		if ( ! isset( self::$lazyLoadingForCSSAndJS ) ) {
+			$value = RPBChessboardHelperValidation::validateBooleanFromInt( get_option( 'rpbchessboard_lazyLoadingForCSSAndJS' ) );
+			self::$lazyLoadingForCSSAndJS = isset( $value ) ? $value : true;
+		}
+		return self::$lazyLoadingForCSSAndJS;
 	}
 }

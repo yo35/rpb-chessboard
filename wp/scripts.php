@@ -124,6 +124,13 @@ abstract class RPBChessboardScripts {
 
 			// In frontend, force jQuery to be loaded in the header (should be the case anyway in most themes).
 			wp_enqueue_script( 'jquery' );
+
+			// Enqueue the JS if lazy-loading is disabled.
+			$compatibility = RPBChessboardHelperLoader::loadModel( 'Common/Compatibility' );
+			if( !$compatibility->getLazyLoadingForCSSAndJS() ) {
+				wp_enqueue_script( 'rpbchessboard-chessboard' );
+				wp_enqueue_script( 'rpbchessboard-chessgame' );
+			}
 		}
 
 		// Inlined scripts
