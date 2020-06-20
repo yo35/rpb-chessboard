@@ -43,12 +43,14 @@ I18N_TEXT_DOMAIN = rpb-chessboard
 
 
 # Files by type
-PHP_FILES         = $(SRC_MAIN_FILE) $(shell find $(SRC_FOLDERS) -name '*.php')
-JS_FILES          = $(shell find js -name '*.js' -not -name '*.min.js')
-JS_MINIFIED_FILES = $(patsubst %.js,%.min.js,$(JS_FILES))
-I18N_POT_FILE     = languages/$(I18N_TEXT_DOMAIN).pot
-I18N_PO_FILES     = $(wildcard languages/*.po)
-I18N_MO_FILES     = $(patsubst %.po,%.mo,$(I18N_PO_FILES))
+PHP_FILES          = $(SRC_MAIN_FILE) $(shell find $(SRC_FOLDERS) -name '*.php')
+JS_FILES           = $(shell find js -name '*.js' -not -name '*.min.js')
+JS_MINIFIED_FILES  = $(patsubst %.js,%.min.js,$(JS_FILES))
+CSS_FILES          = $(shell find css -name '*.css' -not -name '*.min.css')
+CSS_MINIFIED_FILES = $(patsubst %.css,%.min.css,$(CSS_FILES))
+I18N_POT_FILE      = languages/$(I18N_TEXT_DOMAIN).pot
+I18N_PO_FILES      = $(wildcard languages/*.po)
+I18N_MO_FILES      = $(patsubst %.po,%.mo,$(I18N_PO_FILES))
 
 
 # Temporary objects
@@ -67,6 +69,7 @@ MSGFMT        = msgfmt -v
 ESLINT        = ./node_modules/.bin/eslint
 BROWSERIFY    = ./node_modules/.bin/browserify
 UGLIFYJS      = ./node_modules/.bin/uglifyjs -c
+UGLIFYCSS     = ./node_modules/.bin/uglifycss
 PHPCS         = phpcs --colors --standard=assets/dev-tools/phpcs.xml
 PHPCBF        = phpcbf --standard=assets/dev-tools/phpcs.xml
 STATISTICS    = ./assets/dev-tools/statistics.sh
@@ -89,6 +92,7 @@ help:
 	@$(ECHO) " * make $(COLOR_ITEM_IN)i18n-compile$(COLOR_ITEM_OUT): compile the translation files (*.po) into binaries (*.mo)."
 	@$(ECHO) " * make $(COLOR_ITEM_IN)eslint$(COLOR_ITEM_OUT): run the static analysis of JavaScript files."
 	@$(ECHO) " * make $(COLOR_ITEM_IN)jsmin$(COLOR_ITEM_OUT): run the JavaScript minifier tool on JavaScript files."
+	@$(ECHO) " * make $(COLOR_ITEM_IN)cssmin$(COLOR_ITEM_OUT): run the CSS minifier tool on CSS files."
 	@$(ECHO) " * make $(COLOR_ITEM_IN)phpcs$(COLOR_ITEM_OUT): run the static analysis of PHP files."
 	@$(ECHO) " * make $(COLOR_ITEM_IN)phpcbf$(COLOR_ITEM_OUT): try to fix some of the errors detected by static analysis on PHP files."
 	@$(ECHO) " * make $(COLOR_ITEM_IN)pack$(COLOR_ITEM_OUT): pack the source files into a zip file, ready for WordPress deployment."
@@ -183,6 +187,23 @@ jsmin: $(JS_MINIFIED_FILES) $(NPM_DEPS_MIN_FILE)
 
 
 ################################################################################
+# CSS targets
+################################################################################
+
+
+# CSS minification
+cssmin: $(CSS_MINIFIED_FILES)
+
+
+# Single CSS file minification
+%.min.css: %.css $(NODE_MODULES)
+	@$(ECHO) "$(COLOR_IN)Minifying CSS file [ $(COLOR_ARG_IN)$<$(COLOR_ARG_OUT) ]...$(COLOR_OUT)"
+	@$(UGLIFYCSS) --output $@ $<
+
+
+
+
+################################################################################
 # PHP targets
 ################################################################################
 
@@ -231,8 +252,8 @@ stats:
 
 # Clean the automatically generated files
 clean:
-	@rm -rf $(NODE_MODULES) $(TEMPORARY_FOLDER) $(DEPLOYMENT_FILE) $(JS_MINIFIED_FILES) $(I18N_MO_FILES) $(NPM_DEPS_FILE) $(NPM_DEPS_MIN_FILE)
+	@rm -rf $(NODE_MODULES) $(TEMPORARY_FOLDER) $(DEPLOYMENT_FILE) $(JS_MINIFIED_FILES) $(CSS_MINIFIED_FILES) $(I18N_MO_FILES) $(NPM_DEPS_FILE) $(NPM_DEPS_MIN_FILE)
 
 
 # Make's stuff
-.PHONY: help init i18n-extract i18n-merge i18n-compile eslint jsmin phpcs phpcbf pack stats clean
+.PHONY: help init i18n-extract i18n-merge i18n-compile eslint jsmin cssmin phpcs phpcbf pack stats clean

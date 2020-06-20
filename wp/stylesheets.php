@@ -29,16 +29,17 @@
 abstract class RPBChessboardStyleSheets {
 
 	public static function register() {
+		$ext = self::getCSSFileExtension();
 
 		// Chessboard widget
-		wp_register_style( 'rpbchessboard-chessboard', RPBCHESSBOARD_URL . 'css/rpbchess-ui-chessboard.css', false, RPBCHESSBOARD_VERSION );
+		wp_register_style( 'rpbchessboard-chessboard', RPBCHESSBOARD_URL . 'css/rpbchess-ui-chessboard' . $ext, false, RPBCHESSBOARD_VERSION );
 
 		// Chessgame widget
-		wp_register_style( 'rpbchessboard-jquery-ui-smoothness', RPBCHESSBOARD_URL . 'third-party-libs/jquery/jquery-ui.smoothness.min.css', false, '1.11.4' );
+		wp_register_style( 'rpbchessboard-jquery-ui-smoothness', RPBCHESSBOARD_URL . 'third-party-libs/jquery/jquery-ui.smoothness' . $ext, false, '1.11.4' );
 		wp_register_style( 'rpbchessboard-chessfonts', RPBCHESSBOARD_URL . 'fonts/chess-fonts.css', false, RPBCHESSBOARD_VERSION );
 		wp_register_style(
 			'rpbchessboard-chessgame',
-			RPBCHESSBOARD_URL . 'css/rpbchess-ui-chessgame.css',
+			RPBCHESSBOARD_URL . 'css/rpbchess-ui-chessgame' . $ext,
 			array(
 				'wp-jquery-ui-dialog',
 				'rpbchessboard-jquery-ui-smoothness',
@@ -57,14 +58,24 @@ abstract class RPBChessboardStyleSheets {
 
 		// Additional CSS for the frontend/backend.
 		if ( is_admin() ) {
-			wp_enqueue_style( 'rpbchessboard-backend', RPBCHESSBOARD_URL . 'css/backend.css', false, RPBCHESSBOARD_VERSION );
+			wp_enqueue_style( 'rpbchessboard-backend', RPBCHESSBOARD_URL . 'css/backend' . $ext, false, RPBCHESSBOARD_VERSION );
 		} else {
-			wp_enqueue_style( 'rpbchessboard-frontend', RPBCHESSBOARD_URL . 'css/frontend.css', false, RPBCHESSBOARD_VERSION );
+			wp_enqueue_style( 'rpbchessboard-frontend', RPBCHESSBOARD_URL . 'css/frontend' . $ext, false, RPBCHESSBOARD_VERSION );
 		}
 	}
 
 
 	private static function enqueueCachedStyle( $handle, $cacheKey, $templateName, $modelName ) {
 		wp_add_inline_style( $handle, RPBChessboardHelperCache::get( $cacheKey, $templateName, $modelName ) );
+	}
+
+
+	/**
+	 * Return the extension to use for the included CSS files.
+	 *
+	 * @return string
+	 */
+	private static function getCSSFileExtension() {
+		return WP_DEBUG ? '.css' : '.min.css';
 	}
 }
