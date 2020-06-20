@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-01 14:02+0100\n"
+"POT-Creation-Date: 2020-06-20 14:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -404,6 +404,31 @@ msgid ""
 "This setting only affects how chess moves are rendered to post/page readers. "
 "Authors must always use English initials when writting PGN content into "
 "posts and pages."
+msgstr ""
+
+#: templates/adminpage/options/compatibility/lazyloading.php
+msgid "Compatibility with themes and plugins with complex behaviors"
+msgstr ""
+
+#: templates/adminpage/options/compatibility/lazyloading.php
+msgid ""
+"By default, the RPB Chessboard plugin tries to avoid loading its CSS and "
+"JavaScript files on pages with no chess diagram or game content, in order to "
+"reduce its impact on performance of your website as much as possible. Still, "
+"this approach may fail in non-standard situations: for example, if the the "
+"theme makes use of AJAX queries to render posts/pages, if you try to use "
+"chess diagrams or chess games in post/page comments, in bbPress forums, "
+"etc... Disable this option to avoid issues if you are in those situations."
+msgstr ""
+
+#: templates/adminpage/options/compatibility/lazyloading.php
+msgid "Lazy-loading for CSS/JavaScript files"
+msgstr ""
+
+#: templates/adminpage/options/compatibility/lazyloading.php
+msgid ""
+"Disable this option FEN diagrams or PGN games are not properly-rendered on "
+"your website."
 msgstr ""
 
 #: templates/adminpage/options/compatibility/chessplugins.php
