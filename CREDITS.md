@@ -12,16 +12,23 @@ Yoann Le Montagner
 Contributors
 ------------
 
-Marek Śmigielski, [Paul Schreiber](https://paulschreiber.com/), [Adam Silverstein](http://www.10up.com/)
+Marek Śmigielski,
+[Paul Schreiber](https://paulschreiber.com/),
+[Adam Silverstein](http://www.10up.com/)
 
 
 
 Translators
 -----------
 
-Jan Jílek (Czech), Markus Liebelt (German), Martin Frith (Spanish) Yoann Le Montagner (English and French),
-Ivan Deceuninck (Dutch), [Dawid Ziółkowski](http://dawidziolkowski.com/) (Polish),
-[Sergey Baravicov](http://safoyeth.com/) (Russian), Ali Nihat Yazıcı (Turkish).
+Jan Jílek (Czech),
+Markus Liebelt (German),
+Yoann Le Montagner (English and French),
+Martin Frith (Spanish),
+Ivan Deceuninck (Dutch),
+[Dawid Ziółkowski](http://dawidziolkowski.com/) (Polish),
+[Sergey Baravicov](http://safoyeth.com/) (Russian),
+Ali Nihat Yazıcı (Turkish).
 
 
 
