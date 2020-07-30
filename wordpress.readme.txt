@@ -81,6 +81,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 5.7.1 (July 30, 2020) =
+* Brazilian Portuguese translation (thanks to Rewbenio Frota).
+
 = 5.7.0 (June 20, 2020) =
 * Tested up to WordPress 5.4.
 * Implement lazy-loading for CSS assets (see #135) and introduce a compatibility option to disable this feature.
