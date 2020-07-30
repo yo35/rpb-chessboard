@@ -27,6 +27,7 @@ Yoann Le Montagner (English and French),
 Martin Frith (Spanish),
 Ivan Deceuninck (Dutch),
 [Dawid Ziółkowski](http://dawidziolkowski.com/) (Polish),
+[Rewbenio Frota](http://www.lancesqi.com.br/) (Brazilian Portuguese),
 [Sergey Baravicov](http://safoyeth.com/) (Russian),
 Ali Nihat Yazıcı (Turkish).
 

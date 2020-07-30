@@ -123,9 +123,15 @@
 				<dd><a href="http://dawidziolkowski.com/" target="_blank">Dawid Ziółkowski</a></dd>
 			</div>
 			<div>
+				<dt><img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/flags/br.png' ); ?>" alt="Brazilian flag" />Brazillian Portuguese</dt><!-- Language code: pt, country code: br-->
+				<dd><a href="http://www.lancesqi.com.br/" target="_blank">Rewbenio Frota</a></dd>
+			</div>
+			<div>
 				<dt><img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/flags/ru.png' ); ?>" alt="Russian flag" />Russian</dt><!-- Language code: ru -->
 				<dd><a href="http://safoyeth.com/" target="_blank">Sergey Baravicov</a></dd>
 			</div>
+		</div>
+		<div>
 			<div>
 				<dt><img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/flags/tr.png' ); ?>" alt="Turkish flag" />Turkish</dt><!-- Language code: tr -->
 				<dd>Ali Nihat Yazıcı</dd>
