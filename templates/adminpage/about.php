@@ -178,7 +178,7 @@
 				),
 				'<em>',
 				'</em>',
-				'<a href="http://poisson.phc.unipi.it/~monge/" target="_blank">',
+				'<a href="http://poisson.phc.dm.unipi.it/~monge/" target="_blank">',
 				'</a>'
 			);
 		?>
