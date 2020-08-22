@@ -214,7 +214,7 @@
 
 		// Parse the FEN string.
 		try {
-			widget._position = /^(\w+):(.*)$/.test(fen) ? new kokopu.Position(RegExp.$1, RegExp.$2) : new kokopu.Position(fen);
+			widget._position = /^([-\w]+):(.*)$/.test(fen) ? new kokopu.Position(RegExp.$1, RegExp.$2) : new kokopu.Position(fen);
 			fen = widget._position.fen();
 		}
 		catch(e) {
