@@ -81,6 +81,10 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 5.8.0 (August 22, 2020) =
+* Tested up to WordPress 5.5.
+* Hangle games with no king (see #171).
+
 = 5.7.1 (July 30, 2020) =
 * Brazilian Portuguese translation (thanks to Rewbenio Frota).
 
