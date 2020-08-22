@@ -228,7 +228,7 @@ phpcbf:
 
 
 # Pack the source files into a zip file, ready for WordPress deployment
-pack: init phpcs eslint i18n-compile jsmin
+pack: init phpcs eslint i18n-compile jsmin cssmin
 	@rm -rf $(SNAPSHOT_FOLDER) $(DEPLOYMENT_FILE)
 	@mkdir -p $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)
 	@cp -r $(SRC_MAIN_FILE) $(SRC_FOLDERS) $(THIRD_PARTY_FOLDER) $(INFO_FILES) $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)
