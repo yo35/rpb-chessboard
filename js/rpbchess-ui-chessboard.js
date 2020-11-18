@@ -399,10 +399,10 @@
 		svg.setAttribute('class', 'rpbui-chessboard-annotations');
 		svg.setAttribute('viewBox', '0 0 8 8');
 		var defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-		defs.appendChild(buildArrowMarkerStyle('G'));
-		defs.appendChild(buildArrowMarkerStyle('R'));
-		defs.appendChild(buildArrowMarkerStyle('Y'));
-		defs.appendChild(buildArrowMarkerStyle('B'));
+		defs.appendChild(buildArrowMarkerStyle(widget, 'G'));
+		defs.appendChild(buildArrowMarkerStyle(widget, 'R'));
+		defs.appendChild(buildArrowMarkerStyle(widget, 'Y'));
+		defs.appendChild(buildArrowMarkerStyle(widget, 'B'));
 		svg.appendChild(defs);
 		result.appendChild(svg);
 
@@ -414,13 +414,13 @@
 				if(fromSquare !== toSquare) {
 					var vc = getArrowCoordinatesInSVG(widget, fromSquare, toSquare);
 					var identifierClazz = 'rpbui-chessboard-arrowMarker-' + fromSquare + toSquare;
-					svg.appendChild(buildArrow(identifierClazz, widget._arrowMarkers[arrow], vc.x1, vc.y1, vc.x2, vc.y2));
+					svg.appendChild(buildArrow(widget, identifierClazz, widget._arrowMarkers[arrow], vc.x1, vc.y1, vc.x2, vc.y2));
 				}
 			}
 		}
 		if(widget._moveArrow !== null) {
 			var vc = getArrowCoordinatesInSVG(widget, widget._moveArrow.from, widget._moveArrow.to);
-			svg.appendChild(buildArrow('rpbui-chessboard-moveArrow', 'B', vc.x1, vc.y1, vc.x2, vc.y2));
+			svg.appendChild(buildArrow(widget, 'rpbui-chessboard-moveArrow', 'B', vc.x1, vc.y1, vc.x2, vc.y2));
 		}
 
 		return result;
@@ -430,13 +430,15 @@
 	/**
 	 * Create a DOM node corresponding to a style for an arrow termination.
 	 *
+	 * @param {rpbchess-ui.chessboard} widget
 	 * @param {string} color
 	 * @returns {Element}
 	 */
-	function buildArrowMarkerStyle(color) {
+	function buildArrowMarkerStyle(widget, color) {
 
 		var marker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
-		marker.setAttribute('id', 'rpbui-chessboard-arrowMarkerEnd-' + color);
+		marker.setAttribute('id', arrowMarkerEndId(widget, color));
+		marker.setAttribute('class', 'rpbui-chessboard-arrowMarkerEnd-' + color);
 		marker.setAttribute('markerWidth', 4);
 		marker.setAttribute('markerHeight', 4);
 		marker.setAttribute('refX', 2.5);
@@ -454,6 +456,7 @@
 	/**
 	 * Create a DOM node corresponding to an arrow between the given squares.
 	 *
+	 * @param {rpbchess-ui.chessboard} widget
 	 * @param {string} identifierClazz
 	 * @param {string} color
 	 * @param {number} x1
@@ -462,15 +465,34 @@
 	 * @param {number} y2
 	 * @returns {Element}
 	 */
-	function buildArrow(identifierClazz, color, x1, y1, x2, y2) {
+	function buildArrow(widget, identifierClazz, color, x1, y1, x2, y2) {
 		var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
 		line.setAttribute('class', 'rpbui-chessboard-arrowMarker ' + identifierClazz + ' rpbui-chessboard-markerColor-' + color);
 		line.setAttribute('x1', x1);
 		line.setAttribute('y1', y1);
 		line.setAttribute('x2', x2);
 		line.setAttribute('y2', y2);
-		line.setAttribute('marker-end', 'url(#rpbui-chessboard-arrowMarkerEnd-' + color + ')');
+		line.setAttribute('marker-end', 'url(#' + arrowMarkerEndId(widget, color) + ')');
 		return line;
+	}
+
+
+	/**
+	 * Return the ID of the arrow marker tip corresponding to the given color.
+	 *
+	 * @param {rpbchess-ui.chessboard} widget
+	 * @param {string} color
+	 */
+	function arrowMarkerEndId(widget, color) {
+		if(widget._arrowMarkerEndIdSuffix === null) {
+			var buffer = new Uint32Array(8);
+			crypto.getRandomValues(buffer);
+			widget._arrowMarkerEndIdSuffix = '';
+			for(var i = 0; i < buffer.length; ++i) {
+				widget._arrowMarkerEndIdSuffix += buffer[i].toString(16);
+			}
+		}
+		return 'rpbui-chessboard-arrowMarkerEnd-' + color + '-' + widget._arrowMarkerEndIdSuffix;
 	}
 
 
@@ -630,7 +652,7 @@
 			var toSquare = key.substr(2, 2);
 			if(fromSquare !== toSquare) {
 				var vc = getArrowCoordinatesInSVG(widget, fromSquare, toSquare);
-				$('.rpbui-chessboard-annotations', widget.element).append(buildArrow(identifierClazz, newValue, vc.x1, vc.y1, vc.x2, vc.y2));
+				$('.rpbui-chessboard-annotations', widget.element).append(buildArrow(widget, identifierClazz, newValue, vc.x1, vc.y1, vc.x2, vc.y2));
 			}
 		}
 		else if(typeof newValue === 'undefined') {
@@ -638,7 +660,7 @@
 		}
 		else {
 			var clazz = 'rpbui-chessboard-arrowMarker ' + identifierClazz + ' rpbui-chessboard-markerColor-' + newValue;
-			var marker = 'url(#rpbui-chessboard-arrowMarkerEnd-' + newValue + ')';
+			var marker = 'url(#' +  arrowMarkerEndId(widget, newValue) + ')';
 			$('.' + identifierClazz, widget.element).attr('class', clazz).attr('marker-end', marker);
 		}
 	}
@@ -658,7 +680,7 @@
 				var toSquare = key.substr(2, 2);
 				if(fromSquare !== toSquare) {
 					var vc = getArrowCoordinatesInSVG(widget, fromSquare, toSquare);
-					var arrow = buildArrow('rpbui-chessboard-arrowMarker-' + key, widget._arrowMarkers[key], vc.x1, vc.y1, vc.x2, vc.y2);
+					var arrow = buildArrow(widget, 'rpbui-chessboard-arrowMarker-' + key, widget._arrowMarkers[key], vc.x1, vc.y1, vc.x2, vc.y2);
 					$('.rpbui-chessboard-annotations', widget.element).append(arrow);
 				}
 			}
@@ -868,7 +890,7 @@
 
 				// Create the temporary arrow marker.
 				var p = getSquareCoordinatesInSVG(widget, fromSquare);
-				$('.rpbui-chessboard-annotations', widget.element).append(buildArrow('rpbui-chessboard-draggedArrow', markerColor, p.x, p.y, p.x, p.y));
+				$('.rpbui-chessboard-annotations', widget.element).append(buildArrow(widget, 'rpbui-chessboard-draggedArrow', markerColor, p.x, p.y, p.x, p.y));
 			},
 
 			drag: function(event) {
@@ -999,7 +1021,7 @@
 		if(withArrow && from !== to) {
 			var vc = getArrowCoordinatesInSVG(widget, from, to);
 			scheduleMoveAnimation(widget, animate, 0.5, function() {
-				$('.rpbui-chessboard-annotations', widget.element).append(buildArrow('rpbui-chessboard-moveArrow', 'B', vc.x1, vc.y1, vc.x2, vc.y2));
+				$('.rpbui-chessboard-annotations', widget.element).append(buildArrow(widget, 'rpbui-chessboard-moveArrow', 'B', vc.x1, vc.y1, vc.x2, vc.y2));
 			});
 			widget._moveArrow = { from: from, to: to };
 		}
@@ -1280,6 +1302,12 @@
 		 * Counter to validate/invalidate animations.
 		 */
 		_animationCounter: 0,
+
+
+		/**
+		 * ID suffix of the arrow marker tip.
+		 */
+		_arrowMarkerEndIdSuffix: null,
 
 
 		/**

@@ -124,10 +124,10 @@
 .rpbui-chessboard-arrowMarker.rpbui-chessboard-markerColor-Y { stroke: #db0; }
 .rpbui-chessboard-arrowMarker.rpbui-chessboard-markerColor-B { stroke: #04f; }
 
-#rpbui-chessboard-arrowMarkerEnd-G { fill: #0e0; }
-#rpbui-chessboard-arrowMarkerEnd-R { fill: #f20; }
-#rpbui-chessboard-arrowMarkerEnd-Y { fill: #db0; }
-#rpbui-chessboard-arrowMarkerEnd-B { fill: #04f; }
+.rpbui-chessboard-arrowMarkerEnd-G { fill: #0e0; }
+.rpbui-chessboard-arrowMarkerEnd-R { fill: #f20; }
+.rpbui-chessboard-arrowMarkerEnd-Y { fill: #db0; }
+.rpbui-chessboard-arrowMarkerEnd-B { fill: #04f; }
 
 .rpbui-chessboard-squareMarker.rpbui-chessboard-markerColor-G.rpbui-chessboard-lightSquare { background-color: #60f250; }
 .rpbui-chessboard-squareMarker.rpbui-chessboard-markerColor-G.rpbui-chessboard-darkSquare  { background-color: #48cf2b; }

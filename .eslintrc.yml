@@ -3,6 +3,9 @@ extends: [ 'eslint:recommended', wordpress ]
 parserOptions:
   ecmaVersion: 5
 
+env:
+  es6: true
+
 rules:
 
   # Style
