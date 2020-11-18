@@ -81,6 +81,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 5.8.1 (November 18, 2020) =
+* Fix arrow tip issue (see #185).
+
 = 5.8.0 (August 22, 2020) =
 * Tested up to WordPress 5.5.
 * Hangle games with no king (see #171).
