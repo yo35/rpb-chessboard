@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-20 14:23+0200\n"
+"POT-Creation-Date: 2021-01-03 19:45+0100\n"
 "PO-Revision-Date: 2016-11-08 11:52+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -654,6 +654,18 @@ msgid "Light squares"
 msgstr "Белые поля"
 
 #: templates/adminpage/theming/colorsetedition.php
+msgid "Green markers"
+msgstr ""
+
+#: templates/adminpage/theming/colorsetedition.php
+msgid "Red markers"
+msgstr ""
+
+#: templates/adminpage/theming/colorsetedition.php
+msgid "Yellow markers"
+msgstr ""
+
+#: templates/adminpage/theming/colorsetedition.php
 msgid "Create colorset"
 msgstr "Создать набор цветов"
 
@@ -700,6 +712,10 @@ msgstr "Вы должны определить изображения всех �
 #: templates/adminpage/theming/colorsets.php
 msgid "Add a new colorset"
 msgstr "Добавить новый набор цветов"
+
+#: templates/adminpage/theming/main.php
+msgid "Show annotations"
+msgstr ""
 
 #: templates/adminpage/about.php
 #, php-format
@@ -1063,20 +1079,21 @@ msgstr "Можно использовать любое значение межд
 #: templates/adminpage/help/fenattributes/main.php
 #: templates/adminpage/help/pgnsyntax/marker.php
 #: templates/adminpage/help/pgnsyntax/main.php
-msgid "Square and arrow markers"
+#, fuzzy
+msgid "Square, arrow, and text markers"
 msgstr "Маркеры полей и стрелок"
 
 #: templates/adminpage/help/fenattributes/markers.php
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"The %1$s and %2$s attributes are used to add respectively square and arrow "
-"markers. There is no need to manually edit the value of these attributes as "
-"square and arrow marker edition is handled by the %3$schess diagram editor"
-"%4$s."
+"The %1$s, %2$s and %3$s attributes are used to add respectively square, "
+"arrow and text markers. There is no need to manually edit the value of these "
+"attributes as square and arrow marker edition is handled by the %4$schess "
+"diagram editor%5$s."
 msgstr ""
 "Атрибуты %1$s и %2$s используются для добавления маркеров для поля и стрелки "
 "соответственно. Нет необходимости вручную редактировать эти атрибуты, так "
-"как они обрабатываются %3$sредактором диаграмм%4$s."
+"как они обрабатываются %4$sредактором диаграмм%5$s."
 
 #: templates/adminpage/help/fenattributes/markers.php
 #, php-format
@@ -1220,6 +1237,10 @@ msgstr ""
 "пешку е5 от атаки коня f3."
 
 #: templates/adminpage/help/pgnsyntax/marker.php
+msgid "Typical conjugate square situation."
+msgstr ""
+
+#: templates/adminpage/help/pgnsyntax/marker.php
 #, php-format
 msgid ""
 "Squares can be highlighted by inserting the tag %1$s[%%csl ...]%2$s in a "
@@ -1257,9 +1278,23 @@ msgstr ""
 #: templates/adminpage/help/pgnsyntax/marker.php
 #, php-format
 msgid ""
+"Finally, a letter or a digit can be used to decorate a square: this is "
+"achieved by using the tag %1$s[%%ctl ...]%2$s in a comment. An character "
+"decoration is encoded by a group of 4 characters: the first one is the color "
+"to use (%1$sG%2$s, %1$sR%2$s, or %1$sY%2$s), the second one is the character "
+"to use (must be an upper-case letter %1$sA-Z%2$s, a lower-case letter %1$sa-z"
+"%2$s, or a digit %1$s0-9%2$s), the third and fourth ones represent the "
+"targeted square. For instance, %1$s[%%ctl GAd4,Yzd5]%2$s decorates d4 with a "
+"red A, and d5 with a yellow z."
+msgstr ""
+
+#: templates/adminpage/help/pgnsyntax/marker.php
+#, fuzzy, php-format
+msgid ""
 "Square and arrow markers that are created in %3$sChessbase softwares%4$s are "
 "exported in PGN format using these %1$s[%%csl ...]%2$s and "
-"%1$s[%%cal ...]%2$s notations."
+"%1$s[%%cal ...]%2$s notations. On the other hand, the %1$s[%%ctl ...]%2$s "
+"notation for text markers is specific to RPB Chessboard."
 msgstr ""
 "Маркеры полей и стрелок,созданные в %3$sChessbase%4$s экспортируются в PGN-"
 "формат с помощью %1$s[%%csl ...]%2$s и %1$s[%%cal ...]%2$s нотации."

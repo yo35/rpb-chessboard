@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-20 14:23+0200\n"
+"POT-Creation-Date: 2021-01-03 19:45+0100\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35 -at- melix.net>\n"
 "Language-Team: French\n"
@@ -687,6 +687,18 @@ msgid "Light squares"
 msgstr "Cases blanches"
 
 #: templates/adminpage/theming/colorsetedition.php
+msgid "Green markers"
+msgstr "Marqueurs verts"
+
+#: templates/adminpage/theming/colorsetedition.php
+msgid "Red markers"
+msgstr "Marqueurs rouges"
+
+#: templates/adminpage/theming/colorsetedition.php
+msgid "Yellow markers"
+msgstr "Marqueurs jaunes"
+
+#: templates/adminpage/theming/colorsetedition.php
 msgid "Create colorset"
 msgstr "Créer le thème"
 
@@ -733,6 +745,10 @@ msgstr "Toutes les images doivent être définies pour créer un thème de pièc
 #: templates/adminpage/theming/colorsets.php
 msgid "Add a new colorset"
 msgstr "Ajouter un thème"
+
+#: templates/adminpage/theming/main.php
+msgid "Show annotations"
+msgstr "Afficher les annotations"
 
 #: templates/adminpage/about.php
 #, php-format
@@ -1116,22 +1132,22 @@ msgstr "N'importe quelle valeur entre %1$s and %2$s peut être utilisée."
 #: templates/adminpage/help/fenattributes/main.php
 #: templates/adminpage/help/pgnsyntax/marker.php
 #: templates/adminpage/help/pgnsyntax/main.php
-msgid "Square and arrow markers"
-msgstr "Marqueurs de case et flèches"
+msgid "Square, arrow, and text markers"
+msgstr "Marqueurs de case, flèches, labels de case"
 
 #: templates/adminpage/help/fenattributes/markers.php
 #, php-format
 msgid ""
-"The %1$s and %2$s attributes are used to add respectively square and arrow "
-"markers. There is no need to manually edit the value of these attributes as "
-"square and arrow marker edition is handled by the %3$schess diagram editor"
-"%4$s."
+"The %1$s, %2$s and %3$s attributes are used to add respectively square, "
+"arrow and text markers. There is no need to manually edit the value of these "
+"attributes as square and arrow marker edition is handled by the %4$schess "
+"diagram editor%5$s."
 msgstr ""
-"Les attributs %1$s et %2$s sont utilisés pour ajouter respectivement des "
-"marqueurs de case et des flèches. Il n'est pas nécessaire d'éditer "
-"manuellement la valeur de ces attributs étant donné que l'édition des "
-"marqueurs de case et des flèches est directement gérée par %3$sl'éditeur de "
-"diagrammes%4$s."
+"Les attributs %1$s, %2$s et %3$s sont utilisés pour ajouter respectivement "
+"des marqueurs de case, des flèches, et des labels de case. Il n'est pas "
+"nécessaire d'éditer manuellement la valeur de ces attributs étant donné que "
+"l'édition des marqueurs de case et des flèches est directement gérée par "
+"%4$sl'éditeur de diagrammes%5$s."
 
 #: templates/adminpage/help/fenattributes/markers.php
 #, php-format
@@ -1288,6 +1304,10 @@ msgstr ""
 "défendant le pion e5 de l'attaque du cavalier f3."
 
 #: templates/adminpage/help/pgnsyntax/marker.php
+msgid "Typical conjugate square situation."
+msgstr "Manœuvre typique de cases conjuguées."
+
+#: templates/adminpage/help/pgnsyntax/marker.php
 #, php-format
 msgid ""
 "Squares can be highlighted by inserting the tag %1$s[%%csl ...]%2$s in a "
@@ -1327,13 +1347,36 @@ msgstr ""
 #: templates/adminpage/help/pgnsyntax/marker.php
 #, php-format
 msgid ""
+"Finally, a letter or a digit can be used to decorate a square: this is "
+"achieved by using the tag %1$s[%%ctl ...]%2$s in a comment. An character "
+"decoration is encoded by a group of 4 characters: the first one is the color "
+"to use (%1$sG%2$s, %1$sR%2$s, or %1$sY%2$s), the second one is the character "
+"to use (must be an upper-case letter %1$sA-Z%2$s, a lower-case letter %1$sa-z"
+"%2$s, or a digit %1$s0-9%2$s), the third and fourth ones represent the "
+"targeted square. For instance, %1$s[%%ctl GAd4,Yzd5]%2$s decorates d4 with a "
+"red A, and d5 with a yellow z."
+msgstr ""
+"Enfin, une lettre ou un chiffre peut être apposé sur une case, en ajoutant "
+"la balise %1$s[%%ctl ...]%2$s dans un commentaire. Un tel label est codé par "
+"un groupe de 4 caractères&nbsp;: le premier est la couleur à utiliser (%1$sG"
+"%2$s, %1$sR%2$s, ou %1$sY%2$s), le second correspond au label proprement dit "
+"(obligatoirement une majuscule %1$sA-Z%2$s, une minuscule %1$sa-z%2$s, ou un "
+"chiffre %1$s0-9%2$s), le troisième et le quatrième désignent la case. Par "
+"exemple, %1$s[%%ctl GAd4,Yzd5]%2$s appose un label rouge A sur d4, et un "
+"label jaune z sur d5."
+
+#: templates/adminpage/help/pgnsyntax/marker.php
+#, php-format
+msgid ""
 "Square and arrow markers that are created in %3$sChessbase softwares%4$s are "
 "exported in PGN format using these %1$s[%%csl ...]%2$s and "
-"%1$s[%%cal ...]%2$s notations."
+"%1$s[%%cal ...]%2$s notations. On the other hand, the %1$s[%%ctl ...]%2$s "
+"notation for text markers is specific to RPB Chessboard."
 msgstr ""
 "Les marqueurs de case et les flèches créés dans les %3$slogiciels Chessbase"
 "%4$s sont exportés au format PGN en utilisant ces mêmes notations "
-"%1$s[%%csl ...]%2$s et %1$s[%%cal ...]%2$s."
+"%1$s[%%csl ...]%2$s et %1$s[%%cal ...]%2$s. En revanche, la notation "
+"%1$s[%%ctl ...]%2$s est propre à RPB Chessboard."
 
 #: templates/adminpage/help/pgnsyntax/example.php
 #: templates/adminpage/help/pgnsyntax/main.php
