@@ -28,6 +28,11 @@
 
 	<div>
 		<div id="rpbchessboard-themingPreviewWidget"></div>
+		<p>
+			<input value="false" type="hidden" name="rpbchessboard_themingPreviewAnnotations" />
+			<input id="rpbchessboard-themingPreviewAnnotations" type="checkbox" name="rpbchessboard_themingPreviewAnnotations" />
+			<label for="rpbchessboard-themingPreviewAnnotations"><?php esc_html_e( 'Show annotations', 'rpb-chessboard' ); ?></label>
+		</p>
 	</div>
 
 </div>
@@ -48,7 +53,6 @@
 
 	jQuery(document).ready(function($) {
 
-
 		// Initialize preview widget.
 		$('#rpbchessboard-themingPreviewWidget').chessboard({
 			position       : 'start',
@@ -57,6 +61,20 @@
 			colorset       : <?php echo wp_json_encode( $model->getDefaultColorset() ); ?>,
 			pieceset       : <?php echo wp_json_encode( $model->getDefaultPieceset() ); ?>
 		});
+
+		function toogleAnnotations() {
+			if($('#rpbchessboard-themingPreviewAnnotations').prop('checked')) {
+				$('#rpbchessboard-themingPreviewWidget').chessboard('option', 'squareMarkers', 'Ga4,Ga5,Rb4,Rb5,Yc4,Yc5');
+				$('#rpbchessboard-themingPreviewWidget').chessboard('option', 'arrowMarkers', 'Gf3f6,Rg3g6,Yh3h6');
+			}
+			else {
+				$('#rpbchessboard-themingPreviewWidget').chessboard('option', 'squareMarkers', '');
+				$('#rpbchessboard-themingPreviewWidget').chessboard('option', 'arrowMarkers', '');
+			}
+		}
+
+		toogleAnnotations();
+		$('#rpbchessboard-themingPreviewAnnotations').change(toogleAnnotations);
 
 		var disableAutoPreview = false;
 
