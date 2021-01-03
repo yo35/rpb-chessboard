@@ -545,6 +545,7 @@ form.rpbchessboard-inlineForm label {
 	-webkit-flex-direction: row;
 	align-items: baseline;
 	-webkit-align-items: baseline;
+	margin: .2em 0;
 }
 
 form.rpbchessboard-inlineForm label > span {
