@@ -72,7 +72,6 @@ UGLIFYJS      = ./node_modules/.bin/uglifyjs -c
 UGLIFYCSS     = ./node_modules/.bin/uglifycss
 PHPCS         = phpcs --colors --standard=assets/dev-tools/phpcs.xml
 PHPCBF        = phpcbf --standard=assets/dev-tools/phpcs.xml
-STATISTICS    = ./assets/dev-tools/statistics.sh
 COLOR_IN      = \033[34;1m
 COLOR_OUT     = \033[0m
 COLOR_ARG_IN  = \033[31m
@@ -96,7 +95,6 @@ help:
 	@$(ECHO) " * make $(COLOR_ITEM_IN)phpcs$(COLOR_ITEM_OUT): run the static analysis of PHP files."
 	@$(ECHO) " * make $(COLOR_ITEM_IN)phpcbf$(COLOR_ITEM_OUT): try to fix some of the errors detected by static analysis on PHP files."
 	@$(ECHO) " * make $(COLOR_ITEM_IN)pack$(COLOR_ITEM_OUT): pack the source files into a zip file, ready for WordPress deployment."
-	@$(ECHO) " * make $(COLOR_ITEM_IN)stats$(COLOR_ITEM_OUT): display some source code metrics."
 	@$(ECHO) " * make $(COLOR_ITEM_IN)clean$(COLOR_ITEM_OUT): remove the automatically generated files."
 	@$(ECHO) " * make $(COLOR_ITEM_IN)help$(COLOR_ITEM_OUT): show this help."
 	@$(ECHO)
@@ -239,21 +237,10 @@ pack: init phpcs eslint i18n-compile jsmin cssmin
 	@$(ECHO) "$(COLOR_IN)$(DEPLOYMENT_FILE) updated$(COLOR_OUT)"
 
 
-# Statistics on source code
-stats:
-	@$(ECHO)
-	@$(ECHO) "$(COLOR_IN)JavaScript source code$(COLOR_OUT)"
-	@$(STATISTICS) $(JS_FILES)
-	@$(ECHO)
-	@$(ECHO) "$(COLOR_IN)PHP source code$(COLOR_OUT)"
-	@$(STATISTICS) $(PHP_FILES)
-	@$(ECHO)
-
-
 # Clean the automatically generated files
 clean:
 	@rm -rf $(NODE_MODULES) $(TEMPORARY_FOLDER) $(DEPLOYMENT_FILE) $(JS_MINIFIED_FILES) $(CSS_MINIFIED_FILES) $(I18N_MO_FILES) $(NPM_DEPS_FILE) $(NPM_DEPS_MIN_FILE)
 
 
 # Make's stuff
-.PHONY: help init i18n-extract i18n-merge i18n-compile eslint jsmin cssmin phpcs phpcbf pack stats clean
+.PHONY: help init i18n-extract i18n-merge i18n-compile eslint jsmin cssmin phpcs phpcbf pack clean
