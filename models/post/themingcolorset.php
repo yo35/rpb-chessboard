@@ -49,21 +49,20 @@ class RPBChessboardModelPostThemingColorset extends RPBChessboardModelPostThemin
 	}
 
 	protected function processAttributes( $colorset ) {
-		$darkSquareColor  = self::getSquareColor( 'dark' );
-		$lightSquareColor = self::getSquareColor( 'light' );
-		if ( isset( $darkSquareColor ) && isset( $lightSquareColor ) ) {
-			update_option( 'rpbchessboard_custom_colorset_attributes_' . $colorset, $darkSquareColor . '|' . $lightSquareColor );
+		$darkSquareColor   = self::getColorValue( 'darkSquareColor' );
+		$lightSquareColor  = self::getColorValue( 'lightSquareColor' );
+		$greenMarkerColor  = self::getColorValue( 'greenMarkerColor' );
+		$redMarkerColor    = self::getColorValue( 'redMarkerColor' );
+		$yellowMarkerColor = self::getColorValue( 'yellowMarkerColor' );
+		if ( isset( $darkSquareColor ) && isset( $lightSquareColor ) && isset( $greenMarkerColor ) && isset( $redMarkerColor ) && isset( $yellowMarkerColor ) ) {
+			$mergedValue = implode( '|', array( $darkSquareColor, $lightSquareColor, $greenMarkerColor, $redMarkerColor, $yellowMarkerColor ) );
+			update_option( 'rpbchessboard_custom_colorset_attributes_' . $colorset, $mergedValue );
 			return true;
 		}
 		return false;
 	}
 
-
-	/**
-	 * Retrieve either the dark or the light square color.
-	 */
-	private static function getSquareColor( $darkOrLight ) {
-		$key = $darkOrLight . 'SquareColor';
+	private static function getColorValue( $key ) {
 		return isset( $_POST[ $key ] ) ? RPBChessboardHelperValidation::validateColor( $_POST[ $key ] ) : null;
 	}
 }

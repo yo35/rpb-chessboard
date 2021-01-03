@@ -155,7 +155,7 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 	 * @return string
 	 */
 	public function getRandomDarkSquareColor() {
-		return self::getRandomColor( 0x88, 0xbf );
+		return self::getRandomColor( 0x88, 0xbf, 0x88, 0xbf, 0x88, 0xbf );
 	}
 
 
@@ -165,14 +165,44 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 	 * @return string
 	 */
 	public function getRandomLightSquareColor() {
-		return self::getRandomColor( 0xc0, 0xf7 );
+		return self::getRandomColor( 0xc0, 0xf7, 0xc0, 0xf7, 0xc0, 0xf7 );
 	}
 
 
-	private static function getRandomColor( $grayRangeMin, $grayRangeMax ) {
-		$red   = wp_rand( $grayRangeMin, $grayRangeMax );
-		$green = wp_rand( $grayRangeMin, $grayRangeMax );
-		$blue  = wp_rand( $grayRangeMin, $grayRangeMax );
+	/**
+	 * Return a random color to be used for green markers.
+	 *
+	 * @return string
+	 */
+	public function getRandomGreenMarkerColor() {
+		return self::getRandomColor( 0x00, 0x40, 0xb0, 0xff, 0x00, 0x40 );
+	}
+
+
+	/**
+	 * Return a random color to be used for red markers.
+	 *
+	 * @return string
+	 */
+	public function getRandomRedMarkerColor() {
+		return self::getRandomColor( 0xb0, 0xff, 0x00, 0x40, 0x00, 0x40 );
+	}
+
+
+	/**
+	 * Return a random color to be used for yellow markers.
+	 *
+	 * @return string
+	 */
+	public function getRandomYellowMarkerColor() {
+		return self::getRandomColor( 0xb0, 0xff, 0xb0, 0xff, 0x00, 0x40 );
+	}
+
+
+	private static function getRandomColor( $redRangeMin, $redRangeMax, $greenRangeMin, $greenRangeMax, $blueRangeMin, $blueRangeMax ) {
+		$red   = wp_rand( $redRangeMin, $redRangeMax );
+		$green = wp_rand( $greenRangeMin, $greenRangeMax );
+		$blue  = wp_rand( $blueRangeMin, $blueRangeMax );
 		return sprintf( '#%02x%02x%02x', $red, $green, $blue );
 	}
 

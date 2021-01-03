@@ -22,13 +22,15 @@
 
 <?php foreach ( $model->getCustomColorsets() as $colorset ) : ?>
 
-.rpbui-chessboard-colorset-<?php echo esc_html( $colorset ); ?> .rpbui-chessboard-darkSquare {
-	background-color: <?php echo esc_html( $model->getDarkSquareColor( $colorset ) ); ?>;
-}
+.rpbui-chessboard-colorset-<?php echo esc_html( $colorset ); ?> .rpbui-chessboard-darkSquare { background-color: <?php echo esc_html( $model->getDarkSquareColor( $colorset ) ); ?>; }
+.rpbui-chessboard-colorset-<?php echo esc_html( $colorset ); ?> .rpbui-chessboard-lightSquare { background-color: <?php echo esc_html( $model->getLightSquareColor( $colorset ) ); ?>; }
 
-.rpbui-chessboard-colorset-<?php echo esc_html( $colorset ); ?> .rpbui-chessboard-lightSquare {
-	background-color: <?php echo esc_html( $model->getLightSquareColor( $colorset ) ); ?>;
-}
+.rpbui-chessboard-colorset-<?php echo esc_html( $colorset ); ?> .rpbui-chessboard-markerStroke-G { stroke: <?php echo esc_html( $model->getGreenMarkerColor( $colorset ) ); ?>; }
+.rpbui-chessboard-colorset-<?php echo esc_html( $colorset ); ?> .rpbui-chessboard-markerStroke-R { stroke: <?php echo esc_html( $model->getRedMarkerColor( $colorset ) ); ?>; }
+.rpbui-chessboard-colorset-<?php echo esc_html( $colorset ); ?> .rpbui-chessboard-markerStroke-Y { stroke: <?php echo esc_html( $model->getYellowMarkerColor( $colorset ) ); ?>; }
+.rpbui-chessboard-colorset-<?php echo esc_html( $colorset ); ?> .rpbui-chessboard-markerFill-G { fill: <?php echo esc_html( $model->getGreenMarkerColor( $colorset ) ); ?>; }
+.rpbui-chessboard-colorset-<?php echo esc_html( $colorset ); ?> .rpbui-chessboard-markerFill-R { fill: <?php echo esc_html( $model->getRedMarkerColor( $colorset ) ); ?>; }
+.rpbui-chessboard-colorset-<?php echo esc_html( $colorset ); ?> .rpbui-chessboard-markerFill-Y { fill: <?php echo esc_html( $model->getYellowMarkerColor( $colorset ) ); ?>; }
 
 <?php endforeach; ?>
 

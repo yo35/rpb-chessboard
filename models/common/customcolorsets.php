@@ -33,13 +33,23 @@ class RPBChessboardModelCommonCustomColorsets extends RPBChessboardAbstractModel
 	private static $customColorsetLabels     = array();
 	private static $customColorsetAttributes = array();
 
-	const DEFAULT_DARK_SQUARE_COLOR  = '#bbbbbb';
-	const DEFAULT_LIGHT_SQUARE_COLOR = '#f8f8f8';
-
+	const DEFAULT_DARK_SQUARE_COLOR   = '#bbbbbb';
+	const DEFAULT_LIGHT_SQUARE_COLOR  = '#f8f8f8';
+	const DEFAULT_GREEN_MARKER_COLOR  = '#00ff00';
+	const DEFAULT_RED_MARKER_COLOR    = '#ff0000';
+	const DEFAULT_YELLOW_MARKER_COLOR = '#ffff00';
 
 	public function __construct() {
 		parent::__construct();
-		$this->registerDelegatableMethods( 'getCustomColorsets', 'getCustomColorsetLabel', 'getDarkSquareColor', 'getLightSquareColor' );
+		$this->registerDelegatableMethods(
+			'getCustomColorsets',
+			'getCustomColorsetLabel',
+			'getDarkSquareColor',
+			'getLightSquareColor',
+			'getGreenMarkerColor',
+			'getRedMarkerColor',
+			'getYellowMarkerColor'
+		);
 	}
 
 
@@ -94,6 +104,39 @@ class RPBChessboardModelCommonCustomColorsets extends RPBChessboardAbstractModel
 	}
 
 
+	/**
+	 * Return the green marker color defined for the given colorset.
+	 *
+	 * @return string
+	 */
+	public function getGreenMarkerColor( $colorset ) {
+		self::initializeCustomColorsetAttributes( $colorset );
+		return self::$customColorsetAttributes[ $colorset ]->greenMarkerColor;
+	}
+
+
+	/**
+	 * Return the red marker color defined for the given colorset.
+	 *
+	 * @return string
+	 */
+	public function getRedMarkerColor( $colorset ) {
+		self::initializeCustomColorsetAttributes( $colorset );
+		return self::$customColorsetAttributes[ $colorset ]->redMarkerColor;
+	}
+
+
+	/**
+	 * Return the yellow marker color defined for the given colorset.
+	 *
+	 * @return string
+	 */
+	public function getYellowMarkerColor( $colorset ) {
+		self::initializeCustomColorsetAttributes( $colorset );
+		return self::$customColorsetAttributes[ $colorset ]->yellowMarkerColor;
+	}
+
+
 	private static function initializeCustomColorsetAttributes( $colorset ) {
 		if ( isset( self::$customColorsetAttributes[ $colorset ] ) ) {
 			return;
@@ -101,24 +144,42 @@ class RPBChessboardModelCommonCustomColorsets extends RPBChessboardAbstractModel
 
 		// Default attributes
 		self::$customColorsetAttributes[ $colorset ] = (object) array(
-			'darkSquareColor'  => self::DEFAULT_DARK_SQUARE_COLOR,
-			'lightSquareColor' => self::DEFAULT_LIGHT_SQUARE_COLOR,
+			'darkSquareColor'   => self::DEFAULT_DARK_SQUARE_COLOR,
+			'lightSquareColor'  => self::DEFAULT_LIGHT_SQUARE_COLOR,
+			'greenMarkerColor'  => self::DEFAULT_GREEN_MARKER_COLOR,
+			'redMarkerColor'    => self::DEFAULT_RED_MARKER_COLOR,
+			'yellowMarkerColor' => self::DEFAULT_YELLOW_MARKER_COLOR,
 		);
 
 		// Retrieve the attributes from the database
 		$values = explode( '|', get_option( 'rpbchessboard_custom_colorset_attributes_' . $colorset, '' ) );
-		if ( count( $values ) !== 2 ) {
-			return;
+
+		// First 2 tokens: dark and light squares
+		if ( count( $values ) >= 2 ) {
+			$darkSquareColor  = RPBChessboardHelperValidation::validateColor( $values[0] );
+			$lightSquareColor = RPBChessboardHelperValidation::validateColor( $values[1] );
+			if ( isset( $darkSquareColor ) ) {
+				self::$customColorsetAttributes[ $colorset ]->darkSquareColor = $darkSquareColor;
+			}
+			if ( isset( $lightSquareColor ) ) {
+				self::$customColorsetAttributes[ $colorset ]->lightSquareColor = $lightSquareColor;
+			}
 		}
 
-		// Validate the values retrieved from the database
-		$darkSquareColor  = RPBChessboardHelperValidation::validateColor( $values[0] );
-		$lightSquareColor = RPBChessboardHelperValidation::validateColor( $values[1] );
-		if ( isset( $darkSquareColor ) ) {
-			self::$customColorsetAttributes[ $colorset ]->darkSquareColor = $darkSquareColor;
-		}
-		if ( isset( $lightSquareColor ) ) {
-			self::$customColorsetAttributes[ $colorset ]->lightSquareColor = $lightSquareColor;
+		// Next 3 tokens: marker colors
+		if ( count( $values ) >= 5 ) {
+			$greenMarkerColor  = RPBChessboardHelperValidation::validateColor( $values[2] );
+			$redMarkerColor    = RPBChessboardHelperValidation::validateColor( $values[3] );
+			$yellowMarkerColor = RPBChessboardHelperValidation::validateColor( $values[4] );
+			if ( isset( $greenMarkerColor ) ) {
+				self::$customColorsetAttributes[ $colorset ]->greenMarkerColor = $greenMarkerColor;
+			}
+			if ( isset( $redMarkerColor ) ) {
+				self::$customColorsetAttributes[ $colorset ]->redMarkerColor = $redMarkerColor;
+			}
+			if ( isset( $yellowMarkerColor ) ) {
+				self::$customColorsetAttributes[ $colorset ]->yellowMarkerColor = $yellowMarkerColor;
+			}
 		}
 	}
 }

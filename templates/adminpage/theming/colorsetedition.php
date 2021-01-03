@@ -50,7 +50,6 @@
 		<?php endif; ?>
 
 		<div class="rpbchessboard-columns">
-
 			<div class="rpbchessboard-stretchable rpbchessboard-colorFieldAndSelector">
 				<label>
 					<span><?php esc_html_e( 'Dark squares', 'rpb-chessboard' ); ?></span>
@@ -61,7 +60,6 @@
 					<div class="rpbchessboard-darkSquareColorSelector"></div>
 				</div>
 			</div>
-
 			<div class="rpbchessboard-stretchable rpbchessboard-colorFieldAndSelector">
 				<label>
 					<span><?php esc_html_e( 'Light squares', 'rpb-chessboard' ); ?></span>
@@ -72,7 +70,39 @@
 					<div class="rpbchessboard-lightSquareColorSelector"></div>
 				</div>
 			</div>
+		</div>
 
+		<div class="rpbchessboard-columns">
+			<div class="rpbchessboard-stretchable rpbchessboard-colorFieldAndSelector">
+				<label>
+					<span><?php esc_html_e( 'Green markers', 'rpb-chessboard' ); ?></span>
+					<input type="text" size="7" maxlength="7" class="rpbchessboard-greenMarkerColorField" name="greenMarkerColor"
+						value="<?php echo esc_attr( $isNew ? $model->getRandomGreenMarkerColor() : $model->getGreenMarkerColor( $colorset ) ); ?>" />
+				</label>
+				<div>
+					<div class="rpbchessboard-greenMarkerColorSelector"></div>
+				</div>
+			</div>
+			<div class="rpbchessboard-stretchable rpbchessboard-colorFieldAndSelector">
+				<label>
+					<span><?php esc_html_e( 'Red markers', 'rpb-chessboard' ); ?></span>
+					<input type="text" size="7" maxlength="7" class="rpbchessboard-redMarkerColorField" name="redMarkerColor"
+						value="<?php echo esc_attr( $isNew ? $model->getRandomRedMarkerColor() : $model->getRedMarkerColor( $colorset ) ); ?>" />
+				</label>
+				<div>
+					<div class="rpbchessboard-redMarkerColorSelector"></div>
+				</div>
+			</div>
+			<div class="rpbchessboard-stretchable rpbchessboard-colorFieldAndSelector">
+				<label>
+					<span><?php esc_html_e( 'Yellow markers', 'rpb-chessboard' ); ?></span>
+					<input type="text" size="7" maxlength="7" class="rpbchessboard-yellowMarkerColorField" name="yellowMarkerColor"
+						value="<?php echo esc_attr( $isNew ? $model->getRandomYellowMarkerColor() : $model->getYellowMarkerColor( $colorset ) ); ?>" />
+				</label>
+				<div>
+					<div class="rpbchessboard-yellowMarkerColorSelector"></div>
+				</div>
+			</div>
 		</div>
 
 		<p class="submit rpbchessboard-inlineFormButtons">

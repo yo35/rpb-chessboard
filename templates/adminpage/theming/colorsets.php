@@ -113,12 +113,52 @@
 					$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-lightSquare').css('background-color', ui.color.toString());
 				}
 			});
+			$('.rpbchessboard-greenMarkerColorField', target).iris({
+				hide: false,
+				target: $('.rpbchessboard-greenMarkerColorSelector', target),
+				change: function(event, ui) {
+					$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-markerStroke-G').css('stroke', ui.color.toString());
+					$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-markerFill-G').css('fill', ui.color.toString());
+				}
+			});
+			$('.rpbchessboard-redMarkerColorField', target).iris({
+				hide: false,
+				target: $('.rpbchessboard-redMarkerColorSelector', target),
+				change: function(event, ui) {
+					$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-markerStroke-R').css('stroke', ui.color.toString());
+					$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-markerFill-R').css('fill', ui.color.toString());
+				}
+			});
+			$('.rpbchessboard-yellowMarkerColorField', target).iris({
+				hide: false,
+				target: $('.rpbchessboard-yellowMarkerColorSelector', target),
+				change: function(event, ui) {
+					$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-markerStroke-Y').css('stroke', ui.color.toString());
+					$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-markerFill-Y').css('fill', ui.color.toString());
+				}
+			});
 
 			// Initialize the colors of the preview chessboard
 			var darkSquareColor = $('.rpbchessboard-darkSquareColorField', target).iris('color');
 			var lightSquareColor = $('.rpbchessboard-lightSquareColorField', target).iris('color');
 			$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-darkSquare').css('background-color', darkSquareColor);
 			$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-lightSquare').css('background-color', lightSquareColor);
+
+			function initializeMarkerColorsWithThemingPreview() {
+				if($('#rpbchessboard-themingPreviewAnnotations').prop('checked')) {
+					var green = $('.rpbchessboard-greenMarkerColorField', target).iris('color');
+					var red = $('.rpbchessboard-redMarkerColorField', target).iris('color');
+					var yellow = $('.rpbchessboard-yellowMarkerColorField', target).iris('color');
+					$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-markerStroke-G').css('stroke', green);
+					$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-markerFill-G').css('fill', green);
+					$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-markerStroke-R').css('stroke', red);
+					$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-markerFill-R').css('fill', red);
+					$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-markerStroke-Y').css('stroke', yellow);
+					$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-markerFill-Y').css('fill', yellow);
+				}
+			}
+			initializeMarkerColorsWithThemingPreview();
+			$('#rpbchessboard-themingPreviewAnnotations').change(initializeMarkerColorsWithThemingPreview);
 		}
 
 	});
