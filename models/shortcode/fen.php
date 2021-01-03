@@ -58,6 +58,11 @@ class RPBChessboardModelShortcodeFEN extends RPBChessboardAbstractModelShortcode
 				$this->widgetArgs['arrowMarkers'] = $atts['cal'];
 			}
 
+			// Text markers
+			if ( isset( $atts['ctl'] ) && is_string( $atts['ctl'] ) ) {
+				$this->widgetArgs['textMarkers'] = $atts['ctl'];
+			}
+
 			// Orientation
 			$value = isset( $atts['flip'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['flip'] ) : null;
 			if ( isset( $value ) ) {

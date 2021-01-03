@@ -670,11 +670,13 @@
 			var position = commentNode.data('position');
 			var csl = commentNode.data('csl');
 			var cal = commentNode.data('cal');
+			var ctl = commentNode.data('ctl');
 
 			// Build the option set to pass to the chessboard widget constructor.
 			var options = { position: variant + ':' + position };
 			if(typeof csl !== 'undefined') { options.squareMarkers = csl; }
 			if(typeof cal !== 'undefined') { options.arrowMarkers = cal; }
+			if(typeof ctl !== 'undefined') { options.textMarkers = ctl; }
 			$.extend(options, widget.options.diagramOptions);
 
 			// Render the diagram.
@@ -1075,6 +1077,12 @@
 		if(cal !== undefined) {
 			element.setAttribute('data-cal', cal);
 		}
+
+		// Text markers
+		var ctl = node.tag('ctl');
+		if(ctl !== undefined) {
+			element.setAttribute('data-ctl', ctl);
+		}
 	}
 
 
@@ -1442,8 +1450,10 @@
 		// Update the square/arrow markers
 		var csl = move.data('csl');
 		var cal = move.data('cal');
+		var ctl = move.data('ctl');
 		navigationBoard.chessboard('option', 'squareMarkers', typeof csl === 'undefined' ? '' : csl);
 		navigationBoard.chessboard('option', 'arrowMarkers', typeof cal === 'undefined' ? '' : cal);
+		navigationBoard.chessboard('option', 'textMarkers', typeof ctl === 'undefined' ? '' : ctl);
 	}
 
 

@@ -64,8 +64,8 @@
 		<li><a href="#rpbchessboard-pgnComment"><?php esc_html_e( 'Comments', 'rpb-chessboard' ); ?></a></li>
 		<li><a href="#rpbchessboard-pgnVariation"><?php esc_html_e( 'Variations', 'rpb-chessboard' ); ?></a></li>
 		<li><a href="#rpbchessboard-pgnDiagram"><?php esc_html_e( 'Diagrams', 'rpb-chessboard' ); ?></a></li>
-		<li><a href="#rpbchessboard-pgnMarker"><?php esc_html_e( 'Square and arrow markers', 'rpb-chessboard' ); ?></a></li>
 		<li><a href="#rpbchessboard-pgnCustomStartingPosition"><?php esc_html_e( 'Custom starting position', 'rpb-chessboard' ); ?></a></li>
+		<li><a href="#rpbchessboard-pgnMarker"><?php esc_html_e( 'Square, arrow, and text markers', 'rpb-chessboard' ); ?></a></li>
 		<li><a href="#rpbchessboard-pgnNullMove"><?php esc_html_e( 'Null moves', 'rpb-chessboard' ); ?></a></li>
 		<li><a href="#rpbchessboard-pgnChess960"><?php esc_html_e( 'Chess 960 (aka. Fischer Random Chess)', 'rpb-chessboard' ); ?></a></li>
 	</ol>
@@ -76,8 +76,8 @@
 		RPBChessboardHelperLoader::printTemplate( 'AdminPage/Help/PGNSyntax/Comment', $model );
 		RPBChessboardHelperLoader::printTemplate( 'AdminPage/Help/PGNSyntax/Variation', $model );
 		RPBChessboardHelperLoader::printTemplate( 'AdminPage/Help/PGNSyntax/Diagram', $model );
-		RPBChessboardHelperLoader::printTemplate( 'AdminPage/Help/PGNSyntax/Marker', $model );
 		RPBChessboardHelperLoader::printTemplate( 'AdminPage/Help/PGNSyntax/CustomStartingPosition', $model );
+		RPBChessboardHelperLoader::printTemplate( 'AdminPage/Help/PGNSyntax/Marker', $model );
 		RPBChessboardHelperLoader::printTemplate( 'AdminPage/Help/PGNSyntax/NullMove', $model );
 		RPBChessboardHelperLoader::printTemplate( 'AdminPage/Help/PGNSyntax/Chess960', $model );
 	?>

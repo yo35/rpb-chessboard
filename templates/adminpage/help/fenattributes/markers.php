@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-fenAttributeMarkers"><?php esc_html_e( 'Square and arrow markers', 'rpb-chessboard' ); ?></h3>
+<h3 id="rpbchessboard-fenAttributeMarkers"><?php esc_html_e( 'Square, arrow, and text markers', 'rpb-chessboard' ); ?></h3>
 
 <div class="rpbchessboard-columns">
 	<div>
@@ -29,13 +29,14 @@
 			<?php
 				printf(
 					esc_html__(
-						'The %1$s and %2$s attributes are used to add respectively square and arrow markers. ' .
+						'The %1$s, %2$s and %3$s attributes are used to add respectively square, arrow and text markers. ' .
 						'There is no need to manually edit the value of these attributes as ' .
-						'square and arrow marker edition is handled by the %3$schess diagram editor%4$s.',
+						'square and arrow marker edition is handled by the %4$schess diagram editor%5$s.',
 						'rpb-chessboard'
 					),
 					'<span class="rpbchessboard-sourceCode">csl</span>',
 					'<span class="rpbchessboard-sourceCode">cal</span>',
+					'<span class="rpbchessboard-sourceCode">ctl</span>',
 					sprintf( '<a href="%s">', esc_url( $model->getHelpOnFENSyntaxURL() ) ),
 					'</a>'
 				);
@@ -62,7 +63,7 @@
 		<div class="rpbchessboard-sourceCode">
 			<?php
 				printf(
-					'[%1$s <strong>csl=Ye5</strong> <strong>cal=Gc6e5,Rf3e5</strong>] ... [/%1$s]',
+					'[%1$s <strong>csl=Ye5</strong> <strong>cal=Gc6e5,Rf3e5</strong> <strong>ctl=YAd4</strong>] ... [/%1$s]',
 					esc_html( $model->getFENShortcode() )
 				);
 			?>
@@ -77,7 +78,8 @@
 							position: 'r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 1',
 							squareSize: 28,
 							squareMarkers: 'Ye5',
-							arrowMarkers: 'Gc6e5,Rf3e5'
+							arrowMarkers: 'Gc6e5,Rf3e5',
+							textMarkers: 'YAd4'
 						}));
 					});
 				</script>

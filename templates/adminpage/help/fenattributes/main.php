@@ -44,7 +44,7 @@
 		<li><a href="#rpbchessboard-fenAttributeFlip"><?php esc_html_e( 'Board flipping', 'rpb-chessboard' ); ?></a></li>
 		<li><a href="#rpbchessboard-fenAttributeSquareSize"><?php esc_html_e( 'Square size', 'rpb-chessboard' ); ?></a></li>
 		<li><a href="#rpbchessboard-fenAttributeShowCoordinates"><?php esc_html_e( 'Show coordinates', 'rpb-chessboard' ); ?></a></li>
-		<li><a href="#rpbchessboard-fenAttributeMarkers"><?php esc_html_e( 'Square and arrow markers', 'rpb-chessboard' ); ?></a></li>
+		<li><a href="#rpbchessboard-fenAttributeMarkers"><?php esc_html_e( 'Square, arrow, and text markers', 'rpb-chessboard' ); ?></a></li>
 		<li><a href="#rpbchessboard-fenAttributeColorsetPieceset"><?php esc_html_e( 'Colorset and pieceset', 'rpb-chessboard' ); ?></a></li>
 		<li><a href="#rpbchessboard-fenAttributeDiagramAlignment"><?php esc_html_e( 'Diagram alignment', 'rpb-chessboard' ); ?></a></li>
 	</ol>
