@@ -81,6 +81,12 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 5.9.0 (November 18, 2020) =
+* Tested up to WordPress 5.6.
+* Enable arrow/square marker color customization (see #190).
+* Implement square annotation with letter/digit (see #192).
+* Fix alignement issue with float-right navigation board (see #191).
+
 = 5.8.1 (November 18, 2020) =
 * Fix arrow tip issue (see #185).
 
