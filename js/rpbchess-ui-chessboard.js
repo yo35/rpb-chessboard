@@ -481,7 +481,7 @@
 
 		var marker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
 		marker.setAttribute('id', arrowMarkerEndId(widget, color));
-		marker.setAttribute('class', 'rpbui-chessboard-arrowMarkerEnd-' + color);
+		marker.setAttribute('class', 'rpbui-chessboard-markerFill-' + color);
 		marker.setAttribute('markerWidth', 4);
 		marker.setAttribute('markerHeight', 4);
 		marker.setAttribute('refX', 2.5);
@@ -507,7 +507,7 @@
 	 */
 	function buildSquareMarker(identifierClazz, color, x, y) {
 		var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-		circle.setAttribute('class', 'rpbui-chessboard-squareMarker ' + identifierClazz + ' rpbui-chessboard-markerColor-' + color);
+		circle.setAttribute('class', 'rpbui-chessboard-squareMarker ' + identifierClazz + ' rpbui-chessboard-markerStroke-' + color);
 		circle.setAttribute('cx', x);
 		circle.setAttribute('cy', y);
 		circle.setAttribute('r', 0.4);
@@ -528,7 +528,7 @@
 		var color = descriptor.substr(0, 1);
 		var glyph = descriptor.substr(1, 1);
 		var text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-		text.setAttribute('class', 'rpbui-chessboard-textMarker ' + identifierClazz + ' rpbui-chessboard-markerColor-' + color);
+		text.setAttribute('class', 'rpbui-chessboard-textMarker ' + identifierClazz + ' rpbui-chessboard-markerFill-' + color);
 		text.setAttribute('x', x);
 		text.setAttribute('y', y);
 		text.appendChild(document.createTextNode(glyph));
@@ -550,7 +550,7 @@
 	 */
 	function buildArrow(widget, identifierClazz, color, x1, y1, x2, y2) {
 		var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-		line.setAttribute('class', 'rpbui-chessboard-arrowMarker ' + identifierClazz + ' rpbui-chessboard-markerColor-' + color);
+		line.setAttribute('class', 'rpbui-chessboard-arrowMarker ' + identifierClazz + ' rpbui-chessboard-markerStroke-' + color);
 		line.setAttribute('x1', x1);
 		line.setAttribute('y1', y1);
 		line.setAttribute('x2', x2);
@@ -702,7 +702,7 @@
 			$('.' + identifierClazz, widget.element).remove();
 		}
 		else {
-			var clazz = 'rpbui-chessboard-squareMarker ' + identifierClazz + ' rpbui-chessboard-markerColor-' + newValue;
+			var clazz = 'rpbui-chessboard-squareMarker ' + identifierClazz + ' rpbui-chessboard-markerStroke-' + newValue;
 			$('.' + identifierClazz, widget.element).attr('class', clazz);
 		}
 	}
@@ -748,7 +748,7 @@
 			$('.' + identifierClazz, widget.element).remove();
 		}
 		else {
-			var clazz = 'rpbui-chessboard-arrowMarker ' + identifierClazz + ' rpbui-chessboard-markerColor-' + newValue;
+			var clazz = 'rpbui-chessboard-arrowMarker ' + identifierClazz + ' rpbui-chessboard-markerStroke-' + newValue;
 			var marker = 'url(#' +  arrowMarkerEndId(widget, newValue) + ')';
 			$('.' + identifierClazz, widget.element).attr('class', clazz).attr('marker-end', marker);
 		}
@@ -797,7 +797,7 @@
 		else {
 			var newColor = newValue.substr(0, 1);
 			var newGlyph = newValue.substr(1, 1);
-			var clazz = 'rpbui-chessboard-textMarker ' + identifierClazz + ' rpbui-chessboard-markerColor-' + newColor;
+			var clazz = 'rpbui-chessboard-textMarker ' + identifierClazz + ' rpbui-chessboard-markerFill-' + newColor;
 			$('.' + identifierClazz, widget.element).attr('class', clazz);
 			$('.' + identifierClazz, widget.element).text(newGlyph);
 		}

@@ -130,21 +130,6 @@
 	dominant-baseline: central;
 }
 
-.rpbui-chessboard-arrowMarker.rpbui-chessboard-markerColor-G, .rpbui-chessboard-squareMarker.rpbui-chessboard-markerColor-G { stroke: #0e0; }
-.rpbui-chessboard-arrowMarker.rpbui-chessboard-markerColor-R, .rpbui-chessboard-squareMarker.rpbui-chessboard-markerColor-R { stroke: #f20; }
-.rpbui-chessboard-arrowMarker.rpbui-chessboard-markerColor-Y, .rpbui-chessboard-squareMarker.rpbui-chessboard-markerColor-Y { stroke: #db0; }
-.rpbui-chessboard-arrowMarker.rpbui-chessboard-markerColor-B, .rpbui-chessboard-squareMarker.rpbui-chessboard-markerColor-B { stroke: #04f; }
-
-.rpbui-chessboard-textMarker.rpbui-chessboard-markerColor-G { fill: #0e0; }
-.rpbui-chessboard-textMarker.rpbui-chessboard-markerColor-R { fill: #f20; }
-.rpbui-chessboard-textMarker.rpbui-chessboard-markerColor-Y { fill: #db0; }
-.rpbui-chessboard-textMarker.rpbui-chessboard-markerColor-B { fill: #04f; }
-
-.rpbui-chessboard-arrowMarkerEnd-G { fill: #0e0; }
-.rpbui-chessboard-arrowMarkerEnd-R { fill: #f20; }
-.rpbui-chessboard-arrowMarkerEnd-Y { fill: #db0; }
-.rpbui-chessboard-arrowMarkerEnd-B { fill: #04f; }
-
 .rpbui-chessboard-size12 .rpbui-chessboard-sized { min-width: 12px; width: 12px; height: 12px; background-size: 12px 12px; -webkit-background-size: 12px 12px; }
 .rpbui-chessboard-size13 .rpbui-chessboard-sized { min-width: 13px; width: 13px; height: 13px; background-size: 13px 13px; -webkit-background-size: 13px 13px; }
 .rpbui-chessboard-size14 .rpbui-chessboard-sized { min-width: 14px; width: 14px; height: 14px; background-size: 14px 14px; -webkit-background-size: 14px 14px; }
@@ -262,6 +247,11 @@
 .rpbui-chessboard-lightSquare { background-color: #f0dec7; }
 .rpbui-chessboard-darkSquare  { background-color: #b5876b; }
 
+.rpbui-chessboard-markerStroke-G { stroke: #0e0; } .rpbui-chessboard-markerFill-G { fill: #0e0; }
+.rpbui-chessboard-markerStroke-R { stroke: #f20; } .rpbui-chessboard-markerFill-R { fill: #f20; }
+.rpbui-chessboard-markerStroke-Y { stroke: #db0; } .rpbui-chessboard-markerFill-Y { fill: #db0; }
+.rpbui-chessboard-markerStroke-B { stroke: #04f; } .rpbui-chessboard-markerFill-B { fill: #04f; }
+
 .rpbui-chessboard-colorset-gray .rpbui-chessboard-lightSquare { background-color: #f8f8f8; }
 .rpbui-chessboard-colorset-gray .rpbui-chessboard-darkSquare  { background-color: #bbbbbb; }
 .rpbui-chessboard-colorset-scid .rpbui-chessboard-lightSquare { background-color: #f3f3f3; }
@@ -270,6 +260,11 @@
 .rpbui-chessboard-colorset-wikipedia .rpbui-chessboard-darkSquare  { background-color: #d18b47; }
 .rpbui-chessboard-colorset-xboard .rpbui-chessboard-lightSquare { background-color: #c8c365; }
 .rpbui-chessboard-colorset-xboard .rpbui-chessboard-darkSquare  { background-color: #77a26d; }
+
+.rpbui-chessboard-colorset-gray .rpbui-chessboard-markerStroke-G { stroke: #0a0; } .rpbui-chessboard-colorset-gray .rpbui-chessboard-markerFill-G { fill: #0a0; }
+.rpbui-chessboard-colorset-gray .rpbui-chessboard-markerStroke-Y { stroke: #a90; } .rpbui-chessboard-colorset-gray .rpbui-chessboard-markerFill-Y { fill: #a80; }
+.rpbui-chessboard-colorset-xboard .rpbui-chessboard-markerStroke-G { stroke: #0f0; } .rpbui-chessboard-colorset-xboard .rpbui-chessboard-markerFill-G { fill: #0f0; }
+.rpbui-chessboard-colorset-xboard .rpbui-chessboard-markerStroke-Y { stroke: #ff0; } .rpbui-chessboard-colorset-xboard .rpbui-chessboard-markerFill-Y { fill: #ff0; }
 
 /**
  * Source: http://omgchess.blogspot.fr/2015/09/chess-board-color-schemes.html
@@ -287,6 +282,22 @@
 .rpbui-chessboard-colorset-sandcastle .rpbui-chessboard-darkSquare  { background-color: rgb(184,139,74); }
 .rpbui-chessboard-colorset-wheat .rpbui-chessboard-lightSquare { background-color: rgb(234,240,206); }
 .rpbui-chessboard-colorset-wheat .rpbui-chessboard-darkSquare  { background-color: rgb(187,190,100); }
+
+.rpbui-chessboard-colorset-coral .rpbui-chessboard-markerStroke-G { stroke: #080; } .rpbui-chessboard-colorset-coral .rpbui-chessboard-markerFill-G { fill: #080; }
+.rpbui-chessboard-colorset-coral .rpbui-chessboard-markerStroke-Y { stroke: #ff0; } .rpbui-chessboard-colorset-coral .rpbui-chessboard-markerFill-Y { fill: #ff0; }
+.rpbui-chessboard-colorset-dusk .rpbui-chessboard-markerStroke-G { stroke: #3f3; } .rpbui-chessboard-colorset-dusk .rpbui-chessboard-markerFill-G { fill: #3f3; }
+.rpbui-chessboard-colorset-dusk .rpbui-chessboard-markerStroke-Y { stroke: #ff0; } .rpbui-chessboard-colorset-dusk .rpbui-chessboard-markerFill-Y { fill: #ff0; }
+.rpbui-chessboard-colorset-emerald .rpbui-chessboard-markerStroke-G { stroke: #6f6; } .rpbui-chessboard-colorset-emerald .rpbui-chessboard-markerFill-G { fill: #6f6; }
+.rpbui-chessboard-colorset-emerald .rpbui-chessboard-markerStroke-R { stroke: #d00; } .rpbui-chessboard-colorset-emerald .rpbui-chessboard-markerFill-R { fill: #d00; }
+.rpbui-chessboard-colorset-emerald .rpbui-chessboard-markerStroke-Y { stroke: #ff0; } .rpbui-chessboard-colorset-emerald .rpbui-chessboard-markerFill-Y { fill: #ff0; }
+.rpbui-chessboard-colorset-marine .rpbui-chessboard-markerStroke-G { stroke: #6f6; } .rpbui-chessboard-colorset-marine .rpbui-chessboard-markerFill-G { fill: #6f6; }
+.rpbui-chessboard-colorset-marine .rpbui-chessboard-markerStroke-R { stroke: #f50; } .rpbui-chessboard-colorset-marine .rpbui-chessboard-markerFill-R { fill: #f50; }
+.rpbui-chessboard-colorset-marine .rpbui-chessboard-markerStroke-Y { stroke: #ff0; } .rpbui-chessboard-colorset-marine .rpbui-chessboard-markerFill-Y { fill: #ff0; }
+.rpbui-chessboard-colorset-sandcastle .rpbui-chessboard-markerStroke-G { stroke: #0c3; } .rpbui-chessboard-colorset-sandcastle .rpbui-chessboard-markerFill-G { fill: #0c3; }
+.rpbui-chessboard-colorset-sandcastle .rpbui-chessboard-markerStroke-R { stroke: #d02; } .rpbui-chessboard-colorset-sandcastle .rpbui-chessboard-markerFill-R { fill: #d02; }
+.rpbui-chessboard-colorset-sandcastle .rpbui-chessboard-markerStroke-Y { stroke: #ff0; } .rpbui-chessboard-colorset-sandcastle .rpbui-chessboard-markerFill-Y { fill: #ff0; }
+.rpbui-chessboard-colorset-wheat .rpbui-chessboard-markerStroke-G { stroke: #0c3; } .rpbui-chessboard-colorset-wheat .rpbui-chessboard-markerFill-G { fill: #0c3; }
+.rpbui-chessboard-colorset-wheat .rpbui-chessboard-markerStroke-Y { stroke: #ff3; } .rpbui-chessboard-colorset-wheat .rpbui-chessboard-markerFill-Y { fill: #ff3; }
 
 /**
  * Source: https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces
