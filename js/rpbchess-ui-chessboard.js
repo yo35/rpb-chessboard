@@ -69,6 +69,14 @@
 
 
 	/**
+	 * Regular expression matching an text marker.
+	 *
+	 * @constant
+	 */
+	var TEXT_MARKER_TOKEN = /^\s*([GRY][A-Za-z0-9])([a-h][1-8])\s*$/;
+
+
+	/**
 	 * Regular expression matching a square marker, regardless of its color.
 	 *
 	 * @constant
@@ -185,7 +193,7 @@
 	 */
 	function filterOptionInteractionMode(interactionMode) {
 		return (interactionMode==='play' || interactionMode==='movePieces' || /^addPieces-[wb][kqrbnp]$/.test(interactionMode) ||
-			/^add(?:Square|Arrow)Markers-[GRY]$/.test(interactionMode)) ? interactionMode : 'none';
+			/^add(?:Square|Arrow)Markers-[GRY]$/.test(interactionMode) || /^addTextMarkers-[GRY][A-Za-z0-9]$/.test(interactionMode)) ? interactionMode : 'none';
 	}
 
 
@@ -255,6 +263,19 @@
 	function initializeArrowMarkers(widget, value) {
 		widget._arrowMarkers = parseMarkerList(value, ARROW_MARKER_TOKEN);
 		return flattenMarkerList(widget._arrowMarkers);
+	}
+
+
+	/**
+	 * Initialize the internal text marker buffer with the given string.
+	 *
+	 * @param {rpbchess-ui.chessboard} widget
+	 * @param {string} value
+	 * @returns {string}
+	 */
+	function initializeTextMarkers(widget, value) {
+		widget._textMarkers = parseMarkerList(value, TEXT_MARKER_TOKEN);
+		return flattenMarkerList(widget._textMarkers);
 	}
 
 
@@ -411,6 +432,15 @@
 			}
 		}
 
+		// Text markers
+		for(var square in widget._textMarkers) {
+			if(square in widget._textMarkers) {
+				var sc = getSquareCoordinatesInSVG(widget, square);
+				var identifierClazz = 'rpbui-chessboard-textMarker-' + square;
+				svg.appendChild(buildTextMarker(identifierClazz, widget._textMarkers[square], sc.x, sc.y));
+			}
+		}
+
 		// Arrows
 		for(var arrow in widget._arrowMarkers) {
 			if(arrow in widget._arrowMarkers && /^([a-h][1-8])([a-h][1-8])$/.test(arrow)) {
@@ -474,6 +504,27 @@
 		circle.setAttribute('cy', y);
 		circle.setAttribute('r', 0.4);
 		return circle;
+	}
+
+
+	/**
+	 * Create a DOM node corresponding to a text marker.
+	 *
+	 * @param {string} identifierClazz
+	 * @param {string} descriptor 2 characters: the first one is the color, the second one the glyph.
+	 * @param {number} x
+	 * @param {number} y
+	 * @returns {Element}
+	 */
+	function buildTextMarker(identifierClazz, descriptor, x, y) {
+		var color = descriptor.substr(0, 1);
+		var glyph = descriptor.substr(1, 1);
+		var text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+		text.setAttribute('class', 'rpbui-chessboard-textMarker ' + identifierClazz + ' rpbui-chessboard-markerColor-' + color);
+		text.setAttribute('x', x);
+		text.setAttribute('y', y);
+		text.appendChild(document.createTextNode(glyph));
+		return text;
 	}
 
 
@@ -583,6 +634,11 @@
 				var markerColor = RegExp.$1;
 				tagSquares(widget);
 				enableAddArrowMarkerBehavior(widget, markerColor);
+			}
+			else if(/^addTextMarkers-([GRY][A-Za-z0-9])$/.test(widget.options.interactionMode)) {
+				var markerDescriptor = RegExp.$1;
+				tagSquares(widget);
+				enableAddTextMarkerBehavior(widget, markerDescriptor);
 			}
 		}
 	}
@@ -708,6 +764,51 @@
 					var arrow = buildArrow(widget, 'rpbui-chessboard-arrowMarker-' + key, widget._arrowMarkers[key], vc.x1, vc.y1, vc.x2, vc.y2);
 					$('.rpbui-chessboard-annotations', widget.element).append(arrow);
 				}
+			}
+		}
+	}
+
+
+	/**
+	 * Update the widget when a text marker gets added/changed/removed.
+	 *
+	 * @param {rpbchess-ui.chessboard} widget
+	 * @param {string} square
+	 * @param {string} oldValue `undefined` if the text marker is added.
+	 * @param {string} newValue `undefined` if the text marker is removed.
+	 */
+	function onTextMarkerChanged(widget, square, oldValue, newValue) {
+		var identifierClazz = 'rpbui-chessboard-textMarker-' + square;
+		if(typeof oldValue === 'undefined') {
+			var sc = getSquareCoordinatesInSVG(widget, square);
+			$('.rpbui-chessboard-annotations', widget.element).append(buildTextMarker(identifierClazz, newValue, sc.x, sc.y));
+		}
+		else if(typeof newValue === 'undefined') {
+			$('.' + identifierClazz, widget.element).remove();
+		}
+		else {
+			var newColor = newValue.substr(0, 1);
+			var newGlyph = newValue.substr(1, 1);
+			var clazz = 'rpbui-chessboard-textMarker ' + identifierClazz + ' rpbui-chessboard-markerColor-' + newColor;
+			$('.' + identifierClazz, widget.element).attr('class', clazz);
+			$('.' + identifierClazz, widget.element).text(newGlyph);
+		}
+	}
+
+
+	/**
+	 * Update the widget when all the text markers get changed.
+	 *
+	 * @param {rpbchess-ui.chessboard} widget
+	 */
+	function onTextMarkersChanged(widget) {
+		$('.rpbui-chessboard-textMarker', widget.element).remove();
+
+		for(var square in widget._textMarkers) {
+			if(square in widget._textMarkers) {
+				var sc = getSquareCoordinatesInSVG(widget, square);
+				var identifierClazz = 'rpbui-chessboard-textMarker-' + square;
+				$('.rpbui-chessboard-annotations', widget.element).append(buildTextMarker(identifierClazz, widget._textMarkers[square], sc.x, sc.y));
 			}
 		}
 	}
@@ -878,6 +979,19 @@
 	function enableAddSquareMarkerBehavior(widget, markerColor) {
 		$('.rpbui-chessboard-square', widget.element).mousedown(function() {
 			doAddSquareMarker(widget, markerColor, $(this).data('square')); // eslint-disable-line no-invalid-this
+		});
+	}
+
+
+	/**
+	 * Enable the "add-text-marker" interaction mode.
+	 *
+	 * @param {rpbchess-ui.chessboard} widget
+	 * @param {string} markerDescriptor
+	 */
+	function enableAddTextMarkerBehavior(widget, markerDescriptor) {
+		$('.rpbui-chessboard-square', widget.element).mousedown(function() {
+			doAddTextMarker(widget, markerDescriptor, $(this).data('square')); // eslint-disable-line no-invalid-this
 		});
 	}
 
@@ -1141,6 +1255,33 @@
 
 
 	/**
+	 * Callback for the "add-text-markers" mode -> toggle the requested text marker on the targeted square.
+	 *
+	 * @param {rpbchess-ui.chessboard} widget
+	 * @param {string} markerDescriptor 2 characters: the first one is the color, the second one the glyph.
+	 * @param {string} square Targeted square.
+	 * @param {jQuery} target DOM node corresponding to the targeted square.
+	 */
+	function doAddTextMarker(widget, markerDescriptor, square) {
+
+		// Remove-case
+		if(widget._textMarkers[square] === markerDescriptor) {
+			onTextMarkerChanged(widget, square, markerDescriptor);
+			delete widget._textMarkers[square];
+		}
+
+		// Add-case
+		else {
+			onTextMarkerChanged(widget, square, widget._textMarkers[square], markerDescriptor);
+			widget._textMarkers[square] = markerDescriptor;
+		}
+
+		// Text marker list update + notifications.
+		notifyTextMarkersChanged(widget);
+	}
+
+
+	/**
 	 * Callback for the "add-arrow-markers" mode -> toggle the requested arrow marker between the given squares.
 	 *
 	 * @param {rpbchess-ui.chessboard} widget
@@ -1204,6 +1345,18 @@
 	}
 
 
+	/**
+	 * Update the property holding the list of text markers, and trigger the corresponding event.
+	 *
+	 * @param {rpbchess-ui.chessboard} widget
+	 */
+	function notifyTextMarkersChanged(widget) {
+		var oldValue = widget.options.textMarkers;
+		widget.options.textMarkers = flattenMarkerList(widget._textMarkers);
+		widget._trigger('textMarkersChange', null, { oldValue:oldValue, newValue:widget.options.textMarkers });
+	}
+
+
 
 	// ---------------------------------------------------------------------------
 	// Widget registration in the jQuery widget framework.
@@ -1246,6 +1399,13 @@
 			 * `'Ga1a5,Re8g8,Ye2e4'` (put a red arrow from a1 to a5, a red from e8 to g8, and a yellow on from e2 to e4).
 			 */
 			arrowMarkers: '',
+
+			/**
+			 * Text markers (used to highlight and identify some particular squares of interest).
+			 * Specified as a list of comma-separated tokens such as:
+			 * `'GAc4,Rzd5,Y9e6'` (character 'A' in square c4 in green, 'z' in d5 in red, and '9' in e6 in yellow).
+			 */
+			textMarkers: '',
 
 			/**
 			 * Whether the chessboard is flipped or not.
@@ -1317,6 +1477,13 @@
 
 
 		/**
+		 * Text markers.
+		 * @type {object}
+		 */
+		_textMarkers: null,
+
+
+		/**
 		 * Initial and destination squares of the move arrow, if any.
 		 * @type {object?} `null` if there is no move arrow.
 		 */
@@ -1343,6 +1510,7 @@
 			this.options.position      = initializePosition     (this, this.options.position     );
 			this.options.squareMarkers = initializeSquareMarkers(this, this.options.squareMarkers);
 			this.options.arrowMarkers  = initializeArrowMarkers (this, this.options.arrowMarkers );
+			this.options.textMarkers   = initializeTextMarkers  (this, this.options.textMarkers  );
 			this.options.squareSize      = filterOptionSquareSize     (this.options.squareSize     );
 			this.options.interactionMode = filterOptionInteractionMode(this.options.interactionMode);
 			this.options.animationSpeed  = filterOptionAnimationSpeed (this.options.animationSpeed );
@@ -1373,6 +1541,7 @@
 				case 'position'     : value = initializePosition     (this, value); break;
 				case 'squareMarkers': value = initializeSquareMarkers(this, value); break;
 				case 'arrowMarkers' : value = initializeArrowMarkers (this, value); break;
+				case 'textMarkers'  : value = initializeTextMarkers  (this, value); break;
 				case 'squareSize'     : value = filterOptionSquareSize     (value); break;
 				case 'interactionMode': value = filterOptionInteractionMode(value); break;
 				case 'animationSpeed' : value = filterOptionAnimationSpeed (value); break;
@@ -1396,6 +1565,7 @@
 				case 'flip': refresh(this); this._trigger('flipChange', null, { oldValue:oldValue, newValue:this.options.flip }); break;
 				case 'squareMarkers': onSquareMarkersChanged(this); this._trigger('squareMarkersChange', null, { oldValue:oldValue, newValue:this.options.squareMarkers }); break;
 				case 'arrowMarkers' : onArrowMarkersChanged (this); this._trigger('arrowMarkersChange' , null, { oldValue:oldValue, newValue:this.options.arrowMarkers  }); break;
+				case 'textMarkers'  : onTextMarkersChanged  (this); this._trigger('textMarkersChange'  , null, { oldValue:oldValue, newValue:this.options.textMarkers   }); break;
 				case 'squareSize': onSquareSizeChanged(this, oldValue, value); break;
 				case 'showCoordinates': onShowCoordinatesChanged(this); break;
 				case 'animationSpeed': break;
@@ -1544,6 +1714,41 @@
 					onArrowMarkerChanged(this, key, this._arrowMarkers[key]);
 					delete this._arrowMarkers[key];
 					notifyArrowMarkersChanged(this);
+				}
+			}
+		},
+
+
+		/**
+		 * Add a text marker.
+		 *
+		 * @param {string} textMarker
+		 */
+		addTextMarker: function(textMarker) {
+			if(TEXT_MARKER_TOKEN.test(textMarker)) {
+				var descriptor = RegExp.$1;
+				var square = RegExp.$2;
+				if(this._textMarkers[square] !== descriptor) {
+					onTextMarkerChanged(this, square, this._textMarkers[square], descriptor);
+					this._textMarkers[square] = descriptor;
+					notifyTextMarkersChanged(this);
+				}
+			}
+		},
+
+
+		/**
+		 * Remove a text marker.
+		 *
+		 * @param {string} textMarker
+		 */
+		removeTextMarker: function(textMarker) {
+			if(TEXT_MARKER_TOKEN.test(textMarker)) {
+				var square = RegExp.$2;
+				if(typeof this._textMarkers[square] !== 'undefined') {
+					onTextMarkerChanged(this, square, this._textMarkers[square]);
+					delete this._textMarkers[square];
+					notifyTextMarkersChanged(this);
 				}
 			}
 		},

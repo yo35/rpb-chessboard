@@ -124,10 +124,21 @@
 	stroke-linecap: round;
 }
 
+.rpbui-chessboard-textMarker {
+	font: normal 1px sans-serif;
+	text-anchor: middle;
+	dominant-baseline: central;
+}
+
 .rpbui-chessboard-arrowMarker.rpbui-chessboard-markerColor-G, .rpbui-chessboard-squareMarker.rpbui-chessboard-markerColor-G { stroke: #0e0; }
 .rpbui-chessboard-arrowMarker.rpbui-chessboard-markerColor-R, .rpbui-chessboard-squareMarker.rpbui-chessboard-markerColor-R { stroke: #f20; }
 .rpbui-chessboard-arrowMarker.rpbui-chessboard-markerColor-Y, .rpbui-chessboard-squareMarker.rpbui-chessboard-markerColor-Y { stroke: #db0; }
 .rpbui-chessboard-arrowMarker.rpbui-chessboard-markerColor-B, .rpbui-chessboard-squareMarker.rpbui-chessboard-markerColor-B { stroke: #04f; }
+
+.rpbui-chessboard-textMarker.rpbui-chessboard-markerColor-G { fill: #0e0; }
+.rpbui-chessboard-textMarker.rpbui-chessboard-markerColor-R { fill: #f20; }
+.rpbui-chessboard-textMarker.rpbui-chessboard-markerColor-Y { fill: #db0; }
+.rpbui-chessboard-textMarker.rpbui-chessboard-markerColor-B { fill: #04f; }
 
 .rpbui-chessboard-arrowMarkerEnd-G { fill: #0e0; }
 .rpbui-chessboard-arrowMarkerEnd-R { fill: #f20; }

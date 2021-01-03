@@ -96,6 +96,14 @@
 					</span>
 				</p>
 				<p>
+					Text markers:
+					<span>
+						<input id="mode-addTextMarkers" type="radio" name="mode" value="addTextMarkers-" />
+						<input id="text-marker-descriptor" type="text" />
+						(2-character descriptor, first one being the color, second one the glyph)
+					</span>
+				</p>
+				<p>
 					<input id="change-turn" type="button" value="Change turn" />
 					<input id="clear-annotations" type="button" value="Clear annotations" />
 				</p>
@@ -175,11 +183,23 @@
 			$('#info').append('<div>' + $('#a').chessboard('option', 'position') + '</div>');
 		});
 
-		$('#mode-' + $('#a').chessboard('option', 'interactionMode')).prop('checked', true);
+		if($('#a').chessboard('option', 'interactionMode').startsWith('addTextMarkers-')) {
+			$('#mode-addTextMarkers').prop('checked', true);
+			$('#text-marker-descriptor').val($('#a').chessboard('option', 'interactionMode').substr('addTextMarkers-'.length));
+		}
+		else {
+			$('#mode-' + $('#a').chessboard('option', 'interactionMode')).prop('checked', true);
+			$('#text-marker-descriptor').val('');
+		}
 		$('input[name="mode"]').each(function(index, e) {
 			$(e).click(function() {
-				$('#a').chessboard('option', 'interactionMode', $(e).val());
+				$('#a').chessboard('option', 'interactionMode', $(e).val()==='addTextMarkers-' ? $(e).val() + $('#text-marker-descriptor').val() : $(e).val());
 			});
+		});
+		$('#text-marker-descriptor').change(function() {
+			if($('#mode-addTextMarkers').prop('checked')) {
+				$('#a').chessboard('option', 'interactionMode', 'addTextMarkers-' + $('#text-marker-descriptor').val());
+			}
 		});
 
 		$('#change-turn').button().click(function() {
@@ -194,6 +214,7 @@
 		$('#clear-annotations').button().click(function() {
 			$('#a').chessboard('option', 'squareMarkers', '');
 			$('#a').chessboard('option', 'arrowMarkers', '');
+			$('#a').chessboard('option', 'textMarkers', '');
 		});
 		$('#move-go').button().click(function() {
 			var from = $('#move-from').val();
