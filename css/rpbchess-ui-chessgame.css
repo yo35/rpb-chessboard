@@ -200,6 +200,11 @@ span.rpbui-chessgame-variation:last-child {
 }
 
 div.rpbui-chessgame-subVariation {
+	margin-left: 1.5em;
+}
+
+.rpbui-chessgame-indentWithFloatLeft div.rpbui-chessgame-subVariation {
+	margin-left: 0px;
 	position: relative;
 	left: 1.5em;
 	width: calc(100% - 1.5em);

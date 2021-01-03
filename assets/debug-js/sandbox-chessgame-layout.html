@@ -105,38 +105,65 @@
 
 	<h2>Layout in presence of floating objects</h2>
 
-	<div id="container2">
-		<div class="float-object"></div>
-		<div id="b"></div>
+	<div id="container2" class="container-with-floating">
+		<div class="anchor"></div>
+		<div class="clear-floats"></div>
+	</div>
+
+	<div id="container3" class="container-with-floating">
+		<div class="anchor"></div>
+		<div class="clear-floats"></div>
+	</div>
+
+	<div id="container4" class="container-with-floating">
+		<div class="anchor"></div>
+		<div class="clear-floats"></div>
+	</div>
+
+	<div id="container5" class="container-with-floating">
+		<div class="anchor"></div>
 		<div class="clear-floats"></div>
 	</div>
 
 	<style>
 
-		#container2 {
+		.container-with-floating {
 			background-color: #eee;
 			width: 50%;
+			margin-bottom: 10px;
 		}
 
-		#container2 div.rpbui-chessgame-variation {
-			background-color: #ddd;
+		.container-with-floating div.rpbui-chessgame-variation {
+			background-color: #dddc;
 		}
 
-		#container2 div.rpbui-chessgame-variation div.rpbui-chessgame-variation {
-			background-color: #ccc;
+		.container-with-floating div.rpbui-chessgame-variation div.rpbui-chessgame-variation {
+			background-color: #cccc;
 		}
 
-		#container2 div.rpbui-chessgame-variation div.rpbui-chessgame-variation div.rpbui-chessgame-variation {
-			background-color: #bbb;
+		.container-with-floating div.rpbui-chessgame-variation div.rpbui-chessgame-variation div.rpbui-chessgame-variation {
+			background-color: #bbbc;
+		}
+
+		.container-with-floating .rpbui-chessgame-navigationBox {
+			background-color: red;
 		}
 
 		.float-object {
-			float: left;
 			background-color: red;
 			width : 200px;
 			height: 200px;
-			margin-right : 10px;
 			margin-bottom: 10px;
+		}
+
+		#container2 .float-object {
+			float: left;
+			margin-right : 10px;
+		}
+
+		#container3 .float-object {
+			float: right;
+			margin-left : 10px;
 		}
 
 		.clear-floats {
@@ -176,7 +203,7 @@
 		});
 
 		// Floats
-		$('#b').chessgame({ pgn:
+		$('.container-with-floating .anchor').chessgame({ navigationBoardOptions: { squareSize: 24 }, showFlipButton: false, showDownloadButton: false, pgn:
 			'[White "Player 1"]\n' +
 			'[Black "Player 2"]\n' +
 			'[Result "1/2-1/2"]\n' +
@@ -196,6 +223,10 @@
 			'\n' +
 			'2.d4 1/2-1/2'
 		});
+		$('#container2 .anchor').chessgame('option', 'navigationBoard', 'floatLeft');
+		$('#container3 .anchor').chessgame('option', 'navigationBoard', 'floatRight');
+		$('#container4 .anchor').chessgame('option', 'navigationBoard', 'scrollLeft');
+		$('#container5 .anchor').chessgame('option', 'navigationBoard', 'scrollRight');
 
 	</script>
 

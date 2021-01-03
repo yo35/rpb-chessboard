@@ -943,6 +943,7 @@
 		var bodyClass = 'rpbui-chessgame-body';
 		if(mainVariation.childNodes.length > 1) { bodyClass += ' rpbui-chessgame-moreSpace'; }
 		if(widget.options.navigationBoard !== 'none') { bodyClass += ' rpbui-chessgame-clickableMoves'; }
+		if(widget.options.navigationBoard === 'floatLeft') { bodyClass += ' rpbui-chessgame-indentWithFloatLeft'; }
 		var result = buildElement('div', bodyClass);
 		result.appendChild(mainVariation);
 		return result;
