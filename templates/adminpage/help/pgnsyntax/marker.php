@@ -93,7 +93,7 @@
 						'Finally, a letter or a digit can be used to decorate a square: this is achieved by using the tag %1$s[%%ctl ...]%2$s in a comment. ' .
 						'An character decoration is encoded by a group of 4 characters: the first one is the color to use (%1$sG%2$s, %1$sR%2$s, or %1$sY%2$s), ' .
 						'the second one is the character to use (must be an upper-case letter %1$sA-Z%2$s, a lower-case letter %1$sa-z%2$s, or a digit %1$s0-9%2$s), ' .
-						'the third and fourth ones represent the targeted square.' .
+						'the third and fourth ones represent the targeted square. ' .
 						'For instance, %1$s[%%ctl GAd4,Yzd5]%2$s decorates d4 with a red A, and d5 with a yellow z.',
 						'rpb-chessboard'
 					),
