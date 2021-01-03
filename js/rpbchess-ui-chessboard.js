@@ -93,6 +93,14 @@
 
 
 	/**
+	 * Regular expression matching an text marker, regardless of its color and glyph.
+	 *
+	 * @constant
+	 */
+	var TEXT_MARKER_TOKEN_NO_DESCRIPTOR = /^\s*(?:[GRY][A-Za-z0-9])?([a-h][1-8])\s*$/;
+
+
+	/**
 	 * Parse a string specifying a list of annotation markers.
 	 *
 	 * @param {string} value
@@ -712,7 +720,7 @@
 			if(square in widget._squareMarkers) {
 				var sc = getSquareCoordinatesInSVG(widget, square);
 				var identifierClazz = 'rpbui-chessboard-squareMarker-' + square;
-				$('.rpbui-chessboard-annotations', widget.element).append(buildSquareMarker(identifierClazz, widget._arrowMarkers[square], sc.x, sc.y));
+				$('.rpbui-chessboard-annotations', widget.element).append(buildSquareMarker(identifierClazz, widget._squareMarkers[square], sc.x, sc.y));
 			}
 		}
 	}
@@ -1329,7 +1337,7 @@
 	function notifySquareMarkersChanged(widget) {
 		var oldValue = widget.options.squareMarkers;
 		widget.options.squareMarkers = flattenMarkerList(widget._squareMarkers);
-		widget._trigger('squareMarkersChange', null, { oldValue:oldValue, newValue:widget.options.squareMarkers });
+		widget._trigger('squareMarkerChange', null, { oldValue:oldValue, newValue:widget.options.squareMarkers });
 	}
 
 
@@ -1341,7 +1349,7 @@
 	function notifyArrowMarkersChanged(widget) {
 		var oldValue = widget.options.arrowMarkers;
 		widget.options.arrowMarkers = flattenMarkerList(widget._arrowMarkers);
-		widget._trigger('arrowMarkersChange', null, { oldValue:oldValue, newValue:widget.options.arrowMarkers });
+		widget._trigger('arrowMarkerChange', null, { oldValue:oldValue, newValue:widget.options.arrowMarkers });
 	}
 
 
@@ -1353,7 +1361,7 @@
 	function notifyTextMarkersChanged(widget) {
 		var oldValue = widget.options.textMarkers;
 		widget.options.textMarkers = flattenMarkerList(widget._textMarkers);
-		widget._trigger('textMarkersChange', null, { oldValue:oldValue, newValue:widget.options.textMarkers });
+		widget._trigger('textMarkerChange', null, { oldValue:oldValue, newValue:widget.options.textMarkers });
 	}
 
 
@@ -1743,8 +1751,8 @@
 		 * @param {string} textMarker
 		 */
 		removeTextMarker: function(textMarker) {
-			if(TEXT_MARKER_TOKEN.test(textMarker)) {
-				var square = RegExp.$2;
+			if(TEXT_MARKER_TOKEN_NO_DESCRIPTOR.test(textMarker)) {
+				var square = RegExp.$1;
 				if(typeof this._textMarkers[square] !== 'undefined') {
 					onTextMarkerChanged(this, square, this._textMarkers[square]);
 					delete this._textMarkers[square];

@@ -116,33 +116,9 @@
 		$('#annotations').prop('checked', false);
 		$('#annotations').button().click(function() {
 			if($('#annotations').prop('checked')) {
-
-				// Square markers
-				$('#a').chessboard('addSquareMarker', 'Gc4');
-				$('#a').chessboard('addSquareMarker', 'Gc5');
-				$('#a').chessboard('addSquareMarker', 'Re4');
-				$('#a').chessboard('addSquareMarker', 'Re5');
-				$('#a').chessboard('addSquareMarker', 'Yg4');
-				$('#a').chessboard('addSquareMarker', 'Yg5');
-				$('#a').chessboard('addSquareMarker', 'Gg2');
-				$('#a').chessboard('addSquareMarker', 'Gh2');
-				$('#a').chessboard('addSquareMarker', 'Rg7');
-				$('#a').chessboard('addSquareMarker', 'Rh7');
-
-				// Arrow markers
-				$('#a').chessboard('addArrowMarker', 'Ga1a3');
-				$('#a').chessboard('addArrowMarker', 'Rc1c3');
-				$('#a').chessboard('addArrowMarker', 'Ye1e3');
-				$('#a').chessboard('addArrowMarker', 'Ga6b8');
-				$('#a').chessboard('addArrowMarker', 'Rc6d8');
-				$('#a').chessboard('addArrowMarker', 'Ye6f8');
-				$('#a').chessboard('addArrowMarker', 'Gd3b6');
-				$('#a').chessboard('addArrowMarker', 'Rf3d6');
-				$('#a').chessboard('addArrowMarker', 'Yh3f6');
-
-				// Text markers
-				$('#a').chessboard('addTextMarker', 'YAa5');
-				$('#a').chessboard('addTextMarker', 'Gza4');
+				$('#a').chessboard('option', 'squareMarkers', 'Gc4,Gc5,Re4,Re5,Yg4,Yg5,Gg2,Gh2,Rg7,Rh7');
+				$('#a').chessboard('option', 'arrowMarkers', 'Ga1a3,Rc1c3,Ye1e3,Ga6b8,Rc6d8,Ye6f8,Gd3b6,Rf3d6,Yh3f6');
+				$('#a').chessboard('option', 'textMarkers', 'YAa5,Gza4');
 			}
 			else {
 				$('#a').chessboard('option', 'squareMarkers', '');

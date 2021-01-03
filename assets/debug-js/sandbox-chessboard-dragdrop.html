@@ -116,6 +116,20 @@
 					<input id="play-text" type="text" />
 					<input id="play-go" type="button" value="Play" />
 				</p>
+				<p>
+					<label for="manual-marker-text">Marker descriptor</label>
+					<input id="manual-marker-text" type="text" />
+				</p>
+				<p>
+					<input id="add-square-marker" type="button" value="Add square marker" />
+					<input id="add-arrow-marker" type="button" value="Add arrow marker" />
+					<input id="add-text-marker" type="button" value="Add text marker" />
+				</p>
+				<p>
+					<input id="remove-square-marker" type="button" value="Remove square marker" />
+					<input id="remove-arrow-marker" type="button" value="Remove arrow marker" />
+					<input id="remove-text-marker" type="button" value="Remove text marker" />
+				</p>
 			</form>
 			<pre id="info"></pre>
 		</div>
@@ -145,10 +159,18 @@
 			squareSize: 48,
 			interactionMode: 'movePieces',
 
+			squareMarkerChange: function(event, ui) {
+				$('#info').append('<div>Square markers: ' + $('#a').chessboard('option', 'squareMarkers') + '</div>');
+			},
+			arrowMarkerChange: function(event, ui) {
+				$('#info').append('<div>Arrow markers: ' + $('#a').chessboard('option', 'arrowMarkers') + '</div>');
+			},
+			textMarkerChange: function(event, ui) {
+				$('#info').append('<div>Text markers: ' + $('#a').chessboard('option', 'textMarkers') + '</div>');
+			},
 			positionChange: function(event, ui) {
 				$('#info').append('<div>' + $('#a').chessboard('option', 'position') + '</div>');
 			}
-
 		});
 
 		$('#b1').chessboard({
@@ -230,6 +252,24 @@
 				$('#a').chessboard('play', move);
 				$('#a').chessboard('option', 'showMoveArrow', false);
 			}
+		});
+		$('#add-square-marker').button().click(function() {
+			$('#a').chessboard('addSquareMarker', $('#manual-marker-text').val());
+		});
+		$('#add-arrow-marker').button().click(function() {
+			$('#a').chessboard('addArrowMarker', $('#manual-marker-text').val());
+		});
+		$('#add-text-marker').button().click(function() {
+			$('#a').chessboard('addTextMarker', $('#manual-marker-text').val());
+		});
+		$('#remove-square-marker').button().click(function() {
+			$('#a').chessboard('removeSquareMarker', $('#manual-marker-text').val());
+		});
+		$('#remove-arrow-marker').button().click(function() {
+			$('#a').chessboard('removeArrowMarker', $('#manual-marker-text').val());
+		});
+		$('#remove-text-marker').button().click(function() {
+			$('#a').chessboard('removeTextMarker', $('#manual-marker-text').val());
 		});
 
 	</script>
