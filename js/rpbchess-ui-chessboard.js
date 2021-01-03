@@ -349,11 +349,7 @@
 				// Square
 				var square = document.createElement('div');
 				var squareColor = kokopu.squareColor(sq) === 'w' ? 'light' : 'dark';
-				var clazz = 'rpbui-chessboard-sized rpbui-chessboard-cell rpbui-chessboard-square rpbui-chessboard-' + squareColor + 'Square';
-				if(sq in widget._squareMarkers) {
-					clazz += ' rpbui-chessboard-squareMarker rpbui-chessboard-markerColor-' + widget._squareMarkers[sq];
-				}
-				square.className = clazz;
+				square.className = 'rpbui-chessboard-sized rpbui-chessboard-cell rpbui-chessboard-square rpbui-chessboard-' + squareColor + 'Square';
 				row.appendChild(square);
 
 				// Colored piece within the square (if any).
@@ -406,6 +402,15 @@
 		svg.appendChild(defs);
 		result.appendChild(svg);
 
+		// Square markers
+		for(var square in widget._squareMarkers) {
+			if(square in widget._squareMarkers) {
+				var sc = getSquareCoordinatesInSVG(widget, square);
+				var identifierClazz = 'rpbui-chessboard-squareMarker-' + square;
+				svg.appendChild(buildSquareMarker(identifierClazz, widget._squareMarkers[square], sc.x, sc.y));
+			}
+		}
+
 		// Arrows
 		for(var arrow in widget._arrowMarkers) {
 			if(arrow in widget._arrowMarkers && /^([a-h][1-8])([a-h][1-8])$/.test(arrow)) {
@@ -450,6 +455,25 @@
 		marker.appendChild(path);
 
 		return marker;
+	}
+
+
+	/**
+	 * Create a DOM node corresponding to a square marker.
+	 *
+	 * @param {string} identifierClazz
+	 * @param {string} color
+	 * @param {number} x
+	 * @param {number} y
+	 * @returns {Element}
+	 */
+	function buildSquareMarker(identifierClazz, color, x, y) {
+		var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+		circle.setAttribute('class', 'rpbui-chessboard-squareMarker ' + identifierClazz + ' rpbui-chessboard-markerColor-' + color);
+		circle.setAttribute('cx', x);
+		circle.setAttribute('cy', y);
+		circle.setAttribute('r', 0.4);
+		return circle;
 	}
 
 
@@ -599,19 +623,23 @@
 	/**
 	 * Update the widget when a square marker gets added/changed/removed.
 	 *
-	 * @param {jQuery} target DOM node corresponding to the targeted square.
+	 * @param {rpbchess-ui.chessboard} widget
+	 * @param {string} square
 	 * @param {string} oldValue `undefined` if the square marker is added.
 	 * @param {string} newValue `undefined` if the square marker is removed.
 	 */
-	function onSquareMarkerChanged(target, oldValue, newValue) {
+	function onSquareMarkerChanged(widget, square, oldValue, newValue) {
+		var identifierClazz = 'rpbui-chessboard-squareMarker-' + square;
 		if(typeof oldValue === 'undefined') {
-			target.addClass('rpbui-chessboard-squareMarker').addClass('rpbui-chessboard-markerColor-' + newValue);
+			var sc = getSquareCoordinatesInSVG(widget, square);
+			$('.rpbui-chessboard-annotations', widget.element).append(buildSquareMarker(identifierClazz, newValue, sc.x, sc.y));
 		}
 		else if(typeof newValue === 'undefined') {
-			target.removeClass('rpbui-chessboard-squareMarker').removeClass('rpbui-chessboard-markerColor-' + oldValue);
+			$('.' + identifierClazz, widget.element).remove();
 		}
 		else {
-			target.removeClass('rpbui-chessboard-markerColor-' + oldValue).addClass('rpbui-chessboard-markerColor-' + newValue);
+			var clazz = 'rpbui-chessboard-squareMarker ' + identifierClazz + ' rpbui-chessboard-markerColor-' + newValue;
+			$('.' + identifierClazz, widget.element).attr('class', clazz);
 		}
 	}
 
@@ -622,16 +650,13 @@
 	 * @param {rpbchess-ui.chessboard} widget
 	 */
 	function onSquareMarkersChanged(widget) {
-		var oldSquareMarkers = $('.rpbui-chessboard-squareMarker', widget.element);
-		oldSquareMarkers.removeClass('rpbui-chessboard-markerColor-G');
-		oldSquareMarkers.removeClass('rpbui-chessboard-markerColor-R');
-		oldSquareMarkers.removeClass('rpbui-chessboard-markerColor-Y');
-		oldSquareMarkers.removeClass('rpbui-chessboard-squareMarker');
+		$('.rpbui-chessboard-squareMarker', widget.element).remove();
 
 		for(var square in widget._squareMarkers) {
 			if(square in widget._squareMarkers) {
-				var color = widget._squareMarkers[square];
-				fetchSquare(widget, square).addClass('rpbui-chessboard-squareMarker').addClass('rpbui-chessboard-markerColor-' + color);
+				var sc = getSquareCoordinatesInSVG(widget, square);
+				var identifierClazz = 'rpbui-chessboard-squareMarker-' + square;
+				$('.rpbui-chessboard-annotations', widget.element).append(buildSquareMarker(identifierClazz, widget._arrowMarkers[square], sc.x, sc.y));
 			}
 		}
 	}
@@ -852,7 +877,7 @@
 	 */
 	function enableAddSquareMarkerBehavior(widget, markerColor) {
 		$('.rpbui-chessboard-square', widget.element).mousedown(function() {
-			doAddSquareMarker(widget, markerColor, $(this).data('square'), $(this)); // eslint-disable-line no-invalid-this
+			doAddSquareMarker(widget, markerColor, $(this).data('square')); // eslint-disable-line no-invalid-this
 		});
 	}
 
@@ -1096,17 +1121,17 @@
 	 * @param {string} square Targeted square.
 	 * @param {jQuery} target DOM node corresponding to the targeted square.
 	 */
-	function doAddSquareMarker(widget, color, square, target) {
+	function doAddSquareMarker(widget, color, square) {
 
 		// Remove-case
 		if(widget._squareMarkers[square] === color) {
-			onSquareMarkerChanged(target, color);
+			onSquareMarkerChanged(widget, square, color);
 			delete widget._squareMarkers[square];
 		}
 
 		// Add-case
 		else {
-			onSquareMarkerChanged(target, widget._squareMarkers[square], color);
+			onSquareMarkerChanged(widget, square, widget._squareMarkers[square], color);
 			widget._squareMarkers[square] = color;
 		}
 
@@ -1464,7 +1489,7 @@
 				var color = RegExp.$1;
 				var square = RegExp.$2;
 				if(this._squareMarkers[square] !== color) {
-					onSquareMarkerChanged(fetchSquare(this, square), this._squareMarkers[square], color);
+					onSquareMarkerChanged(this, square, this._squareMarkers[square], color);
 					this._squareMarkers[square] = color;
 					notifySquareMarkersChanged(this);
 				}
@@ -1481,7 +1506,7 @@
 			if(SQUARE_MARKER_TOKEN_NO_COLOR.test(squareMarker)) {
 				var square = RegExp.$1;
 				if(typeof this._squareMarkers[square] !== 'undefined') {
-					onSquareMarkerChanged(fetchSquare(this, square), this._squareMarkers[square]);
+					onSquareMarkerChanged(this, square, this._squareMarkers[square]);
 					delete this._squareMarkers[square];
 					notifySquareMarkersChanged(this);
 				}

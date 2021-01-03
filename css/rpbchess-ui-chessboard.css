@@ -111,7 +111,12 @@
 }
 
 .rpbui-chessboard-squareHover {
-	box-shadow: 0 0 7px 3px #ffb000 inset;
+	box-shadow: 0 0 7px 3px #04f inset;
+}
+
+.rpbui-chessboard-squareMarker {
+	stroke-width: 0.15;
+	fill: transparent;
 }
 
 .rpbui-chessboard-arrowMarker {
@@ -119,22 +124,15 @@
 	stroke-linecap: round;
 }
 
-.rpbui-chessboard-arrowMarker.rpbui-chessboard-markerColor-G { stroke: #0e0; }
-.rpbui-chessboard-arrowMarker.rpbui-chessboard-markerColor-R { stroke: #f20; }
-.rpbui-chessboard-arrowMarker.rpbui-chessboard-markerColor-Y { stroke: #db0; }
-.rpbui-chessboard-arrowMarker.rpbui-chessboard-markerColor-B { stroke: #04f; }
+.rpbui-chessboard-arrowMarker.rpbui-chessboard-markerColor-G, .rpbui-chessboard-squareMarker.rpbui-chessboard-markerColor-G { stroke: #0e0; }
+.rpbui-chessboard-arrowMarker.rpbui-chessboard-markerColor-R, .rpbui-chessboard-squareMarker.rpbui-chessboard-markerColor-R { stroke: #f20; }
+.rpbui-chessboard-arrowMarker.rpbui-chessboard-markerColor-Y, .rpbui-chessboard-squareMarker.rpbui-chessboard-markerColor-Y { stroke: #db0; }
+.rpbui-chessboard-arrowMarker.rpbui-chessboard-markerColor-B, .rpbui-chessboard-squareMarker.rpbui-chessboard-markerColor-B { stroke: #04f; }
 
 .rpbui-chessboard-arrowMarkerEnd-G { fill: #0e0; }
 .rpbui-chessboard-arrowMarkerEnd-R { fill: #f20; }
 .rpbui-chessboard-arrowMarkerEnd-Y { fill: #db0; }
 .rpbui-chessboard-arrowMarkerEnd-B { fill: #04f; }
-
-.rpbui-chessboard-squareMarker.rpbui-chessboard-markerColor-G.rpbui-chessboard-lightSquare { background-color: #60f250; }
-.rpbui-chessboard-squareMarker.rpbui-chessboard-markerColor-G.rpbui-chessboard-darkSquare  { background-color: #48cf2b; }
-.rpbui-chessboard-squareMarker.rpbui-chessboard-markerColor-R.rpbui-chessboard-lightSquare { background-color: #f95950; }
-.rpbui-chessboard-squareMarker.rpbui-chessboard-markerColor-R.rpbui-chessboard-darkSquare  { background-color: #e1362b; }
-.rpbui-chessboard-squareMarker.rpbui-chessboard-markerColor-Y.rpbui-chessboard-lightSquare { background-color: #f9f250; }
-.rpbui-chessboard-squareMarker.rpbui-chessboard-markerColor-Y.rpbui-chessboard-darkSquare  { background-color: #e1cf2b; }
 
 .rpbui-chessboard-size12 .rpbui-chessboard-sized { min-width: 12px; width: 12px; height: 12px; background-size: 12px 12px; -webkit-background-size: 12px 12px; }
 .rpbui-chessboard-size13 .rpbui-chessboard-sized { min-width: 13px; width: 13px; height: 13px; background-size: 13px 13px; -webkit-background-size: 13px 13px; }
