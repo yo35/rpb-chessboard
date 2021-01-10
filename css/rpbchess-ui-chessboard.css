@@ -83,8 +83,11 @@
 
 .rpbui-chessboard-annotations {
 	position: absolute;
-	z-index: 100;
 	top: 0px;
+}
+
+.rpbui-chessboard-annotations-fg {
+	z-index: 100;
 	opacity: 0.8;
 }
 
@@ -248,7 +251,7 @@
 .rpbui-chessboard-darkSquare  { background-color: #b5876b; }
 
 .rpbui-chessboard-markerStroke-G { stroke: #0e0; } .rpbui-chessboard-markerFill-G { fill: #0e0; }
-.rpbui-chessboard-markerStroke-R { stroke: #f20; } .rpbui-chessboard-markerFill-R { fill: #f20; }
+.rpbui-chessboard-markerStroke-R { stroke: #d00; } .rpbui-chessboard-markerFill-R { fill: #d00; }
 .rpbui-chessboard-markerStroke-Y { stroke: #db0; } .rpbui-chessboard-markerFill-Y { fill: #db0; }
 .rpbui-chessboard-markerStroke-B { stroke: #04f; } .rpbui-chessboard-markerFill-B { fill: #04f; }
 
@@ -286,9 +289,9 @@
 .rpbui-chessboard-colorset-coral .rpbui-chessboard-markerStroke-G { stroke: #080; } .rpbui-chessboard-colorset-coral .rpbui-chessboard-markerFill-G { fill: #080; }
 .rpbui-chessboard-colorset-coral .rpbui-chessboard-markerStroke-Y { stroke: #ff0; } .rpbui-chessboard-colorset-coral .rpbui-chessboard-markerFill-Y { fill: #ff0; }
 .rpbui-chessboard-colorset-dusk .rpbui-chessboard-markerStroke-G { stroke: #3f3; } .rpbui-chessboard-colorset-dusk .rpbui-chessboard-markerFill-G { fill: #3f3; }
+.rpbui-chessboard-colorset-dusk .rpbui-chessboard-markerStroke-R { stroke: #f20; } .rpbui-chessboard-colorset-dusk .rpbui-chessboard-markerFill-R { fill: #f20; }
 .rpbui-chessboard-colorset-dusk .rpbui-chessboard-markerStroke-Y { stroke: #ff0; } .rpbui-chessboard-colorset-dusk .rpbui-chessboard-markerFill-Y { fill: #ff0; }
 .rpbui-chessboard-colorset-emerald .rpbui-chessboard-markerStroke-G { stroke: #6f6; } .rpbui-chessboard-colorset-emerald .rpbui-chessboard-markerFill-G { fill: #6f6; }
-.rpbui-chessboard-colorset-emerald .rpbui-chessboard-markerStroke-R { stroke: #d00; } .rpbui-chessboard-colorset-emerald .rpbui-chessboard-markerFill-R { fill: #d00; }
 .rpbui-chessboard-colorset-emerald .rpbui-chessboard-markerStroke-Y { stroke: #ff0; } .rpbui-chessboard-colorset-emerald .rpbui-chessboard-markerFill-Y { fill: #ff0; }
 .rpbui-chessboard-colorset-marine .rpbui-chessboard-markerStroke-G { stroke: #6f6; } .rpbui-chessboard-colorset-marine .rpbui-chessboard-markerFill-G { fill: #6f6; }
 .rpbui-chessboard-colorset-marine .rpbui-chessboard-markerStroke-R { stroke: #f50; } .rpbui-chessboard-colorset-marine .rpbui-chessboard-markerFill-R { fill: #f50; }

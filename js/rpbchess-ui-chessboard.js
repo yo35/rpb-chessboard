@@ -356,6 +356,12 @@
 		}
 		result.className = globalClazz;
 
+		// Background annotation layer
+		var svgBack = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+		svgBack.setAttribute('class', 'rpbui-chessboard-annotations rpbui-chessboard-annotations-bg');
+		svgBack.setAttribute('viewBox', '0 0 8 8');
+		result.appendChild(svgBack);
+
 		// For each row...
 		for(var r = 0; r < 8; ++r) {
 
@@ -419,24 +425,24 @@
 		columnHeaderRow.appendChild(lastColumnHeader);
 		result.appendChild(columnHeaderRow);
 
-		// Layer containing the arrows
-		var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-		svg.setAttribute('class', 'rpbui-chessboard-annotations');
-		svg.setAttribute('viewBox', '0 0 8 8');
+		// Frontground annotation layer
+		var svgFront = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+		svgFront.setAttribute('class', 'rpbui-chessboard-annotations rpbui-chessboard-annotations-fg');
+		svgFront.setAttribute('viewBox', '0 0 8 8');
 		var defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
 		defs.appendChild(buildArrowMarkerStyle(widget, 'G'));
 		defs.appendChild(buildArrowMarkerStyle(widget, 'R'));
 		defs.appendChild(buildArrowMarkerStyle(widget, 'Y'));
 		defs.appendChild(buildArrowMarkerStyle(widget, 'B'));
-		svg.appendChild(defs);
-		result.appendChild(svg);
+		svgFront.appendChild(defs);
+		result.appendChild(svgFront);
 
 		// Square markers
 		for(var square in widget._squareMarkers) {
 			if(square in widget._squareMarkers) {
 				var sc = getSquareCoordinatesInSVG(widget, square);
 				var identifierClazz = 'rpbui-chessboard-squareMarker-' + square;
-				svg.appendChild(buildSquareMarker(identifierClazz, widget._squareMarkers[square], sc.x, sc.y));
+				svgBack.appendChild(buildSquareMarker(identifierClazz, widget._squareMarkers[square], sc.x, sc.y));
 			}
 		}
 
@@ -445,7 +451,7 @@
 			if(square in widget._textMarkers) {
 				var sc = getSquareCoordinatesInSVG(widget, square);
 				var identifierClazz = 'rpbui-chessboard-textMarker-' + square;
-				svg.appendChild(buildTextMarker(identifierClazz, widget._textMarkers[square], sc.x, sc.y));
+				svgFront.appendChild(buildTextMarker(identifierClazz, widget._textMarkers[square], sc.x, sc.y));
 			}
 		}
 
@@ -457,13 +463,13 @@
 				if(fromSquare !== toSquare) {
 					var vc = getArrowCoordinatesInSVG(widget, fromSquare, toSquare);
 					var identifierClazz = 'rpbui-chessboard-arrowMarker-' + fromSquare + toSquare;
-					svg.appendChild(buildArrow(widget, identifierClazz, widget._arrowMarkers[arrow], vc.x1, vc.y1, vc.x2, vc.y2));
+					svgFront.appendChild(buildArrow(widget, identifierClazz, widget._arrowMarkers[arrow], vc.x1, vc.y1, vc.x2, vc.y2));
 				}
 			}
 		}
 		if(widget._moveArrow !== null) {
 			var vc = getArrowCoordinatesInSVG(widget, widget._moveArrow.from, widget._moveArrow.to);
-			svg.appendChild(buildArrow(widget, 'rpbui-chessboard-moveArrow', 'B', vc.x1, vc.y1, vc.x2, vc.y2));
+			svgFront.appendChild(buildArrow(widget, 'rpbui-chessboard-moveArrow', 'B', vc.x1, vc.y1, vc.x2, vc.y2));
 		}
 
 		return result;
@@ -507,10 +513,10 @@
 	 */
 	function buildSquareMarker(identifierClazz, color, x, y) {
 		var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-		circle.setAttribute('class', 'rpbui-chessboard-squareMarker ' + identifierClazz + ' rpbui-chessboard-markerStroke-' + color);
+		circle.setAttribute('class', 'rpbui-chessboard-squareMarker ' + identifierClazz + ' rpbui-chessboard-markerFill-' + color);
 		circle.setAttribute('cx', x);
 		circle.setAttribute('cy', y);
-		circle.setAttribute('r', 0.4);
+		circle.setAttribute('r', 0.48);
 		return circle;
 	}
 
@@ -696,13 +702,13 @@
 		var identifierClazz = 'rpbui-chessboard-squareMarker-' + square;
 		if(typeof oldValue === 'undefined') {
 			var sc = getSquareCoordinatesInSVG(widget, square);
-			$('.rpbui-chessboard-annotations', widget.element).append(buildSquareMarker(identifierClazz, newValue, sc.x, sc.y));
+			$('.rpbui-chessboard-annotations-bg', widget.element).append(buildSquareMarker(identifierClazz, newValue, sc.x, sc.y));
 		}
 		else if(typeof newValue === 'undefined') {
 			$('.' + identifierClazz, widget.element).remove();
 		}
 		else {
-			var clazz = 'rpbui-chessboard-squareMarker ' + identifierClazz + ' rpbui-chessboard-markerStroke-' + newValue;
+			var clazz = 'rpbui-chessboard-squareMarker ' + identifierClazz + ' rpbui-chessboard-markerFill-' + newValue;
 			$('.' + identifierClazz, widget.element).attr('class', clazz);
 		}
 	}
@@ -720,7 +726,7 @@
 			if(square in widget._squareMarkers) {
 				var sc = getSquareCoordinatesInSVG(widget, square);
 				var identifierClazz = 'rpbui-chessboard-squareMarker-' + square;
-				$('.rpbui-chessboard-annotations', widget.element).append(buildSquareMarker(identifierClazz, widget._squareMarkers[square], sc.x, sc.y));
+				$('.rpbui-chessboard-annotations-bg', widget.element).append(buildSquareMarker(identifierClazz, widget._squareMarkers[square], sc.x, sc.y));
 			}
 		}
 	}
@@ -741,7 +747,7 @@
 			var toSquare = key.substr(2, 2);
 			if(fromSquare !== toSquare) {
 				var vc = getArrowCoordinatesInSVG(widget, fromSquare, toSquare);
-				$('.rpbui-chessboard-annotations', widget.element).append(buildArrow(widget, identifierClazz, newValue, vc.x1, vc.y1, vc.x2, vc.y2));
+				$('.rpbui-chessboard-annotations-fg', widget.element).append(buildArrow(widget, identifierClazz, newValue, vc.x1, vc.y1, vc.x2, vc.y2));
 			}
 		}
 		else if(typeof newValue === 'undefined') {
@@ -770,7 +776,7 @@
 				if(fromSquare !== toSquare) {
 					var vc = getArrowCoordinatesInSVG(widget, fromSquare, toSquare);
 					var arrow = buildArrow(widget, 'rpbui-chessboard-arrowMarker-' + key, widget._arrowMarkers[key], vc.x1, vc.y1, vc.x2, vc.y2);
-					$('.rpbui-chessboard-annotations', widget.element).append(arrow);
+					$('.rpbui-chessboard-annotations-fg', widget.element).append(arrow);
 				}
 			}
 		}
@@ -789,7 +795,7 @@
 		var identifierClazz = 'rpbui-chessboard-textMarker-' + square;
 		if(typeof oldValue === 'undefined') {
 			var sc = getSquareCoordinatesInSVG(widget, square);
-			$('.rpbui-chessboard-annotations', widget.element).append(buildTextMarker(identifierClazz, newValue, sc.x, sc.y));
+			$('.rpbui-chessboard-annotations-fg', widget.element).append(buildTextMarker(identifierClazz, newValue, sc.x, sc.y));
 		}
 		else if(typeof newValue === 'undefined') {
 			$('.' + identifierClazz, widget.element).remove();
@@ -816,7 +822,7 @@
 			if(square in widget._textMarkers) {
 				var sc = getSquareCoordinatesInSVG(widget, square);
 				var identifierClazz = 'rpbui-chessboard-textMarker-' + square;
-				$('.rpbui-chessboard-annotations', widget.element).append(buildTextMarker(identifierClazz, widget._textMarkers[square], sc.x, sc.y));
+				$('.rpbui-chessboard-annotations-fg', widget.element).append(buildTextMarker(identifierClazz, widget._textMarkers[square], sc.x, sc.y));
 			}
 		}
 	}
@@ -1017,7 +1023,7 @@
 		var canvasOffset = null;
 
 		// Conversion page coordinate -> SVG canvas coordinates.
-		var canvas = $('.rpbui-chessboard-annotations', widget.element);
+		var canvas = $('.rpbui-chessboard-annotations-fg', widget.element);
 		var canvasWidth  = canvas.width();
 		var canvasHeight = canvas.height();
 		function xInCanvas(x) { return (x - canvasOffset.left) * 8 / canvasWidth; }
@@ -1037,7 +1043,7 @@
 
 				// Create the temporary arrow marker.
 				var p = getSquareCoordinatesInSVG(widget, fromSquare);
-				$('.rpbui-chessboard-annotations', widget.element).append(buildArrow(widget, 'rpbui-chessboard-draggedArrow', markerColor, p.x, p.y, p.x, p.y));
+				$('.rpbui-chessboard-annotations-fg', widget.element).append(buildArrow(widget, 'rpbui-chessboard-draggedArrow', markerColor, p.x, p.y, p.x, p.y));
 			},
 
 			drag: function(event) {
@@ -1168,7 +1174,7 @@
 		if(withArrow && from !== to) {
 			var vc = getArrowCoordinatesInSVG(widget, from, to);
 			scheduleMoveAnimation(widget, animate, 0.5, function() {
-				$('.rpbui-chessboard-annotations', widget.element).append(buildArrow(widget, 'rpbui-chessboard-moveArrow', 'B', vc.x1, vc.y1, vc.x2, vc.y2));
+				$('.rpbui-chessboard-annotations-fg', widget.element).append(buildArrow(widget, 'rpbui-chessboard-moveArrow', 'B', vc.x1, vc.y1, vc.x2, vc.y2));
 			});
 			widget._moveArrow = { from: from, to: to };
 		}
