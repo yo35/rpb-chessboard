@@ -512,12 +512,13 @@
 	 * @returns {Element}
 	 */
 	function buildSquareMarker(identifierClazz, color, x, y) {
-		var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-		circle.setAttribute('class', 'rpbui-chessboard-squareMarker ' + identifierClazz + ' rpbui-chessboard-markerFill-' + color);
-		circle.setAttribute('cx', x);
-		circle.setAttribute('cy', y);
-		circle.setAttribute('r', 0.48);
-		return circle;
+		var rectangle = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+		rectangle.setAttribute('class', 'rpbui-chessboard-squareMarker ' + identifierClazz + ' rpbui-chessboard-markerFill-' + color);
+		rectangle.setAttribute('x', x - 0.5);
+		rectangle.setAttribute('y', y - 0.5);
+		rectangle.setAttribute('width', 1);
+		rectangle.setAttribute('height', 1);
+		return rectangle;
 	}
 
 

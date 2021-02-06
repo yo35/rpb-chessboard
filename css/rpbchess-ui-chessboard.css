@@ -84,11 +84,11 @@
 .rpbui-chessboard-annotations {
 	position: absolute;
 	top: 0px;
+	opacity: 0.8;
 }
 
 .rpbui-chessboard-annotations-fg {
 	z-index: 100;
-	opacity: 0.8;
 }
 
 .rpbui-chessboard-cell.rpbui-chessboard-rowCoordinate {
