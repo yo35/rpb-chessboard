@@ -1,14 +1,14 @@
 {
 	"private": true,
 	"dependencies": {
-		"kokopu": "~1.4.0",
+		"kokopu": "~1.7.0",
 		"sanitize-html": "~1.20.1"
 	},
 	"devDependencies": {
-		"eslint": "~7.17.0",
+		"eslint": "~7.19.0",
 		"eslint-config-wordpress": "~2.0.0",
 		"browserify": "~17.0.0",
-		"uglify-js": "~3.12.4",
+		"uglify-js": "~3.12.6",
 		"uglifycss": "~0.0.29"
 	}
 }
