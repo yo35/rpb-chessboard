@@ -81,6 +81,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 5.9.2 (February 6, 2021) =
+* Rollback square marker rendering to plain square (as it used to be until version 5.9.0).
+
 = 5.9.1 (January 10, 2021) =
 * Render square markers with a plain circle.
 
