@@ -25,14 +25,13 @@ PLUGIN_NAME = rpb-chessboard
 # Plugin files
 SRC_MAIN_FILE         = $(PLUGIN_NAME).php
 SRC_FOLDERS           = css helpers images js languages models templates wp
+BUILD_FOLDER          = build
 THIRD_PARTY_FOLDER    = third-party-libs
 ASSET_FOLDER          = assets
 WORDPRESS_README_FILE = wordpress.readme.txt
 INFO_FILES            = LICENSE examples.pgn
 PACKAGE_JSON_FILE     = package.json
-NPM_TEMPLATE_FILE     = assets/dev-tools/npm-template.js
-NPM_DEPS_FILE         = third-party-libs/npm-dependencies.js
-NPM_DEPS_MIN_FILE     = third-party-libs/npm-dependencies.min.js
+NPM_TEMPLATE_FILE     = src/index.js
 
 
 # Zip file used for deployment
@@ -67,7 +66,6 @@ GETTEXT_PHP   = ./assets/dev-tools/gettext-php.sh
 MSGMERGE      = msgmerge -v --backup=none
 MSGFMT        = msgfmt -v
 ESLINT        = ./node_modules/.bin/eslint
-BROWSERIFY    = ./node_modules/.bin/browserify
 UGLIFYJS      = ./node_modules/.bin/uglifyjs -c
 UGLIFYCSS     = ./node_modules/.bin/uglifycss
 PHPCS         = phpcs --colors --standard=assets/dev-tools/phpcs.xml
@@ -107,13 +105,11 @@ help:
 ################################################################################
 
 
-init: $(NODE_MODULES) $(NPM_DEPS_FILE)
+init: $(NODE_MODULES) $(BUILD_FOLDER)
 
-
-$(NPM_DEPS_FILE): $(NPM_TEMPLATE_FILE) $(NODE_MODULES)
-	@$(ECHO) "$(COLOR_IN)Generating JS file [ $(COLOR_ARG_IN)$@$(COLOR_ARG_OUT) ]...$(COLOR_OUT)"
-	@$(BROWSERIFY) $< > $@
-
+$(BUILD_FOLDER): $(NPM_TEMPLATE_FILE) $(PACKAGE_JSON_FILE)
+	@$(ECHO) "$(COLOR_IN)Generating main JS file...$(COLOR_OUT)"
+	@npm run build
 
 $(NODE_MODULES): $(PACKAGE_JSON_FILE)
 	@$(ECHO) "$(COLOR_IN)Installing NPM modules...$(COLOR_OUT)"
@@ -229,7 +225,7 @@ phpcbf:
 pack: init phpcs eslint i18n-compile jsmin cssmin
 	@rm -rf $(SNAPSHOT_FOLDER) $(DEPLOYMENT_FILE)
 	@mkdir -p $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)
-	@cp -r $(SRC_MAIN_FILE) $(SRC_FOLDERS) $(THIRD_PARTY_FOLDER) $(INFO_FILES) $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)
+	@cp -r $(SRC_MAIN_FILE) $(SRC_FOLDERS) $(THIRD_PARTY_FOLDER) $(BUILD_FOLDER) $(INFO_FILES) $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)
 	@cp $(WORDPRESS_README_FILE) $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)/readme.txt
 	@mkdir -p $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)-assets
 	@cp $(ASSET_FOLDER)/*.png $(SNAPSHOT_FOLDER)/$(PLUGIN_NAME)-assets
@@ -239,7 +235,7 @@ pack: init phpcs eslint i18n-compile jsmin cssmin
 
 # Clean the automatically generated files
 clean:
-	@rm -rf $(NODE_MODULES) $(TEMPORARY_FOLDER) $(DEPLOYMENT_FILE) $(JS_MINIFIED_FILES) $(CSS_MINIFIED_FILES) $(I18N_MO_FILES) $(NPM_DEPS_FILE) $(NPM_DEPS_MIN_FILE)
+	@rm -rf $(NODE_MODULES) $(TEMPORARY_FOLDER) $(DEPLOYMENT_FILE) $(JS_MINIFIED_FILES) $(CSS_MINIFIED_FILES) $(I18N_MO_FILES) $(BUILD_FOLDER)
 
 
 # Make's stuff

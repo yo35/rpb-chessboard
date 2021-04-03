@@ -7,8 +7,11 @@
 	"devDependencies": {
 		"eslint": "~7.19.0",
 		"eslint-config-wordpress": "~2.0.0",
-		"browserify": "~17.0.0",
 		"uglify-js": "~3.12.6",
-		"uglifycss": "~0.0.29"
+		"uglifycss": "~0.0.29",
+		"@wordpress/scripts": "~13.0.2"
+	},
+	"scripts": {
+		"build": "wp-scripts build"
 	}
 }

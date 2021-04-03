@@ -17,6 +17,5 @@
 /css/**/*.min.css
 /js/**/*.min.js
 /languages/*.mo
-/third-party-libs/npm-dependencies.js
-/third-party-libs/npm-dependencies.min.js
+/build
 

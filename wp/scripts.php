@@ -42,11 +42,12 @@ abstract class RPBChessboardScripts {
 		);
 
 		// Dependencies resolved using NPM
+		$asset_file = include RPBCHESSBOARD_ABSPATH . 'build/index.asset.php';
 		wp_register_script(
 			'rpbchessboard-externals',
-			RPBCHESSBOARD_URL . 'third-party-libs/npm-dependencies' . $ext,
-			false,
-			RPBCHESSBOARD_VERSION,
+			RPBCHESSBOARD_URL . 'build/index.js',
+			$asset_file['dependencies'],
+			$asset_file['version'],
 			false
 		);
 
