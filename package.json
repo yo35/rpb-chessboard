@@ -2,7 +2,7 @@
 	"private": true,
 	"dependencies": {
 		"kokopu": "~1.7.0",
-		"sanitize-html": "~1.20.1"
+		"sanitize-html": "~2.3.3"
 	},
 	"devDependencies": {
 		"eslint": "~7.19.0",
