@@ -70,6 +70,16 @@
 					<div class="rpbchessboard-lightSquareColorSelector"></div>
 				</div>
 			</div>
+			<div class="rpbchessboard-stretchable rpbchessboard-colorFieldAndSelector">
+				<label>
+					<span><?php esc_html_e( 'Move arrow', 'rpb-chessboard' ); ?></span>
+					<input type="text" size="7" maxlength="7" class="rpbchessboard-highlightColorField" name="highlightColor"
+						value="<?php echo esc_attr( $isNew ? $model->getRandomHighlightColor() : $model->getHighlightColor( $colorset ) ); ?>" />
+				</label>
+				<div>
+					<div class="rpbchessboard-highlightColorSelector"></div>
+				</div>
+			</div>
 		</div>
 
 		<div class="rpbchessboard-columns">

@@ -54,8 +54,9 @@ class RPBChessboardModelPostThemingColorset extends RPBChessboardModelPostThemin
 		$greenMarkerColor  = self::getColorValue( 'greenMarkerColor' );
 		$redMarkerColor    = self::getColorValue( 'redMarkerColor' );
 		$yellowMarkerColor = self::getColorValue( 'yellowMarkerColor' );
-		if ( isset( $darkSquareColor ) && isset( $lightSquareColor ) && isset( $greenMarkerColor ) && isset( $redMarkerColor ) && isset( $yellowMarkerColor ) ) {
-			$mergedValue = implode( '|', array( $darkSquareColor, $lightSquareColor, $greenMarkerColor, $redMarkerColor, $yellowMarkerColor ) );
+		$highlightColor    = self::getColorValue( 'highlightColor' );
+		if ( isset( $darkSquareColor ) && isset( $lightSquareColor ) && isset( $greenMarkerColor ) && isset( $redMarkerColor ) && isset( $yellowMarkerColor ) && isset( $highlightColor ) ) {
+			$mergedValue = implode( '|', array( $darkSquareColor, $lightSquareColor, $greenMarkerColor, $redMarkerColor, $yellowMarkerColor, $highlightColor ) );
 			update_option( 'rpbchessboard_custom_colorset_attributes_' . $colorset, $mergedValue );
 			return true;
 		}

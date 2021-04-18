@@ -28,6 +28,7 @@ import { Chessboard } from 'kokopu-react';
 export default function(targetJQueryElement, widgetArgs, isFrontend) {
 	let widget = <Chessboard
 		position={widgetArgs.position}
+		move={widgetArgs.move}
 		squareMarkers={widgetArgs.csl}
 		textMarkers={widgetArgs.ctl}
 		arrowMarkers={widgetArgs.cal}

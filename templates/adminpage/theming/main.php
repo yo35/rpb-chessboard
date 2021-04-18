@@ -63,6 +63,7 @@
 		function refresh() {
 			RPBChessboard.renderFEN($('#rpbchessboard-themingPreviewWidget'), {
 				position: 'start',
+				move: showAnnotations ? 'e4' : undefined,
 				squareSize: 48,
 				showCoordinates: false,
 				colorset: colorset,

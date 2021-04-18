@@ -145,8 +145,8 @@ class RPBChessboardModelCommonCustomColorsets extends RPBChessboardAbstractModel
 	 * @return string
 	 */
 	public function getHighlightColor( $colorset ) {
-		// TODO impl customizable highlight color
-		return self::DEFAULT_HIGHLIGHT_COLOR;
+		self::initializeCustomColorsetAttributes( $colorset );
+		return self::$customColorsetAttributes[ $colorset ]->highlightColor;
 	}
 
 
@@ -162,6 +162,7 @@ class RPBChessboardModelCommonCustomColorsets extends RPBChessboardAbstractModel
 			'greenMarkerColor'  => self::DEFAULT_GREEN_MARKER_COLOR,
 			'redMarkerColor'    => self::DEFAULT_RED_MARKER_COLOR,
 			'yellowMarkerColor' => self::DEFAULT_YELLOW_MARKER_COLOR,
+			'highlightColor'    => self::DEFAULT_HIGHLIGHT_COLOR,
 		);
 
 		// Retrieve the attributes from the database
@@ -192,6 +193,14 @@ class RPBChessboardModelCommonCustomColorsets extends RPBChessboardAbstractModel
 			}
 			if ( isset( $yellowMarkerColor ) ) {
 				self::$customColorsetAttributes[ $colorset ]->yellowMarkerColor = $yellowMarkerColor;
+			}
+		}
+
+		// Next token: move arrow & hovered square color
+		if ( count( $values ) >= 6 ) {
+			$highlightColor = RPBChessboardHelperValidation::validateColor( $values[5] );
+			if ( isset( $highlightColor ) ) {
+				self::$customColorsetAttributes[ $colorset ]->highlightColor = $highlightColor;
 			}
 		}
 	}

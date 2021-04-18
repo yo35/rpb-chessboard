@@ -116,6 +116,11 @@
 				target: $('.rpbchessboard-lightSquareColorSelector', target),
 				change: irisCallback('w')
 			});
+			$('.rpbchessboard-highlightColorField', target).iris({
+				hide: false,
+				target: $('.rpbchessboard-highlightColorSelector', target),
+				change: irisCallback('highlight')
+			});
 			$('.rpbchessboard-greenMarkerColorField', target).iris({
 				hide: false,
 				target: $('.rpbchessboard-greenMarkerColorSelector', target),
@@ -135,6 +140,7 @@
 			// Initialize the preview chessboard
 			RPBChessboard.editColorset.b = $('.rpbchessboard-darkSquareColorField', target).iris('color');
 			RPBChessboard.editColorset.w = $('.rpbchessboard-lightSquareColorField', target).iris('color');
+			RPBChessboard.editColorset.highlight = $('.rpbchessboard-highlightColorField', target).iris('color');
 			RPBChessboard.editColorset.g = $('.rpbchessboard-greenMarkerColorField', target).iris('color');
 			RPBChessboard.editColorset.r = $('.rpbchessboard-redMarkerColorField', target).iris('color');
 			RPBChessboard.editColorset.y = $('.rpbchessboard-yellowMarkerColorField', target).iris('color');
