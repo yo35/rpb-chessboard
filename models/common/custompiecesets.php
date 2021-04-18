@@ -32,7 +32,7 @@ class RPBChessboardModelCommonCustomPiecesets extends RPBChessboardAbstractModel
 	private static $customPiecesets;
 	private static $customPiecesetLabels     = array();
 	private static $customPiecesetAttributes = array();
-	private static $COLORED_PIECE_CODES      = array( 'bp', 'bn', 'bb', 'br', 'bq', 'bk', 'bx', 'wp', 'wn', 'wb', 'wr', 'wq', 'wk', 'wx' );
+	public static $COLORED_PIECE_CODES       = array( 'bp', 'bn', 'bb', 'br', 'bq', 'bk', 'bx', 'wp', 'wn', 'wb', 'wr', 'wq', 'wk', 'wx' );
 
 
 	public function __construct() {

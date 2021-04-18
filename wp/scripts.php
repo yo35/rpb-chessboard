@@ -56,7 +56,9 @@ abstract class RPBChessboardScripts {
 			'rpbchessboard-externals',
 			'RPBChessboard',
 			array(
-				'publicURL' => RPBCHESSBOARD_URL,
+				'publicURL'       => RPBCHESSBOARD_URL,
+				'customColorsets' => self::getCustomColorsets(),
+				'customPiecesets' => self::getCustomPiecesets(),
 			)
 		);
 
@@ -151,6 +153,37 @@ abstract class RPBChessboardScripts {
 		// TinyMCE editor
 		add_filter( 'mce_external_plugins', array( __CLASS__, 'callbackRegisterTinyMCEPlugin' ) );
 		add_filter( 'mce_buttons', array( __CLASS__, 'callbackRegisterTinyMCEButtons' ) );
+	}
+
+
+	private static function getCustomColorsets() {
+		$model  = RPBChessboardHelperLoader::loadModel( 'Common/CustomColorsets' );
+		$result = array();
+		foreach ( $model->getCustomColorsets() as $colorset ) {
+			$result[ $colorset ] = array(
+				'b'         => $model->getDarkSquareColor( $colorset ),
+				'w'         => $model->getLightSquareColor( $colorset ),
+				'g'         => $model->getGreenMarkerColor( $colorset ),
+				'r'         => $model->getRedMarkerColor( $colorset ),
+				'y'         => $model->getYellowMarkerColor( $colorset ),
+				'highlight' => $model->getHighlightColor( $colorset ),
+			);
+		}
+		return $result;
+	}
+
+
+	private static function getCustomPiecesets() {
+		$model  = RPBChessboardHelperLoader::loadModel( 'Common/CustomPiecesets' );
+		$result = array();
+		foreach ( $model->getCustomPiecesets() as $pieceset ) {
+			$current = array();
+			foreach ( RPBChessboardModelCommonCustomPiecesets::$COLORED_PIECE_CODES as $coloredPiece ) {
+				$current[ $coloredPiece ] = $model->getCustomPiecesetImageURL( $pieceset, $coloredPiece );
+			}
+			$result[ $pieceset ] = $current;
+		}
+		return $result;
 	}
 
 

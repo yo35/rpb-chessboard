@@ -38,6 +38,7 @@ class RPBChessboardModelCommonCustomColorsets extends RPBChessboardAbstractModel
 	const DEFAULT_GREEN_MARKER_COLOR  = '#00ff00';
 	const DEFAULT_RED_MARKER_COLOR    = '#ff0000';
 	const DEFAULT_YELLOW_MARKER_COLOR = '#ffff00';
+	const DEFAULT_HIGHLIGHT_COLOR     = '#0044ff';
 
 	public function __construct() {
 		parent::__construct();
@@ -48,7 +49,8 @@ class RPBChessboardModelCommonCustomColorsets extends RPBChessboardAbstractModel
 			'getLightSquareColor',
 			'getGreenMarkerColor',
 			'getRedMarkerColor',
-			'getYellowMarkerColor'
+			'getYellowMarkerColor',
+			'getHighlightColor',
 		);
 	}
 
@@ -134,6 +136,17 @@ class RPBChessboardModelCommonCustomColorsets extends RPBChessboardAbstractModel
 	public function getYellowMarkerColor( $colorset ) {
 		self::initializeCustomColorsetAttributes( $colorset );
 		return self::$customColorsetAttributes[ $colorset ]->yellowMarkerColor;
+	}
+
+
+	/**
+	 * Return the color used for move arrow and hovered squares.
+	 *
+	 * @return string
+	 */
+	public function getHighlightColor( $colorset ) {
+		// TODO impl customizable highlight color
+		return self::DEFAULT_HIGHLIGHT_COLOR;
 	}
 
 

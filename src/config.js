@@ -20,13 +20,11 @@
 
 
 import './public-path';
+import { colorsets, piecesets } from 'kokopu-react';
 
-import configureRPBChessboard from './config';
-import renderFEN from './render-fen';
+export default function configureRPBChessboard() {
 
-window.kokopu = require('kokopu');
-window.sanitizeHtml = require('sanitize-html');
-
-window.RPBChessboard.renderFEN = renderFEN;
-
-configureRPBChessboard();
+	// Theming
+	Object.assign(colorsets, RPBChessboard.customColorsets);
+	Object.assign(piecesets, RPBChessboard.customPiecesets);
+}
