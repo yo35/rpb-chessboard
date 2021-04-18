@@ -82,14 +82,21 @@
 				<div id="rpbchessboard-fenAttributeSquareSize-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-fenAttributeSquareSize-anchor').chessboard($.extend(<?php echo wp_json_encode( $model->getDefaultChessboardSettings() ); ?>, {
-							position: 'start',
-							squareSize: <?php echo wp_json_encode( $model->getSquareSizeInitialExample() ); ?>
-						}));
+						function refresh(value) {
+							var props = $.extend(<?php echo wp_json_encode( $model->getDefaultChessboardSettings() ); ?>, {
+								position: 'start',
+								squareSize: <?php echo wp_json_encode( $model->getSquareSizeInitialExample() ); ?>
+							});
+							if (value) {
+								props.squareSize = value;
+							}
+							RPBChessboard.renderFEN($('#rpbchessboard-fenAttributeSquareSize-anchor'), props);
+						}
+						refresh();
 						$('.rpbchessboard-fenAttributeSquareSize-value').click(function(e) {
 							e.preventDefault();
 							var value = $(this).text();
-							$('#rpbchessboard-fenAttributeSquareSize-anchor').chessboard('option', 'squareSize', value);
+							refresh(value);
 							$('#rpbchessboard-fenAttributeSquareSize-sourceCodeExample').text(value);
 						});
 					});

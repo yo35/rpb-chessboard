@@ -75,23 +75,28 @@
 				<div id="rpbchessboard-fenAttributeColorsetPieceset-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-fenAttributeColorsetPieceset-anchor').chessboard($.extend(<?php echo wp_json_encode( $model->getDefaultChessboardSettings() ); ?>, {
-							position: 'start',
-							squareSize: 48,
-							colorset: 'cburnett',
-							pieceset: 'original'
-						}));
-						$('#rpbchessboard-fenAttributeColorset-field').val($('#rpbchessboard-fenAttributeColorset-sourceCodeExample').text());
-						$('#rpbchessboard-fenAttributePieceset-field').val($('#rpbchessboard-fenAttributePieceset-sourceCodeExample').text());
+						var currentColorset = $('#rpbchessboard-fenAttributeColorset-sourceCodeExample').text();
+						var currentPieceset = $('#rpbchessboard-fenAttributePieceset-sourceCodeExample').text();
+						function refresh() {
+							RPBChessboard.renderFEN($('#rpbchessboard-fenAttributeColorsetPieceset-anchor'), $.extend(<?php echo wp_json_encode( $model->getDefaultChessboardSettings() ); ?>, {
+								position: 'start',
+								squareSize: 48,
+								colorset: currentColorset,
+								pieceset: currentPieceset
+							}));
+						}
+						refresh();
+						$('#rpbchessboard-fenAttributeColorset-field').val(currentColorset);
+						$('#rpbchessboard-fenAttributePieceset-field').val(currentPieceset);
 						$('#rpbchessboard-fenAttributeColorset-field').change(function() {
-							var value = $(this).val();
-							$('#rpbchessboard-fenAttributeColorsetPieceset-anchor').chessboard('option', 'colorset', value);
-							$('#rpbchessboard-fenAttributeColorset-sourceCodeExample').text(value);
+							currentColorset = $(this).val();
+							refresh();
+							$('#rpbchessboard-fenAttributeColorset-sourceCodeExample').text(currentColorset);
 						});
 						$('#rpbchessboard-fenAttributePieceset-field').change(function() {
-							var value = $(this).val();
-							$('#rpbchessboard-fenAttributeColorsetPieceset-anchor').chessboard('option', 'pieceset', value);
-							$('#rpbchessboard-fenAttributePieceset-sourceCodeExample').text(value);
+							currentPieceset = $(this).val();
+							refresh();
+							$('#rpbchessboard-fenAttributePieceset-sourceCodeExample').text(currentPieceset);
 						});
 					});
 				</script>

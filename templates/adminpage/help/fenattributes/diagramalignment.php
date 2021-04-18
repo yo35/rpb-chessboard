@@ -80,7 +80,7 @@
 				<div id="rpbchessboard-fenAttributeDiagramAlignment-wrapper">
 					<div id="rpbchessboard-fenAttributeDiagramAlignment-anchor"></div>
 				</div>
-				<p>
+				<p id="rpbchessboard-fenAttributeDiagramAlignment-clearFloats">
 					Phasellus sit amet arcu et ante bibendum tincidunt.
 					In aliquam vitae lectus quis ornare. Integer aliquam aliquet lorem non congue.
 					Cras facilisis mauris rhoncus mi malesuada, ut euismod ligula dictum.
@@ -93,7 +93,7 @@
 				</p>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-fenAttributeDiagramAlignment-anchor').chessboard($.extend(<?php echo wp_json_encode( $model->getDefaultChessboardSettings() ); ?>, {
+						RPBChessboard.renderFEN($('#rpbchessboard-fenAttributeDiagramAlignment-anchor'), $.extend(<?php echo wp_json_encode( $model->getDefaultChessboardSettings() ); ?>, {
 							position: 'start',
 							squareSize: 28
 						}));

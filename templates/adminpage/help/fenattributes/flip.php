@@ -71,14 +71,21 @@
 				<div id="rpbchessboard-fenAttributeFlip-anchor"></div>
 				<script type="text/javascript">
 					jQuery(document).ready(function($) {
-						$('#rpbchessboard-fenAttributeFlip-anchor').chessboard($.extend(<?php echo wp_json_encode( $model->getDefaultChessboardSettings() ); ?>, {
-							position: 'start',
-							squareSize: 28
-						}));
+						function refresh(value) {
+							var props = $.extend(<?php echo wp_json_encode( $model->getDefaultChessboardSettings() ); ?>, {
+								position: 'start',
+								squareSize: 28
+							});
+							if (value) {
+								props.flip = value === 'true';
+							}
+							RPBChessboard.renderFEN($('#rpbchessboard-fenAttributeFlip-anchor'), props);
+						}
+						refresh();
 						$('.rpbchessboard-fenAttributeFlip-value').click(function(e) {
 							e.preventDefault();
 							var value = $(this).text();
-							$('#rpbchessboard-fenAttributeFlip-anchor').chessboard('option', 'flip', value);
+							refresh(value);
 							$('#rpbchessboard-fenAttributeFlip-sourceCodeExample').text(value);
 						});
 					});
