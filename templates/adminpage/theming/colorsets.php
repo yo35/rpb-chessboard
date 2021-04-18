@@ -96,69 +96,49 @@
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
 
-		RPBChessboard.initializeSetCodeEditor = function(target) {
+		RPBChessboard.initializeSetCodeEditor = function(target, refreshCallback) {
+
+			function irisCallback(colorsetField) {
+				return function(event, ui) {
+					RPBChessboard.editColorset[colorsetField] = ui.color.toString();
+					refreshCallback();
+				};
+			}
 
 			// Initialize the color picker widgets
 			$('.rpbchessboard-darkSquareColorField', target).iris({
 				hide: false,
 				target: $('.rpbchessboard-darkSquareColorSelector', target),
-				change: function(event, ui) {
-					$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-darkSquare').css('background-color', ui.color.toString());
-				}
+				change: irisCallback('b')
 			});
 			$('.rpbchessboard-lightSquareColorField', target).iris({
 				hide: false,
 				target: $('.rpbchessboard-lightSquareColorSelector', target),
-				change: function(event, ui) {
-					$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-lightSquare').css('background-color', ui.color.toString());
-				}
+				change: irisCallback('w')
 			});
 			$('.rpbchessboard-greenMarkerColorField', target).iris({
 				hide: false,
 				target: $('.rpbchessboard-greenMarkerColorSelector', target),
-				change: function(event, ui) {
-					$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-markerStroke-G').css('stroke', ui.color.toString());
-					$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-markerFill-G').css('fill', ui.color.toString());
-				}
+				change: irisCallback('g')
 			});
 			$('.rpbchessboard-redMarkerColorField', target).iris({
 				hide: false,
 				target: $('.rpbchessboard-redMarkerColorSelector', target),
-				change: function(event, ui) {
-					$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-markerStroke-R').css('stroke', ui.color.toString());
-					$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-markerFill-R').css('fill', ui.color.toString());
-				}
+				change: irisCallback('r')
 			});
 			$('.rpbchessboard-yellowMarkerColorField', target).iris({
 				hide: false,
 				target: $('.rpbchessboard-yellowMarkerColorSelector', target),
-				change: function(event, ui) {
-					$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-markerStroke-Y').css('stroke', ui.color.toString());
-					$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-markerFill-Y').css('fill', ui.color.toString());
-				}
+				change: irisCallback('y')
 			});
 
-			// Initialize the colors of the preview chessboard
-			var darkSquareColor = $('.rpbchessboard-darkSquareColorField', target).iris('color');
-			var lightSquareColor = $('.rpbchessboard-lightSquareColorField', target).iris('color');
-			$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-darkSquare').css('background-color', darkSquareColor);
-			$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-lightSquare').css('background-color', lightSquareColor);
-
-			function initializeMarkerColorsWithThemingPreview() {
-				if($('#rpbchessboard-themingPreviewAnnotations').prop('checked')) {
-					var green = $('.rpbchessboard-greenMarkerColorField', target).iris('color');
-					var red = $('.rpbchessboard-redMarkerColorField', target).iris('color');
-					var yellow = $('.rpbchessboard-yellowMarkerColorField', target).iris('color');
-					$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-markerStroke-G').css('stroke', green);
-					$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-markerFill-G').css('fill', green);
-					$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-markerStroke-R').css('stroke', red);
-					$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-markerFill-R').css('fill', red);
-					$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-markerStroke-Y').css('stroke', yellow);
-					$('#rpbchessboard-themingPreviewWidget .rpbui-chessboard-markerFill-Y').css('fill', yellow);
-				}
-			}
-			initializeMarkerColorsWithThemingPreview();
-			$('#rpbchessboard-themingPreviewAnnotations').change(initializeMarkerColorsWithThemingPreview);
+			// Initialize the preview chessboard
+			RPBChessboard.editColorset.b = $('.rpbchessboard-darkSquareColorField', target).iris('color');
+			RPBChessboard.editColorset.w = $('.rpbchessboard-lightSquareColorField', target).iris('color');
+			RPBChessboard.editColorset.g = $('.rpbchessboard-greenMarkerColorField', target).iris('color');
+			RPBChessboard.editColorset.r = $('.rpbchessboard-redMarkerColorField', target).iris('color');
+			RPBChessboard.editColorset.y = $('.rpbchessboard-yellowMarkerColorField', target).iris('color');
+			refreshCallback();
 		}
 
 	});

@@ -27,4 +27,8 @@ export default function configureRPBChessboard() {
 	// Theming
 	Object.assign(colorsets, RPBChessboard.customColorsets);
 	Object.assign(piecesets, RPBChessboard.customPiecesets);
+
+	// Special colorsets and piecesets for theming edition
+	RPBChessboard.editColorset = colorsets['_edit_'] = {};
+	RPBChessboard.editPieceset = piecesets['_edit_'] = {};
 }

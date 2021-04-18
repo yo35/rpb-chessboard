@@ -108,7 +108,7 @@
 		var mediaFrame = {};
 
 		// Display the media frame (the frame is initialized if necessary).
-		function displayMediaFrame(form, button) {
+		function displayMediaFrame(form, button, refreshCallback) {
 
 			var coloredPiece = button.data('coloredPiece');
 
@@ -122,14 +122,14 @@
 
 				mediaFrame[coloredPiece].on('select', function() {
 					var attachment = mediaFrame[coloredPiece].state().get('selection').first().toJSON();
-					onMediaSelected(form, coloredPiece, attachment.id, attachment.url);
+					onMediaSelected(form, coloredPiece, attachment.id, attachment.url, refreshCallback);
 				});
 			}
 
 			mediaFrame[coloredPiece].open();
 		}
 
-		function onMediaSelected(form, coloredPiece, attachmentId, attachmentURL) {
+		function onMediaSelected(form, coloredPiece, attachmentId, attachmentURL, refreshCallback) {
 
 			var image = document.createElement('img');
 			image.setAttribute('src', attachmentURL);
@@ -138,7 +138,8 @@
 
 			$('.rpbchessboard-coloredPieceButton-' + coloredPiece, form).empty().append(image);
 			$('input[name="imageId-' + coloredPiece + '"]', form).val(attachmentId);
-			$(coloredPieceSelector(coloredPiece)).css('background-image', 'url(' + attachmentURL + ')');
+			RPBChessboard.editPieceset[coloredPiece] = attachmentURL;
+			refreshCallback();
 		}
 
 		function coloredPieceSelector(coloredPiece) {
@@ -156,7 +157,7 @@
 			return allDefined;
 		}
 
-		RPBChessboard.initializeSetCodeEditor = function(target) {
+		RPBChessboard.initializeSetCodeEditor = function(target, refreshCallback) {
 
 			// Hide the error message box.
 			$('.rpbchessboard-piecesetEditionErrorMessage', target).hide();
@@ -164,13 +165,14 @@
 			// Initialize the buttons showing the image picker frame.
 			$('.rpbchessboard-coloredPieceButton', target).click(function(e) {
 				e.preventDefault();
-				displayMediaFrame(target, $(this));
+				displayMediaFrame(target, $(this), refreshCallback);
 			});
 
 			// Initialize the preview widget
 			['bp', 'bn', 'bb', 'br', 'bq', 'bk', 'bx', 'wp', 'wn', 'wb', 'wr', 'wq', 'wk', 'wx'].forEach(function(coloredPiece) {
-				$(coloredPieceSelector(coloredPiece)).css('background-image', 'url(' + $('input[name="imageId-' + coloredPiece + '"]', target).data('url') + ')');
+				RPBChessboard.editPieceset[coloredPiece] = $('input[name="imageId-' + coloredPiece + '"]', target).data('url');
 			});
+			refreshCallback();
 
 			// Validate submit.
 			$('input[type="submit"]', target).click(function(e) {

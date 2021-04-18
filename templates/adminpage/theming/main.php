@@ -53,35 +53,54 @@
 
 	jQuery(document).ready(function($) {
 
-		// Initialize preview widget.
-		$('#rpbchessboard-themingPreviewWidget').chessboard({
-			position       : 'start',
-			squareSize     : 48     ,
-			showCoordinates: false  ,
-			colorset       : <?php echo wp_json_encode( $model->getDefaultColorset() ); ?>,
-			pieceset       : <?php echo wp_json_encode( $model->getDefaultPieceset() ); ?>
-		});
-
-		function toogleAnnotations() {
-			if($('#rpbchessboard-themingPreviewAnnotations').prop('checked')) {
-				$('#rpbchessboard-themingPreviewWidget').chessboard('option', 'squareMarkers', 'Ga4,Ga5,Rb4,Rb5,Yc4,Yc5');
-				$('#rpbchessboard-themingPreviewWidget').chessboard('option', 'arrowMarkers', 'Gf3f6,Rg3g6,Yh3h6');
-			}
-			else {
-				$('#rpbchessboard-themingPreviewWidget').chessboard('option', 'squareMarkers', '');
-				$('#rpbchessboard-themingPreviewWidget').chessboard('option', 'arrowMarkers', '');
-			}
-		}
-
-		toogleAnnotations();
-		$('#rpbchessboard-themingPreviewAnnotations').change(toogleAnnotations);
-
+		// State variables
+		var colorset = <?php echo wp_json_encode( $model->getDefaultColorset() ); ?>;
+		var pieceset = <?php echo wp_json_encode( $model->getDefaultPieceset() ); ?>;
+		var showAnnotations = $('#rpbchessboard-themingPreviewAnnotations').prop('checked');
 		var disableAutoPreview = false;
 
+		// Refresh the widget
+		function refresh() {
+			RPBChessboard.renderFEN($('#rpbchessboard-themingPreviewWidget'), {
+				position: 'start',
+				squareSize: 48,
+				showCoordinates: false,
+				colorset: colorset,
+				pieceset: pieceset,
+				csl: showAnnotations ? 'Ga4,Ga5,Rb4,Rb5,Yc4,Yc5' : '',
+				cal: showAnnotations ? 'Gf3f6,Rg3g6,Yh3h6' : ''
+			});
+		}
+		refresh();
+
+		// Refresh the widget during colorset/pieceset creation or edition.
+		function previewInEditMode() {
+			if('colorset' === <?php echo wp_json_encode( $model->getManagedSetCode() ); ?>) {
+				colorset = '_edit_';
+			}
+			else if('pieceset' === <?php echo wp_json_encode( $model->getManagedSetCode() ); ?>) {
+				pieceset = '_edit_';
+			}
+			refresh();
+		}
+
+		// Refresh the widget when not in colorset/pieceset creation/edition mode.
 		function preview(slug) {
 			if(disableAutoPreview) { return; }
-			$('#rpbchessboard-themingPreviewWidget').chessboard('option', <?php echo wp_json_encode( $model->getManagedSetCode() ); ?>, slug);
+			if('colorset' === <?php echo wp_json_encode( $model->getManagedSetCode() ); ?>) {
+				colorset = slug;
+			}
+			else if('pieceset' === <?php echo wp_json_encode( $model->getManagedSetCode() ); ?>) {
+				pieceset = slug;
+			}
+			refresh();
 		}
+
+		// Show/hide the annotations
+		$('#rpbchessboard-themingPreviewAnnotations').change(function() {
+			showAnnotations = $('#rpbchessboard-themingPreviewAnnotations').prop('checked');
+			refresh();
+		});
 
 		$('#rpbchessboard-setCodeList tbody tr').mouseleave(function() {
 			preview(<?php echo wp_json_encode( $model->getDefaultSetCodeValue() ); ?>);
@@ -107,7 +126,7 @@
 			// Initialize and display the form.
 			$('#rpbchessboard-setCodeCreator').show();
 			if(typeof RPBChessboard.initializeSetCodeEditor === 'function') {
-				RPBChessboard.initializeSetCodeEditor($('#rpbchessboard-setCodeCreator'));
+				RPBChessboard.initializeSetCodeEditor($('#rpbchessboard-setCodeCreator'), previewInEditMode);
 			}
 		});
 
@@ -124,7 +143,7 @@
 			$('td', row).not('.rpbchessboard-setCodeEditor').hide();
 			$('td.rpbchessboard-setCodeEditor', row).show();
 			if(typeof RPBChessboard.initializeSetCodeEditor === 'function') {
-				RPBChessboard.initializeSetCodeEditor($('td.rpbchessboard-setCodeEditor', row));
+				RPBChessboard.initializeSetCodeEditor($('td.rpbchessboard-setCodeEditor', row), previewInEditMode);
 			}
 		});
 
