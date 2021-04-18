@@ -19,32 +19,15 @@
  ******************************************************************************/
 
 
-.rpbchessboard-noJavascriptBlock,
 .rpbchessboard-javascriptWarning {
-	text-align: left;
-	font-size: 12px;
-	line-height: 1.3em;
 	padding: 8px 10px 8px;
-}
-
-.rpbchessboard-noJavascriptBlock {
-	white-space: pre-line;
-	font-family: Consolas, Monaco, monospace;
-	font-style: normal;
-	color: #444;
-	border: solid 1px #cc8;
-	background-color: #ffd;
-}
-
-.rpbchessboard-javascriptWarning {
+	text-align: left;
+	line-height: 1.3em;
+	font-size: 12px;
 	font-family: sans-serif;
 	color: #444;
 	border: solid 1px #c88;
 	background-color: #fdd;
-}
-
-.rpbchessboard-noJavascriptBlock + .rpbchessboard-javascriptWarning {
-	margin-top: 0.5em;
 }
 
 p.rpbchessboard-spacerBefore {

@@ -20,6 +20,7 @@
 
 
 import './public-path';
+import './index.css';
 
 import configureRPBChessboard from './config';
 import renderFEN from './render-fen';

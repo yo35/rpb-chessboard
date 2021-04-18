@@ -23,16 +23,12 @@
 <?php
 	wp_enqueue_script( 'rpbchessboard-chessgame' );
 	wp_enqueue_style( 'rpbchessboard-chessgame' );
-	wp_enqueue_style( 'rpbchessboard-frontend' );
 ?>
 
 <p class="rpbchessboard-spacerBefore"></p>
 
 <div id="<?php echo esc_attr( $model->getUniqueID() ); ?>" class="rpbchessboard-chessgame">
 	<noscript>
-		<?php if ( ! $model->isLoadedFromExternalPGNFile() ) : ?>
-		<div class="rpbchessboard-noJavascriptBlock"><?php echo esc_html( $model->getContent() ); ?></div>
-		<?php endif; ?>
 		<div class="rpbchessboard-javascriptWarning">
 			<?php esc_html_e( 'You must activate JavaScript to enhance chess game visualization.', 'rpb-chessboard' ); ?>
 		</div>

@@ -25,7 +25,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Chessboard } from 'kokopu-react';
 
-export default function(targetDOMNode, widgetArgs) {
+export default function(targetJQueryElement, widgetArgs, isFrontend) {
 	let widget = <Chessboard
 		position={widgetArgs.position}
 		squareMarkers={widgetArgs.csl}
@@ -37,5 +37,8 @@ export default function(targetDOMNode, widgetArgs) {
 		colorset={widgetArgs.colorset}
 		pieceset={widgetArgs.pieceset}
 	/>;
-	ReactDOM.render(widget, targetDOMNode);
+	if (!isFrontend) {
+		widget = <div className="rpbchessboard-diagramAlignment-center">{widget}</div>
+	}
+	ReactDOM.render(widget, targetJQueryElement.get(0));
 };
