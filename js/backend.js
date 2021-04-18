@@ -19,8 +19,6 @@
  ******************************************************************************/
 
 
-var RPBChessboard = {};
-
 /**
  * Miscellaneous functions used by the plugin in the backend.
  *

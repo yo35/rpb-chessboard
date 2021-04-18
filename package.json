@@ -2,6 +2,9 @@
 	"private": true,
 	"dependencies": {
 		"kokopu": "~1.7.3",
+		"kokopu-react": "~0.99.0",
+		"react": "~17.0.2",
+		"react-dom": "~17.0.2",
 		"sanitize-html": "~2.3.3"
 	},
 	"devDependencies": {

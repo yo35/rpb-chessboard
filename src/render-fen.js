@@ -21,9 +21,21 @@
 
 import './public-path';
 
-import renderFEN from './render-fen';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Chessboard } from 'kokopu-react';
 
-window.kokopu = require('kokopu');
-window.sanitizeHtml = require('sanitize-html');
-
-window.RPBChessboard.renderFEN = renderFEN;
+export default function(targetDOMNode, widgetArgs) {
+	let widget = <Chessboard
+		position={widgetArgs.position}
+		squareMarkers={widgetArgs.csl}
+		textMarkers={widgetArgs.ctl}
+		arrowMarkers={widgetArgs.cal}
+		isFlipped={widgetArgs.flip}
+		squareSize={widgetArgs.squareSize}
+		coordinateVisible={widgetArgs.showCoordinates}
+		colorset={widgetArgs.colorset}
+		pieceset={widgetArgs.pieceset}
+	/>;
+	ReactDOM.render(widget, targetDOMNode);
+};

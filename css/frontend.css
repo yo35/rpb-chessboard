@@ -55,6 +55,10 @@ p.rpbchessboard-spacerAfter {
 	margin-top: 0px !important;
 }
 
+.rpbchessboard-diagramAlignment-center {
+	text-align: center;
+}
+
 .rpbchessboard-diagramAlignment-floatLeft {
 	float: left;
 	margin-right: 1em;

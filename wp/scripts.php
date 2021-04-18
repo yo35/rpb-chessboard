@@ -51,6 +51,15 @@ abstract class RPBChessboardScripts {
 			false
 		);
 
+		// Configure JS
+		wp_localize_script(
+			'rpbchessboard-externals',
+			'RPBChessboard',
+			array(
+				'publicURL' => RPBCHESSBOARD_URL,
+			)
+		);
+
 		// Chessboard widget
 		wp_register_script(
 			'rpbchessboard-chessboard',

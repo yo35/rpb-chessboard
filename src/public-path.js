@@ -19,11 +19,4 @@
  ******************************************************************************/
 
 
-import './public-path';
-
-import renderFEN from './render-fen';
-
-window.kokopu = require('kokopu');
-window.sanitizeHtml = require('sanitize-html');
-
-window.RPBChessboard.renderFEN = renderFEN;
+__webpack_public_path__ = RPBChessboard.publicURL + 'build/';

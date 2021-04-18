@@ -31,8 +31,12 @@ abstract class RPBChessboardStyleSheets {
 	public static function register() {
 		$ext = self::getCSSFileExtension();
 
+		// Dependencies resolved using NPM
+		$asset_file = include RPBCHESSBOARD_ABSPATH . 'build/index.asset.php';
+		wp_register_style( 'rpbchessboard-externals', RPBCHESSBOARD_URL . 'build/index.css', false, $asset_file['version'] );
+
 		// Chessboard widget
-		wp_register_style( 'rpbchessboard-chessboard', RPBCHESSBOARD_URL . 'css/rpbchess-ui-chessboard' . $ext, false, RPBCHESSBOARD_VERSION );
+		wp_register_style( 'rpbchessboard-chessboard', RPBCHESSBOARD_URL . 'css/rpbchess-ui-chessboard' . $ext, array( 'rpbchessboard-externals' ), RPBCHESSBOARD_VERSION );
 
 		// Chessgame widget
 		wp_register_style( 'rpbchessboard-jquery-ui-smoothness', RPBCHESSBOARD_URL . 'third-party-libs/jquery/jquery-ui.smoothness' . $ext, false, '1.11.4' );
@@ -40,6 +44,7 @@ abstract class RPBChessboardStyleSheets {
 			'rpbchessboard-chessgame',
 			RPBCHESSBOARD_URL . 'css/rpbchess-ui-chessgame' . $ext,
 			array(
+				'rpbchessboard-externals',
 				'wp-jquery-ui-dialog',
 				'rpbchessboard-jquery-ui-smoothness',
 				'rpbchessboard-chessboard',

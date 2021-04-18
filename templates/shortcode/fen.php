@@ -28,11 +28,9 @@
 
 <?php if ( $model->getDiagramAlignment() === 'center' ) : ?>
 <p class="rpbchessboard-spacerBefore"></p>
-<?php else : ?>
-<div class="<?php echo esc_attr( 'rpbchessboard-diagramAlignment-' . $model->getDiagramAlignment() ); ?>">
 <?php endif; ?>
 
-<div id="<?php echo esc_attr( $model->getUniqueID() ); ?>" class="rpbchessboard-chessboard">
+<div id="<?php echo esc_attr( $model->getUniqueID() ); ?>" class="rpbchessboard-chessboard <?php echo esc_attr( 'rpbchessboard-diagramAlignment-' . $model->getDiagramAlignment() ); ?>">
 	<noscript>
 		<div class="rpbchessboard-noJavascriptBlock"><?php echo esc_html( $model->getContent() ); ?></div>
 		<div class="rpbchessboard-javascriptWarning">
@@ -43,13 +41,11 @@
 	<script type="text/javascript">
 		jQuery(document).ready(function($) {
 			var selector = '#' + <?php echo wp_json_encode( $model->getUniqueID() ); ?> + ' .rpbchessboard-chessboardAnchor';
-			$(selector).removeClass('rpbchessboard-chessboardAnchor').chessboard(<?php echo wp_json_encode( $model->getWidgetArgs() ); ?>);
+			RPBChessboard.renderFEN($(selector).get(0), <?php echo wp_json_encode( $model->getWidgetArgs() ); ?>);
 		});
 	</script>
 </div>
 
 <?php if ( $model->getDiagramAlignment() === 'center' ) : ?>
 <p class="rpbchessboard-spacerAfter"></p>
-<?php else : ?>
-</div>
 <?php endif; ?>
