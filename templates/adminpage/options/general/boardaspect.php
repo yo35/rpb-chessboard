@@ -99,47 +99,22 @@
 	jQuery(document).ready(function($) {
 
 		// State variables
-		var squareSize      = $('#rpbchessboard-squareSizeField'     ).val();
+		var squareSize      = $('#rpbchessboard-squareSizeField').val();
 		var showCoordinates = $('#rpbchessboard-showCoordinatesField').prop('checked');
 		var colorset        = $('#rpbchessboard-colorsetField').val();
 		var pieceset        = $('#rpbchessboard-piecesetField').val();
 
-		// Callback for the squareSize slider
-		function onSquareSizeChange(newSquareSize) {
-			if(newSquareSize === squareSize) {
-				return;
-			}
-			squareSize = newSquareSize;
-			$('#rpbchessboard-squareSizeField'       ).val(squareSize);
-			$('#rpbchessboard-tuningChessboardWidget').chessboard('option', 'squareSize', squareSize);
+		// Refresh the widget
+		function refresh() {
+			RPBChessboard.renderFEN($('#rpbchessboard-tuningChessboardWidget'), {
+				position: 'start',
+				squareSize: squareSize,
+				showCoordinates: showCoordinates,
+				colorset: colorset,
+				pieceset: pieceset
+			});
 		}
-
-		// Callback for the showCoordinates checkbox
-		function onShowCoordinatesChange(newShowCoordinates) {
-			if(newShowCoordinates === showCoordinates) {
-				return;
-			}
-			showCoordinates = newShowCoordinates;
-			$('#rpbchessboard-tuningChessboardWidget').chessboard('option', 'showCoordinates', showCoordinates);
-		}
-
-		// Callback for the colorset combo
-		function onColorsetChange(newColorset) {
-			if(newColorset === colorset) {
-				return;
-			}
-			colorset = newColorset;
-			$('#rpbchessboard-tuningChessboardWidget').chessboard('option', 'colorset', colorset);
-		}
-
-		// Callback for the pieceset combo
-		function onPiecesetChange(newPieceset) {
-			if(newPieceset === pieceset) {
-				return;
-			}
-			pieceset = newPieceset;
-			$('#rpbchessboard-tuningChessboardWidget').chessboard('option', 'pieceset', pieceset);
-		}
+		refresh();
 
 		// Disable the square-size text field, create a slider instead.
 		$('#rpbchessboard-squareSizeField').prop('readonly', true);
@@ -147,27 +122,25 @@
 			value: squareSize,
 			min: <?php echo wp_json_encode( $model->getMinimumSquareSize() ); ?>,
 			max: <?php echo wp_json_encode( $model->getMaximumSquareSize() ); ?>,
-			slide: function(event, ui) { onSquareSizeChange(ui.value); }
+			slide: function(event, ui) {
+				squareSize = ui.value;
+				$('#rpbchessboard-squareSizeField').val(squareSize);
+				refresh();
+			}
 		});
 
-		// Initialize the callbacks
+		// Initialize the other callbacks.
 		$('#rpbchessboard-showCoordinatesField').change(function() {
-			onShowCoordinatesChange($('#rpbchessboard-showCoordinatesField').prop('checked'));
+			showCoordinates = $('#rpbchessboard-showCoordinatesField').prop('checked');
+			refresh();
 		});
 		$('#rpbchessboard-colorsetField').change(function() {
-			onColorsetChange($('#rpbchessboard-colorsetField').val());
+			colorset = $('#rpbchessboard-colorsetField').val();
+			refresh();
 		});
 		$('#rpbchessboard-piecesetField').change(function() {
-			onPiecesetChange($('#rpbchessboard-piecesetField').val());
-		});
-
-		// Create the chessboard widget.
-		$('#rpbchessboard-tuningChessboardWidget').chessboard({
-			position       : 'start'        ,
-			squareSize     : squareSize     ,
-			showCoordinates: showCoordinates,
-			colorset       : colorset       ,
-			pieceset       : pieceset
+			pieceset = $('#rpbchessboard-piecesetField').val();
+			refresh();
 		});
 
 	});
