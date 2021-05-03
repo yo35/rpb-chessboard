@@ -452,8 +452,7 @@ div.rpbchessboard-sourceCode {
 	margin-bottom: 0px;
 }
 
-#rpbchessboard-optionPage .rpbchessboard-squareSizeField,
-#rpbchessboard-optionPage .rpbchessboard-animationSpeedField {
+#rpbchessboard-optionPage .rpbchessboard-squareSizeField {
 	text-align: right;
 }
 

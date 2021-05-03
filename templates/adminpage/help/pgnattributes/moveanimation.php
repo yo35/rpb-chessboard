@@ -28,8 +28,8 @@
 		<p>
 			<?php
 				printf(
-					esc_html__( 'The %1$s attribute controls the duration of the move animation on the navigation board.', 'rpb-chessboard' ),
-					'<span class="rpbchessboard-sourceCode">animation_speed</span>'
+					esc_html__( 'The %1$s attribute controls whether piece displacements are animated or not.', 'rpb-chessboard' ),
+					'<span class="rpbchessboard-sourceCode">animated</span>'
 				);
 				?>
 		</p>
@@ -41,30 +41,15 @@
 					<th><?php esc_html_e( 'Default', 'rpb-chessboard' ); ?></th>
 					<th><?php esc_html_e( 'Description', 'rpb-chessboard' ); ?></th>
 				</tr>
-				<?php foreach ( $model->getAnimationSpeedList() as $animationSpeed ) : ?>
 				<tr>
-					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributeAnimationSpeed-value"><?php echo esc_html( $animationSpeed ); ?></a></td>
-					<td><?php echo $model->getDefaultAnimationSpeed() === $animationSpeed ? '<div class="rpbchessboard-tickIcon"></div>' : ''; ?></td>
-					<td>
-						<?php
-							echo 0 === $animationSpeed ? esc_html__( 'No animation', 'rpb-chessboard' ) :
-								sprintf( esc_html__( 'The animation lasts %1$s milliseconds.', 'rpb-chessboard' ), esc_html( $animationSpeed ) );
-						?>
-					</td>
+					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributeAnimated-value">false</a></td>
+					<td><?php echo $model->getDefaultAnimated() ? '' : '<div class="rpbchessboard-tickIcon">'; ?></td>
+					<td><?php esc_html_e( 'No animation.', 'rpb-chessboard' ); ?></td>
 				</tr>
-				<?php endforeach; ?>
 				<tr>
-					<td><?php esc_html_e( 'etc...', 'rpb-chessboard' ); ?></td>
-					<td></td>
-					<td>
-						<?php
-							printf(
-								esc_html__( 'Any value between %1$s and %2$s can be used.', 'rpb-chessboard' ),
-								'0',
-								esc_html( $model->getMaximumAnimationSpeed() )
-							);
-						?>
-					</td>
+					<td><a href="#" class="rpbchessboard-sourceCode rpbchessboard-pgnAttributeAnimated-value">true</a></td>
+					<td><?php echo $model->getDefaultAnimated() ? '<div class="rpbchessboard-tickIcon">' : ''; ?></td>
+					<td><?php esc_html_e( 'The displacements are animated.', 'rpb-chessboard' ); ?></td>
 				</tr>
 			</tbody>
 		</table>
@@ -77,7 +62,7 @@
 						'to highlight the moves on the navigation board.',
 						'rpb-chessboard'
 					),
-					'<span class="rpbchessboard-sourceCode">animation_speed</span>'
+					'<span class="rpbchessboard-sourceCode">show_move_arrow</span>'
 				);
 			?>
 		</p>
@@ -108,7 +93,7 @@
 		<div class="rpbchessboard-sourceCode">
 			<?php
 				printf(
-					'[%1$s <strong>animation_speed=<span id="rpbchessboard-pgnAttributeAnimationSpeed-sourceCodeExample">0</span></strong> ' .
+					'[%1$s <strong>animated=<span id="rpbchessboard-pgnAttributeAnimated-sourceCodeExample">false</span></strong> ' .
 					'<strong>show_move_arrow=<span id="rpbchessboard-pgnAttributeShowMoveArrow-sourceCodeExample">false</span></strong>] ... [/%1$s]',
 					esc_html( $model->getPGNShortcode() )
 				);
@@ -122,18 +107,18 @@
 					jQuery(document).ready(function($) {
 						$('#rpbchessboard-pgnAttributeMoveAnimation-anchor').chessgame($.extend(true, <?php echo wp_json_encode( $model->getDefaultChessgameSettings() ); ?>, {
 							navigationBoard: 'floatLeft',
-							navigationBoardOptions: { squareSize: 28, animationSpeed: 0, showMoveArrow: false },
+							navigationBoardOptions: { squareSize: 28, animated: false, showMoveArrow: false },
 							pgn:
 								'1. d4 Nf6 2. c4 e6 3. Nc3 Bb4 4. Qc2 d5 5. cxd5 Qxd5 6. Nf3 Qf5 7. Qxf5 exf5 8. a3 Be7 ' +
 								'9. Bg5 Be6 10. e3 c6 11. Bd3 Nbd7 12. O-O h6 13. Bh4 a5 14. Rac1 O-O 15. Ne2 g5 ' +
 								'16. Bg3 Ne4 17. Nc3 Nxc3 18. Rxc3 Nf6 19. Rcc1 Rfd8 20. Rfd1 Rac8 1/2-1/2'
 						}));
-						$('.rpbchessboard-pgnAttributeAnimationSpeed-value').click(function(e) {
+						$('.rpbchessboard-pgnAttributeAnimated-value').click(function(e) {
 							e.preventDefault();
 							var options = $('#rpbchessboard-pgnAttributeMoveAnimation-anchor').chessgame('option', 'navigationBoardOptions');
-							options.animationSpeed = $(this).text();
+							options.animated = $(this).text();
 							$('#rpbchessboard-pgnAttributeMoveAnimation-anchor').chessgame('option', 'navigationBoardOptions', options);
-							$('#rpbchessboard-pgnAttributeAnimationSpeed-sourceCodeExample').text(options.animationSpeed);
+							$('#rpbchessboard-pgnAttributeAnimated-sourceCodeExample').text(options.animated);
 						});
 						$('.rpbchessboard-pgnAttributeShowMoveArrow-value').click(function(e) {
 							e.preventDefault();

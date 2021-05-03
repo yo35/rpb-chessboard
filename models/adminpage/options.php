@@ -87,17 +87,6 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 
 
 	/**
-	 * Number of digits of the animation speed parameter.
-	 *
-	 * @return int
-	 */
-	public function getDigitNumberForAnimationSpeed() {
-		$maxVal = $this->getMaximumAnimationSpeed();
-		return 1 + floor( log10( $maxVal ) );
-	}
-
-
-	/**
 	 * Default value for the piece symbol custom fields.
 	 *
 	 * @param string $piece `'K'`, `'Q'`, `'R'`, `'B'`, `'N'`, or `'P'`.

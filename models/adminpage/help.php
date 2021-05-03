@@ -29,7 +29,6 @@ require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/adminpage.php';
 class RPBChessboardModelAdminPageHelp extends RPBChessboardAbstractModelAdminPage {
 
 	private $squareSizeList;
-	private $animationSpeedList;
 	private $pieceSymbolCustomValues;
 
 
@@ -87,26 +86,6 @@ class RPBChessboardModelAdminPageHelp extends RPBChessboardAbstractModelAdminPag
 	public function getSquareSizeInitialExample() {
 		$squareSizeList = $this->getSquareSizeList();
 		return $squareSizeList[1];
-	}
-
-
-	/**
-	 * Return the list of animation speed values to present as example.
-	 *
-	 * @return int[]
-	 */
-	public function getAnimationSpeedList() {
-		if ( ! isset( $this->animationSpeedList ) ) {
-			$defaultAnimationSpeed = $this->getDefaultAnimationSpeed();
-			if ( 0 === $defaultAnimationSpeed ) {
-				$this->animationSpeedList = array( 0, 200, 800 );
-			} elseif ( $defaultAnimationSpeed <= 500 ) {
-				$this->animationSpeedList = array( 0, $defaultAnimationSpeed, 800 );
-			} else {
-				$this->animationSpeedList = array( 0, 200, $defaultAnimationSpeed );
-			}
-		}
-		return $this->animationSpeedList;
 	}
 
 

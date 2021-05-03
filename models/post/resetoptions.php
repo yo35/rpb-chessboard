@@ -43,7 +43,8 @@ class RPBChessboardModelPostResetOptions extends RPBChessboardAbstractModel {
 		delete_option( 'rpbchessboard_navigationBoard' );
 		delete_option( 'rpbchessboard_showFlipButton' );
 		delete_option( 'rpbchessboard_showDownloadButton' );
-		delete_option( 'rpbchessboard_animationSpeed' );
+		delete_option( 'rpbchessboard_animationSpeed' ); // deprecated parameter
+		delete_option( 'rpbchessboard_animated' );
 		delete_option( 'rpbchessboard_showMoveArrow' );
 		return self::resetMessage();
 	}

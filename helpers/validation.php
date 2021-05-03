@@ -38,18 +38,6 @@ abstract class RPBChessboardHelperValidation {
 
 
 	/**
-	 * Maximum value for the animation speed parameter.
-	 */
-	const MAXIMUM_ANIMATION_SPEED = 1000;
-
-
-	/**
-	 * The animation speed parameter must be a multiple of this value.
-	 */
-	const STEP_ANIMATION_SPEED = 100;
-
-
-	/**
 	 * Validate a chessboard widget square size parameter.
 	 *
 	 * @param mixed $value
@@ -198,21 +186,6 @@ abstract class RPBChessboardHelperValidation {
 		// Sort by screen-width and return the result.
 		ksort( $res );
 		return $res;
-	}
-
-
-	/**
-	 * Validate a chessboard widget animation speed parameter.
-	 *
-	 * @param mixed $value
-	 * @return int May be null is the value is not valid.
-	 */
-	public static function validateAnimationSpeed( $value ) {
-		$value = self::validateInteger( $value, 0, self::MAXIMUM_ANIMATION_SPEED );
-		if ( isset( $value ) ) {
-			$value = round( $value / self::STEP_ANIMATION_SPEED ) * self::STEP_ANIMATION_SPEED;
-		}
-		return $value;
 	}
 
 

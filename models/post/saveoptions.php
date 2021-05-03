@@ -46,7 +46,7 @@ class RPBChessboardModelPostSaveOptions extends RPBChessboardAbstractModel {
 		self::processNavigationBoard();
 		self::processBooleanParameter( 'showFlipButton' );
 		self::processBooleanParameter( 'showDownloadButton' );
-		self::processAnimationSpeed();
+		self::processBooleanParameter( 'animated' );
 		self::processBooleanParameter( 'showMoveArrow' );
 
 		// Compatibility parameters.
@@ -114,16 +114,6 @@ class RPBChessboardModelPostSaveOptions extends RPBChessboardAbstractModel {
 			$value = RPBChessboardHelperValidation::validateNavigationBoard( $_POST['navigationBoard'] );
 			if ( isset( $value ) ) {
 				update_option( 'rpbchessboard_navigationBoard', $value );
-			}
-		}
-	}
-
-
-	private static function processAnimationSpeed() {
-		if ( isset( $_POST['animationSpeed'] ) ) {
-			$value = RPBChessboardHelperValidation::validateAnimationSpeed( $_POST['animationSpeed'] );
-			if ( isset( $value ) ) {
-				update_option( 'rpbchessboard_animationSpeed', $value );
 			}
 		}
 	}

@@ -71,8 +71,6 @@ class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractMode
 			'isBuiltinPieceset',
 			'isDefaultPieceset',
 			'getPiecesetLabel',
-			'getMaximumAnimationSpeed',
-			'getStepAnimationSpeed',
 			'isPieceSymbolLocalizationAvailable',
 			'getDefaultSimplifiedPieceSymbols',
 			'getDefaultPieceSymbolCustomValues'
@@ -205,24 +203,6 @@ class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractMode
 			$result = $this->getCustomPiecesetLabel( $pieceset );
 			return '' === $result ? __( '(no name)', 'rpb-chessboard' ) : $result;
 		}
-	}
-
-
-	/**
-	 * Maximum value for the animation speed parameter.
-	 *
-	 * @return int
-	 */
-	public function getMaximumAnimationSpeed() {
-		return RPBChessboardHelperValidation::MAXIMUM_ANIMATION_SPEED;
-	}
-
-
-	/**
-	 * The animation speed parameter must be a multiple of this value.
-	 */
-	public function getStepAnimationSpeed() {
-		return RPBChessboardHelperValidation::STEP_ANIMATION_SPEED;
 	}
 
 

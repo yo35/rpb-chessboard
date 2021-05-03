@@ -38,7 +38,7 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel 
 	private static $navigationBoard;
 	private static $showFlipButton;
 	private static $showDownloadButton;
-	private static $animationSpeed;
+	private static $animated;
 	private static $showMoveArrow;
 
 
@@ -51,7 +51,7 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel 
 	const DEFAULT_NAVIGATION_BOARD     = 'frame';
 	const DEFAULT_SHOW_FLIP_BUTTON     = true;
 	const DEFAULT_SHOW_DOWNLOAD_BUTTON = true;
-	const DEFAULT_ANIMATION_SPEED      = 200;
+	const DEFAULT_ANIMATED             = true;
 	const DEFAULT_SHOW_MOVE_ARROW      = true;
 
 
@@ -67,7 +67,7 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel 
 			'getDefaultNavigationBoard',
 			'getDefaultShowFlipButton',
 			'getDefaultShowDownloadButton',
-			'getDefaultAnimationSpeed',
+			'getDefaultAnimated',
 			'getDefaultShowMoveArrow',
 			'getDefaultChessboardSettings',
 			'getDefaultChessgameSettings'
@@ -207,16 +207,25 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel 
 
 
 	/**
-	 * Default animation speed.
+	 * Whether the moves are animated by default or not.
 	 *
-	 * @return int
+	 * @return boolean
 	 */
-	public function getDefaultAnimationSpeed() {
-		if ( ! isset( self::$animationSpeed ) ) {
-			$value                = RPBChessboardHelperValidation::validateAnimationSpeed( get_option( 'rpbchessboard_animationSpeed' ) );
-			self::$animationSpeed = isset( $value ) ? $value : self::DEFAULT_ANIMATION_SPEED;
+	public function getDefaultAnimated() {
+		if ( ! isset( self::$animated ) ) {
+			$value = RPBChessboardHelperValidation::validateBooleanFromInt( get_option( 'rpbchessboard_animated' ) );
+
+			// Compatibility with the deprecated parameter.
+			if ( ! isset( $value ) ) {
+				$animationSpeed = RPBChessboardHelperValidation::validateInteger( get_option( 'rpbchessboard_animationSpeed' ) );
+				if ( isset( $animationSpeed ) ) {
+					$value = $animationSpeed > 0;
+				}
+			}
+
+			self::$animated = isset( $value ) ? $value : self::DEFAULT_ANIMATED;
 		}
-		return self::$animationSpeed;
+		return self::$animated;
 	}
 
 
@@ -243,7 +252,7 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel 
 			'showCoordinates' => $this->getDefaultShowCoordinates(),
 			'colorset'        => $this->getDefaultColorset(),
 			'pieceset'        => $this->getDefaultPieceset(),
-			'animationSpeed'  => $this->getDefaultAnimationSpeed(),
+			'animated'        => $this->getDefaultAnimated(),
 			'showMoveArrow'   => $this->getDefaultShowMoveArrow(),
 		);
 	}

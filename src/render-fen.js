@@ -37,6 +37,8 @@ export default function(targetJQueryElement, widgetArgs, wrapInDiv) {
 		coordinateVisible={widgetArgs.showCoordinates}
 		colorset={widgetArgs.colorset}
 		pieceset={widgetArgs.pieceset}
+		animated={widgetArgs.animated}
+		moveArrowVisible={widgetArgs.showMoveArrow}
 	/>;
 	if (wrapInDiv) {
 		widget = <div className="rpbchessboard-diagramAlignment-center">{widget}</div>

@@ -27,21 +27,11 @@
 	<div id="rpbchessboard-tuningMoveAnimationParameterColumn">
 
 		<p>
-			<?php
-				printf(
-					esc_html__( 'Animation speed: %1$s milliseconds', 'rpb-chessboard' ),
-					'<input type="text" id="rpbchessboard-animationSpeedField" class="rpbchessboard-animationSpeedField" name="animationSpeed" ' .
-						'size="' . esc_attr( $model->getDigitNumberForAnimationSpeed() ) . '" ' .
-						'maxLength="' . esc_attr( $model->getDigitNumberForAnimationSpeed() ) . '" ' .
-						'value="' . esc_attr( $model->getDefaultAnimationSpeed() ) . '" />'
-				);
-			?>
-		</p>
-
-		<div id="rpbchessboard-animationSpeedSlider" class="rpbchessboard-slider"></div>
-
-		<p class="description">
-			<?php esc_html_e( 'Set the animation speed to 0 to disable animations.', 'rpb-chessboard' ); ?>
+			<input type="hidden" name="animated" value="0" />
+			<input type="checkbox" id="rpbchessboard-animatedField" name="animated" value="1"
+				<?php echo $model->getDefaultAnimated() ? 'checked="yes"' : ''; ?>
+			/>
+			<label for="rpbchessboard-animatedField"><?php esc_html_e( 'Animation', 'rpb-chessboard' ); ?></label>
 		</p>
 
 		<p>
@@ -73,24 +63,15 @@
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
 
-		// Disable the animationSpeed text field, create a slider instead.
-		var animationSpeed = $('#rpbchessboard-animationSpeedField').val();
-		$('#rpbchessboard-animationSpeedField').prop('readonly', true);
-		$('#rpbchessboard-animationSpeedSlider').slider({
-			value: animationSpeed,
-			min: 0,
-			max: <?php echo wp_json_encode( $model->getMaximumAnimationSpeed() ); ?>,
-			step: <?php echo wp_json_encode( $model->getStepAnimationSpeed() ); ?>,
-			slide: function(event, ui) { $('#rpbchessboard-animationSpeedField').val(ui.value); }
-		});
-
 		// Create the chessboard widget.
 		var widget = $('#rpbchessboard-tuningMoveAnimationWidget');
+		var widgetState = {
+			position: 'r1bqkbnr/pppp1ppp/2n5/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4',
+			squareSize: 32,
+			showCoordinates: false
+		};
 		var initialPosition = 'r1bqkbnr/pppp1ppp/2n5/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4';
-		widget.chessboard({
-			position: initialPosition,
-			squareSize: 32, showCoordinates: false
-		});
+		RPBChessboard.renderFEN(widget, widgetState, false);
 
 		// Test buttons
 		function doTest(move) {
@@ -100,18 +81,19 @@
 			$('.rpbchessboard-testMoveAnimation').addClass('rpbchessboard-disabled');
 
 			// Set the animation parameter to the test widget
-			var currentAnimationSpeed = Number($('#rpbchessboard-animationSpeedField').val());
-			widget.chessboard('option', 'animationSpeed', currentAnimationSpeed);
-			widget.chessboard('option', 'showMoveArrow', $('#rpbchessboard-showMoveArrowField').prop('checked'));
+			widgetState.animated = $('#rpbchessboard-animatedField').prop('checked');
+			widgetState.showMoveArrow = $('#rpbchessboard-showMoveArrowField').prop('checked');
+			widgetState.move = move;
 
-			// Play the test move
-			widget.chessboard('play', move);
+			// Refresh the widget
+			RPBChessboard.renderFEN(widget, widgetState, false);
 
 			// Restore the initial state.
 			setTimeout(function() {
-				widget.chessboard('option', 'position', initialPosition);
+				widgetState.move = undefined;
+				RPBChessboard.renderFEN(widget, widgetState, false);
 				$('.rpbchessboard-testMoveAnimation').removeClass('rpbchessboard-disabled');
-			}, currentAnimationSpeed + 1000);
+			}, 1200);
 		}
 		$('#rpbchessboard-testMoveAnimation1').click(function(e) { e.preventDefault(); doTest('Bc4'); });
 		$('#rpbchessboard-testMoveAnimation2').click(function(e) { e.preventDefault(); doTest('Nxd4'); });

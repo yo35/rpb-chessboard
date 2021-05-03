@@ -126,9 +126,15 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode
 			$value                         = isset( $atts['pieceset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['pieceset'] ) : null;
 			$chessboardOptions['pieceset'] = isset( $value ) ? $value : $this->getDefaultPieceset();
 
-			// Animation speed
-			$value                               = isset( $atts['animation_speed'] ) ? RPBChessboardHelperValidation::validateAnimationSpeed( $atts['animation_speed'] ) : null;
-			$chessboardOptions['animationSpeed'] = isset( $value ) ? $value : $this->getDefaultAnimationSpeed();
+			// Animated
+			$value = isset( $atts['animated'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['animated'] ) : null;
+			if ( ! isset( $value ) && isset( $atts['animation_speed'] ) ) { // compatibility with the deprecated parameter
+				$animationSpeed = RPBChessboardHelperValidation::validateInteger( $atts['animation_speed'] );
+				if ( isset( $animationSpeed ) ) {
+					$value = $animationSpeed > 0;
+				}
+			}
+			$chessboardOptions['animated'] = isset( $value ) ? $value : $this->getDefaultAnimated();
 
 			// Move arrow
 			$value                              = isset( $atts['show_move_arrow'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_move_arrow'] ) : null;
