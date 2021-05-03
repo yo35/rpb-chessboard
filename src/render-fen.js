@@ -32,7 +32,7 @@ export default function(targetJQueryElement, widgetArgs, wrapInDiv) {
 		squareMarkers={widgetArgs.csl}
 		textMarkers={widgetArgs.ctl}
 		arrowMarkers={widgetArgs.cal}
-		isFlipped={widgetArgs.flip}
+		flipped={widgetArgs.flip}
 		squareSize={widgetArgs.squareSize}
 		coordinateVisible={widgetArgs.showCoordinates}
 		colorset={widgetArgs.colorset}
