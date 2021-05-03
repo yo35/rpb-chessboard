@@ -35,7 +35,7 @@
  * @requires jQuery UI Dialog (optional, only if the framed navigation board feature is enabled)
  * @requires jQuery UI Resizable (optional, only if the framed navigation board feature is enabled)
  */
-(function(kokopu, $, moment, sanitizeHtml)
+(function(RPBChessboard, kokopu, $, moment, sanitizeHtml)
 {
 	'use strict';
 
@@ -402,7 +402,7 @@
 		if(typeof value.showCoordinates !== 'undefined') { result.showCoordinates = value.showCoordinates; }
 		if(typeof value.colorset        !== 'undefined') { result.colorset        = value.colorset       ; }
 		if(typeof value.pieceset        !== 'undefined') { result.pieceset        = value.pieceset       ; }
-		if(typeof value.animationSpeed  !== 'undefined') { result.animationSpeed  = value.animationSpeed ; }
+		if(typeof value.animated        !== 'undefined') { result.animated        = value.animated       ; }
 		if(typeof value.showMoveArrow   !== 'undefined') { result.showMoveArrow   = value.showMoveArrow  ; }
 		return result;
 	}
@@ -631,7 +631,12 @@
 				else if(event.key === 'ArrowRight') { widget.goNextMove(); }
 				else if(event.key === 'End') { widget.goLastMove(); }
 			});
-			if(widget.options.navigationBoard !== 'frame') {
+			widget.navigationBoardState = {};
+			if(widget.options.navigationBoard === 'frame') {
+				Object.assign(widget.navigationBoardState, filterChessboardOptions($.chessgame.navigationFrameOptions));
+			}
+			else {
+				Object.assign(widget.navigationBoardState, widget.options.navigationBoardOptions);
 				makeNavigationBoxWidgets(widget);
 			}
 			if(widget.options.navigationBoard === 'scrollLeft' || widget.options.navigationBoard === 'scrollRight') {
@@ -674,13 +679,13 @@
 
 			// Build the option set to pass to the chessboard widget constructor.
 			var options = { position: variant + ':' + position };
-			if(typeof csl !== 'undefined') { options.squareMarkers = csl; }
-			if(typeof cal !== 'undefined') { options.arrowMarkers = cal; }
-			if(typeof ctl !== 'undefined') { options.textMarkers = ctl; }
+			if(typeof csl !== 'undefined') { options.csl = csl; }
+			if(typeof cal !== 'undefined') { options.cal = cal; }
+			if(typeof ctl !== 'undefined') { options.ctl = ctl; }
 			$.extend(options, widget.options.diagramOptions);
 
 			// Render the diagram.
-			anchor.empty().removeClass('rpbui-chessgame-diagramAnchor').addClass('rpbui-chessgame-diagram').chessboard(options);
+			RPBChessboard.renderFEN(anchor.empty().removeClass('rpbui-chessgame-diagramAnchor').addClass('rpbui-chessgame-diagram'), options, true);
 		});
 	}
 
@@ -746,7 +751,7 @@
 	function makeNavigationBoxWidgets(widget) {
 
 		// Set-up the navigation board.
-		$('.rpbui-chessgame-navigationBoard', widget.element).chessboard(widget.options.navigationBoardOptions);
+		RPBChessboard.renderFEN($('.rpbui-chessgame-navigationBoard', widget.element), widget.navigationBoardState, true);
 
 		// Navigation buttons
 		initializeNavigationButtons(function(buttonClass) { return $(buttonClass, widget.element); }, function(methodName) {
@@ -1261,9 +1266,7 @@
 		});
 
 		// Create the chessboard widget.
-		var widget = $('#rpbui-chessgame-navigationFrame .rpbui-chessgame-navigationBoard');
-		widget.chessboard(filterChessboardOptions($.chessgame.navigationFrameOptions));
-		widget.chessboard('sizeControlledByContainer', $('#rpbui-chessgame-navigationFrame'), 'dialogresize');
+		// TODO replug widget.chessboard('sizeControlledByContainer', $('#rpbui-chessgame-navigationFrame'), 'dialogresize');
 
 		// Callback for the buttons.
 		initializeNavigationButtons(function(buttonClass) { return $('#rpbui-chessgame-navigationFrame ' + buttonClass); }, function callback(methodName) {
@@ -1396,12 +1399,8 @@
 	 * Refresh the orientation of the navigation chessboard widget.
 	 */
 	function updateNavigationBoardFlip(widget) {
-		var navigationBoard = retrieveNavigationBoard(widget);
-
-		// Flip the board if necessary.
-		if(widget.options.navigationBoardOptions.flip !== navigationBoard.chessboard('option', 'flip')) {
-			navigationBoard.chessboard('option', 'flip', widget.options.navigationBoardOptions.flip);
-		}
+		widget.navigationBoardState.flip = widget.options.navigationBoardOptions.flip;
+		RPBChessboard.renderFEN(retrieveNavigationBoard(widget), widget.navigationBoardState, true);
 	}
 
 
@@ -1436,24 +1435,24 @@
 	 * @param {boolean} playTheMove
 	 */
 	function updateNavigationBoardPosition(widget, move, playTheMove) {
-		var navigationBoard = retrieveNavigationBoard(widget);
 
 		// Update the position.
 		if(playTheMove) {
-			navigationBoard.chessboard('option', 'position', widget._game.variant() + ':' + move.data('positionBefore'));
-			navigationBoard.chessboard('play', move.data('moveNotation'));
+			widget.navigationBoardState.position = widget._game.variant() + ':' + move.data('positionBefore');
+			widget.navigationBoardState.move = move.data('moveNotation');
 		}
 		else {
-			navigationBoard.chessboard('option', 'position', widget._game.variant() + ':' + move.data('position'));
+			widget.navigationBoardState.position = widget._game.variant() + ':' + move.data('position');
+			widget.navigationBoardState.move = undefined;
 		}
 
 		// Update the square/arrow markers
-		var csl = move.data('csl');
-		var cal = move.data('cal');
-		var ctl = move.data('ctl');
-		navigationBoard.chessboard('option', 'squareMarkers', typeof csl === 'undefined' ? '' : csl);
-		navigationBoard.chessboard('option', 'arrowMarkers', typeof cal === 'undefined' ? '' : cal);
-		navigationBoard.chessboard('option', 'textMarkers', typeof ctl === 'undefined' ? '' : ctl);
+		widget.navigationBoardState.csl = move.data('csl');
+		widget.navigationBoardState.cal = move.data('cal');
+		widget.navigationBoardState.ctl = move.data('ctl');
+
+		// Refresh the widget
+		RPBChessboard.renderFEN(retrieveNavigationBoard(widget), widget.navigationBoardState, true);
 	}
 
 
@@ -1767,4 +1766,4 @@
 
 	}); /* $.widget('rpbchess-ui.chessgame', { ... }) */
 
-}(/* global kokopu */ kokopu, /* global jQuery */ jQuery, /* global moment */ moment, /* global sanitizeHtml */ sanitizeHtml));
+}(/* global RPBChessboard */ RPBChessboard, /* global kokopu */ kokopu, /* global jQuery */ jQuery, /* global moment */ moment, /* global sanitizeHtml */ sanitizeHtml));
