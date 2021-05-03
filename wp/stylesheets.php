@@ -33,10 +33,7 @@ abstract class RPBChessboardStyleSheets {
 
 		// Dependencies resolved using NPM
 		$asset_file = include RPBCHESSBOARD_ABSPATH . 'build/index.asset.php';
-		wp_register_style( 'rpbchessboard-externals', RPBCHESSBOARD_URL . 'build/index.css', false, $asset_file['version'] );
-
-		// Chessboard widget
-		wp_register_style( 'rpbchessboard-chessboard', RPBCHESSBOARD_URL . 'css/rpbchess-ui-chessboard' . $ext, array( 'rpbchessboard-externals' ), RPBCHESSBOARD_VERSION );
+		wp_register_style( 'rpbchessboard-npm', RPBCHESSBOARD_URL . 'build/index.css', false, $asset_file['version'] );
 
 		// Chessgame widget
 		wp_register_style( 'rpbchessboard-jquery-ui-smoothness', RPBCHESSBOARD_URL . 'third-party-libs/jquery/jquery-ui.smoothness' . $ext, false, '1.11.4' );
@@ -44,21 +41,19 @@ abstract class RPBChessboardStyleSheets {
 			'rpbchessboard-chessgame',
 			RPBCHESSBOARD_URL . 'css/rpbchess-ui-chessgame' . $ext,
 			array(
-				'rpbchessboard-externals',
+				'rpbchessboard-npm',
 				'wp-jquery-ui-dialog',
 				'rpbchessboard-jquery-ui-smoothness',
-				'rpbchessboard-chessboard',
 			),
 			RPBCHESSBOARD_VERSION
 		);
 
 		// CSS generated on the fly.
-		self::enqueueCachedStyle( 'rpbchessboard-chessboard', 'small-screens.css', 'CSS/SmallScreens', 'CSS/SmallScreens' );
-		self::enqueueCachedStyle( 'rpbchessboard-chessboard', 'theming.css', 'CSS/Theming', 'CSS/Theming' );
+		// TODO replug self::enqueueCachedStyle( 'rpbchessboard-chessboard', 'small-screens.css', 'CSS/SmallScreens', 'CSS/SmallScreens' );
+		// TODO replug self::enqueueCachedStyle( 'rpbchessboard-chessboard', 'theming.css', 'CSS/Theming', 'CSS/Theming' );
 
 		// Additional CSS for the frontend/backend.
 		if ( is_admin() ) {
-			wp_enqueue_style( 'rpbchessboard-chessboard' );
 			wp_enqueue_style( 'rpbchessboard-chessgame' );
 			wp_enqueue_style( 'rpbchessboard-backend', RPBCHESSBOARD_URL . 'css/backend' . $ext, false, RPBCHESSBOARD_VERSION );
 		} else {
@@ -66,7 +61,6 @@ abstract class RPBChessboardStyleSheets {
 			// Enqueue the CSS if lazy-loading is disabled.
 			$compatibility = RPBChessboardHelperLoader::loadModel( 'Common/Compatibility' );
 			if ( ! $compatibility->getLazyLoadingForCSSAndJS() ) {
-				wp_enqueue_style( 'rpbchessboard-chessboard' );
 				wp_enqueue_style( 'rpbchessboard-chessgame' );
 			}
 		}

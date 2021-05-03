@@ -21,8 +21,8 @@
 ?>
 
 <?php
-	wp_enqueue_script( 'rpbchessboard-chessboard' );
-	wp_enqueue_style( 'rpbchessboard-chessboard' );
+	wp_enqueue_script( 'rpbchessboard-npm' );
+	wp_enqueue_style( 'rpbchessboard-npm' );
 ?>
 
 <?php if ( $model->getDiagramAlignment() === 'center' ) : ?>

@@ -44,7 +44,7 @@ abstract class RPBChessboardScripts {
 		// Dependencies resolved using NPM
 		$asset_file = include RPBCHESSBOARD_ABSPATH . 'build/index.asset.php';
 		wp_register_script(
-			'rpbchessboard-externals',
+			'rpbchessboard-npm',
 			RPBCHESSBOARD_URL . 'build/index.js',
 			$asset_file['dependencies'],
 			$asset_file['version'],
@@ -53,7 +53,7 @@ abstract class RPBChessboardScripts {
 
 		// Configure JS
 		wp_localize_script(
-			'rpbchessboard-externals',
+			'rpbchessboard-npm',
 			'RPBChessboard',
 			array(
 				'publicURL'       => RPBCHESSBOARD_URL,
@@ -62,28 +62,14 @@ abstract class RPBChessboardScripts {
 			)
 		);
 
-		// Chessboard widget
-		wp_register_script(
-			'rpbchessboard-chessboard',
-			RPBCHESSBOARD_URL . 'js/rpbchess-ui-chessboard' . $ext,
-			array(
-				'rpbchessboard-externals',
-				'jquery-ui-widget',
-				'jquery-ui-selectable',
-			),
-			RPBCHESSBOARD_VERSION,
-			false
-		);
-
 		// Chessgame widget
 		self::registerLocalizedScript(
 			'rpbchessboard-chessgame',
 			'js/rpbchess-ui-chessgame' . $ext,
 			'js/chessgame-locales/%1$s' . $ext,
 			array(
-				'rpbchessboard-externals',
+				'rpbchessboard-npm',
 				'rpbchessboard-momentjs',
-				'rpbchessboard-chessboard',
 				'jquery-ui-widget',
 				'jquery-ui-button',
 				'jquery-ui-selectable',
@@ -99,7 +85,6 @@ abstract class RPBChessboardScripts {
 			'rpbchessboard-backend',
 			RPBCHESSBOARD_URL . 'js/backend' . $ext,
 			array(
-				'rpbchessboard-chessboard',
 				'jquery-ui-dialog',
 				'jquery-ui-accordion',
 				'jquery-ui-draggable',
@@ -113,7 +98,6 @@ abstract class RPBChessboardScripts {
 		// FIXME Those scripts should be enqueued only if necessary. To achieve that, we need to fix issue concerning inlined scripts,
 		// interaction with the TinyMCE/QuickTag editors, and to carefully review what is used on which page.
 		if ( is_admin() ) {
-			wp_enqueue_script( 'rpbchessboard-chessboard' );
 			wp_enqueue_script( 'rpbchessboard-chessgame' );
 			wp_enqueue_script( 'jquery-ui-slider' );
 			wp_enqueue_script( 'jquery-ui-tabs' );
@@ -140,7 +124,6 @@ abstract class RPBChessboardScripts {
 			// Enqueue the JS if lazy-loading is disabled.
 			$compatibility = RPBChessboardHelperLoader::loadModel( 'Common/Compatibility' );
 			if ( ! $compatibility->getLazyLoadingForCSSAndJS() ) {
-				wp_enqueue_script( 'rpbchessboard-chessboard' );
 				wp_enqueue_script( 'rpbchessboard-chessgame' );
 			}
 		}
