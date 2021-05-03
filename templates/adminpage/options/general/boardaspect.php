@@ -112,7 +112,7 @@
 				showCoordinates: showCoordinates,
 				colorset: colorset,
 				pieceset: pieceset
-			});
+			}, false);
 		}
 		refresh();
 

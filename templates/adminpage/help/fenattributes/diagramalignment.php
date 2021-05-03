@@ -77,9 +77,7 @@
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum quis est a ligula placerat mollis vel a mi.
 					Maecenas placerat cursus dolor non porta.
 				</p>
-				<div id="rpbchessboard-fenAttributeDiagramAlignment-wrapper">
-					<div id="rpbchessboard-fenAttributeDiagramAlignment-anchor"></div>
-				</div>
+				<div id="rpbchessboard-fenAttributeDiagramAlignment-anchor" class="rpbchessboard-diagramAlignment-center"></div>
 				<p id="rpbchessboard-fenAttributeDiagramAlignment-clearFloats">
 					Phasellus sit amet arcu et ante bibendum tincidunt.
 					In aliquam vitae lectus quis ornare. Integer aliquam aliquet lorem non congue.
@@ -96,11 +94,11 @@
 						RPBChessboard.renderFEN($('#rpbchessboard-fenAttributeDiagramAlignment-anchor'), $.extend(<?php echo wp_json_encode( $model->getDefaultChessboardSettings() ); ?>, {
 							position: 'start',
 							squareSize: 28
-						}));
+						}), false);
 						$('.rpbchessboard-fenAttributeDiagramAlignment-value').click(function(e) {
 							e.preventDefault();
 							var value = $(this).text();
-							$('#rpbchessboard-fenAttributeDiagramAlignment-wrapper').attr('class', 'rpbchessboard-diagramAlignment-' + value);
+							$('#rpbchessboard-fenAttributeDiagramAlignment-anchor').attr('class', 'rpbchessboard-diagramAlignment-' + value);
 							$('#rpbchessboard-fenAttributeDiagramAlignment-sourceCodeExample').text(value);
 						});
 					});

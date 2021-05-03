@@ -80,7 +80,7 @@
 							if (value) {
 								props.showCoordinates = value === 'true';
 							}
-							RPBChessboard.renderFEN($('#rpbchessboard-fenAttributeShowCoordinates-anchor'), props);
+							RPBChessboard.renderFEN($('#rpbchessboard-fenAttributeShowCoordinates-anchor'), props, true);
 						}
 						refresh();
 						$('.rpbchessboard-fenAttributeShowCoordinates-value').click(function(e) {

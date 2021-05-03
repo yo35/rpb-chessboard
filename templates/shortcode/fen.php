@@ -39,7 +39,7 @@
 	<script type="text/javascript">
 		jQuery(document).ready(function($) {
 			var selector = '#' + <?php echo wp_json_encode( $model->getUniqueID() ); ?> + ' .rpbchessboard-chessboardAnchor';
-			RPBChessboard.renderFEN($(selector), <?php echo wp_json_encode( $model->getWidgetArgs() ); ?>, true);
+			RPBChessboard.renderFEN($(selector), <?php echo wp_json_encode( $model->getWidgetArgs() ); ?>, false);
 		});
 	</script>
 </div>

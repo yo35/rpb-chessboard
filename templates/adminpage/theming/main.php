@@ -70,7 +70,7 @@
 				pieceset: pieceset,
 				csl: showAnnotations ? 'Ga4,Ga5,Rb4,Rb5,Yc4,Yc5' : '',
 				cal: showAnnotations ? 'Gf3f6,Rg3g6,Yh3h6' : ''
-			});
+			}, false);
 		}
 		refresh();
 

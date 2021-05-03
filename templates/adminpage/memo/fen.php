@@ -69,7 +69,7 @@
 						RPBChessboard.renderFEN($('#rpbchessboard-example1'), $.extend(<?php echo wp_json_encode( $model->getDefaultChessboardSettings() ); ?>, {
 							squareSize: 28,
 							position: 'r2qkbnr/ppp2ppp/2np4/4N3/2B1P3/2N5/PPPP1PPP/R1BbK2R w KQkq - 0 6'
-						}));
+						}), true);
 					});
 				</script>
 			</div>

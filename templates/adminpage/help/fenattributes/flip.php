@@ -79,7 +79,7 @@
 							if (value) {
 								props.flip = value === 'true';
 							}
-							RPBChessboard.renderFEN($('#rpbchessboard-fenAttributeFlip-anchor'), props);
+							RPBChessboard.renderFEN($('#rpbchessboard-fenAttributeFlip-anchor'), props, true);
 						}
 						refresh();
 						$('.rpbchessboard-fenAttributeFlip-value').click(function(e) {

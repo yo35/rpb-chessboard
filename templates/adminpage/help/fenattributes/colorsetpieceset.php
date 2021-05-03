@@ -83,7 +83,7 @@
 								squareSize: 48,
 								colorset: currentColorset,
 								pieceset: currentPieceset
-							}));
+							}), true);
 						}
 						refresh();
 						$('#rpbchessboard-fenAttributeColorset-field').val(currentColorset);

@@ -90,7 +90,7 @@
 							if (value) {
 								props.squareSize = value;
 							}
-							RPBChessboard.renderFEN($('#rpbchessboard-fenAttributeSquareSize-anchor'), props);
+							RPBChessboard.renderFEN($('#rpbchessboard-fenAttributeSquareSize-anchor'), props, true);
 						}
 						refresh();
 						$('.rpbchessboard-fenAttributeSquareSize-value').click(function(e) {
