@@ -22,14 +22,42 @@
 import './public-path';
 import './index.css';
 
-import configureRPBChessboard from './config';
-import renderFEN from './render-fen';
-import { adaptSquareSize } from 'kokopu-react';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Chessboard, colorsets, piecesets, adaptSquareSize } from 'kokopu-react';
 
 window.kokopu = require('kokopu');
 window.sanitizeHtml = require('sanitize-html');
 
-RPBChessboard.renderFEN = renderFEN;
+// Theming
+Object.assign(colorsets, RPBChessboard.customColorsets);
+Object.assign(piecesets, RPBChessboard.customPiecesets);
+
+// Special colorsets and piecesets for theming edition
+RPBChessboard.editColorset = colorsets['_edit_'] = {};
+RPBChessboard.editPieceset = piecesets['_edit_'] = {};
+
+// Re-export some methods
 RPBChessboard.adaptSquareSize = adaptSquareSize;
 
-configureRPBChessboard();
+// Chessboard rendering function
+RPBChessboard.renderFEN = function(targetJQueryElement, widgetArgs, wrapInDiv) {
+	let widget = <Chessboard
+		position={widgetArgs.position}
+		move={widgetArgs.move}
+		squareMarkers={widgetArgs.csl}
+		textMarkers={widgetArgs.ctl}
+		arrowMarkers={widgetArgs.cal}
+		flipped={widgetArgs.flip}
+		squareSize={widgetArgs.squareSize}
+		coordinateVisible={widgetArgs.showCoordinates}
+		colorset={widgetArgs.colorset}
+		pieceset={widgetArgs.pieceset}
+		animated={widgetArgs.animated}
+		moveArrowVisible={widgetArgs.showMoveArrow}
+	/>;
+	if (wrapInDiv) {
+		widget = <div className="rpbchessboard-diagramAlignment-center">{widget}</div>
+	}
+	ReactDOM.render(widget, targetJQueryElement.get(0));
+};
