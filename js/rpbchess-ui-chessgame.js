@@ -631,11 +631,14 @@
 				else if(event.key === 'ArrowRight') { widget.goNextMove(); }
 				else if(event.key === 'End') { widget.goLastMove(); }
 			});
-			widget.navigationBoardState = {};
 			if(widget.options.navigationBoard === 'frame') {
-				Object.assign(widget.navigationBoardState, filterChessboardOptions($.chessgame.navigationFrameOptions));
+				if (!$.chessgame.navigationFrameState) {
+					$.chessgame.navigationFrameState = filterChessboardOptions($.chessgame.navigationFrameOptions);
+				}
+				widget.navigationBoardState = $.chessgame.navigationFrameState;
 			}
 			else {
+				widget.navigationBoardState = {};
 				Object.assign(widget.navigationBoardState, widget.options.navigationBoardOptions);
 				makeNavigationBoxWidgets(widget);
 			}
@@ -1265,8 +1268,25 @@
 			close      : function() { unselectMove(); }
 		});
 
-		// Create the chessboard widget.
-		// TODO replug widget.chessboard('sizeControlledByContainer', $('#rpbui-chessgame-navigationFrame'), 'dialogresize');
+		$('#rpbui-chessgame-navigationFrame').on('dialogresize', function(event, ui) {
+
+			// Save the initial information about the geometry of the board and its container.
+			if(!$.chessgame.navigationFrameState.resizeInfo) {
+				var board = $('#rpbui-chessgame-navigationFrame .kokopu-chessboard');
+				$.chessgame.navigationFrameState.resizeInfo = {
+					reservedWidth: ui.originalSize.width - board.width(),
+					reservedHeight: ui.originalSize.height - board.height()
+				};
+			}
+
+			// Compute the new square size parameter.
+			var availableWidth = ui.size.width - $.chessgame.navigationFrameState.resizeInfo.reservedWidth;
+			var availableHeight = ui.size.height - $.chessgame.navigationFrameState.resizeInfo.reservedHeight;
+			$.chessgame.navigationFrameState.squareSize = RPBChessboard.adaptSquareSize(availableWidth, availableHeight, $.chessgame.navigationFrameState.showCoordinates);
+
+			// Update the widget.
+			RPBChessboard.renderFEN($('#rpbui-chessgame-navigationFrame .rpbui-chessgame-navigationBoard'), $.chessgame.navigationFrameState, true);
+		});
 
 		// Callback for the buttons.
 		initializeNavigationButtons(function(buttonClass) { return $('#rpbui-chessgame-navigationFrame ' + buttonClass); }, function callback(methodName) {

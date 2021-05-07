@@ -24,10 +24,12 @@ import './index.css';
 
 import configureRPBChessboard from './config';
 import renderFEN from './render-fen';
+import { adaptSquareSize } from 'kokopu-react';
 
 window.kokopu = require('kokopu');
 window.sanitizeHtml = require('sanitize-html');
 
-window.RPBChessboard.renderFEN = renderFEN;
+RPBChessboard.renderFEN = renderFEN;
+RPBChessboard.adaptSquareSize = adaptSquareSize;
 
 configureRPBChessboard();
