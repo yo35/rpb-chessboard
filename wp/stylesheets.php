@@ -48,10 +48,6 @@ abstract class RPBChessboardStyleSheets {
 			RPBCHESSBOARD_VERSION
 		);
 
-		// CSS generated on the fly.
-		// TODO replug self::enqueueCachedStyle( 'rpbchessboard-chessboard', 'small-screens.css', 'CSS/SmallScreens', 'CSS/SmallScreens' );
-		// TODO replug self::enqueueCachedStyle( 'rpbchessboard-chessboard', 'theming.css', 'CSS/Theming', 'CSS/Theming' );
-
 		// Additional CSS for the frontend/backend.
 		if ( is_admin() ) {
 			wp_enqueue_style( 'rpbchessboard-chessgame' );
@@ -64,11 +60,6 @@ abstract class RPBChessboardStyleSheets {
 				wp_enqueue_style( 'rpbchessboard-chessgame' );
 			}
 		}
-	}
-
-
-	private static function enqueueCachedStyle( $handle, $cacheKey, $templateName, $modelName ) {
-		wp_add_inline_style( $handle, RPBChessboardHelperCache::get( $cacheKey, $templateName, $modelName ) );
 	}
 
 

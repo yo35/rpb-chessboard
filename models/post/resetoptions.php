@@ -72,7 +72,6 @@ class RPBChessboardModelPostResetOptions extends RPBChessboardAbstractModel {
 	public function resetSmallScreens() {
 		delete_option( 'rpbchessboard_smallScreenCompatibility' );
 		delete_option( 'rpbchessboard_smallScreenModes' );
-		RPBChessboardHelperCache::remove( 'small-screens.css' );
 		return self::resetMessage();
 	}
 

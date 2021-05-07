@@ -58,7 +58,6 @@ class RPBChessboardModelPostSaveOptions extends RPBChessboardAbstractModel {
 		// Small-screen parameters
 		self::processBooleanParameter( 'smallScreenCompatibility' );
 		self::processSmallScreenModes();
-		RPBChessboardHelperCache::remove( 'small-screens.css' );
 
 		// Notify the user.
 		return __( 'Settings saved.', 'rpb-chessboard' );

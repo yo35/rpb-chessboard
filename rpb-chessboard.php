@@ -43,7 +43,6 @@ load_plugin_textdomain( 'rpb-chessboard', false, basename( dirname( __FILE__ ) )
 
 // Various tools
 require_once RPBCHESSBOARD_ABSPATH . 'helpers/loader.php';
-require_once RPBCHESSBOARD_ABSPATH . 'helpers/cache.php';
 
 
 // POST actions, shortcodes, and miscellaneous...

@@ -47,9 +47,6 @@ abstract class RPBChessboardModelPostTheming extends RPBChessboardAbstractModel 
 		}
 		$this->updateCustomSetCodes( array_merge( $this->getCustomSetCodes(), array( $setCode ) ) );
 
-		// Force cache refresh.
-		self::invalidateCache();
-
 		return $this->getCreationSuccessMessage();
 	}
 
@@ -62,7 +59,6 @@ abstract class RPBChessboardModelPostTheming extends RPBChessboardAbstractModel 
 
 		$this->processLabel( $setCode );
 		$this->processAttributes( $setCode );
-		self::invalidateCache();
 
 		return $this->getEditionSuccessMessage();
 	}
@@ -82,10 +78,9 @@ abstract class RPBChessboardModelPostTheming extends RPBChessboardAbstractModel 
 			delete_option( 'rpbchessboard_' . $this->getManagedSetCode() );
 		}
 
-		// Cleanup the database and the cache.
+		// Cleanup the database.
 		delete_option( 'rpbchessboard_custom_' . $this->getManagedSetCode() . '_label_' . $setCode );
 		delete_option( 'rpbchessboard_custom_' . $this->getManagedSetCode() . '_attributes_' . $setCode );
-		self::invalidateCache();
 
 		return $this->getDeletionSuccessMessage();
 	}
@@ -113,11 +108,6 @@ abstract class RPBChessboardModelPostTheming extends RPBChessboardAbstractModel 
 
 	private function updateCustomSetCodes( $setCodes ) {
 		update_option( 'rpbchessboard_custom_' . $this->getManagedSetCode() . 's', implode( '|', $setCodes ) );
-	}
-
-
-	private static function invalidateCache() {
-		RPBChessboardHelperCache::remove( 'theming.css' );
 	}
 
 
