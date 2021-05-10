@@ -20,46 +20,76 @@
 
 
 import './public-path';
-import './index.css';
+import './editor.css';
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Chessboard, colorsets, piecesets, adaptSquareSize } from 'kokopu-react';
+import { registerBlockType } from '@wordpress/blocks';
+import { useBlockProps } from '@wordpress/block-editor';
 
-import './editor';
+import kokopu from 'kokopu';
+import { Chessboard } from 'kokopu-react';
 
-window.kokopu = require('kokopu');
-window.sanitizeHtml = require('sanitize-html');
+const i18n = RPBChessboard.i18n;
 
-// Theming
-Object.assign(colorsets, RPBChessboard.customColorsets);
-Object.assign(piecesets, RPBChessboard.customPiecesets);
 
-// Special colorsets and piecesets for theming edition
-RPBChessboard.editColorset = colorsets['_edit_'] = {};
-RPBChessboard.editPieceset = piecesets['_edit_'] = {};
-
-// Re-export some methods
-RPBChessboard.adaptSquareSize = adaptSquareSize;
-
-// Chessboard rendering function
-RPBChessboard.renderFEN = function(targetJQueryElement, widgetArgs, wrapInDiv) {
-	let widget = <Chessboard
-		position={widgetArgs.position}
-		move={widgetArgs.move}
-		squareMarkers={widgetArgs.csl}
-		textMarkers={widgetArgs.ctl}
-		arrowMarkers={widgetArgs.cal}
-		flipped={widgetArgs.flip}
-		squareSize={widgetArgs.squareSize}
-		coordinateVisible={widgetArgs.showCoordinates}
-		colorset={widgetArgs.colorset}
-		pieceset={widgetArgs.pieceset}
-		animated={widgetArgs.animated}
-		moveArrowVisible={widgetArgs.showMoveArrow}
-	/>;
-	if (wrapInDiv) {
-		widget = <div className="rpbchessboard-diagramAlignment-center">{widget}</div>
+/**
+ * Icon of the FEN editor
+ */
+function renderFENEditorIcon() {
+	let squares = [];
+	for(let x = 0; x < 4; ++x) {
+		for(let y = 1 - x % 2; y < 4; y += 2) {
+			squares.push(<rect x={x} y={y} width={1} height={1} />);
+		}
 	}
-	ReactDOM.render(widget, targetJQueryElement.get(0));
-};
+	return <svg viewBox="0 0 4 4">{squares}</svg>;
+}
+
+
+/**
+ * FEN editor
+ */
+function renderFENEditor(blockProps, attributes, setAttributes) {
+
+	let position = new kokopu.Position(attributes.position);
+
+	function handlePieceMoved(from, to) {
+		position.square(to, position.square(from));
+		position.square(from, '-');
+		setAttributes({ position: position.fen() });
+	}
+
+	return (
+		<div { ...blockProps }>
+			<Chessboard position={position} interactionMode="movePieces" onPieceMoved={handlePieceMoved} />
+		</div>
+	);
+}
+
+
+/**
+ * Registration
+ */
+registerBlockType('rpb-chessboard/fen', {
+	apiVersion: 2,
+	title: i18n.FEN_EDITOR_TITLE,
+	icon: renderFENEditorIcon(),
+	category: 'media',
+	attributes: {
+		position: {
+			type: 'string',
+			default: 'start'
+		},
+	},
+	example: {
+		attributes: {
+			position: 'start',
+		}
+	},
+	edit: ({ attributes, setAttributes }) => {
+		let blockProps = useBlockProps();
+		return renderFENEditor(blockProps, attributes, setAttributes);
+	},
+	save: ({ attributes }) => {
+		return '[fen]' + attributes.position + '[/fen]';
+	},
+});

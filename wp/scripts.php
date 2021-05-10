@@ -59,6 +59,9 @@ abstract class RPBChessboardScripts {
 				'publicURL'       => RPBCHESSBOARD_URL,
 				'customColorsets' => self::getCustomColorsets(),
 				'customPiecesets' => self::getCustomPiecesets(),
+				'i18n'            => array(
+					'FEN_EDITOR_TITLE' => __( 'Chess diagram', 'rpb-chessboard' ),
+				),
 			)
 		);
 
