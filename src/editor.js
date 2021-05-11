@@ -23,10 +23,12 @@ import './public-path';
 import './editor.css';
 
 import { registerBlockType } from '@wordpress/blocks';
-import { useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps, BlockControls } from '@wordpress/block-editor';
+import { Button, Dropdown, ToolbarButton, ToolbarGroup } from '@wordpress/components';
+import { edit } from '@wordpress/icons';
 
 import kokopu from 'kokopu';
-import { Chessboard } from 'kokopu-react';
+import { Chessboard, piecesets } from 'kokopu-react';
 
 const i18n = RPBChessboard.i18n;
 
@@ -34,7 +36,7 @@ const i18n = RPBChessboard.i18n;
 /**
  * Icon of the FEN editor
  */
-function renderFENEditorIcon() {
+function FENEditorIcon() {
 	let squares = [];
 	for(let x = 0; x < 4; ++x) {
 		for(let y = 1 - x % 2; y < 4; y += 2) {
@@ -48,21 +50,89 @@ function renderFENEditorIcon() {
 /**
  * FEN editor
  */
-function renderFENEditor(blockProps, attributes, setAttributes) {
+class FENEditor extends React.Component {
 
-	let position = new kokopu.Position(attributes.position);
-
-	function handlePieceMoved(from, to) {
-		position.square(to, position.square(from));
-		position.square(from, '-');
-		setAttributes({ position: position.fen() });
+	constructor(props) {
+		super(props);
+		this.state = {
+			interactionMode: 'movePieces',
+		};
 	}
 
-	return (
-		<div { ...blockProps }>
-			<Chessboard position={position} interactionMode="movePieces" onPieceMoved={handlePieceMoved} />
-		</div>
-	);
+	handlePieceMoved(from, to) {
+		let position = new kokopu.Position(this.props.attributes.position);
+		position.square(to, position.square(from));
+		position.square(from, '-');
+		this.props.setAttributes({ position: position.fen() });
+	}
+
+	handleSquareClicked(sq) {
+		if (/addPiece-([wb][pnbrqk])/.test(this.state.interactionMode)) {
+			let coloredPiece = RegExp.$1;
+			let position = new kokopu.Position(this.props.attributes.position);
+			position.square(sq, position.square(sq) === coloredPiece ? '-' : coloredPiece);
+			this.props.setAttributes({ position: position.fen() });
+		}
+	}
+
+	render() {
+		let setInterationMode = newInteractionMode => this.setState({ interactionMode: newInteractionMode });
+		let position = new kokopu.Position(this.props.attributes.position);
+
+		// Piece selector in the FEN editor toolbar.
+		function AddPieceDropdown({ color }) {
+			let renderToggle = ({ isOpen, onToggle }) => {
+				return <ToolbarButton label={i18n.FEN_EDITOR_LABEL_ADD_PIECES[color]} icon={edit /* TODO change icon */ } onClick={onToggle} aria-expanded={isOpen} />;
+			};
+			let renderContent = ({ onClose }) => {
+				function AddPieceButton({ coloredPiece }) {
+					let onClick = () => {
+						setInterationMode('addPiece-' + coloredPiece);
+						onClose();
+					};
+					let coloredPieceIcon = <img src={piecesets.cburnett[coloredPiece]} width={24} height={24} />;
+					return <Button label={i18n.FEN_EDITOR_LABEL_ADD_PIECE[coloredPiece]} icon={coloredPieceIcon} onClick={onClick} />;
+				}
+				return (
+					<div>
+						<AddPieceButton coloredPiece={color + 'p'} />
+						<AddPieceButton coloredPiece={color + 'n'} />
+						<AddPieceButton coloredPiece={color + 'b'} />
+						<AddPieceButton coloredPiece={color + 'r'} />
+						<AddPieceButton coloredPiece={color + 'q'} />
+						<AddPieceButton coloredPiece={color + 'k'} />
+					</div>
+				);
+			};
+			return <Dropdown renderToggle={renderToggle} renderContent={renderContent} />;
+		}
+
+		// Chessboard widget interaction mode
+		let innerInteractionMode = '';
+		if (this.state.interactionMode === 'movePieces') {
+			innerInteractionMode = 'movePieces';
+		}
+		else if (this.state.interactionMode.startsWith('addPiece-')) {
+			innerInteractionMode = 'clickSquares';
+		}
+
+		// Render the block
+		return (
+			<div { ...this.props.blockProps }>
+				<BlockControls>
+					<ToolbarGroup>
+						<ToolbarButton label={i18n.FEN_EDITOR_LABEL_MOVE_PIECES} icon={edit /* TODO change icon */ } onClick={() => setInterationMode('movePieces')} />
+						<AddPieceDropdown color="w" />
+						<AddPieceDropdown color="b" />
+					</ToolbarGroup>
+				</BlockControls>
+				<Chessboard position={position} interactionMode={innerInteractionMode}
+					onPieceMoved={(from, to) => this.handlePieceMoved(from, to)}
+					onSquareClicked={(sq) => this.handleSquareClicked(sq)}
+				/>
+			</div>
+		);
+	}
 }
 
 
@@ -72,7 +142,7 @@ function renderFENEditor(blockProps, attributes, setAttributes) {
 registerBlockType('rpb-chessboard/fen', {
 	apiVersion: 2,
 	title: i18n.FEN_EDITOR_TITLE,
-	icon: renderFENEditorIcon(),
+	icon: <FENEditorIcon />,
 	category: 'media',
 	attributes: {
 		position: {
@@ -87,7 +157,7 @@ registerBlockType('rpb-chessboard/fen', {
 	},
 	edit: ({ attributes, setAttributes }) => {
 		let blockProps = useBlockProps();
-		return renderFENEditor(blockProps, attributes, setAttributes);
+		return <FENEditor blockProps={blockProps} attributes={attributes} setAttributes={setAttributes} />;
 	},
 	save: ({ attributes }) => {
 		return '[fen]' + attributes.position + '[/fen]';

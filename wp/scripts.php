@@ -60,7 +60,26 @@ abstract class RPBChessboardScripts {
 				'customColorsets' => self::getCustomColorsets(),
 				'customPiecesets' => self::getCustomPiecesets(),
 				'i18n'            => array(
-					'FEN_EDITOR_TITLE' => __( 'Chess diagram', 'rpb-chessboard' ),
+					'FEN_EDITOR_TITLE'             => __( 'Chess diagram', 'rpb-chessboard' ),
+					'FEN_EDITOR_LABEL_MOVE_PIECES' => __( 'Move pieces', 'rpb-chessboard' ),
+					'FEN_EDITOR_LABEL_ADD_PIECES'  => array(
+						'w' => __( 'Add white pieces', 'rpb-chessboard' ),
+						'b' => __( 'Add black pieces', 'rpb-chessboard' ),
+					),
+					'FEN_EDITOR_LABEL_ADD_PIECE'   => array(
+						'wp' => __( 'Add white pawn', 'rpb-chessboard' ),
+						'wn' => __( 'Add white knight', 'rpb-chessboard' ),
+						'wb' => __( 'Add white bishop', 'rpb-chessboard' ),
+						'wr' => __( 'Add white rook', 'rpb-chessboard' ),
+						'wq' => __( 'Add white queen', 'rpb-chessboard' ),
+						'wk' => __( 'Add white king', 'rpb-chessboard' ),
+						'bp' => __( 'Add black pawn', 'rpb-chessboard' ),
+						'bn' => __( 'Add black knight', 'rpb-chessboard' ),
+						'bb' => __( 'Add black bishop', 'rpb-chessboard' ),
+						'br' => __( 'Add black rook', 'rpb-chessboard' ),
+						'bq' => __( 'Add black queen', 'rpb-chessboard' ),
+						'bk' => __( 'Add black king', 'rpb-chessboard' ),
+					),
 				),
 			)
 		);
