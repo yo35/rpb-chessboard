@@ -81,6 +81,10 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 5.9.3 (May 17, 2021) =
+* Tested up to WordPress 5.7.
+* Italian translation (thanks to Andrea Cuccarini).
+
 = 5.9.2 (February 6, 2021) =
 * Rollback square marker rendering to plain square (as it used to be until version 5.9.0).
 
