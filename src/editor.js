@@ -30,9 +30,24 @@ import { edit } from '@wordpress/icons';
 import kokopu from 'kokopu';
 import { Chessboard, piecesets } from 'kokopu-react';
 
-import addWIconSrc from './add-w.png';
-import addBIconSrc from './add-b.png';
-import toggleTurnIconSrc from './toggle-turn.png';
+import addWIconPath from './add-w.png';
+import addBIconPath from './add-b.png';
+import toggleTurnIconPath from './toggle-turn.png';
+import addGSquareMarkerIconPath from './add-csl-g.png';
+import addRSquareMarkerIconPath from './add-csl-r.png';
+import addYSquareMarkerIconPath from './add-csl-y.png';
+import addAllSquareMarkerIconPath from './add-csl.png';
+
+const addIconPath = {
+	'w': addWIconPath,
+	'b': addBIconPath,
+};
+
+const addSquareMarkerIconPath = {
+	'g': addGSquareMarkerIconPath,
+	'r': addRSquareMarkerIconPath,
+	'y': addYSquareMarkerIconPath,
+};
 
 const i18n = RPBChessboard.i18n;
 
@@ -67,7 +82,7 @@ class FENEditor extends React.Component {
 		let position = new kokopu.Position(this.props.attributes.position);
 		position.square(to, position.square(from));
 		position.square(from, '-');
-		this.props.setAttributes({ position: position.fen() });
+		this.props.setAttributes({ ...this.props.attributes, position: position.fen() });
 	}
 
 	handleSquareClicked(sq) {
@@ -75,14 +90,25 @@ class FENEditor extends React.Component {
 			let coloredPiece = RegExp.$1;
 			let position = new kokopu.Position(this.props.attributes.position);
 			position.square(sq, position.square(sq) === coloredPiece ? '-' : coloredPiece);
-			this.props.setAttributes({ position: position.fen() });
+			this.props.setAttributes({ ...this.props.attributes, position: position.fen() });
+		}
+		else if(/addSquareMarker-([gry])/.test(this.state.interactionMode)) {
+			let color = RegExp.$1;
+			let squareMarkers = { ...this.props.attributes.squareMarkers };
+			if (squareMarkers[sq] === color) {
+				delete squareMarkers[sq];
+			}
+			else {
+				squareMarkers[sq] = color;
+			}
+			this.props.setAttributes({ ...this.props.attributes, squareMarkers: squareMarkers });
 		}
 	}
 
 	handleTurnToggled() {
 		let position = new kokopu.Position(this.props.attributes.position);
 		position.turn(kokopu.oppositeColor(position.turn()));
-		this.props.setAttributes({ position: position.fen() });
+		this.props.setAttributes({ ...this.props.attributes, position: position.fen() });
 	}
 
 	render() {
@@ -92,8 +118,8 @@ class FENEditor extends React.Component {
 		// Piece selector in the FEN editor toolbar.
 		function AddPieceDropdown({ color }) {
 			let renderToggle = ({ isOpen, onToggle }) => {
-				let addIcon = <img src={color === 'w' ? addWIconSrc : addBIconSrc} width={24} height={24} />;
-				return <ToolbarButton label={i18n.FEN_EDITOR_LABEL_ADD_PIECES[color]} icon={addIcon} onClick={onToggle} aria-expanded={isOpen} />;
+				let icon = <img src={addIconPath[color]} width={24} height={24} />;
+				return <ToolbarButton label={i18n.FEN_EDITOR_LABEL_ADD_PIECES[color]} icon={icon} onClick={onToggle} aria-expanded={isOpen} />;
 			};
 			let renderContent = ({ onClose }) => {
 				function AddPieceButton({ coloredPiece }) {
@@ -101,8 +127,8 @@ class FENEditor extends React.Component {
 						setInterationMode('addPiece-' + coloredPiece);
 						onClose();
 					};
-					let coloredPieceIcon = <img src={piecesets.cburnett[coloredPiece]} width={24} height={24} />;
-					return <Button label={i18n.FEN_EDITOR_LABEL_ADD_PIECE[coloredPiece]} icon={coloredPieceIcon} onClick={onClick} />;
+					let icon = <img src={piecesets.cburnett[coloredPiece]} width={24} height={24} />;
+					return <Button label={i18n.FEN_EDITOR_LABEL_ADD_PIECE[coloredPiece]} icon={icon} onClick={onClick} />;
 				}
 				return (
 					<div>
@@ -118,17 +144,43 @@ class FENEditor extends React.Component {
 			return <Dropdown renderToggle={renderToggle} renderContent={renderContent} />;
 		}
 
+		// Square marker selector in FEN editor toolbar.
+		function AddSquareMarkerDropdown() {
+			let renderToggle = ({ isOpen, onToggle }) => {
+				let icon = <img src={addAllSquareMarkerIconPath} width={24} height={24} />;
+				return <ToolbarButton label={i18n.FEN_EDITOR_LABEL_ADD_SQUARE_MARKER} icon={icon} onClick={onToggle} aria-expanded={isOpen} />;
+			};
+			let renderContent = ({ onClose }) => {
+				function AddSquareMarkerButton({ color }) {
+					let onClick = () => {
+						setInterationMode('addSquareMarker-' + color);
+						onClose();
+					};
+					let icon = <img src={addSquareMarkerIconPath[color]} width={24} height={24} />;
+					return <Button icon={icon} onClick={onClick} />;
+				}
+				return (
+					<div>
+						<AddSquareMarkerButton color="g" />
+						<AddSquareMarkerButton color="r" />
+						<AddSquareMarkerButton color="y" />
+					</div>
+				);
+			};
+			return <Dropdown renderToggle={renderToggle} renderContent={renderContent} />;
+		}
+
 		// Chessboard widget interaction mode
 		let innerInteractionMode = '';
 		if (this.state.interactionMode === 'movePieces') {
 			innerInteractionMode = 'movePieces';
 		}
-		else if (this.state.interactionMode.startsWith('addPiece-')) {
+		else if (this.state.interactionMode.startsWith('addPiece-') || this.state.interactionMode.startsWith('addSquareMarker-')) {
 			innerInteractionMode = 'clickSquares';
 		}
 
 		// Icons
-		let toggleTurnIcon = <img src={toggleTurnIconSrc} width={24} height={24} />;
+		let toggleTurnIcon = <img src={toggleTurnIconPath} width={24} height={24} />;
 
 		// Render the block
 		return (
@@ -140,8 +192,12 @@ class FENEditor extends React.Component {
 						<AddPieceDropdown color="b" />
 						<ToolbarButton label={i18n.FEN_EDITOR_LABEL_TOGGLE_TURN} icon={toggleTurnIcon} onClick={() => this.handleTurnToggled()} />
 					</ToolbarGroup>
+					<ToolbarGroup>
+						<AddSquareMarkerDropdown />
+					</ToolbarGroup>
 				</BlockControls>
 				<Chessboard position={position} interactionMode={innerInteractionMode}
+					squareMarkers={this.props.attributes.squareMarkers}
 					onPieceMoved={(from, to) => this.handlePieceMoved(from, to)}
 					onSquareClicked={(sq) => this.handleSquareClicked(sq)}
 				/>
@@ -164,10 +220,15 @@ registerBlockType('rpb-chessboard/fen', {
 			type: 'string',
 			default: 'start'
 		},
+		squareMarkers: {
+			type: 'object',
+			default: {}
+		},
 	},
 	example: {
 		attributes: {
 			position: 'start',
+			squareMarkers: {},
 		}
 	},
 	edit: ({ attributes, setAttributes }) => {
@@ -175,6 +236,8 @@ registerBlockType('rpb-chessboard/fen', {
 		return <FENEditor blockProps={blockProps} attributes={attributes} setAttributes={setAttributes} />;
 	},
 	save: ({ attributes }) => {
-		return '[fen]' + attributes.position + '[/fen]';
+		let csl = Object.entries(attributes.squareMarkers).map(([ key, value ]) => value.toUpperCase() + key);
+		let cslArg = csl.length === 0 ? '' : ' csl=' + csl.join(',');
+		return '[fen' + cslArg + ']' + attributes.position + '[/fen]'; // TODO plug fen_compat
 	},
 });

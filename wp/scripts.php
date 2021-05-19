@@ -60,13 +60,13 @@ abstract class RPBChessboardScripts {
 				'customColorsets' => self::getCustomColorsets(),
 				'customPiecesets' => self::getCustomPiecesets(),
 				'i18n'            => array(
-					'FEN_EDITOR_TITLE'             => __( 'Chess diagram', 'rpb-chessboard' ),
-					'FEN_EDITOR_LABEL_MOVE_PIECES' => __( 'Move pieces', 'rpb-chessboard' ),
-					'FEN_EDITOR_LABEL_ADD_PIECES'  => array(
+					'FEN_EDITOR_TITLE'                   => __( 'Chess diagram', 'rpb-chessboard' ),
+					'FEN_EDITOR_LABEL_MOVE_PIECES'       => __( 'Move pieces', 'rpb-chessboard' ),
+					'FEN_EDITOR_LABEL_ADD_PIECES'        => array(
 						'w' => __( 'Add white pieces', 'rpb-chessboard' ),
 						'b' => __( 'Add black pieces', 'rpb-chessboard' ),
 					),
-					'FEN_EDITOR_LABEL_ADD_PIECE'   => array(
+					'FEN_EDITOR_LABEL_ADD_PIECE'         => array(
 						'wp' => __( 'Add white pawn', 'rpb-chessboard' ),
 						'wn' => __( 'Add white knight', 'rpb-chessboard' ),
 						'wb' => __( 'Add white bishop', 'rpb-chessboard' ),
@@ -80,7 +80,8 @@ abstract class RPBChessboardScripts {
 						'bq' => __( 'Add black queen', 'rpb-chessboard' ),
 						'bk' => __( 'Add black king', 'rpb-chessboard' ),
 					),
-					'FEN_EDITOR_LABEL_TOGGLE_TURN' => __( 'Toggle turn', 'rpb-chessboard' ),
+					'FEN_EDITOR_LABEL_TOGGLE_TURN'       => __( 'Toggle turn', 'rpb-chessboard' ),
+					'FEN_EDITOR_LABEL_ADD_SQUARE_MARKER' => __( 'Add square markers', 'rpb-chessboard' ),
 				),
 			)
 		);
