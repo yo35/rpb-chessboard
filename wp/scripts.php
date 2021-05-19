@@ -80,6 +80,7 @@ abstract class RPBChessboardScripts {
 						'bq' => __( 'Add black queen', 'rpb-chessboard' ),
 						'bk' => __( 'Add black king', 'rpb-chessboard' ),
 					),
+					'FEN_EDITOR_LABEL_TOGGLE_TURN' => __( 'Toggle turn', 'rpb-chessboard' ),
 				),
 			)
 		);

@@ -30,8 +30,9 @@ import { edit } from '@wordpress/icons';
 import kokopu from 'kokopu';
 import { Chessboard, piecesets } from 'kokopu-react';
 
-import addWIcon from './add-w.png';
-import addBIcon from './add-b.png';
+import addWIconSrc from './add-w.png';
+import addBIconSrc from './add-b.png';
+import toggleTurnIconSrc from './toggle-turn.png';
 
 const i18n = RPBChessboard.i18n;
 
@@ -78,6 +79,12 @@ class FENEditor extends React.Component {
 		}
 	}
 
+	handleTurnToggled() {
+		let position = new kokopu.Position(this.props.attributes.position);
+		position.turn(kokopu.oppositeColor(position.turn()));
+		this.props.setAttributes({ position: position.fen() });
+	}
+
 	render() {
 		let setInterationMode = newInteractionMode => this.setState({ interactionMode: newInteractionMode });
 		let position = new kokopu.Position(this.props.attributes.position);
@@ -85,7 +92,7 @@ class FENEditor extends React.Component {
 		// Piece selector in the FEN editor toolbar.
 		function AddPieceDropdown({ color }) {
 			let renderToggle = ({ isOpen, onToggle }) => {
-				let addIcon = <img src={color === 'w' ? addWIcon : addBIcon} width={24} height={24} />;
+				let addIcon = <img src={color === 'w' ? addWIconSrc : addBIconSrc} width={24} height={24} />;
 				return <ToolbarButton label={i18n.FEN_EDITOR_LABEL_ADD_PIECES[color]} icon={addIcon} onClick={onToggle} aria-expanded={isOpen} />;
 			};
 			let renderContent = ({ onClose }) => {
@@ -120,6 +127,9 @@ class FENEditor extends React.Component {
 			innerInteractionMode = 'clickSquares';
 		}
 
+		// Icons
+		let toggleTurnIcon = <img src={toggleTurnIconSrc} width={24} height={24} />;
+
 		// Render the block
 		return (
 			<div { ...this.props.blockProps }>
@@ -128,6 +138,7 @@ class FENEditor extends React.Component {
 						<ToolbarButton label={i18n.FEN_EDITOR_LABEL_MOVE_PIECES} icon={edit /* TODO change icon */ } onClick={() => setInterationMode('movePieces')} />
 						<AddPieceDropdown color="w" />
 						<AddPieceDropdown color="b" />
+						<ToolbarButton label={i18n.FEN_EDITOR_LABEL_TOGGLE_TURN} icon={toggleTurnIcon} onClick={() => this.handleTurnToggled()} />
 					</ToolbarGroup>
 				</BlockControls>
 				<Chessboard position={position} interactionMode={innerInteractionMode}
