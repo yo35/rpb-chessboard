@@ -50,17 +50,17 @@ class RPBChessboardModelShortcodeFEN extends RPBChessboardAbstractModelShortcode
 
 			// Square markers
 			if ( isset( $atts['csl'] ) && is_string( $atts['csl'] ) ) {
-				$this->widgetArgs['squareMarkers'] = $atts['csl'];
+				$this->widgetArgs['csl'] = $atts['csl'];
 			}
 
 			// Arrow markers
 			if ( isset( $atts['cal'] ) && is_string( $atts['cal'] ) ) {
-				$this->widgetArgs['arrowMarkers'] = $atts['cal'];
+				$this->widgetArgs['cal'] = $atts['cal'];
 			}
 
 			// Text markers
 			if ( isset( $atts['ctl'] ) && is_string( $atts['ctl'] ) ) {
-				$this->widgetArgs['textMarkers'] = $atts['ctl'];
+				$this->widgetArgs['ctl'] = $atts['ctl'];
 			}
 
 			// Orientation
