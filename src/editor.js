@@ -30,6 +30,9 @@ import { edit } from '@wordpress/icons';
 import kokopu from 'kokopu';
 import { Chessboard, piecesets } from 'kokopu-react';
 
+import addWIcon from './add-w.png';
+import addBIcon from './add-b.png';
+
 const i18n = RPBChessboard.i18n;
 
 
@@ -82,7 +85,8 @@ class FENEditor extends React.Component {
 		// Piece selector in the FEN editor toolbar.
 		function AddPieceDropdown({ color }) {
 			let renderToggle = ({ isOpen, onToggle }) => {
-				return <ToolbarButton label={i18n.FEN_EDITOR_LABEL_ADD_PIECES[color]} icon={edit /* TODO change icon */ } onClick={onToggle} aria-expanded={isOpen} />;
+				let addIcon = <img src={color === 'w' ? addWIcon : addBIcon} width={24} height={24} />;
+				return <ToolbarButton label={i18n.FEN_EDITOR_LABEL_ADD_PIECES[color]} icon={addIcon} onClick={onToggle} aria-expanded={isOpen} />;
 			};
 			let renderContent = ({ onClose }) => {
 				function AddPieceButton({ coloredPiece }) {
