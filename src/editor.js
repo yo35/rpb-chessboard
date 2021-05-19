@@ -79,10 +79,12 @@ class FENEditor extends React.Component {
 	}
 
 	handlePieceMoved(from, to) {
-		let position = new kokopu.Position(this.props.attributes.position);
-		position.square(to, position.square(from));
-		position.square(from, '-');
-		this.props.setAttributes({ ...this.props.attributes, position: position.fen() });
+		if (this.state.interactionMode === 'movePieces') {
+			let position = new kokopu.Position(this.props.attributes.position);
+			position.square(to, position.square(from));
+			position.square(from, '-');
+			this.props.setAttributes({ ...this.props.attributes, position: position.fen() });
+		}
 	}
 
 	handleSquareClicked(sq) {
@@ -92,7 +94,7 @@ class FENEditor extends React.Component {
 			position.square(sq, position.square(sq) === coloredPiece ? '-' : coloredPiece);
 			this.props.setAttributes({ ...this.props.attributes, position: position.fen() });
 		}
-		else if(/addSquareMarker-([gry])/.test(this.state.interactionMode)) {
+		else if (/addSquareMarker-([gry])/.test(this.state.interactionMode)) {
 			let color = RegExp.$1;
 			let squareMarkers = { ...this.props.attributes.squareMarkers };
 			if (squareMarkers[sq] === color) {
@@ -102,6 +104,21 @@ class FENEditor extends React.Component {
 				squareMarkers[sq] = color;
 			}
 			this.props.setAttributes({ ...this.props.attributes, squareMarkers: squareMarkers });
+		}
+	}
+
+	handleArrowEdited(from, to) {
+		if (/addArrowMarker-([gry])/.test(this.state.interactionMode)) {
+			let color = RegExp.$1;
+			let key = from + to;
+			let arrowMarkers = { ...this.props.attributes.arrowMarkers };
+			if (arrowMarkers[key] === color) {
+				delete arrowMarkers[key];
+			}
+			else {
+				arrowMarkers[key] = color;
+			}
+			this.props.setAttributes({ ...this.props.attributes, arrowMarkers: arrowMarkers });
 		}
 	}
 
@@ -144,26 +161,26 @@ class FENEditor extends React.Component {
 			return <Dropdown renderToggle={renderToggle} renderContent={renderContent} />;
 		}
 
-		// Square marker selector in FEN editor toolbar.
-		function AddSquareMarkerDropdown() {
+		// Square/arrow marker selector in FEN editor toolbar.
+		function AddMarkerDropdown({ label, interactionModePrefix }) {
 			let renderToggle = ({ isOpen, onToggle }) => {
-				let icon = <img src={addAllSquareMarkerIconPath} width={24} height={24} />;
-				return <ToolbarButton label={i18n.FEN_EDITOR_LABEL_ADD_SQUARE_MARKER} icon={icon} onClick={onToggle} aria-expanded={isOpen} />;
+				let icon = <img src={addAllSquareMarkerIconPath} width={24} height={24} />; // TODO customize icon
+				return <ToolbarButton label={label} icon={icon} onClick={onToggle} aria-expanded={isOpen} />;
 			};
 			let renderContent = ({ onClose }) => {
-				function AddSquareMarkerButton({ color }) {
+				function AddMarkerButton({ color }) {
 					let onClick = () => {
-						setInterationMode('addSquareMarker-' + color);
+						setInterationMode(interactionModePrefix + color);
 						onClose();
 					};
-					let icon = <img src={addSquareMarkerIconPath[color]} width={24} height={24} />;
+					let icon = <img src={addSquareMarkerIconPath[color]} width={24} height={24} />; // TODO customize icon
 					return <Button icon={icon} onClick={onClick} />;
 				}
 				return (
 					<div>
-						<AddSquareMarkerButton color="g" />
-						<AddSquareMarkerButton color="r" />
-						<AddSquareMarkerButton color="y" />
+						<AddMarkerButton color="g" />
+						<AddMarkerButton color="r" />
+						<AddMarkerButton color="y" />
 					</div>
 				);
 			};
@@ -172,11 +189,16 @@ class FENEditor extends React.Component {
 
 		// Chessboard widget interaction mode
 		let innerInteractionMode = '';
+		let editedArrowColor = '';
 		if (this.state.interactionMode === 'movePieces') {
 			innerInteractionMode = 'movePieces';
 		}
 		else if (this.state.interactionMode.startsWith('addPiece-') || this.state.interactionMode.startsWith('addSquareMarker-')) {
 			innerInteractionMode = 'clickSquares';
+		}
+		else if (/addArrowMarker-([gry])/.test(this.state.interactionMode)) {
+			editedArrowColor = RegExp.$1;
+			innerInteractionMode = 'editArrows';
 		}
 
 		// Icons
@@ -193,17 +215,29 @@ class FENEditor extends React.Component {
 						<ToolbarButton label={i18n.FEN_EDITOR_LABEL_TOGGLE_TURN} icon={toggleTurnIcon} onClick={() => this.handleTurnToggled()} />
 					</ToolbarGroup>
 					<ToolbarGroup>
-						<AddSquareMarkerDropdown />
+						<AddMarkerDropdown label={i18n.FEN_EDITOR_LABEL_ADD_SQUARE_MARKER} interactionModePrefix="addSquareMarker-" />
+						<AddMarkerDropdown label={i18n.FEN_EDITOR_LABEL_ADD_ARROW_MARKER} interactionModePrefix="addArrowMarker-" />
 					</ToolbarGroup>
 				</BlockControls>
-				<Chessboard position={position} interactionMode={innerInteractionMode}
+				<Chessboard position={position} interactionMode={innerInteractionMode} editedArrowColor={editedArrowColor}
 					squareMarkers={this.props.attributes.squareMarkers}
+					arrowMarkers={this.props.attributes.arrowMarkers}
 					onPieceMoved={(from, to) => this.handlePieceMoved(from, to)}
-					onSquareClicked={(sq) => this.handleSquareClicked(sq)}
+					onSquareClicked={sq => this.handleSquareClicked(sq)}
+					onArrowEdited={(from, to) => this.handleArrowEdited(from, to)}
 				/>
 			</div>
 		);
 	}
+}
+
+
+/**
+ * Helper method for shortcode rendering.
+ */
+function flattenMarkers(markers, fenShortcodeAttribute) {
+	let markersAsString = Object.entries(markers).map(([ key, value ]) => value.toUpperCase() + key);
+	return markersAsString.length === 0 ? '' : ' ' + fenShortcodeAttribute + '=' + markersAsString.join(',');
 }
 
 
@@ -224,11 +258,16 @@ registerBlockType('rpb-chessboard/fen', {
 			type: 'object',
 			default: {}
 		},
+		arrowMarkers: {
+			type: 'object',
+			default: {}
+		}
 	},
 	example: {
 		attributes: {
 			position: 'start',
 			squareMarkers: {},
+			arrowMarkers: {},
 		}
 	},
 	edit: ({ attributes, setAttributes }) => {
@@ -236,8 +275,8 @@ registerBlockType('rpb-chessboard/fen', {
 		return <FENEditor blockProps={blockProps} attributes={attributes} setAttributes={setAttributes} />;
 	},
 	save: ({ attributes }) => {
-		let csl = Object.entries(attributes.squareMarkers).map(([ key, value ]) => value.toUpperCase() + key);
-		let cslArg = csl.length === 0 ? '' : ' csl=' + csl.join(',');
-		return '[fen' + cslArg + ']' + attributes.position + '[/fen]'; // TODO plug fen_compat
+		let csl = flattenMarkers(attributes.squareMarkers, 'csl');
+		let cal = flattenMarkers(attributes.arrowMarkers, 'cal');
+		return '[fen' + csl + cal + ']' + attributes.position + '[/fen]'; // TODO plug fen_compat
 	},
 });
