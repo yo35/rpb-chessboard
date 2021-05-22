@@ -25,7 +25,7 @@ import './editor.css';
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, BlockControls } from '@wordpress/block-editor';
 import { Button, Dropdown, ToolbarButton, ToolbarGroup } from '@wordpress/components';
-import { moveTo } from '@wordpress/icons';
+import { moveTo, rotateLeft } from '@wordpress/icons';
 
 import kokopu from 'kokopu';
 import { Chessboard, piecesets } from 'kokopu-react';
@@ -134,10 +134,15 @@ class FENEditor extends React.Component {
 		}
 	}
 
-	handleTurnToggled() {
+	handleToggleTurnClicked() {
 		let position = new kokopu.Position(this.props.attributes.position);
 		position.turn(kokopu.oppositeColor(position.turn()));
 		this.props.setAttributes({ ...this.props.attributes, position: position.fen() });
+	}
+
+	handleFlipClicked() {
+		let flipped = !this.props.attributes.flipped;
+		this.props.setAttributes({ ...this.props.attributes, flipped: flipped });
 	}
 
 	render() {
@@ -224,14 +229,18 @@ class FENEditor extends React.Component {
 						<ToolbarButton label={i18n.FEN_EDITOR_LABEL_MOVE_PIECES} icon={moveTo} onClick={() => setInterationMode('movePieces')} />
 						<AddPieceDropdown color="w" />
 						<AddPieceDropdown color="b" />
-						<ToolbarButton label={i18n.FEN_EDITOR_LABEL_TOGGLE_TURN} icon={toggleTurnIcon} onClick={() => this.handleTurnToggled()} />
+						<ToolbarButton label={i18n.FEN_EDITOR_LABEL_TOGGLE_TURN} icon={toggleTurnIcon} onClick={() => this.handleToggleTurnClicked()} />
+					</ToolbarGroup>
+					<ToolbarGroup>
+						<ToolbarButton label={i18n.FEN_EDITOR_LABEL_FLIP} icon={rotateLeft} onClick={() => this.handleFlipClicked()} />
 					</ToolbarGroup>
 					<ToolbarGroup>
 						<AddMarkerDropdown label={i18n.FEN_EDITOR_LABEL_ADD_SQUARE_MARKER} iconPath={squareMarkerIconPath} interactionModePrefix="addSquareMarker-" />
 						<AddMarkerDropdown label={i18n.FEN_EDITOR_LABEL_ADD_ARROW_MARKER} iconPath={arrowMarkerIconPath} interactionModePrefix="addArrowMarker-" />
 					</ToolbarGroup>
 				</BlockControls>
-				<Chessboard position={position} interactionMode={innerInteractionMode} editedArrowColor={editedArrowColor}
+				<Chessboard position={position} flipped={this.props.attributes.flipped}
+					interactionMode={innerInteractionMode} editedArrowColor={editedArrowColor}
 					squareMarkers={this.props.attributes.squareMarkers}
 					arrowMarkers={this.props.attributes.arrowMarkers}
 					onPieceMoved={(from, to) => this.handlePieceMoved(from, to)}
@@ -266,6 +275,10 @@ registerBlockType('rpb-chessboard/fen', {
 			type: 'string',
 			default: 'start'
 		},
+		flipped: {
+			type: 'boolean',
+			default: false
+		},
 		squareMarkers: {
 			type: 'object',
 			default: {}
@@ -278,6 +291,7 @@ registerBlockType('rpb-chessboard/fen', {
 	example: {
 		attributes: {
 			position: 'start',
+			flipped: false,
 			squareMarkers: {},
 			arrowMarkers: {},
 		}
@@ -288,8 +302,9 @@ registerBlockType('rpb-chessboard/fen', {
 	},
 	save: ({ attributes }) => {
 		let fenShortcode = RPBChessboard.fenShortcode;
+		let flip = ' flip=' + attributes.flipped;
 		let csl = flattenMarkers(attributes.squareMarkers, 'csl');
 		let cal = flattenMarkers(attributes.arrowMarkers, 'cal');
-		return '[' + fenShortcode + csl + cal + ']' + attributes.position + '[/' + fenShortcode + ']';
+		return '[' + fenShortcode + flip + csl + cal + ']' + attributes.position + '[/' + fenShortcode + ']';
 	},
 });

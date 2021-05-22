@@ -82,6 +82,7 @@ abstract class RPBChessboardScripts {
 						'bk' => __( 'Add black king', 'rpb-chessboard' ),
 					),
 					'FEN_EDITOR_LABEL_TOGGLE_TURN'       => __( 'Toggle turn', 'rpb-chessboard' ),
+					'FEN_EDITOR_LABEL_FLIP'              => __( 'Flip board', 'rpb-chessboard' ),
 					'FEN_EDITOR_LABEL_ADD_SQUARE_MARKER' => __( 'Add square markers', 'rpb-chessboard' ),
 					'FEN_EDITOR_LABEL_ADD_ARROW_MARKER'  => __( 'Add arrow markers', 'rpb-chessboard' ),
 				),
