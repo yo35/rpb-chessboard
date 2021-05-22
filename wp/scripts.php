@@ -106,20 +106,6 @@ abstract class RPBChessboardScripts {
 			RPBCHESSBOARD_VERSION
 		);
 
-		// Plugin specific
-		wp_register_script(
-			'rpbchessboard-backend',
-			RPBCHESSBOARD_URL . 'js/backend' . $ext,
-			array(
-				'jquery-ui-dialog',
-				'jquery-ui-accordion',
-				'jquery-ui-draggable',
-				'jquery-ui-droppable',
-			),
-			RPBCHESSBOARD_VERSION,
-			false
-		);
-
 		// Additional scripts for the backend.
 		// FIXME Those scripts should be enqueued only if necessary. To achieve that, we need to fix issue concerning inlined scripts,
 		// interaction with the TinyMCE/QuickTag editors, and to carefully review what is used on which page.
@@ -128,20 +114,8 @@ abstract class RPBChessboardScripts {
 			wp_enqueue_script( 'jquery-ui-slider' );
 			wp_enqueue_script( 'jquery-ui-tabs' );
 			wp_enqueue_script( 'iris' );
-			wp_enqueue_script( 'rpbchessboard-backend' );
 			wp_enqueue_media();
 
-			// QuickTags editor
-			wp_enqueue_script(
-				'rpbchessboard-quicktags',
-				RPBCHESSBOARD_URL . 'js/quicktags' . $ext,
-				array(
-					'rpbchessboard-backend',
-					'quicktags',
-				),
-				RPBCHESSBOARD_VERSION,
-				true
-			);
 		} else {
 
 			// In frontend, force jQuery to be loaded in the header (should be the case anyway in most themes).
@@ -153,15 +127,6 @@ abstract class RPBChessboardScripts {
 				wp_enqueue_script( 'rpbchessboard-chessgame' );
 			}
 		}
-
-		// Inlined scripts
-		if ( is_admin() ) {
-			add_action( 'admin_print_footer_scripts', array( __CLASS__, 'callbackInlinedScripts' ) );
-		}
-
-		// TinyMCE editor
-		add_filter( 'mce_external_plugins', array( __CLASS__, 'callbackRegisterTinyMCEPlugin' ) );
-		add_filter( 'mce_buttons', array( __CLASS__, 'callbackRegisterTinyMCEButtons' ) );
 	}
 
 
@@ -199,23 +164,6 @@ abstract class RPBChessboardScripts {
 	private static function getFENShortcode() {
 		$model = RPBChessboardHelperLoader::loadModel( 'Common/Compatibility' );
 		return $model->getFENShortcode();
-	}
-
-
-	public static function callbackInlinedScripts() {
-		$model = RPBChessboardHelperLoader::loadModel( 'Common/Compatibility' );
-		RPBChessboardHelperLoader::printTemplate( 'Localization', $model );
-	}
-
-
-	public static function callbackRegisterTinyMCEPlugin( $plugins ) {
-		$plugins['RPBChessboard'] = RPBCHESSBOARD_URL . 'js/tinymce' . self::getJSFileExtension();
-		return $plugins;
-	}
-
-	public static function callbackRegisterTinyMCEButtons( $buttons ) {
-		array_push( $buttons, 'rpb-chessboard' );
-		return $buttons;
 	}
 
 
