@@ -25,7 +25,7 @@ import './editor.css';
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, BlockControls } from '@wordpress/block-editor';
 import { Button, Dropdown, ToolbarButton, ToolbarGroup } from '@wordpress/components';
-import { edit } from '@wordpress/icons';
+import { moveTo } from '@wordpress/icons';
 
 import kokopu from 'kokopu';
 import { Chessboard, piecesets } from 'kokopu-react';
@@ -209,7 +209,7 @@ class FENEditor extends React.Component {
 			<div { ...this.props.blockProps }>
 				<BlockControls>
 					<ToolbarGroup>
-						<ToolbarButton label={i18n.FEN_EDITOR_LABEL_MOVE_PIECES} icon={edit /* TODO change icon */ } onClick={() => setInterationMode('movePieces')} />
+						<ToolbarButton label={i18n.FEN_EDITOR_LABEL_MOVE_PIECES} icon={moveTo} onClick={() => setInterationMode('movePieces')} />
 						<AddPieceDropdown color="w" />
 						<AddPieceDropdown color="b" />
 						<ToolbarButton label={i18n.FEN_EDITOR_LABEL_TOGGLE_TURN} icon={toggleTurnIcon} onClick={() => this.handleTurnToggled()} />
