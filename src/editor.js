@@ -33,20 +33,32 @@ import { Chessboard, piecesets } from 'kokopu-react';
 import addWIconPath from './add-w.png';
 import addBIconPath from './add-b.png';
 import toggleTurnIconPath from './toggle-turn.png';
-import addGSquareMarkerIconPath from './add-csl-g.png';
-import addRSquareMarkerIconPath from './add-csl-r.png';
-import addYSquareMarkerIconPath from './add-csl-y.png';
-import addAllSquareMarkerIconPath from './add-csl.png';
+import squareMarkerAllIconPath from './square-marker-all.png';
+import squareMarkerGIconPath from './square-marker-g.png';
+import squareMarkerRIconPath from './square-marker-r.png';
+import squareMarkerYIconPath from './square-marker-y.png';
+import arrowMarkerAllIconPath from './arrow-marker-all.png';
+import arrowMarkerGIconPath from './arrow-marker-g.png';
+import arrowMarkerRIconPath from './arrow-marker-r.png';
+import arrowMarkerYIconPath from './arrow-marker-y.png';
 
 const addIconPath = {
 	'w': addWIconPath,
 	'b': addBIconPath,
 };
 
-const addSquareMarkerIconPath = {
-	'g': addGSquareMarkerIconPath,
-	'r': addRSquareMarkerIconPath,
-	'y': addYSquareMarkerIconPath,
+const squareMarkerIconPath = {
+	'all': squareMarkerAllIconPath,
+	'g': squareMarkerGIconPath,
+	'r': squareMarkerRIconPath,
+	'y': squareMarkerYIconPath,
+};
+
+const arrowMarkerIconPath = {
+	'all': arrowMarkerAllIconPath,
+	'g': arrowMarkerGIconPath,
+	'r': arrowMarkerRIconPath,
+	'y': arrowMarkerYIconPath,
 };
 
 const i18n = RPBChessboard.i18n;
@@ -162,9 +174,9 @@ class FENEditor extends React.Component {
 		}
 
 		// Square/arrow marker selector in FEN editor toolbar.
-		function AddMarkerDropdown({ label, interactionModePrefix }) {
+		function AddMarkerDropdown({ label, iconPath, interactionModePrefix }) {
 			let renderToggle = ({ isOpen, onToggle }) => {
-				let icon = <img src={addAllSquareMarkerIconPath} width={24} height={24} />; // TODO customize icon
+				let icon = <img src={iconPath.all} width={24} height={24} />;
 				return <ToolbarButton label={label} icon={icon} onClick={onToggle} aria-expanded={isOpen} />;
 			};
 			let renderContent = ({ onClose }) => {
@@ -173,7 +185,7 @@ class FENEditor extends React.Component {
 						setInterationMode(interactionModePrefix + color);
 						onClose();
 					};
-					let icon = <img src={addSquareMarkerIconPath[color]} width={24} height={24} />; // TODO customize icon
+					let icon = <img src={iconPath[color]} width={24} height={24} />;
 					return <Button icon={icon} onClick={onClick} />;
 				}
 				return (
@@ -215,8 +227,8 @@ class FENEditor extends React.Component {
 						<ToolbarButton label={i18n.FEN_EDITOR_LABEL_TOGGLE_TURN} icon={toggleTurnIcon} onClick={() => this.handleTurnToggled()} />
 					</ToolbarGroup>
 					<ToolbarGroup>
-						<AddMarkerDropdown label={i18n.FEN_EDITOR_LABEL_ADD_SQUARE_MARKER} interactionModePrefix="addSquareMarker-" />
-						<AddMarkerDropdown label={i18n.FEN_EDITOR_LABEL_ADD_ARROW_MARKER} interactionModePrefix="addArrowMarker-" />
+						<AddMarkerDropdown label={i18n.FEN_EDITOR_LABEL_ADD_SQUARE_MARKER} iconPath={squareMarkerIconPath} interactionModePrefix="addSquareMarker-" />
+						<AddMarkerDropdown label={i18n.FEN_EDITOR_LABEL_ADD_ARROW_MARKER} iconPath={arrowMarkerIconPath} interactionModePrefix="addArrowMarker-" />
 					</ToolbarGroup>
 				</BlockControls>
 				<Chessboard position={position} interactionMode={innerInteractionMode} editedArrowColor={editedArrowColor}
