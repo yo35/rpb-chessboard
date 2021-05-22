@@ -59,6 +59,7 @@ abstract class RPBChessboardScripts {
 				'publicURL'       => RPBCHESSBOARD_URL,
 				'customColorsets' => self::getCustomColorsets(),
 				'customPiecesets' => self::getCustomPiecesets(),
+				'fenShortcode'    => self::getFENShortcode(),
 				'i18n'            => array(
 					'FEN_EDITOR_TITLE'                   => __( 'Chess diagram', 'rpb-chessboard' ),
 					'FEN_EDITOR_LABEL_MOVE_PIECES'       => __( 'Move pieces', 'rpb-chessboard' ),
@@ -192,6 +193,12 @@ abstract class RPBChessboardScripts {
 			$result[ $pieceset ] = $current;
 		}
 		return $result;
+	}
+
+
+	private static function getFENShortcode() {
+		$model = RPBChessboardHelperLoader::loadModel( 'Common/Compatibility' );
+		return $model->getFENShortcode();
 	}
 
 

@@ -275,8 +275,9 @@ registerBlockType('rpb-chessboard/fen', {
 		return <FENEditor blockProps={blockProps} attributes={attributes} setAttributes={setAttributes} />;
 	},
 	save: ({ attributes }) => {
+		let fenShortcode = RPBChessboard.fenShortcode;
 		let csl = flattenMarkers(attributes.squareMarkers, 'csl');
 		let cal = flattenMarkers(attributes.arrowMarkers, 'cal');
-		return '[fen' + csl + cal + ']' + attributes.position + '[/fen]'; // TODO plug fen_compat
+		return '[' + fenShortcode + csl + cal + ']' + attributes.position + '[/' + fenShortcode + ']';
 	},
 });
