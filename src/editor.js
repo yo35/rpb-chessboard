@@ -24,7 +24,7 @@ import './editor.css';
 
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
-import { Button, ComboboxControl, Dropdown, PanelBody, PanelRow, RadioControl, RangeControl, ToggleControl, ToolbarButton, ToolbarGroup } from '@wordpress/components';
+import { Button, ButtonGroup, ComboboxControl, Dropdown, PanelBody, PanelRow, RadioControl, RangeControl, ToggleControl, ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { moveTo, rotateLeft } from '@wordpress/icons';
 
 import kokopu from 'kokopu';
@@ -33,11 +33,9 @@ import { Chessboard, piecesets } from 'kokopu-react';
 import addWIconPath from './images/add-w.png';
 import addBIconPath from './images/add-b.png';
 import toggleTurnIconPath from './images/toggle-turn.png';
-import squareMarkerAllIconPath from './images/square-marker-all.png';
 import squareMarkerGIconPath from './images/square-marker-g.png';
 import squareMarkerRIconPath from './images/square-marker-r.png';
 import squareMarkerYIconPath from './images/square-marker-y.png';
-import arrowMarkerAllIconPath from './images/arrow-marker-all.png';
 import arrowMarkerGIconPath from './images/arrow-marker-g.png';
 import arrowMarkerRIconPath from './images/arrow-marker-r.png';
 import arrowMarkerYIconPath from './images/arrow-marker-y.png';
@@ -48,14 +46,12 @@ const addIconPath = {
 };
 
 const squareMarkerIconPath = {
-	'all': squareMarkerAllIconPath,
 	'g': squareMarkerGIconPath,
 	'r': squareMarkerRIconPath,
 	'y': squareMarkerYIconPath,
 };
 
 const arrowMarkerIconPath = {
-	'all': arrowMarkerAllIconPath,
 	'g': arrowMarkerGIconPath,
 	'r': arrowMarkerRIconPath,
 	'y': arrowMarkerYIconPath,
@@ -206,30 +202,19 @@ class FENEditor extends React.Component {
 			return <Dropdown renderToggle={renderToggle} renderContent={renderContent} />;
 		}
 
-		// Square/arrow marker selector in FEN editor toolbar.
-		function AddMarkerDropdown({ label, iconPath, interactionModePrefix }) {
-			let renderToggle = ({ isOpen, onToggle }) => {
-				let icon = <img src={iconPath.all} width={24} height={24} />;
-				return <ToolbarButton label={label} icon={icon} onClick={onToggle} aria-expanded={isOpen} />;
-			};
-			let renderContent = ({ onClose }) => {
-				function AddMarkerButton({ color }) {
-					let onClick = () => {
-						setInterationMode(interactionModePrefix + color);
-						onClose();
-					};
-					let icon = <img src={iconPath[color]} width={24} height={24} />;
-					return <Button icon={icon} onClick={onClick} />;
-				}
-				return (
-					<div>
-						<AddMarkerButton color="g" />
-						<AddMarkerButton color="r" />
-						<AddMarkerButton color="y" />
-					</div>
-				);
-			};
-			return <Dropdown renderToggle={renderToggle} renderContent={renderContent} />;
+		// Square/arrow marker selector.
+		function AddMarkerButtonGroup({ iconPath, interactionModePrefix }) {
+			function AddMarkerButton({ color }) {
+				let icon = <img src={iconPath[color]} width={24} height={24} />;
+				return <Button icon={icon} onClick={() => setInterationMode(interactionModePrefix + color)} />;
+			}
+			return (
+				<ButtonGroup>
+					<AddMarkerButton color="g" />
+					<AddMarkerButton color="r" />
+					<AddMarkerButton color="y" />
+				</ButtonGroup>
+			);
 		}
 
 		// Combox-box to select the colorset or the pieceset.
@@ -285,10 +270,6 @@ class FENEditor extends React.Component {
 					<ToolbarGroup>
 						<ToolbarButton label={i18n.FEN_EDITOR_LABEL_FLIP} icon={rotateLeft} onClick={() => this.handleFlipClicked()} />
 					</ToolbarGroup>
-					<ToolbarGroup>
-						<AddMarkerDropdown label={i18n.FEN_EDITOR_LABEL_ADD_SQUARE_MARKERS} iconPath={squareMarkerIconPath} interactionModePrefix="addSquareMarker-" />
-						<AddMarkerDropdown label={i18n.FEN_EDITOR_LABEL_ADD_ARROW_MARKERS} iconPath={arrowMarkerIconPath} interactionModePrefix="addArrowMarker-" />
-					</ToolbarGroup>
 				</BlockControls>
 				<InspectorControls>
 					<PanelBody title={i18n.FEN_EDITOR_PANEL_POSITION}>
@@ -300,6 +281,14 @@ class FENEditor extends React.Component {
 						<PanelRow className="rpbchessboard-editionModeRow">
 							<span>{i18n.FEN_EDITOR_CURRENT_EDITION_MODE}</span>
 							{editionModeIcon}
+						</PanelRow>
+						<PanelRow>
+							{i18n.FEN_EDITOR_LABEL_SQUARE_MARKER}
+							<AddMarkerButtonGroup iconPath={squareMarkerIconPath} interactionModePrefix="addSquareMarker-" />
+						</PanelRow>
+						<PanelRow>
+							{i18n.FEN_EDITOR_LABEL_ARROW_MARKER}
+							<AddMarkerButtonGroup iconPath={arrowMarkerIconPath} interactionModePrefix="addArrowMarker-" />
 						</PanelRow>
 					</PanelBody>
 					<PanelBody title={i18n.FEN_EDITOR_PANEL_APPEARANCE} initialOpen={false}>
