@@ -24,7 +24,7 @@ import './editor.css';
 
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
-import { Button, ComboboxControl, Dropdown, PanelBody, RadioControl, ToolbarButton, ToolbarGroup } from '@wordpress/components';
+import { Button, ComboboxControl, Dropdown, PanelBody, RadioControl, RangeControl, ToggleControl, ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { moveTo, rotateLeft } from '@wordpress/icons';
 
 import kokopu from 'kokopu';
@@ -157,6 +157,10 @@ class FENEditor extends React.Component {
 		this.props.setAttributes({ ...this.props.attributes, align: value });
 	}
 
+	handleSquareSizeChanged(value) {
+		this.props.setAttributes({ ...this.props.attributes, squareSize: value });
+	}
+
 	handleCoordinateVisibleChanged(value) {
 		this.props.setAttributes({ ...this.props.attributes, coordinateVisible: value });
 	}
@@ -249,8 +253,13 @@ class FENEditor extends React.Component {
 			innerInteractionMode = 'editArrows';
 		}
 
-		// Icons
+		// Misc
 		let toggleTurnIcon = <img src={toggleTurnIconPath} width={24} height={24} />;
+		let isDefaultSize = this.props.attributes.squareSize === 0;
+		let squareSizeControl = isDefaultSize ? undefined : <RangeControl label={i18n.FEN_EDITOR_CONTROL_SQUARE_SIZE}
+			value={this.props.attributes.squareSize} min={RPBChessboard.availableSquareSize.min} max={RPBChessboard.availableSquareSize.max} step={1}
+			onChange={value => this.handleSquareSizeChanged(value)}
+		/>;
 
 		// Render the block
 		return (
@@ -277,6 +286,9 @@ class FENEditor extends React.Component {
 						<Button text={i18n.FEN_EDITOR_LABEL_CLEAR_ANNOTATIONS} label={i18n.FEN_EDITOR_TOOLTIP_CLEAR_ANNOTATIONS} onClick={() => this.handleClearAnnotationsClicked()} />
 					</PanelBody>
 					<PanelBody title={i18n.FEN_EDITOR_PANEL_APPEARANCE} initialOpen={false}>
+						<ToggleControl label={i18n.FEN_EDITOR_CONTROL_USE_DEFAULT_SIZE} checked={isDefaultSize}
+							onChange={() => this.handleSquareSizeChanged(isDefaultSize ? RPBChessboard.defaultSettings.squareSize : 0)} />
+						{squareSizeControl}
 						<RadioControl label={i18n.FEN_EDITOR_CONTROL_ALIGNMENT} selected={this.props.attributes.align}
 							onChange={value => this.handleAlignmentChanged(value)} options={[
 							{ label: i18n.FEN_EDITOR_USE_DEFAULT, value: '' },
@@ -316,7 +328,17 @@ class FENEditor extends React.Component {
 
 
 /**
- * Helper method for shortcode rendering.
+ * Helper method for shortcode argument rendering.
+ */
+function flattenScalar(args, value, defaultValue, fenShortcodeAttribute) {
+	if (value !== defaultValue) {
+		args.push(fenShortcodeAttribute + '=' + value);
+	}
+}
+
+
+/**
+ * Helper method for marker-related shortcode argument rendering.
  */
 function flattenMarkers(args, markers, fenShortcodeAttribute) {
 	let markersAsString = Object.entries(markers).map(([ key, value ]) => value.toUpperCase() + key);
@@ -355,6 +377,10 @@ registerBlockType('rpb-chessboard/fen', {
 			type: 'string',
 			default: ''
 		},
+		squareSize: {
+			type: 'number',
+			default: 0
+		},
 		coordinateVisible: {
 			type: 'string',
 			default: ''
@@ -375,6 +401,7 @@ registerBlockType('rpb-chessboard/fen', {
 			squareMarkers: {},
 			arrowMarkers: {},
 			align: '',
+			squareSize: '',
 			coordinateVisible: '',
 			colorset: '',
 			pieceset: '',
@@ -388,18 +415,11 @@ registerBlockType('rpb-chessboard/fen', {
 		let args = [ RPBChessboard.fenShortcode, 'flip=' + attributes.flipped ];
 		flattenMarkers(args, attributes.squareMarkers, 'csl');
 		flattenMarkers(args, attributes.arrowMarkers, 'cal');
-		if (attributes.align !== '') {
-			args.push('align=' + attributes.align);
-		}
-		if (attributes.coordinateVisible !== '') {
-			args.push('show_coordinates=' + attributes.coordinateVisible);
-		}
-		if (attributes.colorset !== '') {
-			args.push('colorset=' + attributes.colorset);
-		}
-		if (attributes.pieceset !== '') {
-			args.push('pieceset=' + attributes.pieceset);
-		}
+		flattenScalar(args, attributes.align, '', 'align');
+		flattenScalar(args, attributes.squareSize, 0, 'square_size');
+		flattenScalar(args, attributes.coordinateVisible, '', 'show_coordinates');
+		flattenScalar(args, attributes.colorset, '', 'colorset');
+		flattenScalar(args, attributes.pieceset, '', 'pieceset');
 		return '[' + args.join(' ') + ']' + attributes.position + '[/' + RPBChessboard.fenShortcode + ']';
 	},
 });

@@ -56,14 +56,15 @@ abstract class RPBChessboardScripts {
 			'rpbchessboard-npm',
 			'RPBChessboard',
 			array(
-				'publicURL'          => RPBCHESSBOARD_URL,
-				'customColorsets'    => self::getCustomColorsets(),
-				'customPiecesets'    => self::getCustomPiecesets(),
-				'availableColorsets' => self::getAvailableColorsets(),
-				'availablePiecesets' => self::getAvailablePiecesets(),
-				'fenShortcode'       => self::getFENShortcode(),
-				'defaultSettings'    => self::getDefaultSettings(),
-				'i18n'               => self::getJsI18n(),
+				'publicURL'           => RPBCHESSBOARD_URL,
+				'customColorsets'     => self::getCustomColorsets(),
+				'customPiecesets'     => self::getCustomPiecesets(),
+				'availableColorsets'  => self::getAvailableColorsets(),
+				'availablePiecesets'  => self::getAvailablePiecesets(),
+				'availableSquareSize' => self::getAvailableSquareSize(),
+				'fenShortcode'        => self::getFENShortcode(),
+				'defaultSettings'     => self::getDefaultSettings(),
+				'i18n'                => self::getJsI18n(),
 			)
 		);
 
@@ -160,6 +161,15 @@ abstract class RPBChessboardScripts {
 	}
 
 
+	private static function getAvailableSquareSize() {
+		$model = RPBChessboardHelperLoader::loadModel( 'Common/DefaultOptionsEx' );
+		return array(
+			'min' => $model->getMinimumSquareSize(),
+			'max' => $model->getMaximumSquareSize(),
+		);
+	}
+
+
 	private static function getFENShortcode() {
 		$model = RPBChessboardHelperLoader::loadModel( 'Common/Compatibility' );
 		return $model->getFENShortcode();
@@ -169,6 +179,7 @@ abstract class RPBChessboardScripts {
 	private static function getDefaultSettings() {
 		$model = RPBChessboardHelperLoader::loadModel( 'Common/DefaultOptions' );
 		return array(
+			'squareSize'      => $model->getDefaultSquareSize(),
 			'showCoordinates' => $model->getDefaultShowCoordinates(),
 			'colorset'        => $model->getDefaultColorset(),
 			'pieceset'        => $model->getDefaultPieceset(),
@@ -211,6 +222,8 @@ abstract class RPBChessboardScripts {
 			'FEN_EDITOR_TOOLTIP_CLEAR_POSITION'    => __( 'Remove all pieces', 'rpb-chessboard' ),
 			'FEN_EDITOR_TOOLTIP_CLEAR_ANNOTATIONS' => __( 'Remove all square/arrow markers', 'rpb-chessboard' ),
 			'FEN_EDITOR_CONTROL_ALIGNMENT'         => __( 'Diagram alignment', 'rpb-chessboard' ),
+			'FEN_EDITOR_CONTROL_USE_DEFAULT_SIZE'  => __( 'Use default square size', 'rpb-chessboard' ),
+			'FEN_EDITOR_CONTROL_SQUARE_SIZE'       => __( 'Square size', 'rpb-chessboard' ),
 			'FEN_EDITOR_CONTROL_COORDINATES'       => __( 'Coordinate visibility', 'rpb-chessboard' ),
 			'FEN_EDITOR_CONTROL_COLORSET'          => __( 'Colorset', 'rpb-chessboard' ),
 			'FEN_EDITOR_CONTROL_PIECESET'          => __( 'Pieceset', 'rpb-chessboard' ),

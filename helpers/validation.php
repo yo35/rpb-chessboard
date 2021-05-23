@@ -34,7 +34,7 @@ abstract class RPBChessboardHelperValidation {
 	/**
 	 * Maximum square size of the chessboard widgets.
 	 */
-	const MAXIMUM_SQUARE_SIZE = 64;
+	const MAXIMUM_SQUARE_SIZE = 96;
 
 
 	/**
