@@ -169,8 +169,9 @@ abstract class RPBChessboardScripts {
 	private static function getDefaultSettings() {
 		$model = RPBChessboardHelperLoader::loadModel( 'Common/DefaultOptions' );
 		return array(
-			'colorset' => $model->getDefaultColorset(),
-			'pieceset' => $model->getDefaultPieceset(),
+			'showCoordinates' => $model->getDefaultShowCoordinates(),
+			'colorset'        => $model->getDefaultColorset(),
+			'pieceset'        => $model->getDefaultPieceset(),
 		);
 	}
 
@@ -209,9 +210,16 @@ abstract class RPBChessboardScripts {
 			'FEN_EDITOR_TOOLTIP_RESET_POSITION'    => __( 'Reset to the startup position', 'rpb-chessboard' ),
 			'FEN_EDITOR_TOOLTIP_CLEAR_POSITION'    => __( 'Remove all pieces', 'rpb-chessboard' ),
 			'FEN_EDITOR_TOOLTIP_CLEAR_ANNOTATIONS' => __( 'Remove all square/arrow markers', 'rpb-chessboard' ),
+			'FEN_EDITOR_CONTROL_ALIGNMENT'         => __( 'Diagram alignment', 'rpb-chessboard' ),
+			'FEN_EDITOR_CONTROL_COORDINATES'       => __( 'Coordinate visibility', 'rpb-chessboard' ),
 			'FEN_EDITOR_CONTROL_COLORSET'          => __( 'Colorset', 'rpb-chessboard' ),
 			'FEN_EDITOR_CONTROL_PIECESET'          => __( 'Pieceset', 'rpb-chessboard' ),
-			'FEN_EDITOR_USE_DEFAULT'               => __( '<Use default>', 'rpb-chessboard' ),
+			'FEN_EDITOR_USE_DEFAULT'               => __( 'Use default', 'rpb-chessboard' ),
+			'FEN_EDITOR_OPTION_CENTER'             => __( 'Centered', 'rpb-chessboard' ),
+			'FEN_EDITOR_OPTION_FLOAT_LEFT'         => __( 'Float on left', 'rpb-chessboard' ),
+			'FEN_EDITOR_OPTION_FLOAT_RIGHT'        => __( 'Float on right', 'rpb-chessboard' ),
+			'FEN_EDITOR_OPTION_HIDDEN'             => __( 'Hidden', 'rpb-chessboard' ),
+			'FEN_EDITOR_OPTION_VISIBLE'            => __( 'Visible', 'rpb-chessboard' ),
 		);
 	}
 

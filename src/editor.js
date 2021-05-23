@@ -24,7 +24,7 @@ import './editor.css';
 
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
-import { Button, ComboboxControl, Dropdown, PanelBody, ToolbarButton, ToolbarGroup } from '@wordpress/components';
+import { Button, ComboboxControl, Dropdown, PanelBody, RadioControl, ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { moveTo, rotateLeft } from '@wordpress/icons';
 
 import kokopu from 'kokopu';
@@ -153,6 +153,14 @@ class FENEditor extends React.Component {
 		this.props.setAttributes({ ...this.props.attributes, squareMarkers: {}, arrowMarkers: {} });
 	}
 
+	handleAlignmentChanged(value) {
+		this.props.setAttributes({ ...this.props.attributes, align: value });
+	}
+
+	handleCoordinateVisibleChanged(value) {
+		this.props.setAttributes({ ...this.props.attributes, coordinateVisible: value });
+	}
+
 	handleColorsetChanged(value) {
 		this.props.setAttributes({ ...this.props.attributes, colorset: value });
 	}
@@ -222,7 +230,7 @@ class FENEditor extends React.Component {
 
 		// Combox-box to select the colorset or the pieceset.
 		function SetCodeControl({ label, value, available, onChange }) {
-			let options = [ { value: '', label: i18n.FEN_EDITOR_USE_DEFAULT } ];
+			let options = [ { value: '', label: '<' + i18n.FEN_EDITOR_USE_DEFAULT + '>' } ];
 			Object.keys(available).sort().forEach(key => options.push({ value: key, label: available[key] }));
 			return <ComboboxControl label={label} value={value} options={options} onChange={onChange} />;
 		}
@@ -268,7 +276,20 @@ class FENEditor extends React.Component {
 						<Button text={i18n.FEN_EDITOR_LABEL_CLEAR_POSITION} label={i18n.FEN_EDITOR_TOOLTIP_CLEAR_POSITION} onClick={() => this.handleSetPositionClicked('empty')} />
 						<Button text={i18n.FEN_EDITOR_LABEL_CLEAR_ANNOTATIONS} label={i18n.FEN_EDITOR_TOOLTIP_CLEAR_ANNOTATIONS} onClick={() => this.handleClearAnnotationsClicked()} />
 					</PanelBody>
-					<PanelBody title={i18n.FEN_EDITOR_PANEL_APPEARANCE}>
+					<PanelBody title={i18n.FEN_EDITOR_PANEL_APPEARANCE} initialOpen={false}>
+						<RadioControl label={i18n.FEN_EDITOR_CONTROL_ALIGNMENT} selected={this.props.attributes.align}
+							onChange={value => this.handleAlignmentChanged(value)} options={[
+							{ label: i18n.FEN_EDITOR_USE_DEFAULT, value: '' },
+							{ label: i18n.FEN_EDITOR_OPTION_CENTER, value: 'center' },
+							{ label: i18n.FEN_EDITOR_OPTION_FLOAT_LEFT, value: 'floatLeft' },
+							{ label: i18n.FEN_EDITOR_OPTION_FLOAT_RIGHT, value: 'floatRight' },
+						]} />
+						<RadioControl label={i18n.FEN_EDITOR_CONTROL_COORDINATES} selected={this.props.attributes.coordinateVisible}
+							onChange={value => this.handleCoordinateVisibleChanged(value)} options={[
+							{ label: i18n.FEN_EDITOR_USE_DEFAULT, value: '' },
+							{ label: i18n.FEN_EDITOR_OPTION_HIDDEN, value: 'false' },
+							{ label: i18n.FEN_EDITOR_OPTION_VISIBLE, value: 'true' },
+						]} />
 						<SetCodeControl label={i18n.FEN_EDITOR_CONTROL_COLORSET} value={this.props.attributes.colorset}
 							available={RPBChessboard.availableColorsets} onChange={value => this.handleColorsetChanged(value)}
 						/>
@@ -281,6 +302,7 @@ class FENEditor extends React.Component {
 					interactionMode={innerInteractionMode} editedArrowColor={editedArrowColor}
 					squareMarkers={this.props.attributes.squareMarkers}
 					arrowMarkers={this.props.attributes.arrowMarkers}
+					coordinateVisible={this.props.attributes.coordinateVisible === '' ? RPBChessboard.defaultSettings.showCoordinates : this.props.attributes.coordinateVisible === 'true'}
 					colorset={this.props.attributes.colorset === '' ? RPBChessboard.defaultSettings.colorset : this.props.attributes.colorset}
 					pieceset={this.props.attributes.pieceset === '' ? RPBChessboard.defaultSettings.pieceset : this.props.attributes.pieceset}
 					onPieceMoved={(from, to) => this.handlePieceMoved(from, to)}
@@ -296,9 +318,11 @@ class FENEditor extends React.Component {
 /**
  * Helper method for shortcode rendering.
  */
-function flattenMarkers(markers, fenShortcodeAttribute) {
+function flattenMarkers(args, markers, fenShortcodeAttribute) {
 	let markersAsString = Object.entries(markers).map(([ key, value ]) => value.toUpperCase() + key);
-	return markersAsString.length === 0 ? '' : ' ' + fenShortcodeAttribute + '=' + markersAsString.join(',');
+	if (markersAsString.length !== 0) {
+		args.push(fenShortcodeAttribute + '=' + markersAsString.join(','));
+	}
 }
 
 
@@ -327,6 +351,14 @@ registerBlockType('rpb-chessboard/fen', {
 			type: 'object',
 			default: {}
 		},
+		align: {
+			type: 'string',
+			default: ''
+		},
+		coordinateVisible: {
+			type: 'string',
+			default: ''
+		},
 		colorset: {
 			type: 'string',
 			default: ''
@@ -342,6 +374,8 @@ registerBlockType('rpb-chessboard/fen', {
 			flipped: false,
 			squareMarkers: {},
 			arrowMarkers: {},
+			align: '',
+			coordinateVisible: '',
 			colorset: '',
 			pieceset: '',
 		}
@@ -351,12 +385,21 @@ registerBlockType('rpb-chessboard/fen', {
 		return <FENEditor blockProps={blockProps} attributes={attributes} setAttributes={setAttributes} />;
 	},
 	save: ({ attributes }) => {
-		let fenShortcode = RPBChessboard.fenShortcode;
-		let flip = ' flip=' + attributes.flipped;
-		let csl = flattenMarkers(attributes.squareMarkers, 'csl');
-		let cal = flattenMarkers(attributes.arrowMarkers, 'cal');
-		let colorset = attributes.colorset === '' ? '' : ' colorset=' + attributes.colorset;
-		let pieceset = attributes.pieceset === '' ? '' : ' pieceset=' + attributes.pieceset;
-		return '[' + fenShortcode + flip + csl + cal + colorset + pieceset + ']' + attributes.position + '[/' + fenShortcode + ']';
+		let args = [ RPBChessboard.fenShortcode, 'flip=' + attributes.flipped ];
+		flattenMarkers(args, attributes.squareMarkers, 'csl');
+		flattenMarkers(args, attributes.arrowMarkers, 'cal');
+		if (attributes.align !== '') {
+			args.push('align=' + attributes.align);
+		}
+		if (attributes.coordinateVisible !== '') {
+			args.push('show_coordinates=' + attributes.coordinateVisible);
+		}
+		if (attributes.colorset !== '') {
+			args.push('colorset=' + attributes.colorset);
+		}
+		if (attributes.pieceset !== '') {
+			args.push('pieceset=' + attributes.pieceset);
+		}
+		return '[' + args.join(' ') + ']' + attributes.position + '[/' + RPBChessboard.fenShortcode + ']';
 	},
 });
