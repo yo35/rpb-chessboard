@@ -249,51 +249,6 @@ div.rpbchessboard-sourceCode {
 /* Icons */
 /* -------------------------------------------------------------------------- */
 
-.rpbchessboard-startPositionIcon {
-	width : 96px;
-	height: 96px;
-	background-image: url(../images/board-start.png);
-}
-
-.rpbchessboard-emptyPositionIcon {
-	width : 96px;
-	height: 96px;
-	background-image: url(../images/board-empty.png);
-}
-
-.rpbchessboard-undoIcon {
-	width : 32px;
-	height: 32px;
-	background-image: url(../images/undo.png);
-	/**
-	 * Source: http://findicons.com/icon/263268/undo
-	 * Author: MomentIcons <http://momentumdesignlab.com/>
-	 * License: Creative Commons Attribution [CC-BY]
-	 */
-}
-
-.rpbchessboard-redoIcon {
-	width : 32px;
-	height: 32px;
-	background-image: url(../images/redo.png);
-	/**
-	 * Source: http://findicons.com/icon/263449/redo
-	 * Author: MomentIcons <http://momentumdesignlab.com/>
-	 * License: Creative Commons Attribution [CC-BY]
-	 */
-}
-
-.rpbchessboard-deleteIcon {
-	width : 30px;
-	height: 30px;
-	background-image: url(../images/delete.png);
-	/**
-	 * Source: http://findicons.com/icon/263490/delete
-	 * Author: MomentIcons <http://momentumdesignlab.com/>
-	 * License: Creative Commons Attribution [CC-BY]
-	 */
-}
-
 .rpbchessboard-tickIcon {
 	display: inline-block;
 	width : 16px;
@@ -318,45 +273,6 @@ div.rpbchessboard-sourceCode {
 	 */
 }
 
-.rpbchessboard-squareMarkerGreenIcon,
-.rpbchessboard-squareMarkerRedIcon,
-.rpbchessboard-squareMarkerYellowIcon,
-.rpbchessboard-arrowMarkerGreenIcon,
-.rpbchessboard-arrowMarkerRedIcon,
-.rpbchessboard-arrowMarkerYellowIcon {
-	width : 30px;
-	height: 30px;
-}
-
-.rpbchessboard-squareMarkerGreenIcon  { background-image: url(../images/square-marker-g.png); }
-.rpbchessboard-squareMarkerRedIcon    { background-image: url(../images/square-marker-r.png); }
-.rpbchessboard-squareMarkerYellowIcon { background-image: url(../images/square-marker-y.png); }
-.rpbchessboard-arrowMarkerGreenIcon   { background-image: url(../images/arrow-marker-g.png); }
-.rpbchessboard-arrowMarkerRedIcon     { background-image: url(../images/arrow-marker-r.png); }
-.rpbchessboard-arrowMarkerYellowIcon  { background-image: url(../images/arrow-marker-y.png); }
-
-
-
-/* -------------------------------------------------------------------------- */
-/* Tool-bar */
-/* -------------------------------------------------------------------------- */
-
-.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-toolbar {
-	display: flex;
-	display: -webkit-flex;
-	flex-direction: row;
-	-webkit-flex-direction: row;
-}
-
-.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-toolbarGroup {
-	display: flex;
-	display: -webkit-flex;
-	flex-direction: column;
-	-webkit-flex-direction: column;
-	justify-content: space-between;
-	-webkit-justify-content: space-between;
-}
-
 
 
 /* -------------------------------------------------------------------------- */
@@ -370,45 +286,6 @@ div.rpbchessboard-sourceCode {
 .rpbchessboard-jQuery-enableSmoothness .ui-accordion .ui-accordion-content {
 	padding-left: 1.25em;
 	padding-right: 1.25em;
-}
-
-.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-graphicButton.ui-button {
-	height: auto;
-	border-radius: 8px;
-	padding: 2px 3px;
-}
-
-.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-graphicButton.ui-button.ui-button-text-only .ui-button-text {
-	padding: 0px;
-}
-
-.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-buttonSet .rpbchessboard-graphicButton.ui-button {
-	border-radius: 0px;
-}
-
-.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-buttonRow:first-child .rpbchessboard-graphicButton.ui-button:first-of-type {
-	border-top-left-radius: 8px;
-}
-
-.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-buttonRow:last-child .rpbchessboard-graphicButton.ui-button:first-of-type {
-	border-bottom-left-radius: 8px;
-}
-
-.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-buttonRow:first-child .rpbchessboard-graphicButton.ui-button:last-of-type {
-	border-top-right-radius: 8px;
-}
-
-.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-buttonRow:last-child .rpbchessboard-graphicButton.ui-button:last-of-type {
-	border-bottom-right-radius: 8px;
-}
-
-.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-toolbar .ui-button {
-	margin-right: 0px;
-}
-
-.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-toolbar > * + *,
-.rpbchessboard-jQuery-enableSmoothness .rpbchessboard-toolbar .rpbchessboard-toolbarGroup .ui-button + .ui-button {
-   margin-left: 8px;
 }
 
 

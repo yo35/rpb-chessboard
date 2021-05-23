@@ -45,8 +45,8 @@ Piecesets *Celtic*, *Eyes*, *Fantasy*, *Skulls* and *Spatial* have been created 
 Colorsets *Coral*, *Dusk*, *Emerald*, *Marine*, *Sandcastle* and *Wheat* have been proposed
 in this [blog post](http://omgchess.blogspot.fr/2015/09/chess-board-color-schemes.html)
 by [Gorgonian](http://omgchess.blogspot.fr/).
-Icons *Undo*, *Redo*, *Delete* and *Tick* have been created by [Momentum Design Lab](http://momentumdesignlab.com/),
-who shares them under the [CC-BY] license on [Find Icons](http://findicons.com/pack/2226/matte_basic).
+Icon *Tick* has been created by [Momentum Design Lab](http://momentumdesignlab.com/),
+who shares it under the [CC-BY] license on [Find Icons](http://findicons.com/pack/2226/matte_basic).
 Icon *Not-Found* has been created by [gakuseiSean](http://gakuseisean.deviantart.com/),
 who makes it freely available for non-commercial use on [Find Icons](http://findicons.com/icon/89623/error).
 Icon *Help* has been created by [Ruby Software](http://www.rubysoftware.nl/),
