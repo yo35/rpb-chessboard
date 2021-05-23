@@ -22,3 +22,12 @@
 .wp-block-rpb-chessboard-fen {
 	text-align: center;
 }
+
+.rpbchessboard-editionModeRow {
+	justify-content: flex-start;
+}
+
+.rpbchessboard-editionModeRow > span {
+	display: inline-block;
+	margin-right: 1em;
+}

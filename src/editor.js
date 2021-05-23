@@ -24,7 +24,7 @@ import './editor.css';
 
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
-import { Button, ComboboxControl, Dropdown, PanelBody, RadioControl, RangeControl, ToggleControl, ToolbarButton, ToolbarGroup } from '@wordpress/components';
+import { Button, ComboboxControl, Dropdown, PanelBody, PanelRow, RadioControl, RangeControl, ToggleControl, ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { moveTo, rotateLeft } from '@wordpress/icons';
 
 import kokopu from 'kokopu';
@@ -242,15 +242,26 @@ class FENEditor extends React.Component {
 		// Chessboard widget interaction mode
 		let innerInteractionMode = '';
 		let editedArrowColor = '';
+		let editionModeIcon = undefined;
 		if (this.state.interactionMode === 'movePieces') {
 			innerInteractionMode = 'movePieces';
+			editionModeIcon = <div style={{ width: '24px', height: '24px' }}>{moveTo}</div>;
 		}
-		else if (this.state.interactionMode.startsWith('addPiece-') || this.state.interactionMode.startsWith('addSquareMarker-')) {
+		else if (/addPiece-([wb][pnbrqk])/.test(this.state.interactionMode)) {
+			let coloredPiece = RegExp.$1;
 			innerInteractionMode = 'clickSquares';
+			editionModeIcon = <img src={piecesets.cburnett[coloredPiece]} width={24} height={24} />;
+		}
+		else if (/addSquareMarker-([gry])/.test(this.state.interactionMode)) {
+			let color = RegExp.$1;
+			innerInteractionMode = 'clickSquares';
+			editionModeIcon = <img src={squareMarkerIconPath[color]} width={24} height={24} />;
 		}
 		else if (/addArrowMarker-([gry])/.test(this.state.interactionMode)) {
-			editedArrowColor = RegExp.$1;
+			let color = RegExp.$1;
 			innerInteractionMode = 'editArrows';
+			editedArrowColor = color;
+			editionModeIcon = <img src={arrowMarkerIconPath[color]} width={24} height={24} />;
 		}
 
 		// Misc
@@ -275,15 +286,21 @@ class FENEditor extends React.Component {
 						<ToolbarButton label={i18n.FEN_EDITOR_LABEL_FLIP} icon={rotateLeft} onClick={() => this.handleFlipClicked()} />
 					</ToolbarGroup>
 					<ToolbarGroup>
-						<AddMarkerDropdown label={i18n.FEN_EDITOR_LABEL_ADD_SQUARE_MARKER} iconPath={squareMarkerIconPath} interactionModePrefix="addSquareMarker-" />
-						<AddMarkerDropdown label={i18n.FEN_EDITOR_LABEL_ADD_ARROW_MARKER} iconPath={arrowMarkerIconPath} interactionModePrefix="addArrowMarker-" />
+						<AddMarkerDropdown label={i18n.FEN_EDITOR_LABEL_ADD_SQUARE_MARKERS} iconPath={squareMarkerIconPath} interactionModePrefix="addSquareMarker-" />
+						<AddMarkerDropdown label={i18n.FEN_EDITOR_LABEL_ADD_ARROW_MARKERS} iconPath={arrowMarkerIconPath} interactionModePrefix="addArrowMarker-" />
 					</ToolbarGroup>
 				</BlockControls>
 				<InspectorControls>
 					<PanelBody title={i18n.FEN_EDITOR_PANEL_POSITION}>
-						<Button text={i18n.FEN_EDITOR_LABEL_RESET_POSITION} label={i18n.FEN_EDITOR_TOOLTIP_RESET_POSITION} onClick={() => this.handleSetPositionClicked('start')} />
-						<Button text={i18n.FEN_EDITOR_LABEL_CLEAR_POSITION} label={i18n.FEN_EDITOR_TOOLTIP_CLEAR_POSITION} onClick={() => this.handleSetPositionClicked('empty')} />
-						<Button text={i18n.FEN_EDITOR_LABEL_CLEAR_ANNOTATIONS} label={i18n.FEN_EDITOR_TOOLTIP_CLEAR_ANNOTATIONS} onClick={() => this.handleClearAnnotationsClicked()} />
+						<PanelRow>
+							<Button text={i18n.FEN_EDITOR_LABEL_RESET_POSITION} label={i18n.FEN_EDITOR_TOOLTIP_RESET_POSITION} onClick={() => this.handleSetPositionClicked('start')} />
+							<Button text={i18n.FEN_EDITOR_LABEL_CLEAR_POSITION} label={i18n.FEN_EDITOR_TOOLTIP_CLEAR_POSITION} onClick={() => this.handleSetPositionClicked('empty')} />
+							<Button text={i18n.FEN_EDITOR_LABEL_CLEAR_ANNOTATIONS} label={i18n.FEN_EDITOR_TOOLTIP_CLEAR_ANNOTATIONS} onClick={() => this.handleClearAnnotationsClicked()} />
+						</PanelRow>
+						<PanelRow className="rpbchessboard-editionModeRow">
+							<span>{i18n.FEN_EDITOR_CURRENT_EDITION_MODE}</span>
+							{editionModeIcon}
+						</PanelRow>
 					</PanelBody>
 					<PanelBody title={i18n.FEN_EDITOR_PANEL_APPEARANCE} initialOpen={false}>
 						<ToggleControl label={i18n.FEN_EDITOR_CONTROL_USE_DEFAULT_SIZE} checked={isDefaultSize}
