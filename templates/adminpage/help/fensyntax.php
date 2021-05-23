@@ -44,7 +44,7 @@
 		<?php
 			printf(
 				esc_html__(
-					'A chess diagram editor is appended to the WordPress post/page editor by RPB Chessboard (see the screenshots below). ' .
+					'A custom block editor for chess diagrams is provided in the WordPress post/page editor by RPB Chessboard (see the screenshot below). ' .
 					'As a consequence, there is no need to manually edit the content of the %1$s[%3$s][/%3$s]%2$s tags ' .
 					'to create a chessboard diagram.',
 					'rpb-chessboard'
@@ -56,8 +56,6 @@
 		?>
 	</p>
 
-	<p><img class="rpbchessboard-screenshot" src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/screenshot-fen-diagram-button-tinymce.png' ); ?>" /></p>
-
-	<p><img class="rpbchessboard-screenshot" src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/screenshot-fen-diagram-button-quicktags.png' ); ?>" /></p>
+	<p><img class="rpbchessboard-screenshot" src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/screenshot-fen-block-editor.png' ); ?>" /></p>
 
 </div>
