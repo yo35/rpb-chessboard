@@ -23,8 +23,8 @@ import './public-path';
 import './editor.css';
 
 import { registerBlockType } from '@wordpress/blocks';
-import { useBlockProps, BlockControls } from '@wordpress/block-editor';
-import { Button, Dropdown, ToolbarButton, ToolbarGroup } from '@wordpress/components';
+import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
+import { Button, ComboboxControl, Dropdown, PanelBody, ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { moveTo, rotateLeft } from '@wordpress/icons';
 
 import kokopu from 'kokopu';
@@ -145,6 +145,14 @@ class FENEditor extends React.Component {
 		this.props.setAttributes({ ...this.props.attributes, flipped: flipped });
 	}
 
+	handleColorsetChanged(value) {
+		this.props.setAttributes({ ...this.props.attributes, colorset: value });
+	}
+
+	handlePiecesetChanged(value) {
+		this.props.setAttributes({ ...this.props.attributes, pieceset: value });
+	}
+
 	render() {
 		let setInterationMode = newInteractionMode => this.setState({ interactionMode: newInteractionMode });
 		let position = new kokopu.Position(this.props.attributes.position);
@@ -204,6 +212,13 @@ class FENEditor extends React.Component {
 			return <Dropdown renderToggle={renderToggle} renderContent={renderContent} />;
 		}
 
+		// Combox-box to select the colorset or the pieceset.
+		function SetCodeControl({ label, value, available, onChange }) {
+			let options = [ { value: '', label: i18n.FEN_EDITOR_USE_DEFAULT } ];
+			Object.keys(available).sort().forEach(key => options.push({ value: key, label: available[key] }));
+			return <ComboboxControl label={label} value={value} options={options} onChange={onChange} />;
+		}
+
 		// Chessboard widget interaction mode
 		let innerInteractionMode = '';
 		let editedArrowColor = '';
@@ -239,10 +254,22 @@ class FENEditor extends React.Component {
 						<AddMarkerDropdown label={i18n.FEN_EDITOR_LABEL_ADD_ARROW_MARKER} iconPath={arrowMarkerIconPath} interactionModePrefix="addArrowMarker-" />
 					</ToolbarGroup>
 				</BlockControls>
-				<Chessboard position={position} flipped={this.props.attributes.flipped}
+				<InspectorControls>
+					<PanelBody title={i18n.FEN_EDITOR_PANEL_APPEARANCE}>
+						<SetCodeControl label={i18n.FEN_EDITOR_CONTROL_COLORSET} value={this.props.attributes.colorset}
+							available={RPBChessboard.availableColorsets} onChange={value => this.handleColorsetChanged(value)}
+						/>
+						<SetCodeControl label={i18n.FEN_EDITOR_CONTROL_PIECESET} value={this.props.attributes.pieceset}
+							available={RPBChessboard.availablePiecesets} onChange={value => this.handlePiecesetChanged(value)}
+						/>
+					</PanelBody>
+				</InspectorControls>
+				<Chessboard position={position} flipped={this.props.attributes.flipped} squareSize={40}
 					interactionMode={innerInteractionMode} editedArrowColor={editedArrowColor}
 					squareMarkers={this.props.attributes.squareMarkers}
 					arrowMarkers={this.props.attributes.arrowMarkers}
+					colorset={this.props.attributes.colorset === '' ? RPBChessboard.defaultSettings.colorset : this.props.attributes.colorset}
+					pieceset={this.props.attributes.pieceset === '' ? RPBChessboard.defaultSettings.pieceset : this.props.attributes.pieceset}
 					onPieceMoved={(from, to) => this.handlePieceMoved(from, to)}
 					onSquareClicked={sq => this.handleSquareClicked(sq)}
 					onArrowEdited={(from, to) => this.handleArrowEdited(from, to)}
@@ -286,7 +313,15 @@ registerBlockType('rpb-chessboard/fen', {
 		arrowMarkers: {
 			type: 'object',
 			default: {}
-		}
+		},
+		colorset: {
+			type: 'string',
+			default: ''
+		},
+		pieceset: {
+			type: 'string',
+			default: ''
+		},
 	},
 	example: {
 		attributes: {
@@ -294,6 +329,8 @@ registerBlockType('rpb-chessboard/fen', {
 			flipped: false,
 			squareMarkers: {},
 			arrowMarkers: {},
+			colorset: '',
+			pieceset: '',
 		}
 	},
 	edit: ({ attributes, setAttributes }) => {
@@ -305,6 +342,8 @@ registerBlockType('rpb-chessboard/fen', {
 		let flip = ' flip=' + attributes.flipped;
 		let csl = flattenMarkers(attributes.squareMarkers, 'csl');
 		let cal = flattenMarkers(attributes.arrowMarkers, 'cal');
-		return '[' + fenShortcode + flip + csl + cal + ']' + attributes.position + '[/' + fenShortcode + ']';
+		let colorset = attributes.colorset === '' ? '' : ' colorset=' + attributes.colorset;
+		let pieceset = attributes.pieceset === '' ? '' : ' pieceset=' + attributes.pieceset;
+		return '[' + fenShortcode + flip + csl + cal + colorset + pieceset + ']' + attributes.position + '[/' + fenShortcode + ']';
 	},
 });

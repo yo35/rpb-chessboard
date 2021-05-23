@@ -56,36 +56,14 @@ abstract class RPBChessboardScripts {
 			'rpbchessboard-npm',
 			'RPBChessboard',
 			array(
-				'publicURL'       => RPBCHESSBOARD_URL,
-				'customColorsets' => self::getCustomColorsets(),
-				'customPiecesets' => self::getCustomPiecesets(),
-				'fenShortcode'    => self::getFENShortcode(),
-				'i18n'            => array(
-					'FEN_EDITOR_TITLE'                   => __( 'Chess diagram', 'rpb-chessboard' ),
-					'FEN_EDITOR_LABEL_MOVE_PIECES'       => __( 'Move pieces', 'rpb-chessboard' ),
-					'FEN_EDITOR_LABEL_ADD_PIECES'        => array(
-						'w' => __( 'Add white pieces', 'rpb-chessboard' ),
-						'b' => __( 'Add black pieces', 'rpb-chessboard' ),
-					),
-					'FEN_EDITOR_LABEL_ADD_PIECE'         => array(
-						'wp' => __( 'Add white pawn', 'rpb-chessboard' ),
-						'wn' => __( 'Add white knight', 'rpb-chessboard' ),
-						'wb' => __( 'Add white bishop', 'rpb-chessboard' ),
-						'wr' => __( 'Add white rook', 'rpb-chessboard' ),
-						'wq' => __( 'Add white queen', 'rpb-chessboard' ),
-						'wk' => __( 'Add white king', 'rpb-chessboard' ),
-						'bp' => __( 'Add black pawn', 'rpb-chessboard' ),
-						'bn' => __( 'Add black knight', 'rpb-chessboard' ),
-						'bb' => __( 'Add black bishop', 'rpb-chessboard' ),
-						'br' => __( 'Add black rook', 'rpb-chessboard' ),
-						'bq' => __( 'Add black queen', 'rpb-chessboard' ),
-						'bk' => __( 'Add black king', 'rpb-chessboard' ),
-					),
-					'FEN_EDITOR_LABEL_TOGGLE_TURN'       => __( 'Toggle turn', 'rpb-chessboard' ),
-					'FEN_EDITOR_LABEL_FLIP'              => __( 'Flip board', 'rpb-chessboard' ),
-					'FEN_EDITOR_LABEL_ADD_SQUARE_MARKER' => __( 'Add square markers', 'rpb-chessboard' ),
-					'FEN_EDITOR_LABEL_ADD_ARROW_MARKER'  => __( 'Add arrow markers', 'rpb-chessboard' ),
-				),
+				'publicURL'          => RPBCHESSBOARD_URL,
+				'customColorsets'    => self::getCustomColorsets(),
+				'customPiecesets'    => self::getCustomPiecesets(),
+				'availableColorsets' => self::getAvailableColorsets(),
+				'availablePiecesets' => self::getAvailablePiecesets(),
+				'fenShortcode'       => self::getFENShortcode(),
+				'defaultSettings'    => self::getDefaultSettings(),
+				'i18n'               => self::getJsI18n(),
 			)
 		);
 
@@ -162,9 +140,72 @@ abstract class RPBChessboardScripts {
 	}
 
 
+	private static function getAvailableColorsets() {
+		$model  = RPBChessboardHelperLoader::loadModel( 'Common/DefaultOptionsEx' );
+		$result = array();
+		foreach ( $model->getAvailableColorsets() as $colorset ) {
+			$result[ $colorset ] = $model->getColorsetLabel( $colorset );
+		}
+		return $result;
+	}
+
+
+	private static function getAvailablePiecesets() {
+		$model  = RPBChessboardHelperLoader::loadModel( 'Common/DefaultOptionsEx' );
+		$result = array();
+		foreach ( $model->getAvailablePiecesets() as $pieceset ) {
+			$result[ $pieceset ] = $model->getPiecesetLabel( $pieceset );
+		}
+		return $result;
+	}
+
+
 	private static function getFENShortcode() {
 		$model = RPBChessboardHelperLoader::loadModel( 'Common/Compatibility' );
 		return $model->getFENShortcode();
+	}
+
+
+	private static function getDefaultSettings() {
+		$model = RPBChessboardHelperLoader::loadModel( 'Common/DefaultOptions' );
+		return array (
+				'colorset' => $model->getDefaultColorset(),
+				'pieceset' => $model->getDefaultPieceset(),
+		);
+	}
+
+
+	private static function getJsI18n() {
+		return array(
+			'FEN_EDITOR_TITLE'                   => __( 'Chess diagram', 'rpb-chessboard' ),
+			'FEN_EDITOR_LABEL_MOVE_PIECES'       => __( 'Move pieces', 'rpb-chessboard' ),
+			'FEN_EDITOR_LABEL_ADD_PIECES'        => array(
+				'w' => __( 'Add white pieces', 'rpb-chessboard' ),
+				'b' => __( 'Add black pieces', 'rpb-chessboard' ),
+			),
+			'FEN_EDITOR_LABEL_ADD_PIECE'         => array(
+				'wp' => __( 'Add white pawn', 'rpb-chessboard' ),
+				'wn' => __( 'Add white knight', 'rpb-chessboard' ),
+				'wb' => __( 'Add white bishop', 'rpb-chessboard' ),
+				'wr' => __( 'Add white rook', 'rpb-chessboard' ),
+				'wq' => __( 'Add white queen', 'rpb-chessboard' ),
+				'wk' => __( 'Add white king', 'rpb-chessboard' ),
+				'bp' => __( 'Add black pawn', 'rpb-chessboard' ),
+				'bn' => __( 'Add black knight', 'rpb-chessboard' ),
+				'bb' => __( 'Add black bishop', 'rpb-chessboard' ),
+				'br' => __( 'Add black rook', 'rpb-chessboard' ),
+				'bq' => __( 'Add black queen', 'rpb-chessboard' ),
+				'bk' => __( 'Add black king', 'rpb-chessboard' ),
+			),
+			'FEN_EDITOR_LABEL_TOGGLE_TURN'       => __( 'Toggle turn', 'rpb-chessboard' ),
+			'FEN_EDITOR_LABEL_FLIP'              => __( 'Flip board', 'rpb-chessboard' ),
+			'FEN_EDITOR_LABEL_ADD_SQUARE_MARKER' => __( 'Add square markers', 'rpb-chessboard' ),
+			'FEN_EDITOR_LABEL_ADD_ARROW_MARKER'  => __( 'Add arrow markers', 'rpb-chessboard' ),
+			'FEN_EDITOR_PANEL_APPEARANCE'        => __( 'Chessboard aspect', 'rpb-chessboard' ),
+			'FEN_EDITOR_CONTROL_COLORSET'        => __( 'Colorset', 'rpb-chessboard' ),
+			'FEN_EDITOR_CONTROL_PIECESET'        => __( 'Pieceset', 'rpb-chessboard' ),
+			'FEN_EDITOR_USE_DEFAULT'             => __( '<Use default>', 'rpb-chessboard' ),
+		);
 	}
 
 
