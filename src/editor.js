@@ -30,17 +30,17 @@ import { moveTo, rotateLeft } from '@wordpress/icons';
 import kokopu from 'kokopu';
 import { Chessboard, piecesets } from 'kokopu-react';
 
-import addWIconPath from './add-w.png';
-import addBIconPath from './add-b.png';
-import toggleTurnIconPath from './toggle-turn.png';
-import squareMarkerAllIconPath from './square-marker-all.png';
-import squareMarkerGIconPath from './square-marker-g.png';
-import squareMarkerRIconPath from './square-marker-r.png';
-import squareMarkerYIconPath from './square-marker-y.png';
-import arrowMarkerAllIconPath from './arrow-marker-all.png';
-import arrowMarkerGIconPath from './arrow-marker-g.png';
-import arrowMarkerRIconPath from './arrow-marker-r.png';
-import arrowMarkerYIconPath from './arrow-marker-y.png';
+import addWIconPath from './images/add-w.png';
+import addBIconPath from './images/add-b.png';
+import toggleTurnIconPath from './images/toggle-turn.png';
+import squareMarkerAllIconPath from './images/square-marker-all.png';
+import squareMarkerGIconPath from './images/square-marker-g.png';
+import squareMarkerRIconPath from './images/square-marker-r.png';
+import squareMarkerYIconPath from './images/square-marker-y.png';
+import arrowMarkerAllIconPath from './images/arrow-marker-all.png';
+import arrowMarkerGIconPath from './images/arrow-marker-g.png';
+import arrowMarkerRIconPath from './images/arrow-marker-r.png';
+import arrowMarkerYIconPath from './images/arrow-marker-y.png';
 
 const addIconPath = {
 	'w': addWIconPath,
