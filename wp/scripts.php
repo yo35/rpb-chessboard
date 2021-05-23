@@ -168,22 +168,22 @@ abstract class RPBChessboardScripts {
 
 	private static function getDefaultSettings() {
 		$model = RPBChessboardHelperLoader::loadModel( 'Common/DefaultOptions' );
-		return array (
-				'colorset' => $model->getDefaultColorset(),
-				'pieceset' => $model->getDefaultPieceset(),
+		return array(
+			'colorset' => $model->getDefaultColorset(),
+			'pieceset' => $model->getDefaultPieceset(),
 		);
 	}
 
 
 	private static function getJsI18n() {
 		return array(
-			'FEN_EDITOR_TITLE'                   => __( 'Chess diagram', 'rpb-chessboard' ),
-			'FEN_EDITOR_LABEL_MOVE_PIECES'       => __( 'Move pieces', 'rpb-chessboard' ),
-			'FEN_EDITOR_LABEL_ADD_PIECES'        => array(
+			'FEN_EDITOR_TITLE'                     => __( 'Chess diagram', 'rpb-chessboard' ),
+			'FEN_EDITOR_LABEL_MOVE_PIECES'         => __( 'Move pieces', 'rpb-chessboard' ),
+			'FEN_EDITOR_LABEL_ADD_PIECES'          => array(
 				'w' => __( 'Add white pieces', 'rpb-chessboard' ),
 				'b' => __( 'Add black pieces', 'rpb-chessboard' ),
 			),
-			'FEN_EDITOR_LABEL_ADD_PIECE'         => array(
+			'FEN_EDITOR_LABEL_ADD_PIECE'           => array(
 				'wp' => __( 'Add white pawn', 'rpb-chessboard' ),
 				'wn' => __( 'Add white knight', 'rpb-chessboard' ),
 				'wb' => __( 'Add white bishop', 'rpb-chessboard' ),
@@ -197,14 +197,21 @@ abstract class RPBChessboardScripts {
 				'bq' => __( 'Add black queen', 'rpb-chessboard' ),
 				'bk' => __( 'Add black king', 'rpb-chessboard' ),
 			),
-			'FEN_EDITOR_LABEL_TOGGLE_TURN'       => __( 'Toggle turn', 'rpb-chessboard' ),
-			'FEN_EDITOR_LABEL_FLIP'              => __( 'Flip board', 'rpb-chessboard' ),
-			'FEN_EDITOR_LABEL_ADD_SQUARE_MARKER' => __( 'Add square markers', 'rpb-chessboard' ),
-			'FEN_EDITOR_LABEL_ADD_ARROW_MARKER'  => __( 'Add arrow markers', 'rpb-chessboard' ),
-			'FEN_EDITOR_PANEL_APPEARANCE'        => __( 'Chessboard aspect', 'rpb-chessboard' ),
-			'FEN_EDITOR_CONTROL_COLORSET'        => __( 'Colorset', 'rpb-chessboard' ),
-			'FEN_EDITOR_CONTROL_PIECESET'        => __( 'Pieceset', 'rpb-chessboard' ),
-			'FEN_EDITOR_USE_DEFAULT'             => __( '<Use default>', 'rpb-chessboard' ),
+			'FEN_EDITOR_LABEL_TOGGLE_TURN'         => __( 'Toggle turn', 'rpb-chessboard' ),
+			'FEN_EDITOR_LABEL_FLIP'                => __( 'Flip board', 'rpb-chessboard' ),
+			'FEN_EDITOR_LABEL_ADD_SQUARE_MARKER'   => __( 'Add square markers', 'rpb-chessboard' ),
+			'FEN_EDITOR_LABEL_ADD_ARROW_MARKER'    => __( 'Add arrow markers', 'rpb-chessboard' ),
+			'FEN_EDITOR_PANEL_POSITION'            => __( 'Position', 'rpb-chessboard' ),
+			'FEN_EDITOR_PANEL_APPEARANCE'          => __( 'Chessboard aspect', 'rpb-chessboard' ),
+			'FEN_EDITOR_LABEL_RESET_POSITION'      => __( 'Reset', 'rpb-chessboard' ),
+			'FEN_EDITOR_LABEL_CLEAR_POSITION'      => __( 'Clear', 'rpb-chessboard' ),
+			'FEN_EDITOR_LABEL_CLEAR_ANNOTATIONS'   => __( 'Clear annotations', 'rpb-chessboard' ),
+			'FEN_EDITOR_TOOLTIP_RESET_POSITION'    => __( 'Reset to the startup position', 'rpb-chessboard' ),
+			'FEN_EDITOR_TOOLTIP_CLEAR_POSITION'    => __( 'Remove all pieces', 'rpb-chessboard' ),
+			'FEN_EDITOR_TOOLTIP_CLEAR_ANNOTATIONS' => __( 'Remove all square/arrow markers', 'rpb-chessboard' ),
+			'FEN_EDITOR_CONTROL_COLORSET'          => __( 'Colorset', 'rpb-chessboard' ),
+			'FEN_EDITOR_CONTROL_PIECESET'          => __( 'Pieceset', 'rpb-chessboard' ),
+			'FEN_EDITOR_USE_DEFAULT'               => __( '<Use default>', 'rpb-chessboard' ),
 		);
 	}
 

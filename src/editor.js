@@ -145,6 +145,14 @@ class FENEditor extends React.Component {
 		this.props.setAttributes({ ...this.props.attributes, flipped: flipped });
 	}
 
+	handleSetPositionClicked(value) {
+		this.props.setAttributes({ ...this.props.attributes, position: value });
+	}
+
+	handleClearAnnotationsClicked() {
+		this.props.setAttributes({ ...this.props.attributes, squareMarkers: {}, arrowMarkers: {} });
+	}
+
 	handleColorsetChanged(value) {
 		this.props.setAttributes({ ...this.props.attributes, colorset: value });
 	}
@@ -255,6 +263,11 @@ class FENEditor extends React.Component {
 					</ToolbarGroup>
 				</BlockControls>
 				<InspectorControls>
+					<PanelBody title={i18n.FEN_EDITOR_PANEL_POSITION}>
+						<Button text={i18n.FEN_EDITOR_LABEL_RESET_POSITION} label={i18n.FEN_EDITOR_TOOLTIP_RESET_POSITION} onClick={() => this.handleSetPositionClicked('start')} />
+						<Button text={i18n.FEN_EDITOR_LABEL_CLEAR_POSITION} label={i18n.FEN_EDITOR_TOOLTIP_CLEAR_POSITION} onClick={() => this.handleSetPositionClicked('empty')} />
+						<Button text={i18n.FEN_EDITOR_LABEL_CLEAR_ANNOTATIONS} label={i18n.FEN_EDITOR_TOOLTIP_CLEAR_ANNOTATIONS} onClick={() => this.handleClearAnnotationsClicked()} />
+					</PanelBody>
 					<PanelBody title={i18n.FEN_EDITOR_PANEL_APPEARANCE}>
 						<SetCodeControl label={i18n.FEN_EDITOR_CONTROL_COLORSET} value={this.props.attributes.colorset}
 							available={RPBChessboard.availableColorsets} onChange={value => this.handleColorsetChanged(value)}
