@@ -30,33 +30,16 @@ import { moveTo, rotateLeft } from '@wordpress/icons';
 import util from 'util';
 
 import kokopu from 'kokopu';
-import { Chessboard, piecesets, flattenSquareMarkers, flattenArrowMarkers, flattenTextMarkers } from 'kokopu-react';
+import { Chessboard, colorsets, piecesets, flattenSquareMarkers, flattenArrowMarkers, flattenTextMarkers,
+	SquareMarkerIcon, ArrowMarkerIcon, TextMarkerIcon } from 'kokopu-react';
 
 import addWIconPath from './images/add-w.png';
 import addBIconPath from './images/add-b.png';
 import toggleTurnIconPath from './images/toggle-turn.png';
-import squareMarkerGIconPath from './images/square-marker-g.png';
-import squareMarkerRIconPath from './images/square-marker-r.png';
-import squareMarkerYIconPath from './images/square-marker-y.png';
-import arrowMarkerGIconPath from './images/arrow-marker-g.png';
-import arrowMarkerRIconPath from './images/arrow-marker-r.png';
-import arrowMarkerYIconPath from './images/arrow-marker-y.png';
 
 const addIconPath = {
 	'w': addWIconPath,
 	'b': addBIconPath,
-};
-
-const squareMarkerIconPath = {
-	'g': squareMarkerGIconPath,
-	'r': squareMarkerRIconPath,
-	'y': squareMarkerYIconPath,
-};
-
-const arrowMarkerIconPath = {
-	'g': arrowMarkerGIconPath,
-	'r': arrowMarkerRIconPath,
-	'y': arrowMarkerYIconPath,
 };
 
 const i18n = RPBChessboard.i18n;
@@ -217,10 +200,9 @@ class FENEditor extends React.Component {
 		}
 
 		// Square/arrow marker selector.
-		function AddMarkerButtonGroup({ iconPath, interactionModePrefix }) {
+		function AddMarkerButtonGroup({ iconBuilder, interactionModePrefix }) {
 			function AddMarkerButton({ color }) {
-				let icon = <img src={iconPath[color]} width={24} height={24} />;
-				return <Button icon={icon} onClick={() => setInterationMode(interactionModePrefix + color)} />;
+				return <Button icon={iconBuilder(color)} onClick={() => setInterationMode(interactionModePrefix + color)} />;
 			}
 			return (
 				<ButtonGroup>
@@ -263,18 +245,18 @@ class FENEditor extends React.Component {
 		else if (/addSquareMarker-([gry])/.test(this.state.interactionMode)) {
 			let color = RegExp.$1;
 			innerInteractionMode = 'clickSquares';
-			editionModeIcon = <img src={squareMarkerIconPath[color]} width={24} height={24} />;
+			editionModeIcon = <SquareMarkerIcon size={24} color={colorsets.original[color]} />;
 		}
 		else if (/addArrowMarker-([gry])/.test(this.state.interactionMode)) {
 			let color = RegExp.$1;
 			innerInteractionMode = 'editArrows';
 			editedArrowColor = color;
-			editionModeIcon = <img src={arrowMarkerIconPath[color]} width={24} height={24} />;
+			editionModeIcon = <ArrowMarkerIcon size={24} color={colorsets.original[color]} />;
 		}
 		else if (/addTextMarker-([gry])/.test(this.state.interactionMode)) {
 			let color = RegExp.$1;
 			innerInteractionMode = 'clickSquares';
-			editionModeIcon = <img src={squareMarkerIconPath[color]} width={24} height={24} />; // TODO icon
+			editionModeIcon = <TextMarkerIcon size={24} color={colorsets.original[color]} symbol={this.state.textMarkerMode} />
 		}
 
 		// Misc
@@ -312,15 +294,18 @@ class FENEditor extends React.Component {
 						</PanelRow>
 						<PanelRow>
 							{i18n.FEN_EDITOR_LABEL_SQUARE_MARKER}
-							<AddMarkerButtonGroup iconPath={squareMarkerIconPath} interactionModePrefix="addSquareMarker-" />
+							<AddMarkerButtonGroup interactionModePrefix="addSquareMarker-"
+								iconBuilder={color => <SquareMarkerIcon size={24} color={colorsets.original[color]} />} />
 						</PanelRow>
 						<PanelRow>
 							{i18n.FEN_EDITOR_LABEL_ARROW_MARKER}
-							<AddMarkerButtonGroup iconPath={arrowMarkerIconPath} interactionModePrefix="addArrowMarker-" />
+							<AddMarkerButtonGroup interactionModePrefix="addArrowMarker-"
+								iconBuilder={color => <ArrowMarkerIcon size={24} color={colorsets.original[color]} />} />
 						</PanelRow>
 						<PanelRow className="rpbchessboard-fixMarginBottom">
 							<TextMarkerTypeControl value={this.state.textMarkerMode} onChange={value => this.setState({ textMarkerMode: value })} />
-							<AddMarkerButtonGroup iconPath={arrowMarkerIconPath /* TODO icon */} interactionModePrefix="addTextMarker-" />
+							<AddMarkerButtonGroup interactionModePrefix="addTextMarker-"
+								iconBuilder={color => <TextMarkerIcon size={24} color={colorsets.original[color]} symbol={this.state.textMarkerMode} />} />
 						</PanelRow>
 					</PanelBody>
 					<PanelBody title={i18n.FEN_EDITOR_PANEL_APPEARANCE} initialOpen={false}>
