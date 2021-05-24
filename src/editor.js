@@ -284,9 +284,12 @@ class FENEditor extends React.Component {
 				<InspectorControls>
 					<PanelBody title={i18n.FEN_EDITOR_PANEL_POSITION}>
 						<PanelRow>
-							<Button text={i18n.FEN_EDITOR_LABEL_RESET_POSITION} label={i18n.FEN_EDITOR_TOOLTIP_RESET_POSITION} onClick={() => this.handleSetPositionClicked('start')} />
-							<Button text={i18n.FEN_EDITOR_LABEL_CLEAR_POSITION} label={i18n.FEN_EDITOR_TOOLTIP_CLEAR_POSITION} onClick={() => this.handleSetPositionClicked('empty')} />
-							<Button text={i18n.FEN_EDITOR_LABEL_CLEAR_ANNOTATIONS} label={i18n.FEN_EDITOR_TOOLTIP_CLEAR_ANNOTATIONS} onClick={() => this.handleClearAnnotationsClicked()} />
+							<Button isSecondary text={i18n.FEN_EDITOR_LABEL_RESET_POSITION} label={i18n.FEN_EDITOR_TOOLTIP_RESET_POSITION}
+								onClick={() => this.handleSetPositionClicked('start')} />
+							<Button isSecondary text={i18n.FEN_EDITOR_LABEL_CLEAR_POSITION} label={i18n.FEN_EDITOR_TOOLTIP_CLEAR_POSITION}
+								onClick={() => this.handleSetPositionClicked('empty')} />
+							<Button isSecondary text={i18n.FEN_EDITOR_LABEL_CLEAR_ANNOTATIONS} label={i18n.FEN_EDITOR_TOOLTIP_CLEAR_ANNOTATIONS}
+								onClick={() => this.handleClearAnnotationsClicked()} />
 						</PanelRow>
 						<PanelRow className="rpbchessboard-editionModeRow">
 							<span>{i18n.FEN_EDITOR_CURRENT_EDITION_MODE}</span>
