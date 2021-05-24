@@ -30,7 +30,7 @@ import { moveTo, rotateLeft } from '@wordpress/icons';
 import util from 'util';
 
 import kokopu from 'kokopu';
-import { Chessboard, piecesets } from 'kokopu-react';
+import { Chessboard, piecesets, flattenSquareMarkers, flattenArrowMarkers, flattenTextMarkers } from 'kokopu-react';
 
 import addWIconPath from './images/add-w.png';
 import addBIconPath from './images/add-b.png';
@@ -119,11 +119,11 @@ class FENEditor extends React.Component {
 		else if (/addTextMarker-([gry])/.test(this.state.interactionMode)) {
 			let color = RegExp.$1;
 			let textMarkers = { ...this.props.attributes.textMarkers };
-			if (textMarkers[sq] && textMarkers[sq].text === this.state.textMarkerMode && textMarkers[sq].color === color) {
+			if (textMarkers[sq] && textMarkers[sq].symbol === this.state.textMarkerMode && textMarkers[sq].color === color) {
 				delete textMarkers[sq];
 			}
 			else {
-				textMarkers[sq] = { text: this.state.textMarkerMode, color: color };
+				textMarkers[sq] = { symbol: this.state.textMarkerMode, color: color };
 			}
 			this.props.setAttributes({ ...this.props.attributes, textMarkers: textMarkers });
 		}
@@ -160,7 +160,7 @@ class FENEditor extends React.Component {
 	}
 
 	handleClearAnnotationsClicked() {
-		this.props.setAttributes({ ...this.props.attributes, squareMarkers: {}, arrowMarkers: {} });
+		this.props.setAttributes({ ...this.props.attributes, squareMarkers: {}, arrowMarkers: {}, textMarkers: {} });
 	}
 
 	handleAlignmentChanged(value) {
@@ -369,31 +369,9 @@ class FENEditor extends React.Component {
 /**
  * Helper method for shortcode argument rendering.
  */
-function flattenScalar(args, value, defaultValue, fenShortcodeAttribute) {
+function pushArg(args, value, defaultValue, fenShortcodeAttribute) {
 	if (value !== defaultValue) {
 		args.push(fenShortcodeAttribute + '=' + value);
-	}
-}
-
-
-/**
- * Helper method for marker-related shortcode argument rendering. TODO use kokopu-react util function instead.
- */
-function flattenMarkers(args, markers, fenShortcodeAttribute) {
-	let markersAsString = Object.entries(markers).map(([ key, value ]) => value.toUpperCase() + key);
-	if (markersAsString.length !== 0) {
-		args.push(fenShortcodeAttribute + '=' + markersAsString.join(','));
-	}
-}
-
-
-/**
- * Helper method for marker-related shortcode argument rendering. TODO use kokopu-react util function instead.
- */
-function flattenTextMarkers(args, markers, fenShortcodeAttribute) {
-	let markersAsString = Object.entries(markers).map(([ key, value ]) => value.color.toUpperCase() + value.text + key);
-	if (markersAsString.length !== 0) {
-		args.push(fenShortcodeAttribute + '=' + markersAsString.join(','));
 	}
 }
 
@@ -468,14 +446,14 @@ registerBlockType('rpb-chessboard/fen', {
 	},
 	save: ({ attributes }) => {
 		let args = [ RPBChessboard.fenShortcode, 'flip=' + attributes.flipped ];
-		flattenMarkers(args, attributes.squareMarkers, 'csl');
-		flattenMarkers(args, attributes.arrowMarkers, 'cal');
-		flattenTextMarkers(args, attributes.textMarkers, 'ctl');
-		flattenScalar(args, attributes.align, '', 'align');
-		flattenScalar(args, attributes.squareSize, 0, 'square_size');
-		flattenScalar(args, attributes.coordinateVisible, '', 'show_coordinates');
-		flattenScalar(args, attributes.colorset, '', 'colorset');
-		flattenScalar(args, attributes.pieceset, '', 'pieceset');
+		pushArg(args, flattenSquareMarkers(attributes.squareMarkers), '', 'csl');
+		pushArg(args, flattenArrowMarkers(attributes.arrowMarkers), '', 'cal');
+		pushArg(args, flattenTextMarkers(attributes.textMarkers), '', 'ctl');
+		pushArg(args, attributes.align, '', 'align');
+		pushArg(args, attributes.squareSize, 0, 'square_size');
+		pushArg(args, attributes.coordinateVisible, '', 'show_coordinates');
+		pushArg(args, attributes.colorset, '', 'colorset');
+		pushArg(args, attributes.pieceset, '', 'pieceset');
 		return '[' + args.join(' ') + ']' + attributes.position + '[/' + RPBChessboard.fenShortcode + ']';
 	},
 });
