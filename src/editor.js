@@ -24,8 +24,10 @@ import './editor.css';
 
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
-import { Button, ButtonGroup, ComboboxControl, Dropdown, PanelBody, PanelRow, RadioControl, RangeControl, ToggleControl, ToolbarButton, ToolbarGroup } from '@wordpress/components';
+import { Button, ButtonGroup, ComboboxControl, Dropdown, PanelBody, PanelRow, RadioControl, RangeControl, SelectControl,
+	ToggleControl, ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { moveTo, rotateLeft } from '@wordpress/icons';
+import util from 'util';
 
 import kokopu from 'kokopu';
 import { Chessboard, piecesets } from 'kokopu-react';
@@ -83,6 +85,7 @@ class FENEditor extends React.Component {
 		super(props);
 		this.state = {
 			interactionMode: 'movePieces',
+			textMarkerMode: 'A',
 		};
 	}
 
@@ -112,6 +115,17 @@ class FENEditor extends React.Component {
 				squareMarkers[sq] = color;
 			}
 			this.props.setAttributes({ ...this.props.attributes, squareMarkers: squareMarkers });
+		}
+		else if (/addTextMarker-([gry])/.test(this.state.interactionMode)) {
+			let color = RegExp.$1;
+			let textMarkers = { ...this.props.attributes.textMarkers };
+			if (textMarkers[sq] && textMarkers[sq].text === this.state.textMarkerMode && textMarkers[sq].color === color) {
+				delete textMarkers[sq];
+			}
+			else {
+				textMarkers[sq] = { text: this.state.textMarkerMode, color: color };
+			}
+			this.props.setAttributes({ ...this.props.attributes, textMarkers: textMarkers });
 		}
 	}
 
@@ -217,6 +231,15 @@ class FENEditor extends React.Component {
 			);
 		}
 
+		// Combo-box to select the type of text marker
+		function TextMarkerTypeControl({ value, onChange }) {
+			let options = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'].map(mode => {
+				let label = util.format(i18n.FEN_EDITOR_LABEL_TEXT_MARKER, mode);
+				return { value: mode, label: label };
+			});
+			return <SelectControl value={value} options={options} onChange={onChange} />;
+		}
+
 		// Combox-box to select the colorset or the pieceset.
 		function SetCodeControl({ label, value, available, onChange }) {
 			let options = [ { value: '', label: '<' + i18n.FEN_EDITOR_USE_DEFAULT + '>' } ];
@@ -247,6 +270,11 @@ class FENEditor extends React.Component {
 			innerInteractionMode = 'editArrows';
 			editedArrowColor = color;
 			editionModeIcon = <img src={arrowMarkerIconPath[color]} width={24} height={24} />;
+		}
+		else if (/addTextMarker-([gry])/.test(this.state.interactionMode)) {
+			let color = RegExp.$1;
+			innerInteractionMode = 'clickSquares';
+			editionModeIcon = <img src={squareMarkerIconPath[color]} width={24} height={24} />; // TODO icon
 		}
 
 		// Misc
@@ -290,6 +318,10 @@ class FENEditor extends React.Component {
 							{i18n.FEN_EDITOR_LABEL_ARROW_MARKER}
 							<AddMarkerButtonGroup iconPath={arrowMarkerIconPath} interactionModePrefix="addArrowMarker-" />
 						</PanelRow>
+						<PanelRow className="rpbchessboard-fixMarginBottom">
+							<TextMarkerTypeControl value={this.state.textMarkerMode} onChange={value => this.setState({ textMarkerMode: value })} />
+							<AddMarkerButtonGroup iconPath={arrowMarkerIconPath /* TODO icon */} interactionModePrefix="addTextMarker-" />
+						</PanelRow>
 					</PanelBody>
 					<PanelBody title={i18n.FEN_EDITOR_PANEL_APPEARANCE} initialOpen={false}>
 						<ToggleControl label={i18n.FEN_EDITOR_CONTROL_USE_DEFAULT_SIZE} checked={isDefaultSize}
@@ -320,6 +352,7 @@ class FENEditor extends React.Component {
 					interactionMode={innerInteractionMode} editedArrowColor={editedArrowColor}
 					squareMarkers={this.props.attributes.squareMarkers}
 					arrowMarkers={this.props.attributes.arrowMarkers}
+					textMarkers={this.props.attributes.textMarkers}
 					coordinateVisible={this.props.attributes.coordinateVisible === '' ? RPBChessboard.defaultSettings.showCoordinates : this.props.attributes.coordinateVisible === 'true'}
 					colorset={this.props.attributes.colorset === '' ? RPBChessboard.defaultSettings.colorset : this.props.attributes.colorset}
 					pieceset={this.props.attributes.pieceset === '' ? RPBChessboard.defaultSettings.pieceset : this.props.attributes.pieceset}
@@ -344,10 +377,21 @@ function flattenScalar(args, value, defaultValue, fenShortcodeAttribute) {
 
 
 /**
- * Helper method for marker-related shortcode argument rendering.
+ * Helper method for marker-related shortcode argument rendering. TODO use kokopu-react util function instead.
  */
 function flattenMarkers(args, markers, fenShortcodeAttribute) {
 	let markersAsString = Object.entries(markers).map(([ key, value ]) => value.toUpperCase() + key);
+	if (markersAsString.length !== 0) {
+		args.push(fenShortcodeAttribute + '=' + markersAsString.join(','));
+	}
+}
+
+
+/**
+ * Helper method for marker-related shortcode argument rendering. TODO use kokopu-react util function instead.
+ */
+function flattenTextMarkers(args, markers, fenShortcodeAttribute) {
+	let markersAsString = Object.entries(markers).map(([ key, value ]) => value.color.toUpperCase() + value.text + key);
 	if (markersAsString.length !== 0) {
 		args.push(fenShortcodeAttribute + '=' + markersAsString.join(','));
 	}
@@ -379,6 +423,10 @@ registerBlockType('rpb-chessboard/fen', {
 			type: 'object',
 			default: {}
 		},
+		textMarkers: {
+			type: 'object',
+			default: {}
+		},
 		align: {
 			type: 'string',
 			default: ''
@@ -406,6 +454,7 @@ registerBlockType('rpb-chessboard/fen', {
 			flipped: false,
 			squareMarkers: {},
 			arrowMarkers: {},
+			textMarkers: {},
 			align: '',
 			squareSize: '',
 			coordinateVisible: '',
@@ -421,6 +470,7 @@ registerBlockType('rpb-chessboard/fen', {
 		let args = [ RPBChessboard.fenShortcode, 'flip=' + attributes.flipped ];
 		flattenMarkers(args, attributes.squareMarkers, 'csl');
 		flattenMarkers(args, attributes.arrowMarkers, 'cal');
+		flattenTextMarkers(args, attributes.textMarkers, 'ctl');
 		flattenScalar(args, attributes.align, '', 'align');
 		flattenScalar(args, attributes.squareSize, 0, 'square_size');
 		flattenScalar(args, attributes.coordinateVisible, '', 'show_coordinates');

@@ -31,3 +31,7 @@
 	display: inline-block;
 	margin-right: 1em;
 }
+
+.block-editor-block-inspector .rpbchessboard-fixMarginBottom > .components-base-control:first-child {
+	margin-bottom: 0px;
+}
