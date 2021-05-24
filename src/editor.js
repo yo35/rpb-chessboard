@@ -357,11 +357,6 @@ class FENEditor extends React.Component {
 /**
  * Helper method for shortcode argument rendering.
  */
-function pushArg(args, value, defaultValue, fenShortcodeAttribute) {
-	if (value !== defaultValue) {
-		args.push(fenShortcodeAttribute + '=' + value);
-	}
-}
 
 
 /**
@@ -434,14 +429,21 @@ registerBlockType('rpb-chessboard/fen', {
 	},
 	save: ({ attributes }) => {
 		let args = [ RPBChessboard.fenShortcode, 'flip=' + attributes.flipped ];
-		pushArg(args, flattenSquareMarkers(attributes.squareMarkers), '', 'csl');
-		pushArg(args, flattenArrowMarkers(attributes.arrowMarkers), '', 'cal');
-		pushArg(args, flattenTextMarkers(attributes.textMarkers), '', 'ctl');
-		pushArg(args, attributes.align, '', 'align');
-		pushArg(args, attributes.squareSize, 0, 'square_size');
-		pushArg(args, attributes.coordinateVisible, '', 'show_coordinates');
-		pushArg(args, attributes.colorset, '', 'colorset');
-		pushArg(args, attributes.pieceset, '', 'pieceset');
+
+		function pushArg(value, defaultValue, fenShortcodeAttribute) {
+			if (value !== defaultValue) {
+				args.push(fenShortcodeAttribute + '=' + value);
+			}
+		}
+
+		pushArg(flattenSquareMarkers(attributes.squareMarkers), '', 'csl');
+		pushArg(flattenArrowMarkers(attributes.arrowMarkers), '', 'cal');
+		pushArg(flattenTextMarkers(attributes.textMarkers), '', 'ctl');
+		pushArg(attributes.align, '', 'align');
+		pushArg(attributes.squareSize, 0, 'square_size');
+		pushArg(attributes.coordinateVisible, '', 'show_coordinates');
+		pushArg(attributes.colorset, '', 'colorset');
+		pushArg(attributes.pieceset, '', 'pieceset');
 		return '[' + args.join(' ') + ']' + attributes.position + '[/' + RPBChessboard.fenShortcode + ']';
 	},
 });
