@@ -81,6 +81,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 6.0.1 (May 30, 2021) =
+* Fix plugin crash encountered with old PHP versions (before PHP 7.3).
+
 = 6.0.0 (May 30, 2021) =
 * Add chess diagram block with its editor to the Gutenberg-based Wordpress page/post editor.
 * Significant code refactoring of the chess diagram widget, which is now released as a standalone NPM library (kokopu-react).
