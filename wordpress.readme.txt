@@ -31,7 +31,7 @@ RPB Chessboard allows you to typeset and display chess games and diagrams in the
  * Colored square and arrow markers.
  * Compatibility mode to avoid conflicts with the other plugins that use the `[fen][/fen]` and `[pgn][/pgn]` shortcodes too.
  * Upload PGN files and load PGN data from a URL.
- * Graphical assistant to create and modify chess diagrams in the post/page editor.
+ * Diagram block with its editor embedded in the WordPress post/page editor.
  * Multi-language support.
 
 If you encounter some bugs with this plugin, or if you wish to get new features in the future versions, you can report/propose them in the [GitHub bug tracker](https://github.com/yo35/rpb-chessboard/issues).
@@ -75,7 +75,7 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 5. When clicking on a move, a popup frame is displayed, showing the corresponding position.
 6. A navigation board can be added near the move list.
 7. Chess game with comments and sub-variations. HTML formatting in text comments is supported.
-8. Graphical assistant to create and modify chess diagrams in the post/page editor.
+8. Diagram block with its editor embedded in the WordPress post/page editor.
 
 
 

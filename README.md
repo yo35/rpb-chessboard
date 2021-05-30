@@ -29,7 +29,7 @@ Features
 * Compatibility mode to avoid conflicts with the other plugins that use
   the `[fen][/fen]` and `[pgn][/pgn]` shortcodes too.
 * Upload PGN files and load PGN data from a URL.
-* Graphical assistant to create and modify chess diagrams in the post/page editor.
+* Diagram block with its editor embedded in the WordPress post/page editor.
 * Multi-language support.
 
 If you encounter some bugs with this program, or if you wish to get new features
@@ -89,6 +89,6 @@ and that he had a forced win in every variation.}
 <img alt="screenshot-7" src="assets/screenshot-7.png" width="600" />
 
 
-### Graphical assistant for chess diagrams creation/modification ###
+### Diagram block with its editor embedded in the WordPress post/page editor ###
 
 <img alt="screenshot-8" src="assets/screenshot-8.png" width="600" />
