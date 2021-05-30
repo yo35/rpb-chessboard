@@ -50,7 +50,7 @@ class RPBChessboardModelCommonCustomColorsets extends RPBChessboardAbstractModel
 			'getGreenMarkerColor',
 			'getRedMarkerColor',
 			'getYellowMarkerColor',
-			'getHighlightColor',
+			'getHighlightColor'
 		);
 	}
 
