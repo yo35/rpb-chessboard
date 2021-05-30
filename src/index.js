@@ -43,7 +43,15 @@ RPBChessboard.editPieceset = piecesets['_edit_'] = {};
 RPBChessboard.adaptSquareSize = adaptSquareSize;
 
 // Chessboard rendering function
-RPBChessboard.renderFEN = function(targetJQueryElement, widgetArgs, wrapInDiv) {
+RPBChessboard.renderFEN = function(targetJQueryElement, widgetArgs, wrapInDiv, withSmallScreenLimits) {
+	let smallScreenLimits = [];
+	if (withSmallScreenLimits) {
+		RPBChessboard.smallScreenModes.forEach(mode => smallScreenLimits.push({
+			width: mode.maxScreenWidth,
+			squareSize: mode.squareSize,
+			coordinateVisible: !mode.hideCoordinates,
+		}));
+	}
 	let widget = <Chessboard
 		position={widgetArgs.position}
 		move={widgetArgs.move}
@@ -57,6 +65,7 @@ RPBChessboard.renderFEN = function(targetJQueryElement, widgetArgs, wrapInDiv) {
 		pieceset={widgetArgs.pieceset}
 		animated={widgetArgs.animated}
 		moveArrowVisible={widgetArgs.showMoveArrow}
+		smallScreenLimits={smallScreenLimits}
 	/>;
 	if (wrapInDiv) {
 		widget = <div className="rpbchessboard-diagramAlignment-center">{widget}</div>

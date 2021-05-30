@@ -64,6 +64,7 @@ abstract class RPBChessboardScripts {
 				'availableSquareSize' => self::getAvailableSquareSize(),
 				'fenShortcode'        => self::getFENShortcode(),
 				'defaultSettings'     => self::getDefaultSettings(),
+				'smallScreenModes'    => self::getSmallScreenModes(),
 				'i18n'                => self::getJsI18n(),
 			)
 		);
@@ -184,6 +185,12 @@ abstract class RPBChessboardScripts {
 			'colorset'        => $model->getDefaultColorset(),
 			'pieceset'        => $model->getDefaultPieceset(),
 		);
+	}
+
+
+	private static function getSmallScreenModes() {
+		$model = RPBChessboardHelperLoader::loadModel( 'Common/SmallScreens' );
+		return $model->getSmallScreenModes();
 	}
 
 

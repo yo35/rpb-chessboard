@@ -631,7 +631,7 @@
 				else if(event.key === 'ArrowRight') { widget.goNextMove(); }
 				else if(event.key === 'End') { widget.goLastMove(); }
 			});
-			if(widget.options.navigationBoard === 'frame') {
+			if (isNavigationFrame(widget)) {
 				if (!$.chessgame.navigationFrameState) {
 					$.chessgame.navigationFrameState = filterChessboardOptions($.chessgame.navigationFrameOptions);
 				}
@@ -688,7 +688,7 @@
 			$.extend(options, widget.options.diagramOptions);
 
 			// Render the diagram.
-			RPBChessboard.renderFEN(anchor.empty().removeClass('rpbui-chessgame-diagramAnchor').addClass('rpbui-chessgame-diagram'), options, true);
+			RPBChessboard.renderFEN(anchor.empty().removeClass('rpbui-chessgame-diagramAnchor').addClass('rpbui-chessgame-diagram'), options, true, true);
 		});
 	}
 
@@ -754,7 +754,7 @@
 	function makeNavigationBoxWidgets(widget) {
 
 		// Set-up the navigation board.
-		RPBChessboard.renderFEN($('.rpbui-chessgame-navigationBoard', widget.element), widget.navigationBoardState, true);
+		RPBChessboard.renderFEN($('.rpbui-chessgame-navigationBoard', widget.element), widget.navigationBoardState, true, true);
 
 		// Navigation buttons
 		initializeNavigationButtons(function(buttonClass) { return $(buttonClass, widget.element); }, function(methodName) {
@@ -1285,7 +1285,7 @@
 			$.chessgame.navigationFrameState.squareSize = RPBChessboard.adaptSquareSize(availableWidth, availableHeight, $.chessgame.navigationFrameState.showCoordinates);
 
 			// Update the widget.
-			RPBChessboard.renderFEN($('#rpbui-chessgame-navigationFrame .rpbui-chessgame-navigationBoard'), $.chessgame.navigationFrameState, true);
+			RPBChessboard.renderFEN($('#rpbui-chessgame-navigationFrame .rpbui-chessgame-navigationBoard'), $.chessgame.navigationFrameState, true, false);
 		});
 
 		// Callback for the buttons.
@@ -1362,7 +1362,7 @@
 
 		// If the navigation board should be shown within the dedicated frame,
 		// ensure that the latter has been built.
-		if(widget.options.navigationBoard === 'frame') {
+		if (isNavigationFrame(widget)) {
 			buildNavigationFrame();
 		}
 
@@ -1374,7 +1374,7 @@
 
 		// If the navigation board is in the dedicated frame, update its title,
 		// and ensure that it is visible.
-		if(widget.options.navigationBoard === 'frame') {
+		if (isNavigationFrame(widget)) {
 			var frame = $('#rpbui-chessgame-navigationFrame');
 			if(!frame.dialog('isOpen')) {
 				frame.dialog('option', 'position', { my: 'center', at: 'center', of: window });
@@ -1420,7 +1420,7 @@
 	 */
 	function updateNavigationBoardFlip(widget) {
 		widget.navigationBoardState.flip = widget.options.navigationBoardOptions.flip;
-		RPBChessboard.renderFEN(retrieveNavigationBoard(widget), widget.navigationBoardState, true);
+		RPBChessboard.renderFEN(retrieveNavigationBoard(widget), widget.navigationBoardState, true, !isNavigationFrame(widget));
 	}
 
 
@@ -1437,7 +1437,7 @@
 	 * Refresh the visibility of the navigation button identified by the given class.
 	 */
 	function updateNavigationButton(widget, buttonClass, isVisible) {
-		var button = widget.options.navigationBoard === 'frame' ? $('#rpbui-chessgame-navigationFrame ' + buttonClass) : $(buttonClass, widget.element);
+		var button = isNavigationFrame(widget) ? $('#rpbui-chessgame-navigationFrame ' + buttonClass) : $(buttonClass, widget.element);
 		if(isVisible) {
 			button.show();
 		}
@@ -1472,7 +1472,18 @@
 		widget.navigationBoardState.ctl = move.data('ctl');
 
 		// Refresh the widget
-		RPBChessboard.renderFEN(retrieveNavigationBoard(widget), widget.navigationBoardState, true);
+		RPBChessboard.renderFEN(retrieveNavigationBoard(widget), widget.navigationBoardState, true, !isNavigationFrame(widget));
+	}
+
+
+	/**
+	 * Whether or not the navigation board should be displayed in the popup frame.
+	 *
+	 * @param {rpbchess-ui.chessgame} widget
+	 * @returns {boolean}
+	 */
+	function isNavigationFrame(widget) {
+		return widget.options.navigationBoard === 'frame';
 	}
 
 
@@ -1483,7 +1494,7 @@
 	 * @returns {jQuery}
 	 */
 	function retrieveNavigationBoard(widget) {
-		return widget.options.navigationBoard === 'frame' ?
+		return isNavigationFrame(widget) ?
 			$('#rpbui-chessgame-navigationFrame .rpbui-chessgame-navigationBoard') :
 			$('.rpbui-chessgame-navigationBoard', widget.element);
 	}
@@ -1496,7 +1507,7 @@
 	 * @returns {jQuery}
 	 */
 	function retrieveBlobDownloadLink(widget) {
-		return widget.options.navigationBoard === 'frame' ?
+		return isNavigationFrame(widget) ?
 			$('#rpbui-chessgame-navigationFrame .rpbui-chessgame-blobDownloadLink') :
 			$('.rpbui-chessgame-blobDownloadLink', widget.element);
 	}
@@ -1509,14 +1520,13 @@
 	 * @param {jQuery} move
 	 */
 	function updateSelectedMove(widget, move) {
-		var global = widget.options.navigationBoard === 'frame';
 
 		// Unselect the previously selected move, if any.
-		unselectMove(global ? null : $('.rpbui-chessgame-selectedMove', widget.element));
+		unselectMove(isNavigationFrame(widget) ? null : $('.rpbui-chessgame-selectedMove', widget.element));
 
 		// Update the ID/class attributes.
 		move.addClass('rpbui-chessgame-selectedMove');
-		if(global) {
+		if (isNavigationFrame(widget)) {
 			move.attr('id', 'rpbui-chessgame-navigationFrameTarget');
 		}
 
