@@ -27,14 +27,14 @@ Text Domain: rpb-chessboard
 Domain Path: /languages
 Author: Yoann Le Montagner
 License: GPLv3
-Version: 6.0.1
+Version: 6.0.2
 */
 
 
 // Directories
 define( 'RPBCHESSBOARD_ABSPATH', plugin_dir_path( __FILE__ ) );
 define( 'RPBCHESSBOARD_URL', plugin_dir_url( __FILE__ ) );
-define( 'RPBCHESSBOARD_VERSION', '6.0.1' );
+define( 'RPBCHESSBOARD_VERSION', '6.0.2' );
 
 
 // Enable localization

@@ -81,6 +81,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 6.0.2 (June 6, 2021) =
+* Fix navigation board size issue in popup frame on small-screen devices (see #208).
+
 = 6.0.1 (May 30, 2021) =
 * Fix plugin crash encountered with old PHP versions (before PHP 7.3).
 
