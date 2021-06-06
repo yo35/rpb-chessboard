@@ -1285,7 +1285,7 @@
 			$.chessgame.navigationFrameState.squareSize = RPBChessboard.adaptSquareSize(availableWidth, availableHeight, $.chessgame.navigationFrameState.showCoordinates);
 
 			// Update the widget.
-			RPBChessboard.renderFEN($('#rpbui-chessgame-navigationFrame .rpbui-chessgame-navigationBoard'), $.chessgame.navigationFrameState, true, false);
+			RPBChessboard.renderFEN($('#rpbui-chessgame-navigationFrame .rpbui-chessgame-navigationBoard'), $.chessgame.navigationFrameState, true, true);
 		});
 
 		// Callback for the buttons.
@@ -1420,7 +1420,7 @@
 	 */
 	function updateNavigationBoardFlip(widget) {
 		widget.navigationBoardState.flip = widget.options.navigationBoardOptions.flip;
-		RPBChessboard.renderFEN(retrieveNavigationBoard(widget), widget.navigationBoardState, true, !isNavigationFrame(widget));
+		RPBChessboard.renderFEN(retrieveNavigationBoard(widget), widget.navigationBoardState, true, true);
 	}
 
 
@@ -1472,7 +1472,7 @@
 		widget.navigationBoardState.ctl = move.data('ctl');
 
 		// Refresh the widget
-		RPBChessboard.renderFEN(retrieveNavigationBoard(widget), widget.navigationBoardState, true, !isNavigationFrame(widget));
+		RPBChessboard.renderFEN(retrieveNavigationBoard(widget), widget.navigationBoardState, true, true);
 	}
 
 
