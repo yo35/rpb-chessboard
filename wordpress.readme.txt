@@ -86,6 +86,7 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 = 6.0.0 (May 30, 2021) =
 * Add chess diagram block with its editor to the Gutenberg-based Wordpress page/post editor.
+* Drop support for the old TinyMCE-based Wordpress page/post editor.
 * Significant code refactoring of the chess diagram widget, which is now released as a standalone NPM library (kokopu-react).
 
 = 5.9.3 (May 17, 2021) =
