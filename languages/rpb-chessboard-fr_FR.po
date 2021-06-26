@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-30 14:55+0200\n"
+"POT-Creation-Date: 2021-06-26 19:17+0200\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35 -at- melix.net>\n"
 "Language-Team: French\n"
@@ -1801,6 +1801,10 @@ msgid "Clear annotations"
 msgstr "Supprimer les annotations"
 
 #: wp/scripts.php
+msgid "FEN"
+msgstr "FEN"
+
+#: wp/scripts.php
 msgid "Square marker"
 msgstr "Marqueur de case"
 
@@ -1864,6 +1868,11 @@ msgstr "Invisible"
 #: wp/scripts.php
 msgid "Visible"
 msgstr "Visible"
+
+#: wp/scripts.php
+msgid "Error in the FEN string describing the chess diagram"
+msgstr ""
+"Erreur dans la chaîne de caractères FEN décrivant le diagramme d'échecs"
 
 #: wp/adminpages.php
 msgid "Chess games and diagrams"
