@@ -81,6 +81,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 6.1.0 (June 26, 2021) =
+* Add text field to allow copy/paste FEN in the diagram editor (see #211).
+
 = 6.0.2 (June 6, 2021) =
 * Fix navigation board size issue in popup frame on small-screen devices (see #208).
 
