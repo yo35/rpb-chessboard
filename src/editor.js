@@ -25,7 +25,7 @@ import './editor.css';
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
 import { Button, ButtonGroup, ComboboxControl, Dropdown, PanelBody, PanelRow, RadioControl, RangeControl, SelectControl,
-	ToggleControl, ToolbarButton, ToolbarGroup } from '@wordpress/components';
+	TextControl, ToggleControl, ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { moveTo, rotateLeft } from '@wordpress/icons';
 import util from 'util';
 
@@ -166,9 +166,13 @@ class FENEditor extends React.Component {
 		this.props.setAttributes({ ...this.props.attributes, pieceset: value });
 	}
 
+
+	/**
+	 * Rendering entry point.
+	 */
 	render() {
 		let setInteractionMode = newInteractionMode => this.setState({ interactionMode: newInteractionMode });
-		let position = new kokopu.Position(this.props.attributes.position);
+		let data = this.parsePositionAttribute();
 
 		// Chessboard widget interaction mode
 		let innerInteractionMode = '';
@@ -204,8 +208,8 @@ class FENEditor extends React.Component {
 		return (
 			<div { ...this.props.blockProps }>
 				{this.renderToolbar(setInteractionMode)}
-				{this.renderSidePanel(editionModeIcon, setInteractionMode)}
-				{this.renderBlockContent(position, innerInteractionMode, editedArrowColor)}
+				{this.renderSidePanel(data.fen, editionModeIcon, setInteractionMode)}
+				{this.renderBlockContent(data, innerInteractionMode, editedArrowColor)}
 			</div>
 		);
 	}
@@ -265,7 +269,7 @@ class FENEditor extends React.Component {
 	/**
 	 * Rendering method for the controls in the right-side column.
 	 */
-	renderSidePanel(editionModeIcon, setInteractionMode) {
+	renderSidePanel(fen, editionModeIcon, setInteractionMode) {
 
 		// Square/arrow marker selector.
 		function AddMarkerButtonGroup({ iconBuilder, interactionModePrefix }) {
@@ -312,6 +316,9 @@ class FENEditor extends React.Component {
 							onClick={() => this.handleSetPositionClicked('empty')} />
 						<Button isSecondary text={i18n.FEN_EDITOR_LABEL_CLEAR_ANNOTATIONS} label={i18n.FEN_EDITOR_TOOLTIP_CLEAR_ANNOTATIONS}
 							onClick={() => this.handleClearAnnotationsClicked()} />
+					</PanelRow>
+					<PanelRow>
+						<TextControl label={i18n.FEN_EDITOR_LABEL_FEN} value={fen} onChange={value => this.handleSetPositionClicked(value)} />
 					</PanelRow>
 					<PanelRow className="rpbchessboard-editionModeRow">
 						<span>{i18n.FEN_EDITOR_CURRENT_EDITION_MODE}</span>
@@ -363,23 +370,44 @@ class FENEditor extends React.Component {
 
 
 	/**
-	 * Render the chessboard.
+	 * Render the chessboard (or the error message if the FEN is invalid).
 	 */
-	renderBlockContent(position, innerInteractionMode, editedArrowColor) {
-		return (
-			<Chessboard position={position} flipped={this.props.attributes.flipped} squareSize={40}
-				interactionMode={innerInteractionMode} editedArrowColor={editedArrowColor}
-				squareMarkers={this.props.attributes.squareMarkers}
-				arrowMarkers={this.props.attributes.arrowMarkers}
-				textMarkers={this.props.attributes.textMarkers}
-				coordinateVisible={this.props.attributes.coordinateVisible === '' ? RPBChessboard.defaultSettings.showCoordinates : this.props.attributes.coordinateVisible === 'true'}
-				colorset={this.props.attributes.colorset === '' ? RPBChessboard.defaultSettings.colorset : this.props.attributes.colorset}
-				pieceset={this.props.attributes.pieceset === '' ? RPBChessboard.defaultSettings.pieceset : this.props.attributes.pieceset}
-				onPieceMoved={(from, to) => this.handlePieceMoved(from, to)}
-				onSquareClicked={sq => this.handleSquareClicked(sq)}
-				onArrowEdited={(from, to) => this.handleArrowEdited(from, to)}
-			/>
-		);
+	renderBlockContent(data, innerInteractionMode, editedArrowColor) {
+		if (data.valid) {
+			return (
+				<Chessboard position={data.position} flipped={this.props.attributes.flipped} squareSize={40}
+					interactionMode={innerInteractionMode} editedArrowColor={editedArrowColor}
+					squareMarkers={this.props.attributes.squareMarkers}
+					arrowMarkers={this.props.attributes.arrowMarkers}
+					textMarkers={this.props.attributes.textMarkers}
+					coordinateVisible={this.props.attributes.coordinateVisible === '' ? RPBChessboard.defaultSettings.showCoordinates : this.props.attributes.coordinateVisible === 'true'}
+					colorset={this.props.attributes.colorset === '' ? RPBChessboard.defaultSettings.colorset : this.props.attributes.colorset}
+					pieceset={this.props.attributes.pieceset === '' ? RPBChessboard.defaultSettings.pieceset : this.props.attributes.pieceset}
+					onPieceMoved={(from, to) => this.handlePieceMoved(from, to)}
+					onSquareClicked={sq => this.handleSquareClicked(sq)}
+					onArrowEdited={(from, to) => this.handleArrowEdited(from, to)}
+				/>
+			);
+		}
+		else {
+			return <div className="rpbchessboard-editorErrorBox">{i18n.FEN_EDITOR_PARSING_ERROR}</div>
+		}
+	}
+
+
+	parsePositionAttribute() {
+		try {
+			let position = new kokopu.Position(this.props.attributes.position);
+			return { valid: true, position: position, fen: position.fen() };
+		}
+		catch (error) {
+			if (error instanceof kokopu.exception.InvalidFEN) {
+				return { valid: false, fen: this.props.attributes.position };
+			}
+			else {
+				throw error;
+			}
+		}
 	}
 }
 

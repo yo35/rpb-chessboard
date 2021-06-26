@@ -223,6 +223,7 @@ abstract class RPBChessboardScripts {
 			'FEN_EDITOR_LABEL_RESET_POSITION'      => __( 'Reset', 'rpb-chessboard' ),
 			'FEN_EDITOR_LABEL_CLEAR_POSITION'      => __( 'Clear', 'rpb-chessboard' ),
 			'FEN_EDITOR_LABEL_CLEAR_ANNOTATIONS'   => __( 'Clear annotations', 'rpb-chessboard' ),
+			'FEN_EDITOR_LABEL_FEN'                 => __( 'FEN', 'rpb-chessboard' ),
 			'FEN_EDITOR_LABEL_SQUARE_MARKER'       => __( 'Square marker', 'rpb-chessboard' ),
 			'FEN_EDITOR_LABEL_ARROW_MARKER'        => __( 'Arrow marker', 'rpb-chessboard' ),
 			'FEN_EDITOR_LABEL_TEXT_MARKER'         => __( 'Marker %s', 'rpb-chessboard' ),
@@ -242,6 +243,7 @@ abstract class RPBChessboardScripts {
 			'FEN_EDITOR_OPTION_FLOAT_RIGHT'        => __( 'Float on right', 'rpb-chessboard' ),
 			'FEN_EDITOR_OPTION_HIDDEN'             => __( 'Hidden', 'rpb-chessboard' ),
 			'FEN_EDITOR_OPTION_VISIBLE'            => __( 'Visible', 'rpb-chessboard' ),
+			'FEN_EDITOR_PARSING_ERROR'             => __( 'Error in the FEN string describing the chess diagram', 'rpb-chessboard' ),
 		);
 	}
 
