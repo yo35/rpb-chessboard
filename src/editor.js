@@ -167,67 +167,8 @@ class FENEditor extends React.Component {
 	}
 
 	render() {
-		let setInterationMode = newInteractionMode => this.setState({ interactionMode: newInteractionMode });
+		let setInteractionMode = newInteractionMode => this.setState({ interactionMode: newInteractionMode });
 		let position = new kokopu.Position(this.props.attributes.position);
-
-		// Piece selector in the FEN editor toolbar.
-		function AddPieceDropdown({ color }) {
-			let renderToggle = ({ isOpen, onToggle }) => {
-				let icon = <img src={addIconPath[color]} width={24} height={24} />;
-				return <ToolbarButton label={i18n.FEN_EDITOR_LABEL_ADD_PIECES[color]} icon={icon} onClick={onToggle} aria-expanded={isOpen} />;
-			};
-			let renderContent = ({ onClose }) => {
-				function AddPieceButton({ coloredPiece }) {
-					let onClick = () => {
-						setInterationMode('addPiece-' + coloredPiece);
-						onClose();
-					};
-					let icon = <img src={piecesets.cburnett[coloredPiece]} width={24} height={24} />;
-					return <Button label={i18n.FEN_EDITOR_LABEL_ADD_PIECE[coloredPiece]} icon={icon} onClick={onClick} />;
-				}
-				return (
-					<div>
-						<AddPieceButton coloredPiece={color + 'p'} />
-						<AddPieceButton coloredPiece={color + 'n'} />
-						<AddPieceButton coloredPiece={color + 'b'} />
-						<AddPieceButton coloredPiece={color + 'r'} />
-						<AddPieceButton coloredPiece={color + 'q'} />
-						<AddPieceButton coloredPiece={color + 'k'} />
-					</div>
-				);
-			};
-			return <Dropdown renderToggle={renderToggle} renderContent={renderContent} />;
-		}
-
-		// Square/arrow marker selector.
-		function AddMarkerButtonGroup({ iconBuilder, interactionModePrefix }) {
-			function AddMarkerButton({ color }) {
-				return <Button icon={iconBuilder(color)} onClick={() => setInterationMode(interactionModePrefix + color)} />;
-			}
-			return (
-				<ButtonGroup>
-					<AddMarkerButton color="g" />
-					<AddMarkerButton color="r" />
-					<AddMarkerButton color="y" />
-				</ButtonGroup>
-			);
-		}
-
-		// Combo-box to select the type of text marker
-		function TextMarkerTypeControl({ value, onChange }) {
-			let options = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'].map(mode => {
-				let label = util.format(i18n.FEN_EDITOR_LABEL_TEXT_MARKER, mode);
-				return { value: mode, label: label };
-			});
-			return <SelectControl value={value} options={options} onChange={onChange} />;
-		}
-
-		// Combox-box to select the colorset or the pieceset.
-		function SetCodeControl({ label, value, available, onChange }) {
-			let options = [ { value: '', label: '<' + i18n.FEN_EDITOR_USE_DEFAULT + '>' } ];
-			Object.keys(available).sort().forEach(key => options.push({ value: key, label: available[key] }));
-			return <ComboboxControl label={label} value={value} options={options} onChange={onChange} />;
-		}
 
 		// Chessboard widget interaction mode
 		let innerInteractionMode = '';
@@ -259,104 +200,188 @@ class FENEditor extends React.Component {
 			editionModeIcon = <TextMarkerIcon size={24} color={colorsets.original[color]} symbol={this.state.textMarkerMode} />
 		}
 
-		// Misc
+		// Render the block
+		return (
+			<div { ...this.props.blockProps }>
+				{this.renderToolbar(setInteractionMode)}
+				{this.renderSidePanel(editionModeIcon, setInteractionMode)}
+				{this.renderBlockContent(position, innerInteractionMode, editedArrowColor)}
+			</div>
+		);
+	}
+
+
+	/**
+	 * Rendering method for the toolbar (above the block).
+	 */
+	renderToolbar(setInteractionMode) {
+
+		// Piece selector in the FEN editor toolbar.
+		function AddPieceDropdown({ color }) {
+			let renderToggle = ({ isOpen, onToggle }) => {
+				let icon = <img src={addIconPath[color]} width={24} height={24} />;
+				return <ToolbarButton label={i18n.FEN_EDITOR_LABEL_ADD_PIECES[color]} icon={icon} onClick={onToggle} aria-expanded={isOpen} />;
+			};
+			let renderContent = ({ onClose }) => {
+				function AddPieceButton({ coloredPiece }) {
+					let onClick = () => {
+						setInteractionMode('addPiece-' + coloredPiece);
+						onClose();
+					};
+					let icon = <img src={piecesets.cburnett[coloredPiece]} width={24} height={24} />;
+					return <Button label={i18n.FEN_EDITOR_LABEL_ADD_PIECE[coloredPiece]} icon={icon} onClick={onClick} />;
+				}
+				return (
+					<div>
+						<AddPieceButton coloredPiece={color + 'p'} />
+						<AddPieceButton coloredPiece={color + 'n'} />
+						<AddPieceButton coloredPiece={color + 'b'} />
+						<AddPieceButton coloredPiece={color + 'r'} />
+						<AddPieceButton coloredPiece={color + 'q'} />
+						<AddPieceButton coloredPiece={color + 'k'} />
+					</div>
+				);
+			};
+			return <Dropdown renderToggle={renderToggle} renderContent={renderContent} />;
+		}
+
 		let toggleTurnIcon = <img src={toggleTurnIconPath} width={24} height={24} />;
+		return (
+			<BlockControls>
+				<ToolbarGroup>
+					<ToolbarButton label={i18n.FEN_EDITOR_LABEL_MOVE_PIECES} icon={moveTo} onClick={() => setInteractionMode('movePieces')} />
+					<AddPieceDropdown color="w" />
+					<AddPieceDropdown color="b" />
+					<ToolbarButton label={i18n.FEN_EDITOR_LABEL_TOGGLE_TURN} icon={toggleTurnIcon} onClick={() => this.handleToggleTurnClicked()} />
+				</ToolbarGroup>
+				<ToolbarGroup>
+					<ToolbarButton label={i18n.FEN_EDITOR_LABEL_FLIP} icon={rotateLeft} onClick={() => this.handleFlipClicked()} />
+				</ToolbarGroup>
+			</BlockControls>
+		);
+	}
+
+
+	/**
+	 * Rendering method for the controls in the right-side column.
+	 */
+	renderSidePanel(editionModeIcon, setInteractionMode) {
+
+		// Square/arrow marker selector.
+		function AddMarkerButtonGroup({ iconBuilder, interactionModePrefix }) {
+			function AddMarkerButton({ color }) {
+				return <Button icon={iconBuilder(color)} onClick={() => setInteractionMode(interactionModePrefix + color)} />;
+			}
+			return (
+				<ButtonGroup>
+					<AddMarkerButton color="g" />
+					<AddMarkerButton color="r" />
+					<AddMarkerButton color="y" />
+				</ButtonGroup>
+			);
+		}
+
+		// Combo-box to select the type of text marker
+		function TextMarkerTypeControl({ value, onChange }) {
+			let options = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'].map(mode => {
+				let label = util.format(i18n.FEN_EDITOR_LABEL_TEXT_MARKER, mode);
+				return { value: mode, label: label };
+			});
+			return <SelectControl value={value} options={options} onChange={onChange} />;
+		}
+
+		// Combox-box to select the colorset or the pieceset.
+		function SetCodeControl({ label, value, available, onChange }) {
+			let options = [ { value: '', label: '<' + i18n.FEN_EDITOR_USE_DEFAULT + '>' } ];
+			Object.keys(available).sort().forEach(key => options.push({ value: key, label: available[key] }));
+			return <ComboboxControl label={label} value={value} options={options} onChange={onChange} />;
+		}
+
 		let isDefaultSize = this.props.attributes.squareSize === 0;
 		let squareSizeControl = isDefaultSize ? undefined : <RangeControl label={i18n.FEN_EDITOR_CONTROL_SQUARE_SIZE}
 			value={this.props.attributes.squareSize} min={RPBChessboard.availableSquareSize.min} max={RPBChessboard.availableSquareSize.max} step={1}
 			onChange={value => this.handleSquareSizeChanged(value)}
 		/>;
-
-		// Render the block
 		return (
-			<div { ...this.props.blockProps }>
-				<BlockControls>
-					<ToolbarGroup>
-						<ToolbarButton label={i18n.FEN_EDITOR_LABEL_MOVE_PIECES} icon={moveTo} onClick={() => setInterationMode('movePieces')} />
-						<AddPieceDropdown color="w" />
-						<AddPieceDropdown color="b" />
-						<ToolbarButton label={i18n.FEN_EDITOR_LABEL_TOGGLE_TURN} icon={toggleTurnIcon} onClick={() => this.handleToggleTurnClicked()} />
-					</ToolbarGroup>
-					<ToolbarGroup>
-						<ToolbarButton label={i18n.FEN_EDITOR_LABEL_FLIP} icon={rotateLeft} onClick={() => this.handleFlipClicked()} />
-					</ToolbarGroup>
-				</BlockControls>
-				<InspectorControls>
-					<PanelBody title={i18n.FEN_EDITOR_PANEL_POSITION}>
-						<PanelRow>
-							<Button isSecondary text={i18n.FEN_EDITOR_LABEL_RESET_POSITION} label={i18n.FEN_EDITOR_TOOLTIP_RESET_POSITION}
-								onClick={() => this.handleSetPositionClicked('start')} />
-							<Button isSecondary text={i18n.FEN_EDITOR_LABEL_CLEAR_POSITION} label={i18n.FEN_EDITOR_TOOLTIP_CLEAR_POSITION}
-								onClick={() => this.handleSetPositionClicked('empty')} />
-							<Button isSecondary text={i18n.FEN_EDITOR_LABEL_CLEAR_ANNOTATIONS} label={i18n.FEN_EDITOR_TOOLTIP_CLEAR_ANNOTATIONS}
-								onClick={() => this.handleClearAnnotationsClicked()} />
-						</PanelRow>
-						<PanelRow className="rpbchessboard-editionModeRow">
-							<span>{i18n.FEN_EDITOR_CURRENT_EDITION_MODE}</span>
-							{editionModeIcon}
-						</PanelRow>
-						<PanelRow>
-							{i18n.FEN_EDITOR_LABEL_SQUARE_MARKER}
-							<AddMarkerButtonGroup interactionModePrefix="addSquareMarker-"
-								iconBuilder={color => <SquareMarkerIcon size={24} color={colorsets.original[color]} />} />
-						</PanelRow>
-						<PanelRow>
-							{i18n.FEN_EDITOR_LABEL_ARROW_MARKER}
-							<AddMarkerButtonGroup interactionModePrefix="addArrowMarker-"
-								iconBuilder={color => <ArrowMarkerIcon size={24} color={colorsets.original[color]} />} />
-						</PanelRow>
-						<PanelRow className="rpbchessboard-fixMarginBottom">
-							<TextMarkerTypeControl value={this.state.textMarkerMode} onChange={value => this.setState({ textMarkerMode: value })} />
-							<AddMarkerButtonGroup interactionModePrefix="addTextMarker-"
-								iconBuilder={color => <TextMarkerIcon size={24} color={colorsets.original[color]} symbol={this.state.textMarkerMode} />} />
-						</PanelRow>
-					</PanelBody>
-					<PanelBody title={i18n.FEN_EDITOR_PANEL_APPEARANCE} initialOpen={false}>
-						<ToggleControl label={i18n.FEN_EDITOR_CONTROL_USE_DEFAULT_SIZE} checked={isDefaultSize}
-							onChange={() => this.handleSquareSizeChanged(isDefaultSize ? RPBChessboard.defaultSettings.squareSize : 0)} />
-						{squareSizeControl}
-						<RadioControl label={i18n.FEN_EDITOR_CONTROL_ALIGNMENT} selected={this.props.attributes.align}
-							onChange={value => this.handleAlignmentChanged(value)} options={[
-							{ label: i18n.FEN_EDITOR_USE_DEFAULT, value: '' },
-							{ label: i18n.FEN_EDITOR_OPTION_CENTER, value: 'center' },
-							{ label: i18n.FEN_EDITOR_OPTION_FLOAT_LEFT, value: 'floatLeft' },
-							{ label: i18n.FEN_EDITOR_OPTION_FLOAT_RIGHT, value: 'floatRight' },
-						]} />
-						<RadioControl label={i18n.FEN_EDITOR_CONTROL_COORDINATES} selected={this.props.attributes.coordinateVisible}
-							onChange={value => this.handleCoordinateVisibleChanged(value)} options={[
-							{ label: i18n.FEN_EDITOR_USE_DEFAULT, value: '' },
-							{ label: i18n.FEN_EDITOR_OPTION_HIDDEN, value: 'false' },
-							{ label: i18n.FEN_EDITOR_OPTION_VISIBLE, value: 'true' },
-						]} />
-						<SetCodeControl label={i18n.FEN_EDITOR_CONTROL_COLORSET} value={this.props.attributes.colorset}
-							available={RPBChessboard.availableColorsets} onChange={value => this.handleColorsetChanged(value)}
-						/>
-						<SetCodeControl label={i18n.FEN_EDITOR_CONTROL_PIECESET} value={this.props.attributes.pieceset}
-							available={RPBChessboard.availablePiecesets} onChange={value => this.handlePiecesetChanged(value)}
-						/>
-					</PanelBody>
-				</InspectorControls>
-				<Chessboard position={position} flipped={this.props.attributes.flipped} squareSize={40}
-					interactionMode={innerInteractionMode} editedArrowColor={editedArrowColor}
-					squareMarkers={this.props.attributes.squareMarkers}
-					arrowMarkers={this.props.attributes.arrowMarkers}
-					textMarkers={this.props.attributes.textMarkers}
-					coordinateVisible={this.props.attributes.coordinateVisible === '' ? RPBChessboard.defaultSettings.showCoordinates : this.props.attributes.coordinateVisible === 'true'}
-					colorset={this.props.attributes.colorset === '' ? RPBChessboard.defaultSettings.colorset : this.props.attributes.colorset}
-					pieceset={this.props.attributes.pieceset === '' ? RPBChessboard.defaultSettings.pieceset : this.props.attributes.pieceset}
-					onPieceMoved={(from, to) => this.handlePieceMoved(from, to)}
-					onSquareClicked={sq => this.handleSquareClicked(sq)}
-					onArrowEdited={(from, to) => this.handleArrowEdited(from, to)}
-				/>
-			</div>
+			<InspectorControls>
+				<PanelBody title={i18n.FEN_EDITOR_PANEL_POSITION}>
+					<PanelRow>
+						<Button isSecondary text={i18n.FEN_EDITOR_LABEL_RESET_POSITION} label={i18n.FEN_EDITOR_TOOLTIP_RESET_POSITION}
+							onClick={() => this.handleSetPositionClicked('start')} />
+						<Button isSecondary text={i18n.FEN_EDITOR_LABEL_CLEAR_POSITION} label={i18n.FEN_EDITOR_TOOLTIP_CLEAR_POSITION}
+							onClick={() => this.handleSetPositionClicked('empty')} />
+						<Button isSecondary text={i18n.FEN_EDITOR_LABEL_CLEAR_ANNOTATIONS} label={i18n.FEN_EDITOR_TOOLTIP_CLEAR_ANNOTATIONS}
+							onClick={() => this.handleClearAnnotationsClicked()} />
+					</PanelRow>
+					<PanelRow className="rpbchessboard-editionModeRow">
+						<span>{i18n.FEN_EDITOR_CURRENT_EDITION_MODE}</span>
+						{editionModeIcon}
+					</PanelRow>
+					<PanelRow>
+						{i18n.FEN_EDITOR_LABEL_SQUARE_MARKER}
+						<AddMarkerButtonGroup interactionModePrefix="addSquareMarker-"
+							iconBuilder={color => <SquareMarkerIcon size={24} color={colorsets.original[color]} />} />
+					</PanelRow>
+					<PanelRow>
+						{i18n.FEN_EDITOR_LABEL_ARROW_MARKER}
+						<AddMarkerButtonGroup interactionModePrefix="addArrowMarker-"
+							iconBuilder={color => <ArrowMarkerIcon size={24} color={colorsets.original[color]} />} />
+					</PanelRow>
+					<PanelRow className="rpbchessboard-fixMarginBottom">
+						<TextMarkerTypeControl value={this.state.textMarkerMode} onChange={value => this.setState({ textMarkerMode: value })} />
+						<AddMarkerButtonGroup interactionModePrefix="addTextMarker-"
+							iconBuilder={color => <TextMarkerIcon size={24} color={colorsets.original[color]} symbol={this.state.textMarkerMode} />} />
+					</PanelRow>
+				</PanelBody>
+				<PanelBody title={i18n.FEN_EDITOR_PANEL_APPEARANCE} initialOpen={false}>
+					<ToggleControl label={i18n.FEN_EDITOR_CONTROL_USE_DEFAULT_SIZE} checked={isDefaultSize}
+						onChange={() => this.handleSquareSizeChanged(isDefaultSize ? RPBChessboard.defaultSettings.squareSize : 0)} />
+					{squareSizeControl}
+					<RadioControl label={i18n.FEN_EDITOR_CONTROL_ALIGNMENT} selected={this.props.attributes.align}
+						onChange={value => this.handleAlignmentChanged(value)} options={[
+						{ label: i18n.FEN_EDITOR_USE_DEFAULT, value: '' },
+						{ label: i18n.FEN_EDITOR_OPTION_CENTER, value: 'center' },
+						{ label: i18n.FEN_EDITOR_OPTION_FLOAT_LEFT, value: 'floatLeft' },
+						{ label: i18n.FEN_EDITOR_OPTION_FLOAT_RIGHT, value: 'floatRight' },
+					]} />
+					<RadioControl label={i18n.FEN_EDITOR_CONTROL_COORDINATES} selected={this.props.attributes.coordinateVisible}
+						onChange={value => this.handleCoordinateVisibleChanged(value)} options={[
+						{ label: i18n.FEN_EDITOR_USE_DEFAULT, value: '' },
+						{ label: i18n.FEN_EDITOR_OPTION_HIDDEN, value: 'false' },
+						{ label: i18n.FEN_EDITOR_OPTION_VISIBLE, value: 'true' },
+					]} />
+					<SetCodeControl label={i18n.FEN_EDITOR_CONTROL_COLORSET} value={this.props.attributes.colorset}
+						available={RPBChessboard.availableColorsets} onChange={value => this.handleColorsetChanged(value)}
+					/>
+					<SetCodeControl label={i18n.FEN_EDITOR_CONTROL_PIECESET} value={this.props.attributes.pieceset}
+						available={RPBChessboard.availablePiecesets} onChange={value => this.handlePiecesetChanged(value)}
+					/>
+				</PanelBody>
+			</InspectorControls>
+		);
+	}
+
+
+	/**
+	 * Render the chessboard.
+	 */
+	renderBlockContent(position, innerInteractionMode, editedArrowColor) {
+		return (
+			<Chessboard position={position} flipped={this.props.attributes.flipped} squareSize={40}
+				interactionMode={innerInteractionMode} editedArrowColor={editedArrowColor}
+				squareMarkers={this.props.attributes.squareMarkers}
+				arrowMarkers={this.props.attributes.arrowMarkers}
+				textMarkers={this.props.attributes.textMarkers}
+				coordinateVisible={this.props.attributes.coordinateVisible === '' ? RPBChessboard.defaultSettings.showCoordinates : this.props.attributes.coordinateVisible === 'true'}
+				colorset={this.props.attributes.colorset === '' ? RPBChessboard.defaultSettings.colorset : this.props.attributes.colorset}
+				pieceset={this.props.attributes.pieceset === '' ? RPBChessboard.defaultSettings.pieceset : this.props.attributes.pieceset}
+				onPieceMoved={(from, to) => this.handlePieceMoved(from, to)}
+				onSquareClicked={sq => this.handleSquareClicked(sq)}
+				onArrowEdited={(from, to) => this.handleArrowEdited(from, to)}
+			/>
 		);
 	}
 }
-
-
-/**
- * Helper method for shortcode argument rendering.
- */
 
 
 /**
