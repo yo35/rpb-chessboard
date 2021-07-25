@@ -27,7 +27,7 @@ RPB Chessboard allows you to typeset and display chess games and diagrams in the
  * Customizable aspect for the chessboards (orientation, size, etc...).
  * Support comments and sub-variations in PGN-encoded games.
  * Support HTML formatting in PGN comments.
- * Support [Chess 960](https://en.wikipedia.org/wiki/Chess960) (also known as Fischer Random Chess).
+ * Support [Chess960](https://en.wikipedia.org/wiki/Chess960) (also known as Fischer Random Chess).
  * Support [Antichess](https://en.wikipedia.org/wiki/Losing_chess).
  * Colored square and arrow markers.
  * Compatibility mode to avoid conflicts with the other plugins that use the `[fen][/fen]` and `[pgn][/pgn]` shortcodes too.
@@ -185,10 +185,10 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 = 5.4.1 (August 12, 2018) =
 * Fix animation issue occurring on small-screen devices (see #136).
 * Fix page/post rendering for Gutenberg (see #137).
-* Fix diagrams not working in Chess 960 games (see #138).
+* Fix diagrams not working in Chess960 games (see #138).
 
 = 5.4 (July 22, 2018) =
-* Add support for [Chess 960](https://en.wikipedia.org/wiki/Chess960), aka. Fischer Random Chess (see #15).
+* Add support for [Chess960](https://en.wikipedia.org/wiki/Chess960), aka. Fischer Random Chess (see #15).
 
 = 5.3.3 (July 9, 2018) =
 * Fix invalid move notation issue (see #134).

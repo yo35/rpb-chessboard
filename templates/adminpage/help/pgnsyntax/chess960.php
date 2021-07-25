@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<h3 id="rpbchessboard-pgnChess960"><?php esc_html_e( 'Chess 960 (aka. Fischer Random Chess)', 'rpb-chessboard' ); ?></h3>
+<h3 id="rpbchessboard-pgnChess960"><?php esc_html_e( 'Chess960 (aka. Fischer Random Chess)', 'rpb-chessboard' ); ?></h3>
 
 <div class="rpbchessboard-columns">
 	<div>
@@ -41,8 +41,8 @@
 			<?php
 				printf(
 					esc_html__(
-						'The %1$s header indicates that the game is a Chess 960 game (%2$s is also supported), ' .
-						'and the %3$s header defines the starting position. Please note that the %3$s header is mandatory for Chess 960 games.',
+						'The %1$s header indicates that the game is a Chess960 game (%2$s is also supported), ' .
+						'and the %3$s header defines the starting position. Please note that the %3$s header is mandatory for Chess960 games.',
 						'rpb-chessboard'
 					),
 					'<span class="rpbchessboard-sourceCode">[Variant "Chess960"]</span>',
