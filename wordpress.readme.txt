@@ -82,6 +82,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 6.2.0 (July 25, 2021) =
+* Add support for [Antichess](https://en.wikipedia.org/wiki/Losing_chess) (see #187).
+
 = 6.1.0 (June 26, 2021) =
 * Add text field to allow copy/paste FEN in the diagram editor (see #211).
 
