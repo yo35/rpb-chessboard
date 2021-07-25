@@ -28,6 +28,7 @@ RPB Chessboard allows you to typeset and display chess games and diagrams in the
  * Support comments and sub-variations in PGN-encoded games.
  * Support HTML formatting in PGN comments.
  * Support [Chess 960](https://en.wikipedia.org/wiki/Chess960) (also known as Fischer Random Chess).
+ * Support [Antichess](https://en.wikipedia.org/wiki/Losing_chess).
  * Colored square and arrow markers.
  * Compatibility mode to avoid conflicts with the other plugins that use the `[fen][/fen]` and `[pgn][/pgn]` shortcodes too.
  * Upload PGN files and load PGN data from a URL.

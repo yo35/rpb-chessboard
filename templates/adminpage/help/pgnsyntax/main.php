@@ -68,6 +68,7 @@
 		<li><a href="#rpbchessboard-pgnMarker"><?php esc_html_e( 'Square, arrow, and text markers', 'rpb-chessboard' ); ?></a></li>
 		<li><a href="#rpbchessboard-pgnNullMove"><?php esc_html_e( 'Null moves', 'rpb-chessboard' ); ?></a></li>
 		<li><a href="#rpbchessboard-pgnChess960"><?php esc_html_e( 'Chess 960 (aka. Fischer Random Chess)', 'rpb-chessboard' ); ?></a></li>
+		<li><a href="#rpbchessboard-pgnAntichess"><?php esc_html_e( 'Antichess', 'rpb-chessboard' ); ?></a></li>
 	</ol>
 
 	<?php
@@ -80,6 +81,7 @@
 		RPBChessboardHelperLoader::printTemplate( 'AdminPage/Help/PGNSyntax/Marker', $model );
 		RPBChessboardHelperLoader::printTemplate( 'AdminPage/Help/PGNSyntax/NullMove', $model );
 		RPBChessboardHelperLoader::printTemplate( 'AdminPage/Help/PGNSyntax/Chess960', $model );
+		RPBChessboardHelperLoader::printTemplate( 'AdminPage/Help/PGNSyntax/Antichess', $model );
 	?>
 
 </div>
