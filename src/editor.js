@@ -30,8 +30,7 @@ import { moveTo, rotateLeft } from '@wordpress/icons';
 import util from 'util';
 
 import kokopu from 'kokopu';
-import { Chessboard, colorsets, piecesets, flattenSquareMarkers, flattenArrowMarkers, flattenTextMarkers,
-	SquareMarkerIcon, ArrowMarkerIcon, TextMarkerIcon } from 'kokopu-react';
+import { Chessboard, flattenSquareMarkers, flattenArrowMarkers, flattenTextMarkers, SquareMarkerIcon, ArrowMarkerIcon, TextMarkerIcon } from 'kokopu-react';
 
 import addWIconPath from './images/add-w.png';
 import addBIconPath from './images/add-b.png';
@@ -43,6 +42,8 @@ const addIconPath = {
 };
 
 const i18n = RPBChessboard.i18n;
+const mainColorset = Chessboard.colorsets().original;
+const mainPieceset = Chessboard.piecesets().cburnett;
 
 
 /**
@@ -185,23 +186,23 @@ class FENEditor extends React.Component {
 		else if (/addPiece-([wb][pnbrqk])/.test(this.state.interactionMode)) {
 			let coloredPiece = RegExp.$1;
 			innerInteractionMode = 'clickSquares';
-			editionModeIcon = <img src={piecesets.cburnett[coloredPiece]} width={24} height={24} />;
+			editionModeIcon = <img src={mainPieceset[coloredPiece]} width={24} height={24} />;
 		}
 		else if (/addSquareMarker-([gry])/.test(this.state.interactionMode)) {
 			let color = RegExp.$1;
 			innerInteractionMode = 'clickSquares';
-			editionModeIcon = <SquareMarkerIcon size={24} color={colorsets.original[color]} />;
+			editionModeIcon = <SquareMarkerIcon size={24} color={mainColorset[color]} />;
 		}
 		else if (/addArrowMarker-([gry])/.test(this.state.interactionMode)) {
 			let color = RegExp.$1;
 			innerInteractionMode = 'editArrows';
 			editedArrowColor = color;
-			editionModeIcon = <ArrowMarkerIcon size={24} color={colorsets.original[color]} />;
+			editionModeIcon = <ArrowMarkerIcon size={24} color={mainColorset[color]} />;
 		}
 		else if (/addTextMarker-([gry])/.test(this.state.interactionMode)) {
 			let color = RegExp.$1;
 			innerInteractionMode = 'clickSquares';
-			editionModeIcon = <TextMarkerIcon size={24} color={colorsets.original[color]} symbol={this.state.textMarkerMode} />
+			editionModeIcon = <TextMarkerIcon size={24} color={mainColorset[color]} symbol={this.state.textMarkerMode} />
 		}
 
 		// Render the block
@@ -232,7 +233,7 @@ class FENEditor extends React.Component {
 						setInteractionMode('addPiece-' + coloredPiece);
 						onClose();
 					};
-					let icon = <img src={piecesets.cburnett[coloredPiece]} width={24} height={24} />;
+					let icon = <img src={mainPieceset[coloredPiece]} width={24} height={24} />;
 					return <Button label={i18n.FEN_EDITOR_LABEL_ADD_PIECE[coloredPiece]} icon={icon} onClick={onClick} />;
 				}
 				return (
@@ -326,18 +327,16 @@ class FENEditor extends React.Component {
 					</PanelRow>
 					<PanelRow>
 						{i18n.FEN_EDITOR_LABEL_SQUARE_MARKER}
-						<AddMarkerButtonGroup interactionModePrefix="addSquareMarker-"
-							iconBuilder={color => <SquareMarkerIcon size={24} color={colorsets.original[color]} />} />
+						<AddMarkerButtonGroup interactionModePrefix="addSquareMarker-" iconBuilder={color => <SquareMarkerIcon size={24} color={mainColorset[color]} />} />
 					</PanelRow>
 					<PanelRow>
 						{i18n.FEN_EDITOR_LABEL_ARROW_MARKER}
-						<AddMarkerButtonGroup interactionModePrefix="addArrowMarker-"
-							iconBuilder={color => <ArrowMarkerIcon size={24} color={colorsets.original[color]} />} />
+						<AddMarkerButtonGroup interactionModePrefix="addArrowMarker-" iconBuilder={color => <ArrowMarkerIcon size={24} color={mainColorset[color]} />} />
 					</PanelRow>
 					<PanelRow className="rpbchessboard-fixMarginBottom">
 						<TextMarkerTypeControl value={this.state.textMarkerMode} onChange={value => this.setState({ textMarkerMode: value })} />
 						<AddMarkerButtonGroup interactionModePrefix="addTextMarker-"
-							iconBuilder={color => <TextMarkerIcon size={24} color={colorsets.original[color]} symbol={this.state.textMarkerMode} />} />
+							iconBuilder={color => <TextMarkerIcon size={24} color={mainColorset[color]} symbol={this.state.textMarkerMode} />} />
 					</PanelRow>
 				</PanelBody>
 				<PanelBody title={i18n.FEN_EDITOR_PANEL_APPEARANCE} initialOpen={false}>

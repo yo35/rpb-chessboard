@@ -24,7 +24,7 @@ import './index.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Chessboard, colorsets, piecesets, adaptSquareSize } from 'kokopu-react';
+import { Chessboard } from 'kokopu-react';
 
 import './editor';
 
@@ -32,15 +32,15 @@ window.kokopu = require('kokopu');
 window.sanitizeHtml = require('sanitize-html');
 
 // Theming
-Object.assign(colorsets, RPBChessboard.customColorsets);
-Object.assign(piecesets, RPBChessboard.customPiecesets);
+Object.assign(Chessboard.colorsets(), RPBChessboard.customColorsets);
+Object.assign(Chessboard.piecesets(), RPBChessboard.customPiecesets);
 
 // Special colorsets and piecesets for theming edition
-RPBChessboard.editColorset = colorsets['_edit_'] = {};
-RPBChessboard.editPieceset = piecesets['_edit_'] = {};
+RPBChessboard.editColorset = Chessboard.colorsets()['_edit_'] = {};
+RPBChessboard.editPieceset = Chessboard.piecesets()['_edit_'] = {};
 
 // Re-export some methods
-RPBChessboard.adaptSquareSize = adaptSquareSize;
+RPBChessboard.adaptSquareSize = Chessboard.adaptSquareSize;
 
 // Chessboard rendering function
 RPBChessboard.renderFEN = function(targetJQueryElement, widgetArgs, wrapInDiv, withSmallScreenLimits) {
