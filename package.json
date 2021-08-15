@@ -5,8 +5,8 @@
 		"@wordpress/blocks": "^11.0.0",
 		"@wordpress/components": "^15.0.0",
 		"@wordpress/icons": "^5.0.0",
-		"kokopu": "^1.10.1",
-		"kokopu-react": "^1.0.2",
+		"kokopu": "^1.10.2",
+		"kokopu-react": "^1.1.0",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
 		"sanitize-html": "^2.4.0"
