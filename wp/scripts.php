@@ -31,16 +31,6 @@ abstract class RPBChessboardScripts {
 	public static function register() {
 		$ext = self::getJSFileExtension();
 
-		// Moment.js (http://momentjs.com/)
-		self::registerLocalizedScript(
-			'rpbchessboard-momentjs',
-			'third-party-libs/moment-js/moment' . $ext,
-			'third-party-libs/moment-js/locales/%1$s.js',
-			false,
-			'2.13.0',
-			false
-		);
-
 		// Dependencies resolved using NPM
 		$asset_file = include RPBCHESSBOARD_ABSPATH . 'build/index.asset.php';
 		wp_register_script(
@@ -76,7 +66,6 @@ abstract class RPBChessboardScripts {
 			'js/chessgame-locales/%1$s' . $ext,
 			array(
 				'rpbchessboard-npm',
-				'rpbchessboard-momentjs',
 				'jquery-ui-widget',
 				'jquery-ui-button',
 				'jquery-ui-selectable',

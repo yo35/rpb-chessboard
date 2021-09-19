@@ -51,10 +51,9 @@ rules:
   no-useless-return:            [ error ]
   no-warning-comments:          [ warn, { location: anywhere, terms: [ TODO ] }]
   no-restricted-globals:        [ error, event, name ]
-  no-shadow:                    [ error, { builtinGlobals: true, allow: [ event, kokopu, moment, sanitizeHtml, RPBChessboard ] }]
+  no-shadow:                    [ error, { builtinGlobals: true, allow: [ event, kokopu, sanitizeHtml, RPBChessboard ] }]
   no-shadow-restricted-names:   [ error ]
 
   # Relaxed rules
   no-redeclare:          [ off ]
   no-constant-condition: [ error, { checkLoops: false }]
-

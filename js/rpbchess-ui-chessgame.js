@@ -24,7 +24,6 @@
  *
  * @requires kokopu
  * @requires rpbchess-ui-chessboard.js
- * @requires Moment.js {@link http://momentjs.com/}
  * @requires sanitize-html {@link https://www.npmjs.com/package/sanitize-html}
  * @requires jQuery
  * @requires jQuery UI Widget
@@ -35,7 +34,7 @@
  * @requires jQuery UI Dialog (optional, only if the framed navigation board feature is enabled)
  * @requires jQuery UI Resizable (optional, only if the framed navigation board feature is enabled)
  */
-(function(RPBChessboard, kokopu, $, moment, sanitizeHtml)
+(function(RPBChessboard, kokopu, $, sanitizeHtml)
 {
 	'use strict';
 
@@ -152,26 +151,6 @@
 	 * Singleton used for dynamic-URL generation.
 	 */
 	var dynamicURL = null;
-
-
-
-	function formatDate(date) {
-
-		// Case "2013.05.20" -> return "May 20, 2013"
-		if(date instanceof Date) {
-			return capitalize(moment(date).format('LL'));
-		}
-
-		// Case "2013.05.??" -> return "May 2013"
-		else if('month' in date) {
-			return capitalize(moment({ year: date.year, month: date.month - 1 }).format('MMMM YYYY'));
-		}
-
-		// Case "2013.??.??" -> return "2013"
-		else {
-			return date.year;
-		}
-	}
 
 
 	function formatResult(result) {
@@ -909,7 +888,7 @@
 
 		// Build and return the header.
 		var header = buildElement('div', 'rpbui-chessgame-datePlaceGroup');
-		if(date !== undefined) { header.appendChild(buildRichTextElement('span', 'rpbui-chessgame-date', formatDate(date))); }
+		if(date !== undefined) { header.appendChild(buildRichTextElement('span', 'rpbui-chessgame-date', capitalize(widget._game.dateAsString()))); }
 		if(site !== undefined) { header.appendChild(buildRichTextElement('span', 'rpbui-chessgame-site', site)); }
 		return header;
 	}
@@ -1796,4 +1775,4 @@
 
 	}); /* $.widget('rpbchess-ui.chessgame', { ... }) */
 
-}(/* global RPBChessboard */ RPBChessboard, /* global kokopu */ kokopu, /* global jQuery */ jQuery, /* global moment */ moment, /* global sanitizeHtml */ sanitizeHtml));
+}(/* global RPBChessboard */ RPBChessboard, /* global kokopu */ kokopu, /* global jQuery */ jQuery, /* global sanitizeHtml */ sanitizeHtml));
