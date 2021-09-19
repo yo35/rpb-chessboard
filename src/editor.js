@@ -27,7 +27,6 @@ import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/bloc
 import { Button, ButtonGroup, ComboboxControl, Dropdown, PanelBody, PanelRow, RadioControl, RangeControl, SelectControl,
 	TextControl, ToggleControl, ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { moveTo, rotateLeft } from '@wordpress/icons';
-import util from 'util';
 
 import kokopu from 'kokopu';
 import { Chessboard, flattenSquareMarkers, flattenArrowMarkers, flattenTextMarkers, SquareMarkerIcon, ArrowMarkerIcon, TextMarkerIcon } from 'kokopu-react';
@@ -289,7 +288,7 @@ class FENEditor extends React.Component {
 		// Combo-box to select the type of text marker
 		function TextMarkerTypeControl({ value, onChange }) {
 			let options = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'].map(mode => {
-				let label = util.format(i18n.FEN_EDITOR_LABEL_TEXT_MARKER, mode);
+				let label = i18n.FEN_EDITOR_LABEL_TEXT_MARKER.replace('%s', mode); // FIXME use a proper text replacement method
 				return { value: mode, label: label };
 			});
 			return <SelectControl value={value} options={options} onChange={onChange} />;
