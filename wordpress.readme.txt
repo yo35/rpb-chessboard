@@ -100,8 +100,8 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 * Fix plugin crash encountered with old PHP versions (before PHP 7.3).
 
 = 6.0.0 (May 30, 2021) =
-* Add chess diagram block with its editor to the Gutenberg-based Wordpress page/post editor.
-* Drop support for the old TinyMCE-based Wordpress page/post editor.
+* Add chess diagram block with its editor to the Gutenberg-based WordPress page/post editor.
+* Drop support for the old TinyMCE-based WordPress page/post editor.
 * Significant code refactoring of the chess diagram widget, which is now released as a standalone NPM library (kokopu-react).
 
 = 5.9.3 (May 17, 2021) =
