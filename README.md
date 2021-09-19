@@ -40,6 +40,10 @@ in the [GitHub bug tracker](https://github.com/yo35/rpb-chessboard/issues).
 If you are interested in translating this plugin into your language,
 please [contact the author](mailto:yo35@melix.net).
 
+Custom developments in relation with RPB Chessboard (e.g. specific feature, advanced customization...)
+can be realized by the author as a paid service. If you need to have such custom developments for your website,
+please feel free to [contact the author](mailto:yo35@melix.net).
+
 
 
 Examples & Screenshots
