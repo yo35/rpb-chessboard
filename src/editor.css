@@ -23,10 +23,6 @@
 	text-align: center;
 }
 
-.rpbchessboard-editorErrorBox {
-	background-color: #fdd;
-}
-
 .rpbchessboard-editionModeRow {
 	justify-content: flex-start;
 }

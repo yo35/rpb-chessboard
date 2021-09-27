@@ -29,7 +29,7 @@ import { Button, ButtonGroup, ComboboxControl, Dropdown, PanelBody, PanelRow, Ra
 import { moveTo, rotateLeft } from '@wordpress/icons';
 
 import kokopu from 'kokopu';
-import { Chessboard, flattenSquareMarkers, flattenArrowMarkers, flattenTextMarkers, SquareMarkerIcon, ArrowMarkerIcon, TextMarkerIcon } from 'kokopu-react';
+import { Chessboard, ErrorBox, flattenSquareMarkers, flattenArrowMarkers, flattenTextMarkers, SquareMarkerIcon, ArrowMarkerIcon, TextMarkerIcon } from 'kokopu-react';
 
 import addWIconPath from './images/add-w.png';
 import addBIconPath from './images/add-b.png';
@@ -388,7 +388,7 @@ class FENEditor extends React.Component {
 			);
 		}
 		else {
-			return <div className="rpbchessboard-editorErrorBox">{i18n.FEN_EDITOR_PARSING_ERROR}</div>
+			return <ErrorBox title={i18n.FEN_EDITOR_PARSING_ERROR} message={data.message} />;
 		}
 	}
 
@@ -400,7 +400,7 @@ class FENEditor extends React.Component {
 		}
 		catch (error) {
 			if (error instanceof kokopu.exception.InvalidFEN) {
-				return { valid: false, fen: this.props.attributes.position };
+				return { valid: false, message: error.message, fen: this.props.attributes.position };
 			}
 			else {
 				throw error;
