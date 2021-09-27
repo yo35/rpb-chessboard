@@ -69,6 +69,7 @@
 		<li><a href="#rpbchessboard-pgnNullMove"><?php esc_html_e( 'Null moves', 'rpb-chessboard' ); ?></a></li>
 		<li><a href="#rpbchessboard-pgnChess960"><?php esc_html_e( 'Chess960 (aka. Fischer Random Chess)', 'rpb-chessboard' ); ?></a></li>
 		<li><a href="#rpbchessboard-pgnAntichess"><?php esc_html_e( 'Antichess', 'rpb-chessboard' ); ?></a></li>
+		<li><a href="#rpbchessboard-pgnHorde"><?php esc_html_e( 'Horde chess', 'rpb-chessboard' ); ?></a></li>
 	</ol>
 
 	<?php
@@ -82,6 +83,7 @@
 		RPBChessboardHelperLoader::printTemplate( 'AdminPage/Help/PGNSyntax/NullMove', $model );
 		RPBChessboardHelperLoader::printTemplate( 'AdminPage/Help/PGNSyntax/Chess960', $model );
 		RPBChessboardHelperLoader::printTemplate( 'AdminPage/Help/PGNSyntax/Antichess', $model );
+		RPBChessboardHelperLoader::printTemplate( 'AdminPage/Help/PGNSyntax/Horde', $model );
 	?>
 
 </div>
