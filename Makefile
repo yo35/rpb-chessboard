@@ -31,7 +31,7 @@ ASSET_FOLDER          = assets
 WORDPRESS_README_FILE = wordpress.readme.txt
 INFO_FILES            = LICENSE examples.pgn
 PACKAGE_JSON_FILE     = package.json
-NPM_TEMPLATE_FILE     = src/index.js
+WEBPACKED_FILES       = $(shell find src -type f)
 
 
 # Zip file used for deployment
@@ -107,7 +107,7 @@ help:
 
 init: $(NODE_MODULES) $(BUILD_FOLDER)
 
-$(BUILD_FOLDER): $(NPM_TEMPLATE_FILE) $(PACKAGE_JSON_FILE)
+$(BUILD_FOLDER): $(WEBPACKED_FILES) $(PACKAGE_JSON_FILE)
 	@$(ECHO) "$(COLOR_IN)Generating main JS file...$(COLOR_OUT)"
 	@npm run build
 
