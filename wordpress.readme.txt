@@ -86,6 +86,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 6.3.0 (September 27, 2021) =
+* Add support for [Horde chess](https://en.wikipedia.org/wiki/Dunsany%27s_chess#Horde_chess) (see #167).
+
 = 6.2.2 (September 19, 2021) =
 * Cleanup and upgrade dependencies.
 
