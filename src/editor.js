@@ -60,6 +60,25 @@ function FENEditorIcon() {
 
 
 /**
+ * Label used for text marker symbols in the combo-box in the side panel.
+ */
+function textMarkerLabel(symbol) {
+	switch(symbol) {
+		case 'plus':
+			return '+';
+		case 'times':
+			return '\u00d7';
+		case 'dot':
+			return '\u2022';
+		case 'circle':
+			return '\u25cb';
+		default:
+			return symbol;
+	}
+}
+
+
+/**
  * FEN editor
  */
 class FENEditor extends React.Component {
@@ -68,7 +87,7 @@ class FENEditor extends React.Component {
 		super(props);
 		this.state = {
 			interactionMode: 'movePieces',
-			textMarkerMode: 'A',
+			textMarkerMode: 'circle',
 		};
 	}
 
@@ -287,9 +306,10 @@ class FENEditor extends React.Component {
 
 		// Combo-box to select the type of text marker
 		function TextMarkerTypeControl({ value, onChange }) {
-			let options = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'].map(mode => {
-				let label = i18n.FEN_EDITOR_LABEL_TEXT_MARKER.replace('%s', mode); // FIXME use a proper text replacement method
-				return { value: mode, label: label };
+			let availableSymbols = [ 'plus', 'times', 'dot', 'circle' ].concat([...'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789']);
+			let options = availableSymbols.map(symbol => {
+				let label = i18n.FEN_EDITOR_LABEL_TEXT_MARKER.replace('%s', textMarkerLabel(symbol)); // FIXME use a proper text replacement method
+				return { value: symbol, label: label };
 			});
 			return <SelectControl value={value} options={options} onChange={onChange} />;
 		}

@@ -47,7 +47,7 @@
 			[SetUp "1"]<br/>
 			[FEN "8/2k5/p1P5/P1K5/8/8/8/8 w - - 0 1"]<br/>
 			<br/>
-			{[#][%ctl RAc5,GAc7,RBd6,GBd8,RCd5,GCc8] <?php echo esc_html_e( 'Typical conjugate square situation.', 'rpb-chessboard' ); ?>}<br/>
+			{[#][%ctl R(circle)c5,G(circle)c7,RAd6,GAd8,RBd5,GBc8] <?php echo esc_html_e( 'Typical conjugate square situation.', 'rpb-chessboard' ); ?>}<br/>
 			1. Kd5 Kc8 2. Kd4 Kd8 3. Kc4 Kc8 4. Kd5 Kc7 5. Kc5 Kc8 6. Kb6 +- *<br/>
 			[/<?php echo esc_html( $model->getPGNShortcode() ); ?>]
 		</div>
@@ -90,15 +90,19 @@
 			<?php
 				printf(
 					esc_html__(
-						'Finally, a letter or a digit can be used to decorate a square: this is achieved by using the tag %1$s[%%ctl ...]%2$s in a comment. ' .
-						'An character decoration is encoded by a group of 4 characters: the first one is the color to use (%1$sG%2$s, %1$sR%2$s, or %1$sY%2$s), ' .
-						'the second one is the character to use (must be an upper-case letter %1$sA-Z%2$s, a lower-case letter %1$sa-z%2$s, or a digit %1$s0-9%2$s), ' .
-						'the third and fourth ones represent the targeted square. ' .
-						'For instance, %1$s[%%ctl GAd4,Yzd5]%2$s decorates d4 with a red A, and d5 with a yellow z.',
+						'Finally, a letter, a digit or a symbol can be used to decorate a square: this is achieved by using the tag %1$s[%%ctl ...]%2$s in a comment. ' .
+						'Each decoration is encoded as follows: first comes a character representing the color to use (%1$sG%2$s, %1$sR%2$s, or %1$sY%2$s), ' .
+						'then is the symbol to draw on the square (must be an upper-case letter %1$sA-Z%2$s, a lower-case letter %1$sa-z%2$s, a digit %1$s0-9%2$s, ' .
+						'or a symbol among %3$s, %4$s, %5$s and %6$s), and finally comes the targeted square. ' .
+						'For instance, %1$s[%%ctl GAd4,Yzd5,R(circle)e4]%2$s decorates d4 with a green A, d5 with a yellow z, and e4 with a red circle.',
 						'rpb-chessboard'
 					),
 					'<span class="rpbchessboard-sourceCode">',
-					'</span>'
+					'</span>',
+					'<span class="rpbchessboard-sourceCode">(plus)</span>',
+					'<span class="rpbchessboard-sourceCode">(times)</span>',
+					'<span class="rpbchessboard-sourceCode">(dot)</span>',
+					'<span class="rpbchessboard-sourceCode">(circle)</span>'
 				);
 			?>
 		</p>
@@ -148,7 +152,7 @@
 								'[SetUp "1"]\n' +
 								'[FEN "8/2k5/p1P5/P1K5/8/8/8/8 w - - 0 1"]\n' +
 								'\n' +
-								'{[#][%ctl RAc5,GAc7,RBd6,GBd8,RCd5,GCc8] ' +
+								'{[#][%ctl R(circle)c5,G(circle)c7,RAd6,GAd8,RBd5,GBc8] ' +
 								<?php echo wp_json_encode( __( 'Typical conjugate square situation.', 'rpb-chessboard' ) ); ?> +
 								'}\n' +
 								'1. Kd5 Kc8 2. Kd4 Kd8 3. Kc4 Kc8 4. Kd5 Kc7 5. Kc5 Kc8 6. Kb6 +- *'
