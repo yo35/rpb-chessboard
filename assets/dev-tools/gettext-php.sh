@@ -2,7 +2,7 @@
 ################################################################################
 #                                                                              #
 #    This file is part of RPB Chessboard, a WordPress plugin.                  #
-#    Copyright (C) 2013-2021  Yoann Le Montagner <yo35 -at- melix.net>         #
+#    Copyright (C) 2013-2022  Yoann Le Montagner <yo35 -at- melix.net>         #
 #                                                                              #
 #    This program is free software: you can redistribute it and/or modify      #
 #    it under the terms of the GNU General Public License as published by      #
