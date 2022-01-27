@@ -99,6 +99,7 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 * Support castling moves encoded with zeros (see #142).
 
 = 6.2.0 (July 25, 2021) =
+* Tested up to WordPress 5.8.
 * Add support for [Antichess](https://en.wikipedia.org/wiki/Losing_chess) (see #187).
 
 = 6.1.0 (June 26, 2021) =
