@@ -22,6 +22,7 @@
 import './public-path';
 import './editor.css';
 
+import React from 'react';
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
 import { Button, ButtonGroup, ComboboxControl, Dropdown, PanelBody, PanelRow, RadioControl, RangeControl, SelectControl,
