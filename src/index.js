@@ -27,6 +27,7 @@ import ReactDOM from 'react-dom';
 import { Chessboard } from 'kokopu-react';
 
 import './editor';
+import Chessgame from './chessgame';
 
 window.kokopu = require('kokopu');
 window.sanitizeHtml = require('sanitize-html');
@@ -42,16 +43,22 @@ RPBChessboard.editPieceset = Chessboard.piecesets()['_edit_'] = {};
 // Re-export some methods
 RPBChessboard.adaptSquareSize = Chessboard.adaptSquareSize;
 
-// Chessboard rendering function
-RPBChessboard.renderFEN = function(targetJQueryElement, widgetArgs, wrapInDiv, withSmallScreenLimits) {
-	let smallScreenLimits = [];
+
+function getSmallScreenLimits(withSmallScreenLimits) {
+	let result = [];
 	if (withSmallScreenLimits) {
-		RPBChessboard.smallScreenModes.forEach(mode => smallScreenLimits.push({
+		RPBChessboard.smallScreenModes.forEach(mode => result.push({
 			width: mode.maxScreenWidth,
 			squareSize: mode.squareSize,
 			coordinateVisible: !mode.hideCoordinates,
 		}));
 	}
+	return result;
+}
+
+
+// Chessboard rendering function
+RPBChessboard.renderFEN = function(targetJQueryElement, widgetArgs, wrapInDiv, withSmallScreenLimits) {
 	let widget = <Chessboard
 		position={widgetArgs.position}
 		move={widgetArgs.move}
@@ -65,10 +72,34 @@ RPBChessboard.renderFEN = function(targetJQueryElement, widgetArgs, wrapInDiv, w
 		pieceset={widgetArgs.pieceset}
 		animated={widgetArgs.animated}
 		moveArrowVisible={widgetArgs.showMoveArrow}
-		smallScreenLimits={smallScreenLimits}
+		smallScreenLimits={getSmallScreenLimits(withSmallScreenLimits)}
 	/>;
 	if (wrapInDiv) {
 		widget = <div className="rpbchessboard-diagramAlignment-center">{widget}</div>
 	}
+	ReactDOM.render(widget, targetJQueryElement.get(0));
+};
+
+
+// Chessgame rendering function
+RPBChessboard.renderPGN = function(targetJQueryElement, widgetArgs) {
+	let diagramOptions = {
+		flipped: widgetArgs.diagramOptions.flip,
+		squareSize: widgetArgs.diagramOptions.squareSize,
+		coordinateVisible: widgetArgs.diagramOptions.showCoordinates,
+		colorset: widgetArgs.diagramOptions.colorset,
+		pieceset: widgetArgs.diagramOptions.pieceset,
+		smallScreenLimits: getSmallScreenLimits(true),
+	};
+	let widget = <Chessgame
+		game={widgetArgs.pgn}
+		gameIndex={widgetArgs.gameIndex}
+		pieceSymbols={widgetArgs.pieceSymbols}
+		diagramOptions={diagramOptions}
+		navigationBoardOptions={diagramOptions}
+		animated={widgetArgs.diagramOptions.animated}
+		moveArrowVisible={widgetArgs.diagramOptions.showMoveArrow}
+		navigationBoard={widgetArgs.navigationBoard}
+	/>; // TODO missing props
 	ReactDOM.render(widget, targetJQueryElement.get(0));
 };

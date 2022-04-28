@@ -233,6 +233,8 @@ abstract class RPBChessboardScripts {
 			'FEN_EDITOR_OPTION_HIDDEN'             => __( 'Hidden', 'rpb-chessboard' ),
 			'FEN_EDITOR_OPTION_VISIBLE'            => __( 'Visible', 'rpb-chessboard' ),
 			'FEN_EDITOR_PARSING_ERROR'             => __( 'Error in the FEN string describing the chess diagram', 'rpb-chessboard' ),
+
+			'PGN_PARSING_ERROR_TITLE'              => __( 'Error while analyzing a PGN string.', 'rpb-chessboard' ),
 		);
 	}
 
