@@ -37,7 +37,8 @@ export default class Chessgame extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			selection: 'start',
+			selection: false,
+			withMove: false,
 		};
 	}
 
@@ -66,8 +67,14 @@ export default class Chessgame extends React.Component {
 	}
 
 	renderMovetext(game, withNavigationBoard) {
-		return <Movetext game={game} selection={this.state.selection} interactionMode={withNavigationBoard ? 'selectMove' : undefined}
-			onMoveSelected={nodeId => this.handleMoveSelected(nodeId)} pieceSymbols={this.getPieceSymbols()} diagramOptions={this.props.diagramOptions} />;
+		return <Movetext
+			game={game}
+			selection={this.state.selection ? this.state.selection : undefined}
+			interactionMode={withNavigationBoard ? 'selectMove' : undefined}
+			onMoveSelected={(nodeId, evtOrigin) => this.handleMoveSelected(nodeId, evtOrigin)}
+			pieceSymbols={this.getPieceSymbols()}
+			diagramOptions={this.props.diagramOptions}
+		/>;
 	}
 
 	renderNavigationBoard(game) {
@@ -84,14 +91,17 @@ export default class Chessgame extends React.Component {
 	}
 
 	getCurrentPositionAndAnnotations(game) {
-		let node = this.state.selection === 'start' ? undefined : game.findById(this.state.selection);
+		let node = this.state.selection && this.state.selection !== 'start' ? game.findById(this.state.selection) : undefined;
 		if (node === undefined) {
 			let mainVariation = game.mainVariation();
 			return { position: mainVariation.initialPosition(), csl: mainVariation.tag('csl'), cal: mainVariation.tag('cal'), ctl: mainVariation.tag('ctl') };
 		}
 		else {
-			// TODO move only if move forward
-			return { position: node.positionBefore(), move: node.notation(), csl: node.tag('csl'), cal: node.tag('cal'), ctl: node.tag('ctl') };
+			let result = this.state.withMove ? { position: node.positionBefore(), move: node.notation() } : { position: node.position() };
+			result.csl = node.tag('csl');
+			result.cal = node.tag('cal');
+			result.ctl = node.tag('ctl');
+			return result;
 		}
 	}
 
@@ -126,8 +136,8 @@ export default class Chessgame extends React.Component {
 		}
 	}
 
-	handleMoveSelected(nodeId) {
-		this.setState({ selection: nodeId });
+	handleMoveSelected(nodeId, evtOrigin) {
+		this.setState(nodeId ? { selection: nodeId, withMove: evtOrigin === 'key-next' } : { selection: false, withMove: false });
 	}
 
 }
