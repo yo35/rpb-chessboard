@@ -43,11 +43,6 @@
 	margin-top: 0.5em;
 }
 
-.rpbchessboard-navigationBoard-above,
-.rpbchessboard-navigationBoard-below {
-	text-align: center;
-}
-
 .rpbchessboard-navigationBoard-floatLeft {
 	float: left;
 	margin-right: 0.5em;
@@ -60,4 +55,9 @@
 
 .rpbchessboard-clearFloat {
 	clear: both;
+}
+
+.rpbchessboard-toolbarSpacer {
+	display: inline-block;
+	width: 10px;
 }

@@ -100,6 +100,8 @@ RPBChessboard.renderPGN = function(targetJQueryElement, widgetArgs) {
 		animated={widgetArgs.diagramOptions.animated}
 		moveArrowVisible={widgetArgs.diagramOptions.showMoveArrow}
 		navigationBoard={widgetArgs.navigationBoard}
-	/>; // TODO missing props
+		withFlipButton={widgetArgs.showFlipButton}
+		withDownloadButton={widgetArgs.showDownloadButton}
+	/>;
 	ReactDOM.render(widget, targetJQueryElement.get(0));
 };

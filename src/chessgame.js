@@ -26,6 +26,18 @@ import React from 'react';
 import kokopu from 'kokopu';
 import { Chessboard, ErrorBox, Movetext } from 'kokopu-react';
 
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import Stack from '@mui/material/Stack';
+import Tooltip from '@mui/material/Tooltip';
+
+import DownloadIcon from '@mui/icons-material/Download';
+import FirstPageIcon from '@mui/icons-material/FirstPage';
+import FlipIcon from '@mui/icons-material/FlipCameraAndroid';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import LastPageIcon from '@mui/icons-material/LastPage';
+
 const i18n = RPBChessboard.i18n;
 
 
@@ -39,7 +51,9 @@ export default class Chessgame extends React.Component {
 		this.state = {
 			selection: false,
 			withMove: false,
+			withAdditionalFlip: false,
 		};
+		this.movetextRef = React.createRef();
 	}
 
 	render() {
@@ -67,7 +81,7 @@ export default class Chessgame extends React.Component {
 	}
 
 	renderMovetext(game, withNavigationBoard) {
-		return <Movetext
+		return <Movetext ref={this.movetextRef}
 			game={game}
 			selection={this.state.selection ? this.state.selection : undefined}
 			interactionMode={withNavigationBoard ? 'selectMove' : undefined}
@@ -81,13 +95,51 @@ export default class Chessgame extends React.Component {
 		let { position, move, csl, cal, ctl } = this.getCurrentPositionAndAnnotations(game);
 		let boardOptions = this.props.navigationBoardOptions;
 		return (
-			<div className={'rpbchessboard-navigationBoard-' + this.props.navigationBoard}>
-				<Chessboard position={position} move={move} squareMarkers={csl} arrowMarkers={cal} textMarkers={ctl}
-					flipped={boardOptions.flipped} squareSize={boardOptions.squareSize} coordinateVisible={boardOptions.coordinateVisible}
-					colorset={boardOptions.colorset} pieceset={boardOptions.pieceset}
-					animated={this.props.animated} moveArrowVisible={this.props.moveArrowVisible} />
-			</div>
+			<Stack className={'rpbchessboard-navigationBoard-' + this.props.navigationBoard} alignItems="center" spacing="5px">
+				<Chessboard
+					position={position}
+					move={move}
+					squareMarkers={csl}
+					arrowMarkers={cal}
+					textMarkers={ctl}
+					flipped={boardOptions.flipped ^ this.state.withAdditionalFlip}
+					squareSize={boardOptions.squareSize}
+					coordinateVisible={boardOptions.coordinateVisible}
+					colorset={boardOptions.colorset}
+					pieceset={boardOptions.pieceset}
+					animated={this.props.animated}
+					moveArrowVisible={this.props.moveArrowVisible}
+				/>
+				<Box>
+					<Tooltip title={i18n.PGN_TOOLTIP_GO_FIRST}><IconButton size="small" onClick={() => this.handleNavClicked(game, Movetext.firstNodeId, false)}><FirstPageIcon /></IconButton></Tooltip>
+					<Tooltip title={i18n.PGN_TOOLTIP_GO_PREVIOUS}><IconButton size="small" onClick={() => this.handleNavClicked(game, Movetext.previousNodeId, false)}><NavigateBeforeIcon /></IconButton></Tooltip>
+					<Tooltip title={i18n.PGN_TOOLTIP_GO_NEXT}><IconButton size="small" onClick={() => this.handleNavClicked(game, Movetext.nextNodeId, true)}><NavigateNextIcon /></IconButton></Tooltip>
+					<Tooltip title={i18n.PGN_TOOLTIP_GO_LAST}><IconButton size="small" onClick={() => this.handleNavClicked(game, Movetext.lastNodeId, false)}><LastPageIcon /></IconButton></Tooltip>
+					{this.renderFlipButton()}
+					{this.renderDownloadButton()}
+				</Box>
+			</Stack>
 		);
+	}
+
+	renderFlipButton() {
+		if (!this.props.withFlipButton) {
+			return undefined;
+		}
+		return (<>
+			<span className="rpbchessboard-toolbarSpacer" />
+			<Tooltip title={i18n.PGN_TOOLTIP_FLIP}><IconButton size="small" onClick={() => this.handleFlipClicked()}><FlipIcon /></IconButton></Tooltip>
+		</>);
+	}
+
+	renderDownloadButton() {
+		if (!this.props.withDownloadButton) {
+			return undefined;
+		}
+		return (<>
+			<span className="rpbchessboard-toolbarSpacer" />
+			<Tooltip title={i18n.PGN_TOOLTIP_DOWNLOAD}><IconButton size="small" onClick={() => this.handleDownloadClicked()}><DownloadIcon /></IconButton></Tooltip>
+		</>);
 	}
 
 	getCurrentPositionAndAnnotations(game) {
@@ -140,6 +192,24 @@ export default class Chessgame extends React.Component {
 		this.setState(nodeId ? { selection: nodeId, withMove: evtOrigin === 'key-next' } : { selection: false, withMove: false });
 	}
 
+	handleNavClicked(game, nodeIdProvider, withMove) {
+		this.movetextRef.current.focus();
+		if (!this.state.selection) {
+			return;
+		}
+		let nodeId = nodeIdProvider(game, this.state.selection);
+		if (nodeId) {
+			this.setState({ selection: nodeId, withMove: withMove });
+		}
+	}
+
+	handleFlipClicked() {
+		this.setState({ withAdditionalFlip: !this.state.withAdditionalFlip });
+	}
+
+	handleDownloadClicked() {
+		// TODO impl download
+	}
 }
 
 
