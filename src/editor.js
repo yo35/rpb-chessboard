@@ -31,6 +31,7 @@ import { moveTo, rotateLeft } from '@wordpress/icons';
 
 import kokopu from 'kokopu';
 import { Chessboard, ErrorBox, flattenSquareMarkers, flattenArrowMarkers, flattenTextMarkers, SquareMarkerIcon, ArrowMarkerIcon, TextMarkerIcon } from 'kokopu-react';
+import { format } from './util';
 
 import addWIconPath from './images/add-w.png';
 import addBIconPath from './images/add-b.png';
@@ -309,7 +310,7 @@ class FENEditor extends React.Component {
 		function TextMarkerTypeControl({ value, onChange }) {
 			let availableSymbols = [ 'plus', 'times', 'dot', 'circle' ].concat([...'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789']);
 			let options = availableSymbols.map(symbol => {
-				let label = i18n.FEN_EDITOR_LABEL_TEXT_MARKER.replace('%s', textMarkerLabel(symbol)); // FIXME use a proper text replacement method
+				let label = format(i18n.FEN_EDITOR_LABEL_TEXT_MARKER, textMarkerLabel(symbol));
 				return { value: symbol, label: label };
 			});
 			return <SelectControl value={value} options={options} onChange={onChange} />;

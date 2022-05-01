@@ -215,7 +215,7 @@ abstract class RPBChessboardScripts {
 			'FEN_EDITOR_LABEL_FEN'                 => __( 'FEN', 'rpb-chessboard' ),
 			'FEN_EDITOR_LABEL_SQUARE_MARKER'       => __( 'Square marker', 'rpb-chessboard' ),
 			'FEN_EDITOR_LABEL_ARROW_MARKER'        => __( 'Arrow marker', 'rpb-chessboard' ),
-			'FEN_EDITOR_LABEL_TEXT_MARKER'         => __( 'Marker %s', 'rpb-chessboard' ),
+			'FEN_EDITOR_LABEL_TEXT_MARKER'         => __( 'Marker {0}', 'rpb-chessboard' ),
 			'FEN_EDITOR_TOOLTIP_RESET_POSITION'    => __( 'Reset to the startup position', 'rpb-chessboard' ),
 			'FEN_EDITOR_TOOLTIP_CLEAR_POSITION'    => __( 'Remove all pieces', 'rpb-chessboard' ),
 			'FEN_EDITOR_TOOLTIP_CLEAR_ANNOTATIONS' => __( 'Remove all square/arrow/text markers', 'rpb-chessboard' ),
@@ -236,12 +236,24 @@ abstract class RPBChessboardScripts {
 
 			'PGN_PARSING_ERROR_TITLE'              => __( 'Error while analyzing the PGN string.', 'rpb-chessboard' ),
 			'PGN_DOWNLOAD_ERROR_TITLE'             => __( 'Error while downloading the PGN file.', 'rpb-chessboard' ),
+			'PGN_DOWNLOAD_ERROR_MESSAGE'           => __( 'Cannot download `{0}`. HTTP request returns status code {1}.', 'rpb-chessboard' ),
 			'PGN_TOOLTIP_GO_FIRST'                 => __( 'Go to the beginning of the game', 'rpb-chessboard' ),
 			'PGN_TOOLTIP_GO_PREVIOUS'              => __( 'Go to the previous move', 'rpb-chessboard' ),
 			'PGN_TOOLTIP_GO_NEXT'                  => __( 'Go to the next move', 'rpb-chessboard' ),
 			'PGN_TOOLTIP_GO_LAST'                  => __( 'Go to the end of the game', 'rpb-chessboard' ),
 			'PGN_TOOLTIP_FLIP'                     => __( 'Flip the board', 'rpb-chessboard' ),
 			'PGN_TOOLTIP_DOWNLOAD'                 => __( 'Download the game', 'rpb-chessboard' ),
+			'PGN_ANNOTATED_BY'                     => __( 'Annotated by {0}', 'rpb-chessboard' ),
+			'PGN_LINE_REF'                         => __( 'line {0}', 'rpb-chessboard' ),
+
+			'PIECE_SYMBOLS'                        => array(
+				'K' => /*i18n King symbol   */ __( 'K', 'rpb-chessboard' ),
+				'Q' => /*i18n Queen symbol  */ __( 'Q', 'rpb-chessboard' ),
+				'R' => /*i18n Rook symbol   */ __( 'R', 'rpb-chessboard' ),
+				'B' => /*i18n Bishop symbol */ __( 'B', 'rpb-chessboard' ),
+				'N' => /*i18n Knight symbol */ __( 'N', 'rpb-chessboard' ),
+				'P' => /*i18n Pawn symbol   */ __( 'P', 'rpb-chessboard' ),
+			),
 		);
 	}
 

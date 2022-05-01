@@ -25,6 +25,7 @@ import './chessgame.css';
 import React from 'react';
 import kokopu from 'kokopu';
 import { Chessboard, ErrorBox, Movetext } from 'kokopu-react';
+import { format } from './util';
 
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -264,5 +265,5 @@ Chessgame.defaultProps = {
 
 async function fetchPGN(url) {
 	let response = await fetch(url);
-	return response.ok ? response.text() : Promise.reject(`Status: ${response.status}`); //TODO improve error message
+	return response.ok ? response.text() : Promise.reject(format(i18n.PGN_DOWNLOAD_ERROR_MESSAGE, url, response.status));
 }
