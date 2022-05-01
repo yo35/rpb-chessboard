@@ -99,9 +99,22 @@ export default class Chessgame extends React.Component {
 		else if (this.props.navigationBoard === 'floatLeft' || this.props.navigationBoard === 'floatRight') {
 			return <div>{this.renderNavigationBoard(info.game)}{this.renderMovetext(info.game, true)}<div className="rpbchessboard-clearFloat"></div></div>;
 		}
+		else if (this.props.navigationBoard === 'scrollLeft' || this.props.navigationBoard === 'scrollRight') {
+
+			// FIXME: the height of the buttons (including margin) is hard-coded here. DO NOT FORGET to update it in case of change.
+			let boardOptions = this.props.navigationBoardOptions;
+			let height = Chessboard.size(boardOptions.squareSize, boardOptions.coordinateVisible, boardOptions.smallScreenLimits).height + 39;
+
+			return (
+				<div class={'rpbchessboard-scrollBox-' + this.props.navigationBoard}>
+					{this.renderNavigationBoard(info.game)}
+					<div className="rpbchessboard-scrollArea" style={{ 'max-height': height }}>{this.renderMovetext(info.game, true)}</div>
+				</div>
+			);
+		}
 		else {
 			return <div>{this.renderMovetext(info.game, false)}</div>;
-		} // TODO impl scrollLeft/scrollRight/frame
+		} // TODO impl frame
 	}
 
 	renderMovetext(game, withNavigationBoard) {
@@ -131,6 +144,7 @@ export default class Chessgame extends React.Component {
 					coordinateVisible={boardOptions.coordinateVisible}
 					colorset={boardOptions.colorset}
 					pieceset={boardOptions.pieceset}
+					smallScreenLimits={boardOptions.smallScreenLimits}
 					animated={this.props.animated}
 					moveArrowVisible={this.props.moveArrowVisible}
 				/>
