@@ -82,7 +82,7 @@ export default class Chessgame extends React.Component {
 			}
 		}
 		else {
-			pgn = this.props.game;
+			pgn = this.props.pgn;
 		}
 
 		let info = this.parseGame(pgn);
@@ -234,7 +234,7 @@ export default class Chessgame extends React.Component {
 			window.location.href = this.props.url;
 		}
 		else {
-			let data = new Blob([ this.props.game ], { type: 'text/plain' });
+			let data = new Blob([ this.props.pgn ], { type: 'text/plain' });
 
 			// Allocate a new URL for the current blob.
 			this.releaseDynamicURL();
@@ -257,7 +257,7 @@ export default class Chessgame extends React.Component {
 
 
 Chessgame.defaultProps = {
-	game: '',
+	pgn: '',
 	gameIndex: 0,
 	navigationBoardOptions: {},
 };

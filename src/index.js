@@ -105,7 +105,7 @@ RPBChessboard.renderPGN = function(targetJQueryElement, widgetArgs) {
 	};
 	let widget = <Chessgame
 		url={widgetArgs.url}
-		game={widgetArgs.pgn}
+		pgn={widgetArgs.pgn}
 		gameIndex={widgetArgs.gameIndex}
 		pieceSymbols={widgetArgs.pieceSymbols}
 		diagramOptions={diagramOptions}
