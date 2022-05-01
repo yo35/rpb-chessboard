@@ -61,3 +61,7 @@
 	display: inline-block;
 	width: 10px;
 }
+
+.rpbchessboard-blobDownloadLink {
+	display: none;
+}

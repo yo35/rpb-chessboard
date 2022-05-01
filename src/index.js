@@ -92,6 +92,7 @@ RPBChessboard.renderPGN = function(targetJQueryElement, widgetArgs) {
 		smallScreenLimits: getSmallScreenLimits(true),
 	};
 	let widget = <Chessgame
+		url={widgetArgs.url}
 		game={widgetArgs.pgn}
 		gameIndex={widgetArgs.gameIndex}
 		pieceSymbols={widgetArgs.pieceSymbols}

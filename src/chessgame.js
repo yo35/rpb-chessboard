@@ -27,6 +27,7 @@ import kokopu from 'kokopu';
 import { Chessboard, ErrorBox, Movetext } from 'kokopu-react';
 
 import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import Tooltip from '@mui/material/Tooltip';
@@ -52,16 +53,38 @@ export default class Chessgame extends React.Component {
 			selection: false,
 			withMove: false,
 			withAdditionalFlip: false,
+			urlFetchStatus: false,
 		};
 		this.movetextRef = React.createRef();
+		this.blobDownloadLinkRef = React.createRef();
+		this.dynamicURL = false;
+	}
+
+	componentWillUnmount() {
+		this.releaseDynamicURL();
 	}
 
 	render() {
-		if (this.props.game === undefined) {
-			return <div>TODO</div>; // TODO impl async fetch
+		let pgn = '';
+		if (this.props.url) {
+			if (this.state.urlFetchStatus === 'ok') {
+				pgn = this.state.urlData;
+			}
+			else if (this.state.urlFetchStatus === 'error') {
+				return <ErrorBox title={i18n.PGN_DOWNLOAD_ERROR_TITLE} message={this.state.urlError} />;
+			}
+			else {
+				fetchPGN(this.props.url)
+					.then(pgn => this.setState({ urlFetchStatus: 'ok', urlData: pgn }))
+					.catch(e => this.setState({ urlFetchStatus: 'error', urlError: e }));
+				return <CircularProgress />;
+			}
+		}
+		else {
+			pgn = this.props.game;
 		}
 
-		let info = this.parseGame();
+		let info = this.parseGame(pgn);
 		if (!info.valid) {
 			return <ErrorBox title={i18n.PGN_PARSING_ERROR_TITLE} message={info.message} text={info.pgn} errorIndex={info.errorIndex} lineNumber={info.lineNumber} />;
 		}
@@ -139,6 +162,7 @@ export default class Chessgame extends React.Component {
 		return (<>
 			<span className="rpbchessboard-toolbarSpacer" />
 			<Tooltip title={i18n.PGN_TOOLTIP_DOWNLOAD}><IconButton size="small" onClick={() => this.handleDownloadClicked()}><DownloadIcon /></IconButton></Tooltip>
+			<a ref={this.blobDownloadLinkRef} className="rpbchessboard-blobDownloadLink" href="#" download="game.pgn" />
 		</>);
 	}
 
@@ -170,13 +194,10 @@ export default class Chessgame extends React.Component {
 		}
 	}
 
-	parseGame() {
-		let pgn = this.props.game;
-		let gameIndex = this.props.gameIndex;
-
+	parseGame(pgn) {
 		try {
-			let result = kokopu.pgnRead(pgn, gameIndex);
-			return { valid: true, pgn: pgn, game: result };
+			let result = kokopu.pgnRead(pgn, this.props.gameIndex);
+			return { valid: true, game: result };
 		}
 		catch (e) {
 			if (e instanceof kokopu.exception.InvalidPGN) {
@@ -208,12 +229,40 @@ export default class Chessgame extends React.Component {
 	}
 
 	handleDownloadClicked() {
-		// TODO impl download
+		if(this.props.url) {
+			window.location.href = this.props.url;
+		}
+		else {
+			let data = new Blob([ this.props.game ], { type: 'text/plain' });
+
+			// Allocate a new URL for the current blob.
+			this.releaseDynamicURL();
+			this.dynamicURL = window.URL.createObjectURL(data);
+
+			// Trigger the download.
+			let blobDownloadLink = this.blobDownloadLinkRef.current;
+			blobDownloadLink.href = this.dynamicURL;
+			blobDownloadLink.click();
+		}
+	}
+
+	releaseDynamicURL() {
+		if (this.dynamicURL) {
+			window.URL.revokeObjectURL(this.dynamicURL);
+			this.dynamicURL = false;
+		}
 	}
 }
 
 
 Chessgame.defaultProps = {
+	game: '',
 	gameIndex: 0,
 	navigationBoardOptions: {},
 };
+
+
+async function fetchPGN(url) {
+	let response = await fetch(url);
+	return response.ok ? response.text() : Promise.reject(`Status: ${response.status}`); //TODO improve error message
+}

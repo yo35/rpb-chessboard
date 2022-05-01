@@ -234,7 +234,8 @@ abstract class RPBChessboardScripts {
 			'FEN_EDITOR_OPTION_VISIBLE'            => __( 'Visible', 'rpb-chessboard' ),
 			'FEN_EDITOR_PARSING_ERROR'             => __( 'Error in the FEN string describing the chess diagram', 'rpb-chessboard' ),
 
-			'PGN_PARSING_ERROR_TITLE'              => __( 'Error while analyzing a PGN string.', 'rpb-chessboard' ),
+			'PGN_PARSING_ERROR_TITLE'              => __( 'Error while analyzing the PGN string.', 'rpb-chessboard' ),
+			'PGN_DOWNLOAD_ERROR_TITLE'             => __( 'Error while downloading the PGN file.', 'rpb-chessboard' ),
 			'PGN_TOOLTIP_GO_FIRST'                 => __( 'Go to the beginning of the game', 'rpb-chessboard' ),
 			'PGN_TOOLTIP_GO_PREVIOUS'              => __( 'Go to the previous move', 'rpb-chessboard' ),
 			'PGN_TOOLTIP_GO_NEXT'                  => __( 'Go to the next move', 'rpb-chessboard' ),
