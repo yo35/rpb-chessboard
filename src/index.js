@@ -26,8 +26,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Chessboard, i18n as kokopuReactI18n } from 'kokopu-react';
 
-import './editor';
-import Chessgame from './chessgame';
+import Chessgame from './Chessgame';
+import './FENEditor';
 
 window.kokopu = require('kokopu');
 window.sanitizeHtml = require('sanitize-html');

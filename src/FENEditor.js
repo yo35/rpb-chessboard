@@ -20,7 +20,7 @@
 
 
 import './public-path';
-import './editor.css';
+import './FENEditor.css';
 
 import React from 'react';
 import { registerBlockType } from '@wordpress/blocks';

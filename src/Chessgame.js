@@ -20,7 +20,7 @@
 
 
 import './public-path';
-import './chessgame.css';
+import './Chessgame.css';
 
 import React from 'react';
 import kokopu from 'kokopu';
