@@ -24,10 +24,11 @@ import './Chessgame.css';
 
 import PropTypes from 'prop-types';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import kokopu from 'kokopu';
 import { Chessboard, ErrorBox, Movetext } from 'kokopu-react';
 import { format } from './util';
-import { showPopupBoard, hidePopupBoard } from './NavigationFrame';
+import { showPopupFrame, hidePopupFrame } from './NavigationFrame';
 
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -66,7 +67,7 @@ export default class Chessgame extends React.Component {
 	componentWillUnmount() {
 		this.releaseDynamicURL();
 		if (this.props.navigationBoard === 'frame') {
-			hidePopupBoard(this);
+			hidePopupFrame(this);
 		}
 	}
 
@@ -96,13 +97,19 @@ export default class Chessgame extends React.Component {
 		}
 
 		if (this.props.navigationBoard === 'above') {
-			return <div>{this.renderNavigationBoard(info.game)}{this.renderMovetext(info.game, true)}</div>;
+			return <div>{this.renderNavigationBoard(info.game, this.props.navigationBoardOptions)}{this.renderMovetext(info.game, true)}</div>;
 		}
 		else if (this.props.navigationBoard === 'below') {
-			return <div>{this.renderMovetext(info.game, true)}{this.renderNavigationBoard(info.game)}</div>;
+			return <div>{this.renderMovetext(info.game, true)}{this.renderNavigationBoard(info.game, this.props.navigationBoardOptions)}</div>;
 		}
 		else if (this.props.navigationBoard === 'floatLeft' || this.props.navigationBoard === 'floatRight') {
-			return <div>{this.renderNavigationBoard(info.game)}{this.renderMovetext(info.game, true)}<div className="rpbchessboard-clearFloat"></div></div>;
+			return (
+				<div>
+					{this.renderNavigationBoard(info.game, this.props.navigationBoardOptions)}
+					{this.renderMovetext(info.game, true)}
+					<div className="rpbchessboard-clearFloat"></div>
+				</div>
+			);
 		}
 		else if (this.props.navigationBoard === 'scrollLeft' || this.props.navigationBoard === 'scrollRight') {
 
@@ -112,14 +119,17 @@ export default class Chessgame extends React.Component {
 
 			return (
 				<div className={'rpbchessboard-scrollBox-' + this.props.navigationBoard}>
-					{this.renderNavigationBoard(info.game)}
+					{this.renderNavigationBoard(info.game, boardOptions)}
 					<div className="rpbchessboard-scrollArea" style={{ 'max-height': height }}>{this.renderMovetext(info.game, true)}</div>
 				</div>
 			);
 		}
+		else if (this.props.navigationBoard === 'frame') {
+			return <div>{this.renderMovetext(info.game, true)}{this.renderNavigationBoardInPopup(info.game)}</div>;
+		}
 		else {
-			return <div>{this.renderMovetext(info.game, this.props.navigationBoard === 'frame')}</div>;
-		} // TODO impl frame
+			return <div>{this.renderMovetext(info.game, false)}</div>;
+		}
 	}
 
 	renderMovetext(game, withNavigationBoard) {
@@ -133,9 +143,15 @@ export default class Chessgame extends React.Component {
 		/>;
 	}
 
-	renderNavigationBoard(game) {
+	renderNavigationBoardInPopup(game) {
+		if (!this.state.selection || !this.state.popupAnchor) {
+			return undefined;
+		}
+		return ReactDOM.createPortal(this.renderNavigationBoard(game, this.state.popupBoardOptions), this.state.popupAnchor);
+	}
+
+	renderNavigationBoard(game, navigationBoardOptions) {
 		let { position, move, csl, cal, ctl } = this.getCurrentPositionAndAnnotations(game);
-		let boardOptions = this.props.navigationBoardOptions;
 		return (
 			<Stack className={'rpbchessboard-navigationBoard-' + this.props.navigationBoard} alignItems="center" spacing="5px">
 				<Chessboard
@@ -144,14 +160,14 @@ export default class Chessgame extends React.Component {
 					squareMarkers={csl}
 					arrowMarkers={cal}
 					textMarkers={ctl}
-					flipped={boardOptions.flipped ^ this.state.withAdditionalFlip}
-					squareSize={boardOptions.squareSize}
-					coordinateVisible={boardOptions.coordinateVisible}
-					colorset={boardOptions.colorset}
-					pieceset={boardOptions.pieceset}
-					smallScreenLimits={boardOptions.smallScreenLimits}
-					animated={boardOptions.animated}
-					moveArrowVisible={boardOptions.moveArrowVisible}
+					flipped={this.props.navigationBoardOptions.flipped ^ this.state.withAdditionalFlip}
+					squareSize={navigationBoardOptions.squareSize}
+					coordinateVisible={navigationBoardOptions.coordinateVisible}
+					colorset={navigationBoardOptions.colorset}
+					pieceset={navigationBoardOptions.pieceset}
+					smallScreenLimits={navigationBoardOptions.smallScreenLimits}
+					animated={navigationBoardOptions.animated}
+					moveArrowVisible={navigationBoardOptions.moveArrowVisible}
 				/>
 				<Box>
 					<Tooltip title={i18n.PGN_TOOLTIP_GO_FIRST}><IconButton size="small" onClick={() => this.handleNavClicked(game, Movetext.firstNodeId, false)}><FirstPageIcon /></IconButton></Tooltip>
@@ -233,10 +249,11 @@ export default class Chessgame extends React.Component {
 		this.setState(nodeId ? { selection: nodeId, withMove: evtOrigin === 'key-next' } : { selection: false, withMove: false });
 		if (this.props.navigationBoard === 'frame' && evtOrigin !== 'external') {
 			if (nodeId) {
-				showPopupBoard(this); // TODO
+				let { anchor, boardOptions } = showPopupFrame(this);
+				this.setState({ popupAnchor: anchor, popupBoardOptions: boardOptions });
 			}
 			else {
-				hidePopupBoard(this);
+				hidePopupFrame(this);
 			}
 		}
 	}

@@ -19,8 +19,6 @@
  ******************************************************************************/
 
 
-import React from 'react';
-import ReactDOM from 'react-dom';
 import { Chessboard } from 'kokopu-react';
 
 
@@ -31,9 +29,21 @@ let boardAnchor = false;
 
 
 /**
+ * Settings to use to build the popup board.
+ */
+let boardOptions = false;
+
+
+/**
  * Chessgame instance that is currently displaying something in the popup.
  */
 let currentOwner = false;
+
+
+/**
+ * To be used to handle dialog resize.
+ */
+let resizeInfo = false;
 
 
 /**
@@ -44,11 +54,20 @@ function buildFrame() {
 		return;
 	}
 
+	// Initialize the default options.
+	boardOptions = {
+		squareSize: RPBChessboard.defaultSettings.squareSize,
+		coordinateVisible: RPBChessboard.defaultSettings.showCoordinates,
+		colorset: RPBChessboard.defaultSettings.colorset,
+		pieceset: RPBChessboard.defaultSettings.pieceset,
+		animated: RPBChessboard.defaultSettings.animated,
+		moveArrowVisible: RPBChessboard.defaultSettings.showMoveArrow,
+	};
+
 	// Build the dialog skeleton
 	let navigationFrame = document.createElement('div');
 	navigationFrame.id = 'rpbchessboard-navigationFrame';
 	boardAnchor = document.createElement('div');
-	boardAnchor.appendChild(document.createTextNode('TODO')); // TODO
 	navigationFrame.appendChild(boardAnchor);
 
 	// Create the dialog widget.
@@ -70,6 +89,29 @@ function buildFrame() {
 				currentOwner.handleMoveSelected(undefined, 'external');
 			}
 		},
+	});
+
+	// Handle dialog resize.
+	$('#rpbchessboard-navigationFrame').on('dialogresize', (evt, ui) => {
+
+		// Save the initial information about the geometry of the board and its container.
+		if(!resizeInfo) {
+			let boardSize = Chessboard.size(boardOptions.squareSize, boardOptions.coordinateVisible);
+			resizeInfo = {
+				reservedWidth: ui.originalSize.width - boardSize.width,
+				reservedHeight: ui.originalSize.height - boardSize.height,
+			};
+		}
+
+		// Compute the new square size parameter.
+		let availableWidth = ui.size.width - resizeInfo.reservedWidth;
+		let availableHeight = ui.size.height - resizeInfo.reservedHeight;
+		let squareSize = Chessboard.adaptSquareSize(availableWidth, availableHeight, boardOptions.coordinateVisible);
+
+		// Update the widget.
+		boardOptions = { ...boardOptions };
+		boardOptions.squareSize = squareSize;
+		currentOwner.setState({ popupBoardOptions: boardOptions });
 	});
 }
 
@@ -99,18 +141,21 @@ function closeFrame() {
 }
 
 
-export function showPopupBoard(owner) {
+export function showPopupFrame(owner) {
 	buildFrame();
 	if (currentOwner && currentOwner !== owner) {
 		currentOwner.handleMoveSelected(undefined, 'external');
 	}
 	currentOwner = owner;
-	ReactDOM.render(<Chessboard />, boardAnchor); // TODO set-up board properly
 	openFrame();
+	return {
+		anchor: boardAnchor,
+		boardOptions: boardOptions,
+	};
 }
 
 
-export function hidePopupBoard(owner) {
+export function hidePopupFrame(owner) {
 	if (currentOwner === owner) {
 		currentOwner = false;
 		closeFrame();

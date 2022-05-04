@@ -173,6 +173,8 @@ abstract class RPBChessboardScripts {
 			'showCoordinates' => $model->getDefaultShowCoordinates(),
 			'colorset'        => $model->getDefaultColorset(),
 			'pieceset'        => $model->getDefaultPieceset(),
+			'animated'        => $model->getDefaultAnimated(),
+			'showMoveArrow'   => $model->getDefaultShowMoveArrow(),
 		);
 	}
 
