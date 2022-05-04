@@ -150,8 +150,8 @@ export default class Chessgame extends React.Component {
 					colorset={boardOptions.colorset}
 					pieceset={boardOptions.pieceset}
 					smallScreenLimits={boardOptions.smallScreenLimits}
-					animated={this.props.animated}
-					moveArrowVisible={this.props.moveArrowVisible}
+					animated={boardOptions.animated}
+					moveArrowVisible={boardOptions.moveArrowVisible}
 				/>
 				<Box>
 					<Tooltip title={i18n.PGN_TOOLTIP_GO_FIRST}><IconButton size="small" onClick={() => this.handleNavClicked(game, Movetext.firstNodeId, false)}><FirstPageIcon /></IconButton></Tooltip>

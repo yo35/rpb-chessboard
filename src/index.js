@@ -95,13 +95,24 @@ RPBChessboard.renderFEN = function(targetJQueryElement, widgetArgs, wrapInDiv, w
 
 // Chessgame rendering function
 RPBChessboard.renderPGN = function(targetJQueryElement, widgetArgs) {
+	let smallScreenLimits = getSmallScreenLimits(true);
 	let diagramOptions = {
 		flipped: widgetArgs.diagramOptions.flip,
 		squareSize: widgetArgs.diagramOptions.squareSize,
 		coordinateVisible: widgetArgs.diagramOptions.showCoordinates,
 		colorset: widgetArgs.diagramOptions.colorset,
 		pieceset: widgetArgs.diagramOptions.pieceset,
-		smallScreenLimits: getSmallScreenLimits(true),
+		smallScreenLimits:smallScreenLimits,
+	};
+	let navigationBoardOptions = {
+		flipped: widgetArgs.navigationBoardOptions.flip,
+		squareSize: widgetArgs.navigationBoardOptions.squareSize,
+		coordinateVisible: widgetArgs.navigationBoardOptions.showCoordinates,
+		colorset: widgetArgs.navigationBoardOptions.colorset,
+		pieceset: widgetArgs.navigationBoardOptions.pieceset,
+		animated: widgetArgs.navigationBoardOptions.animated,
+		moveArrowVisible: widgetArgs.navigationBoardOptions.showMoveArrow,
+		smallScreenLimits:smallScreenLimits,
 	};
 	let widget = <Chessgame
 		url={widgetArgs.url}
@@ -109,9 +120,7 @@ RPBChessboard.renderPGN = function(targetJQueryElement, widgetArgs) {
 		gameIndex={widgetArgs.gameIndex}
 		pieceSymbols={widgetArgs.pieceSymbols}
 		diagramOptions={diagramOptions}
-		navigationBoardOptions={diagramOptions}
-		animated={widgetArgs.diagramOptions.animated}
-		moveArrowVisible={widgetArgs.diagramOptions.showMoveArrow}
+		navigationBoardOptions={navigationBoardOptions}
 		navigationBoard={widgetArgs.navigationBoard}
 		withFlipButton={widgetArgs.showFlipButton}
 		withDownloadButton={widgetArgs.showDownloadButton}
