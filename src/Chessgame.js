@@ -26,6 +26,7 @@ import React from 'react';
 import kokopu from 'kokopu';
 import { Chessboard, ErrorBox, Movetext } from 'kokopu-react';
 import { format } from './util';
+import { showPopupBoard, hidePopupBoard } from './NavigationFrame';
 
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -63,6 +64,9 @@ export default class Chessgame extends React.Component {
 
 	componentWillUnmount() {
 		this.releaseDynamicURL();
+		if (this.props.navigationBoard === 'frame') {
+			hidePopupBoard(this);
+		}
 	}
 
 	render() {
@@ -113,7 +117,7 @@ export default class Chessgame extends React.Component {
 			);
 		}
 		else {
-			return <div>{this.renderMovetext(info.game, false)}</div>;
+			return <div>{this.renderMovetext(info.game, this.props.navigationBoard === 'frame')}</div>;
 		} // TODO impl frame
 	}
 
@@ -226,6 +230,14 @@ export default class Chessgame extends React.Component {
 
 	handleMoveSelected(nodeId, evtOrigin) {
 		this.setState(nodeId ? { selection: nodeId, withMove: evtOrigin === 'key-next' } : { selection: false, withMove: false });
+		if (this.props.navigationBoard === 'frame' && evtOrigin !== 'external') {
+			if (nodeId) {
+				showPopupBoard(this); // TODO
+			}
+			else {
+				hidePopupBoard(this);
+			}
+		}
 	}
 
 	handleNavClicked(game, nodeIdProvider, withMove) {
