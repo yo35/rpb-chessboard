@@ -22,15 +22,17 @@
 import './public-path';
 import './FENEditor.css';
 
+import PropTypes from 'prop-types';
 import React from 'react';
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
-import { Button, ButtonGroup, ComboboxControl, Dropdown, PanelBody, PanelRow, RadioControl, RangeControl, SelectControl,
-	TextControl, ToggleControl, ToolbarButton, ToolbarGroup } from '@wordpress/components';
-import { moveTo, rotateLeft } from '@wordpress/icons';
+import { Button, ButtonGroup, ComboboxControl, Dropdown, PanelBody, PanelRow, RadioControl, RangeControl, SelectControl, TextControl, ToggleControl,
+	ToolbarButton, ToolbarGroup } from '@wordpress/components';
+import { moveTo as moveToIcon, rotateLeft as rotateLeftIcon } from '@wordpress/icons';
 
 import kokopu from 'kokopu';
-import { Chessboard, ErrorBox, flattenSquareMarkers, flattenArrowMarkers, flattenTextMarkers, SquareMarkerIcon, ArrowMarkerIcon, TextMarkerIcon } from 'kokopu-react';
+import { Chessboard, ErrorBox, flattenSquareMarkers, flattenArrowMarkers, flattenTextMarkers, SquareMarkerIcon, ArrowMarkerIcon,
+	TextMarkerIcon } from 'kokopu-react';
 import { format } from './util';
 
 import addWIconPath from './images/add-w.png';
@@ -201,7 +203,7 @@ class FENEditor extends React.Component {
 		let editionModeIcon = undefined;
 		if (this.state.interactionMode === 'movePieces') {
 			innerInteractionMode = 'movePieces';
-			editionModeIcon = <div style={{ width: '24px', height: '24px' }}>{moveTo}</div>;
+			editionModeIcon = <div style={{ width: '24px', height: '24px' }}>{moveToIcon}</div>;
 		}
 		else if (/addPiece-([wb][pnbrqk])/.test(this.state.interactionMode)) {
 			let coloredPiece = RegExp.$1;
@@ -222,7 +224,7 @@ class FENEditor extends React.Component {
 		else if (/addTextMarker-([gry])/.test(this.state.interactionMode)) {
 			let color = RegExp.$1;
 			innerInteractionMode = 'clickSquares';
-			editionModeIcon = <TextMarkerIcon size={24} color={mainColorset[color]} symbol={this.state.textMarkerMode} />
+			editionModeIcon = <TextMarkerIcon size={24} color={mainColorset[color]} symbol={this.state.textMarkerMode} />;
 		}
 
 		// Render the block
@@ -274,13 +276,13 @@ class FENEditor extends React.Component {
 		return (
 			<BlockControls>
 				<ToolbarGroup>
-					<ToolbarButton label={i18n.FEN_EDITOR_LABEL_MOVE_PIECES} icon={moveTo} onClick={() => setInteractionMode('movePieces')} />
+					<ToolbarButton label={i18n.FEN_EDITOR_LABEL_MOVE_PIECES} icon={moveToIcon} onClick={() => setInteractionMode('movePieces')} />
 					<AddPieceDropdown color="w" />
 					<AddPieceDropdown color="b" />
 					<ToolbarButton label={i18n.FEN_EDITOR_LABEL_TOGGLE_TURN} icon={toggleTurnIcon} onClick={() => this.handleToggleTurnClicked()} />
 				</ToolbarGroup>
 				<ToolbarGroup>
-					<ToolbarButton label={i18n.FEN_EDITOR_LABEL_FLIP} icon={rotateLeft} onClick={() => this.handleFlipClicked()} />
+					<ToolbarButton label={i18n.FEN_EDITOR_LABEL_FLIP} icon={rotateLeftIcon} onClick={() => this.handleFlipClicked()} />
 				</ToolbarGroup>
 			</BlockControls>
 		);
@@ -308,7 +310,7 @@ class FENEditor extends React.Component {
 
 		// Combo-box to select the type of text marker
 		function TextMarkerTypeControl({ value, onChange }) {
-			let availableSymbols = [ 'plus', 'times', 'dot', 'circle' ].concat([...'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789']);
+			let availableSymbols = [ 'plus', 'times', 'dot', 'circle' ].concat([ ...'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789' ]);
 			let options = availableSymbols.map(symbol => {
 				let label = format(i18n.FEN_EDITOR_LABEL_TEXT_MARKER, textMarkerLabel(symbol));
 				return { value: symbol, label: label };
@@ -366,17 +368,17 @@ class FENEditor extends React.Component {
 					{squareSizeControl}
 					<RadioControl label={i18n.FEN_EDITOR_CONTROL_ALIGNMENT} selected={this.props.attributes.align}
 						onChange={value => this.handleAlignmentChanged(value)} options={[
-						{ label: i18n.FEN_EDITOR_USE_DEFAULT, value: '' },
-						{ label: i18n.FEN_EDITOR_OPTION_CENTER, value: 'center' },
-						{ label: i18n.FEN_EDITOR_OPTION_FLOAT_LEFT, value: 'floatLeft' },
-						{ label: i18n.FEN_EDITOR_OPTION_FLOAT_RIGHT, value: 'floatRight' },
-					]} />
+							{ label: i18n.FEN_EDITOR_USE_DEFAULT, value: '' },
+							{ label: i18n.FEN_EDITOR_OPTION_CENTER, value: 'center' },
+							{ label: i18n.FEN_EDITOR_OPTION_FLOAT_LEFT, value: 'floatLeft' },
+							{ label: i18n.FEN_EDITOR_OPTION_FLOAT_RIGHT, value: 'floatRight' },
+						]} />
 					<RadioControl label={i18n.FEN_EDITOR_CONTROL_COORDINATES} selected={this.props.attributes.coordinateVisible}
 						onChange={value => this.handleCoordinateVisibleChanged(value)} options={[
-						{ label: i18n.FEN_EDITOR_USE_DEFAULT, value: '' },
-						{ label: i18n.FEN_EDITOR_OPTION_HIDDEN, value: 'false' },
-						{ label: i18n.FEN_EDITOR_OPTION_VISIBLE, value: 'true' },
-					]} />
+							{ label: i18n.FEN_EDITOR_USE_DEFAULT, value: '' },
+							{ label: i18n.FEN_EDITOR_OPTION_HIDDEN, value: 'false' },
+							{ label: i18n.FEN_EDITOR_OPTION_VISIBLE, value: 'true' },
+						]} />
 					<SetCodeControl label={i18n.FEN_EDITOR_CONTROL_COLORSET} value={this.props.attributes.colorset}
 						available={RPBChessboard.availableColorsets} onChange={value => this.handleColorsetChanged(value)}
 					/>
@@ -430,6 +432,13 @@ class FENEditor extends React.Component {
 		}
 	}
 }
+
+
+FENEditor.propTypes = {
+	blockProps: PropTypes.object,
+	attributes: PropTypes.object,
+	setAttributes: PropTypes.func,
+};
 
 
 /**

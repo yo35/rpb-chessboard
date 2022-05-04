@@ -1,20 +1,43 @@
-extends: [ 'eslint:recommended', wordpress ]
+env:
+  browser: true
+  es2021: true
+
+extends:
+  - 'eslint:recommended'
+  - 'plugin:react/recommended'
+  - wordpress
 
 parserOptions:
-  ecmaVersion: 5
+  ecmaFeatures:
+    jsx: true
+  ecmaVersion: 12
+  sourceType: module
 
-env:
-  es6: true
+plugins:
+  - react
+
+settings:
+  react:
+    version: 17.0.2
+
+globals:
+  RPBChessboard: readonly
 
 rules:
 
   # Style
-  indent: [ error, tab, { SwitchCase: 1 }]
+  indent:             [ error, tab, { SwitchCase: 1 }]
+  linebreak-style:    [ error, unix ]
+  quotes:             [ error, single ]
+  semi:               [ error, always ]
+  camelcase:          [ error ]
+  no-trailing-spaces: [ error ]
 
   # Relaxed style rules (to be removed to comply to WP coding style)
   space-in-parens: [ off ]
   vars-on-top: [ off ]
   comma-spacing: [ off ]
+  comma-dangle: [ off ]
   keyword-spacing: [ off ]
   key-spacing: [ off ]
   brace-style: [ off ]
@@ -24,11 +47,14 @@ rules:
   no-multiple-empty-lines: [ off ]
   lines-around-comment: [ off ]
 
-  # Additional rules
-  strict:                       [ error ]
+  # Additional rules (possible errors)
+  no-console: [ error ]
+
+  # Additional rules (best practices)
+  curly:                        [ error, all ]
   eqeqeq:                       [ error, always ]
-  guard-for-in:                 [ error ]
   no-alert:                     [ error ]
+  no-constructor-return:        [ error ]
   no-eval:                      [ error ]
   no-extend-native:             [ error ]
   no-floating-decimal:          [ error ]
@@ -36,24 +62,36 @@ rules:
   no-implied-eval:              [ error ]
   no-invalid-this:              [ error ]
   no-labels:                    [ error ]
+  no-lone-blocks:               [ error ]
   no-loop-func:                 [ error ]
   no-new:                       [ error ]
   no-new-func:                  [ error ]
   no-new-wrappers:              [ error ]
+  no-octal-escape:              [ error ]
   no-return-assign:             [ error, always ]
   no-script-url:                [ error ]
   no-self-compare:              [ error ]
   no-throw-literal:             [ error ]
   no-unmodified-loop-condition: [ error ]
   no-unused-expressions:        [ error ]
-  no-useless-catch:             [ error ]
   no-useless-concat:            [ error ]
   no-useless-return:            [ error ]
   no-warning-comments:          [ warn, { location: anywhere, terms: [ TODO ] }]
-  no-restricted-globals:        [ error, event, name ]
-  no-shadow:                    [ error, { builtinGlobals: true, allow: [ event, kokopu, sanitizeHtml, RPBChessboard ] }]
-  no-shadow-restricted-names:   [ error ]
+  prefer-regex-literals:        [ error ]
+
+  # Additional rules (variables)
+  no-shadow: [ error, { builtinGlobals: true }]
+
+  # Additional rules (ES6)
+  no-confusing-arrow:      [ error ]
+  no-duplicate-imports:    [ error ]
+  no-useless-computed-key: [ error ]
+  no-useless-constructor:  [ error ]
+  no-useless-rename:       [ error ]
+  no-var:                  [ error ]
+  prefer-arrow-callback:   [ error ]
+  prefer-rest-params:      [ error ]
+  rest-spread-spacing:     [ error ]
 
   # Relaxed rules
-  no-redeclare:          [ off ]
   no-constant-condition: [ error, { checkLoops: false }]

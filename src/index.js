@@ -49,8 +49,8 @@ Object.assign(Chessboard.colorsets(), RPBChessboard.customColorsets);
 Object.assign(Chessboard.piecesets(), RPBChessboard.customPiecesets);
 
 // Special colorsets and piecesets for theming edition
-RPBChessboard.editColorset = Chessboard.colorsets()['_edit_'] = {};
-RPBChessboard.editPieceset = Chessboard.piecesets()['_edit_'] = {};
+RPBChessboard.editColorset = Chessboard.colorsets()._edit_ = {};
+RPBChessboard.editPieceset = Chessboard.piecesets()._edit_ = {};
 
 // Re-export some methods
 RPBChessboard.adaptSquareSize = Chessboard.adaptSquareSize;
@@ -87,7 +87,7 @@ RPBChessboard.renderFEN = function(targetJQueryElement, widgetArgs, wrapInDiv, w
 		smallScreenLimits={getSmallScreenLimits(withSmallScreenLimits)}
 	/>;
 	if (wrapInDiv) {
-		widget = <div className="rpbchessboard-diagramAlignment-center">{widget}</div>
+		widget = <div className="rpbchessboard-diagramAlignment-center">{widget}</div>;
 	}
 	ReactDOM.render(widget, targetJQueryElement.get(0));
 };

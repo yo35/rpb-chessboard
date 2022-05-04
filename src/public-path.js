@@ -19,4 +19,4 @@
  ******************************************************************************/
 
 
-__webpack_public_path__ = RPBChessboard.publicURL + 'build/';
+__webpack_public_path__ = RPBChessboard.publicURL + 'build/'; // eslint-disable-line

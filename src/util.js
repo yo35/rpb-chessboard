@@ -19,10 +19,9 @@
  ******************************************************************************/
 
 
-export function format(pattern) {
-	let tokens = arguments;
+export function format(pattern, ...args) {
 	return pattern.replace(/{(\d+)}/g, (match, index) => {
-		index = Number(index) + 1;
-		return index < tokens.length ? tokens[index] : match;
+		index = Number(index);
+		return index < args.length ? args[index] : match;
 	});
 }

@@ -32,6 +32,7 @@ WORDPRESS_README_FILE = wordpress.readme.txt
 INFO_FILES            = LICENSE examples.pgn
 PACKAGE_JSON_FILE     = package.json
 WEBPACKED_FILES       = $(shell find src -type f)
+WEBPACKED_JS_FILES    = $(shell find src -name '*.js')
 
 
 # Zip file used for deployment
@@ -165,7 +166,7 @@ $(TEMPORARY_FOLDER)/%.merged: %.po $(I18N_POT_FILE)
 # JavaScript validation
 eslint: $(NODE_MODULES)
 	@$(ECHO) "$(COLOR_IN)Checking the JavaScript files...$(COLOR_OUT)"
-	@$(ESLINT) $(JS_FILES)
+	@$(ESLINT) $(WEBPACKED_JS_FILES)
 
 
 # JavaScript minification

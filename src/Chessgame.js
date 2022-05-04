@@ -22,6 +22,7 @@
 import './public-path';
 import './Chessgame.css';
 
+import PropTypes from 'prop-types';
 import React from 'react';
 import kokopu from 'kokopu';
 import { Chessboard, ErrorBox, Movetext } from 'kokopu-react';
@@ -80,7 +81,7 @@ export default class Chessgame extends React.Component {
 			}
 			else {
 				fetchPGN(this.props.url)
-					.then(pgn => this.setState({ urlFetchStatus: 'ok', urlData: pgn }))
+					.then(text => this.setState({ urlFetchStatus: 'ok', urlData: text }))
 					.catch(e => this.setState({ urlFetchStatus: 'error', urlError: e }));
 				return <CircularProgress />;
 			}
@@ -110,7 +111,7 @@ export default class Chessgame extends React.Component {
 			let height = Chessboard.size(boardOptions.squareSize, boardOptions.coordinateVisible, boardOptions.smallScreenLimits).height + 39;
 
 			return (
-				<div class={'rpbchessboard-scrollBox-' + this.props.navigationBoard}>
+				<div className={'rpbchessboard-scrollBox-' + this.props.navigationBoard}>
 					{this.renderNavigationBoard(info.game)}
 					<div className="rpbchessboard-scrollArea" style={{ 'max-height': height }}>{this.renderMovetext(info.game, true)}</div>
 				</div>
@@ -282,10 +283,40 @@ export default class Chessgame extends React.Component {
 }
 
 
+Chessgame.propTypes = {
+	url: PropTypes.string,
+	pgn: PropTypes.string,
+	gameIndex: PropTypes.number,
+	pieceSymbols: PropTypes.oneOfType([
+		PropTypes.oneOf([ 'native', 'localized', 'figurines' ]),
+		PropTypes.string, // example: '(RDTFCP)'
+	]),
+	navigationBoard: PropTypes.oneOf([ 'none', 'frame', 'floatLeft', 'floatRight', 'scrollLeft', 'scrollRight', 'above', 'below' ]),
+	navigationBoardOptions: PropTypes.shape({
+		flipped: Chessboard.propTypes.flipped,
+		squareSize: Chessboard.propTypes.squareSize,
+		coordinateVisible: Chessboard.propTypes.coordinateVisible,
+		smallScreenLimits: Chessboard.propTypes.smallScreenLimits,
+		colorset: Chessboard.propTypes.colorset,
+		pieceset: Chessboard.propTypes.pieceset,
+		animated: Chessboard.propTypes.animated,
+		moveArrowVisible: Chessboard.propTypes.moveArrowVisible,
+	}),
+	diagramOptions: Movetext.propTypes.diagramOptions,
+	withFlipButton: PropTypes.bool,
+	withDownloadButton: PropTypes.bool,
+};
+
+
 Chessgame.defaultProps = {
 	pgn: '',
 	gameIndex: 0,
+	pieceSymbols: 'native',
+	navigationBoard: 'none',
 	navigationBoardOptions: {},
+	diagramOptions: {},
+	withFlipButton: true,
+	withDownloadButton: true,
 };
 
 
