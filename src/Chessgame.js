@@ -147,11 +147,14 @@ export default class Chessgame extends React.Component {
 		if (!this.state.selection || !this.state.popupAnchor) {
 			return undefined;
 		}
-		return ReactDOM.createPortal(this.renderNavigationBoard(game, this.state.popupBoardOptions), this.state.popupAnchor);
+		return ReactDOM.createPortal(this.renderNavigationBoard(game, this.state.popupBoardOptions, this.state.setPopupTitle), this.state.popupAnchor);
 	}
 
-	renderNavigationBoard(game, navigationBoardOptions) {
-		let { position, move, csl, cal, ctl } = this.getCurrentPositionAndAnnotations(game);
+	renderNavigationBoard(game, navigationBoardOptions, setTitle) {
+		let { position, move, csl, cal, ctl, label } = this.getCurrentPositionAndAnnotations(game);
+		if (setTitle) {
+			setTitle(label);
+		}
 		return (
 			<Stack className={'rpbchessboard-navigationBoard-' + this.props.navigationBoard} alignItems="center" spacing="5px">
 				<Chessboard
@@ -206,13 +209,20 @@ export default class Chessgame extends React.Component {
 		let node = this.state.selection && this.state.selection !== 'start' ? game.findById(this.state.selection) : undefined;
 		if (node === undefined) {
 			let mainVariation = game.mainVariation();
-			return { position: mainVariation.initialPosition(), csl: mainVariation.tag('csl'), cal: mainVariation.tag('cal'), ctl: mainVariation.tag('ctl') };
+			return {
+				position: mainVariation.initialPosition(),
+				csl: mainVariation.tag('csl'),
+				cal: mainVariation.tag('cal'),
+				ctl: mainVariation.tag('ctl'),
+				label: i18n.PGN_INITIAL_POSITION,
+			};
 		}
 		else {
 			let result = this.state.withMove ? { position: node.positionBefore(), move: node.notation() } : { position: node.position() };
 			result.csl = node.tag('csl');
 			result.cal = node.tag('cal');
 			result.ctl = node.tag('ctl');
+			result.label = node.fullMoveNumber() + (node.moveColor() === 'w' ? '.' : '\u2026') + node.notation(); // TODO adapt to piece symbols attr
 			return result;
 		}
 	}
@@ -249,8 +259,8 @@ export default class Chessgame extends React.Component {
 		this.setState(nodeId ? { selection: nodeId, withMove: evtOrigin === 'key-next' } : { selection: false, withMove: false });
 		if (this.props.navigationBoard === 'frame' && evtOrigin !== 'external') {
 			if (nodeId) {
-				let { anchor, boardOptions } = showPopupFrame(this);
-				this.setState({ popupAnchor: anchor, popupBoardOptions: boardOptions });
+				let { anchor, boardOptions, setTitle } = showPopupFrame(this);
+				this.setState({ popupAnchor: anchor, popupBoardOptions: boardOptions, setPopupTitle: setTitle });
 			}
 			else {
 				hidePopupFrame(this);

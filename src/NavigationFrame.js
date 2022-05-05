@@ -141,6 +141,18 @@ function closeFrame() {
 }
 
 
+/**
+ * Set the popup frame title (if it exists).
+ */
+function setFrameTitle(text) {
+	if (!boardAnchor) {
+		return;
+	}
+	let $ = window.jQuery;
+	$('.ui-dialog-title', $('#rpbchessboard-navigationFrame').closest('.ui-dialog')).empty().append(text);
+}
+
+
 export function showPopupFrame(owner) {
 	buildFrame();
 	if (currentOwner && currentOwner !== owner) {
@@ -151,6 +163,7 @@ export function showPopupFrame(owner) {
 	return {
 		anchor: boardAnchor,
 		boardOptions: boardOptions,
+		setTitle: text => setFrameTitle(text),
 	};
 }
 

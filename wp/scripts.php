@@ -247,6 +247,7 @@ abstract class RPBChessboardScripts {
 			'PGN_TOOLTIP_DOWNLOAD'                 => __( 'Download the game', 'rpb-chessboard' ),
 			'PGN_ANNOTATED_BY'                     => __( 'Annotated by {0}', 'rpb-chessboard' ),
 			'PGN_LINE_REF'                         => __( 'line {0}', 'rpb-chessboard' ),
+			'PGN_INITIAL_POSITION'                 => __( 'Initial position', 'rpb-chessboard' ),
 
 			'PIECE_SYMBOLS'                        => array(
 				'K' => /*i18n King symbol   */ __( 'K', 'rpb-chessboard' ),
