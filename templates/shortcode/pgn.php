@@ -21,8 +21,10 @@
 ?>
 
 <?php
-	wp_enqueue_script( 'rpbchessboard-chessgame' );
-	wp_enqueue_style( 'rpbchessboard-chessgame' );
+	wp_enqueue_script( 'jquery-ui-dialog' );
+	wp_enqueue_style( 'wp-jquery-ui-dialog' );
+	wp_enqueue_script( 'rpbchessboard-npm' );
+	wp_enqueue_style( 'rpbchessboard-npm' );
 ?>
 
 <p class="rpbchessboard-spacerBefore"></p>
@@ -36,14 +38,8 @@
 	<div class="rpbchessboard-chessgameAnchor"></div>
 	<script type="text/javascript">
 		jQuery(document).ready(function($) {
-			<?php if ( $model->getNoConflictForButton() ) : ?>
-			if(typeof $.fn.button.noConflict === 'function') { $.fn.button.noConflict(); }
-			<?php endif; ?>
-			$.chessgame.navigationButtonClass  = 'rpbchessboard-jQuery-enableSmoothness';
-			$.chessgame.navigationFrameClass   = 'wp-dialog';
-			$.chessgame.navigationFrameOptions = <?php echo wp_json_encode( $model->getDefaultChessboardSettings() ); ?>;
 			var selector = '#' + <?php echo wp_json_encode( $model->getUniqueID() ); ?> + ' .rpbchessboard-chessgameAnchor';
-			$(selector).removeClass('rpbchessboard-chessgameAnchor').chessgame(<?php echo wp_json_encode( $model->getWidgetArgs() ); ?>);
+			RPBChessboard.renderPGN($(selector), <?php echo wp_json_encode( $model->getWidgetArgs() ); ?>);
 		});
 	</script>
 </div>
