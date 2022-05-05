@@ -36,7 +36,7 @@ abstract class RPBChessboardScripts {
 		wp_register_script(
 			'rpbchessboard-npm',
 			RPBCHESSBOARD_URL . 'build/index.js',
-			$asset_file['dependencies'],
+			array_merge( $asset_file['dependencies'], array( 'jquery-ui-dialog' ) ),
 			$asset_file['version'],
 			false
 		);
@@ -59,30 +59,12 @@ abstract class RPBChessboardScripts {
 			)
 		);
 
-		// Chessgame widget
-		self::registerLocalizedScript(
-			'rpbchessboard-chessgame',
-			'js/rpbchess-ui-chessgame' . $ext,
-			'js/chessgame-locales/%1$s' . $ext,
-			array(
-				'rpbchessboard-npm',
-				'jquery-ui-widget',
-				'jquery-ui-button',
-				'jquery-ui-selectable',
-				'jquery-color',
-				'jquery-ui-dialog',
-				'jquery-ui-resizable',
-			),
-			RPBCHESSBOARD_VERSION
-		);
-
 		// Additional scripts for the backend.
 		// FIXME Those scripts should be enqueued only if necessary. To achieve that, we need to fix issue concerning inlined scripts,
 		// interaction with the TinyMCE/QuickTag editors, and to carefully review what is used on which page.
 		if ( is_admin() ) {
-			wp_enqueue_script( 'rpbchessboard-chessgame' );
+			wp_enqueue_script( 'rpbchessboard-npm' );
 			wp_enqueue_script( 'jquery-ui-slider' );
-			wp_enqueue_script( 'jquery-ui-tabs' );
 			wp_enqueue_script( 'iris' );
 			wp_enqueue_media();
 
@@ -94,7 +76,7 @@ abstract class RPBChessboardScripts {
 			// Enqueue the JS if lazy-loading is disabled.
 			$compatibility = RPBChessboardHelperLoader::loadModel( 'Common/Compatibility' );
 			if ( ! $compatibility->getLazyLoadingForCSSAndJS() ) {
-				wp_enqueue_script( 'rpbchessboard-chessgame' );
+				wp_enqueue_script( 'rpbchessboard-npm' );
 			}
 		}
 	}
@@ -269,72 +251,4 @@ abstract class RPBChessboardScripts {
 	private static function getJSFileExtension() {
 		return WP_DEBUG ? '.js' : '.min.js';
 	}
-
-
-	/**
-	 * Determine the language code to use to configure a given JavaScript library, and enqueue the required file.
-	 *
-	 * @param string $handle Handle of the library.
-	 * @param string $relativeBasePath Relative path to the core library file.
-	 * @param string $relativeLocalizationPathTemplate Relative path to where the localized files should be searched.
-	 * @param array $dependencies Dependencies of the core library.
-	 * @param string $version Version the library.
-	 */
-	private static function registerLocalizedScript( $handle, $relativeBasePath, $relativeLocalizationPathTemplate, $dependencies, $version ) {
-
-		$relativeLocalizationPath = self::computeLocalizationPath( $relativeLocalizationPathTemplate );
-
-		if ( isset( $relativeLocalizationPath ) ) {
-			$baseHandle = $handle . '-core';
-			wp_register_script( $baseHandle, RPBCHESSBOARD_URL . $relativeBasePath, $dependencies, $version, false );
-			wp_register_script( $handle, RPBCHESSBOARD_URL . $relativeLocalizationPath, array( $baseHandle ), $version, false );
-		} else {
-			wp_register_script( $handle, RPBCHESSBOARD_URL . $relativeBasePath, $dependencies, $version, false );
-		}
-	}
-
-
-	/**
-	 * Find the localization file of a library, based on the current locale.
-	 *
-	 * @param string $relativeLocalizationPathTemplate Relative path to where the localized files should be searched.
-	 * @return string Relative path to the localization file of the target library, or `null` if no such file could be found.
-	 */
-	private static function computeLocalizationPath( $relativeLocalizationPathTemplate ) {
-		foreach ( self::getBlogLangCodes() as $langCode ) {
-
-			// Does the translation script file exist for the current language code?
-			$relativeLocalizationPath = sprintf( $relativeLocalizationPathTemplate, $langCode );
-			if ( file_exists( RPBCHESSBOARD_ABSPATH . $relativeLocalizationPath ) ) {
-				return $relativeLocalizationPath;
-			}
-		}
-
-		// Otherwise, if no translation file exists, return null.
-		return null;
-	}
-
-
-	/**
-	 * Return an array of language codes that may be relevant for the blog.
-	 *
-	 * @return array
-	 */
-	private static function getBlogLangCodes() {
-		if ( ! isset( self::$blogLangCodes ) ) {
-			$mainLanguage        = str_replace( '_', '-', strtolower( get_locale() ) );
-			self::$blogLangCodes = array( $mainLanguage );
-
-			if ( preg_match( '/([a-z]+)\\-([a-z]+)/', $mainLanguage, $m ) ) {
-				self::$blogLangCodes[] = $m[1];
-			}
-		}
-		return self::$blogLangCodes;
-	}
-
-
-	/**
-	 * Blog language codes.
-	 */
-	private static $blogLangCodes;
 }

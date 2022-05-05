@@ -11,14 +11,12 @@
 		"kokopu-react": "^1.5.4",
 		"prop-types": "^15.8.1",
 		"react": "^17.0.2",
-		"react-dom": "^17.0.2",
-		"sanitize-html": "^2.7.0"
+		"react-dom": "^17.0.2"
 	},
 	"devDependencies": {
 		"eslint": "^8.14.0",
 		"eslint-config-wordpress": "^2.0.0",
 		"eslint-plugin-react": "^7.29.4",
-		"uglify-js": "^3.15.4",
 		"uglifycss": "^0.0.29",
 		"@wordpress/scripts": "^22.5.0"
 	},

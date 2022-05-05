@@ -33,31 +33,19 @@ abstract class RPBChessboardStyleSheets {
 
 		// Dependencies resolved using NPM
 		$asset_file = include RPBCHESSBOARD_ABSPATH . 'build/index.asset.php';
-		wp_register_style( 'rpbchessboard-npm', RPBCHESSBOARD_URL . 'build/index.css', false, $asset_file['version'] );
-
-		// Chessgame widget
-		wp_register_style( 'rpbchessboard-jquery-ui-smoothness', RPBCHESSBOARD_URL . 'third-party-libs/jquery/jquery-ui.smoothness' . $ext, false, '1.11.4' );
-		wp_register_style(
-			'rpbchessboard-chessgame',
-			RPBCHESSBOARD_URL . 'css/rpbchess-ui-chessgame' . $ext,
-			array(
-				'rpbchessboard-npm',
-				'wp-jquery-ui-dialog',
-				'rpbchessboard-jquery-ui-smoothness',
-			),
-			RPBCHESSBOARD_VERSION
-		);
+		wp_register_style( 'rpbchessboard-npm', RPBCHESSBOARD_URL . 'build/index.css', array( 'wp-jquery-ui-dialog' ), $asset_file['version'] );
 
 		// Additional CSS for the frontend/backend.
 		if ( is_admin() ) {
-			wp_enqueue_style( 'rpbchessboard-chessgame' );
-			wp_enqueue_style( 'rpbchessboard-backend', RPBCHESSBOARD_URL . 'css/backend' . $ext, false, RPBCHESSBOARD_VERSION );
+			wp_enqueue_style( 'rpbchessboard-npm' );
+			wp_register_style( 'rpbchessboard-jquery-ui-smoothness', RPBCHESSBOARD_URL . 'third-party-libs/jquery/jquery-ui.smoothness' . $ext, false, '1.11.4' );
+			wp_enqueue_style( 'rpbchessboard-backend', RPBCHESSBOARD_URL . 'css/backend' . $ext, array( 'rpbchessboard-jquery-ui-smoothness' ), RPBCHESSBOARD_VERSION );
 		} else {
 
 			// Enqueue the CSS if lazy-loading is disabled.
 			$compatibility = RPBChessboardHelperLoader::loadModel( 'Common/Compatibility' );
 			if ( ! $compatibility->getLazyLoadingForCSSAndJS() ) {
-				wp_enqueue_style( 'rpbchessboard-chessgame' );
+				wp_enqueue_style( 'rpbchessboard-npm' );
 			}
 		}
 	}

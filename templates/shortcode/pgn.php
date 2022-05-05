@@ -21,8 +21,6 @@
 ?>
 
 <?php
-	wp_enqueue_script( 'jquery-ui-dialog' );
-	wp_enqueue_style( 'wp-jquery-ui-dialog' );
 	wp_enqueue_script( 'rpbchessboard-npm' );
 	wp_enqueue_style( 'rpbchessboard-npm' );
 ?>

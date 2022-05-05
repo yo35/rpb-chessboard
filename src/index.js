@@ -29,9 +29,6 @@ import { Chessboard, i18n as kokopuReactI18n } from 'kokopu-react';
 import Chessgame from './Chessgame';
 import './FENEditor';
 
-window.kokopu = require('kokopu');
-window.sanitizeHtml = require('sanitize-html');
-
 // Internationalization
 kokopuReactI18n.ANNOTATED_BY = RPBChessboard.i18n.PGN_ANNOTATED_BY;
 kokopuReactI18n.LINE = RPBChessboard.i18n.PGN_LINE_REF;
@@ -51,9 +48,6 @@ Object.assign(Chessboard.piecesets(), RPBChessboard.customPiecesets);
 // Special colorsets and piecesets for theming edition
 RPBChessboard.editColorset = Chessboard.colorsets()._edit_ = {};
 RPBChessboard.editPieceset = Chessboard.piecesets()._edit_ = {};
-
-// Re-export some methods
-RPBChessboard.adaptSquareSize = Chessboard.adaptSquareSize;
 
 
 function getSmallScreenLimits(withSmallScreenLimits) {
