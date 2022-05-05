@@ -34,8 +34,8 @@
 			'</span>',
 			esc_html( $model->getFENShortcode() ),
 			esc_html( $model->getPGNShortcode() ),
-			sprintf( '<a href="%s">', esc_url( $model->getHelpOnFENAttributesURL() ) ),
-			sprintf( '<a href="%s">', esc_url( $model->getHelpOnPGNAttributesURL() ) ),
+			'<a href="#">', // TODO remove
+			'<a href="#">', // TODO remove
 			'</a>'
 		);
 	?>

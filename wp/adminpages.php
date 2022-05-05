@@ -29,24 +29,15 @@
 abstract class RPBChessboardAdminPages {
 
 	public static function register() {
+
 		// Create the menu
 		add_menu_page(
 			__( 'Chess games and diagrams', 'rpb-chessboard' ),
 			__( 'Chess', 'rpb-chessboard' ),
-			'edit_posts',
+			'manage_options',
 			'rpbchessboard',
-			array( __CLASS__, 'callbackPageMemo' ),
+			array( __CLASS__, 'callbackPageOptions' ),
 			RPBCHESSBOARD_URL . 'images/menu.png'
-		);
-
-		// Page "memo" (same slug code that for the menu, to make it the default page).
-		add_submenu_page(
-			'rpbchessboard',
-			__( 'Chess games and diagrams', 'rpb-chessboard' ) . ' - ' . __( 'Memo', 'rpb-chessboard' ),
-			__( 'Memo', 'rpb-chessboard' ),
-			'edit_posts',
-			'rpbchessboard',
-			array( __CLASS__, 'callbackPageMemo' )
 		);
 
 		// Page "options"
@@ -55,7 +46,7 @@ abstract class RPBChessboardAdminPages {
 			sprintf( __( 'Settings of the %1$s plugin', 'rpb-chessboard' ), 'RPB Chessboard' ),
 			__( 'Settings', 'rpb-chessboard' ),
 			'manage_options',
-			'rpbchessboard-options',
+			'rpbchessboard',
 			array( __CLASS__, 'callbackPageOptions' )
 		);
 
@@ -67,16 +58,6 @@ abstract class RPBChessboardAdminPages {
 			'manage_options',
 			'rpbchessboard-theming',
 			array( __CLASS__, 'callbackPageTheming' )
-		);
-
-		// Page "help"
-		add_submenu_page(
-			'rpbchessboard',
-			__( 'Chess games and diagrams', 'rpb-chessboard' ) . ' - ' . __( 'Help', 'rpb-chessboard' ),
-			__( 'Help', 'rpb-chessboard' ),
-			'edit_posts',
-			'rpbchessboard-help',
-			array( __CLASS__, 'callbackPageHelp' )
 		);
 
 		// Page "about"
@@ -91,10 +72,8 @@ abstract class RPBChessboardAdminPages {
 	}
 
 	// phpcs:disable
-	public static function callbackPageMemo   () { self::printAdminPage( 'Memo'    ); }
 	public static function callbackPageOptions() { self::printAdminPage( 'Options' ); }
 	public static function callbackPageTheming() { self::printAdminPage( 'Theming' ); }
-	public static function callbackPageHelp   () { self::printAdminPage( 'Help'    ); }
 	public static function callbackPageAbout  () { self::printAdminPage( 'About'   ); }
 	// phpcs:enable
 

@@ -32,13 +32,6 @@
 		</div>
 	</noscript>
 
-	<script type="text/javascript">
-		jQuery(document).ready(function($) {
-			$.chessgame.navigationButtonClass = 'rpbchessboard-jQuery-enableSmoothness';
-			$.chessgame.navigationFrameClass  = 'wp-dialog';
-		});
-	</script>
-
 	<?php if ( $model->hasPostMessage() ) : ?>
 	<div class="updated">
 		<p><?php echo esc_html( $model->getPostMessage() ); ?></p>

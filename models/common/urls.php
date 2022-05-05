@@ -31,25 +31,10 @@ class RPBChessboardModelCommonURLs extends RPBChessboardAbstractModel {
 	public function __construct() {
 		parent::__construct();
 		$this->registerDelegatableMethods(
-			'getMemoURL',
 			'getOptionsGeneralURL',
 			'getOptionsSmallScreensURL',
 			'getThemingURL',
-			'getHelpOnFENAttributesURL',
-			'getHelpOnPGNAttributesURL',
-			'getHelpOnFENSyntaxURL',
-			'getHelpOnPGNSyntaxURL'
 		);
-	}
-
-
-	/**
-	 * URL to memo page.
-	 *
-	 * @return string
-	 */
-	public function getMemoURL() {
-		return admin_url( 'admin.php' ) . '?page=rpbchessboard';
 	}
 
 
@@ -80,45 +65,5 @@ class RPBChessboardModelCommonURLs extends RPBChessboardAbstractModel {
 	 */
 	public function getThemingURL() {
 		return admin_url( 'admin.php' ) . '?page=rpbchessboard-theming';
-	}
-
-
-	/**
-	 * URL to the FEN attribute help page.
-	 *
-	 * @return string
-	 */
-	public function getHelpOnFENAttributesURL() {
-		return admin_url( 'admin.php' ) . '?page=rpbchessboard-help&subpage=fenattributes';
-	}
-
-
-	/**
-	 * URL to the PGN attribute help page.
-	 *
-	 * @return string
-	 */
-	public function getHelpOnPGNAttributesURL() {
-		return admin_url( 'admin.php' ) . '?page=rpbchessboard-help&subpage=pgnattributes';
-	}
-
-
-	/**
-	 * URL to the FEN syntax help page.
-	 *
-	 * @return string
-	 */
-	public function getHelpOnFENSyntaxURL() {
-		return admin_url( 'admin.php' ) . '?page=rpbchessboard-help&subpage=fensyntax';
-	}
-
-
-	/**
-	 * URL to the PGN syntax help page.
-	 *
-	 * @return string
-	 */
-	public function getHelpOnPGNSyntaxURL() {
-		return admin_url( 'admin.php' ) . '?page=rpbchessboard-help&subpage=pgnsyntax';
 	}
 }
