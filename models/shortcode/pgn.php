@@ -20,13 +20,15 @@
  ******************************************************************************/
 
 
-require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/shortcode.php';
+require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/block.php';
 
 
 /**
  * Model associated to the [pgn][/pgn] shortcode.
+ *
+ * @deprecated Only for legacy content (old pages/posts that may contain this shortcode).
  */
-class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelShortcode {
+class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelBlock {
 
 	private $loadedFromExternalPGNFile;
 	private $externalPGNFile;

@@ -25,6 +25,8 @@
  *
  * This class is not constructible. Call the static method `register()`
  * to trigger the registration operations (must be called only once).
+ *
+ * @deprecated Only for legacy content (old pages/posts that may contain the shortcodes previously used by the plugin).
  */
 abstract class RPBChessboardShortcodes {
 
@@ -88,7 +90,7 @@ abstract class RPBChessboardShortcodes {
 
 		// Print the shortcode.
 		$model = RPBChessboardHelperLoader::loadModel( 'Shortcode/' . $shortcodeName, $atts, $content );
-		return RPBChessboardHelperLoader::printTemplateOffScreen( 'Shortcode/' . $shortcodeName, $model );
+		return RPBChessboardHelperLoader::printTemplateOffScreen( 'Block/' . $shortcodeName, $model );
 	}
 
 

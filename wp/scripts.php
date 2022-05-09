@@ -52,7 +52,6 @@ abstract class RPBChessboardScripts {
 				'availableColorsets'  => self::getAvailableColorsets(),
 				'availablePiecesets'  => self::getAvailablePiecesets(),
 				'availableSquareSize' => self::getAvailableSquareSize(),
-				'fenShortcode'        => self::getFENShortcode(),
 				'defaultSettings'     => self::getDefaultSettings(),
 				'smallScreenModes'    => self::getSmallScreenModes(),
 				'i18n'                => self::getJsI18n(),
@@ -139,12 +138,6 @@ abstract class RPBChessboardScripts {
 			'min' => $model->getMinimumSquareSize(),
 			'max' => $model->getMaximumSquareSize(),
 		);
-	}
-
-
-	private static function getFENShortcode() {
-		$model = RPBChessboardHelperLoader::loadModel( 'Common/Compatibility' );
-		return $model->getFENShortcode();
 	}
 
 

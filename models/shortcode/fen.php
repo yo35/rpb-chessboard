@@ -20,13 +20,15 @@
  ******************************************************************************/
 
 
-require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/shortcode.php';
+require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/block.php';
 
 
 /**
  * Model associated to the [fen][/fen] shortcode.
+ *
+ * @deprecated Only for legacy content (old pages/posts that may contain this shortcode).
  */
-class RPBChessboardModelShortcodeFEN extends RPBChessboardAbstractModelShortcode {
+class RPBChessboardModelShortcodeFEN extends RPBChessboardAbstractModelBlock {
 
 	private $widgetArgs;
 	private $diagramAlignment;

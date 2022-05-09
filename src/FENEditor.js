@@ -31,8 +31,7 @@ import { Button, ButtonGroup, ComboboxControl, Dropdown, PanelBody, PanelRow, Ra
 import { moveTo as moveToIcon, rotateLeft as rotateLeftIcon } from '@wordpress/icons';
 
 import kokopu from 'kokopu';
-import { Chessboard, ErrorBox, flattenSquareMarkers, flattenArrowMarkers, flattenTextMarkers, SquareMarkerIcon, ArrowMarkerIcon,
-	TextMarkerIcon } from 'kokopu-react';
+import { Chessboard, ErrorBox, SquareMarkerIcon, ArrowMarkerIcon, TextMarkerIcon } from 'kokopu-react';
 import { format } from './util';
 
 import addWIconPath from './images/add-w.png';
@@ -508,24 +507,5 @@ registerBlockType('rpb-chessboard/fen', {
 	edit: ({ attributes, setAttributes }) => {
 		let blockProps = useBlockProps();
 		return <FENEditor blockProps={blockProps} attributes={attributes} setAttributes={setAttributes} />;
-	},
-	save: ({ attributes }) => {
-		let args = [ RPBChessboard.fenShortcode, 'flip=' + attributes.flipped ];
-
-		function pushArg(value, defaultValue, fenShortcodeAttribute) {
-			if (value !== defaultValue) {
-				args.push(fenShortcodeAttribute + '=' + value);
-			}
-		}
-
-		pushArg(flattenSquareMarkers(attributes.squareMarkers), '', 'csl');
-		pushArg(flattenArrowMarkers(attributes.arrowMarkers), '', 'cal');
-		pushArg(flattenTextMarkers(attributes.textMarkers), '', 'ctl');
-		pushArg(attributes.align, '', 'align');
-		pushArg(attributes.squareSize, 0, 'square_size');
-		pushArg(attributes.coordinateVisible, '', 'show_coordinates');
-		pushArg(attributes.colorset, '', 'colorset');
-		pushArg(attributes.pieceset, '', 'pieceset');
-		return '[' + args.join(' ') + ']' + attributes.position + '[/' + RPBChessboard.fenShortcode + ']';
 	},
 });

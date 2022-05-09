@@ -60,6 +60,9 @@ function rpbchessboard_init() {
 
 	require_once RPBCHESSBOARD_ABSPATH . 'wp/shortcodes.php';
 	RPBChessboardShortcodes::register();
+
+	require_once RPBCHESSBOARD_ABSPATH . 'wp/blocks.php';
+	RPBChessboardBlocks::register();
 }
 
 

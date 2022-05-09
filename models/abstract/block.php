@@ -24,9 +24,9 @@ require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php';
 
 
 /**
- * Base class for the models used to render the plugin shortcodes.
+ * Base class for the models used to render the plugin blocks (and legacy shortcodes).
  */
-abstract class RPBChessboardAbstractModelShortcode extends RPBChessboardAbstractModel {
+abstract class RPBChessboardAbstractModelBlock extends RPBChessboardAbstractModel {
 
 	private $attributes;
 	private $content;
@@ -37,8 +37,8 @@ abstract class RPBChessboardAbstractModelShortcode extends RPBChessboardAbstract
 	/**
 	 * Constructor.
 	 *
-	 * @param array  $atts Attributes passed with the shortcode.
-	 * @param string $content Shortcode enclosed content.
+	 * @param array  $atts Attributes passed with the block/shortcode.
+	 * @param string $content Block/shortcode content.
 	 */
 	public function __construct( $attributes, $content ) {
 		parent::__construct();
@@ -48,7 +48,7 @@ abstract class RPBChessboardAbstractModelShortcode extends RPBChessboardAbstract
 
 
 	/**
-	 * Return the attributes passed with the shortcode.
+	 * Return the attributes passed to the block.
 	 *
 	 * @return array
 	 */
@@ -58,7 +58,7 @@ abstract class RPBChessboardAbstractModelShortcode extends RPBChessboardAbstract
 
 
 	/**
-	 * Return the enclosed shortcode content.
+	 * Return the block content.
 	 *
 	 * @return string
 	 */
