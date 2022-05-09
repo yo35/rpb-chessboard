@@ -106,13 +106,13 @@
 
 		// Refresh the widget
 		function refresh() {
-			RPBChessboard.renderFEN($('#rpbchessboard-tuningChessboardWidget'), {
+			RPBChessboard.renderAdminChessboard($('#rpbchessboard-tuningChessboardWidget'), {
 				position: 'start',
 				squareSize: squareSize,
-				showCoordinates: showCoordinates,
+				coordinateVisible: showCoordinates,
 				colorset: colorset,
-				pieceset: pieceset
-			}, false);
+				pieceset: pieceset,
+			});
 		}
 		refresh();
 

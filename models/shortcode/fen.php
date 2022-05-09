@@ -52,23 +52,23 @@ class RPBChessboardModelShortcodeFEN extends RPBChessboardAbstractModelBlock {
 
 			// Square markers
 			if ( isset( $atts['csl'] ) && is_string( $atts['csl'] ) ) {
-				$this->widgetArgs['csl'] = $atts['csl'];
+				$this->widgetArgs['squareMarkers'] = $atts['csl'];
 			}
 
 			// Arrow markers
 			if ( isset( $atts['cal'] ) && is_string( $atts['cal'] ) ) {
-				$this->widgetArgs['cal'] = $atts['cal'];
+				$this->widgetArgs['arrowMarkers'] = $atts['cal'];
 			}
 
 			// Text markers
 			if ( isset( $atts['ctl'] ) && is_string( $atts['ctl'] ) ) {
-				$this->widgetArgs['ctl'] = $atts['ctl'];
+				$this->widgetArgs['textMarkers'] = $atts['ctl'];
 			}
 
 			// Orientation
 			$value = isset( $atts['flip'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['flip'] ) : null;
 			if ( isset( $value ) ) {
-				$this->widgetArgs['flip'] = $value;
+				$this->widgetArgs['flipped'] = $value;
 			}
 
 			// Square size
@@ -76,8 +76,8 @@ class RPBChessboardModelShortcodeFEN extends RPBChessboardAbstractModelBlock {
 			$this->widgetArgs['squareSize'] = isset( $value ) ? $value : $this->getDefaultSquareSize();
 
 			// Show coordinates
-			$value                               = isset( $atts['show_coordinates'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_coordinates'] ) : null;
-			$this->widgetArgs['showCoordinates'] = isset( $value ) ? $value : $this->getDefaultShowCoordinates();
+			$value                                 = isset( $atts['show_coordinates'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_coordinates'] ) : null;
+			$this->widgetArgs['coordinateVisible'] = isset( $value ) ? $value : $this->getDefaultShowCoordinates();
 
 			// Colorset
 			$value                        = isset( $atts['colorset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['colorset'] ) : null;

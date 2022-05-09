@@ -50,53 +50,40 @@ RPBChessboard.editColorset = Chessboard.colorsets()._edit_ = {};
 RPBChessboard.editPieceset = Chessboard.piecesets()._edit_ = {};
 
 
-function getSmallScreenLimits(withSmallScreenLimits) {
-	let result = [];
-	if (withSmallScreenLimits) {
-		RPBChessboard.smallScreenModes.forEach(mode => result.push({
-			width: mode.maxScreenWidth,
-			squareSize: mode.squareSize,
-			coordinateVisible: !mode.hideCoordinates,
-		}));
-	}
-	return result;
-}
+// Chessboard rendering function (to be used in the admin pages)
+RPBChessboard.renderAdminChessboard = function(targetJQueryElement, widgetArgs) {
+	let widget = <Chessboard {...widgetArgs} />;
+	ReactDOM.render(widget, targetJQueryElement.get(0));
+};
 
 
 // Chessboard rendering function
-RPBChessboard.renderFEN = function(targetJQueryElement, widgetArgs, wrapInDiv, withSmallScreenLimits) {
+RPBChessboard.renderFEN = function(targetJQueryElement, widgetArgs) {
 	let widget = <Chessboard
 		position={widgetArgs.position}
-		move={widgetArgs.move}
-		squareMarkers={widgetArgs.csl}
-		textMarkers={widgetArgs.ctl}
-		arrowMarkers={widgetArgs.cal}
-		flipped={widgetArgs.flip}
+		squareMarkers={widgetArgs.squareMarkers}
+		arrowMarkers={widgetArgs.arrowMarkers}
+		textMarkers={widgetArgs.textMarkers}
+		flipped={widgetArgs.flipped}
 		squareSize={widgetArgs.squareSize}
-		coordinateVisible={widgetArgs.showCoordinates}
+		coordinateVisible={widgetArgs.coordinateVisible}
 		colorset={widgetArgs.colorset}
 		pieceset={widgetArgs.pieceset}
-		animated={widgetArgs.animated}
-		moveArrowVisible={widgetArgs.showMoveArrow}
-		smallScreenLimits={getSmallScreenLimits(withSmallScreenLimits)}
+		smallScreenLimits={RPBChessboard.smallScreenLimits}
 	/>;
-	if (wrapInDiv) {
-		widget = <div className="rpbchessboard-diagramAlignment-center">{widget}</div>;
-	}
 	ReactDOM.render(widget, targetJQueryElement.get(0));
 };
 
 
 // Chessgame rendering function
 RPBChessboard.renderPGN = function(targetJQueryElement, widgetArgs) {
-	let smallScreenLimits = getSmallScreenLimits(true);
 	let diagramOptions = {
 		flipped: widgetArgs.diagramOptions.flip,
 		squareSize: widgetArgs.diagramOptions.squareSize,
 		coordinateVisible: widgetArgs.diagramOptions.showCoordinates,
 		colorset: widgetArgs.diagramOptions.colorset,
 		pieceset: widgetArgs.diagramOptions.pieceset,
-		smallScreenLimits:smallScreenLimits,
+		smallScreenLimits: RPBChessboard.smallScreenLimits,
 	};
 	let navigationBoardOptions = {
 		flipped: widgetArgs.navigationBoardOptions.flip,
@@ -106,7 +93,7 @@ RPBChessboard.renderPGN = function(targetJQueryElement, widgetArgs) {
 		pieceset: widgetArgs.navigationBoardOptions.pieceset,
 		animated: widgetArgs.navigationBoardOptions.animated,
 		moveArrowVisible: widgetArgs.navigationBoardOptions.showMoveArrow,
-		smallScreenLimits:smallScreenLimits,
+		smallScreenLimits: RPBChessboard.smallScreenLimits,
 	};
 	let widget = <Chessgame
 		url={widgetArgs.url}

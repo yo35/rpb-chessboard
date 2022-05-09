@@ -61,16 +61,16 @@
 
 		// Refresh the widget
 		function refresh() {
-			RPBChessboard.renderFEN($('#rpbchessboard-themingPreviewWidget'), {
+			RPBChessboard.renderAdminChessboard($('#rpbchessboard-themingPreviewWidget'), {
 				position: 'start',
 				move: showAnnotations ? 'e4' : undefined,
+				squareMarkers: showAnnotations ? 'Ga4,Ga5,Rb4,Rb5,Yc4,Yc5' : '',
+				arrowMarkers: showAnnotations ? 'Gf3f6,Rg3g6,Yh3h6' : '',
 				squareSize: 48,
-				showCoordinates: false,
+				coordinateVisible: false,
 				colorset: colorset,
 				pieceset: pieceset,
-				csl: showAnnotations ? 'Ga4,Ga5,Rb4,Rb5,Yc4,Yc5' : '',
-				cal: showAnnotations ? 'Gf3f6,Rg3g6,Yh3h6' : ''
-			}, false);
+			});
 		}
 		refresh();
 

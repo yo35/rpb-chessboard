@@ -68,10 +68,10 @@
 		var widgetState = {
 			position: 'r1bqkbnr/pppp1ppp/2n5/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4',
 			squareSize: 32,
-			showCoordinates: false
+			coordinateVisible: false,
 		};
 		var initialPosition = 'r1bqkbnr/pppp1ppp/2n5/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4';
-		RPBChessboard.renderFEN(widget, widgetState, false);
+		RPBChessboard.renderAdminChessboard(widget, widgetState);
 
 		// Test buttons
 		function doTest(move) {
@@ -82,16 +82,16 @@
 
 			// Set the animation parameter to the test widget
 			widgetState.animated = $('#rpbchessboard-animatedField').prop('checked');
-			widgetState.showMoveArrow = $('#rpbchessboard-showMoveArrowField').prop('checked');
+			widgetState.moveArrowVisible = $('#rpbchessboard-showMoveArrowField').prop('checked');
 			widgetState.move = move;
 
 			// Refresh the widget
-			RPBChessboard.renderFEN(widget, widgetState, false);
+			RPBChessboard.renderAdminChessboard(widget, widgetState);
 
 			// Restore the initial state.
 			setTimeout(function() {
 				widgetState.move = undefined;
-				RPBChessboard.renderFEN(widget, widgetState, false);
+				RPBChessboard.renderAdminChessboard(widget, widgetState);
 				$('.rpbchessboard-testMoveAnimation').removeClass('rpbchessboard-disabled');
 			}, 1200);
 		}

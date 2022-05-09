@@ -53,23 +53,23 @@ class RPBChessboardModelBlockFEN extends RPBChessboardAbstractModelBlock {
 				$this->widgetArgs['position'] = $atts['position'];
 			}
 			if ( isset( $atts['squareMarkers'] ) ) {
-				$this->widgetArgs['csl'] = $atts['squareMarkers'];
+				$this->widgetArgs['squareMarkers'] = $atts['squareMarkers'];
 			}
 			if ( isset( $atts['arrowMarkers'] ) ) {
-				$this->widgetArgs['cal'] = $atts['arrowMarkers'];
+				$this->widgetArgs['arrowMarkers'] = $atts['arrowMarkers'];
 			}
 			if ( isset( $atts['textMarkers'] ) ) {
-				$this->widgetArgs['ctl'] = $atts['textMarkers'];
+				$this->widgetArgs['textMarkers'] = $atts['textMarkers'];
 			}
 			if ( isset( $atts['flipped'] ) ) {
-				$this->widgetArgs['flip'] = $atts['flipped'];
+				$this->widgetArgs['flipped'] = $atts['flipped'];
 			}
 
 			// Chessboard aspect
-			$this->widgetArgs['squareSize']      = isset( $atts['squareSize'] ) ? $atts['squareSize'] : $this->getDefaultSquareSize();
-			$this->widgetArgs['showCoordinates'] = isset( $atts['coordinateVisible'] ) ? $atts['coordinateVisible'] : $this->getDefaultShowCoordinates();
-			$this->widgetArgs['colorset']        = isset( $atts['colorset'] ) ? $atts['colorset'] : $this->getDefaultColorset();
-			$this->widgetArgs['pieceset']        = isset( $atts['pieceset'] ) ? $atts['pieceset'] : $this->getDefaultPieceset();
+			$this->widgetArgs['squareSize']        = isset( $atts['squareSize'] ) ? $atts['squareSize'] : $this->getDefaultSquareSize();
+			$this->widgetArgs['coordinateVisible'] = isset( $atts['coordinateVisible'] ) ? $atts['coordinateVisible'] : $this->getDefaultShowCoordinates();
+			$this->widgetArgs['colorset']          = isset( $atts['colorset'] ) ? $atts['colorset'] : $this->getDefaultColorset();
+			$this->widgetArgs['pieceset']          = isset( $atts['pieceset'] ) ? $atts['pieceset'] : $this->getDefaultPieceset();
 		}
 		return $this->widgetArgs;
 	}
