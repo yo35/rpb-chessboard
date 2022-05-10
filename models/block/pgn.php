@@ -20,48 +20,43 @@
  ******************************************************************************/
 
 
+require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/block.php';
+
+
 /**
- * Register the plugin blocks.
- *
- * This class is not constructible. Call the static method `register()`
- * to trigger the registration operations (must be called only once).
+ * Model associated to the PGN block.
  */
-abstract class RPBChessboardBlocks {
+class RPBChessboardModelBlockPGN extends RPBChessboardAbstractModelBlock {
 
-	public static function register() {
+	private $widgetArgs;
 
-		register_block_type(
-			'rpb-chessboard/fen',
-			array(
-				'api_version'     => 2,
-				'editor_script'   => 'rpbchessboard-npm',
-				'render_callback' => array( __CLASS__, 'callbackBlockFEN' ),
-			)
-		);
 
-		register_block_type(
-			'rpb-chessboard/pgn',
-			array(
-				'api_version'     => 2,
-				'editor_script'   => 'rpbchessboard-npm',
-				'render_callback' => array( __CLASS__, 'callbackBlockPGN' ),
-			)
-		);
+	public function __construct( $atts, $content ) {
+		parent::__construct( $atts, $content );
+		$this->loadDelegateModel( 'Common/DefaultOptions' );
 	}
 
 
-	public static function callbackBlockFEN( $atts, $content ) {
-		return self::runBlock( 'FEN', $atts, $content );
+	/**
+	 * Return the arguments to pass to the JS chessgame widget.
+	 *
+	 * @return array
+	 */
+	public function getWidgetArgs() {
+		if ( ! isset( $this->widgetArgs ) ) {
+			$atts             = $this->getAttributes();
+			$this->widgetArgs = array();
+
+			// Chessgame content
+			if ( isset( $atts['pgn'] ) ) {
+				$this->widgetArgs['pgn'] = $atts['pgn'];
+			}
+
+			$this->widgetArgs['diagramOptions']         = array();
+			$this->widgetArgs['navigationBoardOptions'] = array();
+			// TODO map the other attributes
+		}
+		return $this->widgetArgs;
 	}
 
-
-	public static function callbackBlockPGN( $atts, $content ) {
-		return self::runBlock( 'PGN', $atts, $content );
-	}
-
-
-	private static function runBlock( $blockName, $atts, $content ) {
-		$model = RPBChessboardHelperLoader::loadModel( 'Block/' . $blockName, $atts, $content );
-		return RPBChessboardHelperLoader::printTemplateOffScreen( 'Block/' . $blockName, $model );
-	}
 }

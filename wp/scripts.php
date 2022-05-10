@@ -243,6 +243,9 @@ abstract class RPBChessboardScripts {
 				'N' => /*i18n Knight symbol */ __( 'N', 'rpb-chessboard' ),
 				'P' => /*i18n Pawn symbol   */ __( 'P', 'rpb-chessboard' ),
 			),
+
+			'PGN_EDITOR_TITLE'                     => __( 'Chess game', 'rpb-chessboard' ),
+			'PGN_EDITOR_TEXT_LABEL'                => __( 'PGN text', 'rpb-chessboard' ),
 		);
 	}
 

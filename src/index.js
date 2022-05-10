@@ -28,6 +28,7 @@ import { Chessboard, i18n as kokopuReactI18n } from 'kokopu-react';
 
 import Chessgame from './Chessgame';
 import './FENEditor';
+import './PGNEditor';
 
 // Internationalization
 kokopuReactI18n.ANNOTATED_BY = RPBChessboard.i18n.PGN_ANNOTATED_BY;
