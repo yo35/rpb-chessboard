@@ -150,6 +150,7 @@ abstract class RPBChessboardScripts {
 			'pieceset'        => $model->getDefaultPieceset(),
 			'animated'        => $model->getDefaultAnimated(),
 			'showMoveArrow'   => $model->getDefaultShowMoveArrow(),
+			'pieceSymbols'    => $model->getDefaultPieceSymbols(),
 		);
 	}
 
@@ -246,6 +247,12 @@ abstract class RPBChessboardScripts {
 
 			'PGN_EDITOR_TITLE'                     => __( 'Chess game', 'rpb-chessboard' ),
 			'PGN_EDITOR_TEXT_LABEL'                => __( 'PGN text', 'rpb-chessboard' ),
+			'PGN_EDITOR_PANEL_PIECE_SYMBOLS'       => __( 'Piece symbols', 'rpb-chessboard' ),
+			'PGN_EDITOR_USE_DEFAULT'               => __( 'Use default', 'rpb-chessboard' ),
+			'PGN_EDITOR_OPTION_NATIVE'             => __( 'English initials', 'rpb-chessboard' ),
+			'PGN_EDITOR_OPTION_LOCALIZED'          => __( 'Localized initials', 'rpb-chessboard' ),
+			'PGN_EDITOR_OPTION_FIGURINES'          => __( 'Figurines', 'rpb-chessboard' ),
+			'PGN_EDITOR_OPTION_CUSTOM'             => __( 'Custom', 'rpb-chessboard' ),
 		);
 	}
 

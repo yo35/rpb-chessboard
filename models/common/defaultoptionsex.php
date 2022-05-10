@@ -260,15 +260,14 @@ class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractMode
 	 */
 	public function getDefaultPieceSymbolCustomValues() {
 		if ( ! isset( self::$pieceSymbolCustomValues ) ) {
-			if ( $this->getDefaultSimplifiedPieceSymbols() === 'custom' ) {
-				$pieceSymbols                  = $this->getDefaultPieceSymbols();
+			if ( preg_match( '/^([a-zA-Z]*),([a-zA-Z]*),([a-zA-Z]*),([a-zA-Z]*),([a-zA-Z]*),([a-zA-Z]*)$/', $this->getDefaultPieceSymbols(), $m ) ) {
 				self::$pieceSymbolCustomValues = array(
-					'K' => substr( $pieceSymbols, 1, 1 ),
-					'Q' => substr( $pieceSymbols, 2, 1 ),
-					'R' => substr( $pieceSymbols, 3, 1 ),
-					'B' => substr( $pieceSymbols, 4, 1 ),
-					'N' => substr( $pieceSymbols, 5, 1 ),
-					'P' => substr( $pieceSymbols, 6, 1 ),
+					'K' => $m[1],
+					'Q' => $m[2],
+					'R' => $m[3],
+					'B' => $m[4],
+					'N' => $m[5],
+					'P' => $m[6],
 				);
 			} else {
 				self::$pieceSymbolCustomValues = array();

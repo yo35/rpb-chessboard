@@ -52,6 +52,9 @@ class RPBChessboardModelBlockPGN extends RPBChessboardAbstractModelBlock {
 				$this->widgetArgs['pgn'] = $atts['pgn'];
 			}
 
+			// Chessgame aspect
+			$this->widgetArgs['pieceSymbols'] = isset( $atts['pieceSymbols'] ) ? $atts['pieceSymbols'] : $this->getDefaultPieceSymbols();
+
 			$this->widgetArgs['diagramOptions']         = array();
 			$this->widgetArgs['navigationBoardOptions'] = array();
 			// TODO map the other attributes

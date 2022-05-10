@@ -27,7 +27,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import kokopu from 'kokopu';
 import { Chessboard, ErrorBox, Movetext } from 'kokopu-react';
-import { format } from './util';
+import { format, parsePieceSymbols } from './util';
 import { showPopupFrame, hidePopupFrame } from './NavigationFrame';
 
 import Box from '@mui/material/Box';
@@ -228,12 +228,12 @@ export default class Chessgame extends React.Component {
 	}
 
 	getPieceSymbols() {
-		let pieceSymbols = this.props.pieceSymbols;
-		if (pieceSymbols === 'native' || pieceSymbols === 'localized' || pieceSymbols === 'figurines') {
+		let pieceSymbols = parsePieceSymbols(this.props.pieceSymbols);
+		if (pieceSymbols) {
 			return pieceSymbols;
 		}
-		else if (/\([A-Z]{6}\)/.test(pieceSymbols)) {
-			return { K: pieceSymbols.charAt(0), Q: pieceSymbols.charAt(1), R: pieceSymbols.charAt(2), B: pieceSymbols.charAt(3), N: pieceSymbols.charAt(4), P: pieceSymbols.charAt(5) };
+		else if (this.props.pieceSymbols === 'native' || this.props.pieceSymbols === 'localized' || this.props.pieceSymbols === 'figurines') {
+			return this.props.pieceSymbols;
 		}
 		else {
 			return undefined;

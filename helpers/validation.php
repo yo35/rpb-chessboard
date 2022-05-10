@@ -121,8 +121,11 @@ abstract class RPBChessboardHelperValidation {
 	public static function validatePieceSymbols( $value ) {
 		if ( 'native' === $value || 'localized' === $value || 'figurines' === $value ) {
 			return $value;
-		} elseif ( is_string( $value ) && preg_match( '/^\([a-zA-Z]{6}\)$/', $value ) ) {
-			return strtoupper( $value );
+		} elseif ( is_string( $value ) && preg_match( '/^[a-zA-Z]*,[a-zA-Z]*,[a-zA-Z]*,[a-zA-Z]*,[a-zA-Z]*,[a-zA-Z]*$/', $value ) ) {
+			return $value;
+		} elseif ( is_string( $value ) && preg_match( '/^\([a-zA-Z]{6}\)$/', $value ) ) { // legacy encoding
+			$value = strtoupper( $value );
+			return substr( $value, 1, 1 ) . ',' . substr( $value, 2, 1 ) . ',' . substr( $value, 3, 1 ) . ',' . substr( $value, 4, 1 ) . ',' . substr( $value, 5, 1 ) . ',' . substr( $value, 6, 1 );
 		} else {
 			return null;
 		}
@@ -136,7 +139,7 @@ abstract class RPBChessboardHelperValidation {
 	 * @return string May be null is the value is not valid.
 	 */
 	public static function validatePieceSymbol( $value ) {
-		return is_string( $value ) && preg_match( '/^[a-zA-Z]$/', $value ) ? strtoupper( $value ) : null;
+		return is_string( $value ) ? preg_replace( '/[^a-zA-Z]/', '', $value ) : null;
 	}
 
 

@@ -23,10 +23,19 @@
 	min-height: 0px;
 }
 
-.editor-styles-wrapper textarea.rpbchessboard-fixTextarea {
+.editor-styles-wrapper textarea.rpbchessboard-fixMarginBottom,
+.block-editor-block-inspector .components-base-control.rpbchessboard-fixMarginBottom {
 	margin-bottom: 0px;
 }
 
 .rpbchessboard-pgnTextarea {
 	min-height: 150px;
+}
+
+.rpbchessboard-pieceSymbolJsField {
+	width: 2.5em;
+}
+
+.rpbchessboard-pieceSymbolJsField input {
+	text-align: center;
 }

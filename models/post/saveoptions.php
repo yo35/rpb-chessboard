@@ -175,7 +175,7 @@ class RPBChessboardModelPostSaveOptions extends RPBChessboardAbstractModel {
 				$pawnSymbol   = self::loadPieceSymbol( 'pawnSymbol' );
 				return isset( $kingSymbol ) && isset( $queenSymbol ) && isset( $rookSymbol ) &&
 					isset( $bishopSymbol ) && isset( $knightSymbol ) && isset( $pawnSymbol ) ?
-					'(' . $kingSymbol . $queenSymbol . $rookSymbol . $bishopSymbol . $knightSymbol . $pawnSymbol . ')' : null;
+					$kingSymbol . ',' . $queenSymbol . ',' . $rookSymbol . ',' . $bishopSymbol . ',' . $knightSymbol . ',' . $pawnSymbol : null;
 
 			default:
 				return null;
