@@ -212,34 +212,36 @@ PGNEditor.propTypes = {
 /**
  * Registration
  */
-registerBlockType('rpb-chessboard/pgn', {
-	apiVersion: 2,
-	title: i18n.PGN_EDITOR_TITLE,
-	// TODO icon: <FENEditorIcon />,
-	category: 'media',
-	attributes: {
-		pgn: {
-			type: 'string',
-			default: ''
-		},
-		pieceSymbols: {
-			type: 'string',
-			default: ''
-		},
-		navigationBoard: {
-			type: 'string',
-			default: ''
-		}
-	},
-	example: {
+export function registerPGNBlock() {
+	registerBlockType('rpb-chessboard/pgn', {
+		apiVersion: 2,
+		title: i18n.PGN_EDITOR_TITLE,
+		// TODO icon: <FENEditorIcon />,
+		category: 'media',
 		attributes: {
-			pgn: '', // TODO fill PGN example
-			pieceSymbols: '',
-			navigationBoard: '',
-		}
-	},
-	edit: ({ attributes, setAttributes }) => {
-		let blockProps = useBlockProps();
-		return <PGNEditor blockProps={blockProps} attributes={attributes} setAttributes={setAttributes} />;
-	},
-});
+			pgn: {
+				type: 'string',
+				default: ''
+			},
+			pieceSymbols: {
+				type: 'string',
+				default: ''
+			},
+			navigationBoard: {
+				type: 'string',
+				default: ''
+			}
+		},
+		example: {
+			attributes: {
+				pgn: '', // TODO fill PGN example
+				pieceSymbols: '',
+				navigationBoard: '',
+			}
+		},
+		edit: ({ attributes, setAttributes }) => {
+			let blockProps = useBlockProps();
+			return <PGNEditor blockProps={blockProps} attributes={attributes} setAttributes={setAttributes} />;
+		},
+	});
+}

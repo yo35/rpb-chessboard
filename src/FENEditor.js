@@ -443,69 +443,71 @@ FENEditor.propTypes = {
 /**
  * Registration
  */
-registerBlockType('rpb-chessboard/fen', {
-	apiVersion: 2,
-	title: i18n.FEN_EDITOR_TITLE,
-	icon: <FENEditorIcon />,
-	category: 'media',
-	attributes: {
-		position: {
-			type: 'string',
-			default: 'start'
-		},
-		flipped: {
-			type: 'boolean',
-			default: false
-		},
-		squareMarkers: {
-			type: 'object',
-			default: {}
-		},
-		arrowMarkers: {
-			type: 'object',
-			default: {}
-		},
-		textMarkers: {
-			type: 'object',
-			default: {}
-		},
-		align: {
-			type: 'string',
-			default: ''
-		},
-		squareSize: {
-			type: 'number',
-			default: 0
-		},
-		coordinateVisible: {
-			type: 'string',
-			default: ''
-		},
-		colorset: {
-			type: 'string',
-			default: ''
-		},
-		pieceset: {
-			type: 'string',
-			default: ''
-		},
-	},
-	example: {
+export function registerFENBlock() {
+	registerBlockType('rpb-chessboard/fen', {
+		apiVersion: 2,
+		title: i18n.FEN_EDITOR_TITLE,
+		icon: <FENEditorIcon />,
+		category: 'media',
 		attributes: {
-			position: 'start',
-			flipped: false,
-			squareMarkers: {},
-			arrowMarkers: {},
-			textMarkers: {},
-			align: '',
-			squareSize: '',
-			coordinateVisible: '',
-			colorset: '',
-			pieceset: '',
-		}
-	},
-	edit: ({ attributes, setAttributes }) => {
-		let blockProps = useBlockProps();
-		return <FENEditor blockProps={blockProps} attributes={attributes} setAttributes={setAttributes} />;
-	},
-});
+			position: {
+				type: 'string',
+				default: 'start'
+			},
+			flipped: {
+				type: 'boolean',
+				default: false
+			},
+			squareMarkers: {
+				type: 'object',
+				default: {}
+			},
+			arrowMarkers: {
+				type: 'object',
+				default: {}
+			},
+			textMarkers: {
+				type: 'object',
+				default: {}
+			},
+			align: {
+				type: 'string',
+				default: ''
+			},
+			squareSize: {
+				type: 'number',
+				default: 0
+			},
+			coordinateVisible: {
+				type: 'string',
+				default: ''
+			},
+			colorset: {
+				type: 'string',
+				default: ''
+			},
+			pieceset: {
+				type: 'string',
+				default: ''
+			},
+		},
+		example: {
+			attributes: {
+				position: 'start',
+				flipped: false,
+				squareMarkers: {},
+				arrowMarkers: {},
+				textMarkers: {},
+				align: '',
+				squareSize: '',
+				coordinateVisible: '',
+				colorset: '',
+				pieceset: '',
+			}
+		},
+		edit: ({ attributes, setAttributes }) => {
+			let blockProps = useBlockProps();
+			return <FENEditor blockProps={blockProps} attributes={attributes} setAttributes={setAttributes} />;
+		},
+	});
+}

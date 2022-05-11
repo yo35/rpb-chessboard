@@ -27,8 +27,8 @@ import ReactDOM from 'react-dom';
 import { Chessboard, i18n as kokopuReactI18n } from 'kokopu-react';
 
 import Chessgame from './Chessgame';
-import './FENEditor';
-import './PGNEditor';
+import { registerFENBlock } from './FENEditor';
+import { registerPGNBlock } from './PGNEditor';
 
 // Internationalization
 kokopuReactI18n.ANNOTATED_BY = RPBChessboard.i18n.PGN_ANNOTATED_BY;
@@ -49,6 +49,10 @@ Object.assign(Chessboard.piecesets(), RPBChessboard.customPiecesets);
 // Special colorsets and piecesets for theming edition
 RPBChessboard.editColorset = Chessboard.colorsets()._edit_ = {};
 RPBChessboard.editPieceset = Chessboard.piecesets()._edit_ = {};
+
+// Block registration
+registerFENBlock();
+registerPGNBlock();
 
 
 // Chessboard rendering function (to be used in the admin pages)
