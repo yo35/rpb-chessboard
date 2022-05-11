@@ -67,6 +67,8 @@ class RPBChessboardModelBlockPGN extends RPBChessboardAbstractModelBlock {
 			$this->widgetArgs['nboCoordinateVisible'] = isset( $atts['nboCoordinateVisible'] ) ? 'true' === $atts['nboCoordinateVisible'] : $this->getDefaultShowCoordinates();
 			$this->widgetArgs['nboColorset']          = isset( $atts['nboColorset'] ) ? $atts['nboColorset'] : $this->getDefaultColorset();
 			$this->widgetArgs['nboPieceset']          = isset( $atts['nboPieceset'] ) ? $atts['nboPieceset'] : $this->getDefaultPieceset();
+			$this->widgetArgs['nboAnimated']          = isset( $atts['nboAnimated'] ) ? 'true' === $atts['nboAnimated'] : $this->getDefaultAnimated();
+			$this->widgetArgs['nboMoveArrowVisible']  = isset( $atts['nboMoveArrowVisible'] ) ? 'true' === $atts['nboMoveArrowVisible'] : $this->getDefaultShowMoveArrow();
 
 			// Specific options for the diagrams.
 			$this->widgetArgs['idoSquareSize']        = isset( $atts['idoSquareSize'] ) ? $atts['idoSquareSize'] : $this->getDefaultSquareSize();

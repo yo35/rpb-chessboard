@@ -182,7 +182,7 @@ class PGNEditor extends React.Component {
 		if (!isNavigationBoardCustomizationAvailable(this.props.attributes.navigationBoard === '' ? RPBChessboard.defaultSettings.navigationBoard : this.props.attributes.navigationBoard)) {
 			return undefined;
 		}
-		return (
+		return (<>
 			<ChessboardOptionEditor
 				defaultSquareSize={RPBChessboard.defaultSettings.squareSize}
 				flipped={this.props.attributes.nboFlipped}
@@ -196,7 +196,17 @@ class PGNEditor extends React.Component {
 				onColorsetChanged={value => this.handleAttributeChanged('nboColorset', value)}
 				onPiecesetChanged={value => this.handleAttributeChanged('nboPieceset', value)}
 			/>
-		);
+			<RadioControl label={i18n.PGN_EDITOR_CONTROL_ANIMATED} selected={this.props.attributes.nboAnimated} onChange={value => this.handleAttributeChanged('nboAnimated', value)} options={[
+				{ label: i18n.PGN_EDITOR_USE_DEFAULT, value: '' },
+				{ label: i18n.PGN_EDITOR_OPTION_DISABLED, value: 'false' },
+				{ label: i18n.PGN_EDITOR_OPTION_ENABLED, value: 'true' },
+			]} />
+			<RadioControl label={i18n.PGN_EDITOR_CONTROL_MOVE_ARROW} selected={this.props.attributes.nboMoveArrowVisible} onChange={value => this.handleAttributeChanged('nboMoveArrowVisible', value)} options={[
+				{ label: i18n.PGN_EDITOR_USE_DEFAULT, value: '' },
+				{ label: i18n.PGN_EDITOR_OPTION_HIDDEN, value: 'false' },
+				{ label: i18n.PGN_EDITOR_OPTION_VISIBLE, value: 'true' },
+			]} />
+		</>);
 	}
 
 
@@ -312,6 +322,14 @@ export function registerPGNBlock() {
 				type: 'string',
 				default: ''
 			},
+			nboAnimated: {
+				type: 'string',
+				default: ''
+			},
+			nboMoveArrowVisible: {
+				type: 'string',
+				default: ''
+			},
 			idoFlipped: {
 				type: 'boolean',
 				default: false
@@ -343,6 +361,8 @@ export function registerPGNBlock() {
 				nboCoordinateVisible: '',
 				nboColorset: '',
 				nboPieceset: '',
+				nboAnimated: '',
+				nboMoveArrowVisible: '',
 				idoFlipped: false,
 				idoSquareSize: 0,
 				idoCoordinateVisible: '',

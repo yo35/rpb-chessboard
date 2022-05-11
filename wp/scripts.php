@@ -265,6 +265,12 @@ abstract class RPBChessboardScripts {
 			'PGN_EDITOR_OPTION_FLOAT_RIGHT'        => __( 'Float on right', 'rpb-chessboard' ),
 			'PGN_EDITOR_OPTION_SCROLL_LEFT'        => __( 'Scroll on left', 'rpb-chessboard' ),
 			'PGN_EDITOR_OPTION_SCROLL_RIGHT'       => __( 'Scroll on right', 'rpb-chessboard' ),
+			'PGN_EDITOR_OPTION_DISABLED'           => __( 'Disabled', 'rpb-chessboard' ),
+			'PGN_EDITOR_OPTION_ENABLED'            => __( 'Enabled', 'rpb-chessboard' ),
+			'PGN_EDITOR_OPTION_HIDDEN'             => __( 'Hidden', 'rpb-chessboard' ),
+			'PGN_EDITOR_OPTION_VISIBLE'            => __( 'Visible', 'rpb-chessboard' ),
+			'PGN_EDITOR_CONTROL_ANIMATED'          => __( 'Animation', 'rpb-chessboard' ),
+			'PGN_EDITOR_CONTROL_MOVE_ARROW'        => __( 'Move arrow', 'rpb-chessboard' ),
 		);
 	}
 
