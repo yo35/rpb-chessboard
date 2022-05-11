@@ -83,21 +83,21 @@ RPBChessboard.renderFEN = function(targetJQueryElement, widgetArgs) {
 // Chessgame rendering function
 RPBChessboard.renderPGN = function(targetJQueryElement, widgetArgs) {
 	let diagramOptions = {
-		flipped: widgetArgs.diagramOptions.flip,
-		squareSize: widgetArgs.diagramOptions.squareSize,
-		coordinateVisible: widgetArgs.diagramOptions.showCoordinates,
-		colorset: widgetArgs.diagramOptions.colorset,
-		pieceset: widgetArgs.diagramOptions.pieceset,
+		flipped: widgetArgs.idoFlipped,
+		squareSize: widgetArgs.idoSquareSize,
+		coordinateVisible: widgetArgs.idoCoordinateVisible,
+		colorset: widgetArgs.idoColorset,
+		pieceset: widgetArgs.idoPieceset,
 		smallScreenLimits: RPBChessboard.smallScreenLimits,
 	};
 	let navigationBoardOptions = {
-		flipped: widgetArgs.navigationBoardOptions.flip,
-		squareSize: widgetArgs.navigationBoardOptions.squareSize,
-		coordinateVisible: widgetArgs.navigationBoardOptions.showCoordinates,
-		colorset: widgetArgs.navigationBoardOptions.colorset,
-		pieceset: widgetArgs.navigationBoardOptions.pieceset,
-		animated: widgetArgs.navigationBoardOptions.animated,
-		moveArrowVisible: widgetArgs.navigationBoardOptions.showMoveArrow,
+		flipped: widgetArgs.nboFlipped,
+		squareSize: widgetArgs.nboSquareSize,
+		coordinateVisible: widgetArgs.nboCoordinateVisible,
+		colorset: widgetArgs.nboColorset,
+		pieceset: widgetArgs.nboPieceset,
+		animated: widgetArgs.nboAnimated,
+		moveArrowVisible: widgetArgs.nboMoveArrowVisible,
 		smallScreenLimits: RPBChessboard.smallScreenLimits,
 	};
 	let widget = <Chessgame

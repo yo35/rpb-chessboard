@@ -250,6 +250,7 @@ abstract class RPBChessboardScripts {
 			'PGN_EDITOR_TEXT_LABEL'                => __( 'PGN text', 'rpb-chessboard' ),
 			'PGN_EDITOR_PANEL_PIECE_SYMBOLS'       => __( 'Piece symbols', 'rpb-chessboard' ),
 			'PGN_EDITOR_PANEL_NAVIGATION_BOARD'    => __( 'Navigation board', 'rpb-chessboard' ),
+			'PGN_EDITOR_PANEL_DIAGRAM_OPTIONS'     => __( 'Diagram options', 'rpb-chessboard' ),
 			'PGN_EDITOR_USE_DEFAULT'               => __( 'Use default', 'rpb-chessboard' ),
 			'PGN_EDITOR_OPTION_NATIVE'             => __( 'English initials', 'rpb-chessboard' ),
 			'PGN_EDITOR_OPTION_LOCALIZED'          => __( 'Localized initials', 'rpb-chessboard' ),

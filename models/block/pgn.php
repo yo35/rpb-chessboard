@@ -56,8 +56,18 @@ class RPBChessboardModelBlockPGN extends RPBChessboardAbstractModelBlock {
 			$this->widgetArgs['pieceSymbols']    = isset( $atts['pieceSymbols'] ) ? $atts['pieceSymbols'] : $this->getDefaultPieceSymbols();
 			$this->widgetArgs['navigationBoard'] = isset( $atts['navigationBoard'] ) ? $atts['navigationBoard'] : $this->getDefaultNavigationBoard();
 
-			$this->widgetArgs['diagramOptions']         = array();
-			$this->widgetArgs['navigationBoardOptions'] = array();
+			// Specific options for the navigation board.
+			$this->widgetArgs['nboSquareSize']        = isset( $atts['nboSquareSize'] ) ? $atts['nboSquareSize'] : $this->getDefaultSquareSize();
+			$this->widgetArgs['nboCoordinateVisible'] = isset( $atts['nboCoordinateVisible'] ) ? 'true' === $atts['nboCoordinateVisible'] : $this->getDefaultShowCoordinates();
+			$this->widgetArgs['nboColorset']          = isset( $atts['nboColorset'] ) ? $atts['nboColorset'] : $this->getDefaultColorset();
+			$this->widgetArgs['nboPieceset']          = isset( $atts['nboPieceset'] ) ? $atts['nboPieceset'] : $this->getDefaultPieceset();
+
+			// Specific options for the diagrams.
+			$this->widgetArgs['idoSquareSize']        = isset( $atts['idoSquareSize'] ) ? $atts['idoSquareSize'] : $this->getDefaultSquareSize();
+			$this->widgetArgs['idoCoordinateVisible'] = isset( $atts['idoCoordinateVisible'] ) ? 'true' === $atts['idoCoordinateVisible'] : $this->getDefaultShowCoordinates();
+			$this->widgetArgs['idoColorset']          = isset( $atts['idoColorset'] ) ? $atts['idoColorset'] : $this->getDefaultColorset();
+			$this->widgetArgs['idoPieceset']          = isset( $atts['idoPieceset'] ) ? $atts['idoPieceset'] : $this->getDefaultPieceset();
+
 			// TODO map the other attributes
 		}
 		return $this->widgetArgs;

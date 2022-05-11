@@ -97,8 +97,7 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelBlock {
 				$this->widgetArgs['pgn'] = $this->getContent();
 			}
 
-			$atts              = $this->getAttributes();
-			$chessboardOptions = array();
+			$atts = $this->getAttributes();
 
 			// Game index
 			$value = isset( $atts['game'] ) ? RPBChessboardHelperValidation::validateInteger( $atts['game'], 0 ) : null;
@@ -109,24 +108,29 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelBlock {
 			// Orientation
 			$value = isset( $atts['flip'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['flip'] ) : null;
 			if ( isset( $value ) ) {
-				$chessboardOptions['flip'] = $value;
+				$this->widgetArgs['nboFlipped'] = $value;
+				$this->widgetArgs['idoFlipped'] = $value;
 			}
 
 			// Square size
-			$value                           = isset( $atts['square_size'] ) ? RPBChessboardHelperValidation::validateSquareSize( $atts['square_size'] ) : null;
-			$chessboardOptions['squareSize'] = isset( $value ) ? $value : $this->getDefaultSquareSize();
+			$value                             = isset( $atts['square_size'] ) ? RPBChessboardHelperValidation::validateSquareSize( $atts['square_size'] ) : null;
+			$this->widgetArgs['nboSquareSize'] = isset( $value ) ? $value : $this->getDefaultSquareSize();
+			$this->widgetArgs['idoSquareSize'] = $this->widgetArgs['nboSquareSize'];
 
 			// Show coordinates
-			$value                                = isset( $atts['show_coordinates'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_coordinates'] ) : null;
-			$chessboardOptions['showCoordinates'] = isset( $value ) ? $value : $this->getDefaultShowCoordinates();
+			$value                                     = isset( $atts['show_coordinates'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_coordinates'] ) : null;
+			$this->widgetArgs['nboCoordinatesVisible'] = isset( $value ) ? $value : $this->getDefaultShowCoordinates();
+			$this->widgetArgs['idoCoordinatesVisible'] = $this->widgetArgs['nboCoordinatesVisible'];
 
 			// Colorset
-			$value                         = isset( $atts['colorset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['colorset'] ) : null;
-			$chessboardOptions['colorset'] = isset( $value ) ? $value : $this->getDefaultColorset();
+			$value                           = isset( $atts['colorset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['colorset'] ) : null;
+			$this->widgetArgs['nboColorset'] = isset( $value ) ? $value : $this->getDefaultColorset();
+			$this->widgetArgs['idoColorset'] = $this->widgetArgs['nboColorset'];
 
 			// Pieceset
-			$value                         = isset( $atts['pieceset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['pieceset'] ) : null;
-			$chessboardOptions['pieceset'] = isset( $value ) ? $value : $this->getDefaultPieceset();
+			$value                           = isset( $atts['pieceset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['pieceset'] ) : null;
+			$this->widgetArgs['nboPieceset'] = isset( $value ) ? $value : $this->getDefaultPieceset();
+			$this->widgetArgs['idoPieceset'] = $this->widgetArgs['nboPieceset'];
 
 			// Animated
 			$value = isset( $atts['animated'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['animated'] ) : null;
@@ -136,11 +140,11 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelBlock {
 					$value = $animationSpeed > 0;
 				}
 			}
-			$chessboardOptions['animated'] = isset( $value ) ? $value : $this->getDefaultAnimated();
+			$this->widgetArgs['nboAnimated'] = isset( $value ) ? $value : $this->getDefaultAnimated();
 
 			// Move arrow
-			$value                              = isset( $atts['show_move_arrow'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_move_arrow'] ) : null;
-			$chessboardOptions['showMoveArrow'] = isset( $value ) ? $value : $this->getDefaultShowMoveArrow();
+			$value                                   = isset( $atts['show_move_arrow'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_move_arrow'] ) : null;
+			$this->widgetArgs['nboMoveArrowVisible'] = isset( $value ) ? $value : $this->getDefaultShowMoveArrow();
 
 			// Piece symbols
 			$value                            = isset( $atts['piece_symbols'] ) ? RPBChessboardHelperValidation::validatePieceSymbols( $atts['piece_symbols'] ) : null;
@@ -155,10 +159,6 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelBlock {
 			$this->widgetArgs['showFlipButton']     = isset( $value ) ? $value : $this->getDefaultShowFlipButton();
 			$value                                  = isset( $atts['show_download_button'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_download_button'] ) : null;
 			$this->widgetArgs['showDownloadButton'] = isset( $value ) ? $value : $this->getDefaultShowDownloadButton();
-
-			// Use the same aspect parameters for the navigation board and the text comment diagrams.
-			$this->widgetArgs['navigationBoardOptions'] = $chessboardOptions;
-			$this->widgetArgs['diagramOptions']         = $chessboardOptions;
 		}
 		return $this->widgetArgs;
 	}

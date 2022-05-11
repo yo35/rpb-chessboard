@@ -29,6 +29,7 @@ import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import { PanelBody, PanelRow, RadioControl, TextControl } from '@wordpress/components';
 
 import { parsePieceSymbols, flattenPieceSymbols } from './util';
+import ChessboardOptionEditor from './ChessboardOptionEditor';
 
 const i18n = RPBChessboard.i18n;
 
@@ -48,6 +49,14 @@ function isPieceSymbolLocalizationAvailable() {
 
 
 /**
+ * Whether the navigation board customization options are available or not.
+ */
+function isNavigationBoardCustomizationAvailable(navigationBoard) {
+	return navigationBoard !== 'none' && navigationBoard !== 'frame';
+}
+
+
+/**
  * PGN editor
  */
 class PGNEditor extends React.Component {
@@ -57,8 +66,10 @@ class PGNEditor extends React.Component {
 		this.pgnTextareaId = 'rpbchessboard-pgnTextarea-' + (pgnTextareaIdCounter++);
 	}
 
-	handlePgnTextareaChanged(value) {
-		this.props.setAttributes({ ...this.props.attributes, pgn: value });
+	handleAttributeChanged(attribute, value) {
+		let newAttributes = { ...this.props.attributes };
+		newAttributes[attribute] = value;
+		this.props.setAttributes(newAttributes);
 	}
 
 	handlePieceSymbolCodeChanged(code, elements) {
@@ -66,14 +77,10 @@ class PGNEditor extends React.Component {
 		this.props.setAttributes({ ...this.props.attributes, pieceSymbols: pieceSymbols });
 	}
 
-	handlePieceSymbolChanged(piece, newValue, elements) {
+	handlePieceSymbolChanged(piece, value, elements) {
 		let newElements = { ...elements };
-		newElements[piece] = newValue;
+		newElements[piece] = value;
 		this.props.setAttributes({ ...this.props.attributes, pieceSymbols: flattenPieceSymbols(newElements) });
-	}
-
-	handleNavigationBoardChanged(value) {
-		this.props.setAttributes({ ...this.props.attributes, navigationBoard: value });
 	}
 
 
@@ -98,6 +105,7 @@ class PGNEditor extends React.Component {
 			<InspectorControls>
 				{this.renderPieceSymbolsPanel()}
 				{this.renderNavigationBoardPanel()}
+				{this.renderDiagramOptionPanel()}
 			</InspectorControls>
 		);
 	}
@@ -142,11 +150,10 @@ class PGNEditor extends React.Component {
 	 * Navigation board position & options customization panel.
 	 */
 	renderNavigationBoardPanel() {
-		// TODO impl option customization
 		return (
 			<PanelBody title={i18n.PGN_EDITOR_PANEL_NAVIGATION_BOARD} initialOpen={false}>
 				<PanelRow>
-					<RadioControl selected={this.props.attributes.navigationBoard} onChange={value => this.handleNavigationBoardChanged(value)} options={[
+					<RadioControl selected={this.props.attributes.navigationBoard} onChange={value => this.handleAttributeChanged('navigationBoard', value)} options={[
 						{ label: i18n.PGN_EDITOR_USE_DEFAULT, value: '' },
 						{ label: i18n.PGN_EDITOR_OPTION_NONE, value: 'none' },
 						{ label: i18n.PGN_EDITOR_OPTION_FRAME, value: 'frame' },
@@ -158,6 +165,52 @@ class PGNEditor extends React.Component {
 						{ label: i18n.PGN_EDITOR_OPTION_SCROLL_RIGHT, value: 'scrollRight' },
 					]} />
 				</PanelRow>
+				{this.renderNavigationBoardOptionFields()}
+			</PanelBody>
+		);
+	}
+
+
+	/**
+	 * Fields for square-size / coordinate-visibility / colorset / pieceset customization for the navigation board, if available.
+	 */
+	renderNavigationBoardOptionFields() {
+		if (!isNavigationBoardCustomizationAvailable(this.props.attributes.navigationBoard === '' ? RPBChessboard.defaultSettings.navigationBoard : this.props.attributes.navigationBoard)) {
+			return undefined;
+		}
+		return (
+			<ChessboardOptionEditor
+				defaultSquareSize={RPBChessboard.defaultSettings.squareSize}
+				squareSize={this.props.attributes.nboSquareSize}
+				coordinateVisible={this.props.attributes.nboCoordinateVisible}
+				colorset={this.props.attributes.nboColorset}
+				pieceset={this.props.attributes.nboPieceset}
+				onSquareSizeChanged={value => this.handleAttributeChanged('nboSquareSize', value)}
+				onCoordinateVisibleChanged={value => this.handleAttributeChanged('nboCoordinateVisible', value)}
+				onColorsetChanged={value => this.handleAttributeChanged('nboColorset', value)}
+				onPiecesetChanged={value => this.handleAttributeChanged('nboPieceset', value)}
+			/>
+		);
+	}
+
+
+	/**
+	 * Diagram options customization panel.
+	 */
+	renderDiagramOptionPanel() {
+		return (
+			<PanelBody title={i18n.PGN_EDITOR_PANEL_DIAGRAM_OPTIONS} initialOpen={false}>
+				<ChessboardOptionEditor
+					defaultSquareSize={RPBChessboard.defaultSettings.squareSize}
+					squareSize={this.props.attributes.idoSquareSize}
+					coordinateVisible={this.props.attributes.idoCoordinateVisible}
+					colorset={this.props.attributes.idoColorset}
+					pieceset={this.props.attributes.idoPieceset}
+					onSquareSizeChanged={value => this.handleAttributeChanged('idoSquareSize', value)}
+					onCoordinateVisibleChanged={value => this.handleAttributeChanged('idoCoordinateVisible', value)}
+					onColorsetChanged={value => this.handleAttributeChanged('idoColorset', value)}
+					onPiecesetChanged={value => this.handleAttributeChanged('idoPieceset', value)}
+				/>
 			</PanelBody>
 		);
 	}
@@ -174,7 +227,7 @@ class PGNEditor extends React.Component {
 					id={this.pgnTextareaId}
 					className="block-editor-plain-text blocks-shortcode__textarea rpbchessboard-fixMarginBottom rpbchessboard-pgnTextarea"
 					value={this.props.attributes.pgn}
-					onChange={evt => this.handlePgnTextareaChanged(evt.target.value)}
+					onChange={evt => this.handleAttributeChanged('pgn', evt.target.value)}
 				/>
 			</div>
 		);
@@ -230,13 +283,53 @@ export function registerPGNBlock() {
 			navigationBoard: {
 				type: 'string',
 				default: ''
-			}
+			},
+			nboSquareSize: {
+				type: 'number',
+				default: 0
+			},
+			nboCoordinateVisible: {
+				type: 'string',
+				default: ''
+			},
+			nboColorset: {
+				type: 'string',
+				default: ''
+			},
+			nboPieceset: {
+				type: 'string',
+				default: ''
+			},
+			idoSquareSize: {
+				type: 'number',
+				default: 0
+			},
+			idoCoordinateVisible: {
+				type: 'string',
+				default: ''
+			},
+			idoColorset: {
+				type: 'string',
+				default: ''
+			},
+			idoPieceset: {
+				type: 'string',
+				default: ''
+			},
 		},
 		example: {
 			attributes: {
 				pgn: '', // TODO fill PGN example
 				pieceSymbols: '',
 				navigationBoard: '',
+				nboSquareSize: 0,
+				nboCoordinateVisible: '',
+				nboColorset: '',
+				nboPieceset: '',
+				idoSquareSize: 0,
+				idoCoordinateVisible: '',
+				idoColorset: '',
+				idoPieceset: '',
 			}
 		},
 		edit: ({ attributes, setAttributes }) => {
