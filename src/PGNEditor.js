@@ -72,6 +72,10 @@ class PGNEditor extends React.Component {
 		this.props.setAttributes({ ...this.props.attributes, pieceSymbols: flattenPieceSymbols(newElements) });
 	}
 
+	handleNavigationBoardChanged(value) {
+		this.props.setAttributes({ ...this.props.attributes, navigationBoard: value });
+	}
+
 
 	/**
 	 * Rendering entry point.
@@ -93,6 +97,7 @@ class PGNEditor extends React.Component {
 		return (
 			<InspectorControls>
 				{this.renderPieceSymbolsPanel()}
+				{this.renderNavigationBoardPanel()}
 			</InspectorControls>
 		);
 	}
@@ -127,6 +132,31 @@ class PGNEditor extends React.Component {
 					<TextControl className="rpbchessboard-pieceSymbolJsField rpbchessboard-fixMarginBottom" value={elements.B} disabled={disabled} onChange={value => this.handlePieceSymbolChanged('B', value, futureElements)} />
 					<TextControl className="rpbchessboard-pieceSymbolJsField rpbchessboard-fixMarginBottom" value={elements.N} disabled={disabled} onChange={value => this.handlePieceSymbolChanged('N', value, futureElements)} />
 					<TextControl className="rpbchessboard-pieceSymbolJsField rpbchessboard-fixMarginBottom" value={elements.P} disabled={disabled} onChange={value => this.handlePieceSymbolChanged('P', value, futureElements)} />
+				</PanelRow>
+			</PanelBody>
+		);
+	}
+
+
+	/**
+	 * Navigation board position & options customization panel.
+	 */
+	renderNavigationBoardPanel() {
+		// TODO impl option customization
+		return (
+			<PanelBody title={i18n.PGN_EDITOR_PANEL_NAVIGATION_BOARD} initialOpen={false}>
+				<PanelRow>
+					<RadioControl selected={this.props.attributes.navigationBoard} onChange={value => this.handleNavigationBoardChanged(value)} options={[
+						{ label: i18n.PGN_EDITOR_USE_DEFAULT, value: '' },
+						{ label: i18n.PGN_EDITOR_OPTION_NONE, value: 'none' },
+						{ label: i18n.PGN_EDITOR_OPTION_FRAME, value: 'frame' },
+						{ label: i18n.PGN_EDITOR_OPTION_ABOVE, value: 'above' },
+						{ label: i18n.PGN_EDITOR_OPTION_BELOW, value: 'below' },
+						{ label: i18n.PGN_EDITOR_OPTION_FLOAT_LEFT, value: 'floatLeft' },
+						{ label: i18n.PGN_EDITOR_OPTION_FLOAT_RIGHT, value: 'floatRight' },
+						{ label: i18n.PGN_EDITOR_OPTION_SCROLL_LEFT, value: 'scrollLeft' },
+						{ label: i18n.PGN_EDITOR_OPTION_SCROLL_RIGHT, value: 'scrollRight' },
+					]} />
 				</PanelRow>
 			</PanelBody>
 		);
@@ -196,11 +226,16 @@ registerBlockType('rpb-chessboard/pgn', {
 			type: 'string',
 			default: ''
 		},
+		navigationBoard: {
+			type: 'string',
+			default: ''
+		}
 	},
 	example: {
 		attributes: {
 			pgn: '', // TODO fill PGN example
 			pieceSymbols: '',
+			navigationBoard: '',
 		}
 	},
 	edit: ({ attributes, setAttributes }) => {

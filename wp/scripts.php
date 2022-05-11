@@ -151,6 +151,7 @@ abstract class RPBChessboardScripts {
 			'animated'        => $model->getDefaultAnimated(),
 			'showMoveArrow'   => $model->getDefaultShowMoveArrow(),
 			'pieceSymbols'    => $model->getDefaultPieceSymbols(),
+			'navigationBoard' => $model->getDefaultNavigationBoard(),
 		);
 	}
 
@@ -248,11 +249,20 @@ abstract class RPBChessboardScripts {
 			'PGN_EDITOR_TITLE'                     => __( 'Chess game', 'rpb-chessboard' ),
 			'PGN_EDITOR_TEXT_LABEL'                => __( 'PGN text', 'rpb-chessboard' ),
 			'PGN_EDITOR_PANEL_PIECE_SYMBOLS'       => __( 'Piece symbols', 'rpb-chessboard' ),
+			'PGN_EDITOR_PANEL_NAVIGATION_BOARD'    => __( 'Navigation board', 'rpb-chessboard' ),
 			'PGN_EDITOR_USE_DEFAULT'               => __( 'Use default', 'rpb-chessboard' ),
 			'PGN_EDITOR_OPTION_NATIVE'             => __( 'English initials', 'rpb-chessboard' ),
 			'PGN_EDITOR_OPTION_LOCALIZED'          => __( 'Localized initials', 'rpb-chessboard' ),
 			'PGN_EDITOR_OPTION_FIGURINES'          => __( 'Figurines', 'rpb-chessboard' ),
 			'PGN_EDITOR_OPTION_CUSTOM'             => __( 'Custom', 'rpb-chessboard' ),
+			'PGN_EDITOR_OPTION_NONE'               => __( 'None', 'rpb-chessboard' ),
+			'PGN_EDITOR_OPTION_FRAME'              => __( 'Frame', 'rpb-chessboard' ),
+			'PGN_EDITOR_OPTION_ABOVE'              => __( 'Above', 'rpb-chessboard' ),
+			'PGN_EDITOR_OPTION_BELOW'              => __( 'Below', 'rpb-chessboard' ),
+			'PGN_EDITOR_OPTION_FLOAT_LEFT'         => __( 'Float on left', 'rpb-chessboard' ),
+			'PGN_EDITOR_OPTION_FLOAT_RIGHT'        => __( 'Float on right', 'rpb-chessboard' ),
+			'PGN_EDITOR_OPTION_SCROLL_LEFT'        => __( 'Scroll on left', 'rpb-chessboard' ),
+			'PGN_EDITOR_OPTION_SCROLL_RIGHT'       => __( 'Scroll on right', 'rpb-chessboard' ),
 		);
 	}
 
