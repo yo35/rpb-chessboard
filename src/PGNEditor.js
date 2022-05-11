@@ -83,6 +83,10 @@ class PGNEditor extends React.Component {
 		this.props.setAttributes({ ...this.props.attributes, pieceSymbols: flattenPieceSymbols(newElements) });
 	}
 
+	handleFlipAttributeToggled(attribute) {
+		this.handleAttributeChanged(attribute, !this.props.attributes[attribute]);
+	}
+
 
 	/**
 	 * Rendering entry point.
@@ -181,10 +185,12 @@ class PGNEditor extends React.Component {
 		return (
 			<ChessboardOptionEditor
 				defaultSquareSize={RPBChessboard.defaultSettings.squareSize}
+				flipped={this.props.attributes.nboFlipped}
 				squareSize={this.props.attributes.nboSquareSize}
 				coordinateVisible={this.props.attributes.nboCoordinateVisible}
 				colorset={this.props.attributes.nboColorset}
 				pieceset={this.props.attributes.nboPieceset}
+				onFlipChanged={() => this.handleFlipAttributeToggled('nboFlipped')}
 				onSquareSizeChanged={value => this.handleAttributeChanged('nboSquareSize', value)}
 				onCoordinateVisibleChanged={value => this.handleAttributeChanged('nboCoordinateVisible', value)}
 				onColorsetChanged={value => this.handleAttributeChanged('nboColorset', value)}
@@ -202,10 +208,12 @@ class PGNEditor extends React.Component {
 			<PanelBody title={i18n.PGN_EDITOR_PANEL_DIAGRAM_OPTIONS} initialOpen={false}>
 				<ChessboardOptionEditor
 					defaultSquareSize={RPBChessboard.defaultSettings.squareSize}
+					flipped={this.props.attributes.idoFlipped}
 					squareSize={this.props.attributes.idoSquareSize}
 					coordinateVisible={this.props.attributes.idoCoordinateVisible}
 					colorset={this.props.attributes.idoColorset}
 					pieceset={this.props.attributes.idoPieceset}
+					onFlipChanged={() => this.handleFlipAttributeToggled('idoFlipped')}
 					onSquareSizeChanged={value => this.handleAttributeChanged('idoSquareSize', value)}
 					onCoordinateVisibleChanged={value => this.handleAttributeChanged('idoCoordinateVisible', value)}
 					onColorsetChanged={value => this.handleAttributeChanged('idoColorset', value)}
@@ -284,6 +292,10 @@ export function registerPGNBlock() {
 				type: 'string',
 				default: ''
 			},
+			nboFlipped: {
+				type: 'boolean',
+				default: false
+			},
 			nboSquareSize: {
 				type: 'number',
 				default: 0
@@ -299,6 +311,10 @@ export function registerPGNBlock() {
 			nboPieceset: {
 				type: 'string',
 				default: ''
+			},
+			idoFlipped: {
+				type: 'boolean',
+				default: false
 			},
 			idoSquareSize: {
 				type: 'number',
@@ -322,10 +338,12 @@ export function registerPGNBlock() {
 				pgn: '', // TODO fill PGN example
 				pieceSymbols: '',
 				navigationBoard: '',
+				nboFlipped: false,
 				nboSquareSize: 0,
 				nboCoordinateVisible: '',
 				nboColorset: '',
 				nboPieceset: '',
+				idoFlipped: false,
 				idoSquareSize: 0,
 				idoCoordinateVisible: '',
 				idoColorset: '',

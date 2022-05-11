@@ -359,10 +359,12 @@ class FENEditor extends React.Component {
 				]} />
 				<ChessboardOptionEditor
 					defaultSquareSize={RPBChessboard.defaultSettings.squareSize}
+					flipped={this.props.attributes.flipped}
 					squareSize={this.props.attributes.squareSize}
 					coordinateVisible={this.props.attributes.coordinateVisible}
 					colorset={this.props.attributes.colorset}
 					pieceset={this.props.attributes.pieceset}
+					onFlipChanged={() => this.handleFlipClicked()}
 					onSquareSizeChanged={value => this.handleAttributeChanged('squareSize', value)}
 					onCoordinateVisibleChanged={value => this.handleAttributeChanged('coordinateVisible', value)}
 					onColorsetChanged={value => this.handleAttributeChanged('colorset', value)}

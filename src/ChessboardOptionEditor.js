@@ -57,6 +57,7 @@ export default function ChessboardOptionEditor(props) {
 	/>;
 
 	return (<>
+		<ToggleControl label={i18n.FEN_EDITOR_CONTROL_FLIP} checked={props.flipped} onChange={() => props.onFlipChanged()} />
 		<ToggleControl label={i18n.FEN_EDITOR_CONTROL_USE_DEFAULT_SIZE} checked={isDefaultSize} onChange={() => props.onSquareSizeChanged(isDefaultSize ? props.defaultSquareSize : 0)} />
 		{squareSizeControl}
 		<RadioControl label={i18n.FEN_EDITOR_CONTROL_COORDINATES} selected={props.coordinateVisible} onChange={props.onCoordinateVisibleChanged} options={[
@@ -71,10 +72,12 @@ export default function ChessboardOptionEditor(props) {
 
 ChessboardOptionEditor.propTypes = {
 	defaultSquareSize: PropTypes.number.isRequired,
+	flipped: PropTypes.bool.isRequired,
 	squareSize: PropTypes.number.isRequired, // 0 means "use default"
 	coordinateVisible: PropTypes.string.isRequired, // not a boolean since it can be '' (meaning "use default")
 	colorset: PropTypes.string.isRequired,
 	pieceset: PropTypes.string.isRequired,
+	onFlipChanged: PropTypes.func.isRequired,
 	onSquareSizeChanged: PropTypes.func.isRequired,
 	onCoordinateVisibleChanged: PropTypes.func.isRequired,
 	onColorsetChanged: PropTypes.func.isRequired,

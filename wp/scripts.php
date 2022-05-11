@@ -210,6 +210,7 @@ abstract class RPBChessboardScripts {
 			'FEN_EDITOR_TOOLTIP_CLEAR_POSITION'    => __( 'Remove all pieces', 'rpb-chessboard' ),
 			'FEN_EDITOR_TOOLTIP_CLEAR_ANNOTATIONS' => __( 'Remove all square/arrow/text markers', 'rpb-chessboard' ),
 			'FEN_EDITOR_CONTROL_ALIGNMENT'         => __( 'Diagram alignment', 'rpb-chessboard' ),
+			'FEN_EDITOR_CONTROL_FLIP'              => __( 'Flip the board', 'rpb-chessboard' ),
 			'FEN_EDITOR_CONTROL_USE_DEFAULT_SIZE'  => __( 'Use default square size', 'rpb-chessboard' ),
 			'FEN_EDITOR_CONTROL_SQUARE_SIZE'       => __( 'Square size', 'rpb-chessboard' ),
 			'FEN_EDITOR_CONTROL_COORDINATES'       => __( 'Coordinates', 'rpb-chessboard' ),
