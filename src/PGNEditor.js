@@ -392,26 +392,6 @@ export function registerPGNBlock() {
 				default: ''
 			},
 		},
-		example: {
-			attributes: {
-				pgn: '', // TODO fill PGN example
-				flipped: false,
-				pieceSymbols: '',
-				navigationBoard: '',
-				nboSquareSize: 0,
-				nboCoordinateVisible: '',
-				nboColorset: '',
-				nboPieceset: '',
-				nboAnimated: '',
-				nboMoveArrowVisible: '',
-				idoSquareSize: 0,
-				idoCoordinateVisible: '',
-				idoColorset: '',
-				idoPieceset: '',
-				withFlipButton: '',
-				withDownloadButton: '',
-			}
-		},
 		edit: ({ attributes, setAttributes }) => {
 			let blockProps = useBlockProps();
 			return <PGNEditor blockProps={blockProps} attributes={attributes} setAttributes={setAttributes} />;

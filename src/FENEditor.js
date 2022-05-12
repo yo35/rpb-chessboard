@@ -482,17 +482,8 @@ export function registerFENBlock() {
 		},
 		example: {
 			attributes: {
-				position: 'start',
-				flipped: false,
-				squareMarkers: {},
-				arrowMarkers: {},
-				textMarkers: {},
-				align: '',
-				squareSize: 0,
-				coordinateVisible: '',
-				colorset: '',
-				pieceset: '',
-			}
+				squareSize: 32,
+			},
 		},
 		edit: ({ attributes, setAttributes }) => {
 			let blockProps = useBlockProps();
