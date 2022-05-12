@@ -270,10 +270,7 @@ export default class Chessgame extends React.Component {
 
 	handleNavClicked(game, nodeIdProvider, withMove) {
 		this.movetextRef.current.focus();
-		if (!this.state.selection) {
-			return;
-		}
-		let nodeId = nodeIdProvider(game, this.state.selection);
+		let nodeId = nodeIdProvider(game, this.state.selection ? this.state.selection : 'start');
 		if (nodeId) {
 			this.setState({ selection: nodeId, withMove: withMove });
 		}
@@ -316,7 +313,7 @@ Chessgame.propTypes = {
 	gameIndex: PropTypes.number,
 	pieceSymbols: PropTypes.oneOfType([
 		PropTypes.oneOf([ 'native', 'localized', 'figurines' ]),
-		PropTypes.string, // example: '(RDTFCP)'
+		PropTypes.string, // example: 'R,D,T,F,C,P'
 	]),
 	navigationBoard: PropTypes.oneOf([ 'none', 'frame', 'floatLeft', 'floatRight', 'scrollLeft', 'scrollRight', 'above', 'below' ]),
 	navigationBoardOptions: PropTypes.shape({
