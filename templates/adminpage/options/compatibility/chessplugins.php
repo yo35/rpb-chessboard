@@ -26,13 +26,27 @@
 	<?php
 		printf(
 			esc_html__(
-				'By default, the RPB Chessboard plugin use the %1$s[fen][/fen]%2$s and %1$s[pgn][/pgn]%2$s tags ' .
-				'for FEN diagrams and PGN games. However, this behavior causes conflicts with other WordPress plugins ' .
-				'(typically chess plugins) that use the same tags. These compatibility settings are provided to avoid those conflicts.',
+				'The old versions of the RPB Chessboard plugin (before 7.0.0) used to rely on WordPress shortcodes ' .
+				'to manage chess diagrams and chess games. In particular, %1$s[fen][/fen]%2$s are reserved ' .
+				'for chess diagrams, and %1$s[pgn][/pgn]%2$s for chess games. However, this behavior may cause conflicts ' .
+				'with other WordPress plugins (typically chess plugins) that use the same shortcodes.' .
+				'These compatibility settings are provided to avoid those conflicts.',
 				'rpb-chessboard'
 			),
 			'<span class="rpbchessboard-sourceCode">',
 			'</span>'
+		);
+	?>
+</p>
+
+<p>
+	<?php
+		esc_html_e(
+			'If you\'ve never used the RPB Chessboard plugin prior to its version 7.0.0, ' .
+			'or if all your chess games and chess diagrams have been created with the corresponding blocks ' .
+			'in the Gutenberg page/post editor, these settings have no effect on your website ' .
+			'(the chess game and chess diagram blocks do not rely on WordPress shortcodes).',
+			'rpb-chessboard'
 		);
 	?>
 </p>
@@ -45,7 +59,7 @@
 		<?php echo $model->getFENCompatibilityMode() ? 'checked="yes"' : ''; ?>
 	/>
 	<label for="rpbchessboard-fenCompatibilityModeField">
-		<?php esc_html_e( 'Compatibility mode for the FEN diagram tag', 'rpb-chessboard' ); ?>
+		<?php esc_html_e( 'Compatibility mode for the FEN diagram shortcode', 'rpb-chessboard' ); ?>
 	</label>
 </p>
 
@@ -54,7 +68,7 @@
 		printf(
 			esc_html__(
 				'Activating this option makes RPB Chessboard use %1$s[fen_compat][/fen_compat]%2$s ' .
-				'instead of %1$s[fen][/fen]%2$s for FEN diagrams.',
+				'instead of %1$s[fen][/fen]%2$s for legacy FEN diagrams.',
 				'rpb-chessboard'
 			),
 			'<span class="rpbchessboard-sourceCode">',
@@ -71,7 +85,7 @@
 		<?php echo $model->getPGNCompatibilityMode() ? 'checked="yes"' : ''; ?>
 	/>
 	<label for="rpbchessboard-pgnCompatibilityModeField">
-		<?php esc_html_e( 'Compatibility mode for the PGN game tag', 'rpb-chessboard' ); ?>
+		<?php esc_html_e( 'Compatibility mode for the PGN game shortcode', 'rpb-chessboard' ); ?>
 	</label>
 </p>
 
@@ -80,7 +94,7 @@
 		printf(
 			esc_html__(
 				'Activating this option makes RPB Chessboard use %1$s[pgn_compat][/pgn_compat]%2$s ' .
-				'instead of %1$s[pgn][/pgn]%2$s for PGN games.',
+				'instead of %1$s[pgn][/pgn]%2$s for legacy PGN games.',
 				'rpb-chessboard'
 			),
 			'<span class="rpbchessboard-sourceCode">',

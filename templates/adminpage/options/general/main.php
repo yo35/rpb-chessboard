@@ -22,21 +22,11 @@
 
 <p>
 	<?php
-		printf(
-			esc_html__(
-				'These settings control the default aspect and behavior of the chess diagrams and games ' .
-				'inserted in posts and pages with the %1$s[%3$s][/%3$s]%2$s and %1$s[%4$s][/%4$s]%2$s tags. ' .
-				'They can be overridden at each tag by passing appropriate tag attributes: ' .
-				'see %5$shelp on FEN diagram attributes%7$s and %6$shelp on PGN game attributes%7$s for more details.',
-				'rpb-chessboard'
-			),
-			'<span class="rpbchessboard-sourceCode">',
-			'</span>',
-			esc_html( $model->getFENShortcode() ),
-			esc_html( $model->getPGNShortcode() ),
-			'<a href="#">', // TODO remove
-			'<a href="#">', // TODO remove
-			'</a>'
+		esc_html_e(
+			'These settings control the default aspect and behavior of the chess diagrams and chess games ' .
+			'inserted in posts and pages with the corresponding blocks. ' .
+			'All these settings can be overridden for each block by tuning the appropriate option in the block right-side panel.',
+			'rpb-chessboard'
 		);
 	?>
 </p>
