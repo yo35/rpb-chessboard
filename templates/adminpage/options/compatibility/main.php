@@ -21,5 +21,4 @@
 
 
 RPBChessboardHelperLoader::printTemplate( 'AdminPage/Options/Compatibility/ChessPlugins', $model );
-RPBChessboardHelperLoader::printTemplate( 'AdminPage/Options/Compatibility/jQuery', $model );
 RPBChessboardHelperLoader::printTemplate( 'AdminPage/Options/Compatibility/LazyLoading', $model );

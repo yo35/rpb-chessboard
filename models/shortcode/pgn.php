@@ -38,7 +38,6 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelBlock {
 	public function __construct( $atts, $content ) {
 		parent::__construct( $atts, $content );
 		$this->loadDelegateModel( 'Common/DefaultOptions' );
-		$this->loadDelegateModel( 'Common/Compatibility' );
 	}
 
 

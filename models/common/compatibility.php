@@ -32,7 +32,6 @@ class RPBChessboardModelCommonCompatibility extends RPBChessboardAbstractModel {
 
 	private static $fenCompatibilityMode;
 	private static $pgnCompatibilityMode;
-	private static $noConflictForButton;
 	private static $lazyLoadingForCSSAndJS;
 
 
@@ -43,7 +42,6 @@ class RPBChessboardModelCommonCompatibility extends RPBChessboardAbstractModel {
 			'getPGNCompatibilityMode',
 			'getFENShortcode',
 			'getPGNShortcode',
-			'getNoConflictForButton',
 			'getLazyLoadingForCSSAndJS'
 		);
 	}
@@ -96,20 +94,6 @@ class RPBChessboardModelCommonCompatibility extends RPBChessboardAbstractModel {
 	 */
 	public function getPGNShortcode() {
 		return $this->getPGNCompatibilityMode() ? 'pgn_compat' : 'pgn';
-	}
-
-
-	/**
-	 * Whether the "no-conflict" mode is activated or not for the `jQuery.fn.button` component.
-	 *
-	 * @return boolean
-	 */
-	public function getNoConflictForButton() {
-		if ( ! isset( self::$noConflictForButton ) ) {
-			$value                     = RPBChessboardHelperValidation::validateBooleanFromInt( get_option( 'rpbchessboard_noConflictForButton' ) );
-			self::$noConflictForButton = isset( $value ) ? $value : false;
-		}
-		return self::$noConflictForButton;
 	}
 
 
