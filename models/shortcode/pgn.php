@@ -156,9 +156,9 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelBlock {
 
 			// Navigation toolbar
 			$value                                  = isset( $atts['show_flip_button'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_flip_button'] ) : null;
-			$this->widgetArgs['showFlipButton']     = isset( $value ) ? $value : $this->getDefaultShowFlipButton();
+			$this->widgetArgs['withFlipButton']     = isset( $value ) ? $value : $this->getDefaultShowFlipButton();
 			$value                                  = isset( $atts['show_download_button'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_download_button'] ) : null;
-			$this->widgetArgs['showDownloadButton'] = isset( $value ) ? $value : $this->getDefaultShowDownloadButton();
+			$this->widgetArgs['withDownloadButton'] = isset( $value ) ? $value : $this->getDefaultShowDownloadButton();
 		}
 		return $this->widgetArgs;
 	}

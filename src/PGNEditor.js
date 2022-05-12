@@ -29,7 +29,7 @@ import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import { PanelBody, PanelRow, RadioControl, TextControl } from '@wordpress/components';
 
 import { parsePieceSymbols, flattenPieceSymbols } from './util';
-import ChessboardOptionEditor from './ChessboardOptionEditor';
+import { BoardFlipEditor, ChessboardOptionEditor } from './ChessboardOptionEditor';
 
 const i18n = RPBChessboard.i18n;
 
@@ -38,22 +38,6 @@ const i18n = RPBChessboard.i18n;
  * Global counter for DOM ID generation.
  */
 let pgnTextareaIdCounter = 0;
-
-
-/**
- * Whether localization is available for piece symbols or not.
- */
-function isPieceSymbolLocalizationAvailable() {
-	return [ ...'KQRBNP' ].some(p => i18n.PIECE_SYMBOLS[p] !== p);
-}
-
-
-/**
- * Whether the navigation board customization options are available or not.
- */
-function isNavigationBoardCustomizationAvailable(navigationBoard) {
-	return navigationBoard !== 'none' && navigationBoard !== 'frame';
-}
 
 
 /**
@@ -105,6 +89,7 @@ class PGNEditor extends React.Component {
 	 * Rendering method for the controls in the right-side column.
 	 */
 	renderSidePanel() {
+		// TODO handle attribute url + gameIndex
 		return (
 			<InspectorControls>
 				{this.renderPieceSymbolsPanel()}
@@ -119,7 +104,7 @@ class PGNEditor extends React.Component {
 	 * Piece-symbol customization panel.
 	 */
 	renderPieceSymbolsPanel() {
-		let isLocalizationAvailable = isPieceSymbolLocalizationAvailable();
+		let isLocalizationAvailable = [ ...'KQRBNP' ].some(p => i18n.PIECE_SYMBOLS[p] !== p);
 		let { code, elements, futureElements } = this.getPieceSymbols(isLocalizationAvailable);
 
 		let options = [];
@@ -179,34 +164,62 @@ class PGNEditor extends React.Component {
 	 * Fields for square-size / coordinate-visibility / colorset / pieceset customization for the navigation board, if available.
 	 */
 	renderNavigationBoardOptionFields() {
-		if (!isNavigationBoardCustomizationAvailable(this.props.attributes.navigationBoard === '' ? RPBChessboard.defaultSettings.navigationBoard : this.props.attributes.navigationBoard)) {
+		let navigationBoard = this.props.attributes.navigationBoard === '' ? RPBChessboard.defaultSettings.navigationBoard : this.props.attributes.navigationBoard;
+		if (navigationBoard === 'none') {
 			return undefined;
 		}
-		return (<>
-			<ChessboardOptionEditor
-				defaultSquareSize={RPBChessboard.defaultSettings.squareSize}
-				flipped={this.props.attributes.nboFlipped}
-				squareSize={this.props.attributes.nboSquareSize}
-				coordinateVisible={this.props.attributes.nboCoordinateVisible}
-				colorset={this.props.attributes.nboColorset}
-				pieceset={this.props.attributes.nboPieceset}
-				onFlipChanged={() => this.handleFlipAttributeToggled('nboFlipped')}
-				onSquareSizeChanged={value => this.handleAttributeChanged('nboSquareSize', value)}
-				onCoordinateVisibleChanged={value => this.handleAttributeChanged('nboCoordinateVisible', value)}
-				onColorsetChanged={value => this.handleAttributeChanged('nboColorset', value)}
-				onPiecesetChanged={value => this.handleAttributeChanged('nboPieceset', value)}
-			/>
-			<RadioControl label={i18n.PGN_EDITOR_CONTROL_ANIMATED} selected={this.props.attributes.nboAnimated} onChange={value => this.handleAttributeChanged('nboAnimated', value)} options={[
-				{ label: i18n.PGN_EDITOR_USE_DEFAULT, value: '' },
-				{ label: i18n.PGN_EDITOR_OPTION_DISABLED, value: 'false' },
-				{ label: i18n.PGN_EDITOR_OPTION_ENABLED, value: 'true' },
-			]} />
-			<RadioControl label={i18n.PGN_EDITOR_CONTROL_MOVE_ARROW} selected={this.props.attributes.nboMoveArrowVisible} onChange={value => this.handleAttributeChanged('nboMoveArrowVisible', value)} options={[
+
+		let flipButton = <RadioControl label={i18n.PGN_EDITOR_CONTROL_FLIP_BUTTON} selected={this.props.attributes.withFlipButton}
+			onChange={value => this.handleAttributeChanged('withFlipButton', value)} options={[
 				{ label: i18n.PGN_EDITOR_USE_DEFAULT, value: '' },
 				{ label: i18n.PGN_EDITOR_OPTION_HIDDEN, value: 'false' },
 				{ label: i18n.PGN_EDITOR_OPTION_VISIBLE, value: 'true' },
-			]} />
-		</>);
+			]} />;
+		let downloadButton = <RadioControl label={i18n.PGN_EDITOR_CONTROL_DOWNLOAD_BUTTON} selected={this.props.attributes.withDownloadButton}
+			onChange={value => this.handleAttributeChanged('withDownloadButton', value)} options={[
+				{ label: i18n.PGN_EDITOR_USE_DEFAULT, value: '' },
+				{ label: i18n.PGN_EDITOR_OPTION_HIDDEN, value: 'false' },
+				{ label: i18n.PGN_EDITOR_OPTION_VISIBLE, value: 'true' },
+			]} />;
+
+		if (navigationBoard === 'frame') {
+			return (<>
+				<BoardFlipEditor flipped={this.props.attributes.nboFlipped} onChange={() => this.handleFlipAttributeToggled('nboFlipped')} />
+				{flipButton}
+				{downloadButton}
+			</>);
+		}
+		else {
+			return (<>
+				<ChessboardOptionEditor
+					defaultSquareSize={RPBChessboard.defaultSettings.squareSize}
+					flipped={this.props.attributes.nboFlipped}
+					squareSize={this.props.attributes.nboSquareSize}
+					coordinateVisible={this.props.attributes.nboCoordinateVisible}
+					colorset={this.props.attributes.nboColorset}
+					pieceset={this.props.attributes.nboPieceset}
+					onFlipChanged={() => this.handleFlipAttributeToggled('nboFlipped')}
+					onSquareSizeChanged={value => this.handleAttributeChanged('nboSquareSize', value)}
+					onCoordinateVisibleChanged={value => this.handleAttributeChanged('nboCoordinateVisible', value)}
+					onColorsetChanged={value => this.handleAttributeChanged('nboColorset', value)}
+					onPiecesetChanged={value => this.handleAttributeChanged('nboPieceset', value)}
+				/>
+				<RadioControl label={i18n.PGN_EDITOR_CONTROL_ANIMATED} selected={this.props.attributes.nboAnimated}
+					onChange={value => this.handleAttributeChanged('nboAnimated', value)} options={[
+						{ label: i18n.PGN_EDITOR_USE_DEFAULT, value: '' },
+						{ label: i18n.PGN_EDITOR_OPTION_DISABLED, value: 'false' },
+						{ label: i18n.PGN_EDITOR_OPTION_ENABLED, value: 'true' },
+					]} />
+				<RadioControl label={i18n.PGN_EDITOR_CONTROL_MOVE_ARROW} selected={this.props.attributes.nboMoveArrowVisible}
+					onChange={value => this.handleAttributeChanged('nboMoveArrowVisible', value)} options={[
+						{ label: i18n.PGN_EDITOR_USE_DEFAULT, value: '' },
+						{ label: i18n.PGN_EDITOR_OPTION_HIDDEN, value: 'false' },
+						{ label: i18n.PGN_EDITOR_OPTION_VISIBLE, value: 'true' },
+					]} />
+				{flipButton}
+				{downloadButton}
+			</>);
+		}
 	}
 
 
@@ -350,6 +363,14 @@ export function registerPGNBlock() {
 				type: 'string',
 				default: ''
 			},
+			withFlipButton: {
+				type: 'string',
+				default: ''
+			},
+			withDownloadButton: {
+				type: 'string',
+				default: ''
+			},
 		},
 		example: {
 			attributes: {
@@ -368,6 +389,8 @@ export function registerPGNBlock() {
 				idoCoordinateVisible: '',
 				idoColorset: '',
 				idoPieceset: '',
+				withFlipButton: '',
+				withDownloadButton: '',
 			}
 		},
 		edit: ({ attributes, setAttributes }) => {

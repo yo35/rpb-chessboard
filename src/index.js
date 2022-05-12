@@ -108,8 +108,8 @@ RPBChessboard.renderPGN = function(targetJQueryElement, widgetArgs) {
 		diagramOptions={diagramOptions}
 		navigationBoardOptions={navigationBoardOptions}
 		navigationBoard={widgetArgs.navigationBoard}
-		withFlipButton={widgetArgs.showFlipButton}
-		withDownloadButton={widgetArgs.showDownloadButton}
+		withFlipButton={widgetArgs.withFlipButton}
+		withDownloadButton={widgetArgs.withDownloadButton}
 	/>;
 	ReactDOM.render(widget, targetJQueryElement.get(0));
 };

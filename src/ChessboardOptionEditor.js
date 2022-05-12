@@ -46,9 +46,22 @@ SetCodeControl.propTypes = {
 
 
 /**
+ * Component to flip the board.
+ */
+export function BoardFlipEditor(props) {
+	return <ToggleControl label={i18n.FEN_EDITOR_CONTROL_FLIP} checked={props.flipped} onChange={() => props.onChange()} />;
+}
+
+BoardFlipEditor.propTypes = {
+	flipped: PropTypes.bool.isRequired,
+	onChange: PropTypes.func.isRequired,
+};
+
+
+/**
  * Components to customize the square size, the coordinate visibility, and the colorset/pieceset.
  */
-export default function ChessboardOptionEditor(props) {
+export function ChessboardOptionEditor(props) {
 
 	// Square-size controls.
 	let isDefaultSize = props.squareSize === 0;
@@ -57,7 +70,7 @@ export default function ChessboardOptionEditor(props) {
 	/>;
 
 	return (<>
-		<ToggleControl label={i18n.FEN_EDITOR_CONTROL_FLIP} checked={props.flipped} onChange={() => props.onFlipChanged()} />
+		<BoardFlipEditor flipped={props.flipped} onChange={() => props.onFlipChanged()} />
 		<ToggleControl label={i18n.FEN_EDITOR_CONTROL_USE_DEFAULT_SIZE} checked={isDefaultSize} onChange={() => props.onSquareSizeChanged(isDefaultSize ? props.defaultSquareSize : 0)} />
 		{squareSizeControl}
 		<RadioControl label={i18n.FEN_EDITOR_CONTROL_COORDINATES} selected={props.coordinateVisible} onChange={props.onCoordinateVisibleChanged} options={[

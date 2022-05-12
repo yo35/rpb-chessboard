@@ -271,6 +271,8 @@ abstract class RPBChessboardScripts {
 			'PGN_EDITOR_OPTION_VISIBLE'            => __( 'Visible', 'rpb-chessboard' ),
 			'PGN_EDITOR_CONTROL_ANIMATED'          => __( 'Animation', 'rpb-chessboard' ),
 			'PGN_EDITOR_CONTROL_MOVE_ARROW'        => __( 'Move arrow', 'rpb-chessboard' ),
+			'PGN_EDITOR_CONTROL_FLIP_BUTTON'       => __( 'Flip button', 'rpb-chessboard' ),
+			'PGN_EDITOR_CONTROL_DOWNLOAD_BUTTON'   => __( 'Download button', 'rpb-chessboard' ),
 		);
 	}
 

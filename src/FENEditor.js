@@ -32,7 +32,7 @@ import { moveTo as moveToIcon, rotateLeft as rotateLeftIcon } from '@wordpress/i
 import kokopu from 'kokopu';
 import { Chessboard, ErrorBox, SquareMarkerIcon, ArrowMarkerIcon, TextMarkerIcon } from 'kokopu-react';
 import { format } from './util';
-import ChessboardOptionEditor from './ChessboardOptionEditor';
+import { ChessboardOptionEditor } from './ChessboardOptionEditor';
 
 import addWIconPath from './images/add-w.png';
 import addBIconPath from './images/add-b.png';

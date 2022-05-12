@@ -59,8 +59,10 @@ class RPBChessboardModelBlockPGN extends RPBChessboardAbstractModelBlock {
 			}
 
 			// Chessgame aspect
-			$this->widgetArgs['pieceSymbols']    = isset( $atts['pieceSymbols'] ) ? $atts['pieceSymbols'] : $this->getDefaultPieceSymbols();
-			$this->widgetArgs['navigationBoard'] = isset( $atts['navigationBoard'] ) ? $atts['navigationBoard'] : $this->getDefaultNavigationBoard();
+			$this->widgetArgs['pieceSymbols']       = isset( $atts['pieceSymbols'] ) ? $atts['pieceSymbols'] : $this->getDefaultPieceSymbols();
+			$this->widgetArgs['navigationBoard']    = isset( $atts['navigationBoard'] ) ? $atts['navigationBoard'] : $this->getDefaultNavigationBoard();
+			$this->widgetArgs['withFlipButton']     = isset( $atts['withFlipButton'] ) ? 'true' === $atts['withFlipButton'] : $this->getDefaultShowFlipButton();
+			$this->widgetArgs['withDownloadButton'] = isset( $atts['withDownloadButton'] ) ? 'true' === $atts['withDownloadButton'] : $this->getDefaultShowDownloadButton();
 
 			// Specific options for the navigation board.
 			$this->widgetArgs['nboSquareSize']        = isset( $atts['nboSquareSize'] ) ? $atts['nboSquareSize'] : $this->getDefaultSquareSize();
@@ -75,8 +77,6 @@ class RPBChessboardModelBlockPGN extends RPBChessboardAbstractModelBlock {
 			$this->widgetArgs['idoCoordinateVisible'] = isset( $atts['idoCoordinateVisible'] ) ? 'true' === $atts['idoCoordinateVisible'] : $this->getDefaultShowCoordinates();
 			$this->widgetArgs['idoColorset']          = isset( $atts['idoColorset'] ) ? $atts['idoColorset'] : $this->getDefaultColorset();
 			$this->widgetArgs['idoPieceset']          = isset( $atts['idoPieceset'] ) ? $atts['idoPieceset'] : $this->getDefaultPieceset();
-
-			// TODO map the other attributes
 		}
 		return $this->widgetArgs;
 	}
