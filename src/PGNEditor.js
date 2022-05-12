@@ -172,19 +172,17 @@ class PGNEditor extends React.Component {
 	renderNavigationBoardPanel() {
 		return (
 			<PanelBody title={i18n.PGN_EDITOR_PANEL_NAVIGATION_BOARD} initialOpen={false}>
-				<PanelRow>
-					<RadioControl selected={this.props.attributes.navigationBoard} onChange={value => this.handleAttributeChanged('navigationBoard', value)} options={[
-						{ label: i18n.PGN_EDITOR_USE_DEFAULT, value: '' },
-						{ label: i18n.PGN_EDITOR_OPTION_NONE, value: 'none' },
-						{ label: i18n.PGN_EDITOR_OPTION_FRAME, value: 'frame' },
-						{ label: i18n.PGN_EDITOR_OPTION_ABOVE, value: 'above' },
-						{ label: i18n.PGN_EDITOR_OPTION_BELOW, value: 'below' },
-						{ label: i18n.PGN_EDITOR_OPTION_FLOAT_LEFT, value: 'floatLeft' },
-						{ label: i18n.PGN_EDITOR_OPTION_FLOAT_RIGHT, value: 'floatRight' },
-						{ label: i18n.PGN_EDITOR_OPTION_SCROLL_LEFT, value: 'scrollLeft' },
-						{ label: i18n.PGN_EDITOR_OPTION_SCROLL_RIGHT, value: 'scrollRight' },
-					]} />
-				</PanelRow>
+				<RadioControl selected={this.props.attributes.navigationBoard} onChange={value => this.handleAttributeChanged('navigationBoard', value)} options={[
+					{ label: i18n.PGN_EDITOR_USE_DEFAULT, value: '' },
+					{ label: i18n.PGN_EDITOR_OPTION_NONE, value: 'none' },
+					{ label: i18n.PGN_EDITOR_OPTION_FRAME, value: 'frame' },
+					{ label: i18n.PGN_EDITOR_OPTION_ABOVE, value: 'above' },
+					{ label: i18n.PGN_EDITOR_OPTION_BELOW, value: 'below' },
+					{ label: i18n.PGN_EDITOR_OPTION_FLOAT_LEFT, value: 'floatLeft' },
+					{ label: i18n.PGN_EDITOR_OPTION_FLOAT_RIGHT, value: 'floatRight' },
+					{ label: i18n.PGN_EDITOR_OPTION_SCROLL_LEFT, value: 'scrollLeft' },
+					{ label: i18n.PGN_EDITOR_OPTION_SCROLL_RIGHT, value: 'scrollRight' },
+				]} />
 				{this.renderNavigationBoardOptionFields()}
 			</PanelBody>
 		);

@@ -32,6 +32,14 @@
 	margin-right: 1em;
 }
 
-.block-editor-block-inspector .rpbchessboard-fixMarginBottom > .components-base-control:first-child {
+.block-editor-block-inspector .components-panel__row.rpbchessboard-fixMarginBottom > .components-base-control {
 	margin-bottom: 0px;
+}
+
+.block-editor-block-inspector .components-panel__row.rpbchessboard-fixWidth > .components-base-control {
+	width: 100%;
+}
+
+.block-editor-block-inspector .components-base-control.rpbchessboard-fixMissingMarginTop {
+	margin-top: 8px;
 }

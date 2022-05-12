@@ -319,7 +319,7 @@ class FENEditor extends React.Component {
 					<Button isSecondary text={i18n.FEN_EDITOR_LABEL_CLEAR_POSITION} label={i18n.FEN_EDITOR_TOOLTIP_CLEAR_POSITION} onClick={() => this.handleAttributeChanged('position', 'empty')} />
 					<Button isSecondary text={i18n.FEN_EDITOR_LABEL_CLEAR_ANNOTATIONS} label={i18n.FEN_EDITOR_TOOLTIP_CLEAR_ANNOTATIONS} onClick={() => this.handleClearAnnotationsClicked()} />
 				</PanelRow>
-				<PanelRow>
+				<PanelRow className="rpbchessboard-fixMarginBottom rpbchessboard-fixWidth">
 					<TextControl label={i18n.FEN_EDITOR_LABEL_FEN} value={fen} onChange={value => this.handleAttributeChanged('position', value)} />
 				</PanelRow>
 				<PanelRow className="rpbchessboard-editionModeRow">
@@ -341,7 +341,8 @@ class FENEditor extends React.Component {
 					/>
 				</PanelRow>
 				<PanelRow>
-					<ToggleControl label={i18n.FEN_EDITOR_CONTROL_FLIP} checked={this.props.attributes.flipped} onChange={() => this.handleFlipClicked()} />
+					<ToggleControl className="rpbchessboard-fixMissingMarginTop" label={i18n.FEN_EDITOR_CONTROL_FLIP} checked={this.props.attributes.flipped}
+						onChange={() => this.handleFlipClicked()} />
 				</PanelRow>
 			</PanelBody>
 		);
