@@ -41,6 +41,23 @@ let pgnTextareaIdCounter = 0;
 
 
 /**
+ * Icon of the PGN editor.
+ */
+function PGNEditorIcon() {
+	let squares = [];
+	for (let x = 0; x < 4; ++x) {
+		for (let y = 1 - x % 2; y < 4; y += 2) {
+			squares.push(<rect x={x * 4} y={y * 4 + 4} width={4} height={4} />);
+		}
+	}
+	for (let i = 0; i < 5; ++i) {
+		squares.push(<rect x={i < 1 || i >= 4 ? 0 : 18} y={i * 5 + 1} width={i < 1 || i >= 4 ? 24 : 6} height={2} />);
+	}
+	return <svg viewBox="0 0 24 24">{squares}</svg>;
+}
+
+
+/**
  * PGN editor
  */
 class PGNEditor extends React.Component {
@@ -300,7 +317,7 @@ export function registerPGNBlock() {
 	registerBlockType('rpb-chessboard/pgn', {
 		apiVersion: 2,
 		title: i18n.PGN_EDITOR_TITLE,
-		// TODO icon: <FENEditorIcon />,
+		icon: <PGNEditorIcon />,
 		category: 'media',
 		attributes: {
 			pgn: {
