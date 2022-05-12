@@ -108,8 +108,7 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelBlock {
 			// Orientation
 			$value = isset( $atts['flip'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['flip'] ) : null;
 			if ( isset( $value ) ) {
-				$this->widgetArgs['nboFlipped'] = $value;
-				$this->widgetArgs['idoFlipped'] = $value;
+				$this->widgetArgs['flipped'] = $value;
 			}
 
 			// Square size

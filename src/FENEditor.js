@@ -26,13 +26,13 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
-import { Button, ButtonGroup, Dropdown, PanelBody, PanelRow, RadioControl, SelectControl, TextControl, ToolbarButton, ToolbarGroup } from '@wordpress/components';
+import { Button, ButtonGroup, Dropdown, PanelBody, PanelRow, RadioControl, SelectControl, TextControl, ToggleControl, ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { moveTo as moveToIcon, rotateLeft as rotateLeftIcon } from '@wordpress/icons';
 
 import kokopu from 'kokopu';
 import { Chessboard, ErrorBox, SquareMarkerIcon, ArrowMarkerIcon, TextMarkerIcon } from 'kokopu-react';
 import { format } from './util';
-import { ChessboardOptionEditor } from './ChessboardOptionEditor';
+import ChessboardOptionEditor from './ChessboardOptionEditor';
 
 import addWIconPath from './images/add-w.png';
 import addBIconPath from './images/add-b.png';
@@ -339,6 +339,9 @@ class FENEditor extends React.Component {
 					<AddMarkerButtonGroup interactionModePrefix="addTextMarker-"
 						iconBuilder={color => <TextMarkerIcon size={24} color={mainColorset[color]} symbol={this.state.textMarkerMode} />}
 					/>
+				</PanelRow>
+				<PanelRow>
+					<ToggleControl label={i18n.FEN_EDITOR_CONTROL_FLIP} checked={this.props.attributes.flipped} onChange={() => this.handleFlipClicked()} />
 				</PanelRow>
 			</PanelBody>
 		);

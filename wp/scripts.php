@@ -249,6 +249,7 @@ abstract class RPBChessboardScripts {
 
 			'PGN_EDITOR_TITLE'                     => __( 'Chess game', 'rpb-chessboard' ),
 			'PGN_EDITOR_TEXT_LABEL'                => __( 'PGN text', 'rpb-chessboard' ),
+			'PGN_EDITOR_PANEL_GAME_OPTIONS'        => __( 'Game options', 'rpb-chessboard' ),
 			'PGN_EDITOR_PANEL_PIECE_SYMBOLS'       => __( 'Piece symbols', 'rpb-chessboard' ),
 			'PGN_EDITOR_PANEL_NAVIGATION_BOARD'    => __( 'Navigation board', 'rpb-chessboard' ),
 			'PGN_EDITOR_PANEL_DIAGRAM_OPTIONS'     => __( 'Diagram options', 'rpb-chessboard' ),
@@ -269,6 +270,7 @@ abstract class RPBChessboardScripts {
 			'PGN_EDITOR_OPTION_ENABLED'            => __( 'Enabled', 'rpb-chessboard' ),
 			'PGN_EDITOR_OPTION_HIDDEN'             => __( 'Hidden', 'rpb-chessboard' ),
 			'PGN_EDITOR_OPTION_VISIBLE'            => __( 'Visible', 'rpb-chessboard' ),
+			'PGN_EDITOR_CONTROL_FLIP'              => __( 'Flip nav. board and diagrams', 'rpb-chessboard' ),
 			'PGN_EDITOR_CONTROL_ANIMATED'          => __( 'Animation', 'rpb-chessboard' ),
 			'PGN_EDITOR_CONTROL_MOVE_ARROW'        => __( 'Move arrow', 'rpb-chessboard' ),
 			'PGN_EDITOR_CONTROL_FLIP_BUTTON'       => __( 'Flip button', 'rpb-chessboard' ),

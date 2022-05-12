@@ -83,7 +83,7 @@ RPBChessboard.renderFEN = function(targetJQueryElement, widgetArgs) {
 // Chessgame rendering function
 RPBChessboard.renderPGN = function(targetJQueryElement, widgetArgs) {
 	let diagramOptions = {
-		flipped: widgetArgs.idoFlipped,
+		flipped: widgetArgs.flipped,
 		squareSize: widgetArgs.idoSquareSize,
 		coordinateVisible: widgetArgs.idoCoordinateVisible,
 		colorset: widgetArgs.idoColorset,
@@ -91,7 +91,7 @@ RPBChessboard.renderPGN = function(targetJQueryElement, widgetArgs) {
 		smallScreenLimits: RPBChessboard.smallScreenLimits,
 	};
 	let navigationBoardOptions = {
-		flipped: widgetArgs.nboFlipped,
+		flipped: widgetArgs.flipped,
 		squareSize: widgetArgs.nboSquareSize,
 		coordinateVisible: widgetArgs.nboCoordinateVisible,
 		colorset: widgetArgs.nboColorset,

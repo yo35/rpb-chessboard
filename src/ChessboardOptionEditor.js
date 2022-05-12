@@ -46,22 +46,9 @@ SetCodeControl.propTypes = {
 
 
 /**
- * Component to flip the board.
- */
-export function BoardFlipEditor(props) {
-	return <ToggleControl label={i18n.FEN_EDITOR_CONTROL_FLIP} checked={props.flipped} onChange={() => props.onChange()} />;
-}
-
-BoardFlipEditor.propTypes = {
-	flipped: PropTypes.bool.isRequired,
-	onChange: PropTypes.func.isRequired,
-};
-
-
-/**
  * Components to customize the square size, the coordinate visibility, and the colorset/pieceset.
  */
-export function ChessboardOptionEditor(props) {
+export default function ChessboardOptionEditor(props) {
 
 	// Square-size controls.
 	let isDefaultSize = props.squareSize === 0;
@@ -70,7 +57,6 @@ export function ChessboardOptionEditor(props) {
 	/>;
 
 	return (<>
-		<BoardFlipEditor flipped={props.flipped} onChange={() => props.onFlipChanged()} />
 		<ToggleControl label={i18n.FEN_EDITOR_CONTROL_USE_DEFAULT_SIZE} checked={isDefaultSize} onChange={() => props.onSquareSizeChanged(isDefaultSize ? props.defaultSquareSize : 0)} />
 		{squareSizeControl}
 		<RadioControl label={i18n.FEN_EDITOR_CONTROL_COORDINATES} selected={props.coordinateVisible} onChange={props.onCoordinateVisibleChanged} options={[
@@ -85,12 +71,10 @@ export function ChessboardOptionEditor(props) {
 
 ChessboardOptionEditor.propTypes = {
 	defaultSquareSize: PropTypes.number.isRequired,
-	flipped: PropTypes.bool.isRequired,
 	squareSize: PropTypes.number.isRequired, // 0 means "use default"
 	coordinateVisible: PropTypes.string.isRequired, // not a boolean since it can be '' (meaning "use default")
 	colorset: PropTypes.string.isRequired,
 	pieceset: PropTypes.string.isRequired,
-	onFlipChanged: PropTypes.func.isRequired,
 	onSquareSizeChanged: PropTypes.func.isRequired,
 	onCoordinateVisibleChanged: PropTypes.func.isRequired,
 	onColorsetChanged: PropTypes.func.isRequired,

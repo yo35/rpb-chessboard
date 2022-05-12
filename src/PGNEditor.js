@@ -26,10 +26,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, PanelRow, RadioControl, TextControl } from '@wordpress/components';
+import { PanelBody, PanelRow, RadioControl, TextControl, ToggleControl } from '@wordpress/components';
 
 import { parsePieceSymbols, flattenPieceSymbols } from './util';
-import { BoardFlipEditor, ChessboardOptionEditor } from './ChessboardOptionEditor';
+import ChessboardOptionEditor from './ChessboardOptionEditor';
 
 const i18n = RPBChessboard.i18n;
 
@@ -84,8 +84,9 @@ class PGNEditor extends React.Component {
 		this.props.setAttributes({ ...this.props.attributes, pieceSymbols: flattenPieceSymbols(newElements) });
 	}
 
-	handleFlipAttributeToggled(attribute) {
-		this.handleAttributeChanged(attribute, !this.props.attributes[attribute]);
+	handleFlipClicked() {
+		let flipped = !this.props.attributes.flipped;
+		this.props.setAttributes({ ...this.props.attributes, flipped: flipped });
 	}
 
 
@@ -109,10 +110,23 @@ class PGNEditor extends React.Component {
 		// TODO handle attribute url + gameIndex
 		return (
 			<InspectorControls>
+				{this.renderGameOptionPanel()}
 				{this.renderPieceSymbolsPanel()}
 				{this.renderNavigationBoardPanel()}
 				{this.renderDiagramOptionPanel()}
 			</InspectorControls>
+		);
+	}
+
+
+	/**
+	 * Game options: flipping, game index selection, etc...
+	 */
+	renderGameOptionPanel() {
+		return (
+			<PanelBody title={i18n.PGN_EDITOR_PANEL_GAME_OPTIONS}>
+				<ToggleControl label={i18n.PGN_EDITOR_CONTROL_FLIP} checked={this.props.attributes.flipped} onChange={() => this.handleFlipClicked()} />
+			</PanelBody>
 		);
 	}
 
@@ -201,7 +215,6 @@ class PGNEditor extends React.Component {
 
 		if (navigationBoard === 'frame') {
 			return (<>
-				<BoardFlipEditor flipped={this.props.attributes.nboFlipped} onChange={() => this.handleFlipAttributeToggled('nboFlipped')} />
 				{flipButton}
 				{downloadButton}
 			</>);
@@ -210,12 +223,10 @@ class PGNEditor extends React.Component {
 			return (<>
 				<ChessboardOptionEditor
 					defaultSquareSize={RPBChessboard.defaultSettings.squareSize}
-					flipped={this.props.attributes.nboFlipped}
 					squareSize={this.props.attributes.nboSquareSize}
 					coordinateVisible={this.props.attributes.nboCoordinateVisible}
 					colorset={this.props.attributes.nboColorset}
 					pieceset={this.props.attributes.nboPieceset}
-					onFlipChanged={() => this.handleFlipAttributeToggled('nboFlipped')}
 					onSquareSizeChanged={value => this.handleAttributeChanged('nboSquareSize', value)}
 					onCoordinateVisibleChanged={value => this.handleAttributeChanged('nboCoordinateVisible', value)}
 					onColorsetChanged={value => this.handleAttributeChanged('nboColorset', value)}
@@ -248,12 +259,10 @@ class PGNEditor extends React.Component {
 			<PanelBody title={i18n.PGN_EDITOR_PANEL_DIAGRAM_OPTIONS} initialOpen={false}>
 				<ChessboardOptionEditor
 					defaultSquareSize={RPBChessboard.defaultSettings.squareSize}
-					flipped={this.props.attributes.idoFlipped}
 					squareSize={this.props.attributes.idoSquareSize}
 					coordinateVisible={this.props.attributes.idoCoordinateVisible}
 					colorset={this.props.attributes.idoColorset}
 					pieceset={this.props.attributes.idoPieceset}
-					onFlipChanged={() => this.handleFlipAttributeToggled('idoFlipped')}
 					onSquareSizeChanged={value => this.handleAttributeChanged('idoSquareSize', value)}
 					onCoordinateVisibleChanged={value => this.handleAttributeChanged('idoCoordinateVisible', value)}
 					onColorsetChanged={value => this.handleAttributeChanged('idoColorset', value)}
@@ -324,6 +333,10 @@ export function registerPGNBlock() {
 				type: 'string',
 				default: ''
 			},
+			flipped: {
+				type: 'boolean',
+				default: false
+			},
 			pieceSymbols: {
 				type: 'string',
 				default: ''
@@ -331,10 +344,6 @@ export function registerPGNBlock() {
 			navigationBoard: {
 				type: 'string',
 				default: ''
-			},
-			nboFlipped: {
-				type: 'boolean',
-				default: false
 			},
 			nboSquareSize: {
 				type: 'number',
@@ -359,10 +368,6 @@ export function registerPGNBlock() {
 			nboMoveArrowVisible: {
 				type: 'string',
 				default: ''
-			},
-			idoFlipped: {
-				type: 'boolean',
-				default: false
 			},
 			idoSquareSize: {
 				type: 'number',
@@ -392,16 +397,15 @@ export function registerPGNBlock() {
 		example: {
 			attributes: {
 				pgn: '', // TODO fill PGN example
+				flipped: false,
 				pieceSymbols: '',
 				navigationBoard: '',
-				nboFlipped: false,
 				nboSquareSize: 0,
 				nboCoordinateVisible: '',
 				nboColorset: '',
 				nboPieceset: '',
 				nboAnimated: '',
 				nboMoveArrowVisible: '',
-				idoFlipped: false,
 				idoSquareSize: 0,
 				idoCoordinateVisible: '',
 				idoColorset: '',

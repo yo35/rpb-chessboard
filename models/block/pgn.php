@@ -51,11 +51,8 @@ class RPBChessboardModelBlockPGN extends RPBChessboardAbstractModelBlock {
 			if ( isset( $atts['pgn'] ) ) {
 				$this->widgetArgs['pgn'] = $atts['pgn'];
 			}
-			if ( isset( $atts['nboFlipped'] ) ) {
-				$this->widgetArgs['nboFlipped'] = $atts['nboFlipped'];
-			}
-			if ( isset( $atts['idoFlipped'] ) ) {
-				$this->widgetArgs['idoFlipped'] = $atts['idoFlipped'];
+			if ( isset( $atts['flipped'] ) ) {
+				$this->widgetArgs['flipped'] = $atts['flipped'];
 			}
 
 			// Chessgame aspect
