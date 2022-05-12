@@ -19,6 +19,7 @@
  ******************************************************************************/
 
 
+import './public-path';
 import { Chessboard } from 'kokopu-react';
 
 
