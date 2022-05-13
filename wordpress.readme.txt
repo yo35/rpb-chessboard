@@ -19,8 +19,8 @@ RPB Chessboard allows you to typeset and display chess games and diagrams in the
 = Links =
 
 * [Ask for help or report a problem](https://github.com/yo35/rpb-chessboard/issues)
-* [Live demo](https://rpb-chessboard.yo35.org/)
-* [Source code (GitHub repository)](https://github.com/yo35/rpb-chessboard)
+* [Documentation & examples](https://rpb-chessboard.yo35.org/)
+* [GitHub repository (source code)](https://github.com/yo35/rpb-chessboard)
 
 = Features =
 
@@ -32,9 +32,7 @@ RPB Chessboard allows you to typeset and display chess games and diagrams in the
    - [Antichess](https://en.wikipedia.org/wiki/Losing_chess).
    - [Horde chess](https://en.wikipedia.org/wiki/Dunsany%27s_chess#Horde_chess).
  * Colored square and arrow markers.
- * Compatibility mode to avoid conflicts with the other plugins that use the `[fen][/fen]` and `[pgn][/pgn]` shortcodes too.
- * Upload PGN files and load PGN data from a URL.
- * Diagram block with its editor embedded in the WordPress post/page editor.
+ * Integration with the Gutenberg post/page editor.
  * Multi-language support.
 
 If you encounter some bugs with this plugin, or if you wish to get new features in the future versions, you can report/propose them in the [GitHub bug tracker](https://github.com/yo35/rpb-chessboard/issues).
@@ -49,9 +47,11 @@ Custom developments in relation with RPB Chessboard (e.g. specific feature, adva
 
 1. Download [rpb-chessboard.zip](https://downloads.wordpress.org/plugin/rpb-chessboard.zip) and upload its content to the `/wp-content/plugins/` directory of your website.
 2. Activate the plugin through the *Plugins* menu in WordPress.
-3. You are now able to put `[fen][/fen]` and `[pgn][/pgn]` tags in your posts and pages to insert chess diagrams and full chess games. Please look at the *Chess* > *Memo* menu (created by the plugin) for examples of how to use these tags.
+3. When the plugin is installed and activated, two new blocks become available in the WordPress post/page editor: *Chess diagram* and *Chess game*.
 
 For extensive details about plugin installation and management, please have a look to the general [plugin management page](https://wordpress.org/support/article/managing-plugins/).
+
+For more details on how to use RPB Chessboard, please have a look to the [quick start guide](https://rpb-chessboard.yo35.org/).
 
 
 
@@ -59,7 +59,7 @@ For extensive details about plugin installation and management, please have a lo
 
 = How to find help? =
 
-First, **look at the plugin help page**. This help page is available in the administration section of your WordPress website: in the main navigation menu > *Chess* > *Help*. If no answer can be found there, ask your question on [this forum](https://github.com/yo35/rpb-chessboard/issues).
+First, look at the [plugin documentation & examples](https://rpb-chessboard.yo35.org/) website. If no answer can be found there, ask your question on [this forum](https://github.com/yo35/rpb-chessboard/issues).
 
 = I encounter a bug, or I think the plugin misses a key feature... =
 

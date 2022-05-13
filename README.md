@@ -11,8 +11,8 @@ https://wordpress.org/plugins/rpb-chessboard/
 
 
 
-Live demo
----------
+Documentation & examples
+------------------------
 
 https://rpb-chessboard.yo35.org/
 
@@ -29,10 +29,7 @@ Features
   - [Antichess](https://en.wikipedia.org/wiki/Losing_chess).
   - [Horde chess](https://en.wikipedia.org/wiki/Dunsany%27s_chess#Horde_chess).
 * Colored square and arrow markers.
-* Compatibility mode to avoid conflicts with the other plugins that use
-  the `[fen][/fen]` and `[pgn][/pgn]` shortcodes too.
-* Upload PGN files and load PGN data from a URL.
-* Diagram block with its editor embedded in the WordPress post/page editor.
+* Integration with the Gutenberg post/page editor.
 * Multi-language support.
 
 If you encounter some bugs with this program, or if you wish to get new features
