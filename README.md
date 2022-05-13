@@ -1,9 +1,9 @@
 RPB Chessboard
 ==============
 
-RPB Chessboard is a plugin for [WordPress](http://wordpress.org/),
+RPB Chessboard is a plugin for [WordPress](https://wordpress.org/),
 the popular blog [CMS](https://en.wikipedia.org/wiki/Content_management_system).
-It allows to typeset and display chess games and diagrams on posts and pages of WordPress blogs,
+It allows to typeset and display chess games and diagrams in posts and pages of WordPress blogs,
 using the standard [FEN](https://en.wikipedia.org/wiki/Forsyth-Edwards_Notation)
 and [PGN](https://en.wikipedia.org/wiki/Portable_Game_Notation) notations.
 

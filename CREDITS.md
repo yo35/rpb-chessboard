@@ -46,10 +46,10 @@ Colorsets *Coral*, *Dusk*, *Emerald*, *Marine*, *Sandcastle* and *Wheat* have be
 in this [blog post](http://omgchess.blogspot.fr/2015/09/chess-board-color-schemes.html)
 by [Gorgonian](http://omgchess.blogspot.fr/).
 Icon *Tick* has been created by [Momentum Design Lab](http://momentumdesignlab.com/),
-who shares it under the [CC-BY] license on [Find Icons](http://findicons.com/pack/2226/matte_basic).
+who shares it under the [CC-BY] license on [Find Icons](https://findicons.com/pack/2226/matte_basic).
 Icon *Not-Found* has been created by [gakuseiSean](http://gakuseisean.deviantart.com/),
-who makes it freely available for non-commercial use on [Find Icons](http://findicons.com/icon/89623/error).
+who makes it freely available for non-commercial use on [Find Icons](https://findicons.com/icon/89623/error).
 Icon *Help* has been created by [Ruby Software](http://www.rubysoftware.nl/),
-who shares it as a freeware on [Find Icons](http://findicons.com/icon/26233/help).
+who shares it as a freeware on [Find Icons](https://findicons.com/icon/26233/help).
 
 The author would like to thank all these people for their highly valuable work.

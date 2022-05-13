@@ -47,11 +47,11 @@ Custom developments in relation with RPB Chessboard (e.g. specific feature, adva
 
 == Installation ==
 
-1. Download [rpb-chessboard.zip](http://downloads.wordpress.org/plugin/rpb-chessboard.zip) and upload its content to the `/wp-content/plugins/` directory of your website.
+1. Download [rpb-chessboard.zip](https://downloads.wordpress.org/plugin/rpb-chessboard.zip) and upload its content to the `/wp-content/plugins/` directory of your website.
 2. Activate the plugin through the *Plugins* menu in WordPress.
 3. You are now able to put `[fen][/fen]` and `[pgn][/pgn]` tags in your posts and pages to insert chess diagrams and full chess games. Please look at the *Chess* > *Memo* menu (created by the plugin) for examples of how to use these tags.
 
-For extensive details about plugin installation and management, please have a look to the general [plugin management page](http://codex.wordpress.org/Managing_Plugins).
+For extensive details about plugin installation and management, please have a look to the general [plugin management page](https://wordpress.org/support/article/managing-plugins/).
 
 
 
@@ -506,6 +506,6 @@ Jan Jílek (Czech), Markus Liebelt (German), Yoann Le Montagner (English and Fre
 
 = Graphic resources =
 
-Pieceset *CBurnett* has been created by [Colin M.L. Burnett](https://en.wikipedia.org/wiki/User:Cburnett), who shares it under the [CC-BY-SA] license on [Wikimedia Commons](https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces); user [Antonsusi](https://commons.wikimedia.org/wiki/User:Antonsusi) has also contributed to this work. Piecesets *Celtic*, *Eyes*, *Fantasy*, *Skulls* and *Spatial* have been created by [Maurizio Monge](http://poisson.phc.dm.unipi.it/~monge/), who makes them freely available for chess programs. Colorsets *Coral*, *Dusk*, *Emerald*, *Marine*, *Sandcastle* and *Wheat* have been proposed in this [blog post](http://omgchess.blogspot.fr/2015/09/chess-board-color-schemes.html) by [Gorgonian](http://omgchess.blogspot.fr/). Icon *Tick* has been created by [Momentum Design Lab](http://momentumdesignlab.com/), who shares it under the [CC-BY] license on [Find Icons](http://findicons.com/pack/2226/matte_basic). Icon *Not-Found* has been created by [gakuseiSean](http://gakuseisean.deviantart.com/), who makes it freely available for non-commercial use on [Find Icons](http://findicons.com/icon/89623/error). Icon *Help* has been created by [Ruby Software](http://www.rubysoftware.nl/), who shares it as a freeware on [Find Icons](http://findicons.com/icon/26233/help).
+Pieceset *CBurnett* has been created by [Colin M.L. Burnett](https://en.wikipedia.org/wiki/User:Cburnett), who shares it under the [CC-BY-SA] license on [Wikimedia Commons](https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces); user [Antonsusi](https://commons.wikimedia.org/wiki/User:Antonsusi) has also contributed to this work. Piecesets *Celtic*, *Eyes*, *Fantasy*, *Skulls* and *Spatial* have been created by [Maurizio Monge](http://poisson.phc.dm.unipi.it/~monge/), who makes them freely available for chess programs. Colorsets *Coral*, *Dusk*, *Emerald*, *Marine*, *Sandcastle* and *Wheat* have been proposed in this [blog post](http://omgchess.blogspot.fr/2015/09/chess-board-color-schemes.html) by [Gorgonian](http://omgchess.blogspot.fr/). Icon *Tick* has been created by [Momentum Design Lab](http://momentumdesignlab.com/), who shares it under the [CC-BY] license on [Find Icons](https://findicons.com/pack/2226/matte_basic). Icon *Not-Found* has been created by [gakuseiSean](http://gakuseisean.deviantart.com/), who makes it freely available for non-commercial use on [Find Icons](https://findicons.com/icon/89623/error). Icon *Help* has been created by [Ruby Software](http://www.rubysoftware.nl/), who shares it as a freeware on [Find Icons](https://findicons.com/icon/26233/help).
 
 The author would like to thank all these people for their highly valuable work.

@@ -210,7 +210,7 @@
 				'<em>',
 				'</em>',
 				'<a href="http://momentumdesignlab.com/" target="_blank">',
-				'<a href="http://findicons.com/pack/2226/matte_basic" target="_blank">',
+				'<a href="https://findicons.com/pack/2226/matte_basic" target="_blank">',
 				'</a>'
 			);
 		?>
@@ -224,7 +224,7 @@
 				'<em>',
 				'</em>',
 				'<a href="http://gakuseisean.deviantart.com/" target="_blank">',
-				'<a href="http://findicons.com/icon/89623/error" target="_blank">',
+				'<a href="https://findicons.com/icon/89623/error" target="_blank">',
 				'</a>'
 			);
 		?>
@@ -237,7 +237,7 @@
 				'<em>',
 				'</em>',
 				'<a href="http://www.rubysoftware.nl/" target="_blank">',
-				'<a href="http://findicons.com/icon/26233/help" target="_blank">',
+				'<a href="https://findicons.com/icon/26233/help" target="_blank">',
 				'</a>'
 			);
 		?>
