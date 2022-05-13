@@ -26,7 +26,10 @@ Description: This plugin allows you to typeset and display chess diagrams and PG
 Text Domain: rpb-chessboard
 Domain Path: /languages
 Author: Yoann Le Montagner
+Author URI: https://github.com/yo35
 License: GPLv3
+Requires at least: 5.5
+Requires PHP: 5.6
 Version: 6.4.1
 */
 
