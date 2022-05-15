@@ -400,7 +400,7 @@ class FENEditor extends React.Component {
 			);
 		}
 		else {
-			return <ErrorBox title={i18n.FEN_EDITOR_PARSING_ERROR} message={data.message} />;
+			return <ErrorBox title={i18n.FEN_PARSING_ERROR_TITLE} message={data.message} />;
 		}
 	}
 

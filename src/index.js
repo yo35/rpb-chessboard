@@ -31,6 +31,7 @@ import { registerFENBlock } from './FENEditor';
 import { registerPGNBlock } from './PGNEditor';
 
 // Internationalization
+kokopuReactI18n.INVALID_FEN_ERROR_TITLE = RPBChessboard.i18n.FEN_PARSING_ERROR_TITLE;
 kokopuReactI18n.ANNOTATED_BY = RPBChessboard.i18n.PGN_ANNOTATED_BY;
 kokopuReactI18n.LINE = RPBChessboard.i18n.PGN_LINE_REF;
 kokopuReactI18n.PIECE_SYMBOLS = {
