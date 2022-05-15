@@ -26,15 +26,17 @@
 	<?php
 		printf(
 			esc_html__(
-				'The old versions of the RPB Chessboard plugin (before 7.0.0) used to rely on WordPress shortcodes ' .
-				'to manage chess diagrams and chess games. In particular, %1$s[fen][/fen]%2$s are reserved ' .
+				'The old versions of the RPB Chessboard plugin (before 7.0.0) used to rely on %3$sWordPress shortcodes%4$s ' .
+				'to manage chess diagrams and chess games. Hence, by default, %1$s[fen][/fen]%2$s is reserved ' .
 				'for chess diagrams, and %1$s[pgn][/pgn]%2$s for chess games. However, this behavior may cause conflicts ' .
 				'with other WordPress plugins (typically chess plugins) that use the same shortcodes.' .
 				'These compatibility settings are provided to avoid those conflicts.',
 				'rpb-chessboard'
 			),
 			'<span class="rpbchessboard-sourceCode">',
-			'</span>'
+			'</span>',
+			'<a href="https://codex.wordpress.org/Shortcode_API" target="_blank">',
+			'</a>'
 		);
 	?>
 </p>

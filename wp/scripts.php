@@ -260,7 +260,7 @@ abstract class RPBChessboardScripts {
 			'PGN_EDITOR_OPTION_FIGURINES'          => __( 'Figurines', 'rpb-chessboard' ),
 			'PGN_EDITOR_OPTION_CUSTOM'             => __( 'Custom', 'rpb-chessboard' ),
 			'PGN_EDITOR_OPTION_NONE'               => __( 'None', 'rpb-chessboard' ),
-			'PGN_EDITOR_OPTION_FRAME'              => __( 'Frame', 'rpb-chessboard' ),
+			'PGN_EDITOR_OPTION_FRAME'              => __( 'Popup', 'rpb-chessboard' ),
 			'PGN_EDITOR_OPTION_ABOVE'              => __( 'Above', 'rpb-chessboard' ),
 			'PGN_EDITOR_OPTION_BELOW'              => __( 'Below', 'rpb-chessboard' ),
 			'PGN_EDITOR_OPTION_FLOAT_LEFT'         => __( 'Float on left', 'rpb-chessboard' ),
