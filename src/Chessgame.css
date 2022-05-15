@@ -99,6 +99,16 @@
 	overflow-y: auto;
 }
 
+.rpbchessboard-navigationBoard {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.rpbchessboard-navigationToolbar {
+	line-height: 0px;
+}
+
 .rpbchessboard-toolbarSpacer {
 	display: inline-block;
 	width: 10px;

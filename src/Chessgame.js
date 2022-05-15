@@ -27,23 +27,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import kokopu from 'kokopu';
 import { Chessboard, ErrorBox, Movetext } from 'kokopu-react';
-import { format, parsePieceSymbols } from './util';
+
+import NavigationButton from './NavigationButton';
 import { showPopupFrame, hidePopupFrame } from './NavigationFrame';
-
-import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
-import IconButton from '@mui/material/IconButton';
-import Stack from '@mui/material/Stack';
-import Tooltip from '@mui/material/Tooltip';
-
-import DownloadIcon from '@mui/icons-material/Download';
-import FirstPageIcon from '@mui/icons-material/FirstPage';
-import FlipIcon from '@mui/icons-material/FlipCameraAndroid';
-import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import LastPageIcon from '@mui/icons-material/LastPage';
+import { format, parsePieceSymbols } from './util';
 
 const i18n = RPBChessboard.i18n;
+
+const TOOLBAR_MARGIN = 5;
+const TOOLBAR_HEIGHT = 24;
 
 
 /**
@@ -84,7 +76,7 @@ export default class Chessgame extends React.Component {
 				fetchPGN(this.props.url)
 					.then(text => this.setState({ urlFetchStatus: 'ok', urlData: text }))
 					.catch(e => this.setState({ urlFetchStatus: 'error', urlError: e }));
-				return <CircularProgress />;
+				return <div></div>;
 			}
 		}
 		else {
@@ -112,11 +104,8 @@ export default class Chessgame extends React.Component {
 			);
 		}
 		else if (this.props.navigationBoard === 'scrollLeft' || this.props.navigationBoard === 'scrollRight') {
-
-			// FIXME: the height of the buttons (including margin) is hard-coded here. DO NOT FORGET to update it in case of change.
 			let boardOptions = this.props.navigationBoardOptions;
-			let height = Chessboard.size(boardOptions.squareSize, boardOptions.coordinateVisible, boardOptions.smallScreenLimits).height + 39;
-
+			let height = Chessboard.size(boardOptions.squareSize, boardOptions.coordinateVisible, boardOptions.smallScreenLimits).height + TOOLBAR_MARGIN + TOOLBAR_HEIGHT;
 			return (
 				<div className={'rpbchessboard-scrollBox-' + this.props.navigationBoard}>
 					{this.renderNavigationBoard(info.game, boardOptions)}
@@ -155,8 +144,9 @@ export default class Chessgame extends React.Component {
 		if (setTitle) {
 			setTitle(label);
 		}
+		let classNames = [ 'rpbchessboard-navigationBoard', 'rpbchessboard-navigationBoard-' + this.props.navigationBoard ];
 		return (
-			<Stack className={'rpbchessboard-navigationBoard-' + this.props.navigationBoard} alignItems="center" spacing="5px">
+			<div className={classNames.join(' ')}>
 				<Chessboard
 					position={position}
 					move={move}
@@ -172,15 +162,15 @@ export default class Chessgame extends React.Component {
 					animated={navigationBoardOptions.animated}
 					moveArrowVisible={navigationBoardOptions.moveArrowVisible}
 				/>
-				<Box>
-					<Tooltip title={i18n.PGN_TOOLTIP_GO_FIRST}><IconButton size="small" onClick={() => this.handleNavClicked(game, Movetext.firstNodeId, false)}><FirstPageIcon /></IconButton></Tooltip>
-					<Tooltip title={i18n.PGN_TOOLTIP_GO_PREVIOUS}><IconButton size="small" onClick={() => this.handleNavClicked(game, Movetext.previousNodeId, false)}><NavigateBeforeIcon /></IconButton></Tooltip>
-					<Tooltip title={i18n.PGN_TOOLTIP_GO_NEXT}><IconButton size="small" onClick={() => this.handleNavClicked(game, Movetext.nextNodeId, true)}><NavigateNextIcon /></IconButton></Tooltip>
-					<Tooltip title={i18n.PGN_TOOLTIP_GO_LAST}><IconButton size="small" onClick={() => this.handleNavClicked(game, Movetext.lastNodeId, false)}><LastPageIcon /></IconButton></Tooltip>
+				<div className="rpbchessboard-navigationToolbar" style={{ marginTop: TOOLBAR_MARGIN }}>
+					<NavigationButton size={TOOLBAR_HEIGHT} tooltip={i18n.PGN_TOOLTIP_GO_FIRST} onClick={() => this.handleNavClicked(game, Movetext.firstNodeId, false)} />
+					<NavigationButton size={TOOLBAR_HEIGHT} tooltip={i18n.PGN_TOOLTIP_GO_PREVIOUS} onClick={() => this.handleNavClicked(game, Movetext.previousNodeId, false)} />
+					<NavigationButton size={TOOLBAR_HEIGHT} tooltip={i18n.PGN_TOOLTIP_GO_NEXT} onClick={() => this.handleNavClicked(game, Movetext.nextNodeId, true)} />
+					<NavigationButton size={TOOLBAR_HEIGHT} tooltip={i18n.PGN_TOOLTIP_GO_LAST} onClick={() => this.handleNavClicked(game, Movetext.lastNodeId, false)} />
 					{this.renderFlipButton()}
 					{this.renderDownloadButton()}
-				</Box>
-			</Stack>
+				</div>
+			</div>
 		);
 	}
 
@@ -189,8 +179,8 @@ export default class Chessgame extends React.Component {
 			return undefined;
 		}
 		return (<>
-			<span className="rpbchessboard-toolbarSpacer" />
-			<Tooltip title={i18n.PGN_TOOLTIP_FLIP}><IconButton size="small" onClick={() => this.handleFlipClicked()}><FlipIcon /></IconButton></Tooltip>
+			<div className="rpbchessboard-toolbarSpacer" />
+			<NavigationButton size={TOOLBAR_HEIGHT} tooltip={i18n.PGN_TOOLTIP_FLIP} onClick={() => this.handleFlipClicked()} />
 		</>);
 	}
 
@@ -199,8 +189,8 @@ export default class Chessgame extends React.Component {
 			return undefined;
 		}
 		return (<>
-			<span className="rpbchessboard-toolbarSpacer" />
-			<Tooltip title={i18n.PGN_TOOLTIP_DOWNLOAD}><IconButton size="small" onClick={() => this.handleDownloadClicked()}><DownloadIcon /></IconButton></Tooltip>
+			<div className="rpbchessboard-toolbarSpacer" />
+			<NavigationButton size={TOOLBAR_HEIGHT} tooltip={i18n.PGN_TOOLTIP_DOWNLOAD} onClick={() => this.handleDownloadClicked()} />
 			<a ref={this.blobDownloadLinkRef} className="rpbchessboard-blobDownloadLink" href="#" download="game.pgn" />
 		</>);
 	}
