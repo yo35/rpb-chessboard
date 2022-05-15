@@ -116,7 +116,7 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelBlock {
 			$this->widgetArgs['idoSquareSize'] = $this->widgetArgs['nboSquareSize'];
 
 			// Show coordinates
-			$value                                     = isset( $atts['show_coordinates'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_coordinates'] ) : null;
+			$value                                    = isset( $atts['show_coordinates'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_coordinates'] ) : null;
 			$this->widgetArgs['nboCoordinateVisible'] = isset( $value ) ? $value : $this->getDefaultShowCoordinates();
 			$this->widgetArgs['idoCoordinateVisible'] = $this->widgetArgs['nboCoordinateVisible'];
 
