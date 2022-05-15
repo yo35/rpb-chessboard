@@ -95,8 +95,9 @@ export default class Chessgame extends React.Component {
 			return <div>{this.renderMovetext(info.game, true)}{this.renderNavigationBoard(info.game, this.props.navigationBoardOptions)}</div>;
 		}
 		else if (this.props.navigationBoard === 'floatLeft' || this.props.navigationBoard === 'floatRight') {
+			let className = this.props.navigationBoard === 'floatLeft' ? 'rpbchessboard-indentWithFloatLeft' : '';
 			return (
-				<div>
+				<div className={className}>
 					{this.renderNavigationBoard(info.game, this.props.navigationBoardOptions)}
 					{this.renderMovetext(info.game, true)}
 					<div className="rpbchessboard-clearFloat"></div>

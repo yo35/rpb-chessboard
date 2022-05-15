@@ -33,6 +33,13 @@
 	margin-top: 0.5em;
 }
 
+.rpbchessboard-indentWithFloatLeft div.kokopu-subVariation {
+	margin-left: 0px;
+	position: relative;
+	left: 1.5em;
+	width: calc(100% - 1.5em);
+}
+
 .rpbchessboard-navigationBoard-above,
 .rpbchessboard-navigationBoard-floatLeft,
 .rpbchessboard-navigationBoard-floatRight {
