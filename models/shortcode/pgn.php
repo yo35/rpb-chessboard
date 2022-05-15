@@ -117,8 +117,8 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelBlock {
 
 			// Show coordinates
 			$value                                     = isset( $atts['show_coordinates'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_coordinates'] ) : null;
-			$this->widgetArgs['nboCoordinatesVisible'] = isset( $value ) ? $value : $this->getDefaultShowCoordinates();
-			$this->widgetArgs['idoCoordinatesVisible'] = $this->widgetArgs['nboCoordinatesVisible'];
+			$this->widgetArgs['nboCoordinateVisible'] = isset( $value ) ? $value : $this->getDefaultShowCoordinates();
+			$this->widgetArgs['idoCoordinateVisible'] = $this->widgetArgs['nboCoordinateVisible'];
 
 			// Colorset
 			$value                           = isset( $atts['colorset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['colorset'] ) : null;
