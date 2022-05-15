@@ -35,7 +35,7 @@ import { format, parsePieceSymbols } from './util';
 const i18n = RPBChessboard.i18n;
 
 const TOOLBAR_MARGIN = 5;
-const TOOLBAR_HEIGHT = 24;
+const TOOLBAR_HEIGHT = 28;
 
 
 /**
@@ -163,10 +163,10 @@ export default class Chessgame extends React.Component {
 					moveArrowVisible={navigationBoardOptions.moveArrowVisible}
 				/>
 				<div className="rpbchessboard-navigationToolbar" style={{ marginTop: TOOLBAR_MARGIN }}>
-					<NavigationButton size={TOOLBAR_HEIGHT} tooltip={i18n.PGN_TOOLTIP_GO_FIRST} onClick={() => this.handleNavClicked(game, Movetext.firstNodeId, false)} />
-					<NavigationButton size={TOOLBAR_HEIGHT} tooltip={i18n.PGN_TOOLTIP_GO_PREVIOUS} onClick={() => this.handleNavClicked(game, Movetext.previousNodeId, false)} />
-					<NavigationButton size={TOOLBAR_HEIGHT} tooltip={i18n.PGN_TOOLTIP_GO_NEXT} onClick={() => this.handleNavClicked(game, Movetext.nextNodeId, true)} />
-					<NavigationButton size={TOOLBAR_HEIGHT} tooltip={i18n.PGN_TOOLTIP_GO_LAST} onClick={() => this.handleNavClicked(game, Movetext.lastNodeId, false)} />
+					<NavigationButton size={TOOLBAR_HEIGHT} type="first" tooltip={i18n.PGN_TOOLTIP_GO_FIRST} onClick={() => this.handleNavClicked(game, Movetext.firstNodeId, false)} />
+					<NavigationButton size={TOOLBAR_HEIGHT} type="previous" tooltip={i18n.PGN_TOOLTIP_GO_PREVIOUS} onClick={() => this.handleNavClicked(game, Movetext.previousNodeId, false)} />
+					<NavigationButton size={TOOLBAR_HEIGHT} type="next" tooltip={i18n.PGN_TOOLTIP_GO_NEXT} onClick={() => this.handleNavClicked(game, Movetext.nextNodeId, true)} />
+					<NavigationButton size={TOOLBAR_HEIGHT} type="last" tooltip={i18n.PGN_TOOLTIP_GO_LAST} onClick={() => this.handleNavClicked(game, Movetext.lastNodeId, false)} />
 					{this.renderFlipButton()}
 					{this.renderDownloadButton()}
 				</div>
@@ -180,7 +180,7 @@ export default class Chessgame extends React.Component {
 		}
 		return (<>
 			<div className="rpbchessboard-toolbarSpacer" />
-			<NavigationButton size={TOOLBAR_HEIGHT} tooltip={i18n.PGN_TOOLTIP_FLIP} onClick={() => this.handleFlipClicked()} />
+			<NavigationButton size={TOOLBAR_HEIGHT} type="flip" tooltip={i18n.PGN_TOOLTIP_FLIP} onClick={() => this.handleFlipClicked()} />
 		</>);
 	}
 
@@ -190,7 +190,7 @@ export default class Chessgame extends React.Component {
 		}
 		return (<>
 			<div className="rpbchessboard-toolbarSpacer" />
-			<NavigationButton size={TOOLBAR_HEIGHT} tooltip={i18n.PGN_TOOLTIP_DOWNLOAD} onClick={() => this.handleDownloadClicked()} />
+			<NavigationButton size={TOOLBAR_HEIGHT} type="download" tooltip={i18n.PGN_TOOLTIP_DOWNLOAD} onClick={() => this.handleDownloadClicked()} />
 			<a ref={this.blobDownloadLinkRef} className="rpbchessboard-blobDownloadLink" href="#" download="game.pgn" />
 		</>);
 	}
