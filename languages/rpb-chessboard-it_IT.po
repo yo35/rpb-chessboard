@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-15 19:28+0200\n"
+"POT-Creation-Date: 2022-05-15 22:42+0200\n"
 "PO-Revision-Date: 2021-01-03 19:45+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -750,11 +750,11 @@ msgid ""
 "can be created in the %2$stheming page%3$s."
 msgstr ""
 
-#: templates/adminpage/options/general/moveanimation.php
+#: templates/adminpage/options/general/moveanimation.php wp/scripts.php
 msgid "Move animation"
 msgstr ""
 
-#: templates/adminpage/options/general/moveanimation.php wp/scripts.php
+#: templates/adminpage/options/general/moveanimation.php
 msgid "Animation"
 msgstr ""
 
@@ -847,8 +847,8 @@ msgid "Toggle turn"
 msgstr ""
 
 #: wp/scripts.php
-msgid "Flip board"
-msgstr ""
+msgid "Flip the board"
+msgstr "Gira la scacchiera"
 
 #: wp/scripts.php
 msgid "Position & annotations"
@@ -893,10 +893,6 @@ msgstr ""
 #: wp/scripts.php
 msgid "Remove all square/arrow/text markers"
 msgstr ""
-
-#: wp/scripts.php
-msgid "Flip the board"
-msgstr "Gira la scacchiera"
 
 #: wp/scripts.php
 msgid "Use default square size"
@@ -1007,7 +1003,7 @@ msgid "Navigation board"
 msgstr ""
 
 #: wp/scripts.php
-msgid "Diagram options"
+msgid "Diagrams"
 msgstr ""
 
 #: wp/scripts.php

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-15 19:28+0200\n"
+"POT-Creation-Date: 2022-05-15 22:42+0200\n"
 "PO-Revision-Date: 2016-11-08 11:52+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -835,11 +835,11 @@ msgstr ""
 "смартфоны). Дополнительные наборы цветов и наборы фигур могут быть созданы "
 "на %2$sстранице тем%3$s."
 
-#: templates/adminpage/options/general/moveanimation.php
+#: templates/adminpage/options/general/moveanimation.php wp/scripts.php
 msgid "Move animation"
 msgstr "Анимация хода"
 
-#: templates/adminpage/options/general/moveanimation.php wp/scripts.php
+#: templates/adminpage/options/general/moveanimation.php
 msgid "Animation"
 msgstr ""
 
@@ -947,8 +947,7 @@ msgid "Toggle turn"
 msgstr ""
 
 #: wp/scripts.php
-#, fuzzy
-msgid "Flip board"
+msgid "Flip the board"
 msgstr "Перевернуть доску"
 
 #: wp/scripts.php
@@ -998,10 +997,6 @@ msgstr ""
 #, fuzzy
 msgid "Remove all square/arrow/text markers"
 msgstr "Удалить маркеры полей"
-
-#: wp/scripts.php
-msgid "Flip the board"
-msgstr "Перевернуть доску"
 
 #: wp/scripts.php
 msgid "Use default square size"
@@ -1115,8 +1110,8 @@ msgid "Navigation board"
 msgstr "Навигационная доска"
 
 #: wp/scripts.php
-msgid "Diagram options"
-msgstr ""
+msgid "Diagrams"
+msgstr "Диаграммы"
 
 #: wp/scripts.php
 msgid "None"

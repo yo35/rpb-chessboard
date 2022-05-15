@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-15 19:28+0200\n"
+"POT-Creation-Date: 2022-05-15 22:42+0200\n"
 "PO-Revision-Date: 2020-07-28 10:32-0300\n"
 "Last-Translator: rewbenio <rewbenio@lancesqi.com.br>\n"
 "Language-Team: Rewbenio Frota\n"
@@ -854,11 +854,11 @@ msgstr ""
 "ser definidas para %1$sdispositivos de tela pequena%3$s (como smartphones). "
 "Temas adicionais de cores e peças podem ser criados na página %2$stemas%3$s."
 
-#: templates/adminpage/options/general/moveanimation.php
+#: templates/adminpage/options/general/moveanimation.php wp/scripts.php
 msgid "Move animation"
 msgstr "Animação de lance."
 
-#: templates/adminpage/options/general/moveanimation.php wp/scripts.php
+#: templates/adminpage/options/general/moveanimation.php
 msgid "Animation"
 msgstr ""
 
@@ -969,9 +969,8 @@ msgid "Toggle turn"
 msgstr ""
 
 #: wp/scripts.php
-#, fuzzy
-msgid "Flip board"
-msgstr "Girar tabuleiro"
+msgid "Flip the board"
+msgstr "Girar o tabuleiro"
 
 #: wp/scripts.php
 msgid "Position & annotations"
@@ -1018,10 +1017,6 @@ msgstr ""
 #: wp/scripts.php
 msgid "Remove all square/arrow/text markers"
 msgstr ""
-
-#: wp/scripts.php
-msgid "Flip the board"
-msgstr "Girar o tabuleiro"
 
 #: wp/scripts.php
 msgid "Use default square size"
@@ -1135,8 +1130,8 @@ msgid "Navigation board"
 msgstr "Tabuleiro de navegação"
 
 #: wp/scripts.php
-msgid "Diagram options"
-msgstr ""
+msgid "Diagrams"
+msgstr "Diagramas"
 
 #: wp/scripts.php
 msgid "None"

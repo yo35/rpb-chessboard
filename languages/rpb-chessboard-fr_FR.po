@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-15 19:28+0200\n"
+"POT-Creation-Date: 2022-05-15 22:42+0200\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35 -at- melix.net>\n"
 "Language-Team: French\n"
@@ -870,11 +870,11 @@ msgstr ""
 "thèmes de couleurs et de pièces supplémentaires peuvent être créés sur la "
 "%2$spage des thèmes%3$s."
 
-#: templates/adminpage/options/general/moveanimation.php
+#: templates/adminpage/options/general/moveanimation.php wp/scripts.php
 msgid "Move animation"
 msgstr "Animation des coups"
 
-#: templates/adminpage/options/general/moveanimation.php wp/scripts.php
+#: templates/adminpage/options/general/moveanimation.php
 msgid "Animation"
 msgstr "Animation"
 
@@ -971,7 +971,7 @@ msgid "Toggle turn"
 msgstr "Changer le joueur au trait"
 
 #: wp/scripts.php
-msgid "Flip board"
+msgid "Flip the board"
 msgstr "Tourner l'échiquier"
 
 #: wp/scripts.php
@@ -1017,10 +1017,6 @@ msgstr "Supprimer toutes les pièces"
 #: wp/scripts.php
 msgid "Remove all square/arrow/text markers"
 msgstr "Supprimer les marqueurs de case, flèches, et labels de case"
-
-#: wp/scripts.php
-msgid "Flip the board"
-msgstr "Tourner l'échiquier"
 
 #: wp/scripts.php
 msgid "Use default square size"
@@ -1132,8 +1128,8 @@ msgid "Navigation board"
 msgstr "Échiquier de navigation"
 
 #: wp/scripts.php
-msgid "Diagram options"
-msgstr "Options des diagrammes"
+msgid "Diagrams"
+msgstr "Diagrammes"
 
 #: wp/scripts.php
 msgid "None"
