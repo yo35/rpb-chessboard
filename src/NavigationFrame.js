@@ -20,6 +20,8 @@
 
 
 import './public-path';
+import './NavigationFrame.css';
+
 import { Chessboard } from 'kokopu-react';
 
 
