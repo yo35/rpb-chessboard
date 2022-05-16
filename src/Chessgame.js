@@ -209,7 +209,7 @@ export default class Chessgame extends React.Component {
 			};
 		}
 		else {
-			let result = this.state.withMove ? { position: node.positionBefore(), move: node.notation() } : { position: node.position() };
+			let result = this.state.withMove && node.notation() !== '--' ? { position: node.positionBefore(), move: node.notation() } : { position: node.position() };
 			result.csl = node.tag('csl');
 			result.cal = node.tag('cal');
 			result.ctl = node.tag('ctl');
