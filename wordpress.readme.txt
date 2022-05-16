@@ -72,14 +72,13 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Screenshots ==
 
-1. Typesetting and rendering a chess diagram.
-2. Typesetting and rendering a chess game with comments and sub-variations.
-3. Chess diagram in a post with the Twenty Ten theme.
-4. Chess game in a post with the Twenty Ten theme.
-5. When clicking on a move, a popup frame is displayed, showing the corresponding position.
-6. A navigation board can be added near the move list.
-7. Chess game with comments and sub-variations. HTML formatting in text comments is supported.
-8. Diagram block with its editor embedded in the WordPress post/page editor.
+1. Chess diagram in a post with the Twenty Fifteen theme.
+2. Chess game in a post with the Twenty Fifteen theme.
+3. When clicking on a move, a popup frame is displayed, showing the corresponding position.
+4. A navigation board can be added beside the move list.
+5. Chess games can have comments, sub-variations and diagrams. HTML formatting in text comments is supported.
+6. Chess diagram block in the Gutenberg post/page editor.
+7. Chess game block in the Gutenberg post/page editor.
 
 
 
