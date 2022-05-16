@@ -268,6 +268,7 @@ export default class Chessgame extends React.Component {
 	}
 
 	handleFlipClicked() {
+		this.movetextRef.current.focus();
 		this.setState({ withAdditionalFlip: !this.state.withAdditionalFlip });
 	}
 
@@ -294,6 +295,13 @@ export default class Chessgame extends React.Component {
 			window.URL.revokeObjectURL(this.dynamicURL);
 			this.dynamicURL = false;
 		}
+	}
+
+	/**
+	 * @public
+	 */
+	focus() {
+		this.movetextRef.current.focus();
 	}
 }
 

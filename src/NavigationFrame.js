@@ -116,6 +116,16 @@ function buildFrame() {
 		boardOptions.squareSize = squareSize;
 		currentOwner.setState({ popupBoardOptions: boardOptions });
 	});
+
+	// Handle the focus.
+	function focusOwner() {
+		if (currentOwner) {
+			currentOwner.focus();
+		}
+	}
+	$('#rpbchessboard-navigationFrame').on('dialogopen', focusOwner);
+	$('#rpbchessboard-navigationFrame').on('dialogdragstop', focusOwner);
+	$('#rpbchessboard-navigationFrame').on('dialogresizestop', focusOwner);
 }
 
 
