@@ -84,6 +84,12 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 7.0.0 (May 16, 2022) =
+* Add chess game block with its editor to the Gutenberg-based WordPress page/post editor.
+* Significant code refactoring of the chess game component, which is now released as a standalone NPM library (kokopu-react).
+* The `[fen][/fen]` and `[pgn][/pgn]` shortcodes are now considered as deprecated: from now on, it is advised to use the chess diagram and chess game blocks to insert chess content in pages and posts.
+* Remove the embedded help: documentation is now available on https://rpb-chessboard.yo35.org/.
+
 = 6.4.1 (January 27, 2022) =
 * Tested up to WordPress 5.9.
 * Upgrade dependencies.
