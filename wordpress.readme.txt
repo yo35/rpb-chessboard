@@ -77,8 +77,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 3. When clicking on a move, a popup frame is displayed, showing the corresponding position.
 4. A navigation board can be added beside the move list.
 5. Chess games can have comments, sub-variations and diagrams. HTML formatting in text comments is supported.
-6. Chess diagram block in the Gutenberg post/page editor.
-7. Chess game block in the Gutenberg post/page editor.
+6. When the plugin is installed and activated, two new blocks become available in the Gutenberg post/page editor.
+7. Chess diagram block in the Gutenberg post/page editor.
+8. Chess game block in the Gutenberg post/page editor.
 
 
 

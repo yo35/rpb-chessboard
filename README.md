@@ -60,9 +60,9 @@ Screenshots
 
 ### Chess diagram block in the Gutenberg post/page editor ###
 
-<img alt="chess-diagram-block" src="assets/screenshot-6.png" width="600" />
+<img alt="chess-diagram-block" src="assets/screenshot-7.png" width="600" />
 
 
 ### Chess game block in the Gutenberg post/page editor ###
 
-<img alt="chess-game-block" src="assets/screenshot-7.png" width="600" />
+<img alt="chess-game-block" src="assets/screenshot-8.png" width="600" />
