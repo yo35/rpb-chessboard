@@ -85,6 +85,11 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 7.1.0 (May 24, 2022) =
+* Tested up to WordPress 6.0.
+* Add support for NAGs 141, 143 and 145.
+* Implement customization of the initial move shown by the navigation board (see #205 and #228).
+
 = 7.0.1 (May 16, 2022) =
 * Minor fixes.
 
