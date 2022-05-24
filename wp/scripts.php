@@ -255,6 +255,9 @@ abstract class RPBChessboardScripts {
 			'PGN_EDITOR_PANEL_NAVIGATION_BOARD'    => __( 'Navigation board', 'rpb-chessboard' ),
 			'PGN_EDITOR_PANEL_DIAGRAM_OPTIONS'     => __( 'Diagrams', 'rpb-chessboard' ),
 			'PGN_EDITOR_USE_DEFAULT'               => __( 'Use default', 'rpb-chessboard' ),
+			'PGN_EDITOR_OPTION_START'              => __( 'Beginning of the game', 'rpb-chessboard' ),
+			'PGN_EDITOR_OPTION_END'                => __( 'End of the game', 'rpb-chessboard' ),
+			'PGN_EDITOR_OPTION_CUSTOM_MOVE'        => __( 'Custom move', 'rpb-chessboard' ),
 			'PGN_EDITOR_OPTION_NATIVE'             => __( 'English initials', 'rpb-chessboard' ),
 			'PGN_EDITOR_OPTION_LOCALIZED'          => __( 'Localized initials', 'rpb-chessboard' ),
 			'PGN_EDITOR_OPTION_FIGURINES'          => __( 'Figurines', 'rpb-chessboard' ),
@@ -272,10 +275,12 @@ abstract class RPBChessboardScripts {
 			'PGN_EDITOR_OPTION_HIDDEN'             => __( 'Hidden', 'rpb-chessboard' ),
 			'PGN_EDITOR_OPTION_VISIBLE'            => __( 'Visible', 'rpb-chessboard' ),
 			'PGN_EDITOR_CONTROL_FLIP'              => __( 'Flip nav. board and diagrams', 'rpb-chessboard' ),
+			'PGN_EDITOR_CONTROL_INITIAL_SELECTION' => __( 'Initial selection', 'rpb-chessboard' ),
 			'PGN_EDITOR_CONTROL_ANIMATED'          => __( 'Move animation', 'rpb-chessboard' ),
 			'PGN_EDITOR_CONTROL_MOVE_ARROW'        => __( 'Move arrow', 'rpb-chessboard' ),
 			'PGN_EDITOR_CONTROL_FLIP_BUTTON'       => __( 'Flip button', 'rpb-chessboard' ),
 			'PGN_EDITOR_CONTROL_DOWNLOAD_BUTTON'   => __( 'Download button', 'rpb-chessboard' ),
+			'PGN_EDITOR_HELP_INITIAL_SELECTION'    => __( 'For example: 1w for the first white move, 12b for the twelfth black move...', 'rpb-chessboard' ),
 		);
 	}
 

@@ -73,6 +73,11 @@ class PGNEditor extends React.Component {
 		this.props.setAttributes(newAttributes);
 	}
 
+	handleInitialSelectionCodeChanged(code) {
+		let newInitialSelection = code === 'custom' ? '1w' : code;
+		this.props.setAttributes({ ...this.props.attributes, initialSelection: newInitialSelection });
+	}
+
 	handlePieceSymbolCodeChanged(code, elements) {
 		let pieceSymbols = code === 'custom' ? flattenPieceSymbols(elements) : code;
 		this.props.setAttributes({ ...this.props.attributes, pieceSymbols: pieceSymbols });
@@ -126,8 +131,32 @@ class PGNEditor extends React.Component {
 		return (
 			<PanelBody title={i18n.PGN_EDITOR_PANEL_GAME_OPTIONS}>
 				<ToggleControl label={i18n.PGN_EDITOR_CONTROL_FLIP} checked={this.props.attributes.flipped} onChange={() => this.handleFlipClicked()} />
+				{this.renderInitialSelectionSelector()}
 			</PanelBody>
 		);
+	}
+
+
+	/**
+	 * Selector for the move that is initially selected.
+	 */
+	renderInitialSelectionSelector() {
+		let navigationBoard = this.props.attributes.navigationBoard === '' ? RPBChessboard.defaultSettings.navigationBoard : this.props.attributes.navigationBoard;
+		if (navigationBoard === 'none' || navigationBoard === 'frame') {
+			return undefined;
+		}
+		let code = this.props.attributes.initialSelection === 'start' || this.props.attributes.initialSelection === 'end' ? this.props.attributes.initialSelection : 'custom';
+		let customSelector = code === 'custom' ?
+			<TextControl value={this.props.attributes.initialSelection} onChange={value => this.handleAttributeChanged('initialSelection', value)} help={i18n.PGN_EDITOR_HELP_INITIAL_SELECTION} /> :
+			undefined;
+		return (<>
+			<RadioControl label={i18n.PGN_EDITOR_CONTROL_INITIAL_SELECTION} selected={code} onChange={value => this.handleInitialSelectionCodeChanged(value)} options={[
+				{ label: i18n.PGN_EDITOR_OPTION_START, value: 'start' },
+				{ label: i18n.PGN_EDITOR_OPTION_END, value: 'end' },
+				{ label: i18n.PGN_EDITOR_OPTION_CUSTOM_MOVE, value: 'custom' },
+			]} />
+			{customSelector}
+		</>);
 	}
 
 
@@ -334,6 +363,10 @@ export function registerPGNBlock() {
 			flipped: {
 				type: 'boolean',
 				default: false
+			},
+			initialSelection: {
+				type: 'string',
+				default: 'start'
 			},
 			pieceSymbols: {
 				type: 'string',

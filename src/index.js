@@ -105,6 +105,7 @@ RPBChessboard.renderPGN = function(targetJQueryElement, widgetArgs) {
 		url={widgetArgs.url}
 		pgn={widgetArgs.pgn}
 		gameIndex={widgetArgs.gameIndex}
+		initialSelection={widgetArgs.initialSelection}
 		pieceSymbols={widgetArgs.pieceSymbols}
 		diagramOptions={diagramOptions}
 		navigationBoardOptions={navigationBoardOptions}
