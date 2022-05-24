@@ -46,7 +46,7 @@ export default class Chessgame extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			selection: false,
+			selection: this.props.navigationBoard === 'frame' || this.props.navigationBoard === 'none' ? false : this.props.initialSelection,
 			withMove: false,
 			withAdditionalFlip: false,
 			urlFetchStatus: false,
@@ -87,19 +87,20 @@ export default class Chessgame extends React.Component {
 		if (!info.valid) {
 			return <ErrorBox title={i18n.PGN_PARSING_ERROR_TITLE} message={info.message} text={info.pgn} errorIndex={info.errorIndex} lineNumber={info.lineNumber} />;
 		}
+		let { selection, node } = this.getSelectionAndNode(info.game);
 
 		if (this.props.navigationBoard === 'above') {
-			return <div>{this.renderNavigationBoard(info.game, this.props.navigationBoardOptions)}{this.renderMovetext(info.game, true)}</div>;
+			return <div>{this.renderNavigationBoard(info.game, selection, node, this.props.navigationBoardOptions)}{this.renderMovetext(info.game, selection, true)}</div>;
 		}
 		else if (this.props.navigationBoard === 'below') {
-			return <div>{this.renderMovetext(info.game, true)}{this.renderNavigationBoard(info.game, this.props.navigationBoardOptions)}</div>;
+			return <div>{this.renderMovetext(info.game, selection, true)}{this.renderNavigationBoard(info.game, selection, node, this.props.navigationBoardOptions)}</div>;
 		}
 		else if (this.props.navigationBoard === 'floatLeft' || this.props.navigationBoard === 'floatRight') {
 			let className = this.props.navigationBoard === 'floatLeft' ? 'rpbchessboard-indentWithFloatLeft' : '';
 			return (
 				<div className={className}>
-					{this.renderNavigationBoard(info.game, this.props.navigationBoardOptions)}
-					{this.renderMovetext(info.game, true)}
+					{this.renderNavigationBoard(info.game, selection, node, this.props.navigationBoardOptions)}
+					{this.renderMovetext(info.game, selection, true)}
 					<div className="rpbchessboard-clearFloat"></div>
 				</div>
 			);
@@ -109,23 +110,23 @@ export default class Chessgame extends React.Component {
 			let height = Chessboard.size(boardOptions.squareSize, boardOptions.coordinateVisible, boardOptions.smallScreenLimits).height + TOOLBAR_MARGIN + TOOLBAR_HEIGHT;
 			return (
 				<div className={'rpbchessboard-scrollBox-' + this.props.navigationBoard}>
-					{this.renderNavigationBoard(info.game, boardOptions)}
-					<div className="rpbchessboard-scrollArea" style={{ 'max-height': height }}>{this.renderMovetext(info.game, true)}</div>
+					{this.renderNavigationBoard(info.game, selection, node, boardOptions)}
+					<div className="rpbchessboard-scrollArea" style={{ 'max-height': height }}>{this.renderMovetext(info.game, selection, true)}</div>
 				</div>
 			);
 		}
 		else if (this.props.navigationBoard === 'frame') {
-			return <div>{this.renderMovetext(info.game, true)}{this.renderNavigationBoardInPopup(info.game)}</div>;
+			return <div>{this.renderMovetext(info.game, selection, true)}{this.renderNavigationBoardInPopup(info.game, selection, node)}</div>;
 		}
 		else {
-			return <div>{this.renderMovetext(info.game, false)}</div>;
+			return <div>{this.renderMovetext(info.game, selection, false)}</div>;
 		}
 	}
 
-	renderMovetext(game, withNavigationBoard) {
+	renderMovetext(game, selection, withNavigationBoard) {
 		return <Movetext ref={this.movetextRef}
 			game={game}
-			selection={this.state.selection ? this.state.selection : undefined}
+			selection={selection}
 			interactionMode={withNavigationBoard ? 'selectMove' : undefined}
 			onMoveSelected={(nodeId, evtOrigin) => this.handleMoveSelected(nodeId, evtOrigin)}
 			pieceSymbols={this.getPieceSymbols()}
@@ -133,15 +134,15 @@ export default class Chessgame extends React.Component {
 		/>;
 	}
 
-	renderNavigationBoardInPopup(game) {
-		if (!this.state.selection || !this.state.popupAnchor) {
+	renderNavigationBoardInPopup(game, selection, node) {
+		if (!selection || !this.state.popupAnchor) {
 			return undefined;
 		}
-		return ReactDOM.createPortal(this.renderNavigationBoard(game, this.state.popupBoardOptions, this.state.setPopupTitle), this.state.popupAnchor);
+		return ReactDOM.createPortal(this.renderNavigationBoard(game, selection, node, this.state.popupBoardOptions, this.state.setPopupTitle), this.state.popupAnchor);
 	}
 
-	renderNavigationBoard(game, navigationBoardOptions, setTitle) {
-		let { position, move, csl, cal, ctl, label } = this.getCurrentPositionAndAnnotations(game);
+	renderNavigationBoard(game, selection, node, navigationBoardOptions, setTitle) {
+		let { position, move, csl, cal, ctl, label } = this.getCurrentPositionAndAnnotations(game, node);
 		if (setTitle) {
 			setTitle(label);
 		}
@@ -164,10 +165,10 @@ export default class Chessgame extends React.Component {
 					moveArrowVisible={navigationBoardOptions.moveArrowVisible}
 				/>
 				<div className="rpbchessboard-navigationToolbar" style={{ marginTop: TOOLBAR_MARGIN }}>
-					<NavigationButton size={TOOLBAR_HEIGHT} type="first" tooltip={i18n.PGN_TOOLTIP_GO_FIRST} onClick={() => this.handleNavClicked(game, Movetext.firstNodeId, false)} />
-					<NavigationButton size={TOOLBAR_HEIGHT} type="previous" tooltip={i18n.PGN_TOOLTIP_GO_PREVIOUS} onClick={() => this.handleNavClicked(game, Movetext.previousNodeId, false)} />
-					<NavigationButton size={TOOLBAR_HEIGHT} type="next" tooltip={i18n.PGN_TOOLTIP_GO_NEXT} onClick={() => this.handleNavClicked(game, Movetext.nextNodeId, true)} />
-					<NavigationButton size={TOOLBAR_HEIGHT} type="last" tooltip={i18n.PGN_TOOLTIP_GO_LAST} onClick={() => this.handleNavClicked(game, Movetext.lastNodeId, false)} />
+					<NavigationButton size={TOOLBAR_HEIGHT} type="first" tooltip={i18n.PGN_TOOLTIP_GO_FIRST} onClick={() => this.handleNavClicked(game, selection, Movetext.firstNodeId, false)} />
+					<NavigationButton size={TOOLBAR_HEIGHT} type="previous" tooltip={i18n.PGN_TOOLTIP_GO_PREVIOUS} onClick={() => this.handleNavClicked(game, selection, Movetext.previousNodeId, false)} />
+					<NavigationButton size={TOOLBAR_HEIGHT} type="next" tooltip={i18n.PGN_TOOLTIP_GO_NEXT} onClick={() => this.handleNavClicked(game, selection, Movetext.nextNodeId, true)} />
+					<NavigationButton size={TOOLBAR_HEIGHT} type="last" tooltip={i18n.PGN_TOOLTIP_GO_LAST} onClick={() => this.handleNavClicked(game, selection, Movetext.lastNodeId, false)} />
 					{this.renderFlipButton()}
 					{this.renderDownloadButton()}
 				</div>
@@ -196,8 +197,7 @@ export default class Chessgame extends React.Component {
 		</>);
 	}
 
-	getCurrentPositionAndAnnotations(game) {
-		let node = this.state.selection && this.state.selection !== 'start' ? game.findById(this.state.selection) : undefined;
+	getCurrentPositionAndAnnotations(game, node) {
 		if (node === undefined) {
 			let mainVariation = game.mainVariation();
 			return {
@@ -246,6 +246,27 @@ export default class Chessgame extends React.Component {
 		}
 	}
 
+	getSelectionAndNode(game) {
+
+		// Handle the special cases.
+		if (this.state.selection === 'start') {
+			return { selection: 'start' };
+		}
+		else if (this.state.selection === 'end') {
+			let previousNode = undefined;
+			let currentNode = game.mainVariation().first();
+			while (currentNode) {
+				previousNode = currentNode;
+				currentNode = currentNode.next();
+			}
+			return previousNode ? { selection: previousNode.id(), node: previousNode } : { selection: 'start' };
+		}
+
+		// FIXME: adapt `.findById(..)` to search only nodes (not variation) and remove test `endsWith('start')`.
+		let node = !this.state.selection || this.state.selection.endsWith('start') ? undefined : game.findById(this.state.selection);
+		return node ? { selection: this.state.selection, node: node } : {};
+	}
+
 	handleMoveSelected(nodeId, evtOrigin) {
 		this.setState(nodeId ? { selection: nodeId, withMove: evtOrigin === 'key-next' } : { selection: false, withMove: false });
 		if (this.props.navigationBoard === 'frame' && evtOrigin !== 'external') {
@@ -259,9 +280,9 @@ export default class Chessgame extends React.Component {
 		}
 	}
 
-	handleNavClicked(game, nodeIdProvider, withMove) {
+	handleNavClicked(game, selection, nodeIdProvider, withMove) {
 		this.movetextRef.current.focus();
-		let nodeId = nodeIdProvider(game, this.state.selection ? this.state.selection : 'start');
+		let nodeId = nodeIdProvider(game, selection ? selection : 'start');
 		if (nodeId) {
 			this.setState({ selection: nodeId, withMove: withMove });
 		}
@@ -310,6 +331,7 @@ Chessgame.propTypes = {
 	url: PropTypes.string,
 	pgn: PropTypes.string,
 	gameIndex: PropTypes.number,
+	initialSelection: PropTypes.string, // 'start', 'end', or a node ID (e.g. '3w', '12b', etc...)
 	pieceSymbols: PropTypes.oneOfType([
 		PropTypes.oneOf([ 'native', 'localized', 'figurines' ]),
 		PropTypes.string, // example: 'R,D,T,F,C,P'
@@ -334,6 +356,7 @@ Chessgame.propTypes = {
 Chessgame.defaultProps = {
 	pgn: '',
 	gameIndex: 0,
+	initialSelection: false,
 	pieceSymbols: 'native',
 	navigationBoard: 'none',
 	navigationBoardOptions: {},
