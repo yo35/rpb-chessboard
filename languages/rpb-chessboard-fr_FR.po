@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-15 22:42+0200\n"
+"POT-Creation-Date: 2022-05-24 11:20+0200\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35 -at- melix.net>\n"
 "Language-Team: French\n"
@@ -1132,6 +1132,18 @@ msgid "Diagrams"
 msgstr "Diagrammes"
 
 #: wp/scripts.php
+msgid "Beginning of the game"
+msgstr "Début de la partie"
+
+#: wp/scripts.php
+msgid "End of the game"
+msgstr "Fin de la partie"
+
+#: wp/scripts.php
+msgid "Custom move"
+msgstr "Coup personalisé"
+
+#: wp/scripts.php
 msgid "None"
 msgstr "Aucun"
 
@@ -1168,12 +1180,22 @@ msgid "Flip nav. board and diagrams"
 msgstr "Tourner l'échiquier de navigation et les diagrammes"
 
 #: wp/scripts.php
+msgid "Initial selection"
+msgstr "Sélection initiale"
+
+#: wp/scripts.php
 msgid "Flip button"
 msgstr "Bouton de retournement"
 
 #: wp/scripts.php
 msgid "Download button"
 msgstr "Bouton de téléchargement"
+
+#: wp/scripts.php
+msgid ""
+"For example: 1w for the first white move, 12b for the twelfth black move..."
+msgstr ""
+"Par exemple : 1w pour le premier coup blanc, 12b pour le douzième coup noir..."
 
 #: wp/adminpages.php
 msgid "Chess games and diagrams"

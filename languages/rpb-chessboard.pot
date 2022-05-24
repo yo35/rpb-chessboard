@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-15 22:42+0200\n"
+"POT-Creation-Date: 2022-05-24 11:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1031,6 +1031,18 @@ msgid "Diagrams"
 msgstr ""
 
 #: wp/scripts.php
+msgid "Beginning of the game"
+msgstr ""
+
+#: wp/scripts.php
+msgid "End of the game"
+msgstr ""
+
+#: wp/scripts.php
+msgid "Custom move"
+msgstr ""
+
+#: wp/scripts.php
 msgid "None"
 msgstr ""
 
@@ -1067,11 +1079,20 @@ msgid "Flip nav. board and diagrams"
 msgstr ""
 
 #: wp/scripts.php
+msgid "Initial selection"
+msgstr ""
+
+#: wp/scripts.php
 msgid "Flip button"
 msgstr ""
 
 #: wp/scripts.php
 msgid "Download button"
+msgstr ""
+
+#: wp/scripts.php
+msgid ""
+"For example: 1w for the first white move, 12b for the twelfth black move..."
 msgstr ""
 
 #: wp/adminpages.php
