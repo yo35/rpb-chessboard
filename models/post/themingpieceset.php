@@ -21,6 +21,7 @@
 
 
 require_once RPBCHESSBOARD_ABSPATH . 'models/post/theming.php';
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/custompiecesets.php';
 
 
 /**
@@ -28,7 +29,7 @@ require_once RPBCHESSBOARD_ABSPATH . 'models/post/theming.php';
  */
 class RPBChessboardModelPostThemingPieceset extends RPBChessboardModelPostTheming {
 
-	private static $COLORED_PIECE_CODES = array( 'bp', 'bn', 'bb', 'br', 'bq', 'bk', 'bx', 'wp', 'wn', 'wb', 'wr', 'wq', 'wk', 'wx' );
+	use RPBChessboardTraitCustomPiecesets;
 
 
 	protected function getCreationSuccessMessage() {

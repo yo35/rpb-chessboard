@@ -22,6 +22,8 @@
 
 require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/adminpage.php';
 require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/compatibility.php';
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/customcolorsets.php';
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/custompiecesets.php';
 
 
 /**
@@ -29,7 +31,7 @@ require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/compatibility.php';
  */
 class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdminPage {
 
-	use RPBChessboardTraitCompatibility;
+	use RPBChessboardTraitCompatibility, RPBChessboardTraitCustomColorsets, RPBChessboardTraitCustomPiecesets;
 
 	private $pieceSymbolCustomValues;
 

@@ -34,7 +34,7 @@
 			<label>
 				<span><?php esc_html_e( 'Name', 'rpb-chessboard' ); ?></span>
 				<input type="text" name="label"
-					value="<?php echo esc_attr( $isNew ? $model->getLabelProposalForNewSetCode() : $model->getCustomColorsetLabel( $colorset ) ); ?>" />
+					value="<?php echo esc_attr( $isNew ? $model->getLabelProposalForNewSetCode() : $model->getColorsetLabel( $colorset ) ); ?>" />
 			</label>
 		</div>
 

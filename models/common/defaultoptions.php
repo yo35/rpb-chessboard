@@ -61,6 +61,8 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel 
 			'getDefaultShowCoordinates',
 			'getDefaultColorset',
 			'getDefaultPieceset',
+			'isDefaultColorset',
+			'isDefaultPieceset',
 			'getDefaultDiagramAlignment',
 			'getDefaultPieceSymbols',
 			'getDefaultNavigationBoard',
@@ -132,6 +134,28 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel 
 			self::$pieceset = isset( $value ) ? $value : self::DEFAULT_PIECESET;
 		}
 		return self::$pieceset;
+	}
+
+
+	/**
+	 * Check whether the given colorset is the default one or not.
+	 *
+	 * @param string $colorset
+	 * @return boolean
+	 */
+	public function isDefaultColorset( $colorset ) {
+		return $this->getDefaultColorset() === $colorset;
+	}
+
+
+	/**
+	 * Check whether the given pieceset is the default one or not.
+	 *
+	 * @param string $pieceset
+	 * @return boolean
+	 */
+	public function isDefaultPieceset( $pieceset ) {
+		return $this->getDefaultPieceset() === $pieceset;
 	}
 
 

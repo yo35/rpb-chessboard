@@ -40,7 +40,7 @@
 			<label>
 				<span><?php esc_html_e( 'Name', 'rpb-chessboard' ); ?></span>
 				<input type="text" name="label"
-					value="<?php echo esc_attr( $isNew ? $model->getLabelProposalForNewSetCode() : $model->getCustomPiecesetLabel( $pieceset ) ); ?>" />
+					value="<?php echo esc_attr( $isNew ? $model->getLabelProposalForNewSetCode() : $model->getPiecesetLabel( $pieceset ) ); ?>" />
 			</label>
 		</div>
 

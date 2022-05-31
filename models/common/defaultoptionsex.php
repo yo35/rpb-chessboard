@@ -28,56 +28,21 @@ require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php';
  */
 class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractModel {
 
-	private static $availableColorsets;
-	private static $availablePiecesets;
 	private static $pieceSymbolLocalizationAvailable;
 	private static $simplifiedPieceSymbols;
 	private static $pieceSymbolCustomValues;
-
-	private static $BUILTIN_COLORSETS = array(
-		'coral'      => 'Coral',
-		'dusk'       => 'Dusk',
-		'emerald'    => 'Emerald',
-		'gray'       => 'Gray',
-		'marine'     => 'Marine',
-		'original'   => 'Original',
-		'sandcastle' => 'Sandcastle',
-		'scid'       => 'Scid',
-		'wikipedia'  => 'Wikipedia',
-		'wheat'      => 'Wheat',
-		'xboard'     => 'XBoard',
-	);
-
-	private static $BUILTIN_PIECESETS = array(
-		'cburnett' => 'CBurnett',
-		'celtic'   => 'Celtic',
-		'eyes'     => 'Eyes',
-		'fantasy'  => 'Fantasy',
-		'skulls'   => 'Skulls',
-		'spatial'  => 'Spatial',
-	);
 
 	public function __construct() {
 		parent::__construct();
 		$this->registerDelegatableMethods(
 			'getMinimumSquareSize',
 			'getMaximumSquareSize',
-			'getAvailableColorsets',
-			'isBuiltinColorset',
-			'isDefaultColorset',
-			'getColorsetLabel',
-			'getAvailablePiecesets',
-			'isBuiltinPieceset',
-			'isDefaultPieceset',
-			'getPiecesetLabel',
 			'isPieceSymbolLocalizationAvailable',
 			'getDefaultSimplifiedPieceSymbols',
 			'getDefaultPieceSymbolCustomValues'
 		);
 
 		$this->loadDelegateModel( 'Common/DefaultOptions' );
-		$this->loadDelegateModel( 'Common/CustomColorsets' );
-		$this->loadDelegateModel( 'Common/CustomPiecesets' );
 	}
 
 
@@ -98,110 +63,6 @@ class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractMode
 	 */
 	public function getMaximumSquareSize() {
 		return RPBChessboardHelperValidation::MAXIMUM_SQUARE_SIZE;
-	}
-
-
-	/**
-	 * Return all the available colorsets.
-	 *
-	 * @return array
-	 */
-	public function getAvailableColorsets() {
-		if ( ! isset( self::$availableColorsets ) ) {
-			$builtinColorsets         = array_keys( self::$BUILTIN_COLORSETS );
-			$customColorsets          = $this->getCustomColorsets();
-			self::$availableColorsets = array_merge( $builtinColorsets, $customColorsets );
-			asort( self::$availableColorsets );
-		}
-		return self::$availableColorsets;
-	}
-
-
-	/**
-	 * Check whether the given colorset is built-in or not.
-	 *
-	 * @return boolean
-	 */
-	public function isBuiltinColorset( $colorset ) {
-		return isset( self::$BUILTIN_COLORSETS[ $colorset ] );
-	}
-
-
-	/**
-	 * Check whether the given colorset is the default one or not.
-	 *
-	 * @param string $colorset
-	 * @return boolean
-	 */
-	public function isDefaultColorset( $colorset ) {
-		return $this->getDefaultColorset() === $colorset;
-	}
-
-
-	/**
-	 * Return the label of the given colorset.
-	 *
-	 * @return string
-	 */
-	public function getColorsetLabel( $colorset ) {
-		if ( $this->isBuiltinColorset( $colorset ) ) {
-			return self::$BUILTIN_COLORSETS[ $colorset ];
-		} else {
-			$result = $this->getCustomColorsetLabel( $colorset );
-			return '' === $result ? __( '(no name)', 'rpb-chessboard' ) : $result;
-		}
-	}
-
-
-	/**
-	 * Return all the available piecesets.
-	 *
-	 * @return array
-	 */
-	public function getAvailablePiecesets() {
-		if ( ! isset( self::$availablePiecesets ) ) {
-			$builtinPiecesets         = array_keys( self::$BUILTIN_PIECESETS );
-			$customPiecesets          = $this->getCustomPiecesets();
-			self::$availablePiecesets = array_merge( $builtinPiecesets, $customPiecesets );
-			asort( self::$availablePiecesets );
-		}
-		return self::$availablePiecesets;
-	}
-
-
-	/**
-	 * Check whether the given pieceset is built-in or not.
-	 *
-	 * @return boolean
-	 */
-	public function isBuiltinPieceset( $pieceset ) {
-		return isset( self::$BUILTIN_PIECESETS[ $pieceset ] );
-	}
-
-
-	/**
-	 * Check whether the given pieceset is the default one or not.
-	 *
-	 * @param string $pieceset
-	 * @return boolean
-	 */
-	public function isDefaultPieceset( $pieceset ) {
-		return $this->getDefaultPieceset() === $pieceset;
-	}
-
-
-	/**
-	 * Return the label of the given pieceset.
-	 *
-	 * @return string
-	 */
-	public function getPiecesetLabel( $pieceset ) {
-		if ( $this->isBuiltinPieceset( $pieceset ) ) {
-			return self::$BUILTIN_PIECESETS[ $pieceset ];
-		} else {
-			$result = $this->getCustomPiecesetLabel( $pieceset );
-			return '' === $result ? __( '(no name)', 'rpb-chessboard' ) : $result;
-		}
 	}
 
 

@@ -21,6 +21,8 @@
 
 
 require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/adminpage.php';
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/customcolorsets.php';
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/custompiecesets.php';
 
 
 /**
@@ -28,11 +30,13 @@ require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/adminpage.php';
  */
 class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdminPage {
 
+	use RPBChessboardTraitCustomColorsets, RPBChessboardTraitCustomPiecesets;
+
 	private static $piecesetEditionButtonTitle;
 
 	public function __construct() {
 		parent::__construct();
-		$this->loadDelegateModel( 'Common/DefaultOptionsEx' );
+		$this->loadDelegateModel( 'Common/DefaultOptions' );
 
 		// Create the sub-pages.
 		$this->addSubPage( 'Colorsets', __( 'Colorsets', 'rpb-chessboard' ), true );

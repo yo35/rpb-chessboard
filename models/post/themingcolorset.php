@@ -21,12 +21,16 @@
 
 
 require_once RPBCHESSBOARD_ABSPATH . 'models/post/theming.php';
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/customcolorsets.php';
 
 
 /**
  * Process a colorset creation/edition/deletion request.
  */
 class RPBChessboardModelPostThemingColorset extends RPBChessboardModelPostTheming {
+
+	use RPBChessboardTraitCustomColorsets;
+
 
 	protected function getCreationSuccessMessage() {
 		return __( 'Colorset created.', 'rpb-chessboard' );

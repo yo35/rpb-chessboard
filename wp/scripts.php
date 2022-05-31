@@ -46,10 +46,10 @@ abstract class RPBChessboardScripts {
 			'RPBChessboard',
 			array(
 				'publicURL'           => RPBCHESSBOARD_URL,
-				'customColorsets'     => self::getCustomColorsets(),
-				'customPiecesets'     => self::getCustomPiecesets(),
-				'availableColorsets'  => self::getAvailableColorsets(),
-				'availablePiecesets'  => self::getAvailablePiecesets(),
+				'customColorsets'     => self::getCustomColorsets( $mainModel ),
+				'customPiecesets'     => self::getCustomPiecesets( $mainModel ),
+				'availableColorsets'  => self::getAvailableColorsets( $mainModel ),
+				'availablePiecesets'  => self::getAvailablePiecesets( $mainModel ),
 				'availableSquareSize' => self::getAvailableSquareSize(),
 				'defaultSettings'     => self::getDefaultSettings(),
 				'smallScreenLimits'   => self::getSmallScreenLimits(),
@@ -79,8 +79,7 @@ abstract class RPBChessboardScripts {
 	}
 
 
-	private static function getCustomColorsets() {
-		$model  = RPBChessboardHelperLoader::loadModelLegacy( 'Common/CustomColorsets' );
+	private static function getCustomColorsets( $model ) {
 		$result = array();
 		foreach ( $model->getCustomColorsets() as $colorset ) {
 			$result[ $colorset ] = array(
@@ -96,12 +95,11 @@ abstract class RPBChessboardScripts {
 	}
 
 
-	private static function getCustomPiecesets() {
-		$model  = RPBChessboardHelperLoader::loadModelLegacy( 'Common/CustomPiecesets' );
+	private static function getCustomPiecesets( $model ) {
 		$result = array();
 		foreach ( $model->getCustomPiecesets() as $pieceset ) {
 			$current = array();
-			foreach ( RPBChessboardModelCommonCustomPiecesets::$COLORED_PIECE_CODES as $coloredPiece ) {
+			foreach ( RPBChessboardModelMain::$COLORED_PIECE_CODES as $coloredPiece ) {
 				$current[ $coloredPiece ] = $model->getCustomPiecesetImageURL( $pieceset, $coloredPiece );
 			}
 			$result[ $pieceset ] = $current;
@@ -110,8 +108,7 @@ abstract class RPBChessboardScripts {
 	}
 
 
-	private static function getAvailableColorsets() {
-		$model  = RPBChessboardHelperLoader::loadModelLegacy( 'Common/DefaultOptionsEx' );
+	private static function getAvailableColorsets( $model ) {
 		$result = array();
 		foreach ( $model->getAvailableColorsets() as $colorset ) {
 			$result[ $colorset ] = $model->getColorsetLabel( $colorset );
@@ -120,8 +117,7 @@ abstract class RPBChessboardScripts {
 	}
 
 
-	private static function getAvailablePiecesets() {
-		$model  = RPBChessboardHelperLoader::loadModelLegacy( 'Common/DefaultOptionsEx' );
+	private static function getAvailablePiecesets( $model ) {
 		$result = array();
 		foreach ( $model->getAvailablePiecesets() as $pieceset ) {
 			$result[ $pieceset ] = $model->getPiecesetLabel( $pieceset );

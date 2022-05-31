@@ -33,7 +33,7 @@ abstract class RPBChessboardModelPostTheming extends RPBChessboardAbstractModel 
 
 	public function __construct() {
 		parent::__construct();
-		$this->loadDelegateModel( 'Common/DefaultOptionsEx' );
+		$this->loadDelegateModel( 'Common/DefaultOptions' );
 	}
 
 
