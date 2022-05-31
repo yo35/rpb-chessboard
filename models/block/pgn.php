@@ -21,6 +21,7 @@
 
 
 require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/block.php';
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/defaultoptions.php';
 
 
 /**
@@ -28,13 +29,9 @@ require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/block.php';
  */
 class RPBChessboardModelBlockPGN extends RPBChessboardAbstractModelBlock {
 
+	use RPBChessboardTraitDefaultOptions;
+
 	private $widgetArgs;
-
-
-	public function __construct( $atts, $content ) {
-		parent::__construct( $atts, $content );
-		$this->loadDelegateModel( 'Common/DefaultOptions' );
-	}
 
 
 	/**

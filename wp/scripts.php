@@ -50,7 +50,7 @@ abstract class RPBChessboardScripts {
 				'customPiecesets'    => self::getCustomPiecesets( $mainModel ),
 				'availableColorsets' => self::getAvailableColorsets( $mainModel ),
 				'availablePiecesets' => self::getAvailablePiecesets( $mainModel ),
-				'defaultSettings'    => self::getDefaultSettings(),
+				'defaultSettings'    => self::getDefaultSettings( $mainModel ),
 				'smallScreenLimits'  => self::getSmallScreenLimits( $mainModel ),
 				'i18n'               => self::getJsI18n(),
 			)
@@ -125,8 +125,7 @@ abstract class RPBChessboardScripts {
 	}
 
 
-	private static function getDefaultSettings() {
-		$model = RPBChessboardHelperLoader::loadModelLegacy( 'Common/DefaultOptions' );
+	private static function getDefaultSettings( $model ) {
 		return array(
 			'squareSize'      => $model->getDefaultSquareSize(),
 			'showCoordinates' => $model->getDefaultShowCoordinates(),

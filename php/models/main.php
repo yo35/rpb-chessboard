@@ -23,6 +23,7 @@
 require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/compatibility.php';
 require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/customcolorsets.php';
 require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/custompiecesets.php';
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/defaultoptions.php';
 require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/smallscreens.php';
 
 
@@ -31,5 +32,6 @@ require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/smallscreens.php';
  */
 class RPBChessboardModelMain {
 
-	use RPBChessboardTraitCompatibility, RPBChessboardTraitCustomColorsets, RPBChessboardTraitCustomPiecesets, RPBChessboardTraitSmallScreens;
+	use RPBChessboardTraitCompatibility, RPBChessboardTraitCustomColorsets, RPBChessboardTraitCustomPiecesets,
+		RPBChessboardTraitDefaultOptions, RPBChessboardTraitSmallScreens;
 }

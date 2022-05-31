@@ -31,12 +31,6 @@ abstract class RPBChessboardModelPostTheming extends RPBChessboardAbstractModel 
 	private $customSetCodes;
 
 
-	public function __construct() {
-		parent::__construct();
-		$this->loadDelegateModel( 'Common/DefaultOptions' );
-	}
-
-
 	public function add() {
 		$setCode = $this->getNewSetCode();
 

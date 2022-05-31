@@ -24,6 +24,7 @@ require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/adminpage.php';
 require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/compatibility.php';
 require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/customcolorsets.php';
 require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/custompiecesets.php';
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/defaultoptions.php';
 require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/smallscreens.php';
 
 
@@ -32,14 +33,14 @@ require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/smallscreens.php';
  */
 class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdminPage {
 
-	use RPBChessboardTraitCompatibility, RPBChessboardTraitCustomColorsets, RPBChessboardTraitCustomPiecesets, RPBChessboardTraitSmallScreens;
+	use RPBChessboardTraitCompatibility, RPBChessboardTraitCustomColorsets, RPBChessboardTraitCustomPiecesets,
+		RPBChessboardTraitDefaultOptions, RPBChessboardTraitSmallScreens;
 
 	private $pieceSymbolCustomValues;
 
 
 	public function __construct() {
 		parent::__construct();
-		$this->loadDelegateModel( 'Common/DefaultOptions' );
 
 		// Create the sub-pages.
 		$this->addSubPage( 'General', __( 'Default aspect & behavior settings', 'rpb-chessboard' ), true );
