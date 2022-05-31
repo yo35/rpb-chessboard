@@ -20,13 +20,10 @@
  ******************************************************************************/
 
 
-require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php';
-
-
 /**
  * Base class for the models used to render the plugin blocks (and legacy shortcodes).
  */
-abstract class RPBChessboardAbstractModelBlock extends RPBChessboardAbstractModel {
+abstract class RPBChessboardAbstractModelBlock {
 
 	private $attributes;
 	private $content;
@@ -41,7 +38,6 @@ abstract class RPBChessboardAbstractModelBlock extends RPBChessboardAbstractMode
 	 * @param string $content Block/shortcode content.
 	 */
 	public function __construct( $attributes, $content ) {
-		parent::__construct();
 		$this->attributes = isset( $attributes ) && is_array( $attributes ) ? $attributes : array();
 		$this->content    = isset( $content ) && is_string( $content ) ? $content : '';
 	}
@@ -52,7 +48,7 @@ abstract class RPBChessboardAbstractModelBlock extends RPBChessboardAbstractMode
 	 *
 	 * @return array
 	 */
-	public function getAttributes() {
+	final protected function getAttributes() {
 		return $this->attributes;
 	}
 
@@ -62,7 +58,7 @@ abstract class RPBChessboardAbstractModelBlock extends RPBChessboardAbstractMode
 	 *
 	 * @return string
 	 */
-	public function getContent() {
+	final protected function getContent() {
 		if ( ! $this->contentFiltered ) {
 			$this->content         = $this->filterShortcodeContent( $this->content );
 			$this->contentFiltered = true;
@@ -90,7 +86,7 @@ abstract class RPBChessboardAbstractModelBlock extends RPBChessboardAbstractMode
 	 *
 	 * @return string
 	 */
-	public function getUniqueID() {
+	final public function getUniqueID() {
 		if ( ! isset( $this->uniqueID ) ) {
 			$this->uniqueID = self::makeUniqueID();
 		}

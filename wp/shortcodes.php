@@ -89,7 +89,7 @@ abstract class RPBChessboardShortcodes {
 		}
 
 		// Print the shortcode.
-		$model = RPBChessboardHelperLoader::loadModelLegacy( 'Shortcode/' . $shortcodeName, $atts, $content );
+		$model = RPBChessboardHelperLoader::loadModel( 'Block/Shortcode' . $shortcodeName, $atts, $content );
 		return RPBChessboardHelperLoader::printTemplateOffScreen( 'Block/' . $shortcodeName, $model );
 	}
 

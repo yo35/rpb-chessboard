@@ -61,7 +61,7 @@ abstract class RPBChessboardBlocks {
 
 
 	private static function runBlock( $blockName, $atts, $content ) {
-		$model = RPBChessboardHelperLoader::loadModelLegacy( 'Block/' . $blockName, $atts, $content );
+		$model = RPBChessboardHelperLoader::loadModel( 'Block/' . $blockName, $atts, $content );
 		return RPBChessboardHelperLoader::printTemplateOffScreen( 'Block/' . $blockName, $model );
 	}
 }

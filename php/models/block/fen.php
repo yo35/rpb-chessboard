@@ -20,8 +20,7 @@
  ******************************************************************************/
 
 
-require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/block.php';
-require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/defaultoptions.php';
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/block/abstract.php';
 
 
 /**
@@ -29,55 +28,53 @@ require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/defaultoptions.php';
  */
 class RPBChessboardModelBlockFEN extends RPBChessboardAbstractModelBlock {
 
-	use RPBChessboardTraitDefaultOptions;
-
-	private $widgetArgs;
-	private $diagramAlignment;
-
-
 	/**
 	 * Return the arguments to pass to the JS chessboard widget.
 	 *
 	 * @return array
 	 */
 	public function getWidgetArgs() {
-		if ( ! isset( $this->widgetArgs ) ) {
-			$atts             = $this->getAttributes();
-			$this->widgetArgs = array();
 
-			// Chessboard content
-			if ( isset( $atts['position'] ) ) {
-				$this->widgetArgs['position'] = $atts['position'];
-			}
-			if ( isset( $atts['squareMarkers'] ) ) {
-				$this->widgetArgs['squareMarkers'] = $atts['squareMarkers'];
-			}
-			if ( isset( $atts['arrowMarkers'] ) ) {
-				$this->widgetArgs['arrowMarkers'] = $atts['arrowMarkers'];
-			}
-			if ( isset( $atts['textMarkers'] ) ) {
-				$this->widgetArgs['textMarkers'] = $atts['textMarkers'];
-			}
-			if ( isset( $atts['flipped'] ) ) {
-				$this->widgetArgs['flipped'] = $atts['flipped'];
-			}
+		$atts       = $this->getAttributes();
+		$mainModel  = rpbchessboard_main_model();
+		$widgetArgs = array();
 
-			// Chessboard aspect
-			$this->widgetArgs['squareSize']        = isset( $atts['squareSize'] ) ? $atts['squareSize'] : $this->getDefaultSquareSize();
-			$this->widgetArgs['coordinateVisible'] = isset( $atts['coordinateVisible'] ) ? 'true' === $atts['coordinateVisible'] : $this->getDefaultShowCoordinates();
-			$this->widgetArgs['colorset']          = isset( $atts['colorset'] ) ? $atts['colorset'] : $this->getDefaultColorset();
-			$this->widgetArgs['pieceset']          = isset( $atts['pieceset'] ) ? $atts['pieceset'] : $this->getDefaultPieceset();
+		// Chessboard content
+		if ( isset( $atts['position'] ) ) {
+			$widgetArgs['position'] = $atts['position'];
 		}
-		return $this->widgetArgs;
+		if ( isset( $atts['squareMarkers'] ) ) {
+			$widgetArgs['squareMarkers'] = $atts['squareMarkers'];
+		}
+		if ( isset( $atts['arrowMarkers'] ) ) {
+			$widgetArgs['arrowMarkers'] = $atts['arrowMarkers'];
+		}
+		if ( isset( $atts['textMarkers'] ) ) {
+			$widgetArgs['textMarkers'] = $atts['textMarkers'];
+		}
+		if ( isset( $atts['flipped'] ) ) {
+			$widgetArgs['flipped'] = $atts['flipped'];
+		}
+
+		// Chessboard aspect
+		$widgetArgs['squareSize']        = isset( $atts['squareSize'] ) ? $atts['squareSize'] : $mainModel->getDefaultSquareSize();
+		$widgetArgs['coordinateVisible'] = isset( $atts['coordinateVisible'] ) ? 'true' === $atts['coordinateVisible'] : $mainModel->getDefaultShowCoordinates();
+		$widgetArgs['colorset']          = isset( $atts['colorset'] ) ? $atts['colorset'] : $mainModel->getDefaultColorset();
+		$widgetArgs['pieceset']          = isset( $atts['pieceset'] ) ? $atts['pieceset'] : $mainModel->getDefaultPieceset();
+
+		return $widgetArgs;
 	}
 
 
+	/**
+	 * Diagram alignment code.
+	 *
+	 * @return string
+	 */
 	public function getDiagramAlignment() {
-		if ( ! isset( $this->diagramAlignment ) ) {
-			$atts                   = $this->getAttributes();
-			$this->diagramAlignment = isset( $atts['align'] ) ? $atts['align'] : $this->getDefaultDiagramAlignment();
-		}
-		return $this->diagramAlignment;
+		$atts      = $this->getAttributes();
+		$mainModel = rpbchessboard_main_model();
+		return isset( $atts['align'] ) ? $atts['align'] : $mainModel->getDefaultDiagramAlignment();
 	}
 
 }
