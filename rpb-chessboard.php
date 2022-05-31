@@ -44,8 +44,9 @@ define( 'RPBCHESSBOARD_VERSION', '7.1.0' );
 load_plugin_textdomain( 'rpb-chessboard', false, basename( dirname( __FILE__ ) ) . '/languages' );
 
 
-// Various tools
-require_once RPBCHESSBOARD_ABSPATH . 'helpers/loader.php';
+// Load the helpers
+require_once RPBCHESSBOARD_ABSPATH . 'php/helpers/loader.php';
+require_once RPBCHESSBOARD_ABSPATH . 'php/helpers/validation.php';
 
 
 // POST actions, shortcodes, and miscellaneous...

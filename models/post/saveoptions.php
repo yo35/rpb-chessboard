@@ -21,7 +21,6 @@
 
 
 require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php';
-require_once RPBCHESSBOARD_ABSPATH . 'helpers/validation.php';
 
 
 /**

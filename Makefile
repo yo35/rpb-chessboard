@@ -24,7 +24,7 @@ PLUGIN_NAME = rpb-chessboard
 
 # Plugin files
 SRC_MAIN_FILE         = $(PLUGIN_NAME).php
-SRC_FOLDERS           = css helpers images languages models templates wp
+SRC_FOLDERS           = css images languages php models templates wp
 BUILD_FOLDER          = build
 THIRD_PARTY_FOLDER    = third-party-libs
 ASSET_FOLDER          = assets
