@@ -20,22 +20,13 @@
  ******************************************************************************/
 
 
-require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php';
-
-
 /**
  * Specific settings to deal with small-screen devices (such as smartphones).
  */
-class RPBChessboardModelCommonSmallScreens extends RPBChessboardAbstractModel {
+trait RPBChessboardTraitSmallScreens {
 
-	private static $smallScreenCompatibility;
-	private static $smallScreenModes;
-
-
-	public function __construct() {
-		parent::__construct();
-		$this->registerDelegatableMethods( 'getSmallScreenCompatibility', 'getSmallScreenModes' );
-	}
+	private $smallScreenCompatibility;
+	private $smallScreenModes;
 
 
 	/**
@@ -44,11 +35,11 @@ class RPBChessboardModelCommonSmallScreens extends RPBChessboardAbstractModel {
 	 * @return boolean
 	 */
 	public function getSmallScreenCompatibility() {
-		if ( ! isset( self::$smallScreenCompatibility ) ) {
+		if ( ! isset( $this->smallScreenCompatibility ) ) {
 			$value                          = RPBChessboardHelperValidation::validateBooleanFromInt( get_option( 'rpbchessboard_smallScreenCompatibility' ) );
-			self::$smallScreenCompatibility = isset( $value ) ? $value : true;
+			$this->smallScreenCompatibility = isset( $value ) ? $value : true;
 		}
-		return self::$smallScreenCompatibility;
+		return $this->smallScreenCompatibility;
 	}
 
 
@@ -58,17 +49,17 @@ class RPBChessboardModelCommonSmallScreens extends RPBChessboardAbstractModel {
 	 * @return array
 	 */
 	public function getSmallScreenModes() {
-		if ( ! isset( self::$smallScreenModes ) ) {
-			self::loadSmallScreenModes();
+		if ( ! isset( $this->smallScreenModes ) ) {
+			$this->loadSmallScreenModes();
 		}
-		return self::$smallScreenModes;
+		return $this->smallScreenModes;
 	}
 
 
 	/**
 	 * Load the small-screen mode specifications.
 	 */
-	private static function loadSmallScreenModes() {
+	private function loadSmallScreenModes() {
 
 		// Load the raw data
 		$data = RPBChessboardHelperValidation::validateSmallScreenModes( get_option( 'rpbchessboard_smallScreenModes' ) );
@@ -92,13 +83,14 @@ class RPBChessboardModelCommonSmallScreens extends RPBChessboardAbstractModel {
 		);
 
 		// Format the mode entries
-		self::$smallScreenModes   = array();
+		$this->smallScreenModes   = array();
 		$previousScreenWidthBound = 0;
 		foreach ( $data as $screenWidthBound => $mode ) {
 			$mode->minScreenWidth = $previousScreenWidthBound;
 			$mode->maxScreenWidth = $screenWidthBound;
-			array_push( self::$smallScreenModes, $mode );
+			array_push( $this->smallScreenModes, $mode );
 			$previousScreenWidthBound = $screenWidthBound;
 		}
 	}
+
 }

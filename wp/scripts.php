@@ -52,7 +52,7 @@ abstract class RPBChessboardScripts {
 				'availablePiecesets'  => self::getAvailablePiecesets( $mainModel ),
 				'availableSquareSize' => self::getAvailableSquareSize(),
 				'defaultSettings'     => self::getDefaultSettings(),
-				'smallScreenLimits'   => self::getSmallScreenLimits(),
+				'smallScreenLimits'   => self::getSmallScreenLimits( $mainModel ),
 				'i18n'                => self::getJsI18n(),
 			)
 		);
@@ -150,18 +150,19 @@ abstract class RPBChessboardScripts {
 	}
 
 
-	private static function getSmallScreenLimits() {
-		$model  = RPBChessboardHelperLoader::loadModelLegacy( 'Common/SmallScreens' );
+	private static function getSmallScreenLimits( $model ) {
 		$result = array();
-		foreach ( $model->getSmallScreenModes() as $mode ) {
-			array_push(
-				$result,
-				array(
-					'width'             => $mode->maxScreenWidth,
-					'squareSize'        => $mode->squareSize,
-					'coordinateVisible' => ! $mode->hideCoordinates,
-				)
-			);
+		if ( $model->getSmallScreenCompatibility() ) {
+			foreach ( $model->getSmallScreenModes() as $mode ) {
+				array_push(
+					$result,
+					array(
+						'width'             => $mode->maxScreenWidth,
+						'squareSize'        => $mode->squareSize,
+						'coordinateVisible' => ! $mode->hideCoordinates,
+					)
+				);
+			}
 		}
 		return $result;
 	}
