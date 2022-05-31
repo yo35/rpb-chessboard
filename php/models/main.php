@@ -20,48 +20,13 @@
  ******************************************************************************/
 
 
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/compatibility.php';
+
+
 /**
- * Register the plugin blocks.
- *
- * This class is not constructible. Call the static method `register()`
- * to trigger the registration operations (must be called only once).
+ * Main model: provide access to the plugin settings, regardless of the context (admin pages, frontend...).
  */
-abstract class RPBChessboardBlocks {
+class RPBChessboardModelMain {
 
-	public static function register() {
-
-		register_block_type(
-			'rpb-chessboard/fen',
-			array(
-				'api_version'     => 2,
-				'editor_script'   => 'rpbchessboard-npm',
-				'render_callback' => array( __CLASS__, 'callbackBlockFEN' ),
-			)
-		);
-
-		register_block_type(
-			'rpb-chessboard/pgn',
-			array(
-				'api_version'     => 2,
-				'editor_script'   => 'rpbchessboard-npm',
-				'render_callback' => array( __CLASS__, 'callbackBlockPGN' ),
-			)
-		);
-	}
-
-
-	public static function callbackBlockFEN( $atts, $content ) {
-		return self::runBlock( 'FEN', $atts, $content );
-	}
-
-
-	public static function callbackBlockPGN( $atts, $content ) {
-		return self::runBlock( 'PGN', $atts, $content );
-	}
-
-
-	private static function runBlock( $blockName, $atts, $content ) {
-		$model = RPBChessboardHelperLoader::loadModelLegacy( 'Block/' . $blockName, $atts, $content );
-		return RPBChessboardHelperLoader::printTemplateOffScreen( 'Block/' . $blockName, $model );
-	}
+	use RPBChessboardTraitCompatibility;
 }

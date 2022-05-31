@@ -21,6 +21,7 @@
 
 
 require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/adminpage.php';
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/compatibility.php';
 
 
 /**
@@ -28,13 +29,14 @@ require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/adminpage.php';
  */
 class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdminPage {
 
+	use RPBChessboardTraitCompatibility;
+
 	private $pieceSymbolCustomValues;
 
 
 	public function __construct() {
 		parent::__construct();
 		$this->loadDelegateModel( 'Common/DefaultOptionsEx' );
-		$this->loadDelegateModel( 'Common/Compatibility' );
 		$this->loadDelegateModel( 'Common/URLs' );
 		$this->loadDelegateModel( 'Common/SmallScreens' );
 

@@ -65,7 +65,7 @@ abstract class RPBChessboardAbstractModel {
 
 		// Load the model.
 		$args          = func_get_args();
-		$delegateModel = call_user_func_array( array( 'RPBChessboardHelperLoader', 'loadModel' ), $args );
+		$delegateModel = call_user_func_array( array( 'RPBChessboardHelperLoader', 'loadModelLegacy' ), $args );
 
 		// Register the new delegatable methods.
 		$this->methodIndex += $delegateModel->getDelegatableMethods();

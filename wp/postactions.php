@@ -88,7 +88,7 @@ abstract class RPBChessboardPostActions {
 			return;
 		}
 
-		$postModel = RPBChessboardHelperLoader::loadModel( 'Post/' . $postModelName );
+		$postModel = RPBChessboardHelperLoader::loadModelLegacy( 'Post/' . $postModelName );
 		$message   = $postModel->$methodName();
 
 		require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/adminpage.php';

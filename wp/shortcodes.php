@@ -30,12 +30,12 @@
  */
 abstract class RPBChessboardShortcodes {
 
-	public static function register() {
+	public static function register( $mainModel ) {
+
 		// Compatibility information -> describe which shortcode should be used to insert FEN diagrams,
 		// which one to insert PGN games, etc...
-		$compatibility               = RPBChessboardHelperLoader::loadModel( 'Common/Compatibility' );
-		$fenShortcode                = $compatibility->getFENShortcode();
-		$pgnShortcode                = $compatibility->getPGNShortcode();
+		$fenShortcode                = $mainModel->getFENShortcode();
+		$pgnShortcode                = $mainModel->getPGNShortcode();
 		self::$noTexturizeShortcodes = array( $fenShortcode, $pgnShortcode );
 		self::$lowLevelShortcodes    = array( $pgnShortcode );
 
@@ -89,7 +89,7 @@ abstract class RPBChessboardShortcodes {
 		}
 
 		// Print the shortcode.
-		$model = RPBChessboardHelperLoader::loadModel( 'Shortcode/' . $shortcodeName, $atts, $content );
+		$model = RPBChessboardHelperLoader::loadModelLegacy( 'Shortcode/' . $shortcodeName, $atts, $content );
 		return RPBChessboardHelperLoader::printTemplateOffScreen( 'Block/' . $shortcodeName, $model );
 	}
 

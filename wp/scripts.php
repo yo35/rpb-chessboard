@@ -28,7 +28,7 @@
  */
 abstract class RPBChessboardScripts {
 
-	public static function register() {
+	public static function register( $mainModel ) {
 
 		// Dependencies resolved using NPM
 		$asset_file = include RPBCHESSBOARD_ABSPATH . 'build/index.asset.php';
@@ -72,8 +72,7 @@ abstract class RPBChessboardScripts {
 			wp_enqueue_script( 'jquery' );
 
 			// Enqueue the JS if lazy-loading is disabled.
-			$compatibility = RPBChessboardHelperLoader::loadModel( 'Common/Compatibility' );
-			if ( ! $compatibility->getLazyLoadingForCSSAndJS() ) {
+			if ( ! $mainModel->getLazyLoadingForCSSAndJS() ) {
 				wp_enqueue_script( 'rpbchessboard-npm' );
 			}
 		}
@@ -81,7 +80,7 @@ abstract class RPBChessboardScripts {
 
 
 	private static function getCustomColorsets() {
-		$model  = RPBChessboardHelperLoader::loadModel( 'Common/CustomColorsets' );
+		$model  = RPBChessboardHelperLoader::loadModelLegacy( 'Common/CustomColorsets' );
 		$result = array();
 		foreach ( $model->getCustomColorsets() as $colorset ) {
 			$result[ $colorset ] = array(
@@ -98,7 +97,7 @@ abstract class RPBChessboardScripts {
 
 
 	private static function getCustomPiecesets() {
-		$model  = RPBChessboardHelperLoader::loadModel( 'Common/CustomPiecesets' );
+		$model  = RPBChessboardHelperLoader::loadModelLegacy( 'Common/CustomPiecesets' );
 		$result = array();
 		foreach ( $model->getCustomPiecesets() as $pieceset ) {
 			$current = array();
@@ -112,7 +111,7 @@ abstract class RPBChessboardScripts {
 
 
 	private static function getAvailableColorsets() {
-		$model  = RPBChessboardHelperLoader::loadModel( 'Common/DefaultOptionsEx' );
+		$model  = RPBChessboardHelperLoader::loadModelLegacy( 'Common/DefaultOptionsEx' );
 		$result = array();
 		foreach ( $model->getAvailableColorsets() as $colorset ) {
 			$result[ $colorset ] = $model->getColorsetLabel( $colorset );
@@ -122,7 +121,7 @@ abstract class RPBChessboardScripts {
 
 
 	private static function getAvailablePiecesets() {
-		$model  = RPBChessboardHelperLoader::loadModel( 'Common/DefaultOptionsEx' );
+		$model  = RPBChessboardHelperLoader::loadModelLegacy( 'Common/DefaultOptionsEx' );
 		$result = array();
 		foreach ( $model->getAvailablePiecesets() as $pieceset ) {
 			$result[ $pieceset ] = $model->getPiecesetLabel( $pieceset );
@@ -132,7 +131,7 @@ abstract class RPBChessboardScripts {
 
 
 	private static function getAvailableSquareSize() {
-		$model = RPBChessboardHelperLoader::loadModel( 'Common/DefaultOptionsEx' );
+		$model = RPBChessboardHelperLoader::loadModelLegacy( 'Common/DefaultOptionsEx' );
 		return array(
 			'min' => $model->getMinimumSquareSize(),
 			'max' => $model->getMaximumSquareSize(),
@@ -141,7 +140,7 @@ abstract class RPBChessboardScripts {
 
 
 	private static function getDefaultSettings() {
-		$model = RPBChessboardHelperLoader::loadModel( 'Common/DefaultOptions' );
+		$model = RPBChessboardHelperLoader::loadModelLegacy( 'Common/DefaultOptions' );
 		return array(
 			'squareSize'      => $model->getDefaultSquareSize(),
 			'showCoordinates' => $model->getDefaultShowCoordinates(),
@@ -156,7 +155,7 @@ abstract class RPBChessboardScripts {
 
 
 	private static function getSmallScreenLimits() {
-		$model  = RPBChessboardHelperLoader::loadModel( 'Common/SmallScreens' );
+		$model  = RPBChessboardHelperLoader::loadModelLegacy( 'Common/SmallScreens' );
 		$result = array();
 		foreach ( $model->getSmallScreenModes() as $mode ) {
 			array_push(

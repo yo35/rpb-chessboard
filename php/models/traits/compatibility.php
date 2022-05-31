@@ -20,30 +20,15 @@
  ******************************************************************************/
 
 
-require_once RPBCHESSBOARD_ABSPATH . 'models/abstract/abstractmodel.php';
-
-
 /**
  * Compatibility settings with respect to other chess plugins (that may use the
  * [fen][/fen] and [pgn][/pgn] shortcodes as well).
  */
-class RPBChessboardModelCommonCompatibility extends RPBChessboardAbstractModel {
+trait RPBChessboardTraitCompatibility {
 
-	private static $fenCompatibilityMode;
-	private static $pgnCompatibilityMode;
-	private static $lazyLoadingForCSSAndJS;
-
-
-	public function __construct() {
-		parent::__construct();
-		$this->registerDelegatableMethods(
-			'getFENCompatibilityMode',
-			'getPGNCompatibilityMode',
-			'getFENShortcode',
-			'getPGNShortcode',
-			'getLazyLoadingForCSSAndJS'
-		);
-	}
+	private $fenCompatibilityMode;
+	private $pgnCompatibilityMode;
+	private $lazyLoadingForCSSAndJS;
 
 
 	/**
@@ -53,11 +38,11 @@ class RPBChessboardModelCommonCompatibility extends RPBChessboardAbstractModel {
 	 * @return boolean
 	 */
 	public function getFENCompatibilityMode() {
-		if ( ! isset( self::$fenCompatibilityMode ) ) {
+		if ( ! isset( $this->fenCompatibilityMode ) ) {
 			$value                      = RPBChessboardHelperValidation::validateBooleanFromInt( get_option( 'rpbchessboard_fenCompatibilityMode' ) );
-			self::$fenCompatibilityMode = isset( $value ) ? $value : false;
+			$this->fenCompatibilityMode = isset( $value ) ? $value : false;
 		}
-		return self::$fenCompatibilityMode;
+		return $this->fenCompatibilityMode;
 	}
 
 
@@ -68,11 +53,11 @@ class RPBChessboardModelCommonCompatibility extends RPBChessboardAbstractModel {
 	 * @return boolean
 	 */
 	public function getPGNCompatibilityMode() {
-		if ( ! isset( self::$pgnCompatibilityMode ) ) {
+		if ( ! isset( $this->pgnCompatibilityMode ) ) {
 			$value                      = RPBChessboardHelperValidation::validateBooleanFromInt( get_option( 'rpbchessboard_pgnCompatibilityMode' ) );
-			self::$pgnCompatibilityMode = isset( $value ) ? $value : false;
+			$this->pgnCompatibilityMode = isset( $value ) ? $value : false;
 		}
-		return self::$pgnCompatibilityMode;
+		return $this->pgnCompatibilityMode;
 	}
 
 
@@ -103,10 +88,10 @@ class RPBChessboardModelCommonCompatibility extends RPBChessboardAbstractModel {
 	 * @return boolean
 	 */
 	public function getLazyLoadingForCSSAndJS() {
-		if ( ! isset( self::$lazyLoadingForCSSAndJS ) ) {
+		if ( ! isset( $this->lazyLoadingForCSSAndJS ) ) {
 			$value                        = RPBChessboardHelperValidation::validateBooleanFromInt( get_option( 'rpbchessboard_lazyLoadingForCSSAndJS' ) );
-			self::$lazyLoadingForCSSAndJS = isset( $value ) ? $value : true;
+			$this->lazyLoadingForCSSAndJS = isset( $value ) ? $value : true;
 		}
-		return self::$lazyLoadingForCSSAndJS;
+		return $this->lazyLoadingForCSSAndJS;
 	}
 }

@@ -28,7 +28,7 @@
  */
 abstract class RPBChessboardStyleSheets {
 
-	public static function register() {
+	public static function register( $mainModel ) {
 		$ext = self::getCSSFileExtension();
 
 		// Dependencies resolved using NPM
@@ -43,8 +43,7 @@ abstract class RPBChessboardStyleSheets {
 		} else {
 
 			// Enqueue the CSS if lazy-loading is disabled.
-			$compatibility = RPBChessboardHelperLoader::loadModel( 'Common/Compatibility' );
-			if ( ! $compatibility->getLazyLoadingForCSSAndJS() ) {
+			if ( ! $mainModel->getLazyLoadingForCSSAndJS() ) {
 				wp_enqueue_style( 'rpbchessboard-npm' );
 			}
 		}

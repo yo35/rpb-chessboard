@@ -49,6 +49,16 @@ require_once RPBCHESSBOARD_ABSPATH . 'php/helpers/loader.php';
 require_once RPBCHESSBOARD_ABSPATH . 'php/helpers/validation.php';
 
 
+// Main model
+function rpbchessboard_main_model() {
+	static $model = null;
+	if ( ! isset( $model ) ) {
+		$model = RPBChessboardHelperLoader::loadModel( 'Main' );
+	}
+	return $model;
+}
+
+
 // POST actions, shortcodes, and miscellaneous...
 add_action( 'init', 'rpbchessboard_init' );
 function rpbchessboard_init() {
@@ -63,7 +73,7 @@ function rpbchessboard_init() {
 	}
 
 	require_once RPBCHESSBOARD_ABSPATH . 'wp/shortcodes.php';
-	RPBChessboardShortcodes::register();
+	RPBChessboardShortcodes::register( rpbchessboard_main_model() );
 
 	require_once RPBCHESSBOARD_ABSPATH . 'wp/blocks.php';
 	RPBChessboardBlocks::register();
@@ -73,11 +83,12 @@ function rpbchessboard_init() {
 // JavaScript & CSS
 add_action( is_admin() ? 'admin_enqueue_scripts' : 'wp_enqueue_scripts', 'rpbchessboard_init_js_css' );
 function rpbchessboard_init_js_css() {
+
 	require_once RPBCHESSBOARD_ABSPATH . 'wp/scripts.php';
-	RPBChessboardScripts::register();
+	RPBChessboardScripts::register( rpbchessboard_main_model() );
 
 	require_once RPBCHESSBOARD_ABSPATH . 'wp/stylesheets.php';
-	RPBChessboardStyleSheets::register();
+	RPBChessboardStyleSheets::register( rpbchessboard_main_model() );
 }
 
 
