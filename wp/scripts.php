@@ -29,7 +29,6 @@
 abstract class RPBChessboardScripts {
 
 	public static function register() {
-		$ext = self::getJSFileExtension();
 
 		// Dependencies resolved using NPM
 		$asset_file = include RPBCHESSBOARD_ABSPATH . 'build/index.asset.php';
@@ -284,13 +283,4 @@ abstract class RPBChessboardScripts {
 		);
 	}
 
-
-	/**
-	 * Return the extension to use for the included JS files.
-	 *
-	 * @return string
-	 */
-	private static function getJSFileExtension() {
-		return WP_DEBUG ? '.js' : '.min.js';
-	}
 }
