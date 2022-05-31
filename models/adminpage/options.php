@@ -39,8 +39,7 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 
 	public function __construct() {
 		parent::__construct();
-		$this->loadDelegateModel( 'Common/DefaultOptionsEx' );
-		$this->loadDelegateModel( 'Common/URLs' );
+		$this->loadDelegateModel( 'Common/DefaultOptions' );
 
 		// Create the sub-pages.
 		$this->addSubPage( 'General', __( 'Default aspect & behavior settings', 'rpb-chessboard' ), true );
@@ -80,6 +79,73 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 
 
 	/**
+	 * URL to the main settings page.
+	 *
+	 * @return string
+	 */
+	public function getOptionsGeneralURL() {
+		return admin_url( 'admin.php' ) . '?page=rpbchessboard';
+	}
+
+
+	/**
+	 * URL to the small-screen settings page.
+	 *
+	 * @return string
+	 */
+	public function getOptionsSmallScreensURL() {
+		return admin_url( 'admin.php' ) . '?page=rpbchessboard&subpage=smallscreens';
+	}
+
+
+	/**
+	 * URL to the theming page.
+	 *
+	 * @return string
+	 */
+	public function getThemingURL() {
+		return admin_url( 'admin.php' ) . '?page=rpbchessboard-theming';
+	}
+
+
+	/**
+	 * Whether the localization is available for piece symbols or not.
+	 *
+	 * @return boolean
+	 */
+	public function isPieceSymbolLocalizationAvailable() {
+		// phpcs:disable
+		return
+			/*i18n King symbol   */ __( 'K', 'rpb-chessboard' ) !== 'K' ||
+			/*i18n Queen symbol  */ __( 'Q', 'rpb-chessboard' ) !== 'Q' ||
+			/*i18n Rook symbol   */ __( 'R', 'rpb-chessboard' ) !== 'R' ||
+			/*i18n Bishop symbol */ __( 'B', 'rpb-chessboard' ) !== 'B' ||
+			/*i18n Knight symbol */ __( 'N', 'rpb-chessboard' ) !== 'N' ||
+			/*i18n Pawn symbol   */ __( 'P', 'rpb-chessboard' ) !== 'P';
+		// phpcs:enable
+	}
+
+
+	/**
+	 * Simplified version of the default piece symbol mode.
+	 *
+	 * @return boolean
+	 */
+	public function getDefaultSimplifiedPieceSymbols() {
+		switch ( $this->getDefaultPieceSymbols() ) {
+			case 'native':
+				return 'english';
+			case 'figurines':
+				return 'figurines';
+			case 'localized':
+				return $this->isPieceSymbolLocalizationAvailable() ? 'localized' : 'english';
+			default:
+				return 'custom';
+		}
+	}
+
+
+	/**
 	 * Default value for the piece symbol custom fields.
 	 *
 	 * @param string $piece `'K'`, `'Q'`, `'R'`, `'B'`, `'N'`, or `'P'`.
@@ -87,8 +153,16 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 	 */
 	public function getPieceSymbolCustomValue( $piece ) {
 		if ( ! isset( $this->pieceSymbolCustomValues ) ) {
-			$this->pieceSymbolCustomValues = $this->getDefaultPieceSymbolCustomValues();
-			if ( empty( $this->pieceSymbolCustomValues ) ) {
+			if ( preg_match( '/^([a-zA-Z]*),([a-zA-Z]*),([a-zA-Z]*),([a-zA-Z]*),([a-zA-Z]*),([a-zA-Z]*)$/', $this->getDefaultPieceSymbols(), $m ) ) {
+				$this->pieceSymbolCustomValues = array(
+					'K' => $m[1],
+					'Q' => $m[2],
+					'R' => $m[3],
+					'B' => $m[4],
+					'N' => $m[5],
+					'P' => $m[6],
+				);
+			} else {
 				$this->pieceSymbolCustomValues = array(
 					'K' => '',
 					'Q' => '',
@@ -101,4 +175,5 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 		}
 		return $this->pieceSymbolCustomValues[ $piece ];
 	}
+
 }
