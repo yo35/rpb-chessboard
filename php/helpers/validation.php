@@ -26,29 +26,6 @@
 abstract class RPBChessboardHelperValidation {
 
 	/**
-	 * Minimum square size of the chessboard widgets.
-	 */
-	const MINIMUM_SQUARE_SIZE = 12;
-
-
-	/**
-	 * Maximum square size of the chessboard widgets.
-	 */
-	const MAXIMUM_SQUARE_SIZE = 96;
-
-
-	/**
-	 * Validate a chessboard widget square size parameter.
-	 *
-	 * @param mixed $value
-	 * @return int May be null is the value is not valid.
-	 */
-	public static function validateSquareSize( $value ) {
-		return self::validateInteger( $value, self::MINIMUM_SQUARE_SIZE, self::MAXIMUM_SQUARE_SIZE );
-	}
-
-
-	/**
 	 * Validate a color (defined as a hexadecimal string).
 	 *
 	 * @param mixed $value
@@ -175,8 +152,8 @@ abstract class RPBChessboardHelperValidation {
 			}
 
 			// Validate each sub-token
-			$screenWidth     = self::validateInteger( $tokens[0], 1 );
-			$squareSize      = self::validateSquareSize( $tokens[1] );
+			$screenWidth     = self::validateInteger( $tokens[0] );
+			$squareSize      = self::validateInteger( $tokens[1] );
 			$hideCoordinates = self::validateBoolean( $tokens[2] );
 			if ( isset( $screenWidth ) && isset( $squareSize ) && isset( $hideCoordinates ) ) {
 				$res[ $screenWidth ] = (object) array(
@@ -196,13 +173,11 @@ abstract class RPBChessboardHelperValidation {
 	 * Validate an integer.
 	 *
 	 * @param mixed $value
-	 * @param int   $min Minimum value (optional).
-	 * @param int   $max Maximum value (optional).
 	 * @return int May be null is the value is not valid.
 	 */
-	public static function validateInteger( $value, $min = null, $max = null ) {
+	public static function validateInteger( $value ) {
 		$value = filter_var( $value, FILTER_VALIDATE_INT );
-		return false === $value ? null : max( null === $max ? $value : min( $value, $max ), $min );
+		return false === $value ? null : $value;
 	}
 
 

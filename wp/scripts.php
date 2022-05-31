@@ -45,15 +45,14 @@ abstract class RPBChessboardScripts {
 			'rpbchessboard-npm',
 			'RPBChessboard',
 			array(
-				'publicURL'           => RPBCHESSBOARD_URL,
-				'customColorsets'     => self::getCustomColorsets( $mainModel ),
-				'customPiecesets'     => self::getCustomPiecesets( $mainModel ),
-				'availableColorsets'  => self::getAvailableColorsets( $mainModel ),
-				'availablePiecesets'  => self::getAvailablePiecesets( $mainModel ),
-				'availableSquareSize' => self::getAvailableSquareSize(),
-				'defaultSettings'     => self::getDefaultSettings(),
-				'smallScreenLimits'   => self::getSmallScreenLimits( $mainModel ),
-				'i18n'                => self::getJsI18n(),
+				'publicURL'          => RPBCHESSBOARD_URL,
+				'customColorsets'    => self::getCustomColorsets( $mainModel ),
+				'customPiecesets'    => self::getCustomPiecesets( $mainModel ),
+				'availableColorsets' => self::getAvailableColorsets( $mainModel ),
+				'availablePiecesets' => self::getAvailablePiecesets( $mainModel ),
+				'defaultSettings'    => self::getDefaultSettings(),
+				'smallScreenLimits'  => self::getSmallScreenLimits( $mainModel ),
+				'i18n'               => self::getJsI18n(),
 			)
 		);
 
@@ -123,15 +122,6 @@ abstract class RPBChessboardScripts {
 			$result[ $pieceset ] = $model->getPiecesetLabel( $pieceset );
 		}
 		return $result;
-	}
-
-
-	private static function getAvailableSquareSize() {
-		$model = RPBChessboardHelperLoader::loadModelLegacy( 'Common/DefaultOptionsEx' );
-		return array(
-			'min' => $model->getMinimumSquareSize(),
-			'max' => $model->getMaximumSquareSize(),
-		);
 	}
 
 

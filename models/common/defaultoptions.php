@@ -83,7 +83,7 @@ class RPBChessboardModelCommonDefaultOptions extends RPBChessboardAbstractModel 
 	 */
 	public function getDefaultSquareSize() {
 		if ( ! isset( self::$squareSize ) ) {
-			$value            = RPBChessboardHelperValidation::validateSquareSize( get_option( 'rpbchessboard_squareSize' ) );
+			$value            = RPBChessboardHelperValidation::validateInteger( get_option( 'rpbchessboard_squareSize' ) );
 			self::$squareSize = isset( $value ) ? $value : self::DEFAULT_SQUARE_SIZE;
 		}
 		return self::$squareSize;

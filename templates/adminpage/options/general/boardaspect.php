@@ -30,9 +30,7 @@
 			<?php
 				printf(
 					esc_html__( 'Square size: %1$s pixels', 'rpb-chessboard' ),
-					'<input type="text" id="rpbchessboard-squareSizeField" class="rpbchessboard-squareSizeField" name="squareSize" ' .
-						'size="' . esc_attr( $model->getDigitNumberForSquareSize() ) . '" ' .
-						'maxLength="' . esc_attr( $model->getDigitNumberForSquareSize() ) . '" ' .
+					'<input type="text" id="rpbchessboard-squareSizeField" class="rpbchessboard-squareSizeField" name="squareSize" size="3" ' .
 						'value="' . esc_attr( $model->getDefaultSquareSize() ) . '"/>'
 				);
 			?>
@@ -120,8 +118,8 @@
 		$('#rpbchessboard-squareSizeField').prop('readonly', true);
 		$('#rpbchessboard-squareSizeSlider').slider({
 			value: squareSize,
-			min: <?php echo wp_json_encode( $model->getMinimumSquareSize() ); ?>,
-			max: <?php echo wp_json_encode( $model->getMaximumSquareSize() ); ?>,
+			min: RPBChessboard.availableSquareSize.min,
+			max: RPBChessboard.availableSquareSize.max,
 			slide: function(event, ui) {
 				squareSize = ui.value;
 				$('#rpbchessboard-squareSizeField').val(squareSize);

@@ -72,7 +72,7 @@ class RPBChessboardModelShortcodeFEN extends RPBChessboardAbstractModelBlock {
 			}
 
 			// Square size
-			$value                          = isset( $atts['square_size'] ) ? RPBChessboardHelperValidation::validateSquareSize( $atts['square_size'] ) : null;
+			$value                          = isset( $atts['square_size'] ) ? RPBChessboardHelperValidation::validateInteger( $atts['square_size'] ) : null;
 			$this->widgetArgs['squareSize'] = isset( $value ) ? $value : $this->getDefaultSquareSize();
 
 			// Show coordinates

@@ -43,6 +43,12 @@ kokopuReactI18n.PIECE_SYMBOLS = {
 	P: RPBChessboard.i18n.PIECE_SYMBOLS.P,
 };
 
+// Square size bounds
+RPBChessboard.availableSquareSize = {
+	min: Chessboard.minSquareSize(),
+	max: Chessboard.maxSquareSize(),
+};
+
 // Theming
 Object.assign(Chessboard.colorsets(), RPBChessboard.customColorsets);
 Object.assign(Chessboard.piecesets(), RPBChessboard.customPiecesets);

@@ -80,17 +80,6 @@ class RPBChessboardModelAdminPageOptions extends RPBChessboardAbstractModelAdmin
 
 
 	/**
-	 * Number of digits of the square size parameter.
-	 *
-	 * @return int
-	 */
-	public function getDigitNumberForSquareSize() {
-		$maxVal = $this->getMaximumSquareSize();
-		return 1 + floor( log10( $maxVal ) );
-	}
-
-
-	/**
 	 * Default value for the piece symbol custom fields.
 	 *
 	 * @param string $piece `'K'`, `'Q'`, `'R'`, `'B'`, `'N'`, or `'P'`.

@@ -35,34 +35,12 @@ class RPBChessboardModelCommonDefaultOptionsEx extends RPBChessboardAbstractMode
 	public function __construct() {
 		parent::__construct();
 		$this->registerDelegatableMethods(
-			'getMinimumSquareSize',
-			'getMaximumSquareSize',
 			'isPieceSymbolLocalizationAvailable',
 			'getDefaultSimplifiedPieceSymbols',
 			'getDefaultPieceSymbolCustomValues'
 		);
 
 		$this->loadDelegateModel( 'Common/DefaultOptions' );
-	}
-
-
-	/**
-	 * Minimum square size of the chessboard widgets.
-	 *
-	 * @return int
-	 */
-	public function getMinimumSquareSize() {
-		return RPBChessboardHelperValidation::MINIMUM_SQUARE_SIZE;
-	}
-
-
-	/**
-	 * Maximum square size of the chessboard widgets.
-	 *
-	 * @return int
-	 */
-	public function getMaximumSquareSize() {
-		return RPBChessboardHelperValidation::MAXIMUM_SQUARE_SIZE;
 	}
 
 

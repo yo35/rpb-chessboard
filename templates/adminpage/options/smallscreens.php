@@ -71,9 +71,7 @@ if ( 0 === $screenMode->minScreenWidth ) {
 			printf(
 				esc_html__( 'Restrict square size to: %1$s pixels', 'rpb-chessboard' ),
 				'<input type="text" id="rpbchessboard-smallScreenMode' . esc_attr( $index ) . '-squareSizeField" class="rpbchessboard-squareSizeField" ' .
-					'name="smallScreenMode' . esc_attr( $index ) . '-squareSize" ' .
-					'size="' . esc_attr( $model->getDigitNumberForSquareSize() ) . '" ' .
-					'maxLength="' . esc_attr( $model->getDigitNumberForSquareSize() ) . '" ' .
+					'name="smallScreenMode' . esc_attr( $index ) . '-squareSize" size="3" ' .
 					'value="' . esc_attr( $screenMode->squareSize ) . '"/>'
 			);
 		?>
@@ -146,8 +144,8 @@ if ( 0 === $screenMode->minScreenWidth ) {
 			field.prop('readonly', true);
 			$('#rpbchessboard-smallScreenMode' + index + '-squareSizeSlider').slider({
 				value: field.val(),
-				min: <?php echo wp_json_encode( $model->getMinimumSquareSize() ); ?>,
-				max: <?php echo wp_json_encode( $model->getMaximumSquareSize() ); ?>,
+				min: RPBChessboard.availableSquareSize.min,
+				max: RPBChessboard.availableSquareSize.max,
 				slide: function(event, ui) { field.val(ui.value); }
 			});
 		}

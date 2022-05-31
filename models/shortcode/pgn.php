@@ -99,7 +99,7 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelBlock {
 			$atts = $this->getAttributes();
 
 			// Game index
-			$value = isset( $atts['game'] ) ? RPBChessboardHelperValidation::validateInteger( $atts['game'], 0 ) : null;
+			$value = isset( $atts['game'] ) ? RPBChessboardHelperValidation::validateInteger( $atts['game'] ) : null;
 			if ( isset( $value ) ) {
 				$this->widgetArgs['gameIndex'] = $value;
 			}
@@ -111,7 +111,7 @@ class RPBChessboardModelShortcodePGN extends RPBChessboardAbstractModelBlock {
 			}
 
 			// Square size
-			$value                             = isset( $atts['square_size'] ) ? RPBChessboardHelperValidation::validateSquareSize( $atts['square_size'] ) : null;
+			$value                             = isset( $atts['square_size'] ) ? RPBChessboardHelperValidation::validateInteger( $atts['square_size'] ) : null;
 			$this->widgetArgs['nboSquareSize'] = isset( $value ) ? $value : $this->getDefaultSquareSize();
 			$this->widgetArgs['idoSquareSize'] = $this->widgetArgs['nboSquareSize'];
 
