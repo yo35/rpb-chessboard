@@ -26,7 +26,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import kokopu from 'kokopu';
-import { Chessboard, ErrorBox, Movetext } from 'kokopu-react';
+import { Chessboard, ErrorBox, Movetext, formatMove } from 'kokopu-react';
 
 import NavigationButton from './NavigationButton';
 import { showPopupFrame, hidePopupFrame } from './NavigationFrame';
@@ -210,10 +210,11 @@ export default class Chessgame extends React.Component {
 		}
 		else {
 			let result = this.state.withMove && node.notation() !== '--' ? { position: node.positionBefore(), move: node.notation() } : { position: node.position() };
+			let notation = node.fullMoveNumber() + (node.moveColor() === 'w' ? '.' : '\u2026') + node.notation();
 			result.csl = node.tag('csl');
 			result.cal = node.tag('cal');
 			result.ctl = node.tag('ctl');
-			result.label = node.fullMoveNumber() + (node.moveColor() === 'w' ? '.' : '\u2026') + node.notation(); // TODO adapt to piece symbols attr
+			result.label = formatMove(this.getPieceSymbols(), notation);
 			return result;
 		}
 	}
