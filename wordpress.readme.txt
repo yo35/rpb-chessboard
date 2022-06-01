@@ -85,6 +85,10 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 7.1.1 (June 1, 2022) =
+* Fix `<br>` tags not working in PGN comments (see #238) and improve support of HTML tags (in particular: paragraphs, lists and images are now allowed in PGN comments).
+* Minor fixes.
+
 = 7.1.0 (May 24, 2022) =
 * Tested up to WordPress 6.0.
 * Add support for NAGs 141, 143 and 145.
