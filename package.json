@@ -6,7 +6,7 @@
 		"@wordpress/components": "^19.11.0",
 		"@wordpress/icons": "^9.0.0",
 		"kokopu": "^2.8.0",
-		"kokopu-react": "^1.5.5",
+		"kokopu-react": "^1.6.0",
 		"prop-types": "^15.8.1",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2"
