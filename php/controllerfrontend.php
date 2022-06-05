@@ -20,48 +20,40 @@
  ******************************************************************************/
 
 
+require_once RPBCHESSBOARD_ABSPATH . 'php/abstractcontroller.php';
+
+
 /**
- * Register the plugin blocks.
- *
- * This class is not constructible. Call the static method `register()`
- * to trigger the registration operations (must be called only once).
+ * Controller for the front-end part of the website.
  */
-abstract class RPBChessboardBlocks {
+class RPBChessboardControllerFrontend extends RPBChessboardAbstractController {
 
-	public static function register() {
 
-		register_block_type(
-			'rpb-chessboard/fen',
-			array(
-				'api_version'     => 2,
-				'editor_script'   => 'rpbchessboard-npm',
-				'render_callback' => array( __CLASS__, 'callbackBlockFEN' ),
-			)
-		);
-
-		register_block_type(
-			'rpb-chessboard/pgn',
-			array(
-				'api_version'     => 2,
-				'editor_script'   => 'rpbchessboard-npm',
-				'render_callback' => array( __CLASS__, 'callbackBlockPGN' ),
-			)
-		);
+	protected function getScriptRegistrationHook() {
+		return 'wp_enqueue_scripts';
 	}
 
 
-	public static function callbackBlockFEN( $atts, $content ) {
-		return self::runBlock( 'FEN', $atts, $content );
+	public function registerStylesheets() {
+		parent::registerStylesheets();
+
+		// Enqueue the main CSS files if lazy-loading is disabled.
+		if ( ! $this->getMainModel()->getLazyLoadingForCSSAndJS() ) {
+			wp_enqueue_style( 'rpbchessboard-npm' );
+		}
 	}
 
 
-	public static function callbackBlockPGN( $atts, $content ) {
-		return self::runBlock( 'PGN', $atts, $content );
+	public function registerScripts() {
+		parent::registerScripts();
+
+		// Force jQuery to be loaded in the header (should be the case anyway in most themes).
+		wp_enqueue_script( 'jquery' );
+
+		// Enqueue the main JS files if lazy-loading is disabled.
+		if ( ! $this->getMainModel()->getLazyLoadingForCSSAndJS() ) {
+			wp_enqueue_script( 'rpbchessboard-npm' );
+		}
 	}
 
-
-	private static function runBlock( $blockName, $atts, $content ) {
-		$model = RPBChessboardHelperLoader::loadModel( 'Block/' . $blockName, $atts, $content );
-		return RPBChessboardHelperLoader::printTemplateOffScreen( 'Block/' . $blockName, $model );
-	}
 }

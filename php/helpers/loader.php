@@ -64,6 +64,20 @@ abstract class RPBChessboardHelperLoader {
 
 
 	/**
+	 * Load the controller corresponding to the given name.
+	 *
+	 * @param string $controllerName Name of the controller.
+	 * @return object New instance of the controller.
+	 */
+	public static function loadController( $controllerName ) {
+		$fileName  = strtolower( $controllerName );
+		$className = 'RPBChessboard' . $controllerName;
+		require_once RPBCHESSBOARD_ABSPATH . 'php/' . $fileName . '.php';
+		return new $className();
+	}
+
+
+	/**
 	 * Print the given template to the current output.
 	 *
 	 * @param string $templateName

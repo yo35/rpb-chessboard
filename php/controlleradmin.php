@@ -20,42 +20,63 @@
  ******************************************************************************/
 
 
+require_once RPBCHESSBOARD_ABSPATH . 'php/abstractcontroller.php';
+
+
 /**
- * Register the plugin CSS.
- *
- * This class is not constructible. Call the static method `register()`
- * to trigger the registration operations (must be called only once).
+ * Controller for the admin part of the website.
  */
-abstract class RPBChessboardStyleSheets {
+class RPBChessboardControllerAdmin extends RPBChessboardAbstractController {
 
-	public static function register( $mainModel ) {
-		$ext = self::getCSSFileExtension();
 
-		// Dependencies resolved using NPM
-		$asset_file = include RPBCHESSBOARD_ABSPATH . 'build/index.asset.php';
-		wp_register_style( 'rpbchessboard-npm', RPBCHESSBOARD_URL . 'build/index.css', array( 'wp-jquery-ui-dialog' ), $asset_file['version'] );
+	public function init() {
+		parent::init();
 
-		// Additional CSS for the frontend/backend.
-		if ( is_admin() ) {
-			wp_enqueue_style( 'rpbchessboard-npm' );
-			wp_register_style( 'rpbchessboard-jquery-ui-smoothness', RPBCHESSBOARD_URL . 'third-party-libs/jquery/jquery-ui.smoothness' . $ext, false, '1.11.4' );
-			wp_enqueue_style( 'rpbchessboard-backend', RPBCHESSBOARD_URL . 'css/backend' . $ext, array( 'rpbchessboard-jquery-ui-smoothness' ), RPBCHESSBOARD_VERSION );
-		} else {
-
-			// Enqueue the CSS if lazy-loading is disabled.
-			if ( ! $mainModel->getLazyLoadingForCSSAndJS() ) {
-				wp_enqueue_style( 'rpbchessboard-npm' );
-			}
-		}
+		// Allow to upload .pgn files in the media
+		add_filter( 'upload_mimes', array( __CLASS__, 'registerPgnMimeType' ) );
 	}
 
 
-	/**
-	 * Return the extension to use for the included CSS files.
-	 *
-	 * @return string
-	 */
+	public static function registerPgnMimeType( $mimeTypes ) {
+		$mimeTypes['pgn'] = 'text/plain';
+		return $mimeTypes;
+	}
+
+
+	protected function getScriptRegistrationHook() {
+		return 'admin_enqueue_scripts';
+	}
+
+
+	public function registerStylesheets() {
+		parent::registerStylesheets();
+
+		$ext = self::getCSSFileExtension();
+
+		// Always enqueue the main CSS files
+		wp_enqueue_style( 'rpbchessboard-npm' );
+
+		// CSS files specific to the admin
+		wp_register_style( 'rpbchessboard-jquery-ui-smoothness', RPBCHESSBOARD_URL . 'third-party-libs/jquery/jquery-ui.smoothness' . $ext, false, '1.11.4' );
+		wp_enqueue_style( 'rpbchessboard-backend', RPBCHESSBOARD_URL . 'css/backend' . $ext, array( 'rpbchessboard-jquery-ui-smoothness' ), RPBCHESSBOARD_VERSION );
+	}
+
+
+	public function registerScripts() {
+		parent::registerScripts();
+
+		// Additional scripts for the backend.
+		// FIXME Those scripts should be enqueued only if necessary. To achieve that, we need to fix issue concerning inlined scripts,
+		// interaction with the TinyMCE/QuickTag editors, and to carefully review what is used on which page.
+		wp_enqueue_script( 'rpbchessboard-npm' );
+		wp_enqueue_script( 'jquery-ui-slider' );
+		wp_enqueue_script( 'iris' );
+		wp_enqueue_media();
+	}
+
+
 	private static function getCSSFileExtension() {
 		return WP_DEBUG ? '.css' : '.min.css';
 	}
+
 }

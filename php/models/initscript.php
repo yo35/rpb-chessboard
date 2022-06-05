@@ -21,85 +21,54 @@
 
 
 /**
- * Register the plugin JavaScript scripts.
- *
- * This class is not constructible. Call the static method `register()`
- * to trigger the registration operations (must be called only once).
+ * Model used to parametrize (aka. to "localize" in the WordPress terminology) the main JS file.
  */
-abstract class RPBChessboardScripts {
+class RPBChessboardModelInitScript {
 
-	public static function register( $mainModel ) {
+	private $mainModel;
 
-		// Dependencies resolved using NPM
-		$asset_file = include RPBCHESSBOARD_ABSPATH . 'build/index.asset.php';
-		wp_register_script(
-			'rpbchessboard-npm',
-			RPBCHESSBOARD_URL . 'build/index.js',
-			array_merge( $asset_file['dependencies'], array( 'jquery-ui-dialog' ) ),
-			$asset_file['version'],
-			false
-		);
 
-		// Configure JS
-		wp_localize_script(
-			'rpbchessboard-npm',
-			'RPBChessboard',
-			array(
-				'publicURL'          => RPBCHESSBOARD_URL,
-				'customColorsets'    => self::getCustomColorsets( $mainModel ),
-				'customPiecesets'    => self::getCustomPiecesets( $mainModel ),
-				'availableColorsets' => self::getAvailableColorsets( $mainModel ),
-				'availablePiecesets' => self::getAvailablePiecesets( $mainModel ),
-				'defaultSettings'    => self::getDefaultSettings( $mainModel ),
-				'smallScreenLimits'  => self::getSmallScreenLimits( $mainModel ),
-				'i18n'               => self::getJsI18n(),
-			)
-		);
-
-		// Additional scripts for the backend.
-		// FIXME Those scripts should be enqueued only if necessary. To achieve that, we need to fix issue concerning inlined scripts,
-		// interaction with the TinyMCE/QuickTag editors, and to carefully review what is used on which page.
-		if ( is_admin() ) {
-			wp_enqueue_script( 'rpbchessboard-npm' );
-			wp_enqueue_script( 'jquery-ui-slider' );
-			wp_enqueue_script( 'iris' );
-			wp_enqueue_media();
-
-		} else {
-
-			// In frontend, force jQuery to be loaded in the header (should be the case anyway in most themes).
-			wp_enqueue_script( 'jquery' );
-
-			// Enqueue the JS if lazy-loading is disabled.
-			if ( ! $mainModel->getLazyLoadingForCSSAndJS() ) {
-				wp_enqueue_script( 'rpbchessboard-npm' );
-			}
-		}
+	public function __construct( $mainModel ) {
+		$this->mainModel = $mainModel;
 	}
 
 
-	private static function getCustomColorsets( $model ) {
+	public function getParameters() {
+		return array(
+			'publicURL'          => RPBCHESSBOARD_URL,
+			'customColorsets'    => $this->getCustomColorsets(),
+			'customPiecesets'    => $this->getCustomPiecesets(),
+			'availableColorsets' => $this->getAvailableColorsets(),
+			'availablePiecesets' => $this->getAvailablePiecesets(),
+			'defaultSettings'    => $this->getDefaultSettings(),
+			'smallScreenLimits'  => $this->getSmallScreenLimits(),
+			'i18n'               => self::getJsI18n(),
+		);
+	}
+
+
+	private function getCustomColorsets() {
 		$result = array();
-		foreach ( $model->getCustomColorsets() as $colorset ) {
+		foreach ( $this->mainModel->getCustomColorsets() as $colorset ) {
 			$result[ $colorset ] = array(
-				'b'         => $model->getDarkSquareColor( $colorset ),
-				'w'         => $model->getLightSquareColor( $colorset ),
-				'g'         => $model->getGreenMarkerColor( $colorset ),
-				'r'         => $model->getRedMarkerColor( $colorset ),
-				'y'         => $model->getYellowMarkerColor( $colorset ),
-				'highlight' => $model->getHighlightColor( $colorset ),
+				'b'         => $this->mainModel->getDarkSquareColor( $colorset ),
+				'w'         => $this->mainModel->getLightSquareColor( $colorset ),
+				'g'         => $this->mainModel->getGreenMarkerColor( $colorset ),
+				'r'         => $this->mainModel->getRedMarkerColor( $colorset ),
+				'y'         => $this->mainModel->getYellowMarkerColor( $colorset ),
+				'highlight' => $this->mainModel->getHighlightColor( $colorset ),
 			);
 		}
 		return $result;
 	}
 
 
-	private static function getCustomPiecesets( $model ) {
+	private function getCustomPiecesets() {
 		$result = array();
-		foreach ( $model->getCustomPiecesets() as $pieceset ) {
+		foreach ( $this->mainModel->getCustomPiecesets() as $pieceset ) {
 			$current = array();
 			foreach ( RPBChessboardModelMain::$COLORED_PIECE_CODES as $coloredPiece ) {
-				$current[ $coloredPiece ] = $model->getCustomPiecesetImageURL( $pieceset, $coloredPiece );
+				$current[ $coloredPiece ] = $this->mainModel->getCustomPiecesetImageURL( $pieceset, $coloredPiece );
 			}
 			$result[ $pieceset ] = $current;
 		}
@@ -107,42 +76,42 @@ abstract class RPBChessboardScripts {
 	}
 
 
-	private static function getAvailableColorsets( $model ) {
+	private function getAvailableColorsets() {
 		$result = array();
-		foreach ( $model->getAvailableColorsets() as $colorset ) {
-			$result[ $colorset ] = $model->getColorsetLabel( $colorset );
+		foreach ( $this->mainModel->getAvailableColorsets() as $colorset ) {
+			$result[ $colorset ] = $this->mainModel->getColorsetLabel( $colorset );
 		}
 		return $result;
 	}
 
 
-	private static function getAvailablePiecesets( $model ) {
+	private function getAvailablePiecesets() {
 		$result = array();
-		foreach ( $model->getAvailablePiecesets() as $pieceset ) {
-			$result[ $pieceset ] = $model->getPiecesetLabel( $pieceset );
+		foreach ( $this->mainModel->getAvailablePiecesets() as $pieceset ) {
+			$result[ $pieceset ] = $this->mainModel->getPiecesetLabel( $pieceset );
 		}
 		return $result;
 	}
 
 
-	private static function getDefaultSettings( $model ) {
+	private function getDefaultSettings() {
 		return array(
-			'squareSize'      => $model->getDefaultSquareSize(),
-			'showCoordinates' => $model->getDefaultShowCoordinates(),
-			'colorset'        => $model->getDefaultColorset(),
-			'pieceset'        => $model->getDefaultPieceset(),
-			'animated'        => $model->getDefaultAnimated(),
-			'showMoveArrow'   => $model->getDefaultShowMoveArrow(),
-			'pieceSymbols'    => $model->getDefaultPieceSymbols(),
-			'navigationBoard' => $model->getDefaultNavigationBoard(),
+			'squareSize'      => $this->mainModel->getDefaultSquareSize(),
+			'showCoordinates' => $this->mainModel->getDefaultShowCoordinates(),
+			'colorset'        => $this->mainModel->getDefaultColorset(),
+			'pieceset'        => $this->mainModel->getDefaultPieceset(),
+			'animated'        => $this->mainModel->getDefaultAnimated(),
+			'showMoveArrow'   => $this->mainModel->getDefaultShowMoveArrow(),
+			'pieceSymbols'    => $this->mainModel->getDefaultPieceSymbols(),
+			'navigationBoard' => $this->mainModel->getDefaultNavigationBoard(),
 		);
 	}
 
 
-	private static function getSmallScreenLimits( $model ) {
+	private function getSmallScreenLimits() {
 		$result = array();
-		if ( $model->getSmallScreenCompatibility() ) {
-			foreach ( $model->getSmallScreenModes() as $mode ) {
+		if ( $this->mainModel->getSmallScreenCompatibility() ) {
+			foreach ( $this->mainModel->getSmallScreenModes() as $mode ) {
 				array_push(
 					$result,
 					array(

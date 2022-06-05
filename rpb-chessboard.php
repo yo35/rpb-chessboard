@@ -63,32 +63,14 @@ function rpbchessboard_main_model() {
 add_action( 'init', 'rpbchessboard_init' );
 function rpbchessboard_init() {
 
+	$controller = RPBChessboardHelperLoader::loadController( is_admin() ? 'ControllerAdmin' : 'ControllerFrontend' );
+	$controller->init();
+
 	if ( is_admin() ) {
 
 		require_once RPBCHESSBOARD_ABSPATH . 'wp/postactions.php';
 		RPBChessboardPostActions::run();
-
-		require_once RPBCHESSBOARD_ABSPATH . 'wp/misc.php';
-		RPBChessboardMisc::register();
 	}
-
-	require_once RPBCHESSBOARD_ABSPATH . 'wp/shortcodes.php';
-	RPBChessboardShortcodes::register( rpbchessboard_main_model() );
-
-	require_once RPBCHESSBOARD_ABSPATH . 'wp/blocks.php';
-	RPBChessboardBlocks::register();
-}
-
-
-// JavaScript & CSS
-add_action( is_admin() ? 'admin_enqueue_scripts' : 'wp_enqueue_scripts', 'rpbchessboard_init_js_css' );
-function rpbchessboard_init_js_css() {
-
-	require_once RPBCHESSBOARD_ABSPATH . 'wp/scripts.php';
-	RPBChessboardScripts::register( rpbchessboard_main_model() );
-
-	require_once RPBCHESSBOARD_ABSPATH . 'wp/stylesheets.php';
-	RPBChessboardStyleSheets::register( rpbchessboard_main_model() );
 }
 
 
