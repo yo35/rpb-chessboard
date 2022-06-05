@@ -49,16 +49,6 @@ require_once RPBCHESSBOARD_ABSPATH . 'php/helpers/loader.php';
 require_once RPBCHESSBOARD_ABSPATH . 'php/helpers/validation.php';
 
 
-// Main model
-function rpbchessboard_main_model() {
-	static $model = null;
-	if ( ! isset( $model ) ) {
-		$model = RPBChessboardHelperLoader::loadModel( 'Main' );
-	}
-	return $model;
-}
-
-
 // POST actions, shortcodes, and miscellaneous...
 add_action( 'init', 'rpbchessboard_init' );
 function rpbchessboard_init() {

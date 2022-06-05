@@ -114,7 +114,7 @@ abstract class RPBChessboardAbstractController {
 			array(
 				'api_version'     => 2,
 				'editor_script'   => 'rpbchessboard-npm',
-				'render_callback' => array( __CLASS__, 'callbackBlockFEN' ),
+				'render_callback' => array( $this, 'callbackBlockFEN' ),
 			)
 		);
 		register_block_type(
@@ -122,23 +122,23 @@ abstract class RPBChessboardAbstractController {
 			array(
 				'api_version'     => 2,
 				'editor_script'   => 'rpbchessboard-npm',
-				'render_callback' => array( __CLASS__, 'callbackBlockPGN' ),
+				'render_callback' => array( $this, 'callbackBlockPGN' ),
 			)
 		);
 	}
 
-	public static function callbackBlockFEN( $atts, $content ) {
-		return self::runBlock( 'FEN', $atts, $content );
+	final public function callbackBlockFEN( $atts, $content ) {
+		return $this->runBlock( 'FEN', $atts, $content );
 	}
 
 
-	public static function callbackBlockPGN( $atts, $content ) {
-		return self::runBlock( 'PGN', $atts, $content );
+	final public function callbackBlockPGN( $atts, $content ) {
+		return $this->runBlock( 'PGN', $atts, $content );
 	}
 
 
-	private static function runBlock( $blockName, $atts, $content ) {
-		$model = RPBChessboardHelperLoader::loadModel( 'Block/' . $blockName, $atts, $content );
+	private function runBlock( $blockName, $atts, $content ) {
+		$model = RPBChessboardHelperLoader::loadModel( 'Block/' . $blockName, $this->getMainModel(), $atts, $content );
 		return RPBChessboardHelperLoader::printTemplateOffScreen( 'Block/' . $blockName, $model );
 	}
 
@@ -211,7 +211,7 @@ abstract class RPBChessboardAbstractController {
 		}
 
 		// Print the shortcode.
-		$model = RPBChessboardHelperLoader::loadModel( 'Block/Shortcode' . $shortcodeName, $atts, $content );
+		$model = RPBChessboardHelperLoader::loadModel( 'Block/Shortcode' . $shortcodeName, $this->getMainModel(), $atts, $content );
 		return RPBChessboardHelperLoader::printTemplateOffScreen( 'Block/' . $shortcodeName, $model );
 	}
 

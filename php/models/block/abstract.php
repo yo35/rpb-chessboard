@@ -25,6 +25,7 @@
  */
 abstract class RPBChessboardAbstractModelBlock {
 
+	protected $mainModel;
 	private $attributes;
 	private $content;
 	private $contentFiltered = false;
@@ -37,7 +38,8 @@ abstract class RPBChessboardAbstractModelBlock {
 	 * @param array  $atts Attributes passed with the block/shortcode.
 	 * @param string $content Block/shortcode content.
 	 */
-	public function __construct( $attributes, $content ) {
+	public function __construct( $mainModel, $attributes, $content ) {
+		$this->mainModel  = $mainModel;
 		$this->attributes = isset( $attributes ) && is_array( $attributes ) ? $attributes : array();
 		$this->content    = isset( $content ) && is_string( $content ) ? $content : '';
 	}

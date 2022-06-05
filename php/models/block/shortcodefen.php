@@ -38,7 +38,6 @@ class RPBChessboardModelBlockShortcodeFEN extends RPBChessboardAbstractModelBloc
 	public function getWidgetArgs() {
 
 		$atts       = $this->getAttributes();
-		$mainModel  = rpbchessboard_main_model();
 		$widgetArgs = array( 'position' => $this->getContent() );
 
 		// Markers
@@ -60,19 +59,19 @@ class RPBChessboardModelBlockShortcodeFEN extends RPBChessboardAbstractModelBloc
 
 		// Square size
 		$value                    = isset( $atts['square_size'] ) ? RPBChessboardHelperValidation::validateInteger( $atts['square_size'] ) : null;
-		$widgetArgs['squareSize'] = isset( $value ) ? $value : $mainModel->getDefaultSquareSize();
+		$widgetArgs['squareSize'] = isset( $value ) ? $value : $this->mainModel->getDefaultSquareSize();
 
 		// Show coordinates
 		$value                           = isset( $atts['show_coordinates'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_coordinates'] ) : null;
-		$widgetArgs['coordinateVisible'] = isset( $value ) ? $value : $mainModel->getDefaultShowCoordinates();
+		$widgetArgs['coordinateVisible'] = isset( $value ) ? $value : $this->mainModel->getDefaultShowCoordinates();
 
 		// Colorset
 		$value                  = isset( $atts['colorset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['colorset'] ) : null;
-		$widgetArgs['colorset'] = isset( $value ) ? $value : $mainModel->getDefaultColorset();
+		$widgetArgs['colorset'] = isset( $value ) ? $value : $this->mainModel->getDefaultColorset();
 
 		// Pieceset
 		$value                  = isset( $atts['pieceset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['pieceset'] ) : null;
-		$widgetArgs['pieceset'] = isset( $value ) ? $value : $mainModel->getDefaultPieceset();
+		$widgetArgs['pieceset'] = isset( $value ) ? $value : $this->mainModel->getDefaultPieceset();
 
 		return $widgetArgs;
 	}
@@ -84,10 +83,9 @@ class RPBChessboardModelBlockShortcodeFEN extends RPBChessboardAbstractModelBloc
 	 * @return string
 	 */
 	public function getDiagramAlignment() {
-		$atts      = $this->getAttributes();
-		$mainModel = rpbchessboard_main_model();
-		$value     = isset( $atts['align'] ) ? RPBChessboardHelperValidation::validateDiagramAlignment( $atts['align'] ) : null;
-		return isset( $value ) ? $value : $mainModel->getDefaultDiagramAlignment();
+		$atts  = $this->getAttributes();
+		$value = isset( $atts['align'] ) ? RPBChessboardHelperValidation::validateDiagramAlignment( $atts['align'] ) : null;
+		return isset( $value ) ? $value : $this->mainModel->getDefaultDiagramAlignment();
 	}
 
 

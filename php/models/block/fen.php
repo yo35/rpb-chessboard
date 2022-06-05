@@ -36,7 +36,6 @@ class RPBChessboardModelBlockFEN extends RPBChessboardAbstractModelBlock {
 	public function getWidgetArgs() {
 
 		$atts       = $this->getAttributes();
-		$mainModel  = rpbchessboard_main_model();
 		$widgetArgs = array();
 
 		// Chessboard content
@@ -57,10 +56,10 @@ class RPBChessboardModelBlockFEN extends RPBChessboardAbstractModelBlock {
 		}
 
 		// Chessboard aspect
-		$widgetArgs['squareSize']        = isset( $atts['squareSize'] ) ? $atts['squareSize'] : $mainModel->getDefaultSquareSize();
-		$widgetArgs['coordinateVisible'] = isset( $atts['coordinateVisible'] ) ? 'true' === $atts['coordinateVisible'] : $mainModel->getDefaultShowCoordinates();
-		$widgetArgs['colorset']          = isset( $atts['colorset'] ) ? $atts['colorset'] : $mainModel->getDefaultColorset();
-		$widgetArgs['pieceset']          = isset( $atts['pieceset'] ) ? $atts['pieceset'] : $mainModel->getDefaultPieceset();
+		$widgetArgs['squareSize']        = isset( $atts['squareSize'] ) ? $atts['squareSize'] : $this->mainModel->getDefaultSquareSize();
+		$widgetArgs['coordinateVisible'] = isset( $atts['coordinateVisible'] ) ? 'true' === $atts['coordinateVisible'] : $this->mainModel->getDefaultShowCoordinates();
+		$widgetArgs['colorset']          = isset( $atts['colorset'] ) ? $atts['colorset'] : $this->mainModel->getDefaultColorset();
+		$widgetArgs['pieceset']          = isset( $atts['pieceset'] ) ? $atts['pieceset'] : $this->mainModel->getDefaultPieceset();
 
 		return $widgetArgs;
 	}
@@ -72,9 +71,8 @@ class RPBChessboardModelBlockFEN extends RPBChessboardAbstractModelBlock {
 	 * @return string
 	 */
 	public function getDiagramAlignment() {
-		$atts      = $this->getAttributes();
-		$mainModel = rpbchessboard_main_model();
-		return isset( $atts['align'] ) ? $atts['align'] : $mainModel->getDefaultDiagramAlignment();
+		$atts = $this->getAttributes();
+		return isset( $atts['align'] ) ? $atts['align'] : $this->mainModel->getDefaultDiagramAlignment();
 	}
 
 }

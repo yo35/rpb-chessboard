@@ -81,7 +81,6 @@ class RPBChessboardModelBlockShortcodePGN extends RPBChessboardAbstractModelBloc
 	public function getWidgetArgs() {
 
 		$atts       = $this->getAttributes();
-		$mainModel  = rpbchessboard_main_model();
 		$widgetArgs = array();
 
 		if ( $this->isLoadedFromExternalPGNFile() ) {
@@ -104,22 +103,22 @@ class RPBChessboardModelBlockShortcodePGN extends RPBChessboardAbstractModelBloc
 
 		// Square size
 		$value                       = isset( $atts['square_size'] ) ? RPBChessboardHelperValidation::validateInteger( $atts['square_size'] ) : null;
-		$widgetArgs['nboSquareSize'] = isset( $value ) ? $value : $mainModel->getDefaultSquareSize();
+		$widgetArgs['nboSquareSize'] = isset( $value ) ? $value : $this->mainModel->getDefaultSquareSize();
 		$widgetArgs['idoSquareSize'] = $widgetArgs['nboSquareSize'];
 
 		// Show coordinates
 		$value                              = isset( $atts['show_coordinates'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_coordinates'] ) : null;
-		$widgetArgs['nboCoordinateVisible'] = isset( $value ) ? $value : $mainModel->getDefaultShowCoordinates();
+		$widgetArgs['nboCoordinateVisible'] = isset( $value ) ? $value : $this->mainModel->getDefaultShowCoordinates();
 		$widgetArgs['idoCoordinateVisible'] = $widgetArgs['nboCoordinateVisible'];
 
 		// Colorset
 		$value                     = isset( $atts['colorset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['colorset'] ) : null;
-		$widgetArgs['nboColorset'] = isset( $value ) ? $value : $mainModel->getDefaultColorset();
+		$widgetArgs['nboColorset'] = isset( $value ) ? $value : $this->mainModel->getDefaultColorset();
 		$widgetArgs['idoColorset'] = $widgetArgs['nboColorset'];
 
 		// Pieceset
 		$value                     = isset( $atts['pieceset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['pieceset'] ) : null;
-		$widgetArgs['nboPieceset'] = isset( $value ) ? $value : $mainModel->getDefaultPieceset();
+		$widgetArgs['nboPieceset'] = isset( $value ) ? $value : $this->mainModel->getDefaultPieceset();
 		$widgetArgs['idoPieceset'] = $widgetArgs['nboPieceset'];
 
 		// Animated
@@ -130,25 +129,25 @@ class RPBChessboardModelBlockShortcodePGN extends RPBChessboardAbstractModelBloc
 				$value = $animationSpeed > 0;
 			}
 		}
-		$widgetArgs['nboAnimated'] = isset( $value ) ? $value : $mainModel->getDefaultAnimated();
+		$widgetArgs['nboAnimated'] = isset( $value ) ? $value : $this->mainModel->getDefaultAnimated();
 
 		// Move arrow
 		$value                             = isset( $atts['show_move_arrow'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_move_arrow'] ) : null;
-		$widgetArgs['nboMoveArrowVisible'] = isset( $value ) ? $value : $mainModel->getDefaultShowMoveArrow();
+		$widgetArgs['nboMoveArrowVisible'] = isset( $value ) ? $value : $this->mainModel->getDefaultShowMoveArrow();
 
 		// Piece symbols
 		$value                      = isset( $atts['piece_symbols'] ) ? RPBChessboardHelperValidation::validatePieceSymbols( $atts['piece_symbols'] ) : null;
-		$widgetArgs['pieceSymbols'] = isset( $value ) ? $value : $mainModel->getDefaultPieceSymbols();
+		$widgetArgs['pieceSymbols'] = isset( $value ) ? $value : $this->mainModel->getDefaultPieceSymbols();
 
 		// Navigation board
 		$value                         = isset( $atts['navigation_board'] ) ? RPBChessboardHelperValidation::validateNavigationBoard( $atts['navigation_board'] ) : null;
-		$widgetArgs['navigationBoard'] = isset( $value ) ? $value : $mainModel->getDefaultNavigationBoard();
+		$widgetArgs['navigationBoard'] = isset( $value ) ? $value : $this->mainModel->getDefaultNavigationBoard();
 
 		// Navigation toolbar
 		$value                            = isset( $atts['show_flip_button'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_flip_button'] ) : null;
-		$widgetArgs['withFlipButton']     = isset( $value ) ? $value : $mainModel->getDefaultShowFlipButton();
+		$widgetArgs['withFlipButton']     = isset( $value ) ? $value : $this->mainModel->getDefaultShowFlipButton();
 		$value                            = isset( $atts['show_download_button'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_download_button'] ) : null;
-		$widgetArgs['withDownloadButton'] = isset( $value ) ? $value : $mainModel->getDefaultShowDownloadButton();
+		$widgetArgs['withDownloadButton'] = isset( $value ) ? $value : $this->mainModel->getDefaultShowDownloadButton();
 
 		return $widgetArgs;
 	}

@@ -36,7 +36,6 @@ class RPBChessboardModelBlockPGN extends RPBChessboardAbstractModelBlock {
 	public function getWidgetArgs() {
 
 		$atts       = $this->getAttributes();
-		$mainModel  = rpbchessboard_main_model();
 		$widgetArgs = array();
 
 		// Chessgame content
@@ -51,24 +50,24 @@ class RPBChessboardModelBlockPGN extends RPBChessboardAbstractModelBlock {
 		}
 
 		// Chessgame aspect
-		$widgetArgs['pieceSymbols']       = isset( $atts['pieceSymbols'] ) ? $atts['pieceSymbols'] : $mainModel->getDefaultPieceSymbols();
-		$widgetArgs['navigationBoard']    = isset( $atts['navigationBoard'] ) ? $atts['navigationBoard'] : $mainModel->getDefaultNavigationBoard();
-		$widgetArgs['withFlipButton']     = isset( $atts['withFlipButton'] ) ? 'true' === $atts['withFlipButton'] : $mainModel->getDefaultShowFlipButton();
-		$widgetArgs['withDownloadButton'] = isset( $atts['withDownloadButton'] ) ? 'true' === $atts['withDownloadButton'] : $mainModel->getDefaultShowDownloadButton();
+		$widgetArgs['pieceSymbols']       = isset( $atts['pieceSymbols'] ) ? $atts['pieceSymbols'] : $this->mainModel->getDefaultPieceSymbols();
+		$widgetArgs['navigationBoard']    = isset( $atts['navigationBoard'] ) ? $atts['navigationBoard'] : $this->mainModel->getDefaultNavigationBoard();
+		$widgetArgs['withFlipButton']     = isset( $atts['withFlipButton'] ) ? 'true' === $atts['withFlipButton'] : $this->mainModel->getDefaultShowFlipButton();
+		$widgetArgs['withDownloadButton'] = isset( $atts['withDownloadButton'] ) ? 'true' === $atts['withDownloadButton'] : $this->mainModel->getDefaultShowDownloadButton();
 
 		// Specific options for the navigation board.
-		$widgetArgs['nboSquareSize']        = isset( $atts['nboSquareSize'] ) ? $atts['nboSquareSize'] : $mainModel->getDefaultSquareSize();
-		$widgetArgs['nboCoordinateVisible'] = isset( $atts['nboCoordinateVisible'] ) ? 'true' === $atts['nboCoordinateVisible'] : $mainModel->getDefaultShowCoordinates();
-		$widgetArgs['nboColorset']          = isset( $atts['nboColorset'] ) ? $atts['nboColorset'] : $mainModel->getDefaultColorset();
-		$widgetArgs['nboPieceset']          = isset( $atts['nboPieceset'] ) ? $atts['nboPieceset'] : $mainModel->getDefaultPieceset();
-		$widgetArgs['nboAnimated']          = isset( $atts['nboAnimated'] ) ? 'true' === $atts['nboAnimated'] : $mainModel->getDefaultAnimated();
-		$widgetArgs['nboMoveArrowVisible']  = isset( $atts['nboMoveArrowVisible'] ) ? 'true' === $atts['nboMoveArrowVisible'] : $mainModel->getDefaultShowMoveArrow();
+		$widgetArgs['nboSquareSize']        = isset( $atts['nboSquareSize'] ) ? $atts['nboSquareSize'] : $this->mainModel->getDefaultSquareSize();
+		$widgetArgs['nboCoordinateVisible'] = isset( $atts['nboCoordinateVisible'] ) ? 'true' === $atts['nboCoordinateVisible'] : $this->mainModel->getDefaultShowCoordinates();
+		$widgetArgs['nboColorset']          = isset( $atts['nboColorset'] ) ? $atts['nboColorset'] : $this->mainModel->getDefaultColorset();
+		$widgetArgs['nboPieceset']          = isset( $atts['nboPieceset'] ) ? $atts['nboPieceset'] : $this->mainModel->getDefaultPieceset();
+		$widgetArgs['nboAnimated']          = isset( $atts['nboAnimated'] ) ? 'true' === $atts['nboAnimated'] : $this->mainModel->getDefaultAnimated();
+		$widgetArgs['nboMoveArrowVisible']  = isset( $atts['nboMoveArrowVisible'] ) ? 'true' === $atts['nboMoveArrowVisible'] : $this->mainModel->getDefaultShowMoveArrow();
 
 		// Specific options for the diagrams.
-		$widgetArgs['idoSquareSize']        = isset( $atts['idoSquareSize'] ) ? $atts['idoSquareSize'] : $mainModel->getDefaultSquareSize();
-		$widgetArgs['idoCoordinateVisible'] = isset( $atts['idoCoordinateVisible'] ) ? 'true' === $atts['idoCoordinateVisible'] : $mainModel->getDefaultShowCoordinates();
-		$widgetArgs['idoColorset']          = isset( $atts['idoColorset'] ) ? $atts['idoColorset'] : $mainModel->getDefaultColorset();
-		$widgetArgs['idoPieceset']          = isset( $atts['idoPieceset'] ) ? $atts['idoPieceset'] : $mainModel->getDefaultPieceset();
+		$widgetArgs['idoSquareSize']        = isset( $atts['idoSquareSize'] ) ? $atts['idoSquareSize'] : $this->mainModel->getDefaultSquareSize();
+		$widgetArgs['idoCoordinateVisible'] = isset( $atts['idoCoordinateVisible'] ) ? 'true' === $atts['idoCoordinateVisible'] : $this->mainModel->getDefaultShowCoordinates();
+		$widgetArgs['idoColorset']          = isset( $atts['idoColorset'] ) ? $atts['idoColorset'] : $this->mainModel->getDefaultColorset();
+		$widgetArgs['idoPieceset']          = isset( $atts['idoPieceset'] ) ? $atts['idoPieceset'] : $this->mainModel->getDefaultPieceset();
 
 		return $widgetArgs;
 	}
