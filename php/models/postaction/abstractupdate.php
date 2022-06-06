@@ -20,28 +20,25 @@
  ******************************************************************************/
 
 
-require_once RPBCHESSBOARD_ABSPATH . 'php/models/adminsubpage/abstractform.php';
-require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/compatibility.php';
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/postaction/abstract.php';
 
 
 /**
- * Delegate model for the sub-page 'compatibility-settings'.
+ * Base class for the models in charge of processing update forms.
  */
-class RPBChessboardModelAdminSubPageCompatibilitySettings extends RPBChessboardAbstractModelAdminSubPageForm {
+abstract class RPBChessboardAbstractModelPostActionUpdate extends RPBChessboardAbstractModelPostAction {
 
-	use RPBChessboardTraitCompatibility;
-
-
-	public function getFormSubmitAction() {
-		return 'UpdateCompatibility';
+	protected static function getSuccessMessage() {
+		return __( 'Settings saved.', 'rpb-chessboard' );
 	}
 
-	public function getFormResetAction() {
-		return 'ResetCompatibility';
-	}
-
-	public function getFormTemplateName() {
-		return 'compatibility-settings';
+	protected static function processBooleanParameter( $key ) {
+		if ( isset( $_POST[ $key ] ) ) {
+			$value = RPBChessboardHelperValidation::validateBooleanFromInt( $_POST[ $key ] );
+			if ( isset( $value ) ) {
+				update_option( 'rpbchessboard_' . $key, $value ? 1 : 0 );
+			}
+		}
 	}
 
 }

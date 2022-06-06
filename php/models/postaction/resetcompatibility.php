@@ -20,28 +20,18 @@
  ******************************************************************************/
 
 
-require_once RPBCHESSBOARD_ABSPATH . 'php/models/adminsubpage/abstractform.php';
-require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/compatibility.php';
-
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/postaction/abstractreset.php';
 
 /**
- * Delegate model for the sub-page 'compatibility-settings'.
+ * Base class for the models in charge of processing reset forms.
  */
-class RPBChessboardModelAdminSubPageCompatibilitySettings extends RPBChessboardAbstractModelAdminSubPageForm {
+class RPBChessboardModelPostActionResetCompatibility extends RPBChessboardAbstractModelPostActionReset {
 
-	use RPBChessboardTraitCompatibility;
-
-
-	public function getFormSubmitAction() {
-		return 'UpdateCompatibility';
-	}
-
-	public function getFormResetAction() {
-		return 'ResetCompatibility';
-	}
-
-	public function getFormTemplateName() {
-		return 'compatibility-settings';
+	public function run() {
+		delete_option( 'rpbchessboard_fenCompatibilityMode' );
+		delete_option( 'rpbchessboard_pgnCompatibilityMode' );
+		delete_option( 'rpbchessboard_lazyLoadingForCSSAndJS' );
+		return self::getSuccessMessage();
 	}
 
 }

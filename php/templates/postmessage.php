@@ -18,30 +18,8 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.   *
  *                                                                            *
  ******************************************************************************/
+?>
 
-
-require_once RPBCHESSBOARD_ABSPATH . 'php/models/adminsubpage/abstractform.php';
-require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/compatibility.php';
-
-
-/**
- * Delegate model for the sub-page 'compatibility-settings'.
- */
-class RPBChessboardModelAdminSubPageCompatibilitySettings extends RPBChessboardAbstractModelAdminSubPageForm {
-
-	use RPBChessboardTraitCompatibility;
-
-
-	public function getFormSubmitAction() {
-		return 'UpdateCompatibility';
-	}
-
-	public function getFormResetAction() {
-		return 'ResetCompatibility';
-	}
-
-	public function getFormTemplateName() {
-		return 'compatibility-settings';
-	}
-
-}
+<div class="notice notice-<?php echo esc_attr( $model->getMessageType() ); ?>">
+	<p><?php echo esc_html( $model->getMessage() ); ?></p>
+</div>

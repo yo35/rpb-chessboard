@@ -28,8 +28,14 @@ require_once RPBCHESSBOARD_ABSPATH . 'php/abstractcontroller.php';
  */
 class RPBChessboardControllerAdmin extends RPBChessboardAbstractController {
 
+	private $postModel;
+
 
 	public function init() {
+
+		// Post actions. MUST BE PERFORMED FIRST !!
+		$this->processPostActions();
+
 		parent::init();
 
 		// Allow to upload .pgn files in the media
@@ -38,6 +44,19 @@ class RPBChessboardControllerAdmin extends RPBChessboardAbstractController {
 		// Admin pages
 		add_action( 'admin_menu', array( $this, 'registerAdminPage' ) );
 		add_filter( 'plugin_action_links_' . RPBCHESSBOARD_BASENAME, array( __CLASS__, 'registerPluginLink' ) );
+	}
+
+
+	private function processPostActions() {
+		$this->postModel = RPBChessboardHelperLoader::loadModel( 'Post' );
+		if ( $this->postModel->process() ) {
+			add_action( 'admin_notices', array( $this, 'callbackPostActionMessage' ) );
+		}
+	}
+
+
+	public function callbackPostActionMessage() {
+		RPBChessboardHelperLoader::printTemplate( 'post-message', $this->postModel );
 	}
 
 

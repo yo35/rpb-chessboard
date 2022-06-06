@@ -20,28 +20,14 @@
  ******************************************************************************/
 
 
-require_once RPBCHESSBOARD_ABSPATH . 'php/models/adminsubpage/abstractform.php';
-require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/compatibility.php';
-
-
 /**
- * Delegate model for the sub-page 'compatibility-settings'.
+ * Base class for the models in charge of processing forms.
  */
-class RPBChessboardModelAdminSubPageCompatibilitySettings extends RPBChessboardAbstractModelAdminSubPageForm {
+abstract class RPBChessboardAbstractModelPostAction {
 
-	use RPBChessboardTraitCompatibility;
-
-
-	public function getFormSubmitAction() {
-		return 'UpdateCompatibility';
-	}
-
-	public function getFormResetAction() {
-		return 'ResetCompatibility';
-	}
-
-	public function getFormTemplateName() {
-		return 'compatibility-settings';
-	}
+	/**
+	 * Process the form data, and return the sucess message if OK. Otherwise, return `false`.
+	 */
+	abstract public function run();
 
 }
