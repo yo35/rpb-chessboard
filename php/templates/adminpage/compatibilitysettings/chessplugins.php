@@ -53,8 +53,6 @@
 	?>
 </p>
 
-
-
 <p>
 	<input type="hidden" name="fenCompatibilityMode" value="0" />
 	<input type="checkbox" id="rpbchessboard-fenCompatibilityModeField" name="fenCompatibilityMode" value="1"
@@ -78,8 +76,6 @@
 		);
 	?>
 </p>
-
-
 
 <p>
 	<input type="hidden" name="pgnCompatibilityMode" value="0" />

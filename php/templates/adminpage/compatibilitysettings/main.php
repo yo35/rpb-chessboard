@@ -18,6 +18,7 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.   *
  *                                                                            *
  ******************************************************************************/
-?>
 
-<p>TODO to be removed</p>
+
+RPBChessboardHelperLoader::printTemplate( 'admin-page/compatibility-settings/lazy-loading', $model );
+RPBChessboardHelperLoader::printTemplate( 'admin-page/compatibility-settings/chess-plugins', $model );

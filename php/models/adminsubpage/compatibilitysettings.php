@@ -20,17 +20,28 @@
  ******************************************************************************/
 
 
-require_once RPBCHESSBOARD_ABSPATH . 'php/models/adminsubpage/abstract.php';
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/adminsubpage/abstractform.php';
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/compatibility.php';
 
 
 /**
  * Delegate model for the sub-page 'compatibility-settings'.
  */
-class RPBChessboardModelAdminSubPageCompatibilitySettings extends RPBChessboardAbstractModelAdminSubPage {
+class RPBChessboardModelAdminSubPageCompatibilitySettings extends RPBChessboardAbstractModelAdminSubPageForm {
+
+	use RPBChessboardTraitCompatibility;
 
 
-	public function getTemplateName() {
-		return 'temporary'; // TODO impl
+	public function getFormSubmitAction() {
+		return 'update-compatibility';
+	}
+
+	public function getFormResetAction() {
+		return 'reset-compatibility';
+	}
+
+	public function getFormTemplateName() {
+		return 'compatibility-settings';
 	}
 
 }
