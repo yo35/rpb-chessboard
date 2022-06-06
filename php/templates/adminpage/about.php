@@ -53,13 +53,13 @@
 
 
 
-<h3><?php esc_html_e( 'Credits', 'rpb-chessboard' ); ?></h3>
-
-<h4><?php esc_html_e( 'Author', 'rpb-chessboard' ); ?></h4>
+<h3><?php esc_html_e( 'Author', 'rpb-chessboard' ); ?></h3>
 
 <p><a href="mailto:yo35@melix.net">Yoann Le Montagner</a></p>
 
-<h4><?php esc_html_e( 'Contributors', 'rpb-chessboard' ); ?></h4>
+
+
+<h3><?php esc_html_e( 'Contributors', 'rpb-chessboard' ); ?></h3>
 
 <ul id="rpbchessboard-contributorList">
 	<?php foreach ( $model->getPluginContributors() as $contributor ) : ?>
@@ -73,7 +73,9 @@
 	<?php endforeach; ?>
 </ul>
 
-<h4><?php esc_html_e( 'Translators', 'rpb-chessboard' ); ?></h4>
+
+
+<h3><?php esc_html_e( 'Translators', 'rpb-chessboard' ); ?></h3>
 
 <ul id="rpbchessboard-translatorList">
 	<?php foreach ( $model->getPluginTranslators() as $translator ) : ?>
@@ -104,7 +106,9 @@
 	?>
 </p>
 
-<h4><?php esc_html_e( 'Graphic resources', 'rpb-chessboard' ); ?></h4>
+
+
+<h3><?php esc_html_e( 'Graphic resource credits', 'rpb-chessboard' ); ?></h3>
 
 <p>
 	<?php
