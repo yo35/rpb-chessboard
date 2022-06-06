@@ -85,6 +85,6 @@ abstract class RPBChessboardAdminPages {
 	 */
 	private static function printAdminPage( $adminPageName ) {
 		$model = RPBChessboardHelperLoader::loadModelLegacy( 'AdminPage/' . $adminPageName );
-		RPBChessboardHelperLoader::printTemplate( 'AdminPage', $model );
+		RPBChessboardHelperLoader::printTemplateLegacy( 'AdminPage', $model );
 	}
 }

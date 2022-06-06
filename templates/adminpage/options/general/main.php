@@ -32,10 +32,10 @@
 </p>
 
 <?php
-	RPBChessboardHelperLoader::printTemplate( 'AdminPage/Options/General/BoardAspect', $model );
-	RPBChessboardHelperLoader::printTemplate( 'AdminPage/Options/General/DiagramAlignment', $model );
-	RPBChessboardHelperLoader::printTemplate( 'AdminPage/Options/General/PieceSymbols', $model );
-	RPBChessboardHelperLoader::printTemplate( 'AdminPage/Options/General/NavigationBoard', $model );
-	RPBChessboardHelperLoader::printTemplate( 'AdminPage/Options/General/NavigationButtons', $model );
-	RPBChessboardHelperLoader::printTemplate( 'AdminPage/Options/General/MoveAnimation', $model );
+	RPBChessboardHelperLoader::printTemplateLegacy( 'AdminPage/Options/General/BoardAspect', $model );
+	RPBChessboardHelperLoader::printTemplateLegacy( 'AdminPage/Options/General/DiagramAlignment', $model );
+	RPBChessboardHelperLoader::printTemplateLegacy( 'AdminPage/Options/General/PieceSymbols', $model );
+	RPBChessboardHelperLoader::printTemplateLegacy( 'AdminPage/Options/General/NavigationBoard', $model );
+	RPBChessboardHelperLoader::printTemplateLegacy( 'AdminPage/Options/General/NavigationButtons', $model );
+	RPBChessboardHelperLoader::printTemplateLegacy( 'AdminPage/Options/General/MoveAnimation', $model );
 ?>

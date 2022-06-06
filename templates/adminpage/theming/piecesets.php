@@ -40,7 +40,7 @@
 
 		<tr>
 			<?php
-				RPBChessboardHelperLoader::printTemplate(
+				RPBChessboardHelperLoader::printTemplateLegacy(
 					'AdminPage/Theming/PiecesetEdition',
 					$model,
 					array(
@@ -77,7 +77,7 @@
 
 			<?php
 			if ( ! $model->isBuiltinPieceset( $pieceset ) ) {
-				RPBChessboardHelperLoader::printTemplate(
+				RPBChessboardHelperLoader::printTemplateLegacy(
 					'AdminPage/Theming/PiecesetEdition',
 					$model,
 					array(

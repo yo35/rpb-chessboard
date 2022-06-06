@@ -78,6 +78,25 @@ abstract class RPBChessboardHelperLoader {
 
 
 	/**
+	 * @deprecated TODO to be removed
+	 */
+	public static function printTemplateLegacy( $templateName, $model, $args = null ) {
+
+		if ( isset( $args ) ) {
+			foreach ( $args as $key => $value ) {
+				if ( 'model' === $key || 'templateName' === $key || 'fileName' === $key ) {
+					continue;
+				}
+				$$key = $value;
+			}
+		}
+
+		$fileName = RPBCHESSBOARD_ABSPATH . 'templates/' . strtolower( $templateName );
+		include $fileName . ( is_dir( $fileName ) ? '/main.php' : '.php' );
+	}
+
+
+	/**
 	 * Print the given template to the current output.
 	 *
 	 * @param string $templateName
@@ -95,7 +114,7 @@ abstract class RPBChessboardHelperLoader {
 			}
 		}
 
-		$fileName = RPBCHESSBOARD_ABSPATH . 'templates/' . strtolower( $templateName );
+		$fileName = RPBCHESSBOARD_ABSPATH . 'php/templates/' . strtolower( $templateName );
 		include $fileName . ( is_dir( $fileName ) ? '/main.php' : '.php' );
 	}
 

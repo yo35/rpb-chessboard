@@ -50,6 +50,6 @@
 	</ul>
 	<?php endif; ?>
 
-	<?php RPBChessboardHelperLoader::printTemplate( $model->getPageTemplateName(), $model ); ?>
+	<?php RPBChessboardHelperLoader::printTemplateLegacy( $model->getPageTemplateName(), $model ); ?>
 
 </div>

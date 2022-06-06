@@ -39,7 +39,7 @@
 	<tbody>
 
 		<tr>
-			<?php RPBChessboardHelperLoader::printTemplate( 'AdminPage/Theming/ColorsetEdition', $model, array( 'isNew' => true ) ); ?>
+			<?php RPBChessboardHelperLoader::printTemplateLegacy( 'AdminPage/Theming/ColorsetEdition', $model, array( 'isNew' => true ) ); ?>
 		</tr>
 
 		<?php foreach ( $model->getAvailableColorsets() as $colorset ) : ?>
@@ -68,7 +68,7 @@
 
 			<?php
 			if ( ! $model->isBuiltinColorset( $colorset ) ) {
-				RPBChessboardHelperLoader::printTemplate(
+				RPBChessboardHelperLoader::printTemplateLegacy(
 					'AdminPage/Theming/ColorsetEdition',
 					$model,
 					array(

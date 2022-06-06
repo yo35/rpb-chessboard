@@ -20,5 +20,5 @@
  ******************************************************************************/
 
 
-RPBChessboardHelperLoader::printTemplate( 'AdminPage/Options/Compatibility/LazyLoading', $model );
-RPBChessboardHelperLoader::printTemplate( 'AdminPage/Options/Compatibility/ChessPlugins', $model );
+RPBChessboardHelperLoader::printTemplateLegacy( 'AdminPage/Options/Compatibility/LazyLoading', $model );
+RPBChessboardHelperLoader::printTemplateLegacy( 'AdminPage/Options/Compatibility/ChessPlugins', $model );

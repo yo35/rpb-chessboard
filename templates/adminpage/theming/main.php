@@ -23,7 +23,7 @@
 <div id="rpbchessboard-themingPage" class="rpbchessboard-columns">
 
 	<div class="rpbchessboard-stretchable">
-		<?php RPBChessboardHelperLoader::printTemplate( $model->getSubPageTemplateName(), $model ); ?>
+		<?php RPBChessboardHelperLoader::printTemplateLegacy( $model->getSubPageTemplateName(), $model ); ?>
 	</div>
 
 	<div>

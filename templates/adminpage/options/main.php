@@ -27,7 +27,7 @@
 		<?php wp_nonce_field( 'rpbchessboard_post_action' ); ?>
 
 		<div>
-			<?php RPBChessboardHelperLoader::printTemplate( $model->getSubPageTemplateName(), $model ); ?>
+			<?php RPBChessboardHelperLoader::printTemplateLegacy( $model->getSubPageTemplateName(), $model ); ?>
 			<p class="submit">
 				<input type="submit" class="button-primary" value="<?php esc_attr_e( 'Save changes', 'rpb-chessboard' ); ?>" />
 				<a class="button" href="<?php echo esc_url( $model->getFormActionURL() ); ?>"><?php esc_html_e( 'Cancel', 'rpb-chessboard' ); ?></a>
