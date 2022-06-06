@@ -34,6 +34,10 @@ class RPBChessboardControllerAdmin extends RPBChessboardAbstractController {
 
 		// Allow to upload .pgn files in the media
 		add_filter( 'upload_mimes', array( __CLASS__, 'registerPgnMimeType' ) );
+
+		// Admin pages
+		add_action( 'admin_menu', array( $this, 'registerAdminPage' ) );
+		add_filter( 'plugin_action_links_' . RPBCHESSBOARD_BASENAME, array( __CLASS__, 'registerPluginLink' ) );
 	}
 
 
@@ -58,7 +62,8 @@ class RPBChessboardControllerAdmin extends RPBChessboardAbstractController {
 
 		// CSS files specific to the admin
 		wp_register_style( 'rpbchessboard-jquery-ui-smoothness', RPBCHESSBOARD_URL . 'third-party-libs/jquery/jquery-ui.smoothness' . $ext, false, '1.11.4' );
-		wp_enqueue_style( 'rpbchessboard-backend', RPBCHESSBOARD_URL . 'css/backend' . $ext, array( 'rpbchessboard-jquery-ui-smoothness' ), RPBCHESSBOARD_VERSION );
+		wp_enqueue_style( 'rpbchessboard-backend', RPBCHESSBOARD_URL . 'css/backend.css', array( 'rpbchessboard-jquery-ui-smoothness' ), RPBCHESSBOARD_VERSION ); // TODO remove or change ext
+		wp_enqueue_style( 'rpbchessboard-admin', RPBCHESSBOARD_URL . 'css/admin.css', false, RPBCHESSBOARD_VERSION ); // TODO cleanup
 	}
 
 
@@ -77,6 +82,25 @@ class RPBChessboardControllerAdmin extends RPBChessboardAbstractController {
 
 	private static function getCSSFileExtension() {
 		return WP_DEBUG ? '.css' : '.min.css';
+	}
+
+
+	public function registerAdminPage() {
+		add_submenu_page( 'options-general.php', 'RPB Chessboard', 'RPB Chessboard', 'manage_options', 'rpbchessboard', array( __CLASS__, 'callbackAdminPage' ) );
+	}
+
+
+	public static function callbackAdminPage() {
+		$model = RPBChessboardHelperLoader::loadModel( 'AdminPage' );
+		RPBChessboardHelperLoader::printTemplate( 'admin-page', $model );
+	}
+
+
+	public static function registerPluginLink( $links ) {
+		$model      = RPBChessboardHelperLoader::loadModel( 'PluginLink' );
+		$pluginLink = RPBChessboardHelperLoader::printTemplateOffScreen( 'plugin-link', $model );
+		array_unshift( $links, $pluginLink );
+		return $links;
 	}
 
 }

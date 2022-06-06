@@ -114,7 +114,7 @@ abstract class RPBChessboardHelperLoader {
 			}
 		}
 
-		$fileName = RPBCHESSBOARD_ABSPATH . 'php/templates/' . strtolower( $templateName );
+		$fileName = RPBCHESSBOARD_ABSPATH . 'php/templates/' . str_replace( '-', '', $templateName );
 		include $fileName . ( is_dir( $fileName ) ? '/main.php' : '.php' );
 	}
 

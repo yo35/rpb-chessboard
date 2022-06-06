@@ -35,24 +35,24 @@ abstract class RPBChessboardAdminPages {
 			__( 'Chess games and diagrams', 'rpb-chessboard' ),
 			__( 'Chess', 'rpb-chessboard' ),
 			'manage_options',
-			'rpbchessboard',
+			'rpbchessboard-legacy',
 			array( __CLASS__, 'callbackPageOptions' ),
 			RPBCHESSBOARD_URL . 'images/menu.png'
 		);
 
 		// Page "options"
 		add_submenu_page(
-			'rpbchessboard',
+			'rpbchessboard-legacy',
 			sprintf( __( 'Settings of the %1$s plugin', 'rpb-chessboard' ), 'RPB Chessboard' ),
 			__( 'Settings', 'rpb-chessboard' ),
 			'manage_options',
-			'rpbchessboard',
+			'rpbchessboard-legacy',
 			array( __CLASS__, 'callbackPageOptions' )
 		);
 
 		// Page "theming"
 		add_submenu_page(
-			'rpbchessboard',
+			'rpbchessboard-legacy',
 			__( 'Manage colorsets & piecesets', 'rpb-chessboard' ),
 			__( 'Theming', 'rpb-chessboard' ),
 			'manage_options',
@@ -62,7 +62,7 @@ abstract class RPBChessboardAdminPages {
 
 		// Page "about"
 		add_submenu_page(
-			'rpbchessboard',
+			'rpbchessboard-legacy',
 			sprintf( __( 'About %1$s', 'rpb-chessboard' ), 'RPB Chessboard' ),
 			__( 'About', 'rpb-chessboard' ),
 			'manage_options',

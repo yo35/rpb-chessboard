@@ -36,6 +36,7 @@ Version: 7.1.1
 
 // Directories
 define( 'RPBCHESSBOARD_ABSPATH', plugin_dir_path( __FILE__ ) );
+define( 'RPBCHESSBOARD_BASENAME', plugin_basename( __FILE__ ) );
 define( 'RPBCHESSBOARD_URL', plugin_dir_url( __FILE__ ) );
 define( 'RPBCHESSBOARD_VERSION', '7.1.1' );
 
