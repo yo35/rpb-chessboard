@@ -75,24 +75,24 @@
 	margin-bottom: 3px;
 }
 
-.rpbchessboard-contributorList {
+#rpbchessboard-contributorList {
 	width: 860px;
 	columns: 200px 4;
 	column-gap: 20px;
 }
 
-.rpbchessboard-translatorList {
+#rpbchessboard-translatorList {
 	width: 860px;
 	columns: 400px 2;
 	column-gap: 60px;
 }
 
-.rpbchessboard-translatorList > li {
+#rpbchessboard-translatorList > li {
 	display: flex;
 	align-items: center;
 }
 
-.rpbchessboard-translatorList > li > span:nth-child(2) {
+#rpbchessboard-translatorList > li > span:nth-child(2) {
 	margin-left: 3px;
 	margin-right: 3px;
 	width: 94px;

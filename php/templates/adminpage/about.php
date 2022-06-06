@@ -61,7 +61,7 @@
 
 <h4><?php esc_html_e( 'Contributors', 'rpb-chessboard' ); ?></h4>
 
-<ul class="rpbchessboard-contributorList">
+<ul id="rpbchessboard-contributorList">
 	<?php foreach ( $model->getPluginContributors() as $contributor ) : ?>
 		<li>
 			<?php if ( isset( $contributor->link ) ) : ?>
@@ -75,7 +75,7 @@
 
 <h4><?php esc_html_e( 'Translators', 'rpb-chessboard' ); ?></h4>
 
-<ul class="rpbchessboard-translatorList">
+<ul id="rpbchessboard-translatorList">
 	<?php foreach ( $model->getPluginTranslators() as $translator ) : ?>
 		<li>
 			<img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/flags/' . $translator->code . '.png' ); ?>" />
