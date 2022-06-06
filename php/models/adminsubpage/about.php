@@ -24,5 +24,91 @@
  * Delegate model for the sub-page 'about'.
  */
 class RPBChessboardModelAdminSubPageAbout {
-	// TODO impl
+
+	public function getPluginVersion() {
+		return RPBCHESSBOARD_VERSION;
+	}
+
+	public function getPluginContributors() {
+		return array(
+			(object) array(
+				'name' => 'Marek Śmigielski',
+			),
+			(object) array(
+				'name' => 'Paul Schreiber',
+				'link' => 'https://paulschreiber.com/',
+			),
+			(object) array(
+				'name' => 'Adam Silverstein',
+				'link' => 'http://www.10up.com/',
+			),
+		);
+	}
+
+	public function getPluginTranslators() {
+
+		// Flag images obtained from https://github.com/niltsh/iso-country-flags-svg-collection
+		// Style 'simple'
+		// Size 40 x 30
+
+		return array(
+			(object) array(
+				'code' => 'cz', // WARNING: language code is cs
+				'lang' => 'Czech',
+				'name' => 'Jan Jílek',
+			),
+			(object) array(
+				'code' => 'de',
+				'lang' => 'Deutsch',
+				'name' => 'Markus Liebelt',
+			),
+			(object) array(
+				'code' => 'gb', // WARNING: language code is en
+				'lang' => 'English',
+				'name' => 'Yoann Le Montagner',
+			),
+			(object) array(
+				'code' => 'es',
+				'lang' => 'Español',
+				'name' => 'Martin Frith',
+			),
+			(object) array(
+				'code' => 'fr',
+				'lang' => 'Français',
+				'name' => 'Yoann Le Montagner',
+			),
+			(object) array(
+				'code' => 'it',
+				'lang' => 'Italiano',
+				'name' => 'Andrea Cuccarini',
+			),
+			(object) array(
+				'code' => 'nl',
+				'lang' => 'Dutch',
+				'name' => 'Ivan Deceuninck',
+			),
+			(object) array(
+				'code' => 'pl',
+				'lang' => 'Polski',
+				'name' => 'Dawid Ziółkowski',
+			),
+			(object) array(
+				'code' => 'br', // WARNING: language code is pt
+				'lang' => 'Brazillian Portuguese',
+				'name' => 'Rewbenio Frota',
+				'link' => 'http://www.lancesqi.com.br/',
+			),
+			(object) array(
+				'code' => 'ru',
+				'lang' => 'Russian',
+				'name' => 'Sergey Baravicov',
+			),
+			(object) array(
+				'code' => 'tr',
+				'lang' => 'Turkish',
+				'name' => 'Ali Nihat Yazıcı',
+			),
+		);
+	}
+
 }

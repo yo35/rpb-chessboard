@@ -20,7 +20,7 @@
  ******************************************************************************/
 ?>
 
-<div class="wrap">
+<div id="rpbchessboard-adminPage" class="wrap">
 	<h1>RPB Chessboard</h1>
 
 	<div id="rpbchessboard-adminPageMenu">

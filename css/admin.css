@@ -18,13 +18,17 @@
  *                                                                            *
  ******************************************************************************/
 
- 
-#rpbchessboard-adminPageMenu,
+
+/* -------------------------------------------------------------------------- */
+/* Top-menu */
+/* -------------------------------------------------------------------------- */
+
 #rpbchessboard-adminPageContent {
-	margin-top: 10px;
+	margin-top: 20px;
 }
 
 #rpbchessboard-adminPageMenu {
+	margin-top: 10px;
 	font-size: 16px;
 	line-height: 24px;
 }
@@ -39,4 +43,43 @@
 
 #rpbchessboard-activePageButton {
 	font-weight: bold;
+}
+
+
+
+/* -------------------------------------------------------------------------- */
+/* About page */
+/* -------------------------------------------------------------------------- */
+
+#rpbchessboard-aboutActions {
+	margin: 1em 0px;
+}
+
+#rpbchessboard-adminPage .button img {
+	vertical-align: middle;
+	margin-right: 0.4em;
+	margin-bottom: 3px;
+}
+
+.rpbchessboard-contributorList {
+	width: 860px;
+	columns: 200px 4;
+	column-gap: 20px;
+}
+
+.rpbchessboard-translatorList {
+	width: 860px;
+	columns: 400px 2;
+	column-gap: 60px;
+}
+
+.rpbchessboard-translatorList > li {
+	display: flex;
+	align-items: center;
+}
+
+.rpbchessboard-translatorList > li > span:nth-child(2) {
+	margin-left: 3px;
+	margin-right: 3px;
+	width: 94px;
 }
