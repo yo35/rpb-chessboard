@@ -38,7 +38,7 @@
 	</div>
 
 	<div id="rpbchessboard-adminPageContent">
-		<?php RPBChessboardHelperLoader::printTemplate( 'admin-page/content/' . $model->getCurrentSubPage(), $model ); ?>
+		<?php RPBChessboardHelperLoader::printTemplate( 'admin-page/' . $model->getTemplateName(), $model ); ?>
 	</div>
 
 </div>

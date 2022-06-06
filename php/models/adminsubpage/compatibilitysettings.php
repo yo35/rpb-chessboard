@@ -20,9 +20,17 @@
  ******************************************************************************/
 
 
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/adminsubpage/abstract.php';
+
+
 /**
  * Delegate model for the sub-page 'compatibility-settings'.
  */
-class RPBChessboardModelAdminSubPageCompatibilitySettings {
-	// TODO impl
+class RPBChessboardModelAdminSubPageCompatibilitySettings extends RPBChessboardAbstractModelAdminSubPage {
+
+
+	public function getTemplateName() {
+		return 'temporary'; // TODO impl
+	}
+
 }

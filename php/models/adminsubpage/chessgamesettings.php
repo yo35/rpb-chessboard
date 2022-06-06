@@ -20,9 +20,17 @@
  ******************************************************************************/
 
 
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/adminsubpage/abstract.php';
+
+
 /**
  * Delegate model for the sub-page 'chess-game-settings'.
  */
-class RPBChessboardModelAdminSubPageChessGameSettings {
-	// TODO impl
+class RPBChessboardModelAdminSubPageChessGameSettings extends RPBChessboardAbstractModelAdminSubPage {
+
+
+	public function getTemplateName() {
+		return 'temporary'; // TODO impl
+	}
+
 }

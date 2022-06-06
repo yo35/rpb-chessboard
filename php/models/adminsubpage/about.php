@@ -20,14 +20,24 @@
  ******************************************************************************/
 
 
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/adminsubpage/abstract.php';
+
+
 /**
  * Delegate model for the sub-page 'about'.
  */
-class RPBChessboardModelAdminSubPageAbout {
+class RPBChessboardModelAdminSubPageAbout extends RPBChessboardAbstractModelAdminSubPage {
+
+
+	public function getTemplateName() {
+		return 'about';
+	}
+
 
 	public function getPluginVersion() {
 		return RPBCHESSBOARD_VERSION;
 	}
+
 
 	public function getPluginContributors() {
 		return array(
@@ -44,6 +54,7 @@ class RPBChessboardModelAdminSubPageAbout {
 			),
 		);
 	}
+
 
 	public function getPluginTranslators() {
 

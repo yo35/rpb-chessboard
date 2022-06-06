@@ -18,6 +18,16 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.   *
  *                                                                            *
  ******************************************************************************/
-?>
 
-TODO
+
+/**
+ * Base class for the delegate models that manage an admin sub-page.
+ */
+abstract class RPBChessboardAbstractModelAdminSubPage {
+
+	/**
+	 * Name of the template to use to generate the page content.
+	 */
+	abstract public function getTemplateName();
+
+}
