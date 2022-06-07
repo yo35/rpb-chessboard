@@ -27,9 +27,11 @@ class RPBChessboardModelPost {
 
 	private static $VALID_FORM_ACTIONS = array(
 		'ResetChessDiagramSettings',
+		'ResetChessGameSettings',
 		'ResetCompatibility',
 		'ResetSmallScreens',
 		'UpdateChessDiagramSettings',
+		'UpdateChessGameSettings',
 		'UpdateCompatibility',
 		'UpdateSmallScreens',
 	);

@@ -1,3 +1,4 @@
+<?php
 /******************************************************************************
  *                                                                            *
  *    This file is part of RPB Chessboard, a WordPress plugin.                *
@@ -17,17 +18,10 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.   *
  *                                                                            *
  ******************************************************************************/
+?>
 
+<h3><?php esc_html_e( 'Navigation board aspect', 'rpb-chessboard' ); ?></h3>
 
-.rpbchessboard-navigationButton {
-	display: inline-block;
-	cursor: pointer;
-}
-
-* + .rpbchessboard-navigationButton {
-	margin-left: 2px;
-}
-
-.rpbchessboard-navigationButton:hover {
-	opacity: 0.6;
-}
+<?php
+	RPBChessboardHelperLoader::printTemplate( 'admin-page/generic/board-aspect', $model, array( 'key' => 'nbo' ) );
+?>

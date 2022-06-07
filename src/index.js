@@ -27,6 +27,7 @@ import ReactDOM from 'react-dom';
 import { Chessboard, i18n as kokopuReactI18n } from 'kokopu-react';
 
 import Chessgame from './Chessgame';
+import NavigationToolbar from './NavigationToolbar';
 import { FENEditorIcon, registerFENBlock } from './FENEditor';
 import { PGNEditorIcon, registerPGNBlock } from './PGNEditor';
 
@@ -57,6 +58,9 @@ Object.assign(Chessboard.piecesets(), RPBChessboard.customPiecesets);
 RPBChessboard.editColorset = Chessboard.colorsets()._edit_ = {};
 RPBChessboard.editPieceset = Chessboard.piecesets()._edit_ = {};
 
+// Pieceset used to label piece-related fields in admin forms
+RPBChessboard.labellingPieceset = Chessboard.piecesets().cburnett;
+
 // Block registration
 registerFENBlock();
 registerPGNBlock();
@@ -73,6 +77,13 @@ RPBChessboard.renderPGNIcon = targetJQueryElement => { renderIcons(<PGNEditorIco
 // Chessboard rendering function (to be used in the admin pages)
 RPBChessboard.renderAdminChessboard = function(targetJQueryElement, widgetArgs) {
 	let widget = <Chessboard {...widgetArgs} />;
+	ReactDOM.render(widget, targetJQueryElement.get(0));
+};
+
+
+// Navigation toolbar rendering function (to be used in the admin pages)
+RPBChessboard.renderNavigationToolbar = function(targetJQueryElement, widgetArgs) {
+	let widget = <NavigationToolbar {...widgetArgs} />;
 	ReactDOM.render(widget, targetJQueryElement.get(0));
 };
 

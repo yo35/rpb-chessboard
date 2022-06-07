@@ -112,15 +112,6 @@
 	align-items: center;
 }
 
-.rpbchessboard-navigationToolbar {
-	line-height: 0px;
-}
-
-.rpbchessboard-toolbarSpacer {
-	display: inline-block;
-	width: 10px;
-}
-
 .rpbchessboard-blobDownloadLink {
 	display: none;
 }

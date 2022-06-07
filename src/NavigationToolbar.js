@@ -20,16 +20,21 @@
 
 
 import './public-path';
-import './NavigationButton.css';
+import './NavigationToolbar.css';
 
 import PropTypes from 'prop-types';
 import React from 'react';
+
+const i18n = RPBChessboard.i18n;
 
 const THICKNESS = 2;
 const CHEVRON_SIZE = 7;
 const ARROW_SIZE = 5;
 const ARROW_LENGTH = 16;
 const DOWNLOAD_WIDTH = 16;
+
+export const TOOLBAR_MARGIN = 5;
+export const TOOLBAR_HEIGHT = 28;
 
 
 /**
@@ -122,10 +127,11 @@ function innerPath(type) {
 /**
  * Button for the navigation toolbar of the `Chessgame` component.
  */
-export default function NavigationButton(props) {
+function NavigationButton(props) {
 	let path = `M 16 0 A 16 16 0 0 0 16 32 A 16 16 0 0 0 16 0 Z ${innerPath(props.type)}`;
+	let onClick = props.onClick ? props.onClick : undefined;
 	return (
-		<div className="rpbchessboard-navigationButton" title={props.tooltip} onClick={props.onClick}>
+		<div className="rpbchessboard-navigationButton" title={props.tooltip} onClick={onClick}>
 			<svg viewBox="0 0 32 32" width={props.size} height={props.size}>
 				<path d={path} fill="currentcolor" />
 			</svg>
@@ -137,5 +143,56 @@ NavigationButton.propTypes = {
 	size: PropTypes.number.isRequired,
 	type: PropTypes.string.isRequired,
 	tooltip: PropTypes.string.isRequired,
-	onClick: PropTypes.func.isRequired,
+	onClick: PropTypes.func,
+};
+
+
+/**
+ * Toolbar below the navigation board.
+ */
+export default class NavigationToolbar extends React.Component {
+
+	render() {
+		return (
+			<div className="rpbchessboard-navigationToolbar" style={{ marginTop: TOOLBAR_MARGIN }}>
+				<NavigationButton size={TOOLBAR_HEIGHT} type="first" tooltip={i18n.PGN_TOOLTIP_GO_FIRST} onClick={this.props.onFirstClicked} />
+				<NavigationButton size={TOOLBAR_HEIGHT} type="previous" tooltip={i18n.PGN_TOOLTIP_GO_PREVIOUS} onClick={this.props.onPreviousClicked} />
+				<NavigationButton size={TOOLBAR_HEIGHT} type="next" tooltip={i18n.PGN_TOOLTIP_GO_NEXT} onClick={this.props.onNextClicked} />
+				<NavigationButton size={TOOLBAR_HEIGHT} type="last" tooltip={i18n.PGN_TOOLTIP_GO_LAST} onClick={this.props.onLastClicked} />
+				{this.renderFlipButton()}
+				{this.renderDownloadButton()}
+			</div>
+		);
+	}
+
+	renderFlipButton() {
+		if (!this.props.withFlipButton) {
+			return undefined;
+		}
+		return (<>
+			<div className="rpbchessboard-toolbarSpacer" />
+			<NavigationButton size={TOOLBAR_HEIGHT} type="flip" tooltip={i18n.PGN_TOOLTIP_FLIP} onClick={this.props.onFlipClicked} />
+		</>);
+	}
+
+	renderDownloadButton() {
+		if (!this.props.withDownloadButton) {
+			return undefined;
+		}
+		return (<>
+			<div className="rpbchessboard-toolbarSpacer" />
+			<NavigationButton size={TOOLBAR_HEIGHT} type="download" tooltip={i18n.PGN_TOOLTIP_DOWNLOAD} onClick={this.props.onDownloadClicked} />
+		</>);
+	}
+}
+
+NavigationToolbar.propTypes = {
+	withFlipButton: PropTypes.bool.isRequired,
+	withDownloadButton: PropTypes.bool.isRequired,
+	onFirstClicked: PropTypes.func,
+	onPreviousClicked: PropTypes.func,
+	onNextClicked: PropTypes.func,
+	onLastClicked: PropTypes.func,
+	onFlipClicked: PropTypes.func,
+	onDownloadClicked: PropTypes.func,
 };

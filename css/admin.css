@@ -94,12 +94,12 @@
 	display: flex;
 }
 
-.rpbchessboard-columns > div {
-	margin-left : 10px;
-	margin-right: 10px;
+.rpbchessboard-columns > div + div {
+	margin-left: 20px;
 }
 
-.rpbchessboard-tuningChessboardParameterColumn {
+.rpbchessboard-tuningChessboardParameterColumn,
+.rpbchessboard-tuningNavigationToolbarParameterColumn {
 	width: 250px;
 }
 
@@ -147,6 +147,40 @@
 .rpbchessboard-graphicRadioButtonFields input[type="radio"]:checked + label {
 	border: solid 4px rgb(0, 116, 162);
 	padding: 10px;
+}
+
+#rpbchessboard-adminPage input[name="pieceSymbolMode"] {
+	margin-left: 3em;
+}
+
+#rpbchessboard-adminPage input[name="pieceSymbolMode"]:first-child {
+	margin-left: 0px;
+}
+
+.rpbchessboard-pieceSymbolLabel {
+	display: inline-block;
+	vertical-align: middle;
+	line-height: 0px;
+}
+
+.rpbchessboard-pieceSymbolField {
+	vertical-align: middle;
+	text-align: center;
+	margin-right: 3em;
+}
+
+.rpbchessboard-pieceSymbolField:last-child {
+	margin-right: 0px;
+}
+
+#rpbchessboard-adminPage code {
+	padding: inherit;
+}
+
+#rpbchessboard-navigationToolbarPreview {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 

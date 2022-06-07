@@ -28,14 +28,11 @@ import ReactDOM from 'react-dom';
 import kokopu from 'kokopu';
 import { Chessboard, ErrorBox, Movetext, formatMove } from 'kokopu-react';
 
-import NavigationButton from './NavigationButton';
+import NavigationToolbar, { TOOLBAR_MARGIN, TOOLBAR_HEIGHT } from './NavigationToolbar';
 import { showPopupFrame, hidePopupFrame } from './NavigationFrame';
 import { format, parsePieceSymbols } from './util';
 
 const i18n = RPBChessboard.i18n;
-
-const TOOLBAR_MARGIN = 5;
-const TOOLBAR_HEIGHT = 28;
 
 
 /**
@@ -164,37 +161,26 @@ export default class Chessgame extends React.Component {
 					animated={navigationBoardOptions.animated}
 					moveArrowVisible={navigationBoardOptions.moveArrowVisible}
 				/>
-				<div className="rpbchessboard-navigationToolbar" style={{ marginTop: TOOLBAR_MARGIN }}>
-					<NavigationButton size={TOOLBAR_HEIGHT} type="first" tooltip={i18n.PGN_TOOLTIP_GO_FIRST} onClick={() => this.handleNavClicked(game, selection, Movetext.firstNodeId, false)} />
-					<NavigationButton size={TOOLBAR_HEIGHT} type="previous" tooltip={i18n.PGN_TOOLTIP_GO_PREVIOUS} onClick={() => this.handleNavClicked(game, selection, Movetext.previousNodeId, false)} />
-					<NavigationButton size={TOOLBAR_HEIGHT} type="next" tooltip={i18n.PGN_TOOLTIP_GO_NEXT} onClick={() => this.handleNavClicked(game, selection, Movetext.nextNodeId, true)} />
-					<NavigationButton size={TOOLBAR_HEIGHT} type="last" tooltip={i18n.PGN_TOOLTIP_GO_LAST} onClick={() => this.handleNavClicked(game, selection, Movetext.lastNodeId, false)} />
-					{this.renderFlipButton()}
-					{this.renderDownloadButton()}
-				</div>
+				<NavigationToolbar
+					withFlipButton={this.props.withFlipButton}
+					withDownloadButton={this.props.withDownloadButton}
+					onFirstClicked={() => this.handleNavClicked(game, selection, Movetext.firstNodeId, false)}
+					onPreviousClicked={() => this.handleNavClicked(game, selection, Movetext.previousNodeId, false)}
+					onNextClicked={() => this.handleNavClicked(game, selection, Movetext.nextNodeId, true)}
+					onLastClicked={() => this.handleNavClicked(game, selection, Movetext.lastNodeId, false)}
+					onFlipClicked={() => this.handleFlipClicked()}
+					onDownloadClicked={() => this.handleDownloadClicked()}
+				/>
+				{this.renderDownloadLink()}
 			</div>
 		);
 	}
 
-	renderFlipButton() {
-		if (!this.props.withFlipButton) {
-			return undefined;
-		}
-		return (<>
-			<div className="rpbchessboard-toolbarSpacer" />
-			<NavigationButton size={TOOLBAR_HEIGHT} type="flip" tooltip={i18n.PGN_TOOLTIP_FLIP} onClick={() => this.handleFlipClicked()} />
-		</>);
-	}
-
-	renderDownloadButton() {
+	renderDownloadLink() {
 		if (!this.props.withDownloadButton) {
 			return undefined;
 		}
-		return (<>
-			<div className="rpbchessboard-toolbarSpacer" />
-			<NavigationButton size={TOOLBAR_HEIGHT} type="download" tooltip={i18n.PGN_TOOLTIP_DOWNLOAD} onClick={() => this.handleDownloadClicked()} />
-			<a ref={this.blobDownloadLinkRef} className="rpbchessboard-blobDownloadLink" href="#" download="game.pgn" />
-		</>);
+		return <a ref={this.blobDownloadLinkRef} className="rpbchessboard-blobDownloadLink" href="#" download="game.pgn" />;
 	}
 
 	getCurrentPositionAndAnnotations(game, node) {
