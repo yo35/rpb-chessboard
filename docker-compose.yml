@@ -1,0 +1,38 @@
+version: '3.7'
+
+services:
+  mysql:
+    image: mysql:latest
+    volumes:
+      - type: volume
+        source: mysql_data
+        target: /var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: wpdb
+      MYSQL_USER: wpuser
+      MYSQL_PASSWORD: wppass
+  wordpress:
+    image: wordpress:latest
+    depends_on:
+      - mysql
+    volumes:
+      - type: volume
+        source: wordpress_data
+        target: /var/www/html
+      - type: bind
+        source: .
+        target: /var/www/html/wp-content/plugins/rpb-chessboard
+        read_only: true
+    ports:
+      - 8080:80 # http://localhost:8080
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_NAME: wpdb
+      WORDPRESS_DB_USER: wpuser
+      WORDPRESS_DB_PASSWORD: wppass
+      WORDPRESS_DEBUG: 1
+
+volumes:
+  mysql_data:
+  wordpress_data:

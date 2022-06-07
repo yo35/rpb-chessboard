@@ -30,7 +30,7 @@ Author URI: https://github.com/yo35
 License: GPLv3
 Requires at least: 5.5
 Requires PHP: 5.6
-Version: 7.1.1
+Version: 7.1.2
 */
 
 
@@ -38,7 +38,7 @@ Version: 7.1.1
 define( 'RPBCHESSBOARD_ABSPATH', plugin_dir_path( __FILE__ ) );
 define( 'RPBCHESSBOARD_BASENAME', plugin_basename( __FILE__ ) );
 define( 'RPBCHESSBOARD_URL', plugin_dir_url( __FILE__ ) );
-define( 'RPBCHESSBOARD_VERSION', '7.1.1' );
+define( 'RPBCHESSBOARD_VERSION', '7.1.2' );
 
 
 // Enable localization
