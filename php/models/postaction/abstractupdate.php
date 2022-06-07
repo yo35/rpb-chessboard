@@ -32,6 +32,17 @@ abstract class RPBChessboardAbstractModelPostActionUpdate extends RPBChessboardA
 		return __( 'Settings saved.', 'rpb-chessboard' );
 	}
 
+
+	protected static function processIntegerParameter( $key ) {
+		if ( isset( $_POST[ $key ] ) ) {
+			$value = RPBChessboardHelperValidation::validateInteger( $_POST[ $key ] );
+			if ( isset( $value ) ) {
+				update_option( 'rpbchessboard_' . $key, $value );
+			}
+		}
+	}
+
+
 	protected static function processBooleanParameter( $key ) {
 		if ( isset( $_POST[ $key ] ) ) {
 			$value = RPBChessboardHelperValidation::validateBooleanFromInt( $_POST[ $key ] );
@@ -41,6 +52,24 @@ abstract class RPBChessboardAbstractModelPostActionUpdate extends RPBChessboardA
 			return $value;
 		} else {
 			return null;
+		}
+	}
+
+
+	protected static function processBoardAspectParameters( $key ) {
+		self::processIntegerParameter( $key . 'SquareSize' );
+		self::processBooleanParameter( $key . 'ShowCoordinates' );
+		self::processSetCodeParameter( $key . 'Colorset' );
+		self::processSetCodeParameter( $key . 'Pieceset' );
+	}
+
+
+	private static function processSetCodeParameter( $key ) {
+		if ( isset( $_POST[ $key ] ) ) {
+			$value = RPBChessboardHelperValidation::validateSetCode( $_POST[ $key ] );
+			if ( isset( $value ) ) {
+				update_option( 'rpbchessboard_' . $key, $value );
+			}
 		}
 	}
 

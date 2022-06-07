@@ -18,42 +18,28 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.   *
  *                                                                            *
  ******************************************************************************/
-?>
 
-<?php
-wp_enqueue_style( 'rpbchessboard-backend' );
-?>
 
-<div class="wrap rpbchessboard-adminPage">
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/postaction/abstractreset.php';
 
-	<h2><?php echo esc_html( $model->getTitle() ); ?></h2>
 
-	<noscript>
-		<div class="error">
-			<p>
-				<?php esc_html_e( 'To work properly, the RPB Chessboard plugin needs JavaScript to be activated in your browser.', 'rpb-chessboard' ); ?>
-			</p>
-		</div>
-	</noscript>
+class RPBChessboardModelPostActionResetChessDiagramSettings extends RPBChessboardAbstractModelPostActionReset {
 
-	<?php if ( $model->hasPostMessage() ) : ?>
-	<div class="updated">
-		<p><?php echo esc_html( $model->getPostMessage() ); ?></p>
-	</div>
-	<?php endif; ?>
+	public function run() {
+		delete_option( 'rpbchessboard_diagramAlignment' );
 
-	<?php if ( $model->hasSubPages() ) : ?>
-	<ul id="rpbchessboard-subPageSelector" class="subsubsub">
-		<?php foreach ( $model->getSubPages() as $subPage ) : ?>
-		<li>
-			<a href="<?php echo esc_url( $subPage->link ); ?>" class="<?php echo $subPage->selected ? 'current' : ''; ?>">
-				<?php echo wp_kses_post( $subPage->label ); ?>
-			</a>
-		</li>
-		<?php endforeach; ?>
-	</ul>
-	<?php endif; ?>
+		// FIXME Deprecated parameters (since 7.2)
+		delete_option( 'rpbchessboard_squareSize' );
+		delete_option( 'rpbchessboard_showCoordinates' );
+		delete_option( 'rpbchessboard_colorset' );
+		delete_option( 'rpbchessboard_pieceset' );
 
-	<?php RPBChessboardHelperLoader::printTemplateLegacy( $model->getPageTemplateName(), $model ); ?>
+		delete_option( 'rpbchessboard_sdoSquareSize' );
+		delete_option( 'rpbchessboard_sdoShowCoordinates' );
+		delete_option( 'rpbchessboard_sdoColorset' );
+		delete_option( 'rpbchessboard_sdoPieceset' );
 
-</div>
+		return self::getSuccessMessage();
+	}
+
+}

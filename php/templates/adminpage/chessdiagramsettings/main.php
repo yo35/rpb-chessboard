@@ -20,40 +20,23 @@
  ******************************************************************************/
 ?>
 
+<p>
+	<?php
+		printf(
+			esc_html__(
+				'This page defines the default settings applicable to the diagrams inserted with the %1$sChess diagram%2$s block.',
+				'rpb-chessboard'
+			),
+			'<em>',
+			'</em>'
+		);
+	?>
+	<?php
+		esc_html_e( 'It is possible to override these settings on each individual block, using the options in the block right side panel.', 'rpb-chessboard' );
+	?>
+</p>
+
 <?php
-wp_enqueue_style( 'rpbchessboard-backend' );
+	RPBChessboardHelperLoader::printTemplate( 'admin-page/chess-diagram-settings/alignment', $model );
+	RPBChessboardHelperLoader::printTemplate( 'admin-page/chess-diagram-settings/aspect', $model );
 ?>
-
-<div class="wrap rpbchessboard-adminPage">
-
-	<h2><?php echo esc_html( $model->getTitle() ); ?></h2>
-
-	<noscript>
-		<div class="error">
-			<p>
-				<?php esc_html_e( 'To work properly, the RPB Chessboard plugin needs JavaScript to be activated in your browser.', 'rpb-chessboard' ); ?>
-			</p>
-		</div>
-	</noscript>
-
-	<?php if ( $model->hasPostMessage() ) : ?>
-	<div class="updated">
-		<p><?php echo esc_html( $model->getPostMessage() ); ?></p>
-	</div>
-	<?php endif; ?>
-
-	<?php if ( $model->hasSubPages() ) : ?>
-	<ul id="rpbchessboard-subPageSelector" class="subsubsub">
-		<?php foreach ( $model->getSubPages() as $subPage ) : ?>
-		<li>
-			<a href="<?php echo esc_url( $subPage->link ); ?>" class="<?php echo $subPage->selected ? 'current' : ''; ?>">
-				<?php echo wp_kses_post( $subPage->label ); ?>
-			</a>
-		</li>
-		<?php endforeach; ?>
-	</ul>
-	<?php endif; ?>
-
-	<?php RPBChessboardHelperLoader::printTemplateLegacy( $model->getPageTemplateName(), $model ); ?>
-
-</div>

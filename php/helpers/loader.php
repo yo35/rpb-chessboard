@@ -106,11 +106,11 @@ abstract class RPBChessboardHelperLoader {
 	public static function printTemplate( $templateName, $model, $args = null ) {
 
 		if ( isset( $args ) ) {
-			foreach ( $args as $key => $value ) {
-				if ( 'model' === $key || 'templateName' === $key || 'fileName' === $key ) {
+			foreach ( $args as $key_ => $value_ ) {
+				if ( 'model' === $key_ || 'templateName' === $key_ || 'fileName' === $key_ || 'args' === $key_ ) {
 					continue;
 				}
-				$$key = $value;
+				$$key_ = $value_;
 			}
 		}
 

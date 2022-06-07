@@ -75,7 +75,7 @@ if ( 0 === $screenMode->minScreenWidth ) {
 					'value="' . esc_attr( $screenMode->squareSize ) . '"/>'
 			);
 		?>
-		<span id="rpbchessboard-smallScreenMode<?php echo esc_attr( $index ); ?>-squareSizeSlider" class="rpbchessboard-slider"></span>
+		<span id="rpbchessboard-smallScreenMode<?php echo esc_attr( $index ); ?>-squareSizeSlider" class="rpbchessboard-squareSizeSlider rpbchessboard-inlineSlider"></span>
 	</p>
 
 	<p>
@@ -115,7 +115,7 @@ if ( 0 === $screenMode->minScreenWidth ) {
 		// Enable/disable the widget in each small-screen-mode sections
 		function updateWidgetActivationState() {
 			var enabled = $('#rpbchessboard-smallScreenCompatibilityField').prop('checked');
-			$('.rpbchessboard-slider').slider(enabled ? 'enable' : 'disable');
+			$('.rpbchessboard-squareSizeSlider').slider(enabled ? 'enable' : 'disable');
 			$('.rpbchessboard-hideCoordinatesField').attr('disabled', !enabled);
 		}
 		$('#rpbchessboard-smallScreenCompatibilityField').change(updateWidgetActivationState);

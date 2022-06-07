@@ -81,8 +81,9 @@ class RPBChessboardControllerAdmin extends RPBChessboardAbstractController {
 
 		// CSS files specific to the admin
 		wp_register_style( 'rpbchessboard-jquery-ui-smoothness', RPBCHESSBOARD_URL . 'third-party-libs/jquery/jquery-ui.smoothness' . $ext, false, '1.11.4' );
-		wp_enqueue_style( 'rpbchessboard-backend', RPBCHESSBOARD_URL . 'css/backend.css', array( 'rpbchessboard-jquery-ui-smoothness' ), RPBCHESSBOARD_VERSION ); // TODO remove or change ext
-		wp_enqueue_style( 'rpbchessboard-admin', RPBCHESSBOARD_URL . 'css/admin.css', false, RPBCHESSBOARD_VERSION ); // TODO cleanup
+		wp_enqueue_style( 'rpbchessboard-admin', RPBCHESSBOARD_URL . 'css/admin' . $ext, array( 'rpbchessboard-jquery-ui-smoothness' ), RPBCHESSBOARD_VERSION );
+
+		wp_register_style( 'rpbchessboard-backend', RPBCHESSBOARD_URL . 'css/backend.css', array( 'rpbchessboard-jquery-ui-smoothness' ), RPBCHESSBOARD_VERSION ); // TODO remove
 	}
 
 

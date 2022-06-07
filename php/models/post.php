@@ -25,7 +25,14 @@
  */
 class RPBChessboardModelPost {
 
-	private static $VALID_FORM_ACTIONS = array( 'UpdateCompatibility', 'UpdateSmallScreens', 'ResetCompatibility', 'ResetSmallScreens' );
+	private static $VALID_FORM_ACTIONS = array(
+		'ResetChessDiagramSettings',
+		'ResetCompatibility',
+		'ResetSmallScreens',
+		'UpdateChessDiagramSettings',
+		'UpdateCompatibility',
+		'UpdateSmallScreens',
+	);
 
 	private $message     = '';
 	private $messageType = 'success';

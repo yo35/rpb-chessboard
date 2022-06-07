@@ -20,17 +20,30 @@
  ******************************************************************************/
 
 
-require_once RPBCHESSBOARD_ABSPATH . 'php/models/adminsubpage/abstract.php';
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/adminsubpage/abstractform.php';
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/customcolorsets.php';
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/custompiecesets.php';
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/defaultoptions.php';
 
 
 /**
  * Delegate model for the sub-page 'chess-diagram-settings'.
  */
-class RPBChessboardModelAdminSubPageChessDiagramSettings extends RPBChessboardAbstractModelAdminSubPage {
+class RPBChessboardModelAdminSubPageChessDiagramSettings extends RPBChessboardAbstractModelAdminSubPageForm {
+
+	use RPBChessboardTraitCustomColorsets, RPBChessboardTraitCustomPiecesets, RPBChessboardTraitDefaultOptions;
 
 
-	public function getTemplateName() {
-		return 'temporary'; // TODO impl
+	public function getFormSubmitAction() {
+		return 'UpdateChessDiagramSettings';
+	}
+
+	public function getFormResetAction() {
+		return 'ResetChessDiagramSettings';
+	}
+
+	public function getFormTemplateName() {
+		return 'chess-diagram-settings';
 	}
 
 }

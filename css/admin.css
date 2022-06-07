@@ -68,11 +68,39 @@
 /* -------------------------------------------------------------------------- */
 
 #rpbchessboard-adminPage * + h3 {
-	margin: 2em 0px 1em;
+	margin-top: 2em;
 }
 
 #rpbchessboard-adminPage p + p.description {
 	margin-top: -0.75em;
+}
+
+.rpbchessboard-columns {
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+.rpbchessboard-columns p:first-child {
+	margin-top: 0px;
+}
+
+
+
+/* -------------------------------------------------------------------------- */
+/* Column layout */
+/* -------------------------------------------------------------------------- */
+
+.rpbchessboard-columns {
+	display: flex;
+}
+
+.rpbchessboard-columns > div {
+	margin-left : 10px;
+	margin-right: 10px;
+}
+
+.rpbchessboard-tuningChessboardParameterColumn {
+	width: 250px;
 }
 
 
@@ -81,16 +109,44 @@
 /* Components */
 /* -------------------------------------------------------------------------- */
 
-#rpbchessboard-adminPage span.rpbchessboard-slider {
+.rpbchessboard-squareSizeSlider {
 	display: inline-block;
 	width: 240px;
-	margin-left: 3em;
 	margin-top: 0px;
 	margin-bottom: 0px;
 }
 
-#rpbchessboard-adminPage .rpbchessboard-squareSizeField {
+.rpbchessboard-inlineSlider {
+	margin-left: 3em;
+}
+
+.rpbchessboard-squareSizeField {
 	text-align: right;
+}
+
+.rpbchessboard-graphicRadioButtonFields {
+	margin-bottom: 0.5em;
+	user-select: none;
+}
+
+.rpbchessboard-graphicRadioButtonFields > div {
+	display: inline-block;
+	margin-right: 30px;
+}
+
+.rpbchessboard-graphicRadioButtonFields input[type="radio"] {
+	display: none;
+}
+
+.rpbchessboard-graphicRadioButtonFields input[type="radio"] + label {
+	display: block;
+	padding: 14px;
+	line-height: 0px;
+}
+
+.rpbchessboard-graphicRadioButtonFields input[type="radio"]:checked + label {
+	border: solid 4px rgb(0, 116, 162);
+	padding: 10px;
 }
 
 
