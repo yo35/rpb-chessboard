@@ -85,6 +85,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 7.1.2 (June 7, 2022) =
+* Restore Czech translations.
+
 = 7.1.1 (June 1, 2022) =
 * Fix `<br>` tags not working in PGN comments (see #238) and improve support of HTML tags (in particular: paragraphs, lists and images are now allowed in PGN comments).
 * Minor fixes.
