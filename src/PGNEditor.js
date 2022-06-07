@@ -249,7 +249,7 @@ class PGNEditor extends React.Component {
 		else {
 			return (<>
 				<ChessboardOptionEditor
-					defaultSquareSize={RPBChessboard.defaultSettings.squareSize}
+					defaultSquareSize={RPBChessboard.defaultSettings.nboSquareSize}
 					squareSize={this.props.attributes.nboSquareSize}
 					coordinateVisible={this.props.attributes.nboCoordinateVisible}
 					colorset={this.props.attributes.nboColorset}
@@ -285,7 +285,7 @@ class PGNEditor extends React.Component {
 		return (
 			<PanelBody title={i18n.PGN_EDITOR_PANEL_DIAGRAM_OPTIONS} initialOpen={false}>
 				<ChessboardOptionEditor
-					defaultSquareSize={RPBChessboard.defaultSettings.squareSize}
+					defaultSquareSize={RPBChessboard.defaultSettings.idoSquareSize}
 					squareSize={this.props.attributes.idoSquareSize}
 					coordinateVisible={this.props.attributes.idoCoordinateVisible}
 					colorset={this.props.attributes.idoColorset}

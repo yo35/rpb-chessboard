@@ -62,12 +62,12 @@ function buildFrame() {
 
 	// Initialize the default options.
 	boardOptions = {
-		squareSize: RPBChessboard.defaultSettings.squareSize,
-		coordinateVisible: RPBChessboard.defaultSettings.showCoordinates,
-		colorset: RPBChessboard.defaultSettings.colorset,
-		pieceset: RPBChessboard.defaultSettings.pieceset,
+		squareSize: RPBChessboard.defaultSettings.nboSquareSize,
+		coordinateVisible: RPBChessboard.defaultSettings.nboCoordinateVisible,
+		colorset: RPBChessboard.defaultSettings.nboColorset,
+		pieceset: RPBChessboard.defaultSettings.nboPieceset,
 		animated: RPBChessboard.defaultSettings.animated,
-		moveArrowVisible: RPBChessboard.defaultSettings.showMoveArrow,
+		moveArrowVisible: RPBChessboard.defaultSettings.moveArrowVisible,
 	};
 
 	// Build the dialog skeleton

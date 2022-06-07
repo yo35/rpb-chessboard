@@ -56,10 +56,10 @@ class RPBChessboardModelBlockFEN extends RPBChessboardAbstractModelBlock {
 		}
 
 		// Chessboard aspect
-		$widgetArgs['squareSize']        = isset( $atts['squareSize'] ) ? $atts['squareSize'] : $this->mainModel->getDefaultSquareSize();
-		$widgetArgs['coordinateVisible'] = isset( $atts['coordinateVisible'] ) ? 'true' === $atts['coordinateVisible'] : $this->mainModel->getDefaultShowCoordinates();
-		$widgetArgs['colorset']          = isset( $atts['colorset'] ) ? $atts['colorset'] : $this->mainModel->getDefaultColorset();
-		$widgetArgs['pieceset']          = isset( $atts['pieceset'] ) ? $atts['pieceset'] : $this->mainModel->getDefaultPieceset();
+		$widgetArgs['squareSize']        = isset( $atts['squareSize'] ) ? $atts['squareSize'] : $this->mainModel->getDefaultSquareSize( 'sdo' );
+		$widgetArgs['coordinateVisible'] = isset( $atts['coordinateVisible'] ) ? 'true' === $atts['coordinateVisible'] : $this->mainModel->getDefaultShowCoordinates( 'sdo' );
+		$widgetArgs['colorset']          = isset( $atts['colorset'] ) ? $atts['colorset'] : $this->mainModel->getDefaultColorset( 'sdo' );
+		$widgetArgs['pieceset']          = isset( $atts['pieceset'] ) ? $atts['pieceset'] : $this->mainModel->getDefaultPieceset( 'sdo' );
 
 		return $widgetArgs;
 	}

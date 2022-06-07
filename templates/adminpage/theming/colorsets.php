@@ -61,7 +61,7 @@
 			<td><?php echo esc_html( $colorset ); ?></td>
 
 			<td>
-				<?php if ( $model->isDefaultColorset( $colorset ) ) : ?>
+				<?php if ( $model->isDefaultColorset( 'sdo', $colorset ) ) : ?>
 				<div class="rpbchessboard-tickIcon"></div>
 				<?php endif; ?>
 			</td>

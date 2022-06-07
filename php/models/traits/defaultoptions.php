@@ -25,10 +25,18 @@
  */
 trait RPBChessboardTraitDefaultOptions {
 
-	private $squareSize;
-	private $showCoordinates;
-	private $colorset;
-	private $pieceset;
+	private $sdoSquareSize;
+	private $nboSquareSize;
+	private $idoSquareSize;
+	private $sdoShowCoordinates;
+	private $nboShowCoordinates;
+	private $idoShowCoordinates;
+	private $sdoColorset;
+	private $nboColorset;
+	private $idoColorset;
+	private $sdoPieceset;
+	private $nboPieceset;
+	private $idoPieceset;
 	private $diagramAlignment;
 	private $pieceSymbols;
 	private $navigationBoard;
@@ -51,85 +59,123 @@ trait RPBChessboardTraitDefaultOptions {
 
 
 	/**
-	 * Default square size for the chessboard widgets.
+	 * Default square size for the diagrams.
 	 *
+	 * @param string $key `sdo`, `nbo` or `ido` for respectively the standalone diagrams, the navigation boards, and the inner diagrams.
 	 * @return int
 	 */
-	public function getDefaultSquareSize() {
-		if ( ! isset( $this->squareSize ) ) {
-			$value            = RPBChessboardHelperValidation::validateInteger( get_option( 'rpbchessboard_squareSize' ) );
-			$this->squareSize = isset( $value ) ? $value : self::$DEFAULT_SQUARE_SIZE;
+	public function getDefaultSquareSize( $key ) {
+		$field = self::validateKey( $key, 'SquareSize' );
+		if ( ! isset( $this->$field ) ) {
+			$value = RPBChessboardHelperValidation::validateInteger( get_option( 'rpbchessboard_' . $field ) );
+
+			// FIXME Until 7.2, there was a single parameter for standalone diagrams, navigation board and inner chess game diagrams.
+			if ( ! isset( $value ) ) {
+				$value = RPBChessboardHelperValidation::validateInteger( get_option( 'rpbchessboard_squareSize' ) );
+			}
+
+			$this->$field = isset( $value ) ? $value : self::$DEFAULT_SQUARE_SIZE;
 		}
-		return $this->squareSize;
+		return $this->$field;
 	}
 
 
 	/**
-	 * Default show-coordinates parameter for the chessboard widgets.
+	 * Default coordinate visible parameter for the diagrams.
 	 *
+	 * @param string $key `sdo`, `nbo` or `ido` for respectively the standalone diagrams, the navigation boards, and the inner diagrams.
 	 * @return boolean
 	 */
-	public function getDefaultShowCoordinates() {
-		if ( ! isset( $this->showCoordinates ) ) {
-			$value                 = RPBChessboardHelperValidation::validateBooleanFromInt( get_option( 'rpbchessboard_showCoordinates' ) );
-			$this->showCoordinates = isset( $value ) ? $value : self::$DEFAULT_SHOW_COORDINATES;
-		}
-		return $this->showCoordinates;
-	}
+	public function getDefaultShowCoordinates( $key ) {
+		$field = self::validateKey( $key, 'ShowCoordinates' );
+		if ( ! isset( $this->$field ) ) {
+			$value = RPBChessboardHelperValidation::validateBooleanFromInt( get_option( 'rpbchessboard_' . $field ) );
 
-
-	/**
-	 * Default colorset parameter for the chessboard widgets.
-	 *
-	 * @return string
-	 */
-	public function getDefaultColorset() {
-		if ( ! isset( $this->colorset ) ) {
-			$value          = RPBChessboardHelperValidation::validateSetCode( get_option( 'rpbchessboard_colorset' ) );
-			$this->colorset = isset( $value ) ? $value : self::$DEFAULT_COLORSET;
-
-			// FIXME Colorset 'original' was named as 'default' in version 4.3 and 4.3.1.
-			if ( 'default' === $this->colorset ) {
-				$this->colorset = 'original';
+			// FIXME Until 7.2, there was a single parameter for standalone diagrams, navigation board and inner chess game diagrams.
+			if ( ! isset( $value ) ) {
+				$value = RPBChessboardHelperValidation::validateBooleanFromInt( get_option( 'rpbchessboard_showCoordinates' ) );
 			}
+
+			$this->$field = isset( $value ) ? $value : self::$DEFAULT_SHOW_COORDINATES;
 		}
-		return $this->colorset;
+		return $this->$field;
 	}
 
 
 	/**
-	 * Default pieceset parameter for the chessboard widgets.
+	 * Default colorset parameter for the diagrams.
 	 *
+	 * @param string $key `sdo`, `nbo` or `ido` for respectively the standalone diagrams, the navigation boards, and the inner diagrams.
 	 * @return string
 	 */
-	public function getDefaultPieceset() {
-		if ( ! isset( $this->pieceset ) ) {
-			$value          = RPBChessboardHelperValidation::validateSetCode( get_option( 'rpbchessboard_pieceset' ) );
-			$this->pieceset = isset( $value ) ? $value : self::$DEFAULT_PIECESET;
+	public function getDefaultColorset( $key ) {
+		$field = self::validateKey( $key, 'Colorset' );
+		if ( ! isset( $this->$field ) ) {
+			$value = RPBChessboardHelperValidation::validateSetCode( get_option( 'rpbchessboard_' . $field ) );
+
+			// FIXME Until 7.2, there was a single parameter for standalone diagrams, navigation board and inner chess game diagrams.
+			if ( ! isset( $value ) ) {
+				$value = RPBChessboardHelperValidation::validateSetCode( get_option( 'rpbchessboard_colorset' ) );
+			}
+
+			$this->$field = isset( $value ) ? $value : self::$DEFAULT_COLORSET;
 		}
-		return $this->pieceset;
+		return $this->$field;
+	}
+
+
+	/**
+	 * Default pieceset parameter for the diagrams.
+	 *
+	 * @param string $key `sdo`, `nbo` or `ido` for respectively the standalone diagrams, the navigation boards, and the inner diagrams.
+	 * @return string
+	 */
+	public function getDefaultPieceset( $key ) {
+		$field = self::validateKey( $key, 'Pieceset' );
+		if ( ! isset( $this->$field ) ) {
+			$value = RPBChessboardHelperValidation::validateSetCode( get_option( 'rpbchessboard_' . $field ) );
+
+			// FIXME Until 7.2, there was a single parameter for standalone diagrams, navigation board and inner chess game diagrams.
+			if ( ! isset( $value ) ) {
+				$value = RPBChessboardHelperValidation::validateSetCode( get_option( 'rpbchessboard_pieceset' ) );
+			}
+
+			$this->$field = isset( $value ) ? $value : self::$DEFAULT_PIECESET;
+		}
+		return $this->$field;
 	}
 
 
 	/**
 	 * Check whether the given colorset is the default one or not.
 	 *
+	 * @param string $key `sdo`, `nbo` or `ido` for respectively the standalone diagrams, the navigation boards, and the inner diagrams.
 	 * @param string $colorset
 	 * @return boolean
 	 */
-	public function isDefaultColorset( $colorset ) {
-		return $this->getDefaultColorset() === $colorset;
+	public function isDefaultColorset( $key, $colorset ) {
+		return $this->getDefaultColorset( $key ) === $colorset;
 	}
 
 
 	/**
 	 * Check whether the given pieceset is the default one or not.
 	 *
+	 * @param string $key `sdo`, `nbo` or `ido` for respectively the standalone diagrams, the navigation boards, and the inner diagrams.
 	 * @param string $pieceset
 	 * @return boolean
 	 */
-	public function isDefaultPieceset( $pieceset ) {
-		return $this->getDefaultPieceset() === $pieceset;
+	public function isDefaultPieceset( $key, $pieceset ) {
+		return $this->getDefaultPieceset( $key ) === $pieceset;
+	}
+
+
+	private static function validateKey( $key, $fieldName ) {
+		if ( 'sdo' === $key || 'nbo' === $key || 'ido' === $key ) {
+			return $key . $fieldName;
+		} else {
+			throw new Exception( 'Invalid board setting key: ' . $key );
+		}
 	}
 
 
@@ -237,37 +283,6 @@ trait RPBChessboardTraitDefaultOptions {
 			$this->showMoveArrow = isset( $value ) ? $value : self::$DEFAULT_SHOW_MOVE_ARROW;
 		}
 		return $this->showMoveArrow;
-	}
-
-
-	/**
-	 * Default chessboard settings.
-	 */
-	public function getDefaultChessboardSettings() {
-		return array(
-			'squareSize'      => $this->getDefaultSquareSize(),
-			'showCoordinates' => $this->getDefaultShowCoordinates(),
-			'colorset'        => $this->getDefaultColorset(),
-			'pieceset'        => $this->getDefaultPieceset(),
-			'animated'        => $this->getDefaultAnimated(),
-			'showMoveArrow'   => $this->getDefaultShowMoveArrow(),
-		);
-	}
-
-
-	/**
-	 * Default chessgame settings.
-	 */
-	public function getDefaultChessgameSettings() {
-		$defaultChessboardSettings = $this->getDefaultChessboardSettings();
-		return array(
-			'pieceSymbols'           => $this->getDefaultPieceSymbols(),
-			'navigationBoard'        => $this->getDefaultNavigationBoard(),
-			'showFlipButton'         => $this->getDefaultShowFlipButton(),
-			'showDownloadButton'     => $this->getDefaultShowDownloadButton(),
-			'navigationBoardOptions' => $defaultChessboardSettings,
-			'diagramOptions'         => $defaultChessboardSettings,
-		);
 	}
 
 }

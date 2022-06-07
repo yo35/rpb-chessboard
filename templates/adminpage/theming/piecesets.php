@@ -70,7 +70,7 @@
 			<td><?php echo esc_html( $pieceset ); ?></td>
 
 			<td>
-				<?php if ( $model->isDefaultPieceset( $pieceset ) ) : ?>
+				<?php if ( $model->isDefaultPieceset( 'sdo', $pieceset ) ) : ?>
 				<div class="rpbchessboard-tickIcon"></div>
 				<?php endif; ?>
 			</td>

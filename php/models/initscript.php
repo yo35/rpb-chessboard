@@ -96,14 +96,22 @@ class RPBChessboardModelInitScript {
 
 	private function getDefaultSettings() {
 		return array(
-			'squareSize'      => $this->mainModel->getDefaultSquareSize(),
-			'showCoordinates' => $this->mainModel->getDefaultShowCoordinates(),
-			'colorset'        => $this->mainModel->getDefaultColorset(),
-			'pieceset'        => $this->mainModel->getDefaultPieceset(),
-			'animated'        => $this->mainModel->getDefaultAnimated(),
-			'showMoveArrow'   => $this->mainModel->getDefaultShowMoveArrow(),
-			'pieceSymbols'    => $this->mainModel->getDefaultPieceSymbols(),
-			'navigationBoard' => $this->mainModel->getDefaultNavigationBoard(),
+			'sdoSquareSize'        => $this->mainModel->getDefaultSquareSize( 'sdo' ),
+			'nboSquareSize'        => $this->mainModel->getDefaultSquareSize( 'nbo' ),
+			'idoSquareSize'        => $this->mainModel->getDefaultSquareSize( 'ido' ),
+			'sdoCoordinateVisible' => $this->mainModel->getDefaultShowCoordinates( 'sdo' ),
+			'nboCoordinateVisible' => $this->mainModel->getDefaultShowCoordinates( 'nbo' ),
+			'idoCoordinateVisible' => $this->mainModel->getDefaultShowCoordinates( 'ido' ),
+			'sdoColorset'          => $this->mainModel->getDefaultColorset( 'sdo' ),
+			'nboColorset'          => $this->mainModel->getDefaultColorset( 'nbo' ),
+			'idoColorset'          => $this->mainModel->getDefaultColorset( 'ido' ),
+			'sdoPieceset'          => $this->mainModel->getDefaultPieceset( 'sdo' ),
+			'nboPieceset'          => $this->mainModel->getDefaultPieceset( 'nbo' ),
+			'idoPieceset'          => $this->mainModel->getDefaultPieceset( 'ido' ),
+			'animated'             => $this->mainModel->getDefaultAnimated(),
+			'moveArrowVisible'     => $this->mainModel->getDefaultShowMoveArrow(),
+			'pieceSymbols'         => $this->mainModel->getDefaultPieceSymbols(),
+			'navigationBoard'      => $this->mainModel->getDefaultNavigationBoard(),
 		);
 	}
 

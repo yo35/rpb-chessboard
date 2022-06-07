@@ -56,7 +56,7 @@ class RPBChessboardModelAdminPageTheming extends RPBChessboardAbstractModelAdmin
 	 * Either the default pieceset or the default colorset depending on the active page.
 	 */
 	public function getDefaultSetCodeValue() {
-		return $this->getSelectedSubPageName() === 'Colorsets' ? $this->getDefaultColorset() : $this->getDefaultPieceset();
+		return $this->getSelectedSubPageName() === 'Colorsets' ? $this->getDefaultColorset( 'sdo' ) : $this->getDefaultPieceset( 'sdo' );
 	}
 
 

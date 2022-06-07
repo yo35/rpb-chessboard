@@ -31,7 +31,7 @@
 				printf(
 					esc_html__( 'Square size: %1$s pixels', 'rpb-chessboard' ),
 					'<input type="text" id="rpbchessboard-squareSizeField" class="rpbchessboard-squareSizeField" name="squareSize" size="3" ' .
-						'value="' . esc_attr( $model->getDefaultSquareSize() ) . '"/>'
+						'value="' . esc_attr( $model->getDefaultSquareSize( 'sdo' ) ) . '"/>' // TODO fix param
 				);
 			?>
 		</p>
@@ -41,7 +41,7 @@
 		<p>
 			<input type="hidden" name="showCoordinates" value="0" />
 			<input type="checkbox" id="rpbchessboard-showCoordinatesField" name="showCoordinates" value="1"
-				<?php echo $model->getDefaultShowCoordinates() ? 'checked="yes"' : ''; ?>
+				<?php echo $model->getDefaultShowCoordinates( 'sdo' ) /* TODO fix param */ ? 'checked="yes"' : ''; ?>
 			/>
 			<label for="rpbchessboard-showCoordinatesField"><?php esc_html_e( 'Show coordinates', 'rpb-chessboard' ); ?></label>
 		</p>
@@ -50,7 +50,7 @@
 			<label for="rpbchessboard-colorsetField"><?php esc_html_e( 'Colorset:', 'rpb-chessboard' ); ?></label>
 			<select id="rpbchessboard-colorsetField" name="colorset">
 				<?php foreach ( $model->getAvailableColorsets() as $colorset ) : ?>
-				<option value="<?php echo esc_attr( $colorset ); ?>" <?php echo $model->isDefaultColorset( $colorset ) ? 'selected="yes"' : ''; ?> >
+				<option value="<?php echo esc_attr( $colorset ); ?>" <?php echo $model->isDefaultColorset( 'sdo', $colorset ) ? 'selected="yes"' : ''; ?> >
 					<?php echo esc_html( $model->getColorsetLabel( $colorset ) ); ?>
 				</option>
 				<?php endforeach; ?>
@@ -61,7 +61,7 @@
 			<label for="rpbchessboard-piecesetField"><?php esc_html_e( 'Pieceset:', 'rpb-chessboard' ); ?></label>
 			<select id="rpbchessboard-piecesetField" name="pieceset">
 				<?php foreach ( $model->getAvailablePiecesets() as $pieceset ) : ?>
-				<option value="<?php echo esc_attr( $pieceset ); ?>" <?php echo $model->isDefaultPieceset( $pieceset ) ? 'selected="yes"' : ''; ?> >
+				<option value="<?php echo esc_attr( $pieceset ); ?>" <?php echo $model->isDefaultPieceset( 'sdo', $pieceset ) ? 'selected="yes"' : ''; ?> >
 					<?php echo esc_html( $model->getPiecesetLabel( $pieceset ) ); ?>
 				</option>
 				<?php endforeach; ?>

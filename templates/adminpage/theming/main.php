@@ -54,8 +54,8 @@
 	jQuery(document).ready(function($) {
 
 		// State variables
-		var colorset = <?php echo wp_json_encode( $model->getDefaultColorset() ); ?>;
-		var pieceset = <?php echo wp_json_encode( $model->getDefaultPieceset() ); ?>;
+		var colorset = <?php echo wp_json_encode( $model->getDefaultColorset( 'sdo' ) ); ?>;
+		var pieceset = <?php echo wp_json_encode( $model->getDefaultPieceset( 'sdo' ) ); ?>;
 		var showAnnotations = $('#rpbchessboard-themingPreviewAnnotations').prop('checked');
 		var disableAutoPreview = false;
 

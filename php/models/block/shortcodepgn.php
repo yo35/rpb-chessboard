@@ -103,23 +103,23 @@ class RPBChessboardModelBlockShortcodePGN extends RPBChessboardAbstractModelBloc
 
 		// Square size
 		$value                       = isset( $atts['square_size'] ) ? RPBChessboardHelperValidation::validateInteger( $atts['square_size'] ) : null;
-		$widgetArgs['nboSquareSize'] = isset( $value ) ? $value : $this->mainModel->getDefaultSquareSize();
-		$widgetArgs['idoSquareSize'] = $widgetArgs['nboSquareSize'];
+		$widgetArgs['nboSquareSize'] = isset( $value ) ? $value : $this->mainModel->getDefaultSquareSize( 'nbo' );
+		$widgetArgs['idoSquareSize'] = isset( $value ) ? $value : $this->mainModel->getDefaultSquareSize( 'ido' );
 
-		// Show coordinates
+		// Coordinate visible
 		$value                              = isset( $atts['show_coordinates'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_coordinates'] ) : null;
-		$widgetArgs['nboCoordinateVisible'] = isset( $value ) ? $value : $this->mainModel->getDefaultShowCoordinates();
-		$widgetArgs['idoCoordinateVisible'] = $widgetArgs['nboCoordinateVisible'];
+		$widgetArgs['nboCoordinateVisible'] = isset( $value ) ? $value : $this->mainModel->getDefaultShowCoordinates( 'nbo' );
+		$widgetArgs['idoCoordinateVisible'] = isset( $value ) ? $value : $this->mainModel->getDefaultShowCoordinates( 'ido' );
 
 		// Colorset
 		$value                     = isset( $atts['colorset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['colorset'] ) : null;
-		$widgetArgs['nboColorset'] = isset( $value ) ? $value : $this->mainModel->getDefaultColorset();
-		$widgetArgs['idoColorset'] = $widgetArgs['nboColorset'];
+		$widgetArgs['nboColorset'] = isset( $value ) ? $value : $this->mainModel->getDefaultColorset( 'nbo' );
+		$widgetArgs['idoColorset'] = isset( $value ) ? $value : $this->mainModel->getDefaultColorset( 'ido' );
 
 		// Pieceset
 		$value                     = isset( $atts['pieceset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['pieceset'] ) : null;
-		$widgetArgs['nboPieceset'] = isset( $value ) ? $value : $this->mainModel->getDefaultPieceset();
-		$widgetArgs['idoPieceset'] = $widgetArgs['nboPieceset'];
+		$widgetArgs['nboPieceset'] = isset( $value ) ? $value : $this->mainModel->getDefaultPieceset( 'nbo' );
+		$widgetArgs['idoPieceset'] = isset( $value ) ? $value : $this->mainModel->getDefaultPieceset( 'ido' );
 
 		// Animated
 		$value = isset( $atts['animated'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['animated'] ) : null;

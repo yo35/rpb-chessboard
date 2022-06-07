@@ -59,19 +59,19 @@ class RPBChessboardModelBlockShortcodeFEN extends RPBChessboardAbstractModelBloc
 
 		// Square size
 		$value                    = isset( $atts['square_size'] ) ? RPBChessboardHelperValidation::validateInteger( $atts['square_size'] ) : null;
-		$widgetArgs['squareSize'] = isset( $value ) ? $value : $this->mainModel->getDefaultSquareSize();
+		$widgetArgs['squareSize'] = isset( $value ) ? $value : $this->mainModel->getDefaultSquareSize( 'sdo' );
 
-		// Show coordinates
+		// Coordinate visible
 		$value                           = isset( $atts['show_coordinates'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_coordinates'] ) : null;
-		$widgetArgs['coordinateVisible'] = isset( $value ) ? $value : $this->mainModel->getDefaultShowCoordinates();
+		$widgetArgs['coordinateVisible'] = isset( $value ) ? $value : $this->mainModel->getDefaultShowCoordinates( 'sdo' );
 
 		// Colorset
 		$value                  = isset( $atts['colorset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['colorset'] ) : null;
-		$widgetArgs['colorset'] = isset( $value ) ? $value : $this->mainModel->getDefaultColorset();
+		$widgetArgs['colorset'] = isset( $value ) ? $value : $this->mainModel->getDefaultColorset( 'sdo' );
 
 		// Pieceset
 		$value                  = isset( $atts['pieceset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['pieceset'] ) : null;
-		$widgetArgs['pieceset'] = isset( $value ) ? $value : $this->mainModel->getDefaultPieceset();
+		$widgetArgs['pieceset'] = isset( $value ) ? $value : $this->mainModel->getDefaultPieceset( 'sdo' );
 
 		return $widgetArgs;
 	}

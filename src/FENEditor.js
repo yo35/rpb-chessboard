@@ -362,7 +362,7 @@ class FENEditor extends React.Component {
 					{ label: i18n.FEN_EDITOR_OPTION_FLOAT_RIGHT, value: 'floatRight' },
 				]} />
 				<ChessboardOptionEditor
-					defaultSquareSize={RPBChessboard.defaultSettings.squareSize}
+					defaultSquareSize={RPBChessboard.defaultSettings.sdoSquareSize}
 					flipped={this.props.attributes.flipped}
 					squareSize={this.props.attributes.squareSize}
 					coordinateVisible={this.props.attributes.coordinateVisible}
@@ -390,9 +390,9 @@ class FENEditor extends React.Component {
 					squareMarkers={this.props.attributes.squareMarkers}
 					arrowMarkers={this.props.attributes.arrowMarkers}
 					textMarkers={this.props.attributes.textMarkers}
-					coordinateVisible={this.props.attributes.coordinateVisible === '' ? RPBChessboard.defaultSettings.showCoordinates : this.props.attributes.coordinateVisible === 'true'}
-					colorset={this.props.attributes.colorset === '' ? RPBChessboard.defaultSettings.colorset : this.props.attributes.colorset}
-					pieceset={this.props.attributes.pieceset === '' ? RPBChessboard.defaultSettings.pieceset : this.props.attributes.pieceset}
+					coordinateVisible={this.props.attributes.coordinateVisible === '' ? RPBChessboard.defaultSettings.sdoCoordinateVisible : this.props.attributes.coordinateVisible === 'true'}
+					colorset={this.props.attributes.colorset === '' ? RPBChessboard.defaultSettings.sdoColorset : this.props.attributes.colorset}
+					pieceset={this.props.attributes.pieceset === '' ? RPBChessboard.defaultSettings.sdoPieceset : this.props.attributes.pieceset}
 					onPieceMoved={(from, to) => this.handlePieceMoved(from, to)}
 					onSquareClicked={sq => this.handleSquareClicked(sq)}
 					onArrowEdited={(from, to) => this.handleArrowEdited(from, to)}
