@@ -45,6 +45,22 @@
 	font-weight: bold;
 }
 
+.rpbchessboard-menuIcon,
+.rpbchessboard-menuLabel {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.rpbchessboard-menuIcon {
+	height: 24px;
+	width: 24px;
+	margin-right: 0.25em;
+}
+
+.rpbchessboard-menuIcon svg rect {
+	fill: currentcolor;
+}
+
 
 
 /* -------------------------------------------------------------------------- */

@@ -51,7 +51,7 @@ const mainPieceset = Chessboard.piecesets().cburnett;
 /**
  * Icon of the FEN editor
  */
-function FENEditorIcon() {
+export function FENEditorIcon() {
 	let squares = [];
 	for(let x = 0; x < 4; ++x) {
 		for(let y = 1 - x % 2; y < 4; y += 2) {

@@ -27,8 +27,8 @@ import ReactDOM from 'react-dom';
 import { Chessboard, i18n as kokopuReactI18n } from 'kokopu-react';
 
 import Chessgame from './Chessgame';
-import { registerFENBlock } from './FENEditor';
-import { registerPGNBlock } from './PGNEditor';
+import { FENEditorIcon, registerFENBlock } from './FENEditor';
+import { PGNEditorIcon, registerPGNBlock } from './PGNEditor';
 
 // Internationalization
 kokopuReactI18n.INVALID_FEN_ERROR_TITLE = RPBChessboard.i18n.FEN_PARSING_ERROR_TITLE;
@@ -60,6 +60,14 @@ RPBChessboard.editPieceset = Chessboard.piecesets()._edit_ = {};
 // Block registration
 registerFENBlock();
 registerPGNBlock();
+
+
+// Icon rendering
+function renderIcons(icon, targetJQueryElement) {
+	targetJQueryElement.each((index, element) => { ReactDOM.render(icon, element); });
+}
+RPBChessboard.renderFENIcon = targetJQueryElement => { renderIcons(<FENEditorIcon />, targetJQueryElement); };
+RPBChessboard.renderPGNIcon = targetJQueryElement => { renderIcons(<PGNEditorIcon />, targetJQueryElement); };
 
 
 // Chessboard rendering function (to be used in the admin pages)
