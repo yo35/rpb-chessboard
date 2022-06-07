@@ -27,9 +27,9 @@ Yoann Le Montagner (English and French),
 Martin Frith (Spanish),
 Andrea Cuccarini (Italian),
 Ivan Deceuninck (Dutch),
-[Dawid Ziółkowski](http://dawidziolkowski.com/) (Polish),
+Dawid Ziółkowski (Polish),
 [Rewbenio Frota](http://www.lancesqi.com.br/) (Brazilian Portuguese),
-[Sergey Baravicov](http://safoyeth.com/) (Russian),
+Sergey Baravicov (Russian),
 Ali Nihat Yazıcı (Turkish).
 
 
