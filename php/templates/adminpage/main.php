@@ -37,7 +37,7 @@
 		<?php endforeach; ?>
 	</div>
 
-	<div id="rpbchessboard-adminPageContent">
+	<div id="rpbchessboard-adminPageContent" class="rpbchessboard-jQuery-enableSmoothness">
 		<?php RPBChessboardHelperLoader::printTemplate( 'admin-page/' . $model->getTemplateName(), $model ); ?>
 	</div>
 

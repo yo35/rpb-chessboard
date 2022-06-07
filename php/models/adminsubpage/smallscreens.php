@@ -20,17 +20,28 @@
  ******************************************************************************/
 
 
-require_once RPBCHESSBOARD_ABSPATH . 'php/models/adminsubpage/abstract.php';
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/adminsubpage/abstractform.php';
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/smallscreens.php';
 
 
 /**
  * Delegate model for the sub-page 'small-screens'.
  */
-class RPBChessboardModelAdminSubPageSmallScreens extends RPBChessboardAbstractModelAdminSubPage {
+class RPBChessboardModelAdminSubPageSmallScreens extends RPBChessboardAbstractModelAdminSubPageForm {
+
+	use RPBChessboardTraitSmallScreens;
 
 
-	public function getTemplateName() {
-		return 'temporary'; // TODO impl
+	public function getFormSubmitAction() {
+		return 'UpdateSmallScreens';
+	}
+
+	public function getFormResetAction() {
+		return 'ResetSmallScreens';
+	}
+
+	public function getFormTemplateName() {
+		return 'small-screens';
 	}
 
 }

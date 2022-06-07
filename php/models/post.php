@@ -25,7 +25,7 @@
  */
 class RPBChessboardModelPost {
 
-	private static $VALID_FORM_ACTIONS = array( 'UpdateCompatibility', 'ResetCompatibility' );
+	private static $VALID_FORM_ACTIONS = array( 'UpdateCompatibility', 'UpdateSmallScreens', 'ResetCompatibility', 'ResetSmallScreens' );
 
 	private $message     = '';
 	private $messageType = 'success';

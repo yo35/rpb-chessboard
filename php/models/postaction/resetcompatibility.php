@@ -22,9 +22,7 @@
 
 require_once RPBCHESSBOARD_ABSPATH . 'php/models/postaction/abstractreset.php';
 
-/**
- * Base class for the models in charge of processing reset forms.
- */
+
 class RPBChessboardModelPostActionResetCompatibility extends RPBChessboardAbstractModelPostActionReset {
 
 	public function run() {

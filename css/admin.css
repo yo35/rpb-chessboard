@@ -62,6 +62,24 @@
 
 
 /* -------------------------------------------------------------------------- */
+/* Components */
+/* -------------------------------------------------------------------------- */
+
+#rpbchessboard-adminPage span.rpbchessboard-slider {
+	display: inline-block;
+	width: 240px;
+	margin-left: 3em;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+#rpbchessboard-adminPage .rpbchessboard-squareSizeField {
+	text-align: right;
+}
+
+
+
+/* -------------------------------------------------------------------------- */
 /* About page */
 /* -------------------------------------------------------------------------- */
 

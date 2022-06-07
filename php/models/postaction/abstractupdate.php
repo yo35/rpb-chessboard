@@ -38,6 +38,9 @@ abstract class RPBChessboardAbstractModelPostActionUpdate extends RPBChessboardA
 			if ( isset( $value ) ) {
 				update_option( 'rpbchessboard_' . $key, $value ? 1 : 0 );
 			}
+			return $value;
+		} else {
+			return null;
 		}
 	}
 

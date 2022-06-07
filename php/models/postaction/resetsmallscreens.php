@@ -20,15 +20,14 @@
  ******************************************************************************/
 
 
-require_once RPBCHESSBOARD_ABSPATH . 'php/models/postaction/abstractupdate.php';
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/postaction/abstractreset.php';
 
 
-class RPBChessboardModelPostActionUpdateCompatibility extends RPBChessboardAbstractModelPostActionUpdate {
+class RPBChessboardModelPostActionResetSmallScreens extends RPBChessboardAbstractModelPostActionReset {
 
 	public function run() {
-		self::processBooleanParameter( 'fenCompatibilityMode' );
-		self::processBooleanParameter( 'pgnCompatibilityMode' );
-		self::processBooleanParameter( 'lazyLoadingForCSSAndJS' );
+		delete_option( 'rpbchessboard_smallScreenCompatibility' );
+		delete_option( 'rpbchessboard_smallScreenModes' );
 		return self::getSuccessMessage();
 	}
 
