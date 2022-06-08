@@ -40,7 +40,6 @@
 	RPBChessboardHelperLoader::printTemplate( 'admin-page/chess-game-settings/piece-symbols', $model );
 	RPBChessboardHelperLoader::printTemplate( 'admin-page/chess-game-settings/navigation-board', $model );
 	RPBChessboardHelperLoader::printTemplate( 'admin-page/chess-game-settings/navigation-board-aspect', $model );
-	// TODO add move animation parameters
 	RPBChessboardHelperLoader::printTemplate( 'admin-page/chess-game-settings/navigation-toolbar', $model );
 	RPBChessboardHelperLoader::printTemplate( 'admin-page/chess-game-settings/diagrams', $model );
 ?>

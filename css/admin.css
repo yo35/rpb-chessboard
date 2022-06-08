@@ -106,6 +106,25 @@
 
 
 /* -------------------------------------------------------------------------- */
+/* Buttons */
+/* -------------------------------------------------------------------------- */
+
+#rpbchessboard-adminPage .button.rpbchessboard-disabled {
+	color: #bbb;
+}
+
+#rpbchessboard-adminPage .button.rpbchessboard-disabled:hover,
+#rpbchessboard-adminPage .button.rpbchessboard-disabled:focus,
+#rpbchessboard-adminPage .button.rpbchessboard-disabled:active {
+	border-color: #ccc;
+	background-color: #f7f7f7;
+	cursor: default;
+	box-shadow: none;
+}
+
+
+
+/* -------------------------------------------------------------------------- */
 /* Components */
 /* -------------------------------------------------------------------------- */
 

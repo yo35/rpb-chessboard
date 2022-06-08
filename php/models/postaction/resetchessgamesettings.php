@@ -44,6 +44,10 @@ class RPBChessboardModelPostActionResetChessGameSettings extends RPBChessboardAb
 		delete_option( 'rpbchessboard_idoColorset' );
 		delete_option( 'rpbchessboard_idoPieceset' );
 
+		delete_option( 'rpbchessboard_animationSpeed' ); // FIXME Deprecated parameter (since 6.0)
+		delete_option( 'rpbchessboard_animated' );
+		delete_option( 'rpbchessboard_showMoveArrow' );
+
 		delete_option( 'rpbchessboard_showFlipButton' );
 		delete_option( 'rpbchessboard_showDownloadButton' );
 

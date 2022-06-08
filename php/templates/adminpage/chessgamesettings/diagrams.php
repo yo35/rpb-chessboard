@@ -23,7 +23,14 @@
 <h3><?php esc_html_e( 'Diagrams', 'rpb-chessboard' ); ?></h3>
 
 <?php
-	RPBChessboardHelperLoader::printTemplate( 'admin-page/generic/board-aspect', $model, array( 'key' => 'ido' ) );
+	RPBChessboardHelperLoader::printTemplate(
+		'admin-page/generic/board-aspect',
+		$model,
+		array(
+			'key'                => 'ido',
+			'withMoveAttributes' => false,
+		)
+	);
 ?>
 
 <p class="description">

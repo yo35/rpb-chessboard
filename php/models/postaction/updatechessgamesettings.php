@@ -32,6 +32,8 @@ class RPBChessboardModelPostActionUpdateChessGameSettings extends RPBChessboardA
 		self::processBoardAspectParameters( 'nbo' );
 		self::processBoardAspectParameters( 'ido' );
 
+		self::processBooleanParameter( 'animated' );
+		self::processBooleanParameter( 'showMoveArrow' );
 		self::processBooleanParameter( 'showFlipButton' );
 		self::processBooleanParameter( 'showDownloadButton' );
 

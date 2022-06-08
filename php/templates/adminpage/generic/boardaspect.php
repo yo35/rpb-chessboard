@@ -65,6 +65,32 @@
 			</select>
 		</p>
 
+		<?php if ( $withMoveAttributes ) : ?>
+
+			<p>
+				<input type="hidden" name="animated" value="0" />
+				<input type="checkbox" id="rpbchessboard-animatedField" name="animated" value="1"
+					<?php echo $model->getDefaultAnimated() ? 'checked="yes"' : ''; ?>
+				/>
+				<label for="rpbchessboard-animatedField"><?php esc_html_e( 'Move animation', 'rpb-chessboard' ); ?></label>
+			</p>
+
+			<p>
+				<input type="hidden" name="showMoveArrow" value="0" />
+				<input type="checkbox" id="rpbchessboard-showMoveArrowField" name="showMoveArrow" value="1"
+					<?php echo $model->getDefaultShowMoveArrow() ? 'checked="yes"' : ''; ?>
+				/>
+				<label for="rpbchessboard-showMoveArrowField"><?php esc_html_e( 'Show move arrow', 'rpb-chessboard' ); ?></label>
+			</p>
+
+			<p>
+				<a href="#" class="button" id="rpbchessboard-movePreview">
+					<?php esc_html_e( 'Move preview', 'rpb-chessboard' ); ?>
+				</a>
+			</p>
+
+		<?php endif; ?>
+
 	</div>
 
 	<div>
@@ -82,6 +108,7 @@
 		var showCoordinates = $('#rpbchessboard-showCoordinatesField-' + key).prop('checked');
 		var colorset        = $('#rpbchessboard-colorsetField-' + key).val();
 		var pieceset        = $('#rpbchessboard-piecesetField-' + key).val();
+		var movePreview     = false;
 
 		// Refresh the widget
 		function refresh() {
@@ -91,6 +118,9 @@
 				coordinateVisible: showCoordinates,
 				colorset: colorset,
 				pieceset: pieceset,
+				move: movePreview ? 'e4' : undefined,
+				animated: movePreview ? $('#rpbchessboard-animatedField').prop('checked') : undefined,
+				moveArrowVisible: movePreview ? $('#rpbchessboard-showMoveArrowField').prop('checked') : undefined,
 			});
 		}
 		refresh();
@@ -121,6 +151,32 @@
 			pieceset = $('#rpbchessboard-piecesetField-' + key).val();
 			refresh();
 		});
+
+		<?php if ( $withMoveAttributes ) : ?>
+
+			// Move preview
+			$('#rpbchessboard-movePreview').click(function(e) {
+				e.preventDefault();
+				if (movePreview) {
+					return;
+				}
+
+				// Disable the preview button
+				$('#rpbchessboard-movePreview').addClass('rpbchessboard-disabled');
+
+				// Refresh the widget
+				movePreview = true;
+				refresh();
+
+				// Restore the initial state.
+				setTimeout(function() {
+					$('#rpbchessboard-movePreview').removeClass('rpbchessboard-disabled');
+					movePreview = false;
+					refresh();
+				}, 1200);
+			});
+
+		<?php endif; ?>
 
 	});
 </script>
