@@ -53,13 +53,12 @@ RPBChessboard.availableSquareSize = {
 // Theming
 Object.assign(Chessboard.colorsets(), RPBChessboard.customColorsets);
 Object.assign(Chessboard.piecesets(), RPBChessboard.customPiecesets);
+RPBChessboard.colorsetData = Chessboard.colorsets();
+RPBChessboard.piecesetData = Chessboard.piecesets();
 
 // Special colorsets and piecesets for theming edition
 RPBChessboard.editColorset = Chessboard.colorsets()._edit_ = {};
 RPBChessboard.editPieceset = Chessboard.piecesets()._edit_ = {};
-
-// Pieceset used to label piece-related fields in admin forms
-RPBChessboard.labellingPieceset = Chessboard.piecesets().cburnett;
 
 // Block registration
 registerFENBlock();

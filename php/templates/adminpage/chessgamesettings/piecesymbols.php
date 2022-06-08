@@ -96,12 +96,13 @@
 	jQuery(document).ready(function($) {
 
 		// Initialize the labels.
-		$('label[for="rpbchessboard-kingSymbolField"] img').attr('src', RPBChessboard.labellingPieceset.wk);
-		$('label[for="rpbchessboard-queenSymbolField"] img').attr('src', RPBChessboard.labellingPieceset.wq);
-		$('label[for="rpbchessboard-rookSymbolField"] img').attr('src', RPBChessboard.labellingPieceset.wr);
-		$('label[for="rpbchessboard-bishopSymbolField"] img').attr('src', RPBChessboard.labellingPieceset.wb);
-		$('label[for="rpbchessboard-knightSymbolField"] img').attr('src', RPBChessboard.labellingPieceset.wn);
-		$('label[for="rpbchessboard-pawnSymbolField"] img').attr('src', RPBChessboard.labellingPieceset.wp);
+		var pieceset = RPBChessboard.piecesetData['cburnett'];
+		$('label[for="rpbchessboard-kingSymbolField"] img').attr('src', pieceset.wk);
+		$('label[for="rpbchessboard-queenSymbolField"] img').attr('src', pieceset.wq);
+		$('label[for="rpbchessboard-rookSymbolField"] img').attr('src', pieceset.wr);
+		$('label[for="rpbchessboard-bishopSymbolField"] img').attr('src', pieceset.wb);
+		$('label[for="rpbchessboard-knightSymbolField"] img').attr('src', pieceset.wn);
+		$('label[for="rpbchessboard-pawnSymbolField"] img').attr('src', pieceset.wp);
 
 		var needInitIfCustomClicked = false;
 

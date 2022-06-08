@@ -80,6 +80,7 @@
 	margin-bottom: 1em;
 }
 
+#rpbchessboard-adminPage h3:first-child,
 .rpbchessboard-columns p:first-child {
 	margin-top: 0px;
 }
@@ -101,6 +102,24 @@
 .rpbchessboard-tuningChessboardParameterColumn,
 .rpbchessboard-tuningNavigationToolbarParameterColumn {
 	width: 250px;
+}
+
+
+
+/* -------------------------------------------------------------------------- */
+/* Table layout */
+/* -------------------------------------------------------------------------- */
+
+.rpbchessboard-table {
+	display: table;
+}
+
+.rpbchessboard-table > div {
+	display: table-row;
+}
+
+.rpbchessboard-table > div > * {
+	display: table-cell;
 }
 
 
@@ -200,6 +219,132 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+}
+
+
+
+/* -------------------------------------------------------------------------- */
+/* Theming page */
+/* -------------------------------------------------------------------------- */
+
+#rpbchessboard-themingPreview {
+	position: fixed;
+}
+
+.rpbchessboard-colorsetSnippet {
+	height: 22px;
+	width: 22px;
+}
+
+.rpbchessboard-piecesetSnippet {
+	height: 32px;
+	width: 32px;
+}
+
+.rpbchessboard-nameCell {
+	width: 300px;
+}
+
+.rpbchessboard-slugCell {
+	width: 150px;
+}
+
+.rpbchessboard-previewCell > * {
+	display: inline-block;
+}
+
+.rpbchessboard-previewCell input {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.rpbchessboard-rowActions.disabled,
+.rpbchessboard-themingEditor {
+	display: none;
+}
+
+.rpbchessboard-inlineForm {
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+}
+
+.rpbchessboard-inlineForm > * {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.rpbchessboard-inlineForm > .rpbchessboard-inlineFormTitle {
+	margin-bottom: 0.5em;
+	font-weight: 600;
+	text-transform: uppercase;
+}
+
+.rpbchessboard-inlineForm label {
+	display: flex;
+	align-items: baseline;
+	margin: 0.2em 0;
+}
+
+.rpbchessboard-inlineForm label > span {
+	margin-right: 0.5em;
+	font-style: italic;
+}
+
+.rpbchessboard-inlineForm label > input {
+	flex-grow: 1;
+}
+
+.rpbchessboard-inlineForm > p.submit.rpbchessboard-inlineFormButtons {
+	margin-top: 10px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+.rpbchessboard-colorsetEditorComponents > div > div {
+	padding-top: 10px;
+}
+
+.rpbchessboard-colorsetEditorComponents > div:first-child > div {
+	padding-top: calc(10px - 0.2em);
+}
+
+.rpbchessboard-colorsetEditorComponents > div > div + div {
+	padding-left: 25px;
+}
+
+.rpbchessboard-colorsetEditorComponents input {
+	margin-right: 0px;
+}
+
+.rpbchessboard-colorsetEditorComponents .iris-border { /* Same border as the textfield just above */
+	border-radius: 4px;
+	border-color: #8c8f94;
+}
+
+.rpbchessboard-piecesetEditorComponents {
+	line-height: 0px;
+}
+
+.rpbchessboard-piecesetEditorComponents > div > div {
+	padding-top: 5px;
+}
+
+.rpbchessboard-piecesetEditorComponents > div:first-child > div {
+	padding-top: calc(10px - 0.2em);
+}
+
+.rpbchessboard-piecesetEditorComponents > div > div + div {
+	padding-left: 5px;
+}
+
+.rpbchessboard-coloredPieceButton {
+	display: inline-block;
+	border: 1px solid #ddd;
+}
+
+.rpbchessboard-coloredPieceButton img {
+	height: 64px;
+	width: 64px;
 }
 
 
