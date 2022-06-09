@@ -20,6 +20,11 @@
  ******************************************************************************/
 ?>
 
+<?php
+	wp_enqueue_style( 'rpbchessboard-jquery-ui-smoothness' );
+	wp_enqueue_script( 'jquery-ui-slider' );
+?>
+
 <form action="<?php echo esc_url( $model->getSubPageLink( $model->getCurrentSubPage() ) ); ?>" method="post">
 
 	<input type="hidden" name="rpbchessboard_action" value="<?php echo esc_attr( $model->getFormSubmitAction() ); ?>" />

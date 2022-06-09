@@ -80,21 +80,16 @@ class RPBChessboardControllerAdmin extends RPBChessboardAbstractController {
 		wp_enqueue_style( 'rpbchessboard-npm' );
 
 		// CSS files specific to the admin
+		wp_enqueue_style( 'rpbchessboard-admin', RPBCHESSBOARD_URL . 'css/admin' . $ext, false, RPBCHESSBOARD_VERSION );
 		wp_register_style( 'rpbchessboard-jquery-ui-smoothness', RPBCHESSBOARD_URL . 'third-party-libs/jquery/jquery-ui.smoothness' . $ext, false, '1.11.4' );
-		wp_enqueue_style( 'rpbchessboard-admin', RPBCHESSBOARD_URL . 'css/admin' . $ext, array( 'rpbchessboard-jquery-ui-smoothness' ), RPBCHESSBOARD_VERSION );
 	}
 
 
 	public function registerScripts() {
 		parent::registerScripts();
 
-		// Additional scripts for the backend.
-		// FIXME Those scripts should be enqueued only if necessary. To achieve that, we need to fix issue concerning inlined scripts,
-		// interaction with the TinyMCE/QuickTag editors, and to carefully review what is used on which page.
+		// Always enqueue the main JS files
 		wp_enqueue_script( 'rpbchessboard-npm' );
-		wp_enqueue_script( 'jquery-ui-slider' );
-		wp_enqueue_script( 'iris' );
-		wp_enqueue_media();
 	}
 
 

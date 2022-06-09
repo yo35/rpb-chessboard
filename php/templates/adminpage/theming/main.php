@@ -20,6 +20,11 @@
  ******************************************************************************/
 ?>
 
+<?php
+	wp_enqueue_script( 'iris' );
+	wp_enqueue_media();
+?>
+
 <div class="rpbchessboard-columns">
 
 	<div>
