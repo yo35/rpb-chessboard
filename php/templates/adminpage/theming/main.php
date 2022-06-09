@@ -256,5 +256,40 @@
 			target.show();
 		});
 
+
+		// Handle "delete" actions.
+		$('.rpbchessboard-action-deleteColorset').click(function(e) {
+			e.preventDefault();
+			var row = $(this).closest('tr');
+
+			// Ask for confirmation from the user.
+			var message = <?php echo wp_json_encode( __( 'Delete colorset "{0}"? Press OK to confirm...', 'rpb-chessboard' ) ); ?>;
+			message = message.replace('{0}', $('.row-title', row).text());
+			if (!confirm(message)) {
+				return;
+			}
+
+			// Process the request.
+			var form = $('#rpbchessboard-deleteColorsetForm');
+			$('input[name="colorset"]', form).val(row.data('slug'));
+			form.submit();
+		});
+		$('.rpbchessboard-action-deletePieceset').click(function(e) {
+			e.preventDefault();
+			var row = $(this).closest('tr');
+
+			// Ask for confirmation from the user.
+			var message = <?php echo wp_json_encode( __( 'Delete pieceset "{0}"? Press OK to confirm...', 'rpb-chessboard' ) ); ?>;
+			message = message.replace('{0}', $('.row-title', row).text());
+			if (!confirm(message)) {
+				return;
+			}
+
+			// Process the request.
+			var form = $('#rpbchessboard-deletePiecesetForm');
+			$('input[name="pieceset"]', form).val(row.data('slug'));
+			form.submit();
+		});
+
 	});
 </script>

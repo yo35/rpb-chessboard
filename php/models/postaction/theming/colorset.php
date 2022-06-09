@@ -20,14 +20,11 @@
  ******************************************************************************/
 
 
-require_once RPBCHESSBOARD_ABSPATH . 'models/post/theming.php';
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/postaction/theming/abstract.php';
 require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/customcolorsets.php';
 
 
-/**
- * Process a colorset creation/edition/deletion request.
- */
-class RPBChessboardModelPostThemingColorset extends RPBChessboardModelPostTheming {
+class RPBChessboardModelPostActionThemingColorset extends RPBChessboardAbstractModelPostActionTheming {
 
 	use RPBChessboardTraitCustomColorsets;
 
@@ -36,23 +33,43 @@ class RPBChessboardModelPostThemingColorset extends RPBChessboardModelPostThemin
 		return __( 'Colorset created.', 'rpb-chessboard' );
 	}
 
+	protected function getCreationFailureMessage() {
+		return __( 'Error while creating the colorset.', 'rpb-chessboard' );
+	}
+
 	protected function getEditionSuccessMessage() {
 		return __( 'Colorset updated.', 'rpb-chessboard' );
+	}
+
+	protected function getEditionFailureMessage() {
+		return __( 'Error while updating the colorset.', 'rpb-chessboard' );
 	}
 
 	protected function getDeletionSuccessMessage() {
 		return __( 'Colorset deleted.', 'rpb-chessboard' );
 	}
 
-	protected function getManagedSetCode() {
+	protected function getDeletionFailureMessage() {
+		return __( 'Error while deleting the colorset.', 'rpb-chessboard' );
+	}
+
+
+	protected function getDataType() {
 		return 'colorset';
 	}
 
-	protected function isBuiltinSetCode( $colorset ) {
-		return $this->isBuiltinColorset( $colorset );
+
+	protected function isAlreadyUsedSlug( $slug ) {
+		return in_array( $slug, $this->getAvailableColorsets(), true );
 	}
 
-	protected function processAttributes( $colorset ) {
+
+	protected function getCustomSlugs() {
+		return $this->getCustomColorsets();
+	}
+
+
+	protected function loadAttributes() {
 		$darkSquareColor   = self::getColorValue( 'darkSquareColor' );
 		$lightSquareColor  = self::getColorValue( 'lightSquareColor' );
 		$greenMarkerColor  = self::getColorValue( 'greenMarkerColor' );
@@ -60,11 +77,9 @@ class RPBChessboardModelPostThemingColorset extends RPBChessboardModelPostThemin
 		$yellowMarkerColor = self::getColorValue( 'yellowMarkerColor' );
 		$highlightColor    = self::getColorValue( 'highlightColor' );
 		if ( isset( $darkSquareColor ) && isset( $lightSquareColor ) && isset( $greenMarkerColor ) && isset( $redMarkerColor ) && isset( $yellowMarkerColor ) && isset( $highlightColor ) ) {
-			$mergedValue = implode( '|', array( $darkSquareColor, $lightSquareColor, $greenMarkerColor, $redMarkerColor, $yellowMarkerColor, $highlightColor ) );
-			update_option( 'rpbchessboard_custom_colorset_attributes_' . $colorset, $mergedValue );
-			return true;
+			return implode( '|', array( $darkSquareColor, $lightSquareColor, $greenMarkerColor, $redMarkerColor, $yellowMarkerColor, $highlightColor ) );
 		}
-		return false;
+		return null;
 	}
 
 	private static function getColorValue( $key ) {

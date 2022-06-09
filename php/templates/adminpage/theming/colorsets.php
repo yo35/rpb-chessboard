@@ -47,15 +47,12 @@
 
 			<td class="has-row-actions rpbchessboard-nameCell">
 				<strong class="row-title"><?php echo esc_html( $model->getColorsetLabel( $colorset ) ); ?></strong>
+				<?php if ( ! $model->isBuiltinColorset( $colorset ) ) : ?>
 				<div class="row-actions rpbchessboard-rowActions">
-					<?php if ( $model->isBuiltinColorset( $colorset ) ) : ?>
-					<span><a href="#" class="rpbchessboard-action-copy"><?php esc_html_e( 'Copy', 'rpb-chessboard' ); ?></a></span>
-					<?php else : ?>
-					<span><a href="#" class="rpbchessboard-action-copy"><?php esc_html_e( 'Copy', 'rpb-chessboard' ); ?></a> |</span>
 					<span><a href="#" class="rpbchessboard-action-editColorset"><?php esc_html_e( 'Edit', 'rpb-chessboard' ); ?></a> |</span>
-					<span><a href="#" class="rpbchessboard-action-delete"><?php esc_html_e( 'Delete', 'rpb-chessboard' ); ?></a></span>
-					<?php endif; ?>
+					<span><a href="#" class="rpbchessboard-action-deleteColorset"><?php esc_html_e( 'Delete', 'rpb-chessboard' ); ?></a></span>
 				</div>
+				<?php endif; ?>
 			</td>
 
 			<td class="rpbchessboard-slugCell"><?php echo esc_html( $colorset ); ?></td>
@@ -104,6 +101,14 @@
 	</tfoot>
 
 </table>
+
+
+<form id="rpbchessboard-deleteColorsetForm" action="<?php echo esc_url( $model->getSubPageLink( $model->getCurrentSubPage() ) ); ?>" method="post">
+	<input type="hidden" name="rpbchessboard_action" value="<?php echo esc_attr( $model->getFormDeleteColorsetAction() ); ?>" />
+	<input type="hidden" name="colorset" value="" />
+	<?php wp_nonce_field( 'rpbchessboard_post_action' ); ?>
+</form>
+
 
 <script type="text/javascript">
 	jQuery(document).ready(function($) {

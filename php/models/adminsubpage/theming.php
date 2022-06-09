@@ -40,11 +40,19 @@ class RPBChessboardModelAdminSubPageTheming extends RPBChessboardAbstractModelAd
 	}
 
 	public function getFormEditColorsetAction( $isNew ) {
-		return $isNew ? '' : ''; // TODO
+		return 'Theming/Colorset:' . ( $isNew ? 'add' : 'edit' );
+	}
+
+	public function getFormDeleteColorsetAction() {
+		return 'Theming/Colorset:delete';
 	}
 
 	public function getFormEditPiecesetAction( $isNew ) {
-		return $isNew ? '' : ''; // TODO
+		return 'Theming/Pieceset:' . ( $isNew ? 'add' : 'edit' );
+	}
+
+	public function getFormDeletePiecesetAction() {
+		return 'Theming/Pieceset:delete';
 	}
 
 

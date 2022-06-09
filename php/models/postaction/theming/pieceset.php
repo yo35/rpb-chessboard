@@ -20,14 +20,11 @@
  ******************************************************************************/
 
 
-require_once RPBCHESSBOARD_ABSPATH . 'models/post/theming.php';
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/postaction/theming/abstract.php';
 require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/custompiecesets.php';
 
 
-/**
- * Process a pieceset creation/edition/deletion request.
- */
-class RPBChessboardModelPostThemingPieceset extends RPBChessboardModelPostTheming {
+class RPBChessboardModelPostActionThemingPieceset extends RPBChessboardAbstractModelPostActionTheming {
 
 	use RPBChessboardTraitCustomPiecesets;
 
@@ -36,33 +33,52 @@ class RPBChessboardModelPostThemingPieceset extends RPBChessboardModelPostThemin
 		return __( 'Pieceset created.', 'rpb-chessboard' );
 	}
 
+	protected function getCreationFailureMessage() {
+		return __( 'Error while creating the pieceset.', 'rpb-chessboard' );
+	}
+
 	protected function getEditionSuccessMessage() {
 		return __( 'Pieceset updated.', 'rpb-chessboard' );
+	}
+
+	protected function getEditionFailureMessage() {
+		return __( 'Error while updating the pieceset.', 'rpb-chessboard' );
 	}
 
 	protected function getDeletionSuccessMessage() {
 		return __( 'Pieceset deleted.', 'rpb-chessboard' );
 	}
 
-	protected function getManagedSetCode() {
+	protected function getDeletionFailureMessage() {
+		return __( 'Error while deleting the pieceset.', 'rpb-chessboard' );
+	}
+
+
+	protected function getDataType() {
 		return 'pieceset';
 	}
 
-	protected function isBuiltinSetCode( $pieceset ) {
-		return $this->isBuiltinPieceset( $pieceset );
+
+	protected function isAlreadyUsedSlug( $slug ) {
+		return in_array( $slug, $this->getAvailablePiecesets(), true );
 	}
 
-	protected function processAttributes( $pieceset ) {
+
+	protected function getCustomSlugs() {
+		return $this->getCustomPiecesets();
+	}
+
+
+	protected function loadAttributes() {
 		$values = array();
 		foreach ( self::$COLORED_PIECE_CODES as $coloredPiece ) {
 			$id = self::getImageId( $coloredPiece );
 			if ( ! isset( $id ) ) {
-				return false;
+				return null;
 			}
 			$values[] = $id;
 		}
-		update_option( 'rpbchessboard_custom_pieceset_attributes_' . $pieceset, implode( '|', $values ) );
-		return true;
+		return implode( '|', $values );
 	}
 
 

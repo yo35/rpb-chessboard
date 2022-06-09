@@ -30,6 +30,8 @@ class RPBChessboardModelPost {
 		'Settings/ChessGame'     => array( 'update', 'reset' ),
 		'Settings/Compatibility' => array( 'update', 'reset' ),
 		'Settings/SmallScreens'  => array( 'update', 'reset' ),
+		'Theming/Colorset'       => array( 'add', 'edit', 'delete' ),
+		'Theming/Pieceset'       => array( 'add', 'edit', 'delete' ),
 	);
 
 	private $message     = '';
