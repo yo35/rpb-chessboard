@@ -37,11 +37,11 @@ class RPBChessboardModelAdminSubPageChessGameSettings extends RPBChessboardAbstr
 
 
 	public function getFormSubmitAction() {
-		return 'UpdateChessGameSettings';
+		return 'Settings/ChessGame:update';
 	}
 
 	public function getFormResetAction() {
-		return 'ResetChessGameSettings';
+		return 'Settings/ChessGame:reset';
 	}
 
 	public function getFormTemplateName() {

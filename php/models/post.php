@@ -26,18 +26,16 @@
 class RPBChessboardModelPost {
 
 	private static $VALID_FORM_ACTIONS = array(
-		'ResetChessDiagramSettings',
-		'ResetChessGameSettings',
-		'ResetCompatibility',
-		'ResetSmallScreens',
-		'UpdateChessDiagramSettings',
-		'UpdateChessGameSettings',
-		'UpdateCompatibility',
-		'UpdateSmallScreens',
+		'Settings/ChessDiagram'  => array( 'update', 'reset' ),
+		'Settings/ChessGame'     => array( 'update', 'reset' ),
+		'Settings/Compatibility' => array( 'update', 'reset' ),
+		'Settings/SmallScreens'  => array( 'update', 'reset' ),
 	);
 
 	private $message     = '';
 	private $messageType = 'success';
+	private $processModel;
+	private $processMethod;
 
 
 	/**
@@ -45,9 +43,8 @@ class RPBChessboardModelPost {
 	 */
 	public function process() {
 
-		// Retrieve and validate the action code.
-		$formAction = self::getFormAction();
-		if ( ! $formAction || ! in_array( $formAction, self::$VALID_FORM_ACTIONS, true ) ) {
+		// Load and validate the action code.
+		if ( ! $this->loadFormAction() ) {
 			return false;
 		}
 
@@ -64,14 +61,11 @@ class RPBChessboardModelPost {
 		}
 
 		// Load the process model and run it.
-		$processModel = RPBChessboardHelperLoader::loadModel( 'PostAction/' . $formAction );
-		$result       = $processModel->run();
-		if ( $result ) {
-			$this->message = $result;
-		} else {
-			$this->message     = __( 'An error has occurred while processing the request. Please retry.', 'rpb-chessboard' );
-			$this->messageType = 'error';
-		}
+		$processModel      = RPBChessboardHelperLoader::loadModel( 'PostAction/' . $this->processModel );
+		$processMethod     = $this->processMethod;
+		$result            = $processModel->$processMethod();
+		$this->message     = $result->message;
+		$this->messageType = $result->messageType;
 		return true;
 	}
 
@@ -93,11 +87,26 @@ class RPBChessboardModelPost {
 
 
 	/**
-	 * Value of the hidden field `rpbchessboard_action` that exists in each form created by this plugin. This is also the name of the
-	 * sub-model that will be in charge of processing the action. `false` is returned if not defined. Validation is let to the responsability of the caller.
+	 * Read and validate the value of the hidden field `rpbchessboard_action` that exists in each form created by this plugin.
+	 *
+	 * This field contains the name of the sub-model and the method that will be in charge of processing the action.
+	 * `false` is returned if the value is undefined or invalid.
 	 */
-	private static function getFormAction() {
-		return isset( $_POST['rpbchessboard_action'] ) ? $_POST['rpbchessboard_action'] : false;
+	private function loadFormAction() {
+		if ( ! isset( $_POST['rpbchessboard_action'] ) ) {
+			return false;
+		}
+
+		$formAction = $_POST['rpbchessboard_action'];
+		$sep        = strpos( $formAction, ':' );
+		if ( $sep < 0 ) {
+			return false;
+		}
+
+		// formAction = processModel:processMethod
+		$this->processModel  = substr( $formAction, 0, $sep );
+		$this->processMethod = substr( $formAction, $sep + 1, strlen( $formAction ) - $sep - 1 );
+		return isset( self::$VALID_FORM_ACTIONS[ $this->processModel ] ) && in_array( $this->processMethod, self::$VALID_FORM_ACTIONS[ $this->processModel ], true );
 	}
 
 }

@@ -33,11 +33,11 @@ class RPBChessboardModelAdminSubPageCompatibilitySettings extends RPBChessboardA
 
 
 	public function getFormSubmitAction() {
-		return 'UpdateCompatibility';
+		return 'Settings/Compatibility:update';
 	}
 
 	public function getFormResetAction() {
-		return 'ResetCompatibility';
+		return 'Settings/Compatibility:reset';
 	}
 
 	public function getFormTemplateName() {

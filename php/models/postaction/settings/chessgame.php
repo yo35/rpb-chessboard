@@ -20,28 +20,45 @@
  ******************************************************************************/
 
 
-require_once RPBCHESSBOARD_ABSPATH . 'php/models/postaction/abstractupdate.php';
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/postaction/settings/abstract.php';
 
 
-class RPBChessboardModelPostActionUpdateChessGameSettings extends RPBChessboardAbstractModelPostActionUpdate {
+class RPBChessboardModelPostActionSettingsChessGame extends RPBChessboardAbstractModelPostActionSettings {
 
-	public function run() {
-		self::processPieceSymbols();
-		self::processNavigationBoard();
+	public function update() {
+		self::updatePieceSymbols();
+		self::updateNavigationBoard();
 
-		self::processBoardAspectParameters( 'nbo' );
-		self::processBoardAspectParameters( 'ido' );
+		self::updateBoardAspectParameters( 'nbo' );
+		self::updateBoardAspectParameters( 'ido' );
 
-		self::processBooleanParameter( 'animated' );
-		self::processBooleanParameter( 'showMoveArrow' );
-		self::processBooleanParameter( 'showFlipButton' );
-		self::processBooleanParameter( 'showDownloadButton' );
+		self::updateBooleanParameter( 'animated' );
+		self::updateBooleanParameter( 'showMoveArrow' );
+		self::updateBooleanParameter( 'showFlipButton' );
+		self::updateBooleanParameter( 'showDownloadButton' );
 
-		return self::getSuccessMessage();
+		return self::getUpdateSuccessMessage();
 	}
 
 
-	private static function processNavigationBoard() {
+	public function reset() {
+		self::deleteParameter( 'pieceSymbols' );
+		self::deleteParameter( 'navigationBoard' );
+
+		self::deleteBoardAspectParameters( 'nbo' );
+		self::deleteBoardAspectParameters( 'ido' );
+
+		self::deleteParameter( 'animationSpeed' ); // FIXME Deprecated parameter (since 6.0)
+		self::deleteParameter( 'animated' );
+		self::deleteParameter( 'showMoveArrow' );
+		self::deleteParameter( 'showFlipButton' );
+		self::deleteParameter( 'showDownloadButton' );
+
+		return self::getResetSuccessMessage();
+	}
+
+
+	private static function updateNavigationBoard() {
 		if ( isset( $_POST['navigationBoard'] ) ) {
 			$value = RPBChessboardHelperValidation::validateNavigationBoard( $_POST['navigationBoard'] );
 			if ( isset( $value ) ) {
@@ -51,7 +68,7 @@ class RPBChessboardModelPostActionUpdateChessGameSettings extends RPBChessboardA
 	}
 
 
-	private static function processPieceSymbols() {
+	private static function updatePieceSymbols() {
 		$value = self::loadPieceSymbols();
 		if ( isset( $value ) ) {
 			update_option( 'rpbchessboard_pieceSymbols', $value );

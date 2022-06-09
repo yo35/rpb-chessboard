@@ -20,16 +20,24 @@
  ******************************************************************************/
 
 
-require_once RPBCHESSBOARD_ABSPATH . 'php/models/postaction/abstractupdate.php';
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/postaction/settings/abstract.php';
 
 
-class RPBChessboardModelPostActionUpdateCompatibility extends RPBChessboardAbstractModelPostActionUpdate {
+class RPBChessboardModelPostActionSettingsCompatibility extends RPBChessboardAbstractModelPostActionSettings {
 
-	public function run() {
-		self::processBooleanParameter( 'fenCompatibilityMode' );
-		self::processBooleanParameter( 'pgnCompatibilityMode' );
-		self::processBooleanParameter( 'lazyLoadingForCSSAndJS' );
-		return self::getSuccessMessage();
+	public function update() {
+		self::updateBooleanParameter( 'fenCompatibilityMode' );
+		self::updateBooleanParameter( 'pgnCompatibilityMode' );
+		self::updateBooleanParameter( 'lazyLoadingForCSSAndJS' );
+		return self::getUpdateSuccessMessage();
+	}
+
+
+	public function reset() {
+		self::deleteParameter( 'fenCompatibilityMode' );
+		self::deleteParameter( 'pgnCompatibilityMode' );
+		self::deleteParameter( 'lazyLoadingForCSSAndJS' );
+		return self::getResetSuccessMessage();
 	}
 
 }

@@ -35,11 +35,11 @@ class RPBChessboardModelAdminSubPageChessDiagramSettings extends RPBChessboardAb
 
 
 	public function getFormSubmitAction() {
-		return 'UpdateChessDiagramSettings';
+		return 'Settings/ChessDiagram:update';
 	}
 
 	public function getFormResetAction() {
-		return 'ResetChessDiagramSettings';
+		return 'Settings/ChessDiagram:reset';
 	}
 
 	public function getFormTemplateName() {

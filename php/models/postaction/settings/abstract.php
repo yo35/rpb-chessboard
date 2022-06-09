@@ -20,20 +20,45 @@
  ******************************************************************************/
 
 
-require_once RPBCHESSBOARD_ABSPATH . 'php/models/postaction/abstract.php';
-
-
 /**
- * Base class for the models in charge of processing update forms.
+ * Base class for the models in charge of processing the settings forms.
  */
-abstract class RPBChessboardAbstractModelPostActionUpdate extends RPBChessboardAbstractModelPostAction {
+abstract class RPBChessboardAbstractModelPostActionSettings {
 
-	protected static function getSuccessMessage() {
-		return __( 'Settings saved.', 'rpb-chessboard' );
+	/**
+	 * Entry-point for the update action.
+	 */
+	abstract public function update();
+
+
+	/**
+	 * Entry-point for the reset action.
+	 */
+	abstract public function reset();
+
+
+	protected static function getUpdateSuccessMessage() {
+		return (object) array(
+			'message'     => __( 'Settings saved.', 'rpb-chessboard' ),
+			'messageType' => 'success',
+		);
 	}
 
 
-	protected static function processIntegerParameter( $key ) {
+	protected static function getResetSuccessMessage() {
+		return (object) array(
+			'message'     => __( 'Settings reseted.', 'rpb-chessboard' ),
+			'messageType' => 'success',
+		);
+	}
+
+
+	protected static function deleteParameter( $key ) {
+		delete_option( 'rpbchessboard_' . $key );
+	}
+
+
+	protected static function updateIntegerParameter( $key ) {
 		if ( isset( $_POST[ $key ] ) ) {
 			$value = RPBChessboardHelperValidation::validateInteger( $_POST[ $key ] );
 			if ( isset( $value ) ) {
@@ -43,7 +68,7 @@ abstract class RPBChessboardAbstractModelPostActionUpdate extends RPBChessboardA
 	}
 
 
-	protected static function processBooleanParameter( $key ) {
+	protected static function updateBooleanParameter( $key ) {
 		if ( isset( $_POST[ $key ] ) ) {
 			$value = RPBChessboardHelperValidation::validateBooleanFromInt( $_POST[ $key ] );
 			if ( isset( $value ) ) {
@@ -56,15 +81,30 @@ abstract class RPBChessboardAbstractModelPostActionUpdate extends RPBChessboardA
 	}
 
 
-	protected static function processBoardAspectParameters( $key ) {
-		self::processIntegerParameter( $key . 'SquareSize' );
-		self::processBooleanParameter( $key . 'ShowCoordinates' );
-		self::processSetCodeParameter( $key . 'Colorset' );
-		self::processSetCodeParameter( $key . 'Pieceset' );
+	protected static function deleteBoardAspectParameters( $key ) {
+
+		// FIXME Deprecated parameters (since 7.2)
+		self::deleteParameter( 'squareSize' );
+		self::deleteParameter( 'showCoordinates' );
+		self::deleteParameter( 'colorset' );
+		self::deleteParameter( 'pieceset' );
+
+		self::deleteParameter( $key . 'SquareSize' );
+		self::deleteParameter( $key . 'ShowCoordinates' );
+		self::deleteParameter( $key . 'Colorset' );
+		self::deleteParameter( $key . 'Pieceset' );
 	}
 
 
-	private static function processSetCodeParameter( $key ) {
+	protected static function updateBoardAspectParameters( $key ) {
+		self::updateIntegerParameter( $key . 'SquareSize' );
+		self::updateBooleanParameter( $key . 'ShowCoordinates' );
+		self::updateSetCodeParameter( $key . 'Colorset' );
+		self::updateSetCodeParameter( $key . 'Pieceset' );
+	}
+
+
+	private static function updateSetCodeParameter( $key ) {
 		if ( isset( $_POST[ $key ] ) ) {
 			$value = RPBChessboardHelperValidation::validateSetCode( $_POST[ $key ] );
 			if ( isset( $value ) ) {

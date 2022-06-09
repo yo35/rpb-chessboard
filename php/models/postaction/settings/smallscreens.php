@@ -20,21 +20,28 @@
  ******************************************************************************/
 
 
-require_once RPBCHESSBOARD_ABSPATH . 'php/models/postaction/abstractupdate.php';
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/postaction/settings/abstract.php';
 
 
-class RPBChessboardModelPostActionUpdateSmallScreens extends RPBChessboardAbstractModelPostActionUpdate {
+class RPBChessboardModelPostActionSettingsSmallScreens extends RPBChessboardAbstractModelPostActionSettings {
 
-	public function run() {
-		$smallScreenCompatibility = self::processBooleanParameter( 'smallScreenCompatibility' );
+	public function update() {
+		$smallScreenCompatibility = self::updateBooleanParameter( 'smallScreenCompatibility' );
 		if ( isset( $smallScreenCompatibility ) && $smallScreenCompatibility ) {
-			self::processSmallScreenModes();
+			self::updateSmallScreenModes();
 		}
-		return self::getSuccessMessage();
+		return self::getUpdateSuccessMessage();
 	}
 
 
-	private static function processSmallScreenModes() {
+	public function reset() {
+		self::deleteParameter( 'smallScreenCompatibility' );
+		self::deleteParameter( 'smallScreenModes' );
+		return self::getResetSuccessMessage();
+	}
+
+
+	private static function updateSmallScreenModes() {
 		$value = self::loadSmallScreenModes();
 		if ( isset( $value ) ) {
 			update_option( 'rpbchessboard_smallScreenModes', $value );

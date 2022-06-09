@@ -20,15 +20,32 @@
  ******************************************************************************/
 
 
-require_once RPBCHESSBOARD_ABSPATH . 'php/models/postaction/abstractreset.php';
+require_once RPBCHESSBOARD_ABSPATH . 'php/models/postaction/settings/abstract.php';
 
 
-class RPBChessboardModelPostActionResetSmallScreens extends RPBChessboardAbstractModelPostActionReset {
+class RPBChessboardModelPostActionSettingsChessDiagram extends RPBChessboardAbstractModelPostActionSettings {
 
-	public function run() {
-		delete_option( 'rpbchessboard_smallScreenCompatibility' );
-		delete_option( 'rpbchessboard_smallScreenModes' );
-		return self::getSuccessMessage();
+	public function update() {
+		self::updateBoardAspectParameters( 'sdo' );
+		self::updateDiagramAlignment();
+		return self::getUpdateSuccessMessage();
+	}
+
+
+	public function reset() {
+		self::deleteBoardAspectParameters( 'sdo' );
+		self::deleteParameter( 'diagramAlignment' );
+		return self::getResetSuccessMessage();
+	}
+
+
+	private static function updateDiagramAlignment() {
+		if ( isset( $_POST['diagramAlignment'] ) ) {
+			$value = RPBChessboardHelperValidation::validateDiagramAlignment( $_POST['diagramAlignment'] );
+			if ( isset( $value ) ) {
+				update_option( 'rpbchessboard_diagramAlignment', $value );
+			}
+		}
 	}
 
 }

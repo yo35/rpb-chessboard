@@ -33,11 +33,11 @@ class RPBChessboardModelAdminSubPageSmallScreens extends RPBChessboardAbstractMo
 
 
 	public function getFormSubmitAction() {
-		return 'UpdateSmallScreens';
+		return 'Settings/SmallScreens:update';
 	}
 
 	public function getFormResetAction() {
-		return 'ResetSmallScreens';
+		return 'Settings/SmallScreens:reset';
 	}
 
 	public function getFormTemplateName() {
