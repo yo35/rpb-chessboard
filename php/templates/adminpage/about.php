@@ -157,47 +157,6 @@
 			'</a>'
 		);
 	?>
-	<?php
-		printf(
-			esc_html__(
-				'Icon %1$sTick%2$s has been created by %3$sMomentum Design Lab%5$s, ' .
-				'who shares it under the [CC-BY] license on %4$sFind Icons%5$s.',
-				'rpb-chessboard'
-			),
-			'<em>',
-			'</em>',
-			'<a href="http://momentumdesignlab.com/" target="_blank">',
-			'<a href="https://findicons.com/pack/2226/matte_basic" target="_blank">',
-			'</a>'
-		);
-	?>
-	<?php
-		printf(
-			esc_html__(
-				'Icon %1$sNot-Found%2$s has been created by %3$sgakuseiSean%5$s, ' .
-				'who makes it freely available for non-commercial use on %4$sFind Icons%5$s.',
-				'rpb-chessboard'
-			),
-			'<em>',
-			'</em>',
-			'<a href="http://gakuseisean.deviantart.com/" target="_blank">',
-			'<a href="https://findicons.com/icon/89623/error" target="_blank">',
-			'</a>'
-		);
-	?>
-	<?php
-		printf(
-			esc_html__(
-				'Icon %1$sHelp%2$s has been created by %3$sRuby Software%5$s, who shares it as a freeware on %4$sFind Icons%5$s.',
-				'rpb-chessboard'
-			),
-			'<em>',
-			'</em>',
-			'<a href="http://www.rubysoftware.nl/" target="_blank">',
-			'<a href="https://findicons.com/icon/26233/help" target="_blank">',
-			'</a>'
-		);
-	?>
 </p>
 
 <p>
