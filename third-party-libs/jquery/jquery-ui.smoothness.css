@@ -1,8 +1,8 @@
-/*! jQuery UI - v1.11.4 - 2015-04-30
+/*! jQuery UI - v1.13.1 - 2022-06-09
 * http://jqueryui.com
-* Includes: core.css, accordion.css, button.css, slider.css, theme.css
-* To view and modify this theme, visit http://jqueryui.com/themeroller/?ffDefault=Verdana%2CArial%2Csans-serif&fwDefault=normal&fsDefault=1.1em&cornerRadius=4px&bgColorHeader=cccccc&bgTextureHeader=highlight_soft&bgImgOpacityHeader=75&borderColorHeader=aaaaaa&fcHeader=222222&iconColorHeader=222222&bgColorContent=ffffff&bgTextureContent=flat&bgImgOpacityContent=75&borderColorContent=aaaaaa&fcContent=222222&iconColorContent=222222&bgColorDefault=e6e6e6&bgTextureDefault=glass&bgImgOpacityDefault=75&borderColorDefault=d3d3d3&fcDefault=555555&iconColorDefault=888888&bgColorHover=dadada&bgTextureHover=glass&bgImgOpacityHover=75&borderColorHover=999999&fcHover=212121&iconColorHover=454545&bgColorActive=ffffff&bgTextureActive=glass&bgImgOpacityActive=65&borderColorActive=aaaaaa&fcActive=212121&iconColorActive=454545&bgColorHighlight=fbf9ee&bgTextureHighlight=glass&bgImgOpacityHighlight=55&borderColorHighlight=fcefa1&fcHighlight=363636&iconColorHighlight=2e83ff&bgColorError=fef1ec&bgTextureError=glass&bgImgOpacityError=95&borderColorError=cd0a0a&fcError=cd0a0a&iconColorError=cd0a0a&bgColorOverlay=aaaaaa&bgTextureOverlay=flat&bgImgOpacityOverlay=0&opacityOverlay=30&bgColorShadow=aaaaaa&bgTextureShadow=flat&bgImgOpacityShadow=0&opacityShadow=30&thicknessShadow=8px&offsetTopShadow=-8px&offsetLeftShadow=-8px&cornerRadiusShadow=8px
-* Copyright 2015 jQuery Foundation and other contributors; Licensed MIT */
+* Includes: core.css, slider.css, theme.css
+* To view and modify this theme, visit http://jqueryui.com/themeroller/?scope=.rpbchessboard-jQuery-enableSmoothness&folderName=smoothness&cornerRadiusShadow=8px&offsetLeftShadow=-8px&offsetTopShadow=-8px&thicknessShadow=8px&opacityShadow=30&bgImgOpacityShadow=0&bgTextureShadow=flat&bgColorShadow=aaaaaa&opacityOverlay=30&bgImgOpacityOverlay=0&bgTextureOverlay=flat&bgColorOverlay=aaaaaa&iconColorError=cd0a0a&fcError=cd0a0a&borderColorError=cd0a0a&bgImgOpacityError=95&bgTextureError=glass&bgColorError=fef1ec&iconColorHighlight=2e83ff&fcHighlight=363636&borderColorHighlight=fcefa1&bgImgOpacityHighlight=55&bgTextureHighlight=glass&bgColorHighlight=fbf9ee&iconColorActive=454545&fcActive=212121&borderColorActive=aaaaaa&bgImgOpacityActive=65&bgTextureActive=glass&bgColorActive=ffffff&iconColorHover=454545&fcHover=212121&borderColorHover=999999&bgImgOpacityHover=75&bgTextureHover=glass&bgColorHover=dadada&iconColorDefault=888888&fcDefault=555555&borderColorDefault=d3d3d3&bgImgOpacityDefault=75&bgTextureDefault=glass&bgColorDefault=e6e6e6&iconColorContent=222222&fcContent=222222&borderColorContent=aaaaaa&bgImgOpacityContent=75&bgTextureContent=flat&bgColorContent=ffffff&iconColorHeader=222222&fcHeader=222222&borderColorHeader=aaaaaa&bgImgOpacityHeader=75&bgTextureHeader=highlight_soft&bgColorHeader=cccccc&cornerRadius=4px&fsDefault=1.1em&fwDefault=normal&ffDefault=Verdana%2CArial%2Csans-serif
+* Copyright jQuery Foundation and other contributors; Licensed MIT */
 
 /* Layout helpers
 ----------------------------------*/
@@ -38,9 +38,6 @@
 .rpbchessboard-jQuery-enableSmoothness .ui-helper-clearfix:after {
 	clear: both;
 }
-.rpbchessboard-jQuery-enableSmoothness .ui-helper-clearfix {
-	min-height: 0; /* support: IE7 */
-}
 .rpbchessboard-jQuery-enableSmoothness .ui-helper-zfix {
 	width: 100%;
 	height: 100%;
@@ -48,7 +45,7 @@
 	left: 0;
 	position: absolute;
 	opacity: 0;
-	filter:Alpha(Opacity=0); /* support: IE8 */
+	-ms-filter: "alpha(opacity=0)"; /* support: IE8 */
 }
 
 .rpbchessboard-jQuery-enableSmoothness .ui-front {
@@ -60,20 +57,27 @@
 ----------------------------------*/
 .rpbchessboard-jQuery-enableSmoothness .ui-state-disabled {
 	cursor: default !important;
+	pointer-events: none;
 }
 
 
 /* Icons
 ----------------------------------*/
-
-/* states and images */
 .rpbchessboard-jQuery-enableSmoothness .ui-icon {
-	display: block;
+	display: inline-block;
+	vertical-align: middle;
+	margin-top: -.25em;
+	position: relative;
 	text-indent: -99999px;
 	overflow: hidden;
 	background-repeat: no-repeat;
 }
 
+.rpbchessboard-jQuery-enableSmoothness .ui-widget-icon-block {
+	left: 50%;
+	margin-left: -8px;
+	display: block;
+}
 
 /* Misc visuals
 ----------------------------------*/
@@ -86,136 +90,6 @@
 	width: 100%;
 	height: 100%;
 }
-.rpbchessboard-jQuery-enableSmoothness .ui-accordion .ui-accordion-header {
-	display: block;
-	cursor: pointer;
-	position: relative;
-	margin: 2px 0 0 0;
-	padding: .5em .5em .5em .7em;
-	min-height: 0; /* support: IE7 */
-	font-size: 100%;
-}
-.rpbchessboard-jQuery-enableSmoothness .ui-accordion .ui-accordion-icons {
-	padding-left: 2.2em;
-}
-.rpbchessboard-jQuery-enableSmoothness .ui-accordion .ui-accordion-icons .ui-accordion-icons {
-	padding-left: 2.2em;
-}
-.rpbchessboard-jQuery-enableSmoothness .ui-accordion .ui-accordion-header .ui-accordion-header-icon {
-	position: absolute;
-	left: .5em;
-	top: 50%;
-	margin-top: -8px;
-}
-.rpbchessboard-jQuery-enableSmoothness .ui-accordion .ui-accordion-content {
-	padding: 1em 2.2em;
-	border-top: 0;
-	overflow: auto;
-}
-.rpbchessboard-jQuery-enableSmoothness .ui-button {
-	display: inline-block;
-	position: relative;
-	padding: 0;
-	line-height: normal;
-	margin-right: .1em;
-	cursor: pointer;
-	vertical-align: middle;
-	text-align: center;
-	overflow: visible; /* removes extra width in IE */
-}
-.rpbchessboard-jQuery-enableSmoothness .ui-button,
-.rpbchessboard-jQuery-enableSmoothness .ui-button:link,
-.rpbchessboard-jQuery-enableSmoothness .ui-button:visited,
-.rpbchessboard-jQuery-enableSmoothness .ui-button:hover,
-.rpbchessboard-jQuery-enableSmoothness .ui-button:active {
-	text-decoration: none;
-}
-/* to make room for the icon, a width needs to be set here */
-.rpbchessboard-jQuery-enableSmoothness .ui-button-icon-only {
-	width: 2.2em;
-}
-/* button elements seem to need a little more width */
-button.rpbchessboard-jQuery-enableSmoothness .ui-button-icon-only {
-	width: 2.4em;
-}
-.rpbchessboard-jQuery-enableSmoothness .ui-button-icons-only {
-	width: 3.4em;
-}
-button.rpbchessboard-jQuery-enableSmoothness .ui-button-icons-only {
-	width: 3.7em;
-}
-
-/* button text element */
-.rpbchessboard-jQuery-enableSmoothness .ui-button .ui-button-text {
-	display: block;
-	line-height: normal;
-}
-.rpbchessboard-jQuery-enableSmoothness .ui-button-text-only .ui-button-text {
-	padding: .4em 1em;
-}
-.rpbchessboard-jQuery-enableSmoothness .ui-button-icon-only .ui-button-text,
-.rpbchessboard-jQuery-enableSmoothness .ui-button-icons-only .ui-button-text {
-	padding: .4em;
-	text-indent: -9999999px;
-}
-.rpbchessboard-jQuery-enableSmoothness .ui-button-text-icon-primary .ui-button-text,
-.rpbchessboard-jQuery-enableSmoothness .ui-button-text-icons .ui-button-text {
-	padding: .4em 1em .4em 2.1em;
-}
-.rpbchessboard-jQuery-enableSmoothness .ui-button-text-icon-secondary .ui-button-text,
-.rpbchessboard-jQuery-enableSmoothness .ui-button-text-icons .ui-button-text {
-	padding: .4em 2.1em .4em 1em;
-}
-.rpbchessboard-jQuery-enableSmoothness .ui-button-text-icons .ui-button-text {
-	padding-left: 2.1em;
-	padding-right: 2.1em;
-}
-/* no icon support for input elements, provide padding by default */
-input.rpbchessboard-jQuery-enableSmoothness .ui-button {
-	padding: .4em 1em;
-}
-
-/* button icon element(s) */
-.rpbchessboard-jQuery-enableSmoothness .ui-button-icon-only .ui-icon,
-.rpbchessboard-jQuery-enableSmoothness .ui-button-text-icon-primary .ui-icon,
-.rpbchessboard-jQuery-enableSmoothness .ui-button-text-icon-secondary .ui-icon,
-.rpbchessboard-jQuery-enableSmoothness .ui-button-text-icons .ui-icon,
-.rpbchessboard-jQuery-enableSmoothness .ui-button-icons-only .ui-icon {
-	position: absolute;
-	top: 50%;
-	margin-top: -8px;
-}
-.rpbchessboard-jQuery-enableSmoothness .ui-button-icon-only .ui-icon {
-	left: 50%;
-	margin-left: -8px;
-}
-.rpbchessboard-jQuery-enableSmoothness .ui-button-text-icon-primary .ui-button-icon-primary,
-.rpbchessboard-jQuery-enableSmoothness .ui-button-text-icons .ui-button-icon-primary,
-.rpbchessboard-jQuery-enableSmoothness .ui-button-icons-only .ui-button-icon-primary {
-	left: .5em;
-}
-.rpbchessboard-jQuery-enableSmoothness .ui-button-text-icon-secondary .ui-button-icon-secondary,
-.rpbchessboard-jQuery-enableSmoothness .ui-button-text-icons .ui-button-icon-secondary,
-.rpbchessboard-jQuery-enableSmoothness .ui-button-icons-only .ui-button-icon-secondary {
-	right: .5em;
-}
-
-/* button sets */
-.rpbchessboard-jQuery-enableSmoothness .ui-buttonset {
-	margin-right: 7px;
-}
-.rpbchessboard-jQuery-enableSmoothness .ui-buttonset .ui-button {
-	margin-left: 0;
-	margin-right: -.3em;
-}
-
-/* workarounds */
-/* reset extra padding in Firefox, see h5bp.com/l */
-input.rpbchessboard-jQuery-enableSmoothness .ui-button::-moz-focus-inner,
-button.rpbchessboard-jQuery-enableSmoothness .ui-button::-moz-focus-inner {
-	border: 0;
-	padding: 0;
-}
 .rpbchessboard-jQuery-enableSmoothness .ui-slider {
 	position: relative;
 	text-align: left;
@@ -225,7 +99,7 @@ button.rpbchessboard-jQuery-enableSmoothness .ui-button::-moz-focus-inner {
 	z-index: 2;
 	width: 1.2em;
 	height: 1.2em;
-	cursor: default;
+	cursor: pointer;
 	-ms-touch-action: none;
 	touch-action: none;
 }
@@ -298,9 +172,12 @@ button.rpbchessboard-jQuery-enableSmoothness .ui-button::-moz-focus-inner {
 	font-family: Verdana,Arial,sans-serif;
 	font-size: 1em;
 }
+.rpbchessboard-jQuery-enableSmoothness .ui-widget.ui-widget-content {
+	border: 1px solid #d3d3d3;
+}
 .rpbchessboard-jQuery-enableSmoothness .ui-widget-content {
 	border: 1px solid #aaaaaa;
-	background: #ffffff url("images/ui-bg_flat_75_ffffff_40x100.png") 50% 50% repeat-x;
+	background: #ffffff;
 	color: #222222;
 }
 .rpbchessboard-jQuery-enableSmoothness .ui-widget-content a {
@@ -320,7 +197,13 @@ button.rpbchessboard-jQuery-enableSmoothness .ui-button::-moz-focus-inner {
 ----------------------------------*/
 .rpbchessboard-jQuery-enableSmoothness .ui-state-default,
 .rpbchessboard-jQuery-enableSmoothness .ui-widget-content .ui-state-default,
-.rpbchessboard-jQuery-enableSmoothness .ui-widget-header .ui-state-default {
+.rpbchessboard-jQuery-enableSmoothness .ui-widget-header .ui-state-default,
+.rpbchessboard-jQuery-enableSmoothness .ui-button,
+
+/* We use html here because we need a greater specificity to make sure disabled
+works properly when clicked or hovered */
+html .rpbchessboard-jQuery-enableSmoothness .ui-button.ui-state-disabled:hover,
+html .rpbchessboard-jQuery-enableSmoothness .ui-button.ui-state-disabled:active {
 	border: 1px solid #d3d3d3;
 	background: #e6e6e6 url("images/ui-bg_glass_75_e6e6e6_1x400.png") 50% 50% repeat-x;
 	font-weight: normal;
@@ -328,7 +211,11 @@ button.rpbchessboard-jQuery-enableSmoothness .ui-button::-moz-focus-inner {
 }
 .rpbchessboard-jQuery-enableSmoothness .ui-state-default a,
 .rpbchessboard-jQuery-enableSmoothness .ui-state-default a:link,
-.rpbchessboard-jQuery-enableSmoothness .ui-state-default a:visited {
+.rpbchessboard-jQuery-enableSmoothness .ui-state-default a:visited,
+a.rpbchessboard-jQuery-enableSmoothness .ui-button,
+a:link.rpbchessboard-jQuery-enableSmoothness .ui-button,
+a:visited.rpbchessboard-jQuery-enableSmoothness .ui-button,
+.rpbchessboard-jQuery-enableSmoothness .ui-button {
 	color: #555555;
 	text-decoration: none;
 }
@@ -337,7 +224,9 @@ button.rpbchessboard-jQuery-enableSmoothness .ui-button::-moz-focus-inner {
 .rpbchessboard-jQuery-enableSmoothness .ui-widget-header .ui-state-hover,
 .rpbchessboard-jQuery-enableSmoothness .ui-state-focus,
 .rpbchessboard-jQuery-enableSmoothness .ui-widget-content .ui-state-focus,
-.rpbchessboard-jQuery-enableSmoothness .ui-widget-header .ui-state-focus {
+.rpbchessboard-jQuery-enableSmoothness .ui-widget-header .ui-state-focus,
+.rpbchessboard-jQuery-enableSmoothness .ui-button:hover,
+.rpbchessboard-jQuery-enableSmoothness .ui-button:focus {
 	border: 1px solid #999999;
 	background: #dadada url("images/ui-bg_glass_75_dadada_1x400.png") 50% 50% repeat-x;
 	font-weight: normal;
@@ -350,17 +239,31 @@ button.rpbchessboard-jQuery-enableSmoothness .ui-button::-moz-focus-inner {
 .rpbchessboard-jQuery-enableSmoothness .ui-state-focus a,
 .rpbchessboard-jQuery-enableSmoothness .ui-state-focus a:hover,
 .rpbchessboard-jQuery-enableSmoothness .ui-state-focus a:link,
-.rpbchessboard-jQuery-enableSmoothness .ui-state-focus a:visited {
+.rpbchessboard-jQuery-enableSmoothness .ui-state-focus a:visited,
+a.rpbchessboard-jQuery-enableSmoothness .ui-button:hover,
+a.rpbchessboard-jQuery-enableSmoothness .ui-button:focus {
 	color: #212121;
 	text-decoration: none;
 }
+
+.rpbchessboard-jQuery-enableSmoothness .ui-visual-focus {
+	box-shadow: 0 0 3px 1px rgb(94, 158, 214);
+}
 .rpbchessboard-jQuery-enableSmoothness .ui-state-active,
 .rpbchessboard-jQuery-enableSmoothness .ui-widget-content .ui-state-active,
-.rpbchessboard-jQuery-enableSmoothness .ui-widget-header .ui-state-active {
+.rpbchessboard-jQuery-enableSmoothness .ui-widget-header .ui-state-active,
+a.rpbchessboard-jQuery-enableSmoothness .ui-button:active,
+.rpbchessboard-jQuery-enableSmoothness .ui-button:active,
+.rpbchessboard-jQuery-enableSmoothness .ui-button.ui-state-active:hover {
 	border: 1px solid #aaaaaa;
 	background: #ffffff url("images/ui-bg_glass_65_ffffff_1x400.png") 50% 50% repeat-x;
 	font-weight: normal;
 	color: #212121;
+}
+.rpbchessboard-jQuery-enableSmoothness .ui-icon-background,
+.rpbchessboard-jQuery-enableSmoothness .ui-state-active .ui-icon-background {
+	border: #aaaaaa;
+	background-color: #212121;
 }
 .rpbchessboard-jQuery-enableSmoothness .ui-state-active a,
 .rpbchessboard-jQuery-enableSmoothness .ui-state-active a:link,
@@ -377,6 +280,10 @@ button.rpbchessboard-jQuery-enableSmoothness .ui-button::-moz-focus-inner {
 	border: 1px solid #fcefa1;
 	background: #fbf9ee url("images/ui-bg_glass_55_fbf9ee_1x400.png") 50% 50% repeat-x;
 	color: #363636;
+}
+.rpbchessboard-jQuery-enableSmoothness .ui-state-checked {
+	border: 1px solid #fcefa1;
+	background: #fbf9ee;
 }
 .rpbchessboard-jQuery-enableSmoothness .ui-state-highlight a,
 .rpbchessboard-jQuery-enableSmoothness .ui-widget-content .ui-state-highlight a,
@@ -409,18 +316,18 @@ button.rpbchessboard-jQuery-enableSmoothness .ui-button::-moz-focus-inner {
 .rpbchessboard-jQuery-enableSmoothness .ui-widget-content .ui-priority-secondary,
 .rpbchessboard-jQuery-enableSmoothness .ui-widget-header .ui-priority-secondary {
 	opacity: .7;
-	filter:Alpha(Opacity=70); /* support: IE8 */
+	-ms-filter: "alpha(opacity=70)"; /* support: IE8 */
 	font-weight: normal;
 }
 .rpbchessboard-jQuery-enableSmoothness .ui-state-disabled,
 .rpbchessboard-jQuery-enableSmoothness .ui-widget-content .ui-state-disabled,
 .rpbchessboard-jQuery-enableSmoothness .ui-widget-header .ui-state-disabled {
 	opacity: .35;
-	filter:Alpha(Opacity=35); /* support: IE8 */
+	-ms-filter: "alpha(opacity=35)"; /* support: IE8 */
 	background-image: none;
 }
 .rpbchessboard-jQuery-enableSmoothness .ui-state-disabled .ui-icon {
-	filter:Alpha(Opacity=35); /* support: IE8 - See #6059 */
+	-ms-filter: "alpha(opacity=35)"; /* support: IE8 - See #6059 */
 }
 
 /* Icons
@@ -438,41 +345,48 @@ button.rpbchessboard-jQuery-enableSmoothness .ui-button::-moz-focus-inner {
 .rpbchessboard-jQuery-enableSmoothness .ui-widget-header .ui-icon {
 	background-image: url("images/ui-icons_222222_256x240.png");
 }
-.rpbchessboard-jQuery-enableSmoothness .ui-state-default .ui-icon {
-	background-image: url("images/ui-icons_888888_256x240.png");
-}
 .rpbchessboard-jQuery-enableSmoothness .ui-state-hover .ui-icon,
-.rpbchessboard-jQuery-enableSmoothness .ui-state-focus .ui-icon {
+.rpbchessboard-jQuery-enableSmoothness .ui-state-focus .ui-icon,
+.rpbchessboard-jQuery-enableSmoothness .ui-button:hover .ui-icon,
+.rpbchessboard-jQuery-enableSmoothness .ui-button:focus .ui-icon {
 	background-image: url("images/ui-icons_454545_256x240.png");
 }
-.rpbchessboard-jQuery-enableSmoothness .ui-state-active .ui-icon {
+.rpbchessboard-jQuery-enableSmoothness .ui-state-active .ui-icon,
+.rpbchessboard-jQuery-enableSmoothness .ui-button:active .ui-icon {
 	background-image: url("images/ui-icons_454545_256x240.png");
 }
-.rpbchessboard-jQuery-enableSmoothness .ui-state-highlight .ui-icon {
+.rpbchessboard-jQuery-enableSmoothness .ui-state-highlight .ui-icon,
+.rpbchessboard-jQuery-enableSmoothness .ui-button .ui-state-highlight.ui-icon {
 	background-image: url("images/ui-icons_2e83ff_256x240.png");
 }
 .rpbchessboard-jQuery-enableSmoothness .ui-state-error .ui-icon,
 .rpbchessboard-jQuery-enableSmoothness .ui-state-error-text .ui-icon {
 	background-image: url("images/ui-icons_cd0a0a_256x240.png");
 }
+.rpbchessboard-jQuery-enableSmoothness .ui-button .ui-icon {
+	background-image: url("images/ui-icons_888888_256x240.png");
+}
 
 /* positioning */
-.rpbchessboard-jQuery-enableSmoothness .ui-icon-blank { background-position: 16px 16px; }
-.rpbchessboard-jQuery-enableSmoothness .ui-icon-carat-1-n { background-position: 0 0; }
-.rpbchessboard-jQuery-enableSmoothness .ui-icon-carat-1-ne { background-position: -16px 0; }
-.rpbchessboard-jQuery-enableSmoothness .ui-icon-carat-1-e { background-position: -32px 0; }
-.rpbchessboard-jQuery-enableSmoothness .ui-icon-carat-1-se { background-position: -48px 0; }
-.rpbchessboard-jQuery-enableSmoothness .ui-icon-carat-1-s { background-position: -64px 0; }
-.rpbchessboard-jQuery-enableSmoothness .ui-icon-carat-1-sw { background-position: -80px 0; }
-.rpbchessboard-jQuery-enableSmoothness .ui-icon-carat-1-w { background-position: -96px 0; }
-.rpbchessboard-jQuery-enableSmoothness .ui-icon-carat-1-nw { background-position: -112px 0; }
-.rpbchessboard-jQuery-enableSmoothness .ui-icon-carat-2-n-s { background-position: -128px 0; }
-.rpbchessboard-jQuery-enableSmoothness .ui-icon-carat-2-e-w { background-position: -144px 0; }
+/* Three classes needed to override `.rpbchessboard-jQuery-enableSmoothness .ui-button:hover .ui-icon` */
+.rpbchessboard-jQuery-enableSmoothness .ui-icon-blank.ui-icon-blank.ui-icon-blank {
+	background-image: none;
+}
+.rpbchessboard-jQuery-enableSmoothness .ui-icon-caret-1-n { background-position: 0 0; }
+.rpbchessboard-jQuery-enableSmoothness .ui-icon-caret-1-ne { background-position: -16px 0; }
+.rpbchessboard-jQuery-enableSmoothness .ui-icon-caret-1-e { background-position: -32px 0; }
+.rpbchessboard-jQuery-enableSmoothness .ui-icon-caret-1-se { background-position: -48px 0; }
+.rpbchessboard-jQuery-enableSmoothness .ui-icon-caret-1-s { background-position: -65px 0; }
+.rpbchessboard-jQuery-enableSmoothness .ui-icon-caret-1-sw { background-position: -80px 0; }
+.rpbchessboard-jQuery-enableSmoothness .ui-icon-caret-1-w { background-position: -96px 0; }
+.rpbchessboard-jQuery-enableSmoothness .ui-icon-caret-1-nw { background-position: -112px 0; }
+.rpbchessboard-jQuery-enableSmoothness .ui-icon-caret-2-n-s { background-position: -128px 0; }
+.rpbchessboard-jQuery-enableSmoothness .ui-icon-caret-2-e-w { background-position: -144px 0; }
 .rpbchessboard-jQuery-enableSmoothness .ui-icon-triangle-1-n { background-position: 0 -16px; }
 .rpbchessboard-jQuery-enableSmoothness .ui-icon-triangle-1-ne { background-position: -16px -16px; }
 .rpbchessboard-jQuery-enableSmoothness .ui-icon-triangle-1-e { background-position: -32px -16px; }
 .rpbchessboard-jQuery-enableSmoothness .ui-icon-triangle-1-se { background-position: -48px -16px; }
-.rpbchessboard-jQuery-enableSmoothness .ui-icon-triangle-1-s { background-position: -64px -16px; }
+.rpbchessboard-jQuery-enableSmoothness .ui-icon-triangle-1-s { background-position: -65px -16px; }
 .rpbchessboard-jQuery-enableSmoothness .ui-icon-triangle-1-sw { background-position: -80px -16px; }
 .rpbchessboard-jQuery-enableSmoothness .ui-icon-triangle-1-w { background-position: -96px -16px; }
 .rpbchessboard-jQuery-enableSmoothness .ui-icon-triangle-1-nw { background-position: -112px -16px; }
@@ -482,7 +396,7 @@ button.rpbchessboard-jQuery-enableSmoothness .ui-button::-moz-focus-inner {
 .rpbchessboard-jQuery-enableSmoothness .ui-icon-arrow-1-ne { background-position: -16px -32px; }
 .rpbchessboard-jQuery-enableSmoothness .ui-icon-arrow-1-e { background-position: -32px -32px; }
 .rpbchessboard-jQuery-enableSmoothness .ui-icon-arrow-1-se { background-position: -48px -32px; }
-.rpbchessboard-jQuery-enableSmoothness .ui-icon-arrow-1-s { background-position: -64px -32px; }
+.rpbchessboard-jQuery-enableSmoothness .ui-icon-arrow-1-s { background-position: -65px -32px; }
 .rpbchessboard-jQuery-enableSmoothness .ui-icon-arrow-1-sw { background-position: -80px -32px; }
 .rpbchessboard-jQuery-enableSmoothness .ui-icon-arrow-1-w { background-position: -96px -32px; }
 .rpbchessboard-jQuery-enableSmoothness .ui-icon-arrow-1-nw { background-position: -112px -32px; }
@@ -494,7 +408,7 @@ button.rpbchessboard-jQuery-enableSmoothness .ui-button::-moz-focus-inner {
 .rpbchessboard-jQuery-enableSmoothness .ui-icon-arrowstop-1-e { background-position: -208px -32px; }
 .rpbchessboard-jQuery-enableSmoothness .ui-icon-arrowstop-1-s { background-position: -224px -32px; }
 .rpbchessboard-jQuery-enableSmoothness .ui-icon-arrowstop-1-w { background-position: -240px -32px; }
-.rpbchessboard-jQuery-enableSmoothness .ui-icon-arrowthick-1-n { background-position: 0 -48px; }
+.rpbchessboard-jQuery-enableSmoothness .ui-icon-arrowthick-1-n { background-position: 1px -48px; }
 .rpbchessboard-jQuery-enableSmoothness .ui-icon-arrowthick-1-ne { background-position: -16px -48px; }
 .rpbchessboard-jQuery-enableSmoothness .ui-icon-arrowthick-1-e { background-position: -32px -48px; }
 .rpbchessboard-jQuery-enableSmoothness .ui-icon-arrowthick-1-se { background-position: -48px -48px; }
@@ -666,15 +580,11 @@ button.rpbchessboard-jQuery-enableSmoothness .ui-button::-moz-focus-inner {
 
 /* Overlays */
 .rpbchessboard-jQuery-enableSmoothness .ui-widget-overlay {
-	background: #aaaaaa url("images/ui-bg_flat_0_aaaaaa_40x100.png") 50% 50% repeat-x;
+	background: #aaaaaa;
 	opacity: .3;
-	filter: Alpha(Opacity=30); /* support: IE8 */
+	-ms-filter: Alpha(Opacity=30); /* support: IE8 */
 }
 .rpbchessboard-jQuery-enableSmoothness .ui-widget-shadow {
-	margin: -8px 0 0 -8px;
-	padding: 8px;
-	background: #aaaaaa url("images/ui-bg_flat_0_aaaaaa_40x100.png") 50% 50% repeat-x;
-	opacity: .3;
-	filter: Alpha(Opacity=30); /* support: IE8 */
-	border-radius: 8px;
+	-webkit-box-shadow: -8px -8px 8px #aaaaaa;
+	box-shadow: -8px -8px 8px #aaaaaa;
 }
