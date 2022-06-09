@@ -50,26 +50,9 @@ require_once RPBCHESSBOARD_ABSPATH . 'php/helpers/loader.php';
 require_once RPBCHESSBOARD_ABSPATH . 'php/helpers/validation.php';
 
 
-// POST actions, shortcodes, and miscellaneous...
+// Plugin initialization
 add_action( 'init', 'rpbchessboard_init' );
 function rpbchessboard_init() {
-
 	$controller = RPBChessboardHelperLoader::loadController( is_admin() ? 'ControllerAdmin' : 'ControllerFrontend' );
 	$controller->init();
-
-	if ( is_admin() ) {
-
-		require_once RPBCHESSBOARD_ABSPATH . 'wp/postactions.php';
-		RPBChessboardPostActions::run();
-	}
-}
-
-
-// Administration pages
-if ( is_admin() ) {
-	add_action( 'admin_menu', 'rpbchessboard_init_admin_pages' );
-	function rpbchessboard_init_admin_pages() {
-		require_once RPBCHESSBOARD_ABSPATH . 'wp/adminpages.php';
-		RPBChessboardAdminPages::register();
-	}
 }

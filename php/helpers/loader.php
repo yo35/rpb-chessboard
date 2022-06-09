@@ -25,22 +25,6 @@
  */
 abstract class RPBChessboardHelperLoader {
 
-	/**
-	 * @deprecated TODO to be removed
-	 */
-	public static function loadModelLegacy( $modelName ) {
-		$fileName  = strtolower( $modelName );
-		$className = 'RPBChessboardModel' . str_replace( '/', '', $modelName );
-		require_once RPBCHESSBOARD_ABSPATH . 'models/' . $fileName . '.php';
-		if ( func_num_args() === 1 ) {
-			return new $className();
-		} else {
-			$args  = func_get_args();
-			$clazz = new ReflectionClass( $className );
-			return $clazz->newInstanceArgs( array_slice( $args, 1 ) );
-		}
-	}
-
 
 	/**
 	 * Load the model corresponding to the given model name.
@@ -74,25 +58,6 @@ abstract class RPBChessboardHelperLoader {
 		$className = 'RPBChessboard' . $controllerName;
 		require_once RPBCHESSBOARD_ABSPATH . 'php/' . $fileName . '.php';
 		return new $className();
-	}
-
-
-	/**
-	 * @deprecated TODO to be removed
-	 */
-	public static function printTemplateLegacy( $templateName, $model, $args = null ) {
-
-		if ( isset( $args ) ) {
-			foreach ( $args as $key => $value ) {
-				if ( 'model' === $key || 'templateName' === $key || 'fileName' === $key ) {
-					continue;
-				}
-				$$key = $value;
-			}
-		}
-
-		$fileName = RPBCHESSBOARD_ABSPATH . 'templates/' . strtolower( $templateName );
-		include $fileName . ( is_dir( $fileName ) ? '/main.php' : '.php' );
 	}
 
 
