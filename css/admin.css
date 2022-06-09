@@ -357,10 +357,25 @@
 	margin: 1em 0px;
 }
 
-#rpbchessboard-adminPage .button img {
+#rpbchessboard-aboutActions .button {
+	height: 32px;
+}
+
+.rpbchessboard-aboutActionIcon,
+.rpbchessboard-aboutActionLabel {
+	display: inline-block;
 	vertical-align: middle;
-	margin-right: 0.4em;
-	margin-bottom: 3px;
+	margin-bottom: 1px;
+}
+
+.rpbchessboard-aboutActionIcon.dashicons {
+	height: 28px;
+	width: 28px;
+	font-size: 28px;
+}
+
+.rpbchessboard-aboutActionIcon {
+	margin-right: 5px;
 }
 
 #rpbchessboard-contributorList {

@@ -30,8 +30,9 @@
 		);
 	?>
 	">
-		<img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/help.png' ); ?>" />
-		<?php esc_html_e( 'Need help', 'rpb-chessboard' ); ?> / <?php esc_html_e( 'Report a bug', 'rpb-chessboard' ); ?>
+		<span class="rpbchessboard-aboutActionIcon dashicons dashicons-editor-help"></span><span class="rpbchessboard-aboutActionLabel">
+			<?php esc_html_e( 'Need help', 'rpb-chessboard' ); ?> / <?php esc_html_e( 'Report a bug', 'rpb-chessboard' ); ?>
+		</span>
 	</a>
 	<a class="button" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YHNERW43QN49E" target="_blank" title="<?php
 		esc_attr_e(
@@ -41,7 +42,9 @@
 		);
 	?>
 	">
-		<img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/paypal.png' ); ?>" /><?php esc_html_e( 'Donate', 'rpb-chessboard' ); ?>
+		<img class="rpbchessboard-aboutActionIcon" src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/paypal.png' ); ?>" /><span class="rpbchessboard-aboutActionLabel">
+			<?php esc_html_e( 'Donate', 'rpb-chessboard' ); ?>
+		</span>
 	</a>
 </div>
 
