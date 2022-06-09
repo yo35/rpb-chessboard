@@ -29,7 +29,7 @@
 		<?php foreach ( array( 'bp', 'bn', 'bb', 'br', 'bq', 'bk', 'bx', 'wp', 'wn', 'wb', 'wr', 'wq', 'wk', 'wx' ) as $coloredPiece ) : ?>
 		<input type="hidden" class="rpbchessboard-imageIdField" name="imageId-<?php echo esc_attr( $coloredPiece ); ?>"
 			value="<?php echo $isNew ? '-1' : esc_attr( $model->getCustomPiecesetImageId( $pieceset, $coloredPiece ) ); ?>"
-			data-initial-preview-url="<?php echo esc_url( $isNew ? RPBCHESSBOARD_URL . 'images/empty-piece.png' : $model->getCustomPiecesetImageURL( $pieceset, $coloredPiece ) ); ?>"
+			data-initial-preview-url="<?php echo esc_url( $isNew ? RPBCHESSBOARD_URL . 'images/piece-empty.png' : $model->getCustomPiecesetImageURL( $pieceset, $coloredPiece ) ); ?>"
 		/>
 		<?php endforeach; ?>
 

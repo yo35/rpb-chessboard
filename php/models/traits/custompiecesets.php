@@ -171,6 +171,6 @@ trait RPBChessboardTraitCustomPiecesets {
 
 	private function initializeCustomPiecesetAttributesAsInvalid( $customPieceset, $coloredPiece ) {
 		$this->customPiecesetAttributes[ $customPieceset ]->imageId[ $coloredPiece ]  = -1;
-		$this->customPiecesetAttributes[ $customPieceset ]->imageURL[ $coloredPiece ] = RPBCHESSBOARD_URL . 'images/not-found.png';
+		$this->customPiecesetAttributes[ $customPieceset ]->imageURL[ $coloredPiece ] = RPBCHESSBOARD_URL . 'images/piece-invalid.png';
 	}
 }
