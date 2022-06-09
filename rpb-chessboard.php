@@ -38,21 +38,20 @@ Version: 7.1.2
 define( 'RPBCHESSBOARD_ABSPATH', plugin_dir_path( __FILE__ ) );
 define( 'RPBCHESSBOARD_BASENAME', plugin_basename( __FILE__ ) );
 define( 'RPBCHESSBOARD_URL', plugin_dir_url( __FILE__ ) );
-define( 'RPBCHESSBOARD_VERSION', '7.1.2' );
 
 
 // Enable localization
 load_plugin_textdomain( 'rpb-chessboard', false, basename( dirname( __FILE__ ) ) . '/languages' );
 
 
-// Load the helpers
-require_once RPBCHESSBOARD_ABSPATH . 'php/helpers/loader.php';
-require_once RPBCHESSBOARD_ABSPATH . 'php/helpers/validation.php';
-
-
 // Plugin initialization
 add_action( 'init', 'rpbchessboard_init' );
 function rpbchessboard_init() {
+	if ( is_admin() ) {
+		define( 'RPBCHESSBOARD_VERSION', get_plugin_data( __FILE__, false, false )['Version'] );
+	}
+	require_once RPBCHESSBOARD_ABSPATH . 'php/helpers/loader.php';
+	require_once RPBCHESSBOARD_ABSPATH . 'php/helpers/validation.php';
 	$controller = RPBChessboardHelperLoader::loadController( is_admin() ? 'ControllerAdmin' : 'ControllerFrontend' );
 	$controller->init();
 }

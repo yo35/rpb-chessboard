@@ -52,7 +52,7 @@
 
 <h3><?php esc_html_e( 'Plugin version', 'rpb-chessboard' ); ?></h3>
 
-<p><?php echo esc_html( $model->getPluginVersion() ); ?></p>
+<p><?php echo esc_html( RPBCHESSBOARD_VERSION ); ?></p>
 
 
 

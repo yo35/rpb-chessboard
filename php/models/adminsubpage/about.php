@@ -34,11 +34,6 @@ class RPBChessboardModelAdminSubPageAbout extends RPBChessboardAbstractModelAdmi
 	}
 
 
-	public function getPluginVersion() {
-		return RPBCHESSBOARD_VERSION;
-	}
-
-
 	public function getPluginContributors() {
 		return array(
 			(object) array(
