@@ -60,7 +60,7 @@ class RPBChessboardModelAdminSubPageAbout extends RPBChessboardAbstractModelAdmi
 		return array(
 			(object) array(
 				'code' => 'cz', // WARNING: language code is cs
-				'lang' => 'Czech',
+				'lang' => 'Čeština',
 				'name' => 'Jan Jílek',
 			),
 			(object) array(
@@ -90,7 +90,7 @@ class RPBChessboardModelAdminSubPageAbout extends RPBChessboardAbstractModelAdmi
 			),
 			(object) array(
 				'code' => 'nl',
-				'lang' => 'Dutch',
+				'lang' => 'Nederlands',
 				'name' => 'Ivan Deceuninck',
 			),
 			(object) array(
@@ -100,18 +100,18 @@ class RPBChessboardModelAdminSubPageAbout extends RPBChessboardAbstractModelAdmi
 			),
 			(object) array(
 				'code' => 'br', // WARNING: language code is pt
-				'lang' => 'Brazillian Portuguese',
+				'lang' => 'Português do Brasil',
 				'name' => 'Rewbenio Frota',
 				'link' => 'http://www.lancesqi.com.br/',
 			),
 			(object) array(
 				'code' => 'ru',
-				'lang' => 'Russian',
+				'lang' => 'Русский',
 				'name' => 'Sergey Baravicov',
 			),
 			(object) array(
 				'code' => 'tr',
-				'lang' => 'Turkish',
+				'lang' => 'Türkçe',
 				'name' => 'Ali Nihat Yazıcı',
 			),
 		);
