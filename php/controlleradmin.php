@@ -44,6 +44,7 @@ class RPBChessboardControllerAdmin extends RPBChessboardAbstractController {
 		// Admin pages
 		add_action( 'admin_menu', array( $this, 'registerAdminPage' ) );
 		add_filter( 'plugin_action_links_' . RPBCHESSBOARD_BASENAME, array( __CLASS__, 'registerPluginLink' ) );
+		self::registerNewsNotice();
 	}
 
 
@@ -139,6 +140,29 @@ class RPBChessboardControllerAdmin extends RPBChessboardAbstractController {
 		$pluginLink = RPBChessboardHelperLoader::printTemplateOffScreen( 'plugin-link', $model );
 		array_unshift( $links, $pluginLink );
 		return $links;
+	}
+
+
+	/**
+	 * Special notice to display some info (advertisement...) regarding the plugin in the admin.
+	 */
+	private static function registerNewsNotice() {
+		add_action( 'admin_notices', array( __CLASS__, 'callbackNewsNotice' ) );
+		add_action( 'wp_ajax_rpbchessboard-dismissNewsNotice', array( __CLASS__, 'handleNewsNoticeDismissRequest' ) );
+	}
+
+
+	public static function callbackNewsNotice() {
+		$model = RPBChessboardHelperLoader::loadModel( 'NewsNotice' );
+		if ( $model->hasNoticeToDisplay() ) {
+			RPBChessboardHelperLoader::printTemplate( 'news-notice', $model );
+		}
+	}
+
+
+	public static function handleNewsNoticeDismissRequest() {
+		$model = RPBChessboardHelperLoader::loadModel( 'NewsNotice' );
+		$model->handleDismissRequest();
 	}
 
 }
