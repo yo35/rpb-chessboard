@@ -47,6 +47,10 @@ class RPBChessboardControllerAdmin extends RPBChessboardAbstractController {
 	}
 
 
+	// --------------------------------------------------------------------------
+	// POST data (aka. form submitted data) management
+	// --------------------------------------------------------------------------
+
 	private function processPostActions() {
 		$this->postModel = RPBChessboardHelperLoader::loadModel( 'Post' );
 		if ( $this->postModel->process() ) {
@@ -60,11 +64,19 @@ class RPBChessboardControllerAdmin extends RPBChessboardAbstractController {
 	}
 
 
+	// --------------------------------------------------------------------------
+	// Custom MIME types
+	// --------------------------------------------------------------------------
+
 	public static function registerPgnMimeType( $mimeTypes ) {
 		$mimeTypes['pgn'] = 'text/plain';
 		return $mimeTypes;
 	}
 
+
+	// --------------------------------------------------------------------------
+	// JavaScript & CSS management
+	// --------------------------------------------------------------------------
 
 	protected function getScriptRegistrationHook() {
 		return 'admin_enqueue_scripts';
@@ -98,17 +110,30 @@ class RPBChessboardControllerAdmin extends RPBChessboardAbstractController {
 	}
 
 
+	// --------------------------------------------------------------------------
+	// Plugin content in the admin
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Create the plugin admin page + register it in the main menu.
+	 */
 	public function registerAdminPage() {
 		add_submenu_page( 'options-general.php', 'RPB Chessboard', 'RPB Chessboard', 'manage_options', 'rpbchessboard', array( __CLASS__, 'callbackAdminPage' ) );
 	}
 
 
+	/**
+	 * Callback for admin page rendering.
+	 */
 	public static function callbackAdminPage() {
 		$model = RPBChessboardHelperLoader::loadModel( 'AdminPage' );
 		RPBChessboardHelperLoader::printTemplate( 'admin-page', $model );
 	}
 
 
+	/**
+	 * Custom links to the RPB Chessboard's admin page in the general plugin management page.
+	 */
 	public static function registerPluginLink( $links ) {
 		$model      = RPBChessboardHelperLoader::loadModel( 'PluginLink' );
 		$pluginLink = RPBChessboardHelperLoader::printTemplateOffScreen( 'plugin-link', $model );
