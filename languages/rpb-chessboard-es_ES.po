@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-24 11:20+0200\n"
+"POT-Creation-Date: 2022-06-10 10:38+0200\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35 -at- melix.net>\n"
 "Language-Team: French\n"
@@ -16,506 +16,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: models/common/defaultoptionsex.php
-msgid "(no name)"
-msgstr "(sin nombre)"
-
-#. King symbol
-#: models/common/defaultoptionsex.php
-#: templates/adminpage/options/general/piecesymbols.php wp/scripts.php
-msgid "K"
-msgstr "R"
-
-#. Queen symbol
-#: models/common/defaultoptionsex.php
-#: templates/adminpage/options/general/piecesymbols.php wp/scripts.php
-msgid "Q"
-msgstr "D"
-
-#. Rook symbol
-#: models/common/defaultoptionsex.php
-#: templates/adminpage/options/general/piecesymbols.php wp/scripts.php
-msgid "R"
-msgstr "T"
-
-#. Bishop symbol
-#: models/common/defaultoptionsex.php
-#: templates/adminpage/options/general/piecesymbols.php wp/scripts.php
-msgid "B"
-msgstr "A"
-
-#. Knight symbol
-#: models/common/defaultoptionsex.php
-#: templates/adminpage/options/general/piecesymbols.php wp/scripts.php
-msgid "N"
-msgstr "C"
-
-#. Pawn symbol
-#: models/common/defaultoptionsex.php
-#: templates/adminpage/options/general/piecesymbols.php wp/scripts.php
-msgid "P"
-msgstr "P"
-
-#: models/adminpage/theming.php
-msgid "Colorsets"
-msgstr "Temas de color"
-
-#: models/adminpage/theming.php
-msgid "Piecesets"
-msgstr "Estilo de piezas"
-
-#: models/adminpage/theming.php
-#, php-format
-msgid "Delete colorset \"%1$s\"?. Press OK to confirm..."
-msgstr "Eliminar tema de color \"%1$s\"? Presione OK para confirmar..."
-
-#: models/adminpage/theming.php
-#, php-format
-msgid "Delete pieceset \"%1$s\"?. Press OK to confirm..."
-msgstr "Eliminar estilo de piezas \"%1$s\"? Presione OK para confirmar..."
-
-#: models/adminpage/theming.php
-msgid "My colorset"
-msgstr "Mis temas de color"
-
-#: models/adminpage/theming.php
-msgid "My pieceset"
-msgstr "Mis estilos de piezas"
-
-#: models/adminpage/theming.php
-msgid "Select the image to use for black pawns"
-msgstr "Seleccione la imagen a usar para peones negros"
-
-#: models/adminpage/theming.php
-msgid "Select the image to use for black knights"
-msgstr "Seleccione la imagen a usar para caballos negros"
-
-#: models/adminpage/theming.php
-msgid "Select the image to use for black bishops"
-msgstr "Seleccione la imagen a usar para alfiles negros"
-
-#: models/adminpage/theming.php
-msgid "Select the image to use for black rooks"
-msgstr "Seleccione la imagen a usar para torres negras"
-
-#: models/adminpage/theming.php
-msgid "Select the image to use for black queens"
-msgstr "Seleccione la imagen a usar para dama negra"
-
-#: models/adminpage/theming.php
-msgid "Select the image to use for black kings"
-msgstr "Seleccione la imagen a usar para rey negro"
-
-#: models/adminpage/theming.php
-msgid "Select the image to use for black turn flags"
-msgstr ""
-"Seleccione la imagen a utilizar para los indicadores de turno de negras"
-
-#: models/adminpage/theming.php
-msgid "Select the image to use for white pawns"
-msgstr "Seleccione la imagen a usar para peones blancos"
-
-#: models/adminpage/theming.php
-msgid "Select the image to use for white knights"
-msgstr "Seleccione la imagen a usar para caballos blancos"
-
-#: models/adminpage/theming.php
-msgid "Select the image to use for white bishops"
-msgstr "Seleccione la imagen a usar para alfiles blancos"
-
-#: models/adminpage/theming.php
-msgid "Select the image to use for white rooks"
-msgstr "Seleccione la imagen a usar para torres blancas"
-
-#: models/adminpage/theming.php
-msgid "Select the image to use for white queens"
-msgstr "Seleccione la imagen a usar para dama blanca"
-
-#: models/adminpage/theming.php
-msgid "Select the image to use for white kings"
-msgstr "Seleccione la imagen a usar para rey blanco"
-
-#: models/adminpage/theming.php
-msgid "Select the image to use for white turn flags"
-msgstr ""
-"Seleccione la imagen a utilizar para los indicadores de turno de blancas"
-
-#: models/adminpage/options.php
-msgid "Default aspect & behavior settings"
-msgstr "Apariencia y configuración general"
-
-#: models/adminpage/options.php
-msgid "Compatibility settings"
-msgstr "Configuración de compatibilidad"
-
-#: models/adminpage/options.php
-msgid "Small-screen devices"
-msgstr "Dispositivos móviles"
-
-#: models/post/themingpieceset.php
-msgid "Pieceset created."
-msgstr "Estilo de piezas creado."
-
-#: models/post/themingpieceset.php
-msgid "Pieceset updated."
-msgstr "Estilo de piezas modificado."
-
-#: models/post/themingpieceset.php
-msgid "Pieceset deleted."
-msgstr "Estilo de piezas eliminado."
-
-#: models/post/saveoptions.php
-msgid "Settings saved."
-msgstr "Configuración guardada."
-
-#: models/post/saveoptions.php
-msgid "Default colorset changed."
-msgstr "El tema de color predeterminado cambió."
-
-#: models/post/saveoptions.php
-msgid "Default pieceset changed."
-msgstr "El estilo predeterminado de las piezas cambió."
-
-#: models/post/themingcolorset.php
-msgid "Colorset created."
-msgstr "Tema de color creado."
-
-#: models/post/themingcolorset.php
-msgid "Colorset updated."
-msgstr "Tema de color modificado."
-
-#: models/post/themingcolorset.php
-msgid "Colorset deleted."
-msgstr "Tema de color eliminado."
-
-#: models/post/resetoptions.php
-msgid "Settings reseted."
-msgstr "Configuración reestablecida."
-
-#: templates/adminpage/main.php
-msgid ""
-"To work properly, the RPB Chessboard plugin needs JavaScript to be activated "
-"in your browser."
-msgstr ""
-"Para funcionar correctamente, el plugin RPB Chessboard necesita que "
-"JavaScript esté habilitado en su navegador."
-
-#: templates/adminpage/about.php
-#, php-format
-msgid ""
-"RPB Chessboard allows you to typeset and display chess games and diagrams in "
-"the posts and pages of your WordPress blog, using the standard %1$sFEN%3$s "
-"and %2$sPGN%3$s notations."
-msgstr ""
-"RPB Chessboard te permite editar y mostrar juegos y diagramas de ajedrez en "
-"artículos y páginas de tu blog de WordPress, utilizando la notación habitual "
-"%1$sFEN%3$s y %2$sPGN%3$s."
-
-#: templates/adminpage/about.php
-msgid "https://en.wikipedia.org/wiki/Forsyth-Edwards_Notation"
-msgstr "https://es.wikipedia.org/wiki/Notaci%C3%B3n_de_Forsyth-Edwards"
-
-#: templates/adminpage/about.php
-msgid "https://en.wikipedia.org/wiki/Portable_Game_Notation"
-msgstr "https://es.wikipedia.org/wiki/Notaci%C3%B3n_port%C3%A1til_de_partida"
-
-#: templates/adminpage/about.php
-msgid "source code on GitHub"
-msgstr "código fuente en GitHub"
-
-#: templates/adminpage/about.php
-msgid ""
-"If you need help to use this plugin, if you encounter some bugs, or if you "
-"wish to get new features in the future versions, please feel free to use the "
-"GitHub tracker."
-msgstr ""
-"Si necesita ayuda para usar este plugin, si encuentra algún error, o si "
-"desea ver nuevas funciones implementadas en futuras versiones, utilice el "
-"tracker GitHub."
-
-#: templates/adminpage/about.php
-msgid "Need help"
-msgstr "Necesito ayuda"
-
-#: templates/adminpage/about.php
-msgid "Report a bug"
-msgstr "Reportar bug"
-
-#: templates/adminpage/about.php
-msgid ""
-"This plugin is and will remain free. However, if you want to make a donation "
-"to support the author's work, you can do it through this PayPal link."
-msgstr ""
-"Este complemento es y seguirá siendo gratuito. Sin embargo, si desea donar "
-"para apoyar el trabajo del autor, puede hacerlo a través de este enlace "
-"PayPal."
-
-#: templates/adminpage/about.php
-msgid "Donate"
-msgstr "Donar"
-
-#: templates/adminpage/about.php
-msgid "Plugin version"
-msgstr "Versión del plugin"
-
-#: templates/adminpage/about.php
-msgid "Credits"
-msgstr "Créditos"
-
-#: templates/adminpage/about.php
-msgid "Author"
-msgstr "Autor"
-
-#: templates/adminpage/about.php
-msgid "Contributors"
-msgstr "Colaboradores"
-
-#: templates/adminpage/about.php
-msgid "Translators"
-msgstr "Traductores"
-
-#: templates/adminpage/about.php
-#, php-format
-msgid ""
-"If you are interested in translating this plugin into your language, please "
-"%1$scontact the author%2$s."
-msgstr ""
-"Si desea traducir este plugin a su idioma, por favor %1$contacte al autor"
-"%2$s."
-
-#: templates/adminpage/about.php
-msgid "Graphic resources"
-msgstr "Gráficos"
-
-#: templates/adminpage/about.php
-#, php-format
-msgid ""
-"Pieceset %1$sCBurnett%2$s has been created by %3$sColin M.L. Burnett%6$s, "
-"who shares it under the [CC-BY-SA] license on %4$sWikimedia Commons%6$s; "
-"user %5$sAntonsusi%6$s has also contributed to this work."
-msgstr ""
-"El estilo de piezas %1$sCBurnett%2$s fue creado por %3$sColin M.L. Burnett"
-"%6$s, que lo comparte bajo licencia [CC-BY-SA] de %4$sWikimedia Commons%6$s; "
-"El usuario %5$sAntonsusi%6$s también ha contribuido a este trabajo."
-
-#: templates/adminpage/about.php
-#, php-format
-msgid ""
-"Piecesets %1$sCeltic%2$s, %1$sEyes%2$s, %1$sFantasy%2$s, %1$sSkulls%2$s and "
-"%1$sSpatial%2$s have been created by %3$sMaurizio Monge%4$s, who makes them "
-"freely available for chess programs."
-msgstr ""
-"Los estilos de pieza %1$sCeltic%2$s, %1$sEyes%2$s, %1$sFantasy%2$s, "
-"%1$sSkulls%2$s y %1$sSpatial%2$s fueron creados por%3$sMaurizio Monge%4$s, "
-"que los hace disponibles gratuitamente para programas de ajedrez."
-
-#: templates/adminpage/about.php
-#, php-format
-msgid ""
-"Colorsets %1$sCoral%2$s, %1$sDusk%2$s, %1$sEmerald%2$s, %1$sMarine%2$s, "
-"%1$sSandcastle%2$s and %1$sWheat%2$s have been proposed in this %3$sblog post"
-"%5$s by %4$sGorgonian%5$s."
-msgstr ""
-"Los temas de color %1$sCoral%2$s, %1$sDusk%2$s, %1$sEmerald%2$s, %1$sMarine"
-"%2$s,%1$sSandcastle%2$s y %1$sWheat%2$s han sido propuestos en este "
-"%3$artículo de blog%5$s por %4$sGorgonian%5$s."
-
-#: templates/adminpage/about.php
-#, fuzzy, php-format
-msgid ""
-"Icon %1$sTick%2$s has been created by %3$sMomentum Design Lab%5$s, who "
-"shares it under the [CC-BY] license on %4$sFind Icons%5$s."
-msgstr ""
-"Los íconos %1$sUndo%2$s, %1$sRedo%2$s, %1$sEliminar%2$s y %1$sTick%2$s "
-"fueron creados por %3$sMomentum Design Lab%5$s, que los comparte bajo "
-"licencia [CC-BY] en %4$sFind Icons%5$s."
-
-#: templates/adminpage/about.php
-#, php-format
-msgid ""
-"Icon %1$sNot-Found%2$s has been created by %3$sgakuseiSean%5$s, who makes it "
-"freely available for non-commercial use on %4$sFind Icons%5$s."
-msgstr ""
-"El icono %1$sNo encontrado%2$s fue creado por %3$sgakuseiSean%5$s, que lo "
-"establece disponible libremente para uso no comercial en %4$sFind Icons%5$s."
-
-#: templates/adminpage/about.php
-#, php-format
-msgid ""
-"Icon %1$sHelp%2$s has been created by %3$sRuby Software%5$s, who shares it "
-"as a freeware on %4$sFind Icons%5$s."
-msgstr ""
-"El icono%1$sHelp%2$s fue creado por %3$sRuby Software%5$s, que lo comparte "
-"como software gratuito en%4$sFind icons%5$s."
-
-#: templates/adminpage/about.php
-msgid ""
-"The author would like to thank all these people for their highly valuable "
-"work."
-msgstr ""
-"El autor agradece a todas estas personas por la alta calidad de su trabajo."
-
-#: templates/adminpage/about.php
-msgid "License"
-msgstr "Licencia"
-
-#: templates/adminpage/about.php
-#, php-format
-msgid ""
-"This plugin is distributed under the terms of the %1$sGNU General Public "
-"License version 3%3$s (GPLv3), as published by the %2$sFree Software "
-"Foundation%3$s. The full text of this license is available at %4$s. A copy "
-"of this document is also provided with the plugin source code."
-msgstr ""
-"Este plugin se distribuye bajo los términos de la Licencia Pública General "
-"%1$sGNU versión 3%3$s (GPLv3), según lo publicado por %2$sFree Software "
-"Foundation%3$s. El texto completo de esta licencia está disponible en %4$s. "
-"También se proporciona una copia de este documento con el código fuente del "
-"plugin."
-
-#: templates/adminpage/about.php
-msgid ""
-"This program is distributed in the hope that it will be useful, but WITHOUT "
-"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
-"FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for "
-"more details."
-msgstr ""
-"Este programa se distribuye con la esperanza de que sea útil, pero SIN "
-"GARANTÍA ALGUNA; incluso sin la garantía implícita de COMERCIALIZACIÓN o "
-"IDONEIDAD PARA UN PROPÓSITO EN PARTICULAR. Consulte LA GNU General Public "
-"License para más detalles."
-
-#: templates/adminpage/theming/main.php
-msgid "Show annotations"
-msgstr ""
-
-#: templates/adminpage/theming/piecesets.php
-msgid "Add a new pieceset"
-msgstr "Agregar nuevo estilo de piezas"
-
-#: templates/adminpage/theming/piecesets.php
-#: templates/adminpage/theming/piecesetedition.php
-#: templates/adminpage/theming/colorsetedition.php
-#: templates/adminpage/theming/colorsets.php
-msgid "Name"
-msgstr "Nombre"
-
-#: templates/adminpage/theming/piecesets.php
-#: templates/adminpage/theming/piecesetedition.php
-#: templates/adminpage/theming/colorsetedition.php
-#: templates/adminpage/theming/colorsets.php
-msgid "Slug"
-msgstr "Slug"
-
-#: templates/adminpage/theming/piecesets.php
-#: templates/adminpage/theming/colorsets.php
-msgid "Default"
-msgstr "Por defecto"
-
-#: templates/adminpage/theming/piecesets.php
-#: templates/adminpage/theming/colorsets.php
-msgid "Set default"
-msgstr "Establecer como predeterminado"
-
-#: templates/adminpage/theming/piecesets.php
-#: templates/adminpage/theming/colorsets.php
-msgid "Edit"
-msgstr "Modificar"
-
-#: templates/adminpage/theming/piecesets.php
-#: templates/adminpage/theming/colorsets.php
-msgid "Delete"
-msgstr "Eliminar"
-
-#: templates/adminpage/theming/piecesets.php
-msgid "Select"
-msgstr "Seleccionar"
-
-#: templates/adminpage/theming/piecesets.php
-msgid "All the images must be defined to create a pieceset."
-msgstr "Todas las imágenes deben definirse para crear un estilo de piezas."
-
-#: templates/adminpage/theming/piecesetedition.php
-msgid "New pieceset"
-msgstr "Nuevo estilo de piezas"
-
-#: templates/adminpage/theming/piecesetedition.php
-msgid "Edit pieceset"
-msgstr "Modificar estilo de piezas"
-
-#: templates/adminpage/theming/piecesetedition.php
-msgid "Create pieceset"
-msgstr "Crear estilo de piezas"
-
-#: templates/adminpage/theming/piecesetedition.php
-#: templates/adminpage/theming/colorsetedition.php
-#: templates/adminpage/options/main.php
-msgid "Save changes"
-msgstr "Guardar cambios"
-
-#: templates/adminpage/theming/piecesetedition.php
-#: templates/adminpage/theming/colorsetedition.php
-#: templates/adminpage/options/main.php
-msgid "Cancel"
-msgstr "Cancelar"
-
-#: templates/adminpage/theming/colorsetedition.php
-msgid "New colorset"
-msgstr "Nuevo tema de color"
-
-#: templates/adminpage/theming/colorsetedition.php
-msgid "Edit colorset"
-msgstr "Modificar tema de color"
-
-#: templates/adminpage/theming/colorsetedition.php
-msgid "Dark squares"
-msgstr "Casillas oscuras"
-
-#: templates/adminpage/theming/colorsetedition.php
-msgid "Light squares"
-msgstr "Casillas claras"
-
-#: templates/adminpage/theming/colorsetedition.php wp/scripts.php
-msgid "Move arrow"
-msgstr ""
-
-#: templates/adminpage/theming/colorsetedition.php
-msgid "Green markers"
-msgstr ""
-
-#: templates/adminpage/theming/colorsetedition.php
-msgid "Red markers"
-msgstr ""
-
-#: templates/adminpage/theming/colorsetedition.php
-msgid "Yellow markers"
-msgstr ""
-
-#: templates/adminpage/theming/colorsetedition.php
-msgid "Create colorset"
-msgstr "Crear tema de color"
-
-#: templates/adminpage/theming/colorsets.php
-msgid "Add a new colorset"
-msgstr "Agregar nuevo tema de color"
-
-#: templates/adminpage/options/main.php
-msgid "Reset settings"
-msgstr "Restablecer configuración"
-
-#: templates/adminpage/options/main.php
-msgid ""
-"This will reset all the settings in this page to their default values. Press "
-"OK to confirm..."
-msgstr ""
-"Todos los parámetros definidos en esta página se restablecerán a sus valores "
-"predeterminados. Haga clic en OK para confirmar..."
-
-#: templates/adminpage/options/compatibility/chessplugins.php
+#: php/templates/adminpage/compatibilitysettings/chessplugins.php
 msgid "Compatibility with other chess plugins"
 msgstr "Compatibilidad con otros plugins de ajedrez."
 
-#: templates/adminpage/options/compatibility/chessplugins.php
+#: php/templates/adminpage/compatibilitysettings/chessplugins.php
 #, fuzzy, php-format
 msgid ""
 "The old versions of the RPB Chessboard plugin (before 7.0.0) used to rely on "
@@ -533,7 +38,7 @@ msgstr ""
 "etiquetas. Esta configuración de compatibilidad a continuación evitará estos "
 "conflictos."
 
-#: templates/adminpage/options/compatibility/chessplugins.php
+#: php/templates/adminpage/compatibilitysettings/chessplugins.php
 msgid ""
 "If you've never used the RPB Chessboard plugin prior to its version 7.0.0, "
 "or if all your chess games and chess diagrams have been created with the "
@@ -542,12 +47,12 @@ msgid ""
 "rely on WordPress shortcodes)."
 msgstr ""
 
-#: templates/adminpage/options/compatibility/chessplugins.php
+#: php/templates/adminpage/compatibilitysettings/chessplugins.php
 #, fuzzy
 msgid "Compatibility mode for the FEN diagram shortcode"
 msgstr "Modo de compatibilidad para la etiqueta del diagrama FEN"
 
-#: templates/adminpage/options/compatibility/chessplugins.php
+#: php/templates/adminpage/compatibilitysettings/chessplugins.php
 #, fuzzy, php-format
 msgid ""
 "Activating this option makes RPB Chessboard use %1$s[fen_compat][/"
@@ -556,12 +61,12 @@ msgstr ""
 "Habilitar esta opción obliga a RPB Chessboard a usar %1$s[fen_compat][/"
 "fen_compat]%2$s en lugar de %1$s[fen][/fen]%2$s para diagramas FEN."
 
-#: templates/adminpage/options/compatibility/chessplugins.php
+#: php/templates/adminpage/compatibilitysettings/chessplugins.php
 #, fuzzy
 msgid "Compatibility mode for the PGN game shortcode"
 msgstr "Modo de compatibilidad para la etiqueta de partida PGN"
 
-#: templates/adminpage/options/compatibility/chessplugins.php
+#: php/templates/adminpage/compatibilitysettings/chessplugins.php
 #, fuzzy, php-format
 msgid ""
 "Activating this option makes RPB Chessboard use %1$s[pgn_compat][/"
@@ -570,11 +75,11 @@ msgstr ""
 "La activación de esta opción obliga a RPB Chessboard a usar %1$s[pgn_compat]"
 "[/pgn_compat]%2$s en lugar de %1$s[pgn][/pgn]%2$s para partidas PGN."
 
-#: templates/adminpage/options/compatibility/lazyloading.php
+#: php/templates/adminpage/compatibilitysettings/lazyloading.php
 msgid "Compatibility with themes and plugins with complex behaviors"
 msgstr ""
 
-#: templates/adminpage/options/compatibility/lazyloading.php
+#: php/templates/adminpage/compatibilitysettings/lazyloading.php
 msgid ""
 "By default, the RPB Chessboard plugin tries to avoid loading its CSS and "
 "JavaScript files on pages with no chess diagram or game content, in order to "
@@ -585,21 +90,63 @@ msgid ""
 "etc... Disable this option to avoid issues if you are in those situations."
 msgstr ""
 
-#: templates/adminpage/options/compatibility/lazyloading.php
+#: php/templates/adminpage/compatibilitysettings/lazyloading.php
 msgid "Lazy-loading for CSS/JavaScript files"
 msgstr ""
 
-#: templates/adminpage/options/compatibility/lazyloading.php
+#: php/templates/adminpage/compatibilitysettings/lazyloading.php
 msgid ""
 "Disable this option FEN diagrams or PGN games are not properly-rendered on "
 "your website."
 msgstr ""
 
-#: templates/adminpage/options/smallscreens.php
+#: php/templates/adminpage/chessdiagramsettings/alignment.php
+#: php/models/initscript.php
+msgid "Diagram alignment"
+msgstr "Alineación de diagramas"
+
+#: php/templates/adminpage/chessdiagramsettings/alignment.php
+#: php/models/initscript.php
+msgid "Centered"
+msgstr "Centrado"
+
+#: php/templates/adminpage/chessdiagramsettings/alignment.php
+msgid "On the left of the text"
+msgstr "A la izquierda del texto"
+
+#: php/templates/adminpage/chessdiagramsettings/alignment.php
+msgid "On the right of the text"
+msgstr "A la derecha del texto"
+
+#: php/templates/adminpage/chessdiagramsettings/main.php
+#, php-format
+msgid ""
+"This page defines the default settings applicable to the diagrams inserted "
+"with the %1$s block."
+msgstr ""
+
+#: php/templates/adminpage/chessdiagramsettings/main.php
+#: php/models/initscript.php
+msgid "Chess diagram"
+msgstr ""
+
+#: php/templates/adminpage/chessdiagramsettings/main.php
+#: php/templates/adminpage/chessgamesettings/main.php
+msgid ""
+"It is possible to override these settings on each individual block, using "
+"the options in the block right side panel."
+msgstr ""
+
+#: php/templates/adminpage/chessdiagramsettings/aspect.php
+#: php/models/initscript.php
+msgid "Chessboard aspect"
+msgstr "Apariencia de tablero"
+
+#: php/templates/adminpage/smallscreens.php
 msgid "Enable support for small-screen devices"
 msgstr "Habilita el soporte para pantallas pequeñas"
 
-#: templates/adminpage/options/smallscreens.php
+#: php/templates/adminpage/smallscreens.php
 msgid ""
 "Activating this option allows to customize how RPB Chessboard renders chess "
 "diagrams on small-screen devices (such as smartphones)."
@@ -607,7 +154,7 @@ msgstr ""
 "Habilitar esta opción cambia la forma en que RPB Chessboard muestra los "
 "diagramas en pantallas pequeñas (como teléfonos inteligentes)."
 
-#: templates/adminpage/options/smallscreens.php
+#: php/templates/adminpage/smallscreens.php
 #, php-format
 msgid ""
 "These options apply to devices whose resolution is less than %1$s pixel "
@@ -616,7 +163,7 @@ msgstr ""
 "Esta configuración se aplica a dispositivos con una resolución de pantalla "
 "de menos de %1$s pixeles de ancho."
 
-#: templates/adminpage/options/smallscreens.php
+#: php/templates/adminpage/smallscreens.php
 #, php-format
 msgid ""
 "These options apply to devices whose resolution lies between %1$s and %2$s "
@@ -625,77 +172,310 @@ msgstr ""
 "Esta configuración se aplica a dispositivos con una resolución de pantalla "
 "deentre %1$s y %2$s pixeles de ancho."
 
-#: templates/adminpage/options/smallscreens.php
+#: php/templates/adminpage/smallscreens.php
 #, php-format
 msgid "Screen width &le; %1$s pixels"
 msgstr "Ancho de pantalla &le; %1$s pixeles"
 
-#: templates/adminpage/options/smallscreens.php
+#: php/templates/adminpage/smallscreens.php
 #, php-format
 msgid "Restrict square size to: %1$s pixels"
 msgstr "Restrinja el tamaño de las casillas a: %1$s pixeles"
 
-#: templates/adminpage/options/smallscreens.php
-#, fuzzy, php-format
-msgid ""
-"Chess diagrams will be displayed with a square size not larger than this "
-"value if the screen width is less than %1$s pixels, whatever the %2$sdefault "
-"aspect and behavior settings%3$s or the block options that may be defined in "
-"the posts/pages. Diagrams for which the square size is less than this value "
-"will be displayed as they normally do on large screen devices."
-msgstr ""
-"Los diagramas de ajedrez se mostrarán con un tamaño de la casilla no mayor "
-"que este valor si la resolución de la pantalla es menor que %1$s pixeles de "
-"ancho, independientemente de los %2$sparámetros de visualización general o "
-"los atributos de las etiquetas%3$s que se definan en artículos / páginas. "
-"Diagramas para los cuales el tamaño del cuadro es menor de este valor se "
-"mostrarán como en las pantallas grandes."
-
-#: templates/adminpage/options/smallscreens.php
+#: php/templates/adminpage/smallscreens.php
 msgid "Always hide coordinates"
 msgstr "Ocultar siempre coordenadas"
 
-#: templates/adminpage/options/smallscreens.php
-#, fuzzy, php-format
+#: php/templates/adminpage/about.php
 msgid ""
-"If enabled, row and column coordinates will be hidden if the screen width is "
-"less than %1$s pixels, whatever the %2$sdefault aspect and behavior settings"
-"%3$s or the block options that may be defined in the posts/pages. If "
-"disabled, row and column coordinates will be displayed as they normally do "
-"on large screen devices."
+"If you need help to use this plugin, if you encounter some bugs, or if you "
+"wish to get new features in the future versions, please feel free to use the "
+"GitHub tracker."
 msgstr ""
-"Si esta opción está habilitada, las coordenadas de las filas y columnas "
-"serán ocultadas si la resolución de la pantalla es inferior a %1$s pixeles "
-"de ancho independientemente de la %2$sconfiguración de visualización general "
-"o atributos de etiqueta%3$s que se pueden definir en los artículos / "
-"páginas. Si está desactivado, las coordenadas de filas y columnas serán como "
-"se muestran normalmente en pantallas grandes."
+"Si necesita ayuda para usar este plugin, si encuentra algún error, o si "
+"desea ver nuevas funciones implementadas en futuras versiones, utilice el "
+"tracker GitHub."
 
-#: templates/adminpage/options/smallscreens.php
-msgid "See explanations about theses settings above."
-msgstr "Vea las explicaciones para estos parámetros arriba."
+#: php/templates/adminpage/about.php
+msgid "Need help"
+msgstr "Necesito ayuda"
 
-#: templates/adminpage/options/general/piecesymbols.php wp/scripts.php
+#: php/templates/adminpage/about.php
+msgid "Report a bug"
+msgstr "Reportar bug"
+
+#: php/templates/adminpage/about.php
+msgid ""
+"This plugin is and will remain free. However, if you want to make a donation "
+"to support the author's work, you can do it through this PayPal link."
+msgstr ""
+"Este complemento es y seguirá siendo gratuito. Sin embargo, si desea donar "
+"para apoyar el trabajo del autor, puede hacerlo a través de este enlace "
+"PayPal."
+
+#: php/templates/adminpage/about.php
+msgid "Donate"
+msgstr "Donar"
+
+#: php/templates/adminpage/about.php
+msgid "Plugin version"
+msgstr "Versión del plugin"
+
+#: php/templates/adminpage/about.php
+msgid "Author"
+msgstr "Autor"
+
+#: php/templates/adminpage/about.php
+msgid "Contributors"
+msgstr "Colaboradores"
+
+#: php/templates/adminpage/about.php
+msgid "Translators"
+msgstr "Traductores"
+
+#: php/templates/adminpage/about.php
+#, php-format
+msgid ""
+"If you are interested in translating this plugin into your language, please "
+"%1$scontact the author%2$s."
+msgstr ""
+"Si desea traducir este plugin a su idioma, por favor %1$contacte al autor"
+"%2$s."
+
+#: php/templates/adminpage/about.php
+msgid "Graphic resources"
+msgstr "Gráficos"
+
+#: php/templates/adminpage/about.php
+#, php-format
+msgid ""
+"Pieceset %1$sCBurnett%2$s has been created by %3$sColin M.L. Burnett%6$s, "
+"who shares it under the [CC-BY-SA] license on %4$sWikimedia Commons%6$s; "
+"user %5$sAntonsusi%6$s has also contributed to this work."
+msgstr ""
+"El estilo de piezas %1$sCBurnett%2$s fue creado por %3$sColin M.L. Burnett"
+"%6$s, que lo comparte bajo licencia [CC-BY-SA] de %4$sWikimedia Commons%6$s; "
+"El usuario %5$sAntonsusi%6$s también ha contribuido a este trabajo."
+
+#: php/templates/adminpage/about.php
+#, php-format
+msgid ""
+"Piecesets %1$sCeltic%2$s, %1$sEyes%2$s, %1$sFantasy%2$s, %1$sSkulls%2$s and "
+"%1$sSpatial%2$s have been created by %3$sMaurizio Monge%4$s, who makes them "
+"freely available for chess programs."
+msgstr ""
+"Los estilos de pieza %1$sCeltic%2$s, %1$sEyes%2$s, %1$sFantasy%2$s, "
+"%1$sSkulls%2$s y %1$sSpatial%2$s fueron creados por%3$sMaurizio Monge%4$s, "
+"que los hace disponibles gratuitamente para programas de ajedrez."
+
+#: php/templates/adminpage/about.php
+#, php-format
+msgid ""
+"Colorsets %1$sCoral%2$s, %1$sDusk%2$s, %1$sEmerald%2$s, %1$sMarine%2$s, "
+"%1$sSandcastle%2$s and %1$sWheat%2$s have been proposed in this %3$sblog post"
+"%5$s by %4$sGorgonian%5$s."
+msgstr ""
+"Los temas de color %1$sCoral%2$s, %1$sDusk%2$s, %1$sEmerald%2$s, %1$sMarine"
+"%2$s,%1$sSandcastle%2$s y %1$sWheat%2$s han sido propuestos en este "
+"%3$artículo de blog%5$s por %4$sGorgonian%5$s."
+
+#: php/templates/adminpage/about.php
+msgid ""
+"The author would like to thank all these people for their highly valuable "
+"work."
+msgstr ""
+"El autor agradece a todas estas personas por la alta calidad de su trabajo."
+
+#: php/templates/adminpage/about.php
+msgid "License"
+msgstr "Licencia"
+
+#: php/templates/adminpage/about.php
+#, php-format
+msgid ""
+"This plugin is distributed under the terms of the %1$sGNU General Public "
+"License version 3%3$s (GPLv3), as published by the %2$sFree Software "
+"Foundation%3$s. The full text of this license is available at %4$s. A copy "
+"of this document is also provided with the plugin source code."
+msgstr ""
+"Este plugin se distribuye bajo los términos de la Licencia Pública General "
+"%1$sGNU versión 3%3$s (GPLv3), según lo publicado por %2$sFree Software "
+"Foundation%3$s. El texto completo de esta licencia está disponible en %4$s. "
+"También se proporciona una copia de este documento con el código fuente del "
+"plugin."
+
+#: php/templates/adminpage/about.php
+msgid ""
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for "
+"more details."
+msgstr ""
+"Este programa se distribuye con la esperanza de que sea útil, pero SIN "
+"GARANTÍA ALGUNA; incluso sin la garantía implícita de COMERCIALIZACIÓN o "
+"IDONEIDAD PARA UN PROPÓSITO EN PARTICULAR. Consulte LA GNU General Public "
+"License para más detalles."
+
+#: php/templates/adminpage/theming/main.php
+msgid "Show annotations"
+msgstr ""
+
+#: php/templates/adminpage/theming/main.php
+msgid "Select"
+msgstr "Seleccionar"
+
+#: php/templates/adminpage/theming/main.php
+msgid "Delete colorset \"{0}\"? Press OK to confirm..."
+msgstr "Eliminar tema de color \"{0}\"? Presione OK para confirmar..."
+
+#: php/templates/adminpage/theming/main.php
+msgid "Delete pieceset \"{0}\"? Press OK to confirm..."
+msgstr "Eliminar estilo de piezas \"{0}\"? Presione OK para confirmar..."
+
+#: php/templates/adminpage/theming/piecesets.php
+msgid "Piecesets"
+msgstr "Estilo de piezas"
+
+#: php/templates/adminpage/theming/piecesets.php
+msgid "Add new pieceset"
+msgstr "Agregar nuevo estilo de piezas"
+
+#: php/templates/adminpage/theming/piecesets.php
+#: php/templates/adminpage/theming/piecesetedition.php
+#: php/templates/adminpage/theming/colorsetedition.php
+#: php/templates/adminpage/theming/colorsets.php
+msgid "Name"
+msgstr "Nombre"
+
+#: php/templates/adminpage/theming/piecesets.php
+#: php/templates/adminpage/theming/piecesetedition.php
+#: php/templates/adminpage/theming/colorsetedition.php
+#: php/templates/adminpage/theming/colorsets.php
+msgid "Slug"
+msgstr "Slug"
+
+#: php/templates/adminpage/theming/piecesets.php
+#: php/templates/adminpage/theming/colorsets.php
+msgid "Preview"
+msgstr ""
+
+#: php/templates/adminpage/theming/piecesets.php
+#: php/templates/adminpage/theming/colorsets.php
+msgid "Edit"
+msgstr "Modificar"
+
+#: php/templates/adminpage/theming/piecesets.php
+#: php/templates/adminpage/theming/colorsets.php
+msgid "Delete"
+msgstr "Eliminar"
+
+#: php/templates/adminpage/theming/piecesetedition.php
+msgid "New pieceset"
+msgstr "Nuevo estilo de piezas"
+
+#: php/templates/adminpage/theming/piecesetedition.php
+msgid "Edit pieceset"
+msgstr "Modificar estilo de piezas"
+
+#: php/templates/adminpage/theming/piecesetedition.php
+msgid "Create pieceset"
+msgstr "Crear estilo de piezas"
+
+#: php/templates/adminpage/theming/piecesetedition.php
+#: php/templates/adminpage/theming/colorsetedition.php
+#: php/templates/adminpage/generic/form.php
+msgid "Save changes"
+msgstr "Guardar cambios"
+
+#: php/templates/adminpage/theming/piecesetedition.php
+#: php/templates/adminpage/theming/colorsetedition.php
+#: php/templates/adminpage/generic/form.php
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: php/templates/adminpage/theming/colorsetedition.php
+msgid "New colorset"
+msgstr "Nuevo tema de color"
+
+#: php/templates/adminpage/theming/colorsetedition.php
+msgid "Edit colorset"
+msgstr "Modificar tema de color"
+
+#: php/templates/adminpage/theming/colorsetedition.php
+msgid "Dark squares"
+msgstr "Casillas oscuras"
+
+#: php/templates/adminpage/theming/colorsetedition.php
+msgid "Light squares"
+msgstr "Casillas claras"
+
+#: php/templates/adminpage/theming/colorsetedition.php
+#: php/models/initscript.php
+msgid "Move arrow"
+msgstr ""
+
+#: php/templates/adminpage/theming/colorsetedition.php
+msgid "Green markers"
+msgstr ""
+
+#: php/templates/adminpage/theming/colorsetedition.php
+msgid "Red markers"
+msgstr ""
+
+#: php/templates/adminpage/theming/colorsetedition.php
+msgid "Yellow markers"
+msgstr ""
+
+#: php/templates/adminpage/theming/colorsetedition.php
+msgid "Create colorset"
+msgstr "Crear tema de color"
+
+#: php/templates/adminpage/theming/colorsets.php
+msgid "Colorsets"
+msgstr "Temas de color"
+
+#: php/templates/adminpage/theming/colorsets.php
+msgid "Add new colorset"
+msgstr "Agregar nuevo tema de color"
+
+#: php/templates/adminpage/chessgamesettings/diagrams.php
+#: php/models/initscript.php
+msgid "Diagrams"
+msgstr "Diagramas"
+
+#: php/templates/adminpage/chessgamesettings/diagrams.php
+#, php-format
+msgid ""
+"These settings affects the diagrams inserted with token %1$s in PGN "
+"comments. See %2$sdocumentation%3$s for an example of such diagram."
+msgstr ""
+
+#: php/templates/adminpage/chessgamesettings/piecesymbols.php
+#: php/models/initscript.php
 msgid "Piece symbols"
 msgstr "Símbolos de piezas"
 
-#: templates/adminpage/options/general/piecesymbols.php wp/scripts.php
+#: php/templates/adminpage/chessgamesettings/piecesymbols.php
+#: php/models/initscript.php
 msgid "English initials"
 msgstr "Iniciales en inglés"
 
-#: templates/adminpage/options/general/piecesymbols.php wp/scripts.php
+#: php/templates/adminpage/chessgamesettings/piecesymbols.php
+#: php/models/initscript.php
 msgid "Localized initials"
 msgstr "Iniciales traducidas"
 
-#: templates/adminpage/options/general/piecesymbols.php wp/scripts.php
+#: php/templates/adminpage/chessgamesettings/piecesymbols.php
+#: php/models/initscript.php
 msgid "Figurines"
 msgstr "Figurines"
 
-#: templates/adminpage/options/general/piecesymbols.php wp/scripts.php
+#: php/templates/adminpage/chessgamesettings/piecesymbols.php
+#: php/models/initscript.php
 msgid "Custom"
 msgstr "Personalizar"
 
-#: templates/adminpage/options/general/piecesymbols.php
+#: php/templates/adminpage/chessgamesettings/piecesymbols.php
 msgid ""
 "This setting only affects how chess moves are rendered to post/page readers. "
 "Authors must always use English initials when writting PGN content into "
@@ -705,82 +485,118 @@ msgstr ""
 "los lectores del blog. Los autores siempre deben usar iniciales en inglés al "
 "escribir datos PGN en sus artículos y páginas."
 
-#: templates/adminpage/options/general/diagramalignment.php wp/scripts.php
-msgid "Diagram alignment"
-msgstr "Alineación de diagramas"
+#. King symbol
+#: php/templates/adminpage/chessgamesettings/piecesymbols.php
+#: php/models/initscript.php php/models/adminsubpage/chessgamesettings.php
+msgid "K"
+msgstr "R"
 
-#: templates/adminpage/options/general/diagramalignment.php wp/scripts.php
-msgid "Centered"
-msgstr "Centrado"
+#. Queen symbol
+#: php/templates/adminpage/chessgamesettings/piecesymbols.php
+#: php/models/initscript.php php/models/adminsubpage/chessgamesettings.php
+msgid "Q"
+msgstr "D"
 
-#: templates/adminpage/options/general/diagramalignment.php
-msgid "On the left of the text"
-msgstr "A la izquierda del texto"
+#. Rook symbol
+#: php/templates/adminpage/chessgamesettings/piecesymbols.php
+#: php/models/initscript.php php/models/adminsubpage/chessgamesettings.php
+msgid "R"
+msgstr "T"
 
-#: templates/adminpage/options/general/diagramalignment.php
-msgid "On the right of the text"
-msgstr "A la derecha del texto"
+#. Bishop symbol
+#: php/templates/adminpage/chessgamesettings/piecesymbols.php
+#: php/models/initscript.php php/models/adminsubpage/chessgamesettings.php
+msgid "B"
+msgstr "A"
 
-#: templates/adminpage/options/general/diagramalignment.php
-msgid ""
-"This setting affects how diagrams are inserted and placed within the rest of "
-"the text (by default)."
+#. Knight symbol
+#: php/templates/adminpage/chessgamesettings/piecesymbols.php
+#: php/models/initscript.php php/models/adminsubpage/chessgamesettings.php
+msgid "N"
+msgstr "C"
+
+#. Pawn symbol
+#: php/templates/adminpage/chessgamesettings/piecesymbols.php
+#: php/models/initscript.php php/models/adminsubpage/chessgamesettings.php
+msgid "P"
+msgstr "P"
+
+#: php/templates/adminpage/chessgamesettings/navigationboardaspect.php
+msgid "Navigation board aspect"
 msgstr ""
-"Esta configuración determina cómo se insertan los diagramas en el resto del "
-"texto (predeterminado)."
 
-#: templates/adminpage/options/general/main.php
-#, fuzzy
+#: php/templates/adminpage/chessgamesettings/main.php
+#, php-format
 msgid ""
-"These settings control the default aspect and behavior of the chess diagrams "
-"and chess games inserted in posts and pages with the corresponding blocks. "
-"All these settings can be overridden for each block by tuning the "
-"appropriate option in the block right-side panel."
+"This page defines the default settings applicable to the components inserted "
+"with the %1$s block."
 msgstr ""
-"Estos parámetros determinan la apariencia y el comportamiento de los "
-"diagramas predeterminados y las partidas insertadas en artículos de blog y "
-"páginas que usan como etiquetas %1$s[%3$s][/%3$s]%2$s y %1$s[%4$s][/"
-"%4$s]%2$s. Se pueden modificar al nivel de cada etiqueta especificando los "
-"atributos de etiqueta: ver %5$sayuda sobre los atributos del diagrama FEN"
-"%7$s y %6$sayuda sobre los atributos de partida PGN%7$s para más detalles."
 
-#: templates/adminpage/options/general/navigationboard.php
+#: php/templates/adminpage/chessgamesettings/main.php php/models/initscript.php
+msgid "Chess game"
+msgstr ""
+
+#: php/templates/adminpage/chessgamesettings/navigationtoolbar.php
+msgid "Navigation toolbar"
+msgstr "Barra de herramientas de navegación"
+
+#: php/templates/adminpage/chessgamesettings/navigationtoolbar.php
+msgid "Show the flip button"
+msgstr "Mostrar el botón para girar el tablero"
+
+#: php/templates/adminpage/chessgamesettings/navigationtoolbar.php
+msgid "Show the download button"
+msgstr "Mostrar botón de descarga"
+
+#: php/templates/adminpage/chessgamesettings/navigationtoolbar.php
+msgid "Chessboard snippet"
+msgstr ""
+
+#: php/templates/adminpage/chessgamesettings/navigationtoolbar.php
+msgid ""
+"These settings allow to customize the toolbar that is displayed below the "
+"navigation board."
+msgstr ""
+"Estos parámetros le permiten personalizar la barra de herramientas que se "
+"muestra debajo del tablero de navegación."
+
+#: php/templates/adminpage/chessgamesettings/navigationboard.php
 msgid "Position of the navigation board"
 msgstr "Posición del tablero de navegación"
 
-#: templates/adminpage/options/general/navigationboard.php
+#: php/templates/adminpage/chessgamesettings/navigationboard.php
 msgid "No navigation board"
 msgstr "Sin tablero de navegación"
 
-#: templates/adminpage/options/general/navigationboard.php
+#: php/templates/adminpage/chessgamesettings/navigationboard.php
 msgid "In a popup frame"
 msgstr "En una ventana emergente"
 
-#: templates/adminpage/options/general/navigationboard.php
+#: php/templates/adminpage/chessgamesettings/navigationboard.php
 msgid "Above the game headers and the move list"
 msgstr "Arriba de los encabezados de la partida y la lista de movimientos"
 
-#: templates/adminpage/options/general/navigationboard.php
+#: php/templates/adminpage/chessgamesettings/navigationboard.php
 msgid "Below the move list"
 msgstr "Debajo de la lista de movimientos"
 
-#: templates/adminpage/options/general/navigationboard.php
+#: php/templates/adminpage/chessgamesettings/navigationboard.php
 msgid "On the left of the move list"
 msgstr "A la izquierda de la lista de movimientos"
 
-#: templates/adminpage/options/general/navigationboard.php
+#: php/templates/adminpage/chessgamesettings/navigationboard.php
 msgid "On the right of the move list"
 msgstr "A la derecha de la lista de movimientos"
 
-#: templates/adminpage/options/general/navigationboard.php
+#: php/templates/adminpage/chessgamesettings/navigationboard.php
 msgid "On the left, with scrollable move list"
 msgstr "A la izquierda, con lista de movimientos desplazable"
 
-#: templates/adminpage/options/general/navigationboard.php
+#: php/templates/adminpage/chessgamesettings/navigationboard.php
 msgid "On the right, with scrollable move list"
 msgstr "A la derecha, con lista de movimientos desplazable"
 
-#: templates/adminpage/options/general/navigationboard.php
+#: php/templates/adminpage/chessgamesettings/navigationboard.php
 msgid ""
 "A navigation board may be added to each PGN game to help post/page readers "
 "to follow the progress of the game. This navigation board is displayed "
@@ -794,436 +610,514 @@ msgstr ""
 "lector pulsa en un movimiento) ó al lado de la lista de movimientos "
 "(entonces es visible tan pronto como se carga la página)."
 
-#: templates/adminpage/options/general/navigationbuttons.php
-msgid "Navigation toolbar"
-msgstr "Barra de herramientas de navegación"
+#: php/templates/adminpage/generic/form.php
+msgid "Reset settings"
+msgstr "Restablecer configuración"
 
-#: templates/adminpage/options/general/navigationbuttons.php
-msgid "Show flip button"
-msgstr "Mostrar el botón para girar el tablero"
-
-#: templates/adminpage/options/general/navigationbuttons.php
-msgid "Show download button"
-msgstr "Mostrar botón de descarga"
-
-#: templates/adminpage/options/general/navigationbuttons.php
+#: php/templates/adminpage/generic/form.php
 msgid ""
-"These settings allow to customize the toolbar that is displayed below the "
-"navigation board."
+"This will reset all the settings in this page to their default values. Press "
+"OK to confirm..."
 msgstr ""
-"Estos parámetros le permiten personalizar la barra de herramientas que se "
-"muestra debajo del tablero de navegación."
+"Todos los parámetros definidos en esta página se restablecerán a sus valores "
+"predeterminados. Haga clic en OK para confirmar..."
 
-#: templates/adminpage/options/general/boardaspect.php wp/scripts.php
-msgid "Chessboard aspect"
-msgstr "Apariencia de tablero"
-
-#: templates/adminpage/options/general/boardaspect.php
+#: php/templates/adminpage/generic/boardaspect.php
 #, php-format
 msgid "Square size: %1$s pixels"
 msgstr "Tamaño de la casilla: %1$s pixeles"
 
-#: templates/adminpage/options/general/boardaspect.php
+#: php/templates/adminpage/generic/boardaspect.php
 msgid "Show coordinates"
 msgstr "Mostrar coordenadas"
 
-#: templates/adminpage/options/general/boardaspect.php
+#: php/templates/adminpage/generic/boardaspect.php
 msgid "Colorset:"
 msgstr "Tema de color:"
 
-#: templates/adminpage/options/general/boardaspect.php
+#: php/templates/adminpage/generic/boardaspect.php
 msgid "Pieceset:"
 msgstr "Estilo de piezas:"
 
-#: templates/adminpage/options/general/boardaspect.php
-#, php-format
-msgid ""
-"Note that specific chessboard aspect settings can be defined for %1$ssmall-"
-"screen devices%3$s (such as smartphones). Additional colorsets and piecesets "
-"can be created in the %2$stheming page%3$s."
-msgstr ""
-"Tenga en cuenta que la apariencia de los tableros puede ser definida para "
-"%1$spantallas pequeñas%3$s (como teléfonos inteligentes). Se pueden crear "
-"temas de color y estilos de pieza adicionales en la %2$spágina de temas%3$s."
-
-#: templates/adminpage/options/general/moveanimation.php wp/scripts.php
+#: php/templates/adminpage/generic/boardaspect.php php/models/initscript.php
 msgid "Move animation"
 msgstr "Animación de movimiento"
 
-#: templates/adminpage/options/general/moveanimation.php
-msgid "Animation"
-msgstr ""
-
-#: templates/adminpage/options/general/moveanimation.php
+#: php/templates/adminpage/generic/boardaspect.php
 msgid "Show move arrow"
 msgstr "Resalta el movimiento con una flecha"
 
-#: templates/adminpage/options/general/moveanimation.php
-msgid "Test move"
-msgstr "Probar un movimiento"
+#: php/templates/adminpage/generic/boardaspect.php
+msgid "Move preview"
+msgstr ""
 
-#: templates/adminpage/options/general/moveanimation.php
-msgid "Test capture"
-msgstr "Probar una captura"
-
-#: templates/block/pgn.php
+#: php/templates/block/pgn.php
 msgid "You must activate JavaScript to enhance chess game visualization."
 msgstr ""
 "Debe activar JavaScript para mejorar la visualización de partidas de ajedrez."
 
-#: templates/block/fen.php
+#: php/templates/block/fen.php
 msgid "You must activate JavaScript to enhance chess diagram visualization."
 msgstr ""
 
-#: wp/scripts.php
-msgid "Chess diagram"
+#: php/templates/pluginlink.php
+msgid "Settings"
+msgstr "Configuración"
+
+#: php/models/initscript.php
+msgid "Move pieces"
 msgstr ""
 
-#: wp/scripts.php
-#, fuzzy
-msgid "Move pieces"
-msgstr "Mis estilos de piezas"
-
-#: wp/scripts.php
-#, fuzzy
+#: php/models/initscript.php
 msgid "Add white pieces"
-msgstr "Agregar nuevo estilo de piezas"
+msgstr ""
 
-#: wp/scripts.php
-#, fuzzy
+#: php/models/initscript.php
 msgid "Add black pieces"
-msgstr "Agregar nuevo estilo de piezas"
+msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 #, fuzzy
 msgid "Add white pawn"
 msgstr "Agregar peones"
 
-#: wp/scripts.php
+#: php/models/initscript.php
 #, fuzzy
 msgid "Add white knight"
 msgstr "Agregar caballos"
 
-#: wp/scripts.php
+#: php/models/initscript.php
 #, fuzzy
 msgid "Add white bishop"
 msgstr "Agregar alfiles"
 
-#: wp/scripts.php
+#: php/models/initscript.php
 #, fuzzy
 msgid "Add white rook"
 msgstr "Agregar torres"
 
-#: wp/scripts.php
+#: php/models/initscript.php
 #, fuzzy
 msgid "Add white queen"
 msgstr "Agregar damas"
 
-#: wp/scripts.php
+#: php/models/initscript.php
 #, fuzzy
 msgid "Add white king"
 msgstr "Agregar reyes"
 
-#: wp/scripts.php
+#: php/models/initscript.php
 #, fuzzy
 msgid "Add black pawn"
 msgstr "Agregar peones"
 
-#: wp/scripts.php
+#: php/models/initscript.php
 #, fuzzy
 msgid "Add black knight"
 msgstr "Agregar caballos"
 
-#: wp/scripts.php
+#: php/models/initscript.php
 #, fuzzy
 msgid "Add black bishop"
 msgstr "Agregar alfiles"
 
-#: wp/scripts.php
+#: php/models/initscript.php
 #, fuzzy
 msgid "Add black rook"
 msgstr "Agregar torres"
 
-#: wp/scripts.php
+#: php/models/initscript.php
 #, fuzzy
 msgid "Add black queen"
 msgstr "Agregar damas"
 
-#: wp/scripts.php
+#: php/models/initscript.php
 #, fuzzy
 msgid "Add black king"
 msgstr "Agregar reyes"
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Toggle turn"
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Flip the board"
 msgstr "Girar el tablero"
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Position & annotations"
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Reset"
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Clear"
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Clear annotations"
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "FEN"
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 #, fuzzy
 msgid "Square marker"
 msgstr "Marcadores de casilla"
 
-#: wp/scripts.php
+#: php/models/initscript.php
 #, fuzzy
 msgid "Arrow marker"
 msgstr "Flechas"
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Marker {0}"
 msgstr ""
 
-#: wp/scripts.php
-#, fuzzy
+#: php/models/initscript.php
 msgid "Reset to the startup position"
-msgstr "Posición de inicio personalizada"
+msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Remove all pieces"
 msgstr ""
 
-#: wp/scripts.php
-#, fuzzy
+#: php/models/initscript.php
 msgid "Remove all square/arrow/text markers"
-msgstr "Eliminar marcadores de casilla"
+msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Use default square size"
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Square size"
 msgstr "Tamaño de los casilleros"
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Coordinates"
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 #, fuzzy
 msgid "Colorset"
 msgstr "Temas de color"
 
-#: wp/scripts.php
+#: php/models/initscript.php
 #, fuzzy
 msgid "Pieceset"
 msgstr "Estilo de piezas"
 
-#: wp/scripts.php
-#, fuzzy
+#: php/models/initscript.php
 msgid "Use default"
-msgstr "Establecer como predeterminado"
+msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Current edition mode"
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Float on left"
 msgstr ""
 
-#: wp/scripts.php
-#, fuzzy
+#: php/models/initscript.php
 msgid "Float on right"
-msgstr "Derechos de enroque"
+msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Hidden"
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Visible"
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Error in the FEN string describing the chess diagram."
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Error while analyzing the PGN string."
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Error while downloading the PGN file."
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Cannot download `{0}`. HTTP request returns status code {1}."
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Go to the beginning of the game"
 msgstr "Ir al inicio de la partida"
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Go to the previous move"
 msgstr "Ir al movimiento anterior"
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Go to the next move"
 msgstr "Ir al próximo movimiento"
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Go to the end of the game"
 msgstr "Ir al final de la partida"
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Download the game"
 msgstr "Descargar partida"
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Annotated by {0}"
 msgstr "Anotaciones por {0}"
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "line {0}"
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Initial position"
 msgstr "Posición inicial"
 
-#: wp/scripts.php
-msgid "Chess game"
-msgstr ""
-
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "PGN text"
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Game options"
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Navigation board"
 msgstr "Tablero de navegación"
 
-#: wp/scripts.php
-msgid "Diagrams"
-msgstr "Diagramas"
-
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Beginning of the game"
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "End of the game"
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Custom move"
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "None"
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Popup"
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Above"
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Below"
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Scroll on left"
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Scroll on right"
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Disabled"
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Enabled"
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Flip nav. board and diagrams"
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Initial selection"
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Flip button"
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid "Download button"
 msgstr ""
 
-#: wp/scripts.php
+#: php/models/initscript.php
 msgid ""
 "For example: 1w for the first white move, 12b for the twelfth black move..."
 msgstr ""
 
-#: wp/adminpages.php
-msgid "Chess games and diagrams"
-msgstr "Partidas de ajedrez y diagramas"
+#: php/models/adminpage.php
+msgid "Chess diagram block settings"
+msgstr ""
 
-#: wp/adminpages.php
-msgid "Chess"
-msgstr "Ajedrez"
+#: php/models/adminpage.php
+msgid "Chess game block settings"
+msgstr ""
 
-#: wp/adminpages.php
-#, php-format
-msgid "Settings of the %1$s plugin"
-msgstr "Opciones de plugin %1$s"
+#: php/models/adminpage.php
+msgid "Compatibility settings"
+msgstr "Configuración de compatibilidad"
 
-#: wp/adminpages.php
-msgid "Settings"
-msgstr "Configuración"
+#: php/models/adminpage.php
+msgid "Small-screen devices"
+msgstr "Dispositivos móviles"
 
-#: wp/adminpages.php
-msgid "Manage colorsets & piecesets"
-msgstr "Administrar temas de color y estilos de pieza"
-
-#: wp/adminpages.php
+#: php/models/adminpage.php
 msgid "Theming"
 msgstr "Temas"
 
-#: wp/adminpages.php
-#, php-format
-msgid "About %1$s"
-msgstr "Acerca de %1$s"
+#: php/models/adminpage.php
+msgid "Documentation"
+msgstr ""
 
-#: wp/adminpages.php
+#: php/models/adminpage.php
 msgid "About"
 msgstr "Acerca de"
+
+#: php/models/traits/custompiecesets.php php/models/traits/customcolorsets.php
+msgid "(no name)"
+msgstr "(sin nombre)"
+
+#: php/models/postaction/settings/abstract.php
+msgid "Settings saved."
+msgstr "Configuración guardada."
+
+#: php/models/postaction/settings/abstract.php
+msgid "Settings reseted."
+msgstr "Configuración reestablecida."
+
+#: php/models/postaction/theming/colorset.php
+msgid "Colorset created."
+msgstr "Tema de color creado."
+
+#: php/models/postaction/theming/colorset.php
+msgid "Error while creating the colorset."
+msgstr ""
+
+#: php/models/postaction/theming/colorset.php
+msgid "Colorset updated."
+msgstr "Tema de color modificado."
+
+#: php/models/postaction/theming/colorset.php
+msgid "Error while updating the colorset."
+msgstr ""
+
+#: php/models/postaction/theming/colorset.php
+msgid "Colorset deleted."
+msgstr "Tema de color eliminado."
+
+#: php/models/postaction/theming/colorset.php
+msgid "Error while deleting the colorset."
+msgstr ""
+
+#: php/models/postaction/theming/pieceset.php
+msgid "Pieceset created."
+msgstr "Estilo de piezas creado."
+
+#: php/models/postaction/theming/pieceset.php
+msgid "Error while creating the pieceset."
+msgstr ""
+
+#: php/models/postaction/theming/pieceset.php
+msgid "Pieceset updated."
+msgstr "Estilo de piezas modificado."
+
+#: php/models/postaction/theming/pieceset.php
+msgid "Error while updating the pieceset."
+msgstr ""
+
+#: php/models/postaction/theming/pieceset.php
+msgid "Pieceset deleted."
+msgstr "Estilo de piezas eliminado."
+
+#: php/models/postaction/theming/pieceset.php
+msgid "Error while deleting the pieceset."
+msgstr ""
+
+#: php/models/adminsubpage/theming.php
+msgid "My colorset"
+msgstr "Mis temas de color"
+
+#: php/models/adminsubpage/theming.php
+msgid "My pieceset"
+msgstr "Mis estilos de piezas"
+
+#: php/models/adminsubpage/theming.php
+msgid "Select the image to use for the black pawns"
+msgstr "Seleccione la imagen a usar para peones negros"
+
+#: php/models/adminsubpage/theming.php
+msgid "Select the image to use for the black knights"
+msgstr "Seleccione la imagen a usar para caballos negros"
+
+#: php/models/adminsubpage/theming.php
+msgid "Select the image to use for the black bishops"
+msgstr "Seleccione la imagen a usar para alfiles negros"
+
+#: php/models/adminsubpage/theming.php
+msgid "Select the image to use for the black rooks"
+msgstr "Seleccione la imagen a usar para torres negras"
+
+#: php/models/adminsubpage/theming.php
+msgid "Select the image to use for the black queens"
+msgstr "Seleccione la imagen a usar para dama negra"
+
+#: php/models/adminsubpage/theming.php
+msgid "Select the image to use for the black kings"
+msgstr "Seleccione la imagen a usar para rey negro"
+
+#: php/models/adminsubpage/theming.php
+msgid "Select the image to use for the black turn flags"
+msgstr ""
+"Seleccione la imagen a utilizar para los indicadores de turno de negras"
+
+#: php/models/adminsubpage/theming.php
+msgid "Select the image to use for the white pawns"
+msgstr "Seleccione la imagen a usar para peones blancos"
+
+#: php/models/adminsubpage/theming.php
+msgid "Select the image to use for the white knights"
+msgstr "Seleccione la imagen a usar para caballos blancos"
+
+#: php/models/adminsubpage/theming.php
+msgid "Select the image to use for the white bishops"
+msgstr "Seleccione la imagen a usar para alfiles blancos"
+
+#: php/models/adminsubpage/theming.php
+msgid "Select the image to use for the white rooks"
+msgstr "Seleccione la imagen a usar para torres blancas"
+
+#: php/models/adminsubpage/theming.php
+msgid "Select the image to use for the white queens"
+msgstr "Seleccione la imagen a usar para dama blanca"
+
+#: php/models/adminsubpage/theming.php
+msgid "Select the image to use for the white kings"
+msgstr "Seleccione la imagen a usar para rey blanco"
+
+#: php/models/adminsubpage/theming.php
+msgid "Select the image to use for the white turn flags"
+msgstr ""
+"Seleccione la imagen a utilizar para los indicadores de turno de blancas"
+
+#: php/models/post.php
+msgid "The current user is not allowed to change RPB Chessboard settings."
+msgstr ""
 
 #: rpb-chessboard.php
 msgid ""
