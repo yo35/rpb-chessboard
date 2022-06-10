@@ -111,7 +111,7 @@
 
 
 
-<h3><?php esc_html_e( 'Graphic resource credits', 'rpb-chessboard' ); ?></h3>
+<h3><?php esc_html_e( 'Graphic resources', 'rpb-chessboard' ); ?></h3>
 
 <p>
 	<?php

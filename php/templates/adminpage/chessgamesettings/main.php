@@ -24,11 +24,10 @@
 	<?php
 		printf(
 			esc_html__(
-				'This page defines the default settings applicable to the components inserted with the %1$sChess game%2$s block.',
+				'This page defines the default settings applicable to the components inserted with the %1$s block.',
 				'rpb-chessboard'
 			),
-			'<em>',
-			'</em>'
+			'<em>' . esc_html__( 'Chess game', 'rpb-chessboard' ) . '</em>'
 		);
 	?>
 	<?php
