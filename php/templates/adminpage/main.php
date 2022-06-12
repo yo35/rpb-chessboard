@@ -20,6 +20,10 @@
  ******************************************************************************/
 ?>
 
+<?php
+	wp_enqueue_style( 'rpbchessboard-admin' );
+?>
+
 <div id="rpbchessboard-adminPage" class="wrap">
 	<h1>RPB Chessboard</h1>
 
