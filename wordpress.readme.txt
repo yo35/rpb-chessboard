@@ -85,6 +85,10 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 7.2.0 (June 13, 2022) =
+* Refactor the admin side of the plugin.
+* Default options for standalone diagrams, for navigation board, and for PGN comment diagrams are now defined separately. 
+
 = 7.1.2 (June 7, 2022) =
 * Restore Czech translations.
 

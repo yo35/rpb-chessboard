@@ -30,7 +30,7 @@ Author URI: https://github.com/yo35
 License: GPLv3
 Requires at least: 5.5
 Requires PHP: 5.6
-Version: 7.1.2
+Version: 7.2.0
 */
 
 
