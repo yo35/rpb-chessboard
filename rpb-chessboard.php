@@ -33,6 +33,9 @@ Requires PHP: 5.6
 Version: 7.2.0
 */
 
+// Plugin version
+// WARNING: must corresponds to what is defined in the plugin header. Do NOT use `get_plugin_data(..)` (see #240).
+define( 'RPBCHESSBOARD_VERSION', '7.2.0' );
 
 // Directories
 define( 'RPBCHESSBOARD_ABSPATH', plugin_dir_path( __FILE__ ) );
@@ -47,9 +50,6 @@ load_plugin_textdomain( 'rpb-chessboard', false, basename( dirname( __FILE__ ) )
 // Plugin initialization
 add_action( 'init', 'rpbchessboard_init' );
 function rpbchessboard_init() {
-	if ( is_admin() ) {
-		define( 'RPBCHESSBOARD_VERSION', get_plugin_data( __FILE__, false, false )['Version'] );
-	}
 	require_once RPBCHESSBOARD_ABSPATH . 'php/helpers/loader.php';
 	require_once RPBCHESSBOARD_ABSPATH . 'php/helpers/validation.php';
 	$controller = RPBChessboardHelperLoader::loadController( is_admin() ? 'ControllerAdmin' : 'ControllerFrontend' );
