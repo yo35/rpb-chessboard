@@ -48,6 +48,9 @@ load_plugin_textdomain( 'rpb-chessboard', false, basename( dirname( __FILE__ ) )
 add_action( 'init', 'rpbchessboard_init' );
 function rpbchessboard_init() {
 	if ( is_admin() ) {
+		if (!function_exists('get_plugin_data')) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
 		define( 'RPBCHESSBOARD_VERSION', get_plugin_data( __FILE__, false, false )['Version'] );
 	}
 	require_once RPBCHESSBOARD_ABSPATH . 'php/helpers/loader.php';
