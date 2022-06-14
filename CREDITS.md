@@ -14,7 +14,8 @@ Contributors
 
 Marek Śmigielski,
 [Paul Schreiber](https://paulschreiber.com/),
-[Adam Silverstein](http://www.10up.com/)
+[Adam Silverstein](http://www.10up.com/),
+Paolo Fantozzi.
 
 
 

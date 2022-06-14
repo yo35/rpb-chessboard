@@ -47,6 +47,9 @@ class RPBChessboardModelAdminSubPageAbout extends RPBChessboardAbstractModelAdmi
 				'name' => 'Adam Silverstein',
 				'link' => 'http://www.10up.com/',
 			),
+			(object) array(
+				'name' => 'Paolo Fantozzi',
+			),
 		);
 	}
 
