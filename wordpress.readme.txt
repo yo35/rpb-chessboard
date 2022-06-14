@@ -85,6 +85,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 7.2.1 (June 14, 2022) =
+* Fix potential fatal error `call to undefined function get_plugin_data()` (see #240).
+
 = 7.2.0 (June 13, 2022) =
 * Refactor the admin side of the plugin.
 * Default options for standalone diagrams, for navigation board, and for PGN comment diagrams are now defined separately. 
