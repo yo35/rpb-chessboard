@@ -6,10 +6,7 @@
 		"@wordpress/components": "^19.13.0",
 		"@wordpress/icons": "^9.2.0",
 		"kokopu": "^2.9.0",
-		"kokopu-react": "^1.7.0",
-		"prop-types": "^15.8.1",
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"kokopu-react": "^1.7.0"
 	},
 	"devDependencies": {
 		"eslint": "^8.18.0",
