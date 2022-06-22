@@ -64,9 +64,8 @@
 		function refresh() {
 			RPBChessboard.renderAdminChessboard($('#rpbchessboard-themingPreviewWidget'), {
 				position: 'start',
-				move: showAnnotations ? 'e4' : undefined,
-				squareMarkers: showAnnotations ? 'Ga4,Ga5,Rb4,Rb5,Yc4,Yc5' : '',
-				arrowMarkers: showAnnotations ? 'Gf3f6,Rg3g6,Yh3h6' : '',
+				squareMarkers: showAnnotations ? 'Ba4,Ba5,Gb4,Gb5,Rc4,Rc5,Yd4,Yd5' : '',
+				arrowMarkers: showAnnotations ? 'Be3e6,Gf3f6,Rg3g6,Yh3h6' : '',
 				squareSize: 48,
 				coordinateVisible: false,
 				colorset: editingColorset ? '_edit_' : hoveredColorset ? hoveredColorset : colorset,
@@ -132,25 +131,25 @@
 				target: $('.rpbchessboard-lightSquareColorSelector', target),
 				change: irisCallback('w')
 			});
-			$('.rpbchessboard-highlightColorField', target).iris({
+			$('.rpbchessboard-blueMarkerColorField', target).iris({
 				hide: false,
-				target: $('.rpbchessboard-highlightColorSelector', target),
-				change: irisCallback('highlight')
+				target: $('.rpbchessboard-blueMarkerColorSelector', target),
+				change: irisCallback('cb')
 			});
 			$('.rpbchessboard-greenMarkerColorField', target).iris({
 				hide: false,
 				target: $('.rpbchessboard-greenMarkerColorSelector', target),
-				change: irisCallback('g')
+				change: irisCallback('cg')
 			});
 			$('.rpbchessboard-redMarkerColorField', target).iris({
 				hide: false,
 				target: $('.rpbchessboard-redMarkerColorSelector', target),
-				change: irisCallback('r')
+				change: irisCallback('cr')
 			});
 			$('.rpbchessboard-yellowMarkerColorField', target).iris({
 				hide: false,
 				target: $('.rpbchessboard-yellowMarkerColorSelector', target),
-				change: irisCallback('y')
+				change: irisCallback('cy')
 			});
 
 			// Disable what needs to be disable in the rest of the page.
@@ -161,10 +160,10 @@
 			// Reconfigure preview chessboard
 			RPBChessboard.editColorset.b = $('.rpbchessboard-darkSquareColorField', target).iris('color');
 			RPBChessboard.editColorset.w = $('.rpbchessboard-lightSquareColorField', target).iris('color');
-			RPBChessboard.editColorset.highlight = $('.rpbchessboard-highlightColorField', target).iris('color');
-			RPBChessboard.editColorset.g = $('.rpbchessboard-greenMarkerColorField', target).iris('color');
-			RPBChessboard.editColorset.r = $('.rpbchessboard-redMarkerColorField', target).iris('color');
-			RPBChessboard.editColorset.y = $('.rpbchessboard-yellowMarkerColorField', target).iris('color');
+			RPBChessboard.editColorset.cb = $('.rpbchessboard-blueMarkerColorField', target).iris('color');
+			RPBChessboard.editColorset.cg = $('.rpbchessboard-greenMarkerColorField', target).iris('color');
+			RPBChessboard.editColorset.cr = $('.rpbchessboard-redMarkerColorField', target).iris('color');
+			RPBChessboard.editColorset.cy = $('.rpbchessboard-yellowMarkerColorField', target).iris('color');
 			editingColorset = true;
 			refresh();
 		}

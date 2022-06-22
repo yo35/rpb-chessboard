@@ -75,9 +75,9 @@ class RPBChessboardModelPostActionThemingColorset extends RPBChessboardAbstractM
 		$greenMarkerColor  = self::getColorValue( 'greenMarkerColor' );
 		$redMarkerColor    = self::getColorValue( 'redMarkerColor' );
 		$yellowMarkerColor = self::getColorValue( 'yellowMarkerColor' );
-		$highlightColor    = self::getColorValue( 'highlightColor' );
-		if ( isset( $darkSquareColor ) && isset( $lightSquareColor ) && isset( $greenMarkerColor ) && isset( $redMarkerColor ) && isset( $yellowMarkerColor ) && isset( $highlightColor ) ) {
-			return implode( '|', array( $darkSquareColor, $lightSquareColor, $greenMarkerColor, $redMarkerColor, $yellowMarkerColor, $highlightColor ) );
+		$blueMarkerColor    = self::getColorValue( 'blueMarkerColor' );
+		if ( isset( $darkSquareColor ) && isset( $lightSquareColor ) && isset( $greenMarkerColor ) && isset( $redMarkerColor ) && isset( $yellowMarkerColor ) && isset( $blueMarkerColor ) ) {
+			return implode( '|', array( $darkSquareColor, $lightSquareColor, $greenMarkerColor, $redMarkerColor, $yellowMarkerColor, $blueMarkerColor ) );
 		}
 		return null;
 	}

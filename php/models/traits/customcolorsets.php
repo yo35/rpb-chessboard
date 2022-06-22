@@ -35,7 +35,7 @@ trait RPBChessboardTraitCustomColorsets {
 	private static $DEFAULT_GREEN_MARKER_COLOR  = '#00ff00';
 	private static $DEFAULT_RED_MARKER_COLOR    = '#ff0000';
 	private static $DEFAULT_YELLOW_MARKER_COLOR = '#ffff00';
-	private static $DEFAULT_HIGHLIGHT_COLOR     = '#0044ff';
+	private static $DEFAULT_BLUE_MARKER_COLOR   = '#0044ff';
 
 	private static $BUILTIN_COLORSETS = array(
 		'coral'      => 'Coral',
@@ -177,13 +177,13 @@ trait RPBChessboardTraitCustomColorsets {
 
 
 	/**
-	 * Return the color used for move arrow and hovered squares.
+	 * Return the blue marker color defined for the given colorset.
 	 *
 	 * @return string
 	 */
-	public function getHighlightColor( $customColorset ) {
+	public function getBlueMarkerColor( $customColorset ) {
 		$this->initializeCustomColorsetAttributes( $customColorset );
-		return $this->customColorsetAttributes[ $customColorset ]->highlightColor;
+		return $this->customColorsetAttributes[ $customColorset ]->blueMarkerColor;
 	}
 
 
@@ -199,7 +199,7 @@ trait RPBChessboardTraitCustomColorsets {
 			'greenMarkerColor'  => self::$DEFAULT_GREEN_MARKER_COLOR,
 			'redMarkerColor'    => self::$DEFAULT_RED_MARKER_COLOR,
 			'yellowMarkerColor' => self::$DEFAULT_YELLOW_MARKER_COLOR,
-			'highlightColor'    => self::$DEFAULT_HIGHLIGHT_COLOR,
+			'blueMarkerColor'   => self::$DEFAULT_BLUE_MARKER_COLOR,
 		);
 
 		// Retrieve the attributes from the database
@@ -217,7 +217,7 @@ trait RPBChessboardTraitCustomColorsets {
 			}
 		}
 
-		// Next 3 tokens: marker colors
+		// Next 3 tokens: legacy colors (G, R, Y)
 		if ( count( $values ) >= 5 ) {
 			$greenMarkerColor  = RPBChessboardHelperValidation::validateColor( $values[2] );
 			$redMarkerColor    = RPBChessboardHelperValidation::validateColor( $values[3] );
@@ -233,11 +233,11 @@ trait RPBChessboardTraitCustomColorsets {
 			}
 		}
 
-		// Next token: move arrow & hovered square color
+		// Next token: blue color
 		if ( count( $values ) >= 6 ) {
-			$highlightColor = RPBChessboardHelperValidation::validateColor( $values[5] );
-			if ( isset( $highlightColor ) ) {
-				$this->customColorsetAttributes[ $customColorset ]->highlightColor = $highlightColor;
+			$blueMarkerColor = RPBChessboardHelperValidation::validateColor( $values[5] );
+			if ( isset( $blueMarkerColor ) ) {
+				$this->customColorsetAttributes[ $customColorset ]->blueMarkerColor = $blueMarkerColor;
 			}
 		}
 	}

@@ -51,12 +51,12 @@ class RPBChessboardModelInitScript {
 		$result = array();
 		foreach ( $this->mainModel->getCustomColorsets() as $colorset ) {
 			$result[ $colorset ] = array(
-				'b'         => $this->mainModel->getDarkSquareColor( $colorset ),
-				'w'         => $this->mainModel->getLightSquareColor( $colorset ),
-				'g'         => $this->mainModel->getGreenMarkerColor( $colorset ),
-				'r'         => $this->mainModel->getRedMarkerColor( $colorset ),
-				'y'         => $this->mainModel->getYellowMarkerColor( $colorset ),
-				'highlight' => $this->mainModel->getHighlightColor( $colorset ),
+				'b'  => $this->mainModel->getDarkSquareColor( $colorset ),
+				'w'  => $this->mainModel->getLightSquareColor( $colorset ),
+				'cg' => $this->mainModel->getGreenMarkerColor( $colorset ),
+				'cr' => $this->mainModel->getRedMarkerColor( $colorset ),
+				'cy' => $this->mainModel->getYellowMarkerColor( $colorset ),
+				'cb' => $this->mainModel->getBlueMarkerColor( $colorset ),
 			);
 		}
 		return $result;

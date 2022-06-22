@@ -68,11 +68,11 @@
 				</div>
 				<div>
 					<label>
-						<span><?php esc_html_e( 'Move arrow', 'rpb-chessboard' ); ?></span>
-						<input type="text" size="7" maxlength="7" class="rpbchessboard-highlightColorField" name="highlightColor"
-							value="<?php echo esc_attr( $isNew ? $model->getRandomHighlightColor() : $model->getHighlightColor( $colorset ) ); ?>" />
+						<span><?php esc_html_e( 'Blue markers', 'rpb-chessboard' ); ?></span>
+						<input type="text" size="7" maxlength="7" class="rpbchessboard-blueMarkerColorField" name="blueMarkerColor"
+							value="<?php echo esc_attr( $isNew ? $model->getRandomBlueMarkerColor() : $model->getBlueMarkerColor( $colorset ) ); ?>" />
 					</label>
-					<div class="rpbchessboard-highlightColorSelector"></div>
+					<div class="rpbchessboard-blueMarkerColorSelector"></div>
 				</div>
 			</div>
 			<div>

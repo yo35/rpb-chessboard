@@ -116,7 +116,7 @@ class FENEditor extends React.Component {
 			position.square(sq, position.square(sq) === coloredPiece ? '-' : coloredPiece);
 			this.props.setAttributes({ ...this.props.attributes, position: position.fen() });
 		}
-		else if (/addSquareMarker-([gry])/.test(this.state.interactionMode)) {
+		else if (/addSquareMarker-([bgry])/.test(this.state.interactionMode)) {
 			let color = RegExp.$1;
 			let squareMarkers = { ...this.props.attributes.squareMarkers };
 			if (squareMarkers[sq] === color) {
@@ -127,7 +127,7 @@ class FENEditor extends React.Component {
 			}
 			this.props.setAttributes({ ...this.props.attributes, squareMarkers: squareMarkers });
 		}
-		else if (/addTextMarker-([gry])/.test(this.state.interactionMode)) {
+		else if (/addTextMarker-([bgry])/.test(this.state.interactionMode)) {
 			let color = RegExp.$1;
 			let textMarkers = { ...this.props.attributes.textMarkers };
 			if (textMarkers[sq] && textMarkers[sq].symbol === this.state.textMarkerMode && textMarkers[sq].color === color) {
@@ -141,7 +141,7 @@ class FENEditor extends React.Component {
 	}
 
 	handleArrowEdited(from, to) {
-		if (/addArrowMarker-([gry])/.test(this.state.interactionMode)) {
+		if (/addArrowMarker-([bgry])/.test(this.state.interactionMode)) {
 			let color = RegExp.$1;
 			let key = from + to;
 			let arrowMarkers = { ...this.props.attributes.arrowMarkers };
@@ -191,21 +191,21 @@ class FENEditor extends React.Component {
 			innerInteractionMode = 'clickSquares';
 			editionModeIcon = <img src={mainPieceset[coloredPiece]} width={24} height={24} />;
 		}
-		else if (/addSquareMarker-([gry])/.test(this.state.interactionMode)) {
+		else if (/addSquareMarker-([bgry])/.test(this.state.interactionMode)) {
 			let color = RegExp.$1;
 			innerInteractionMode = 'clickSquares';
-			editionModeIcon = <SquareMarkerIcon size={24} color={mainColorset[color]} />;
+			editionModeIcon = <SquareMarkerIcon size={24} color={mainColorset['c' + color]} />;
 		}
-		else if (/addArrowMarker-([gry])/.test(this.state.interactionMode)) {
+		else if (/addArrowMarker-([bgry])/.test(this.state.interactionMode)) {
 			let color = RegExp.$1;
 			innerInteractionMode = 'editArrows';
 			editedArrowColor = color;
-			editionModeIcon = <ArrowMarkerIcon size={24} color={mainColorset[color]} />;
+			editionModeIcon = <ArrowMarkerIcon size={24} color={mainColorset['c' + color]} />;
 		}
-		else if (/addTextMarker-([gry])/.test(this.state.interactionMode)) {
+		else if (/addTextMarker-([bgry])/.test(this.state.interactionMode)) {
 			let color = RegExp.$1;
 			innerInteractionMode = 'clickSquares';
-			editionModeIcon = <TextMarkerIcon size={24} color={mainColorset[color]} symbol={this.state.textMarkerMode} />;
+			editionModeIcon = <TextMarkerIcon size={24} color={mainColorset['c' + color]} symbol={this.state.textMarkerMode} />;
 		}
 
 		// Render the block
@@ -295,6 +295,7 @@ class FENEditor extends React.Component {
 			}
 			return (
 				<ButtonGroup>
+					<AddMarkerButton color="b" />
 					<AddMarkerButton color="g" />
 					<AddMarkerButton color="r" />
 					<AddMarkerButton color="y" />
@@ -328,16 +329,16 @@ class FENEditor extends React.Component {
 				</PanelRow>
 				<PanelRow>
 					{i18n.FEN_EDITOR_LABEL_SQUARE_MARKER}
-					<AddMarkerButtonGroup interactionModePrefix="addSquareMarker-" iconBuilder={color => <SquareMarkerIcon size={24} color={mainColorset[color]} />} />
+					<AddMarkerButtonGroup interactionModePrefix="addSquareMarker-" iconBuilder={color => <SquareMarkerIcon size={24} color={mainColorset['c' + color]} />} />
 				</PanelRow>
 				<PanelRow>
 					{i18n.FEN_EDITOR_LABEL_ARROW_MARKER}
-					<AddMarkerButtonGroup interactionModePrefix="addArrowMarker-" iconBuilder={color => <ArrowMarkerIcon size={24} color={mainColorset[color]} />} />
+					<AddMarkerButtonGroup interactionModePrefix="addArrowMarker-" iconBuilder={color => <ArrowMarkerIcon size={24} color={mainColorset['c' + color]} />} />
 				</PanelRow>
 				<PanelRow className="rpbchessboard-fixMarginBottom">
 					<TextMarkerTypeControl value={this.state.textMarkerMode} onChange={value => this.setState({ textMarkerMode: value })} />
 					<AddMarkerButtonGroup interactionModePrefix="addTextMarker-"
-						iconBuilder={color => <TextMarkerIcon size={24} color={mainColorset[color]} symbol={this.state.textMarkerMode} />}
+						iconBuilder={color => <TextMarkerIcon size={24} color={mainColorset['c' + color]} symbol={this.state.textMarkerMode} />}
 					/>
 				</PanelRow>
 				<PanelRow>

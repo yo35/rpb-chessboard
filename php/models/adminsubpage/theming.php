@@ -127,11 +127,11 @@ class RPBChessboardModelAdminSubPageTheming extends RPBChessboardAbstractModelAd
 
 
 	/**
-	 * Return a random color to be used for the move arrow and hovered square.
+	 * Return a random color to be used for blue markers.
 	 *
 	 * @return string
 	 */
-	public function getRandomHighlightColor() {
+	public function getRandomBlueMarkerColor() {
 		return self::getRandomColor( 0x00, 0x40, 0x00, 0x40, 0xc0, 0xff );
 	}
 
