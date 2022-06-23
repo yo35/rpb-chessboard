@@ -28,6 +28,10 @@
 	margin-bottom: 0px;
 }
 
+.block-editor-block-inspector .components-button-group.rpbchessboard-restoreMarginBottom {
+	margin-bottom: 24px;
+}
+
 .rpbchessboard-pgnTextarea {
 	min-height: 150px;
 }

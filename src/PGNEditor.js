@@ -26,12 +26,14 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, PanelRow, RadioControl, TextControl, ToggleControl } from '@wordpress/components';
+import { PanelBody, PanelRow, RadioControl, TextControl, ToggleControl, __experimentalRadioGroup as RadioGroup, __experimentalRadio as Radio } from '@wordpress/components';
 
+import { Chessboard, ArrowMarkerIcon } from 'kokopu-react';
 import { parsePieceSymbols, flattenPieceSymbols } from './util';
 import ChessboardOptionEditor from './ChessboardOptionEditor';
 
 const i18n = RPBChessboard.i18n;
+const mainColorset = Chessboard.colorsets().original;
 
 
 /**
@@ -271,10 +273,45 @@ class PGNEditor extends React.Component {
 						{ label: i18n.PGN_EDITOR_OPTION_HIDDEN, value: 'false' },
 						{ label: i18n.PGN_EDITOR_OPTION_VISIBLE, value: 'true' },
 					]} />
+				{this.renderMoveArrowColorFields()}
 				{flipButton}
 				{downloadButton}
 			</>);
 		}
+	}
+
+
+	/**
+	 * Fields for move arrow color customization.
+	 */
+	renderMoveArrowColorFields() {
+		let moveArrowVisible = this.props.attributes.nboMoveArrowVisible === '' ? RPBChessboard.defaultSettings.moveArrowVisible : this.props.attributes.nboMoveArrowVisible  === 'true';
+		if (!moveArrowVisible) {
+			return undefined;
+		}
+
+		let isDefaultMoveArrowColor = this.props.attributes.nboMoveArrowColor === '';
+		let useDefaultControl = <ToggleControl label={i18n.PGN_EDITOR_USE_DEFAULT_MOVE_ARROW_COLOR} checked={isDefaultMoveArrowColor}
+			onChange={() => this.handleAttributeChanged('nboMoveArrowColor', isDefaultMoveArrowColor ? RPBChessboard.defaultSettings.moveArrowColor : '')}
+		/>;
+		if (isDefaultMoveArrowColor) {
+			return useDefaultControl;
+		}
+
+		function ArrowColorButton({ color }) {
+			return <Radio value={color}><ArrowMarkerIcon color={mainColorset['c' + color]} size={24} /></Radio>;
+		}
+		return (<>
+			{useDefaultControl}
+			<RadioGroup className="rpbchessboard-restoreMarginBottom" checked={this.props.attributes.nboMoveArrowColor}
+				onChange={newValue => this.handleAttributeChanged('nboMoveArrowColor', newValue)}
+			>
+				<ArrowColorButton color="b" />
+				<ArrowColorButton color="g" />
+				<ArrowColorButton color="r" />
+				<ArrowColorButton color="y" />
+			</RadioGroup>
+		</>);
 	}
 
 
@@ -397,6 +434,10 @@ export function registerPGNBlock() {
 				default: ''
 			},
 			nboMoveArrowVisible: {
+				type: 'string',
+				default: ''
+			},
+			nboMoveArrowColor: {
 				type: 'string',
 				default: ''
 			},
