@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-10 10:38+0200\n"
+"POT-Creation-Date: 2022-06-23 20:33+0200\n"
 "PO-Revision-Date: 2014-09-02 16:48:49+0200\n"
 "Last-Translator: schaaktrainer <jdelemarre -at- hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -384,8 +384,7 @@ msgid "Light squares"
 msgstr ""
 
 #: php/templates/adminpage/theming/colorsetedition.php
-#: php/models/initscript.php
-msgid "Move arrow"
+msgid "Blue markers"
 msgstr ""
 
 #: php/templates/adminpage/theming/colorsetedition.php
@@ -609,6 +608,10 @@ msgstr ""
 
 #: php/templates/adminpage/generic/boardaspect.php
 msgid "Show move arrow"
+msgstr ""
+
+#: php/templates/adminpage/generic/boardaspect.php
+msgid "Move arrow color:"
 msgstr ""
 
 #: php/templates/adminpage/generic/boardaspect.php
@@ -848,6 +851,10 @@ msgid "Navigation board"
 msgstr "Bord"
 
 #: php/models/initscript.php
+msgid "Use default move arrow color"
+msgstr ""
+
+#: php/models/initscript.php
 msgid "Beginning of the game"
 msgstr ""
 
@@ -897,6 +904,10 @@ msgstr ""
 
 #: php/models/initscript.php
 msgid "Initial selection"
+msgstr ""
+
+#: php/models/initscript.php
+msgid "Move arrow"
 msgstr ""
 
 #: php/models/initscript.php

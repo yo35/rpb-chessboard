@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-10 10:38+0200\n"
+"POT-Creation-Date: 2022-06-23 20:33+0200\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35 -at- melix.net>\n"
 "Language-Team: French\n"
@@ -437,9 +437,8 @@ msgid "Light squares"
 msgstr "Cases blanches"
 
 #: php/templates/adminpage/theming/colorsetedition.php
-#: php/models/initscript.php
-msgid "Move arrow"
-msgstr "Flèche de déplacement"
+msgid "Blue markers"
+msgstr "Marqueurs bleus"
 
 #: php/templates/adminpage/theming/colorsetedition.php
 msgid "Green markers"
@@ -680,6 +679,10 @@ msgid "Show move arrow"
 msgstr "Mettre en évidence le déplacement avec une flèche"
 
 #: php/templates/adminpage/generic/boardaspect.php
+msgid "Move arrow color:"
+msgstr "Couleur de la flèche de déplacement&nbsp;:"
+
+#: php/templates/adminpage/generic/boardaspect.php
 msgid "Move preview"
 msgstr "Aperçu d'un déplacement"
 
@@ -917,6 +920,10 @@ msgid "Navigation board"
 msgstr "Échiquier de navigation"
 
 #: php/models/initscript.php
+msgid "Use default move arrow color"
+msgstr "Couleur de flèche de déplacement par défaut"
+
+#: php/models/initscript.php
 msgid "Beginning of the game"
 msgstr "Début de la partie"
 
@@ -967,6 +974,10 @@ msgstr "Tourner l'échiquier de navigation et les diagrammes"
 #: php/models/initscript.php
 msgid "Initial selection"
 msgstr "Sélection initiale"
+
+#: php/models/initscript.php
+msgid "Move arrow"
+msgstr "Flèche de déplacement"
 
 #: php/models/initscript.php
 msgid "Flip button"

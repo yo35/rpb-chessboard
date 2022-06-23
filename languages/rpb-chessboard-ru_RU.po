@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-10 10:38+0200\n"
+"POT-Creation-Date: 2022-06-23 20:33+0200\n"
 "PO-Revision-Date: 2016-11-08 11:52+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -409,8 +409,7 @@ msgid "Light squares"
 msgstr "Белые поля"
 
 #: php/templates/adminpage/theming/colorsetedition.php
-#: php/models/initscript.php
-msgid "Move arrow"
+msgid "Blue markers"
 msgstr ""
 
 #: php/templates/adminpage/theming/colorsetedition.php
@@ -643,6 +642,10 @@ msgstr "Анимация хода"
 #: php/templates/adminpage/generic/boardaspect.php
 msgid "Show move arrow"
 msgstr "Показывать стрелки хода"
+
+#: php/templates/adminpage/generic/boardaspect.php
+msgid "Move arrow color:"
+msgstr ""
 
 #: php/templates/adminpage/generic/boardaspect.php
 msgid "Move preview"
@@ -897,6 +900,10 @@ msgid "Navigation board"
 msgstr "Навигационная доска"
 
 #: php/models/initscript.php
+msgid "Use default move arrow color"
+msgstr ""
+
+#: php/models/initscript.php
 msgid "Beginning of the game"
 msgstr ""
 
@@ -946,6 +953,10 @@ msgstr ""
 
 #: php/models/initscript.php
 msgid "Initial selection"
+msgstr ""
+
+#: php/models/initscript.php
+msgid "Move arrow"
 msgstr ""
 
 #: php/models/initscript.php

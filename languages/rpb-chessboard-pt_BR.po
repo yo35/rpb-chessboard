@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-10 10:38+0200\n"
+"POT-Creation-Date: 2022-06-23 20:33+0200\n"
 "PO-Revision-Date: 2020-07-28 10:32-0300\n"
 "Last-Translator: rewbenio <rewbenio@lancesqi.com.br>\n"
 "Language-Team: Rewbenio Frota\n"
@@ -420,8 +420,7 @@ msgid "Light squares"
 msgstr "Casas brancas"
 
 #: php/templates/adminpage/theming/colorsetedition.php
-#: php/models/initscript.php
-msgid "Move arrow"
+msgid "Blue markers"
 msgstr ""
 
 #: php/templates/adminpage/theming/colorsetedition.php
@@ -656,6 +655,10 @@ msgstr "Animação de lance."
 #: php/templates/adminpage/generic/boardaspect.php
 msgid "Show move arrow"
 msgstr "Realçar lance com uma seta"
+
+#: php/templates/adminpage/generic/boardaspect.php
+msgid "Move arrow color:"
+msgstr ""
 
 #: php/templates/adminpage/generic/boardaspect.php
 msgid "Move preview"
@@ -912,6 +915,10 @@ msgid "Navigation board"
 msgstr "Tabuleiro de navegação"
 
 #: php/models/initscript.php
+msgid "Use default move arrow color"
+msgstr ""
+
+#: php/models/initscript.php
 msgid "Beginning of the game"
 msgstr ""
 
@@ -961,6 +968,10 @@ msgstr ""
 
 #: php/models/initscript.php
 msgid "Initial selection"
+msgstr ""
+
+#: php/models/initscript.php
+msgid "Move arrow"
 msgstr ""
 
 #: php/models/initscript.php
