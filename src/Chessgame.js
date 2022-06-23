@@ -249,9 +249,8 @@ export default class Chessgame extends React.Component {
 			return previousNode ? { selection: previousNode.id(), node: previousNode } : { selection: 'start' };
 		}
 
-		// FIXME: adapt `.findById(..)` to search only nodes (not variation) and remove test `endsWith('start')`.
-		let node = !this.state.selection || this.state.selection.endsWith('start') ? undefined : game.findById(this.state.selection);
-		return node ? { selection: this.state.selection, node: node } : {};
+		let node = !this.state.selection ? undefined : game.findById(this.state.selection);
+		return node && !node.isVariation() ? { selection: this.state.selection, node: node } : {};
 	}
 
 	handleMoveSelected(nodeId, evtOrigin) {
