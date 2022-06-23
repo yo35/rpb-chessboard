@@ -34,6 +34,7 @@ class RPBChessboardModelPostActionSettingsChessGame extends RPBChessboardAbstrac
 
 		self::updateBooleanParameter( 'animated' );
 		self::updateBooleanParameter( 'showMoveArrow' );
+		self::updateMoveArrowColor();
 		self::updateBooleanParameter( 'showFlipButton' );
 		self::updateBooleanParameter( 'showDownloadButton' );
 
@@ -51,6 +52,7 @@ class RPBChessboardModelPostActionSettingsChessGame extends RPBChessboardAbstrac
 		self::deleteParameter( 'animationSpeed' ); // FIXME Deprecated parameter (since 6.0)
 		self::deleteParameter( 'animated' );
 		self::deleteParameter( 'showMoveArrow' );
+		self::deleteParameter( 'moveArrowColor' );
 		self::deleteParameter( 'showFlipButton' );
 		self::deleteParameter( 'showDownloadButton' );
 
@@ -63,6 +65,16 @@ class RPBChessboardModelPostActionSettingsChessGame extends RPBChessboardAbstrac
 			$value = RPBChessboardHelperValidation::validateNavigationBoard( $_POST['navigationBoard'] );
 			if ( isset( $value ) ) {
 				update_option( 'rpbchessboard_navigationBoard', $value );
+			}
+		}
+	}
+
+
+	private static function updateMoveArrowColor() {
+		if ( isset( $_POST['moveArrowColor'] ) ) {
+			$value = RPBChessboardHelperValidation::validateSymbolicColor( $_POST['moveArrowColor'] );
+			if ( isset( $value ) ) {
+				update_option( 'rpbchessboard_moveArrowColor', $value );
 			}
 		}
 	}

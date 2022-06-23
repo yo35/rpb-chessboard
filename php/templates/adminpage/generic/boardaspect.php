@@ -84,6 +84,20 @@
 			</p>
 
 			<p>
+				<span class="rpbchessboard-smallGraphicRadioButtonLabel"><?php esc_html_e( 'Move arrow color:', 'rpb-chessboard' ); ?></span>
+				<span class="rpbchessboard-smallGraphicRadioButtonFields">
+					<?php foreach ( array( 'b', 'g', 'r', 'y' ) as $color ) : ?>
+					<span>
+						<input type="radio" id="rpbchessboard-moveArrowColorButton-<?php esc_attr_e( $color ); ?>" name="moveArrowColor" value="<?php esc_attr_e( $color ); ?>"
+							<?php echo $model->getDefaultMoveArrowColor() === $color ? 'checked="yes"' : ''; ?>
+						/>
+						<label class="rpbchessboard-moveArrowColorButton" data-color="<?php esc_attr_e( $color ); ?>" for="rpbchessboard-moveArrowColorButton-<?php esc_attr_e( $color ); ?>"></label>
+					</span>
+					<?php endforeach; ?>
+				</span>
+			</p>
+
+			<p>
 				<a href="#" class="button" id="rpbchessboard-movePreview">
 					<?php esc_html_e( 'Move preview', 'rpb-chessboard' ); ?>
 				</a>
@@ -121,6 +135,7 @@
 				move: movePreview ? 'e4' : undefined,
 				animated: movePreview ? $('#rpbchessboard-animatedField').prop('checked') : undefined,
 				moveArrowVisible: movePreview ? $('#rpbchessboard-showMoveArrowField').prop('checked') : undefined,
+				moveArrowColor: movePreview ? $('input[name="moveArrowColor"]:checked').val() : undefined,
 			});
 		}
 		refresh();
@@ -153,6 +168,17 @@
 		});
 
 		<?php if ( $withMoveAttributes ) : ?>
+
+			// Move arrow color buttons
+			$('.rpbchessboard-moveArrowColorButton').each(function() {
+				var element = $(this);
+				var color = element.data('color');
+				var mainColorset = RPBChessboard.colorsetData['original'];
+				RPBChessboard.renderArrowMarkerIcon(element, { size: 20, color: mainColorset['c' + color] });
+			});
+			$('input[name="moveArrowColor"]').change(function() {
+				refresh();
+			});
 
 			// Move preview
 			$('#rpbchessboard-movePreview').click(function(e) {

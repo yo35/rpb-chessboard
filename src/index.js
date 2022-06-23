@@ -24,7 +24,7 @@ import './index.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Chessboard, i18n as kokopuReactI18n } from 'kokopu-react';
+import { Chessboard, ArrowMarkerIcon, i18n as kokopuReactI18n } from 'kokopu-react';
 
 import Chessgame from './Chessgame';
 import NavigationToolbar from './NavigationToolbar';
@@ -87,6 +87,13 @@ RPBChessboard.renderNavigationToolbar = function(targetJQueryElement, widgetArgs
 };
 
 
+// Arrow marker icon rendering function (to be used in the admin pages)
+RPBChessboard.renderArrowMarkerIcon = function(targetJQueryElement, widgetArgs) {
+	let widget = <ArrowMarkerIcon {...widgetArgs} />;
+	ReactDOM.render(widget, targetJQueryElement.get(0));
+};
+
+
 // Chessboard rendering function
 RPBChessboard.renderFEN = function(targetJQueryElement, widgetArgs) {
 	let widget = <Chessboard
@@ -123,6 +130,7 @@ RPBChessboard.renderPGN = function(targetJQueryElement, widgetArgs) {
 		pieceset: widgetArgs.nboPieceset,
 		animated: widgetArgs.nboAnimated,
 		moveArrowVisible: widgetArgs.nboMoveArrowVisible,
+		moveArrowColor: widgetArgs.nboMoveArrowColor,
 		smallScreenLimits: RPBChessboard.smallScreenLimits,
 	};
 	let widget = <Chessgame

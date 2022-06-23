@@ -110,6 +110,7 @@ class RPBChessboardModelInitScript {
 			'idoPieceset'          => $this->mainModel->getDefaultPieceset( 'ido' ),
 			'animated'             => $this->mainModel->getDefaultAnimated(),
 			'moveArrowVisible'     => $this->mainModel->getDefaultShowMoveArrow(),
+			'moveArrowColor'       => $this->mainModel->getDefaultMoveArrowColor(),
 			'pieceSymbols'         => $this->mainModel->getDefaultPieceSymbols(),
 			'navigationBoard'      => $this->mainModel->getDefaultNavigationBoard(),
 		);

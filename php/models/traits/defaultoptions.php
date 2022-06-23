@@ -44,6 +44,7 @@ trait RPBChessboardTraitDefaultOptions {
 	private $showDownloadButton;
 	private $animated;
 	private $showMoveArrow;
+	private $moveArrowColor;
 
 	private static $DEFAULT_SQUARE_SIZE          = 32;
 	private static $DEFAULT_SHOW_COORDINATES     = true;
@@ -56,6 +57,7 @@ trait RPBChessboardTraitDefaultOptions {
 	private static $DEFAULT_SHOW_DOWNLOAD_BUTTON = true;
 	private static $DEFAULT_ANIMATED             = true;
 	private static $DEFAULT_SHOW_MOVE_ARROW      = true;
+	private static $DEFAULT_MOVE_ARROW_COLOR     = 'b';
 
 
 	/**
@@ -283,6 +285,20 @@ trait RPBChessboardTraitDefaultOptions {
 			$this->showMoveArrow = isset( $value ) ? $value : self::$DEFAULT_SHOW_MOVE_ARROW;
 		}
 		return $this->showMoveArrow;
+	}
+
+
+	/**
+	 * Default move-arrow-color parameter.
+	 *
+	 * @return string
+	 */
+	public function getDefaultMoveArrowColor() {
+		if ( ! isset( $this->moveArrowColor ) ) {
+			$value                = RPBChessboardHelperValidation::validateSymbolicColor( get_option( 'rpbchessboard_moveArrowColor' ) );
+			$this->moveArrowColor = isset( $value ) ? $value : self::$DEFAULT_MOVE_ARROW_COLOR;
+		}
+		return $this->moveArrowColor;
 	}
 
 }

@@ -134,6 +134,7 @@ class RPBChessboardModelBlockShortcodePGN extends RPBChessboardAbstractModelBloc
 		// Move arrow
 		$value                             = isset( $atts['show_move_arrow'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_move_arrow'] ) : null;
 		$widgetArgs['nboMoveArrowVisible'] = isset( $value ) ? $value : $this->mainModel->getDefaultShowMoveArrow();
+		$widgetArgs['nboMoveArrowColor']   = $this->mainModel->getDefaultMoveArrowColor();
 
 		// Piece symbols
 		$value                      = isset( $atts['piece_symbols'] ) ? RPBChessboardHelperValidation::validatePieceSymbols( $atts['piece_symbols'] ) : null;

@@ -101,7 +101,7 @@
 
 .rpbchessboard-tuningChessboardParameterColumn,
 .rpbchessboard-tuningNavigationToolbarParameterColumn {
-	width: 250px;
+	width: 350px;
 }
 
 
@@ -149,7 +149,7 @@
 
 .rpbchessboard-squareSizeSlider {
 	display: inline-block;
-	width: 240px;
+	width: 340px;
 	margin-top: 0px;
 	margin-bottom: 0px;
 }
@@ -162,29 +162,64 @@
 	text-align: right;
 }
 
+.rpbchessboard-smallGraphicRadioButtonFields,
 .rpbchessboard-graphicRadioButtonFields {
-	margin-bottom: 0.5em;
 	user-select: none;
 }
 
+.rpbchessboard-graphicRadioButtonFields {
+	margin-bottom: 0.5em;
+}
+
+.rpbchessboard-smallGraphicRadioButtonLabel,
+.rpbchessboard-smallGraphicRadioButtonFields {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.rpbchessboard-smallGraphicRadioButtonFields > span,
 .rpbchessboard-graphicRadioButtonFields > div {
 	display: inline-block;
+}
+
+.rpbchessboard-graphicRadioButtonFields > div {
 	margin-right: 30px;
 }
 
+.rpbchessboard-smallGraphicRadioButtonFields > span {
+	margin-left: 5px;
+}
+
+.rpbchessboard-smallGraphicRadioButtonFields input[type="radio"],
 .rpbchessboard-graphicRadioButtonFields input[type="radio"] {
 	display: none;
 }
 
+.rpbchessboard-smallGraphicRadioButtonFields input[type="radio"] + label,
 .rpbchessboard-graphicRadioButtonFields input[type="radio"] + label {
 	display: block;
-	padding: 14px;
 	line-height: 0px;
 }
 
+.rpbchessboard-graphicRadioButtonFields input[type="radio"] + label {
+	padding: 14px;
+}
+
+.rpbchessboard-smallGraphicRadioButtonFields input[type="radio"] + label {
+	padding: 8px;
+}
+
+.rpbchessboard-smallGraphicRadioButtonFields input[type="radio"]:checked + label,
 .rpbchessboard-graphicRadioButtonFields input[type="radio"]:checked + label {
 	border: solid 4px rgb(0, 116, 162);
+}
+
+.rpbchessboard-graphicRadioButtonFields input[type="radio"]:checked + label {
 	padding: 10px;
+}
+
+.rpbchessboard-smallGraphicRadioButtonFields input[type="radio"]:checked + label {
+	padding: 4px;
 }
 
 #rpbchessboard-adminPage input[name="pieceSymbolMode"] {

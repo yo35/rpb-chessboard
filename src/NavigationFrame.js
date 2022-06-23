@@ -68,6 +68,7 @@ function buildFrame() {
 		pieceset: RPBChessboard.defaultSettings.nboPieceset,
 		animated: RPBChessboard.defaultSettings.animated,
 		moveArrowVisible: RPBChessboard.defaultSettings.moveArrowVisible,
+		moveArrowColor: RPBChessboard.defaultSettings.moveArrowColor,
 	};
 
 	// Build the dialog skeleton

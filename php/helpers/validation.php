@@ -43,6 +43,23 @@ abstract class RPBChessboardHelperValidation {
 
 
 	/**
+	 * Validate a symbolic color as defined in kokopu-react (blue, green, red or yellow).
+	 *
+	 * @param mixed $value
+	 * @return string May be null is the value is not valid.
+	 */
+	public static function validateSymbolicColor( $value ) {
+		if ( is_string( $value ) ) {
+			$value = strtolower( $value );
+			if ( preg_match( '/^[bgry]$/', $value ) ) {
+				return $value;
+			}
+		}
+		return null;
+	}
+
+
+	/**
 	 * Validate colorset/pieceset parameter.
 	 *
 	 * @param mixed $value

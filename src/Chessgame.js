@@ -160,6 +160,7 @@ export default class Chessgame extends React.Component {
 					smallScreenLimits={navigationBoardOptions.smallScreenLimits}
 					animated={navigationBoardOptions.animated}
 					moveArrowVisible={navigationBoardOptions.moveArrowVisible}
+					moveArrowColor={navigationBoardOptions.moveArrowColor}
 				/>
 				<NavigationToolbar
 					withFlipButton={this.props.withFlipButton}
