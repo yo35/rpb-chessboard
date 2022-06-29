@@ -51,9 +51,9 @@ class RPBChessboardModelNewsNotice {
 			return false;
 		}
 
-		// ... and only on the general plugin page, the update page, and the RPB Chessboard's admin page. Don't pollute all the the admin!
+		// ... and only on the general plugin page, and the RPB Chessboard's admin page. Don't pollute all the the admin!
 		$currentScreenId = get_current_screen()->id;
-		if ( 'plugins' !== $currentScreenId && 'update-core' !== $currentScreenId && 'settings_page_rpbchessboard' !== $currentScreenId ) {
+		if ( 'plugins' !== $currentScreenId && 'settings_page_rpbchessboard' !== $currentScreenId ) {
 			return false;
 		}
 
