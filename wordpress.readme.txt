@@ -85,6 +85,11 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 7.3.0 (June 29, 2022) =
+* Add support for blue markers.
+* Allow move arrow color customization.
+* Minor fixes.
+
 = 7.2.1 (June 14, 2022) =
 * Fix potential fatal error `call to undefined function get_plugin_data()` (see [#240](https://github.com/yo35/rpb-chessboard/issues/240)).
 
