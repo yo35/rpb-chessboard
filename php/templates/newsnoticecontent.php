@@ -29,7 +29,7 @@
 	</div>
 
 	<div>
-		<p><strong>Fund-raising campaign for RPB Chessboard</strong></p>
+		<p><strong>Fund-raising campaign for RPB Chessboard &ndash; Last days!</strong></p>
 
 		<p>
 			If you enjoy this plugin and if you want to help building new features in it,

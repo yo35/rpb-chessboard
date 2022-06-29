@@ -30,7 +30,7 @@ class RPBChessboardModelNewsNotice {
 	 *
 	 * WARNING: if defined, there must be a file named `/php/templates/newsnoticecontent.php` to define the content of the notice.
 	 */
-	private static $NOTICE_KEY = 'kickstarter-june-2022';
+	private static $NOTICE_KEY = 'kickstarter-june-2022-reminder';
 
 	/**
 	 * The notice is displayed until the given date and time, defined as `yyyy-mm-dd hh:MM` (e.g. 2022-06-09 17:00 for June 9th, 2022, at 5pm).
