@@ -39,9 +39,7 @@ class RPBChessboardModelBlockPGN extends RPBChessboardAbstractModelBlock {
 		$widgetArgs = array();
 
 		// Chessgame content
-		if ( isset( $atts['pgn'] ) ) {
-			$widgetArgs['pgn'] = $atts['pgn'];
-		}
+		$widgetArgs['pgn'] = isset( $atts['pgn'] ) ? $atts['pgn'] : '';
 		if ( isset( $atts['flipped'] ) ) {
 			$widgetArgs['flipped'] = $atts['flipped'];
 		}
