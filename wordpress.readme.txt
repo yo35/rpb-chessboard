@@ -85,6 +85,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 7.3.1 (June 29, 2022) =
+* Improve plugin resiliency + error reporting in presence of async/deferred JS loading (see [#242](https://github.com/yo35/rpb-chessboard/issues/242)).
+
 = 7.3.0 (June 29, 2022) =
 * Add support for blue markers.
 * Allow move arrow color customization.
