@@ -5,8 +5,8 @@
 		"@wordpress/blocks": "^11.13.0",
 		"@wordpress/components": "^19.16.0",
 		"@wordpress/icons": "^9.5.0",
-		"kokopu": "^2.9.2",
-		"kokopu-react": "^1.7.2"
+		"kokopu": "^3.0.0",
+		"kokopu-react": "^1.8.0"
 	},
 	"devDependencies": {
 		"eslint": "^8.21.0",

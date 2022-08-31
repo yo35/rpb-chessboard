@@ -29,7 +29,7 @@ import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/bloc
 import { Button, ButtonGroup, Dropdown, PanelBody, PanelRow, RadioControl, SelectControl, TextControl, ToggleControl, ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { moveTo as moveToIcon, rotateLeft as rotateLeftIcon } from '@wordpress/icons';
 
-import kokopu from 'kokopu';
+import { exception, Position, oppositeColor } from 'kokopu';
 import { Chessboard, ErrorBox, SquareMarkerIcon, ArrowMarkerIcon, TextMarkerIcon } from 'kokopu-react';
 import { format } from './util';
 import ChessboardOptionEditor from './ChessboardOptionEditor';
@@ -102,7 +102,7 @@ class FENEditor extends React.Component {
 
 	handlePieceMoved(from, to) {
 		if (this.state.interactionMode === 'movePieces') {
-			let position = new kokopu.Position(this.props.attributes.position);
+			let position = new Position(this.props.attributes.position);
 			position.square(to, position.square(from));
 			position.square(from, '-');
 			this.props.setAttributes({ ...this.props.attributes, position: position.fen() });
@@ -112,7 +112,7 @@ class FENEditor extends React.Component {
 	handleSquareClicked(sq) {
 		if (/addPiece-([wb][pnbrqk])/.test(this.state.interactionMode)) {
 			let coloredPiece = RegExp.$1;
-			let position = new kokopu.Position(this.props.attributes.position);
+			let position = new Position(this.props.attributes.position);
 			position.square(sq, position.square(sq) === coloredPiece ? '-' : coloredPiece);
 			this.props.setAttributes({ ...this.props.attributes, position: position.fen() });
 		}
@@ -156,8 +156,8 @@ class FENEditor extends React.Component {
 	}
 
 	handleToggleTurnClicked() {
-		let position = new kokopu.Position(this.props.attributes.position);
-		position.turn(kokopu.oppositeColor(position.turn()));
+		let position = new Position(this.props.attributes.position);
+		position.turn(oppositeColor(position.turn()));
 		this.props.setAttributes({ ...this.props.attributes, position: position.fen() });
 	}
 
@@ -408,11 +408,11 @@ class FENEditor extends React.Component {
 
 	parsePositionAttribute() {
 		try {
-			let position = new kokopu.Position(this.props.attributes.position);
+			let position = new Position(this.props.attributes.position);
 			return { valid: true, position: position, fen: position.fen() };
 		}
 		catch (error) {
-			if (error instanceof kokopu.exception.InvalidFEN) {
+			if (error instanceof exception.InvalidFEN) {
 				return { valid: false, message: error.message, fen: this.props.attributes.position };
 			}
 			else {

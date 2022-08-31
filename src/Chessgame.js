@@ -25,7 +25,7 @@ import './Chessgame.css';
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import kokopu from 'kokopu';
+import { exception, Node as GameNode, pgnRead } from 'kokopu';
 import { Chessboard, ErrorBox, Movetext, formatMove } from 'kokopu-react';
 
 import NavigationToolbar, { TOOLBAR_MARGIN, TOOLBAR_HEIGHT } from './NavigationToolbar';
@@ -221,11 +221,11 @@ export default class Chessgame extends React.Component {
 
 	parseGame(pgn) {
 		try {
-			let result = kokopu.pgnRead(pgn, this.props.gameIndex);
+			let result = pgnRead(pgn, this.props.gameIndex);
 			return { valid: true, game: result };
 		}
 		catch (e) {
-			if (e instanceof kokopu.exception.InvalidPGN) {
+			if (e instanceof exception.InvalidPGN) {
 				return { valid: false, message: e.message, pgn: e.pgn, errorIndex: e.index, lineNumber: e.lineNumber };
 			}
 			else {
@@ -251,7 +251,7 @@ export default class Chessgame extends React.Component {
 		}
 
 		let node = !this.state.selection ? undefined : game.findById(this.state.selection);
-		return node && !node.isVariation() ? { selection: this.state.selection, node: node } : {};
+		return node && node instanceof GameNode ? { selection: this.state.selection, node: node } : {};
 	}
 
 	handleMoveSelected(nodeId, evtOrigin) {
