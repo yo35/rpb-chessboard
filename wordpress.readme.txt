@@ -85,6 +85,10 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 7.3.3 (November 6, 2022) =
+* Tested up to WordPress 6.1.
+* Minor fixes.
+
 = 7.3.2 (August 31, 2022) =
 * Minor fixes.
 
