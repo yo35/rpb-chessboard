@@ -85,6 +85,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 7.3.4 (November 8, 2022) =
+* Hungarian translation (thanks to Atilla Szvetlik).
+
 = 7.3.3 (November 6, 2022) =
 * Tested up to WordPress 6.1.
 * Minor fixes.
