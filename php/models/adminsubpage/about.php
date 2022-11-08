@@ -87,6 +87,11 @@ class RPBChessboardModelAdminSubPageAbout extends RPBChessboardAbstractModelAdmi
 				'name' => 'Yoann Le Montagner',
 			),
 			(object) array(
+				'code' => 'hu',
+				'lang' => 'Magyar',
+				'name' => 'Atilla Szvetlik',
+			),
+			(object) array(
 				'code' => 'it',
 				'lang' => 'Italiano',
 				'name' => 'Andrea Cuccarini',
