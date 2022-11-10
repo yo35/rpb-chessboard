@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: RPB Chessboard\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-06-23 20:33+0200\n"
-"PO-Revision-Date: 2022-11-07 17:44+0000\n"
+"PO-Revision-Date: 2022-11-09 22:46+0000\n"
 "Last-Translator: ╪ lovag SZVETLIK Atilla\n"
 "Language-Team: Magyar\n"
 "Language: hu-HU\n"
@@ -65,7 +65,7 @@ msgid ""
 "%2$s instead of %1$s[fen][/fen]%2$s for legacy FEN diagrams."
 msgstr ""
 "Az opció aktiválásával az RPB Chessboard a %1$s[fen_compat][/fen_compat]%2$s "
-"értéket használja a %1$s[fen][/fen]%2$s helyett a régi FEN-diagramokhoz."
+"értéket használja a %1$s[fen][/fen]%2$s helyett a régi FEN diagramokhoz."
 
 #: php/templates/adminpage/compatibilitysettings/chessplugins.php
 msgid "Compatibility mode for the PGN game shortcode"
@@ -78,7 +78,7 @@ msgid ""
 "%2$s instead of %1$s[pgn][/pgn]%2$s for legacy PGN games."
 msgstr ""
 "Az opció aktiválásával az RPB Chessboard a %1$s[pgn_compat][/pgn_compat]%2$s "
-"-t használja a %1$s[pgn][/pgn]%2$s helyett a régi PGN-játékokhoz."
+"-t használja a %1$s[pgn][/pgn]%2$s helyett a régi PGN játékokhoz."
 
 #: php/templates/adminpage/compatibilitysettings/lazyloading.php
 msgid "Compatibility with themes and plugins with complex behaviors"
@@ -113,8 +113,8 @@ msgid ""
 "Disable this option FEN diagrams or PGN games are not properly-rendered on "
 "your website."
 msgstr ""
-"Tiltsa le ezt az opciót A FEN-diagramok vagy a PGN-játékok nem jelennek meg "
-"megfelelően az Ön webhelyén."
+"Tiltsa le ezt az opciót ha a FEN diagramok vagy a PGN játékok nem jelennek "
+"meg megfelelően az Ön webhelyén."
 
 #: php/templates/adminpage/chessdiagramsettings/alignment.php 
 #: php/models/initscript.php
@@ -130,7 +130,7 @@ msgstr "Középre állított"
 #: php/templates/adminpage/chessdiagramsettings/alignment.php 
 #: php/templates/adminpage/chessdiagramsettings/alignment.php
 msgid "On the left of the text"
-msgstr "On the left of the text"
+msgstr "A szöveg bal oldalán"
 
 #: php/templates/adminpage/chessdiagramsettings/alignment.php 
 #: php/templates/adminpage/chessdiagramsettings/alignment.php
@@ -340,7 +340,7 @@ msgstr ""
 
 #: php/templates/adminpage/theming/main.php
 msgid "Show annotations"
-msgstr "Megjegyzések megjelenítése"
+msgstr "Beállítások (stílus) megjelenítése"
 
 #: php/templates/adminpage/theming/main.php
 msgid "Select"
@@ -596,7 +596,7 @@ msgstr ""
 
 #: php/templates/adminpage/chessgamesettings/navigationboard.php
 msgid "Position of the navigation board"
-msgstr "A játszmalejegyzési tábla elhelyezkedése"
+msgstr "A sakktábla elhelyezkedése"
 
 #: php/templates/adminpage/chessgamesettings/navigationboard.php 
 #: php/templates/adminpage/chessgamesettings/navigationboard.php
@@ -683,7 +683,7 @@ msgstr "Figurakészlet:"
 
 #: php/templates/adminpage/generic/boardaspect.php php/models/initscript.php
 msgid "Move animation"
-msgstr "Animáció áthelyezése"
+msgstr "Lépés animáció"
 
 #: php/templates/adminpage/generic/boardaspect.php
 msgid "Show move arrow"
@@ -695,7 +695,7 @@ msgstr "A mozgási nyíl színe:"
 
 #: php/templates/adminpage/generic/boardaspect.php
 msgid "Move preview"
-msgstr "Előnézet áthelyezése"
+msgstr "Lépés előnézet"
 
 #: php/templates/block/pgn.php
 msgid "You must activate JavaScript to enhance chess game visualization."
@@ -774,7 +774,7 @@ msgstr "Adjunk hozzá sötét királyt"
 
 #: php/models/initscript.php
 msgid "Toggle turn"
-msgstr ""
+msgstr "Kapcsoló"
 
 #: php/models/initscript.php php/models/initscript.php 
 #: php/models/initscript.php
