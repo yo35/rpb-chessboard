@@ -85,6 +85,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 7.3.6 (November 17, 2022) =
+* Fix scroll issue on iOS (see [#250](https://github.com/yo35/rpb-chessboard/issues/250)).
+
 = 7.3.5 (November 10, 2022) =
 * Minor fixes on Hungarian translation.
 
