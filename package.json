@@ -1,19 +1,19 @@
 {
 	"private": true,
 	"dependencies": {
-		"@wordpress/block-editor": "^10.5.0",
-		"@wordpress/blocks": "^11.21.0",
-		"@wordpress/components": "^22.1.0",
-		"@wordpress/icons": "^9.13.0",
-		"kokopu": "^3.3.0",
-		"kokopu-react": "^1.9.1"
+		"@wordpress/block-editor": "^11.1.0",
+		"@wordpress/blocks": "^12.1.0",
+		"@wordpress/components": "^23.1.0",
+		"@wordpress/icons": "^9.15.0",
+		"kokopu": "^4.0.1",
+		"kokopu-react": "^1.10.0"
 	},
 	"devDependencies": {
-		"eslint": "^8.27.0",
+		"eslint": "^8.31.0",
 		"eslint-config-wordpress": "^2.0.0",
-		"eslint-plugin-react": "^7.31.10",
+		"eslint-plugin-react": "^7.31.11",
 		"uglifycss": "^0.0.29",
-		"@wordpress/scripts": "^24.6.0"
+		"@wordpress/scripts": "^25.1.0"
 	},
 	"scripts": {
 		"build": "wp-scripts build"
