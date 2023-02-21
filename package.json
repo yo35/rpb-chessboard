@@ -5,15 +5,16 @@
 		"@wordpress/blocks": "^12.3.0",
 		"@wordpress/components": "^23.3.0",
 		"@wordpress/icons": "^9.17.0",
-		"kokopu": "^4.2.1",
-		"kokopu-react": "^1.11.1"
+		"kokopu": "^4.4.0",
+		"kokopu-react": "^2.0.0",
+		"prop-types": "^15.8.1"
 	},
 	"devDependencies": {
+		"@wordpress/scripts": "^25.3.0",
 		"eslint": "^8.33.0",
 		"eslint-config-wordpress": "^2.0.0",
 		"eslint-plugin-react": "^7.32.2",
-		"uglifycss": "^0.0.29",
-		"@wordpress/scripts": "^25.3.0"
+		"uglifycss": "^0.0.29"
 	},
 	"scripts": {
 		"build": "wp-scripts build"

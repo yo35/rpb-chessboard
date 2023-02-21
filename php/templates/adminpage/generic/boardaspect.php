@@ -128,13 +128,13 @@
 		function refresh() {
 			RPBChessboard.renderAdminChessboard($('#rpbchessboard-tuningChessboard-' + key), {
 				position: 'start',
-				squareSize: squareSize,
-				coordinateVisible: showCoordinates,
+				squareSize: Number(squareSize),
+				coordinateVisible: Boolean(showCoordinates),
 				colorset: colorset,
 				pieceset: pieceset,
 				move: movePreview ? 'e4' : undefined,
-				animated: movePreview ? $('#rpbchessboard-animatedField').prop('checked') : undefined,
-				moveArrowVisible: movePreview ? $('#rpbchessboard-showMoveArrowField').prop('checked') : undefined,
+				animated: movePreview ? Boolean($('#rpbchessboard-animatedField').prop('checked')) : undefined,
+				moveArrowVisible: movePreview ? Boolean($('#rpbchessboard-showMoveArrowField').prop('checked')) : undefined,
 				moveArrowColor: movePreview ? $('input[name="moveArrowColor"]:checked').val() : undefined,
 			});
 		}
