@@ -69,13 +69,26 @@ function buildFrame() {
 		animated: RPBChessboard.defaultSettings.animated,
 		moveArrowVisible: RPBChessboard.defaultSettings.moveArrowVisible,
 		moveArrowColor: RPBChessboard.defaultSettings.moveArrowColor,
+		smallScreenLimits: RPBChessboard.smallScreenLimits,
 	};
+
+	// Build the container for the anchor.
+	// WARNING: having a container with predefined size is mandatory so that the jQuery UI dialog
+	// can determine its size and center itself properly (the Reach inner component is not mounted yet when the dialog opens).
+	let boardAnchorParent = document.createElement('div');
+	function refreshBoardAnchorSize() {
+		let boardSize = Chessboard.size(boardOptions.squareSize, boardOptions.coordinateVisible, boardOptions.smallScreenLimits);
+		boardAnchorParent.style.minWidth = `${boardSize.width}px`;
+		boardAnchorParent.style.minHeight = `${boardSize.height}px`;
+	}
+	refreshBoardAnchorSize();
 
 	// Build the dialog skeleton
 	let navigationFrame = document.createElement('div');
 	navigationFrame.id = 'rpbchessboard-navigationFrame';
 	boardAnchor = document.createElement('div');
-	navigationFrame.appendChild(boardAnchor);
+	navigationFrame.appendChild(boardAnchorParent);
+	boardAnchorParent.appendChild(boardAnchor);
 
 	// Create the dialog widget.
 	let $ = window.jQuery;
@@ -103,7 +116,7 @@ function buildFrame() {
 
 		// Save the initial information about the geometry of the board and its container.
 		if(!resizeInfo) {
-			let boardSize = Chessboard.size(boardOptions.squareSize, boardOptions.coordinateVisible);
+			let boardSize = Chessboard.size(boardOptions.squareSize, boardOptions.coordinateVisible, boardOptions.smallScreenLimits);
 			resizeInfo = {
 				reservedWidth: ui.originalSize.width - boardSize.width,
 				reservedHeight: ui.originalSize.height - boardSize.height,
@@ -113,11 +126,12 @@ function buildFrame() {
 		// Compute the new square size parameter.
 		let availableWidth = ui.size.width - resizeInfo.reservedWidth;
 		let availableHeight = ui.size.height - resizeInfo.reservedHeight;
-		let squareSize = Chessboard.adaptSquareSize(availableWidth, availableHeight, boardOptions.coordinateVisible);
+		let squareSize = Chessboard.adaptSquareSize(availableWidth, availableHeight, boardOptions.coordinateVisible, boardOptions.smallScreenLimits);
 
 		// Update the widget.
 		boardOptions = { ...boardOptions };
 		boardOptions.squareSize = squareSize;
+		refreshBoardAnchorSize();
 		currentOwner.setState({ popupBoardOptions: boardOptions });
 	});
 
