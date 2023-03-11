@@ -39,7 +39,7 @@ class RPBChessboardModelBlockFEN extends RPBChessboardAbstractModelBlock {
 		$widgetArgs = array();
 
 		// Chessboard content
-		$widgetArgs['position'] = isset( $atts['position'] ) ? $atts['position'] : '';
+		$widgetArgs['position'] = isset( $atts['position'] ) ? $atts['position'] : 'start';
 		if ( isset( $atts['squareMarkers'] ) ) {
 			$widgetArgs['squareMarkers'] = $atts['squareMarkers'];
 		}
