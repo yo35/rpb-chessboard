@@ -85,6 +85,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 7.3.10 (March 11, 2023) =
+* Fix chess diagram block not properly rendered with starting position (see [#256](https://github.com/yo35/rpb-chessboard/issues/256)).
+
 = 7.3.9 (March 5, 2023) =
 * Fix navigation popup display on mobile devices (see [#253](https://github.com/yo35/rpb-chessboard/issues/253)).
 
