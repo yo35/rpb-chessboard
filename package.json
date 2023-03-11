@@ -10,8 +10,8 @@
 		"prop-types": "^15.8.1"
 	},
 	"devDependencies": {
-		"@wordpress/scripts": "^25.5.0",
-		"eslint": "^8.35.0",
+		"@wordpress/scripts": "^25.5.1",
+		"eslint": "^8.36.0",
 		"eslint-config-wordpress": "^2.0.0",
 		"eslint-plugin-react": "^7.32.2",
 		"uglifycss": "^0.0.29"
