@@ -85,6 +85,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 7.4.1 (March 29, 2023) =
+* Tested up to WordPress 6.2.
+
 = 7.4.0 (March 18, 2023) =
 * Add support for NAG 9 (see [#255](https://github.com/yo35/rpb-chessboard/issues/255)).
 
