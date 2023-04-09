@@ -5,13 +5,13 @@
 		"@wordpress/blocks": "^12.7.0",
 		"@wordpress/components": "^23.7.0",
 		"@wordpress/icons": "^9.21.0",
-		"kokopu": "^4.5.0",
+		"kokopu": "^4.6.0",
 		"kokopu-react": "^2.0.0",
 		"prop-types": "^15.8.1"
 	},
 	"devDependencies": {
 		"@wordpress/scripts": "^26.1.0",
-		"eslint": "^8.37.0",
+		"eslint": "^8.38.0",
 		"eslint-config-wordpress": "^2.0.0",
 		"eslint-plugin-react": "^7.32.2",
 		"uglifycss": "^0.0.29"
