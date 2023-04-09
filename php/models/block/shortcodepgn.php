@@ -97,7 +97,7 @@ class RPBChessboardModelBlockShortcodePGN extends RPBChessboardAbstractModelBloc
 		if ( isset( $value ) ) {
 			$widgetArgs['flipped'] = $value;
 		}
-		$value = isset( $atts['initial_selection'] ) ? RPBChessboard::validateString( $atts['initial_selection'] ) : null;
+		$value = isset( $atts['initial_selection'] ) ? RPBChessboardHelperValidation::validateString( $atts['initial_selection'] ) : null;
 		if ( isset( $value ) ) {
 			$widgetArgs['initialSelection'] = $value;
 		}
