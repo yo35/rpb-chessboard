@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-09 17:00+0200\n"
+"POT-Creation-Date: 2023-04-09 17:22+0200\n"
 "PO-Revision-Date: 2021-01-03 19:45+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -280,11 +280,13 @@ msgid "Select"
 msgstr ""
 
 #: php/templates/adminpage/theming/main.php
-msgid "Delete colorset \"{0}\"? Press OK to confirm..."
+#, php-format
+msgid "Delete colorset \"%1$s\"? Press OK to confirm..."
 msgstr ""
 
 #: php/templates/adminpage/theming/main.php
-msgid "Delete pieceset \"{0}\"? Press OK to confirm..."
+#, php-format
+msgid "Delete pieceset \"%1$s\"? Press OK to confirm..."
 msgstr ""
 
 #: php/templates/adminpage/theming/piecesets.php
@@ -706,7 +708,8 @@ msgid "Arrow marker"
 msgstr ""
 
 #: php/models/initscript.php
-msgid "Marker {0}"
+#, php-format
+msgid "Marker %1$s"
 msgstr ""
 
 #: php/models/initscript.php
@@ -778,7 +781,8 @@ msgid "Error while downloading the PGN file."
 msgstr ""
 
 #: php/models/initscript.php
-msgid "Cannot download `{0}`. HTTP request returns status code {1}."
+#, php-format
+msgid "Cannot download `%1$s`. HTTP request returns status code %2$s."
 msgstr ""
 
 #: php/models/initscript.php
@@ -802,11 +806,13 @@ msgid "Download the game"
 msgstr "scarica la partita"
 
 #: php/models/initscript.php
-msgid "Annotated by {0}"
-msgstr "Commentato da {0}"
+#, php-format
+msgid "Annotated by %1$s"
+msgstr "Commentato da %1$s"
 
 #: php/models/initscript.php
-msgid "line {0}"
+#, php-format
+msgid "line %1$s"
 msgstr ""
 
 #: php/models/initscript.php

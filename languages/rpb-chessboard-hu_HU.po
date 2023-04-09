@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-09 17:00+0200\n"
+"POT-Creation-Date: 2023-04-09 17:22+0200\n"
 "PO-Revision-Date: 2022-11-09 22:46+0000\n"
 "Last-Translator: ╪ lovag SZVETLIK Atilla\n"
 "Language-Team: Magyar\n"
@@ -347,14 +347,16 @@ msgid "Select"
 msgstr "Kiválasztás"
 
 #: php/templates/adminpage/theming/main.php
-msgid "Delete colorset \"{0}\"? Press OK to confirm..."
+#, php-format
+msgid "Delete colorset \"%1$s\"? Press OK to confirm..."
 msgstr ""
-"Színkészlet törlése \"{0}\"? Nyomja meg az OK gombot a megerősítéshez..."
+"Színkészlet törlése \"%1$s\"? Nyomja meg az OK gombot a megerősítéshez..."
 
 #: php/templates/adminpage/theming/main.php
-msgid "Delete pieceset \"{0}\"? Press OK to confirm..."
+#, php-format
+msgid "Delete pieceset \"%1$s\"? Press OK to confirm..."
 msgstr ""
-"Figurakészlet törlése \"{0}\"? Nyomja meg az OK gombot a megerősítéshez..."
+"Figurakészlet törlése \"%1$s\"? Nyomja meg az OK gombot a megerősítéshez..."
 
 #: php/templates/adminpage/theming/piecesets.php
 msgid "Piecesets"
@@ -795,8 +797,9 @@ msgid "Arrow marker"
 msgstr "Nyíl jelölő"
 
 #: php/models/initscript.php
-msgid "Marker {0}"
-msgstr "Jelölő {0}"
+#, php-format
+msgid "Marker %1$s"
+msgstr "Jelölő %1$s"
 
 #: php/models/initscript.php
 msgid "Reset to the startup position"
@@ -867,9 +870,10 @@ msgid "Error while downloading the PGN file."
 msgstr "Hiba történt a PGN fájl letöltése közben."
 
 #: php/models/initscript.php
-msgid "Cannot download `{0}`. HTTP request returns status code {1}."
+#, php-format
+msgid "Cannot download `%1$s`. HTTP request returns status code %2$s."
 msgstr ""
-"Nem lehet letölteni a `{0}` fájlt. A HTTP-kérés {1} állapotkódot ad vissza."
+"Nem lehet letölteni a `%1$s` fájlt. A HTTP-kérés %2$s állapotkódot ad vissza."
 
 #: php/models/initscript.php
 msgid "Go to the beginning of the game"
@@ -892,12 +896,14 @@ msgid "Download the game"
 msgstr "A játék letöltése"
 
 #: php/models/initscript.php
-msgid "Annotated by {0}"
-msgstr "Megjegyzést írt: {0}"
+#, php-format
+msgid "Annotated by %1$s"
+msgstr "Megjegyzést írt: %1$s"
 
 #: php/models/initscript.php
-msgid "line {0}"
-msgstr "sor {0}"
+#, php-format
+msgid "line %1$s"
+msgstr "sor %1$s"
 
 #: php/models/initscript.php
 msgid "Initial position"

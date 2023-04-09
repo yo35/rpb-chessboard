@@ -267,7 +267,7 @@
 			var row = $(this).closest('tr');
 
 			// Ask for confirmation from the user.
-			var message = <?php echo wp_json_encode( __( 'Delete colorset "{0}"? Press OK to confirm...', 'rpb-chessboard' ) ); ?>;
+			var message = <?php echo wp_json_encode( sprintf( __( 'Delete colorset "%1$s"? Press OK to confirm...', 'rpb-chessboard' ), '{0}' ) ); ?>;
 			message = message.replace('{0}', $('.row-title', row).text());
 			if (!confirm(message)) {
 				return;
@@ -283,7 +283,7 @@
 			var row = $(this).closest('tr');
 
 			// Ask for confirmation from the user.
-			var message = <?php echo wp_json_encode( __( 'Delete pieceset "{0}"? Press OK to confirm...', 'rpb-chessboard' ) ); ?>;
+			var message = <?php echo wp_json_encode( sprintf( __( 'Delete pieceset "%1$s"? Press OK to confirm...', 'rpb-chessboard' ), '{0}' ) ); ?>;
 			message = message.replace('{0}', $('.row-title', row).text());
 			if (!confirm(message)) {
 				return;

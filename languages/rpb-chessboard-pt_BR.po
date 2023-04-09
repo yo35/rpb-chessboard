@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-09 17:00+0200\n"
+"POT-Creation-Date: 2023-04-09 17:22+0200\n"
 "PO-Revision-Date: 2020-07-28 10:32-0300\n"
 "Last-Translator: rewbenio <rewbenio@lancesqi.com.br>\n"
 "Language-Team: Rewbenio Frota\n"
@@ -338,12 +338,14 @@ msgid "Select"
 msgstr "Selecionar"
 
 #: php/templates/adminpage/theming/main.php
-msgid "Delete colorset \"{0}\"? Press OK to confirm..."
-msgstr "Deletar tema de cores \"{0}\"?. Clique OK para confirmar..."
+#, php-format
+msgid "Delete colorset \"%1$s\"? Press OK to confirm..."
+msgstr "Deletar tema de cores \"%1$s\"?. Clique OK para confirmar..."
 
 #: php/templates/adminpage/theming/main.php
-msgid "Delete pieceset \"{0}\"? Press OK to confirm..."
-msgstr "Deletar tema de peças \"{0}\"?. Clique OK para confirmar..."
+#, php-format
+msgid "Delete pieceset \"%1$s\"? Press OK to confirm..."
+msgstr "Deletar tema de peças \"%1$s\"?. Clique OK para confirmar..."
 
 #: php/templates/adminpage/theming/piecesets.php
 msgid "Piecesets"
@@ -795,7 +797,8 @@ msgid "Arrow marker"
 msgstr "Marcadores tipo seta"
 
 #: php/models/initscript.php
-msgid "Marker {0}"
+#, php-format
+msgid "Marker %1$s"
 msgstr ""
 
 #: php/models/initscript.php
@@ -870,7 +873,8 @@ msgid "Error while downloading the PGN file."
 msgstr ""
 
 #: php/models/initscript.php
-msgid "Cannot download `{0}`. HTTP request returns status code {1}."
+#, php-format
+msgid "Cannot download `%1$s`. HTTP request returns status code %2$s."
 msgstr ""
 
 #: php/models/initscript.php
@@ -894,11 +898,13 @@ msgid "Download the game"
 msgstr "Descarregar partida"
 
 #: php/models/initscript.php
-msgid "Annotated by {0}"
-msgstr "Comentado por {0}"
+#, php-format
+msgid "Annotated by %1$s"
+msgstr "Comentado por %1$s"
 
 #: php/models/initscript.php
-msgid "line {0}"
+#, php-format
+msgid "line %1$s"
 msgstr ""
 
 #: php/models/initscript.php

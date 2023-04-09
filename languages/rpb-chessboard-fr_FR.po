@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-09 17:00+0200\n"
+"POT-Creation-Date: 2023-04-09 17:22+0200\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35 -at- melix.net>\n"
 "Language-Team: French\n"
@@ -351,14 +351,16 @@ msgid "Select"
 msgstr "Sélectionner"
 
 #: php/templates/adminpage/theming/main.php
-msgid "Delete colorset \"{0}\"? Press OK to confirm..."
+#, php-format
+msgid "Delete colorset \"%1$s\"? Press OK to confirm..."
 msgstr ""
-"Supprimer le thème de couleurs \"{0}\" ? Cliquer sur OK pour confirmer..."
+"Supprimer le thème de couleurs \"%1$s\" ? Cliquer sur OK pour confirmer..."
 
 #: php/templates/adminpage/theming/main.php
-msgid "Delete pieceset \"{0}\"? Press OK to confirm..."
+#, php-format
+msgid "Delete pieceset \"%1$s\"? Press OK to confirm..."
 msgstr ""
-"Supprimer le thème de pièces \"{0}\" ? Cliquer sur OK pour confirmer..."
+"Supprimer le thème de pièces \"%1$s\" ? Cliquer sur OK pour confirmer..."
 
 #: php/templates/adminpage/theming/piecesets.php
 msgid "Piecesets"
@@ -800,8 +802,9 @@ msgid "Arrow marker"
 msgstr "Flèches"
 
 #: php/models/initscript.php
-msgid "Marker {0}"
-msgstr "Marqueur {0}"
+#, php-format
+msgid "Marker %1$s"
+msgstr "Marqueur %1$s"
 
 #: php/models/initscript.php
 msgid "Reset to the startup position"
@@ -873,8 +876,10 @@ msgid "Error while downloading the PGN file."
 msgstr "Erreur lors du téléchargement du fichier PGN."
 
 #: php/models/initscript.php
-msgid "Cannot download `{0}`. HTTP request returns status code {1}."
-msgstr "Impossible de télécharger `{0}`. La requête HTTP retourne le code {1}."
+#, php-format
+msgid "Cannot download `%1$s`. HTTP request returns status code %2$s."
+msgstr ""
+"Impossible de télécharger `%1$s`. La requête HTTP retourne le code %2$s."
 
 #: php/models/initscript.php
 msgid "Go to the beginning of the game"
@@ -897,12 +902,14 @@ msgid "Download the game"
 msgstr "Télécharger la partie"
 
 #: php/models/initscript.php
-msgid "Annotated by {0}"
-msgstr "Commentée par {0}"
+#, php-format
+msgid "Annotated by %1$s"
+msgstr "Commentée par %1$s"
 
 #: php/models/initscript.php
-msgid "line {0}"
-msgstr "ligne {0}"
+#, php-format
+msgid "line %1$s"
+msgstr "ligne %1$s"
 
 #: php/models/initscript.php
 msgid "Initial position"
