@@ -25,8 +25,6 @@ require_once RPBCHESSBOARD_ABSPATH . 'php/models/block/abstract.php';
 
 /**
  * Model associated to the [pgn][/pgn] shortcode.
- *
- * @deprecated Only for legacy content (old pages/posts that may contain this shortcode).
  */
 class RPBChessboardModelBlockShortcodePGN extends RPBChessboardAbstractModelBlock {
 
@@ -83,72 +81,71 @@ class RPBChessboardModelBlockShortcodePGN extends RPBChessboardAbstractModelBloc
 		$atts       = $this->getAttributes();
 		$widgetArgs = array();
 
+		// Chessgame content
 		if ( $this->isLoadedFromExternalPGNFile() ) {
 			$widgetArgs['url'] = $this->getExternalPGNFile();
 		} else {
 			$widgetArgs['pgn'] = $this->getContent();
 		}
-
-		// Game index
 		$value = isset( $atts['game'] ) ? RPBChessboardHelperValidation::validateInteger( $atts['game'] ) : null;
 		if ( isset( $value ) ) {
 			$widgetArgs['gameIndex'] = $value;
 		}
 
-		// Orientation
+		// Content customization
 		$value = isset( $atts['flip'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['flip'] ) : null;
 		if ( isset( $value ) ) {
 			$widgetArgs['flipped'] = $value;
 		}
-
-		// Square size
-		$value                       = isset( $atts['square_size'] ) ? RPBChessboardHelperValidation::validateInteger( $atts['square_size'] ) : null;
-		$widgetArgs['nboSquareSize'] = isset( $value ) ? $value : $this->mainModel->getDefaultSquareSize( 'nbo' );
-		$widgetArgs['idoSquareSize'] = isset( $value ) ? $value : $this->mainModel->getDefaultSquareSize( 'ido' );
-
-		// Coordinate visible
-		$value                              = isset( $atts['show_coordinates'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_coordinates'] ) : null;
-		$widgetArgs['nboCoordinateVisible'] = isset( $value ) ? $value : $this->mainModel->getDefaultShowCoordinates( 'nbo' );
-		$widgetArgs['idoCoordinateVisible'] = isset( $value ) ? $value : $this->mainModel->getDefaultShowCoordinates( 'ido' );
-
-		// Colorset
-		$value                     = isset( $atts['colorset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['colorset'] ) : null;
-		$widgetArgs['nboColorset'] = isset( $value ) ? $value : $this->mainModel->getDefaultColorset( 'nbo' );
-		$widgetArgs['idoColorset'] = isset( $value ) ? $value : $this->mainModel->getDefaultColorset( 'ido' );
-
-		// Pieceset
-		$value                     = isset( $atts['pieceset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['pieceset'] ) : null;
-		$widgetArgs['nboPieceset'] = isset( $value ) ? $value : $this->mainModel->getDefaultPieceset( 'nbo' );
-		$widgetArgs['idoPieceset'] = isset( $value ) ? $value : $this->mainModel->getDefaultPieceset( 'ido' );
-
-		// Animated
-		$value = isset( $atts['animated'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['animated'] ) : null;
-		if ( ! isset( $value ) && isset( $atts['animation_speed'] ) ) { // FIXME Compatibility with the parameter `animationSpeed` (deprecated since 6.0).
-			$animationSpeed = RPBChessboardHelperValidation::validateInteger( $atts['animation_speed'] );
-			if ( isset( $animationSpeed ) ) {
-				$value = $animationSpeed > 0;
-			}
+		$value = isset( $atts['initial_selection'] ) ? RPBChessboard::validateString( $atts['initial_selection'] ) : null;
+		if ( isset( $value ) ) {
+			$widgetArgs['initialSelection'] = $value;
 		}
-		$widgetArgs['nboAnimated'] = isset( $value ) ? $value : $this->mainModel->getDefaultAnimated();
 
-		// Move arrow
-		$value                             = isset( $atts['show_move_arrow'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_move_arrow'] ) : null;
-		$widgetArgs['nboMoveArrowVisible'] = isset( $value ) ? $value : $this->mainModel->getDefaultShowMoveArrow();
-		$widgetArgs['nboMoveArrowColor']   = $this->mainModel->getDefaultMoveArrowColor();
-
-		// Piece symbols
-		$value                      = isset( $atts['piece_symbols'] ) ? RPBChessboardHelperValidation::validatePieceSymbols( $atts['piece_symbols'] ) : null;
-		$widgetArgs['pieceSymbols'] = isset( $value ) ? $value : $this->mainModel->getDefaultPieceSymbols();
-
-		// Navigation board
-		$value                         = isset( $atts['navigation_board'] ) ? RPBChessboardHelperValidation::validateNavigationBoard( $atts['navigation_board'] ) : null;
-		$widgetArgs['navigationBoard'] = isset( $value ) ? $value : $this->mainModel->getDefaultNavigationBoard();
-
-		// Navigation toolbar
+		// Chessgame aspect
+		$value                            = isset( $atts['piece_symbols'] ) ? RPBChessboardHelperValidation::validatePieceSymbols( $atts['piece_symbols'] ) : null;
+		$widgetArgs['pieceSymbols']       = isset( $value ) ? $value : $this->mainModel->getDefaultPieceSymbols();
+		$value                            = isset( $atts['navigation_board'] ) ? RPBChessboardHelperValidation::validateNavigationBoard( $atts['navigation_board'] ) : null;
+		$widgetArgs['navigationBoard']    = isset( $value ) ? $value : $this->mainModel->getDefaultNavigationBoard();
 		$value                            = isset( $atts['show_flip_button'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_flip_button'] ) : null;
 		$widgetArgs['withFlipButton']     = isset( $value ) ? $value : $this->mainModel->getDefaultShowFlipButton();
 		$value                            = isset( $atts['show_download_button'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_download_button'] ) : null;
 		$widgetArgs['withDownloadButton'] = isset( $value ) ? $value : $this->mainModel->getDefaultShowDownloadButton();
+
+		// Legacy parameters
+		$squareSize      = isset( $atts['square_size'] ) ? RPBChessboardHelperValidation::validateInteger( $atts['square_size'] ) : null;
+		$showCoordinates = isset( $atts['show_coordinates'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_coordinates'] ) : null;
+		$colorset        = isset( $atts['colorset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['colorset'] ) : null;
+		$pieceset        = isset( $atts['pieceset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['pieceset'] ) : null;
+		$animated        = isset( $atts['animated'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['animated'] ) : null;
+		$showMoveArrow   = isset( $atts['show_move_arrow'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_move_arrow'] ) : null;
+		$moveArrowColor  = isset( $atts['move_arrow_color'] ) ? RPBChessboardHelperValidation::validateSymbolicColor( $atts['move_arrow_color'] ) : null;
+
+		// Specific options for the navigation board.
+		$value                              = isset( $atts['nav_square_size'] ) ? RPBChessboardHelperValidation::validateInteger( $atts['nav_square_size'] ) : $squareSize;
+		$widgetArgs['nboSquareSize']        = isset( $value ) ? $value : $this->mainModel->getDefaultSquareSize( 'nbo' );
+		$value                              = isset( $atts['nav_show_coordinates'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['nav_show_coordinates'] ) : $showCoordinates;
+		$widgetArgs['nboCoordinateVisible'] = isset( $value ) ? $value : $this->mainModel->getDefaultShowCoordinates( 'nbo' );
+		$value                              = isset( $atts['nav_colorset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['nav_colorset'] ) : $colorset;
+		$widgetArgs['nboColorset']          = isset( $value ) ? $value : $this->mainModel->getDefaultColorset( 'nbo' );
+		$value                              = isset( $atts['nav_pieceset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['nav_pieceset'] ) : $pieceset;
+		$widgetArgs['nboPieceset']          = isset( $value ) ? $value : $this->mainModel->getDefaultPieceset( 'nbo' );
+		$value                              = isset( $atts['nav_animated'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['nav_animated'] ) : $animated;
+		$widgetArgs['nboAnimated']          = isset( $value ) ? $value : $this->mainModel->getDefaultAnimated();
+		$value                              = isset( $atts['nav_show_move_arrow'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['nav_show_move_arrow'] ) : $showMoveArrow;
+		$widgetArgs['nboMoveArrowVisible']  = isset( $value ) ? $value : $this->mainModel->getDefaultShowMoveArrow();
+		$value                              = isset( $atts['nav_move_arrow_color'] ) ? RPBChessboardHelperValidation::validateSymbolicColor( $atts['nav_move_arrow_color'] ) : $moveArrowColor;
+		$widgetArgs['nboMoveArrowColor']    = $this->mainModel->getDefaultMoveArrowColor();
+
+		// Specific options for the diagrams.
+		$value                              = isset( $atts['diag_square_size'] ) ? RPBChessboardHelperValidation::validateInteger( $atts['diag_square_size'] ) : $squareSize;
+		$widgetArgs['idoSquareSize']        = isset( $value ) ? $value : $this->mainModel->getDefaultSquareSize( 'ido' );
+		$value                              = isset( $atts['diag_show_coordinates'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['diag_show_coordinates'] ) : $showCoordinates;
+		$widgetArgs['idoCoordinateVisible'] = isset( $value ) ? $value : $this->mainModel->getDefaultShowCoordinates( 'ido' );
+		$value                              = isset( $atts['diag_colorset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['diag_colorset'] ) : $colorset;
+		$widgetArgs['idoColorset']          = isset( $value ) ? $value : $this->mainModel->getDefaultColorset( 'ido' );
+		$value                              = isset( $atts['diag_pieceset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['diag_pieceset'] ) : $pieceset;
+		$widgetArgs['idoPieceset']          = isset( $value ) ? $value : $this->mainModel->getDefaultPieceset( 'ido' );
 
 		return $widgetArgs;
 	}

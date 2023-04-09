@@ -25,8 +25,6 @@ require_once RPBCHESSBOARD_ABSPATH . 'php/models/block/abstract.php';
 
 /**
  * Model associated to the [fen][/fen] shortcode.
- *
- * @deprecated Only for legacy content (old pages/posts that may contain this shortcode).
  */
 class RPBChessboardModelBlockShortcodeFEN extends RPBChessboardAbstractModelBlock {
 

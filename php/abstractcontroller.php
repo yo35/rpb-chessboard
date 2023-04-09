@@ -149,8 +149,6 @@ abstract class RPBChessboardAbstractController {
 
 	/**
 	 * Shortcode registration entry point.
-	 *
-	 * @deprecated Only for legacy content (old pages/posts that may contain the shortcodes previously used by the plugin).
 	 */
 	public function registerShortcodes() {
 
@@ -161,7 +159,7 @@ abstract class RPBChessboardAbstractController {
 		// Register the shortcodes
 		add_shortcode( $fenShortcode, array( $this, 'callbackShortcodeFEN' ) );
 		add_shortcode( $pgnShortcode, array( $this, 'callbackShortcodePGN' ) );
-		add_shortcode( 'pgndiagram', array( __CLASS__, 'callbackShortcodePGNDiagram' ) );
+		add_shortcode( 'pgndiagram', array( __CLASS__, 'callbackShortcodePGNDiagram' ) ); // FIXME `[pgndiagram]` deprecated since 5.3.
 
 		// Flag the shortcodes as "non-texturized" to avoid having WP transform their content.
 		add_filter( 'no_texturize_shortcodes', array( $this, 'registerNoTexturizeShortcodes' ) );
@@ -174,33 +172,21 @@ abstract class RPBChessboardAbstractController {
 	}
 
 
-	/**
-	 * @deprecated See {@link #registerShortcodes}
-	 */
 	final public function callbackShortcodeFEN( $atts, $content ) {
 		return $this->runShortcode( 'FEN', false, $atts, $content );
 	}
 
 
-	/**
-	 * @deprecated See {@link #registerShortcodes}
-	 */
 	final public function callbackShortcodePGN( $atts, $content ) {
 		return $this->runShortcode( 'PGN', true, $atts, $content );
 	}
 
 
-	/**
-	 * @deprecated See {@link #registerShortcodes}
-	 */
 	public static function callbackShortcodePGNDiagram( $atts, $content ) {
 		return '[#]';
 	}
 
 
-	/**
-	 * @deprecated See {@link #registerShortcodes}
-	 */
 	private function runShortcode( $shortcodeName, $lowLevel, $atts, $content ) {
 
 		// The content of low-level shortcodes is supposed to have been saved in `$this->lowLevelShortcodeContent` beforehand.
@@ -218,8 +204,6 @@ abstract class RPBChessboardAbstractController {
 
 	/**
 	 * Register the no-texturize shortcodes defined by the plugin.
-	 *
-	 * @deprecated See {@link #registerShortcodes}
 	 */
 	final public function registerNoTexturizeShortcodes( $shortcodes ) {
 		$mainModel    = $this->getMainModel();
@@ -232,8 +216,6 @@ abstract class RPBChessboardAbstractController {
 	/**
 	 * Replace the content of the low-level shortcodes with their respective MD5 digest,
 	 * saving the original content in the associative array `$this->lowLevelShortcodeContent`.
-	 *
-	 * @deprecated See {@link #registerShortcodes}
 	 */
 	final public function preprocessLowLevelShortcodes( $text ) {
 		$pgnShortcode = $this->getMainModel()->getPGNShortcode();
@@ -244,8 +226,6 @@ abstract class RPBChessboardAbstractController {
 
 	/**
 	 * Replacement function for the low-level shortcodes.
-	 *
-	 * @deprecated See {@link #registerShortcodes}
 	 */
 	private function preprocessLowLevelShortcode( $m ) {
 		// Allow the [[foo]...[/foo]] syntax for escaping a tag.
