@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-23 20:33+0200\n"
+"POT-Creation-Date: 2023-04-09 17:00+0200\n"
 "PO-Revision-Date: 2022-11-09 22:46+0000\n"
 "Last-Translator: ╪ lovag SZVETLIK Atilla\n"
 "Language-Team: Magyar\n"
@@ -17,15 +17,16 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: php/templates/adminpage/compatibilitysettings/chessplugins.php
-msgid "Compatibility with other chess plugins"
+#, fuzzy
+msgid "Classic post/page editor - Compatibility with other chess plugins"
 msgstr "Kompatibilitás más sakk bővítményekkel"
 
 #: php/templates/adminpage/compatibilitysettings/chessplugins.php
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"The old versions of the RPB Chessboard plugin (before 7.0.0) used to rely on "
-"%3$sWordPress shortcodes%4$s to manage chess diagrams and chess games. Hence,"
-" by default, %1$s[fen][/fen]%2$s is reserved for chess diagrams, and "
+"In the classic post/page editor, the RPB Chessboard plugin relies on "
+"%3$sWordPress shortcodes%4$s to manage chess diagrams and chess games. "
+"Hence, by default, %1$s[fen][/fen]%2$s is reserved for chess diagrams, and "
 "%1$s[pgn][/pgn]%2$s for chess games. However, this behavior may cause "
 "conflicts with other WordPress plugins (typically chess plugins) that use "
 "the same shortcodes.These compatibility settings are provided to avoid those "
@@ -41,10 +42,10 @@ msgstr ""
 "szolgálnak."
 
 #: php/templates/adminpage/compatibilitysettings/chessplugins.php
+#, fuzzy
 msgid ""
-"If you've never used the RPB Chessboard plugin prior to its version 7.0.0, "
-"or if all your chess games and chess diagrams have been created with the "
-"corresponding blocks in the Gutenberg page/post editor, these settings have "
+"If all your chess games and chess diagrams have been created with the "
+"corresponding blocks in the Gutenberg post/page editor, these settings have "
 "no effect on your website (the chess game and chess diagram blocks do not "
 "rely on WordPress shortcodes)."
 msgstr ""
@@ -59,10 +60,11 @@ msgid "Compatibility mode for the FEN diagram shortcode"
 msgstr "A FEN diagram rövid kódjának kompatibilitási módja"
 
 #: php/templates/adminpage/compatibilitysettings/chessplugins.php
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"Activating this option makes RPB Chessboard use %1$s[fen_compat][/fen_compat]"
-"%2$s instead of %1$s[fen][/fen]%2$s for legacy FEN diagrams."
+"Activating this option makes RPB Chessboard use %1$s[fen_compat][/"
+"fen_compat]%2$s instead of %1$s[fen][/fen]%2$s for FEN diagrams in the "
+"classic editor."
 msgstr ""
 "Az opció aktiválásával az RPB Chessboard a %1$s[fen_compat][/fen_compat]%2$s "
 "értéket használja a %1$s[fen][/fen]%2$s helyett a régi FEN diagramokhoz."
@@ -72,10 +74,11 @@ msgid "Compatibility mode for the PGN game shortcode"
 msgstr "Kompatibilitási mód a PGN játék rövid kódjához"
 
 #: php/templates/adminpage/compatibilitysettings/chessplugins.php
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"Activating this option makes RPB Chessboard use %1$s[pgn_compat][/pgn_compat]"
-"%2$s instead of %1$s[pgn][/pgn]%2$s for legacy PGN games."
+"Activating this option makes RPB Chessboard use %1$s[pgn_compat][/"
+"pgn_compat]%2$s instead of %1$s[pgn][/pgn]%2$s for PGN games in the classic "
+"editor."
 msgstr ""
 "Az opció aktiválásával az RPB Chessboard a %1$s[pgn_compat][/pgn_compat]%2$s "
 "-t használja a %1$s[pgn][/pgn]%2$s helyett a régi PGN játékokhoz."
@@ -91,15 +94,15 @@ msgid ""
 "reduce its impact on performance of your website as much as possible. Still, "
 "this approach may fail in non-standard situations: for example, if the the "
 "theme makes use of AJAX queries to render posts/pages, if you try to use "
-"chess diagrams or chess games in post/page comments, in bbPress forums, etc.."
-". Disable this option to avoid issues if you are in those situations."
+"chess diagrams or chess games in post/page comments, in bbPress forums, "
+"etc... Disable this option to avoid issues if you are in those situations."
 msgstr ""
 "Alapértelmezés szerint az RPB Chessboard beépülő modul megpróbálja elkerülni "
 "CSS- és JavaScript-fájljainak betöltését olyan oldalakon, amelyeken nincs "
 "sakkdiagram vagy játéktartalom, hogy a lehető legjobban csökkentse a webhely "
-"teljesítményére gyakorolt ​​hatását. Mégis, ez a megközelítés kudarcot "
-"vallhat nem szabványos helyzetekben: például, ha a téma AJAX lekérdezéseket "
-"használ a bejegyzések/oldalak megjelenítéséhez, ha sakkdiagramokat vagy "
+"teljesítményére gyakorolt ​​hatását. Mégis, ez a megközelítés kudarcot vallhat "
+"nem szabványos helyzetekben: például, ha a téma AJAX lekérdezéseket használ "
+"a bejegyzések/oldalak megjelenítéséhez, ha sakkdiagramokat vagy "
 "sakkjátékokat próbál használni a bejegyzések/oldalak megjegyzéseiben, a "
 "bbPress fórumokon, stb... Tiltsa le ezt a lehetőséget, hogy elkerülje a "
 "problémákat, ha ilyen helyzetekben van."
@@ -116,23 +119,20 @@ msgstr ""
 "Tiltsa le ezt az opciót ha a FEN diagramok vagy a PGN játékok nem jelennek "
 "meg megfelelően az Ön webhelyén."
 
-#: php/templates/adminpage/chessdiagramsettings/alignment.php 
+#: php/templates/adminpage/chessdiagramsettings/alignment.php
 #: php/models/initscript.php
 msgid "Diagram alignment"
 msgstr "Játszmalap (diagram) igazítás"
 
-#: php/templates/adminpage/chessdiagramsettings/alignment.php 
-#: php/templates/adminpage/chessdiagramsettings/alignment.php 
+#: php/templates/adminpage/chessdiagramsettings/alignment.php
 #: php/models/initscript.php
 msgid "Centered"
 msgstr "Középre állított"
 
-#: php/templates/adminpage/chessdiagramsettings/alignment.php 
 #: php/templates/adminpage/chessdiagramsettings/alignment.php
 msgid "On the left of the text"
 msgstr "A szöveg bal oldalán"
 
-#: php/templates/adminpage/chessdiagramsettings/alignment.php 
 #: php/templates/adminpage/chessdiagramsettings/alignment.php
 msgid "On the right of the text"
 msgstr "A szöveg jobb oldalán"
@@ -146,12 +146,12 @@ msgstr ""
 "Ez az oldal a %1$s blokkal beillesztett diagramokra vonatkozó "
 "alapértelmezett beállításokat határozza meg."
 
-#: php/templates/adminpage/chessdiagramsettings/main.php 
+#: php/templates/adminpage/chessdiagramsettings/main.php
 #: php/models/initscript.php
 msgid "Chess diagram"
 msgstr "Játszmalap (diagram)"
 
-#: php/templates/adminpage/chessdiagramsettings/main.php 
+#: php/templates/adminpage/chessdiagramsettings/main.php
 #: php/templates/adminpage/chessgamesettings/main.php
 msgid ""
 "It is possible to override these settings on each individual block, using "
@@ -160,7 +160,7 @@ msgstr ""
 "Ezeket a beállításokat minden egyes blokkon felülírhatja a blokk jobb oldali "
 "paneljén található opciók használatával."
 
-#: php/templates/adminpage/chessdiagramsettings/aspect.php 
+#: php/templates/adminpage/chessdiagramsettings/aspect.php
 #: php/models/initscript.php
 msgid "Chessboard aspect"
 msgstr "Sakktábla szempont"
@@ -364,37 +364,31 @@ msgstr "Figurakészletek"
 msgid "Add new pieceset"
 msgstr "Új figurakészlet hozzáadása"
 
-#: php/templates/adminpage/theming/piecesets.php 
-#: php/templates/adminpage/theming/piecesets.php 
-#: php/templates/adminpage/theming/piecesetedition.php 
-#: php/templates/adminpage/theming/colorsetedition.php 
-#: php/templates/adminpage/theming/colorsets.php 
+#: php/templates/adminpage/theming/piecesets.php
+#: php/templates/adminpage/theming/piecesetedition.php
+#: php/templates/adminpage/theming/colorsetedition.php
 #: php/templates/adminpage/theming/colorsets.php
 msgid "Name"
 msgstr "Név"
 
-#: php/templates/adminpage/theming/piecesets.php 
-#: php/templates/adminpage/theming/piecesets.php 
-#: php/templates/adminpage/theming/piecesetedition.php 
-#: php/templates/adminpage/theming/colorsetedition.php 
-#: php/templates/adminpage/theming/colorsets.php 
+#: php/templates/adminpage/theming/piecesets.php
+#: php/templates/adminpage/theming/piecesetedition.php
+#: php/templates/adminpage/theming/colorsetedition.php
 #: php/templates/adminpage/theming/colorsets.php
 msgid "Slug"
 msgstr "Címke"
 
-#: php/templates/adminpage/theming/piecesets.php 
-#: php/templates/adminpage/theming/piecesets.php 
-#: php/templates/adminpage/theming/colorsets.php 
+#: php/templates/adminpage/theming/piecesets.php
 #: php/templates/adminpage/theming/colorsets.php
 msgid "Preview"
 msgstr "Előnézet"
 
-#: php/templates/adminpage/theming/piecesets.php 
+#: php/templates/adminpage/theming/piecesets.php
 #: php/templates/adminpage/theming/colorsets.php
 msgid "Edit"
 msgstr "Szerkesztés"
 
-#: php/templates/adminpage/theming/piecesets.php 
+#: php/templates/adminpage/theming/piecesets.php
 #: php/templates/adminpage/theming/colorsets.php
 msgid "Delete"
 msgstr "Töröl"
@@ -411,14 +405,14 @@ msgstr "Figurakészlet szerkesztése"
 msgid "Create pieceset"
 msgstr "Készítsen figurakészletet"
 
-#: php/templates/adminpage/theming/piecesetedition.php 
-#: php/templates/adminpage/theming/colorsetedition.php 
+#: php/templates/adminpage/theming/piecesetedition.php
+#: php/templates/adminpage/theming/colorsetedition.php
 #: php/templates/adminpage/generic/form.php
 msgid "Save changes"
 msgstr "Változtatások mentése"
 
-#: php/templates/adminpage/theming/piecesetedition.php 
-#: php/templates/adminpage/theming/colorsetedition.php 
+#: php/templates/adminpage/theming/piecesetedition.php
+#: php/templates/adminpage/theming/colorsetedition.php
 #: php/templates/adminpage/generic/form.php
 msgid "Cancel"
 msgstr "Megszüntet"
@@ -467,7 +461,7 @@ msgstr "Színkészletek"
 msgid "Add new colorset"
 msgstr "Új színkészlet hozzáadása"
 
-#: php/templates/adminpage/chessgamesettings/diagrams.php 
+#: php/templates/adminpage/chessgamesettings/diagrams.php
 #: php/models/initscript.php
 msgid "Diagrams"
 msgstr "Diagramok"
@@ -475,33 +469,33 @@ msgstr "Diagramok"
 #: php/templates/adminpage/chessgamesettings/diagrams.php
 #, php-format
 msgid ""
-"These settings affects the diagrams inserted with token %1$s in PGN comments."
-" See %2$sdocumentation%3$s for an example of such diagram."
+"These settings affects the diagrams inserted with token %1$s in PGN "
+"comments. See %2$sdocumentation%3$s for an example of such diagram."
 msgstr ""
 "Ezek a beállítások a %1$s tokennel beszúrt diagramokat érintik a PGN "
 "megjegyzésekben. Lásd a %2$sdocumentation%3$s példát egy ilyen diagramra."
 
-#: php/templates/adminpage/chessgamesettings/piecesymbols.php 
+#: php/templates/adminpage/chessgamesettings/piecesymbols.php
 #: php/models/initscript.php
 msgid "Piece symbols"
 msgstr "Figurák jelei"
 
-#: php/templates/adminpage/chessgamesettings/piecesymbols.php 
+#: php/templates/adminpage/chessgamesettings/piecesymbols.php
 #: php/models/initscript.php
 msgid "English initials"
 msgstr "Angol kezdőbetűk"
 
-#: php/templates/adminpage/chessgamesettings/piecesymbols.php 
+#: php/templates/adminpage/chessgamesettings/piecesymbols.php
 #: php/models/initscript.php
 msgid "Localized initials"
 msgstr "Lokalizált kezdőbetűk (HU)"
 
-#: php/templates/adminpage/chessgamesettings/piecesymbols.php 
+#: php/templates/adminpage/chessgamesettings/piecesymbols.php
 #: php/models/initscript.php
 msgid "Figurines"
 msgstr "Figurák"
 
-#: php/templates/adminpage/chessgamesettings/piecesymbols.php 
+#: php/templates/adminpage/chessgamesettings/piecesymbols.php
 #: php/models/initscript.php
 msgid "Custom"
 msgstr "Egyedi"
@@ -518,37 +512,37 @@ msgstr ""
 "oldalakra."
 
 #. King symbol
-#: php/templates/adminpage/chessgamesettings/piecesymbols.php 
+#: php/templates/adminpage/chessgamesettings/piecesymbols.php
 #: php/models/initscript.php php/models/adminsubpage/chessgamesettings.php
 msgid "K"
 msgstr "K"
 
 #. Queen symbol
-#: php/templates/adminpage/chessgamesettings/piecesymbols.php 
+#: php/templates/adminpage/chessgamesettings/piecesymbols.php
 #: php/models/initscript.php php/models/adminsubpage/chessgamesettings.php
 msgid "Q"
 msgstr "V"
 
 #. Rook symbol
-#: php/templates/adminpage/chessgamesettings/piecesymbols.php 
+#: php/templates/adminpage/chessgamesettings/piecesymbols.php
 #: php/models/initscript.php php/models/adminsubpage/chessgamesettings.php
 msgid "R"
 msgstr "B"
 
 #. Bishop symbol
-#: php/templates/adminpage/chessgamesettings/piecesymbols.php 
+#: php/templates/adminpage/chessgamesettings/piecesymbols.php
 #: php/models/initscript.php php/models/adminsubpage/chessgamesettings.php
 msgid "B"
 msgstr "F"
 
 #. Knight symbol
-#: php/templates/adminpage/chessgamesettings/piecesymbols.php 
+#: php/templates/adminpage/chessgamesettings/piecesymbols.php
 #: php/models/initscript.php php/models/adminsubpage/chessgamesettings.php
 msgid "N"
 msgstr "H"
 
 #. Pawn symbol
-#: php/templates/adminpage/chessgamesettings/piecesymbols.php 
+#: php/templates/adminpage/chessgamesettings/piecesymbols.php
 #: php/models/initscript.php php/models/adminsubpage/chessgamesettings.php
 msgid "P"
 msgstr "Gy"
@@ -598,42 +592,34 @@ msgstr ""
 msgid "Position of the navigation board"
 msgstr "A sakktábla elhelyezkedése"
 
-#: php/templates/adminpage/chessgamesettings/navigationboard.php 
 #: php/templates/adminpage/chessgamesettings/navigationboard.php
 msgid "No navigation board"
 msgstr "Nincs játszmalejegyzési tábla"
 
-#: php/templates/adminpage/chessgamesettings/navigationboard.php 
 #: php/templates/adminpage/chessgamesettings/navigationboard.php
 msgid "In a popup frame"
 msgstr "Egy felugró keretben"
 
-#: php/templates/adminpage/chessgamesettings/navigationboard.php 
 #: php/templates/adminpage/chessgamesettings/navigationboard.php
 msgid "Above the game headers and the move list"
 msgstr "A játékfejlécek és a lépéslista felett"
 
-#: php/templates/adminpage/chessgamesettings/navigationboard.php 
 #: php/templates/adminpage/chessgamesettings/navigationboard.php
 msgid "Below the move list"
 msgstr "A lépéslista alatt"
 
-#: php/templates/adminpage/chessgamesettings/navigationboard.php 
 #: php/templates/adminpage/chessgamesettings/navigationboard.php
 msgid "On the left of the move list"
 msgstr "A lépéslista bal oldalán"
 
-#: php/templates/adminpage/chessgamesettings/navigationboard.php 
 #: php/templates/adminpage/chessgamesettings/navigationboard.php
 msgid "On the right of the move list"
 msgstr "A lépéslista jobb oldalán"
 
-#: php/templates/adminpage/chessgamesettings/navigationboard.php 
 #: php/templates/adminpage/chessgamesettings/navigationboard.php
 msgid "On the left, with scrollable move list"
 msgstr "Bal oldalon görgethető lépéslistával"
 
-#: php/templates/adminpage/chessgamesettings/navigationboard.php 
 #: php/templates/adminpage/chessgamesettings/navigationboard.php
 msgid "On the right, with scrollable move list"
 msgstr "Jobb oldalon görgethető lépéslistával"
@@ -776,7 +762,6 @@ msgstr "Adjunk hozzá sötét királyt"
 msgid "Toggle turn"
 msgstr "Kapcsoló"
 
-#: php/models/initscript.php php/models/initscript.php 
 #: php/models/initscript.php
 msgid "Flip the board"
 msgstr "Fordítsa meg a táblát"
@@ -845,7 +830,7 @@ msgstr "Színkészlet"
 msgid "Pieceset"
 msgstr "Figurakészlet"
 
-#: php/models/initscript.php php/models/initscript.php
+#: php/models/initscript.php
 msgid "Use default"
 msgstr "Alapértelmezett használása"
 
@@ -853,19 +838,19 @@ msgstr "Alapértelmezett használása"
 msgid "Current edition mode"
 msgstr "Jelenlegi kiadás mód"
 
-#: php/models/initscript.php php/models/initscript.php
+#: php/models/initscript.php
 msgid "Float on left"
 msgstr "Lebegjen a bal oldalon"
 
-#: php/models/initscript.php php/models/initscript.php
+#: php/models/initscript.php
 msgid "Float on right"
 msgstr "Lebegjen a jobb oldalon"
 
-#: php/models/initscript.php php/models/initscript.php
+#: php/models/initscript.php
 msgid "Hidden"
 msgstr "Rejtett"
 
-#: php/models/initscript.php php/models/initscript.php
+#: php/models/initscript.php
 msgid "Visible"
 msgstr "Látható"
 
