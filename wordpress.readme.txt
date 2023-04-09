@@ -150,9 +150,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 * Minor fixes.
 
 = 7.0.0 (May 16, 2022) =
-* Add chess game block with its editor to the Gutenberg-based WordPress page/post editor.
+* Add chess game block with its editor to the Gutenberg-based WordPress post/page editor.
 * Significant code refactoring of the chess game component, which is now released as a standalone NPM library (kokopu-react).
-* The `[fen][/fen]` and `[pgn][/pgn]` shortcodes are now considered as deprecated: from now on, it is advised to use the chess diagram and chess game blocks to insert chess content in pages and posts.
+* The `[fen][/fen]` and `[pgn][/pgn]` shortcodes are now considered as deprecated: from now on, it is advised to use the chess diagram and chess game blocks to insert chess content in posts and pages.
 * Remove the embedded help: documentation is now available on https://rpb-chessboard.yo35.org/.
 
 = 6.4.1 (January 27, 2022) =
@@ -185,8 +185,8 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 * Fix plugin crash encountered with old PHP versions (before PHP 7.3).
 
 = 6.0.0 (May 30, 2021) =
-* Add chess diagram block with its editor to the Gutenberg-based WordPress page/post editor.
-* Drop support for the old TinyMCE-based WordPress page/post editor.
+* Add chess diagram block with its editor to the Gutenberg-based WordPress post/page editor.
+* Drop support for the old TinyMCE-based WordPress post/page editor.
 * Significant code refactoring of the chess diagram widget, which is now released as a standalone NPM library (kokopu-react).
 
 = 5.9.3 (May 17, 2021) =
@@ -270,14 +270,14 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 * Code cleanup.
 
 = 5.4.3 (October 27, 2018) =
-* Fix (again) page/post rendering for Gutenberg (see [#137](https://github.com/yo35/rpb-chessboard/issues/137)).
+* Fix (again) post/page rendering for Gutenberg (see [#137](https://github.com/yo35/rpb-chessboard/issues/137)).
 
 = 5.4.2 (August 25, 2018) =
 * Fix scroll area sizing in hidden chessgames (see [#141](https://github.com/yo35/rpb-chessboard/issues/141)).
 
 = 5.4.1 (August 12, 2018) =
 * Fix animation issue occurring on small-screen devices (see [#136](https://github.com/yo35/rpb-chessboard/issues/136)).
-* Fix page/post rendering for Gutenberg (see [#137](https://github.com/yo35/rpb-chessboard/issues/137)).
+* Fix post/page rendering for Gutenberg (see [#137](https://github.com/yo35/rpb-chessboard/issues/137)).
 * Fix diagrams not working in Chess960 games (see [#138](https://github.com/yo35/rpb-chessboard/issues/138)).
 
 = 5.4 (July 22, 2018) =

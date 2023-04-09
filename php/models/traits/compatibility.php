@@ -83,7 +83,7 @@ trait RPBChessboardTraitCompatibility {
 
 	/**
 	 * Whether lazy-loading is enabled for CSS and JS. When enabled, plugin-specific CSS and JS files are enqueued only when a plugin shortcode
-	 * is encountered in a page/post.
+	 * is encountered in a post/page.
 	 *
 	 * @return boolean
 	 */
