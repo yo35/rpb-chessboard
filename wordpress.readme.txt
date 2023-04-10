@@ -85,6 +85,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 7.5.1 (April 10, 2023) =
+* Fix comment parsing issue (see [#260](https://github.com/yo35/rpb-chessboard/issues/260)).
+
 = 7.5.0 (April 9, 2023) =
 * The `[fen][/fen]` and `[pgn][/pgn]` shortcodes are no longer considered as deprecated (several people are still using the classic post/page editor).
 * Add shortcode attribute `initial_selection` to `[pgn][/pgn]` to customize of the initial move (see [#259](https://github.com/yo35/rpb-chessboard/issues/259)).
