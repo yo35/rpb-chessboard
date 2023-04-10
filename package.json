@@ -5,7 +5,7 @@
 		"@wordpress/blocks": "^12.7.0",
 		"@wordpress/components": "^23.7.0",
 		"@wordpress/icons": "^9.21.0",
-		"kokopu": "^4.6.0",
+		"kokopu": "^4.6.1",
 		"kokopu-react": "^2.0.0",
 		"prop-types": "^15.8.1"
 	},
