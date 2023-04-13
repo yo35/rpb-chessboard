@@ -85,6 +85,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 7.5.3 (April 13, 2023) =
+* Minor fixes.
+
 = 7.5.2 (April 13, 2023) =
 * Minor fixes.
 
