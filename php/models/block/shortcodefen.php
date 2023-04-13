@@ -36,9 +36,10 @@ class RPBChessboardModelBlockShortcodeFEN extends RPBChessboardAbstractModelBloc
 	public function getWidgetArgs() {
 
 		$atts       = $this->getAttributes();
-		$widgetArgs = array( 'position' => $this->getContent() );
+		$widgetArgs = array();
 
-		// Markers
+		// Chessboard content
+		$widgetArgs['position'] = $this->getContent();
 		if ( isset( $atts['csl'] ) && is_string( $atts['csl'] ) ) {
 			$widgetArgs['squareMarkers'] = $atts['csl'];
 		}
@@ -49,27 +50,21 @@ class RPBChessboardModelBlockShortcodeFEN extends RPBChessboardAbstractModelBloc
 			$widgetArgs['textMarkers'] = $atts['ctl'];
 		}
 
-		// Orientation
+		// Content customization
 		$value = isset( $atts['flip'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['flip'] ) : null;
 		if ( isset( $value ) ) {
 			$widgetArgs['flipped'] = $value;
 		}
 
-		// Square size
-		$value                    = isset( $atts['square_size'] ) ? RPBChessboardHelperValidation::validateInteger( $atts['square_size'] ) : null;
-		$widgetArgs['squareSize'] = isset( $value ) ? $value : $this->mainModel->getDefaultSquareSize( 'sdo' );
-
-		// Coordinate visible
+		// Chessboard aspect
+		$value                           = isset( $atts['square_size'] ) ? RPBChessboardHelperValidation::validateInteger( $atts['square_size'] ) : null;
+		$widgetArgs['squareSize']        = isset( $value ) ? $value : $this->mainModel->getDefaultSquareSize( 'sdo' );
 		$value                           = isset( $atts['show_coordinates'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_coordinates'] ) : null;
 		$widgetArgs['coordinateVisible'] = isset( $value ) ? $value : $this->mainModel->getDefaultShowCoordinates( 'sdo' );
-
-		// Colorset
-		$value                  = isset( $atts['colorset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['colorset'] ) : null;
-		$widgetArgs['colorset'] = isset( $value ) ? $value : $this->mainModel->getDefaultColorset( 'sdo' );
-
-		// Pieceset
-		$value                  = isset( $atts['pieceset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['pieceset'] ) : null;
-		$widgetArgs['pieceset'] = isset( $value ) ? $value : $this->mainModel->getDefaultPieceset( 'sdo' );
+		$value                           = isset( $atts['colorset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['colorset'] ) : null;
+		$widgetArgs['colorset']          = isset( $value ) ? $value : $this->mainModel->getDefaultColorset( 'sdo' );
+		$value                           = isset( $atts['pieceset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['pieceset'] ) : null;
+		$widgetArgs['pieceset']          = isset( $value ) ? $value : $this->mainModel->getDefaultPieceset( 'sdo' );
 
 		return $widgetArgs;
 	}

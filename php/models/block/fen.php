@@ -49,6 +49,8 @@ class RPBChessboardModelBlockFEN extends RPBChessboardAbstractModelBlock {
 		if ( isset( $atts['textMarkers'] ) ) {
 			$widgetArgs['textMarkers'] = $atts['textMarkers'];
 		}
+
+		// Content customization
 		if ( isset( $atts['flipped'] ) ) {
 			$widgetArgs['flipped'] = $atts['flipped'];
 		}
