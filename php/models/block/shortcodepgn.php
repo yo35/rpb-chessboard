@@ -135,7 +135,7 @@ class RPBChessboardModelBlockShortcodePGN extends RPBChessboardAbstractModelBloc
 		$value                              = isset( $atts['nav_show_move_arrow'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['nav_show_move_arrow'] ) : $showMoveArrow;
 		$widgetArgs['nboMoveArrowVisible']  = isset( $value ) ? $value : $this->mainModel->getDefaultShowMoveArrow();
 		$value                              = isset( $atts['nav_move_arrow_color'] ) ? RPBChessboardHelperValidation::validateSymbolicColor( $atts['nav_move_arrow_color'] ) : $moveArrowColor;
-		$widgetArgs['nboMoveArrowColor']    = $this->mainModel->getDefaultMoveArrowColor();
+		$widgetArgs['nboMoveArrowColor']    = isset( $value ) ? $value : $this->mainModel->getDefaultMoveArrowColor();
 
 		// Specific options for the diagrams.
 		$value                              = isset( $atts['diag_square_size'] ) ? RPBChessboardHelperValidation::validateInteger( $atts['diag_square_size'] ) : $squareSize;
