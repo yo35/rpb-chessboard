@@ -117,9 +117,6 @@ class RPBChessboardModelBlockShortcodePGN extends RPBChessboardAbstractModelBloc
 		$showCoordinates = isset( $atts['show_coordinates'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_coordinates'] ) : null;
 		$colorset        = isset( $atts['colorset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['colorset'] ) : null;
 		$pieceset        = isset( $atts['pieceset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['pieceset'] ) : null;
-		$animated        = isset( $atts['animated'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['animated'] ) : null;
-		$showMoveArrow   = isset( $atts['show_move_arrow'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_move_arrow'] ) : null;
-		$moveArrowColor  = isset( $atts['move_arrow_color'] ) ? RPBChessboardHelperValidation::validateSymbolicColor( $atts['move_arrow_color'] ) : null;
 
 		// Specific options for the navigation board.
 		$value                              = isset( $atts['nav_square_size'] ) ? RPBChessboardHelperValidation::validateInteger( $atts['nav_square_size'] ) : $squareSize;
@@ -130,11 +127,11 @@ class RPBChessboardModelBlockShortcodePGN extends RPBChessboardAbstractModelBloc
 		$widgetArgs['nboColorset']          = isset( $value ) ? $value : $this->mainModel->getDefaultColorset( 'nbo' );
 		$value                              = isset( $atts['nav_pieceset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['nav_pieceset'] ) : $pieceset;
 		$widgetArgs['nboPieceset']          = isset( $value ) ? $value : $this->mainModel->getDefaultPieceset( 'nbo' );
-		$value                              = isset( $atts['nav_animated'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['nav_animated'] ) : $animated;
+		$value                              = isset( $atts['animated'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['animated'] ) : null;
 		$widgetArgs['nboAnimated']          = isset( $value ) ? $value : $this->mainModel->getDefaultAnimated();
-		$value                              = isset( $atts['nav_show_move_arrow'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['nav_show_move_arrow'] ) : $showMoveArrow;
+		$value                              = isset( $atts['show_move_arrow'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_move_arrow'] ) : null;
 		$widgetArgs['nboMoveArrowVisible']  = isset( $value ) ? $value : $this->mainModel->getDefaultShowMoveArrow();
-		$value                              = isset( $atts['nav_move_arrow_color'] ) ? RPBChessboardHelperValidation::validateSymbolicColor( $atts['nav_move_arrow_color'] ) : $moveArrowColor;
+		$value                              = isset( $atts['move_arrow_color'] ) ? RPBChessboardHelperValidation::validateSymbolicColor( $atts['move_arrow_color'] ) : null;
 		$widgetArgs['nboMoveArrowColor']    = isset( $value ) ? $value : $this->mainModel->getDefaultMoveArrowColor();
 
 		// Specific options for the diagrams.
