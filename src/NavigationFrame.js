@@ -83,9 +83,17 @@ function buildFrame() {
 	}
 	refreshBoardAnchorSize();
 
+	// Force the focus in the Chessgame component whose navigation board is currently displayed in the navigation frame.
+	function focusOwner() {
+		if (currentOwner) {
+			currentOwner.focus();
+		}
+	}
+
 	// Build the dialog skeleton
 	let navigationFrame = document.createElement('div');
 	navigationFrame.id = 'rpbchessboard-navigationFrame';
+	navigationFrame.onclick = focusOwner; // Prevent the frame from getting the focus.
 	boardAnchor = document.createElement('div');
 	navigationFrame.appendChild(boardAnchorParent);
 	boardAnchorParent.appendChild(boardAnchor);
@@ -136,11 +144,6 @@ function buildFrame() {
 	});
 
 	// Handle the focus.
-	function focusOwner() {
-		if (currentOwner) {
-			currentOwner.focus();
-		}
-	}
 	$('#rpbchessboard-navigationFrame').on('dialogopen', focusOwner);
 	$('#rpbchessboard-navigationFrame').on('dialogdragstop', focusOwner);
 	$('#rpbchessboard-navigationFrame').on('dialogresizestop', focusOwner);

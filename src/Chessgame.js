@@ -255,7 +255,12 @@ export default class Chessgame extends React.Component {
 	}
 
 	handleMoveSelected(nodeId, evtOrigin) {
-		this.setState(nodeId ? { selection: nodeId, withMove: evtOrigin === 'key-next' } : { selection: false, withMove: false });
+		if (nodeId) {
+			this.setState({ selection: nodeId, withMove: evtOrigin === 'key-next' });
+		}
+		else if (this.props.navigationBoard === 'frame') {
+			this.setState({ selection: false, withMove: false });
+		}
 		if (this.props.navigationBoard === 'frame' && evtOrigin !== 'external') {
 			if (nodeId) {
 				let { anchor, boardOptions, setTitle } = showPopupFrame(this);
