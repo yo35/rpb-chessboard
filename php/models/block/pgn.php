@@ -82,7 +82,7 @@ class RPBChessboardModelBlockPGN extends RPBChessboardAbstractModelBlock {
 	private function getExternalPGNFile() {
 		$attachmentId = $this->getAttributes()['attachmentId'];
 		$url          = wp_get_attachment_url( $attachmentId );
-		return $url ? $url : '<' . __( 'invalid media file', 'rpb-chessboard' ) . '>';
+		return $url ? $url : '<' . __( 'invalid media', 'rpb-chessboard' ) . '>';
 	}
 
 }
