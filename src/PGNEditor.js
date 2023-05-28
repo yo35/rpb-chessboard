@@ -27,7 +27,8 @@ import React from 'react';
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import { withSelect } from '@wordpress/data';
-import { Button, PanelBody, PanelRow, RadioControl, TextControl, ToggleControl, __experimentalRadioGroup as RadioGroup, __experimentalRadio as Radio } from '@wordpress/components';
+import { Button, PanelBody, PanelRow, RadioControl, TextControl, ToggleControl, __experimentalNumberControl as NumberControl,
+	__experimentalRadioGroup as RadioGroup, __experimentalRadio as Radio } from '@wordpress/components';
 
 import { Chessboard, ArrowMarkerIcon } from 'kokopu-react';
 import { parsePieceSymbols, flattenPieceSymbols } from './util';
@@ -76,6 +77,7 @@ class PGNEditor extends React.Component {
 			sourceType: this.props.attributes.attachmentId >= 0 ? 'url' : 'inline',
 			localPgn: this.props.attributes.pgn,
 			localAttachementId: this.props.attributes.attachmentId,
+			localGameIndex: this.props.attributes.gameIndex,
 		};
 	}
 
@@ -110,6 +112,7 @@ class PGNEditor extends React.Component {
 		let newAttributes = { ...this.props.attributes };
 		newAttributes.pgn = '';
 		newAttributes.attachmentId = -1;
+		newAttributes.gameIndex = 0;
 
 		switch (sourceType) {
 
@@ -119,6 +122,7 @@ class PGNEditor extends React.Component {
 
 			case 'url':
 				newAttributes.attachmentId = this.state.localAttachementId;
+				newAttributes.gameIndex = this.state.localGameIndex;
 				break;
 		}
 		this.setState({ sourceType: sourceType });
@@ -133,6 +137,11 @@ class PGNEditor extends React.Component {
 	handleUrlSourceChanged(attachmentId) {
 		this.setState({ localAttachementId: attachmentId });
 		this.handleAttributeChanged('attachmentId', attachmentId);
+	}
+
+	handleGameIndexChanged(gameIndex) {
+		this.setState({ localGameIndex: gameIndex });
+		this.handleAttributeChanged('gameIndex', gameIndex);
 	}
 
 	handleUploadClicked() {
@@ -170,7 +179,6 @@ class PGNEditor extends React.Component {
 	 * Rendering method for the controls in the right-side column.
 	 */
 	renderSidePanel() {
-		// TODO handle attribute url + gameIndex
 		return (
 			<InspectorControls>
 				{this.renderGameOptionPanel()}
@@ -433,12 +441,15 @@ class PGNEditor extends React.Component {
 			return undefined;
 		}
 		const attachmentId = this.props.attributes.attachmentId;
-		return (
+		return (<>
 			<div className="rpbchessboard-pgnFileSelector">
 				<Button variant="primary" text={i18n.PGN_EDITOR_UPLOAD_BUTTON_LABEL} onClick={() => this.handleUploadClicked()} />
 				{attachmentId >= 0 ? <AttachmentURLComponent attachmentId={attachmentId} /> : undefined}
 			</div>
-		);
+			<NumberControl label={i18n.PGN_EDITOR_CONTROL_GAME_INDEX} labelPosition="side" min={0} value={this.props.attributes.gameIndex}
+				onChange={value => this.handleGameIndexChanged(Number(value))}
+			/>
+		</>);
 	}
 
 	getPieceSymbols(isLocalizationAvailable) {
@@ -487,6 +498,10 @@ export function registerPGNBlock() {
 			attachmentId: {
 				type: 'number',
 				default: -1
+			},
+			gameIndex: {
+				type: 'number',
+				default: 0
 			},
 			flipped: {
 				type: 'boolean',

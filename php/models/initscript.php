@@ -237,6 +237,7 @@ class RPBChessboardModelInitScript {
 			'PGN_EDITOR_OPTION_ENABLED'               => __( 'Enabled', 'rpb-chessboard' ),
 			'PGN_EDITOR_OPTION_HIDDEN'                => __( 'Hidden', 'rpb-chessboard' ),
 			'PGN_EDITOR_OPTION_VISIBLE'               => __( 'Visible', 'rpb-chessboard' ),
+			'PGN_EDITOR_CONTROL_GAME_INDEX'           => __( 'Game index', 'rpb-chessboard' ),
 			'PGN_EDITOR_CONTROL_FLIP'                 => __( 'Flip nav. board and diagrams', 'rpb-chessboard' ),
 			'PGN_EDITOR_CONTROL_INITIAL_SELECTION'    => __( 'Initial selection', 'rpb-chessboard' ),
 			'PGN_EDITOR_CONTROL_ANIMATED'             => __( 'Move animation', 'rpb-chessboard' ),

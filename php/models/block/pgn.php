@@ -40,7 +40,8 @@ class RPBChessboardModelBlockPGN extends RPBChessboardAbstractModelBlock {
 
 		// Chessgame content
 		if ( isset( $atts['attachmentId'] ) && $atts['attachmentId'] >= 0 ) {
-			$widgetArgs['url'] = $this->getExternalPGNFile();
+			$widgetArgs['url']       = $this->getExternalPGNFile();
+			$widgetArgs['gameIndex'] = isset( $atts['gameIndex'] ) ? $atts['gameIndex'] : 0;
 		} else {
 			$widgetArgs['pgn'] = isset( $atts['pgn'] ) ? $atts['pgn'] : '';
 		}

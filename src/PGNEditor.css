@@ -50,6 +50,7 @@
 	gap: 8px;
 	align-items: center;
 	width: 98%; /* Same as what is defined for `.editor-styles-wrapper textarea` */
+	margin-bottom: 8px;
 }
 
 .rpbchessboard-pieceSymbolJsField {
