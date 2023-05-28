@@ -176,7 +176,7 @@
 
 				mediaFrame[coloredPiece] = wp.media({
 					title: $(button).attr('title'),
-					button: {	text: <?php echo wp_json_encode( __( 'Select', 'rpb-chessboard' ) ); ?>	},
+					button: { text: <?php echo wp_json_encode( __( 'Select', 'rpb-chessboard' ) ); ?> },
 					multiple: false,
 				});
 
