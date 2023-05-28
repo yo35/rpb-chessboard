@@ -4,6 +4,7 @@
 		"@wordpress/block-editor": "^12.2.0",
 		"@wordpress/blocks": "^12.11.0",
 		"@wordpress/components": "^25.0.0",
+		"@wordpress/data": "^9.4.0",
 		"@wordpress/icons": "^9.25.0",
 		"kokopu": "^4.7.0",
 		"kokopu-react": "^2.1.0",

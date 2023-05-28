@@ -23,7 +23,12 @@
 	min-height: 0px;
 }
 
+.editor-styles-wrapper input[type="text"].rpbchessboard-fixPadding {
+	padding: 6px 8px;
+}
+
 .editor-styles-wrapper textarea.rpbchessboard-fixMarginBottom,
+.editor-styles-wrapper input[type="text"].rpbchessboard-fixMarginBottom,
 .block-editor-block-inspector .components-base-control.rpbchessboard-fixMarginBottom {
 	margin-bottom: 0px;
 }
@@ -32,8 +37,19 @@
 	margin-bottom: 24px;
 }
 
+.rpbchessboard-pgnSourceTypeSelector {
+	margin-bottom: 15px;
+}
+
 .rpbchessboard-pgnTextarea {
 	min-height: 150px;
+}
+
+.rpbchessboard-pgnFileSelector {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+	width: 98%; /* Same as what is defined for `.editor-styles-wrapper textarea` */
 }
 
 .rpbchessboard-pieceSymbolJsField {

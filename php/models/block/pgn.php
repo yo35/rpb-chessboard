@@ -39,7 +39,11 @@ class RPBChessboardModelBlockPGN extends RPBChessboardAbstractModelBlock {
 		$widgetArgs = array();
 
 		// Chessgame content
-		$widgetArgs['pgn'] = isset( $atts['pgn'] ) ? $atts['pgn'] : '';
+		if ( isset( $atts['attachmentId'] ) && $atts['attachmentId'] >= 0 ) {
+			$widgetArgs['url'] = $this->getExternalPGNFile();
+		} else {
+			$widgetArgs['pgn'] = isset( $atts['pgn'] ) ? $atts['pgn'] : '';
+		}
 
 		// Content customization
 		if ( isset( $atts['flipped'] ) ) {
@@ -71,6 +75,13 @@ class RPBChessboardModelBlockPGN extends RPBChessboardAbstractModelBlock {
 		$widgetArgs['idoPieceset']          = isset( $atts['idoPieceset'] ) ? $atts['idoPieceset'] : $this->mainModel->getDefaultPieceset( 'ido' );
 
 		return $widgetArgs;
+	}
+
+
+	private function getExternalPGNFile() {
+		$attachmentId = $this->getAttributes()['attachmentId'];
+		$url          = wp_get_attachment_url( $attachmentId );
+		return $url ? $url : '<' . __( 'invalid media file', 'rpb-chessboard' ) . '>';
 	}
 
 }

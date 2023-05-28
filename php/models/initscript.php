@@ -244,6 +244,9 @@ class RPBChessboardModelInitScript {
 			'PGN_EDITOR_CONTROL_FLIP_BUTTON'          => __( 'Flip button', 'rpb-chessboard' ),
 			'PGN_EDITOR_CONTROL_DOWNLOAD_BUTTON'      => __( 'Download button', 'rpb-chessboard' ),
 			'PGN_EDITOR_HELP_INITIAL_SELECTION'       => __( 'For example: 1w for the first white move, 12b for the twelfth black move...', 'rpb-chessboard' ),
+			'PGN_EDITOR_UPLOAD_BUTTON_LABEL'          => __( 'Upload or select media', 'rpb-chessboard' ),
+			'PGN_EDITOR_MEDIA_FRAME_TITLE'            => __( 'Select the PGN file', 'rpb-chessboard' ),
+			'PGN_EDITOR_MEDIA_FRAME_BUTTON_LABEL'     => __( 'Select', 'rpb-chessboard' ),
 		);
 	}
 

@@ -26,7 +26,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, PanelRow, RadioControl, TextControl, ToggleControl, __experimentalRadioGroup as RadioGroup, __experimentalRadio as Radio } from '@wordpress/components';
+import { withSelect } from '@wordpress/data';
+import { Button, PanelBody, PanelRow, RadioControl, TextControl, ToggleControl, __experimentalRadioGroup as RadioGroup, __experimentalRadio as Radio } from '@wordpress/components';
 
 import { Chessboard, ArrowMarkerIcon } from 'kokopu-react';
 import { parsePieceSymbols, flattenPieceSymbols } from './util';
@@ -34,12 +35,6 @@ import ChessboardOptionEditor from './ChessboardOptionEditor';
 
 const i18n = RPBChessboard.i18n;
 const mainColorset = Chessboard.colorsets().original;
-
-
-/**
- * Global counter for DOM ID generation.
- */
-let pgnTextareaIdCounter = 0;
 
 
 /**
@@ -60,13 +55,28 @@ export function PGNEditorIcon() {
 
 
 /**
+ * Component to display the URL of an media file.
+ */
+const AttachmentURLComponent = withSelect((select, props) => {
+	const attachment = select('core').getMedia(props.attachmentId);
+	return {
+		url: attachment ? attachment.source_url : undefined,
+	};
+})(props => <input className="rpbchessboard-fixMarginBottom rpbchessboard-fixPadding" type="text" readOnly value={props.url ?? ''} />);
+
+
+/**
  * PGN editor
  */
 class PGNEditor extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.pgnTextareaId = 'rpbchessboard-pgnTextarea-' + (pgnTextareaIdCounter++);
+		this.state = {
+			sourceType: this.props.attributes.attachmentId >= 0 ? 'url' : 'inline',
+			localPgn: this.props.attributes.pgn,
+			localAttachementId: this.props.attributes.attachmentId,
+		};
 	}
 
 	handleAttributeChanged(attribute, value) {
@@ -94,6 +104,52 @@ class PGNEditor extends React.Component {
 	handleFlipClicked() {
 		let flipped = !this.props.attributes.flipped;
 		this.props.setAttributes({ ...this.props.attributes, flipped: flipped });
+	}
+
+	handleSourceTypeChanged(sourceType) {
+		let newAttributes = { ...this.props.attributes };
+		newAttributes.pgn = '';
+		newAttributes.attachmentId = -1;
+
+		switch (sourceType) {
+
+			case 'inline':
+				newAttributes.pgn = this.state.localPgn;
+				break;
+
+			case 'url':
+				newAttributes.attachmentId = this.state.localAttachementId;
+				break;
+		}
+		this.setState({ sourceType: sourceType });
+		this.props.setAttributes(newAttributes);
+	}
+
+	handleInlineSourceChanged(pgn) {
+		this.setState({ localPgn: pgn });
+		this.handleAttributeChanged('pgn', pgn);
+	}
+
+	handleUrlSourceChanged(attachmentId) {
+		this.setState({ localAttachementId: attachmentId });
+		this.handleAttributeChanged('attachmentId', attachmentId);
+	}
+
+	handleUploadClicked() {
+		if (!this.mediaFrame) {
+
+			this.mediaFrame = wp.media({
+				title: i18n.PGN_EDITOR_MEDIA_FRAME_TITLE,
+				button: { text: i18n.PGN_EDITOR_MEDIA_FRAME_BUTTON_LABEL },
+				multiple: false,
+			});
+
+			this.mediaFrame.on('select', () => {
+				const attachment = this.mediaFrame.state().get('selection').first().toJSON();
+				this.handleUrlSourceChanged(attachment.id);
+			});
+		}
+		this.mediaFrame.open();
 	}
 
 
@@ -343,13 +399,44 @@ class PGNEditor extends React.Component {
 	renderBlockContent() {
 		return (
 			<div className="components-placeholder rpbchessboard-fixPlaceholder">
-				<label className="components-placeholder__label" htmlFor={this.pgnTextareaId}>{i18n.PGN_EDITOR_TEXT_LABEL}</label>
-				<textarea
-					id={this.pgnTextareaId}
-					className="block-editor-plain-text blocks-shortcode__textarea rpbchessboard-fixMarginBottom rpbchessboard-pgnTextarea"
-					value={this.props.attributes.pgn}
-					onChange={evt => this.handleAttributeChanged('pgn', evt.target.value)}
-				/>
+				{this.renderSourceTypeSelector()}
+				{this.renderTextAreaIfSourceIsInline()}
+				{this.renderMediaSelectorIfSourceIsURL()}
+			</div>
+		);
+	}
+
+	renderSourceTypeSelector() {
+		return (
+			<RadioGroup className="rpbchessboard-pgnSourceTypeSelector" checked={this.state.sourceType} onChange={newValue => this.handleSourceTypeChanged(newValue)}>
+				<Radio value={'inline'}>PGN text</Radio>
+				<Radio value={'url'}>PGN file</Radio>
+			</RadioGroup>
+		);
+	}
+
+	renderTextAreaIfSourceIsInline() {
+		if (this.state.sourceType !== 'inline') {
+			return undefined;
+		}
+		return (
+			<textarea
+				className="block-editor-plain-text blocks-shortcode__textarea rpbchessboard-fixMarginBottom rpbchessboard-pgnTextarea"
+				value={this.props.attributes.pgn}
+				onChange={evt => this.handleInlineSourceChanged(evt.target.value)}
+			/>
+		);
+	}
+
+	renderMediaSelectorIfSourceIsURL() {
+		if (this.state.sourceType !== 'url') {
+			return undefined;
+		}
+		const attachmentId = this.props.attributes.attachmentId;
+		return (
+			<div className="rpbchessboard-pgnFileSelector">
+				<Button variant="primary" text={i18n.PGN_EDITOR_UPLOAD_BUTTON_LABEL} onClick={() => this.handleUploadClicked()} />
+				{attachmentId >= 0 ? <AttachmentURLComponent attachmentId={attachmentId} /> : undefined}
 			</div>
 		);
 	}
@@ -396,6 +483,10 @@ export function registerPGNBlock() {
 			pgn: {
 				type: 'string',
 				default: ''
+			},
+			attachmentId: {
+				type: 'number',
+				default: -1
 			},
 			flipped: {
 				type: 'boolean',
