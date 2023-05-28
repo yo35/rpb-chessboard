@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-09 17:22+0200\n"
+"POT-Creation-Date: 2023-05-28 20:10+0200\n"
 "PO-Revision-Date: 2020-07-28 10:32-0300\n"
 "Last-Translator: rewbenio <rewbenio@lancesqi.com.br>\n"
 "Language-Team: Rewbenio Frota\n"
@@ -333,7 +333,7 @@ msgstr ""
 msgid "Show annotations"
 msgstr ""
 
-#: php/templates/adminpage/theming/main.php
+#: php/templates/adminpage/theming/main.php php/models/initscript.php
 msgid "Select"
 msgstr "Selecionar"
 
@@ -972,6 +972,10 @@ msgid "Enabled"
 msgstr ""
 
 #: php/models/initscript.php
+msgid "Game index"
+msgstr ""
+
+#: php/models/initscript.php
 msgid "Flip nav. board and diagrams"
 msgstr ""
 
@@ -994,6 +998,14 @@ msgstr ""
 #: php/models/initscript.php
 msgid ""
 "For example: 1w for the first white move, 12b for the twelfth black move..."
+msgstr ""
+
+#: php/models/initscript.php
+msgid "Upload or select media"
+msgstr ""
+
+#: php/models/initscript.php
+msgid "Select the PGN file"
 msgstr ""
 
 #: php/models/adminpage.php
@@ -1023,6 +1035,10 @@ msgstr ""
 #: php/models/adminpage.php
 msgid "About"
 msgstr "Sobre"
+
+#: php/models/block/pgn.php
+msgid "invalid media"
+msgstr ""
 
 #: php/models/traits/custompiecesets.php php/models/traits/customcolorsets.php
 msgid "(no name)"

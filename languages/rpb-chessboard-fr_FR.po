@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-09 17:22+0200\n"
+"POT-Creation-Date: 2023-05-28 20:10+0200\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35 -at- melix.net>\n"
 "Language-Team: French\n"
@@ -346,7 +346,7 @@ msgstr ""
 msgid "Show annotations"
 msgstr "Afficher les annotations"
 
-#: php/templates/adminpage/theming/main.php
+#: php/templates/adminpage/theming/main.php php/models/initscript.php
 msgid "Select"
 msgstr "Sélectionner"
 
@@ -976,6 +976,10 @@ msgid "Enabled"
 msgstr "Activé"
 
 #: php/models/initscript.php
+msgid "Game index"
+msgstr "Index de la partie"
+
+#: php/models/initscript.php
 msgid "Flip nav. board and diagrams"
 msgstr "Tourner l'échiquier de navigation et les diagrammes"
 
@@ -1001,6 +1005,14 @@ msgid ""
 msgstr ""
 "Par exemple : 1w pour le premier coup blanc, 12b pour le douzième coup "
 "noir..."
+
+#: php/models/initscript.php
+msgid "Upload or select media"
+msgstr "Téléverser ou sélectionner dans la médiathèque"
+
+#: php/models/initscript.php
+msgid "Select the PGN file"
+msgstr "Sélectionner le fichier PGN"
 
 #: php/models/adminpage.php
 msgid "Chess diagram block settings"
@@ -1029,6 +1041,10 @@ msgstr "Documentation"
 #: php/models/adminpage.php
 msgid "About"
 msgstr "À propos"
+
+#: php/models/block/pgn.php
+msgid "invalid media"
+msgstr "média invalide"
 
 #: php/models/traits/custompiecesets.php php/models/traits/customcolorsets.php
 msgid "(no name)"

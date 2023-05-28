@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-09 17:22+0200\n"
+"POT-Creation-Date: 2023-05-28 20:10+0200\n"
 "PO-Revision-Date: 2022-11-09 22:46+0000\n"
 "Last-Translator: ╪ lovag SZVETLIK Atilla\n"
 "Language-Team: Magyar\n"
@@ -342,7 +342,7 @@ msgstr ""
 msgid "Show annotations"
 msgstr "Beállítások (stílus) megjelenítése"
 
-#: php/templates/adminpage/theming/main.php
+#: php/templates/adminpage/theming/main.php php/models/initscript.php
 msgid "Select"
 msgstr "Kiválasztás"
 
@@ -970,6 +970,10 @@ msgid "Enabled"
 msgstr "Engedélyezve"
 
 #: php/models/initscript.php
+msgid "Game index"
+msgstr ""
+
+#: php/models/initscript.php
 msgid "Flip nav. board and diagrams"
 msgstr "Játszmalejegyzési tábla és játszmalapok (diagramok) megcserélése"
 
@@ -994,6 +998,14 @@ msgid ""
 "For example: 1w for the first white move, 12b for the twelfth black move..."
 msgstr ""
 "Például: 1w az első világos lépésre, 12b a tizenkettedik sötét lépésre..."
+
+#: php/models/initscript.php
+msgid "Upload or select media"
+msgstr ""
+
+#: php/models/initscript.php
+msgid "Select the PGN file"
+msgstr ""
 
 #: php/models/adminpage.php
 msgid "Chess diagram block settings"
@@ -1022,6 +1034,10 @@ msgstr "Dokumentáció"
 #: php/models/adminpage.php
 msgid "About"
 msgstr "Rólunk"
+
+#: php/models/block/pgn.php
+msgid "invalid media"
+msgstr ""
 
 #: php/models/traits/custompiecesets.php php/models/traits/customcolorsets.php
 msgid "(no name)"
