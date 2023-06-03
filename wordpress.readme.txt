@@ -85,6 +85,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 7.6.0 (June 3, 2023) =
+* Chess game block allows to upload a PGN file and use it as data source.
+
 = 7.5.4 (May 26, 2023) =
 * Fix focus issue in the navigation frame (see [#263](https://github.com/yo35/rpb-chessboard/issues/263)).
 
