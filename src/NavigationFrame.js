@@ -23,7 +23,7 @@ import './public-path';
 import './NavigationFrame.css';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import { Chessboard } from 'kokopu-react';
 
@@ -184,7 +184,7 @@ function setFrameTitle(text) {
 	}
 	let $ = window.jQuery;
 	let titleRoot = $('.ui-dialog-title', $('#rpbchessboard-navigationFrame').closest('.ui-dialog')).get(0);
-	ReactDOM.render(<span>{text}</span>, titleRoot);
+	createRoot(titleRoot).render(<span>{text}</span>);
 }
 
 

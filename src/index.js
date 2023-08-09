@@ -23,7 +23,7 @@ import './public-path';
 import './index.css';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Chessboard, ArrowMarkerIcon, i18n as kokopuReactI18n } from 'kokopu-react';
 
 import Chessgame from './Chessgame';
@@ -73,7 +73,7 @@ function initializePlugin() {
 
 // Icon rendering
 function renderIcons(icon, targetJQueryElement) {
-	targetJQueryElement.each((index, element) => { ReactDOM.render(icon, element); });
+	targetJQueryElement.each((index, element) => { createRoot(element).render(icon); });
 }
 RPBChessboard.renderFENIcon = targetJQueryElement => { renderIcons(<FENEditorIcon />, targetJQueryElement); };
 RPBChessboard.renderPGNIcon = targetJQueryElement => { renderIcons(<PGNEditorIcon />, targetJQueryElement); };
@@ -81,28 +81,28 @@ RPBChessboard.renderPGNIcon = targetJQueryElement => { renderIcons(<PGNEditorIco
 
 // Chessboard rendering function (to be used in the admin pages)
 RPBChessboard.renderAdminChessboard = function(targetJQueryElement, widgetArgs) {
-	let widget = <Chessboard {...widgetArgs} />;
-	ReactDOM.render(widget, targetJQueryElement.get(0));
+	const widget = <Chessboard {...widgetArgs} />;
+	createRoot(targetJQueryElement.get(0)).render(widget);
 };
 
 
 // Navigation toolbar rendering function (to be used in the admin pages)
 RPBChessboard.renderNavigationToolbar = function(targetJQueryElement, widgetArgs) {
-	let widget = <NavigationToolbar {...widgetArgs} />;
-	ReactDOM.render(widget, targetJQueryElement.get(0));
+	const widget = <NavigationToolbar {...widgetArgs} />;
+	createRoot(targetJQueryElement.get(0)).render(widget);
 };
 
 
 // Arrow marker icon rendering function (to be used in the admin pages)
 RPBChessboard.renderArrowMarkerIcon = function(targetJQueryElement, widgetArgs) {
-	let widget = <ArrowMarkerIcon {...widgetArgs} />;
-	ReactDOM.render(widget, targetJQueryElement.get(0));
+	const widget = <ArrowMarkerIcon {...widgetArgs} />;
+	createRoot(targetJQueryElement.get(0)).render(widget);
 };
 
 
 // Chessboard rendering function
 RPBChessboard.renderFEN = function(targetJQueryElement, widgetArgs) {
-	let widget = <Chessboard
+	const widget = <Chessboard
 		position={widgetArgs.position}
 		squareMarkers={widgetArgs.squareMarkers}
 		arrowMarkers={widgetArgs.arrowMarkers}
@@ -114,13 +114,13 @@ RPBChessboard.renderFEN = function(targetJQueryElement, widgetArgs) {
 		pieceset={widgetArgs.pieceset}
 		smallScreenLimits={RPBChessboard.smallScreenLimits}
 	/>;
-	ReactDOM.render(widget, targetJQueryElement.get(0));
+	createRoot(targetJQueryElement.get(0)).render(widget);
 };
 
 
 // Chessgame rendering function
 RPBChessboard.renderPGN = function(targetJQueryElement, widgetArgs) {
-	let diagramOptions = {
+	const diagramOptions = {
 		flipped: widgetArgs.flipped,
 		squareSize: widgetArgs.idoSquareSize,
 		coordinateVisible: widgetArgs.idoCoordinateVisible,
@@ -128,7 +128,7 @@ RPBChessboard.renderPGN = function(targetJQueryElement, widgetArgs) {
 		pieceset: widgetArgs.idoPieceset,
 		smallScreenLimits: RPBChessboard.smallScreenLimits,
 	};
-	let navigationBoardOptions = {
+	const navigationBoardOptions = {
 		flipped: widgetArgs.flipped,
 		squareSize: widgetArgs.nboSquareSize,
 		coordinateVisible: widgetArgs.nboCoordinateVisible,
@@ -139,7 +139,7 @@ RPBChessboard.renderPGN = function(targetJQueryElement, widgetArgs) {
 		moveArrowColor: widgetArgs.nboMoveArrowColor,
 		smallScreenLimits: RPBChessboard.smallScreenLimits,
 	};
-	let widget = <Chessgame
+	const widget = <Chessgame
 		url={widgetArgs.url}
 		pgn={widgetArgs.pgn}
 		gameIndex={widgetArgs.gameIndex}
@@ -151,7 +151,7 @@ RPBChessboard.renderPGN = function(targetJQueryElement, widgetArgs) {
 		withFlipButton={widgetArgs.withFlipButton}
 		withDownloadButton={widgetArgs.withDownloadButton}
 	/>;
-	ReactDOM.render(widget, targetJQueryElement.get(0));
+	createRoot(targetJQueryElement.get(0)).render(widget);
 };
 
 
