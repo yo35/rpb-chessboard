@@ -103,8 +103,8 @@ export default class Chessgame extends React.Component {
 			);
 		}
 		else if (this.props.navigationBoard === 'scrollLeft' || this.props.navigationBoard === 'scrollRight') {
-			let boardOptions = this.props.navigationBoardOptions;
-			let height = Chessboard.size(boardOptions.squareSize, boardOptions.coordinateVisible, boardOptions.smallScreenLimits).height + TOOLBAR_MARGIN + TOOLBAR_HEIGHT;
+			const boardOptions = this.props.navigationBoardOptions;
+			const height = Chessboard.size(boardOptions).height + TOOLBAR_MARGIN + TOOLBAR_HEIGHT;
 			return (
 				<div className={'rpbchessboard-scrollBox-' + this.props.navigationBoard}>
 					{this.renderNavigationBoard(info.game, selection, node, boardOptions)}

@@ -77,7 +77,7 @@ function buildFrame() {
 	// can determine its size and center itself properly (the Reach inner component is not mounted yet when the dialog opens).
 	let boardAnchorParent = document.createElement('div');
 	function refreshBoardAnchorSize() {
-		let boardSize = Chessboard.size(boardOptions.squareSize, boardOptions.coordinateVisible, boardOptions.smallScreenLimits);
+		const boardSize = Chessboard.size(boardOptions);
 		boardAnchorParent.style.minWidth = `${boardSize.width}px`;
 		boardAnchorParent.style.minHeight = `${boardSize.height}px`;
 	}
@@ -124,7 +124,7 @@ function buildFrame() {
 
 		// Save the initial information about the geometry of the board and its container.
 		if(!resizeInfo) {
-			let boardSize = Chessboard.size(boardOptions.squareSize, boardOptions.coordinateVisible, boardOptions.smallScreenLimits);
+			const boardSize = Chessboard.size(boardOptions);
 			resizeInfo = {
 				reservedWidth: ui.originalSize.width - boardSize.width,
 				reservedHeight: ui.originalSize.height - boardSize.height,
@@ -132,9 +132,9 @@ function buildFrame() {
 		}
 
 		// Compute the new square size parameter.
-		let availableWidth = ui.size.width - resizeInfo.reservedWidth;
-		let availableHeight = ui.size.height - resizeInfo.reservedHeight;
-		let squareSize = Chessboard.adaptSquareSize(availableWidth, availableHeight, boardOptions.coordinateVisible, boardOptions.smallScreenLimits);
+		const availableWidth = ui.size.width - resizeInfo.reservedWidth;
+		const availableHeight = ui.size.height - resizeInfo.reservedHeight;
+		const squareSize = Chessboard.adaptSquareSize(availableWidth, availableHeight, boardOptions);
 
 		// Update the widget.
 		boardOptions = { ...boardOptions };

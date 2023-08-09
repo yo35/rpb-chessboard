@@ -7,7 +7,7 @@
 		"@wordpress/data": "^9.8.0",
 		"@wordpress/icons": "^9.29.0",
 		"kokopu": "^4.7.0",
-		"kokopu-react": "^2.1.0",
+		"kokopu-react": "^3.0.1",
 		"prop-types": "^15.8.1"
 	},
 	"devDependencies": {
