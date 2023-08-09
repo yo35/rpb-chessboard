@@ -28,7 +28,7 @@ Domain Path: /languages
 Author: Yoann Le Montagner
 Author URI: https://github.com/yo35
 License: GPLv3
-Requires at least: 5.5
+Requires at least: 6.3
 Requires PHP: 5.6
 Version: 7.6.0
 */
