@@ -85,6 +85,10 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 7.7.0 (August 9, 2023) =
+* Tested up to WordPress 6.3.
+* Fix size of the text area in the chess game block editor (see [#267](https://github.com/yo35/rpb-chessboard/issues/267)).
+
 = 7.6.0 (June 3, 2023) =
 * Chess game block allows to upload a PGN file and use it as data source.
 
