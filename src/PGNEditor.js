@@ -318,10 +318,12 @@ class PGNEditor extends React.Component {
 					defaultSquareSize={RPBChessboard.defaultSettings.nboSquareSize}
 					squareSize={this.props.attributes.nboSquareSize}
 					coordinateVisible={this.props.attributes.nboCoordinateVisible}
+					turnVisible={this.props.attributes.nboTurnVisible}
 					colorset={this.props.attributes.nboColorset}
 					pieceset={this.props.attributes.nboPieceset}
 					onSquareSizeChanged={value => this.handleAttributeChanged('nboSquareSize', value)}
 					onCoordinateVisibleChanged={value => this.handleAttributeChanged('nboCoordinateVisible', value)}
+					onTurnVisibleChanged={value => this.handleAttributeChanged('nboTurnVisible', value)}
 					onColorsetChanged={value => this.handleAttributeChanged('nboColorset', value)}
 					onPiecesetChanged={value => this.handleAttributeChanged('nboPieceset', value)}
 				/>
@@ -389,10 +391,12 @@ class PGNEditor extends React.Component {
 					defaultSquareSize={RPBChessboard.defaultSettings.idoSquareSize}
 					squareSize={this.props.attributes.idoSquareSize}
 					coordinateVisible={this.props.attributes.idoCoordinateVisible}
+					turnVisible={this.props.attributes.idoTurnVisible}
 					colorset={this.props.attributes.idoColorset}
 					pieceset={this.props.attributes.idoPieceset}
 					onSquareSizeChanged={value => this.handleAttributeChanged('idoSquareSize', value)}
 					onCoordinateVisibleChanged={value => this.handleAttributeChanged('idoCoordinateVisible', value)}
+					onTurnVisibleChanged={value => this.handleAttributeChanged('idoTurnVisible', value)}
 					onColorsetChanged={value => this.handleAttributeChanged('idoColorset', value)}
 					onPiecesetChanged={value => this.handleAttributeChanged('idoPieceset', value)}
 				/>
@@ -527,6 +531,10 @@ export function registerPGNBlock() {
 				type: 'string',
 				default: ''
 			},
+			nboTurnVisible: {
+				type: 'string',
+				default: ''
+			},
 			nboColorset: {
 				type: 'string',
 				default: ''
@@ -552,6 +560,10 @@ export function registerPGNBlock() {
 				default: 0
 			},
 			idoCoordinateVisible: {
+				type: 'string',
+				default: ''
+			},
+			idoTurnVisible: {
 				type: 'string',
 				default: ''
 			},

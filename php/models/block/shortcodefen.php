@@ -61,6 +61,8 @@ class RPBChessboardModelBlockShortcodeFEN extends RPBChessboardAbstractModelBloc
 		$widgetArgs['squareSize']        = isset( $value ) ? $value : $this->mainModel->getDefaultSquareSize( 'sdo' );
 		$value                           = isset( $atts['show_coordinates'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_coordinates'] ) : null;
 		$widgetArgs['coordinateVisible'] = isset( $value ) ? $value : $this->mainModel->getDefaultShowCoordinates( 'sdo' );
+		$value                           = isset( $atts['show_turn'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_turn'] ) : null;
+		$widgetArgs['turnVisible']       = isset( $value ) ? $value : $this->mainModel->getDefaultShowTurn( 'sdo' );
 		$value                           = isset( $atts['colorset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['colorset'] ) : null;
 		$widgetArgs['colorset']          = isset( $value ) ? $value : $this->mainModel->getDefaultColorset( 'sdo' );
 		$value                           = isset( $atts['pieceset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['pieceset'] ) : null;

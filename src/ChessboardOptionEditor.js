@@ -64,6 +64,11 @@ export default function ChessboardOptionEditor(props) {
 			{ label: i18n.FEN_EDITOR_OPTION_HIDDEN, value: 'false' },
 			{ label: i18n.FEN_EDITOR_OPTION_VISIBLE, value: 'true' },
 		]} />
+		<RadioControl label={i18n.FEN_EDITOR_CONTROL_TURN_FLAG} selected={props.turnVisible} onChange={props.onTurnVisibleChanged} options={[
+			{ label: i18n.FEN_EDITOR_USE_DEFAULT, value: '' },
+			{ label: i18n.FEN_EDITOR_OPTION_HIDDEN, value: 'false' },
+			{ label: i18n.FEN_EDITOR_OPTION_VISIBLE, value: 'true' },
+		]} />
 		<SetCodeControl label={i18n.FEN_EDITOR_CONTROL_COLORSET} value={props.colorset} available={RPBChessboard.availableColorsets} onChange={props.onColorsetChanged} />
 		<SetCodeControl label={i18n.FEN_EDITOR_CONTROL_PIECESET} value={props.pieceset} available={RPBChessboard.availablePiecesets} onChange={props.onPiecesetChanged} />
 	</>);
@@ -73,10 +78,12 @@ ChessboardOptionEditor.propTypes = {
 	defaultSquareSize: PropTypes.number.isRequired,
 	squareSize: PropTypes.number.isRequired, // 0 means "use default"
 	coordinateVisible: PropTypes.string.isRequired, // not a boolean since it can be '' (meaning "use default")
+	turnVisible: PropTypes.string.isRequired, // not a boolean since it can be '' (meaning "use default")
 	colorset: PropTypes.string.isRequired,
 	pieceset: PropTypes.string.isRequired,
 	onSquareSizeChanged: PropTypes.func.isRequired,
 	onCoordinateVisibleChanged: PropTypes.func.isRequired,
+	onTurnVisibleChanged: PropTypes.func.isRequired,
 	onColorsetChanged: PropTypes.func.isRequired,
 	onPiecesetChanged: PropTypes.func.isRequired,
 };

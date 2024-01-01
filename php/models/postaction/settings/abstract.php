@@ -91,6 +91,7 @@ abstract class RPBChessboardAbstractModelPostActionSettings {
 
 		self::deleteParameter( $key . 'SquareSize' );
 		self::deleteParameter( $key . 'ShowCoordinates' );
+		self::deleteParameter( $key . 'ShowTurn' );
 		self::deleteParameter( $key . 'Colorset' );
 		self::deleteParameter( $key . 'Pieceset' );
 	}
@@ -99,6 +100,7 @@ abstract class RPBChessboardAbstractModelPostActionSettings {
 	protected static function updateBoardAspectParameters( $key ) {
 		self::updateIntegerParameter( $key . 'SquareSize' );
 		self::updateBooleanParameter( $key . 'ShowCoordinates' );
+		self::updateBooleanParameter( $key . 'ShowTurn' );
 		self::updateSetCodeParameter( $key . 'Colorset' );
 		self::updateSetCodeParameter( $key . 'Pieceset' );
 	}

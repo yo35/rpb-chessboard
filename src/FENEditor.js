@@ -367,11 +367,13 @@ class FENEditor extends React.Component {
 					flipped={this.props.attributes.flipped}
 					squareSize={this.props.attributes.squareSize}
 					coordinateVisible={this.props.attributes.coordinateVisible}
+					turnVisible={this.props.attributes.turnVisible}
 					colorset={this.props.attributes.colorset}
 					pieceset={this.props.attributes.pieceset}
 					onFlipChanged={() => this.handleFlipClicked()}
 					onSquareSizeChanged={value => this.handleAttributeChanged('squareSize', value)}
 					onCoordinateVisibleChanged={value => this.handleAttributeChanged('coordinateVisible', value)}
+					onTurnVisibleChanged={value => this.handleAttributeChanged('turnVisible', value)}
 					onColorsetChanged={value => this.handleAttributeChanged('colorset', value)}
 					onPiecesetChanged={value => this.handleAttributeChanged('pieceset', value)}
 				/>
@@ -392,6 +394,7 @@ class FENEditor extends React.Component {
 					arrowMarkers={this.props.attributes.arrowMarkers}
 					textMarkers={this.props.attributes.textMarkers}
 					coordinateVisible={this.props.attributes.coordinateVisible === '' ? RPBChessboard.defaultSettings.sdoCoordinateVisible : this.props.attributes.coordinateVisible === 'true'}
+					turnVisible={this.props.attributes.turnVisible === '' ? RPBChessboard.defaultSettings.sdoTurnVisible : this.props.attributes.turnVisible === 'true'}
 					colorset={this.props.attributes.colorset === '' ? RPBChessboard.defaultSettings.sdoColorset : this.props.attributes.colorset}
 					pieceset={this.props.attributes.pieceset === '' ? RPBChessboard.defaultSettings.sdoPieceset : this.props.attributes.pieceset}
 					onPieceMoved={(from, to) => this.handlePieceMoved(from, to)}
@@ -469,6 +472,10 @@ export function registerFENBlock() {
 				default: 0
 			},
 			coordinateVisible: {
+				type: 'string',
+				default: ''
+			},
+			turnVisible: {
 				type: 'string',
 				default: ''
 			},

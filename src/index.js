@@ -110,6 +110,7 @@ RPBChessboard.renderFEN = function(targetJQueryElement, widgetArgs) {
 		flipped={widgetArgs.flipped}
 		squareSize={widgetArgs.squareSize}
 		coordinateVisible={widgetArgs.coordinateVisible}
+		turnVisible={widgetArgs.turnVisible}
 		colorset={widgetArgs.colorset}
 		pieceset={widgetArgs.pieceset}
 		smallScreenLimits={RPBChessboard.smallScreenLimits}
@@ -124,6 +125,7 @@ RPBChessboard.renderPGN = function(targetJQueryElement, widgetArgs) {
 		flipped: widgetArgs.flipped,
 		squareSize: widgetArgs.idoSquareSize,
 		coordinateVisible: widgetArgs.idoCoordinateVisible,
+		turnVisible: widgetArgs.idoTurnVisible,
 		colorset: widgetArgs.idoColorset,
 		pieceset: widgetArgs.idoPieceset,
 		smallScreenLimits: RPBChessboard.smallScreenLimits,
@@ -132,6 +134,7 @@ RPBChessboard.renderPGN = function(targetJQueryElement, widgetArgs) {
 		flipped: widgetArgs.flipped,
 		squareSize: widgetArgs.nboSquareSize,
 		coordinateVisible: widgetArgs.nboCoordinateVisible,
+		turnVisible: widgetArgs.nboTurnVisible,
 		colorset: widgetArgs.nboColorset,
 		pieceset: widgetArgs.nboPieceset,
 		animated: widgetArgs.nboAnimated,

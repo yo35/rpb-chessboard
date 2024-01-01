@@ -64,6 +64,7 @@ function buildFrame() {
 	boardOptions = {
 		squareSize: RPBChessboard.defaultSettings.nboSquareSize,
 		coordinateVisible: RPBChessboard.defaultSettings.nboCoordinateVisible,
+		turnVisible: RPBChessboard.defaultSettings.nboTurnVisible,
 		colorset: RPBChessboard.defaultSettings.nboColorset,
 		pieceset: RPBChessboard.defaultSettings.nboPieceset,
 		animated: RPBChessboard.defaultSettings.animated,

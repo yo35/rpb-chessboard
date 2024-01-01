@@ -123,6 +123,8 @@ class RPBChessboardModelBlockShortcodePGN extends RPBChessboardAbstractModelBloc
 		$widgetArgs['nboSquareSize']        = isset( $value ) ? $value : $this->mainModel->getDefaultSquareSize( 'nbo' );
 		$value                              = isset( $atts['nav_show_coordinates'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['nav_show_coordinates'] ) : $showCoordinates;
 		$widgetArgs['nboCoordinateVisible'] = isset( $value ) ? $value : $this->mainModel->getDefaultShowCoordinates( 'nbo' );
+		$value                              = isset( $atts['nav_show_turn'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['nav_show_turn'] ) : null;
+		$widgetArgs['nboTurnVisible']       = isset( $value ) ? $value : $this->mainModel->getDefaultShowTurn( 'nbo' );
 		$value                              = isset( $atts['nav_colorset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['nav_colorset'] ) : $colorset;
 		$widgetArgs['nboColorset']          = isset( $value ) ? $value : $this->mainModel->getDefaultColorset( 'nbo' );
 		$value                              = isset( $atts['nav_pieceset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['nav_pieceset'] ) : $pieceset;
@@ -139,6 +141,8 @@ class RPBChessboardModelBlockShortcodePGN extends RPBChessboardAbstractModelBloc
 		$widgetArgs['idoSquareSize']        = isset( $value ) ? $value : $this->mainModel->getDefaultSquareSize( 'ido' );
 		$value                              = isset( $atts['diag_show_coordinates'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['diag_show_coordinates'] ) : $showCoordinates;
 		$widgetArgs['idoCoordinateVisible'] = isset( $value ) ? $value : $this->mainModel->getDefaultShowCoordinates( 'ido' );
+		$value                              = isset( $atts['diag_show_turn'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['diag_show_turn'] ) : null;
+		$widgetArgs['idoTurnVisible']       = isset( $value ) ? $value : $this->mainModel->getDefaultShowTurn( 'ido' );
 		$value                              = isset( $atts['diag_colorset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['diag_colorset'] ) : $colorset;
 		$widgetArgs['idoColorset']          = isset( $value ) ? $value : $this->mainModel->getDefaultColorset( 'ido' );
 		$value                              = isset( $atts['diag_pieceset'] ) ? RPBChessboardHelperValidation::validateSetCode( $atts['diag_pieceset'] ) : $pieceset;

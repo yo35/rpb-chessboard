@@ -31,6 +31,9 @@ trait RPBChessboardTraitDefaultOptions {
 	private $sdoShowCoordinates;
 	private $nboShowCoordinates;
 	private $idoShowCoordinates;
+	private $sdoShowTurn;
+	private $nboShowTurn;
+	private $idoShowTurn;
 	private $sdoColorset;
 	private $nboColorset;
 	private $idoColorset;
@@ -48,6 +51,7 @@ trait RPBChessboardTraitDefaultOptions {
 
 	private static $DEFAULT_SQUARE_SIZE          = 32;
 	private static $DEFAULT_SHOW_COORDINATES     = true;
+	private static $DEFAULT_SHOW_TURN            = true;
 	private static $DEFAULT_COLORSET             = 'original';
 	private static $DEFAULT_PIECESET             = 'cburnett';
 	private static $DEFAULT_DIAGRAM_ALIGNMENT    = 'center';
@@ -99,6 +103,22 @@ trait RPBChessboardTraitDefaultOptions {
 			}
 
 			$this->$field = isset( $value ) ? $value : self::$DEFAULT_SHOW_COORDINATES;
+		}
+		return $this->$field;
+	}
+
+
+	/**
+	 * Default turn flag visible parameter for the diagrams.
+	 *
+	 * @param string $key `sdo`, `nbo` or `ido` for respectively the standalone diagrams, the navigation boards, and the inner diagrams.
+	 * @return boolean
+	 */
+	public function getDefaultShowTurn( $key ) {
+		$field = self::validateKey( $key, 'ShowTurn' );
+		if ( ! isset( $this->$field ) ) {
+			$value        = RPBChessboardHelperValidation::validateBooleanFromInt( get_option( 'rpbchessboard_' . $field ) );
+			$this->$field = isset( $value ) ? $value : self::$DEFAULT_SHOW_TURN;
 		}
 		return $this->$field;
 	}

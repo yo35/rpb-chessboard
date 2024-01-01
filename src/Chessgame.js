@@ -155,6 +155,7 @@ export default class Chessgame extends React.Component {
 					flipped={this.props.navigationBoardOptions.flipped ^ this.state.withAdditionalFlip}
 					squareSize={navigationBoardOptions.squareSize}
 					coordinateVisible={navigationBoardOptions.coordinateVisible}
+					turnVisible={navigationBoardOptions.turnVisible}
 					colorset={navigationBoardOptions.colorset}
 					pieceset={navigationBoardOptions.pieceset}
 					smallScreenLimits={navigationBoardOptions.smallScreenLimits}
@@ -333,6 +334,7 @@ Chessgame.propTypes = {
 		flipped: PropTypes.bool,
 		squareSize: PropTypes.number,
 		coordinateVisible: PropTypes.bool,
+		turnVisible: PropTypes.bool,
 		smallScreenLimits: PropTypes.arrayOf(PropTypes.shape({
 			width: PropTypes.number.isRequired,
 			squareSize: PropTypes.number,
@@ -347,6 +349,7 @@ Chessgame.propTypes = {
 		flipped: PropTypes.bool,
 		squareSize: PropTypes.number,
 		coordinateVisible: PropTypes.bool,
+		turnVisible: PropTypes.bool,
 		smallScreenLimits: PropTypes.arrayOf(PropTypes.shape({
 			width: PropTypes.number.isRequired,
 			squareSize: PropTypes.number,

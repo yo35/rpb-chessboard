@@ -44,6 +44,14 @@
 		</p>
 
 		<p>
+			<input type="hidden" name="<?php echo esc_attr( $key ); ?>ShowTurn" value="0" />
+			<input type="checkbox" id="rpbchessboard-showTurnField-<?php echo esc_attr( $key ); ?>" name="<?php echo esc_attr( $key ); ?>ShowTurn" value="1"
+				<?php echo $model->getDefaultShowTurn( $key ) ? 'checked="yes"' : ''; ?>
+			/>
+			<label for="rpbchessboard-showTurnField-<?php echo esc_attr( $key ); ?>"><?php esc_html_e( 'Show turn', 'rpb-chessboard' ); ?></label>
+		</p>
+
+		<p>
 			<label for="rpbchessboard-colorsetField-<?php echo esc_attr( $key ); ?>"><?php esc_html_e( 'Colorset:', 'rpb-chessboard' ); ?></label>
 			<select id="rpbchessboard-colorsetField-<?php echo esc_attr( $key ); ?>" name="<?php echo esc_attr( $key ); ?>Colorset">
 				<?php foreach ( $model->getAvailableColorsets() as $colorset ) : ?>
@@ -120,6 +128,7 @@
 		// State variables
 		var squareSize      = $('#rpbchessboard-squareSizeField-' + key).val();
 		var showCoordinates = $('#rpbchessboard-showCoordinatesField-' + key).prop('checked');
+		var showTurn        = $('#rpbchessboard-showTurnField-' + key).prop('checked');
 		var colorset        = $('#rpbchessboard-colorsetField-' + key).val();
 		var pieceset        = $('#rpbchessboard-piecesetField-' + key).val();
 		var movePreview     = false;
@@ -130,6 +139,7 @@
 				position: 'start',
 				squareSize: Number(squareSize),
 				coordinateVisible: Boolean(showCoordinates),
+				turnVisible: Boolean(showTurn),
 				colorset: colorset,
 				pieceset: pieceset,
 				move: movePreview ? 'e4' : undefined,
@@ -156,6 +166,10 @@
 		// Initialize the other callbacks.
 		$('#rpbchessboard-showCoordinatesField-' + key).change(function() {
 			showCoordinates = $('#rpbchessboard-showCoordinatesField-' + key).prop('checked');
+			refresh();
+		});
+		$('#rpbchessboard-showTurnField-' + key).change(function() {
+			showTurn = $('#rpbchessboard-showTurnField-' + key).prop('checked');
 			refresh();
 		});
 		$('#rpbchessboard-colorsetField-' + key).change(function() {
