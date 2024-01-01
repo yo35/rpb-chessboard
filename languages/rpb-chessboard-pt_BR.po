@@ -1,5 +1,5 @@
 # Portuguese (BR) translations for RPB Chessboard package.
-# Copyright (C) 2013-2023  rewbenio <rewbenio@lancesqi.com.br>
+# Copyright (C) 2013-2024  rewbenio <rewbenio@lancesqi.com.br>
 # This file is distributed under the same license as the RPB Chessboard package.
 #
 msgid ""
