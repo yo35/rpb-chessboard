@@ -85,6 +85,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 7.8.0 (January 1, 2024) =
+* Add an option to show/hide the turn flag in the diagrams (see [#270](https://github.com/yo35/rpb-chessboard/issues/270)).
+
 = 7.7.1 (November 11, 2023) =
 * Tested up to WordPress 6.4.
 
