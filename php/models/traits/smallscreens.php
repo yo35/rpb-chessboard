@@ -67,18 +67,22 @@ trait RPBChessboardTraitSmallScreens {
 			240 => (object) array(
 				'squareSize'      => 18,
 				'hideCoordinates' => true,
+				'hideTurn'        => false,
 			),
 			320 => (object) array(
 				'squareSize'      => 24,
 				'hideCoordinates' => true,
+				'hideTurn'        => false,
 			),
 			480 => (object) array(
 				'squareSize'      => 32,
 				'hideCoordinates' => false,
+				'hideTurn'        => false,
 			),
 			768 => (object) array(
 				'squareSize'      => 56,
 				'hideCoordinates' => false,
+				'hideTurn'        => false,
 			),
 		);
 

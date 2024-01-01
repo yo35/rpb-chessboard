@@ -130,6 +130,7 @@ class RPBChessboardModelInitScript {
 						'width'             => $mode->maxScreenWidth,
 						'squareSize'        => $mode->squareSize,
 						'coordinateVisible' => ! $mode->hideCoordinates,
+						'turnVisible'       => ! $mode->hideTurn,
 					)
 				);
 			}

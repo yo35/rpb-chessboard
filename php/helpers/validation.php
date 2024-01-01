@@ -164,7 +164,7 @@ abstract class RPBChessboardHelperValidation {
 
 			// Split each mode-encoding token into 3 colon-separated sub-tokens
 			$tokens = explode( ':', $mode );
-			if ( count( $tokens ) !== 3 ) {
+			if ( count( $tokens ) < 3 ) {
 				continue;
 			}
 
@@ -172,10 +172,12 @@ abstract class RPBChessboardHelperValidation {
 			$screenWidth     = self::validateInteger( $tokens[0] );
 			$squareSize      = self::validateInteger( $tokens[1] );
 			$hideCoordinates = self::validateBoolean( $tokens[2] );
-			if ( isset( $screenWidth ) && isset( $squareSize ) && isset( $hideCoordinates ) ) {
+			$hideTurn        = count( $tokens ) >= 4 ? self::validateBoolean( $tokens[3] ) : false;
+			if ( isset( $screenWidth ) && isset( $squareSize ) && isset( $hideCoordinates ) && isset( $hideTurn ) ) {
 				$res[ $screenWidth ] = (object) array(
 					'squareSize'      => $squareSize,
 					'hideCoordinates' => $hideCoordinates,
+					'hideTurn'        => $hideTurn,
 				);
 			}
 		}

@@ -81,12 +81,14 @@ class RPBChessboardModelPostActionSettingsSmallScreens extends RPBChessboardAbst
 		$screenWidthKey     = 'smallScreenMode' . $index . '-screenWidth';
 		$squareSizeKey      = 'smallScreenMode' . $index . '-squareSize';
 		$hideCoordinatesKey = 'smallScreenMode' . $index . '-hideCoordinates';
+		$hideTurnKey        = 'smallScreenMode' . $index . '-hideTurn';
 		if ( isset( $_POST[ $screenWidthKey ] ) && isset( $squareSizeKey ) && isset( $hideCoordinatesKey ) ) {
 			$screenWidth     = RPBChessboardHelperValidation::validateInteger( $_POST[ $screenWidthKey ] );
 			$squareSize      = RPBChessboardHelperValidation::validateInteger( $_POST[ $squareSizeKey ] );
 			$hideCoordinates = RPBChessboardHelperValidation::validateBooleanFromInt( $_POST[ $hideCoordinatesKey ] );
-			if ( isset( $screenWidth ) && isset( $squareSize ) && isset( $hideCoordinates ) ) {
-				return $screenWidth . ':' . $squareSize . ':' . ( $hideCoordinates ? 'true' : 'false' );
+			$hideTurn        = RPBChessboardHelperValidation::validateBooleanFromInt( $_POST[ $hideTurnKey ] );
+			if ( isset( $screenWidth ) && isset( $squareSize ) && isset( $hideCoordinates ) && isset( $hideTurn ) ) {
+				return $screenWidth . ':' . $squareSize . ':' . ( $hideCoordinates ? 'true' : 'false' ) . ':' . ( $hideTurn ? 'true' : 'false' );
 			}
 		}
 		return null;

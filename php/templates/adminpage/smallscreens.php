@@ -88,6 +88,17 @@ if ( 0 === $screenMode->minScreenWidth ) {
 			<?php esc_html_e( 'Always hide coordinates', 'rpb-chessboard' ); ?>
 		</label>
 	</p>
+
+	<p>
+		<input type="hidden" name="smallScreenMode<?php echo esc_attr( $index ); ?>-hideTurn" value="0" />
+		<input type="checkbox" name="smallScreenMode<?php echo esc_attr( $index ); ?>-hideTurn" class="rpbchessboard-hideTurnField"
+			id="rpbchessboard-smallScreenMode<?php echo esc_attr( $index ); ?>-hideTurnField" value="1"
+			<?php echo $screenMode->hideTurn ? 'checked="yes"' : ''; ?>
+		/>
+		<label for="rpbchessboard-smallScreenMode<?php echo esc_attr( $index ); ?>-hideTurnField">
+			<?php esc_html_e( 'Always hide turn flag', 'rpb-chessboard' ); ?>
+		</label>
+	</p>
 </div>
 
 <?php endforeach; ?>
