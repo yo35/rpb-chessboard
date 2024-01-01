@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-28 20:10+0200\n"
+"POT-Creation-Date: 2024-01-01 15:40+0100\n"
 "PO-Revision-Date: 2022-11-09 22:46+0000\n"
 "Last-Translator: ╪ lovag SZVETLIK Atilla\n"
 "Language-Team: Magyar\n"
@@ -209,6 +209,10 @@ msgstr "A mező méretének korlátozása: %1$s képpontra"
 #: php/templates/adminpage/smallscreens.php
 msgid "Always hide coordinates"
 msgstr "Mindig rejtse el a koordinátákat"
+
+#: php/templates/adminpage/smallscreens.php
+msgid "Always hide turn flag"
+msgstr ""
 
 #: php/templates/adminpage/about.php
 msgid ""
@@ -662,6 +666,10 @@ msgid "Show coordinates"
 msgstr "Koordináták mutatása"
 
 #: php/templates/adminpage/generic/boardaspect.php
+msgid "Show turn"
+msgstr ""
+
+#: php/templates/adminpage/generic/boardaspect.php
 msgid "Colorset:"
 msgstr "Színkészlet:"
 
@@ -824,6 +832,10 @@ msgstr "Mező méret"
 #: php/models/initscript.php
 msgid "Coordinates"
 msgstr "Koordináták"
+
+#: php/models/initscript.php
+msgid "Turn flag"
+msgstr ""
 
 #: php/models/initscript.php
 msgid "Colorset"

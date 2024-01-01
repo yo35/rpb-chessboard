@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-28 20:10+0200\n"
+"POT-Creation-Date: 2024-01-01 15:40+0100\n"
 "PO-Revision-Date: 2016-11-08 11:52+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -189,6 +189,10 @@ msgstr "Ограничить размер клетки до %1$s пикс"
 #: php/templates/adminpage/smallscreens.php
 msgid "Always hide coordinates"
 msgstr "Всегда скрывать координаты"
+
+#: php/templates/adminpage/smallscreens.php
+msgid "Always hide turn flag"
+msgstr ""
 
 #: php/templates/adminpage/about.php
 #, fuzzy
@@ -632,6 +636,10 @@ msgid "Show coordinates"
 msgstr "Показывать координаты"
 
 #: php/templates/adminpage/generic/boardaspect.php
+msgid "Show turn"
+msgstr ""
+
+#: php/templates/adminpage/generic/boardaspect.php
 msgid "Colorset:"
 msgstr "Набор цветов:"
 
@@ -807,6 +815,10 @@ msgstr "Размер клетки"
 
 #: php/models/initscript.php
 msgid "Coordinates"
+msgstr ""
+
+#: php/models/initscript.php
+msgid "Turn flag"
 msgstr ""
 
 #: php/models/initscript.php

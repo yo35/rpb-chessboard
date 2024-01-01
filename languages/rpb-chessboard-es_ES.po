@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-28 20:10+0200\n"
+"POT-Creation-Date: 2024-01-01 15:40+0100\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35 -at- melix.net>\n"
 "Language-Team: French\n"
@@ -187,6 +187,10 @@ msgstr "Restrinja el tamaño de las casillas a: %1$s pixeles"
 #: php/templates/adminpage/smallscreens.php
 msgid "Always hide coordinates"
 msgstr "Ocultar siempre coordenadas"
+
+#: php/templates/adminpage/smallscreens.php
+msgid "Always hide turn flag"
+msgstr ""
 
 #: php/templates/adminpage/about.php
 msgid ""
@@ -636,6 +640,10 @@ msgid "Show coordinates"
 msgstr "Mostrar coordenadas"
 
 #: php/templates/adminpage/generic/boardaspect.php
+msgid "Show turn"
+msgstr ""
+
+#: php/templates/adminpage/generic/boardaspect.php
 msgid "Colorset:"
 msgstr "Tema de color:"
 
@@ -809,6 +817,10 @@ msgstr "Tamaño de los casilleros"
 
 #: php/models/initscript.php
 msgid "Coordinates"
+msgstr ""
+
+#: php/models/initscript.php
+msgid "Turn flag"
 msgstr ""
 
 #: php/models/initscript.php
