@@ -2,20 +2,20 @@
     "name": "rpb-chessboard",
     "private": true,
     "dependencies": {
-        "@wordpress/block-editor": "^12.19.1",
-        "@wordpress/blocks": "^12.28.1",
-        "@wordpress/components": "^26.0.1",
-        "@wordpress/data": "^9.21.0",
-        "@wordpress/icons": "^9.42.0",
+        "@wordpress/block-editor": "^12.21.0",
+        "@wordpress/blocks": "^12.30.0",
+        "@wordpress/components": "^27.1.0",
+        "@wordpress/data": "^9.23.0",
+        "@wordpress/icons": "^9.44.0",
         "kokopu": "^4.10.0",
-        "kokopu-react": "^3.0.2",
+        "kokopu-react": "^3.1.0",
         "prop-types": "^15.8.1"
     },
     "devDependencies": {
-        "@wordpress/scripts": "^27.2.0",
-        "eslint": "^8.56.0",
+        "@wordpress/scripts": "^27.4.0",
+        "eslint": "^8.57.0",
         "eslint-config-wordpress": "^2.0.0",
-        "eslint-plugin-react": "^7.33.2",
+        "eslint-plugin-react": "^7.34.0",
         "uglifycss": "^0.0.29"
     },
     "scripts": {
