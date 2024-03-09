@@ -26,63 +26,63 @@ require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/customcolorsets.php';
 
 class RPBChessboardModelPostActionThemingColorset extends RPBChessboardAbstractModelPostActionTheming {
 
-	use RPBChessboardTraitCustomColorsets;
+    use RPBChessboardTraitCustomColorsets;
 
 
-	protected function getCreationSuccessMessage() {
-		return __( 'Colorset created.', 'rpb-chessboard' );
-	}
+    protected function getCreationSuccessMessage() {
+        return __( 'Colorset created.', 'rpb-chessboard' );
+    }
 
-	protected function getCreationFailureMessage() {
-		return __( 'Error while creating the colorset.', 'rpb-chessboard' );
-	}
+    protected function getCreationFailureMessage() {
+        return __( 'Error while creating the colorset.', 'rpb-chessboard' );
+    }
 
-	protected function getEditionSuccessMessage() {
-		return __( 'Colorset updated.', 'rpb-chessboard' );
-	}
+    protected function getEditionSuccessMessage() {
+        return __( 'Colorset updated.', 'rpb-chessboard' );
+    }
 
-	protected function getEditionFailureMessage() {
-		return __( 'Error while updating the colorset.', 'rpb-chessboard' );
-	}
+    protected function getEditionFailureMessage() {
+        return __( 'Error while updating the colorset.', 'rpb-chessboard' );
+    }
 
-	protected function getDeletionSuccessMessage() {
-		return __( 'Colorset deleted.', 'rpb-chessboard' );
-	}
+    protected function getDeletionSuccessMessage() {
+        return __( 'Colorset deleted.', 'rpb-chessboard' );
+    }
 
-	protected function getDeletionFailureMessage() {
-		return __( 'Error while deleting the colorset.', 'rpb-chessboard' );
-	}
-
-
-	protected function getDataType() {
-		return 'colorset';
-	}
+    protected function getDeletionFailureMessage() {
+        return __( 'Error while deleting the colorset.', 'rpb-chessboard' );
+    }
 
 
-	protected function isAlreadyUsedSlug( $slug ) {
-		return in_array( $slug, $this->getAvailableColorsets(), true );
-	}
+    protected function getDataType() {
+        return 'colorset';
+    }
 
 
-	protected function getCustomSlugs() {
-		return $this->getCustomColorsets();
-	}
+    protected function isAlreadyUsedSlug( $slug ) {
+        return in_array( $slug, $this->getAvailableColorsets(), true );
+    }
 
 
-	protected function loadAttributes() {
-		$darkSquareColor   = self::getColorValue( 'darkSquareColor' );
-		$lightSquareColor  = self::getColorValue( 'lightSquareColor' );
-		$greenMarkerColor  = self::getColorValue( 'greenMarkerColor' );
-		$redMarkerColor    = self::getColorValue( 'redMarkerColor' );
-		$yellowMarkerColor = self::getColorValue( 'yellowMarkerColor' );
-		$blueMarkerColor   = self::getColorValue( 'blueMarkerColor' );
-		if ( isset( $darkSquareColor ) && isset( $lightSquareColor ) && isset( $greenMarkerColor ) && isset( $redMarkerColor ) && isset( $yellowMarkerColor ) && isset( $blueMarkerColor ) ) {
-			return implode( '|', array( $darkSquareColor, $lightSquareColor, $greenMarkerColor, $redMarkerColor, $yellowMarkerColor, $blueMarkerColor ) );
-		}
-		return null;
-	}
+    protected function getCustomSlugs() {
+        return $this->getCustomColorsets();
+    }
 
-	private static function getColorValue( $key ) {
-		return isset( $_POST[ $key ] ) ? RPBChessboardHelperValidation::validateColor( $_POST[ $key ] ) : null;
-	}
+
+    protected function loadAttributes() {
+        $darkSquareColor   = self::getColorValue( 'darkSquareColor' );
+        $lightSquareColor  = self::getColorValue( 'lightSquareColor' );
+        $greenMarkerColor  = self::getColorValue( 'greenMarkerColor' );
+        $redMarkerColor    = self::getColorValue( 'redMarkerColor' );
+        $yellowMarkerColor = self::getColorValue( 'yellowMarkerColor' );
+        $blueMarkerColor   = self::getColorValue( 'blueMarkerColor' );
+        if ( isset( $darkSquareColor ) && isset( $lightSquareColor ) && isset( $greenMarkerColor ) && isset( $redMarkerColor ) && isset( $yellowMarkerColor ) && isset( $blueMarkerColor ) ) {
+            return implode( '|', array( $darkSquareColor, $lightSquareColor, $greenMarkerColor, $redMarkerColor, $yellowMarkerColor, $blueMarkerColor ) );
+        }
+        return null;
+    }
+
+    private static function getColorValue( $key ) {
+        return isset( $_POST[ $key ] ) ? RPBChessboardHelperValidation::validateColor( $_POST[ $key ] ) : null;
+    }
 }

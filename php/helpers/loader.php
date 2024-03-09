@@ -26,75 +26,75 @@
 abstract class RPBChessboardHelperLoader {
 
 
-	/**
-	 * Load the model corresponding to the given model name.
-	 *
-	 * @param string $modelName Name of the model.
-	 * @param mixed ... Arguments to pass to the model (optional).
-	 * @return object New instance of the model.
-	 */
-	public static function loadModel( $modelName ) {
-		$fileName  = strtolower( $modelName );
-		$className = 'RPBChessboardModel' . str_replace( '/', '', $modelName );
-		require_once RPBCHESSBOARD_ABSPATH . 'php/models/' . $fileName . '.php';
-		if ( func_num_args() === 1 ) {
-			return new $className();
-		} else {
-			$args  = func_get_args();
-			$clazz = new ReflectionClass( $className );
-			return $clazz->newInstanceArgs( array_slice( $args, 1 ) );
-		}
-	}
+    /**
+     * Load the model corresponding to the given model name.
+     *
+     * @param string $modelName Name of the model.
+     * @param mixed ... Arguments to pass to the model (optional).
+     * @return object New instance of the model.
+     */
+    public static function loadModel( $modelName ) {
+        $fileName  = strtolower( $modelName );
+        $className = 'RPBChessboardModel' . str_replace( '/', '', $modelName );
+        require_once RPBCHESSBOARD_ABSPATH . 'php/models/' . $fileName . '.php';
+        if ( func_num_args() === 1 ) {
+            return new $className();
+        } else {
+            $args  = func_get_args();
+            $clazz = new ReflectionClass( $className );
+            return $clazz->newInstanceArgs( array_slice( $args, 1 ) );
+        }
+    }
 
 
-	/**
-	 * Load the controller corresponding to the given name.
-	 *
-	 * @param string $controllerName Name of the controller.
-	 * @return object New instance of the controller.
-	 */
-	public static function loadController( $controllerName ) {
-		$fileName  = strtolower( $controllerName );
-		$className = 'RPBChessboard' . $controllerName;
-		require_once RPBCHESSBOARD_ABSPATH . 'php/' . $fileName . '.php';
-		return new $className();
-	}
+    /**
+     * Load the controller corresponding to the given name.
+     *
+     * @param string $controllerName Name of the controller.
+     * @return object New instance of the controller.
+     */
+    public static function loadController( $controllerName ) {
+        $fileName  = strtolower( $controllerName );
+        $className = 'RPBChessboard' . $controllerName;
+        require_once RPBCHESSBOARD_ABSPATH . 'php/' . $fileName . '.php';
+        return new $className();
+    }
 
 
-	/**
-	 * Print the given template to the current output.
-	 *
-	 * @param string $templateName
-	 * @param object $model
-	 * @param array  $args
-	 */
-	public static function printTemplate( $templateName, $model, $args = null ) {
+    /**
+     * Print the given template to the current output.
+     *
+     * @param string $templateName
+     * @param object $model
+     * @param array  $args
+     */
+    public static function printTemplate( $templateName, $model, $args = null ) {
 
-		if ( isset( $args ) ) {
-			foreach ( $args as $key_ => $value_ ) {
-				if ( 'model' === $key_ || 'templateName' === $key_ || 'fileName' === $key_ || 'args' === $key_ ) {
-					continue;
-				}
-				$$key_ = $value_;
-			}
-		}
+        if ( isset( $args ) ) {
+            foreach ( $args as $key_ => $value_ ) {
+                if ( 'model' === $key_ || 'templateName' === $key_ || 'fileName' === $key_ || 'args' === $key_ ) {
+                    continue;
+                }
+                $$key_ = $value_;
+            }
+        }
 
-		$fileName = RPBCHESSBOARD_ABSPATH . 'php/templates/' . str_replace( '-', '', $templateName );
-		include $fileName . ( is_dir( $fileName ) ? '/main.php' : '.php' );
-	}
+        $fileName = RPBCHESSBOARD_ABSPATH . 'php/templates/' . str_replace( '-', '', $templateName );
+        include $fileName . ( is_dir( $fileName ) ? '/main.php' : '.php' );
+    }
 
 
-	/**
-	 * Print the given template to a string.
-	 *
-	 * @param string $templateName
-	 * @param object $model
-	 * @param array  $args
-	 * @return string
-	 */
-	public static function printTemplateOffScreen( $templateName, $model, $args = null ) {
-		ob_start();
-		self::printTemplate( $templateName, $model, $args );
-		return ob_get_clean();
-	}
+    /**
+     * Print the given template to a string.
+     *
+     * @param string $templateName
+     * @param object $model
+     * @param array  $args
+     * @return string
+     */
+    public static function printTemplateOffScreen( $templateName, $model, $args = null ) {
+        ob_start();
+        self::printTemplate( $templateName, $model, $args );
+        return ob_get_clean();
+    }
 }

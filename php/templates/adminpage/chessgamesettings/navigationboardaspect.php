@@ -23,12 +23,12 @@
 <h3><?php esc_html_e( 'Navigation board aspect', 'rpb-chessboard' ); ?></h3>
 
 <?php
-	RPBChessboardHelperLoader::printTemplate(
-		'admin-page/generic/board-aspect',
-		$model,
-		array(
-			'key'                => 'nbo',
-			'withMoveAttributes' => true,
-		)
-	);
+    RPBChessboardHelperLoader::printTemplate(
+        'admin-page/generic/board-aspect',
+        $model,
+        array(
+            'key'                => 'nbo',
+            'withMoveAttributes' => true,
+        )
+    );
 ?>

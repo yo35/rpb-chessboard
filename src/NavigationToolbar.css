@@ -20,23 +20,23 @@
 
 
 .rpbchessboard-navigationButton {
-	display: inline-block;
-	cursor: pointer;
+    display: inline-block;
+    cursor: pointer;
 }
 
 * + .rpbchessboard-navigationButton {
-	margin-left: 2px;
+    margin-left: 2px;
 }
 
 .rpbchessboard-navigationButton:hover {
-	opacity: 0.6;
+    opacity: 0.6;
 }
 
 .rpbchessboard-navigationToolbar {
-	line-height: 0px;
+    line-height: 0px;
 }
 
 .rpbchessboard-toolbarSpacer {
-	display: inline-block;
-	width: 10px;
+    display: inline-block;
+    width: 10px;
 }

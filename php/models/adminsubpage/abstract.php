@@ -25,9 +25,9 @@
  */
 abstract class RPBChessboardAbstractModelAdminSubPage {
 
-	/**
-	 * Name of the template to use to generate the page content.
-	 */
-	abstract public function getTemplateName();
+    /**
+     * Name of the template to use to generate the page content.
+     */
+    abstract public function getTemplateName();
 
 }

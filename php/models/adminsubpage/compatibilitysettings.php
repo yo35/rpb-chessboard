@@ -29,19 +29,19 @@ require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/compatibility.php';
  */
 class RPBChessboardModelAdminSubPageCompatibilitySettings extends RPBChessboardAbstractModelAdminSubPageForm {
 
-	use RPBChessboardTraitCompatibility;
+    use RPBChessboardTraitCompatibility;
 
 
-	public function getFormSubmitAction() {
-		return 'Settings/Compatibility:update';
-	}
+    public function getFormSubmitAction() {
+        return 'Settings/Compatibility:update';
+    }
 
-	public function getFormResetAction() {
-		return 'Settings/Compatibility:reset';
-	}
+    public function getFormResetAction() {
+        return 'Settings/Compatibility:reset';
+    }
 
-	public function getFormTemplateName() {
-		return 'compatibility-settings';
-	}
+    public function getFormTemplateName() {
+        return 'compatibility-settings';
+    }
 
 }

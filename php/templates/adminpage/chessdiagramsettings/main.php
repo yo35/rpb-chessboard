@@ -21,21 +21,21 @@
 ?>
 
 <p>
-	<?php
-		printf(
-			esc_html__(
-				'This page defines the default settings applicable to the diagrams inserted with the %1$s block.',
-				'rpb-chessboard'
-			),
-			'<em>' . esc_html__( 'Chess diagram', 'rpb-chessboard' ) . '</em>'
-		);
-	?>
-	<?php
-		esc_html_e( 'It is possible to override these settings on each individual block, using the options in the block right side panel.', 'rpb-chessboard' );
-	?>
+    <?php
+        printf(
+            esc_html__(
+                'This page defines the default settings applicable to the diagrams inserted with the %1$s block.',
+                'rpb-chessboard'
+            ),
+            '<em>' . esc_html__( 'Chess diagram', 'rpb-chessboard' ) . '</em>'
+        );
+    ?>
+    <?php
+        esc_html_e( 'It is possible to override these settings on each individual block, using the options in the block right side panel.', 'rpb-chessboard' );
+    ?>
 </p>
 
 <?php
-	RPBChessboardHelperLoader::printTemplate( 'admin-page/chess-diagram-settings/alignment', $model );
-	RPBChessboardHelperLoader::printTemplate( 'admin-page/chess-diagram-settings/aspect', $model );
+    RPBChessboardHelperLoader::printTemplate( 'admin-page/chess-diagram-settings/alignment', $model );
+    RPBChessboardHelperLoader::printTemplate( 'admin-page/chess-diagram-settings/aspect', $model );
 ?>

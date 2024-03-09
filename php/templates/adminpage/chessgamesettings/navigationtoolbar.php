@@ -24,53 +24,53 @@
 
 
 <div class="rpbchessboard-columns">
-	<div class="rpbchessboard-tuningNavigationToolbarParameterColumn">
+    <div class="rpbchessboard-tuningNavigationToolbarParameterColumn">
 
-		<p>
-			<input type="hidden" name="showFlipButton" value="0" />
-			<input type="checkbox" id="rpbchessboard-showFlipButtonField" name="showFlipButton" value="1"
-				<?php echo $model->getDefaultShowFlipButton() ? 'checked="yes"' : ''; ?>
-			/>
-			<label for="rpbchessboard-showFlipButtonField"><?php esc_html_e( 'Show the flip button', 'rpb-chessboard' ); ?></label>
-		</p>
+        <p>
+            <input type="hidden" name="showFlipButton" value="0" />
+            <input type="checkbox" id="rpbchessboard-showFlipButtonField" name="showFlipButton" value="1"
+                <?php echo $model->getDefaultShowFlipButton() ? 'checked="yes"' : ''; ?>
+            />
+            <label for="rpbchessboard-showFlipButtonField"><?php esc_html_e( 'Show the flip button', 'rpb-chessboard' ); ?></label>
+        </p>
 
-		<p>
-			<input type="hidden" name="showDownloadButton" value="0" />
-			<input type="checkbox" id="rpbchessboard-showDownloadButtonField" name="showDownloadButton" value="1"
-				<?php echo $model->getDefaultShowDownloadButton() ? 'checked="yes"' : ''; ?>
-			/>
-			<label for="rpbchessboard-showDownloadButtonField"><?php esc_html_e( 'Show the download button', 'rpb-chessboard' ); ?></label>
-		</p>
+        <p>
+            <input type="hidden" name="showDownloadButton" value="0" />
+            <input type="checkbox" id="rpbchessboard-showDownloadButtonField" name="showDownloadButton" value="1"
+                <?php echo $model->getDefaultShowDownloadButton() ? 'checked="yes"' : ''; ?>
+            />
+            <label for="rpbchessboard-showDownloadButtonField"><?php esc_html_e( 'Show the download button', 'rpb-chessboard' ); ?></label>
+        </p>
 
-	</div>
-	<div>
+    </div>
+    <div>
 
-		<div id="rpbchessboard-navigationToolbarPreview">
-			<img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/chessboard-snippet.png' ); ?>" alt="<?php esc_attr_e( 'Chessboard snippet', 'rpb-chessboard' ); ?>" />
-			<div></div>
-		</div>
+        <div id="rpbchessboard-navigationToolbarPreview">
+            <img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/chessboard-snippet.png' ); ?>" alt="<?php esc_attr_e( 'Chessboard snippet', 'rpb-chessboard' ); ?>" />
+            <div></div>
+        </div>
 
-	</div>
+    </div>
 </div>
 
 
 <p class="description">
-	<?php esc_html_e( 'These settings allow to customize the toolbar that is displayed below the navigation board.', 'rpb-chessboard' ); ?>
+    <?php esc_html_e( 'These settings allow to customize the toolbar that is displayed below the navigation board.', 'rpb-chessboard' ); ?>
 </p>
 
 
 <script type="text/javascript">
-	jQuery(document).ready(function($) {
+    jQuery(document).ready(function($) {
 
-		function refreshPreview() {
-			RPBChessboard.renderNavigationToolbar($('#rpbchessboard-navigationToolbarPreview > div'), {
-				withFlipButton: $('#rpbchessboard-showFlipButtonField').prop('checked'),
-				withDownloadButton: $('#rpbchessboard-showDownloadButtonField').prop('checked'),
-			});
-		}
+        function refreshPreview() {
+            RPBChessboard.renderNavigationToolbar($('#rpbchessboard-navigationToolbarPreview > div'), {
+                withFlipButton: $('#rpbchessboard-showFlipButtonField').prop('checked'),
+                withDownloadButton: $('#rpbchessboard-showDownloadButtonField').prop('checked'),
+            });
+        }
 
-		$('#rpbchessboard-showFlipButtonField').change(refreshPreview);
-		$('#rpbchessboard-showDownloadButtonField').change(refreshPreview);
-		refreshPreview();
-	});
+        $('#rpbchessboard-showFlipButtonField').change(refreshPreview);
+        $('#rpbchessboard-showDownloadButtonField').change(refreshPreview);
+        refreshPreview();
+    });
 </script>

@@ -25,104 +25,104 @@
 
 <div class="rpbchessboard-graphicRadioButtonFields">
 
-	<div>
-		<input type="radio" id="rpbchessboard-navigationBoardButton-none" name="navigationBoard" value="none"
-			<?php echo $model->getDefaultNavigationBoard() === 'none' ? 'checked="yes"' : ''; ?>
-		/>
-		<label for="rpbchessboard-navigationBoardButton-none" title="<?php esc_attr_e( 'No navigation board', 'rpb-chessboard' ); ?>">
-			<img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-none.png' ); ?>"
-				alt="<?php esc_attr_e( 'No navigation board', 'rpb-chessboard' ); ?>"
-			/>
-		</label>
-	</div>
+    <div>
+        <input type="radio" id="rpbchessboard-navigationBoardButton-none" name="navigationBoard" value="none"
+            <?php echo $model->getDefaultNavigationBoard() === 'none' ? 'checked="yes"' : ''; ?>
+        />
+        <label for="rpbchessboard-navigationBoardButton-none" title="<?php esc_attr_e( 'No navigation board', 'rpb-chessboard' ); ?>">
+            <img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-none.png' ); ?>"
+                alt="<?php esc_attr_e( 'No navigation board', 'rpb-chessboard' ); ?>"
+            />
+        </label>
+    </div>
 
-	<div>
-		<input type="radio" id="rpbchessboard-navigationBoardButton-frame" name="navigationBoard" value="frame"
-			<?php echo $model->getDefaultNavigationBoard() === 'frame' ? 'checked="yes"' : ''; ?>
-		/>
-		<label for="rpbchessboard-navigationBoardButton-frame" title="<?php esc_attr_e( 'In a popup frame', 'rpb-chessboard' ); ?>">
-			<img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-popup.png' ); ?>"
-				alt="<?php esc_attr_e( 'In a popup frame', 'rpb-chessboard' ); ?>"
-			/>
-		</label>
-	</div>
+    <div>
+        <input type="radio" id="rpbchessboard-navigationBoardButton-frame" name="navigationBoard" value="frame"
+            <?php echo $model->getDefaultNavigationBoard() === 'frame' ? 'checked="yes"' : ''; ?>
+        />
+        <label for="rpbchessboard-navigationBoardButton-frame" title="<?php esc_attr_e( 'In a popup frame', 'rpb-chessboard' ); ?>">
+            <img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-popup.png' ); ?>"
+                alt="<?php esc_attr_e( 'In a popup frame', 'rpb-chessboard' ); ?>"
+            />
+        </label>
+    </div>
 
-	<div>
-		<input type="radio" id="rpbchessboard-navigationBoardButton-above" name="navigationBoard" value="above"
-			<?php echo $model->getDefaultNavigationBoard() === 'above' ? 'checked="yes"' : ''; ?>
-		/>
-		<label for="rpbchessboard-navigationBoardButton-above" title="<?php esc_attr_e( 'Above the game headers and the move list', 'rpb-chessboard' ); ?>">
-			<img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-above.png' ); ?>"
-				alt="<?php esc_attr_e( 'Above the game headers and the move list', 'rpb-chessboard' ); ?>"
-			/>
-		</label>
-	</div>
+    <div>
+        <input type="radio" id="rpbchessboard-navigationBoardButton-above" name="navigationBoard" value="above"
+            <?php echo $model->getDefaultNavigationBoard() === 'above' ? 'checked="yes"' : ''; ?>
+        />
+        <label for="rpbchessboard-navigationBoardButton-above" title="<?php esc_attr_e( 'Above the game headers and the move list', 'rpb-chessboard' ); ?>">
+            <img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-above.png' ); ?>"
+                alt="<?php esc_attr_e( 'Above the game headers and the move list', 'rpb-chessboard' ); ?>"
+            />
+        </label>
+    </div>
 
-	<div>
-		<input type="radio" id="rpbchessboard-navigationBoardButton-below" name="navigationBoard" value="below"
-			<?php echo $model->getDefaultNavigationBoard() === 'below' ? 'checked="yes"' : ''; ?>
-		/>
-		<label for="rpbchessboard-navigationBoardButton-below" title="<?php esc_attr_e( 'Below the move list', 'rpb-chessboard' ); ?>">
-			<img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-below.png' ); ?>"
-				alt="<?php esc_attr_e( 'Below the move list', 'rpb-chessboard' ); ?>"
-			/>
-		</label>
-	</div>
+    <div>
+        <input type="radio" id="rpbchessboard-navigationBoardButton-below" name="navigationBoard" value="below"
+            <?php echo $model->getDefaultNavigationBoard() === 'below' ? 'checked="yes"' : ''; ?>
+        />
+        <label for="rpbchessboard-navigationBoardButton-below" title="<?php esc_attr_e( 'Below the move list', 'rpb-chessboard' ); ?>">
+            <img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-below.png' ); ?>"
+                alt="<?php esc_attr_e( 'Below the move list', 'rpb-chessboard' ); ?>"
+            />
+        </label>
+    </div>
 
-	<div>
-		<input type="radio" id="rpbchessboard-navigationBoardButton-floatLeft" name="navigationBoard" value="floatLeft"
-			<?php echo $model->getDefaultNavigationBoard() === 'floatLeft' ? 'checked="yes"' : ''; ?>
-		/>
-		<label for="rpbchessboard-navigationBoardButton-floatLeft" title="<?php esc_attr_e( 'On the left of the move list', 'rpb-chessboard' ); ?>">
-			<img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-float-left.png' ); ?>"
-				alt="<?php esc_attr_e( 'On the left of the move list', 'rpb-chessboard' ); ?>"
-			/>
-		</label>
-	</div>
+    <div>
+        <input type="radio" id="rpbchessboard-navigationBoardButton-floatLeft" name="navigationBoard" value="floatLeft"
+            <?php echo $model->getDefaultNavigationBoard() === 'floatLeft' ? 'checked="yes"' : ''; ?>
+        />
+        <label for="rpbchessboard-navigationBoardButton-floatLeft" title="<?php esc_attr_e( 'On the left of the move list', 'rpb-chessboard' ); ?>">
+            <img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-float-left.png' ); ?>"
+                alt="<?php esc_attr_e( 'On the left of the move list', 'rpb-chessboard' ); ?>"
+            />
+        </label>
+    </div>
 
-	<div>
-		<input type="radio" id="rpbchessboard-navigationBoardButton-floatRight" name="navigationBoard" value="floatRight"
-			<?php echo $model->getDefaultNavigationBoard() === 'floatRight' ? 'checked="yes"' : ''; ?>
-		/>
-		<label for="rpbchessboard-navigationBoardButton-floatRight" title="<?php esc_attr_e( 'On the right of the move list', 'rpb-chessboard' ); ?>">
-			<img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-float-right.png' ); ?>"
-				alt="<?php esc_attr_e( 'On the right of the move list', 'rpb-chessboard' ); ?>"
-			/>
-		</label>
-	</div>
+    <div>
+        <input type="radio" id="rpbchessboard-navigationBoardButton-floatRight" name="navigationBoard" value="floatRight"
+            <?php echo $model->getDefaultNavigationBoard() === 'floatRight' ? 'checked="yes"' : ''; ?>
+        />
+        <label for="rpbchessboard-navigationBoardButton-floatRight" title="<?php esc_attr_e( 'On the right of the move list', 'rpb-chessboard' ); ?>">
+            <img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-float-right.png' ); ?>"
+                alt="<?php esc_attr_e( 'On the right of the move list', 'rpb-chessboard' ); ?>"
+            />
+        </label>
+    </div>
 
-	<div>
-		<input type="radio" id="rpbchessboard-navigationBoardButton-scrollLeft" name="navigationBoard" value="scrollLeft"
-			<?php echo $model->getDefaultNavigationBoard() === 'scrollLeft' ? 'checked="yes"' : ''; ?>
-		/>
-		<label for="rpbchessboard-navigationBoardButton-scrollLeft" title="<?php esc_attr_e( 'On the left, with scrollable move list', 'rpb-chessboard' ); ?>">
-			<img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-scroll-left.png' ); ?>"
-				alt="<?php esc_attr_e( 'On the left, with scrollable move list', 'rpb-chessboard' ); ?>"
-			/>
-		</label>
-	</div>
+    <div>
+        <input type="radio" id="rpbchessboard-navigationBoardButton-scrollLeft" name="navigationBoard" value="scrollLeft"
+            <?php echo $model->getDefaultNavigationBoard() === 'scrollLeft' ? 'checked="yes"' : ''; ?>
+        />
+        <label for="rpbchessboard-navigationBoardButton-scrollLeft" title="<?php esc_attr_e( 'On the left, with scrollable move list', 'rpb-chessboard' ); ?>">
+            <img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-scroll-left.png' ); ?>"
+                alt="<?php esc_attr_e( 'On the left, with scrollable move list', 'rpb-chessboard' ); ?>"
+            />
+        </label>
+    </div>
 
-	<div>
-		<input type="radio" id="rpbchessboard-navigationBoardButton-scrollRight" name="navigationBoard" value="scrollRight"
-			<?php echo $model->getDefaultNavigationBoard() === 'scrollRight' ? 'checked="yes"' : ''; ?>
-		/>
-		<label for="rpbchessboard-navigationBoardButton-scrollRight" title="<?php esc_attr_e( 'On the right, with scrollable move list', 'rpb-chessboard' ); ?>">
-			<img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-scroll-right.png' ); ?>"
-				alt="<?php esc_attr_e( 'On the right, with scrollable move list', 'rpb-chessboard' ); ?>"
-			/>
-		</label>
-	</div>
+    <div>
+        <input type="radio" id="rpbchessboard-navigationBoardButton-scrollRight" name="navigationBoard" value="scrollRight"
+            <?php echo $model->getDefaultNavigationBoard() === 'scrollRight' ? 'checked="yes"' : ''; ?>
+        />
+        <label for="rpbchessboard-navigationBoardButton-scrollRight" title="<?php esc_attr_e( 'On the right, with scrollable move list', 'rpb-chessboard' ); ?>">
+            <img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-scroll-right.png' ); ?>"
+                alt="<?php esc_attr_e( 'On the right, with scrollable move list', 'rpb-chessboard' ); ?>"
+            />
+        </label>
+    </div>
 
 </div>
 
 
 <p class="description">
-	<?php
-		esc_html_e(
-			'A navigation board may be added to each PGN game to help post/page readers to follow the progress of the game. ' .
-			'This navigation board is displayed either in a popup frame (in this case, it becomes visible only when the reader ' .
-			'clicks on a move) or next to the move list (then it is visible as soon as the page is loaded).',
-			'rpb-chessboard'
-		);
-	?>
+    <?php
+        esc_html_e(
+            'A navigation board may be added to each PGN game to help post/page readers to follow the progress of the game. ' .
+            'This navigation board is displayed either in a popup frame (in this case, it becomes visible only when the reader ' .
+            'clicks on a move) or next to the move list (then it is visible as soon as the page is loaded).',
+            'rpb-chessboard'
+        );
+    ?>
 </p>

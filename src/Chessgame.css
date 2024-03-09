@@ -20,98 +20,98 @@
 
 
 .kokopu-headers > div + div {
-	margin-top: 0.25em;
+    margin-top: 0.25em;
 }
 
 .kokopu-headers + .kokopu-mainVariation {
-	margin-top: 0.5em;
+    margin-top: 0.5em;
 }
 
 * + div.kokopu-moveGroup,
 * + div.kokopu-comment,
 * + div.kokopu-variation {
-	margin-top: 0.5em;
+    margin-top: 0.5em;
 }
 
 .rpbchessboard-indentWithFloatLeft div.kokopu-subVariation {
-	margin-left: 0px;
-	position: relative;
-	left: 1.5em;
-	width: calc(100% - 1.5em);
+    margin-left: 0px;
+    position: relative;
+    left: 1.5em;
+    width: calc(100% - 1.5em);
 }
 
 .rpbchessboard-navigationBoard-above,
 .rpbchessboard-navigationBoard-floatLeft,
 .rpbchessboard-navigationBoard-floatRight {
-	margin-bottom: 0.5em;
+    margin-bottom: 0.5em;
 }
 
 .rpbchessboard-navigationBoard-below {
-	margin-top: 0.5em;
+    margin-top: 0.5em;
 }
 
 .rpbchessboard-navigationBoard-floatLeft {
-	float: left;
-	margin-right: 0.5em;
+    float: left;
+    margin-right: 0.5em;
 }
 
 .rpbchessboard-navigationBoard-floatRight {
-	float: right;
-	margin-left: 0.5em;
+    float: right;
+    margin-left: 0.5em;
 }
 
 .rpbchessboard-clearFloat {
-	clear: both;
+    clear: both;
 }
 
 .rpbchessboard-scrollBox-scrollLeft,
 .rpbchessboard-scrollBox-scrollRight {
-	display: flex;
-	align-items: flex-start;
+    display: flex;
+    align-items: flex-start;
 }
 
 .rpbchessboard-scrollBox-scrollLeft {
-	flex-direction: row;
+    flex-direction: row;
 }
 
 .rpbchessboard-scrollBox-scrollRight {
-	flex-direction: row-reverse;
+    flex-direction: row-reverse;
 }
 
 .rpbchessboard-navigationBoard-scrollLeft {
-	margin-right: 0.5em;
+    margin-right: 0.5em;
 }
 
 .rpbchessboard-navigationBoard-scrollRight {
-	margin-left: 0.5em;
+    margin-left: 0.5em;
 }
 
 @media all and (max-width:480px) {
-	.rpbchessboard-scrollBox-scrollLeft,
-	.rpbchessboard-scrollBox-scrollRight {
-		flex-direction: column;
-		align-items: center;
-	}
-	.rpbchessboard-navigationBoard-scrollLeft {
-		margin-right: 0em;
-		margin-bottom: 0.75em;
-	}
-	.rpbchessboard-navigationBoard-scrollRight {
-		margin-left: 0em;
-		margin-top: 0.75em;
-	}
+    .rpbchessboard-scrollBox-scrollLeft,
+    .rpbchessboard-scrollBox-scrollRight {
+        flex-direction: column;
+        align-items: center;
+    }
+    .rpbchessboard-navigationBoard-scrollLeft {
+        margin-right: 0em;
+        margin-bottom: 0.75em;
+    }
+    .rpbchessboard-navigationBoard-scrollRight {
+        margin-left: 0em;
+        margin-top: 0.75em;
+    }
 }
 
 .rpbchessboard-scrollArea {
-	overflow-y: auto;
+    overflow-y: auto;
 }
 
 .rpbchessboard-navigationBoard {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .rpbchessboard-blobDownloadLink {
-	display: none;
+    display: none;
 }

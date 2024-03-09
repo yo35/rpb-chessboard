@@ -21,8 +21,8 @@
 ?>
 
 <?php
-	wp_enqueue_script( 'rpbchessboard-npm' );
-	wp_enqueue_style( 'rpbchessboard-npm' );
+    wp_enqueue_script( 'rpbchessboard-npm' );
+    wp_enqueue_style( 'rpbchessboard-npm' );
 ?>
 
 <?php if ( $model->getDiagramAlignment() === 'center' ) : ?>
@@ -30,18 +30,18 @@
 <?php endif; ?>
 
 <div id="<?php echo esc_attr( $model->getUniqueID() ); ?>" class="rpbchessboard-chessboard <?php echo esc_attr( 'rpbchessboard-diagramAlignment-' . $model->getDiagramAlignment() ); ?>">
-	<noscript>
-		<div class="rpbchessboard-javascriptWarning">
-			<?php esc_html_e( 'You must activate JavaScript to enhance chess diagram visualization.', 'rpb-chessboard' ); ?>
-		</div>
-	</noscript>
-	<div class="rpbchessboard-chessboardAnchor"></div>
-	<script type="text/javascript">
-		jQuery(document).ready(function($) {
-			var selector = '#' + <?php echo wp_json_encode( $model->getUniqueID() ); ?> + ' .rpbchessboard-chessboardAnchor';
-			RPBChessboard.renderFEN($(selector), <?php echo wp_json_encode( $model->getWidgetArgs() ); ?>);
-		});
-	</script>
+    <noscript>
+        <div class="rpbchessboard-javascriptWarning">
+            <?php esc_html_e( 'You must activate JavaScript to enhance chess diagram visualization.', 'rpb-chessboard' ); ?>
+        </div>
+    </noscript>
+    <div class="rpbchessboard-chessboardAnchor"></div>
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            var selector = '#' + <?php echo wp_json_encode( $model->getUniqueID() ); ?> + ' .rpbchessboard-chessboardAnchor';
+            RPBChessboard.renderFEN($(selector), <?php echo wp_json_encode( $model->getWidgetArgs() ); ?>);
+        });
+    </script>
 </div>
 
 <?php if ( $model->getDiagramAlignment() === 'center' ) : ?>

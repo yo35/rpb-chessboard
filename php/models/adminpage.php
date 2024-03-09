@@ -25,143 +25,143 @@
  */
 class RPBChessboardModelAdminPage {
 
-	private $subPages;
-	private $currentSubPageId;
-	private $subPageModel;
+    private $subPages;
+    private $currentSubPageId;
+    private $subPageModel;
 
 
-	public function __construct() {
-		$this->subPages         = array(
-			'chess-diagram-settings' => (object) array(
-				'type'  => 'default',
-				'label' => __( 'Chess diagram block settings', 'rpb-chessboard' ),
-				'icon'  => 'fen',
-			),
-			'chess-game-settings'    => (object) array(
-				'type'  => 'regular',
-				'label' => __( 'Chess game block settings', 'rpb-chessboard' ),
-				'icon'  => 'pgn',
-			),
-			'compatibility-settings' => (object) array(
-				'type'  => 'regular',
-				'label' => __( 'Compatibility settings', 'rpb-chessboard' ),
-			),
-			'small-screens'          => (object) array(
-				'type'  => 'regular',
-				'label' => __( 'Small-screen devices', 'rpb-chessboard' ),
-			),
-			'theming'                => (object) array(
-				'type'  => 'regular',
-				'label' => __( 'Theming', 'rpb-chessboard' ),
-			),
-			'help'                   => (object) array(
-				'type'  => 'https://rpb-chessboard.yo35.org/',
-				'label' => __( 'Documentation', 'rpb-chessboard' ),
-			),
-			'about'                  => (object) array(
-				'type'  => 'regular',
-				'label' => __( 'About', 'rpb-chessboard' ),
-			),
-		);
-		$this->currentSubPageId = $this->computeCurrentSubPage();
-		$this->subPageModel     = self::isDefaultOrRegularType( $this->subPages[ $this->currentSubPageId ]->type ) ?
-			RPBChessboardHelperLoader::loadModel( $this->computeSubPageModelName() ) : null;
-	}
+    public function __construct() {
+        $this->subPages         = array(
+            'chess-diagram-settings' => (object) array(
+                'type'  => 'default',
+                'label' => __( 'Chess diagram block settings', 'rpb-chessboard' ),
+                'icon'  => 'fen',
+            ),
+            'chess-game-settings'    => (object) array(
+                'type'  => 'regular',
+                'label' => __( 'Chess game block settings', 'rpb-chessboard' ),
+                'icon'  => 'pgn',
+            ),
+            'compatibility-settings' => (object) array(
+                'type'  => 'regular',
+                'label' => __( 'Compatibility settings', 'rpb-chessboard' ),
+            ),
+            'small-screens'          => (object) array(
+                'type'  => 'regular',
+                'label' => __( 'Small-screen devices', 'rpb-chessboard' ),
+            ),
+            'theming'                => (object) array(
+                'type'  => 'regular',
+                'label' => __( 'Theming', 'rpb-chessboard' ),
+            ),
+            'help'                   => (object) array(
+                'type'  => 'https://rpb-chessboard.yo35.org/',
+                'label' => __( 'Documentation', 'rpb-chessboard' ),
+            ),
+            'about'                  => (object) array(
+                'type'  => 'regular',
+                'label' => __( 'About', 'rpb-chessboard' ),
+            ),
+        );
+        $this->currentSubPageId = $this->computeCurrentSubPage();
+        $this->subPageModel     = self::isDefaultOrRegularType( $this->subPages[ $this->currentSubPageId ]->type ) ?
+            RPBChessboardHelperLoader::loadModel( $this->computeSubPageModelName() ) : null;
+    }
 
 
-	private function computeCurrentSubPage() {
-		$val       = isset( $_GET['subpage'] ) ? $_GET['subpage'] : '';
-		$defaultId = null;
-		foreach ( $this->subPages as $id => $data ) {
-			if ( $id === $val && self::isDefaultOrRegularType( $data->type ) ) {
-				return $id;
-			}
-			if ( 'default' === $data->type ) {
-				$defaultId = $id;
-			}
-		}
-		return $defaultId;
-	}
+    private function computeCurrentSubPage() {
+        $val       = isset( $_GET['subpage'] ) ? $_GET['subpage'] : '';
+        $defaultId = null;
+        foreach ( $this->subPages as $id => $data ) {
+            if ( $id === $val && self::isDefaultOrRegularType( $data->type ) ) {
+                return $id;
+            }
+            if ( 'default' === $data->type ) {
+                $defaultId = $id;
+            }
+        }
+        return $defaultId;
+    }
 
 
-	private function computeSubPageModelName() {
-		return 'AdminSubPage/' . implode( array_map( 'ucfirst', explode( '-', $this->currentSubPageId ) ) );
-	}
+    private function computeSubPageModelName() {
+        return 'AdminSubPage/' . implode( array_map( 'ucfirst', explode( '-', $this->currentSubPageId ) ) );
+    }
 
 
-	private static function isDefaultOrRegularType( $type ) {
-		return 'default' === $type || 'regular' === $type;
-	}
+    private static function isDefaultOrRegularType( $type ) {
+        return 'default' === $type || 'regular' === $type;
+    }
 
 
-	/**
-	 * IDs of the sub-pages.
-	 */
-	public function getSubPages() {
-		return array_keys( $this->subPages );
-	}
+    /**
+     * IDs of the sub-pages.
+     */
+    public function getSubPages() {
+        return array_keys( $this->subPages );
+    }
 
 
-	/**
-	 * ID of the current sub-page.
-	 */
-	public function getCurrentSubPage() {
-		return $this->currentSubPageId;
-	}
+    /**
+     * ID of the current sub-page.
+     */
+    public function getCurrentSubPage() {
+        return $this->currentSubPageId;
+    }
 
 
-	/**
-	 * Whether the given ID corresponds to an external sub-page.
-	 */
-	public function isExternalSubPage( $subPageId ) {
-		return ! self::isDefaultOrRegularType( $this->subPages[ $subPageId ]->type );
-	}
+    /**
+     * Whether the given ID corresponds to an external sub-page.
+     */
+    public function isExternalSubPage( $subPageId ) {
+        return ! self::isDefaultOrRegularType( $this->subPages[ $subPageId ]->type );
+    }
 
 
-	/**
-	 * URL to the sub-page corresponding to the given ID.
-	 */
-	public function getSubPageLink( $subPageId ) {
-		switch ( $this->subPages[ $subPageId ]->type ) {
-			case 'default':
-				return admin_url( 'options-general.php?page=rpbchessboard' );
-			case 'regular':
-				return admin_url( 'options-general.php?page=rpbchessboard&subpage=' . $subPageId );
-			default:
-				return $this->subPages[ $subPageId ]->type;
-		}
-	}
+    /**
+     * URL to the sub-page corresponding to the given ID.
+     */
+    public function getSubPageLink( $subPageId ) {
+        switch ( $this->subPages[ $subPageId ]->type ) {
+            case 'default':
+                return admin_url( 'options-general.php?page=rpbchessboard' );
+            case 'regular':
+                return admin_url( 'options-general.php?page=rpbchessboard&subpage=' . $subPageId );
+            default:
+                return $this->subPages[ $subPageId ]->type;
+        }
+    }
 
 
-	/**
-	 * Label of the given sub-page in the menu.
-	 */
-	public function getSubPageLabel( $subPageId ) {
-		return $this->subPages[ $subPageId ]->label;
-	}
+    /**
+     * Label of the given sub-page in the menu.
+     */
+    public function getSubPageLabel( $subPageId ) {
+        return $this->subPages[ $subPageId ]->label;
+    }
 
 
-	/**
-	 * Whether the given given sub-page has a menu icon or not.
-	 */
-	public function hasSubPageIcon( $subPageId ) {
-		return isset( $this->subPages[ $subPageId ]->icon );
-	}
+    /**
+     * Whether the given given sub-page has a menu icon or not.
+     */
+    public function hasSubPageIcon( $subPageId ) {
+        return isset( $this->subPages[ $subPageId ]->icon );
+    }
 
 
-	/**
-	 * Icon of the given sub-page in the menu, if any.
-	 */
-	public function getSubPageIcon( $subPageId ) {
-		return $this->subPages[ $subPageId ]->icon;
-	}
+    /**
+     * Icon of the given sub-page in the menu, if any.
+     */
+    public function getSubPageIcon( $subPageId ) {
+        return $this->subPages[ $subPageId ]->icon;
+    }
 
 
-	/**
-	 * Unresolved method calls are delegated to the sub-page model.
-	 */
-	public function __call( $method, $args ) {
-		return call_user_func_array( array( $this->subPageModel, $method ), $args );
-	}
+    /**
+     * Unresolved method calls are delegated to the sub-page model.
+     */
+    public function __call( $method, $args ) {
+        return call_user_func_array( array( $this->subPageModel, $method ), $args );
+    }
 
 }

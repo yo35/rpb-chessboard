@@ -25,99 +25,99 @@
  */
 abstract class RPBChessboardAbstractModelBlock {
 
-	protected $mainModel;
-	private $attributes;
-	private $content;
-	private $contentFiltered = false;
-	private $uniqueID;
+    protected $mainModel;
+    private $attributes;
+    private $content;
+    private $contentFiltered = false;
+    private $uniqueID;
 
 
-	/**
-	 * Constructor.
-	 *
-	 * @param array  $atts Attributes passed with the block/shortcode.
-	 * @param string $content Block/shortcode content.
-	 */
-	public function __construct( $mainModel, $attributes, $content ) {
-		$this->mainModel  = $mainModel;
-		$this->attributes = isset( $attributes ) && is_array( $attributes ) ? $attributes : array();
-		$this->content    = isset( $content ) && is_string( $content ) ? $content : '';
-	}
+    /**
+     * Constructor.
+     *
+     * @param array  $atts Attributes passed with the block/shortcode.
+     * @param string $content Block/shortcode content.
+     */
+    public function __construct( $mainModel, $attributes, $content ) {
+        $this->mainModel  = $mainModel;
+        $this->attributes = isset( $attributes ) && is_array( $attributes ) ? $attributes : array();
+        $this->content    = isset( $content ) && is_string( $content ) ? $content : '';
+    }
 
 
-	/**
-	 * Return the attributes passed to the block.
-	 *
-	 * @return array
-	 */
-	final protected function getAttributes() {
-		return $this->attributes;
-	}
+    /**
+     * Return the attributes passed to the block.
+     *
+     * @return array
+     */
+    final protected function getAttributes() {
+        return $this->attributes;
+    }
 
 
-	/**
-	 * Return the block content.
-	 *
-	 * @return string
-	 */
-	final protected function getContent() {
-		if ( ! $this->contentFiltered ) {
-			$this->content         = $this->filterShortcodeContent( $this->content );
-			$this->contentFiltered = true;
-		}
-		return $this->content;
-	}
+    /**
+     * Return the block content.
+     *
+     * @return string
+     */
+    final protected function getContent() {
+        if ( ! $this->contentFiltered ) {
+            $this->content         = $this->filterShortcodeContent( $this->content );
+            $this->contentFiltered = true;
+        }
+        return $this->content;
+    }
 
 
-	/**
-	 * Pre-process the shortcode enclosed content, for instance to get rid of the
-	 * auto-format HTML tags introduced by the WordPress engine. By default, this
-	 * function returns the raw content "as-is". The function should be re-implemented
-	 * in the derived models.
-	 *
-	 * @param string $content Raw content.
-	 * @return string Filtered content.
-	 */
-	protected function filterShortcodeContent( $content ) {
-		return $content;
-	}
+    /**
+     * Pre-process the shortcode enclosed content, for instance to get rid of the
+     * auto-format HTML tags introduced by the WordPress engine. By default, this
+     * function returns the raw content "as-is". The function should be re-implemented
+     * in the derived models.
+     *
+     * @param string $content Raw content.
+     * @return string Filtered content.
+     */
+    protected function filterShortcodeContent( $content ) {
+        return $content;
+    }
 
 
-	/**
-	 * Return a string that may be used as a unique DOM node ID.
-	 *
-	 * @return string
-	 */
-	final public function getUniqueID() {
-		if ( ! isset( $this->uniqueID ) ) {
-			$this->uniqueID = self::makeUniqueID();
-		}
-		return $this->uniqueID;
-	}
+    /**
+     * Return a string that may be used as a unique DOM node ID.
+     *
+     * @return string
+     */
+    final public function getUniqueID() {
+        if ( ! isset( $this->uniqueID ) ) {
+            $this->uniqueID = self::makeUniqueID();
+        }
+        return $this->uniqueID;
+    }
 
 
-	/**
-	 * Allocate a new HTML node ID.
-	 *
-	 * @return string
-	 */
-	private static function makeUniqueID() {
-		if ( ! isset( self::$idPrefix ) ) {
-			self::$idPrefix = 'rpbchessboard-' . uniqid() . '-';
-		}
-		++self::$idCounter;
-		return self::$idPrefix . self::$idCounter;
-	}
+    /**
+     * Allocate a new HTML node ID.
+     *
+     * @return string
+     */
+    private static function makeUniqueID() {
+        if ( ! isset( self::$idPrefix ) ) {
+            self::$idPrefix = 'rpbchessboard-' . uniqid() . '-';
+        }
+        ++self::$idCounter;
+        return self::$idPrefix . self::$idCounter;
+    }
 
 
-	/**
-	 * Global ID counter.
-	 */
-	private static $idCounter = 0;
+    /**
+     * Global ID counter.
+     */
+    private static $idCounter = 0;
 
 
-	/**
-	 * Prefix for the dynamically allocated DOM IDs.
-	 */
-	private static $idPrefix;
+    /**
+     * Prefix for the dynamically allocated DOM IDs.
+     */
+    private static $idPrefix;
 }

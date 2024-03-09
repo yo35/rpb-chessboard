@@ -1,31 +1,34 @@
 <?xml version="1.0"?>
 <ruleset name="WordPress-RPBChessboard">
 
-	<rule ref="WordPress-Extra">
+    <rule ref="WordPress-Extra">
 
-		<!-- Ignore naming convention rules relative to snake-case and "class-" prefix -->
-		<exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
-		<exclude name="WordPress.NamingConventions.ValidVariableName.PropertyNotSnakeCase"/>
-		<exclude name="WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase"/>
-		<exclude name="WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase"/>
-		<exclude name="WordPress.NamingConventions.ValidVariableName.InterpolatedVariableNotSnakeCase"/>
-		<exclude name="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid"/>
+        <!-- Ignore naming convention rules relative to snake-case and "class-" prefix -->
+        <exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+        <exclude name="WordPress.NamingConventions.ValidVariableName.PropertyNotSnakeCase"/>
+        <exclude name="WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase"/>
+        <exclude name="WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase"/>
+        <exclude name="WordPress.NamingConventions.ValidVariableName.InterpolatedVariableNotSnakeCase"/>
+        <exclude name="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid"/>
 
-		<!-- FIXME refactor internationalized strings to comply with these rules -->
-		<exclude name="WordPress.WP.I18n.MissingTranslatorsComment"/>
-		<exclude name="WordPress.WP.I18n.NonSingularStringLiteralText"/>
+        <!-- FIXME refactor internationalized strings to comply with these rules -->
+        <exclude name="WordPress.WP.I18n.MissingTranslatorsComment"/>
+        <exclude name="WordPress.WP.I18n.NonSingularStringLiteralText"/>
 
-		<!-- It would be highly suitable to not ignore this rule relative to nonce checking.
-		However, its implementation generates a large number of false-positive detection. -->
-		<exclude name="WordPress.Security.NonceVerification.Missing"/>
-		<exclude name="WordPress.Security.NonceVerification.Recommended"/>
+        <!-- It would be highly suitable to not ignore this rule relative to nonce checking.
+        However, its implementation generates a large number of false-positive detection. -->
+        <exclude name="WordPress.Security.NonceVerification.Missing"/>
+        <exclude name="WordPress.Security.NonceVerification.Recommended"/>
 
-		<!-- Harmful code formatting rules -->
-		<exclude name="Squiz.PHP.EmbeddedPhp.ContentBeforeOpen"/>
-		<exclude name="Squiz.PHP.EmbeddedPhp.SpacingBeforeClose"/>
-		<exclude name="Generic.WhiteSpace.ScopeIndent.IncorrectExact"/>
-		<exclude name="Generic.WhiteSpace.ScopeIndent.Incorrect"/>
-	</rule>
+        <!-- Harmful code formatting rules -->
+        <exclude name="Squiz.PHP.EmbeddedPhp.ContentBeforeOpen"/>
+        <exclude name="Squiz.PHP.EmbeddedPhp.SpacingBeforeClose"/>
+        <exclude name="Generic.WhiteSpace.DisallowSpaceIndent"/>
+        <exclude name="Generic.WhiteSpace.ScopeIndent.IncorrectExact"/>
+        <exclude name="Generic.WhiteSpace.ScopeIndent.Incorrect"/>
+    </rule>
 
-	<arg name="extensions" value="php"/>
+    <rule ref="Generic.WhiteSpace.DisallowTabIndent"/>
+
+    <arg name="extensions" value="php"/>
 </ruleset>

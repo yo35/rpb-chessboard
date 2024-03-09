@@ -26,67 +26,67 @@ require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/custompiecesets.php';
 
 class RPBChessboardModelPostActionThemingPieceset extends RPBChessboardAbstractModelPostActionTheming {
 
-	use RPBChessboardTraitCustomPiecesets;
+    use RPBChessboardTraitCustomPiecesets;
 
 
-	protected function getCreationSuccessMessage() {
-		return __( 'Pieceset created.', 'rpb-chessboard' );
-	}
+    protected function getCreationSuccessMessage() {
+        return __( 'Pieceset created.', 'rpb-chessboard' );
+    }
 
-	protected function getCreationFailureMessage() {
-		return __( 'Error while creating the pieceset.', 'rpb-chessboard' );
-	}
+    protected function getCreationFailureMessage() {
+        return __( 'Error while creating the pieceset.', 'rpb-chessboard' );
+    }
 
-	protected function getEditionSuccessMessage() {
-		return __( 'Pieceset updated.', 'rpb-chessboard' );
-	}
+    protected function getEditionSuccessMessage() {
+        return __( 'Pieceset updated.', 'rpb-chessboard' );
+    }
 
-	protected function getEditionFailureMessage() {
-		return __( 'Error while updating the pieceset.', 'rpb-chessboard' );
-	}
+    protected function getEditionFailureMessage() {
+        return __( 'Error while updating the pieceset.', 'rpb-chessboard' );
+    }
 
-	protected function getDeletionSuccessMessage() {
-		return __( 'Pieceset deleted.', 'rpb-chessboard' );
-	}
+    protected function getDeletionSuccessMessage() {
+        return __( 'Pieceset deleted.', 'rpb-chessboard' );
+    }
 
-	protected function getDeletionFailureMessage() {
-		return __( 'Error while deleting the pieceset.', 'rpb-chessboard' );
-	}
-
-
-	protected function getDataType() {
-		return 'pieceset';
-	}
+    protected function getDeletionFailureMessage() {
+        return __( 'Error while deleting the pieceset.', 'rpb-chessboard' );
+    }
 
 
-	protected function isAlreadyUsedSlug( $slug ) {
-		return in_array( $slug, $this->getAvailablePiecesets(), true );
-	}
+    protected function getDataType() {
+        return 'pieceset';
+    }
 
 
-	protected function getCustomSlugs() {
-		return $this->getCustomPiecesets();
-	}
+    protected function isAlreadyUsedSlug( $slug ) {
+        return in_array( $slug, $this->getAvailablePiecesets(), true );
+    }
 
 
-	protected function loadAttributes() {
-		$values = array();
-		foreach ( self::$COLORED_PIECE_CODES as $coloredPiece ) {
-			$id = self::getImageId( $coloredPiece );
-			if ( ! isset( $id ) ) {
-				return null;
-			}
-			$values[] = $id;
-		}
-		return implode( '|', $values );
-	}
+    protected function getCustomSlugs() {
+        return $this->getCustomPiecesets();
+    }
 
 
-	/**
-	 * Return the attachment ID defined for the given colored piece.
-	 */
-	private static function getImageId( $coloredPiece ) {
-		$key = 'imageId-' . $coloredPiece;
-		return isset( $_POST[ $key ] ) ? RPBChessboardHelperValidation::validateInteger( $_POST[ $key ] ) : null;
-	}
+    protected function loadAttributes() {
+        $values = array();
+        foreach ( self::$COLORED_PIECE_CODES as $coloredPiece ) {
+            $id = self::getImageId( $coloredPiece );
+            if ( ! isset( $id ) ) {
+                return null;
+            }
+            $values[] = $id;
+        }
+        return implode( '|', $values );
+    }
+
+
+    /**
+     * Return the attachment ID defined for the given colored piece.
+     */
+    private static function getImageId( $coloredPiece ) {
+        $key = 'imageId-' . $coloredPiece;
+        return isset( $_POST[ $key ] ) ? RPBChessboardHelperValidation::validateInteger( $_POST[ $key ] ) : null;
+    }
 }

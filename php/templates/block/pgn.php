@@ -21,25 +21,25 @@
 ?>
 
 <?php
-	wp_enqueue_script( 'rpbchessboard-npm' );
-	wp_enqueue_style( 'rpbchessboard-npm' );
+    wp_enqueue_script( 'rpbchessboard-npm' );
+    wp_enqueue_style( 'rpbchessboard-npm' );
 ?>
 
 <p class="rpbchessboard-spacerBefore"></p>
 
 <div id="<?php echo esc_attr( $model->getUniqueID() ); ?>" class="rpbchessboard-chessgame">
-	<noscript>
-		<div class="rpbchessboard-javascriptWarning">
-			<?php esc_html_e( 'You must activate JavaScript to enhance chess game visualization.', 'rpb-chessboard' ); ?>
-		</div>
-	</noscript>
-	<div class="rpbchessboard-chessgameAnchor"></div>
-	<script type="text/javascript">
-		jQuery(document).ready(function($) {
-			var selector = '#' + <?php echo wp_json_encode( $model->getUniqueID() ); ?> + ' .rpbchessboard-chessgameAnchor';
-			RPBChessboard.renderPGN($(selector), <?php echo wp_json_encode( $model->getWidgetArgs() ); ?>);
-		});
-	</script>
+    <noscript>
+        <div class="rpbchessboard-javascriptWarning">
+            <?php esc_html_e( 'You must activate JavaScript to enhance chess game visualization.', 'rpb-chessboard' ); ?>
+        </div>
+    </noscript>
+    <div class="rpbchessboard-chessgameAnchor"></div>
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            var selector = '#' + <?php echo wp_json_encode( $model->getUniqueID() ); ?> + ' .rpbchessboard-chessgameAnchor';
+            RPBChessboard.renderPGN($(selector), <?php echo wp_json_encode( $model->getWidgetArgs() ); ?>);
+        });
+    </script>
 </div>
 
 <p class="rpbchessboard-spacerAfter"></p>

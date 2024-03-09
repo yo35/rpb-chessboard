@@ -29,31 +29,31 @@ require_once RPBCHESSBOARD_ABSPATH . 'php/abstractcontroller.php';
 class RPBChessboardControllerFrontend extends RPBChessboardAbstractController {
 
 
-	protected function getScriptRegistrationHook() {
-		return 'wp_enqueue_scripts';
-	}
+    protected function getScriptRegistrationHook() {
+        return 'wp_enqueue_scripts';
+    }
 
 
-	public function registerStylesheets() {
-		parent::registerStylesheets();
+    public function registerStylesheets() {
+        parent::registerStylesheets();
 
-		// Enqueue the main CSS files if lazy-loading is disabled.
-		if ( ! $this->getMainModel()->getLazyLoadingForCSSAndJS() ) {
-			wp_enqueue_style( 'rpbchessboard-npm' );
-		}
-	}
+        // Enqueue the main CSS files if lazy-loading is disabled.
+        if ( ! $this->getMainModel()->getLazyLoadingForCSSAndJS() ) {
+            wp_enqueue_style( 'rpbchessboard-npm' );
+        }
+    }
 
 
-	public function registerScripts() {
-		parent::registerScripts();
+    public function registerScripts() {
+        parent::registerScripts();
 
-		// Force jQuery to be loaded in the header (should be the case anyway in most themes).
-		wp_enqueue_script( 'jquery' );
+        // Force jQuery to be loaded in the header (should be the case anyway in most themes).
+        wp_enqueue_script( 'jquery' );
 
-		// Enqueue the main JS files if lazy-loading is disabled.
-		if ( ! $this->getMainModel()->getLazyLoadingForCSSAndJS() ) {
-			wp_enqueue_script( 'rpbchessboard-npm' );
-		}
-	}
+        // Enqueue the main JS files if lazy-loading is disabled.
+        if ( ! $this->getMainModel()->getLazyLoadingForCSSAndJS() ) {
+            wp_enqueue_script( 'rpbchessboard-npm' );
+        }
+    }
 
 }

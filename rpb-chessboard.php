@@ -50,8 +50,8 @@ load_plugin_textdomain( 'rpb-chessboard', false, basename( dirname( __FILE__ ) )
 // Plugin initialization
 add_action( 'init', 'rpbchessboard_init' );
 function rpbchessboard_init() {
-	require_once RPBCHESSBOARD_ABSPATH . 'php/helpers/loader.php';
-	require_once RPBCHESSBOARD_ABSPATH . 'php/helpers/validation.php';
-	$controller = RPBChessboardHelperLoader::loadController( is_admin() ? 'ControllerAdmin' : 'ControllerFrontend' );
-	$controller->init();
+    require_once RPBCHESSBOARD_ABSPATH . 'php/helpers/loader.php';
+    require_once RPBCHESSBOARD_ABSPATH . 'php/helpers/validation.php';
+    $controller = RPBChessboardHelperLoader::loadController( is_admin() ? 'ControllerAdmin' : 'ControllerFrontend' );
+    $controller->init();
 }

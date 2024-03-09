@@ -20,38 +20,38 @@
 
 
 .rpbchessboard-javascriptWarning {
-	padding: 8px 10px 8px;
-	text-align: left;
-	line-height: 1.3em;
-	font-size: 12px;
-	font-family: sans-serif;
-	color: #444;
-	border: solid 1px #c88;
-	background-color: #fdd;
+    padding: 8px 10px 8px;
+    text-align: left;
+    line-height: 1.3em;
+    font-size: 12px;
+    font-family: sans-serif;
+    color: #444;
+    border: solid 1px #c88;
+    background-color: #fdd;
 }
 
 p.rpbchessboard-spacerBefore {
-	margin-bottom: 0px !important;
+    margin-bottom: 0px !important;
 }
 
 p.rpbchessboard-spacerAfter {
-	margin-top: 0px !important;
+    margin-top: 0px !important;
 }
 
 .rpbchessboard-diagramAlignment-center {
-	text-align: center;
+    text-align: center;
 }
 
 .rpbchessboard-diagramAlignment-floatLeft {
-	float: left;
-	margin-right: 1em;
-	margin-top: 0.4em;
-	margin-bottom: 0.4em;
+    float: left;
+    margin-right: 1em;
+    margin-top: 0.4em;
+    margin-bottom: 0.4em;
 }
 
 .rpbchessboard-diagramAlignment-floatRight {
-	float: right;
-	margin-left: 1em;
-	margin-top: 0.4em;
-	margin-bottom: 0.4em;
+    float: right;
+    margin-left: 1em;
+    margin-top: 0.4em;
+    margin-bottom: 0.4em;
 }

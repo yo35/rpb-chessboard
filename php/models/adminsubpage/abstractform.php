@@ -28,24 +28,24 @@ require_once RPBCHESSBOARD_ABSPATH . 'php/models/adminsubpage/abstract.php';
  */
 abstract class RPBChessboardAbstractModelAdminSubPageForm extends RPBChessboardAbstractModelAdminSubPage {
 
-	/**
-	 * Name of the action performed when the user clicks on "Submit".
-	 */
-	abstract public function getFormSubmitAction();
+    /**
+     * Name of the action performed when the user clicks on "Submit".
+     */
+    abstract public function getFormSubmitAction();
 
-	/**
-	 * Name of the action performed when the user clicks on "Reset".
-	 */
-	abstract public function getFormResetAction();
+    /**
+     * Name of the action performed when the user clicks on "Reset".
+     */
+    abstract public function getFormResetAction();
 
-	/**
-	 * Name of the template to use to generate the form content.
-	 */
-	abstract public function getFormTemplateName();
+    /**
+     * Name of the template to use to generate the form content.
+     */
+    abstract public function getFormTemplateName();
 
 
-	final public function getTemplateName() {
-		return 'generic/form';
-	}
+    final public function getTemplateName() {
+        return 'generic/form';
+    }
 
 }

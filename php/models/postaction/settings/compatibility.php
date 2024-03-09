@@ -25,19 +25,19 @@ require_once RPBCHESSBOARD_ABSPATH . 'php/models/postaction/settings/abstract.ph
 
 class RPBChessboardModelPostActionSettingsCompatibility extends RPBChessboardAbstractModelPostActionSettings {
 
-	public function update() {
-		self::updateBooleanParameter( 'fenCompatibilityMode' );
-		self::updateBooleanParameter( 'pgnCompatibilityMode' );
-		self::updateBooleanParameter( 'lazyLoadingForCSSAndJS' );
-		return self::getUpdateSuccessMessage();
-	}
+    public function update() {
+        self::updateBooleanParameter( 'fenCompatibilityMode' );
+        self::updateBooleanParameter( 'pgnCompatibilityMode' );
+        self::updateBooleanParameter( 'lazyLoadingForCSSAndJS' );
+        return self::getUpdateSuccessMessage();
+    }
 
 
-	public function reset() {
-		self::deleteParameter( 'fenCompatibilityMode' );
-		self::deleteParameter( 'pgnCompatibilityMode' );
-		self::deleteParameter( 'lazyLoadingForCSSAndJS' );
-		return self::getResetSuccessMessage();
-	}
+    public function reset() {
+        self::deleteParameter( 'fenCompatibilityMode' );
+        self::deleteParameter( 'pgnCompatibilityMode' );
+        self::deleteParameter( 'lazyLoadingForCSSAndJS' );
+        return self::getResetSuccessMessage();
+    }
 
 }

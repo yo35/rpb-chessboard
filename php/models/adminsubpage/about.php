@@ -29,100 +29,100 @@ require_once RPBCHESSBOARD_ABSPATH . 'php/models/adminsubpage/abstract.php';
 class RPBChessboardModelAdminSubPageAbout extends RPBChessboardAbstractModelAdminSubPage {
 
 
-	public function getTemplateName() {
-		return 'about';
-	}
+    public function getTemplateName() {
+        return 'about';
+    }
 
 
-	public function getPluginContributors() {
-		return array(
-			(object) array(
-				'name' => 'Marek Śmigielski',
-			),
-			(object) array(
-				'name' => 'Paul Schreiber',
-				'link' => 'https://paulschreiber.com/',
-			),
-			(object) array(
-				'name' => 'Adam Silverstein',
-				'link' => 'http://www.10up.com/',
-			),
-			(object) array(
-				'name' => 'Paolo Fantozzi',
-			),
-		);
-	}
+    public function getPluginContributors() {
+        return array(
+            (object) array(
+                'name' => 'Marek Śmigielski',
+            ),
+            (object) array(
+                'name' => 'Paul Schreiber',
+                'link' => 'https://paulschreiber.com/',
+            ),
+            (object) array(
+                'name' => 'Adam Silverstein',
+                'link' => 'http://www.10up.com/',
+            ),
+            (object) array(
+                'name' => 'Paolo Fantozzi',
+            ),
+        );
+    }
 
 
-	public function getPluginTranslators() {
+    public function getPluginTranslators() {
 
-		// Flag images obtained from https://github.com/niltsh/iso-country-flags-svg-collection
-		// Style 'simple'
-		// Size 40 x 30
+        // Flag images obtained from https://github.com/niltsh/iso-country-flags-svg-collection
+        // Style 'simple'
+        // Size 40 x 30
 
-		return array(
-			(object) array(
-				'code' => 'cz', // WARNING: language code is cs
-				'lang' => 'Čeština',
-				'name' => 'Jan Jílek',
-			),
-			(object) array(
-				'code' => 'de',
-				'lang' => 'Deutsch',
-				'name' => 'Markus Liebelt',
-			),
-			(object) array(
-				'code' => 'gb', // WARNING: language code is en
-				'lang' => 'English',
-				'name' => 'Yoann Le Montagner',
-			),
-			(object) array(
-				'code' => 'es',
-				'lang' => 'Español',
-				'name' => 'Martin Frith',
-			),
-			(object) array(
-				'code' => 'fr',
-				'lang' => 'Français',
-				'name' => 'Yoann Le Montagner',
-			),
-			(object) array(
-				'code' => 'hu',
-				'lang' => 'Magyar',
-				'name' => 'Atilla Szvetlik',
-			),
-			(object) array(
-				'code' => 'it',
-				'lang' => 'Italiano',
-				'name' => 'Andrea Cuccarini',
-			),
-			(object) array(
-				'code' => 'nl',
-				'lang' => 'Nederlands',
-				'name' => 'Ivan Deceuninck',
-			),
-			(object) array(
-				'code' => 'pl',
-				'lang' => 'Polski',
-				'name' => 'Dawid Ziółkowski',
-			),
-			(object) array(
-				'code' => 'br', // WARNING: language code is pt
-				'lang' => 'Português do Brasil',
-				'name' => 'Rewbenio Frota',
-				'link' => 'http://www.lancesqi.com.br/',
-			),
-			(object) array(
-				'code' => 'ru',
-				'lang' => 'Русский',
-				'name' => 'Sergey Baravicov',
-			),
-			(object) array(
-				'code' => 'tr',
-				'lang' => 'Türkçe',
-				'name' => 'Ali Nihat Yazıcı',
-			),
-		);
-	}
+        return array(
+            (object) array(
+                'code' => 'cz', // WARNING: language code is cs
+                'lang' => 'Čeština',
+                'name' => 'Jan Jílek',
+            ),
+            (object) array(
+                'code' => 'de',
+                'lang' => 'Deutsch',
+                'name' => 'Markus Liebelt',
+            ),
+            (object) array(
+                'code' => 'gb', // WARNING: language code is en
+                'lang' => 'English',
+                'name' => 'Yoann Le Montagner',
+            ),
+            (object) array(
+                'code' => 'es',
+                'lang' => 'Español',
+                'name' => 'Martin Frith',
+            ),
+            (object) array(
+                'code' => 'fr',
+                'lang' => 'Français',
+                'name' => 'Yoann Le Montagner',
+            ),
+            (object) array(
+                'code' => 'hu',
+                'lang' => 'Magyar',
+                'name' => 'Atilla Szvetlik',
+            ),
+            (object) array(
+                'code' => 'it',
+                'lang' => 'Italiano',
+                'name' => 'Andrea Cuccarini',
+            ),
+            (object) array(
+                'code' => 'nl',
+                'lang' => 'Nederlands',
+                'name' => 'Ivan Deceuninck',
+            ),
+            (object) array(
+                'code' => 'pl',
+                'lang' => 'Polski',
+                'name' => 'Dawid Ziółkowski',
+            ),
+            (object) array(
+                'code' => 'br', // WARNING: language code is pt
+                'lang' => 'Português do Brasil',
+                'name' => 'Rewbenio Frota',
+                'link' => 'http://www.lancesqi.com.br/',
+            ),
+            (object) array(
+                'code' => 'ru',
+                'lang' => 'Русский',
+                'name' => 'Sergey Baravicov',
+            ),
+            (object) array(
+                'code' => 'tr',
+                'lang' => 'Türkçe',
+                'name' => 'Ali Nihat Yazıcı',
+            ),
+        );
+    }
 
 }

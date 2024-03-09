@@ -25,7 +25,7 @@
  */
 class RPBChessboardModelPluginLink {
 
-	public function getLink() {
-		return admin_url( 'options-general.php?page=rpbchessboard' );
-	}
+    public function getLink() {
+        return admin_url( 'options-general.php?page=rpbchessboard' );
+    }
 }

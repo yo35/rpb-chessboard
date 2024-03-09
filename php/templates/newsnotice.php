@@ -21,21 +21,21 @@
 ?>
 
 <div id="rpbchessboard-newsNotice" class="notice notice-info <?php echo $model->isDismissible() ? 'is-dismissible' : ''; ?>">
-	<?php
-		// See file `/php/templates/newsnoticecontent.php`
-		RPBChessboardHelperLoader::printTemplate( 'news-notice-content', null );
-	?>
+    <?php
+        // See file `/php/templates/newsnoticecontent.php`
+        RPBChessboardHelperLoader::printTemplate( 'news-notice-content', null );
+    ?>
 </div>
 
 <script type="text/javascript">
-	jQuery(document).ready(function($) {
-		$( document ).on( 'click', '#rpbchessboard-newsNotice .notice-dismiss', function () {
-			$.ajax( ajaxurl, {
-				type: 'POST',
-				data: {
-					action: 'rpbchessboard-dismissNewsNotice',
-				}
-			});
-		});
-	});
+    jQuery(document).ready(function($) {
+        $( document ).on( 'click', '#rpbchessboard-newsNotice .notice-dismiss', function () {
+            $.ajax( ajaxurl, {
+                type: 'POST',
+                data: {
+                    action: 'rpbchessboard-dismissNewsNotice',
+                }
+            });
+        });
+    });
 </script>

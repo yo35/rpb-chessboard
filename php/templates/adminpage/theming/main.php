@@ -21,279 +21,279 @@
 ?>
 
 <?php
-	wp_enqueue_script( 'iris' );
-	wp_enqueue_media();
+    wp_enqueue_script( 'iris' );
+    wp_enqueue_media();
 ?>
 
 <div class="rpbchessboard-columns">
 
-	<div>
-		<?php
-			RPBChessboardHelperLoader::printTemplate( 'admin-page/theming/colorsets', $model );
-			RPBChessboardHelperLoader::printTemplate( 'admin-page/theming/piecesets', $model );
-		?>
-	</div>
+    <div>
+        <?php
+            RPBChessboardHelperLoader::printTemplate( 'admin-page/theming/colorsets', $model );
+            RPBChessboardHelperLoader::printTemplate( 'admin-page/theming/piecesets', $model );
+        ?>
+    </div>
 
-	<div>
-		<div id="rpbchessboard-themingPreview">
-			<div id="rpbchessboard-themingPreviewWidget"></div>
-			<p>
-				<input id="rpbchessboard-themingPreviewAnnotations" type="checkbox" />
-				<label for="rpbchessboard-themingPreviewAnnotations"><?php esc_html_e( 'Show annotations', 'rpb-chessboard' ); ?></label>
-			</p>
-		</div>
-	</div>
+    <div>
+        <div id="rpbchessboard-themingPreview">
+            <div id="rpbchessboard-themingPreviewWidget"></div>
+            <p>
+                <input id="rpbchessboard-themingPreviewAnnotations" type="checkbox" />
+                <label for="rpbchessboard-themingPreviewAnnotations"><?php esc_html_e( 'Show annotations', 'rpb-chessboard' ); ?></label>
+            </p>
+        </div>
+    </div>
 
 </div>
 
 <script type="text/javascript">
-	jQuery(document).ready(function($) {
+    jQuery(document).ready(function($) {
 
-		// State variables
-		var editingColorset = false;
-		var editingPieceset = false;
-		var hoveredColorset = false;
-		var hoveredPieceset = false;
-		var colorset = $('input[name="preview_colorset"]:checked').val();
-		var pieceset = $('input[name="preview_pieceset"]:checked').val();
-		var showAnnotations = $('#rpbchessboard-themingPreviewAnnotations').prop('checked');
-		var mediaFrame = {};
-
-
-		// Refresh the widget
-		function refresh() {
-			RPBChessboard.renderAdminChessboard($('#rpbchessboard-themingPreviewWidget'), {
-				position: 'start',
-				squareMarkers: showAnnotations ? 'Ba4,Ba5,Gb4,Gb5,Rc4,Rc5,Yd4,Yd5' : '',
-				arrowMarkers: showAnnotations ? 'Be3e6,Gf3f6,Rg3g6,Yh3h6' : '',
-				squareSize: 48,
-				coordinateVisible: false,
-				colorset: editingColorset ? '_edit_' : hoveredColorset ? hoveredColorset : colorset,
-				pieceset: editingPieceset ? '_edit_' : hoveredPieceset ? hoveredPieceset : pieceset,
-			});
-		}
-		refresh();
+        // State variables
+        var editingColorset = false;
+        var editingPieceset = false;
+        var hoveredColorset = false;
+        var hoveredPieceset = false;
+        var colorset = $('input[name="preview_colorset"]:checked').val();
+        var pieceset = $('input[name="preview_pieceset"]:checked').val();
+        var showAnnotations = $('#rpbchessboard-themingPreviewAnnotations').prop('checked');
+        var mediaFrame = {};
 
 
-		// Show/hide the annotations
-		$('#rpbchessboard-themingPreviewAnnotations').change(function() {
-			showAnnotations = $('#rpbchessboard-themingPreviewAnnotations').prop('checked');
-			refresh();
-		});
+        // Refresh the widget
+        function refresh() {
+            RPBChessboard.renderAdminChessboard($('#rpbchessboard-themingPreviewWidget'), {
+                position: 'start',
+                squareMarkers: showAnnotations ? 'Ba4,Ba5,Gb4,Gb5,Rc4,Rc5,Yd4,Yd5' : '',
+                arrowMarkers: showAnnotations ? 'Be3e6,Gf3f6,Rg3g6,Yh3h6' : '',
+                squareSize: 48,
+                coordinateVisible: false,
+                colorset: editingColorset ? '_edit_' : hoveredColorset ? hoveredColorset : colorset,
+                pieceset: editingPieceset ? '_edit_' : hoveredPieceset ? hoveredPieceset : pieceset,
+            });
+        }
+        refresh();
 
 
-		// Refresh on click on one of the radio button
-		$('input[name="preview_colorset"]').change(function() {
-			colorset = $(this).val();
-			refresh();
-		});
-		$('input[name="preview_pieceset"]').change(function() {
-			pieceset = $(this).val();
-			refresh();
-		});
+        // Show/hide the annotations
+        $('#rpbchessboard-themingPreviewAnnotations').change(function() {
+            showAnnotations = $('#rpbchessboard-themingPreviewAnnotations').prop('checked');
+            refresh();
+        });
 
 
-		// Trigger preview on mouse over any table row
-		$('.rpbchessboard-colorsetRow').mouseleave(function() {
-			hoveredColorset = false;
-			refresh();
-		}).mouseenter(function() {
-			hoveredColorset = $(this).data('slug');
-			refresh();
-		});
-		$('.rpbchessboard-piecesetRow').mouseleave(function() {
-			hoveredPieceset = false;
-			refresh();
-		}).mouseenter(function() {
-			hoveredPieceset = $(this).data('slug');
-			refresh();
-		});
+        // Refresh on click on one of the radio button
+        $('input[name="preview_colorset"]').change(function() {
+            colorset = $(this).val();
+            refresh();
+        });
+        $('input[name="preview_pieceset"]').change(function() {
+            pieceset = $(this).val();
+            refresh();
+        });
 
 
-		// Initialization function for the colorset edition components.
-		function initializeColorsetEditor(target) {
-
-			function irisCallback(colorsetField) {
-				return function(event, ui) {
-					RPBChessboard.editColorset[colorsetField] = ui.color.toString();
-					refresh();
-				};
-			}
-
-			// Initialize the color picker widgets
-			$('.rpbchessboard-darkSquareColorField', target).iris({
-				hide: false,
-				target: $('.rpbchessboard-darkSquareColorSelector', target),
-				change: irisCallback('b')
-			});
-			$('.rpbchessboard-lightSquareColorField', target).iris({
-				hide: false,
-				target: $('.rpbchessboard-lightSquareColorSelector', target),
-				change: irisCallback('w')
-			});
-			$('.rpbchessboard-blueMarkerColorField', target).iris({
-				hide: false,
-				target: $('.rpbchessboard-blueMarkerColorSelector', target),
-				change: irisCallback('cb')
-			});
-			$('.rpbchessboard-greenMarkerColorField', target).iris({
-				hide: false,
-				target: $('.rpbchessboard-greenMarkerColorSelector', target),
-				change: irisCallback('cg')
-			});
-			$('.rpbchessboard-redMarkerColorField', target).iris({
-				hide: false,
-				target: $('.rpbchessboard-redMarkerColorSelector', target),
-				change: irisCallback('cr')
-			});
-			$('.rpbchessboard-yellowMarkerColorField', target).iris({
-				hide: false,
-				target: $('.rpbchessboard-yellowMarkerColorSelector', target),
-				change: irisCallback('cy')
-			});
-
-			// Disable what needs to be disable in the rest of the page.
-			$('input[name="preview_colorset"]').attr('disabled', true);
-			$('.rpbchessboard-action-add').addClass('disabled');
-			$('.rpbchessboard-rowActions').addClass('disabled');
-
-			// Reconfigure preview chessboard
-			RPBChessboard.editColorset.b = $('.rpbchessboard-darkSquareColorField', target).iris('color');
-			RPBChessboard.editColorset.w = $('.rpbchessboard-lightSquareColorField', target).iris('color');
-			RPBChessboard.editColorset.cb = $('.rpbchessboard-blueMarkerColorField', target).iris('color');
-			RPBChessboard.editColorset.cg = $('.rpbchessboard-greenMarkerColorField', target).iris('color');
-			RPBChessboard.editColorset.cr = $('.rpbchessboard-redMarkerColorField', target).iris('color');
-			RPBChessboard.editColorset.cy = $('.rpbchessboard-yellowMarkerColorField', target).iris('color');
-			editingColorset = true;
-			refresh();
-		}
+        // Trigger preview on mouse over any table row
+        $('.rpbchessboard-colorsetRow').mouseleave(function() {
+            hoveredColorset = false;
+            refresh();
+        }).mouseenter(function() {
+            hoveredColorset = $(this).data('slug');
+            refresh();
+        });
+        $('.rpbchessboard-piecesetRow').mouseleave(function() {
+            hoveredPieceset = false;
+            refresh();
+        }).mouseenter(function() {
+            hoveredPieceset = $(this).data('slug');
+            refresh();
+        });
 
 
-		// Display the media frame (the frame is initialized if necessary).
-		function displayMediaFrame(form, button) {
-			var coloredPiece = button.data('coloredPiece');
-			if (!mediaFrame[coloredPiece]) {
+        // Initialization function for the colorset edition components.
+        function initializeColorsetEditor(target) {
 
-				mediaFrame[coloredPiece] = wp.media({
-					title: $(button).attr('title'),
-					button: { text: <?php echo wp_json_encode( __( 'Select', 'rpb-chessboard' ) ); ?> },
-					multiple: false,
-				});
+            function irisCallback(colorsetField) {
+                return function(event, ui) {
+                    RPBChessboard.editColorset[colorsetField] = ui.color.toString();
+                    refresh();
+                };
+            }
 
-				mediaFrame[coloredPiece].on('select', function() {
-					var attachment = mediaFrame[coloredPiece].state().get('selection').first().toJSON();
-					onMediaSelected(form, coloredPiece, attachment.id, attachment.url);
-				});
-			}
-			mediaFrame[coloredPiece].open();
-		}
+            // Initialize the color picker widgets
+            $('.rpbchessboard-darkSquareColorField', target).iris({
+                hide: false,
+                target: $('.rpbchessboard-darkSquareColorSelector', target),
+                change: irisCallback('b')
+            });
+            $('.rpbchessboard-lightSquareColorField', target).iris({
+                hide: false,
+                target: $('.rpbchessboard-lightSquareColorSelector', target),
+                change: irisCallback('w')
+            });
+            $('.rpbchessboard-blueMarkerColorField', target).iris({
+                hide: false,
+                target: $('.rpbchessboard-blueMarkerColorSelector', target),
+                change: irisCallback('cb')
+            });
+            $('.rpbchessboard-greenMarkerColorField', target).iris({
+                hide: false,
+                target: $('.rpbchessboard-greenMarkerColorSelector', target),
+                change: irisCallback('cg')
+            });
+            $('.rpbchessboard-redMarkerColorField', target).iris({
+                hide: false,
+                target: $('.rpbchessboard-redMarkerColorSelector', target),
+                change: irisCallback('cr')
+            });
+            $('.rpbchessboard-yellowMarkerColorField', target).iris({
+                hide: false,
+                target: $('.rpbchessboard-yellowMarkerColorSelector', target),
+                change: irisCallback('cy')
+            });
 
+            // Disable what needs to be disable in the rest of the page.
+            $('input[name="preview_colorset"]').attr('disabled', true);
+            $('.rpbchessboard-action-add').addClass('disabled');
+            $('.rpbchessboard-rowActions').addClass('disabled');
 
-		// Callback invoked when the media frame is validated.
-		function onMediaSelected(form, coloredPiece, attachmentId, attachmentURL) {
-			$('.rpbchessboard-coloredPieceButton-' + coloredPiece + ' img', form).attr('src', attachmentURL);
-			$('input[name="imageId-' + coloredPiece + '"]', form).val(attachmentId);
-			RPBChessboard.editPieceset[coloredPiece] = attachmentURL;
-			refresh();
-		}
-
-
-		// Initialization function for the pieceset edition components.
-		function initializePiecesetEditor(target) {
-
-			// Initialize the buttons showing the image picker frame.
-			$('.rpbchessboard-coloredPieceButton', target).click(function(e) {
-				e.preventDefault();
-				displayMediaFrame(target, $(this));
-			});
-
-			// Disable what needs to be disable in the rest of the page.
-			$('input[name="preview_pieceset"]').attr('disabled', true);
-			$('.rpbchessboard-action-add').addClass('disabled');
-			$('.rpbchessboard-rowActions').addClass('disabled');
-
-			// Reconfigure preview chessboard
-			['bp', 'bn', 'bb', 'br', 'bq', 'bk', 'bx', 'wp', 'wn', 'wb', 'wr', 'wq', 'wk', 'wx'].forEach(function(coloredPiece) {
-				RPBChessboard.editPieceset[coloredPiece] = $('input[name="imageId-' + coloredPiece + '"]', target).data('initialPreviewUrl');
-			});
-			editingPieceset = true;
-			refresh();
-		}
-
-
-		// Handle "add" actions
-		$('.rpbchessboard-action-addColorset').click(function(e) {
-			e.preventDefault();
-			if($(this).hasClass('disabled')) {
-				return;
-			}
-			var target = $('#rpbchessboard-colorsetCreator');
-			initializeColorsetEditor(target);
-			target.show();
-		});
-		$('.rpbchessboard-action-addPieceset').click(function(e) {
-			e.preventDefault();
-			if($(this).hasClass('disabled')) {
-				return;
-			}
-			var target = $('#rpbchessboard-piecesetCreator');
-			initializePiecesetEditor(target);
-			target.show();
-		});
+            // Reconfigure preview chessboard
+            RPBChessboard.editColorset.b = $('.rpbchessboard-darkSquareColorField', target).iris('color');
+            RPBChessboard.editColorset.w = $('.rpbchessboard-lightSquareColorField', target).iris('color');
+            RPBChessboard.editColorset.cb = $('.rpbchessboard-blueMarkerColorField', target).iris('color');
+            RPBChessboard.editColorset.cg = $('.rpbchessboard-greenMarkerColorField', target).iris('color');
+            RPBChessboard.editColorset.cr = $('.rpbchessboard-redMarkerColorField', target).iris('color');
+            RPBChessboard.editColorset.cy = $('.rpbchessboard-yellowMarkerColorField', target).iris('color');
+            editingColorset = true;
+            refresh();
+        }
 
 
-		// Handle "edit" actions
-		$('.rpbchessboard-action-editColorset').click(function(e) {
-			e.preventDefault();
-			var row = $(this).closest('tr');
-			$('td', row).not('.rpbchessboard-themingEditor').hide();
-			var target = $('td.rpbchessboard-themingEditor', row);
-			initializeColorsetEditor(target);
-			target.show();
-		});
-		$('.rpbchessboard-action-editPieceset').click(function(e) {
-			e.preventDefault();
-			var row = $(this).closest('tr');
-			$('td', row).not('.rpbchessboard-themingEditor').hide();
-			var target = $('td.rpbchessboard-themingEditor', row);
-			initializePiecesetEditor(target);
-			target.show();
-		});
+        // Display the media frame (the frame is initialized if necessary).
+        function displayMediaFrame(form, button) {
+            var coloredPiece = button.data('coloredPiece');
+            if (!mediaFrame[coloredPiece]) {
+
+                mediaFrame[coloredPiece] = wp.media({
+                    title: $(button).attr('title'),
+                    button: { text: <?php echo wp_json_encode( __( 'Select', 'rpb-chessboard' ) ); ?> },
+                    multiple: false,
+                });
+
+                mediaFrame[coloredPiece].on('select', function() {
+                    var attachment = mediaFrame[coloredPiece].state().get('selection').first().toJSON();
+                    onMediaSelected(form, coloredPiece, attachment.id, attachment.url);
+                });
+            }
+            mediaFrame[coloredPiece].open();
+        }
 
 
-		// Handle "delete" actions.
-		$('.rpbchessboard-action-deleteColorset').click(function(e) {
-			e.preventDefault();
-			var row = $(this).closest('tr');
+        // Callback invoked when the media frame is validated.
+        function onMediaSelected(form, coloredPiece, attachmentId, attachmentURL) {
+            $('.rpbchessboard-coloredPieceButton-' + coloredPiece + ' img', form).attr('src', attachmentURL);
+            $('input[name="imageId-' + coloredPiece + '"]', form).val(attachmentId);
+            RPBChessboard.editPieceset[coloredPiece] = attachmentURL;
+            refresh();
+        }
 
-			// Ask for confirmation from the user.
-			var message = <?php echo wp_json_encode( sprintf( __( 'Delete colorset "%1$s"? Press OK to confirm...', 'rpb-chessboard' ), '{0}' ) ); ?>;
-			message = message.replace('{0}', $('.row-title', row).text());
-			if (!confirm(message)) {
-				return;
-			}
 
-			// Process the request.
-			var form = $('#rpbchessboard-deleteColorsetForm');
-			$('input[name="colorset"]', form).val(row.data('slug'));
-			form.submit();
-		});
-		$('.rpbchessboard-action-deletePieceset').click(function(e) {
-			e.preventDefault();
-			var row = $(this).closest('tr');
+        // Initialization function for the pieceset edition components.
+        function initializePiecesetEditor(target) {
 
-			// Ask for confirmation from the user.
-			var message = <?php echo wp_json_encode( sprintf( __( 'Delete pieceset "%1$s"? Press OK to confirm...', 'rpb-chessboard' ), '{0}' ) ); ?>;
-			message = message.replace('{0}', $('.row-title', row).text());
-			if (!confirm(message)) {
-				return;
-			}
+            // Initialize the buttons showing the image picker frame.
+            $('.rpbchessboard-coloredPieceButton', target).click(function(e) {
+                e.preventDefault();
+                displayMediaFrame(target, $(this));
+            });
 
-			// Process the request.
-			var form = $('#rpbchessboard-deletePiecesetForm');
-			$('input[name="pieceset"]', form).val(row.data('slug'));
-			form.submit();
-		});
+            // Disable what needs to be disable in the rest of the page.
+            $('input[name="preview_pieceset"]').attr('disabled', true);
+            $('.rpbchessboard-action-add').addClass('disabled');
+            $('.rpbchessboard-rowActions').addClass('disabled');
 
-	});
+            // Reconfigure preview chessboard
+            ['bp', 'bn', 'bb', 'br', 'bq', 'bk', 'bx', 'wp', 'wn', 'wb', 'wr', 'wq', 'wk', 'wx'].forEach(function(coloredPiece) {
+                RPBChessboard.editPieceset[coloredPiece] = $('input[name="imageId-' + coloredPiece + '"]', target).data('initialPreviewUrl');
+            });
+            editingPieceset = true;
+            refresh();
+        }
+
+
+        // Handle "add" actions
+        $('.rpbchessboard-action-addColorset').click(function(e) {
+            e.preventDefault();
+            if($(this).hasClass('disabled')) {
+                return;
+            }
+            var target = $('#rpbchessboard-colorsetCreator');
+            initializeColorsetEditor(target);
+            target.show();
+        });
+        $('.rpbchessboard-action-addPieceset').click(function(e) {
+            e.preventDefault();
+            if($(this).hasClass('disabled')) {
+                return;
+            }
+            var target = $('#rpbchessboard-piecesetCreator');
+            initializePiecesetEditor(target);
+            target.show();
+        });
+
+
+        // Handle "edit" actions
+        $('.rpbchessboard-action-editColorset').click(function(e) {
+            e.preventDefault();
+            var row = $(this).closest('tr');
+            $('td', row).not('.rpbchessboard-themingEditor').hide();
+            var target = $('td.rpbchessboard-themingEditor', row);
+            initializeColorsetEditor(target);
+            target.show();
+        });
+        $('.rpbchessboard-action-editPieceset').click(function(e) {
+            e.preventDefault();
+            var row = $(this).closest('tr');
+            $('td', row).not('.rpbchessboard-themingEditor').hide();
+            var target = $('td.rpbchessboard-themingEditor', row);
+            initializePiecesetEditor(target);
+            target.show();
+        });
+
+
+        // Handle "delete" actions.
+        $('.rpbchessboard-action-deleteColorset').click(function(e) {
+            e.preventDefault();
+            var row = $(this).closest('tr');
+
+            // Ask for confirmation from the user.
+            var message = <?php echo wp_json_encode( sprintf( __( 'Delete colorset "%1$s"? Press OK to confirm...', 'rpb-chessboard' ), '{0}' ) ); ?>;
+            message = message.replace('{0}', $('.row-title', row).text());
+            if (!confirm(message)) {
+                return;
+            }
+
+            // Process the request.
+            var form = $('#rpbchessboard-deleteColorsetForm');
+            $('input[name="colorset"]', form).val(row.data('slug'));
+            form.submit();
+        });
+        $('.rpbchessboard-action-deletePieceset').click(function(e) {
+            e.preventDefault();
+            var row = $(this).closest('tr');
+
+            // Ask for confirmation from the user.
+            var message = <?php echo wp_json_encode( sprintf( __( 'Delete pieceset "%1$s"? Press OK to confirm...', 'rpb-chessboard' ), '{0}' ) ); ?>;
+            message = message.replace('{0}', $('.row-title', row).text());
+            if (!confirm(message)) {
+                return;
+            }
+
+            // Process the request.
+            var form = $('#rpbchessboard-deletePiecesetForm');
+            $('input[name="pieceset"]', form).val(row.data('slug'));
+            form.submit();
+        });
+
+    });
 </script>

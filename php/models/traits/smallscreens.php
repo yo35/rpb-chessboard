@@ -25,76 +25,76 @@
  */
 trait RPBChessboardTraitSmallScreens {
 
-	private $smallScreenCompatibility;
-	private $smallScreenModes;
+    private $smallScreenCompatibility;
+    private $smallScreenModes;
 
 
-	/**
-	 * Whether the small-screen compatibility mode is enabled or not.
-	 *
-	 * @return boolean
-	 */
-	public function getSmallScreenCompatibility() {
-		if ( ! isset( $this->smallScreenCompatibility ) ) {
-			$value                          = RPBChessboardHelperValidation::validateBooleanFromInt( get_option( 'rpbchessboard_smallScreenCompatibility' ) );
-			$this->smallScreenCompatibility = isset( $value ) ? $value : true;
-		}
-		return $this->smallScreenCompatibility;
-	}
+    /**
+     * Whether the small-screen compatibility mode is enabled or not.
+     *
+     * @return boolean
+     */
+    public function getSmallScreenCompatibility() {
+        if ( ! isset( $this->smallScreenCompatibility ) ) {
+            $value                          = RPBChessboardHelperValidation::validateBooleanFromInt( get_option( 'rpbchessboard_smallScreenCompatibility' ) );
+            $this->smallScreenCompatibility = isset( $value ) ? $value : true;
+        }
+        return $this->smallScreenCompatibility;
+    }
 
 
-	/**
-	 * Return the small-screen modes.
-	 *
-	 * @return array
-	 */
-	public function getSmallScreenModes() {
-		if ( ! isset( $this->smallScreenModes ) ) {
-			$this->loadSmallScreenModes();
-		}
-		return $this->smallScreenModes;
-	}
+    /**
+     * Return the small-screen modes.
+     *
+     * @return array
+     */
+    public function getSmallScreenModes() {
+        if ( ! isset( $this->smallScreenModes ) ) {
+            $this->loadSmallScreenModes();
+        }
+        return $this->smallScreenModes;
+    }
 
 
-	/**
-	 * Load the small-screen mode specifications.
-	 */
-	private function loadSmallScreenModes() {
+    /**
+     * Load the small-screen mode specifications.
+     */
+    private function loadSmallScreenModes() {
 
-		// Load the raw data
-		$data = RPBChessboardHelperValidation::validateSmallScreenModes( get_option( 'rpbchessboard_smallScreenModes' ) );
-		$data = isset( $data ) ? $data : array(
-			240 => (object) array(
-				'squareSize'      => 18,
-				'hideCoordinates' => true,
-				'hideTurn'        => false,
-			),
-			320 => (object) array(
-				'squareSize'      => 24,
-				'hideCoordinates' => true,
-				'hideTurn'        => false,
-			),
-			480 => (object) array(
-				'squareSize'      => 32,
-				'hideCoordinates' => false,
-				'hideTurn'        => false,
-			),
-			768 => (object) array(
-				'squareSize'      => 56,
-				'hideCoordinates' => false,
-				'hideTurn'        => false,
-			),
-		);
+        // Load the raw data
+        $data = RPBChessboardHelperValidation::validateSmallScreenModes( get_option( 'rpbchessboard_smallScreenModes' ) );
+        $data = isset( $data ) ? $data : array(
+            240 => (object) array(
+                'squareSize'      => 18,
+                'hideCoordinates' => true,
+                'hideTurn'        => false,
+            ),
+            320 => (object) array(
+                'squareSize'      => 24,
+                'hideCoordinates' => true,
+                'hideTurn'        => false,
+            ),
+            480 => (object) array(
+                'squareSize'      => 32,
+                'hideCoordinates' => false,
+                'hideTurn'        => false,
+            ),
+            768 => (object) array(
+                'squareSize'      => 56,
+                'hideCoordinates' => false,
+                'hideTurn'        => false,
+            ),
+        );
 
-		// Format the mode entries
-		$this->smallScreenModes   = array();
-		$previousScreenWidthBound = 0;
-		foreach ( $data as $screenWidthBound => $mode ) {
-			$mode->minScreenWidth = $previousScreenWidthBound;
-			$mode->maxScreenWidth = $screenWidthBound;
-			array_push( $this->smallScreenModes, $mode );
-			$previousScreenWidthBound = $screenWidthBound;
-		}
-	}
+        // Format the mode entries
+        $this->smallScreenModes   = array();
+        $previousScreenWidthBound = 0;
+        foreach ( $data as $screenWidthBound => $mode ) {
+            $mode->minScreenWidth = $previousScreenWidthBound;
+            $mode->maxScreenWidth = $screenWidthBound;
+            array_push( $this->smallScreenModes, $mode );
+            $previousScreenWidthBound = $screenWidthBound;
+        }
+    }
 
 }

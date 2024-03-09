@@ -29,19 +29,19 @@ require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/smallscreens.php';
  */
 class RPBChessboardModelAdminSubPageSmallScreens extends RPBChessboardAbstractModelAdminSubPageForm {
 
-	use RPBChessboardTraitSmallScreens;
+    use RPBChessboardTraitSmallScreens;
 
 
-	public function getFormSubmitAction() {
-		return 'Settings/SmallScreens:update';
-	}
+    public function getFormSubmitAction() {
+        return 'Settings/SmallScreens:update';
+    }
 
-	public function getFormResetAction() {
-		return 'Settings/SmallScreens:reset';
-	}
+    public function getFormResetAction() {
+        return 'Settings/SmallScreens:reset';
+    }
 
-	public function getFormTemplateName() {
-		return 'small-screens';
-	}
+    public function getFormTemplateName() {
+        return 'small-screens';
+    }
 
 }

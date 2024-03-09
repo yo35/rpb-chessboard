@@ -32,6 +32,6 @@ require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/smallscreens.php';
  */
 class RPBChessboardModelMain {
 
-	use RPBChessboardTraitCompatibility, RPBChessboardTraitCustomColorsets, RPBChessboardTraitCustomPiecesets,
-		RPBChessboardTraitDefaultOptions, RPBChessboardTraitSmallScreens;
+    use RPBChessboardTraitCompatibility, RPBChessboardTraitCustomColorsets, RPBChessboardTraitCustomPiecesets,
+        RPBChessboardTraitDefaultOptions, RPBChessboardTraitSmallScreens;
 }

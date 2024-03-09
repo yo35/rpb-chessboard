@@ -24,41 +24,41 @@
 /* -------------------------------------------------------------------------- */
 
 #rpbchessboard-adminPageContent {
-	margin-top: 20px;
+    margin-top: 20px;
 }
 
 #rpbchessboard-adminPageMenu {
-	margin-top: 10px;
-	font-size: 16px;
-	line-height: 24px;
+    margin-top: 10px;
+    font-size: 16px;
+    line-height: 24px;
 }
 
 #rpbchessboard-adminPageMenu > * {
-	display: inline-block;
+    display: inline-block;
 }
 
 #rpbchessboard-adminPageMenu > * + * {
-	margin-left: 40px;
+    margin-left: 40px;
 }
 
 #rpbchessboard-activePageButton {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 .rpbchessboard-menuIcon,
 .rpbchessboard-menuLabel {
-	display: inline-block;
-	vertical-align: middle;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .rpbchessboard-menuIcon {
-	height: 24px;
-	width: 24px;
-	margin-right: 0.25em;
+    height: 24px;
+    width: 24px;
+    margin-right: 0.25em;
 }
 
 .rpbchessboard-menuIcon svg rect {
-	fill: currentcolor;
+    fill: currentcolor;
 }
 
 
@@ -68,21 +68,21 @@
 /* -------------------------------------------------------------------------- */
 
 #rpbchessboard-adminPage * + h3 {
-	margin-top: 2em;
+    margin-top: 2em;
 }
 
 #rpbchessboard-adminPage p + p.description {
-	margin-top: -0.75em;
+    margin-top: -0.75em;
 }
 
 .rpbchessboard-columns {
-	margin-top: 1em;
-	margin-bottom: 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
 
 #rpbchessboard-adminPage h3:first-child,
 .rpbchessboard-columns p:first-child {
-	margin-top: 0px;
+    margin-top: 0px;
 }
 
 
@@ -92,16 +92,16 @@
 /* -------------------------------------------------------------------------- */
 
 .rpbchessboard-columns {
-	display: flex;
+    display: flex;
 }
 
 .rpbchessboard-columns > div + div {
-	margin-left: 20px;
+    margin-left: 20px;
 }
 
 .rpbchessboard-tuningChessboardParameterColumn,
 .rpbchessboard-tuningNavigationToolbarParameterColumn {
-	width: 350px;
+    width: 350px;
 }
 
 
@@ -111,15 +111,15 @@
 /* -------------------------------------------------------------------------- */
 
 .rpbchessboard-table {
-	display: table;
+    display: table;
 }
 
 .rpbchessboard-table > div {
-	display: table-row;
+    display: table-row;
 }
 
 .rpbchessboard-table > div > * {
-	display: table-cell;
+    display: table-cell;
 }
 
 
@@ -129,116 +129,116 @@
 /* -------------------------------------------------------------------------- */
 
 .rpbchessboard-squareSizeSlider {
-	display: inline-block;
-	width: 340px;
-	margin-top: 0px;
-	margin-bottom: 0px;
+    display: inline-block;
+    width: 340px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .rpbchessboard-inlineSlider {
-	margin-left: 3em;
+    margin-left: 3em;
 }
 
 .rpbchessboard-squareSizeField {
-	text-align: right;
+    text-align: right;
 }
 
 .rpbchessboard-smallGraphicRadioButtonFields,
 .rpbchessboard-graphicRadioButtonFields {
-	user-select: none;
+    user-select: none;
 }
 
 .rpbchessboard-graphicRadioButtonFields {
-	margin-bottom: 0.5em;
+    margin-bottom: 0.5em;
 }
 
 .rpbchessboard-smallGraphicRadioButtonLabel,
 .rpbchessboard-smallGraphicRadioButtonFields {
-	display: inline-block;
-	vertical-align: middle;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .rpbchessboard-smallGraphicRadioButtonFields > span,
 .rpbchessboard-graphicRadioButtonFields > div {
-	display: inline-block;
+    display: inline-block;
 }
 
 .rpbchessboard-graphicRadioButtonFields > div {
-	margin-right: 30px;
+    margin-right: 30px;
 }
 
 .rpbchessboard-smallGraphicRadioButtonLabel {
-	margin-right: 10px;
+    margin-right: 10px;
 }
 
 .rpbchessboard-smallGraphicRadioButtonFields > span {
-	margin-right: 5px;
+    margin-right: 5px;
 }
 
 .rpbchessboard-smallGraphicRadioButtonFields input[type="radio"],
 .rpbchessboard-graphicRadioButtonFields input[type="radio"] {
-	display: none;
+    display: none;
 }
 
 .rpbchessboard-smallGraphicRadioButtonFields input[type="radio"] + label,
 .rpbchessboard-graphicRadioButtonFields input[type="radio"] + label {
-	display: block;
-	line-height: 0px;
+    display: block;
+    line-height: 0px;
 }
 
 .rpbchessboard-graphicRadioButtonFields input[type="radio"] + label {
-	padding: 14px;
+    padding: 14px;
 }
 
 .rpbchessboard-smallGraphicRadioButtonFields input[type="radio"] + label {
-	padding: 8px;
+    padding: 8px;
 }
 
 .rpbchessboard-smallGraphicRadioButtonFields input[type="radio"]:checked + label,
 .rpbchessboard-graphicRadioButtonFields input[type="radio"]:checked + label {
-	border: solid 4px rgb(0, 116, 162);
+    border: solid 4px rgb(0, 116, 162);
 }
 
 .rpbchessboard-graphicRadioButtonFields input[type="radio"]:checked + label {
-	padding: 10px;
+    padding: 10px;
 }
 
 .rpbchessboard-smallGraphicRadioButtonFields input[type="radio"]:checked + label {
-	padding: 4px;
+    padding: 4px;
 }
 
 #rpbchessboard-adminPage input[name="pieceSymbolMode"] {
-	margin-left: 3em;
+    margin-left: 3em;
 }
 
 #rpbchessboard-adminPage input[name="pieceSymbolMode"]:first-child {
-	margin-left: 0px;
+    margin-left: 0px;
 }
 
 .rpbchessboard-pieceSymbolLabel {
-	display: inline-block;
-	vertical-align: middle;
-	line-height: 0px;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 0px;
 }
 
 .rpbchessboard-pieceSymbolField {
-	vertical-align: middle;
-	text-align: center;
-	margin-right: 3em;
+    vertical-align: middle;
+    text-align: center;
+    margin-right: 3em;
 }
 
 .rpbchessboard-pieceSymbolField:last-child {
-	margin-right: 0px;
+    margin-right: 0px;
 }
 
 #rpbchessboard-adminPage code {
-	padding: inherit;
+    padding: inherit;
 }
 
 #rpbchessboard-navigationToolbarPreview {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 
@@ -248,123 +248,123 @@
 /* -------------------------------------------------------------------------- */
 
 #rpbchessboard-themingPreview {
-	position: fixed;
+    position: fixed;
 }
 
 .rpbchessboard-colorsetSnippet {
-	height: 22px;
-	width: 22px;
+    height: 22px;
+    width: 22px;
 }
 
 .rpbchessboard-piecesetSnippet {
-	height: 32px;
-	width: 32px;
+    height: 32px;
+    width: 32px;
 }
 
 .rpbchessboard-nameCell {
-	width: 300px;
+    width: 300px;
 }
 
 .rpbchessboard-slugCell {
-	width: 150px;
+    width: 150px;
 }
 
 .rpbchessboard-previewCell > * {
-	display: inline-block;
+    display: inline-block;
 }
 
 .rpbchessboard-previewCell input {
-	margin-top: 0px;
-	margin-bottom: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .rpbchessboard-rowActions.disabled,
 .rpbchessboard-themingEditor {
-	display: none;
+    display: none;
 }
 
 .rpbchessboard-inlineForm {
-	padding-left: 0.5em;
-	padding-right: 0.5em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
 }
 
 .rpbchessboard-inlineForm > * {
-	margin-top: 0px;
-	margin-bottom: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .rpbchessboard-inlineForm > .rpbchessboard-inlineFormTitle {
-	margin-bottom: 0.5em;
-	font-weight: 600;
-	text-transform: uppercase;
+    margin-bottom: 0.5em;
+    font-weight: 600;
+    text-transform: uppercase;
 }
 
 .rpbchessboard-inlineForm label {
-	display: flex;
-	align-items: baseline;
-	margin: 0.2em 0;
+    display: flex;
+    align-items: baseline;
+    margin: 0.2em 0;
 }
 
 .rpbchessboard-inlineForm label > span {
-	margin-right: 0.5em;
-	font-style: italic;
+    margin-right: 0.5em;
+    font-style: italic;
 }
 
 .rpbchessboard-inlineForm label > input {
-	flex-grow: 1;
+    flex-grow: 1;
 }
 
 .rpbchessboard-inlineForm > p.submit.rpbchessboard-inlineFormButtons {
-	margin-top: 10px;
-	padding-top: 0px;
-	padding-bottom: 0px;
+    margin-top: 10px;
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 
 .rpbchessboard-colorsetEditorComponents > div > div {
-	padding-top: 10px;
+    padding-top: 10px;
 }
 
 .rpbchessboard-colorsetEditorComponents > div:first-child > div {
-	padding-top: calc(10px - 0.2em);
+    padding-top: calc(10px - 0.2em);
 }
 
 .rpbchessboard-colorsetEditorComponents > div > div + div {
-	padding-left: 25px;
+    padding-left: 25px;
 }
 
 .rpbchessboard-colorsetEditorComponents input {
-	margin-right: 0px;
+    margin-right: 0px;
 }
 
 .rpbchessboard-colorsetEditorComponents .iris-border { /* Same border as the textfield just above */
-	border-radius: 4px;
-	border-color: #8c8f94;
+    border-radius: 4px;
+    border-color: #8c8f94;
 }
 
 .rpbchessboard-piecesetEditorComponents {
-	line-height: 0px;
+    line-height: 0px;
 }
 
 .rpbchessboard-piecesetEditorComponents > div > div {
-	padding-top: 5px;
+    padding-top: 5px;
 }
 
 .rpbchessboard-piecesetEditorComponents > div:first-child > div {
-	padding-top: calc(10px - 0.2em);
+    padding-top: calc(10px - 0.2em);
 }
 
 .rpbchessboard-piecesetEditorComponents > div > div + div {
-	padding-left: 5px;
+    padding-left: 5px;
 }
 
 .rpbchessboard-coloredPieceButton {
-	display: inline-block;
-	border: 1px solid #ddd;
+    display: inline-block;
+    border: 1px solid #ddd;
 }
 
 .rpbchessboard-coloredPieceButton img {
-	height: 64px;
-	width: 64px;
+    height: 64px;
+    width: 64px;
 }
 
 
@@ -374,49 +374,49 @@
 /* -------------------------------------------------------------------------- */
 
 #rpbchessboard-aboutActions {
-	margin: 1em 0px;
+    margin: 1em 0px;
 }
 
 #rpbchessboard-aboutActions .button {
-	height: 32px;
+    height: 32px;
 }
 
 .rpbchessboard-aboutActionIcon,
 .rpbchessboard-aboutActionLabel {
-	display: inline-block;
-	vertical-align: middle;
-	margin-bottom: 1px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 1px;
 }
 
 .rpbchessboard-aboutActionIcon.dashicons {
-	height: 28px;
-	width: 28px;
-	font-size: 28px;
+    height: 28px;
+    width: 28px;
+    font-size: 28px;
 }
 
 .rpbchessboard-aboutActionIcon {
-	margin-right: 5px;
+    margin-right: 5px;
 }
 
 #rpbchessboard-contributorList {
-	width: 860px;
-	columns: 200px 4;
-	column-gap: 20px;
+    width: 860px;
+    columns: 200px 4;
+    column-gap: 20px;
 }
 
 #rpbchessboard-translatorList {
-	width: 860px;
-	columns: 400px 2;
-	column-gap: 60px;
+    width: 860px;
+    columns: 400px 2;
+    column-gap: 60px;
 }
 
 #rpbchessboard-translatorList > li {
-	display: flex;
-	align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 #rpbchessboard-translatorList > li > span:nth-child(2) {
-	margin-left: 3px;
-	margin-right: 3px;
-	width: 94px;
+    margin-left: 3px;
+    margin-right: 3px;
+    width: 94px;
 }

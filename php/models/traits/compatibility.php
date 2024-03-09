@@ -26,72 +26,72 @@
  */
 trait RPBChessboardTraitCompatibility {
 
-	private $fenCompatibilityMode;
-	private $pgnCompatibilityMode;
-	private $lazyLoadingForCSSAndJS;
+    private $fenCompatibilityMode;
+    private $pgnCompatibilityMode;
+    private $lazyLoadingForCSSAndJS;
 
 
-	/**
-	 * Whether the compatibility mode is activated or not for the [fen][/fen] shortcode
-	 * (which means that [fen_compat][/fen_compat] would be used instead).
-	 *
-	 * @return boolean
-	 */
-	public function getFENCompatibilityMode() {
-		if ( ! isset( $this->fenCompatibilityMode ) ) {
-			$value                      = RPBChessboardHelperValidation::validateBooleanFromInt( get_option( 'rpbchessboard_fenCompatibilityMode' ) );
-			$this->fenCompatibilityMode = isset( $value ) ? $value : false;
-		}
-		return $this->fenCompatibilityMode;
-	}
+    /**
+     * Whether the compatibility mode is activated or not for the [fen][/fen] shortcode
+     * (which means that [fen_compat][/fen_compat] would be used instead).
+     *
+     * @return boolean
+     */
+    public function getFENCompatibilityMode() {
+        if ( ! isset( $this->fenCompatibilityMode ) ) {
+            $value                      = RPBChessboardHelperValidation::validateBooleanFromInt( get_option( 'rpbchessboard_fenCompatibilityMode' ) );
+            $this->fenCompatibilityMode = isset( $value ) ? $value : false;
+        }
+        return $this->fenCompatibilityMode;
+    }
 
 
-	/**
-	 * Whether the compatibility mode is activated or not for the [pgn][/pgn] shortcode
-	 * (which means that [pgn_compat][/pgn_compat] would be used instead).
-	 *
-	 * @return boolean
-	 */
-	public function getPGNCompatibilityMode() {
-		if ( ! isset( $this->pgnCompatibilityMode ) ) {
-			$value                      = RPBChessboardHelperValidation::validateBooleanFromInt( get_option( 'rpbchessboard_pgnCompatibilityMode' ) );
-			$this->pgnCompatibilityMode = isset( $value ) ? $value : false;
-		}
-		return $this->pgnCompatibilityMode;
-	}
+    /**
+     * Whether the compatibility mode is activated or not for the [pgn][/pgn] shortcode
+     * (which means that [pgn_compat][/pgn_compat] would be used instead).
+     *
+     * @return boolean
+     */
+    public function getPGNCompatibilityMode() {
+        if ( ! isset( $this->pgnCompatibilityMode ) ) {
+            $value                      = RPBChessboardHelperValidation::validateBooleanFromInt( get_option( 'rpbchessboard_pgnCompatibilityMode' ) );
+            $this->pgnCompatibilityMode = isset( $value ) ? $value : false;
+        }
+        return $this->pgnCompatibilityMode;
+    }
 
 
-	/**
-	 * Return the shortcode to use for FEN diagrams.
-	 *
-	 * @return string
-	 */
-	public function getFENShortcode() {
-		return $this->getFENCompatibilityMode() ? 'fen_compat' : 'fen';
-	}
+    /**
+     * Return the shortcode to use for FEN diagrams.
+     *
+     * @return string
+     */
+    public function getFENShortcode() {
+        return $this->getFENCompatibilityMode() ? 'fen_compat' : 'fen';
+    }
 
 
-	/**
-	 * Return the shortcode to use for PGN games.
-	 *
-	 * @return string
-	 */
-	public function getPGNShortcode() {
-		return $this->getPGNCompatibilityMode() ? 'pgn_compat' : 'pgn';
-	}
+    /**
+     * Return the shortcode to use for PGN games.
+     *
+     * @return string
+     */
+    public function getPGNShortcode() {
+        return $this->getPGNCompatibilityMode() ? 'pgn_compat' : 'pgn';
+    }
 
 
-	/**
-	 * Whether lazy-loading is enabled for CSS and JS. When enabled, plugin-specific CSS and JS files are enqueued only when a plugin shortcode
-	 * is encountered in a post/page.
-	 *
-	 * @return boolean
-	 */
-	public function getLazyLoadingForCSSAndJS() {
-		if ( ! isset( $this->lazyLoadingForCSSAndJS ) ) {
-			$value                        = RPBChessboardHelperValidation::validateBooleanFromInt( get_option( 'rpbchessboard_lazyLoadingForCSSAndJS' ) );
-			$this->lazyLoadingForCSSAndJS = isset( $value ) ? $value : true;
-		}
-		return $this->lazyLoadingForCSSAndJS;
-	}
+    /**
+     * Whether lazy-loading is enabled for CSS and JS. When enabled, plugin-specific CSS and JS files are enqueued only when a plugin shortcode
+     * is encountered in a post/page.
+     *
+     * @return boolean
+     */
+    public function getLazyLoadingForCSSAndJS() {
+        if ( ! isset( $this->lazyLoadingForCSSAndJS ) ) {
+            $value                        = RPBChessboardHelperValidation::validateBooleanFromInt( get_option( 'rpbchessboard_lazyLoadingForCSSAndJS' ) );
+            $this->lazyLoadingForCSSAndJS = isset( $value ) ? $value : true;
+        }
+        return $this->lazyLoadingForCSSAndJS;
+    }
 }

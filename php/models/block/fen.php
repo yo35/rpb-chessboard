@@ -28,52 +28,52 @@ require_once RPBCHESSBOARD_ABSPATH . 'php/models/block/abstract.php';
  */
 class RPBChessboardModelBlockFEN extends RPBChessboardAbstractModelBlock {
 
-	/**
-	 * Return the arguments to pass to the JS chessboard widget.
-	 *
-	 * @return array
-	 */
-	public function getWidgetArgs() {
+    /**
+     * Return the arguments to pass to the JS chessboard widget.
+     *
+     * @return array
+     */
+    public function getWidgetArgs() {
 
-		$atts       = $this->getAttributes();
-		$widgetArgs = array();
+        $atts       = $this->getAttributes();
+        $widgetArgs = array();
 
-		// Chessboard content
-		$widgetArgs['position'] = isset( $atts['position'] ) ? $atts['position'] : 'start';
-		if ( isset( $atts['squareMarkers'] ) ) {
-			$widgetArgs['squareMarkers'] = $atts['squareMarkers'];
-		}
-		if ( isset( $atts['arrowMarkers'] ) ) {
-			$widgetArgs['arrowMarkers'] = $atts['arrowMarkers'];
-		}
-		if ( isset( $atts['textMarkers'] ) ) {
-			$widgetArgs['textMarkers'] = $atts['textMarkers'];
-		}
+        // Chessboard content
+        $widgetArgs['position'] = isset( $atts['position'] ) ? $atts['position'] : 'start';
+        if ( isset( $atts['squareMarkers'] ) ) {
+            $widgetArgs['squareMarkers'] = $atts['squareMarkers'];
+        }
+        if ( isset( $atts['arrowMarkers'] ) ) {
+            $widgetArgs['arrowMarkers'] = $atts['arrowMarkers'];
+        }
+        if ( isset( $atts['textMarkers'] ) ) {
+            $widgetArgs['textMarkers'] = $atts['textMarkers'];
+        }
 
-		// Content customization
-		if ( isset( $atts['flipped'] ) ) {
-			$widgetArgs['flipped'] = $atts['flipped'];
-		}
+        // Content customization
+        if ( isset( $atts['flipped'] ) ) {
+            $widgetArgs['flipped'] = $atts['flipped'];
+        }
 
-		// Chessboard aspect
-		$widgetArgs['squareSize']        = isset( $atts['squareSize'] ) ? $atts['squareSize'] : $this->mainModel->getDefaultSquareSize( 'sdo' );
-		$widgetArgs['coordinateVisible'] = isset( $atts['coordinateVisible'] ) ? 'true' === $atts['coordinateVisible'] : $this->mainModel->getDefaultShowCoordinates( 'sdo' );
-		$widgetArgs['turnVisible']       = isset( $atts['turnVisible'] ) ? 'true' === $atts['turnVisible'] : $this->mainModel->getDefaultShowTurn( 'sdo' );
-		$widgetArgs['colorset']          = isset( $atts['colorset'] ) ? $atts['colorset'] : $this->mainModel->getDefaultColorset( 'sdo' );
-		$widgetArgs['pieceset']          = isset( $atts['pieceset'] ) ? $atts['pieceset'] : $this->mainModel->getDefaultPieceset( 'sdo' );
+        // Chessboard aspect
+        $widgetArgs['squareSize']        = isset( $atts['squareSize'] ) ? $atts['squareSize'] : $this->mainModel->getDefaultSquareSize( 'sdo' );
+        $widgetArgs['coordinateVisible'] = isset( $atts['coordinateVisible'] ) ? 'true' === $atts['coordinateVisible'] : $this->mainModel->getDefaultShowCoordinates( 'sdo' );
+        $widgetArgs['turnVisible']       = isset( $atts['turnVisible'] ) ? 'true' === $atts['turnVisible'] : $this->mainModel->getDefaultShowTurn( 'sdo' );
+        $widgetArgs['colorset']          = isset( $atts['colorset'] ) ? $atts['colorset'] : $this->mainModel->getDefaultColorset( 'sdo' );
+        $widgetArgs['pieceset']          = isset( $atts['pieceset'] ) ? $atts['pieceset'] : $this->mainModel->getDefaultPieceset( 'sdo' );
 
-		return $widgetArgs;
-	}
+        return $widgetArgs;
+    }
 
 
-	/**
-	 * Diagram alignment code.
-	 *
-	 * @return string
-	 */
-	public function getDiagramAlignment() {
-		$atts = $this->getAttributes();
-		return isset( $atts['align'] ) ? $atts['align'] : $this->mainModel->getDefaultDiagramAlignment();
-	}
+    /**
+     * Diagram alignment code.
+     *
+     * @return string
+     */
+    public function getDiagramAlignment() {
+        $atts = $this->getAttributes();
+        return isset( $atts['align'] ) ? $atts['align'] : $this->mainModel->getDefaultDiagramAlignment();
+    }
 
 }

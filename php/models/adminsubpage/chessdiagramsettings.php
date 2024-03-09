@@ -31,19 +31,19 @@ require_once RPBCHESSBOARD_ABSPATH . 'php/models/traits/defaultoptions.php';
  */
 class RPBChessboardModelAdminSubPageChessDiagramSettings extends RPBChessboardAbstractModelAdminSubPageForm {
 
-	use RPBChessboardTraitCustomColorsets, RPBChessboardTraitCustomPiecesets, RPBChessboardTraitDefaultOptions;
+    use RPBChessboardTraitCustomColorsets, RPBChessboardTraitCustomPiecesets, RPBChessboardTraitDefaultOptions;
 
 
-	public function getFormSubmitAction() {
-		return 'Settings/ChessDiagram:update';
-	}
+    public function getFormSubmitAction() {
+        return 'Settings/ChessDiagram:update';
+    }
 
-	public function getFormResetAction() {
-		return 'Settings/ChessDiagram:reset';
-	}
+    public function getFormResetAction() {
+        return 'Settings/ChessDiagram:reset';
+    }
 
-	public function getFormTemplateName() {
-		return 'chess-diagram-settings';
-	}
+    public function getFormTemplateName() {
+        return 'chess-diagram-settings';
+    }
 
 }

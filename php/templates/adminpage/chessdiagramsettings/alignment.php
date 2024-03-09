@@ -25,37 +25,37 @@
 
 <div class="rpbchessboard-graphicRadioButtonFields">
 
-	<div>
-		<input type="radio" id="rpbchessboard-diagramAlignmentButton-center" name="diagramAlignment" value="center"
-			<?php echo $model->getDefaultDiagramAlignment() === 'center' ? 'checked="yes"' : ''; ?>
-		/>
-		<label for="rpbchessboard-diagramAlignmentButton-center" title="<?php esc_attr_e( 'Centered', 'rpb-chessboard' ); ?>">
-			<img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-center.png' ); ?>"
-				alt="<?php esc_attr_e( 'Centered', 'rpb-chessboard' ); ?>"
-			/>
-		</label>
-	</div>
+    <div>
+        <input type="radio" id="rpbchessboard-diagramAlignmentButton-center" name="diagramAlignment" value="center"
+            <?php echo $model->getDefaultDiagramAlignment() === 'center' ? 'checked="yes"' : ''; ?>
+        />
+        <label for="rpbchessboard-diagramAlignmentButton-center" title="<?php esc_attr_e( 'Centered', 'rpb-chessboard' ); ?>">
+            <img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-center.png' ); ?>"
+                alt="<?php esc_attr_e( 'Centered', 'rpb-chessboard' ); ?>"
+            />
+        </label>
+    </div>
 
-	<div>
-		<input type="radio" id="rpbchessboard-diagramAlignmentButton-floatLeft" name="diagramAlignment" value="floatLeft"
-			<?php echo $model->getDefaultDiagramAlignment() === 'floatLeft' ? 'checked="yes"' : ''; ?>
-		/>
-		<label for="rpbchessboard-diagramAlignmentButton-floatLeft" title="<?php esc_attr_e( 'On the left of the text', 'rpb-chessboard' ); ?>">
-			<img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-float-left.png' ); ?>"
-				alt="<?php esc_attr_e( 'On the left of the text', 'rpb-chessboard' ); ?>"
-			/>
-		</label>
-	</div>
+    <div>
+        <input type="radio" id="rpbchessboard-diagramAlignmentButton-floatLeft" name="diagramAlignment" value="floatLeft"
+            <?php echo $model->getDefaultDiagramAlignment() === 'floatLeft' ? 'checked="yes"' : ''; ?>
+        />
+        <label for="rpbchessboard-diagramAlignmentButton-floatLeft" title="<?php esc_attr_e( 'On the left of the text', 'rpb-chessboard' ); ?>">
+            <img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-float-left.png' ); ?>"
+                alt="<?php esc_attr_e( 'On the left of the text', 'rpb-chessboard' ); ?>"
+            />
+        </label>
+    </div>
 
-	<div>
-		<input type="radio" id="rpbchessboard-diagramAlignmentButton-floatRight" name="diagramAlignment" value="floatRight"
-			<?php echo $model->getDefaultDiagramAlignment() === 'floatRight' ? 'checked="yes"' : ''; ?>
-		/>
-		<label for="rpbchessboard-diagramAlignmentButton-floatRight" title="<?php esc_attr_e( 'On the right of the text', 'rpb-chessboard' ); ?>">
-			<img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-float-right.png' ); ?>"
-				alt="<?php esc_attr_e( 'On the right of the text', 'rpb-chessboard' ); ?>"
-			/>
-		</label>
-	</div>
+    <div>
+        <input type="radio" id="rpbchessboard-diagramAlignmentButton-floatRight" name="diagramAlignment" value="floatRight"
+            <?php echo $model->getDefaultDiagramAlignment() === 'floatRight' ? 'checked="yes"' : ''; ?>
+        />
+        <label for="rpbchessboard-diagramAlignmentButton-floatRight" title="<?php esc_attr_e( 'On the right of the text', 'rpb-chessboard' ); ?>">
+            <img src="<?php echo esc_url( RPBCHESSBOARD_URL . 'images/alignment-float-right.png' ); ?>"
+                alt="<?php esc_attr_e( 'On the right of the text', 'rpb-chessboard' ); ?>"
+            />
+        </label>
+    </div>
 
 </div>

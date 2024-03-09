@@ -25,94 +25,94 @@
  */
 abstract class RPBChessboardAbstractModelPostActionSettings {
 
-	/**
-	 * Entry-point for the update action.
-	 */
-	abstract public function update();
+    /**
+     * Entry-point for the update action.
+     */
+    abstract public function update();
 
 
-	/**
-	 * Entry-point for the reset action.
-	 */
-	abstract public function reset();
+    /**
+     * Entry-point for the reset action.
+     */
+    abstract public function reset();
 
 
-	protected static function getUpdateSuccessMessage() {
-		return (object) array(
-			'message'     => __( 'Settings saved.', 'rpb-chessboard' ),
-			'messageType' => 'success',
-		);
-	}
+    protected static function getUpdateSuccessMessage() {
+        return (object) array(
+            'message'     => __( 'Settings saved.', 'rpb-chessboard' ),
+            'messageType' => 'success',
+        );
+    }
 
 
-	protected static function getResetSuccessMessage() {
-		return (object) array(
-			'message'     => __( 'Settings reseted.', 'rpb-chessboard' ),
-			'messageType' => 'success',
-		);
-	}
+    protected static function getResetSuccessMessage() {
+        return (object) array(
+            'message'     => __( 'Settings reseted.', 'rpb-chessboard' ),
+            'messageType' => 'success',
+        );
+    }
 
 
-	protected static function deleteParameter( $key ) {
-		delete_option( 'rpbchessboard_' . $key );
-	}
+    protected static function deleteParameter( $key ) {
+        delete_option( 'rpbchessboard_' . $key );
+    }
 
 
-	protected static function updateIntegerParameter( $key ) {
-		if ( isset( $_POST[ $key ] ) ) {
-			$value = RPBChessboardHelperValidation::validateInteger( $_POST[ $key ] );
-			if ( isset( $value ) ) {
-				update_option( 'rpbchessboard_' . $key, $value );
-			}
-		}
-	}
+    protected static function updateIntegerParameter( $key ) {
+        if ( isset( $_POST[ $key ] ) ) {
+            $value = RPBChessboardHelperValidation::validateInteger( $_POST[ $key ] );
+            if ( isset( $value ) ) {
+                update_option( 'rpbchessboard_' . $key, $value );
+            }
+        }
+    }
 
 
-	protected static function updateBooleanParameter( $key ) {
-		if ( isset( $_POST[ $key ] ) ) {
-			$value = RPBChessboardHelperValidation::validateBooleanFromInt( $_POST[ $key ] );
-			if ( isset( $value ) ) {
-				update_option( 'rpbchessboard_' . $key, $value ? 1 : 0 );
-			}
-			return $value;
-		} else {
-			return null;
-		}
-	}
+    protected static function updateBooleanParameter( $key ) {
+        if ( isset( $_POST[ $key ] ) ) {
+            $value = RPBChessboardHelperValidation::validateBooleanFromInt( $_POST[ $key ] );
+            if ( isset( $value ) ) {
+                update_option( 'rpbchessboard_' . $key, $value ? 1 : 0 );
+            }
+            return $value;
+        } else {
+            return null;
+        }
+    }
 
 
-	protected static function deleteBoardAspectParameters( $key ) {
+    protected static function deleteBoardAspectParameters( $key ) {
 
-		// FIXME Deprecated parameters (since 7.2)
-		self::deleteParameter( 'squareSize' );
-		self::deleteParameter( 'showCoordinates' );
-		self::deleteParameter( 'colorset' );
-		self::deleteParameter( 'pieceset' );
+        // FIXME Deprecated parameters (since 7.2)
+        self::deleteParameter( 'squareSize' );
+        self::deleteParameter( 'showCoordinates' );
+        self::deleteParameter( 'colorset' );
+        self::deleteParameter( 'pieceset' );
 
-		self::deleteParameter( $key . 'SquareSize' );
-		self::deleteParameter( $key . 'ShowCoordinates' );
-		self::deleteParameter( $key . 'ShowTurn' );
-		self::deleteParameter( $key . 'Colorset' );
-		self::deleteParameter( $key . 'Pieceset' );
-	}
-
-
-	protected static function updateBoardAspectParameters( $key ) {
-		self::updateIntegerParameter( $key . 'SquareSize' );
-		self::updateBooleanParameter( $key . 'ShowCoordinates' );
-		self::updateBooleanParameter( $key . 'ShowTurn' );
-		self::updateSetCodeParameter( $key . 'Colorset' );
-		self::updateSetCodeParameter( $key . 'Pieceset' );
-	}
+        self::deleteParameter( $key . 'SquareSize' );
+        self::deleteParameter( $key . 'ShowCoordinates' );
+        self::deleteParameter( $key . 'ShowTurn' );
+        self::deleteParameter( $key . 'Colorset' );
+        self::deleteParameter( $key . 'Pieceset' );
+    }
 
 
-	private static function updateSetCodeParameter( $key ) {
-		if ( isset( $_POST[ $key ] ) ) {
-			$value = RPBChessboardHelperValidation::validateSetCode( $_POST[ $key ] );
-			if ( isset( $value ) ) {
-				update_option( 'rpbchessboard_' . $key, $value );
-			}
-		}
-	}
+    protected static function updateBoardAspectParameters( $key ) {
+        self::updateIntegerParameter( $key . 'SquareSize' );
+        self::updateBooleanParameter( $key . 'ShowCoordinates' );
+        self::updateBooleanParameter( $key . 'ShowTurn' );
+        self::updateSetCodeParameter( $key . 'Colorset' );
+        self::updateSetCodeParameter( $key . 'Pieceset' );
+    }
+
+
+    private static function updateSetCodeParameter( $key ) {
+        if ( isset( $_POST[ $key ] ) ) {
+            $value = RPBChessboardHelperValidation::validateSetCode( $_POST[ $key ] );
+            if ( isset( $value ) ) {
+                update_option( 'rpbchessboard_' . $key, $value );
+            }
+        }
+    }
 
 }

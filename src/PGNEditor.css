@@ -20,43 +20,43 @@
 
 
 .components-placeholder.components-placeholder.rpbchessboard-fixPlaceholder {
-	min-height: 0px;
+    min-height: 0px;
 }
 
 .editor-styles-wrapper input[type="text"].rpbchessboard-fixPadding {
-	padding: 6px 8px;
+    padding: 6px 8px;
 }
 
 .editor-styles-wrapper textarea.rpbchessboard-fixMarginBottom,
 .editor-styles-wrapper input[type="text"].rpbchessboard-fixMarginBottom,
 .block-editor-block-inspector .components-base-control.rpbchessboard-fixMarginBottom {
-	margin-bottom: 0px;
+    margin-bottom: 0px;
 }
 
 .block-editor-block-inspector .components-button-group.rpbchessboard-restoreMarginBottom {
-	margin-bottom: 24px;
+    margin-bottom: 24px;
 }
 
 .rpbchessboard-pgnSourceTypeSelector {
-	margin-bottom: 15px;
+    margin-bottom: 15px;
 }
 
 .rpbchessboard-pgnTextarea {
-	min-height: 450px;
+    min-height: 450px;
 }
 
 .rpbchessboard-pgnFileSelector {
-	display: flex;
-	gap: 8px;
-	align-items: center;
-	width: 98%; /* Same as what is defined for `.editor-styles-wrapper textarea` */
-	margin-bottom: 8px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    width: 98%; /* Same as what is defined for `.editor-styles-wrapper textarea` */
+    margin-bottom: 8px;
 }
 
 .rpbchessboard-pieceSymbolJsField {
-	width: 2.5em;
+    width: 2.5em;
 }
 
 .rpbchessboard-pieceSymbolJsField input {
-	text-align: center;
+    text-align: center;
 }

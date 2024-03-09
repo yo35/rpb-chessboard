@@ -1,24 +1,24 @@
 {
-	"name": "rpb-chessboard",
-	"private": true,
-	"dependencies": {
-		"@wordpress/block-editor": "^12.19.1",
-		"@wordpress/blocks": "^12.28.1",
-		"@wordpress/components": "^26.0.1",
-		"@wordpress/data": "^9.21.0",
-		"@wordpress/icons": "^9.42.0",
-		"kokopu": "^4.8.1",
-		"kokopu-react": "^3.0.2",
-		"prop-types": "^15.8.1"
-	},
-	"devDependencies": {
-		"@wordpress/scripts": "^27.2.0",
-		"eslint": "^8.56.0",
-		"eslint-config-wordpress": "^2.0.0",
-		"eslint-plugin-react": "^7.33.2",
-		"uglifycss": "^0.0.29"
-	},
-	"scripts": {
-		"build": "wp-scripts build"
-	}
+    "name": "rpb-chessboard",
+    "private": true,
+    "dependencies": {
+        "@wordpress/block-editor": "^12.19.1",
+        "@wordpress/blocks": "^12.28.1",
+        "@wordpress/components": "^26.0.1",
+        "@wordpress/data": "^9.21.0",
+        "@wordpress/icons": "^9.42.0",
+        "kokopu": "^4.8.1",
+        "kokopu-react": "^3.0.2",
+        "prop-types": "^15.8.1"
+    },
+    "devDependencies": {
+        "@wordpress/scripts": "^27.2.0",
+        "eslint": "^8.56.0",
+        "eslint-config-wordpress": "^2.0.0",
+        "eslint-plugin-react": "^7.33.2",
+        "uglifycss": "^0.0.29"
+    },
+    "scripts": {
+        "build": "wp-scripts build"
+    }
 }

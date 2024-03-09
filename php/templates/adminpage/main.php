@@ -21,43 +21,43 @@
 ?>
 
 <?php
-	wp_enqueue_style( 'rpbchessboard-admin' );
+    wp_enqueue_style( 'rpbchessboard-admin' );
 ?>
 
 <div id="rpbchessboard-adminPage" class="wrap">
-	<h1>RPB Chessboard</h1>
+    <h1>RPB Chessboard</h1>
 
-	<div id="rpbchessboard-adminPageMenu">
-		<?php foreach ( $model->getSubPages() as $subPage ) : ?>
-			<?php if ( $subPage === $model->getCurrentSubPage() ) : ?>
-				<span id="rpbchessboard-activePageButton">
-			<?php else : ?>
-				<a href="<?php echo esc_url( $model->getSubPageLink( $subPage ) ); ?>" target="<?php echo $model->isExternalSubPage( $subPage ) ? '_blank' : '_self'; ?>">
-			<?php endif; ?>
-			<?php if ( $model->hasSubPageIcon( $subPage ) ) : ?>
-				<span class="rpbchessboard-menuIcon rpbchessboard-menuIcon-<?php echo esc_attr( $model->getSubPageIcon( $subPage ) ); ?>"></span><span class="rpbchessboard-menuLabel">
-					<?php echo esc_html( $model->getSubPageLabel( $subPage ) ); ?>
-				</span>
-			<?php else : ?>
-				<span class="rpbchessboard-menuLabel"><?php echo esc_html( $model->getSubPageLabel( $subPage ) ); ?></span>
-			<?php endif; ?>
-			<?php if ( $subPage === $model->getCurrentSubPage() ) : ?>
-				</span>
-			<?php else : ?>
-				</a>
-			<?php endif; ?>
-		<?php endforeach; ?>
-	</div>
+    <div id="rpbchessboard-adminPageMenu">
+        <?php foreach ( $model->getSubPages() as $subPage ) : ?>
+            <?php if ( $subPage === $model->getCurrentSubPage() ) : ?>
+                <span id="rpbchessboard-activePageButton">
+            <?php else : ?>
+                <a href="<?php echo esc_url( $model->getSubPageLink( $subPage ) ); ?>" target="<?php echo $model->isExternalSubPage( $subPage ) ? '_blank' : '_self'; ?>">
+            <?php endif; ?>
+            <?php if ( $model->hasSubPageIcon( $subPage ) ) : ?>
+                <span class="rpbchessboard-menuIcon rpbchessboard-menuIcon-<?php echo esc_attr( $model->getSubPageIcon( $subPage ) ); ?>"></span><span class="rpbchessboard-menuLabel">
+                    <?php echo esc_html( $model->getSubPageLabel( $subPage ) ); ?>
+                </span>
+            <?php else : ?>
+                <span class="rpbchessboard-menuLabel"><?php echo esc_html( $model->getSubPageLabel( $subPage ) ); ?></span>
+            <?php endif; ?>
+            <?php if ( $subPage === $model->getCurrentSubPage() ) : ?>
+                </span>
+            <?php else : ?>
+                </a>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </div>
 
-	<div id="rpbchessboard-adminPageContent" class="rpbchessboard-jQuery-enableSmoothness">
-		<?php RPBChessboardHelperLoader::printTemplate( 'admin-page/' . $model->getTemplateName(), $model ); ?>
-	</div>
+    <div id="rpbchessboard-adminPageContent" class="rpbchessboard-jQuery-enableSmoothness">
+        <?php RPBChessboardHelperLoader::printTemplate( 'admin-page/' . $model->getTemplateName(), $model ); ?>
+    </div>
 
-	<script type="text/javascript">
-		jQuery(document).ready(function($) {
-			RPBChessboard.renderFENIcon($('.rpbchessboard-menuIcon-fen'));
-			RPBChessboard.renderPGNIcon($('.rpbchessboard-menuIcon-pgn'));
-		});
-	</script>
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            RPBChessboard.renderFENIcon($('.rpbchessboard-menuIcon-fen'));
+            RPBChessboard.renderPGNIcon($('.rpbchessboard-menuIcon-pgn'));
+        });
+    </script>
 
 </div>

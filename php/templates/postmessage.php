@@ -21,5 +21,5 @@
 ?>
 
 <div class="notice notice-<?php echo esc_attr( $model->getMessageType() ); ?>">
-	<p><?php echo esc_html( $model->getMessage() ); ?></p>
+    <p><?php echo esc_html( $model->getMessage() ); ?></p>
 </div>

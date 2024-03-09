@@ -23,27 +23,27 @@
 <h3><?php esc_html_e( 'Diagrams', 'rpb-chessboard' ); ?></h3>
 
 <?php
-	RPBChessboardHelperLoader::printTemplate(
-		'admin-page/generic/board-aspect',
-		$model,
-		array(
-			'key'                => 'ido',
-			'withMoveAttributes' => false,
-		)
-	);
+    RPBChessboardHelperLoader::printTemplate(
+        'admin-page/generic/board-aspect',
+        $model,
+        array(
+            'key'                => 'ido',
+            'withMoveAttributes' => false,
+        )
+    );
 ?>
 
 <p class="description">
-	<?php
-		printf(
-			esc_html__(
-				'These settings affects the diagrams inserted with token %1$s in PGN comments. ' .
-				'See %2$sdocumentation%3$s for an example of such diagram.',
-				'rpb-chessboard'
-			),
-			'<code>[#]</code>',
-			'<a href="https://rpb-chessboard.yo35.org/documentation/pgn-syntax/#diagrams" target="_blank">',
-			'</a>'
-		);
-	?>
+    <?php
+        printf(
+            esc_html__(
+                'These settings affects the diagrams inserted with token %1$s in PGN comments. ' .
+                'See %2$sdocumentation%3$s for an example of such diagram.',
+                'rpb-chessboard'
+            ),
+            '<code>[#]</code>',
+            '<a href="https://rpb-chessboard.yo35.org/documentation/pgn-syntax/#diagrams" target="_blank">',
+            '</a>'
+        );
+    ?>
 </p>

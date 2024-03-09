@@ -22,8 +22,8 @@
 
 # Check arguments
 if [ $# -lt 2 ]; then
-	echo "Usage: $0 <output-pot-file> <main-php-file> [<php-file-1>] [<php-file-2>] ..."
-	exit 1
+    echo "Usage: $0 <output-pot-file> <main-php-file> [<php-file-1>] [<php-file-2>] ..."
+    exit 1
 fi
 
 

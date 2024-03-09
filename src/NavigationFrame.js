@@ -56,98 +56,98 @@ let resizeInfo = false;
  * Lazy frame builder.
  */
 function buildFrame() {
-	if (boardAnchor) {
-		return;
-	}
+    if (boardAnchor) {
+        return;
+    }
 
-	// Initialize the default options.
-	boardOptions = {
-		squareSize: RPBChessboard.defaultSettings.nboSquareSize,
-		coordinateVisible: RPBChessboard.defaultSettings.nboCoordinateVisible,
-		turnVisible: RPBChessboard.defaultSettings.nboTurnVisible,
-		colorset: RPBChessboard.defaultSettings.nboColorset,
-		pieceset: RPBChessboard.defaultSettings.nboPieceset,
-		animated: RPBChessboard.defaultSettings.animated,
-		moveArrowVisible: RPBChessboard.defaultSettings.moveArrowVisible,
-		moveArrowColor: RPBChessboard.defaultSettings.moveArrowColor,
-		smallScreenLimits: RPBChessboard.smallScreenLimits,
-	};
+    // Initialize the default options.
+    boardOptions = {
+        squareSize: RPBChessboard.defaultSettings.nboSquareSize,
+        coordinateVisible: RPBChessboard.defaultSettings.nboCoordinateVisible,
+        turnVisible: RPBChessboard.defaultSettings.nboTurnVisible,
+        colorset: RPBChessboard.defaultSettings.nboColorset,
+        pieceset: RPBChessboard.defaultSettings.nboPieceset,
+        animated: RPBChessboard.defaultSettings.animated,
+        moveArrowVisible: RPBChessboard.defaultSettings.moveArrowVisible,
+        moveArrowColor: RPBChessboard.defaultSettings.moveArrowColor,
+        smallScreenLimits: RPBChessboard.smallScreenLimits,
+    };
 
-	// Build the container for the anchor.
-	// WARNING: having a container with predefined size is mandatory so that the jQuery UI dialog
-	// can determine its size and center itself properly (the Reach inner component is not mounted yet when the dialog opens).
-	let boardAnchorParent = document.createElement('div');
-	function refreshBoardAnchorSize() {
-		const boardSize = Chessboard.size(boardOptions);
-		boardAnchorParent.style.minWidth = `${boardSize.width}px`;
-		boardAnchorParent.style.minHeight = `${boardSize.height}px`;
-	}
-	refreshBoardAnchorSize();
+    // Build the container for the anchor.
+    // WARNING: having a container with predefined size is mandatory so that the jQuery UI dialog
+    // can determine its size and center itself properly (the Reach inner component is not mounted yet when the dialog opens).
+    let boardAnchorParent = document.createElement('div');
+    function refreshBoardAnchorSize() {
+        const boardSize = Chessboard.size(boardOptions);
+        boardAnchorParent.style.minWidth = `${boardSize.width}px`;
+        boardAnchorParent.style.minHeight = `${boardSize.height}px`;
+    }
+    refreshBoardAnchorSize();
 
-	// Force the focus in the Chessgame component whose navigation board is currently displayed in the navigation frame.
-	function focusOwner() {
-		if (currentOwner) {
-			currentOwner.focus();
-		}
-	}
+    // Force the focus in the Chessgame component whose navigation board is currently displayed in the navigation frame.
+    function focusOwner() {
+        if (currentOwner) {
+            currentOwner.focus();
+        }
+    }
 
-	// Build the dialog skeleton
-	let navigationFrame = document.createElement('div');
-	navigationFrame.id = 'rpbchessboard-navigationFrame';
-	navigationFrame.onclick = focusOwner; // Prevent the frame from getting the focus.
-	boardAnchor = document.createElement('div');
-	navigationFrame.appendChild(boardAnchorParent);
-	boardAnchorParent.appendChild(boardAnchor);
+    // Build the dialog skeleton
+    let navigationFrame = document.createElement('div');
+    navigationFrame.id = 'rpbchessboard-navigationFrame';
+    navigationFrame.onclick = focusOwner; // Prevent the frame from getting the focus.
+    boardAnchor = document.createElement('div');
+    navigationFrame.appendChild(boardAnchorParent);
+    boardAnchorParent.appendChild(boardAnchor);
 
-	// Create the dialog widget.
-	let $ = window.jQuery;
-	$('body').append(navigationFrame);
-	$('#rpbchessboard-navigationFrame').dialog({
+    // Create the dialog widget.
+    let $ = window.jQuery;
+    $('body').append(navigationFrame);
+    $('#rpbchessboard-navigationFrame').dialog({
 
-		/* Hack to keep the dialog draggable after the page has being scrolled. */
-		create     : evt => $(evt.target).parent().css('position', 'fixed'),
-		resizeStart: evt => $(evt.target).parent().css('position', 'fixed'),
-		resizeStop : evt => $(evt.target).parent().css('position', 'fixed'),
-		/* End of hack */
+        /* Hack to keep the dialog draggable after the page has being scrolled. */
+        create     : evt => $(evt.target).parent().css('position', 'fixed'),
+        resizeStart: evt => $(evt.target).parent().css('position', 'fixed'),
+        resizeStop : evt => $(evt.target).parent().css('position', 'fixed'),
+        /* End of hack */
 
-		autoOpen: false,
-		dialogClass: 'wp-dialog',
-		width: 'auto',
-		close: () => {
-			if (currentOwner) {
-				currentOwner.handleMoveSelected(undefined, 'external');
-			}
-		},
-	});
+        autoOpen: false,
+        dialogClass: 'wp-dialog',
+        width: 'auto',
+        close: () => {
+            if (currentOwner) {
+                currentOwner.handleMoveSelected(undefined, 'external');
+            }
+        },
+    });
 
-	// Handle dialog resize.
-	$('#rpbchessboard-navigationFrame').on('dialogresize', (evt, ui) => {
+    // Handle dialog resize.
+    $('#rpbchessboard-navigationFrame').on('dialogresize', (evt, ui) => {
 
-		// Save the initial information about the geometry of the board and its container.
-		if(!resizeInfo) {
-			const boardSize = Chessboard.size(boardOptions);
-			resizeInfo = {
-				reservedWidth: ui.originalSize.width - boardSize.width,
-				reservedHeight: ui.originalSize.height - boardSize.height,
-			};
-		}
+        // Save the initial information about the geometry of the board and its container.
+        if(!resizeInfo) {
+            const boardSize = Chessboard.size(boardOptions);
+            resizeInfo = {
+                reservedWidth: ui.originalSize.width - boardSize.width,
+                reservedHeight: ui.originalSize.height - boardSize.height,
+            };
+        }
 
-		// Compute the new square size parameter.
-		const availableWidth = ui.size.width - resizeInfo.reservedWidth;
-		const availableHeight = ui.size.height - resizeInfo.reservedHeight;
-		const squareSize = Chessboard.adaptSquareSize(availableWidth, availableHeight, boardOptions);
+        // Compute the new square size parameter.
+        const availableWidth = ui.size.width - resizeInfo.reservedWidth;
+        const availableHeight = ui.size.height - resizeInfo.reservedHeight;
+        const squareSize = Chessboard.adaptSquareSize(availableWidth, availableHeight, boardOptions);
 
-		// Update the widget.
-		boardOptions = { ...boardOptions };
-		boardOptions.squareSize = squareSize;
-		refreshBoardAnchorSize();
-		currentOwner.setState({ popupBoardOptions: boardOptions });
-	});
+        // Update the widget.
+        boardOptions = { ...boardOptions };
+        boardOptions.squareSize = squareSize;
+        refreshBoardAnchorSize();
+        currentOwner.setState({ popupBoardOptions: boardOptions });
+    });
 
-	// Handle the focus.
-	$('#rpbchessboard-navigationFrame').on('dialogopen', focusOwner);
-	$('#rpbchessboard-navigationFrame').on('dialogdragstop', focusOwner);
-	$('#rpbchessboard-navigationFrame').on('dialogresizestop', focusOwner);
+    // Handle the focus.
+    $('#rpbchessboard-navigationFrame').on('dialogopen', focusOwner);
+    $('#rpbchessboard-navigationFrame').on('dialogdragstop', focusOwner);
+    $('#rpbchessboard-navigationFrame').on('dialogresizestop', focusOwner);
 }
 
 
@@ -155,12 +155,12 @@ function buildFrame() {
  * Make the popup frame visible (assuming it has been built beforehand).
  */
 function openFrame() {
-	let $ = window.jQuery;
-	let navigationFrame = $('#rpbchessboard-navigationFrame');
-	if (!navigationFrame.dialog('isOpen')) {
-		navigationFrame.dialog('option', 'position', { my: 'center', at: 'center', of: window });
-		navigationFrame.dialog('open');
-	}
+    let $ = window.jQuery;
+    let navigationFrame = $('#rpbchessboard-navigationFrame');
+    if (!navigationFrame.dialog('isOpen')) {
+        navigationFrame.dialog('option', 'position', { my: 'center', at: 'center', of: window });
+        navigationFrame.dialog('open');
+    }
 }
 
 
@@ -168,11 +168,11 @@ function openFrame() {
  * Hide the popup frame (if it exists).
  */
 function closeFrame() {
-	if (!boardAnchor) {
-		return;
-	}
-	let $ = window.jQuery;
-	$('#rpbchessboard-navigationFrame').dialog('close');
+    if (!boardAnchor) {
+        return;
+    }
+    let $ = window.jQuery;
+    $('#rpbchessboard-navigationFrame').dialog('close');
 }
 
 
@@ -180,33 +180,33 @@ function closeFrame() {
  * Set the popup frame title (if it exists).
  */
 function setFrameTitle(text) {
-	if (!boardAnchor) {
-		return;
-	}
-	let $ = window.jQuery;
-	let titleRoot = $('.ui-dialog-title', $('#rpbchessboard-navigationFrame').closest('.ui-dialog')).get(0);
-	createRoot(titleRoot).render(<span>{text}</span>);
+    if (!boardAnchor) {
+        return;
+    }
+    let $ = window.jQuery;
+    let titleRoot = $('.ui-dialog-title', $('#rpbchessboard-navigationFrame').closest('.ui-dialog')).get(0);
+    createRoot(titleRoot).render(<span>{text}</span>);
 }
 
 
 export function showPopupFrame(owner) {
-	buildFrame();
-	if (currentOwner && currentOwner !== owner) {
-		currentOwner.handleMoveSelected(undefined, 'external');
-	}
-	currentOwner = owner;
-	openFrame();
-	return {
-		anchor: boardAnchor,
-		boardOptions: boardOptions,
-		setTitle: text => setFrameTitle(text),
-	};
+    buildFrame();
+    if (currentOwner && currentOwner !== owner) {
+        currentOwner.handleMoveSelected(undefined, 'external');
+    }
+    currentOwner = owner;
+    openFrame();
+    return {
+        anchor: boardAnchor,
+        boardOptions: boardOptions,
+        setTitle: text => setFrameTitle(text),
+    };
 }
 
 
 export function hidePopupFrame(owner) {
-	if (currentOwner === owner) {
-		currentOwner = false;
-		closeFrame();
-	}
+    if (currentOwner === owner) {
+        currentOwner = false;
+        closeFrame();
+    }
 }
