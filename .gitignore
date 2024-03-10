@@ -1,11 +1,11 @@
-# Eclipse's stuff
+# IDEs stuff
 /.buildpath
 /.project
 /.settings
+/.vscode
 
-# Node's stuff
+# Node stuff
 /node_modules
-/npm-debug.log
 
 # Directory for temporary objects
 /.temp
@@ -15,7 +15,9 @@
 
 # Automatically generated files
 /css/**/*.min.css
-/js/**/*.min.js
 /languages/*.mo
 /build
 
+# OS stuff
+.DS_Store
+Thumbs.db
