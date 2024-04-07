@@ -85,6 +85,10 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 7.9.1 (April 7, 2024) =
+* Tested up to WordPress 6.5.
+* Refactor build tools.
+
 = 7.9.0 (March 9, 2024) =
 * Add support for NAGs 20 and 21 (see [#280](https://github.com/yo35/rpb-chessboard/issues/280)).
 

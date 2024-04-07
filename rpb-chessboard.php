@@ -31,12 +31,12 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Requires at least: 6.3
 Requires PHP: 5.6
-Version: 7.9.0
+Version: 7.9.1
 */
 
 // Plugin version
 // WARNING: must corresponds to what is defined in the plugin header. Do NOT use `get_plugin_data(..)` (see #240).
-define( 'RPBCHESSBOARD_VERSION', '7.9.0' );
+define( 'RPBCHESSBOARD_VERSION', '7.9.1' );
 
 // Directories
 define( 'RPBCHESSBOARD_ABSPATH', plugin_dir_path( __FILE__ ) );
