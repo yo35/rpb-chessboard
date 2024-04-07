@@ -7,16 +7,11 @@
 # Node stuff
 /node_modules
 
-# Directory for temporary objects
-/.temp
-
-# Deployment file
-/rpb-chessboard.zip
-
-# Automatically generated files
-/css/**/*.min.css
-/languages/*.mo
+# Generated files
 /build
+/css/*.min.css
+/languages/*.mo
+/rpb-chessboard.zip
 
 # OS stuff
 .DS_Store

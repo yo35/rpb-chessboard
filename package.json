@@ -13,12 +13,23 @@
     },
     "devDependencies": {
         "@wordpress/scripts": "^27.6.0",
+        "archiver": "^7.0.1",
         "eslint": "^8.57.0",
         "eslint-config-wordpress": "^2.0.0",
         "eslint-plugin-react": "^7.34.1",
+        "rimraf": "^5.0.5",
         "uglifycss": "^0.0.29"
     },
     "scripts": {
-        "build": "wp-scripts build"
+        "lint": "npm run lint:js && npm run lint:php",
+        "lint:js": "eslint src",
+        "lint:php": "phpcs --colors php rpb-chessboard.php",
+        "build": "npm run build:css && npm run build:i18n && npm run build:js",
+        "build:css": "uglifycss --output css/admin.min.css css/admin.css",
+        "build:i18n": "make -f scripts/Makefile i18n-compile",
+        "build:js": "wp-scripts build",
+        "clean": "rimraf build css/admin.min.css rpb-chessboard.zip && make -f scripts/Makefile clean",
+        "prepack": "npm run lint && npm run build",
+        "pack": "node scripts/build-archive.js"
     }
 }
