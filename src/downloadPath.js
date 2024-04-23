@@ -19,24 +19,51 @@
  ******************************************************************************/
 
 
-.rpbchessboard-navigationButton {
-    display: inline-block;
-    cursor: pointer;
+import './public-path';
+
+const THICKNESS = 2;
+const ARROW_SIZE = 5;
+const ARROW_LENGTH = 16;
+const DOWNLOAD_WIDTH = 16;
+
+
+/**
+ *      D +---+ E
+ *        |   |
+ *        |   |
+ *        |   |
+ *   B *  |   |  * G
+ *    / \ |   | / \
+ * A *   \|   |/   * H
+ *    \   *   *   /
+ *     \  C   F  /
+ *      \   O   /
+ *       \  *  /
+ *        \   /
+ *         \ /
+ *          *
+ *        (x,y)
+ */
+function arrowPath(x, y, direction) {
+    const xA = x - direction * (ARROW_SIZE + THICKNESS / Math.sqrt(2) / 2);
+    const xB = x - direction * (ARROW_SIZE - THICKNESS / Math.sqrt(2) / 2);
+    const xC = x - direction * THICKNESS / 2;
+    const xF = x + direction * THICKNESS / 2;
+    const xG = x + direction * (ARROW_SIZE - THICKNESS / Math.sqrt(2) / 2);
+    const xH = x + direction * (ARROW_SIZE + THICKNESS / Math.sqrt(2) / 2);
+    const y0 = y - direction * THICKNESS * Math.sqrt(2) / 2;
+    const yA = y0 - direction * (ARROW_SIZE - THICKNESS / Math.sqrt(2) / 2);
+    const yB = y0 - direction * (ARROW_SIZE + THICKNESS / Math.sqrt(2) / 2);
+    const yC = yB + (xC - xB);
+    const yD = y - direction * ARROW_LENGTH;
+    return `M ${x} ${y} L ${xA} ${yA} L ${xB} ${yB} L ${xC} ${yC} V ${yD} H ${xF} V ${yC} L ${xG} ${yB} L ${xH} ${yA} Z`;
 }
 
-* + .rpbchessboard-navigationButton {
-    margin-left: 2px;
+
+function downloadPath(x, y) {
+    const bottom = `M ${x - DOWNLOAD_WIDTH / 2} ${y} H ${x + DOWNLOAD_WIDTH / 2} V ${y + THICKNESS} H ${x - DOWNLOAD_WIDTH / 2} Z`;
+    return arrowPath(x, y, 1) + ' ' + bottom;
 }
 
-.rpbchessboard-navigationButton:hover {
-    opacity: 0.6;
-}
 
-.rpbchessboard-navigationToolbar {
-    line-height: 0px;
-}
-
-.rpbchessboard-toolbarSpacer {
-    display: inline-block;
-    width: 10px;
-}
+export const DOWNLOAD_PATH = downloadPath(16, 22);

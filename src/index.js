@@ -27,7 +27,6 @@ import { createRoot } from 'react-dom/client';
 import { Chessboard, ArrowMarkerIcon, i18n as kokopuReactI18n } from 'kokopu-react';
 
 import Chessgame from './Chessgame';
-import NavigationToolbar from './NavigationToolbar';
 import { FENEditorIcon, registerFENBlock } from './FENEditor';
 import { PGNEditorIcon, registerPGNBlock } from './PGNEditor';
 
@@ -46,6 +45,11 @@ function initializePlugin() {
         N: RPBChessboard.i18n.PIECE_SYMBOLS.N,
         P: RPBChessboard.i18n.PIECE_SYMBOLS.P,
     };
+    kokopuReactI18n.TOOLTIP_GO_FIRST = RPBChessboard.i18n.PGN_TOOLTIP_GO_FIRST;
+    kokopuReactI18n.TOOLTIP_GO_PREVIOUS = RPBChessboard.i18n.PGN_TOOLTIP_GO_PREVIOUS;
+    kokopuReactI18n.TOOLTIP_GO_NEXT = RPBChessboard.i18n.PGN_TOOLTIP_GO_NEXT;
+    kokopuReactI18n.TOOLTIP_GO_LAST = RPBChessboard.i18n.PGN_TOOLTIP_GO_LAST;
+    kokopuReactI18n.TOOLTIP_FLIP = RPBChessboard.i18n.PGN_TOOLTIP_FLIP;
 
     // Square size bounds
     RPBChessboard.availableSquareSize = {
@@ -87,8 +91,8 @@ RPBChessboard.renderAdminChessboard = function(targetJQueryElement, widgetArgs) 
 
 
 // Navigation toolbar rendering function (to be used in the admin pages)
-RPBChessboard.renderNavigationToolbar = function(targetJQueryElement, widgetArgs) {
-    const widget = <NavigationToolbar {...widgetArgs} />;
+RPBChessboard.renderNavigationToolbar = function(targetJQueryElement) {
+    const widget = <div>TODO replug</div>;
     createRoot(targetJQueryElement.get(0)).render(widget);
 };
 

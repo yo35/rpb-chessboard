@@ -135,7 +135,7 @@ function buildFrame() {
         // Compute the new square size parameter.
         const availableWidth = ui.size.width - resizeInfo.reservedWidth;
         const availableHeight = ui.size.height - resizeInfo.reservedHeight;
-        const squareSize = Chessboard.adaptSquareSize(availableWidth, availableHeight, boardOptions);
+        const squareSize = Chessboard.adaptSquareSize(availableWidth, availableHeight, boardOptions); // TODO rework
 
         // Update the widget.
         boardOptions = { ...boardOptions };

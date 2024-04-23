@@ -25,10 +25,10 @@ import './Chessgame.css';
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { exception, Node as GameNode, pgnRead } from 'kokopu';
-import { Chessboard, ErrorBox, Movetext, formatMove } from 'kokopu-react';
+import { exception, pgnRead, Variation } from 'kokopu';
+import { Chessboard, ErrorBox, Movetext, NavigationBoard, formatMove } from 'kokopu-react';
 
-import NavigationToolbar, { TOOLBAR_MARGIN, TOOLBAR_HEIGHT } from './NavigationToolbar';
+import { DOWNLOAD_PATH } from './downloadPath';
 import { showPopupFrame, hidePopupFrame } from './NavigationFrame';
 import { format, parsePieceSymbols } from './util';
 
@@ -43,8 +43,7 @@ export default class Chessgame extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            selection: this.props.navigationBoard === 'frame' || this.props.navigationBoard === 'none' ? false : this.props.initialSelection,
-            withMove: false,
+            selection: isNavigationBoardWithinPageMode(this.props.navigationBoard) ? this.props.initialSelection : false,
             withAdditionalFlip: false,
             urlFetchStatus: false,
         };
@@ -80,78 +79,92 @@ export default class Chessgame extends React.Component {
             pgn = this.props.pgn;
         }
 
-        let info = this.parseGame(pgn);
+        const info = this.parseGame(pgn);
         if (!info.valid) {
             return <ErrorBox title={i18n.PGN_PARSING_ERROR_TITLE} message={info.message} text={info.pgn} errorIndex={info.errorIndex} lineNumber={info.lineNumber} />;
         }
-        let { selection, node } = this.getSelectionAndNode(info.game);
+        const nodeId = this.getNodeId(info.game);
 
         if (this.props.navigationBoard === 'above') {
-            return <div>{this.renderNavigationBoard(info.game, selection, node, this.props.navigationBoardOptions)}{this.renderMovetext(info.game, selection, true)}</div>;
+            return (
+                <div>
+                    {this.renderNavigationBoard(info.game, nodeId, this.props.navigationBoardOptions)}
+                    {this.renderMovetext(info.game, nodeId, true)}
+                </div>
+            );
         }
         else if (this.props.navigationBoard === 'below') {
-            return <div>{this.renderMovetext(info.game, selection, true)}{this.renderNavigationBoard(info.game, selection, node, this.props.navigationBoardOptions)}</div>;
+            return (
+                <div>
+                    {this.renderMovetext(info.game, nodeId, true)}
+                    {this.renderNavigationBoard(info.game, nodeId, this.props.navigationBoardOptions)}
+                </div>
+            );
         }
         else if (this.props.navigationBoard === 'floatLeft' || this.props.navigationBoard === 'floatRight') {
-            let className = this.props.navigationBoard === 'floatLeft' ? 'rpbchessboard-indentWithFloatLeft' : '';
             return (
-                <div className={className}>
-                    {this.renderNavigationBoard(info.game, selection, node, this.props.navigationBoardOptions)}
-                    {this.renderMovetext(info.game, selection, true)}
+                <div className={this.props.navigationBoard === 'floatLeft' ? 'rpbchessboard-indentWithFloatLeft' : ''}>
+                    {this.renderNavigationBoard(info.game, nodeId, this.props.navigationBoardOptions)}
+                    {this.renderMovetext(info.game, nodeId, true)}
                     <div className="rpbchessboard-clearFloat"></div>
                 </div>
             );
         }
         else if (this.props.navigationBoard === 'scrollLeft' || this.props.navigationBoard === 'scrollRight') {
             const boardOptions = this.props.navigationBoardOptions;
-            const height = Chessboard.size(boardOptions).height + TOOLBAR_MARGIN + TOOLBAR_HEIGHT;
+            const height = Chessboard.size(boardOptions).height + 5 + 28; // TODO replace with NavigationBoard.size
             return (
                 <div className={'rpbchessboard-scrollBox-' + this.props.navigationBoard}>
-                    {this.renderNavigationBoard(info.game, selection, node, boardOptions)}
-                    <div className="rpbchessboard-scrollArea" style={{ 'max-height': height }}>{this.renderMovetext(info.game, selection, true)}</div>
+                    {this.renderNavigationBoard(info.game, nodeId, boardOptions)}
+                    <div className="rpbchessboard-scrollArea" style={{ 'max-height': height }}>{this.renderMovetext(info.game, nodeId, true)}</div>
                 </div>
             );
         }
         else if (this.props.navigationBoard === 'frame') {
-            return <div>{this.renderMovetext(info.game, selection, true)}{this.renderNavigationBoardInPopup(info.game, selection, node)}</div>;
+            return <div>{this.renderMovetext(info.game, nodeId, true)}{this.renderNavigationBoardInPopup(info.game, nodeId)}</div>;
         }
         else {
-            return <div>{this.renderMovetext(info.game, selection, false)}</div>;
+            return <div>{this.renderMovetext(info.game, nodeId, false)}</div>;
         }
     }
 
-    renderMovetext(game, selection, withNavigationBoard) {
-        return <Movetext ref={this.movetextRef}
+    renderMovetext(game, nodeId, withNavigationBoard) {
+        return <Movetext
+            ref={this.movetextRef}
             game={game}
-            selection={selection}
+            selection={nodeId}
             interactionMode={withNavigationBoard ? 'selectMove' : undefined}
-            onMoveSelected={(nodeId, evtOrigin) => this.handleMoveSelected(nodeId, evtOrigin)}
+            onMoveSelected={(newNodeId, evtOrigin) => this.handleMoveSelected(newNodeId, evtOrigin)}
             pieceSymbols={this.getPieceSymbols()}
             diagramOptions={this.props.diagramOptions}
         />;
     }
 
-    renderNavigationBoardInPopup(game, selection, node) {
-        if (!selection || !this.state.popupAnchor) {
+    renderNavigationBoardInPopup(game, nodeId) {
+        if (nodeId === undefined || !this.state.popupAnchor) {
             return undefined;
         }
-        return ReactDOM.createPortal(this.renderNavigationBoard(game, selection, node, this.state.popupBoardOptions, this.state.setPopupTitle), this.state.popupAnchor);
+        return ReactDOM.createPortal(this.renderNavigationBoard(game, nodeId, this.state.popupBoardOptions, this.state.setPopupTitle), this.state.popupAnchor);
     }
 
-    renderNavigationBoard(game, selection, node, navigationBoardOptions, setTitle) {
-        let { position, move, csl, cal, ctl, label } = this.getCurrentPositionAndAnnotations(game, node);
+    renderNavigationBoard(game, nodeId, navigationBoardOptions, setTitle) {
         if (setTitle) {
-            setTitle(label);
+            setTitle(this.getPopupTitle(game, nodeId));
         }
-        let classNames = [ 'rpbchessboard-navigationBoard', 'rpbchessboard-navigationBoard-' + this.props.navigationBoard ];
+        const classNames = [ 'rpbchessboard-navigationBoard', 'rpbchessboard-navigationBoard-' + this.props.navigationBoard ];
+        const additionalButtons = [];
+        if (this.props.withDownloadButton) {
+            additionalButtons.push({
+                iconPath: DOWNLOAD_PATH,
+                tooltip: i18n.PGN_TOOLTIP_DOWNLOAD,
+                onClick: () => this.handleDownloadClicked(),
+            });
+        }
         return (
             <div className={classNames.join(' ')}>
-                <Chessboard
-                    position={position}
-                    move={move}
-                    squareMarkers={csl}
-                    arrowMarkers={cal}
-                    textMarkers={ctl}
+                <NavigationBoard
+                    game={game}
+                    nodeId={nodeId}
                     flipped={this.props.navigationBoardOptions.flipped ^ this.state.withAdditionalFlip}
                     squareSize={navigationBoardOptions.squareSize}
                     coordinateVisible={navigationBoardOptions.coordinateVisible}
@@ -162,16 +175,10 @@ export default class Chessgame extends React.Component {
                     animated={navigationBoardOptions.animated}
                     moveArrowVisible={navigationBoardOptions.moveArrowVisible}
                     moveArrowColor={navigationBoardOptions.moveArrowColor}
-                />
-                <NavigationToolbar
-                    withFlipButton={this.props.withFlipButton}
-                    withDownloadButton={this.props.withDownloadButton}
-                    onFirstClicked={() => this.handleNavClicked(game, selection, Movetext.firstNodeId, false)}
-                    onPreviousClicked={() => this.handleNavClicked(game, selection, Movetext.previousNodeId, false)}
-                    onNextClicked={() => this.handleNavClicked(game, selection, Movetext.nextNodeId, true)}
-                    onLastClicked={() => this.handleNavClicked(game, selection, Movetext.lastNodeId, false)}
-                    onFlipClicked={() => this.handleFlipClicked()}
-                    onDownloadClicked={() => this.handleDownloadClicked()}
+                    flipButtonVisible={this.props.withFlipButton}
+                    onNodeIdChanged={newNodeId => this.handleNavClicked(newNodeId)}
+                    onFlippedChanged={() => this.handleFlipClicked()}
+                    additionalButtons={additionalButtons}
                 />
                 {this.renderDownloadLink()}
             </div>
@@ -185,30 +192,19 @@ export default class Chessgame extends React.Component {
         return <a ref={this.blobDownloadLinkRef} className="rpbchessboard-blobDownloadLink" href="#" download="game.pgn" />;
     }
 
-    getCurrentPositionAndAnnotations(game, node) {
-        if (node === undefined) {
-            let mainVariation = game.mainVariation();
-            return {
-                position: mainVariation.initialPosition(),
-                csl: mainVariation.tag('csl'),
-                cal: mainVariation.tag('cal'),
-                ctl: mainVariation.tag('ctl'),
-                label: i18n.PGN_INITIAL_POSITION,
-            };
+    getPopupTitle(game, nodeId) {
+        if (nodeId === 'start') {
+            return i18n.PGN_INITIAL_POSITION;
         }
         else {
-            let result = this.state.withMove && node.notation() !== '--' ? { position: node.positionBefore(), move: node.notation() } : { position: node.position() };
-            let notation = node.fullMoveNumber() + (node.moveColor() === 'w' ? '.' : '\u2026') + node.notation();
-            result.csl = node.tag('csl');
-            result.cal = node.tag('cal');
-            result.ctl = node.tag('ctl');
-            result.label = formatMove(this.getPieceSymbols(), notation);
-            return result;
+            const node = game.findById(nodeId);
+            const notation = node.fullMoveNumber() + (node.moveColor() === 'w' ? '.' : '\u2026') + node.notation();
+            return formatMove(this.getPieceSymbols(), notation);
         }
     }
 
     getPieceSymbols() {
-        let pieceSymbols = parsePieceSymbols(this.props.pieceSymbols);
+        const pieceSymbols = parsePieceSymbols(this.props.pieceSymbols);
         if (pieceSymbols) {
             return pieceSymbols;
         }
@@ -222,7 +218,7 @@ export default class Chessgame extends React.Component {
 
     parseGame(pgn) {
         try {
-            let result = pgnRead(pgn, this.props.gameIndex);
+            const result = pgnRead(pgn, this.props.gameIndex);
             return { valid: true, game: result };
         }
         catch (e) {
@@ -235,36 +231,36 @@ export default class Chessgame extends React.Component {
         }
     }
 
-    getSelectionAndNode(game) {
+    getNodeId(game) {
+        let node = this.state.selection ? game.findById(this.state.selection) : undefined;
 
-        // Handle the special cases.
-        if (this.state.selection === 'start') {
-            return { selection: 'start' };
-        }
-        else if (this.state.selection === 'end') {
-            let previousNode = undefined;
-            let currentNode = game.mainVariation().first();
-            while (currentNode) {
-                previousNode = currentNode;
-                currentNode = currentNode.next();
-            }
-            return previousNode ? { selection: previousNode.id(), node: previousNode } : { selection: 'start' };
+        // If the selection points at a variation, pick the parent node instead.
+        if (node instanceof Variation && node.parentNode() !== undefined) {
+            node = node.parentNode();
         }
 
-        let node = !this.state.selection ? undefined : game.findById(this.state.selection);
-        return node && node instanceof GameNode ? { selection: this.state.selection, node: node } : {};
+        // The final validation depends on whether the navigation board mode.
+        if (isNavigationBoardWithinPageMode(this.props.navigationBoard)) {
+            return node === undefined ? 'start' : node.id();
+        }
+        else if (this.props.navigationBoard === 'frame') {
+            return node === undefined ? undefined : node.id();
+        }
+        else {
+            return undefined;
+        }
     }
 
     handleMoveSelected(nodeId, evtOrigin) {
         if (nodeId) {
-            this.setState({ selection: nodeId, withMove: evtOrigin === 'key-next' });
+            this.setState({ selection: nodeId });
         }
         else if (this.props.navigationBoard === 'frame') {
-            this.setState({ selection: false, withMove: false });
+            this.setState({ selection: false });
         }
-        if (this.props.navigationBoard === 'frame' && evtOrigin !== 'external') {
+        if (this.props.navigationBoard === 'frame' && evtOrigin !== 'external') { // 'external' correspond to an owner switch in the popup.
             if (nodeId) {
-                let { anchor, boardOptions, setTitle } = showPopupFrame(this);
+                const { anchor, boardOptions, setTitle } = showPopupFrame(this);
                 this.setState({ popupAnchor: anchor, popupBoardOptions: boardOptions, setPopupTitle: setTitle });
             }
             else {
@@ -273,12 +269,9 @@ export default class Chessgame extends React.Component {
         }
     }
 
-    handleNavClicked(game, selection, nodeIdProvider, withMove) {
+    handleNavClicked(nodeId) {
         this.movetextRef.current.focus();
-        let nodeId = nodeIdProvider(game, selection ? selection : 'start');
-        if (nodeId) {
-            this.setState({ selection: nodeId, withMove: withMove });
-        }
+        this.setState({ selection: nodeId });
     }
 
     handleFlipClicked() {
@@ -291,14 +284,14 @@ export default class Chessgame extends React.Component {
             window.location.href = this.props.url;
         }
         else {
-            let data = new Blob([ this.props.pgn ], { type: 'text/plain' });
+            const data = new Blob([ this.props.pgn ], { type: 'text/plain' });
 
             // Allocate a new URL for the current blob.
             this.releaseDynamicURL();
             this.dynamicURL = window.URL.createObjectURL(data);
 
             // Trigger the download.
-            let blobDownloadLink = this.blobDownloadLinkRef.current;
+            const blobDownloadLink = this.blobDownloadLinkRef.current;
             blobDownloadLink.href = this.dynamicURL;
             blobDownloadLink.click();
         }
@@ -377,6 +370,11 @@ Chessgame.defaultProps = {
 
 
 async function fetchPGN(url) {
-    let response = await fetch(url);
+    const response = await fetch(url);
     return response.ok ? response.text() : Promise.reject(format(i18n.PGN_DOWNLOAD_ERROR_MESSAGE, url, response.status));
+}
+
+
+function isNavigationBoardWithinPageMode(value) {
+    return value === 'above' || value === 'below' || value === 'floatLeft' || value === 'floatRight' || value === 'scrollLeft' || value === 'scrollRight';
 }
