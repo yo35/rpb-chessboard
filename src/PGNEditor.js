@@ -289,7 +289,7 @@ class PGNEditor extends React.Component {
      */
     renderNavigationBoardOptionFields() {
         let navigationBoard = this.props.attributes.navigationBoard === '' ? RPBChessboard.defaultSettings.navigationBoard : this.props.attributes.navigationBoard;
-        if (navigationBoard === 'none') {
+        if (navigationBoard === 'none' || navigationBoard === 'frame') {
             return undefined;
         }
 
@@ -306,44 +306,36 @@ class PGNEditor extends React.Component {
                 { label: i18n.PGN_EDITOR_OPTION_VISIBLE, value: 'true' },
             ]} />;
 
-        if (navigationBoard === 'frame') {
-            return (<>
-                {flipButton}
-                {downloadButton}
-            </>);
-        }
-        else {
-            return (<>
-                <ChessboardOptionEditor
-                    defaultSquareSize={RPBChessboard.defaultSettings.nboSquareSize}
-                    squareSize={this.props.attributes.nboSquareSize}
-                    coordinateVisible={this.props.attributes.nboCoordinateVisible}
-                    turnVisible={this.props.attributes.nboTurnVisible}
-                    colorset={this.props.attributes.nboColorset}
-                    pieceset={this.props.attributes.nboPieceset}
-                    onSquareSizeChanged={value => this.handleAttributeChanged('nboSquareSize', value)}
-                    onCoordinateVisibleChanged={value => this.handleAttributeChanged('nboCoordinateVisible', value)}
-                    onTurnVisibleChanged={value => this.handleAttributeChanged('nboTurnVisible', value)}
-                    onColorsetChanged={value => this.handleAttributeChanged('nboColorset', value)}
-                    onPiecesetChanged={value => this.handleAttributeChanged('nboPieceset', value)}
-                />
-                <RadioControl label={i18n.PGN_EDITOR_CONTROL_ANIMATED} selected={this.props.attributes.nboAnimated}
-                    onChange={value => this.handleAttributeChanged('nboAnimated', value)} options={[
-                        { label: i18n.PGN_EDITOR_USE_DEFAULT, value: '' },
-                        { label: i18n.PGN_EDITOR_OPTION_DISABLED, value: 'false' },
-                        { label: i18n.PGN_EDITOR_OPTION_ENABLED, value: 'true' },
-                    ]} />
-                <RadioControl label={i18n.PGN_EDITOR_CONTROL_MOVE_ARROW} selected={this.props.attributes.nboMoveArrowVisible}
-                    onChange={value => this.handleAttributeChanged('nboMoveArrowVisible', value)} options={[
-                        { label: i18n.PGN_EDITOR_USE_DEFAULT, value: '' },
-                        { label: i18n.PGN_EDITOR_OPTION_HIDDEN, value: 'false' },
-                        { label: i18n.PGN_EDITOR_OPTION_VISIBLE, value: 'true' },
-                    ]} />
-                {this.renderMoveArrowColorFields()}
-                {flipButton}
-                {downloadButton}
-            </>);
-        }
+        return (<>
+            <ChessboardOptionEditor
+                defaultSquareSize={RPBChessboard.defaultSettings.nboSquareSize}
+                squareSize={this.props.attributes.nboSquareSize}
+                coordinateVisible={this.props.attributes.nboCoordinateVisible}
+                turnVisible={this.props.attributes.nboTurnVisible}
+                colorset={this.props.attributes.nboColorset}
+                pieceset={this.props.attributes.nboPieceset}
+                onSquareSizeChanged={value => this.handleAttributeChanged('nboSquareSize', value)}
+                onCoordinateVisibleChanged={value => this.handleAttributeChanged('nboCoordinateVisible', value)}
+                onTurnVisibleChanged={value => this.handleAttributeChanged('nboTurnVisible', value)}
+                onColorsetChanged={value => this.handleAttributeChanged('nboColorset', value)}
+                onPiecesetChanged={value => this.handleAttributeChanged('nboPieceset', value)}
+            />
+            <RadioControl label={i18n.PGN_EDITOR_CONTROL_ANIMATED} selected={this.props.attributes.nboAnimated}
+                onChange={value => this.handleAttributeChanged('nboAnimated', value)} options={[
+                    { label: i18n.PGN_EDITOR_USE_DEFAULT, value: '' },
+                    { label: i18n.PGN_EDITOR_OPTION_DISABLED, value: 'false' },
+                    { label: i18n.PGN_EDITOR_OPTION_ENABLED, value: 'true' },
+                ]} />
+            <RadioControl label={i18n.PGN_EDITOR_CONTROL_MOVE_ARROW} selected={this.props.attributes.nboMoveArrowVisible}
+                onChange={value => this.handleAttributeChanged('nboMoveArrowVisible', value)} options={[
+                    { label: i18n.PGN_EDITOR_USE_DEFAULT, value: '' },
+                    { label: i18n.PGN_EDITOR_OPTION_HIDDEN, value: 'false' },
+                    { label: i18n.PGN_EDITOR_OPTION_VISIBLE, value: 'true' },
+                ]} />
+            {this.renderMoveArrowColorFields()}
+            {flipButton}
+            {downloadButton}
+        </>);
     }
 
 

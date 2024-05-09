@@ -145,6 +145,8 @@ RPBChessboard.renderPGN = function(targetJQueryElement, widgetArgs) {
         moveArrowVisible: widgetArgs.nboMoveArrowVisible,
         moveArrowColor: widgetArgs.nboMoveArrowColor,
         smallScreenLimits: RPBChessboard.smallScreenLimits,
+        flipButtonVisible: widgetArgs.withFlipButton,
+        downloadButtonVisible: widgetArgs.withDownloadButton,
     };
     const widget = <Chessgame
         url={widgetArgs.url}
@@ -155,8 +157,6 @@ RPBChessboard.renderPGN = function(targetJQueryElement, widgetArgs) {
         diagramOptions={diagramOptions}
         navigationBoardOptions={navigationBoardOptions}
         navigationBoard={widgetArgs.navigationBoard}
-        withFlipButton={widgetArgs.withFlipButton}
-        withDownloadButton={widgetArgs.withDownloadButton}
     />;
     createRoot(targetJQueryElement.get(0)).render(widget);
 };

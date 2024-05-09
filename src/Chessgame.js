@@ -153,7 +153,7 @@ export default class Chessgame extends React.Component {
         }
         const classNames = [ 'rpbchessboard-navigationBoard', 'rpbchessboard-navigationBoard-' + this.props.navigationBoard ];
         const additionalButtons = [];
-        if (this.props.withDownloadButton) {
+        if (navigationBoardOptions.downloadButtonVisible) {
             additionalButtons.push({
                 iconPath: DOWNLOAD_PATH,
                 tooltip: i18n.PGN_TOOLTIP_DOWNLOAD,
@@ -175,18 +175,18 @@ export default class Chessgame extends React.Component {
                     animated={navigationBoardOptions.animated}
                     moveArrowVisible={navigationBoardOptions.moveArrowVisible}
                     moveArrowColor={navigationBoardOptions.moveArrowColor}
-                    flipButtonVisible={this.props.withFlipButton}
+                    flipButtonVisible={navigationBoardOptions.flipButtonVisible}
                     onNodeIdChanged={newNodeId => this.handleNavClicked(newNodeId)}
                     onFlippedChanged={() => this.handleFlipClicked()}
                     additionalButtons={additionalButtons}
                 />
-                {this.renderDownloadLink()}
+                {this.renderDownloadLink(navigationBoardOptions.downloadButtonVisible)}
             </div>
         );
     }
 
-    renderDownloadLink() {
-        if (!this.props.withDownloadButton) {
+    renderDownloadLink(downloadButtonVisible) {
+        if (!downloadButtonVisible) {
             return undefined;
         }
         return <a ref={this.blobDownloadLinkRef} className="rpbchessboard-blobDownloadLink" href="#" download="game.pgn" />;
@@ -337,6 +337,8 @@ Chessgame.propTypes = {
         pieceset: PropTypes.string,
         animated: PropTypes.bool,
         moveArrowVisible: PropTypes.bool,
+        flipButtonVisible: PropTypes.bool,
+        downloadButtonVisible: PropTypes.bool,
     }),
     diagramOptions: PropTypes.shape({
         flipped: PropTypes.bool,
@@ -351,8 +353,6 @@ Chessgame.propTypes = {
         colorset: PropTypes.string,
         pieceset: PropTypes.string,
     }),
-    withFlipButton: PropTypes.bool,
-    withDownloadButton: PropTypes.bool,
 };
 
 
@@ -364,8 +364,6 @@ Chessgame.defaultProps = {
     navigationBoard: 'none',
     navigationBoardOptions: {},
     diagramOptions: {},
-    withFlipButton: true,
-    withDownloadButton: true,
 };
 
 

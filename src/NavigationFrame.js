@@ -71,6 +71,9 @@ function buildFrame() {
         moveArrowVisible: RPBChessboard.defaultSettings.moveArrowVisible,
         moveArrowColor: RPBChessboard.defaultSettings.moveArrowColor,
         smallScreenLimits: RPBChessboard.smallScreenLimits,
+        turnButtonVisible: RPBChessboard.defaultSettings.turnButtonVisible,
+        downloadButtonVisible: RPBChessboard.defaultSettings.downloadButtonVisible,
+        additionalButtons: RPBChessboard.defaultSettings.downloadButtonVisible ? [ 'button' ] : [],
     };
 
     // Build the container for the anchor.
