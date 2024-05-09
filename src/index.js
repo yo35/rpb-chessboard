@@ -24,9 +24,10 @@ import './index.css';
 
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { Chessboard, ArrowMarkerIcon, i18n as kokopuReactI18n } from 'kokopu-react';
+import { Chessboard, NavigationBoard, ArrowMarkerIcon, i18n as kokopuReactI18n } from 'kokopu-react';
 
 import Chessgame from './Chessgame';
+import { DOWNLOAD_PATH } from './downloadPath';
 import { FENEditorIcon, registerFENBlock } from './FENEditor';
 import { PGNEditorIcon, registerPGNBlock } from './PGNEditor';
 
@@ -90,9 +91,10 @@ RPBChessboard.renderAdminChessboard = function(targetJQueryElement, widgetArgs) 
 };
 
 
-// Navigation toolbar rendering function (to be used in the admin pages)
-RPBChessboard.renderNavigationToolbar = function(targetJQueryElement) {
-    const widget = <div>TODO replug</div>;
+// NavigationChessboard rendering function (to be used in the admin pages)
+RPBChessboard.renderAdminNavigationBoard = function(targetJQueryElement, widgetArgs) {
+    const additionalButtons = widgetArgs.downloadButtonVisible ? [ { iconPath: DOWNLOAD_PATH, tooltip: RPBChessboard.i18n.PGN_TOOLTIP_DOWNLOAD } ] : [];
+    const widget = <NavigationBoard {...widgetArgs} additionalButtons={additionalButtons} />;
     createRoot(targetJQueryElement.get(0)).render(widget);
 };
 

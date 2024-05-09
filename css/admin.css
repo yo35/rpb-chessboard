@@ -99,8 +99,7 @@
     margin-left: 20px;
 }
 
-.rpbchessboard-tuningChessboardParameterColumn,
-.rpbchessboard-tuningNavigationToolbarParameterColumn {
+.rpbchessboard-tuningChessboardParameterColumn {
     width: 350px;
 }
 
@@ -184,6 +183,7 @@
 .rpbchessboard-graphicRadioButtonFields input[type="radio"] + label {
     display: block;
     line-height: 0px;
+    cursor: pointer;
 }
 
 .rpbchessboard-graphicRadioButtonFields input[type="radio"] + label {
@@ -233,12 +233,6 @@
 
 #rpbchessboard-adminPage code {
     padding: inherit;
-}
-
-#rpbchessboard-navigationToolbarPreview {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 

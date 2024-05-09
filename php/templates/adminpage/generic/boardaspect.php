@@ -111,6 +111,22 @@
                 </a>
             </p>
 
+            <p>
+                <input type="hidden" name="showFlipButton" value="0" />
+                <input type="checkbox" id="rpbchessboard-showFlipButtonField" name="showFlipButton" value="1"
+                    <?php echo $model->getDefaultShowFlipButton() ? 'checked="yes"' : ''; ?>
+                />
+                <label for="rpbchessboard-showFlipButtonField"><?php esc_html_e( 'Show the flip button', 'rpb-chessboard' ); ?></label>
+            </p>
+
+            <p>
+                <input type="hidden" name="showDownloadButton" value="0" />
+                <input type="checkbox" id="rpbchessboard-showDownloadButtonField" name="showDownloadButton" value="1"
+                    <?php echo $model->getDefaultShowDownloadButton() ? 'checked="yes"' : ''; ?>
+                />
+                <label for="rpbchessboard-showDownloadButtonField"><?php esc_html_e( 'Show the download button', 'rpb-chessboard' ); ?></label>
+            </p>
+
         <?php endif; ?>
 
     </div>
@@ -126,26 +142,36 @@
         var key = <?php echo wp_json_encode( $key ); ?>;
 
         // State variables
-        var squareSize      = $('#rpbchessboard-squareSizeField-' + key).val();
-        var showCoordinates = $('#rpbchessboard-showCoordinatesField-' + key).prop('checked');
-        var showTurn        = $('#rpbchessboard-showTurnField-' + key).prop('checked');
-        var colorset        = $('#rpbchessboard-colorsetField-' + key).val();
-        var pieceset        = $('#rpbchessboard-piecesetField-' + key).val();
-        var movePreview     = false;
+        var squareSize = $('#rpbchessboard-squareSizeField-' + key).val();
+        <?php if ( $withMoveAttributes ) : ?>
+            var movePreview = false;
+        <?php endif; ?>
 
         // Refresh the widget
         function refresh() {
-            RPBChessboard.renderAdminChessboard($('#rpbchessboard-tuningChessboard-' + key), {
-                position: 'start',
+            <?php if ( $withMoveAttributes ) : ?>
+                RPBChessboard.renderAdminNavigationBoard
+            <?php else : ?>
+                RPBChessboard.renderAdminChessboard
+            <?php endif; ?>
+            ($('#rpbchessboard-tuningChessboard-' + key), {
                 squareSize: Number(squareSize),
-                coordinateVisible: Boolean(showCoordinates),
-                turnVisible: Boolean(showTurn),
-                colorset: colorset,
-                pieceset: pieceset,
-                move: movePreview ? 'e4' : undefined,
-                animated: movePreview ? Boolean($('#rpbchessboard-animatedField').prop('checked')) : undefined,
-                moveArrowVisible: movePreview ? Boolean($('#rpbchessboard-showMoveArrowField').prop('checked')) : undefined,
-                moveArrowColor: movePreview ? $('input[name="moveArrowColor"]:checked').val() : undefined,
+                coordinateVisible: Boolean($('#rpbchessboard-showCoordinatesField-' + key).prop('checked')),
+                turnVisible: Boolean($('#rpbchessboard-showTurnField-' + key).prop('checked')),
+                colorset: $('#rpbchessboard-colorsetField-' + key).val(),
+                pieceset: $('#rpbchessboard-piecesetField-' + key).val(),
+                <?php if ( $withMoveAttributes ) : ?>
+                    game: '1. -- -- 2. e4 -- *',
+                    nodeId: movePreview ? '2w' : '1b',
+                    flipped: false,
+                    animated: Boolean($('#rpbchessboard-animatedField').prop('checked')),
+                    moveArrowVisible: Boolean($('#rpbchessboard-showMoveArrowField').prop('checked')),
+                    moveArrowColor: $('input[name="moveArrowColor"]:checked').val(),
+                    flipButtonVisible: Boolean($('#rpbchessboard-showFlipButtonField').prop('checked')),
+                    downloadButtonVisible: Boolean($('#rpbchessboard-showDownloadButtonField').prop('checked')),
+                <?php else : ?>
+                    position: 'start',
+                <?php endif; ?>
             });
         }
         refresh();
@@ -164,22 +190,10 @@
         });
 
         // Initialize the other callbacks.
-        $('#rpbchessboard-showCoordinatesField-' + key).change(function() {
-            showCoordinates = $('#rpbchessboard-showCoordinatesField-' + key).prop('checked');
-            refresh();
-        });
-        $('#rpbchessboard-showTurnField-' + key).change(function() {
-            showTurn = $('#rpbchessboard-showTurnField-' + key).prop('checked');
-            refresh();
-        });
-        $('#rpbchessboard-colorsetField-' + key).change(function() {
-            colorset = $('#rpbchessboard-colorsetField-' + key).val();
-            refresh();
-        });
-        $('#rpbchessboard-piecesetField-' + key).change(function() {
-            pieceset = $('#rpbchessboard-piecesetField-' + key).val();
-            refresh();
-        });
+        $('#rpbchessboard-showCoordinatesField-' + key).change(refresh);
+        $('#rpbchessboard-showTurnField-' + key).change(refresh);
+        $('#rpbchessboard-colorsetField-' + key).change(refresh);
+        $('#rpbchessboard-piecesetField-' + key).change(refresh);
 
         <?php if ( $withMoveAttributes ) : ?>
 
@@ -189,9 +203,6 @@
                 var color = element.data('color');
                 var mainColorset = RPBChessboard.colorsetData['original'];
                 RPBChessboard.renderArrowMarkerIcon(element, { size: 20, color: mainColorset['c' + color] });
-            });
-            $('input[name="moveArrowColor"]').change(function() {
-                refresh();
             });
 
             // Move preview
@@ -215,6 +226,10 @@
                     refresh();
                 }, 1200);
             });
+
+            // Toolbar buttons
+            $('input[name="showFlipButton"]').change(refresh);
+            $('input[name="showDownloadButton"]').change(refresh);
 
         <?php endif; ?>
 
