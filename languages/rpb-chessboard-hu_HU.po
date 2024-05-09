@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-01 15:40+0100\n"
+"POT-Creation-Date: 2024-05-09 13:08+0200\n"
 "PO-Revision-Date: 2022-11-09 22:46+0000\n"
 "Last-Translator: ╪ lovag SZVETLIK Atilla\n"
 "Language-Team: Magyar\n"
@@ -570,30 +570,6 @@ msgstr ""
 msgid "Chess game"
 msgstr "Sakkjáték"
 
-#: php/templates/adminpage/chessgamesettings/navigationtoolbar.php
-msgid "Navigation toolbar"
-msgstr "Navigációs eszköztár"
-
-#: php/templates/adminpage/chessgamesettings/navigationtoolbar.php
-msgid "Show the flip button"
-msgstr "A megfordítás (térfélcsere) gomb mutatása"
-
-#: php/templates/adminpage/chessgamesettings/navigationtoolbar.php
-msgid "Show the download button"
-msgstr "A letöltés gomb mutatása"
-
-#: php/templates/adminpage/chessgamesettings/navigationtoolbar.php
-msgid "Chessboard snippet"
-msgstr "Sakktábla részlet"
-
-#: php/templates/adminpage/chessgamesettings/navigationtoolbar.php
-msgid ""
-"These settings allow to customize the toolbar that is displayed below the "
-"navigation board."
-msgstr ""
-"Ezek a beállítások lehetővé teszik a navigációs tábla alatt megjelenő "
-"eszköztár testreszabását."
-
 #: php/templates/adminpage/chessgamesettings/navigationboard.php
 msgid "Position of the navigation board"
 msgstr "A sakktábla elhelyezkedése"
@@ -692,6 +668,18 @@ msgstr "A mozgási nyíl színe:"
 #: php/templates/adminpage/generic/boardaspect.php
 msgid "Move preview"
 msgstr "Lépés előnézet"
+
+#: php/templates/adminpage/generic/boardaspect.php
+msgid "Show the play/stop button"
+msgstr ""
+
+#: php/templates/adminpage/generic/boardaspect.php
+msgid "Show the flip button"
+msgstr "A megfordítás (térfélcsere) gomb mutatása"
+
+#: php/templates/adminpage/generic/boardaspect.php
+msgid "Show the download button"
+msgstr "A letöltés gomb mutatása"
 
 #: php/templates/block/pgn.php
 msgid "You must activate JavaScript to enhance chess game visualization."
@@ -904,6 +892,10 @@ msgid "Go to the end of the game"
 msgstr "Ugrás a játék végére"
 
 #: php/models/initscript.php
+msgid "Play/stop the game"
+msgstr ""
+
+#: php/models/initscript.php
 msgid "Download the game"
 msgstr "A játék letöltése"
 
@@ -996,6 +988,10 @@ msgstr "Kezdeti kiválasztás"
 #: php/models/initscript.php
 msgid "Move arrow"
 msgstr "Nyíl mozgatása"
+
+#: php/models/initscript.php
+msgid "Play/stop button"
+msgstr ""
 
 #: php/models/initscript.php
 msgid "Flip button"

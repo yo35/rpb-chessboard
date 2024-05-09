@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-01 15:40+0100\n"
+"POT-Creation-Date: 2024-05-09 13:08+0200\n"
 "PO-Revision-Date: 2020-07-28 10:32-0300\n"
 "Last-Translator: rewbenio <rewbenio@lancesqi.com.br>\n"
 "Language-Team: Rewbenio Frota\n"
@@ -554,30 +554,6 @@ msgstr ""
 msgid "Chess game"
 msgstr ""
 
-#: php/templates/adminpage/chessgamesettings/navigationtoolbar.php
-msgid "Navigation toolbar"
-msgstr "Menu de navegação"
-
-#: php/templates/adminpage/chessgamesettings/navigationtoolbar.php
-msgid "Show the flip button"
-msgstr "Mostrar botão para girar tabuleiro"
-
-#: php/templates/adminpage/chessgamesettings/navigationtoolbar.php
-msgid "Show the download button"
-msgstr "Mostrar botão de download"
-
-#: php/templates/adminpage/chessgamesettings/navigationtoolbar.php
-msgid "Chessboard snippet"
-msgstr ""
-
-#: php/templates/adminpage/chessgamesettings/navigationtoolbar.php
-msgid ""
-"These settings allow to customize the toolbar that is displayed below the "
-"navigation board."
-msgstr ""
-"Configurações de personalização da barra de ferramentas abaixo do tabuleiro "
-"de navegação."
-
 #: php/templates/adminpage/chessgamesettings/navigationboard.php
 msgid "Position of the navigation board"
 msgstr "Posição do tabuleiro de navegação"
@@ -676,6 +652,18 @@ msgstr ""
 #: php/templates/adminpage/generic/boardaspect.php
 msgid "Move preview"
 msgstr ""
+
+#: php/templates/adminpage/generic/boardaspect.php
+msgid "Show the play/stop button"
+msgstr ""
+
+#: php/templates/adminpage/generic/boardaspect.php
+msgid "Show the flip button"
+msgstr "Mostrar botão para girar tabuleiro"
+
+#: php/templates/adminpage/generic/boardaspect.php
+msgid "Show the download button"
+msgstr "Mostrar botão de download"
 
 #: php/templates/block/pgn.php
 msgid "You must activate JavaScript to enhance chess game visualization."
@@ -906,6 +894,10 @@ msgid "Go to the end of the game"
 msgstr "Ir ao final da partida"
 
 #: php/models/initscript.php
+msgid "Play/stop the game"
+msgstr ""
+
+#: php/models/initscript.php
 msgid "Download the game"
 msgstr "Descarregar partida"
 
@@ -997,6 +989,10 @@ msgstr ""
 
 #: php/models/initscript.php
 msgid "Move arrow"
+msgstr ""
+
+#: php/models/initscript.php
+msgid "Play/stop button"
 msgstr ""
 
 #: php/models/initscript.php

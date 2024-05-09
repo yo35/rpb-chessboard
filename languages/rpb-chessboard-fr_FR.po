@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-01 15:40+0100\n"
+"POT-Creation-Date: 2024-05-09 13:08+0200\n"
 "PO-Revision-Date: 2011-12-02 23:56+0100\n"
 "Last-Translator: Yoann Le Montagner <yo35 -at- melix.net>\n"
 "Language-Team: French\n"
@@ -574,30 +574,6 @@ msgstr ""
 msgid "Chess game"
 msgstr "Partie d'échecs"
 
-#: php/templates/adminpage/chessgamesettings/navigationtoolbar.php
-msgid "Navigation toolbar"
-msgstr "Barre d'outils de navigation"
-
-#: php/templates/adminpage/chessgamesettings/navigationtoolbar.php
-msgid "Show the flip button"
-msgstr "Afficher le bouton pour tourner l'échiquier"
-
-#: php/templates/adminpage/chessgamesettings/navigationtoolbar.php
-msgid "Show the download button"
-msgstr "Afficher le bouton de téléchargement"
-
-#: php/templates/adminpage/chessgamesettings/navigationtoolbar.php
-msgid "Chessboard snippet"
-msgstr "Fragment d'un échiquier"
-
-#: php/templates/adminpage/chessgamesettings/navigationtoolbar.php
-msgid ""
-"These settings allow to customize the toolbar that is displayed below the "
-"navigation board."
-msgstr ""
-"Ces paramètres permettent de personnaliser la barre d'outils affichée en "
-"dessous de l'échiquier de navigation."
-
 #: php/templates/adminpage/chessgamesettings/navigationboard.php
 msgid "Position of the navigation board"
 msgstr "Position de l'échiquier de navigation"
@@ -696,6 +672,18 @@ msgstr "Couleur de la flèche de déplacement&nbsp;:"
 #: php/templates/adminpage/generic/boardaspect.php
 msgid "Move preview"
 msgstr "Aperçu d'un déplacement"
+
+#: php/templates/adminpage/generic/boardaspect.php
+msgid "Show the play/stop button"
+msgstr "Afficher le bouton de lecture/pause"
+
+#: php/templates/adminpage/generic/boardaspect.php
+msgid "Show the flip button"
+msgstr "Afficher le bouton pour tourner l'échiquier"
+
+#: php/templates/adminpage/generic/boardaspect.php
+msgid "Show the download button"
+msgstr "Afficher le bouton de téléchargement"
 
 #: php/templates/block/pgn.php
 msgid "You must activate JavaScript to enhance chess game visualization."
@@ -910,6 +898,10 @@ msgid "Go to the end of the game"
 msgstr "Aller à la fin de la partie"
 
 #: php/models/initscript.php
+msgid "Play/stop the game"
+msgstr "Lire / mettre en pause la partie"
+
+#: php/models/initscript.php
 msgid "Download the game"
 msgstr "Télécharger la partie"
 
@@ -1002,6 +994,10 @@ msgstr "Sélection initiale"
 #: php/models/initscript.php
 msgid "Move arrow"
 msgstr "Flèche de déplacement"
+
+#: php/models/initscript.php
+msgid "Play/stop button"
+msgstr "Bouton de lecture/pause"
 
 #: php/models/initscript.php
 msgid "Flip button"

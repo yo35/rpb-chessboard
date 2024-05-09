@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-01 15:40+0100\n"
+"POT-Creation-Date: 2024-05-09 13:08+0200\n"
 "PO-Revision-Date: 2014-09-02 16:48:49+0200\n"
 "Last-Translator: schaaktrainer <jdelemarre -at- hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -514,28 +514,6 @@ msgstr ""
 msgid "Chess game"
 msgstr ""
 
-#: php/templates/adminpage/chessgamesettings/navigationtoolbar.php
-msgid "Navigation toolbar"
-msgstr ""
-
-#: php/templates/adminpage/chessgamesettings/navigationtoolbar.php
-msgid "Show the flip button"
-msgstr ""
-
-#: php/templates/adminpage/chessgamesettings/navigationtoolbar.php
-msgid "Show the download button"
-msgstr ""
-
-#: php/templates/adminpage/chessgamesettings/navigationtoolbar.php
-msgid "Chessboard snippet"
-msgstr ""
-
-#: php/templates/adminpage/chessgamesettings/navigationtoolbar.php
-msgid ""
-"These settings allow to customize the toolbar that is displayed below the "
-"navigation board."
-msgstr ""
-
 #: php/templates/adminpage/chessgamesettings/navigationboard.php
 msgid "Position of the navigation board"
 msgstr "Positie van het bord"
@@ -628,6 +606,18 @@ msgstr ""
 
 #: php/templates/adminpage/generic/boardaspect.php
 msgid "Move preview"
+msgstr ""
+
+#: php/templates/adminpage/generic/boardaspect.php
+msgid "Show the play/stop button"
+msgstr ""
+
+#: php/templates/adminpage/generic/boardaspect.php
+msgid "Show the flip button"
+msgstr ""
+
+#: php/templates/adminpage/generic/boardaspect.php
+msgid "Show the download button"
 msgstr ""
 
 #: php/templates/block/pgn.php
@@ -841,6 +831,10 @@ msgid "Go to the end of the game"
 msgstr ""
 
 #: php/models/initscript.php
+msgid "Play/stop the game"
+msgstr ""
+
+#: php/models/initscript.php
 msgid "Download the game"
 msgstr ""
 
@@ -932,6 +926,10 @@ msgstr ""
 
 #: php/models/initscript.php
 msgid "Move arrow"
+msgstr ""
+
+#: php/models/initscript.php
+msgid "Play/stop button"
 msgstr ""
 
 #: php/models/initscript.php

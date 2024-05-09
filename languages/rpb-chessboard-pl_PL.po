@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-01 15:40+0100\n"
+"POT-Creation-Date: 2024-05-09 13:08+0200\n"
 "PO-Revision-Date: 2014-07-15 13:03+0100\n"
 "Last-Translator: Dawid Ziółkowski <kontakt -at- dawidziolkowski.pl>\n"
 "Language-Team: Dawid Ziółkowski <mr -at- dawidziolkowski.com>\n"
@@ -531,28 +531,6 @@ msgstr ""
 msgid "Chess game"
 msgstr ""
 
-#: php/templates/adminpage/chessgamesettings/navigationtoolbar.php
-msgid "Navigation toolbar"
-msgstr ""
-
-#: php/templates/adminpage/chessgamesettings/navigationtoolbar.php
-msgid "Show the flip button"
-msgstr ""
-
-#: php/templates/adminpage/chessgamesettings/navigationtoolbar.php
-msgid "Show the download button"
-msgstr ""
-
-#: php/templates/adminpage/chessgamesettings/navigationtoolbar.php
-msgid "Chessboard snippet"
-msgstr ""
-
-#: php/templates/adminpage/chessgamesettings/navigationtoolbar.php
-msgid ""
-"These settings allow to customize the toolbar that is displayed below the "
-"navigation board."
-msgstr ""
-
 #: php/templates/adminpage/chessgamesettings/navigationboard.php
 msgid "Position of the navigation board"
 msgstr "Pozycja oznaczenia szachownicy"
@@ -643,6 +621,18 @@ msgstr ""
 
 #: php/templates/adminpage/generic/boardaspect.php
 msgid "Move preview"
+msgstr ""
+
+#: php/templates/adminpage/generic/boardaspect.php
+msgid "Show the play/stop button"
+msgstr ""
+
+#: php/templates/adminpage/generic/boardaspect.php
+msgid "Show the flip button"
+msgstr ""
+
+#: php/templates/adminpage/generic/boardaspect.php
+msgid "Show the download button"
 msgstr ""
 
 #: php/templates/block/pgn.php
@@ -854,6 +844,10 @@ msgid "Go to the end of the game"
 msgstr ""
 
 #: php/models/initscript.php
+msgid "Play/stop the game"
+msgstr ""
+
+#: php/models/initscript.php
 msgid "Download the game"
 msgstr ""
 
@@ -945,6 +939,10 @@ msgstr ""
 
 #: php/models/initscript.php
 msgid "Move arrow"
+msgstr ""
+
+#: php/models/initscript.php
+msgid "Play/stop button"
 msgstr ""
 
 #: php/models/initscript.php
