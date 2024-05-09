@@ -25,7 +25,7 @@ import './NavigationFrame.css';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 
-import { Chessboard } from 'kokopu-react';
+import { NavigationBoard } from 'kokopu-react';
 
 
 /**
@@ -78,7 +78,7 @@ function buildFrame() {
     // can determine its size and center itself properly (the Reach inner component is not mounted yet when the dialog opens).
     let boardAnchorParent = document.createElement('div');
     function refreshBoardAnchorSize() {
-        const boardSize = Chessboard.size(boardOptions);
+        const boardSize = NavigationBoard.size(boardOptions);
         boardAnchorParent.style.minWidth = `${boardSize.width}px`;
         boardAnchorParent.style.minHeight = `${boardSize.height}px`;
     }
@@ -125,7 +125,7 @@ function buildFrame() {
 
         // Save the initial information about the geometry of the board and its container.
         if(!resizeInfo) {
-            const boardSize = Chessboard.size(boardOptions);
+            const boardSize = NavigationBoard.size(boardOptions);
             resizeInfo = {
                 reservedWidth: ui.originalSize.width - boardSize.width,
                 reservedHeight: ui.originalSize.height - boardSize.height,
@@ -135,7 +135,7 @@ function buildFrame() {
         // Compute the new square size parameter.
         const availableWidth = ui.size.width - resizeInfo.reservedWidth;
         const availableHeight = ui.size.height - resizeInfo.reservedHeight;
-        const squareSize = Chessboard.adaptSquareSize(availableWidth, availableHeight, boardOptions); // TODO rework
+        const squareSize = NavigationBoard.adaptSquareSize(availableWidth, availableHeight, boardOptions);
 
         // Update the widget.
         boardOptions = { ...boardOptions };

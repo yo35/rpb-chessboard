@@ -26,7 +26,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { exception, pgnRead, Variation } from 'kokopu';
-import { Chessboard, ErrorBox, Movetext, NavigationBoard, formatMove } from 'kokopu-react';
+import { ErrorBox, Movetext, NavigationBoard, formatMove } from 'kokopu-react';
 
 import { DOWNLOAD_PATH } from './downloadPath';
 import { showPopupFrame, hidePopupFrame } from './NavigationFrame';
@@ -112,7 +112,7 @@ export default class Chessgame extends React.Component {
         }
         else if (this.props.navigationBoard === 'scrollLeft' || this.props.navigationBoard === 'scrollRight') {
             const boardOptions = this.props.navigationBoardOptions;
-            const height = Chessboard.size(boardOptions).height + 5 + 28; // TODO replace with NavigationBoard.size
+            const { height } = NavigationBoard.size(boardOptions);
             return (
                 <div className={'rpbchessboard-scrollBox-' + this.props.navigationBoard}>
                     {this.renderNavigationBoard(info.game, nodeId, boardOptions)}
