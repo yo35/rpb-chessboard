@@ -85,6 +85,10 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 8.0.0 (May 9, 2024) =
+* Add auto-play (see [#91](https://github.com/yo35/rpb-chessboard/issues/91)).
+* Adapt button size in the navigation toolbar to the size of the board (see [#274](https://github.com/yo35/rpb-chessboard/issues/274)).
+
 = 7.9.1 (April 7, 2024) =
 * Tested up to WordPress 6.5.
 * Refactor build tools.
