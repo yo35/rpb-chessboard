@@ -57,6 +57,7 @@ class RPBChessboardModelBlockPGN extends RPBChessboardAbstractModelBlock {
         // Chessgame aspect
         $widgetArgs['pieceSymbols']       = isset( $atts['pieceSymbols'] ) ? $atts['pieceSymbols'] : $this->mainModel->getDefaultPieceSymbols();
         $widgetArgs['navigationBoard']    = isset( $atts['navigationBoard'] ) ? $atts['navigationBoard'] : $this->mainModel->getDefaultNavigationBoard();
+        $widgetArgs['withPlayButton']     = isset( $atts['withPlayButton'] ) ? 'true' === $atts['withPlayButton'] : $this->mainModel->getDefaultShowPlayButton();
         $widgetArgs['withFlipButton']     = isset( $atts['withFlipButton'] ) ? 'true' === $atts['withFlipButton'] : $this->mainModel->getDefaultShowFlipButton();
         $widgetArgs['withDownloadButton'] = isset( $atts['withDownloadButton'] ) ? 'true' === $atts['withDownloadButton'] : $this->mainModel->getDefaultShowDownloadButton();
 

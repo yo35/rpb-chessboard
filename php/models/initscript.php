@@ -116,6 +116,7 @@ class RPBChessboardModelInitScript {
             'moveArrowColor'        => $this->mainModel->getDefaultMoveArrowColor(),
             'pieceSymbols'          => $this->mainModel->getDefaultPieceSymbols(),
             'navigationBoard'       => $this->mainModel->getDefaultNavigationBoard(),
+            'playButtonVisible'     => $this->mainModel->getDefaultShowPlayButton(),
             'flipButtonVisible'     => $this->mainModel->getDefaultShowFlipButton(),
             'downloadButtonVisible' => $this->mainModel->getDefaultShowDownloadButton(),
         );
@@ -202,6 +203,7 @@ class RPBChessboardModelInitScript {
             'PGN_TOOLTIP_GO_PREVIOUS'                 => __( 'Go to the previous move', 'rpb-chessboard' ),
             'PGN_TOOLTIP_GO_NEXT'                     => __( 'Go to the next move', 'rpb-chessboard' ),
             'PGN_TOOLTIP_GO_LAST'                     => __( 'Go to the end of the game', 'rpb-chessboard' ),
+            'PGN_TOOLTIP_PLAY_STOP'                   => __( 'Play/stop the game', 'rpb-chessboard' ),
             'PGN_TOOLTIP_FLIP'                        => __( 'Flip the board', 'rpb-chessboard' ),
             'PGN_TOOLTIP_DOWNLOAD'                    => __( 'Download the game', 'rpb-chessboard' ),
             'PGN_ANNOTATED_BY'                        => sprintf( __( 'Annotated by %1$s', 'rpb-chessboard' ), '{0}' ),
@@ -249,6 +251,7 @@ class RPBChessboardModelInitScript {
             'PGN_EDITOR_CONTROL_INITIAL_SELECTION'    => __( 'Initial selection', 'rpb-chessboard' ),
             'PGN_EDITOR_CONTROL_ANIMATED'             => __( 'Move animation', 'rpb-chessboard' ),
             'PGN_EDITOR_CONTROL_MOVE_ARROW'           => __( 'Move arrow', 'rpb-chessboard' ),
+            'PGN_EDITOR_CONTROL_PLAY_BUTTON'          => __( 'Play/stop button', 'rpb-chessboard' ),
             'PGN_EDITOR_CONTROL_FLIP_BUTTON'          => __( 'Flip button', 'rpb-chessboard' ),
             'PGN_EDITOR_CONTROL_DOWNLOAD_BUTTON'      => __( 'Download button', 'rpb-chessboard' ),
             'PGN_EDITOR_HELP_INITIAL_SELECTION'       => __( 'For example: 1w for the first white move, 12b for the twelfth black move...', 'rpb-chessboard' ),

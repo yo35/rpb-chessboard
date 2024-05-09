@@ -71,6 +71,7 @@ function buildFrame() {
         moveArrowVisible: RPBChessboard.defaultSettings.moveArrowVisible,
         moveArrowColor: RPBChessboard.defaultSettings.moveArrowColor,
         smallScreenLimits: RPBChessboard.smallScreenLimits,
+        playButtonVisible: RPBChessboard.defaultSettings.playButtonVisible,
         turnButtonVisible: RPBChessboard.defaultSettings.turnButtonVisible,
         downloadButtonVisible: RPBChessboard.defaultSettings.downloadButtonVisible,
         additionalButtons: RPBChessboard.defaultSettings.downloadButtonVisible ? [ 'button' ] : [],

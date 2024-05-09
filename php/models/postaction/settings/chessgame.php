@@ -35,6 +35,7 @@ class RPBChessboardModelPostActionSettingsChessGame extends RPBChessboardAbstrac
         self::updateBooleanParameter( 'animated' );
         self::updateBooleanParameter( 'showMoveArrow' );
         self::updateMoveArrowColor();
+        self::updateBooleanParameter( 'showPlayButton' );
         self::updateBooleanParameter( 'showFlipButton' );
         self::updateBooleanParameter( 'showDownloadButton' );
 
@@ -53,6 +54,7 @@ class RPBChessboardModelPostActionSettingsChessGame extends RPBChessboardAbstrac
         self::deleteParameter( 'animated' );
         self::deleteParameter( 'showMoveArrow' );
         self::deleteParameter( 'moveArrowColor' );
+        self::deleteParameter( 'showPlayButton' );
         self::deleteParameter( 'showFlipButton' );
         self::deleteParameter( 'showDownloadButton' );
 

@@ -50,6 +50,7 @@ function initializePlugin() {
     kokopuReactI18n.TOOLTIP_GO_PREVIOUS = RPBChessboard.i18n.PGN_TOOLTIP_GO_PREVIOUS;
     kokopuReactI18n.TOOLTIP_GO_NEXT = RPBChessboard.i18n.PGN_TOOLTIP_GO_NEXT;
     kokopuReactI18n.TOOLTIP_GO_LAST = RPBChessboard.i18n.PGN_TOOLTIP_GO_LAST;
+    kokopuReactI18n.TOOLTIP_PLAY_STOP = RPBChessboard.i18n.PGN_TOOLTIP_PLAY_STOP;
     kokopuReactI18n.TOOLTIP_FLIP = RPBChessboard.i18n.PGN_TOOLTIP_FLIP;
 
     // Square size bounds
@@ -147,6 +148,7 @@ RPBChessboard.renderPGN = function(targetJQueryElement, widgetArgs) {
         moveArrowVisible: widgetArgs.nboMoveArrowVisible,
         moveArrowColor: widgetArgs.nboMoveArrowColor,
         smallScreenLimits: RPBChessboard.smallScreenLimits,
+        playButtonVisible: widgetArgs.withPlayButton,
         flipButtonVisible: widgetArgs.withFlipButton,
         downloadButtonVisible: widgetArgs.withDownloadButton,
     };

@@ -43,6 +43,7 @@ trait RPBChessboardTraitDefaultOptions {
     private $diagramAlignment;
     private $pieceSymbols;
     private $navigationBoard;
+    private $showPlayButton;
     private $showFlipButton;
     private $showDownloadButton;
     private $animated;
@@ -57,6 +58,7 @@ trait RPBChessboardTraitDefaultOptions {
     private static $DEFAULT_DIAGRAM_ALIGNMENT    = 'center';
     private static $DEFAULT_PIECE_SYMBOLS        = 'localized';
     private static $DEFAULT_NAVIGATION_BOARD     = 'frame';
+    private static $DEFAULT_SHOW_PLAY_BUTTON     = true;
     private static $DEFAULT_SHOW_FLIP_BUTTON     = true;
     private static $DEFAULT_SHOW_DOWNLOAD_BUTTON = true;
     private static $DEFAULT_ANIMATED             = true;
@@ -240,6 +242,20 @@ trait RPBChessboardTraitDefaultOptions {
             $this->navigationBoard = isset( $value ) ? $value : self::$DEFAULT_NAVIGATION_BOARD;
         }
         return $this->navigationBoard;
+    }
+
+
+    /**
+     * Whether the play/stop button in the navigation toolbar should be visible or not.
+     *
+     * @return boolean
+     */
+    public function getDefaultShowPlayButton() {
+        if ( ! isset( $this->showPlayButton ) ) {
+            $value                = RPBChessboardHelperValidation::validateBooleanFromInt( get_option( 'rpbchessboard_showPlayButton' ) );
+            $this->showPlayButton = isset( $value ) ? $value : self::$DEFAULT_SHOW_PLAY_BUTTON;
+        }
+        return $this->showPlayButton;
     }
 
 

@@ -107,6 +107,8 @@ class RPBChessboardModelBlockShortcodePGN extends RPBChessboardAbstractModelBloc
         $widgetArgs['pieceSymbols']       = isset( $value ) ? $value : $this->mainModel->getDefaultPieceSymbols();
         $value                            = isset( $atts['navigation_board'] ) ? RPBChessboardHelperValidation::validateNavigationBoard( $atts['navigation_board'] ) : null;
         $widgetArgs['navigationBoard']    = isset( $value ) ? $value : $this->mainModel->getDefaultNavigationBoard();
+        $value                            = isset( $atts['show_play_button'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_play_button'] ) : null;
+        $widgetArgs['withPlayButton']     = isset( $value ) ? $value : $this->mainModel->getDefaultShowPlayButton();
         $value                            = isset( $atts['show_flip_button'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_flip_button'] ) : null;
         $widgetArgs['withFlipButton']     = isset( $value ) ? $value : $this->mainModel->getDefaultShowFlipButton();
         $value                            = isset( $atts['show_download_button'] ) ? RPBChessboardHelperValidation::validateBoolean( $atts['show_download_button'] ) : null;

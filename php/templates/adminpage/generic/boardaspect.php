@@ -112,6 +112,14 @@
             </p>
 
             <p>
+                <input type="hidden" name="showPlayButton" value="0" />
+                <input type="checkbox" id="rpbchessboard-showPlayButtonField" name="showPlayButton" value="1"
+                    <?php echo $model->getDefaultShowPlayButton() ? 'checked="yes"' : ''; ?>
+                />
+                <label for="rpbchessboard-showPlayButtonField"><?php esc_html_e( 'Show the play/stop button', 'rpb-chessboard' ); ?></label>
+            </p>
+
+            <p>
                 <input type="hidden" name="showFlipButton" value="0" />
                 <input type="checkbox" id="rpbchessboard-showFlipButtonField" name="showFlipButton" value="1"
                     <?php echo $model->getDefaultShowFlipButton() ? 'checked="yes"' : ''; ?>
@@ -167,6 +175,7 @@
                     animated: Boolean($('#rpbchessboard-animatedField').prop('checked')),
                     moveArrowVisible: Boolean($('#rpbchessboard-showMoveArrowField').prop('checked')),
                     moveArrowColor: $('input[name="moveArrowColor"]:checked').val(),
+                    playButtonVisible: Boolean($('#rpbchessboard-showPlayButtonField').prop('checked')),
                     flipButtonVisible: Boolean($('#rpbchessboard-showFlipButtonField').prop('checked')),
                     downloadButtonVisible: Boolean($('#rpbchessboard-showDownloadButtonField').prop('checked')),
                 <?php else : ?>
@@ -228,6 +237,7 @@
             });
 
             // Toolbar buttons
+            $('input[name="showPlayButton"]').change(refresh);
             $('input[name="showFlipButton"]').change(refresh);
             $('input[name="showDownloadButton"]').change(refresh);
 

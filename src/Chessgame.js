@@ -44,6 +44,7 @@ export default class Chessgame extends React.Component {
         super(props);
         this.state = {
             selection: isNavigationBoardWithinPageMode(this.props.navigationBoard) ? this.props.initialSelection : false,
+            isPlaying: false,
             withAdditionalFlip: false,
             urlFetchStatus: false,
         };
@@ -166,6 +167,7 @@ export default class Chessgame extends React.Component {
                     game={game}
                     nodeId={nodeId}
                     flipped={this.props.navigationBoardOptions.flipped ^ this.state.withAdditionalFlip}
+                    isPlaying={this.state.isPlaying}
                     squareSize={navigationBoardOptions.squareSize}
                     coordinateVisible={navigationBoardOptions.coordinateVisible}
                     turnVisible={navigationBoardOptions.turnVisible}
@@ -175,8 +177,10 @@ export default class Chessgame extends React.Component {
                     animated={navigationBoardOptions.animated}
                     moveArrowVisible={navigationBoardOptions.moveArrowVisible}
                     moveArrowColor={navigationBoardOptions.moveArrowColor}
+                    playButtonVisible={navigationBoardOptions.playButtonVisible}
                     flipButtonVisible={navigationBoardOptions.flipButtonVisible}
                     onNodeIdChanged={newNodeId => this.handleNavClicked(newNodeId)}
+                    onIsPlayingChanged={newIsPlaying => this.handleIsPlayingClicked(newIsPlaying)}
                     onFlippedChanged={() => this.handleFlipClicked()}
                     additionalButtons={additionalButtons}
                 />
@@ -272,6 +276,11 @@ export default class Chessgame extends React.Component {
     handleNavClicked(nodeId) {
         this.movetextRef.current.focus();
         this.setState({ selection: nodeId });
+    }
+
+    handleIsPlayingClicked(isPlaying) {
+        this.movetextRef.current.focus();
+        this.setState({ isPlaying: isPlaying });
     }
 
     handleFlipClicked() {

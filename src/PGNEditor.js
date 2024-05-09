@@ -288,18 +288,24 @@ class PGNEditor extends React.Component {
      * Fields for square-size / coordinate-visibility / colorset / pieceset customization for the navigation board, if available.
      */
     renderNavigationBoardOptionFields() {
-        let navigationBoard = this.props.attributes.navigationBoard === '' ? RPBChessboard.defaultSettings.navigationBoard : this.props.attributes.navigationBoard;
+        const navigationBoard = this.props.attributes.navigationBoard === '' ? RPBChessboard.defaultSettings.navigationBoard : this.props.attributes.navigationBoard;
         if (navigationBoard === 'none' || navigationBoard === 'frame') {
             return undefined;
         }
 
-        let flipButton = <RadioControl label={i18n.PGN_EDITOR_CONTROL_FLIP_BUTTON} selected={this.props.attributes.withFlipButton}
+        const playButton = <RadioControl label={i18n.PGN_EDITOR_CONTROL_PLAY_BUTTON} selected={this.props.attributes.withPlayButton}
+            onChange={value => this.handleAttributeChanged('withPlayButton', value)} options={[
+                { label: i18n.PGN_EDITOR_USE_DEFAULT, value: '' },
+                { label: i18n.PGN_EDITOR_OPTION_HIDDEN, value: 'false' },
+                { label: i18n.PGN_EDITOR_OPTION_VISIBLE, value: 'true' },
+            ]} />;
+        const flipButton = <RadioControl label={i18n.PGN_EDITOR_CONTROL_FLIP_BUTTON} selected={this.props.attributes.withFlipButton}
             onChange={value => this.handleAttributeChanged('withFlipButton', value)} options={[
                 { label: i18n.PGN_EDITOR_USE_DEFAULT, value: '' },
                 { label: i18n.PGN_EDITOR_OPTION_HIDDEN, value: 'false' },
                 { label: i18n.PGN_EDITOR_OPTION_VISIBLE, value: 'true' },
             ]} />;
-        let downloadButton = <RadioControl label={i18n.PGN_EDITOR_CONTROL_DOWNLOAD_BUTTON} selected={this.props.attributes.withDownloadButton}
+        const downloadButton = <RadioControl label={i18n.PGN_EDITOR_CONTROL_DOWNLOAD_BUTTON} selected={this.props.attributes.withDownloadButton}
             onChange={value => this.handleAttributeChanged('withDownloadButton', value)} options={[
                 { label: i18n.PGN_EDITOR_USE_DEFAULT, value: '' },
                 { label: i18n.PGN_EDITOR_OPTION_HIDDEN, value: 'false' },
@@ -333,6 +339,7 @@ class PGNEditor extends React.Component {
                     { label: i18n.PGN_EDITOR_OPTION_VISIBLE, value: 'true' },
                 ]} />
             {this.renderMoveArrowColorFields()}
+            {playButton}
             {flipButton}
             {downloadButton}
         </>);
@@ -564,6 +571,10 @@ export function registerPGNBlock() {
                 default: ''
             },
             idoPieceset: {
+                type: 'string',
+                default: ''
+            },
+            withPlayButton: {
                 type: 'string',
                 default: ''
             },
