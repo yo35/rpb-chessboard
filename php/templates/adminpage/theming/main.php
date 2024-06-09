@@ -62,7 +62,7 @@
 
         // Refresh the widget
         function refresh() {
-            RPBChessboard.renderAdminChessboard($('#rpbchessboard-themingPreviewWidget'), {
+            RPBChessboard.renderAdminChessboard($('#rpbchessboard-themingPreviewWidget').get(0), {
                 position: 'start',
                 squareMarkers: showAnnotations ? 'Ba4,Ba5,Gb4,Gb5,Rc4,Rc5,Yd4,Yd5' : '',
                 arrowMarkers: showAnnotations ? 'Be3e6,Gf3f6,Rg3g6,Yh3h6' : '',

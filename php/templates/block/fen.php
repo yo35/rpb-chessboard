@@ -29,18 +29,25 @@
 <p class="rpbchessboard-spacerBefore"></p>
 <?php endif; ?>
 
-<div id="<?php echo esc_attr( $model->getUniqueID() ); ?>" class="rpbchessboard-chessboard <?php echo esc_attr( 'rpbchessboard-diagramAlignment-' . $model->getDiagramAlignment() ); ?>">
+<div class="rpbchessboard-chessboard <?php echo esc_attr( 'rpbchessboard-diagramAlignment-' . $model->getDiagramAlignment() ); ?>">
     <noscript>
         <div class="rpbchessboard-javascriptWarning">
             <?php esc_html_e( 'You must activate JavaScript to enhance chess diagram visualization.', 'rpb-chessboard' ); ?>
         </div>
     </noscript>
-    <div class="rpbchessboard-chessboardAnchor"></div>
+    <div id="<?php echo esc_attr( $model->getUniqueID() ); ?>"></div>
     <script type="text/javascript">
-        jQuery(document).ready(function($) {
-            var selector = '#' + <?php echo wp_json_encode( $model->getUniqueID() ); ?> + ' .rpbchessboard-chessboardAnchor';
-            RPBChessboard.renderFEN($(selector), <?php echo wp_json_encode( $model->getWidgetArgs() ); ?>);
-        });
+        (function() {
+            function renderThisFEN() {
+                RPBChessboard.renderFEN(<?php echo wp_json_encode( $model->getUniqueID() ); ?>, <?php echo wp_json_encode( $model->getWidgetArgs() ); ?>);
+            }
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', renderThisFEN);
+            }
+            else {
+                renderThisFEN();
+            }
+        })();
     </script>
 </div>
 

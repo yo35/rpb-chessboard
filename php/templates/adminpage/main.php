@@ -54,9 +54,9 @@
     </div>
 
     <script type="text/javascript">
-        jQuery(document).ready(function($) {
-            RPBChessboard.renderFENIcon($('.rpbchessboard-menuIcon-fen'));
-            RPBChessboard.renderPGNIcon($('.rpbchessboard-menuIcon-pgn'));
+        document.addEventListener('DOMContentLoaded', function() {
+            Array.from(document.getElementsByClassName('rpbchessboard-menuIcon-fen')).forEach(RPBChessboard.renderAdminFENIcon);
+            Array.from(document.getElementsByClassName('rpbchessboard-menuIcon-pgn')).forEach(RPBChessboard.renderAdminPGNIcon);
         });
     </script>
 

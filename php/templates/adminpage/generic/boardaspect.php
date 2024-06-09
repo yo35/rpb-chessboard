@@ -162,7 +162,7 @@
             <?php else : ?>
                 RPBChessboard.renderAdminChessboard
             <?php endif; ?>
-            ($('#rpbchessboard-tuningChessboard-' + key), {
+            ($('#rpbchessboard-tuningChessboard-' + key).get(0), {
                 squareSize: Number(squareSize),
                 coordinateVisible: Boolean($('#rpbchessboard-showCoordinatesField-' + key).prop('checked')),
                 turnVisible: Boolean($('#rpbchessboard-showTurnField-' + key).prop('checked')),
@@ -211,7 +211,7 @@
                 var element = $(this);
                 var color = element.data('color');
                 var mainColorset = RPBChessboard.colorsetData['original'];
-                RPBChessboard.renderArrowMarkerIcon(element, { size: 20, color: mainColorset['c' + color] });
+                RPBChessboard.renderAdminArrowMarkerIcon(element.get(0), { size: 20, color: mainColorset['c' + color] });
             });
 
             // Move preview

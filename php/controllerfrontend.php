@@ -47,9 +47,6 @@ class RPBChessboardControllerFrontend extends RPBChessboardAbstractController {
     public function registerScripts() {
         parent::registerScripts();
 
-        // Force jQuery to be loaded in the header (should be the case anyway in most themes).
-        wp_enqueue_script( 'jquery' );
-
         // Enqueue the main JS files if lazy-loading is disabled.
         if ( ! $this->getMainModel()->getLazyLoadingForCSSAndJS() ) {
             wp_enqueue_script( 'rpbchessboard-npm' );

@@ -77,38 +77,32 @@ function initializePlugin() {
 }
 
 
-// Icon rendering
-function renderIcons(icon, targetJQueryElement) {
-    targetJQueryElement.each((index, element) => { createRoot(element).render(icon); });
-}
-RPBChessboard.renderFENIcon = targetJQueryElement => { renderIcons(<FENEditorIcon />, targetJQueryElement); };
-RPBChessboard.renderPGNIcon = targetJQueryElement => { renderIcons(<PGNEditorIcon />, targetJQueryElement); };
+// Icon rendering (to be used in the admin pages)
+RPBChessboard.renderAdminFENIcon = function(targetElement) { createRoot(targetElement).render(<FENEditorIcon />); };
+RPBChessboard.renderAdminPGNIcon = function(targetElement) { createRoot(targetElement).render(<PGNEditorIcon />); };
+RPBChessboard.renderAdminArrowMarkerIcon = function(targetElement, widgetArgs) {
+    const widget = <ArrowMarkerIcon {...widgetArgs} />;
+    createRoot(targetElement).render(widget);
+};
 
 
 // Chessboard rendering function (to be used in the admin pages)
-RPBChessboard.renderAdminChessboard = function(targetJQueryElement, widgetArgs) {
+RPBChessboard.renderAdminChessboard = function(targetElement, widgetArgs) {
     const widget = <Chessboard {...widgetArgs} />;
-    createRoot(targetJQueryElement.get(0)).render(widget);
+    createRoot(targetElement).render(widget);
 };
 
 
 // NavigationChessboard rendering function (to be used in the admin pages)
-RPBChessboard.renderAdminNavigationBoard = function(targetJQueryElement, widgetArgs) {
+RPBChessboard.renderAdminNavigationBoard = function(targetElement, widgetArgs) {
     const additionalButtons = widgetArgs.downloadButtonVisible ? [ { iconPath: DOWNLOAD_PATH, tooltip: RPBChessboard.i18n.PGN_TOOLTIP_DOWNLOAD } ] : [];
     const widget = <NavigationBoard {...widgetArgs} additionalButtons={additionalButtons} />;
-    createRoot(targetJQueryElement.get(0)).render(widget);
-};
-
-
-// Arrow marker icon rendering function (to be used in the admin pages)
-RPBChessboard.renderArrowMarkerIcon = function(targetJQueryElement, widgetArgs) {
-    const widget = <ArrowMarkerIcon {...widgetArgs} />;
-    createRoot(targetJQueryElement.get(0)).render(widget);
+    createRoot(targetElement).render(widget);
 };
 
 
 // Chessboard rendering function
-RPBChessboard.renderFEN = function(targetJQueryElement, widgetArgs) {
+RPBChessboard.renderFEN = function(targetElementId, widgetArgs) {
     const widget = <Chessboard
         position={widgetArgs.position}
         squareMarkers={widgetArgs.squareMarkers}
@@ -122,12 +116,12 @@ RPBChessboard.renderFEN = function(targetJQueryElement, widgetArgs) {
         pieceset={widgetArgs.pieceset}
         smallScreenLimits={RPBChessboard.smallScreenLimits}
     />;
-    createRoot(targetJQueryElement.get(0)).render(widget);
+    createRoot(document.getElementById(targetElementId)).render(widget);
 };
 
 
 // Chessgame rendering function
-RPBChessboard.renderPGN = function(targetJQueryElement, widgetArgs) {
+RPBChessboard.renderPGN = function(targetElementId, widgetArgs) {
     const diagramOptions = {
         flipped: widgetArgs.flipped,
         squareSize: widgetArgs.idoSquareSize,
@@ -162,7 +156,7 @@ RPBChessboard.renderPGN = function(targetJQueryElement, widgetArgs) {
         navigationBoardOptions={navigationBoardOptions}
         navigationBoard={widgetArgs.navigationBoard}
     />;
-    createRoot(targetJQueryElement.get(0)).render(widget);
+    createRoot(document.getElementById(targetElementId)).render(widget);
 };
 
 

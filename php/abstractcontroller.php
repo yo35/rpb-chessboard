@@ -84,7 +84,7 @@ abstract class RPBChessboardAbstractController {
 
         // Dependencies resolved using NPM
         $assetFile = $this->getAssetFile();
-        $deps      = array_merge( $assetFile['dependencies'], array( 'jquery-ui-dialog' ) );
+        $deps      = array_merge( $assetFile['dependencies'], array( 'jquery', 'jquery-ui-dialog' ) );
         wp_register_script( 'rpbchessboard-npm', RPBCHESSBOARD_URL . 'build/index.js', $deps, $assetFile['version'], false );
 
         // Configure JS
