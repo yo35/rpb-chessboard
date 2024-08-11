@@ -85,6 +85,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 8.0.2 (August 11, 2024) =
+* Fix non-displayed blocks with themes that have unregistered jQuery (see [#239](https://github.com/yo35/rpb-chessboard/issues/293)).
+
 = 8.0.1 (July 18, 2024) =
 * Minor fixes.
 * Tested up to WordPress 6.6.
