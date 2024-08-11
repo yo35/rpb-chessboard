@@ -101,6 +101,9 @@ class RPBChessboardControllerAdmin extends RPBChessboardAbstractController {
     public function registerScripts() {
         parent::registerScripts();
 
+        // Ensure jQuery is enqueued in the admin (should be the case by default anyway).
+        wp_enqueue_script( 'jquery' );
+
         // Always enqueue the main JS files
         wp_enqueue_script( 'rpbchessboard-npm' );
     }
