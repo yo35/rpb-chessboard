@@ -12,7 +12,7 @@
         "prop-types": "^15.8.1"
     },
     "devDependencies": {
-        "@wordpress/scripts": "^28.5.0",
+        "@wordpress/scripts": "^29.0.0",
         "archiver": "^7.0.1",
         "eslint": "^8.57.0",
         "eslint-config-wordpress": "^2.0.0",
