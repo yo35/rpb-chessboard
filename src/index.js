@@ -78,23 +78,23 @@ function initializePlugin() {
 
 
 // Icon rendering (to be used in the admin pages)
-RPBChessboard.renderAdminFENIcon = function(targetElement) { createRoot(targetElement).render(<FENEditorIcon />); };
-RPBChessboard.renderAdminPGNIcon = function(targetElement) { createRoot(targetElement).render(<PGNEditorIcon />); };
-RPBChessboard.renderAdminArrowMarkerIcon = function(targetElement, widgetArgs) {
+RPBChessboard.renderAdminFENIcon = function (targetElement) { createRoot(targetElement).render(<FENEditorIcon />); };
+RPBChessboard.renderAdminPGNIcon = function (targetElement) { createRoot(targetElement).render(<PGNEditorIcon />); };
+RPBChessboard.renderAdminArrowMarkerIcon = function (targetElement, widgetArgs) {
     const widget = <ArrowMarkerIcon {...widgetArgs} />;
     createRoot(targetElement).render(widget);
 };
 
 
 // Chessboard rendering function (to be used in the admin pages)
-RPBChessboard.renderAdminChessboard = function(targetElement, widgetArgs) {
+RPBChessboard.renderAdminChessboard = function (targetElement, widgetArgs) {
     const widget = <Chessboard {...widgetArgs} />;
     createRoot(targetElement).render(widget);
 };
 
 
 // NavigationChessboard rendering function (to be used in the admin pages)
-RPBChessboard.renderAdminNavigationBoard = function(targetElement, widgetArgs) {
+RPBChessboard.renderAdminNavigationBoard = function (targetElement, widgetArgs) {
     const additionalButtons = widgetArgs.downloadButtonVisible ? [ { iconPath: DOWNLOAD_PATH, tooltip: RPBChessboard.i18n.PGN_TOOLTIP_DOWNLOAD } ] : [];
     const widget = <NavigationBoard {...widgetArgs} additionalButtons={additionalButtons} />;
     createRoot(targetElement).render(widget);
@@ -102,26 +102,28 @@ RPBChessboard.renderAdminNavigationBoard = function(targetElement, widgetArgs) {
 
 
 // Chessboard rendering function
-RPBChessboard.renderFEN = function(targetElementId, widgetArgs) {
-    const widget = <Chessboard
-        position={widgetArgs.position}
-        squareMarkers={widgetArgs.squareMarkers}
-        arrowMarkers={widgetArgs.arrowMarkers}
-        textMarkers={widgetArgs.textMarkers}
-        flipped={widgetArgs.flipped}
-        squareSize={widgetArgs.squareSize}
-        coordinateVisible={widgetArgs.coordinateVisible}
-        turnVisible={widgetArgs.turnVisible}
-        colorset={widgetArgs.colorset}
-        pieceset={widgetArgs.pieceset}
-        smallScreenLimits={RPBChessboard.smallScreenLimits}
-    />;
+RPBChessboard.renderFEN = function (targetElementId, widgetArgs) {
+    const widget = (
+        <Chessboard
+            position={widgetArgs.position}
+            squareMarkers={widgetArgs.squareMarkers}
+            arrowMarkers={widgetArgs.arrowMarkers}
+            textMarkers={widgetArgs.textMarkers}
+            flipped={widgetArgs.flipped}
+            squareSize={widgetArgs.squareSize}
+            coordinateVisible={widgetArgs.coordinateVisible}
+            turnVisible={widgetArgs.turnVisible}
+            colorset={widgetArgs.colorset}
+            pieceset={widgetArgs.pieceset}
+            smallScreenLimits={RPBChessboard.smallScreenLimits}
+        />
+    );
     createRoot(document.getElementById(targetElementId)).render(widget);
 };
 
 
 // Chessgame rendering function
-RPBChessboard.renderPGN = function(targetElementId, widgetArgs) {
+RPBChessboard.renderPGN = function (targetElementId, widgetArgs) {
     const diagramOptions = {
         flipped: widgetArgs.flipped,
         squareSize: widgetArgs.idoSquareSize,
@@ -146,16 +148,18 @@ RPBChessboard.renderPGN = function(targetElementId, widgetArgs) {
         flipButtonVisible: widgetArgs.withFlipButton,
         downloadButtonVisible: widgetArgs.withDownloadButton,
     };
-    const widget = <Chessgame
-        url={widgetArgs.url}
-        pgn={widgetArgs.pgn}
-        gameIndex={widgetArgs.gameIndex}
-        initialSelection={widgetArgs.initialSelection}
-        pieceSymbols={widgetArgs.pieceSymbols}
-        diagramOptions={diagramOptions}
-        navigationBoardOptions={navigationBoardOptions}
-        navigationBoard={widgetArgs.navigationBoard}
-    />;
+    const widget = (
+        <Chessgame
+            url={widgetArgs.url}
+            pgn={widgetArgs.pgn}
+            gameIndex={widgetArgs.gameIndex}
+            initialSelection={widgetArgs.initialSelection}
+            pieceSymbols={widgetArgs.pieceSymbols}
+            diagramOptions={diagramOptions}
+            navigationBoardOptions={navigationBoardOptions}
+            navigationBoard={widgetArgs.navigationBoard}
+        />
+    );
     createRoot(document.getElementById(targetElementId)).render(widget);
 };
 
@@ -166,5 +170,5 @@ try {
 catch (e) {
     /* eslint-disable no-console */
     console.error('Error while initializing RPB Chessboard: the plugin may not work properly.', e);
-    /* eslint-enable no-console */
+    /* eslint-enable */
 }

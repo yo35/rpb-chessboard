@@ -82,7 +82,11 @@ export default class Chessgame extends React.Component {
 
         const info = this.parseGame(pgn);
         if (!info.valid) {
-            return <ErrorBox title={i18n.PGN_PARSING_ERROR_TITLE} message={info.message} text={info.pgn} errorIndex={info.errorIndex} lineNumber={info.lineNumber} />;
+            return (
+                <ErrorBox
+                    title={i18n.PGN_PARSING_ERROR_TITLE} message={info.message} text={info.pgn} errorIndex={info.errorIndex} lineNumber={info.lineNumber}
+                />
+            );
         }
         const nodeId = this.getNodeId(info.game);
 
@@ -130,15 +134,17 @@ export default class Chessgame extends React.Component {
     }
 
     renderMovetext(game, nodeId, withNavigationBoard) {
-        return <Movetext
-            ref={this.movetextRef}
-            game={game}
-            selection={nodeId}
-            interactionMode={withNavigationBoard ? 'selectMove' : undefined}
-            onMoveSelected={(newNodeId, evtOrigin) => this.handleMoveSelected(newNodeId, evtOrigin)}
-            pieceSymbols={this.getPieceSymbols()}
-            diagramOptions={this.props.diagramOptions}
-        />;
+        return (
+            <Movetext
+                ref={this.movetextRef}
+                game={game}
+                selection={nodeId}
+                interactionMode={withNavigationBoard ? 'selectMove' : undefined}
+                onMoveSelected={(newNodeId, evtOrigin) => this.handleMoveSelected(newNodeId, evtOrigin)}
+                pieceSymbols={this.getPieceSymbols()}
+                diagramOptions={this.props.diagramOptions}
+            />
+        );
     }
 
     renderNavigationBoardInPopup(game, nodeId) {
@@ -289,7 +295,7 @@ export default class Chessgame extends React.Component {
     }
 
     handleDownloadClicked() {
-        if(this.props.url) {
+        if (this.props.url) {
             window.location.href = this.props.url;
         }
         else {

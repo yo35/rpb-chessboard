@@ -38,7 +38,7 @@ export function format(pattern, ...args) {
  * to each piece K, Q, R, B, N, P.
  */
 export function parsePieceSymbols(code) {
-    let m = /^([A-Za-z]*),([A-Za-z]*),([A-Za-z]*),([A-Za-z]*),([A-Za-z]*),([A-Za-z]*)$/.exec(code);
+    const m = /^([A-Za-z]*),([A-Za-z]*),([A-Za-z]*),([A-Za-z]*),([A-Za-z]*),([A-Za-z]*)$/.exec(code);
     return m ? { K: m[1], Q: m[2], R: m[3], B: m[4], N: m[5], P: m[6] } : false;
 }
 

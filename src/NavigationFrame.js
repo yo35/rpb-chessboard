@@ -80,7 +80,7 @@ function buildFrame() {
     // Build the container for the anchor.
     // WARNING: having a container with predefined size is mandatory so that the jQuery UI dialog
     // can determine its size and center itself properly (the Reach inner component is not mounted yet when the dialog opens).
-    let boardAnchorParent = document.createElement('div');
+    const boardAnchorParent = document.createElement('div');
     function refreshBoardAnchorSize() {
         const boardSize = NavigationBoard.size(boardOptions);
         boardAnchorParent.style.minWidth = `${boardSize.width}px`;
@@ -96,7 +96,7 @@ function buildFrame() {
     }
 
     // Build the dialog skeleton
-    let navigationFrame = document.createElement('div');
+    const navigationFrame = document.createElement('div');
     navigationFrame.id = 'rpbchessboard-navigationFrame';
     navigationFrame.onclick = focusOwner; // Prevent the frame from getting the focus.
     boardAnchor = document.createElement('div');
@@ -104,14 +104,14 @@ function buildFrame() {
     boardAnchorParent.appendChild(boardAnchor);
 
     // Create the dialog widget.
-    let $ = window.jQuery;
+    const $ = window.jQuery;
     $('body').append(navigationFrame);
     $('#rpbchessboard-navigationFrame').dialog({
 
         /* Hack to keep the dialog draggable after the page has being scrolled. */
-        create     : evt => $(evt.target).parent().css('position', 'fixed'),
+        create: evt => $(evt.target).parent().css('position', 'fixed'),
         resizeStart: evt => $(evt.target).parent().css('position', 'fixed'),
-        resizeStop : evt => $(evt.target).parent().css('position', 'fixed'),
+        resizeStop: evt => $(evt.target).parent().css('position', 'fixed'),
         /* End of hack */
 
         autoOpen: false,
@@ -128,7 +128,7 @@ function buildFrame() {
     $('#rpbchessboard-navigationFrame').on('dialogresize', (evt, ui) => {
 
         // Save the initial information about the geometry of the board and its container.
-        if(!resizeInfo) {
+        if (!resizeInfo) {
             const boardSize = NavigationBoard.size(boardOptions);
             resizeInfo = {
                 reservedWidth: ui.originalSize.width - boardSize.width,
@@ -159,8 +159,8 @@ function buildFrame() {
  * Make the popup frame visible (assuming it has been built beforehand).
  */
 function openFrame() {
-    let $ = window.jQuery;
-    let navigationFrame = $('#rpbchessboard-navigationFrame');
+    const $ = window.jQuery;
+    const navigationFrame = $('#rpbchessboard-navigationFrame');
     if (!navigationFrame.dialog('isOpen')) {
         navigationFrame.dialog('option', 'position', { my: 'center', at: 'center', of: window });
         navigationFrame.dialog('open');
@@ -175,7 +175,7 @@ function closeFrame() {
     if (!boardAnchor) {
         return;
     }
-    let $ = window.jQuery;
+    const $ = window.jQuery;
     $('#rpbchessboard-navigationFrame').dialog('close');
 }
 
@@ -187,8 +187,8 @@ function setFrameTitle(text) {
     if (!boardAnchor) {
         return;
     }
-    let $ = window.jQuery;
-    let titleRoot = $('.ui-dialog-title', $('#rpbchessboard-navigationFrame').closest('.ui-dialog')).get(0);
+    const $ = window.jQuery;
+    const titleRoot = $('.ui-dialog-title', $('#rpbchessboard-navigationFrame').closest('.ui-dialog')).get(0);
     createRoot(titleRoot).render(<span>{text}</span>);
 }
 
