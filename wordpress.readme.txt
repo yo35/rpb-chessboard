@@ -85,6 +85,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 8.0.4 (January 1, 2025) =
+* Minor fixes.
+
 = 8.0.3 (November 23, 2024) =
 * Tested up to WordPress 6.7.
 
