@@ -93,6 +93,18 @@ class FENEditor extends React.Component {
             interactionMode: 'movePieces',
             textMarkerMode: 'circle',
         };
+        this.blockContentRef = React.createRef();
+    }
+
+    componentDidUpdate() {
+        if (this.blockContentRef.current) {
+
+            // FIXME As of WP 6.8, the draggable attribute must be set on the interactive SVG element,
+            // otherwise, Gutenberg prevent mouse events to be forwarded to the SVG element.
+            for (const svg of this.blockContentRef.current.getElementsByTagName('svg')) {
+                svg.setAttribute('draggable', 'true');
+            }
+        }
     }
 
     handleAttributeChanged(attribute, value) {
@@ -409,20 +421,30 @@ class FENEditor extends React.Component {
     renderBlockContent(data, innerInteractionMode, editedArrowColor) {
         if (data.valid) {
             return (
-                <Chessboard
-                    position={data.position} flipped={this.props.attributes.flipped} squareSize={40}
-                    interactionMode={innerInteractionMode} editedArrowColor={editedArrowColor}
-                    squareMarkers={this.props.attributes.squareMarkers}
-                    arrowMarkers={this.props.attributes.arrowMarkers}
-                    textMarkers={this.props.attributes.textMarkers}
-                    coordinateVisible={this.props.attributes.coordinateVisible === '' ? RPBChessboard.defaultSettings.sdoCoordinateVisible : this.props.attributes.coordinateVisible === 'true'}
-                    turnVisible={this.props.attributes.turnVisible === '' ? RPBChessboard.defaultSettings.sdoTurnVisible : this.props.attributes.turnVisible === 'true'}
-                    colorset={this.props.attributes.colorset === '' ? RPBChessboard.defaultSettings.sdoColorset : this.props.attributes.colorset}
-                    pieceset={this.props.attributes.pieceset === '' ? RPBChessboard.defaultSettings.sdoPieceset : this.props.attributes.pieceset}
-                    onPieceMoved={(from, to) => this.handlePieceMoved(from, to)}
-                    onSquareClicked={sq => this.handleSquareClicked(sq)}
-                    onArrowEdited={(from, to) => this.handleArrowEdited(from, to)}
-                />
+                <div ref={this.blockContentRef}>
+                    <Chessboard
+                        position={data.position} flipped={this.props.attributes.flipped} squareSize={40}
+                        interactionMode={innerInteractionMode} editedArrowColor={editedArrowColor}
+                        squareMarkers={this.props.attributes.squareMarkers}
+                        arrowMarkers={this.props.attributes.arrowMarkers}
+                        textMarkers={this.props.attributes.textMarkers}
+                        coordinateVisible={
+                            this.props.attributes.coordinateVisible === '' ?
+                                RPBChessboard.defaultSettings.sdoCoordinateVisible :
+                                this.props.attributes.coordinateVisible === 'true'
+                        }
+                        turnVisible={
+                            this.props.attributes.turnVisible === '' ?
+                                RPBChessboard.defaultSettings.sdoTurnVisible :
+                                this.props.attributes.turnVisible === 'true'
+                        }
+                        colorset={this.props.attributes.colorset === '' ? RPBChessboard.defaultSettings.sdoColorset : this.props.attributes.colorset}
+                        pieceset={this.props.attributes.pieceset === '' ? RPBChessboard.defaultSettings.sdoPieceset : this.props.attributes.pieceset}
+                        onPieceMoved={(from, to) => this.handlePieceMoved(from, to)}
+                        onSquareClicked={sq => this.handleSquareClicked(sq)}
+                        onArrowEdited={(from, to) => this.handleArrowEdited(from, to)}
+                    />
+                </div>
             );
         }
         else {
