@@ -1,4 +1,4 @@
-# French translations for RPB Chessboard package.
+# Italian translations for RPB Chessboard package.
 # Copyright (C) 2013-2025  Yoann Le Montagner <yo35 -at- melix.net>
 # This file is distributed under the same license as the RPB Chessboard package.
 #
@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: RPB Chessboard\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-09 13:08+0200\n"
-"PO-Revision-Date: 2021-01-03 19:45+0100\n"
+"PO-Revision-Date: 2025-06-22 15:59+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: it\n"
@@ -96,15 +96,15 @@ msgstr ""
 #: php/templates/adminpage/chessdiagramsettings/alignment.php
 #: php/models/initscript.php
 msgid "Centered"
-msgstr ""
+msgstr "Centrato"
 
 #: php/templates/adminpage/chessdiagramsettings/alignment.php
 msgid "On the left of the text"
-msgstr ""
+msgstr "Allineamento a sinistra del testo"
 
 #: php/templates/adminpage/chessdiagramsettings/alignment.php
 msgid "On the right of the text"
-msgstr ""
+msgstr "Allineamento a destra del testo"
 
 #: php/templates/adminpage/chessdiagramsettings/main.php
 #, php-format
@@ -128,7 +128,7 @@ msgstr ""
 #: php/templates/adminpage/chessdiagramsettings/aspect.php
 #: php/models/initscript.php
 msgid "Chessboard aspect"
-msgstr ""
+msgstr "Aspetto della scacchiera"
 
 #: php/templates/adminpage/smallscreens.php
 msgid "Enable support for small-screen devices"
@@ -286,16 +286,16 @@ msgstr ""
 #: php/templates/adminpage/theming/main.php
 #, php-format
 msgid "Delete colorset \"%1$s\"? Press OK to confirm..."
-msgstr ""
+msgstr "Cancella il set di colori \"%1$s\"? Premi OK per confermare..."
 
 #: php/templates/adminpage/theming/main.php
 #, php-format
 msgid "Delete pieceset \"%1$s\"? Press OK to confirm..."
-msgstr ""
+msgstr "Cancella il set di pezzi \"%1$s\"? Premi OK per confermare..."
 
 #: php/templates/adminpage/theming/piecesets.php
 msgid "Piecesets"
-msgstr ""
+msgstr "Set di pezzi"
 
 #: php/templates/adminpage/theming/piecesets.php
 msgid "Add new pieceset"
@@ -392,7 +392,7 @@ msgstr ""
 
 #: php/templates/adminpage/theming/colorsets.php
 msgid "Colorsets"
-msgstr ""
+msgstr "Set di colori"
 
 #: php/templates/adminpage/theming/colorsets.php
 msgid "Add new colorset"
@@ -413,17 +413,17 @@ msgstr ""
 #: php/templates/adminpage/chessgamesettings/piecesymbols.php
 #: php/models/initscript.php
 msgid "Piece symbols"
-msgstr ""
+msgstr "Simboli dei pezzi"
 
 #: php/templates/adminpage/chessgamesettings/piecesymbols.php
 #: php/models/initscript.php
 msgid "English initials"
-msgstr ""
+msgstr "Iniziali in Inglese"
 
 #: php/templates/adminpage/chessgamesettings/piecesymbols.php
 #: php/models/initscript.php
 msgid "Localized initials"
-msgstr ""
+msgstr "Inziali localizzate"
 
 #: php/templates/adminpage/chessgamesettings/piecesymbols.php
 #: php/models/initscript.php
@@ -433,7 +433,7 @@ msgstr ""
 #: php/templates/adminpage/chessgamesettings/piecesymbols.php
 #: php/models/initscript.php
 msgid "Custom"
-msgstr ""
+msgstr "Personalizzato"
 
 #: php/templates/adminpage/chessgamesettings/piecesymbols.php
 msgid ""
@@ -551,11 +551,11 @@ msgstr ""
 #: php/templates/adminpage/generic/boardaspect.php
 #, php-format
 msgid "Square size: %1$s pixels"
-msgstr ""
+msgstr "Dimensione della casella: %1$s in pixels"
 
 #: php/templates/adminpage/generic/boardaspect.php
 msgid "Show coordinates"
-msgstr ""
+msgstr "Mostra coordinate"
 
 #: php/templates/adminpage/generic/boardaspect.php
 msgid "Show turn"
@@ -563,19 +563,19 @@ msgstr ""
 
 #: php/templates/adminpage/generic/boardaspect.php
 msgid "Colorset:"
-msgstr ""
+msgstr "Set di colori:"
 
 #: php/templates/adminpage/generic/boardaspect.php
 msgid "Pieceset:"
-msgstr ""
+msgstr "Set di pezzi:"
 
 #: php/templates/adminpage/generic/boardaspect.php php/models/initscript.php
 msgid "Move animation"
-msgstr ""
+msgstr "Animazione mosse"
 
 #: php/templates/adminpage/generic/boardaspect.php
 msgid "Show move arrow"
-msgstr ""
+msgstr "Mostra la freccia di movimento"
 
 #: php/templates/adminpage/generic/boardaspect.php
 msgid "Move arrow color:"
@@ -591,23 +591,27 @@ msgstr ""
 
 #: php/templates/adminpage/generic/boardaspect.php
 msgid "Show the flip button"
-msgstr ""
+msgstr "Mostra il bottone per capovolgere"
 
 #: php/templates/adminpage/generic/boardaspect.php
 msgid "Show the download button"
-msgstr ""
+msgstr "Mostra il bottone di download"
 
 #: php/templates/block/pgn.php
 msgid "You must activate JavaScript to enhance chess game visualization."
 msgstr ""
+"È necessario attivare JavaScript per migliorare la visualizzazione della "
+"partita a scacchi."
 
 #: php/templates/block/fen.php
 msgid "You must activate JavaScript to enhance chess diagram visualization."
 msgstr ""
+"È necessario attivare JavaScript per migliorare la visualizzazione della "
+"partita a scacchi."
 
 #: php/templates/pluginlink.php
 msgid "Settings"
-msgstr ""
+msgstr "Impostazioni"
 
 #: php/models/initscript.php
 msgid "Move pieces"
@@ -698,12 +702,14 @@ msgid "FEN"
 msgstr ""
 
 #: php/models/initscript.php
+#, fuzzy
 msgid "Square marker"
-msgstr ""
+msgstr "Marcatore delle caselle"
 
 #: php/models/initscript.php
+#, fuzzy
 msgid "Arrow marker"
-msgstr ""
+msgstr "Puntatore a freccia"
 
 #: php/models/initscript.php
 #, php-format
@@ -712,7 +718,7 @@ msgstr ""
 
 #: php/models/initscript.php
 msgid "Reset to the startup position"
-msgstr ""
+msgstr "Imposta la posizione iniziale"
 
 #: php/models/initscript.php
 msgid "Remove all pieces"
@@ -739,12 +745,14 @@ msgid "Turn flag"
 msgstr ""
 
 #: php/models/initscript.php
+#, fuzzy
 msgid "Colorset"
-msgstr ""
+msgstr "Set di colori"
 
 #: php/models/initscript.php
+#, fuzzy
 msgid "Pieceset"
-msgstr ""
+msgstr "Set di pezzi"
 
 #: php/models/initscript.php
 msgid "Use default"
@@ -809,7 +817,7 @@ msgstr ""
 
 #: php/models/initscript.php
 msgid "Download the game"
-msgstr "scarica la partita"
+msgstr "Scarica la partita"
 
 #: php/models/initscript.php
 #, php-format
@@ -835,7 +843,7 @@ msgstr ""
 
 #: php/models/initscript.php
 msgid "Navigation board"
-msgstr ""
+msgstr "Navigazione sulla scacchiera"
 
 #: php/models/initscript.php
 msgid "Use default move arrow color"
@@ -936,15 +944,15 @@ msgstr ""
 
 #: php/models/adminpage.php
 msgid "Compatibility settings"
-msgstr ""
+msgstr "Impostazioni di compatibilità"
 
 #: php/models/adminpage.php
 msgid "Small-screen devices"
-msgstr ""
+msgstr "Dispositivi con schermo piccolo"
 
 #: php/models/adminpage.php
 msgid "Theming"
-msgstr ""
+msgstr "Temi"
 
 #: php/models/adminpage.php
 msgid "Documentation"
@@ -952,7 +960,7 @@ msgstr ""
 
 #: php/models/adminpage.php
 msgid "About"
-msgstr ""
+msgstr "Circa"
 
 #: php/models/block/pgn.php
 msgid "invalid media"
@@ -960,19 +968,19 @@ msgstr ""
 
 #: php/models/traits/custompiecesets.php php/models/traits/customcolorsets.php
 msgid "(no name)"
-msgstr ""
+msgstr "(senza nome)"
 
 #: php/models/postaction/settings/abstract.php
 msgid "Settings saved."
-msgstr ""
+msgstr "Impostazioni salvate."
 
 #: php/models/postaction/settings/abstract.php
 msgid "Settings reseted."
-msgstr ""
+msgstr "Impostazioni resettate."
 
 #: php/models/postaction/theming/colorset.php
 msgid "Colorset created."
-msgstr ""
+msgstr "Set dei colori creato."
 
 #: php/models/postaction/theming/colorset.php
 msgid "Error while creating the colorset."
@@ -980,7 +988,7 @@ msgstr ""
 
 #: php/models/postaction/theming/colorset.php
 msgid "Colorset updated."
-msgstr ""
+msgstr "Set dei colori modificato."
 
 #: php/models/postaction/theming/colorset.php
 msgid "Error while updating the colorset."
@@ -996,7 +1004,7 @@ msgstr ""
 
 #: php/models/postaction/theming/pieceset.php
 msgid "Pieceset created."
-msgstr ""
+msgstr "Set dei pezzi creato."
 
 #: php/models/postaction/theming/pieceset.php
 msgid "Error while creating the pieceset."
@@ -1004,7 +1012,7 @@ msgstr ""
 
 #: php/models/postaction/theming/pieceset.php
 msgid "Pieceset updated."
-msgstr ""
+msgstr "Set dei pezzi modificato."
 
 #: php/models/postaction/theming/pieceset.php
 msgid "Error while updating the pieceset."
@@ -1012,7 +1020,7 @@ msgstr ""
 
 #: php/models/postaction/theming/pieceset.php
 msgid "Pieceset deleted."
-msgstr ""
+msgstr "Set dei pezzi cancellato."
 
 #: php/models/postaction/theming/pieceset.php
 msgid "Error while deleting the pieceset."
@@ -1020,67 +1028,67 @@ msgstr ""
 
 #: php/models/adminsubpage/theming.php
 msgid "My colorset"
-msgstr ""
+msgstr "Il mio set di colori"
 
 #: php/models/adminsubpage/theming.php
 msgid "My pieceset"
-msgstr ""
+msgstr "Il mio set di pezzi"
 
 #: php/models/adminsubpage/theming.php
 msgid "Select the image to use for the black pawns"
-msgstr ""
+msgstr "Seleziona l'immagine da utilizzare per i pedoni neri"
 
 #: php/models/adminsubpage/theming.php
 msgid "Select the image to use for the black knights"
-msgstr ""
+msgstr "Seleziona l'immagine da utilizzare per i cavalli neri"
 
 #: php/models/adminsubpage/theming.php
 msgid "Select the image to use for the black bishops"
-msgstr ""
+msgstr "Seleziona l'immagine da utilizzare per gli alfieri neri"
 
 #: php/models/adminsubpage/theming.php
 msgid "Select the image to use for the black rooks"
-msgstr ""
+msgstr "Seleziona l'immagine da utilizzare per le torri nere"
 
 #: php/models/adminsubpage/theming.php
 msgid "Select the image to use for the black queens"
-msgstr ""
+msgstr "Seleziona l'immagine da utilizzare per la regina nera"
 
 #: php/models/adminsubpage/theming.php
 msgid "Select the image to use for the black kings"
-msgstr ""
+msgstr "Seleziona l'immagine da utilizzare per il re nero"
 
 #: php/models/adminsubpage/theming.php
 msgid "Select the image to use for the black turn flags"
-msgstr ""
+msgstr "Seleziona l'immagine da utilizzare per bandiere del turno nero"
 
 #: php/models/adminsubpage/theming.php
 msgid "Select the image to use for the white pawns"
-msgstr ""
+msgstr "Seleziona l'immagine da utilizzare per i pedoni bianchi"
 
 #: php/models/adminsubpage/theming.php
 msgid "Select the image to use for the white knights"
-msgstr ""
+msgstr "Seleziona l'immagine da utilizzare per i cavalli bianchi"
 
 #: php/models/adminsubpage/theming.php
 msgid "Select the image to use for the white bishops"
-msgstr ""
+msgstr "Seleziona l'immagine da utilizzare per gli alfieri bianchi"
 
 #: php/models/adminsubpage/theming.php
 msgid "Select the image to use for the white rooks"
-msgstr ""
+msgstr "Seleziona l'immagine da utilizzare per le torri bianche"
 
 #: php/models/adminsubpage/theming.php
 msgid "Select the image to use for the white queens"
-msgstr ""
+msgstr "Seleziona l'immagine da utilizzare per la regina bianca"
 
 #: php/models/adminsubpage/theming.php
 msgid "Select the image to use for the white kings"
-msgstr ""
+msgstr "Seleziona l'immagine da utilizzare per il re bianco"
 
 #: php/models/adminsubpage/theming.php
 msgid "Select the image to use for the white turn flags"
-msgstr ""
+msgstr "Seleziona l'immagine da utilizzare per bandiere del turno bianco"
 
 #: php/models/post.php
 msgid "The current user is not allowed to change RPB Chessboard settings."
