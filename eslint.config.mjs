@@ -7,7 +7,7 @@ export default [
 
     // Base config
     eslint.configs.recommended,
-    stylistic.configs['recommended-flat'],
+    stylistic.configs.recommended,
     reacteslint.configs.flat.recommended,
 
     {
