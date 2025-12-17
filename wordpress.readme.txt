@@ -85,10 +85,10 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
-= 8.0.6 (June 22, 2024) =
+= 8.0.6 (June 22, 2025) =
 * Upgrade Italian translation (thanks to Andrea Cuccarini).
 
-= 8.0.5 (April 21, 2024) =
+= 8.0.5 (April 21, 2025) =
 * Tested up to WordPress 6.8.
 * Fix drag-drop not working in the diagram editor as of WordPress 6.8.
 
