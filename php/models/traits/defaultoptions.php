@@ -49,6 +49,7 @@ trait RPBChessboardTraitDefaultOptions {
     private $animated;
     private $showMoveArrow;
     private $moveArrowColor;
+    private $playSound;
 
     private static $DEFAULT_SQUARE_SIZE          = 32;
     private static $DEFAULT_SHOW_COORDINATES     = true;
@@ -64,6 +65,7 @@ trait RPBChessboardTraitDefaultOptions {
     private static $DEFAULT_ANIMATED             = true;
     private static $DEFAULT_SHOW_MOVE_ARROW      = true;
     private static $DEFAULT_MOVE_ARROW_COLOR     = 'b';
+    private static $DEFAULT_PLAY_SOUND           = true;
 
 
     /**
@@ -335,6 +337,20 @@ trait RPBChessboardTraitDefaultOptions {
             $this->moveArrowColor = isset( $value ) ? $value : self::$DEFAULT_MOVE_ARROW_COLOR;
         }
         return $this->moveArrowColor;
+    }
+
+
+    /**
+     * Default play-sound parameter.
+     *
+     * @return boolean
+     */
+    public function getDefaultPlaySound() {
+        if ( ! isset( $this->playSound ) ) {
+            $value           = RPBChessboardHelperValidation::validateBooleanFromInt( get_option( 'rpbchessboard_playSound' ) );
+            $this->playSound = isset( $value ) ? $value : self::$DEFAULT_PLAY_SOUND;
+        }
+        return $this->playSound;
     }
 
 }

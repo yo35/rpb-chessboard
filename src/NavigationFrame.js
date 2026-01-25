@@ -70,6 +70,7 @@ function buildFrame() {
         animated: RPBChessboard.defaultSettings.animated,
         moveArrowVisible: RPBChessboard.defaultSettings.moveArrowVisible,
         moveArrowColor: RPBChessboard.defaultSettings.moveArrowColor,
+        sound: RPBChessboard.defaultSettings.sound,
         smallScreenLimits: RPBChessboard.smallScreenLimits,
         playButtonVisible: RPBChessboard.defaultSettings.playButtonVisible,
         turnButtonVisible: RPBChessboard.defaultSettings.turnButtonVisible,

@@ -70,6 +70,7 @@ class RPBChessboardModelBlockPGN extends RPBChessboardAbstractModelBlock {
         $widgetArgs['nboAnimated']          = isset( $atts['nboAnimated'] ) ? 'true' === $atts['nboAnimated'] : $this->mainModel->getDefaultAnimated();
         $widgetArgs['nboMoveArrowVisible']  = isset( $atts['nboMoveArrowVisible'] ) ? 'true' === $atts['nboMoveArrowVisible'] : $this->mainModel->getDefaultShowMoveArrow();
         $widgetArgs['nboMoveArrowColor']    = isset( $atts['nboMoveArrowColor'] ) ? $atts['nboMoveArrowColor'] : $this->mainModel->getDefaultMoveArrowColor();
+        $widgetArgs['nboSound']             = isset( $atts['nboSound'] ) ? 'true' === $atts['nboSound'] : $this->mainModel->getDefaultPlaySound();
 
         // Specific options for the diagrams.
         $widgetArgs['idoSquareSize']        = isset( $atts['idoSquareSize'] ) ? $atts['idoSquareSize'] : $this->mainModel->getDefaultSquareSize( 'ido' );

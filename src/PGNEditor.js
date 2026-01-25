@@ -397,6 +397,15 @@ class PGNEditor extends React.Component {
                     ]}
                 />
                 {this.renderMoveArrowColorFields()}
+                <RadioControl
+                    label={i18n.PGN_EDITOR_CONTROL_SOUND_EFFECTS} selected={this.props.attributes.nboSound}
+                    onChange={value => this.handleAttributeChanged('nboSound', value)}
+                    options={[
+                        { label: i18n.PGN_EDITOR_USE_DEFAULT, value: '' },
+                        { label: i18n.PGN_EDITOR_OPTION_DISABLED, value: 'false' },
+                        { label: i18n.PGN_EDITOR_OPTION_ENABLED, value: 'true' },
+                    ]}
+                />
                 {playButton}
                 {flipButton}
                 {downloadButton}
@@ -634,6 +643,10 @@ export function registerPGNBlock() {
                 default: '',
             },
             nboMoveArrowColor: {
+                type: 'string',
+                default: '',
+            },
+            nboSound: {
                 type: 'string',
                 default: '',
             },

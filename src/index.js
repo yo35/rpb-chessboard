@@ -143,6 +143,7 @@ RPBChessboard.renderPGN = function (targetElementId, widgetArgs) {
         animated: widgetArgs.nboAnimated,
         moveArrowVisible: widgetArgs.nboMoveArrowVisible,
         moveArrowColor: widgetArgs.nboMoveArrowColor,
+        sound: widgetArgs.nboSound,
         smallScreenLimits: RPBChessboard.smallScreenLimits,
         playButtonVisible: widgetArgs.withPlayButton,
         flipButtonVisible: widgetArgs.withFlipButton,

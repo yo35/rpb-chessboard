@@ -106,6 +106,14 @@
             </p>
 
             <p>
+                <input type="hidden" name="playSound" value="0" />
+                <input type="checkbox" id="rpbchessboard-playSoundField" name="playSound" value="1"
+                    <?php echo $model->getDefaultPlaySound() ? 'checked="yes"' : ''; ?>
+                />
+                <label for="rpbchessboard-playSoundField"><?php esc_html_e( 'Sound effects', 'rpb-chessboard' ); ?></label>
+            </p>
+
+            <p>
                 <a href="#" class="button" id="rpbchessboard-movePreview">
                     <?php esc_html_e( 'Move preview', 'rpb-chessboard' ); ?>
                 </a>
@@ -175,6 +183,7 @@
                     animated: Boolean($('#rpbchessboard-animatedField').prop('checked')),
                     moveArrowVisible: Boolean($('#rpbchessboard-showMoveArrowField').prop('checked')),
                     moveArrowColor: $('input[name="moveArrowColor"]:checked').val(),
+                    sound: Boolean($('#rpbchessboard-playSoundField').prop('checked')),
                     playButtonVisible: Boolean($('#rpbchessboard-showPlayButtonField').prop('checked')),
                     flipButtonVisible: Boolean($('#rpbchessboard-showFlipButtonField').prop('checked')),
                     downloadButtonVisible: Boolean($('#rpbchessboard-showDownloadButtonField').prop('checked')),

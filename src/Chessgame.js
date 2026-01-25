@@ -183,6 +183,7 @@ export default class Chessgame extends React.Component {
                     animated={navigationBoardOptions.animated}
                     moveArrowVisible={navigationBoardOptions.moveArrowVisible}
                     moveArrowColor={navigationBoardOptions.moveArrowColor}
+                    sound={navigationBoardOptions.sound}
                     playButtonVisible={navigationBoardOptions.playButtonVisible}
                     flipButtonVisible={navigationBoardOptions.flipButtonVisible}
                     onNodeIdChanged={newNodeId => this.handleNavClicked(newNodeId)}
