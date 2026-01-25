@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-09 13:08+0200\n"
+"POT-Creation-Date: 2026-01-25 11:32+0100\n"
 "PO-Revision-Date: 2015-08-27 23:19+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -623,6 +623,10 @@ msgstr ""
 
 #: php/templates/adminpage/generic/boardaspect.php
 msgid "Move arrow color:"
+msgstr ""
+
+#: php/templates/adminpage/generic/boardaspect.php php/models/initscript.php
+msgid "Sound effects"
 msgstr ""
 
 #: php/templates/adminpage/generic/boardaspect.php

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-09 13:08+0200\n"
+"POT-Creation-Date: 2026-01-25 11:32+0100\n"
 "PO-Revision-Date: 2014-07-15 13:03+0100\n"
 "Last-Translator: Dawid Ziółkowski <kontakt -at- dawidziolkowski.pl>\n"
 "Language-Team: Dawid Ziółkowski <mr -at- dawidziolkowski.com>\n"
@@ -617,6 +617,10 @@ msgstr ""
 
 #: php/templates/adminpage/generic/boardaspect.php
 msgid "Move arrow color:"
+msgstr ""
+
+#: php/templates/adminpage/generic/boardaspect.php php/models/initscript.php
+msgid "Sound effects"
 msgstr ""
 
 #: php/templates/adminpage/generic/boardaspect.php

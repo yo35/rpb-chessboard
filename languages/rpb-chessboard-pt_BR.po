@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-09 13:08+0200\n"
+"POT-Creation-Date: 2026-01-25 11:32+0100\n"
 "PO-Revision-Date: 2020-07-28 10:32-0300\n"
 "Last-Translator: rewbenio <rewbenio@lancesqi.com.br>\n"
 "Language-Team: Rewbenio Frota\n"
@@ -647,6 +647,10 @@ msgstr "Realçar lance com uma seta"
 
 #: php/templates/adminpage/generic/boardaspect.php
 msgid "Move arrow color:"
+msgstr ""
+
+#: php/templates/adminpage/generic/boardaspect.php php/models/initscript.php
+msgid "Sound effects"
 msgstr ""
 
 #: php/templates/adminpage/generic/boardaspect.php

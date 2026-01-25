@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RPB Chessboard\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-09 13:08+0200\n"
+"POT-Creation-Date: 2026-01-25 11:32+0100\n"
 "PO-Revision-Date: 2022-11-09 22:46+0000\n"
 "Last-Translator: ╪ lovag SZVETLIK Atilla\n"
 "Language-Team: Magyar\n"
@@ -664,6 +664,10 @@ msgstr "A mozgási nyíl megjelenítése"
 #: php/templates/adminpage/generic/boardaspect.php
 msgid "Move arrow color:"
 msgstr "A mozgási nyíl színe:"
+
+#: php/templates/adminpage/generic/boardaspect.php php/models/initscript.php
+msgid "Sound effects"
+msgstr ""
 
 #: php/templates/adminpage/generic/boardaspect.php
 msgid "Move preview"
