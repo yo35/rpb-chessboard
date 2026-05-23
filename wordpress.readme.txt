@@ -85,6 +85,10 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 8.1.1 (May 23, 2026) =
+* Tested up to WordPress 7.0.
+* Minor fixes.
+
 = 8.1.0 (January 25, 2026) =
 * Add sound effects to navigation board.
 
