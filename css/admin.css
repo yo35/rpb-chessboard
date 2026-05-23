@@ -383,9 +383,11 @@
 }
 
 .rpbchessboard-aboutActionIcon.dashicons {
-    height: 28px;
-    width: 28px;
-    font-size: 28px;
+    height: 28px !important;
+    width: 28px !important;
+    font-size: 28px !important;
+    line-height: 28px !important;
+    vertical-align: middle !important;
 }
 
 .rpbchessboard-aboutActionIcon {
