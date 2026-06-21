@@ -85,6 +85,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 8.1.2 (June 21, 2026) =
+* Fix minor PGN parsing issue (see https://github.com/yo35/kokopu/issues/64).
+
 = 8.1.1 (May 23, 2026) =
 * Tested up to WordPress 7.0.
 * Minor fixes.
