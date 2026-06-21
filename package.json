@@ -15,7 +15,7 @@
         "@eslint/js": "^9.39.4",
         "@stylistic/eslint-plugin": "^5.10.0",
         "@wordpress/scripts": "^32.4.1",
-        "archiver": "^7.0.1",
+        "archiver": "^8.0.0",
         "eslint": "^9.39.4",
         "eslint-plugin-react": "^7.37.5",
         "globals": "^17.6.0",

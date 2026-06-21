@@ -19,7 +19,7 @@
  ******************************************************************************/
 
 
-const archiver = require('archiver');
+const { ZipArchive } = require('archiver');
 const fs = require('fs');
 const path = require('path');
 const process = require('process');
@@ -29,7 +29,7 @@ const output = path.resolve(__dirname, '../rpb-chessboard.zip');
 async function run() {
 
     fs.mkdirSync(path.dirname(output), { recursive: true });
-    const archive = archiver('zip');
+    const archive = new ZipArchive();
     archive.pipe(fs.createWriteStream(output));
 
     // Plugin files
