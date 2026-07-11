@@ -55,7 +55,7 @@ class RPBChessboardModelAdminSubPageChessGameSettings extends RPBChessboardAbstr
      * @return boolean
      */
     public function isPieceSymbolLocalizationAvailable() {
-        // phpcs:disable
+        // phpcs:disable Squiz.WhiteSpace.LanguageConstructSpacing.IncorrectSingle
         return
             /*i18n King symbol   */ __( 'K', 'rpb-chessboard' ) !== 'K' ||
             /*i18n Queen symbol  */ __( 'Q', 'rpb-chessboard' ) !== 'Q' ||
@@ -63,7 +63,7 @@ class RPBChessboardModelAdminSubPageChessGameSettings extends RPBChessboardAbstr
             /*i18n Bishop symbol */ __( 'B', 'rpb-chessboard' ) !== 'B' ||
             /*i18n Knight symbol */ __( 'N', 'rpb-chessboard' ) !== 'N' ||
             /*i18n Pawn symbol   */ __( 'P', 'rpb-chessboard' ) !== 'P';
-        // phpcs:enable
+        // phpcs:enable Squiz.WhiteSpace.LanguageConstructSpacing.IncorrectSingle
     }
 
 
