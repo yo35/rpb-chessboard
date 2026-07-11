@@ -27,7 +27,8 @@ abstract class RPBChessboardAbstractController {
 
     private $mainModel;
     private $assetFile;
-    private $lowLevelShortcodeContent;
+    private $lowLevelShortcodeData       = array();
+    private $lowLevelShortcodeKeyCounter = 1;
 
 
     /**
@@ -189,11 +190,13 @@ abstract class RPBChessboardAbstractController {
 
     private function runShortcode( $shortcodeName, $lowLevel, $atts, $content ) {
 
-        // The content of low-level shortcodes is supposed to have been saved in `$this->lowLevelShortcodeContent` beforehand.
+        // The atts + content of low-level shortcodes is supposed to have been saved in `$this->lowLevelShortcodeData` beforehand.
         // This hack aims at avoiding the `<br/>` tags added by WordPress in the empty lines of the PGN text
         // (the no-texturize hook is not enough to avoid that).
-        if ( $lowLevel && isset( $content ) && isset( $this->lowLevelShortcodeContent[ $content ] ) ) {
-            $content = $this->lowLevelShortcodeContent[ $content ];
+        if ( $lowLevel && isset( $content ) && isset( $this->lowLevelShortcodeData[ $content ] ) ) {
+            $payload = $this->lowLevelShortcodeData[ $content ];
+            $atts    = $payload['atts'];
+            $content = $payload['content'];
         }
 
         // Print the shortcode.
@@ -214,29 +217,46 @@ abstract class RPBChessboardAbstractController {
 
 
     /**
-     * Replace the content of the low-level shortcodes with their respective MD5 digest,
-     * saving the original content in the associative array `$this->lowLevelShortcodeContent`.
+     * Capture the attributes and content of the low-level shortcodes, and replace them with a unique key
+     * corresponding to an entry in `$this->lowLevelShortcodeData`.
      */
     final public function preprocessLowLevelShortcodes( $text ) {
-        $pgnShortcode = $this->getMainModel()->getPGNShortcode();
-        $pattern      = '/\\[(\\[?)(' . $pgnShortcode . ')\\b([^\\]]*)\\](.*?)\\[\\/\\2\\](\\]?)/s';
-        return preg_replace_callback( $pattern, array( $this, 'preprocessLowLevelShortcode' ), $text );
-    }
 
+        // phpcs:disable WordPress.WP.GlobalVariablesOverride.Prohibited
 
-    /**
-     * Replacement function for the low-level shortcodes.
-     */
-    private function preprocessLowLevelShortcode( $m ) {
-        // Allow the [[foo]...[/foo]] syntax for escaping a tag.
-        if ( '[' === $m[1] && ']' === $m[5] ) {
-            return $m[0];
+        // This works by temporarily override the registered shortcodes and execute the shortcode-processing function
+        // only on the low-level shortcodes, with a custom callback that captures their atts + content.
+        //
+        // Modifying the global variable `$shortcode_tags` is not a good practice, but it is still better than duplicating
+        // the logic of the whole `do_shortcode()` and `do_shortcode_tag()` functions.
+        //
+        // Also, relying on the builtin shortcode-processing mechanism is safer than trying to parse the shortcodes manually,
+        // as it used to be the case until 8.1.2 (see CVE-2026-13042).
+
+        global $shortcode_tags;
+        $shortcodeTagsBackup = $shortcode_tags;
+        try {
+            $pgnShortcode   = $this->getMainModel()->getPGNShortcode();
+            $shortcode_tags = array(
+                $pgnShortcode => array( $this, 'callbackPreprocessLowLevelShortcodes' ),
+            );
+            return do_shortcode( $text );
+        } finally {
+            $shortcode_tags = $shortcodeTagsBackup;
         }
 
-        // General case: save the shortcode content, and replace it with its MD5 digest.
-        $digest                                    = md5( $m[4] );
-        $this->lowLevelShortcodeContent[ $digest ] = $m[4];
-        return '[' . $m[2] . $m[3] . ']' . $digest . '[/' . $m[2] . ']';
+        // phpcs:enable WordPress.WP.GlobalVariablesOverride.Prohibited
     }
+
+
+    final public function callbackPreprocessLowLevelShortcodes( $atts, $content, $shortcodeTag ) {
+        $key                                 = 'rpb_chessboard_data_' . $this->lowLevelShortcodeKeyCounter++;
+        $this->lowLevelShortcodeData[ $key ] = array(
+            'atts'    => $atts,
+            'content' => $content,
+        );
+        return '[' . $shortcodeTag . ']' . $key . '[/' . $shortcodeTag . ']';
+    }
+
 
 }
