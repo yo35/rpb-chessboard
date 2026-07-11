@@ -228,10 +228,10 @@ abstract class RPBChessboardAbstractController {
         // only on the low-level shortcodes, with a custom callback that captures their atts + content.
         //
         // Modifying the global variable `$shortcode_tags` is not a good practice, but it is still better than duplicating
-        // the logic of the whole `do_shortcode()` and `do_shortcode_tag()` functions.
+        // the whole logic of the `do_shortcode()` and `do_shortcode_tag()` functions.
         //
         // Also, relying on the builtin shortcode-processing mechanism is safer than trying to parse the shortcodes manually,
-        // as it used to be the case until 8.1.2 (see CVE-2026-13042).
+        // as it used to be the case until 8.1.3 (see CVE-2026-13042).
 
         global $shortcode_tags;
         $shortcodeTagsBackup = $shortcode_tags;
