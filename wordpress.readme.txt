@@ -85,6 +85,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 8.1.3 (July 11, 2026) =
+* Fix security issue (see [CVE-2026-13042](https://www.cve.org/CVERecord?id=CVE-2026-13042)).
+
 = 8.1.2 (June 21, 2026) =
 * Fix minor PGN parsing issue (see https://github.com/yo35/kokopu/issues/64).
 
