@@ -156,16 +156,29 @@ class RPBChessboardModelBlockShortcodePGN extends RPBChessboardAbstractModelBloc
     }
 
 
-    /**
-     * Apply some auto-format traitments to the text comments.
-     *
-     * These traitments used to be performed by the WP engine on the whole post/page content
-     * (see wp-includes/default-filters.php, filter `'the_content'`).
-     * However, the [pgn][/pgn] shortcode is processed in a low-level manner,
-     * therefore its content is preserved from these traitments, that must be applied
-     * to each text comment individually.
-     */
     protected function filterShortcodeContent( $content ) {
+
+        // Revert the effects of the wpautop() function, that replaces line breaks by <br/> and <p> tags...
+        //
+        // It would be better to prevent wpautop() from being applied on the content of the [pgn][/pgn] shortcode,
+        // (for example by using a mechanism similar to what prevent wptexturize() from being applied on the content of the certain shortcodes),
+        // but such mechanism is not available in WP.
+        //
+        // Until 8.1.3, the content of the [pgn][/pgn] used to be captured by a custom pre-processing filter run before wpautop(),
+        // but this mechanism leads to some security issues (see CVE-2026-13042) and bugs (see #313).
+        //
+        // This approach is not ideal as it may destroy some formatting in the text comments, but it should be OK in most cases.
+        //
+        $content = preg_replace( array( '/<\/p>\s*<p>/i', '/<br\s*\/>/i' ), array( "\n\n", '' ), $content );
+
+        // Apply some auto-format traitments to the text comments.
+        //
+        // These traitments are performed by the WP engine on the whole post/page content
+        // (see wp-includes/default-filters.php, filter `'the_content'`).
+        // However, the [pgn][/pgn] shortcode is registered as a "non-texturized" shortcode, and
+        // therefore its content is preserved from these traitments, that must be applied
+        // to each text comment individually.
+        //
         return preg_replace_callback( '/{((?:\\\\\\\\|\\\\{|\\\\}|[^{}])*)}/', array( __CLASS__, 'processTextComment' ), trim( $content ) );
     }
 

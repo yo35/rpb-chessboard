@@ -27,8 +27,6 @@ abstract class RPBChessboardAbstractController {
 
     private $mainModel;
     private $assetFile;
-    private $lowLevelShortcodeData       = array();
-    private $lowLevelShortcodeKeyCounter = 1;
 
 
     /**
@@ -164,12 +162,6 @@ abstract class RPBChessboardAbstractController {
 
         // Flag the shortcodes as "non-texturized" to avoid having WP transform their content.
         add_filter( 'no_texturize_shortcodes', array( $this, 'registerNoTexturizeShortcodes' ) );
-
-        // A high-priority filter is required to prevent the WP engine to perform some nasty operations
-        // (e.g. wptexturize, wpautop, etc...) on the text enclosed by the shortcodes.
-        // Use of priority level 5 to be run before 'gutenberg_wpautop'.
-        add_filter( 'the_content', array( $this, 'preprocessLowLevelShortcodes' ), 5 );
-        add_filter( 'comment_text', array( $this, 'preprocessLowLevelShortcodes' ), 5 );
     }
 
 
@@ -189,17 +181,6 @@ abstract class RPBChessboardAbstractController {
 
 
     private function runShortcode( $shortcodeName, $lowLevel, $atts, $content ) {
-
-        // The atts + content of low-level shortcodes is supposed to have been saved in `$this->lowLevelShortcodeData` beforehand.
-        // This hack aims at avoiding the `<br/>` tags added by WordPress in the empty lines of the PGN text
-        // (the no-texturize hook is not enough to avoid that).
-        if ( $lowLevel && isset( $content ) && isset( $this->lowLevelShortcodeData[ $content ] ) ) {
-            $payload = $this->lowLevelShortcodeData[ $content ];
-            $atts    = $payload['atts'];
-            $content = $payload['content'];
-        }
-
-        // Print the shortcode.
         $model = RPBChessboardHelperLoader::loadModel( 'Block/Shortcode' . $shortcodeName, $this->getMainModel(), $atts, $content );
         return RPBChessboardHelperLoader::printTemplateOffScreen( 'block/' . strtolower( $shortcodeName ), $model );
     }
@@ -213,49 +194,6 @@ abstract class RPBChessboardAbstractController {
         $fenShortcode = $mainModel->getFENShortcode();
         $pgnShortcode = $mainModel->getPGNShortcode();
         return array_merge( $shortcodes, array( $fenShortcode, $pgnShortcode ) );
-    }
-
-
-    /**
-     * Capture the attributes and content of the low-level shortcodes, and replace them with a unique key
-     * corresponding to an entry in `$this->lowLevelShortcodeData`.
-     */
-    final public function preprocessLowLevelShortcodes( $text ) {
-
-        // phpcs:disable WordPress.WP.GlobalVariablesOverride.Prohibited
-
-        // This works by temporarily override the registered shortcodes and execute the shortcode-processing function
-        // only on the low-level shortcodes, with a custom callback that captures their atts + content.
-        //
-        // Modifying the global variable `$shortcode_tags` is not a good practice, but it is still better than duplicating
-        // the whole logic of the `do_shortcode()` and `do_shortcode_tag()` functions.
-        //
-        // Also, relying on the builtin shortcode-processing mechanism is safer than trying to parse the shortcodes manually,
-        // as it used to be the case until 8.1.3 (see CVE-2026-13042).
-
-        global $shortcode_tags;
-        $shortcodeTagsBackup = $shortcode_tags;
-        try {
-            $pgnShortcode   = $this->getMainModel()->getPGNShortcode();
-            $shortcode_tags = array(
-                $pgnShortcode => array( $this, 'callbackPreprocessLowLevelShortcodes' ),
-            );
-            return do_shortcode( $text );
-        } finally {
-            $shortcode_tags = $shortcodeTagsBackup;
-        }
-
-        // phpcs:enable WordPress.WP.GlobalVariablesOverride.Prohibited
-    }
-
-
-    final public function callbackPreprocessLowLevelShortcodes( $atts, $content, $shortcodeTag ) {
-        $key                                 = 'rpb_chessboard_data_' . $this->lowLevelShortcodeKeyCounter++;
-        $this->lowLevelShortcodeData[ $key ] = array(
-            'atts'    => $atts,
-            'content' => $content,
-        );
-        return '[' . $shortcodeTag . ']' . $key . '[/' . $shortcodeTag . ']';
     }
 
 
