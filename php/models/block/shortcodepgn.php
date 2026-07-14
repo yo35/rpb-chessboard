@@ -179,7 +179,8 @@ class RPBChessboardModelBlockShortcodePGN extends RPBChessboardAbstractModelBloc
         // therefore its content is preserved from these traitments, that must be applied
         // to each text comment individually.
         //
-        return preg_replace_callback( '/{((?:\\\\\\\\|\\\\{|\\\\}|[^{}])*)}/', array( __CLASS__, 'processTextComment' ), trim( $content ) );
+        $commentCharRegex = '(?:\\\\[\\\\{}]|[^{}])*';
+        return preg_replace_callback( "/{($commentCharRegex)}/", array( __CLASS__, 'processTextComment' ), trim( $content ) );
     }
 
 

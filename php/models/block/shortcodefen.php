@@ -88,8 +88,7 @@ class RPBChessboardModelBlockShortcodeFEN extends RPBChessboardAbstractModelBloc
      * Ensure that the FEN string is trimmed.
      */
     protected function filterShortcodeContent( $content ) {
-        $regex = '\s|<br *\/>';
-        $regex = "(?:$regex)*";
+        $regex = '(?:\s|<br\s*\/>)*';
         return preg_replace( "/^$regex|$regex\$/i", '', $content );
     }
 
