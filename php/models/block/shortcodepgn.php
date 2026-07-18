@@ -169,7 +169,7 @@ class RPBChessboardModelBlockShortcodePGN extends RPBChessboardAbstractModelBloc
         //
         // This approach is not ideal as it may destroy some formatting in the text comments, but it should be OK in most cases.
         //
-        $content = preg_replace( array( '/<\/p>\s*<p>/i', '/<br\s*\/>/i' ), array( "\n\n", '' ), $content );
+        $content = preg_replace( array( '/<\/p>|<p>/i', '/<br\s*\/>/i' ), array( "\n", '' ), $content );
 
         // Apply some auto-format traitments to the text comments.
         //
