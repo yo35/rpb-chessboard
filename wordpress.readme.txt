@@ -85,6 +85,9 @@ Please [contact the author](mailto:yo35@melix.net) for this.
 
 == Changelog ==
 
+= 8.1.5 (July 18, 2026) =
+* Fix regression introduced with 8.1.4 (see [#314](https://github.com/yo35/rpb-chessboard/issues/314)).
+
 = 8.1.4 (July 14, 2026) =
 * Fix regression introduced with 8.1.3 (see [#313](https://github.com/yo35/rpb-chessboard/issues/313)).
 
