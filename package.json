@@ -3,12 +3,12 @@
     "private": true,
     "dependencies": {
         "@wordpress/block-editor": "^15.23.0",
-        "@wordpress/blocks": "^15.23.0",
+        "@wordpress/blocks": "^15.24.0",
         "@wordpress/components": "^36.1.0",
-        "@wordpress/data": "^10.50.0",
-        "@wordpress/icons": "^15.1.0",
-        "kokopu": "^4.13.3",
-        "kokopu-react": "^3.4.1",
+        "@wordpress/data": "^10.51.0",
+        "@wordpress/icons": "^15.2.0",
+        "kokopu": "^4.13.4",
+        "kokopu-react": "^3.4.2",
         "prop-types": "^15.8.1"
     },
     "devDependencies": {
