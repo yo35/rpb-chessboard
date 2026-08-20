@@ -1,8 +1,8 @@
-/*! jQuery UI - v1.13.1 - 2022-06-09
-* http://jqueryui.com
+/*! jQuery UI - v1.14.2 - 2026-08-20
+* https://jqueryui.com
 * Includes: core.css, slider.css, theme.css
-* To view and modify this theme, visit http://jqueryui.com/themeroller/?scope=.rpbchessboard-jQuery-enableSmoothness&folderName=smoothness&cornerRadiusShadow=8px&offsetLeftShadow=-8px&offsetTopShadow=-8px&thicknessShadow=8px&opacityShadow=30&bgImgOpacityShadow=0&bgTextureShadow=flat&bgColorShadow=aaaaaa&opacityOverlay=30&bgImgOpacityOverlay=0&bgTextureOverlay=flat&bgColorOverlay=aaaaaa&iconColorError=cd0a0a&fcError=cd0a0a&borderColorError=cd0a0a&bgImgOpacityError=95&bgTextureError=glass&bgColorError=fef1ec&iconColorHighlight=2e83ff&fcHighlight=363636&borderColorHighlight=fcefa1&bgImgOpacityHighlight=55&bgTextureHighlight=glass&bgColorHighlight=fbf9ee&iconColorActive=454545&fcActive=212121&borderColorActive=aaaaaa&bgImgOpacityActive=65&bgTextureActive=glass&bgColorActive=ffffff&iconColorHover=454545&fcHover=212121&borderColorHover=999999&bgImgOpacityHover=75&bgTextureHover=glass&bgColorHover=dadada&iconColorDefault=888888&fcDefault=555555&borderColorDefault=d3d3d3&bgImgOpacityDefault=75&bgTextureDefault=glass&bgColorDefault=e6e6e6&iconColorContent=222222&fcContent=222222&borderColorContent=aaaaaa&bgImgOpacityContent=75&bgTextureContent=flat&bgColorContent=ffffff&iconColorHeader=222222&fcHeader=222222&borderColorHeader=aaaaaa&bgImgOpacityHeader=75&bgTextureHeader=highlight_soft&bgColorHeader=cccccc&cornerRadius=4px&fsDefault=1.1em&fwDefault=normal&ffDefault=Verdana%2CArial%2Csans-serif
-* Copyright jQuery Foundation and other contributors; Licensed MIT */
+* To view and modify this theme, visit https://jqueryui.com/themeroller/?ffDefault=Verdana%2CArial%2Csans-serif&fwDefault=normal&fsDefault=1.1em&cornerRadius=4px&bgColorHeader=cccccc&bgTextureHeader=highlight_soft&bgImgOpacityHeader=75&borderColorHeader=aaaaaa&fcHeader=222222&iconColorHeader=222222&bgColorContent=ffffff&bgTextureContent=flat&bgImgOpacityContent=75&borderColorContent=aaaaaa&fcContent=222222&iconColorContent=222222&bgColorDefault=e6e6e6&bgTextureDefault=glass&bgImgOpacityDefault=75&borderColorDefault=d3d3d3&fcDefault=555555&iconColorDefault=888888&bgColorHover=dadada&bgTextureHover=glass&bgImgOpacityHover=75&borderColorHover=999999&fcHover=212121&iconColorHover=454545&bgColorActive=ffffff&bgTextureActive=glass&bgImgOpacityActive=65&borderColorActive=aaaaaa&fcActive=212121&iconColorActive=454545&bgColorHighlight=fbf9ee&bgTextureHighlight=glass&bgImgOpacityHighlight=55&borderColorHighlight=fcefa1&fcHighlight=363636&iconColorHighlight=2e83ff&bgColorError=fef1ec&bgTextureError=glass&bgImgOpacityError=95&borderColorError=cd0a0a&fcError=cd0a0a&iconColorError=cd0a0a&bgColorOverlay=aaaaaa&bgTextureOverlay=flat&bgImgOpacityOverlay=0&opacityOverlay=30&bgColorShadow=aaaaaa&bgTextureShadow=flat&bgImgOpacityShadow=0&opacityShadow=30&thicknessShadow=8px&offsetTopShadow=-8px&offsetLeftShadow=-8px&cornerRadiusShadow=8px
+* Copyright OpenJS Foundation and other contributors; Licensed MIT */
 
 /* Layout helpers
 ----------------------------------*/
@@ -45,7 +45,6 @@
 	left: 0;
 	position: absolute;
 	opacity: 0;
-	-ms-filter: "alpha(opacity=0)"; /* support: IE8 */
 }
 
 .rpbchessboard-jQuery-enableSmoothness .ui-front {
@@ -100,7 +99,6 @@
 	width: 1.2em;
 	height: 1.2em;
 	cursor: pointer;
-	-ms-touch-action: none;
 	touch-action: none;
 }
 .rpbchessboard-jQuery-enableSmoothness .ui-slider .ui-slider-range {
@@ -110,12 +108,6 @@
 	display: block;
 	border: 0;
 	background-position: 0 0;
-}
-
-/* support: IE8 - See #6727 */
-.rpbchessboard-jQuery-enableSmoothness .ui-slider.ui-state-disabled .ui-slider-handle,
-.rpbchessboard-jQuery-enableSmoothness .ui-slider.ui-state-disabled .ui-slider-range {
-	filter: inherit;
 }
 
 .rpbchessboard-jQuery-enableSmoothness .ui-slider-horizontal {
@@ -316,18 +308,13 @@ a.rpbchessboard-jQuery-enableSmoothness .ui-button:active,
 .rpbchessboard-jQuery-enableSmoothness .ui-widget-content .ui-priority-secondary,
 .rpbchessboard-jQuery-enableSmoothness .ui-widget-header .ui-priority-secondary {
 	opacity: .7;
-	-ms-filter: "alpha(opacity=70)"; /* support: IE8 */
 	font-weight: normal;
 }
 .rpbchessboard-jQuery-enableSmoothness .ui-state-disabled,
 .rpbchessboard-jQuery-enableSmoothness .ui-widget-content .ui-state-disabled,
 .rpbchessboard-jQuery-enableSmoothness .ui-widget-header .ui-state-disabled {
 	opacity: .35;
-	-ms-filter: "alpha(opacity=35)"; /* support: IE8 */
 	background-image: none;
-}
-.rpbchessboard-jQuery-enableSmoothness .ui-state-disabled .ui-icon {
-	-ms-filter: "alpha(opacity=35)"; /* support: IE8 - See #6059 */
 }
 
 /* Icons
@@ -582,9 +569,7 @@ a.rpbchessboard-jQuery-enableSmoothness .ui-button:active,
 .rpbchessboard-jQuery-enableSmoothness .ui-widget-overlay {
 	background: #aaaaaa;
 	opacity: .3;
-	-ms-filter: Alpha(Opacity=30); /* support: IE8 */
 }
 .rpbchessboard-jQuery-enableSmoothness .ui-widget-shadow {
-	-webkit-box-shadow: -8px -8px 8px #aaaaaa;
 	box-shadow: -8px -8px 8px #aaaaaa;
 }

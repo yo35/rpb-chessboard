@@ -94,7 +94,7 @@ class RPBChessboardControllerAdmin extends RPBChessboardAbstractController {
 
         // CSS files specific to the admin
         wp_register_style( 'rpbchessboard-admin', RPBCHESSBOARD_URL . 'css/admin' . $ext, false, RPBCHESSBOARD_VERSION );
-        wp_register_style( 'rpbchessboard-jquery-ui-smoothness', RPBCHESSBOARD_URL . 'third-party-libs/jquery/jquery-ui.smoothness' . $ext, false, '1.13.1-slider' );
+        wp_register_style( 'rpbchessboard-jquery-ui-smoothness', RPBCHESSBOARD_URL . 'third-party-libs/jquery/jquery-ui.smoothness' . $ext, false, '1.14.2-slider' );
     }
 
 
