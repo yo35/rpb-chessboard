@@ -25,11 +25,11 @@
     wp_enqueue_style( 'rpbchessboard-npm' );
 ?>
 
-<?php if ( $model->getDiagramAlignment() === 'center' ) : ?>
+<?php if ( $model->hasSpacerAroundBlockWrapper() ) : ?>
 <p class="rpbchessboard-spacerBefore"></p>
 <?php endif; ?>
 
-<div class="rpbchessboard-chessboard <?php echo esc_attr( 'rpbchessboard-diagramAlignment-' . $model->getDiagramAlignment() ); ?>">
+<div <?php echo wp_kses_data( $model->getBlockWrapperAttributes() ); ?>>
     <noscript>
         <div class="rpbchessboard-javascriptWarning">
             <?php esc_html_e( 'You must activate JavaScript to enhance chess diagram visualization.', 'rpb-chessboard' ); ?>
@@ -51,6 +51,6 @@
     </script>
 </div>
 
-<?php if ( $model->getDiagramAlignment() === 'center' ) : ?>
+<?php if ( $model->hasSpacerAroundBlockWrapper() ) : ?>
 <p class="rpbchessboard-spacerAfter"></p>
 <?php endif; ?>

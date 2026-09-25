@@ -84,6 +84,41 @@ abstract class RPBChessboardAbstractModelBlock {
 
 
     /**
+     * Attributes of the HTML element wrapping the block, formatted as a string (e.g. `class="..."`).
+     * In case of a block, these are computed with `get_block_wrapper_attributes()` so that the block supports
+     * (additional CSS classes, etc...) are taken into account. In case of a shortcode, only the class attribute is set.
+     *
+     * @return string
+     */
+    final public function getBlockWrapperAttributes() {
+        $blockWrapperClasses = $this->getBlockWrapperClasses();
+        if ( $this->isBlock() ) {
+            return empty( $blockWrapperClasses ) ?
+                get_block_wrapper_attributes() :
+                get_block_wrapper_attributes( array( 'class' => implode( ' ', $blockWrapperClasses ) ) );
+        } else {
+            return empty( $blockWrapperClasses ) ? '' : 'class="' . esc_attr( implode( ' ', $blockWrapperClasses ) ) . '"';
+        }
+    }
+
+
+    /**
+     * CSS class(es) to set on the HTML element wrapping the block.
+     *
+     * @return string[]
+     */
+    abstract protected function getBlockWrapperClasses();
+
+
+    /**
+     * `true` if the model is used to render a block, or `false` for a legacy shortcode.
+     *
+     * @return boolean
+     */
+    abstract protected function isBlock();
+
+
+    /**
      * Return a string that may be used as a unique DOM node ID.
      *
      * @return string

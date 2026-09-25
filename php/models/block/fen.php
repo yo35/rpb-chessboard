@@ -66,12 +66,30 @@ class RPBChessboardModelBlockFEN extends RPBChessboardAbstractModelBlock {
     }
 
 
+    protected function getBlockWrapperClasses() {
+        return array( 'rpbchessboard-chessboard', 'rpbchessboard-diagramAlignment-' . $this->getDiagramAlignment() );
+    }
+
+
+    protected function isBlock() {
+        return true;
+    }
+
+
+    /**
+     * Whether or not there should be spacers above and below the block wrapper.
+     */
+    public function hasSpacerAroundBlockWrapper() {
+        return $this->getDiagramAlignment() === 'center';
+    }
+
+
     /**
      * Diagram alignment code.
      *
      * @return string
      */
-    public function getDiagramAlignment() {
+    private function getDiagramAlignment() {
         $atts = $this->getAttributes();
         return isset( $atts['align'] ) ? $atts['align'] : $this->mainModel->getDefaultDiagramAlignment();
     }

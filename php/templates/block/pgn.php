@@ -27,7 +27,7 @@
 
 <p class="rpbchessboard-spacerBefore"></p>
 
-<div class="rpbchessboard-chessgame">
+<div <?php echo wp_kses_data( $model->getBlockWrapperAttributes() ); ?>>
     <noscript>
         <div class="rpbchessboard-javascriptWarning">
             <?php esc_html_e( 'You must activate JavaScript to enhance chess game visualization.', 'rpb-chessboard' ); ?>

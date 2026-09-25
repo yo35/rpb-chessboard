@@ -83,6 +83,16 @@ class RPBChessboardModelBlockPGN extends RPBChessboardAbstractModelBlock {
     }
 
 
+    protected function getBlockWrapperClasses() {
+        return array( 'rpbchessboard-chessgame' );
+    }
+
+
+    protected function isBlock() {
+        return true;
+    }
+
+
     private function getExternalPGNFile() {
         $attachmentId = $this->getAttributes()['attachmentId'];
         $url          = wp_get_attachment_url( $attachmentId );

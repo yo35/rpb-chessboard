@@ -156,6 +156,16 @@ class RPBChessboardModelBlockShortcodePGN extends RPBChessboardAbstractModelBloc
     }
 
 
+    protected function getBlockWrapperClasses() {
+        return array( 'rpbchessboard-chessgame' );
+    }
+
+
+    protected function isBlock() {
+        return false;
+    }
+
+
     protected function filterShortcodeContent( $content ) {
 
         // Revert the effects of the wpautop() function, that replaces line breaks by <br/> and <p> tags...
